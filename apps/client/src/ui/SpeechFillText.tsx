@@ -11,7 +11,14 @@ import { Text } from './Text';
 import { peachSelection } from './tokens';
 import { useReducedMotion } from './useReducedMotion';
 
-export type SpeechToken = { id: string; text: string };
+export type SpeechToken = {
+  id: string;
+  text: string;
+  /** Whitespace preceded this token in the source sentence (default true).
+   * WS-4 addition so latin-script punctuation/clitics render without a
+   * spurious space; `cjk` skips inter-token spacing entirely regardless. */
+  spaceBefore?: boolean;
+};
 
 export type SpeechFillTextProps = {
   tokens: SpeechToken[];
@@ -19,9 +26,21 @@ export type SpeechFillTextProps = {
   currentIndex: number;
   selectedId?: string;
   style?: TextStyle;
+  /** Chinese/CJK text: tokens join with no space at all (WS-4 addition). */
+  cjk?: boolean;
 };
 
-function SpeechWord({ text, spoken, selected, reduced }: { text: string; spoken: boolean; selected: boolean; reduced: boolean }) {
+function SpeechWord({
+  text,
+  spoken,
+  selected,
+  reduced,
+}: {
+  text: string;
+  spoken: boolean;
+  selected: boolean;
+  reduced: boolean;
+}) {
   const fill = useRef(new Animated.Value(spoken ? 1 : 0)).current;
 
   useEffect(() => {
@@ -52,21 +71,32 @@ function SpeechWord({ text, spoken, selected, reduced }: { text: string; spoken:
   );
 }
 
-export function SpeechFillText({ tokens, currentIndex, selectedId, style }: SpeechFillTextProps) {
+export function SpeechFillText({
+  tokens,
+  currentIndex,
+  selectedId,
+  style,
+  cjk = false,
+}: SpeechFillTextProps) {
   const reduced = useReducedMotion();
   return (
-    <Text role="reading" style={style}>
+    <Text role="reading" style={[cjk ? readingCjkStyle : undefined, style]}>
       {tokens.map((token, index) => (
         <Fragment key={token.id}>
+          {!cjk && index > 0 && token.spaceBefore !== false ? <RNText> </RNText> : null}
           <SpeechWord
             text={token.text}
             spoken={index <= currentIndex}
             selected={token.id === selectedId}
             reduced={reduced}
           />
-          {index < tokens.length - 1 ? <RNText> </RNText> : null}
         </Fragment>
       ))}
     </Text>
   );
 }
+
+const readingCjkStyle: TextStyle = {
+  fontSize: 22,
+  lineHeight: Math.round(22 * 1.8),
+};

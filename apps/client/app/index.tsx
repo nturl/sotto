@@ -1,5 +1,7 @@
 import { Redirect } from 'expo-router';
+import { usePreferences } from '../src/ui/data';
 
 export default function Index() {
-  return <Redirect href="/onboarding/languages" />;
+  const preferences = usePreferences();
+  return <Redirect href={preferences.onboarded ? '/(tabs)/home' : '/onboarding/languages'} />;
 }

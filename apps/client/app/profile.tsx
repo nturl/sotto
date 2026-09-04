@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { useRouter, type Href } from 'expo-router';
+import { buildExport, parseImport } from '@sotto/core';
 import { colors, radius, space } from '@sotto/core/theme';
+import { exportJson, importJson } from '../src/platform/importExport';
 import { useT } from '../src/i18n/useT';
 import { BackLink } from '../src/ui/BackLink';
 import { Button } from '../src/ui/Button';
@@ -13,6 +15,7 @@ import { Shell } from '../src/ui/Shell';
 import { Text } from '../src/ui/Text';
 import { Toast } from '../src/ui/Toast';
 import { webCursor, withAlpha } from '../src/ui/tokens';
+import { useSottoStore } from '../src/state/store';
 
 type RowSpec = {
   label: string;
@@ -33,7 +36,9 @@ function Row({ spec, last }: { spec: RowSpec; last: boolean }) {
             {spec.value}
           </Text>
         ) : null}
-        {spec.onPress && !spec.destructive ? <ChevronRightGlyph size={12} color={colors.ink2} /> : null}
+        {spec.onPress && !spec.destructive ? (
+          <ChevronRightGlyph size={12} color={colors.ink2} />
+        ) : null}
       </View>
     </>
   );
@@ -80,6 +85,49 @@ export default function ProfileScreen() {
     setToast(t('settings.reset.done'));
   };
 
+  const exportNow = async () => {
+    const state = useSottoStore.getState();
+    const file = buildExport({
+      preferences: state.preferences,
+      progress: Object.values(state.progress),
+      savedWords: state.savedWords,
+      completedBooks: state.completedBooks,
+      sessions: state.sessionRecord ? [state.sessionRecord] : [],
+    });
+    try {
+      await exportJson('sotto-export.json', JSON.stringify(file, null, 2));
+    } catch {
+      setToast(t('settings.export.failed'));
+    }
+  };
+
+  const importNow = async () => {
+    try {
+      const raw = await importJson();
+      if (!raw) return;
+      const result = parseImport(JSON.parse(raw));
+      if (!result.ok) {
+        setToast(
+          t(
+            result.error === 'import.unsupportedVersion'
+              ? 'import.unsupportedVersion'
+              : 'import.invalid',
+          ),
+        );
+        return;
+      }
+      useSottoStore.getState().replaceUserData({
+        preferences: result.data.preferences,
+        progress: result.data.progress,
+        savedWords: result.data.savedWords,
+        completedBooks: result.data.completedBooks,
+      });
+      setToast(t('settings.import.done'));
+    } catch {
+      setToast(t('import.invalid'));
+    }
+  };
+
   return (
     <Shell>
       <BackLink />
@@ -108,15 +156,19 @@ export default function ProfileScreen() {
         <Group
           eyebrow={t('settings.group.tutor')}
           rows={[
-            { label: t('settings.narrationSpeed'), value: t('settings.speed.normal'), onPress: soon },
+            {
+              label: t('settings.narrationSpeed'),
+              value: t('settings.speed.normal'),
+              onPress: soon,
+            },
             { label: t('settings.captions'), value: t('settings.captions.on'), onPress: soon },
           ]}
         />
         <Group
           eyebrow={t('settings.group.data')}
           rows={[
-            { label: t('settings.export'), onPress: soon },
-            { label: t('settings.import'), onPress: soon },
+            { label: t('settings.export'), onPress: () => void exportNow() },
+            { label: t('settings.import'), onPress: () => void importNow() },
             {
               label: t('settings.reset'),
               value: t('settings.reset'),
@@ -146,8 +198,17 @@ export default function ProfileScreen() {
               {t('settings.reset.body')}
             </Text>
             <View style={styles.modalActions}>
-              <Button variant="secondary" title={t('common.cancel')} onPress={() => setConfirmReset(false)} style={styles.modalButton} />
-              <Button title={t('settings.reset')} onPress={confirmResetNow} style={styles.modalButton} />
+              <Button
+                variant="secondary"
+                title={t('common.cancel')}
+                onPress={() => setConfirmReset(false)}
+                style={styles.modalButton}
+              />
+              <Button
+                title={t('settings.reset')}
+                onPress={confirmResetNow}
+                style={styles.modalButton}
+              />
             </View>
           </View>
         </View>

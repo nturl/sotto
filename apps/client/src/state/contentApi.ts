@@ -1,0 +1,34 @@
+/**
+ * Content server client (CONTRACTS.md §2b, §5d): fetches packs/books/
+ * chapters from `EXPO_PUBLIC_SERVER_URL` (apps/server's static
+ * `/content/packs/**` route). Used only by the library slice.
+ */
+import type { Book, Chapter, Pack } from '@sotto/core';
+
+export function serverUrl(): string {
+  return process.env.EXPO_PUBLIC_SERVER_URL ?? 'http://localhost:8790';
+}
+
+async function fetchJson<T>(path: string): Promise<T> {
+  const res = await fetch(`${serverUrl()}${path}`);
+  if (!res.ok) throw new Error(`content fetch failed: ${path} (${res.status})`);
+  return (await res.json()) as T;
+}
+
+export function fetchPacks(): Promise<Pack[]> {
+  return fetchJson<Pack[]>('/content/packs');
+}
+
+export function fetchBook(locale: string, bookId: string): Promise<Book> {
+  return fetchJson<Book>(`/content/packs/${locale}/books/${bookId}/book.json`);
+}
+
+export function fetchChapter(locale: string, bookId: string, file: string): Promise<Chapter> {
+  return fetchJson<Chapter>(`/content/packs/${locale}/books/${bookId}/${file}`);
+}
+
+/** Resolves an asset path (cover.svg, audio/01.mp3) relative to a book's
+ * pack directory into an absolute URL the client can fetch/play. */
+export function assetUrl(locale: string, bookId: string, relativePath: string): string {
+  return `${serverUrl()}/content/packs/${locale}/books/${bookId}/${relativePath}`;
+}

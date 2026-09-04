@@ -63,9 +63,9 @@ export default function BookDetailScreen() {
 
       <View style={styles.actions}>
         <Button
-          title={t('book.read')}
+          title={book.progress > 0 ? t('book.continue') : t('book.read')}
           icon={<PlayGlyph size={16} color={colors.surface} />}
-          accessibilityLabel={t('book.read')}
+          accessibilityLabel={book.progress > 0 ? t('book.continue') : t('book.read')}
           onPress={() => router.push(`/reader/${book.id}`)}
         />
         <Button

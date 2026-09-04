@@ -12,9 +12,21 @@ export type GlyphProps = {
   strokeWidth?: number;
 };
 
-function GlyphShell({ size = 24, color = colors.ink, strokeWidth = 1.8, children }: GlyphProps & { children: React.ReactNode }) {
+function GlyphShell({
+  size = 24,
+  color = colors.ink,
+  strokeWidth = 1.8,
+  children,
+}: GlyphProps & { children: React.ReactNode }) {
   return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth}>
+    <Svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={strokeWidth}
+    >
       {children}
     </Svg>
   );
@@ -147,6 +159,15 @@ export function ReplayGlyph(props: GlyphProps) {
   );
 }
 
+export function PauseGlyph({ size = 24, color = colors.ink }: GlyphProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24">
+      <Rect x={6} y={5} width={4} height={14} rx={1} fill={color} />
+      <Rect x={14} y={5} width={4} height={14} rx={1} fill={color} />
+    </Svg>
+  );
+}
+
 export function StopGlyph(props: GlyphProps) {
   return (
     <GlyphShell strokeWidth={1.7} {...props}>
@@ -217,7 +238,15 @@ export function ForwardGlyph(props: GlyphProps) {
 }
 
 /** The marker-stroke rough-ends polygon (DESIGN.md device B), shared with MarkerStroke. */
-export function MarkerStrokeShape({ width, height, color }: { width: number; height: number; color: string }) {
+export function MarkerStrokeShape({
+  width,
+  height,
+  color,
+}: {
+  width: number;
+  height: number;
+  color: string;
+}) {
   return (
     <Svg width={width} height={height} viewBox="0 0 100 100" preserveAspectRatio="none">
       <Polygon points="0,30 4,0 96,12 100,35 100,78 96,100 4,88 0,62" fill={color} />

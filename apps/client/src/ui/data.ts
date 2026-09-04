@@ -1,18 +1,46 @@
 /**
  * Data seam — the single place screens read library and preference state.
  *
- * WS-4 builds the zustand store (apps/client/src/state, CONTRACTS §4) with
- * selectors for rails (continue / recommended / new), search, category
- * filters and preferences. That module does not exist yet, and a static
- * import of a missing module would break the Metro bundle, so for now this
- * hook serves dev fixtures (src/ui/dev/fixtures.ts) and an in-memory
- * preferences snapshot. When the store lands, replace the bodies below with
- * the real selector calls — screens must not change.
+ * WS-4: now backed by the real zustand store (apps/client/src/state,
+ * CONTRACTS §4) instead of dev fixtures. `LibraryBook` keeps the exact
+ * shape the WS-2 screens/components were built against (BookTile, Cover,
+ * DailyStoryCard, library.tsx's category filter) so none of them had to
+ * change: `cover` is still one of Cover.tsx's fixed illustrations and
+ * `categories` is still the 3-value fixture taxonomy. Cover.tsx (owned by a
+ * concurrent worker) only knows how to render those named illustrations,
+ * not the packs' generated `cover.svg`, so real books are mapped onto a
+ * deterministic illustration by hashing their id — a known simplification,
+ * see the WS-4 report. `dev/fixtures.ts` stays for tests only.
  */
-import { useSyncExternalStore } from 'react';
-import { DAILY_BOOK, FIXTURE_BOOKS, type BookCategory, type BookLevel, type FixtureBook } from './dev/fixtures';
+import { useEffect, useMemo } from 'react';
+import type { BookCategory as CoreBookCategory, BookSummary, UserPreferences } from '@sotto/core';
+import type { CoverArt } from './Cover';
+import type { BookCategory, BookLevel } from './dev/fixtures';
+import { assetUrl } from '../state/contentApi';
+import {
+  filterByCategory,
+  filterByLevel,
+  searchBooks,
+  selectContinueBooks,
+  selectPackForLocale,
+  selectProgressPercent,
+  selectRecommendedBooks,
+} from '../state/selectors';
+import { useSottoStore } from '../state/store';
 
-export type LibraryBook = FixtureBook;
+export type LibraryBook = {
+  id: string;
+  title: string;
+  author: string;
+  shortAuthor: string;
+  level: BookLevel;
+  minutes: number;
+  categories: BookCategory[];
+  cover: CoverArt;
+  progress: number;
+  isNew: boolean;
+  synopsis: string;
+};
 
 export type Library = {
   books: LibraryBook[];
@@ -26,82 +54,172 @@ export type Library = {
   search: (query: string) => LibraryBook[];
 };
 
-function normalize(value: string): string {
-  return value
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/\p{M}/gu, '');
+const COVER_ARTS: CoverArt[] = [
+  'fox',
+  'lantern',
+  'river',
+  'mountain',
+  'dune',
+  'night',
+  'market',
+  'sail',
+];
+
+function hashCover(bookId: string): CoverArt {
+  let hash = 0;
+  for (let i = 0; i < bookId.length; i += 1) hash = (hash * 31 + bookId.charCodeAt(i)) >>> 0;
+  return COVER_ARTS[hash % COVER_ARTS.length]!;
 }
 
-export function useLibrary(): Library {
-  const books = FIXTURE_BOOKS;
+function mapCategories(categories: CoreBookCategory[]): BookCategory[] {
+  const mapped = new Set<BookCategory>();
+  for (const c of categories) {
+    if (c === 'fables') mapped.add('fables');
+    else if (c === 'adventure') mapped.add('voyage');
+    else mapped.add('contes');
+  }
+  return mapped.size ? [...mapped] : ['contes'];
+}
+
+function shortAuthorName(author: string): string {
+  const parts = author.trim().split(/\s+/);
+  if (parts.length < 2) return author;
+  const last = parts[parts.length - 1]!;
+  return `${parts[0]!.charAt(0)}. ${last}`;
+}
+
+function dayOfYear(date: Date): number {
+  const start = new Date(date.getFullYear(), 0, 0);
+  const diff = date.getTime() - start.getTime();
+  return Math.floor(diff / 86_400_000);
+}
+
+/** Re-export so `state/*.test.ts` and screens can both reach it without
+ * duplicating the seam's book-summary -> LibraryBook mapping. */
+export function toLibraryBook(
+  summary: BookSummary,
+  preferences: UserPreferences,
+  progress: number,
+): LibraryBook {
+  const synopsis =
+    summary.premise[preferences.explanationLocale] ??
+    summary.premise.en ??
+    Object.values(summary.premise)[0] ??
+    '';
   return {
-    books,
-    daily: DAILY_BOOK,
-    continueReading: books.filter((book) => book.progress > 0),
-    recommended: books.filter((book) => book.progress === 0 && !book.isNew),
-    newReleases: books.filter((book) => book.isNew),
-    byId: (id) => books.find((book) => book.id === id) ?? (id === DAILY_BOOK.id ? DAILY_BOOK : undefined),
-    byCategory: (category) => books.filter((book) => book.categories.includes(category)),
-    byLevel: (level) => books.filter((book) => book.level === level),
-    search: (query) => {
-      const needle = normalize(query.trim());
-      if (!needle) return books;
-      return books.filter(
-        (book) => normalize(book.title).includes(needle) || normalize(book.author).includes(needle),
-      );
-    },
+    id: summary.bookId,
+    title: summary.title,
+    author: summary.author,
+    shortAuthor: shortAuthorName(summary.author),
+    level: summary.level,
+    minutes: summary.estimatedMinutes,
+    categories: mapCategories(summary.categories),
+    cover: hashCover(summary.bookId),
+    progress,
+    isNew: progress === 0,
+    synopsis,
   };
 }
 
+export function useLibrary(): Library {
+  const packs = useSottoStore((s) => s.packs);
+  const packsStatus = useSottoStore((s) => s.packsStatus);
+  const loadPacks = useSottoStore((s) => s.loadPacks);
+  const preferences = useSottoStore((s) => s.preferences);
+  const progress = useSottoStore((s) => s.progress);
+  const completedBooks = useSottoStore((s) => s.completedBooks);
+
+  useEffect(() => {
+    if (packsStatus === 'idle') void loadPacks();
+  }, [packsStatus, loadPacks]);
+
+  return useMemo<Library>(() => {
+    const pack = selectPackForLocale(packs, preferences.learningLocale);
+    const summaries = pack?.books ?? [];
+    const allSummaries = packs.flatMap((p) => p.books);
+
+    const toView = (s: BookSummary) =>
+      toLibraryBook(s, preferences, selectProgressPercent(progress, s.bookId));
+
+    const books = summaries.map(toView);
+    const continueReading = selectContinueBooks(summaries, progress, completedBooks).map(toView);
+    const recommended = selectRecommendedBooks(summaries, progress, preferences.level).map(toView);
+    const continueIds = new Set(continueReading.map((b) => b.id));
+    const recommendedIds = new Set(recommended.map((b) => b.id));
+    const newReleases = books.filter((b) => !continueIds.has(b.id) && !recommendedIds.has(b.id));
+
+    const daily =
+      books.length > 0
+        ? books[dayOfYear(new Date()) % books.length]!
+        : ({
+            id: '',
+            title: '',
+            author: '',
+            shortAuthor: '',
+            level: 'A1',
+            minutes: 0,
+            categories: ['contes'],
+            cover: 'market',
+            progress: 0,
+            isNew: false,
+            synopsis: '',
+          } satisfies LibraryBook);
+
+    return {
+      books,
+      daily,
+      continueReading,
+      recommended,
+      newReleases,
+      byId: (id) => {
+        const summary = allSummaries.find((b) => b.bookId === id);
+        return summary ? toView(summary) : undefined;
+      },
+      byCategory: (category) =>
+        filterByCategory(summaries, mapFixtureCategoryToCore(category)).map(toView),
+      byLevel: (level) => filterByLevel(summaries, level).map(toView),
+      search: (query) => searchBooks(summaries, query).map(toView),
+    };
+  }, [packs, preferences, progress, completedBooks]);
+}
+
+/** Inverse of `mapCategories`: the library screen's chips only offer
+ * 'fables' | 'voyage', both of which map onto exactly one core category. */
+function mapFixtureCategoryToCore(category: BookCategory): CoreBookCategory {
+  if (category === 'fables') return 'fables';
+  if (category === 'voyage') return 'adventure';
+  return 'tales';
+}
+
+/** Resolves a book's asset (cover, audio) path against the server, for
+ * screens/components that need the URL rather than the fixture illustration
+ * (the reader's narration transport). */
+export function bookAssetUrl(bookId: string, relativePath: string, locale: string): string {
+  return assetUrl(locale, bookId, relativePath);
+}
+
 // ---------------------------------------------------------------------------
-// Preferences (SEAM: WS-4 preferences slice). Reactive in-memory snapshot so
-// settings screens work today; the store replaces this wholesale.
+// Preferences (SEAM: real preferences slice, backed by the zustand store).
 // ---------------------------------------------------------------------------
 
-export type Preferences = {
-  interfaceLocale: string;
-  explanationLocale: string;
-  learningLocale: string;
-  level: BookLevel;
-  narrationSpeedLabel: 'normal';
-  captionsEnabled: boolean;
-  onboarded: boolean;
-};
+export type { UserPreferences as Preferences };
 
-const DEFAULT_PREFERENCES: Preferences = {
-  interfaceLocale: 'fr',
-  explanationLocale: 'en',
-  learningLocale: 'fr-FR',
-  level: 'A1',
-  narrationSpeedLabel: 'normal',
-  captionsEnabled: true,
-  onboarded: false,
-};
-
-let snapshot: Preferences = { ...DEFAULT_PREFERENCES };
-const listeners = new Set<() => void>();
-
-function notify(): void {
-  listeners.forEach((listener) => listener());
+export function usePreferences(): UserPreferences {
+  return useSottoStore((s) => s.preferences);
 }
 
-function subscribe(listener: () => void): () => void {
-  listeners.add(listener);
-  return () => listeners.delete(listener);
+export function setPreference<K extends keyof UserPreferences>(
+  key: K,
+  value: UserPreferences[K],
+): void {
+  useSottoStore.getState().setPreference(key, value);
 }
 
-export function usePreferences(): Preferences {
-  return useSyncExternalStore(subscribe, () => snapshot);
+export function setPreferences(partial: Partial<UserPreferences>): void {
+  useSottoStore.getState().setPreferences(partial);
 }
 
-export function setPreference<Key extends keyof Preferences>(key: Key, value: Preferences[Key]): void {
-  snapshot = { ...snapshot, [key]: value };
-  notify();
-}
-
-/** SEAM: WS-4 store reset (progress + vocabulary + session + preferences). */
+/** SEAM: store reset (progress + vocabulary + session + preferences). */
 export function resetAll(): void {
-  snapshot = { ...DEFAULT_PREFERENCES };
-  notify();
+  useSottoStore.getState().resetAll();
 }

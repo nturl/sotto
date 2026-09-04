@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "locale": "it-IT",
+  "language": {
+    "locale": "it-IT",
+    "baseLanguage": "it",
+    "region": "IT",
+    "script": "Latn",
+    "nativeName": "italiano",
+    "localizedNames": {
+      "en": "Italian",
+      "es": "italiano",
+      "fr": "italien",
+      "pt": "italiano",
+      "it": "italiano",
+      "zh-Hans": "意大利语",
+      "zh-Hant": "意大利語",
+      "ro": "italiană",
+      "ca": "italià"
+    },
+    "direction": "ltr",
+    "stability": "stable",
+    "tokenizer": "latin",
+    "typography": "latin",
+    "pronunciationGuide": "none",
+    "tutorNotes": "Standard Italian pronunciation: every vowel is pronounced clearly and consistently, double consonants are held noticeably longer than single ones, and stress usually falls on the second-to-last syllable. Elision before a vowel (e.g. \"un'amica\") behaves like a normal clitic.",
+    "ttsVoice": "if_sara",
+    "ttsLangCode": "i",
+    "sttLanguage": "it",
+    "catalog": "it"
+  },
+  "books": [
+    {
+      "bookId": "it-pinocchio-inizio",
+      "contentLocale": "it-IT",
+      "title": "Pinocchio: il pezzo di legno",
+      "author": "Carlo Collodi",
+      "level": "A1",
+      "categories": [
+        "classics"
+      ],
+      "estimatedMinutes": 9,
+      "localizedTitles": {
+        "en": "Pinocchio: The Piece of Wood",
+        "fr": "Pinocchio : le morceau de bois",
+        "es": "Pinocho: el pedazo de madera"
+      },
+      "premise": {
+        "en": "A carpenter gives his friend Geppetto a strange piece of talking wood, and Geppetto carves it into a puppet who comes alive and runs away.",
+        "fr": "Un menuisier donne à son ami Geppetto un étrange morceau de bois parlant, et Geppetto le sculpte en une marionnette qui s'anime et s'enfuit.",
+        "es": "Un carpintero regala a su amigo Geppetto un extraño pedazo de madera que habla, y Geppetto lo talla en un títere que cobra vida y escapa."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 3
+    }
+  ],
+  "generatedAt": "2026-09-04T22:44:43.493Z"
+}

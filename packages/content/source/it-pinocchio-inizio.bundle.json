@@ -1,0 +1,2889 @@
+{
+ "schemaVersion": 1,
+ "bookId": "it-pinocchio-inizio",
+ "contentLocale": "it-IT",
+ "title": "Pinocchio: il pezzo di legno",
+ "author": "Carlo Collodi",
+ "sourceEdition": "Le avventure di Pinocchio (1883), public-domain Italian edition (Project Gutenberg / Wikisource)",
+ "sourceUrl": "https://it.wikisource.org/wiki/Le_avventure_di_Pinocchio",
+ "sourceJurisdiction": "Public domain worldwide (author died 1890)",
+ "adaptationEditor": "Sotto contributors (AI first draft, unreviewed)",
+ "reviewStatus": "draft",
+ "level": "A1",
+ "categories": [
+  "classics"
+ ],
+ "estimatedMinutes": 9,
+ "localizedTitles": {
+  "en": "Pinocchio: The Piece of Wood",
+  "fr": "Pinocchio : le morceau de bois",
+  "es": "Pinocho: el pedazo de madera"
+ },
+ "premise": {
+  "en": "A carpenter gives his friend Geppetto a strange piece of talking wood, and Geppetto carves it into a puppet who comes alive and runs away.",
+  "fr": "Un menuisier donne à son ami Geppetto un étrange morceau de bois parlant, et Geppetto le sculpte en une marionnette qui s'anime et s'enfuit.",
+  "es": "Un carpintero regala a su amigo Geppetto un extraño pedazo de madera que habla, y Geppetto lo talla en un títere que cobra vida y escapa."
+ },
+ "summary": {
+  "en": "Mastro Ciliegia finds a piece of wood that talks and gladly gives it to his poor friend Geppetto. Geppetto carves a puppet, names him Pinocchio, and loves him like a son, but the naughty puppet runs away at once. Tired and hungry, Pinocchio comes home, where the old Talking Cricket warns him to be good.",
+  "fr": "Mastro Ciliegia trouve un morceau de bois qui parle et le donne volontiers à son pauvre ami Geppetto. Geppetto sculpte une marionnette, l'appelle Pinocchio et l'aime comme un fils, mais la vilaine marionnette s'enfuit aussitôt. Fatigué et affamé, Pinocchio rentre à la maison, où le vieux Grillon Parlant lui conseille d'être sage.",
+  "es": "Mastro Ciliegia encuentra un pedazo de madera que habla y se lo regala a su pobre amigo Geppetto. Geppetto talla un títere, lo llama Pinocho y lo quiere como a un hijo, pero el títere travieso escapa enseguida. Cansado y hambriento, Pinocho vuelve a casa, donde el viejo Grillo Parlante le aconseja ser bueno."
+ },
+ "contentWarning": null,
+ "tutorNotes": {
+  "pronunciation": "Watch the soft 'gli' sound in 'figlio' and 'voglio': a palatal l, not 'glee'. The 'gn' in 'legno' and 'sogno' is like the 'ny' in 'canyon'. 'Ch' before e or i is a hard k, so 'Pinocchio' sounds like 'pin-OK-kyo' and 'perché' like 'per-KEH'. Double consonants are pronounced long: 'pappa' vs 'papa'.",
+  "grammar": "The story uses present-tense narration and many articulated prepositions: di + il = del, a + il = al, su + il = sul, in + la = nella, da + le = dalle. Point out how these small fused forms change with the gender and number of the following noun.",
+  "culture": "Collodi's 1883 Tuscan tale is rougher than the Disney film: the Talking Cricket is a stern voice of conscience, and Pinocchio throws a hammer at him. Names carry meaning: Ciliegia means 'cherry', Geppetto is a diminutive of Giuseppe, and Pinocchio evokes 'pinolo', a pine nut.",
+  "commonErrors": "Learners often confuse 'è' (is) with 'e' (and) and forget the accents on 'perché', 'più' and 'c'è'. Remind them that adjectives agree with the noun: 'il naso è rosso' but 'la casa è fredda'. Note that Italian says 'avere paura/fame/sonno' (to have fear/hunger/sleepiness), not 'to be'."
+ },
+ "vocabulary": [
+  {
+   "word": "burattino",
+   "gloss": {
+    "en": "puppet",
+    "fr": "marionnette",
+    "es": "títere"
+   }
+  },
+  {
+   "word": "legno",
+   "gloss": {
+    "en": "wood",
+    "fr": "bois",
+    "es": "madera"
+   }
+  },
+  {
+   "word": "falegname",
+   "gloss": {
+    "en": "carpenter",
+    "fr": "menuisier",
+    "es": "carpintero"
+   }
+  },
+  {
+   "word": "pezzo",
+   "gloss": {
+    "en": "piece",
+    "fr": "morceau",
+    "es": "pedazo"
+   }
+  },
+  {
+   "word": "naso",
+   "gloss": {
+    "en": "nose",
+    "fr": "nez",
+    "es": "nariz"
+   }
+  },
+  {
+   "word": "paura",
+   "gloss": {
+    "en": "fear",
+    "fr": "peur",
+    "es": "miedo"
+   }
+  },
+  {
+   "word": "grida",
+   "gloss": {
+    "en": "shouts",
+    "fr": "crie",
+    "es": "grita"
+   }
+  },
+  {
+   "word": "corre",
+   "gloss": {
+    "en": "runs",
+    "fr": "court",
+    "es": "corre"
+   }
+  },
+  {
+   "word": "scappa",
+   "gloss": {
+    "en": "runs away",
+    "fr": "s'enfuit",
+    "es": "escapa"
+   }
+  },
+  {
+   "word": "babbo",
+   "gloss": {
+    "en": "daddy",
+    "fr": "papa",
+    "es": "papá"
+   }
+  },
+  {
+   "word": "parrucca",
+   "gloss": {
+    "en": "wig",
+    "fr": "perruque",
+    "es": "peluca"
+   }
+  },
+  {
+   "word": "sogno",
+   "gloss": {
+    "en": "dream",
+    "fr": "rêve",
+    "es": "sueño"
+   }
+  },
+  {
+   "word": "fame",
+   "gloss": {
+    "en": "hunger",
+    "fr": "faim",
+    "es": "hambre"
+   }
+  },
+  {
+   "word": "grillo",
+   "gloss": {
+    "en": "cricket",
+    "fr": "grillon",
+    "es": "grillo"
+   }
+  },
+  {
+   "word": "scuola",
+   "gloss": {
+    "en": "school",
+    "fr": "école",
+    "es": "escuela"
+   }
+  },
+  {
+   "word": "guai",
+   "gloss": {
+    "en": "troubles",
+    "fr": "ennuis",
+    "es": "problemas"
+   }
+  }
+ ],
+ "comprehension": [
+  {
+   "question": {
+    "en": "Why does everyone call Mastro Antonio 'Mastro Ciliegia'?",
+    "fr": "Pourquoi tout le monde appelle-t-il Mastro Antonio « Mastro Ciliegia » ?",
+    "es": "¿Por qué todos llaman a Mastro Antonio «Mastro Ciliegia»?"
+   }
+  },
+  {
+   "question": {
+    "en": "What does Geppetto want to make with the piece of wood?",
+    "fr": "Que veut faire Geppetto avec le morceau de bois ?",
+    "es": "¿Qué quiere hacer Geppetto con el pedazo de madera?"
+   }
+  },
+  {
+   "question": {
+    "en": "What strange thing happens to the nose while Geppetto carves it?",
+    "fr": "Quelle chose étrange arrive au nez pendant que Geppetto le sculpte ?",
+    "es": "¿Qué cosa extraña le pasa a la nariz mientras Geppetto la talla?"
+   }
+  },
+  {
+   "question": {
+    "en": "What advice does the Talking Cricket give to Pinocchio?",
+    "fr": "Quel conseil le Grillon Parlant donne-t-il à Pinocchio ?",
+    "es": "¿Qué consejo le da el Grillo Parlante a Pinocho?"
+   }
+  }
+ ],
+ "license": {
+  "spdx": "CC-BY-SA-4.0",
+  "attribution": "Sotto contributors; based on the public-domain original by Carlo Collodi"
+ },
+ "chapters": [
+  {
+   "title": "Il pezzo di legno che parla",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "Mastro Antonio è un vecchio falegname di un piccolo paese.",
+       "translation": {
+        "en": "Mastro Antonio is an old carpenter from a small village.",
+        "fr": "Mastro Antonio est un vieux menuisier d'un petit village.",
+        "es": "Mastro Antonio es un viejo carpintero de un pueblo pequeño."
+       }
+      },
+      {
+       "text": "La sua bottega è piccola e piena di legno.",
+       "translation": {
+        "en": "His workshop is small and full of wood.",
+        "fr": "Son atelier est petit et plein de bois.",
+        "es": "Su taller es pequeño y está lleno de madera."
+       }
+      },
+      {
+       "text": "Tutti lo chiamano Mastro Ciliegia perché il suo naso è rosso.",
+       "translation": {
+        "en": "Everyone calls him Mastro Ciliegia because his nose is red.",
+        "fr": "Tout le monde l'appelle Mastro Ciliegia parce que son nez est rouge.",
+        "es": "Todos lo llaman Mastro Ciliegia porque su nariz es roja."
+       }
+      },
+      {
+       "text": "Il suo naso è rotondo e rosso come una ciliegia matura.",
+       "translation": {
+        "en": "His nose is round and red like a ripe cherry.",
+        "fr": "Son nez est rond et rouge comme une cerise mûre.",
+        "es": "Su nariz es redonda y roja como una cereza madura."
+       }
+      },
+      {
+       "text": "Un giorno Mastro Ciliegia trova un pezzo di legno nella bottega.",
+       "translation": {
+        "en": "One day Mastro Ciliegia finds a piece of wood in the workshop.",
+        "fr": "Un jour, Mastro Ciliegia trouve un morceau de bois dans l'atelier.",
+        "es": "Un día, Mastro Ciliegia encuentra un pedazo de madera en el taller."
+       }
+      },
+      {
+       "text": "È un pezzo di legno normale, come gli altri pezzi di legno.",
+       "translation": {
+        "en": "It is an ordinary piece of wood, like the other pieces of wood.",
+        "fr": "C'est un morceau de bois ordinaire, comme les autres morceaux de bois.",
+        "es": "Es un pedazo de madera normal, como los otros pedazos de madera."
+       }
+      },
+      {
+       "text": "«Con questo legno voglio fare la gamba di un tavolo», pensa.",
+       "translation": {
+        "en": "'With this wood I want to make the leg of a table,' he thinks.",
+        "fr": "« Avec ce bois, je veux faire le pied d'une table », pense-t-il.",
+        "es": "«Con esta madera quiero hacer la pata de una mesa», piensa."
+       }
+      },
+      {
+       "text": "Prende l'ascia e comincia a tagliare il legno con cura.",
+       "translation": {
+        "en": "He takes the axe and begins to cut the wood with care.",
+        "fr": "Il prend la hache et commence à couper le bois avec soin.",
+        "es": "Toma el hacha y empieza a cortar la madera con cuidado."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Ma all'improvviso una voce piccola grida: «Aiuto! Non farmi male!»",
+       "translation": {
+        "en": "But suddenly a small voice shouts: 'Help! Don't hurt me!'",
+        "fr": "Mais tout à coup une petite voix crie : « Au secours ! Ne me fais pas mal ! »",
+        "es": "Pero de repente una voz pequeña grita: «¡Socorro! ¡No me hagas daño!»"
+       }
+      },
+      {
+       "text": "Mastro Ciliegia ha molta paura e guarda intorno con attenzione.",
+       "translation": {
+        "en": "Mastro Ciliegia is very afraid and looks around carefully.",
+        "fr": "Mastro Ciliegia a très peur et regarde autour de lui avec attention.",
+        "es": "Mastro Ciliegia tiene mucho miedo y mira alrededor con atención."
+       }
+      },
+      {
+       "text": "Guarda sotto il tavolo, dietro la porta e dentro l'armadio.",
+       "translation": {
+        "en": "He looks under the table, behind the door and inside the cupboard.",
+        "fr": "Il regarde sous la table, derrière la porte et dans l'armoire.",
+        "es": "Mira debajo de la mesa, detrás de la puerta y dentro del armario."
+       }
+      },
+      {
+       "text": "Non c'è nessuno nella bottega: è tutto tranquillo.",
+       "translation": {
+        "en": "There is nobody in the workshop: everything is quiet.",
+        "fr": "Il n'y a personne dans l'atelier : tout est tranquille.",
+        "es": "No hay nadie en el taller: todo está tranquilo."
+       }
+      },
+      {
+       "text": "«Chi parla? Chi è?», domanda il vecchio falegname con voce tremante.",
+       "translation": {
+        "en": "'Who is speaking? Who is it?' asks the old carpenter with a trembling voice.",
+        "fr": "« Qui parle ? Qui est-ce ? », demande le vieux menuisier d'une voix tremblante.",
+        "es": "«¿Quién habla? ¿Quién es?», pregunta el viejo carpintero con voz temblorosa."
+       }
+      },
+      {
+       "text": "Nessuno risponde, ma il pezzo di legno ride: «Ah ah ah!»",
+       "translation": {
+        "en": "Nobody answers, but the piece of wood laughs: 'Ha ha ha!'",
+        "fr": "Personne ne répond, mais le morceau de bois rit : « Ah ah ah ! »",
+        "es": "Nadie responde, pero el pedazo de madera ríe: «¡Ja, ja, ja!»"
+       }
+      },
+      {
+       "text": "Adesso il povero falegname ha davvero molta paura.",
+       "translation": {
+        "en": "Now the poor carpenter is really very afraid.",
+        "fr": "Maintenant, le pauvre menuisier a vraiment très peur.",
+        "es": "Ahora el pobre carpintero tiene mucho miedo de verdad."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "In quel momento arriva Geppetto, un vecchio amico di Mastro Ciliegia.",
+       "translation": {
+        "en": "At that moment Geppetto arrives, an old friend of Mastro Ciliegia.",
+        "fr": "À ce moment-là arrive Geppetto, un vieil ami de Mastro Ciliegia.",
+        "es": "En ese momento llega Geppetto, un viejo amigo de Mastro Ciliegia."
+       }
+      },
+      {
+       "text": "Geppetto è un uomo molto povero, ma è buono e gentile.",
+       "translation": {
+        "en": "Geppetto is a very poor man, but he is good and kind.",
+        "fr": "Geppetto est un homme très pauvre, mais il est bon et gentil.",
+        "es": "Geppetto es un hombre muy pobre, pero es bueno y amable."
+       }
+      },
+      {
+       "text": "«Buongiorno, amico mio», dice Geppetto con un sorriso.",
+       "translation": {
+        "en": "'Good morning, my friend,' says Geppetto with a smile.",
+        "fr": "« Bonjour, mon ami », dit Geppetto avec un sourire.",
+        "es": "«Buenos días, amigo mío», dice Geppetto con una sonrisa."
+       }
+      },
+      {
+       "text": "«Voglio fare un bel burattino di legno», dice Geppetto.",
+       "translation": {
+        "en": "'I want to make a fine wooden puppet,' says Geppetto.",
+        "fr": "« Je veux faire une belle marionnette en bois », dit Geppetto.",
+        "es": "«Quiero hacer un bonito títere de madera», dice Geppetto."
+       }
+      },
+      {
+       "text": "«Il mio burattino può ballare e cantare come un attore».",
+       "translation": {
+        "en": "'My puppet can dance and sing like an actor.'",
+        "fr": "« Ma marionnette peut danser et chanter comme un acteur. »",
+        "es": "«Mi títere puede bailar y cantar como un actor»."
+       }
+      },
+      {
+       "text": "«Dammi quel pezzo di legno, per favore, amico mio».",
+       "translation": {
+        "en": "'Give me that piece of wood, please, my friend.'",
+        "fr": "« Donne-moi ce morceau de bois, s'il te plaît, mon ami. »",
+        "es": "«Dame ese pedazo de madera, por favor, amigo mío»."
+       }
+      },
+      {
+       "text": "Mastro Ciliegia è contento: vuole dare il legno all'amico.",
+       "translation": {
+        "en": "Mastro Ciliegia is glad: he wants to give the wood to his friend.",
+        "fr": "Mastro Ciliegia est content : il veut donner le bois à son ami.",
+        "es": "Mastro Ciliegia está contento: quiere dar la madera a su amigo."
+       }
+      },
+      {
+       "text": "Ma all'improvviso il legno dà un calcio a Geppetto.",
+       "translation": {
+        "en": "But suddenly the wood gives Geppetto a kick.",
+        "fr": "Mais tout à coup, le bois donne un coup de pied à Geppetto.",
+        "es": "Pero de repente la madera le da una patada a Geppetto."
+       }
+      },
+      {
+       "text": "«Perché mi picchi?», grida Geppetto con rabbia.",
+       "translation": {
+        "en": "'Why do you hit me?' shouts Geppetto angrily.",
+        "fr": "« Pourquoi me frappes-tu ? », crie Geppetto avec colère.",
+        "es": "«¿Por qué me pegas?», grita Geppetto con ira."
+       }
+      },
+      {
+       "text": "«Non sono io! Non ti picchio!», risponde Mastro Ciliegia.",
+       "translation": {
+        "en": "'It is not me! I am not hitting you!' answers Mastro Ciliegia.",
+        "fr": "« Ce n'est pas moi ! Je ne te frappe pas ! », répond Mastro Ciliegia.",
+        "es": "«¡No soy yo! ¡No te pego!», responde Mastro Ciliegia."
+       }
+      },
+      {
+       "text": "I due vecchi amici litigano un poco e poi ridono insieme.",
+       "translation": {
+        "en": "The two old friends argue a little and then laugh together.",
+        "fr": "Les deux vieux amis se disputent un peu et puis rient ensemble.",
+        "es": "Los dos viejos amigos discuten un poco y luego ríen juntos."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Alla fine Geppetto prende il legno e torna a casa sua.",
+       "translation": {
+        "en": "In the end Geppetto takes the wood and goes back home.",
+        "fr": "À la fin, Geppetto prend le bois et rentre chez lui.",
+        "es": "Al final, Geppetto toma la madera y vuelve a su casa."
+       }
+      },
+      {
+       "text": "Durante la strada il legno parla ancora con la sua vocina.",
+       "translation": {
+        "en": "On the way the wood speaks again with its little voice.",
+        "fr": "En chemin, le bois parle encore avec sa petite voix.",
+        "es": "Durante el camino, la madera habla otra vez con su vocecita."
+       }
+      },
+      {
+       "text": "«Che legno strano!», pensa Geppetto, ma non ha paura.",
+       "translation": {
+        "en": "'What strange wood!' thinks Geppetto, but he is not afraid.",
+        "fr": "« Quel bois étrange ! », pense Geppetto, mais il n'a pas peur.",
+        "es": "«¡Qué madera tan extraña!», piensa Geppetto, pero no tiene miedo."
+       }
+      },
+      {
+       "text": "Geppetto vuole un figlio e ama molto i burattini.",
+       "translation": {
+        "en": "Geppetto wants a son and loves puppets very much.",
+        "fr": "Geppetto veut un fils et aime beaucoup les marionnettes.",
+        "es": "Geppetto quiere un hijo y ama mucho los títeres."
+       }
+      },
+      {
+       "text": "A casa sua non ci sono soldi e non c'è cibo.",
+       "translation": {
+        "en": "In his house there is no money and there is no food.",
+        "fr": "Chez lui, il n'y a pas d'argent et il n'y a pas de nourriture.",
+        "es": "En su casa no hay dinero y no hay comida."
+       }
+      },
+      {
+       "text": "C'è solo un camino con un fuoco piccolo.",
+       "translation": {
+        "en": "There is only a fireplace with a small fire.",
+        "fr": "Il y a seulement une cheminée avec un petit feu.",
+        "es": "Solo hay una chimenea con un fuego pequeño."
+       }
+      },
+      {
+       "text": "Ma Geppetto è contento perché ha un sogno.",
+       "translation": {
+        "en": "But Geppetto is happy because he has a dream.",
+        "fr": "Mais Geppetto est content parce qu'il a un rêve.",
+        "es": "Pero Geppetto está contento porque tiene un sueño."
+       }
+      },
+      {
+       "text": "Il suo sogno è un burattino vivo, come un bambino vero.",
+       "translation": {
+        "en": "His dream is a living puppet, like a real child.",
+        "fr": "Son rêve est une marionnette vivante, comme un vrai enfant.",
+        "es": "Su sueño es un títere vivo, como un niño de verdad."
+       }
+      },
+      {
+       "text": "Mette il legno sul tavolo e prende i suoi attrezzi.",
+       "translation": {
+        "en": "He puts the wood on the table and takes his tools.",
+        "fr": "Il met le bois sur la table et prend ses outils.",
+        "es": "Pone la madera sobre la mesa y toma sus herramientas."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Nasce Pinocchio",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "Il mattino dopo, Geppetto comincia presto il suo lavoro.",
+       "translation": {
+        "en": "The next morning, Geppetto starts his work early.",
+        "fr": "Le lendemain matin, Geppetto commence tôt son travail.",
+        "es": "A la mañana siguiente, Geppetto empieza temprano su trabajo."
+       }
+      },
+      {
+       "text": "Lavora il pezzo di legno con grande pazienza.",
+       "translation": {
+        "en": "He works the piece of wood with great patience.",
+        "fr": "Il travaille le morceau de bois avec une grande patience.",
+        "es": "Trabaja el pedazo de madera con gran paciencia."
+       }
+      },
+      {
+       "text": "Prima fa gli occhi del burattino con il coltello.",
+       "translation": {
+        "en": "First he makes the puppet's eyes with the knife.",
+        "fr": "D'abord, il fait les yeux de la marionnette avec le couteau.",
+        "es": "Primero hace los ojos del títere con el cuchillo."
+       }
+      },
+      {
+       "text": "Gli occhi si muovono e guardano Geppetto.",
+       "translation": {
+        "en": "The eyes move and look at Geppetto.",
+        "fr": "Les yeux bougent et regardent Geppetto.",
+        "es": "Los ojos se mueven y miran a Geppetto."
+       }
+      },
+      {
+       "text": "«Che occhi strani!», dice Geppetto, ma continua a lavorare.",
+       "translation": {
+        "en": "'What strange eyes!' says Geppetto, but he continues working.",
+        "fr": "« Quels yeux étranges ! », dit Geppetto, mais il continue à travailler.",
+        "es": "«¡Qué ojos tan extraños!», dice Geppetto, pero continúa trabajando."
+       }
+      },
+      {
+       "text": "Poi fa il naso del burattino.",
+       "translation": {
+        "en": "Then he makes the puppet's nose.",
+        "fr": "Puis il fait le nez de la marionnette.",
+        "es": "Luego hace la nariz del títere."
+       }
+      },
+      {
+       "text": "Ma il naso cresce, cresce e diventa molto lungo.",
+       "translation": {
+        "en": "But the nose grows and grows and becomes very long.",
+        "fr": "Mais le nez grandit, grandit et devient très long.",
+        "es": "Pero la nariz crece, crece y se vuelve muy larga."
+       }
+      },
+      {
+       "text": "Geppetto taglia il naso, ma il naso cresce ancora.",
+       "translation": {
+        "en": "Geppetto cuts the nose, but the nose grows again.",
+        "fr": "Geppetto coupe le nez, mais le nez grandit encore.",
+        "es": "Geppetto corta la nariz, pero la nariz crece otra vez."
+       }
+      },
+      {
+       "text": "Dopo il naso, fa la bocca del burattino.",
+       "translation": {
+        "en": "After the nose, he makes the puppet's mouth.",
+        "fr": "Après le nez, il fait la bouche de la marionnette.",
+        "es": "Después de la nariz, hace la boca del títere."
+       }
+      },
+      {
+       "text": "La bocca ride subito e fa una linguaccia a Geppetto.",
+       "translation": {
+        "en": "The mouth laughs at once and sticks its tongue out at Geppetto.",
+        "fr": "La bouche rit aussitôt et fait une grimace à Geppetto.",
+        "es": "La boca ríe enseguida y le saca la lengua a Geppetto."
+       }
+      },
+      {
+       "text": "«Smettila!», dice Geppetto con rabbia.",
+       "translation": {
+        "en": "'Stop it!' says Geppetto angrily.",
+        "fr": "« Arrête ! », dit Geppetto avec colère.",
+        "es": "«¡Basta ya!», dice Geppetto con ira."
+       }
+      },
+      {
+       "text": "Poi fa le orecchie: piccole, dure e un poco buffe.",
+       "translation": {
+        "en": "Then he makes the ears: small, hard and a little funny.",
+        "fr": "Puis il fait les oreilles : petites, dures et un peu drôles.",
+        "es": "Luego hace las orejas: pequeñas, duras y un poco graciosas."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Adesso Geppetto fa le braccia e le mani del burattino.",
+       "translation": {
+        "en": "Now Geppetto makes the puppet's arms and hands.",
+        "fr": "Maintenant, Geppetto fait les bras et les mains de la marionnette.",
+        "es": "Ahora Geppetto hace los brazos y las manos del títere."
+       }
+      },
+      {
+       "text": "Le mani prendono la parrucca gialla di Geppetto.",
+       "translation": {
+        "en": "The hands take Geppetto's yellow wig.",
+        "fr": "Les mains prennent la perruque jaune de Geppetto.",
+        "es": "Las manos toman la peluca amarilla de Geppetto."
+       }
+      },
+      {
+       "text": "«Ridammi la parrucca, brutto burattino!», grida il povero uomo.",
+       "translation": {
+        "en": "'Give me back my wig, you naughty puppet!' shouts the poor man.",
+        "fr": "« Rends-moi ma perruque, vilaine marionnette ! », crie le pauvre homme.",
+        "es": "«¡Devuélveme la peluca, títere malo!», grita el pobre hombre."
+       }
+      },
+      {
+       "text": "Il burattino mette la parrucca sulla sua testa di legno.",
+       "translation": {
+        "en": "The puppet puts the wig on his wooden head.",
+        "fr": "La marionnette met la perruque sur sa tête de bois.",
+        "es": "El títere se pone la peluca sobre su cabeza de madera."
+       }
+      },
+      {
+       "text": "Geppetto è triste, ma finisce il lavoro con amore.",
+       "translation": {
+        "en": "Geppetto is sad, but he finishes the work with love.",
+        "fr": "Geppetto est triste, mais il finit le travail avec amour.",
+        "es": "Geppetto está triste, pero termina el trabajo con amor."
+       }
+      },
+      {
+       "text": "Fa le gambe e i piedi del burattino.",
+       "translation": {
+        "en": "He makes the puppet's legs and feet.",
+        "fr": "Il fait les jambes et les pieds de la marionnette.",
+        "es": "Hace las piernas y los pies del títere."
+       }
+      },
+      {
+       "text": "Le gambe sono sottili, ma corrono bene.",
+       "translation": {
+        "en": "The legs are thin, but they run well.",
+        "fr": "Les jambes sont minces, mais elles courent bien.",
+        "es": "Las piernas son delgadas, pero corren bien."
+       }
+      },
+      {
+       "text": "I piedi sono grandi e veloci.",
+       "translation": {
+        "en": "The feet are big and fast.",
+        "fr": "Les pieds sont grands et rapides.",
+        "es": "Los pies son grandes y rápidos."
+       }
+      },
+      {
+       "text": "Alla fine il burattino è finito e molto bello.",
+       "translation": {
+        "en": "In the end the puppet is finished and very beautiful.",
+        "fr": "À la fin, la marionnette est finie et très belle.",
+        "es": "Al final, el títere está terminado y es muy bonito."
+       }
+      },
+      {
+       "text": "«Ti chiami Pinocchio», dice Geppetto al burattino.",
+       "translation": {
+        "en": "'Your name is Pinocchio,' Geppetto says to the puppet.",
+        "fr": "« Tu t'appelles Pinocchio », dit Geppetto à la marionnette.",
+        "es": "«Te llamas Pinocho», dice Geppetto al títere."
+       }
+      },
+      {
+       "text": "«È un bel nome per un figlio di legno».",
+       "translation": {
+        "en": "'It is a fine name for a son made of wood.'",
+        "fr": "« C'est un beau nom pour un fils en bois. »",
+        "es": "«Es un bonito nombre para un hijo de madera»."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Pinocchio muove le gambe e salta giù dal tavolo.",
+       "translation": {
+        "en": "Pinocchio moves his legs and jumps down from the table.",
+        "fr": "Pinocchio bouge les jambes et saute de la table.",
+        "es": "Pinocho mueve las piernas y salta de la mesa."
+       }
+      },
+      {
+       "text": "Corre per la stanza e ride con la sua vocina.",
+       "translation": {
+        "en": "He runs around the room and laughs with his little voice.",
+        "fr": "Il court dans la pièce et rit avec sa petite voix.",
+        "es": "Corre por el cuarto y ríe con su vocecita."
+       }
+      },
+      {
+       "text": "«Grazie, babbo! Sono un burattino felice!», grida Pinocchio.",
+       "translation": {
+        "en": "'Thank you, daddy! I am a happy puppet!' shouts Pinocchio.",
+        "fr": "« Merci, papa ! Je suis une marionnette heureuse ! », crie Pinocchio.",
+        "es": "«¡Gracias, papá! ¡Soy un títere feliz!», grita Pinocho."
+       }
+      },
+      {
+       "text": "Geppetto è contento e piange di gioia.",
+       "translation": {
+        "en": "Geppetto is happy and cries with joy.",
+        "fr": "Geppetto est content et pleure de joie.",
+        "es": "Geppetto está contento y llora de alegría."
+       }
+      },
+      {
+       "text": "«Adesso sei il mio bambino», dice con amore.",
+       "translation": {
+        "en": "'Now you are my child,' he says with love.",
+        "fr": "« Maintenant tu es mon enfant », dit-il avec amour.",
+        "es": "«Ahora eres mi niño», dice con amor."
+       }
+      },
+      {
+       "text": "Ma Pinocchio è un burattino molto cattivo e disubbidiente.",
+       "translation": {
+        "en": "But Pinocchio is a very naughty and disobedient puppet.",
+        "fr": "Mais Pinocchio est une marionnette très méchante et désobéissante.",
+        "es": "Pero Pinocho es un títere muy malo y desobediente."
+       }
+      },
+      {
+       "text": "Non vuole ascoltare il suo babbo.",
+       "translation": {
+        "en": "He does not want to listen to his father.",
+        "fr": "Il ne veut pas écouter son papa.",
+        "es": "No quiere escuchar a su papá."
+       }
+      },
+      {
+       "text": "Apre la porta di casa e scappa via veloce.",
+       "translation": {
+        "en": "He opens the door of the house and runs away fast.",
+        "fr": "Il ouvre la porte de la maison et s'enfuit vite.",
+        "es": "Abre la puerta de la casa y escapa rápido."
+       }
+      },
+      {
+       "text": "«Torna qui, Pinocchio! Torna indietro!», grida Geppetto.",
+       "translation": {
+        "en": "'Come back here, Pinocchio! Come back!' shouts Geppetto.",
+        "fr": "« Reviens ici, Pinocchio ! Reviens ! », crie Geppetto.",
+        "es": "«¡Vuelve aquí, Pinocho! ¡Vuelve atrás!», grita Geppetto."
+       }
+      },
+      {
+       "text": "Ma Pinocchio corre veloce per la strada del paese.",
+       "translation": {
+        "en": "But Pinocchio runs fast down the village street.",
+        "fr": "Mais Pinocchio court vite dans la rue du village.",
+        "es": "Pero Pinocho corre rápido por la calle del pueblo."
+       }
+      },
+      {
+       "text": "La gente guarda il burattino con grande stupore.",
+       "translation": {
+        "en": "The people look at the puppet with great amazement.",
+        "fr": "Les gens regardent la marionnette avec un grand étonnement.",
+        "es": "La gente mira al títere con gran asombro."
+       }
+      },
+      {
+       "text": "«Che strano! Un burattino che corre!», dice la gente.",
+       "translation": {
+        "en": "'How strange! A running puppet!' the people say.",
+        "fr": "« Comme c'est étrange ! Une marionnette qui court ! », disent les gens.",
+        "es": "«¡Qué extraño! ¡Un títere que corre!», dice la gente."
+       }
+      },
+      {
+       "text": "Tutti i bambini del paese corrono dietro a Pinocchio.",
+       "translation": {
+        "en": "All the children of the village run after Pinocchio.",
+        "fr": "Tous les enfants du village courent derrière Pinocchio.",
+        "es": "Todos los niños del pueblo corren detrás de Pinocho."
+       }
+      },
+      {
+       "text": "Pinocchio è più veloce di tutti i bambini.",
+       "translation": {
+        "en": "Pinocchio is faster than all the children.",
+        "fr": "Pinocchio est plus rapide que tous les enfants.",
+        "es": "Pinocho es más rápido que todos los niños."
+       }
+      },
+      {
+       "text": "Pinocchio guarda il mondo con i suoi occhi nuovi.",
+       "translation": {
+        "en": "Pinocchio looks at the world with his new eyes.",
+        "fr": "Pinocchio regarde le monde avec ses yeux nouveaux.",
+        "es": "Pinocho mira el mundo con sus ojos nuevos."
+       }
+      },
+      {
+       "text": "«Il mondo è bello e io sono libero!», pensa.",
+       "translation": {
+        "en": "'The world is beautiful and I am free!' he thinks.",
+        "fr": "« Le monde est beau et je suis libre ! », pense-t-il.",
+        "es": "«¡El mundo es bello y yo soy libre!», piensa."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "La fuga e il Grillo Parlante",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "Pinocchio corre per le strade del paese come un cavallo.",
+       "translation": {
+        "en": "Pinocchio runs through the streets of the village like a horse.",
+        "fr": "Pinocchio court dans les rues du village comme un cheval.",
+        "es": "Pinocho corre por las calles del pueblo como un caballo."
+       }
+      },
+      {
+       "text": "La gente esce dalle case e guarda il burattino strano.",
+       "translation": {
+        "en": "The people come out of their houses and look at the strange puppet.",
+        "fr": "Les gens sortent des maisons et regardent la marionnette étrange.",
+        "es": "La gente sale de las casas y mira al títere extraño."
+       }
+      },
+      {
+       "text": "«Prendetelo! Prendete quel burattino!», grida qualcuno.",
+       "translation": {
+        "en": "'Catch him! Catch that puppet!' someone shouts.",
+        "fr": "« Attrapez-le ! Attrapez cette marionnette ! », crie quelqu'un.",
+        "es": "«¡Atrápenlo! ¡Atrapen a ese títere!», grita alguien."
+       }
+      },
+      {
+       "text": "Ma le gambe di Pinocchio sono lunghe e molto veloci.",
+       "translation": {
+        "en": "But Pinocchio's legs are long and very fast.",
+        "fr": "Mais les jambes de Pinocchio sont longues et très rapides.",
+        "es": "Pero las piernas de Pinocho son largas y muy rápidas."
+       }
+      },
+      {
+       "text": "Nessuno può prendere il burattino di legno.",
+       "translation": {
+        "en": "Nobody can catch the wooden puppet.",
+        "fr": "Personne ne peut attraper la marionnette en bois.",
+        "es": "Nadie puede atrapar al títere de madera."
+       }
+      },
+      {
+       "text": "Pinocchio ride, salta e corre verso la campagna.",
+       "translation": {
+        "en": "Pinocchio laughs, jumps and runs towards the countryside.",
+        "fr": "Pinocchio rit, saute et court vers la campagne.",
+        "es": "Pinocho ríe, salta y corre hacia el campo."
+       }
+      },
+      {
+       "text": "Il vento soffia forte tra gli alberi scuri.",
+       "translation": {
+        "en": "The wind blows hard among the dark trees.",
+        "fr": "Le vent souffle fort entre les arbres sombres.",
+        "es": "El viento sopla fuerte entre los árboles oscuros."
+       }
+      },
+      {
+       "text": "Passa davanti al fiume e davanti al mulino vecchio.",
+       "translation": {
+        "en": "He passes in front of the river and in front of the old mill.",
+        "fr": "Il passe devant la rivière et devant le vieux moulin.",
+        "es": "Pasa delante del río y delante del viejo molino."
+       }
+      },
+      {
+       "text": "Dopo una lunga corsa, Pinocchio è molto stanco.",
+       "translation": {
+        "en": "After a long run, Pinocchio is very tired.",
+        "fr": "Après une longue course, Pinocchio est très fatigué.",
+        "es": "Después de una larga carrera, Pinocho está muy cansado."
+       }
+      },
+      {
+       "text": "Si siede sotto un grande albero e riposa un poco.",
+       "translation": {
+        "en": "He sits down under a big tree and rests a little.",
+        "fr": "Il s'assied sous un grand arbre et se repose un peu.",
+        "es": "Se sienta bajo un árbol grande y descansa un poco."
+       }
+      },
+      {
+       "text": "«Sono libero! Non torno mai a casa!», pensa Pinocchio.",
+       "translation": {
+        "en": "'I am free! I am never going back home!' thinks Pinocchio.",
+        "fr": "« Je suis libre ! Je ne retourne jamais à la maison ! », pense Pinocchio.",
+        "es": "«¡Soy libre! ¡Nunca vuelvo a casa!», piensa Pinocho."
+       }
+      },
+      {
+       "text": "Ma poi ha fame: la sua pancia fa strani rumori.",
+       "translation": {
+        "en": "But then he is hungry: his belly makes strange noises.",
+        "fr": "Mais ensuite il a faim : son ventre fait des bruits étranges.",
+        "es": "Pero luego tiene hambre: su barriga hace ruidos extraños."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "«Voglio mangiare un panino e una mela», dice.",
+       "translation": {
+        "en": "'I want to eat a roll and an apple,' he says.",
+        "fr": "« Je veux manger un petit pain et une pomme », dit-il.",
+        "es": "«Quiero comer un bocadillo y una manzana», dice."
+       }
+      },
+      {
+       "text": "Ma non ci sono panini e mele nella campagna.",
+       "translation": {
+        "en": "But there are no rolls and apples in the countryside.",
+        "fr": "Mais il n'y a pas de petits pains ni de pommes dans la campagne.",
+        "es": "Pero no hay bocadillos ni manzanas en el campo."
+       }
+      },
+      {
+       "text": "Cerca qualcosa da mangiare, ma non trova niente.",
+       "translation": {
+        "en": "He looks for something to eat, but he finds nothing.",
+        "fr": "Il cherche quelque chose à manger, mais il ne trouve rien.",
+        "es": "Busca algo de comer, pero no encuentra nada."
+       }
+      },
+      {
+       "text": "Pinocchio pensa al suo povero babbo Geppetto.",
+       "translation": {
+        "en": "Pinocchio thinks of his poor daddy Geppetto.",
+        "fr": "Pinocchio pense à son pauvre papa Geppetto.",
+        "es": "Pinocho piensa en su pobre papá Geppetto."
+       }
+      },
+      {
+       "text": "«Il babbo è triste senza di me», pensa il burattino.",
+       "translation": {
+        "en": "'Daddy is sad without me,' thinks the puppet.",
+        "fr": "« Papa est triste sans moi », pense la marionnette.",
+        "es": "«Papá está triste sin mí», piensa el títere."
+       }
+      },
+      {
+       "text": "Alla sera, Pinocchio torna piano piano verso casa.",
+       "translation": {
+        "en": "In the evening, Pinocchio slowly walks back home.",
+        "fr": "Le soir, Pinocchio retourne doucement vers la maison.",
+        "es": "Por la tarde, Pinocho vuelve despacio hacia casa."
+       }
+      },
+      {
+       "text": "Apre la porta ed entra nella casa piccola e fredda.",
+       "translation": {
+        "en": "He opens the door and enters the small cold house.",
+        "fr": "Il ouvre la porte et entre dans la petite maison froide.",
+        "es": "Abre la puerta y entra en la casa pequeña y fría."
+       }
+      },
+      {
+       "text": "Il camino è spento e Geppetto non è lì.",
+       "translation": {
+        "en": "The fireplace is out and Geppetto is not there.",
+        "fr": "La cheminée est éteinte et Geppetto n'est pas là.",
+        "es": "La chimenea está apagada y Geppetto no está allí."
+       }
+      },
+      {
+       "text": "Pinocchio è solo, stanco, affamato e anche un poco triste.",
+       "translation": {
+        "en": "Pinocchio is alone, tired, hungry and also a little sad.",
+        "fr": "Pinocchio est seul, fatigué, affamé et aussi un peu triste.",
+        "es": "Pinocho está solo, cansado, hambriento y también un poco triste."
+       }
+      },
+      {
+       "text": "«Babbo, dove sei?», chiama Pinocchio con voce triste.",
+       "translation": {
+        "en": "'Daddy, where are you?' Pinocchio calls with a sad voice.",
+        "fr": "« Papa, où es-tu ? », appelle Pinocchio d'une voix triste.",
+        "es": "«Papá, ¿dónde estás?», llama Pinocho con voz triste."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "All'improvviso sente una voce: «Cri cri! Cri cri!»",
+       "translation": {
+        "en": "Suddenly he hears a voice: 'Chirp chirp! Chirp chirp!'",
+        "fr": "Tout à coup, il entend une voix : « Cri cri ! Cri cri ! »",
+        "es": "De repente oye una voz: «¡Cri cri! ¡Cri cri!»"
+       }
+      },
+      {
+       "text": "«Chi è? Chi parla in questa casa?», domanda Pinocchio.",
+       "translation": {
+        "en": "'Who is it? Who is speaking in this house?' asks Pinocchio.",
+        "fr": "« Qui est-ce ? Qui parle dans cette maison ? », demande Pinocchio.",
+        "es": "«¿Quién es? ¿Quién habla en esta casa?», pregunta Pinocho."
+       }
+      },
+      {
+       "text": "«Sono il Grillo Parlante», risponde la vocina.",
+       "translation": {
+        "en": "'I am the Talking Cricket,' answers the little voice.",
+        "fr": "« Je suis le Grillon Parlant », répond la petite voix.",
+        "es": "«Soy el Grillo Parlante», responde la vocecita."
+       }
+      },
+      {
+       "text": "«Vivo in questa casa da più di cento anni».",
+       "translation": {
+        "en": "'I have lived in this house for more than a hundred years.'",
+        "fr": "« Je vis dans cette maison depuis plus de cent ans. »",
+        "es": "«Vivo en esta casa desde hace más de cien años»."
+       }
+      },
+      {
+       "text": "Il Grillo Parlante è piccolo, nero e molto vecchio.",
+       "translation": {
+        "en": "The Talking Cricket is small, black and very old.",
+        "fr": "Le Grillon Parlant est petit, noir et très vieux.",
+        "es": "El Grillo Parlante es pequeño, negro y muy viejo."
+       }
+      },
+      {
+       "text": "«Ragazzo mio», dice il Grillo, «ascolta i vecchi».",
+       "translation": {
+        "en": "'My boy,' says the Cricket, 'listen to old people.'",
+        "fr": "« Mon garçon », dit le Grillon, « écoute les vieux. »",
+        "es": "«Chico mío», dice el Grillo, «escucha a los viejos»."
+       }
+      },
+      {
+       "text": "«I burattini disubbidienti hanno sempre molti guai».",
+       "translation": {
+        "en": "'Disobedient puppets always have a lot of trouble.'",
+        "fr": "« Les marionnettes désobéissantes ont toujours beaucoup d'ennuis. »",
+        "es": "«Los títeres desobedientes siempre tienen muchos problemas»."
+       }
+      },
+      {
+       "text": "«Torna da tuo babbo e vai a scuola, Pinocchio».",
+       "translation": {
+        "en": "'Go back to your daddy and go to school, Pinocchio.'",
+        "fr": "« Retourne chez ton papa et va à l'école, Pinocchio. »",
+        "es": "«Vuelve con tu papá y ve a la escuela, Pinocho»."
+       }
+      },
+      {
+       "text": "«La scuola è importante per i bambini come te».",
+       "translation": {
+        "en": "'School is important for children like you.'",
+        "fr": "« L'école est importante pour les enfants comme toi. »",
+        "es": "«La escuela es importante para los niños como tú»."
+       }
+      },
+      {
+       "text": "Ma Pinocchio non vuole ascoltare il vecchio Grillo.",
+       "translation": {
+        "en": "But Pinocchio does not want to listen to the old Cricket.",
+        "fr": "Mais Pinocchio ne veut pas écouter le vieux Grillon.",
+        "es": "Pero Pinocho no quiere escuchar al viejo Grillo."
+       }
+      },
+      {
+       "text": "«Non mi piace la scuola! Voglio giocare sempre!», grida.",
+       "translation": {
+        "en": "'I don't like school! I want to play all the time!' he shouts.",
+        "fr": "« Je n'aime pas l'école ! Je veux jouer tout le temps ! », crie-t-il.",
+        "es": "«¡No me gusta la escuela! ¡Quiero jugar siempre!», grita."
+       }
+      },
+      {
+       "text": "«Stai attento, Pinocchio», dice il Grillo con pazienza.",
+       "translation": {
+        "en": "'Be careful, Pinocchio,' says the Cricket with patience.",
+        "fr": "« Fais attention, Pinocchio », dit le Grillon avec patience.",
+        "es": "«Ten cuidado, Pinocho», dice el Grillo con paciencia."
+       }
+      },
+      {
+       "text": "«I burattini cattivi diventano sempre ragazzi infelici».",
+       "translation": {
+        "en": "'Naughty puppets always become unhappy boys.'",
+        "fr": "« Les marionnettes méchantes deviennent toujours des garçons malheureux. »",
+        "es": "«Los títeres malos se vuelven siempre chicos infelices»."
+       }
+      },
+      {
+       "text": "Pinocchio ha sonno e non vuole più sentire quella voce.",
+       "translation": {
+        "en": "Pinocchio is sleepy and does not want to hear that voice anymore.",
+        "fr": "Pinocchio a sommeil et ne veut plus entendre cette voix.",
+        "es": "Pinocho tiene sueño y no quiere oír más esa voz."
+       }
+      },
+      {
+       "text": "Prende un martello di legno e lo lancia al Grillo.",
+       "translation": {
+        "en": "He takes a wooden hammer and throws it at the Cricket.",
+        "fr": "Il prend un marteau en bois et le lance sur le Grillon.",
+        "es": "Toma un martillo de madera y lo lanza al Grillo."
+       }
+      },
+      {
+       "text": "Poi va a letto con i piedi freddi e la pancia vuota.",
+       "translation": {
+        "en": "Then he goes to bed with cold feet and an empty belly.",
+        "fr": "Puis il va au lit avec les pieds froids et le ventre vide.",
+        "es": "Luego se va a la cama con los pies fríos y la barriga vacía."
+       }
+      },
+      {
+       "text": "Domani cominciano le vere avventure di Pinocchio.",
+       "translation": {
+        "en": "Tomorrow the real adventures of Pinocchio begin.",
+        "fr": "Demain commencent les vraies aventures de Pinocchio.",
+        "es": "Mañana empiezan las verdaderas aventuras de Pinocho."
+       }
+      },
+      {
+       "text": "Ma questa è un'altra storia, per un altro giorno.",
+       "translation": {
+        "en": "But that is another story, for another day.",
+        "fr": "Mais c'est une autre histoire, pour un autre jour.",
+        "es": "Pero esa es otra historia, para otro día."
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "glossary": {
+  "a": {
+   "en": "to / at",
+   "fr": "à",
+   "es": "a"
+  },
+  "adesso": {
+   "en": "now",
+   "fr": "maintenant",
+   "es": "ahora"
+  },
+  "affamato": {
+   "en": "hungry",
+   "fr": "affamé",
+   "es": "hambriento"
+  },
+  "ah": {
+   "en": "ha",
+   "fr": "ah",
+   "es": "ja"
+  },
+  "aiuto": {
+   "en": "help",
+   "fr": "au secours",
+   "es": "socorro"
+  },
+  "al": {
+   "en": "to the",
+   "fr": "au",
+   "es": "al"
+  },
+  "alberi": {
+   "en": "trees",
+   "fr": "arbres",
+   "es": "árboles"
+  },
+  "albero": {
+   "en": "tree",
+   "fr": "arbre",
+   "es": "árbol"
+  },
+  "all'": {
+   "en": "to the",
+   "fr": "à l'",
+   "es": "a la/el"
+  },
+  "alla": {
+   "en": "to the",
+   "fr": "à la",
+   "es": "a la"
+  },
+  "altri": {
+   "en": "other (plural)",
+   "fr": "autres",
+   "es": "otros"
+  },
+  "altro": {
+   "en": "other",
+   "fr": "autre",
+   "es": "otro"
+  },
+  "ama": {
+   "en": "loves",
+   "fr": "aime",
+   "es": "ama"
+  },
+  "amici": {
+   "en": "friends",
+   "fr": "amis",
+   "es": "amigos"
+  },
+  "amico": {
+   "en": "friend",
+   "fr": "ami",
+   "es": "amigo"
+  },
+  "amore": {
+   "en": "love",
+   "fr": "amour",
+   "es": "amor"
+  },
+  "anche": {
+   "en": "also",
+   "fr": "aussi",
+   "es": "también"
+  },
+  "ancora": {
+   "en": "still / again",
+   "fr": "encore",
+   "es": "todavía / otra vez"
+  },
+  "anni": {
+   "en": "years",
+   "fr": "ans",
+   "es": "años"
+  },
+  "antonio": {
+   "en": "Antonio",
+   "fr": "Antonio",
+   "es": "Antonio"
+  },
+  "apre": {
+   "en": "opens",
+   "fr": "ouvre",
+   "es": "abre"
+  },
+  "armadio": {
+   "en": "cupboard",
+   "fr": "armoire",
+   "es": "armario"
+  },
+  "arriva": {
+   "en": "arrives",
+   "fr": "arrive",
+   "es": "llega"
+  },
+  "ascia": {
+   "en": "axe",
+   "fr": "hache",
+   "es": "hacha"
+  },
+  "ascolta": {
+   "en": "listen",
+   "fr": "écoute",
+   "es": "escucha"
+  },
+  "ascoltare": {
+   "en": "to listen",
+   "fr": "écouter",
+   "es": "escuchar"
+  },
+  "attento": {
+   "en": "careful",
+   "fr": "prudent",
+   "es": "cuidado"
+  },
+  "attenzione": {
+   "en": "attention / care",
+   "fr": "attention",
+   "es": "atención"
+  },
+  "attore": {
+   "en": "actor",
+   "fr": "acteur",
+   "es": "actor"
+  },
+  "attrezzi": {
+   "en": "tools",
+   "fr": "outils",
+   "es": "herramientas"
+  },
+  "avventure": {
+   "en": "adventures",
+   "fr": "aventures",
+   "es": "aventuras"
+  },
+  "babbo": {
+   "en": "daddy / father",
+   "fr": "papa",
+   "es": "papá"
+  },
+  "ballare": {
+   "en": "to dance",
+   "fr": "danser",
+   "es": "bailar"
+  },
+  "bambini": {
+   "en": "children",
+   "fr": "enfants",
+   "es": "niños"
+  },
+  "bambino": {
+   "en": "child / boy",
+   "fr": "enfant",
+   "es": "niño"
+  },
+  "bel": {
+   "en": "fine / handsome",
+   "fr": "beau",
+   "es": "bello"
+  },
+  "bello": {
+   "en": "beautiful",
+   "fr": "beau",
+   "es": "bonito"
+  },
+  "bene": {
+   "en": "well",
+   "fr": "bien",
+   "es": "bien"
+  },
+  "bocca": {
+   "en": "mouth",
+   "fr": "bouche",
+   "es": "boca"
+  },
+  "bottega": {
+   "en": "workshop",
+   "fr": "atelier",
+   "es": "taller"
+  },
+  "braccia": {
+   "en": "arms",
+   "fr": "bras",
+   "es": "brazos"
+  },
+  "brutto": {
+   "en": "naughty / ugly",
+   "fr": "vilain",
+   "es": "feo / malo"
+  },
+  "buffe": {
+   "en": "funny (fem. plural)",
+   "fr": "drôles",
+   "es": "graciosas"
+  },
+  "buongiorno": {
+   "en": "good morning",
+   "fr": "bonjour",
+   "es": "buenos días"
+  },
+  "buono": {
+   "en": "good",
+   "fr": "bon",
+   "es": "bueno"
+  },
+  "burattini": {
+   "en": "puppets",
+   "fr": "marionnettes",
+   "es": "títeres"
+  },
+  "burattino": {
+   "en": "puppet",
+   "fr": "marionnette",
+   "es": "títere"
+  },
+  "c'è": {
+   "en": "there is",
+   "fr": "il y a",
+   "es": "hay"
+  },
+  "calcio": {
+   "en": "kick",
+   "fr": "coup de pied",
+   "es": "patada"
+  },
+  "camino": {
+   "en": "fireplace",
+   "fr": "cheminée",
+   "es": "chimenea"
+  },
+  "campagna": {
+   "en": "countryside",
+   "fr": "campagne",
+   "es": "campo"
+  },
+  "cantare": {
+   "en": "to sing",
+   "fr": "chanter",
+   "es": "cantar"
+  },
+  "casa": {
+   "en": "house / home",
+   "fr": "maison",
+   "es": "casa"
+  },
+  "case": {
+   "en": "houses",
+   "fr": "maisons",
+   "es": "casas"
+  },
+  "cattivi": {
+   "en": "naughty (plural)",
+   "fr": "méchants",
+   "es": "malos"
+  },
+  "cattivo": {
+   "en": "naughty / bad",
+   "fr": "méchant",
+   "es": "malo"
+  },
+  "cavallo": {
+   "en": "horse",
+   "fr": "cheval",
+   "es": "caballo"
+  },
+  "cento": {
+   "en": "hundred",
+   "fr": "cent",
+   "es": "cien"
+  },
+  "cerca": {
+   "en": "looks for",
+   "fr": "cherche",
+   "es": "busca"
+  },
+  "che": {
+   "en": "that / what",
+   "fr": "que / quoi",
+   "es": "que / qué"
+  },
+  "chi": {
+   "en": "who",
+   "fr": "qui",
+   "es": "quién"
+  },
+  "chiama": {
+   "en": "calls",
+   "fr": "appelle",
+   "es": "llama"
+  },
+  "chiamano": {
+   "en": "(they) call",
+   "fr": "appellent",
+   "es": "llaman"
+  },
+  "chiami": {
+   "en": "you are called",
+   "fr": "tu t'appelles",
+   "es": "te llamas"
+  },
+  "ci": {
+   "en": "there",
+   "fr": "y",
+   "es": "allí"
+  },
+  "cibo": {
+   "en": "food",
+   "fr": "nourriture",
+   "es": "comida"
+  },
+  "ciliegia": {
+   "en": "cherry",
+   "fr": "cerise",
+   "es": "cereza"
+  },
+  "coltello": {
+   "en": "knife",
+   "fr": "couteau",
+   "es": "cuchillo"
+  },
+  "come": {
+   "en": "like / as",
+   "fr": "comme",
+   "es": "como"
+  },
+  "comincia": {
+   "en": "begins",
+   "fr": "commence",
+   "es": "empieza"
+  },
+  "cominciano": {
+   "en": "(they) begin",
+   "fr": "commencent",
+   "es": "empiezan"
+  },
+  "con": {
+   "en": "with",
+   "fr": "avec",
+   "es": "con"
+  },
+  "contento": {
+   "en": "happy / glad",
+   "fr": "content",
+   "es": "contento"
+  },
+  "continua": {
+   "en": "continues",
+   "fr": "continue",
+   "es": "continúa"
+  },
+  "corre": {
+   "en": "runs",
+   "fr": "court",
+   "es": "corre"
+  },
+  "corrono": {
+   "en": "(they) run",
+   "fr": "courent",
+   "es": "corren"
+  },
+  "corsa": {
+   "en": "run / race",
+   "fr": "course",
+   "es": "carrera"
+  },
+  "cresce": {
+   "en": "grows",
+   "fr": "grandit",
+   "es": "crece"
+  },
+  "cri": {
+   "en": "chirp",
+   "fr": "cri",
+   "es": "cri"
+  },
+  "cura": {
+   "en": "care",
+   "fr": "soin",
+   "es": "cuidado"
+  },
+  "dà": {
+   "en": "gives",
+   "fr": "donne",
+   "es": "da"
+  },
+  "da": {
+   "en": "from / for / to",
+   "fr": "de / depuis / à",
+   "es": "de / desde / que"
+  },
+  "dal": {
+   "en": "from the",
+   "fr": "du",
+   "es": "del"
+  },
+  "dalle": {
+   "en": "from the (plural)",
+   "fr": "des",
+   "es": "de las"
+  },
+  "dammi": {
+   "en": "give me",
+   "fr": "donne-moi",
+   "es": "dame"
+  },
+  "dare": {
+   "en": "to give",
+   "fr": "donner",
+   "es": "dar"
+  },
+  "davanti": {
+   "en": "in front",
+   "fr": "devant",
+   "es": "delante"
+  },
+  "davvero": {
+   "en": "really",
+   "fr": "vraiment",
+   "es": "de verdad"
+  },
+  "del": {
+   "en": "of the",
+   "fr": "du",
+   "es": "del"
+  },
+  "dentro": {
+   "en": "inside",
+   "fr": "dans",
+   "es": "dentro"
+  },
+  "di": {
+   "en": "of",
+   "fr": "de",
+   "es": "de"
+  },
+  "dice": {
+   "en": "says",
+   "fr": "dit",
+   "es": "dice"
+  },
+  "dietro": {
+   "en": "behind",
+   "fr": "derrière",
+   "es": "detrás"
+  },
+  "disubbidiente": {
+   "en": "disobedient",
+   "fr": "désobéissant",
+   "es": "desobediente"
+  },
+  "disubbidienti": {
+   "en": "disobedient (plural)",
+   "fr": "désobéissantes",
+   "es": "desobedientes"
+  },
+  "diventa": {
+   "en": "becomes",
+   "fr": "devient",
+   "es": "se vuelve"
+  },
+  "diventano": {
+   "en": "(they) become",
+   "fr": "deviennent",
+   "es": "se vuelven"
+  },
+  "domanda": {
+   "en": "asks",
+   "fr": "demande",
+   "es": "pregunta"
+  },
+  "domani": {
+   "en": "tomorrow",
+   "fr": "demain",
+   "es": "mañana"
+  },
+  "dopo": {
+   "en": "after",
+   "fr": "après",
+   "es": "después"
+  },
+  "dove": {
+   "en": "where",
+   "fr": "où",
+   "es": "dónde"
+  },
+  "due": {
+   "en": "two",
+   "fr": "deux",
+   "es": "dos"
+  },
+  "durante": {
+   "en": "during / on",
+   "fr": "pendant",
+   "es": "durante"
+  },
+  "dure": {
+   "en": "hard (fem. plural)",
+   "fr": "dures",
+   "es": "duras"
+  },
+  "e": {
+   "en": "and",
+   "fr": "et",
+   "es": "y"
+  },
+  "è": {
+   "en": "is",
+   "fr": "est",
+   "es": "es / está"
+  },
+  "ed": {
+   "en": "and",
+   "fr": "et",
+   "es": "y"
+  },
+  "entra": {
+   "en": "enters",
+   "fr": "entre",
+   "es": "entra"
+  },
+  "esce": {
+   "en": "goes out",
+   "fr": "sort",
+   "es": "sale"
+  },
+  "fa": {
+   "en": "makes / does",
+   "fr": "fait",
+   "es": "hace"
+  },
+  "falegname": {
+   "en": "carpenter",
+   "fr": "menuisier",
+   "es": "carpintero"
+  },
+  "fame": {
+   "en": "hunger",
+   "fr": "faim",
+   "es": "hambre"
+  },
+  "fare": {
+   "en": "to make / do",
+   "fr": "faire",
+   "es": "hacer"
+  },
+  "farmi": {
+   "en": "to do to me",
+   "fr": "me faire",
+   "es": "hacerme"
+  },
+  "favore": {
+   "en": "favor",
+   "fr": "faveur",
+   "es": "favor"
+  },
+  "felice": {
+   "en": "happy",
+   "fr": "heureux",
+   "es": "feliz"
+  },
+  "figlio": {
+   "en": "son",
+   "fr": "fils",
+   "es": "hijo"
+  },
+  "fine": {
+   "en": "end",
+   "fr": "fin",
+   "es": "fin"
+  },
+  "finisce": {
+   "en": "finishes",
+   "fr": "finit",
+   "es": "termina"
+  },
+  "finito": {
+   "en": "finished",
+   "fr": "fini",
+   "es": "terminado"
+  },
+  "fiume": {
+   "en": "river",
+   "fr": "rivière",
+   "es": "río"
+  },
+  "forte": {
+   "en": "hard / strongly",
+   "fr": "fort",
+   "es": "fuerte"
+  },
+  "fredda": {
+   "en": "cold (fem.)",
+   "fr": "froide",
+   "es": "fría"
+  },
+  "freddi": {
+   "en": "cold (masc. plural)",
+   "fr": "froids",
+   "es": "fríos"
+  },
+  "fuoco": {
+   "en": "fire",
+   "fr": "feu",
+   "es": "fuego"
+  },
+  "gamba": {
+   "en": "leg",
+   "fr": "jambe",
+   "es": "pierna"
+  },
+  "gambe": {
+   "en": "legs",
+   "fr": "jambes",
+   "es": "piernas"
+  },
+  "gente": {
+   "en": "people",
+   "fr": "gens",
+   "es": "gente"
+  },
+  "gentile": {
+   "en": "kind",
+   "fr": "gentil",
+   "es": "amable"
+  },
+  "geppetto": {
+   "en": "Geppetto",
+   "fr": "Geppetto",
+   "es": "Geppetto"
+  },
+  "gialla": {
+   "en": "yellow (fem.)",
+   "fr": "jaune",
+   "es": "amarilla"
+  },
+  "giocare": {
+   "en": "to play",
+   "fr": "jouer",
+   "es": "jugar"
+  },
+  "gioia": {
+   "en": "joy",
+   "fr": "joie",
+   "es": "alegría"
+  },
+  "giorno": {
+   "en": "day",
+   "fr": "jour",
+   "es": "día"
+  },
+  "giù": {
+   "en": "down",
+   "fr": "en bas",
+   "es": "abajo"
+  },
+  "gli": {
+   "en": "the (masc. plural)",
+   "fr": "les",
+   "es": "los"
+  },
+  "grande": {
+   "en": "big / great",
+   "fr": "grand",
+   "es": "grande"
+  },
+  "grandi": {
+   "en": "big (plural)",
+   "fr": "grands",
+   "es": "grandes"
+  },
+  "grazie": {
+   "en": "thank you",
+   "fr": "merci",
+   "es": "gracias"
+  },
+  "grida": {
+   "en": "shouts",
+   "fr": "crie",
+   "es": "grita"
+  },
+  "grillo": {
+   "en": "cricket",
+   "fr": "grillon",
+   "es": "grillo"
+  },
+  "guai": {
+   "en": "troubles",
+   "fr": "ennuis",
+   "es": "problemas"
+  },
+  "guarda": {
+   "en": "looks at",
+   "fr": "regarde",
+   "es": "mira"
+  },
+  "guardano": {
+   "en": "(they) look at",
+   "fr": "regardent",
+   "es": "miran"
+  },
+  "ha": {
+   "en": "has",
+   "fr": "a",
+   "es": "tiene"
+  },
+  "hanno": {
+   "en": "(they) have",
+   "fr": "ont",
+   "es": "tienen"
+  },
+  "i": {
+   "en": "the (masc. plural)",
+   "fr": "les",
+   "es": "los"
+  },
+  "il": {
+   "en": "the",
+   "fr": "le",
+   "es": "el"
+  },
+  "improvviso": {
+   "en": "sudden",
+   "fr": "soudain",
+   "es": "repentino"
+  },
+  "in": {
+   "en": "in",
+   "fr": "dans",
+   "es": "en"
+  },
+  "indietro": {
+   "en": "back",
+   "fr": "en arrière",
+   "es": "atrás"
+  },
+  "infelici": {
+   "en": "unhappy (plural)",
+   "fr": "malheureux",
+   "es": "infelices"
+  },
+  "insieme": {
+   "en": "together",
+   "fr": "ensemble",
+   "es": "juntos"
+  },
+  "intorno": {
+   "en": "around",
+   "fr": "autour",
+   "es": "alrededor"
+  },
+  "io": {
+   "en": "I",
+   "fr": "je / moi",
+   "es": "yo"
+  },
+  "l'": {
+   "en": "the",
+   "fr": "l'",
+   "es": "el / la"
+  },
+  "la": {
+   "en": "the (fem.)",
+   "fr": "la",
+   "es": "la"
+  },
+  "lancia": {
+   "en": "throws",
+   "fr": "lance",
+   "es": "lanza"
+  },
+  "lavora": {
+   "en": "works",
+   "fr": "travaille",
+   "es": "trabaja"
+  },
+  "lavorare": {
+   "en": "to work",
+   "fr": "travailler",
+   "es": "trabajar"
+  },
+  "lavoro": {
+   "en": "work",
+   "fr": "travail",
+   "es": "trabajo"
+  },
+  "le": {
+   "en": "the (fem. plural)",
+   "fr": "les",
+   "es": "las"
+  },
+  "legno": {
+   "en": "wood",
+   "fr": "bois",
+   "es": "madera"
+  },
+  "letto": {
+   "en": "bed",
+   "fr": "lit",
+   "es": "cama"
+  },
+  "libero": {
+   "en": "free",
+   "fr": "libre",
+   "es": "libre"
+  },
+  "linguaccia": {
+   "en": "tongue stuck out",
+   "fr": "grimace",
+   "es": "mueca"
+  },
+  "litigano": {
+   "en": "(they) argue",
+   "fr": "se disputent",
+   "es": "discuten"
+  },
+  "lo": {
+   "en": "him / it",
+   "fr": "le",
+   "es": "lo"
+  },
+  "lunga": {
+   "en": "long (fem.)",
+   "fr": "longue",
+   "es": "larga"
+  },
+  "lunghe": {
+   "en": "long (fem. plural)",
+   "fr": "longues",
+   "es": "largas"
+  },
+  "lungo": {
+   "en": "long (masc.)",
+   "fr": "long",
+   "es": "largo"
+  },
+  "ma": {
+   "en": "but",
+   "fr": "mais",
+   "es": "pero"
+  },
+  "mai": {
+   "en": "never / ever",
+   "fr": "jamais",
+   "es": "nunca"
+  },
+  "male": {
+   "en": "harm / badly",
+   "fr": "mal",
+   "es": "daño / mal"
+  },
+  "mangiare": {
+   "en": "to eat",
+   "fr": "manger",
+   "es": "comer"
+  },
+  "mani": {
+   "en": "hands",
+   "fr": "mains",
+   "es": "manos"
+  },
+  "martello": {
+   "en": "hammer",
+   "fr": "marteau",
+   "es": "martillo"
+  },
+  "mastro": {
+   "en": "Master (craftsman)",
+   "fr": "maître",
+   "es": "maestro"
+  },
+  "matura": {
+   "en": "ripe (fem.)",
+   "fr": "mûre",
+   "es": "madura"
+  },
+  "mattino": {
+   "en": "morning",
+   "fr": "matin",
+   "es": "mañana"
+  },
+  "me": {
+   "en": "me",
+   "fr": "moi",
+   "es": "mí"
+  },
+  "mela": {
+   "en": "apple",
+   "fr": "pomme",
+   "es": "manzana"
+  },
+  "mele": {
+   "en": "apples",
+   "fr": "pommes",
+   "es": "manzanas"
+  },
+  "mette": {
+   "en": "puts",
+   "fr": "met",
+   "es": "pone"
+  },
+  "mi": {
+   "en": "me / to me",
+   "fr": "me",
+   "es": "me"
+  },
+  "mio": {
+   "en": "my",
+   "fr": "mon",
+   "es": "mío"
+  },
+  "molta": {
+   "en": "much (fem.)",
+   "fr": "beaucoup de",
+   "es": "mucha"
+  },
+  "molti": {
+   "en": "many (masc. plural)",
+   "fr": "beaucoup de",
+   "es": "muchos"
+  },
+  "molto": {
+   "en": "very",
+   "fr": "très",
+   "es": "muy"
+  },
+  "momento": {
+   "en": "moment",
+   "fr": "moment",
+   "es": "momento"
+  },
+  "mondo": {
+   "en": "world",
+   "fr": "monde",
+   "es": "mundo"
+  },
+  "mulino": {
+   "en": "mill",
+   "fr": "moulin",
+   "es": "molino"
+  },
+  "muove": {
+   "en": "moves",
+   "fr": "bouge",
+   "es": "mueve"
+  },
+  "muovono": {
+   "en": "(they) move",
+   "fr": "bougent",
+   "es": "se mueven"
+  },
+  "naso": {
+   "en": "nose",
+   "fr": "nez",
+   "es": "nariz"
+  },
+  "nella": {
+   "en": "in the",
+   "fr": "dans la",
+   "es": "en la"
+  },
+  "nero": {
+   "en": "black",
+   "fr": "noir",
+   "es": "negro"
+  },
+  "nessuno": {
+   "en": "nobody",
+   "fr": "personne",
+   "es": "nadie"
+  },
+  "niente": {
+   "en": "nothing",
+   "fr": "rien",
+   "es": "nada"
+  },
+  "nome": {
+   "en": "name",
+   "fr": "nom",
+   "es": "nombre"
+  },
+  "non": {
+   "en": "not",
+   "fr": "ne... pas",
+   "es": "no"
+  },
+  "normale": {
+   "en": "ordinary",
+   "fr": "ordinaire",
+   "es": "normal"
+  },
+  "nuovi": {
+   "en": "new (masc. plural)",
+   "fr": "nouveaux",
+   "es": "nuevos"
+  },
+  "occhi": {
+   "en": "eyes",
+   "fr": "yeux",
+   "es": "ojos"
+  },
+  "orecchie": {
+   "en": "ears",
+   "fr": "oreilles",
+   "es": "orejas"
+  },
+  "paese": {
+   "en": "village",
+   "fr": "village",
+   "es": "pueblo"
+  },
+  "pancia": {
+   "en": "belly",
+   "fr": "ventre",
+   "es": "barriga"
+  },
+  "panini": {
+   "en": "rolls / sandwiches",
+   "fr": "petits pains",
+   "es": "bocadillos"
+  },
+  "panino": {
+   "en": "roll / sandwich",
+   "fr": "petit pain",
+   "es": "bocadillo"
+  },
+  "parla": {
+   "en": "speaks",
+   "fr": "parle",
+   "es": "habla"
+  },
+  "parlante": {
+   "en": "talking",
+   "fr": "parlant",
+   "es": "parlante"
+  },
+  "parrucca": {
+   "en": "wig",
+   "fr": "perruque",
+   "es": "peluca"
+  },
+  "passa": {
+   "en": "passes",
+   "fr": "passe",
+   "es": "pasa"
+  },
+  "paura": {
+   "en": "fear",
+   "fr": "peur",
+   "es": "miedo"
+  },
+  "pazienza": {
+   "en": "patience",
+   "fr": "patience",
+   "es": "paciencia"
+  },
+  "pensa": {
+   "en": "thinks",
+   "fr": "pense",
+   "es": "piensa"
+  },
+  "per": {
+   "en": "for",
+   "fr": "pour",
+   "es": "para / por"
+  },
+  "perché": {
+   "en": "because / why",
+   "fr": "parce que / pourquoi",
+   "es": "porque / por qué"
+  },
+  "pezzi": {
+   "en": "pieces",
+   "fr": "morceaux",
+   "es": "pedazos"
+  },
+  "pezzo": {
+   "en": "piece",
+   "fr": "morceau",
+   "es": "pedazo"
+  },
+  "piace": {
+   "en": "pleases",
+   "fr": "plaît",
+   "es": "gusta"
+  },
+  "piange": {
+   "en": "cries",
+   "fr": "pleure",
+   "es": "llora"
+  },
+  "piano": {
+   "en": "slowly / quietly",
+   "fr": "doucement",
+   "es": "despacio"
+  },
+  "picchi": {
+   "en": "(you) hit",
+   "fr": "frappes",
+   "es": "pegas"
+  },
+  "picchio": {
+   "en": "(I) hit",
+   "fr": "frappe",
+   "es": "pego"
+  },
+  "piccola": {
+   "en": "small (fem.)",
+   "fr": "petite",
+   "es": "pequeña"
+  },
+  "piccole": {
+   "en": "small (fem. plural)",
+   "fr": "petites",
+   "es": "pequeñas"
+  },
+  "piccolo": {
+   "en": "small (masc.)",
+   "fr": "petit",
+   "es": "pequeño"
+  },
+  "piedi": {
+   "en": "feet",
+   "fr": "pieds",
+   "es": "pies"
+  },
+  "piena": {
+   "en": "full (fem.)",
+   "fr": "pleine",
+   "es": "llena"
+  },
+  "pinocchio": {
+   "en": "Pinocchio",
+   "fr": "Pinocchio",
+   "es": "Pinocho"
+  },
+  "più": {
+   "en": "more",
+   "fr": "plus",
+   "es": "más"
+  },
+  "poco": {
+   "en": "a little",
+   "fr": "un peu",
+   "es": "un poco"
+  },
+  "poi": {
+   "en": "then",
+   "fr": "puis",
+   "es": "luego"
+  },
+  "porta": {
+   "en": "door",
+   "fr": "porte",
+   "es": "puerta"
+  },
+  "povero": {
+   "en": "poor",
+   "fr": "pauvre",
+   "es": "pobre"
+  },
+  "prendere": {
+   "en": "to take / catch",
+   "fr": "prendre / attraper",
+   "es": "tomar / atrapar"
+  },
+  "prendete": {
+   "en": "catch (plural imperative)",
+   "fr": "attrapez",
+   "es": "atrapen"
+  },
+  "prendetelo": {
+   "en": "catch him",
+   "fr": "attrapez-le",
+   "es": "atrápenlo"
+  },
+  "prende": {
+   "en": "takes",
+   "fr": "prend",
+   "es": "toma"
+  },
+  "prendono": {
+   "en": "(they) take",
+   "fr": "prennent",
+   "es": "toman"
+  },
+  "presto": {
+   "en": "early",
+   "fr": "tôt",
+   "es": "temprano"
+  },
+  "prima": {
+   "en": "first",
+   "fr": "d'abord",
+   "es": "primero"
+  },
+  "può": {
+   "en": "can",
+   "fr": "peut",
+   "es": "puede"
+  },
+  "qualcosa": {
+   "en": "something",
+   "fr": "quelque chose",
+   "es": "algo"
+  },
+  "qualcuno": {
+   "en": "someone",
+   "fr": "quelqu'un",
+   "es": "alguien"
+  },
+  "quel": {
+   "en": "that",
+   "fr": "ce",
+   "es": "ese"
+  },
+  "quella": {
+   "en": "that (fem.)",
+   "fr": "cette",
+   "es": "esa"
+  },
+  "questa": {
+   "en": "this (fem.)",
+   "fr": "cette",
+   "es": "esta"
+  },
+  "questo": {
+   "en": "this (masc.)",
+   "fr": "ce",
+   "es": "este"
+  },
+  "qui": {
+   "en": "here",
+   "fr": "ici",
+   "es": "aquí"
+  },
+  "rabbia": {
+   "en": "anger",
+   "fr": "colère",
+   "es": "ira"
+  },
+  "ragazzi": {
+   "en": "boys",
+   "fr": "garçons",
+   "es": "chicos"
+  },
+  "ragazzo": {
+   "en": "boy",
+   "fr": "garçon",
+   "es": "chico"
+  },
+  "ridammi": {
+   "en": "give me back",
+   "fr": "rends-moi",
+   "es": "devuélveme"
+  },
+  "ride": {
+   "en": "laughs",
+   "fr": "rit",
+   "es": "ríe"
+  },
+  "ridono": {
+   "en": "(they) laugh",
+   "fr": "rient",
+   "es": "ríen"
+  },
+  "riposa": {
+   "en": "rests",
+   "fr": "se repose",
+   "es": "descansa"
+  },
+  "risponde": {
+   "en": "answers",
+   "fr": "répond",
+   "es": "responde"
+  },
+  "rosso": {
+   "en": "red",
+   "fr": "rouge",
+   "es": "rojo"
+  },
+  "rotondo": {
+   "en": "round",
+   "fr": "rond",
+   "es": "redondo"
+  },
+  "rumori": {
+   "en": "noises",
+   "fr": "bruits",
+   "es": "ruidos"
+  },
+  "salta": {
+   "en": "jumps",
+   "fr": "saute",
+   "es": "salta"
+  },
+  "scappa": {
+   "en": "runs away",
+   "fr": "s'enfuit",
+   "es": "escapa"
+  },
+  "scuola": {
+   "en": "school",
+   "fr": "école",
+   "es": "escuela"
+  },
+  "scuri": {
+   "en": "dark (masc. plural)",
+   "fr": "sombres",
+   "es": "oscuros"
+  },
+  "sei": {
+   "en": "you are",
+   "fr": "tu es",
+   "es": "eres / estás"
+  },
+  "sempre": {
+   "en": "always",
+   "fr": "toujours",
+   "es": "siempre"
+  },
+  "senza": {
+   "en": "without",
+   "fr": "sans",
+   "es": "sin"
+  },
+  "sera": {
+   "en": "evening",
+   "fr": "soir",
+   "es": "tarde"
+  },
+  "sente": {
+   "en": "hears / feels",
+   "fr": "entend",
+   "es": "oye"
+  },
+  "sentire": {
+   "en": "to hear",
+   "fr": "entendre",
+   "es": "oír"
+  },
+  "si": {
+   "en": "himself / itself",
+   "fr": "se",
+   "es": "se"
+  },
+  "siede": {
+   "en": "sits down",
+   "fr": "s'assied",
+   "es": "se sienta"
+  },
+  "smettila": {
+   "en": "stop it",
+   "fr": "arrête",
+   "es": "basta ya"
+  },
+  "soffia": {
+   "en": "blows",
+   "fr": "souffle",
+   "es": "sopla"
+  },
+  "sogno": {
+   "en": "dream",
+   "fr": "rêve",
+   "es": "sueño"
+  },
+  "soldi": {
+   "en": "money",
+   "fr": "argent",
+   "es": "dinero"
+  },
+  "solo": {
+   "en": "only / alone",
+   "fr": "seulement / seul",
+   "es": "solo"
+  },
+  "sonno": {
+   "en": "sleepiness",
+   "fr": "sommeil",
+   "es": "sueño"
+  },
+  "sono": {
+   "en": "am / are",
+   "fr": "suis / sont",
+   "es": "soy / son / están"
+  },
+  "sorriso": {
+   "en": "smile",
+   "fr": "sourire",
+   "es": "sonrisa"
+  },
+  "sottili": {
+   "en": "thin (plural)",
+   "fr": "minces",
+   "es": "delgadas"
+  },
+  "sotto": {
+   "en": "under",
+   "fr": "sous",
+   "es": "debajo"
+  },
+  "spento": {
+   "en": "out / extinguished",
+   "fr": "éteint",
+   "es": "apagado"
+  },
+  "stai": {
+   "en": "you stay / are",
+   "fr": "reste / sois",
+   "es": "estás / ten"
+  },
+  "stanco": {
+   "en": "tired",
+   "fr": "fatigué",
+   "es": "cansado"
+  },
+  "stanza": {
+   "en": "room",
+   "fr": "pièce",
+   "es": "cuarto"
+  },
+  "storia": {
+   "en": "story",
+   "fr": "histoire",
+   "es": "historia"
+  },
+  "strada": {
+   "en": "street / road",
+   "fr": "rue / route",
+   "es": "calle / camino"
+  },
+  "strade": {
+   "en": "streets",
+   "fr": "rues",
+   "es": "calles"
+  },
+  "strani": {
+   "en": "strange (plural)",
+   "fr": "étranges",
+   "es": "extraños"
+  },
+  "strano": {
+   "en": "strange",
+   "fr": "étrange",
+   "es": "extraño"
+  },
+  "stupore": {
+   "en": "amazement",
+   "fr": "étonnement",
+   "es": "asombro"
+  },
+  "sua": {
+   "en": "his / her (fem.)",
+   "fr": "sa",
+   "es": "su"
+  },
+  "subito": {
+   "en": "immediately",
+   "fr": "aussitôt",
+   "es": "enseguida"
+  },
+  "sul": {
+   "en": "on the",
+   "fr": "sur le",
+   "es": "sobre el"
+  },
+  "sulla": {
+   "en": "on the (fem.)",
+   "fr": "sur la",
+   "es": "sobre la"
+  },
+  "suo": {
+   "en": "his / her",
+   "fr": "son",
+   "es": "su"
+  },
+  "suoi": {
+   "en": "his (plural)",
+   "fr": "ses",
+   "es": "sus"
+  },
+  "taglia": {
+   "en": "cuts",
+   "fr": "coupe",
+   "es": "corta"
+  },
+  "tagliare": {
+   "en": "to cut",
+   "fr": "couper",
+   "es": "cortar"
+  },
+  "tavolo": {
+   "en": "table",
+   "fr": "table",
+   "es": "mesa"
+  },
+  "te": {
+   "en": "you",
+   "fr": "toi",
+   "es": "ti / tú"
+  },
+  "testa": {
+   "en": "head",
+   "fr": "tête",
+   "es": "cabeza"
+  },
+  "ti": {
+   "en": "you / to you",
+   "fr": "te",
+   "es": "te"
+  },
+  "torna": {
+   "en": "returns",
+   "fr": "retourne",
+   "es": "vuelve"
+  },
+  "torno": {
+   "en": "(I) return",
+   "fr": "je retourne",
+   "es": "vuelvo"
+  },
+  "tra": {
+   "en": "between / among",
+   "fr": "entre",
+   "es": "entre"
+  },
+  "tranquillo": {
+   "en": "quiet / calm",
+   "fr": "tranquille",
+   "es": "tranquilo"
+  },
+  "tremante": {
+   "en": "trembling",
+   "fr": "tremblante",
+   "es": "temblorosa"
+  },
+  "triste": {
+   "en": "sad",
+   "fr": "triste",
+   "es": "triste"
+  },
+  "trova": {
+   "en": "finds",
+   "fr": "trouve",
+   "es": "encuentra"
+  },
+  "tuo": {
+   "en": "your",
+   "fr": "ton",
+   "es": "tu"
+  },
+  "tutti": {
+   "en": "everyone / all",
+   "fr": "tous",
+   "es": "todos"
+  },
+  "tutto": {
+   "en": "everything / all",
+   "fr": "tout",
+   "es": "todo"
+  },
+  "un": {
+   "en": "a / an",
+   "fr": "un",
+   "es": "un"
+  },
+  "un'": {
+   "en": "a (fem.)",
+   "fr": "une",
+   "es": "una"
+  },
+  "una": {
+   "en": "a (fem.)",
+   "fr": "une",
+   "es": "una"
+  },
+  "uomo": {
+   "en": "man",
+   "fr": "homme",
+   "es": "hombre"
+  },
+  "va": {
+   "en": "goes",
+   "fr": "va",
+   "es": "va"
+  },
+  "vai": {
+   "en": "(you) go",
+   "fr": "va",
+   "es": "ve / vas"
+  },
+  "vecchi": {
+   "en": "old (plural)",
+   "fr": "vieux",
+   "es": "viejos"
+  },
+  "vecchio": {
+   "en": "old",
+   "fr": "vieux",
+   "es": "viejo"
+  },
+  "veloce": {
+   "en": "fast",
+   "fr": "vite / rapide",
+   "es": "rápido"
+  },
+  "veloci": {
+   "en": "fast (plural)",
+   "fr": "rapides",
+   "es": "rápidas"
+  },
+  "vento": {
+   "en": "wind",
+   "fr": "vent",
+   "es": "viento"
+  },
+  "vere": {
+   "en": "true (fem. plural)",
+   "fr": "vraies",
+   "es": "verdaderas"
+  },
+  "vero": {
+   "en": "true / real",
+   "fr": "vrai",
+   "es": "verdadero"
+  },
+  "verso": {
+   "en": "towards",
+   "fr": "vers",
+   "es": "hacia"
+  },
+  "via": {
+   "en": "away",
+   "fr": "au loin",
+   "es": "lejos"
+  },
+  "vivo": {
+   "en": "alive / (I) live",
+   "fr": "vivant / je vis",
+   "es": "vivo"
+  },
+  "vocina": {
+   "en": "little voice",
+   "fr": "petite voix",
+   "es": "vocecita"
+  },
+  "voce": {
+   "en": "voice",
+   "fr": "voix",
+   "es": "voz"
+  },
+  "voglio": {
+   "en": "(I) want",
+   "fr": "je veux",
+   "es": "quiero"
+  },
+  "vuole": {
+   "en": "(he/she) wants",
+   "fr": "veut",
+   "es": "quiere"
+  },
+  "vuota": {
+   "en": "empty (fem.)",
+   "fr": "vide",
+   "es": "vacía"
+  },
+  "all'improvviso": {
+   "en": "suddenly",
+   "fr": "soudain",
+   "es": "de repente"
+  },
+  "c'": {
+   "en": "there is/are",
+   "fr": "il y a",
+   "es": "hay"
+  },
+  "all'amico": {
+   "en": "to the friend",
+   "fr": "à l'ami",
+   "es": "al amigo"
+  },
+  "lì": {
+   "en": "there",
+   "fr": "là",
+   "es": "ahí"
+  },
+  "importante": {
+   "en": "important",
+   "fr": "important",
+   "es": "importante"
+  },
+  "un'altra": {
+   "en": "another",
+   "fr": "une autre",
+   "es": "otra"
+  }
+ }
+}

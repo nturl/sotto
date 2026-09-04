@@ -10,9 +10,9 @@ Columns: id | status | owner route | depends on | verification command / proof |
 | WS-1 core + content schema + validator | done | Sonnet | WS-0 | unit tests, validator passes example pack | |
 | WS-2 design system + shell screens | running | Kimi K3 /fanout + Sonnet review | WS-0, PRE-2 | screenshots 375/1024, no inline colors | |
 | WS-3 voice server + local provider | done (review pending integration) | Sonnet | WS-1 | curl session, data-channel event log, barge-in test | |
-| WS-4 reader + vocab + review + persistence | running (Sonnet) | Kimi K3 /fanout + Sonnet | WS-1, WS-2 | vertical slice in browser + simulator, reload persists | |
-| WS-5 content packs FR/ES/EN + minis + narration | 12/14 books built+narrated; it-IT + ro-RO drafting | Codex/Gemini /fanout + Sonnet | WS-1 | validator green, audio+timings present, licenses | |
-| WS-6 verification + docs + report | todo | Sonnet (atlas) | all | criteria report, screenshots, e2e green | |
+| WS-4 reader + vocab + review + persistence | done (orchestrator verification next) | Kimi K3 /fanout + Sonnet | WS-1, WS-2 | vertical slice in browser + simulator, reload persists | |
+| WS-5 content packs FR/ES/EN + minis + narration | done: 14/14 drafted (all draft-labeled), built, validated; 12 narrated (ro/ca no voice) | Codex/Gemini /fanout + Sonnet | WS-1 | validator green, audio+timings present, licenses | |
+| WS-6 verification + docs + report | running (Sonnet: iOS + screenshots + live-voice e2e + docs; Kimi: 7 catalogs) | Sonnet (atlas) | all | criteria report, screenshots, e2e green | |
 | F-2 Fable adversarial review + final report | todo | Fable | WS-6 | report in docs/verification.md | |
 
 ## Task cards
@@ -87,3 +87,13 @@ Columns: id | status | owner route | depends on | verification command / proof |
 - 2026-09-04 18:25 Content gate: 12 source bundles + packs (51 MB incl. 35 mp3) committed and pushed. WS-4 (Sonnet, full reader/vocab/review/voice/state) and WS-2b fixups (Kimi K2.7-code, five review findings) dispatched in parallel with disjoint file ownership.
 - 2026-09-04 18:35 agy hung >1h50 on it-pinocchio-inizio and ro-capra-trei-iezi (retry wave); killed, rerouted both to Kimi K3 (ESCALATE per fanout rule: second failure on the same tier).
 - 2026-09-04 18:55 WS-2b fixups verified in the Browser pane at 375 (header icons, gradient, real covers, glyph tabs). One Kimi regression caught before push: svg.web.tsx re-exporting './svg' recursed through Metro platform resolution (Svg undefined on web); fixed by making svg.web.tsx a direct react-native-svg re-export. Pushed d5a1589 (amended).
+- 2026-09-04 19:40 WS-4 DONE (agent report, commit 42b8b91, pushed): store + persistence (idb / expo-sqlite), reader with tap-translate, save (marker stroke), narration speech-fill + transport, completion view, vocabulary, review (SM-2-lite), voice screen + session bar, tool execution shared between tap and voice paths; 147/147 tests. Agent walked the web journey incl. reload persistence and the fake voice provider. Found+fixed: progress not saved on pause/leave; voice passage spacing. NOT done: iOS build with the new native deps; disk screenshots; real cover.svg not yet passed to Cover (svgUrl); no typed-text input on the voice screen.
+
+### WS-6 verification + docs (Sonnet subagent; dispatched 2026-09-04 19:45)
+- Task: iOS dev build with the new native deps and the reading journey on the iPhone 17 Pro simulator; disk screenshots at 375/393/430/768/1024/1440 for the required screens; a Playwright live-voice e2e using Chromium's fake microphone fed with Kokoro-generated learner speech against the real local stack; wire pack cover.svg into Cover; validator checks apps/client/src/i18n catalogs; docs (README, architecture, adding-a-language, local-models, openai, verification.md skeleton with evidence).
+- Inputs: CONTRACTS, BRIEF criteria (lines 590-628), LEDGER evidence so far, docs/screenshots/.
+- Output: screenshots on disk, e2e test file + run log, simulator log + screenshots, docs updated, `pnpm check` green.
+- Proof: file list with sizes; e2e output showing captions/tool events; simulator screenshot files.
+- Permissions: apps/client/e2e/**, docs/**, README.md, packages/content/src/validate.ts, apps/client/src/ui/data.ts + Cover call sites (svgUrl), apps/client/src/i18n/useT.ts (load 9 catalogs), apps/client/ios (prebuild), .github/workflows/ci.yml. Kimi lane owns apps/client/src/i18n/{es,pt,it,zh-Hans,zh-Hant,ro,ca}.json.
+- Stop when: proofs exist and a commit is made. Escalate when: iOS build fails twice; the live-voice e2e cannot get audio through Chromium.
+- 2026-09-04 20:20 WS-5 DONE: it-pinocchio-inizio landed on the Kimi retry with CLAUDE_CODE_MAX_OUTPUT_TOKENS=64000 (first attempt exceeded the 32k output cap); built + narrated (3 chapters, ~140 s each). 14/14 books. UI catalogs: Kimi K3 wrote es/pt/it/zh-Hans/zh-Hant/ro/ca with 128/128 keys each, placeholders verified by script. Committed + pushed.

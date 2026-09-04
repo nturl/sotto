@@ -1,0 +1,6077 @@
+{
+  "id": "it-pinocchio-inizio-03",
+  "bookId": "it-pinocchio-inizio",
+  "title": "La fuga e il Grillo Parlante",
+  "order": 3,
+  "blocks": [
+    {
+      "id": "b1",
+      "sentences": [
+        {
+          "id": "b1.s1",
+          "text": "Pinocchio corre per le strade del paese come un cavallo.",
+          "translations": {
+            "en": "Pinocchio runs through the streets of the village like a horse.",
+            "fr": "Pinocchio court dans les rues du village comme un cheval.",
+            "es": "Pinocho corre por las calles del pueblo como un caballo."
+          },
+          "tokens": [
+            {
+              "text": "Pinocchio",
+              "normalized": "pinocchio",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Pinocchio",
+                "fr": "Pinocchio",
+                "es": "Pinocho"
+              },
+              "id": "b1.s1.t1",
+              "startMs": 0,
+              "endMs": 620
+            },
+            {
+              "text": "corre",
+              "normalized": "corre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "runs",
+                "fr": "court",
+                "es": "corre"
+              },
+              "id": "b1.s1.t2",
+              "startMs": 620,
+              "endMs": 880
+            },
+            {
+              "text": "per",
+              "normalized": "per",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "for",
+                "fr": "pour",
+                "es": "para / por"
+              },
+              "id": "b1.s1.t3",
+              "startMs": 960,
+              "endMs": 1130
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the (fem. plural)",
+                "fr": "les",
+                "es": "las"
+              },
+              "id": "b1.s1.t4",
+              "startMs": 1130,
+              "endMs": 1240
+            },
+            {
+              "text": "strade",
+              "normalized": "strade",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "streets",
+                "fr": "rues",
+                "es": "calles"
+              },
+              "id": "b1.s1.t5",
+              "startMs": 1240,
+              "endMs": 1660
+            },
+            {
+              "text": "del",
+              "normalized": "del",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b1.s1.t6",
+              "startMs": 1660,
+              "endMs": 1860
+            },
+            {
+              "text": "paese",
+              "normalized": "paese",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "village",
+                "fr": "village",
+                "es": "pueblo"
+              },
+              "id": "b1.s1.t7",
+              "startMs": 1860,
+              "endMs": 2190
+            },
+            {
+              "text": "come",
+              "normalized": "come",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "like / as",
+                "fr": "comme",
+                "es": "como"
+              },
+              "id": "b1.s1.t8",
+              "startMs": 2190,
+              "endMs": 2460
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a / an",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s1.t9",
+              "startMs": 2460,
+              "endMs": 2550
+            },
+            {
+              "text": "cavallo",
+              "normalized": "cavallo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "horse",
+                "fr": "cheval",
+                "es": "caballo"
+              },
+              "id": "b1.s1.t10",
+              "startMs": 2550,
+              "endMs": 3656
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s1.t11"
+            }
+          ]
+        },
+        {
+          "id": "b1.s2",
+          "text": "La gente esce dalle case e guarda il burattino strano.",
+          "translations": {
+            "en": "The people come out of their houses and look at the strange puppet.",
+            "fr": "Les gens sortent des maisons et regardent la marionnette étrange.",
+            "es": "La gente sale de las casas y mira al títere extraño."
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the (fem.)",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b1.s2.t1",
+              "startMs": 4066,
+              "endMs": 4136
+            },
+            {
+              "text": "gente",
+              "normalized": "gente",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "people",
+                "fr": "gens",
+                "es": "gente"
+              },
+              "id": "b1.s2.t2",
+              "startMs": 4136,
+              "endMs": 4446
+            },
+            {
+              "text": "esce",
+              "normalized": "esce",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "goes out",
+                "fr": "sort",
+                "es": "sale"
+              },
+              "id": "b1.s2.t3",
+              "startMs": 4446,
+              "endMs": 4786
+            },
+            {
+              "text": "dalle",
+              "normalized": "dalle",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "from the (plural)",
+                "fr": "des",
+                "es": "de las"
+              },
+              "id": "b1.s2.t4",
+              "startMs": 4786,
+              "endMs": 5126
+            },
+            {
+              "text": "case",
+              "normalized": "case",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "houses",
+                "fr": "maisons",
+                "es": "casas"
+              },
+              "id": "b1.s2.t5",
+              "startMs": 5126,
+              "endMs": 5336
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s2.t6",
+              "startMs": 5336,
+              "endMs": 5376
+            },
+            {
+              "text": "guarda",
+              "normalized": "guarda",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "looks at",
+                "fr": "regarde",
+                "es": "mira"
+              },
+              "id": "b1.s2.t7",
+              "startMs": 5376,
+              "endMs": 5796
+            },
+            {
+              "text": "il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s2.t8",
+              "startMs": 5796,
+              "endMs": 5916
+            },
+            {
+              "text": "burattino",
+              "normalized": "burattino",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "puppet",
+                "fr": "marionnette",
+                "es": "títere"
+              },
+              "id": "b1.s2.t9",
+              "startMs": 5916,
+              "endMs": 6813
+            },
+            {
+              "text": "strano",
+              "normalized": "strano",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "strange",
+                "fr": "étrange",
+                "es": "extraño"
+              },
+              "id": "b1.s2.t10",
+              "startMs": 6813,
+              "endMs": 7710
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s2.t11"
+            }
+          ]
+        },
+        {
+          "id": "b1.s3",
+          "text": "«Prendetelo! Prendete quel burattino!», grida qualcuno.",
+          "translations": {
+            "en": "'Catch him! Catch that puppet!' someone shouts.",
+            "fr": "« Attrapez-le ! Attrapez cette marionnette ! », crie quelqu'un.",
+            "es": "«¡Atrápenlo! ¡Atrapen a ese títere!», grita alguien."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t1"
+            },
+            {
+              "text": "Prendetelo",
+              "normalized": "prendetelo",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "catch him",
+                "fr": "attrapez-le",
+                "es": "atrápenlo"
+              },
+              "id": "b1.s3.t2",
+              "startMs": 8060,
+              "endMs": 8660
+            },
+            {
+              "text": "!",
+              "normalized": "!",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t3"
+            },
+            {
+              "text": "Prendete",
+              "normalized": "prendete",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "catch (plural imperative)",
+                "fr": "attrapez",
+                "es": "atrapen"
+              },
+              "id": "b1.s3.t4",
+              "startMs": 8660,
+              "endMs": 9260
+            },
+            {
+              "text": "quel",
+              "normalized": "quel",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "that",
+                "fr": "ce",
+                "es": "ese"
+              },
+              "id": "b1.s3.t5",
+              "startMs": 9260,
+              "endMs": 9480
+            },
+            {
+              "text": "burattino",
+              "normalized": "burattino",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "puppet",
+                "fr": "marionnette",
+                "es": "títere"
+              },
+              "id": "b1.s3.t6",
+              "startMs": 9480,
+              "endMs": 10227
+            },
+            {
+              "text": "!",
+              "normalized": "!",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t7"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t8"
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t9"
+            },
+            {
+              "text": "grida",
+              "normalized": "grida",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "shouts",
+                "fr": "crie",
+                "es": "grita"
+              },
+              "id": "b1.s3.t10",
+              "startMs": 10227,
+              "endMs": 10974
+            },
+            {
+              "text": "qualcuno",
+              "normalized": "qualcuno",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "someone",
+                "fr": "quelqu'un",
+                "es": "alguien"
+              },
+              "id": "b1.s3.t11",
+              "startMs": 10974,
+              "endMs": 11721
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t12"
+            }
+          ]
+        },
+        {
+          "id": "b1.s4",
+          "text": "Ma le gambe di Pinocchio sono lunghe e molto veloci.",
+          "translations": {
+            "en": "But Pinocchio's legs are long and very fast.",
+            "fr": "Mais les jambes de Pinocchio sont longues et très rapides.",
+            "es": "Pero las piernas de Pinocho son largas y muy rápidas."
+          },
+          "tokens": [
+            {
+              "text": "Ma",
+              "normalized": "ma",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "but",
+                "fr": "mais",
+                "es": "pero"
+              },
+              "id": "b1.s4.t1",
+              "startMs": 12131,
+              "endMs": 12211
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the (fem. plural)",
+                "fr": "les",
+                "es": "las"
+              },
+              "id": "b1.s4.t2",
+              "startMs": 12211,
+              "endMs": 12351
+            },
+            {
+              "text": "gambe",
+              "normalized": "gambe",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "legs",
+                "fr": "jambes",
+                "es": "piernas"
+              },
+              "id": "b1.s4.t3",
+              "startMs": 12351,
+              "endMs": 12691
+            },
+            {
+              "text": "di",
+              "normalized": "di",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b1.s4.t4",
+              "startMs": 12691,
+              "endMs": 12781
+            },
+            {
+              "text": "Pinocchio",
+              "normalized": "pinocchio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Pinocchio",
+                "fr": "Pinocchio",
+                "es": "Pinocho"
+              },
+              "id": "b1.s4.t5",
+              "startMs": 12781,
+              "endMs": 13471
+            },
+            {
+              "text": "sono",
+              "normalized": "sono",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "am / are",
+                "fr": "suis / sont",
+                "es": "soy / son / están"
+              },
+              "id": "b1.s4.t6",
+              "startMs": 13471,
+              "endMs": 13751
+            },
+            {
+              "text": "lunghe",
+              "normalized": "lunghe",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "long (fem. plural)",
+                "fr": "longues",
+                "es": "largas"
+              },
+              "id": "b1.s4.t7",
+              "startMs": 13751,
+              "endMs": 14171
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s4.t8",
+              "startMs": 14171,
+              "endMs": 14241
+            },
+            {
+              "text": "molto",
+              "normalized": "molto",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "id": "b1.s4.t9",
+              "startMs": 14241,
+              "endMs": 14591
+            },
+            {
+              "text": "veloci",
+              "normalized": "veloci",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fast (plural)",
+                "fr": "rapides",
+                "es": "rápidas"
+              },
+              "id": "b1.s4.t10",
+              "startMs": 14591,
+              "endMs": 15580
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s4.t11"
+            }
+          ]
+        },
+        {
+          "id": "b1.s5",
+          "text": "Nessuno può prendere il burattino di legno.",
+          "translations": {
+            "en": "Nobody can catch the wooden puppet.",
+            "fr": "Personne ne peut attraper la marionnette en bois.",
+            "es": "Nadie puede atrapar al títere de madera."
+          },
+          "tokens": [
+            {
+              "text": "Nessuno",
+              "normalized": "nessuno",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "nobody",
+                "fr": "personne",
+                "es": "nadie"
+              },
+              "id": "b1.s5.t1",
+              "startMs": 15930,
+              "endMs": 16370
+            },
+            {
+              "text": "può",
+              "normalized": "può",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "can",
+                "fr": "peut",
+                "es": "puede"
+              },
+              "id": "b1.s5.t2",
+              "startMs": 16370,
+              "endMs": 16620
+            },
+            {
+              "text": "prendere",
+              "normalized": "prendere",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to take / catch",
+                "fr": "prendre / attraper",
+                "es": "tomar / atrapar"
+              },
+              "id": "b1.s5.t3",
+              "startMs": 16620,
+              "endMs": 17130
+            },
+            {
+              "text": "il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s5.t4",
+              "startMs": 17130,
+              "endMs": 17250
+            },
+            {
+              "text": "burattino",
+              "normalized": "burattino",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "puppet",
+                "fr": "marionnette",
+                "es": "títere"
+              },
+              "id": "b1.s5.t5",
+              "startMs": 17250,
+              "endMs": 17820
+            },
+            {
+              "text": "di",
+              "normalized": "di",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b1.s5.t6",
+              "startMs": 17820,
+              "endMs": 17890
+            },
+            {
+              "text": "legno",
+              "normalized": "legno",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wood",
+                "fr": "bois",
+                "es": "madera"
+              },
+              "id": "b1.s5.t7",
+              "startMs": 17890,
+              "endMs": 19031
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s5.t8"
+            }
+          ]
+        },
+        {
+          "id": "b1.s6",
+          "text": "Pinocchio ride, salta e corre verso la campagna.",
+          "translations": {
+            "en": "Pinocchio laughs, jumps and runs towards the countryside.",
+            "fr": "Pinocchio rit, saute et court vers la campagne.",
+            "es": "Pinocho ríe, salta y corre hacia el campo."
+          },
+          "tokens": [
+            {
+              "text": "Pinocchio",
+              "normalized": "pinocchio",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Pinocchio",
+                "fr": "Pinocchio",
+                "es": "Pinocho"
+              },
+              "id": "b1.s6.t1",
+              "startMs": 19381,
+              "endMs": 19971
+            },
+            {
+              "text": "ride",
+              "normalized": "ride",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "laughs",
+                "fr": "rit",
+                "es": "ríe"
+              },
+              "id": "b1.s6.t2",
+              "startMs": 19971,
+              "endMs": 20231
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s6.t3"
+            },
+            {
+              "text": "salta",
+              "normalized": "salta",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "jumps",
+                "fr": "saute",
+                "es": "salta"
+              },
+              "id": "b1.s6.t4",
+              "startMs": 20231,
+              "endMs": 20691
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s6.t5",
+              "startMs": 20691,
+              "endMs": 20751
+            },
+            {
+              "text": "corre",
+              "normalized": "corre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "runs",
+                "fr": "court",
+                "es": "corre"
+              },
+              "id": "b1.s6.t6",
+              "startMs": 20751,
+              "endMs": 21081
+            },
+            {
+              "text": "verso",
+              "normalized": "verso",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "towards",
+                "fr": "vers",
+                "es": "hacia"
+              },
+              "id": "b1.s6.t7",
+              "startMs": 21081,
+              "endMs": 21411
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the (fem.)",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b1.s6.t8",
+              "startMs": 21411,
+              "endMs": 21491
+            },
+            {
+              "text": "campagna",
+              "normalized": "campagna",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "countryside",
+                "fr": "campagne",
+                "es": "campo"
+              },
+              "id": "b1.s6.t9",
+              "startMs": 21491,
+              "endMs": 22697
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s6.t10"
+            }
+          ]
+        },
+        {
+          "id": "b1.s7",
+          "text": "Il vento soffia forte tra gli alberi scuri.",
+          "translations": {
+            "en": "The wind blows hard among the dark trees.",
+            "fr": "Le vent souffle fort entre les arbres sombres.",
+            "es": "El viento sopla fuerte entre los árboles oscuros."
+          },
+          "tokens": [
+            {
+              "text": "Il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s7.t1",
+              "startMs": 23117,
+              "endMs": 23187
+            },
+            {
+              "text": "vento",
+              "normalized": "vento",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wind",
+                "fr": "vent",
+                "es": "viento"
+              },
+              "id": "b1.s7.t2",
+              "startMs": 23187,
+              "endMs": 23572
+            },
+            {
+              "text": "soffia",
+              "normalized": "soffia",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "blows",
+                "fr": "souffle",
+                "es": "sopla"
+              },
+              "id": "b1.s7.t3",
+              "startMs": 23572,
+              "endMs": 23957
+            },
+            {
+              "text": "forte",
+              "normalized": "forte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hard / strongly",
+                "fr": "fort",
+                "es": "fuerte"
+              },
+              "id": "b1.s7.t4",
+              "startMs": 23957,
+              "endMs": 24287
+            },
+            {
+              "text": "tra",
+              "normalized": "tra",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "between / among",
+                "fr": "entre",
+                "es": "entre"
+              },
+              "id": "b1.s7.t5",
+              "startMs": 24387,
+              "endMs": 24457
+            },
+            {
+              "text": "gli",
+              "normalized": "gli",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the (masc. plural)",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s7.t6",
+              "startMs": 24527,
+              "endMs": 24727
+            },
+            {
+              "text": "alberi",
+              "normalized": "alberi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "trees",
+                "fr": "arbres",
+                "es": "árboles"
+              },
+              "id": "b1.s7.t7",
+              "startMs": 24727,
+              "endMs": 25421
+            },
+            {
+              "text": "scuri",
+              "normalized": "scuri",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dark (masc. plural)",
+                "fr": "sombres",
+                "es": "oscuros"
+              },
+              "id": "b1.s7.t8",
+              "startMs": 25421,
+              "endMs": 26115
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s7.t9"
+            }
+          ]
+        },
+        {
+          "id": "b1.s8",
+          "text": "Passa davanti al fiume e davanti al mulino vecchio.",
+          "translations": {
+            "en": "He passes in front of the river and in front of the old mill.",
+            "fr": "Il passe devant la rivière et devant le vieux moulin.",
+            "es": "Pasa delante del río y delante del viejo molino."
+          },
+          "tokens": [
+            {
+              "text": "Passa",
+              "normalized": "passa",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "passes",
+                "fr": "passe",
+                "es": "pasa"
+              },
+              "id": "b1.s8.t1",
+              "startMs": 26465,
+              "endMs": 26840
+            },
+            {
+              "text": "davanti",
+              "normalized": "davanti",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in front",
+                "fr": "devant",
+                "es": "delante"
+              },
+              "id": "b1.s8.t2",
+              "startMs": 26840,
+              "endMs": 27215
+            },
+            {
+              "text": "al",
+              "normalized": "al",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to the",
+                "fr": "au",
+                "es": "al"
+              },
+              "id": "b1.s8.t3",
+              "startMs": 27215,
+              "endMs": 27325
+            },
+            {
+              "text": "fiume",
+              "normalized": "fiume",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "river",
+                "fr": "rivière",
+                "es": "río"
+              },
+              "id": "b1.s8.t4",
+              "startMs": 27325,
+              "endMs": 27585
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s8.t5",
+              "startMs": 27585,
+              "endMs": 27645
+            },
+            {
+              "text": "davanti",
+              "normalized": "davanti",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in front",
+                "fr": "devant",
+                "es": "delante"
+              },
+              "id": "b1.s8.t6",
+              "startMs": 27645,
+              "endMs": 28145
+            },
+            {
+              "text": "al",
+              "normalized": "al",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to the",
+                "fr": "au",
+                "es": "al"
+              },
+              "id": "b1.s8.t7",
+              "startMs": 28145,
+              "endMs": 28205
+            },
+            {
+              "text": "mulino",
+              "normalized": "mulino",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mill",
+                "fr": "moulin",
+                "es": "molino"
+              },
+              "id": "b1.s8.t8",
+              "startMs": 28205,
+              "endMs": 29021
+            },
+            {
+              "text": "vecchio",
+              "normalized": "vecchio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "old",
+                "fr": "vieux",
+                "es": "viejo"
+              },
+              "id": "b1.s8.t9",
+              "startMs": 29021,
+              "endMs": 29838
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s8.t10"
+            }
+          ]
+        },
+        {
+          "id": "b1.s9",
+          "text": "Dopo una lunga corsa, Pinocchio è molto stanco.",
+          "translations": {
+            "en": "After a long run, Pinocchio is very tired.",
+            "fr": "Après une longue course, Pinocchio est très fatigué.",
+            "es": "Después de una larga carrera, Pinocho está muy cansado."
+          },
+          "tokens": [
+            {
+              "text": "Dopo",
+              "normalized": "dopo",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "after",
+                "fr": "après",
+                "es": "después"
+              },
+              "id": "b1.s9.t1",
+              "startMs": 30188,
+              "endMs": 30468
+            },
+            {
+              "text": "una",
+              "normalized": "una",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a (fem.)",
+                "fr": "une",
+                "es": "una"
+              },
+              "id": "b1.s9.t2",
+              "startMs": 30468,
+              "endMs": 30628
+            },
+            {
+              "text": "lunga",
+              "normalized": "lunga",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "long (fem.)",
+                "fr": "longue",
+                "es": "larga"
+              },
+              "id": "b1.s9.t3",
+              "startMs": 30628,
+              "endMs": 31068
+            },
+            {
+              "text": "corsa",
+              "normalized": "corsa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "run / race",
+                "fr": "course",
+                "es": "carrera"
+              },
+              "id": "b1.s9.t4",
+              "startMs": 31068,
+              "endMs": 31508
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s9.t5"
+            },
+            {
+              "text": "Pinocchio",
+              "normalized": "pinocchio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Pinocchio",
+                "fr": "Pinocchio",
+                "es": "Pinocho"
+              },
+              "id": "b1.s9.t6",
+              "startMs": 31508,
+              "endMs": 31948
+            },
+            {
+              "text": "è",
+              "normalized": "è",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es / está"
+              },
+              "id": "b1.s9.t7",
+              "startMs": 31948,
+              "endMs": 32048
+            },
+            {
+              "text": "molto",
+              "normalized": "molto",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "id": "b1.s9.t8",
+              "startMs": 32048,
+              "endMs": 32348
+            },
+            {
+              "text": "stanco",
+              "normalized": "stanco",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tired",
+                "fr": "fatigué",
+                "es": "cansado"
+              },
+              "id": "b1.s9.t9",
+              "startMs": 32348,
+              "endMs": 33541
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s9.t10"
+            }
+          ]
+        },
+        {
+          "id": "b1.s10",
+          "text": "Si siede sotto un grande albero e riposa un poco.",
+          "translations": {
+            "en": "He sits down under a big tree and rests a little.",
+            "fr": "Il s'assied sous un grand arbre et se repose un peu.",
+            "es": "Se sienta bajo un árbol grande y descansa un poco."
+          },
+          "tokens": [
+            {
+              "text": "Si",
+              "normalized": "si",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "himself / itself",
+                "fr": "se",
+                "es": "se"
+              },
+              "id": "b1.s10.t1",
+              "startMs": 34001,
+              "endMs": 34031
+            },
+            {
+              "text": "siede",
+              "normalized": "siede",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sits down",
+                "fr": "s'assied",
+                "es": "se sienta"
+              },
+              "id": "b1.s10.t2",
+              "startMs": 34031,
+              "endMs": 34381
+            },
+            {
+              "text": "sotto",
+              "normalized": "sotto",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "under",
+                "fr": "sous",
+                "es": "debajo"
+              },
+              "id": "b1.s10.t3",
+              "startMs": 34381,
+              "endMs": 34731
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a / an",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s10.t4",
+              "startMs": 34731,
+              "endMs": 34861
+            },
+            {
+              "text": "grande",
+              "normalized": "grande",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "big / great",
+                "fr": "grand",
+                "es": "grande"
+              },
+              "id": "b1.s10.t5",
+              "startMs": 34871,
+              "endMs": 35291
+            },
+            {
+              "text": "albero",
+              "normalized": "albero",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tree",
+                "fr": "arbre",
+                "es": "árbol"
+              },
+              "id": "b1.s10.t6",
+              "startMs": 35291,
+              "endMs": 35711
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s10.t7",
+              "startMs": 35711,
+              "endMs": 35721
+            },
+            {
+              "text": "riposa",
+              "normalized": "riposa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "rests",
+                "fr": "se repose",
+                "es": "descansa"
+              },
+              "id": "b1.s10.t8",
+              "startMs": 35721,
+              "endMs": 36201
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a / an",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s10.t9",
+              "startMs": 36201,
+              "endMs": 36341
+            },
+            {
+              "text": "poco",
+              "normalized": "poco",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a little",
+                "fr": "un peu",
+                "es": "un poco"
+              },
+              "id": "b1.s10.t10",
+              "startMs": 36341,
+              "endMs": 36621
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s10.t11"
+            }
+          ]
+        },
+        {
+          "id": "b1.s11",
+          "text": "«Sono libero! Non torno mai a casa!», pensa Pinocchio.",
+          "translations": {
+            "en": "'I am free! I am never going back home!' thinks Pinocchio.",
+            "fr": "« Je suis libre ! Je ne retourne jamais à la maison ! », pense Pinocchio.",
+            "es": "«¡Soy libre! ¡Nunca vuelvo a casa!», piensa Pinocho."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s11.t1"
+            },
+            {
+              "text": "Sono",
+              "normalized": "sono",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "am / are",
+                "fr": "suis / sont",
+                "es": "soy / son / están"
+              },
+              "id": "b1.s11.t2",
+              "startMs": 37999,
+              "endMs": 38069
+            },
+            {
+              "text": "libero",
+              "normalized": "libero",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "free",
+                "fr": "libre",
+                "es": "libre"
+              },
+              "id": "b1.s11.t3",
+              "startMs": 38069,
+              "endMs": 38559
+            },
+            {
+              "text": "!",
+              "normalized": "!",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s11.t4"
+            },
+            {
+              "text": "Non",
+              "normalized": "non",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "not",
+                "fr": "ne... pas",
+                "es": "no"
+              },
+              "id": "b1.s11.t5",
+              "startMs": 38559,
+              "endMs": 38749
+            },
+            {
+              "text": "torno",
+              "normalized": "torno",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "(I) return",
+                "fr": "je retourne",
+                "es": "vuelvo"
+              },
+              "id": "b1.s11.t6",
+              "startMs": 38749,
+              "endMs": 39059
+            },
+            {
+              "text": "mai",
+              "normalized": "mai",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "never / ever",
+                "fr": "jamais",
+                "es": "nunca"
+              },
+              "id": "b1.s11.t7",
+              "startMs": 39059,
+              "endMs": 39249
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to / at",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b1.s11.t8",
+              "startMs": 39249,
+              "endMs": 39299
+            },
+            {
+              "text": "casa",
+              "normalized": "casa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "house / home",
+                "fr": "maison",
+                "es": "casa"
+              },
+              "id": "b1.s11.t9",
+              "startMs": 39359,
+              "endMs": 39559
+            },
+            {
+              "text": "!",
+              "normalized": "!",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s11.t10"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s11.t11"
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s11.t12"
+            },
+            {
+              "text": "pensa",
+              "normalized": "pensa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "thinks",
+                "fr": "pense",
+                "es": "piensa"
+              },
+              "id": "b1.s11.t13",
+              "startMs": 39719,
+              "endMs": 40059
+            },
+            {
+              "text": "Pinocchio",
+              "normalized": "pinocchio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Pinocchio",
+                "fr": "Pinocchio",
+                "es": "Pinocho"
+              },
+              "id": "b1.s11.t14",
+              "startMs": 40059,
+              "endMs": 41319
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s11.t15"
+            }
+          ]
+        },
+        {
+          "id": "b1.s12",
+          "text": "Ma poi ha fame: la sua pancia fa strani rumori.",
+          "translations": {
+            "en": "But then he is hungry: his belly makes strange noises.",
+            "fr": "Mais ensuite il a faim : son ventre fait des bruits étranges.",
+            "es": "Pero luego tiene hambre: su barriga hace ruidos extraños."
+          },
+          "tokens": [
+            {
+              "text": "Ma",
+              "normalized": "ma",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "but",
+                "fr": "mais",
+                "es": "pero"
+              },
+              "id": "b1.s12.t1",
+              "startMs": 41719,
+              "endMs": 41799
+            },
+            {
+              "text": "poi",
+              "normalized": "poi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "then",
+                "fr": "puis",
+                "es": "luego"
+              },
+              "id": "b1.s12.t2",
+              "startMs": 41799,
+              "endMs": 41989
+            },
+            {
+              "text": "ha",
+              "normalized": "ha",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "has",
+                "fr": "a",
+                "es": "tiene"
+              },
+              "id": "b1.s12.t3",
+              "startMs": 41989,
+              "endMs": 42119
+            },
+            {
+              "text": "fame",
+              "normalized": "fame",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hunger",
+                "fr": "faim",
+                "es": "hambre"
+              },
+              "id": "b1.s12.t4",
+              "startMs": 42119,
+              "endMs": 42379
+            },
+            {
+              "text": ":",
+              "normalized": ":",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s12.t5"
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the (fem.)",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b1.s12.t6",
+              "startMs": 42439,
+              "endMs": 42559
+            },
+            {
+              "text": "sua",
+              "normalized": "sua",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his / her (fem.)",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b1.s12.t7",
+              "startMs": 42559,
+              "endMs": 42739
+            },
+            {
+              "text": "pancia",
+              "normalized": "pancia",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "belly",
+                "fr": "ventre",
+                "es": "barriga"
+              },
+              "id": "b1.s12.t8",
+              "startMs": 42739,
+              "endMs": 43149
+            },
+            {
+              "text": "fa",
+              "normalized": "fa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "makes / does",
+                "fr": "fait",
+                "es": "hace"
+              },
+              "id": "b1.s12.t9",
+              "startMs": 43149,
+              "endMs": 43269
+            },
+            {
+              "text": "strani",
+              "normalized": "strani",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "strange (plural)",
+                "fr": "étranges",
+                "es": "extraños"
+              },
+              "id": "b1.s12.t10",
+              "startMs": 43269,
+              "endMs": 44065
+            },
+            {
+              "text": "rumori",
+              "normalized": "rumori",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "noises",
+                "fr": "bruits",
+                "es": "ruidos"
+              },
+              "id": "b1.s12.t11",
+              "startMs": 44065,
+              "endMs": 44862
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s12.t12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "sentences": [
+        {
+          "id": "b2.s1",
+          "text": "«Voglio mangiare un panino e una mela», dice.",
+          "translations": {
+            "en": "'I want to eat a roll and an apple,' he says.",
+            "fr": "« Je veux manger un petit pain et une pomme », dit-il.",
+            "es": "«Quiero comer un bocadillo y una manzana», dice."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s1.t1"
+            },
+            {
+              "text": "Voglio",
+              "normalized": "voglio",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(I) want",
+                "fr": "je veux",
+                "es": "quiero"
+              },
+              "id": "b2.s1.t2",
+              "startMs": 45562,
+              "endMs": 45957
+            },
+            {
+              "text": "mangiare",
+              "normalized": "mangiare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to eat",
+                "fr": "manger",
+                "es": "comer"
+              },
+              "id": "b2.s1.t3",
+              "startMs": 45957,
+              "endMs": 46352
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a / an",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b2.s1.t4",
+              "startMs": 46352,
+              "endMs": 46462
+            },
+            {
+              "text": "panino",
+              "normalized": "panino",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "roll / sandwich",
+                "fr": "petit pain",
+                "es": "bocadillo"
+              },
+              "id": "b2.s1.t5",
+              "startMs": 46462,
+              "endMs": 46802
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b2.s1.t6",
+              "startMs": 46802,
+              "endMs": 46852
+            },
+            {
+              "text": "una",
+              "normalized": "una",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a (fem.)",
+                "fr": "une",
+                "es": "una"
+              },
+              "id": "b2.s1.t7",
+              "startMs": 46852,
+              "endMs": 47022
+            },
+            {
+              "text": "mela",
+              "normalized": "mela",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "apple",
+                "fr": "pomme",
+                "es": "manzana"
+              },
+              "id": "b2.s1.t8",
+              "startMs": 47022,
+              "endMs": 47442
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s1.t9"
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s1.t10"
+            },
+            {
+              "text": "dice",
+              "normalized": "dice",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "says",
+                "fr": "dit",
+                "es": "dice"
+              },
+              "id": "b2.s1.t11",
+              "startMs": 47442,
+              "endMs": 47682
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s1.t12"
+            }
+          ]
+        },
+        {
+          "id": "b2.s2",
+          "text": "Ma non ci sono panini e mele nella campagna.",
+          "translations": {
+            "en": "But there are no rolls and apples in the countryside.",
+            "fr": "Mais il n'y a pas de petits pains ni de pommes dans la campagne.",
+            "es": "Pero no hay bocadillos ni manzanas en el campo."
+          },
+          "tokens": [
+            {
+              "text": "Ma",
+              "normalized": "ma",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "but",
+                "fr": "mais",
+                "es": "pero"
+              },
+              "id": "b2.s2.t1",
+              "startMs": 48901,
+              "endMs": 48961
+            },
+            {
+              "text": "non",
+              "normalized": "non",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "not",
+                "fr": "ne... pas",
+                "es": "no"
+              },
+              "id": "b2.s2.t2",
+              "startMs": 48961,
+              "endMs": 49151
+            },
+            {
+              "text": "ci",
+              "normalized": "ci",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "there",
+                "fr": "y",
+                "es": "allí"
+              },
+              "id": "b2.s2.t3",
+              "startMs": 49151,
+              "endMs": 49271
+            },
+            {
+              "text": "sono",
+              "normalized": "sono",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "am / are",
+                "fr": "suis / sont",
+                "es": "soy / son / están"
+              },
+              "id": "b2.s2.t4",
+              "startMs": 49271,
+              "endMs": 49521
+            },
+            {
+              "text": "panini",
+              "normalized": "panini",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "rolls / sandwiches",
+                "fr": "petits pains",
+                "es": "bocadillos"
+              },
+              "id": "b2.s2.t5",
+              "startMs": 49521,
+              "endMs": 49901
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b2.s2.t6",
+              "startMs": 49901,
+              "endMs": 49961
+            },
+            {
+              "text": "mele",
+              "normalized": "mele",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "apples",
+                "fr": "pommes",
+                "es": "manzanas"
+              },
+              "id": "b2.s2.t7",
+              "startMs": 49961,
+              "endMs": 50201
+            },
+            {
+              "text": "nella",
+              "normalized": "nella",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in the",
+                "fr": "dans la",
+                "es": "en la"
+              },
+              "id": "b2.s2.t8",
+              "startMs": 50201,
+              "endMs": 50521
+            },
+            {
+              "text": "campagna",
+              "normalized": "campagna",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "countryside",
+                "fr": "campagne",
+                "es": "campo"
+              },
+              "id": "b2.s2.t9",
+              "startMs": 50521,
+              "endMs": 51888
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s2.t10"
+            }
+          ]
+        },
+        {
+          "id": "b2.s3",
+          "text": "Cerca qualcosa da mangiare, ma non trova niente.",
+          "translations": {
+            "en": "He looks for something to eat, but he finds nothing.",
+            "fr": "Il cherche quelque chose à manger, mais il ne trouve rien.",
+            "es": "Busca algo de comer, pero no encuentra nada."
+          },
+          "tokens": [
+            {
+              "text": "Cerca",
+              "normalized": "cerca",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "looks for",
+                "fr": "cherche",
+                "es": "busca"
+              },
+              "id": "b2.s3.t1",
+              "startMs": 52238,
+              "endMs": 52588
+            },
+            {
+              "text": "qualcosa",
+              "normalized": "qualcosa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "something",
+                "fr": "quelque chose",
+                "es": "algo"
+              },
+              "id": "b2.s3.t2",
+              "startMs": 52588,
+              "endMs": 53128
+            },
+            {
+              "text": "da",
+              "normalized": "da",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "from / for / to",
+                "fr": "de / depuis / à",
+                "es": "de / desde / que"
+              },
+              "id": "b2.s3.t3",
+              "startMs": 53168,
+              "endMs": 53268
+            },
+            {
+              "text": "mangiare",
+              "normalized": "mangiare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to eat",
+                "fr": "manger",
+                "es": "comer"
+              },
+              "id": "b2.s3.t4",
+              "startMs": 53268,
+              "endMs": 53858
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s3.t5"
+            },
+            {
+              "text": "ma",
+              "normalized": "ma",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "but",
+                "fr": "mais",
+                "es": "pero"
+              },
+              "id": "b2.s3.t6",
+              "startMs": 53858,
+              "endMs": 53988
+            },
+            {
+              "text": "non",
+              "normalized": "non",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "not",
+                "fr": "ne... pas",
+                "es": "no"
+              },
+              "id": "b2.s3.t7",
+              "startMs": 53988,
+              "endMs": 54198
+            },
+            {
+              "text": "trova",
+              "normalized": "trova",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "finds",
+                "fr": "trouve",
+                "es": "encuentra"
+              },
+              "id": "b2.s3.t8",
+              "startMs": 54198,
+              "endMs": 54895
+            },
+            {
+              "text": "niente",
+              "normalized": "niente",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "nothing",
+                "fr": "rien",
+                "es": "nada"
+              },
+              "id": "b2.s3.t9",
+              "startMs": 54895,
+              "endMs": 55591
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s3.t10"
+            }
+          ]
+        },
+        {
+          "id": "b2.s4",
+          "text": "Pinocchio pensa al suo povero babbo Geppetto.",
+          "translations": {
+            "en": "Pinocchio thinks of his poor daddy Geppetto.",
+            "fr": "Pinocchio pense à son pauvre papa Geppetto.",
+            "es": "Pinocho piensa en su pobre papá Geppetto."
+          },
+          "tokens": [
+            {
+              "text": "Pinocchio",
+              "normalized": "pinocchio",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Pinocchio",
+                "fr": "Pinocchio",
+                "es": "Pinocho"
+              },
+              "id": "b2.s4.t1",
+              "startMs": 55941,
+              "endMs": 56501
+            },
+            {
+              "text": "pensa",
+              "normalized": "pensa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "thinks",
+                "fr": "pense",
+                "es": "piensa"
+              },
+              "id": "b2.s4.t2",
+              "startMs": 56501,
+              "endMs": 56771
+            },
+            {
+              "text": "al",
+              "normalized": "al",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to the",
+                "fr": "au",
+                "es": "al"
+              },
+              "id": "b2.s4.t3",
+              "startMs": 56871,
+              "endMs": 56951
+            },
+            {
+              "text": "suo",
+              "normalized": "suo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his / her",
+                "fr": "son",
+                "es": "su"
+              },
+              "id": "b2.s4.t4",
+              "startMs": 56951,
+              "endMs": 57021
+            },
+            {
+              "text": "povero",
+              "normalized": "povero",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "poor",
+                "fr": "pauvre",
+                "es": "pobre"
+              },
+              "id": "b2.s4.t5",
+              "startMs": 57021,
+              "endMs": 57736
+            },
+            {
+              "text": "babbo",
+              "normalized": "babbo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "daddy / father",
+                "fr": "papa",
+                "es": "papá"
+              },
+              "id": "b2.s4.t6",
+              "startMs": 57736,
+              "endMs": 58451
+            },
+            {
+              "text": "Geppetto",
+              "normalized": "geppetto",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Geppetto",
+                "fr": "Geppetto",
+                "es": "Geppetto"
+              },
+              "id": "b2.s4.t7",
+              "startMs": 58451,
+              "endMs": 59166
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s4.t8"
+            }
+          ]
+        },
+        {
+          "id": "b2.s5",
+          "text": "«Il babbo è triste senza di me», pensa il burattino.",
+          "translations": {
+            "en": "'Daddy is sad without me,' thinks the puppet.",
+            "fr": "« Papa est triste sans moi », pense la marionnette.",
+            "es": "«Papá está triste sin mí», piensa el títere."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s5.t1"
+            },
+            {
+              "text": "Il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s5.t2",
+              "startMs": 59636,
+              "endMs": 59746
+            },
+            {
+              "text": "babbo",
+              "normalized": "babbo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "daddy / father",
+                "fr": "papa",
+                "es": "papá"
+              },
+              "id": "b2.s5.t3",
+              "startMs": 59746,
+              "endMs": 60056
+            },
+            {
+              "text": "è",
+              "normalized": "è",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es / está"
+              },
+              "id": "b2.s5.t4",
+              "startMs": 60056,
+              "endMs": 60116
+            },
+            {
+              "text": "triste",
+              "normalized": "triste",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sad",
+                "fr": "triste",
+                "es": "triste"
+              },
+              "id": "b2.s5.t5",
+              "startMs": 60216,
+              "endMs": 60536
+            },
+            {
+              "text": "senza",
+              "normalized": "senza",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "without",
+                "fr": "sans",
+                "es": "sin"
+              },
+              "id": "b2.s5.t6",
+              "startMs": 60546,
+              "endMs": 60836
+            },
+            {
+              "text": "di",
+              "normalized": "di",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b2.s5.t7",
+              "startMs": 60876,
+              "endMs": 60976
+            },
+            {
+              "text": "me",
+              "normalized": "me",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "me",
+                "fr": "moi",
+                "es": "mí"
+              },
+              "id": "b2.s5.t8",
+              "startMs": 60986,
+              "endMs": 61096
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s5.t9"
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s5.t10"
+            },
+            {
+              "text": "pensa",
+              "normalized": "pensa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "thinks",
+                "fr": "pense",
+                "es": "piensa"
+              },
+              "id": "b2.s5.t11",
+              "startMs": 61276,
+              "endMs": 61606
+            },
+            {
+              "text": "il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s5.t12",
+              "startMs": 61706,
+              "endMs": 61776
+            },
+            {
+              "text": "burattino",
+              "normalized": "burattino",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "puppet",
+                "fr": "marionnette",
+                "es": "títere"
+              },
+              "id": "b2.s5.t13",
+              "startMs": 61776,
+              "endMs": 63041
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s5.t14"
+            }
+          ]
+        },
+        {
+          "id": "b2.s6",
+          "text": "Alla sera, Pinocchio torna piano piano verso casa.",
+          "translations": {
+            "en": "In the evening, Pinocchio slowly walks back home.",
+            "fr": "Le soir, Pinocchio retourne doucement vers la maison.",
+            "es": "Por la tarde, Pinocho vuelve despacio hacia casa."
+          },
+          "tokens": [
+            {
+              "text": "Alla",
+              "normalized": "alla",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to the",
+                "fr": "à la",
+                "es": "a la"
+              },
+              "id": "b2.s6.t1",
+              "startMs": 63391,
+              "endMs": 63651
+            },
+            {
+              "text": "sera",
+              "normalized": "sera",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "evening",
+                "fr": "soir",
+                "es": "tarde"
+              },
+              "id": "b2.s6.t2",
+              "startMs": 63651,
+              "endMs": 63911
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s6.t3"
+            },
+            {
+              "text": "Pinocchio",
+              "normalized": "pinocchio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Pinocchio",
+                "fr": "Pinocchio",
+                "es": "Pinocho"
+              },
+              "id": "b2.s6.t4",
+              "startMs": 63911,
+              "endMs": 64371
+            },
+            {
+              "text": "torna",
+              "normalized": "torna",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "returns",
+                "fr": "retourne",
+                "es": "vuelve"
+              },
+              "id": "b2.s6.t5",
+              "startMs": 64371,
+              "endMs": 64831
+            },
+            {
+              "text": "piano",
+              "normalized": "piano",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "slowly / quietly",
+                "fr": "doucement",
+                "es": "despacio"
+              },
+              "id": "b2.s6.t6",
+              "startMs": 64831,
+              "endMs": 65161
+            },
+            {
+              "text": "piano",
+              "normalized": "piano",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "slowly / quietly",
+                "fr": "doucement",
+                "es": "despacio"
+              },
+              "id": "b2.s6.t7",
+              "startMs": 65161,
+              "endMs": 65491
+            },
+            {
+              "text": "verso",
+              "normalized": "verso",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "towards",
+                "fr": "vers",
+                "es": "hacia"
+              },
+              "id": "b2.s6.t8",
+              "startMs": 65491,
+              "endMs": 65811
+            },
+            {
+              "text": "casa",
+              "normalized": "casa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "house / home",
+                "fr": "maison",
+                "es": "casa"
+              },
+              "id": "b2.s6.t9",
+              "startMs": 65811,
+              "endMs": 66081
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s6.t10"
+            }
+          ]
+        },
+        {
+          "id": "b2.s7",
+          "text": "Apre la porta ed entra nella casa piccola e fredda.",
+          "translations": {
+            "en": "He opens the door and enters the small cold house.",
+            "fr": "Il ouvre la porte et entre dans la petite maison froide.",
+            "es": "Abre la puerta y entra en la casa pequeña y fría."
+          },
+          "tokens": [
+            {
+              "text": "Apre",
+              "normalized": "apre",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "opens",
+                "fr": "ouvre",
+                "es": "abre"
+              },
+              "id": "b2.s7.t1",
+              "startMs": 67292,
+              "endMs": 67542
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the (fem.)",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b2.s7.t2",
+              "startMs": 67542,
+              "endMs": 67672
+            },
+            {
+              "text": "porta",
+              "normalized": "porta",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "door",
+                "fr": "porte",
+                "es": "puerta"
+              },
+              "id": "b2.s7.t3",
+              "startMs": 67672,
+              "endMs": 67962
+            },
+            {
+              "text": "ed",
+              "normalized": "ed",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b2.s7.t4",
+              "startMs": 68052,
+              "endMs": 68132
+            },
+            {
+              "text": "entra",
+              "normalized": "entra",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "enters",
+                "fr": "entre",
+                "es": "entra"
+              },
+              "id": "b2.s7.t5",
+              "startMs": 68132,
+              "endMs": 68462
+            },
+            {
+              "text": "nella",
+              "normalized": "nella",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in the",
+                "fr": "dans la",
+                "es": "en la"
+              },
+              "id": "b2.s7.t6",
+              "startMs": 68462,
+              "endMs": 68752
+            },
+            {
+              "text": "casa",
+              "normalized": "casa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "house / home",
+                "fr": "maison",
+                "es": "casa"
+              },
+              "id": "b2.s7.t7",
+              "startMs": 68812,
+              "endMs": 69052
+            },
+            {
+              "text": "piccola",
+              "normalized": "piccola",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "small (fem.)",
+                "fr": "petite",
+                "es": "pequeña"
+              },
+              "id": "b2.s7.t8",
+              "startMs": 69052,
+              "endMs": 69502
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b2.s7.t9",
+              "startMs": 69502,
+              "endMs": 69562
+            },
+            {
+              "text": "fredda",
+              "normalized": "fredda",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cold (fem.)",
+                "fr": "froide",
+                "es": "fría"
+              },
+              "id": "b2.s7.t10",
+              "startMs": 69562,
+              "endMs": 70767
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s7.t11"
+            }
+          ]
+        },
+        {
+          "id": "b2.s8",
+          "text": "Il camino è spento e Geppetto non è lì.",
+          "translations": {
+            "en": "The fireplace is out and Geppetto is not there.",
+            "fr": "La cheminée est éteinte et Geppetto n'est pas là.",
+            "es": "La chimenea está apagada y Geppetto no está allí."
+          },
+          "tokens": [
+            {
+              "text": "Il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s8.t1",
+              "startMs": 71187,
+              "endMs": 71247
+            },
+            {
+              "text": "camino",
+              "normalized": "camino",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fireplace",
+                "fr": "cheminée",
+                "es": "chimenea"
+              },
+              "id": "b2.s8.t2",
+              "startMs": 71247,
+              "endMs": 71657
+            },
+            {
+              "text": "è",
+              "normalized": "è",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es / está"
+              },
+              "id": "b2.s8.t3",
+              "startMs": 71657,
+              "endMs": 71787
+            },
+            {
+              "text": "spento",
+              "normalized": "spento",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "out / extinguished",
+                "fr": "éteint",
+                "es": "apagado"
+              },
+              "id": "b2.s8.t4",
+              "startMs": 71787,
+              "endMs": 72187
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b2.s8.t5",
+              "startMs": 72187,
+              "endMs": 72197
+            },
+            {
+              "text": "Geppetto",
+              "normalized": "geppetto",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Geppetto",
+                "fr": "Geppetto",
+                "es": "Geppetto"
+              },
+              "id": "b2.s8.t6",
+              "startMs": 72197,
+              "endMs": 72777
+            },
+            {
+              "text": "non",
+              "normalized": "non",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "not",
+                "fr": "ne... pas",
+                "es": "no"
+              },
+              "id": "b2.s8.t7",
+              "startMs": 72777,
+              "endMs": 72837
+            },
+            {
+              "text": "è",
+              "normalized": "è",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es / está"
+              },
+              "id": "b2.s8.t8",
+              "startMs": 72977,
+              "endMs": 73107
+            },
+            {
+              "text": "lì",
+              "normalized": "lì",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "there",
+                "fr": "là",
+                "es": "ahí"
+              },
+              "id": "b2.s8.t9",
+              "startMs": 73107,
+              "endMs": 74116
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s8.t10"
+            }
+          ]
+        },
+        {
+          "id": "b2.s9",
+          "text": "Pinocchio è solo, stanco, affamato e anche un poco triste.",
+          "translations": {
+            "en": "Pinocchio is alone, tired, hungry and also a little sad.",
+            "fr": "Pinocchio est seul, fatigué, affamé et aussi un peu triste.",
+            "es": "Pinocho está solo, cansado, hambriento y también un poco triste."
+          },
+          "tokens": [
+            {
+              "text": "Pinocchio",
+              "normalized": "pinocchio",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Pinocchio",
+                "fr": "Pinocchio",
+                "es": "Pinocho"
+              },
+              "id": "b2.s9.t1",
+              "startMs": 74466,
+              "endMs": 75006
+            },
+            {
+              "text": "è",
+              "normalized": "è",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es / está"
+              },
+              "id": "b2.s9.t2",
+              "startMs": 75006,
+              "endMs": 75056
+            },
+            {
+              "text": "solo",
+              "normalized": "solo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "only / alone",
+                "fr": "seulement / seul",
+                "es": "solo"
+              },
+              "id": "b2.s9.t3",
+              "startMs": 75166,
+              "endMs": 75366
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s9.t4"
+            },
+            {
+              "text": "stanco",
+              "normalized": "stanco",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tired",
+                "fr": "fatigué",
+                "es": "cansado"
+              },
+              "id": "b2.s9.t5",
+              "startMs": 75366,
+              "endMs": 75846
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s9.t6"
+            },
+            {
+              "text": "affamato",
+              "normalized": "affamato",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hungry",
+                "fr": "affamé",
+                "es": "hambriento"
+              },
+              "id": "b2.s9.t7",
+              "startMs": 75846,
+              "endMs": 76326
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b2.s9.t8",
+              "startMs": 76326,
+              "endMs": 76326
+            },
+            {
+              "text": "anche",
+              "normalized": "anche",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "also",
+                "fr": "aussi",
+                "es": "también"
+              },
+              "id": "b2.s9.t9",
+              "startMs": 76416,
+              "endMs": 76686
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a / an",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b2.s9.t10",
+              "startMs": 76686,
+              "endMs": 76806
+            },
+            {
+              "text": "poco",
+              "normalized": "poco",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a little",
+                "fr": "un peu",
+                "es": "un poco"
+              },
+              "id": "b2.s9.t11",
+              "startMs": 76806,
+              "endMs": 77046
+            },
+            {
+              "text": "triste",
+              "normalized": "triste",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sad",
+                "fr": "triste",
+                "es": "triste"
+              },
+              "id": "b2.s9.t12",
+              "startMs": 77046,
+              "endMs": 77406
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s9.t13"
+            }
+          ]
+        },
+        {
+          "id": "b2.s10",
+          "text": "«Babbo, dove sei?», chiama Pinocchio con voce triste.",
+          "translations": {
+            "en": "'Daddy, where are you?' Pinocchio calls with a sad voice.",
+            "fr": "« Papa, où es-tu ? », appelle Pinocchio d'une voix triste.",
+            "es": "«Papá, ¿dónde estás?», llama Pinocho con voz triste."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s10.t1"
+            },
+            {
+              "text": "Babbo",
+              "normalized": "babbo",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "daddy / father",
+                "fr": "papa",
+                "es": "papá"
+              },
+              "id": "b2.s10.t2",
+              "startMs": 78589,
+              "endMs": 78979
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s10.t3"
+            },
+            {
+              "text": "dove",
+              "normalized": "dove",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "where",
+                "fr": "où",
+                "es": "dónde"
+              },
+              "id": "b2.s10.t4",
+              "startMs": 78979,
+              "endMs": 79209
+            },
+            {
+              "text": "sei",
+              "normalized": "sei",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "you are",
+                "fr": "tu es",
+                "es": "eres / estás"
+              },
+              "id": "b2.s10.t5",
+              "startMs": 79209,
+              "endMs": 79379
+            },
+            {
+              "text": "?",
+              "normalized": "?",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s10.t6"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s10.t7"
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s10.t8"
+            },
+            {
+              "text": "chiama",
+              "normalized": "chiama",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "calls",
+                "fr": "appelle",
+                "es": "llama"
+              },
+              "id": "b2.s10.t9",
+              "startMs": 79379,
+              "endMs": 79869
+            },
+            {
+              "text": "Pinocchio",
+              "normalized": "pinocchio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Pinocchio",
+                "fr": "Pinocchio",
+                "es": "Pinocho"
+              },
+              "id": "b2.s10.t10",
+              "startMs": 79869,
+              "endMs": 80359
+            },
+            {
+              "text": "con",
+              "normalized": "con",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b2.s10.t11",
+              "startMs": 80359,
+              "endMs": 80519
+            },
+            {
+              "text": "voce",
+              "normalized": "voce",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "voice",
+                "fr": "voix",
+                "es": "voz"
+              },
+              "id": "b2.s10.t12",
+              "startMs": 80519,
+              "endMs": 80719
+            },
+            {
+              "text": "triste",
+              "normalized": "triste",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sad",
+                "fr": "triste",
+                "es": "triste"
+              },
+              "id": "b2.s10.t13",
+              "startMs": 80719,
+              "endMs": 81039
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s10.t14"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3",
+      "sentences": [
+        {
+          "id": "b3.s1",
+          "text": "All'improvviso sente una voce: «Cri cri! Cri cri!»",
+          "translations": {
+            "en": "Suddenly he hears a voice: 'Chirp chirp! Chirp chirp!'",
+            "fr": "Tout à coup, il entend une voix : « Cri cri ! Cri cri ! »",
+            "es": "De repente oye una voz: «¡Cri cri! ¡Cri cri!»"
+          },
+          "tokens": [
+            {
+              "text": "All'improvviso",
+              "normalized": "all'improvviso",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "suddenly",
+                "fr": "soudain",
+                "es": "de repente"
+              },
+              "id": "b3.s1.t1",
+              "startMs": 82579,
+              "endMs": 83499
+            },
+            {
+              "text": "sente",
+              "normalized": "sente",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hears / feels",
+                "fr": "entend",
+                "es": "oye"
+              },
+              "id": "b3.s1.t2",
+              "startMs": 83499,
+              "endMs": 83829
+            },
+            {
+              "text": "una",
+              "normalized": "una",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a (fem.)",
+                "fr": "une",
+                "es": "una"
+              },
+              "id": "b3.s1.t3",
+              "startMs": 83829,
+              "endMs": 84029
+            },
+            {
+              "text": "voce",
+              "normalized": "voce",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "voice",
+                "fr": "voix",
+                "es": "voz"
+              },
+              "id": "b3.s1.t4",
+              "startMs": 84029,
+              "endMs": 84339
+            },
+            {
+              "text": ":",
+              "normalized": ":",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s1.t5"
+            },
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b3.s1.t6"
+            },
+            {
+              "text": "Cri",
+              "normalized": "cri",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "chirp",
+                "fr": "cri",
+                "es": "cri"
+              },
+              "id": "b3.s1.t7",
+              "startMs": 84339,
+              "endMs": 84629
+            },
+            {
+              "text": "cri",
+              "normalized": "cri",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "chirp",
+                "fr": "cri",
+                "es": "cri"
+              },
+              "id": "b3.s1.t8",
+              "startMs": 84749,
+              "endMs": 85039
+            },
+            {
+              "text": "!",
+              "normalized": "!",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s1.t9"
+            },
+            {
+              "text": "Cri",
+              "normalized": "cri",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "chirp",
+                "fr": "cri",
+                "es": "cri"
+              },
+              "id": "b3.s1.t10",
+              "startMs": 85039,
+              "endMs": 85389
+            },
+            {
+              "text": "cri",
+              "normalized": "cri",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "chirp",
+                "fr": "cri",
+                "es": "cri"
+              },
+              "id": "b3.s1.t11",
+              "startMs": 85389,
+              "endMs": 85589
+            },
+            {
+              "text": "!",
+              "normalized": "!",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s1.t12"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s1.t13"
+            }
+          ]
+        },
+        {
+          "id": "b3.s2",
+          "text": "«Chi è? Chi parla in questa casa?», domanda Pinocchio.",
+          "translations": {
+            "en": "'Who is it? Who is speaking in this house?' asks Pinocchio.",
+            "fr": "« Qui est-ce ? Qui parle dans cette maison ? », demande Pinocchio.",
+            "es": "«¿Quién es? ¿Quién habla en esta casa?», pregunta Pinocho."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t1"
+            },
+            {
+              "text": "Chi",
+              "normalized": "chi",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "who",
+                "fr": "qui",
+                "es": "quién"
+              },
+              "id": "b3.s2.t2",
+              "startMs": 86524,
+              "endMs": 86574
+            },
+            {
+              "text": "è",
+              "normalized": "è",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es / está"
+              },
+              "id": "b3.s2.t3",
+              "startMs": 86574,
+              "endMs": 86684
+            },
+            {
+              "text": "?",
+              "normalized": "?",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t4"
+            },
+            {
+              "text": "Chi",
+              "normalized": "chi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "who",
+                "fr": "qui",
+                "es": "quién"
+              },
+              "id": "b3.s2.t5",
+              "startMs": 86684,
+              "endMs": 86754
+            },
+            {
+              "text": "parla",
+              "normalized": "parla",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "speaks",
+                "fr": "parle",
+                "es": "habla"
+              },
+              "id": "b3.s2.t6",
+              "startMs": 86754,
+              "endMs": 87134
+            },
+            {
+              "text": "in",
+              "normalized": "in",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b3.s2.t7",
+              "startMs": 87134,
+              "endMs": 87244
+            },
+            {
+              "text": "questa",
+              "normalized": "questa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "this (fem.)",
+                "fr": "cette",
+                "es": "esta"
+              },
+              "id": "b3.s2.t8",
+              "startMs": 87244,
+              "endMs": 87584
+            },
+            {
+              "text": "casa",
+              "normalized": "casa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "house / home",
+                "fr": "maison",
+                "es": "casa"
+              },
+              "id": "b3.s2.t9",
+              "startMs": 87584,
+              "endMs": 87804
+            },
+            {
+              "text": "?",
+              "normalized": "?",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t10"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t11"
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t12"
+            },
+            {
+              "text": "domanda",
+              "normalized": "domanda",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "asks",
+                "fr": "demande",
+                "es": "pregunta"
+              },
+              "id": "b3.s2.t13",
+              "startMs": 87804,
+              "endMs": 88756
+            },
+            {
+              "text": "Pinocchio",
+              "normalized": "pinocchio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Pinocchio",
+                "fr": "Pinocchio",
+                "es": "Pinocho"
+              },
+              "id": "b3.s2.t14",
+              "startMs": 88756,
+              "endMs": 89709
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t15"
+            }
+          ]
+        },
+        {
+          "id": "b3.s3",
+          "text": "«Sono il Grillo Parlante», risponde la vocina.",
+          "translations": {
+            "en": "'I am the Talking Cricket,' answers the little voice.",
+            "fr": "« Je suis le Grillon Parlant », répond la petite voix.",
+            "es": "«Soy el Grillo Parlante», responde la vocecita."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s3.t1"
+            },
+            {
+              "text": "Sono",
+              "normalized": "sono",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "am / are",
+                "fr": "suis / sont",
+                "es": "soy / son / están"
+              },
+              "id": "b3.s3.t2",
+              "startMs": 90259,
+              "endMs": 90309
+            },
+            {
+              "text": "il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s3.t3",
+              "startMs": 90309,
+              "endMs": 90429
+            },
+            {
+              "text": "Grillo",
+              "normalized": "grillo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cricket",
+                "fr": "grillon",
+                "es": "grillo"
+              },
+              "id": "b3.s3.t4",
+              "startMs": 90429,
+              "endMs": 90925
+            },
+            {
+              "text": "Parlante",
+              "normalized": "parlante",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "talking",
+                "fr": "parlant",
+                "es": "parlante"
+              },
+              "id": "b3.s3.t5",
+              "startMs": 90925,
+              "endMs": 91422
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s3.t6"
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s3.t7"
+            },
+            {
+              "text": "risponde",
+              "normalized": "risponde",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "answers",
+                "fr": "répond",
+                "es": "responde"
+              },
+              "id": "b3.s3.t8",
+              "startMs": 91422,
+              "endMs": 91919
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the (fem.)",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b3.s3.t9",
+              "startMs": 91919,
+              "endMs": 92039
+            },
+            {
+              "text": "vocina",
+              "normalized": "vocina",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "little voice",
+                "fr": "petite voix",
+                "es": "vocecita"
+              },
+              "id": "b3.s3.t10",
+              "startMs": 92039,
+              "endMs": 93243
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s3.t11"
+            }
+          ]
+        },
+        {
+          "id": "b3.s4",
+          "text": "«Vivo in questa casa da più di cento anni».",
+          "translations": {
+            "en": "'I have lived in this house for more than a hundred years.'",
+            "fr": "« Je vis dans cette maison depuis plus de cent ans. »",
+            "es": "«Vivo en esta casa desde hace más de cien años»."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s4.t1"
+            },
+            {
+              "text": "Vivo",
+              "normalized": "vivo",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "alive / (I) live",
+                "fr": "vivant / je vis",
+                "es": "vivo"
+              },
+              "id": "b3.s4.t2",
+              "startMs": 93593,
+              "endMs": 93863
+            },
+            {
+              "text": "in",
+              "normalized": "in",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b3.s4.t3",
+              "startMs": 93863,
+              "endMs": 93973
+            },
+            {
+              "text": "questa",
+              "normalized": "questa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "this (fem.)",
+                "fr": "cette",
+                "es": "esta"
+              },
+              "id": "b3.s4.t4",
+              "startMs": 93973,
+              "endMs": 94303
+            },
+            {
+              "text": "casa",
+              "normalized": "casa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "house / home",
+                "fr": "maison",
+                "es": "casa"
+              },
+              "id": "b3.s4.t5",
+              "startMs": 94373,
+              "endMs": 94623
+            },
+            {
+              "text": "da",
+              "normalized": "da",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "from / for / to",
+                "fr": "de / depuis / à",
+                "es": "de / desde / que"
+              },
+              "id": "b3.s4.t6",
+              "startMs": 94623,
+              "endMs": 94753
+            },
+            {
+              "text": "più",
+              "normalized": "più",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "more",
+                "fr": "plus",
+                "es": "más"
+              },
+              "id": "b3.s4.t7",
+              "startMs": 94753,
+              "endMs": 95013
+            },
+            {
+              "text": "di",
+              "normalized": "di",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b3.s4.t8",
+              "startMs": 95013,
+              "endMs": 95143
+            },
+            {
+              "text": "cento",
+              "normalized": "cento",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hundred",
+                "fr": "cent",
+                "es": "cien"
+              },
+              "id": "b3.s4.t9",
+              "startMs": 95143,
+              "endMs": 95493
+            },
+            {
+              "text": "anni",
+              "normalized": "anni",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "years",
+                "fr": "ans",
+                "es": "años"
+              },
+              "id": "b3.s4.t10",
+              "startMs": 95493,
+              "endMs": 95723
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s4.t11"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s4.t12"
+            }
+          ]
+        },
+        {
+          "id": "b3.s5",
+          "text": "Il Grillo Parlante è piccolo, nero e molto vecchio.",
+          "translations": {
+            "en": "The Talking Cricket is small, black and very old.",
+            "fr": "Le Grillon Parlant est petit, noir et très vieux.",
+            "es": "El Grillo Parlante es pequeño, negro y muy viejo."
+          },
+          "tokens": [
+            {
+              "text": "Il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s5.t1",
+              "startMs": 96998,
+              "endMs": 97048
+            },
+            {
+              "text": "Grillo",
+              "normalized": "grillo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cricket",
+                "fr": "grillon",
+                "es": "grillo"
+              },
+              "id": "b3.s5.t2",
+              "startMs": 97048,
+              "endMs": 97498
+            },
+            {
+              "text": "Parlante",
+              "normalized": "parlante",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "talking",
+                "fr": "parlant",
+                "es": "parlante"
+              },
+              "id": "b3.s5.t3",
+              "startMs": 97498,
+              "endMs": 97948
+            },
+            {
+              "text": "è",
+              "normalized": "è",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es / está"
+              },
+              "id": "b3.s5.t4",
+              "startMs": 97948,
+              "endMs": 98008
+            },
+            {
+              "text": "piccolo",
+              "normalized": "piccolo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "small (masc.)",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b3.s5.t5",
+              "startMs": 98008,
+              "endMs": 98398
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s5.t6"
+            },
+            {
+              "text": "nero",
+              "normalized": "nero",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "black",
+                "fr": "noir",
+                "es": "negro"
+              },
+              "id": "b3.s5.t7",
+              "startMs": 98398,
+              "endMs": 98788
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b3.s5.t8",
+              "startMs": 98788,
+              "endMs": 98848
+            },
+            {
+              "text": "molto",
+              "normalized": "molto",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "id": "b3.s5.t9",
+              "startMs": 98848,
+              "endMs": 99148
+            },
+            {
+              "text": "vecchio",
+              "normalized": "vecchio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "old",
+                "fr": "vieux",
+                "es": "viejo"
+              },
+              "id": "b3.s5.t10",
+              "startMs": 99148,
+              "endMs": 100348
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s5.t11"
+            }
+          ]
+        },
+        {
+          "id": "b3.s6",
+          "text": "«Ragazzo mio», dice il Grillo, «ascolta i vecchi».",
+          "translations": {
+            "en": "'My boy,' says the Cricket, 'listen to old people.'",
+            "fr": "« Mon garçon », dit le Grillon, « écoute les vieux. »",
+            "es": "«Chico mío», dice el Grillo, «escucha a los viejos»."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s6.t1"
+            },
+            {
+              "text": "Ragazzo",
+              "normalized": "ragazzo",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "boy",
+                "fr": "garçon",
+                "es": "chico"
+              },
+              "id": "b3.s6.t2",
+              "startMs": 100698,
+              "endMs": 101158
+            },
+            {
+              "text": "mio",
+              "normalized": "mio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "my",
+                "fr": "mon",
+                "es": "mío"
+              },
+              "id": "b3.s6.t3",
+              "startMs": 101158,
+              "endMs": 101298
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s6.t4"
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s6.t5"
+            },
+            {
+              "text": "dice",
+              "normalized": "dice",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "says",
+                "fr": "dit",
+                "es": "dice"
+              },
+              "id": "b3.s6.t6",
+              "startMs": 101418,
+              "endMs": 101618
+            },
+            {
+              "text": "il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s6.t7",
+              "startMs": 101668,
+              "endMs": 101788
+            },
+            {
+              "text": "Grillo",
+              "normalized": "grillo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cricket",
+                "fr": "grillon",
+                "es": "grillo"
+              },
+              "id": "b3.s6.t8",
+              "startMs": 101788,
+              "endMs": 102243
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s6.t9"
+            },
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b3.s6.t10"
+            },
+            {
+              "text": "ascolta",
+              "normalized": "ascolta",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "listen",
+                "fr": "écoute",
+                "es": "escucha"
+              },
+              "id": "b3.s6.t11",
+              "startMs": 102243,
+              "endMs": 102698
+            },
+            {
+              "text": "i",
+              "normalized": "i",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the (masc. plural)",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b3.s6.t12",
+              "startMs": 102698,
+              "endMs": 102718
+            },
+            {
+              "text": "vecchi",
+              "normalized": "vecchi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "old (plural)",
+                "fr": "vieux",
+                "es": "viejos"
+              },
+              "id": "b3.s6.t13",
+              "startMs": 102718,
+              "endMs": 103922
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s6.t14"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s6.t15"
+            }
+          ]
+        },
+        {
+          "id": "b3.s7",
+          "text": "«I burattini disubbidienti hanno sempre molti guai».",
+          "translations": {
+            "en": "'Disobedient puppets always have a lot of trouble.'",
+            "fr": "« Les marionnettes désobéissantes ont toujours beaucoup d'ennuis. »",
+            "es": "«Los títeres desobedientes siempre tienen muchos problemas»."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s7.t1"
+            },
+            {
+              "text": "I",
+              "normalized": "i",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the (masc. plural)",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b3.s7.t2",
+              "startMs": 104332,
+              "endMs": 104392
+            },
+            {
+              "text": "burattini",
+              "normalized": "burattini",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "puppets",
+                "fr": "marionnettes",
+                "es": "títeres"
+              },
+              "id": "b3.s7.t3",
+              "startMs": 104392,
+              "endMs": 105132
+            },
+            {
+              "text": "disubbidienti",
+              "normalized": "disubbidienti",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "disobedient (plural)",
+                "fr": "désobéissantes",
+                "es": "desobedientes"
+              },
+              "id": "b3.s7.t4",
+              "startMs": 105132,
+              "endMs": 105872
+            },
+            {
+              "text": "hanno",
+              "normalized": "hanno",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "(they) have",
+                "fr": "ont",
+                "es": "tienen"
+              },
+              "id": "b3.s7.t5",
+              "startMs": 105872,
+              "endMs": 106222
+            },
+            {
+              "text": "sempre",
+              "normalized": "sempre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "always",
+                "fr": "toujours",
+                "es": "siempre"
+              },
+              "id": "b3.s7.t6",
+              "startMs": 106222,
+              "endMs": 106642
+            },
+            {
+              "text": "molti",
+              "normalized": "molti",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "many (masc. plural)",
+                "fr": "beaucoup de",
+                "es": "muchos"
+              },
+              "id": "b3.s7.t7",
+              "startMs": 106642,
+              "endMs": 107234
+            },
+            {
+              "text": "guai",
+              "normalized": "guai",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "troubles",
+                "fr": "ennuis",
+                "es": "problemas"
+              },
+              "id": "b3.s7.t8",
+              "startMs": 107234,
+              "endMs": 107825
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s7.t9"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s7.t10"
+            }
+          ]
+        },
+        {
+          "id": "b3.s8",
+          "text": "«Torna da tuo babbo e vai a scuola, Pinocchio».",
+          "translations": {
+            "en": "'Go back to your daddy and go to school, Pinocchio.'",
+            "fr": "« Retourne chez ton papa et va à l'école, Pinocchio. »",
+            "es": "«Vuelve con tu papá y ve a la escuela, Pinocho»."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s8.t1"
+            },
+            {
+              "text": "Torna",
+              "normalized": "torna",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "returns",
+                "fr": "retourne",
+                "es": "vuelve"
+              },
+              "id": "b3.s8.t2",
+              "startMs": 108175,
+              "endMs": 108485
+            },
+            {
+              "text": "da",
+              "normalized": "da",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "from / for / to",
+                "fr": "de / depuis / à",
+                "es": "de / desde / que"
+              },
+              "id": "b3.s8.t3",
+              "startMs": 108485,
+              "endMs": 108605
+            },
+            {
+              "text": "tuo",
+              "normalized": "tuo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "your",
+                "fr": "ton",
+                "es": "tu"
+              },
+              "id": "b3.s8.t4",
+              "startMs": 108605,
+              "endMs": 108795
+            },
+            {
+              "text": "babbo",
+              "normalized": "babbo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "daddy / father",
+                "fr": "papa",
+                "es": "papá"
+              },
+              "id": "b3.s8.t5",
+              "startMs": 108795,
+              "endMs": 109105
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b3.s8.t6",
+              "startMs": 109105,
+              "endMs": 109165
+            },
+            {
+              "text": "vai",
+              "normalized": "vai",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "(you) go",
+                "fr": "va",
+                "es": "ve / vas"
+              },
+              "id": "b3.s8.t7",
+              "startMs": 109165,
+              "endMs": 109345
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to / at",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b3.s8.t8",
+              "startMs": 109355,
+              "endMs": 109355
+            },
+            {
+              "text": "scuola",
+              "normalized": "scuola",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "school",
+                "fr": "école",
+                "es": "escuela"
+              },
+              "id": "b3.s8.t9",
+              "startMs": 109355,
+              "endMs": 110314
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s8.t10"
+            },
+            {
+              "text": "Pinocchio",
+              "normalized": "pinocchio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Pinocchio",
+                "fr": "Pinocchio",
+                "es": "Pinocho"
+              },
+              "id": "b3.s8.t11",
+              "startMs": 110314,
+              "endMs": 111272
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s8.t12"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s8.t13"
+            }
+          ]
+        },
+        {
+          "id": "b3.s9",
+          "text": "«La scuola è importante per i bambini come te».",
+          "translations": {
+            "en": "'School is important for children like you.'",
+            "fr": "« L'école est importante pour les enfants comme toi. »",
+            "es": "«La escuela es importante para los niños como tú»."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s9.t1"
+            },
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the (fem.)",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b3.s9.t2",
+              "startMs": 111692,
+              "endMs": 111752
+            },
+            {
+              "text": "scuola",
+              "normalized": "scuola",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "school",
+                "fr": "école",
+                "es": "escuela"
+              },
+              "id": "b3.s9.t3",
+              "startMs": 111752,
+              "endMs": 112132
+            },
+            {
+              "text": "è",
+              "normalized": "è",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es / está"
+              },
+              "id": "b3.s9.t4",
+              "startMs": 112132,
+              "endMs": 112262
+            },
+            {
+              "text": "importante",
+              "normalized": "importante",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "important",
+                "fr": "important",
+                "es": "importante"
+              },
+              "id": "b3.s9.t5",
+              "startMs": 112262,
+              "endMs": 112922
+            },
+            {
+              "text": "per",
+              "normalized": "per",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "for",
+                "fr": "pour",
+                "es": "para / por"
+              },
+              "id": "b3.s9.t6",
+              "startMs": 112922,
+              "endMs": 113112
+            },
+            {
+              "text": "i",
+              "normalized": "i",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the (masc. plural)",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b3.s9.t7",
+              "startMs": 113112,
+              "endMs": 113152
+            },
+            {
+              "text": "bambini",
+              "normalized": "bambini",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "children",
+                "fr": "enfants",
+                "es": "niños"
+              },
+              "id": "b3.s9.t8",
+              "startMs": 113152,
+              "endMs": 113632
+            },
+            {
+              "text": "come",
+              "normalized": "come",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "like / as",
+                "fr": "comme",
+                "es": "como"
+              },
+              "id": "b3.s9.t9",
+              "startMs": 113632,
+              "endMs": 113832
+            },
+            {
+              "text": "te",
+              "normalized": "te",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "you",
+                "fr": "toi",
+                "es": "ti / tú"
+              },
+              "id": "b3.s9.t10",
+              "startMs": 113932,
+              "endMs": 114002
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s9.t11"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s9.t12"
+            }
+          ]
+        },
+        {
+          "id": "b3.s10",
+          "text": "Ma Pinocchio non vuole ascoltare il vecchio Grillo.",
+          "translations": {
+            "en": "But Pinocchio does not want to listen to the old Cricket.",
+            "fr": "Mais Pinocchio ne veut pas écouter le vieux Grillon.",
+            "es": "Pero Pinocho no quiere escuchar al viejo Grillo."
+          },
+          "tokens": [
+            {
+              "text": "Ma",
+              "normalized": "ma",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "but",
+                "fr": "mais",
+                "es": "pero"
+              },
+              "id": "b3.s10.t1",
+              "startMs": 115323,
+              "endMs": 115373
+            },
+            {
+              "text": "Pinocchio",
+              "normalized": "pinocchio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Pinocchio",
+                "fr": "Pinocchio",
+                "es": "Pinocho"
+              },
+              "id": "b3.s10.t2",
+              "startMs": 115373,
+              "endMs": 115893
+            },
+            {
+              "text": "non",
+              "normalized": "non",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "not",
+                "fr": "ne... pas",
+                "es": "no"
+              },
+              "id": "b3.s10.t3",
+              "startMs": 115893,
+              "endMs": 116053
+            },
+            {
+              "text": "vuole",
+              "normalized": "vuole",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "(he/she) wants",
+                "fr": "veut",
+                "es": "quiere"
+              },
+              "id": "b3.s10.t4",
+              "startMs": 116053,
+              "endMs": 116448
+            },
+            {
+              "text": "ascoltare",
+              "normalized": "ascoltare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to listen",
+                "fr": "écouter",
+                "es": "escuchar"
+              },
+              "id": "b3.s10.t5",
+              "startMs": 116448,
+              "endMs": 116843
+            },
+            {
+              "text": "il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s10.t6",
+              "startMs": 116843,
+              "endMs": 116943
+            },
+            {
+              "text": "vecchio",
+              "normalized": "vecchio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "old",
+                "fr": "vieux",
+                "es": "viejo"
+              },
+              "id": "b3.s10.t7",
+              "startMs": 116943,
+              "endMs": 117728
+            },
+            {
+              "text": "Grillo",
+              "normalized": "grillo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cricket",
+                "fr": "grillon",
+                "es": "grillo"
+              },
+              "id": "b3.s10.t8",
+              "startMs": 117728,
+              "endMs": 118513
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s10.t9"
+            }
+          ]
+        },
+        {
+          "id": "b3.s11",
+          "text": "«Non mi piace la scuola! Voglio giocare sempre!», grida.",
+          "translations": {
+            "en": "'I don't like school! I want to play all the time!' he shouts.",
+            "fr": "« Je n'aime pas l'école ! Je veux jouer tout le temps ! », crie-t-il.",
+            "es": "«¡No me gusta la escuela! ¡Quiero jugar siempre!», grita."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s11.t1"
+            },
+            {
+              "text": "Non",
+              "normalized": "non",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "not",
+                "fr": "ne... pas",
+                "es": "no"
+              },
+              "id": "b3.s11.t2",
+              "startMs": 118923,
+              "endMs": 119043
+            },
+            {
+              "text": "mi",
+              "normalized": "mi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "me / to me",
+                "fr": "me",
+                "es": "me"
+              },
+              "id": "b3.s11.t3",
+              "startMs": 119043,
+              "endMs": 119163
+            },
+            {
+              "text": "piace",
+              "normalized": "piace",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "pleases",
+                "fr": "plaît",
+                "es": "gusta"
+              },
+              "id": "b3.s11.t4",
+              "startMs": 119163,
+              "endMs": 119473
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the (fem.)",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b3.s11.t5",
+              "startMs": 119473,
+              "endMs": 119553
+            },
+            {
+              "text": "scuola",
+              "normalized": "scuola",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "school",
+                "fr": "école",
+                "es": "escuela"
+              },
+              "id": "b3.s11.t6",
+              "startMs": 119553,
+              "endMs": 119990
+            },
+            {
+              "text": "!",
+              "normalized": "!",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s11.t7"
+            },
+            {
+              "text": "Voglio",
+              "normalized": "voglio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "(I) want",
+                "fr": "je veux",
+                "es": "quiero"
+              },
+              "id": "b3.s11.t8",
+              "startMs": 119990,
+              "endMs": 120427
+            },
+            {
+              "text": "giocare",
+              "normalized": "giocare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to play",
+                "fr": "jouer",
+                "es": "jugar"
+              },
+              "id": "b3.s11.t9",
+              "startMs": 120427,
+              "endMs": 120863
+            },
+            {
+              "text": "sempre",
+              "normalized": "sempre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "always",
+                "fr": "toujours",
+                "es": "siempre"
+              },
+              "id": "b3.s11.t10",
+              "startMs": 120863,
+              "endMs": 121233
+            },
+            {
+              "text": "!",
+              "normalized": "!",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s11.t11"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s11.t12"
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s11.t13"
+            },
+            {
+              "text": "grida",
+              "normalized": "grida",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "shouts",
+                "fr": "crie",
+                "es": "grita"
+              },
+              "id": "b3.s11.t14",
+              "startMs": 121233,
+              "endMs": 122518
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s11.t15"
+            }
+          ]
+        },
+        {
+          "id": "b3.s12",
+          "text": "«Stai attento, Pinocchio», dice il Grillo con pazienza.",
+          "translations": {
+            "en": "'Be careful, Pinocchio,' says the Cricket with patience.",
+            "fr": "« Fais attention, Pinocchio », dit le Grillon avec patience.",
+            "es": "«Ten cuidado, Pinocho», dice el Grillo con paciencia."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s12.t1"
+            },
+            {
+              "text": "Stai",
+              "normalized": "stai",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "you stay / are",
+                "fr": "reste / sois",
+                "es": "estás / ten"
+              },
+              "id": "b3.s12.t2",
+              "startMs": 122868,
+              "endMs": 123378
+            },
+            {
+              "text": "attento",
+              "normalized": "attento",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "careful",
+                "fr": "prudent",
+                "es": "cuidado"
+              },
+              "id": "b3.s12.t3",
+              "startMs": 123378,
+              "endMs": 123888
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s12.t4"
+            },
+            {
+              "text": "Pinocchio",
+              "normalized": "pinocchio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Pinocchio",
+                "fr": "Pinocchio",
+                "es": "Pinocho"
+              },
+              "id": "b3.s12.t5",
+              "startMs": 123888,
+              "endMs": 124398
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s12.t6"
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s12.t7"
+            },
+            {
+              "text": "dice",
+              "normalized": "dice",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "says",
+                "fr": "dit",
+                "es": "dice"
+              },
+              "id": "b3.s12.t8",
+              "startMs": 124398,
+              "endMs": 124618
+            },
+            {
+              "text": "il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s12.t9",
+              "startMs": 124618,
+              "endMs": 124728
+            },
+            {
+              "text": "Grillo",
+              "normalized": "grillo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cricket",
+                "fr": "grillon",
+                "es": "grillo"
+              },
+              "id": "b3.s12.t10",
+              "startMs": 124728,
+              "endMs": 125058
+            },
+            {
+              "text": "con",
+              "normalized": "con",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b3.s12.t11",
+              "startMs": 125058,
+              "endMs": 125218
+            },
+            {
+              "text": "pazienza",
+              "normalized": "pazienza",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "patience",
+                "fr": "patience",
+                "es": "paciencia"
+              },
+              "id": "b3.s12.t12",
+              "startMs": 125218,
+              "endMs": 126469
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s12.t13"
+            }
+          ]
+        },
+        {
+          "id": "b3.s13",
+          "text": "«I burattini cattivi diventano sempre ragazzi infelici».",
+          "translations": {
+            "en": "'Naughty puppets always become unhappy boys.'",
+            "fr": "« Les marionnettes méchantes deviennent toujours des garçons malheureux. »",
+            "es": "«Los títeres malos se vuelven siempre chicos infelices»."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s13.t1"
+            },
+            {
+              "text": "I",
+              "normalized": "i",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the (masc. plural)",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b3.s13.t2",
+              "startMs": 126879,
+              "endMs": 126879
+            },
+            {
+              "text": "burattini",
+              "normalized": "burattini",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "puppets",
+                "fr": "marionnettes",
+                "es": "títeres"
+              },
+              "id": "b3.s13.t3",
+              "startMs": 126879,
+              "endMs": 127429
+            },
+            {
+              "text": "cattivi",
+              "normalized": "cattivi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "naughty (plural)",
+                "fr": "méchants",
+                "es": "malos"
+              },
+              "id": "b3.s13.t4",
+              "startMs": 127429,
+              "endMs": 127979
+            },
+            {
+              "text": "diventano",
+              "normalized": "diventano",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "(they) become",
+                "fr": "deviennent",
+                "es": "se vuelven"
+              },
+              "id": "b3.s13.t5",
+              "startMs": 127979,
+              "endMs": 128529
+            },
+            {
+              "text": "sempre",
+              "normalized": "sempre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "always",
+                "fr": "toujours",
+                "es": "siempre"
+              },
+              "id": "b3.s13.t6",
+              "startMs": 128529,
+              "endMs": 128889
+            },
+            {
+              "text": "ragazzi",
+              "normalized": "ragazzi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "boys",
+                "fr": "garçons",
+                "es": "chicos"
+              },
+              "id": "b3.s13.t7",
+              "startMs": 128889,
+              "endMs": 129813
+            },
+            {
+              "text": "infelici",
+              "normalized": "infelici",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "unhappy (plural)",
+                "fr": "malheureux",
+                "es": "infelices"
+              },
+              "id": "b3.s13.t8",
+              "startMs": 129813,
+              "endMs": 130737
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s13.t9"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s13.t10"
+            }
+          ]
+        },
+        {
+          "id": "b3.s14",
+          "text": "Pinocchio ha sonno e non vuole più sentire quella voce.",
+          "translations": {
+            "en": "Pinocchio is sleepy and does not want to hear that voice anymore.",
+            "fr": "Pinocchio a sommeil et ne veut plus entendre cette voix.",
+            "es": "Pinocho tiene sueño y no quiere oír más esa voz."
+          },
+          "tokens": [
+            {
+              "text": "Pinocchio",
+              "normalized": "pinocchio",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Pinocchio",
+                "fr": "Pinocchio",
+                "es": "Pinocho"
+              },
+              "id": "b3.s14.t1",
+              "startMs": 131087,
+              "endMs": 131627
+            },
+            {
+              "text": "ha",
+              "normalized": "ha",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "has",
+                "fr": "a",
+                "es": "tiene"
+              },
+              "id": "b3.s14.t2",
+              "startMs": 131627,
+              "endMs": 131627
+            },
+            {
+              "text": "sonno",
+              "normalized": "sonno",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sleepiness",
+                "fr": "sommeil",
+                "es": "sueño"
+              },
+              "id": "b3.s14.t3",
+              "startMs": 131627,
+              "endMs": 132047
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b3.s14.t4",
+              "startMs": 132047,
+              "endMs": 132067
+            },
+            {
+              "text": "non",
+              "normalized": "non",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "not",
+                "fr": "ne... pas",
+                "es": "no"
+              },
+              "id": "b3.s14.t5",
+              "startMs": 132157,
+              "endMs": 132287
+            },
+            {
+              "text": "vuole",
+              "normalized": "vuole",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "(he/she) wants",
+                "fr": "veut",
+                "es": "quiere"
+              },
+              "id": "b3.s14.t6",
+              "startMs": 132287,
+              "endMs": 132587
+            },
+            {
+              "text": "più",
+              "normalized": "più",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "more",
+                "fr": "plus",
+                "es": "más"
+              },
+              "id": "b3.s14.t7",
+              "startMs": 132587,
+              "endMs": 132827
+            },
+            {
+              "text": "sentire",
+              "normalized": "sentire",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to hear",
+                "fr": "entendre",
+                "es": "oír"
+              },
+              "id": "b3.s14.t8",
+              "startMs": 132827,
+              "endMs": 133247
+            },
+            {
+              "text": "quella",
+              "normalized": "quella",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "that (fem.)",
+                "fr": "cette",
+                "es": "esa"
+              },
+              "id": "b3.s14.t9",
+              "startMs": 133247,
+              "endMs": 133617
+            },
+            {
+              "text": "voce",
+              "normalized": "voce",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "voice",
+                "fr": "voix",
+                "es": "voz"
+              },
+              "id": "b3.s14.t10",
+              "startMs": 133617,
+              "endMs": 134677
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s14.t11"
+            }
+          ]
+        },
+        {
+          "id": "b3.s15",
+          "text": "Prende un martello di legno e lo lancia al Grillo.",
+          "translations": {
+            "en": "He takes a wooden hammer and throws it at the Cricket.",
+            "fr": "Il prend un marteau en bois et le lance sur le Grillon.",
+            "es": "Toma un martillo de madera y lo lanza al Grillo."
+          },
+          "tokens": [
+            {
+              "text": "Prende",
+              "normalized": "prende",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "takes",
+                "fr": "prend",
+                "es": "toma"
+              },
+              "id": "b3.s15.t1",
+              "startMs": 135027,
+              "endMs": 135407
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a / an",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b3.s15.t2",
+              "startMs": 135407,
+              "endMs": 135537
+            },
+            {
+              "text": "martello",
+              "normalized": "martello",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hammer",
+                "fr": "marteau",
+                "es": "martillo"
+              },
+              "id": "b3.s15.t3",
+              "startMs": 135537,
+              "endMs": 136057
+            },
+            {
+              "text": "di",
+              "normalized": "di",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b3.s15.t4",
+              "startMs": 136057,
+              "endMs": 136187
+            },
+            {
+              "text": "legno",
+              "normalized": "legno",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wood",
+                "fr": "bois",
+                "es": "madera"
+              },
+              "id": "b3.s15.t5",
+              "startMs": 136187,
+              "endMs": 136527
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b3.s15.t6",
+              "startMs": 136527,
+              "endMs": 136547
+            },
+            {
+              "text": "lo",
+              "normalized": "lo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "him / it",
+                "fr": "le",
+                "es": "lo"
+              },
+              "id": "b3.s15.t7",
+              "startMs": 136657,
+              "endMs": 136707
+            },
+            {
+              "text": "lancia",
+              "normalized": "lancia",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "throws",
+                "fr": "lance",
+                "es": "lanza"
+              },
+              "id": "b3.s15.t8",
+              "startMs": 136707,
+              "endMs": 137097
+            },
+            {
+              "text": "al",
+              "normalized": "al",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to the",
+                "fr": "au",
+                "es": "al"
+              },
+              "id": "b3.s15.t9",
+              "startMs": 137097,
+              "endMs": 137207
+            },
+            {
+              "text": "Grillo",
+              "normalized": "grillo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cricket",
+                "fr": "grillon",
+                "es": "grillo"
+              },
+              "id": "b3.s15.t10",
+              "startMs": 137207,
+              "endMs": 138347
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s15.t11"
+            }
+          ]
+        },
+        {
+          "id": "b3.s16",
+          "text": "Poi va a letto con i piedi freddi e la pancia vuota.",
+          "translations": {
+            "en": "Then he goes to bed with cold feet and an empty belly.",
+            "fr": "Puis il va au lit avec les pieds froids et le ventre vide.",
+            "es": "Luego se va a la cama con los pies fríos y la barriga vacía."
+          },
+          "tokens": [
+            {
+              "text": "Poi",
+              "normalized": "poi",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "then",
+                "fr": "puis",
+                "es": "luego"
+              },
+              "id": "b3.s16.t1",
+              "startMs": 138697,
+              "endMs": 138887
+            },
+            {
+              "text": "va",
+              "normalized": "va",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "goes",
+                "fr": "va",
+                "es": "va"
+              },
+              "id": "b3.s16.t2",
+              "startMs": 138887,
+              "endMs": 139017
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to / at",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b3.s16.t3",
+              "startMs": 139017,
+              "endMs": 139077
+            },
+            {
+              "text": "letto",
+              "normalized": "letto",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "bed",
+                "fr": "lit",
+                "es": "cama"
+              },
+              "id": "b3.s16.t4",
+              "startMs": 139077,
+              "endMs": 139397
+            },
+            {
+              "text": "con",
+              "normalized": "con",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b3.s16.t5",
+              "startMs": 139397,
+              "endMs": 139587
+            },
+            {
+              "text": "i",
+              "normalized": "i",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the (masc. plural)",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b3.s16.t6",
+              "startMs": 139587,
+              "endMs": 139637
+            },
+            {
+              "text": "piedi",
+              "normalized": "piedi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "feet",
+                "fr": "pieds",
+                "es": "pies"
+              },
+              "id": "b3.s16.t7",
+              "startMs": 139637,
+              "endMs": 140017
+            },
+            {
+              "text": "freddi",
+              "normalized": "freddi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cold (masc. plural)",
+                "fr": "froids",
+                "es": "fríos"
+              },
+              "id": "b3.s16.t8",
+              "startMs": 140017,
+              "endMs": 140397
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b3.s16.t9",
+              "startMs": 140397,
+              "endMs": 140407
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the (fem.)",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b3.s16.t10",
+              "startMs": 140487,
+              "endMs": 140587
+            },
+            {
+              "text": "pancia",
+              "normalized": "pancia",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "belly",
+                "fr": "ventre",
+                "es": "barriga"
+              },
+              "id": "b3.s16.t11",
+              "startMs": 140587,
+              "endMs": 141359
+            },
+            {
+              "text": "vuota",
+              "normalized": "vuota",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "empty (fem.)",
+                "fr": "vide",
+                "es": "vacía"
+              },
+              "id": "b3.s16.t12",
+              "startMs": 141359,
+              "endMs": 142131
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s16.t13"
+            }
+          ]
+        },
+        {
+          "id": "b3.s17",
+          "text": "Domani cominciano le vere avventure di Pinocchio.",
+          "translations": {
+            "en": "Tomorrow the real adventures of Pinocchio begin.",
+            "fr": "Demain commencent les vraies aventures de Pinocchio.",
+            "es": "Mañana empiezan las verdaderas aventuras de Pinocho."
+          },
+          "tokens": [
+            {
+              "text": "Domani",
+              "normalized": "domani",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "tomorrow",
+                "fr": "demain",
+                "es": "mañana"
+              },
+              "id": "b3.s17.t1",
+              "startMs": 142481,
+              "endMs": 142966
+            },
+            {
+              "text": "cominciano",
+              "normalized": "cominciano",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "(they) begin",
+                "fr": "commencent",
+                "es": "empiezan"
+              },
+              "id": "b3.s17.t2",
+              "startMs": 142966,
+              "endMs": 143451
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the (fem. plural)",
+                "fr": "les",
+                "es": "las"
+              },
+              "id": "b3.s17.t3",
+              "startMs": 143451,
+              "endMs": 143571
+            },
+            {
+              "text": "vere",
+              "normalized": "vere",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "true (fem. plural)",
+                "fr": "vraies",
+                "es": "verdaderas"
+              },
+              "id": "b3.s17.t4",
+              "startMs": 143571,
+              "endMs": 143821
+            },
+            {
+              "text": "avventure",
+              "normalized": "avventure",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "adventures",
+                "fr": "aventures",
+                "es": "aventuras"
+              },
+              "id": "b3.s17.t5",
+              "startMs": 143821,
+              "endMs": 144371
+            },
+            {
+              "text": "di",
+              "normalized": "di",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b3.s17.t6",
+              "startMs": 144371,
+              "endMs": 144491
+            },
+            {
+              "text": "Pinocchio",
+              "normalized": "pinocchio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Pinocchio",
+                "fr": "Pinocchio",
+                "es": "Pinocho"
+              },
+              "id": "b3.s17.t7",
+              "startMs": 144491,
+              "endMs": 145655
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s17.t8"
+            }
+          ]
+        },
+        {
+          "id": "b3.s18",
+          "text": "Ma questa è un'altra storia, per un altro giorno.",
+          "translations": {
+            "en": "But that is another story, for another day.",
+            "fr": "Mais c'est une autre histoire, pour un autre jour.",
+            "es": "Pero esa es otra historia, para otro día."
+          },
+          "tokens": [
+            {
+              "text": "Ma",
+              "normalized": "ma",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "but",
+                "fr": "mais",
+                "es": "pero"
+              },
+              "id": "b3.s18.t1",
+              "startMs": 146055,
+              "endMs": 146135
+            },
+            {
+              "text": "questa",
+              "normalized": "questa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "this (fem.)",
+                "fr": "cette",
+                "es": "esta"
+              },
+              "id": "b3.s18.t2",
+              "startMs": 146135,
+              "endMs": 146415
+            },
+            {
+              "text": "è",
+              "normalized": "è",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es / está"
+              },
+              "id": "b3.s18.t3",
+              "startMs": 146535,
+              "endMs": 146665
+            },
+            {
+              "text": "un'altra",
+              "normalized": "un'altra",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "another",
+                "fr": "une autre",
+                "es": "otra"
+              },
+              "id": "b3.s18.t4",
+              "startMs": 146665,
+              "endMs": 147155
+            },
+            {
+              "text": "storia",
+              "normalized": "storia",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "story",
+                "fr": "histoire",
+                "es": "historia"
+              },
+              "id": "b3.s18.t5",
+              "startMs": 147155,
+              "endMs": 147645
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s18.t6"
+            },
+            {
+              "text": "per",
+              "normalized": "per",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "for",
+                "fr": "pour",
+                "es": "para / por"
+              },
+              "id": "b3.s18.t7",
+              "startMs": 147645,
+              "endMs": 147845
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a / an",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b3.s18.t8",
+              "startMs": 147855,
+              "endMs": 147975
+            },
+            {
+              "text": "altro",
+              "normalized": "altro",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "other",
+                "fr": "autre",
+                "es": "otro"
+              },
+              "id": "b3.s18.t9",
+              "startMs": 147975,
+              "endMs": 148305
+            },
+            {
+              "text": "giorno",
+              "normalized": "giorno",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "day",
+                "fr": "jour",
+                "es": "día"
+              },
+              "id": "b3.s18.t10",
+              "startMs": 148305,
+              "endMs": 148725
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s18.t11"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "@sotto/content",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "sotto-content": "./src/cli.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "node src/cli.ts build",
+    "validate": "node src/cli.ts validate",
+    "narrate": "node src/cli.ts narrate",
+    "covers": "node src/cli.ts covers"
+  },
+  "dependencies": {
+    "@sotto/core": "workspace:*",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

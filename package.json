@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "name": "sotto",
+  "type": "module",
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=26"
+  },
+  "scripts": {
+    "dev": "concurrently -n server,web -c blue,green \"pnpm dev:server\" \"pnpm dev:web\"",
+    "dev:server": "pnpm --filter @sotto/server dev",
+    "dev:web": "pnpm --filter @sotto/client dev:web",
+    "ios": "pnpm --filter @sotto/client ios",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm content:validate",
+    "test": "vitest run",
+    "typecheck": "pnpm -r --if-present run typecheck",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "content:build": "pnpm --filter @sotto/content build",
+    "content:validate": "pnpm --filter @sotto/content validate",
+    "content:narrate": "pnpm --filter @sotto/content narrate",
+    "content:covers": "pnpm --filter @sotto/content covers"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.38.0",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.38.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.2",
+    "vitest": "^3.2.4"
+  }
+}

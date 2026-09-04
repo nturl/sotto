@@ -1,0 +1,22 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1024" height="1024" fill="#F4ECDF"/>
+  <g fill="none" stroke="#221E1B" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
+    <!-- open book: two pages meeting at a center spine -->
+    <path d="M512 300
+             C 430 250, 300 230, 210 250
+             L 210 700
+             C 300 680, 430 700, 512 750
+             C 594 700, 724 680, 814 700
+             L 814 250
+             C 724 230, 594 250, 512 300
+             Z"/>
+    <path d="M512 300 L512 750" />
+    <!-- a few page lines for texture -->
+    <path d="M270 330 C 340 320, 410 335, 470 365" stroke-width="14"/>
+    <path d="M270 400 C 340 390, 410 405, 470 435" stroke-width="14"/>
+    <path d="M270 470 C 340 460, 410 475, 470 505" stroke-width="14"/>
+    <path d="M554 365 C 614 335, 684 320, 754 330" stroke-width="14"/>
+    <path d="M554 435 C 614 405, 684 390, 754 400" stroke-width="14"/>
+    <path d="M554 505 C 614 475, 684 460, 754 470" stroke-width="14"/>
+  </g>
+</svg>

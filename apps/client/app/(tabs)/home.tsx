@@ -28,13 +28,13 @@ export default function HomeScreen() {
         <View style={styles.headerActions}>
           <IconButton
             icon={<SettingsGlyph size={20} />}
-            accessibilityLabel={t('home.a11y.settings')}
+            accessibilityLabel={t('home.settings')}
             onPress={() => router.push('/profile')}
           />
           <IconButton
             icon={<GiftGlyph size={20} />}
-            accessibilityLabel={t('home.a11y.gift')}
-            onPress={() => setToast(t('settings.comingSoon'))}
+            accessibilityLabel={t('home.gift')}
+            onPress={() => openBook(library.daily)}
           />
         </View>
       </View>

@@ -5,8 +5,9 @@
  * the hex values below belong to the illustrations, matching the reference
  * renders exactly. Radius 2 (radius.sm); optional peach cutout shadow.
  */
-import { StyleSheet, View } from 'react-native';
+import { Image, Platform, StyleSheet, View } from 'react-native';
 import { colors, radius } from '@sotto/core/theme';
+import { SvgUri } from 'react-native-svg';
 import { fonts } from './fonts';
 import { Circle, Line, Path, Rect, Svg, SvgText } from './svg';
 
@@ -159,33 +160,53 @@ export type CoverProps = {
   /** Peach cutout shadow (DESIGN.md device A). Pass the offset in px. */
   cutout?: boolean;
   cutoutSize?: number;
+  /** Optional URL to a real SVG cover. When provided it overrides flat art. */
+  svgUrl?: string;
   accessibilityLabel?: string;
 };
 
-export function Cover({ art, width, height, cutout = false, cutoutSize = 6, accessibilityLabel }: CoverProps) {
+export function Cover({
+  art,
+  width,
+  height,
+  cutout = false,
+  cutoutSize = 6,
+  svgUrl,
+  accessibilityLabel,
+}: CoverProps) {
   const definition = COVER_ART[art];
-  return (
+  const label = accessibilityLabel ?? definition.title;
+  const shadow = cutout ? (
     <View
-      style={{ width, height }}
-      accessible
-      accessibilityRole="image"
-      accessibilityLabel={accessibilityLabel ?? definition.title}
-    >
-      {cutout ? (
-        <View
-          pointerEvents="none"
-          style={[
-            StyleSheet.absoluteFill,
-            {
-              backgroundColor: colors.peach,
-              borderRadius: radius.sm,
-              transform: [{ translateX: cutoutSize }, { translateY: cutoutSize }],
-            },
-          ]}
-        />
-      ) : null}
+      pointerEvents="none"
+      style={[
+        StyleSheet.absoluteFill,
+        styles.cutout,
+        { transform: [{ translateX: cutoutSize }, { translateY: cutoutSize }] },
+      ]}
+    />
+  ) : null;
+
+  if (svgUrl) {
+    return (
+      <View style={{ width, height }} accessible accessibilityRole="image" accessibilityLabel={label}>
+        {shadow}
+        <View style={styles.face}>
+          {Platform.OS === 'web' ? (
+            <Image source={{ uri: svgUrl }} style={{ width, height }} resizeMode="contain" />
+          ) : (
+            <SvgUri uri={svgUrl} width={width} height={height} />
+          )}
+        </View>
+      </View>
+    );
+  }
+
+  return (
+    <View style={{ width, height }} accessible accessibilityRole="image" accessibilityLabel={label}>
+      {shadow}
       <View style={[styles.face, { backgroundColor: definition.bg }]}>
-        <Svg width={width} height={height} viewBox="0 0 150 225" fallbackColor={definition.bg}>
+        <Svg width={width} height={height} viewBox="0 0 150 225">
           <Rect x={0} y={0} width={150} height={225} fill={definition.bg} />
           {definition.art}
           <CoverTitle title={definition.title} color={definition.titleColor} size={definition.titleSize} />
@@ -196,6 +217,10 @@ export function Cover({ art, width, height, cutout = false, cutoutSize = 6, acce
 }
 
 const styles = StyleSheet.create({
+  cutout: {
+    backgroundColor: colors.peach,
+    borderRadius: radius.sm,
+  },
   face: {
     flex: 1,
     borderRadius: radius.sm,

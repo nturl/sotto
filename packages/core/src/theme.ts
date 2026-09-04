@@ -18,6 +18,8 @@ export const colors = {
   quiet: '#B5AB9F', // unspoken narration words (speech fill start state)
   ok: '#4E7D5B', // offline/ready states only, never a button
   warn: '#B8651B', // error/limit text only
+  dailyTeal: '#1F4F57', // daily-story card gradient start (the only gradient in v1)
+  dailySage: '#5B8A6B', // daily-story card gradient end
 } as const;
 
 export type ColorToken = keyof typeof colors;

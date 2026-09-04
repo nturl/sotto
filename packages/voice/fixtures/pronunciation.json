@@ -1,0 +1,49 @@
+{
+  "mode": "pronunciation",
+  "steps": [
+    { "kind": "event", "delayMs": 0, "event": { "type": "state", "state": "connecting" } },
+    { "kind": "event", "delayMs": 150, "event": { "type": "state", "state": "listening" } },
+    {
+      "kind": "waitForText",
+      "next": [
+        { "kind": "event", "delayMs": 150, "event": { "type": "state", "state": "thinking" } },
+        {
+          "kind": "event",
+          "delayMs": 300,
+          "event": {
+            "type": "caption",
+            "speaker": "tutor",
+            "text": "Presque ! Essaie de rendre le u plus fermé.",
+            "final": true
+          }
+        },
+        {
+          "kind": "toolCall",
+          "delayMs": 200,
+          "name": "show_explanation",
+          "args": {
+            "title": "Prononciation : u",
+            "body": "Le u français est plus fermé que le ou anglais : arrondis les lèvres et avance la langue.",
+            "kind": "pronunciation"
+          },
+          "onResult": {
+            "onOk": [
+              {
+                "kind": "event",
+                "delayMs": 100,
+                "event": { "type": "state", "state": "listening" }
+              }
+            ],
+            "onError": [
+              {
+                "kind": "event",
+                "delayMs": 100,
+                "event": { "type": "state", "state": "listening" }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

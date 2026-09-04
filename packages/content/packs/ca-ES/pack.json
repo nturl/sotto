@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "locale": "ca-ES",
+  "language": {
+    "locale": "ca-ES",
+    "baseLanguage": "ca",
+    "region": "ES",
+    "script": "Latn",
+    "nativeName": "català",
+    "localizedNames": {
+      "en": "Catalan",
+      "es": "catalán",
+      "fr": "catalan",
+      "pt": "catalão",
+      "it": "catalano",
+      "zh-Hans": "加泰罗尼亚语",
+      "zh-Hant": "加泰羅尼亞語",
+      "ro": "catalană",
+      "ca": "català"
+    },
+    "direction": "ltr",
+    "stability": "beta",
+    "tokenizer": "latin",
+    "typography": "latin",
+    "pronunciationGuide": "none",
+    "tutorNotes": "Central Catalan (Barcelona-area) as the reference variety: open/closed e and o are meaningfully distinct, and word-final consonants often devoice. Elision before a vowel (\"l'\", \"m'\", \"d'\") behaves like a normal clitic. No TTS voice is available yet.",
+    "ttsVoice": null,
+    "ttsLangCode": null,
+    "sttLanguage": "ca",
+    "catalog": "ca"
+  },
+  "books": [
+    {
+      "bookId": "ca-patufet",
+      "contentLocale": "ca-ES",
+      "title": "En Patufet",
+      "author": "Traditional (Catalan folk tale)",
+      "level": "A0",
+      "categories": [
+        "folk"
+      ],
+      "estimatedMinutes": 3,
+      "localizedTitles": {
+        "en": "Patufet",
+        "fr": "Patufet",
+        "es": "Patufet"
+      },
+      "premise": {
+        "en": "A tiny boy as small as a grain of rice goes on an adventure to help his parents.",
+        "fr": "Un minuscule garçon aussi petit qu'un grain de riz part à l'aventure pour aider ses parents.",
+        "es": "Un niño diminuto tan pequeño como un grano de arroz vive una aventura para ayudar a sus padres."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 2
+    }
+  ],
+  "generatedAt": "2026-09-04T21:35:57.216Z"
+}

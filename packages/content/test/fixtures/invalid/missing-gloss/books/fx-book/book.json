@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "bookId": "fx-book",
+  "contentLocale": "fr-FR",
+  "title": "Fixture",
+  "author": "Test Author",
+  "sourceEdition": "Fixture edition",
+  "sourceUrl": "https://example.com",
+  "sourceJurisdiction": "Public domain",
+  "adaptationEditor": "Sotto contributors",
+  "reviewStatus": "draft",
+  "level": "A1",
+  "categories": ["tales"],
+  "estimatedMinutes": 1,
+  "localizedTitles": {
+    "en": "Fixture",
+    "fr": "Fixture",
+    "es": "Fixture"
+  },
+  "premise": {
+    "en": "A fixture.",
+    "fr": "Un fixture.",
+    "es": "Un fixture."
+  },
+  "summary": {
+    "en": "A fixture.",
+    "fr": "Un fixture.",
+    "es": "Un fixture."
+  },
+  "contentWarning": null,
+  "tutorNotes": {
+    "pronunciation": "",
+    "grammar": "",
+    "culture": "",
+    "commonErrors": ""
+  },
+  "vocabulary": [
+    {
+      "word": "chat",
+      "gloss": {
+        "en": "cat",
+        "fr": "chat",
+        "es": "gato"
+      }
+    }
+  ],
+  "comprehension": [
+    {
+      "question": {
+        "en": "?",
+        "fr": "?",
+        "es": "?"
+      }
+    }
+  ],
+  "license": {
+    "spdx": "CC-BY-SA-4.0",
+    "attribution": "Sotto contributors"
+  },
+  "cover": "cover.svg",
+  "chapters": [
+    {
+      "id": "fx-book-01",
+      "title": "Chapitre 1",
+      "order": 1,
+      "file": "chapters/01.json",
+      "wordCount": 2
+    }
+  ]
+}

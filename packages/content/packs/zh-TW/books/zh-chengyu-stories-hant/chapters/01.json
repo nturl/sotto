@@ -1,0 +1,1765 @@
+{
+  "id": "zh-chengyu-stories-01",
+  "bookId": "zh-chengyu-stories",
+  "title": "守株待兔",
+  "order": 1,
+  "blocks": [
+    {
+      "id": "b1",
+      "sentences": [
+        {
+          "id": "b1.s1",
+          "text": "從前有一個農夫。",
+          "translations": {
+            "en": "Once there was a farmer.",
+            "fr": "Autrefois, il y avait un fermier.",
+            "es": "Había una vez un campesino."
+          },
+          "tokens": [
+            {
+              "text": "從前",
+              "normalized": "從前",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "once upon a time",
+                "fr": "autrefois",
+                "es": "había una vez"
+              },
+              "pinyin": "cóngqián",
+              "id": "b1.s1.t1",
+              "startMs": 0,
+              "endMs": 460
+            },
+            {
+              "text": "有",
+              "normalized": "有",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "have; there is",
+                "fr": "avoir; il y a",
+                "es": "tener; haber"
+              },
+              "pinyin": "yǒu",
+              "id": "b1.s1.t2",
+              "startMs": 460,
+              "endMs": 690
+            },
+            {
+              "text": "一個",
+              "normalized": "一個",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "one, a",
+                "fr": "un, une",
+                "es": "un, una"
+              },
+              "pinyin": "yī ge",
+              "id": "b1.s1.t3",
+              "startMs": 690,
+              "endMs": 1324
+            },
+            {
+              "text": "農夫",
+              "normalized": "農夫",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "farmer",
+                "fr": "fermier",
+                "es": "campesino"
+              },
+              "pinyin": "nóngfū",
+              "id": "b1.s1.t4",
+              "startMs": 1324,
+              "endMs": 1959
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s1.t5"
+            }
+          ]
+        },
+        {
+          "id": "b1.s2",
+          "text": "他每天在田裡幹活。",
+          "translations": {
+            "en": "He worked in the fields every day.",
+            "fr": "Il travaillait aux champs tous les jours.",
+            "es": "Trabajaba en el campo todos los días."
+          },
+          "tokens": [
+            {
+              "text": "他",
+              "normalized": "他",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "pinyin": "tā",
+              "id": "b1.s2.t1",
+              "startMs": 2389,
+              "endMs": 2549
+            },
+            {
+              "text": "每天",
+              "normalized": "每天",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "every day",
+                "fr": "chaque jour",
+                "es": "cada día"
+              },
+              "pinyin": "měitiān",
+              "id": "b1.s2.t2",
+              "startMs": 2549,
+              "endMs": 3029
+            },
+            {
+              "text": "在",
+              "normalized": "在",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "at, in",
+                "fr": "à, dans",
+                "es": "en"
+              },
+              "pinyin": "zài",
+              "id": "b1.s2.t3",
+              "startMs": 3029,
+              "endMs": 3209
+            },
+            {
+              "text": "田裡",
+              "normalized": "田裡",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "in the fields",
+                "fr": "aux champs",
+                "es": "en el campo"
+              },
+              "pinyin": "tián lǐ",
+              "id": "b1.s2.t4",
+              "startMs": 3209,
+              "endMs": 3882
+            },
+            {
+              "text": "幹活",
+              "normalized": "幹活",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to work",
+                "fr": "travailler",
+                "es": "trabajar"
+              },
+              "pinyin": "gànhuó",
+              "id": "b1.s2.t5",
+              "startMs": 3882,
+              "endMs": 4556
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s2.t6"
+            }
+          ]
+        },
+        {
+          "id": "b1.s3",
+          "text": "田裡有一棵大樹。",
+          "translations": {
+            "en": "In the field there was a big tree.",
+            "fr": "Il y avait un grand arbre dans le champ.",
+            "es": "En el campo había un árbol grande."
+          },
+          "tokens": [
+            {
+              "text": "田裡",
+              "normalized": "田裡",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "in the fields",
+                "fr": "aux champs",
+                "es": "en el campo"
+              },
+              "pinyin": "tián lǐ",
+              "id": "b1.s3.t1",
+              "startMs": 4906,
+              "endMs": 5370
+            },
+            {
+              "text": "有",
+              "normalized": "有",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "have; there is",
+                "fr": "avoir; il y a",
+                "es": "tener; haber"
+              },
+              "pinyin": "yǒu",
+              "id": "b1.s3.t2",
+              "startMs": 5370,
+              "endMs": 5834
+            },
+            {
+              "text": "一棵",
+              "normalized": "一棵",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "one (tree)",
+                "fr": "un (arbre)",
+                "es": "un (árbol)"
+              },
+              "pinyin": "yī kē",
+              "id": "b1.s3.t3",
+              "startMs": 5834,
+              "endMs": 6298
+            },
+            {
+              "text": "大樹",
+              "normalized": "大樹",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "big tree",
+                "fr": "grand arbre",
+                "es": "árbol grande"
+              },
+              "pinyin": "dà shù",
+              "id": "b1.s3.t4",
+              "startMs": 6298,
+              "endMs": 6762
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t5"
+            }
+          ]
+        },
+        {
+          "id": "b1.s4",
+          "text": "一天，一隻兔子跑過來。",
+          "translations": {
+            "en": "One day, a rabbit ran over.",
+            "fr": "Un jour, un lapin est arrivé en courant.",
+            "es": "Un día, un conejo vino corriendo."
+          },
+          "tokens": [
+            {
+              "text": "一天",
+              "normalized": "一天",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "one day",
+                "fr": "un jour",
+                "es": "un día"
+              },
+              "pinyin": "yī tiān",
+              "id": "b1.s4.t1",
+              "startMs": 7112,
+              "endMs": 7552
+            },
+            {
+              "text": "，",
+              "normalized": "，",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s4.t2"
+            },
+            {
+              "text": "一隻",
+              "normalized": "一隻",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "one (animal)",
+                "fr": "un (animal)",
+                "es": "un (animal)"
+              },
+              "pinyin": "yī zhī",
+              "id": "b1.s4.t3",
+              "startMs": 7552,
+              "endMs": 7992
+            },
+            {
+              "text": "兔子",
+              "normalized": "兔子",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "rabbit",
+                "fr": "lapin",
+                "es": "conejo"
+              },
+              "pinyin": "tùzi",
+              "id": "b1.s4.t4",
+              "startMs": 7992,
+              "endMs": 8432
+            },
+            {
+              "text": "跑",
+              "normalized": "跑",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to run",
+                "fr": "courir",
+                "es": "correr"
+              },
+              "pinyin": "pǎo",
+              "id": "b1.s4.t5",
+              "startMs": 8432,
+              "endMs": 8632
+            },
+            {
+              "text": "過來",
+              "normalized": "過來",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to come over",
+                "fr": "venir",
+                "es": "acercarse"
+              },
+              "pinyin": "guòlái",
+              "id": "b1.s4.t6",
+              "startMs": 8632,
+              "endMs": 9485
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s4.t7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "sentences": [
+        {
+          "id": "b2.s1",
+          "text": "兔子跑得很快。",
+          "translations": {
+            "en": "The rabbit ran very fast.",
+            "fr": "Le lapin courait très vite.",
+            "es": "El conejo corría muy rápido."
+          },
+          "tokens": [
+            {
+              "text": "兔子",
+              "normalized": "兔子",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "rabbit",
+                "fr": "lapin",
+                "es": "conejo"
+              },
+              "pinyin": "tùzi",
+              "id": "b2.s1.t1",
+              "startMs": 10185,
+              "endMs": 10675
+            },
+            {
+              "text": "跑",
+              "normalized": "跑",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to run",
+                "fr": "courir",
+                "es": "correr"
+              },
+              "pinyin": "pǎo",
+              "id": "b2.s1.t2",
+              "startMs": 10675,
+              "endMs": 10925
+            },
+            {
+              "text": "得",
+              "normalized": "得",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(complement marker)",
+                "fr": "(marque de complément)",
+                "es": "(marca de complemento)"
+              },
+              "pinyin": "de",
+              "id": "b2.s1.t3",
+              "startMs": 10925,
+              "endMs": 11175
+            },
+            {
+              "text": "很快",
+              "normalized": "很快",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "very fast",
+                "fr": "très vite",
+                "es": "muy rápido"
+              },
+              "pinyin": "hěn kuài",
+              "id": "b2.s1.t4",
+              "startMs": 11175,
+              "endMs": 12017
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s1.t5"
+            }
+          ]
+        },
+        {
+          "id": "b2.s2",
+          "text": "它撞在樹上，死了。",
+          "translations": {
+            "en": "It hit the tree and died.",
+            "fr": "Il s'est cogné contre l'arbre et il est mort.",
+            "es": "Chocó contra el árbol y murió."
+          },
+          "tokens": [
+            {
+              "text": "它",
+              "normalized": "它",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "it (animal)",
+                "fr": "il (animal)",
+                "es": "él (animal)"
+              },
+              "pinyin": "tā",
+              "id": "b2.s2.t1",
+              "startMs": 12367,
+              "endMs": 12627
+            },
+            {
+              "text": "撞",
+              "normalized": "撞",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to bump into",
+                "fr": "se cogner",
+                "es": "chocar"
+              },
+              "pinyin": "zhuàng",
+              "id": "b2.s2.t2",
+              "startMs": 12627,
+              "endMs": 12807
+            },
+            {
+              "text": "在",
+              "normalized": "在",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "at, in",
+                "fr": "à, dans",
+                "es": "en"
+              },
+              "pinyin": "zài",
+              "id": "b2.s2.t3",
+              "startMs": 12837,
+              "endMs": 13027
+            },
+            {
+              "text": "樹上",
+              "normalized": "樹上",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "on the tree",
+                "fr": "sur l'arbre",
+                "es": "en el árbol"
+              },
+              "pinyin": "shù shang",
+              "id": "b2.s2.t4",
+              "startMs": 13027,
+              "endMs": 13627
+            },
+            {
+              "text": "，",
+              "normalized": "，",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s2.t5"
+            },
+            {
+              "text": "死",
+              "normalized": "死",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to die",
+                "fr": "mourir",
+                "es": "morir"
+              },
+              "pinyin": "sǐ",
+              "id": "b2.s2.t6",
+              "startMs": 13627,
+              "endMs": 13727
+            },
+            {
+              "text": "了",
+              "normalized": "了",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(completed action)",
+                "fr": "(action accomplie)",
+                "es": "(acción completada)"
+              },
+              "pinyin": "le",
+              "id": "b2.s2.t7",
+              "startMs": 13727,
+              "endMs": 13907
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s2.t8"
+            }
+          ]
+        },
+        {
+          "id": "b2.s3",
+          "text": "農夫很高興。",
+          "translations": {
+            "en": "The farmer was very happy.",
+            "fr": "Le fermier était très content.",
+            "es": "El campesino estaba muy contento."
+          },
+          "tokens": [
+            {
+              "text": "農夫",
+              "normalized": "農夫",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "farmer",
+                "fr": "fermier",
+                "es": "campesino"
+              },
+              "pinyin": "nóngfū",
+              "id": "b2.s3.t1",
+              "startMs": 14694,
+              "endMs": 15204
+            },
+            {
+              "text": "很",
+              "normalized": "很",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "pinyin": "hěn",
+              "id": "b2.s3.t2",
+              "startMs": 15204,
+              "endMs": 15464
+            },
+            {
+              "text": "高興",
+              "normalized": "高興",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "happy",
+                "fr": "content",
+                "es": "contento"
+              },
+              "pinyin": "gāoxìng",
+              "id": "b2.s3.t3",
+              "startMs": 15464,
+              "endMs": 16347
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s3.t4"
+            }
+          ]
+        },
+        {
+          "id": "b2.s4",
+          "text": "他把兔子帶回家，吃了。",
+          "translations": {
+            "en": "He took the rabbit home and ate it.",
+            "fr": "Il a ramené le lapin à la maison et l'a mangé.",
+            "es": "Llevó el conejo a casa y se lo comió."
+          },
+          "tokens": [
+            {
+              "text": "他",
+              "normalized": "他",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "pinyin": "tā",
+              "id": "b2.s4.t1",
+              "startMs": 16767,
+              "endMs": 16867
+            },
+            {
+              "text": "把",
+              "normalized": "把",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(object marker)",
+                "fr": "(marque d'objet)",
+                "es": "(marca de objeto)"
+              },
+              "pinyin": "bǎ",
+              "id": "b2.s4.t2",
+              "startMs": 16917,
+              "endMs": 17067
+            },
+            {
+              "text": "兔子",
+              "normalized": "兔子",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "rabbit",
+                "fr": "lapin",
+                "es": "conejo"
+              },
+              "pinyin": "tùzi",
+              "id": "b2.s4.t3",
+              "startMs": 17067,
+              "endMs": 17432
+            },
+            {
+              "text": "帶",
+              "normalized": "帶",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to bring",
+                "fr": "apporter",
+                "es": "llevar"
+              },
+              "pinyin": "dài",
+              "id": "b2.s4.t4",
+              "startMs": 17432,
+              "endMs": 17797
+            },
+            {
+              "text": "回",
+              "normalized": "回",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to return",
+                "fr": "retourner",
+                "es": "volver"
+              },
+              "pinyin": "huí",
+              "id": "b2.s4.t5",
+              "startMs": 17797,
+              "endMs": 18017
+            },
+            {
+              "text": "家",
+              "normalized": "家",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "home",
+                "fr": "maison",
+                "es": "casa"
+              },
+              "pinyin": "jiā",
+              "id": "b2.s4.t6",
+              "startMs": 18017,
+              "endMs": 18237
+            },
+            {
+              "text": "，",
+              "normalized": "，",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s4.t7"
+            },
+            {
+              "text": "吃",
+              "normalized": "吃",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to eat",
+                "fr": "manger",
+                "es": "comer"
+              },
+              "pinyin": "chī",
+              "id": "b2.s4.t8",
+              "startMs": 18237,
+              "endMs": 18457
+            },
+            {
+              "text": "了",
+              "normalized": "了",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(completed action)",
+                "fr": "(action accomplie)",
+                "es": "(acción completada)"
+              },
+              "pinyin": "le",
+              "id": "b2.s4.t9",
+              "startMs": 18457,
+              "endMs": 18637
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s4.t10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3",
+      "sentences": [
+        {
+          "id": "b3.s1",
+          "text": "兔子很好吃。",
+          "translations": {
+            "en": "The rabbit was tasty.",
+            "fr": "Le lapin était bon.",
+            "es": "El conejo estaba rico."
+          },
+          "tokens": [
+            {
+              "text": "兔子",
+              "normalized": "兔子",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "rabbit",
+                "fr": "lapin",
+                "es": "conejo"
+              },
+              "pinyin": "tùzi",
+              "id": "b3.s1.t1",
+              "startMs": 19763,
+              "endMs": 20308
+            },
+            {
+              "text": "很",
+              "normalized": "很",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "pinyin": "hěn",
+              "id": "b3.s1.t2",
+              "startMs": 20308,
+              "endMs": 20854
+            },
+            {
+              "text": "好吃",
+              "normalized": "好吃",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "tasty",
+                "fr": "bon (à manger)",
+                "es": "rico"
+              },
+              "pinyin": "hǎochī",
+              "id": "b3.s1.t3",
+              "startMs": 20854,
+              "endMs": 21399
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s1.t4"
+            }
+          ]
+        },
+        {
+          "id": "b3.s2",
+          "text": "他想：“天天有兔子就好了。”",
+          "translations": {
+            "en": "He thought, \"If only I had a rabbit every day!\"",
+            "fr": "Il a pensé : « Si j'avais un lapin tous les jours ! »",
+            "es": "Pensó: «¡Si tuviera un conejo todos los días!»"
+          },
+          "tokens": [
+            {
+              "text": "他",
+              "normalized": "他",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "pinyin": "tā",
+              "id": "b3.s2.t1",
+              "startMs": 21799,
+              "endMs": 21989
+            },
+            {
+              "text": "想",
+              "normalized": "想",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to think; to want",
+                "fr": "penser; vouloir",
+                "es": "pensar; querer"
+              },
+              "pinyin": "xiǎng",
+              "id": "b3.s2.t2",
+              "startMs": 22109,
+              "endMs": 22249
+            },
+            {
+              "text": "：",
+              "normalized": "：",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t3"
+            },
+            {
+              "text": "“",
+              "normalized": "“",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t4"
+            },
+            {
+              "text": "天天",
+              "normalized": "天天",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "every day",
+                "fr": "tous les jours",
+                "es": "todos los días"
+              },
+              "pinyin": "tiāntiān",
+              "id": "b3.s2.t5",
+              "startMs": 22249,
+              "endMs": 22749
+            },
+            {
+              "text": "有",
+              "normalized": "有",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "have; there is",
+                "fr": "avoir; il y a",
+                "es": "tener; haber"
+              },
+              "pinyin": "yǒu",
+              "id": "b3.s2.t6",
+              "startMs": 22749,
+              "endMs": 22949
+            },
+            {
+              "text": "兔子",
+              "normalized": "兔子",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "rabbit",
+                "fr": "lapin",
+                "es": "conejo"
+              },
+              "pinyin": "tùzi",
+              "id": "b3.s2.t7",
+              "startMs": 22949,
+              "endMs": 23489
+            },
+            {
+              "text": "就",
+              "normalized": "就",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "then; just",
+                "fr": "alors; juste",
+                "es": "entonces; justo"
+              },
+              "pinyin": "jiù",
+              "id": "b3.s2.t8",
+              "startMs": 23489,
+              "endMs": 23739
+            },
+            {
+              "text": "好",
+              "normalized": "好",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "good",
+                "fr": "bon",
+                "es": "bueno"
+              },
+              "pinyin": "hǎo",
+              "id": "b3.s2.t9",
+              "startMs": 23739,
+              "endMs": 24140
+            },
+            {
+              "text": "了",
+              "normalized": "了",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(completed action)",
+                "fr": "(action accomplie)",
+                "es": "(acción completada)"
+              },
+              "pinyin": "le",
+              "id": "b3.s2.t10",
+              "startMs": 24140,
+              "endMs": 24541
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t11"
+            },
+            {
+              "text": "”",
+              "normalized": "”",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t12"
+            }
+          ]
+        },
+        {
+          "id": "b3.s3",
+          "text": "第二天，他不幹活了。",
+          "translations": {
+            "en": "The next day, he did not work.",
+            "fr": "Le lendemain, il n'a pas travaillé.",
+            "es": "Al día siguiente, no trabajó."
+          },
+          "tokens": [
+            {
+              "text": "第二天",
+              "normalized": "第二天",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the next day",
+                "fr": "le lendemain",
+                "es": "al día siguiente"
+              },
+              "pinyin": "dì èr tiān",
+              "id": "b3.s3.t1",
+              "startMs": 24891,
+              "endMs": 25521
+            },
+            {
+              "text": "，",
+              "normalized": "，",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s3.t2"
+            },
+            {
+              "text": "他",
+              "normalized": "他",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "pinyin": "tā",
+              "id": "b3.s3.t3",
+              "startMs": 25521,
+              "endMs": 25721
+            },
+            {
+              "text": "不",
+              "normalized": "不",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "not",
+                "fr": "ne... pas",
+                "es": "no"
+              },
+              "pinyin": "bù",
+              "id": "b3.s3.t4",
+              "startMs": 25721,
+              "endMs": 25941
+            },
+            {
+              "text": "幹活",
+              "normalized": "幹活",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to work",
+                "fr": "travailler",
+                "es": "trabajar"
+              },
+              "pinyin": "gànhuó",
+              "id": "b3.s3.t5",
+              "startMs": 25941,
+              "endMs": 26361
+            },
+            {
+              "text": "了",
+              "normalized": "了",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(completed action)",
+                "fr": "(action accomplie)",
+                "es": "(acción completada)"
+              },
+              "pinyin": "le",
+              "id": "b3.s3.t6",
+              "startMs": 26361,
+              "endMs": 26531
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s3.t7"
+            }
+          ]
+        },
+        {
+          "id": "b3.s4",
+          "text": "他坐在樹旁邊，等兔子。",
+          "translations": {
+            "en": "He sat by the tree and waited for rabbits.",
+            "fr": "Il s'est assis à côté de l'arbre et a attendu les lapins.",
+            "es": "Se sentó junto al árbol y esperó a los conejos."
+          },
+          "tokens": [
+            {
+              "text": "他",
+              "normalized": "他",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "pinyin": "tā",
+              "id": "b3.s4.t1",
+              "startMs": 27384,
+              "endMs": 27514
+            },
+            {
+              "text": "坐",
+              "normalized": "坐",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to sit",
+                "fr": "s'asseoir",
+                "es": "sentarse"
+              },
+              "pinyin": "zuò",
+              "id": "b3.s4.t2",
+              "startMs": 27594,
+              "endMs": 27774
+            },
+            {
+              "text": "在",
+              "normalized": "在",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "at, in",
+                "fr": "à, dans",
+                "es": "en"
+              },
+              "pinyin": "zài",
+              "id": "b3.s4.t3",
+              "startMs": 27774,
+              "endMs": 28004
+            },
+            {
+              "text": "樹",
+              "normalized": "樹",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "tree",
+                "fr": "arbre",
+                "es": "árbol"
+              },
+              "pinyin": "shù",
+              "id": "b3.s4.t4",
+              "startMs": 28004,
+              "endMs": 28349
+            },
+            {
+              "text": "旁邊",
+              "normalized": "旁邊",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "beside",
+                "fr": "à côté",
+                "es": "al lado"
+              },
+              "pinyin": "pángbiān",
+              "id": "b3.s4.t5",
+              "startMs": 28349,
+              "endMs": 28694
+            },
+            {
+              "text": "，",
+              "normalized": "，",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s4.t6"
+            },
+            {
+              "text": "等",
+              "normalized": "等",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to wait",
+                "fr": "attendre",
+                "es": "esperar"
+              },
+              "pinyin": "děng",
+              "id": "b3.s4.t7",
+              "startMs": 28694,
+              "endMs": 28824
+            },
+            {
+              "text": "兔子",
+              "normalized": "兔子",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "rabbit",
+                "fr": "lapin",
+                "es": "conejo"
+              },
+              "pinyin": "tùzi",
+              "id": "b3.s4.t8",
+              "startMs": 28824,
+              "endMs": 29772
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s4.t9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b4",
+      "sentences": [
+        {
+          "id": "b4.s1",
+          "text": "他等了一天又一天。",
+          "translations": {
+            "en": "He waited day after day.",
+            "fr": "Il a attendu jour après jour.",
+            "es": "Esperó día tras día."
+          },
+          "tokens": [
+            {
+              "text": "他",
+              "normalized": "他",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "pinyin": "tā",
+              "id": "b4.s1.t1",
+              "startMs": 30472,
+              "endMs": 30682
+            },
+            {
+              "text": "等",
+              "normalized": "等",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to wait",
+                "fr": "attendre",
+                "es": "esperar"
+              },
+              "pinyin": "děng",
+              "id": "b4.s1.t2",
+              "startMs": 30682,
+              "endMs": 30892
+            },
+            {
+              "text": "了",
+              "normalized": "了",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(completed action)",
+                "fr": "(action accomplie)",
+                "es": "(acción completada)"
+              },
+              "pinyin": "le",
+              "id": "b4.s1.t3",
+              "startMs": 30892,
+              "endMs": 31082
+            },
+            {
+              "text": "一天",
+              "normalized": "一天",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "one day",
+                "fr": "un jour",
+                "es": "un día"
+              },
+              "pinyin": "yī tiān",
+              "id": "b4.s1.t4",
+              "startMs": 31082,
+              "endMs": 31522
+            },
+            {
+              "text": "又",
+              "normalized": "又",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "again",
+                "fr": "encore",
+                "es": "otra vez"
+              },
+              "pinyin": "yòu",
+              "id": "b4.s1.t5",
+              "startMs": 31522,
+              "endMs": 31692
+            },
+            {
+              "text": "一天",
+              "normalized": "一天",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "one day",
+                "fr": "un jour",
+                "es": "un día"
+              },
+              "pinyin": "yī tiān",
+              "id": "b4.s1.t6",
+              "startMs": 31692,
+              "endMs": 32472
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s1.t7"
+            }
+          ]
+        },
+        {
+          "id": "b4.s2",
+          "text": "可是兔子沒有再來。",
+          "translations": {
+            "en": "But no rabbit came again.",
+            "fr": "Mais aucun lapin n'est revenu.",
+            "es": "Pero ningún conejo volvió."
+          },
+          "tokens": [
+            {
+              "text": "可是",
+              "normalized": "可是",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "but",
+                "fr": "mais",
+                "es": "pero"
+              },
+              "pinyin": "kěshì",
+              "id": "b4.s2.t1",
+              "startMs": 32942,
+              "endMs": 33242
+            },
+            {
+              "text": "兔子",
+              "normalized": "兔子",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "rabbit",
+                "fr": "lapin",
+                "es": "conejo"
+              },
+              "pinyin": "tùzi",
+              "id": "b4.s2.t2",
+              "startMs": 33242,
+              "endMs": 33662
+            },
+            {
+              "text": "沒有",
+              "normalized": "沒有",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "not have; did not",
+                "fr": "ne pas avoir; ne pas",
+                "es": "no tener; no"
+              },
+              "pinyin": "méiyǒu",
+              "id": "b4.s2.t3",
+              "startMs": 33662,
+              "endMs": 34082
+            },
+            {
+              "text": "再",
+              "normalized": "再",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "again",
+                "fr": "de nouveau",
+                "es": "de nuevo"
+              },
+              "pinyin": "zài",
+              "id": "b4.s2.t4",
+              "startMs": 34082,
+              "endMs": 34292
+            },
+            {
+              "text": "來",
+              "normalized": "來",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to come",
+                "fr": "venir",
+                "es": "venir"
+              },
+              "pinyin": "lái",
+              "id": "b4.s2.t5",
+              "startMs": 34292,
+              "endMs": 34827
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s2.t6"
+            }
+          ]
+        },
+        {
+          "id": "b4.s3",
+          "text": "他沒有東西吃了。",
+          "translations": {
+            "en": "He had nothing to eat.",
+            "fr": "Il n'avait rien à manger.",
+            "es": "No tenía nada que comer."
+          },
+          "tokens": [
+            {
+              "text": "他",
+              "normalized": "他",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "pinyin": "tā",
+              "id": "b4.s3.t1",
+              "startMs": 35257,
+              "endMs": 35387
+            },
+            {
+              "text": "沒有",
+              "normalized": "沒有",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "not have; did not",
+                "fr": "ne pas avoir; ne pas",
+                "es": "no tener; no"
+              },
+              "pinyin": "méiyǒu",
+              "id": "b4.s3.t2",
+              "startMs": 35387,
+              "endMs": 35812
+            },
+            {
+              "text": "東西",
+              "normalized": "東西",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "thing; food",
+                "fr": "chose; nourriture",
+                "es": "cosa; comida"
+              },
+              "pinyin": "dōngxi",
+              "id": "b4.s3.t3",
+              "startMs": 35812,
+              "endMs": 36237
+            },
+            {
+              "text": "吃",
+              "normalized": "吃",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to eat",
+                "fr": "manger",
+                "es": "comer"
+              },
+              "pinyin": "chī",
+              "id": "b4.s3.t4",
+              "startMs": 36237,
+              "endMs": 36447
+            },
+            {
+              "text": "了",
+              "normalized": "了",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(completed action)",
+                "fr": "(action accomplie)",
+                "es": "(acción completada)"
+              },
+              "pinyin": "le",
+              "id": "b4.s3.t5",
+              "startMs": 36447,
+              "endMs": 36597
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s3.t6"
+            }
+          ]
+        },
+        {
+          "id": "b4.s4",
+          "text": "現在，成語“守株待兔”說的是只等運氣、不努力的人。",
+          "translations": {
+            "en": "Today, the idiom \"shǒu zhū dài tù\" describes people who only wait for luck and do not work hard.",
+            "fr": "Aujourd'hui, le chengyu « shǒu zhū dài tù » décrit les gens qui attendent la chance sans faire d'efforts.",
+            "es": "Hoy, el chengyu \"shǒu zhū dài tù\" describe a las personas que solo esperan la suerte y no se esfuerzan."
+          },
+          "tokens": [
+            {
+              "text": "現在",
+              "normalized": "現在",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "now",
+                "fr": "maintenant",
+                "es": "ahora"
+              },
+              "pinyin": "xiànzài",
+              "id": "b4.s4.t1",
+              "startMs": 37378,
+              "endMs": 37828
+            },
+            {
+              "text": "，",
+              "normalized": "，",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s4.t2"
+            },
+            {
+              "text": "成語",
+              "normalized": "成語",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "idiom",
+                "fr": "chengyu, idiotisme",
+                "es": "chengyu, modismo"
+              },
+              "pinyin": "chéngyǔ",
+              "id": "b4.s4.t3",
+              "startMs": 37828,
+              "endMs": 38278
+            },
+            {
+              "text": "“",
+              "normalized": "“",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s4.t4"
+            },
+            {
+              "text": "守株待兔",
+              "normalized": "守株待兔",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "waiting by a stump for rabbits (idiom)",
+                "fr": "attendre un lièvre près d'un arbre (chengyu)",
+                "es": "esperar un conejo junto al árbol (chengyu)"
+              },
+              "pinyin": "shǒu zhū dài tù",
+              "id": "b4.s4.t5",
+              "startMs": 38278,
+              "endMs": 38728
+            },
+            {
+              "text": "”",
+              "normalized": "”",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s4.t6"
+            },
+            {
+              "text": "說",
+              "normalized": "說",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to say; to mean",
+                "fr": "dire; vouloir dire",
+                "es": "decir; significar"
+              },
+              "pinyin": "shuō",
+              "id": "b4.s4.t7",
+              "startMs": 38728,
+              "endMs": 39178
+            },
+            {
+              "text": "的",
+              "normalized": "的",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(possessive/descriptive)",
+                "fr": "de (possessif)",
+                "es": "de (posesivo)"
+              },
+              "pinyin": "de",
+              "id": "b4.s4.t8",
+              "startMs": 39178,
+              "endMs": 39628
+            },
+            {
+              "text": "是",
+              "normalized": "是",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to be",
+                "fr": "être",
+                "es": "ser"
+              },
+              "pinyin": "shì",
+              "id": "b4.s4.t9",
+              "startMs": 39628,
+              "endMs": 40078
+            },
+            {
+              "text": "只",
+              "normalized": "只",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "only",
+                "fr": "seulement",
+                "es": "solo"
+              },
+              "pinyin": "zhǐ",
+              "id": "b4.s4.t10",
+              "startMs": 40078,
+              "endMs": 40258
+            },
+            {
+              "text": "等",
+              "normalized": "等",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to wait",
+                "fr": "attendre",
+                "es": "esperar"
+              },
+              "pinyin": "děng",
+              "id": "b4.s4.t11",
+              "startMs": 40258,
+              "endMs": 40438
+            },
+            {
+              "text": "運氣",
+              "normalized": "運氣",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "luck",
+                "fr": "chance",
+                "es": "suerte"
+              },
+              "pinyin": "yùnqi",
+              "id": "b4.s4.t12",
+              "startMs": 40438,
+              "endMs": 40918
+            },
+            {
+              "text": "、",
+              "normalized": "、",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s4.t13"
+            },
+            {
+              "text": "不",
+              "normalized": "不",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "not",
+                "fr": "ne... pas",
+                "es": "no"
+              },
+              "pinyin": "bù",
+              "id": "b4.s4.t14",
+              "startMs": 40918,
+              "endMs": 40978
+            },
+            {
+              "text": "努力",
+              "normalized": "努力",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to work hard",
+                "fr": "faire des efforts",
+                "es": "esforzarse"
+              },
+              "pinyin": "nǔlì",
+              "id": "b4.s4.t15",
+              "startMs": 40978,
+              "endMs": 41347
+            },
+            {
+              "text": "的",
+              "normalized": "的",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(possessive/descriptive)",
+                "fr": "de (possessif)",
+                "es": "de (posesivo)"
+              },
+              "pinyin": "de",
+              "id": "b4.s4.t16",
+              "startMs": 41347,
+              "endMs": 41716
+            },
+            {
+              "text": "人",
+              "normalized": "人",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "person",
+                "fr": "personne",
+                "es": "persona"
+              },
+              "pinyin": "rén",
+              "id": "b4.s4.t17",
+              "startMs": 41716,
+              "endMs": 42085
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s4.t18"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

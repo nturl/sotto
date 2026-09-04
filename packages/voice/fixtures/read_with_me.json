@@ -1,0 +1,24 @@
+{
+  "mode": "read_with_me",
+  "steps": [
+    { "kind": "event", "delayMs": 0, "event": { "type": "state", "state": "connecting" } },
+    { "kind": "event", "delayMs": 150, "event": { "type": "state", "state": "listening" } },
+    {
+      "kind": "waitForText",
+      "next": [
+        { "kind": "event", "delayMs": 150, "event": { "type": "state", "state": "thinking" } },
+        {
+          "kind": "event",
+          "delayMs": 300,
+          "event": {
+            "type": "caption",
+            "speaker": "tutor",
+            "text": "Bien lu ! Continue.",
+            "final": true
+          }
+        },
+        { "kind": "event", "delayMs": 100, "event": { "type": "state", "state": "listening" } }
+      ]
+    }
+  ]
+}

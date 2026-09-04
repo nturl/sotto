@@ -2,7 +2,11 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    // Consumers (the content CLI, apps/server) run this package directly
+    // under Node's native TS type-stripping, which needs the real ".ts"
+    // extension on relative imports (no ".js" -> ".ts" remapping like tsc).
+    "allowImportingTsExtensions": true
   },
   "include": ["src"]
 }

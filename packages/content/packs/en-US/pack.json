@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "locale": "en-US",
+  "language": {
+    "locale": "en-US",
+    "baseLanguage": "en",
+    "region": "US",
+    "script": "Latn",
+    "nativeName": "English (US)",
+    "localizedNames": {
+      "en": "English",
+      "es": "inglés",
+      "fr": "anglais",
+      "pt": "inglês",
+      "it": "inglese",
+      "zh-Hans": "英语",
+      "zh-Hant": "英語",
+      "ro": "engleză",
+      "ca": "anglès"
+    },
+    "direction": "ltr",
+    "stability": "stable",
+    "tokenizer": "latin",
+    "typography": "latin",
+    "pronunciationGuide": "none",
+    "tutorNotes": "General American pronunciation: rhotic (pronounce r everywhere), flapped t/d between vowels (\"water\" sounds like \"wader\"). Prefer American vocabulary and spelling (\"apartment\", \"color\") over British forms.",
+    "ttsVoice": "af_heart",
+    "ttsLangCode": "a",
+    "sttLanguage": "en",
+    "catalog": "en"
+  },
+  "books": [
+    {
+      "bookId": "en-aesop-fables",
+      "contentLocale": "en-US",
+      "title": "Four Fables of Aesop",
+      "author": "Aesop",
+      "level": "A0",
+      "categories": [
+        "fables"
+      ],
+      "estimatedMinutes": 4,
+      "localizedTitles": {
+        "en": "Four Fables of Aesop",
+        "fr": "Quatre fables d'Ésope",
+        "es": "Cuatro fábulas de Esopo"
+      },
+      "premise": {
+        "en": "Four classic short tales with simple animal characters and timeless lessons.",
+        "fr": "Quatre contes courts classiques avec des animaux simples et des leçons intemporelles.",
+        "es": "Cuatro cuentos cortos clásicos con animales sencillos y lecciones eternas."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 4
+    },
+    {
+      "bookId": "en-alice-rabbit-hole",
+      "contentLocale": "en-US",
+      "title": "Alice Goes Down the Rabbit Hole",
+      "author": "Lewis Carroll",
+      "level": "A1",
+      "categories": [
+        "classics"
+      ],
+      "estimatedMinutes": 10,
+      "localizedTitles": {
+        "en": "Alice Goes Down the Rabbit Hole",
+        "fr": "Alice descend dans le terrier du lapin",
+        "es": "Alicia cae en la madriguera del conejo"
+      },
+      "premise": {
+        "en": "A curious girl follows a clothed white rabbit down a deep hole into a world of locked doors and changing sizes.",
+        "fr": "Une fille curieuse suit un lapin blanc vêtu dans un trou profond vers un monde de portes verrouillées.",
+        "es": "Una niña curiosa sigue a un conejo blanco vestido por un agujero profundo hacia un mundo mágico."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 3
+    },
+    {
+      "bookId": "en-oz-cyclone",
+      "contentLocale": "en-US",
+      "title": "Dorothy and the Cyclone",
+      "author": "L. Frank Baum",
+      "level": "A1",
+      "categories": [
+        "adventure"
+      ],
+      "estimatedMinutes": 8,
+      "localizedTitles": {
+        "en": "Dorothy and the Cyclone",
+        "fr": "Dorothée et le cyclone",
+        "es": "Dorita y el ciclón"
+      },
+      "premise": {
+        "en": "A powerful cyclone carries Dorothy and her dog Toto from Kansas into a magical land.",
+        "fr": "Un puissant cyclone emporte Dorothée et son chien Toto du Kansas vers un pays magique.",
+        "es": "Un poderoso ciclón lleva a Dorita y a su perro Toto desde Kansas a una tierra mágica."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 3
+    }
+  ],
+  "generatedAt": "2026-09-04T21:35:57.226Z"
+}

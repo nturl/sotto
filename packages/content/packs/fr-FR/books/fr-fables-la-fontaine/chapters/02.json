@@ -1,0 +1,5917 @@
+{
+  "id": "fr-fables-la-fontaine-02",
+  "bookId": "fr-fables-la-fontaine",
+  "title": "La Cigale et la Fourmi",
+  "order": 2,
+  "blocks": [
+    {
+      "id": "b1",
+      "sentences": [
+        {
+          "id": "b1.s1",
+          "text": "Pendant tout l'été, une cigale chante près des champs.",
+          "translations": {
+            "en": "Throughout the summer, a cicada sings near the fields.",
+            "fr": "Pendant tout l'été, une cigale chante près des champs.",
+            "es": "Durante todo el verano, una cigarra canta cerca de los campos."
+          },
+          "tokens": [
+            {
+              "text": "Pendant",
+              "normalized": "pendant",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "during",
+                "fr": "pendant",
+                "es": "durante"
+              },
+              "id": "b1.s1.t1",
+              "startMs": 0,
+              "endMs": 340
+            },
+            {
+              "text": "tout",
+              "normalized": "tout",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "all",
+                "fr": "tout",
+                "es": "todo"
+              },
+              "id": "b1.s1.t2",
+              "startMs": 340,
+              "endMs": 540
+            },
+            {
+              "text": "l'",
+              "normalized": "l'",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "l'",
+                "es": "el"
+              },
+              "id": "b1.s1.t3",
+              "startMs": 540,
+              "endMs": 590
+            },
+            {
+              "text": "été",
+              "normalized": "été",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "summer",
+                "fr": "été",
+                "es": "verano"
+              },
+              "id": "b1.s1.t4",
+              "startMs": 630,
+              "endMs": 870
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s1.t5"
+            },
+            {
+              "text": "une",
+              "normalized": "une",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "une",
+                "es": "una"
+              },
+              "id": "b1.s1.t6",
+              "startMs": 1110,
+              "endMs": 1110
+            },
+            {
+              "text": "cigale",
+              "normalized": "cigale",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cicada",
+                "fr": "cigale",
+                "es": "cigarra"
+              },
+              "id": "b1.s1.t7",
+              "startMs": 1110,
+              "endMs": 1395
+            },
+            {
+              "text": "chante",
+              "normalized": "chante",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sings",
+                "fr": "chante",
+                "es": "canta"
+              },
+              "id": "b1.s1.t8",
+              "startMs": 1395,
+              "endMs": 1680
+            },
+            {
+              "text": "près",
+              "normalized": "près",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "near",
+                "fr": "près",
+                "es": "cerca de"
+              },
+              "id": "b1.s1.t9",
+              "startMs": 1680,
+              "endMs": 1940
+            },
+            {
+              "text": "des",
+              "normalized": "des",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "some",
+                "fr": "des",
+                "es": "unos"
+              },
+              "id": "b1.s1.t10",
+              "startMs": 1940,
+              "endMs": 1950
+            },
+            {
+              "text": "champs",
+              "normalized": "champs",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fields",
+                "fr": "champs",
+                "es": "campos"
+              },
+              "id": "b1.s1.t11",
+              "startMs": 1950,
+              "endMs": 3025
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s1.t12"
+            }
+          ]
+        },
+        {
+          "id": "b1.s2",
+          "text": "Le soleil brille, et les journées sont longues et chaudes.",
+          "translations": {
+            "en": "The sun shines, and the days are long and hot.",
+            "fr": "Le soleil brille, et les journées sont longues et chaudes.",
+            "es": "El sol brilla y los días son largos y calurosos."
+          },
+          "tokens": [
+            {
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s2.t1",
+              "startMs": 3435,
+              "endMs": 3515
+            },
+            {
+              "text": "soleil",
+              "normalized": "soleil",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sun",
+                "fr": "soleil",
+                "es": "sol"
+              },
+              "id": "b1.s2.t2",
+              "startMs": 3515,
+              "endMs": 3945
+            },
+            {
+              "text": "brille",
+              "normalized": "brille",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "shines",
+                "fr": "brille",
+                "es": "brilla"
+              },
+              "id": "b1.s2.t3",
+              "startMs": 3945,
+              "endMs": 4375
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s2.t4"
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s2.t5",
+              "startMs": 4375,
+              "endMs": 4425
+            },
+            {
+              "text": "les",
+              "normalized": "les",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s2.t6",
+              "startMs": 4665,
+              "endMs": 4675
+            },
+            {
+              "text": "journées",
+              "normalized": "journées",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "days",
+                "fr": "journées",
+                "es": "días"
+              },
+              "id": "b1.s2.t7",
+              "startMs": 4675,
+              "endMs": 5215
+            },
+            {
+              "text": "sont",
+              "normalized": "sont",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "are",
+                "fr": "sont",
+                "es": "son"
+              },
+              "id": "b1.s2.t8",
+              "startMs": 5215,
+              "endMs": 5455
+            },
+            {
+              "text": "longues",
+              "normalized": "longues",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "long",
+                "fr": "longues",
+                "es": "largas"
+              },
+              "id": "b1.s2.t9",
+              "startMs": 5455,
+              "endMs": 5875
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s2.t10",
+              "startMs": 5875,
+              "endMs": 5995
+            },
+            {
+              "text": "chaudes",
+              "normalized": "chaudes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hot",
+                "fr": "chaudes",
+                "es": "calurosas"
+              },
+              "id": "b1.s2.t11",
+              "startMs": 5995,
+              "endMs": 6712
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s2.t12"
+            }
+          ]
+        },
+        {
+          "id": "b1.s3",
+          "text": "La cigale danse sur les feuilles avec beaucoup de joie.",
+          "translations": {
+            "en": "The cicada dances on the leaves with great joy.",
+            "fr": "La cigale danse sur les feuilles avec beaucoup de joie.",
+            "es": "La cigarra baila sobre las hojas con mucha alegría."
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b1.s3.t1",
+              "startMs": 7122,
+              "endMs": 7182
+            },
+            {
+              "text": "cigale",
+              "normalized": "cigale",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cicada",
+                "fr": "cigale",
+                "es": "cigarra"
+              },
+              "id": "b1.s3.t2",
+              "startMs": 7182,
+              "endMs": 7507
+            },
+            {
+              "text": "danse",
+              "normalized": "danse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dances",
+                "fr": "danse",
+                "es": "baila"
+              },
+              "id": "b1.s3.t3",
+              "startMs": 7507,
+              "endMs": 7832
+            },
+            {
+              "text": "sur",
+              "normalized": "sur",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "on",
+                "fr": "sur",
+                "es": "sobre"
+              },
+              "id": "b1.s3.t4",
+              "startMs": 7832,
+              "endMs": 7842
+            },
+            {
+              "text": "les",
+              "normalized": "les",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s3.t5",
+              "startMs": 8022,
+              "endMs": 8192
+            },
+            {
+              "text": "feuilles",
+              "normalized": "feuilles",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "leaves",
+                "fr": "feuilles",
+                "es": "hojas"
+              },
+              "id": "b1.s3.t6",
+              "startMs": 8192,
+              "endMs": 8762
+            },
+            {
+              "text": "avec",
+              "normalized": "avec",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b1.s3.t7",
+              "startMs": 8762,
+              "endMs": 8922
+            },
+            {
+              "text": "beaucoup",
+              "normalized": "beaucoup",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a lot",
+                "fr": "beaucoup",
+                "es": "mucho"
+              },
+              "id": "b1.s3.t8",
+              "startMs": 8922,
+              "endMs": 9402
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b1.s3.t9",
+              "startMs": 9402,
+              "endMs": 9522
+            },
+            {
+              "text": "joie",
+              "normalized": "joie",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "joy",
+                "fr": "joie",
+                "es": "alegría"
+              },
+              "id": "b1.s3.t10",
+              "startMs": 9522,
+              "endMs": 10242
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t11"
+            }
+          ]
+        },
+        {
+          "id": "b1.s4",
+          "text": "Elle pense que cette belle saison va durer toujours.",
+          "translations": {
+            "en": "She thinks this beautiful season will last forever.",
+            "fr": "Elle pense que cette belle saison va durer toujours.",
+            "es": "Piensa que esta hermosa estación durará para siempre."
+          },
+          "tokens": [
+            {
+              "text": "Elle",
+              "normalized": "elle",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b1.s4.t1",
+              "startMs": 10642,
+              "endMs": 10802
+            },
+            {
+              "text": "pense",
+              "normalized": "pense",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "thinks",
+                "fr": "pense",
+                "es": "piensa"
+              },
+              "id": "b1.s4.t2",
+              "startMs": 10802,
+              "endMs": 11062
+            },
+            {
+              "text": "que",
+              "normalized": "que",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "that",
+                "fr": "que",
+                "es": "que"
+              },
+              "id": "b1.s4.t3",
+              "startMs": 11062,
+              "endMs": 11102
+            },
+            {
+              "text": "cette",
+              "normalized": "cette",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "this",
+                "fr": "cette",
+                "es": "esta"
+              },
+              "id": "b1.s4.t4",
+              "startMs": 11252,
+              "endMs": 11482
+            },
+            {
+              "text": "belle",
+              "normalized": "belle",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "beautiful",
+                "fr": "belle",
+                "es": "hermosa"
+              },
+              "id": "b1.s4.t5",
+              "startMs": 11482,
+              "endMs": 11742
+            },
+            {
+              "text": "saison",
+              "normalized": "saison",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "season",
+                "fr": "saison",
+                "es": "estación"
+              },
+              "id": "b1.s4.t6",
+              "startMs": 11742,
+              "endMs": 12062
+            },
+            {
+              "text": "va",
+              "normalized": "va",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "will",
+                "fr": "va",
+                "es": "va a"
+              },
+              "id": "b1.s4.t7",
+              "startMs": 12062,
+              "endMs": 12152
+            },
+            {
+              "text": "durer",
+              "normalized": "durer",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to last",
+                "fr": "durer",
+                "es": "durar"
+              },
+              "id": "b1.s4.t8",
+              "startMs": 12152,
+              "endMs": 12412
+            },
+            {
+              "text": "toujours",
+              "normalized": "toujours",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "always",
+                "fr": "toujours",
+                "es": "siempre"
+              },
+              "id": "b1.s4.t9",
+              "startMs": 12412,
+              "endMs": 12842
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s4.t10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "sentences": [
+        {
+          "id": "b2.s1",
+          "text": "Non loin, une fourmi travaille du matin au soir.",
+          "translations": {
+            "en": "Not far away, an ant works from morning until evening.",
+            "fr": "Non loin, une fourmi travaille du matin au soir.",
+            "es": "No muy lejos, una hormiga trabaja de la mañana a la noche."
+          },
+          "tokens": [
+            {
+              "text": "Non",
+              "normalized": "non",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "not",
+                "fr": "non",
+                "es": "no"
+              },
+              "id": "b2.s1.t1",
+              "startMs": 14466,
+              "endMs": 14586
+            },
+            {
+              "text": "loin",
+              "normalized": "loin",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "far",
+                "fr": "loin",
+                "es": "lejos"
+              },
+              "id": "b2.s1.t2",
+              "startMs": 14586,
+              "endMs": 14816
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s1.t3"
+            },
+            {
+              "text": "une",
+              "normalized": "une",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "une",
+                "es": "una"
+              },
+              "id": "b2.s1.t4",
+              "startMs": 14926,
+              "endMs": 15096
+            },
+            {
+              "text": "fourmi",
+              "normalized": "fourmi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ant",
+                "fr": "fourmi",
+                "es": "hormiga"
+              },
+              "id": "b2.s1.t5",
+              "startMs": 15096,
+              "endMs": 15436
+            },
+            {
+              "text": "travaille",
+              "normalized": "travaille",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "works",
+                "fr": "travaille",
+                "es": "trabaja"
+              },
+              "id": "b2.s1.t6",
+              "startMs": 15436,
+              "endMs": 15956
+            },
+            {
+              "text": "du",
+              "normalized": "du",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b2.s1.t7",
+              "startMs": 15956,
+              "endMs": 16066
+            },
+            {
+              "text": "matin",
+              "normalized": "matin",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "morning",
+                "fr": "matin",
+                "es": "mañana"
+              },
+              "id": "b2.s1.t8",
+              "startMs": 16066,
+              "endMs": 16356
+            },
+            {
+              "text": "au",
+              "normalized": "au",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "at the",
+                "fr": "au",
+                "es": "al"
+              },
+              "id": "b2.s1.t9",
+              "startMs": 16356,
+              "endMs": 16466
+            },
+            {
+              "text": "soir",
+              "normalized": "soir",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "evening",
+                "fr": "soir",
+                "es": "noche"
+              },
+              "id": "b2.s1.t10",
+              "startMs": 16466,
+              "endMs": 16696
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s1.t11"
+            }
+          ]
+        },
+        {
+          "id": "b2.s2",
+          "text": "Elle porte des graines vers sa maison sous la terre.",
+          "translations": {
+            "en": "She carries seeds to her home beneath the ground.",
+            "fr": "Elle porte des graines vers sa maison sous la terre.",
+            "es": "Lleva semillas hacia su casa bajo tierra."
+          },
+          "tokens": [
+            {
+              "text": "Elle",
+              "normalized": "elle",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b2.s2.t1",
+              "startMs": 17760,
+              "endMs": 17950
+            },
+            {
+              "text": "porte",
+              "normalized": "porte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "carries",
+                "fr": "porte",
+                "es": "lleva"
+              },
+              "id": "b2.s2.t2",
+              "startMs": 17950,
+              "endMs": 18180
+            },
+            {
+              "text": "des",
+              "normalized": "des",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "some",
+                "fr": "des",
+                "es": "unos"
+              },
+              "id": "b2.s2.t3",
+              "startMs": 18280,
+              "endMs": 18440
+            },
+            {
+              "text": "graines",
+              "normalized": "graines",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "seeds",
+                "fr": "graines",
+                "es": "semillas"
+              },
+              "id": "b2.s2.t4",
+              "startMs": 18440,
+              "endMs": 18920
+            },
+            {
+              "text": "vers",
+              "normalized": "vers",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "toward",
+                "fr": "vers",
+                "es": "hacia"
+              },
+              "id": "b2.s2.t5",
+              "startMs": 18920,
+              "endMs": 19090
+            },
+            {
+              "text": "sa",
+              "normalized": "sa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b2.s2.t6",
+              "startMs": 19150,
+              "endMs": 19220
+            },
+            {
+              "text": "maison",
+              "normalized": "maison",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "home",
+                "fr": "maison",
+                "es": "casa"
+              },
+              "id": "b2.s2.t7",
+              "startMs": 19220,
+              "endMs": 19500
+            },
+            {
+              "text": "sous",
+              "normalized": "sous",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "under",
+                "fr": "sous",
+                "es": "bajo"
+              },
+              "id": "b2.s2.t8",
+              "startMs": 19590,
+              "endMs": 19730
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b2.s2.t9",
+              "startMs": 19850,
+              "endMs": 19950
+            },
+            {
+              "text": "terre",
+              "normalized": "terre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ground",
+                "fr": "terre",
+                "es": "tierra"
+              },
+              "id": "b2.s2.t10",
+              "startMs": 19950,
+              "endMs": 20140
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s2.t11"
+            }
+          ]
+        },
+        {
+          "id": "b2.s3",
+          "text": "Chaque voyage est difficile, car les graines sont lourdes.",
+          "translations": {
+            "en": "Each journey is difficult because the seeds are heavy.",
+            "fr": "Chaque voyage est difficile, car les graines sont lourdes.",
+            "es": "Cada viaje es difícil porque las semillas pesan mucho."
+          },
+          "tokens": [
+            {
+              "text": "Chaque",
+              "normalized": "chaque",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "each",
+                "fr": "chaque",
+                "es": "cada"
+              },
+              "id": "b2.s3.t1",
+              "startMs": 20934,
+              "endMs": 21314
+            },
+            {
+              "text": "voyage",
+              "normalized": "voyage",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "journey",
+                "fr": "voyage",
+                "es": "viaje"
+              },
+              "id": "b2.s3.t2",
+              "startMs": 21314,
+              "endMs": 21674
+            },
+            {
+              "text": "est",
+              "normalized": "est",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es"
+              },
+              "id": "b2.s3.t3",
+              "startMs": 21704,
+              "endMs": 21894
+            },
+            {
+              "text": "difficile",
+              "normalized": "difficile",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "difficult",
+                "fr": "difficile",
+                "es": "difícil"
+              },
+              "id": "b2.s3.t4",
+              "startMs": 21894,
+              "endMs": 22494
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s3.t5"
+            },
+            {
+              "text": "car",
+              "normalized": "car",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "because",
+                "fr": "car",
+                "es": "porque"
+              },
+              "id": "b2.s3.t6",
+              "startMs": 22494,
+              "endMs": 22564
+            },
+            {
+              "text": "les",
+              "normalized": "les",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b2.s3.t7",
+              "startMs": 22814,
+              "endMs": 22814
+            },
+            {
+              "text": "graines",
+              "normalized": "graines",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "seeds",
+                "fr": "graines",
+                "es": "semillas"
+              },
+              "id": "b2.s3.t8",
+              "startMs": 22814,
+              "endMs": 23194
+            },
+            {
+              "text": "sont",
+              "normalized": "sont",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "are",
+                "fr": "sont",
+                "es": "son"
+              },
+              "id": "b2.s3.t9",
+              "startMs": 23194,
+              "endMs": 23344
+            },
+            {
+              "text": "lourdes",
+              "normalized": "lourdes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "heavy",
+                "fr": "lourdes",
+                "es": "pesadas"
+              },
+              "id": "b2.s3.t10",
+              "startMs": 23344,
+              "endMs": 24488
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s3.t11"
+            }
+          ]
+        },
+        {
+          "id": "b2.s4",
+          "text": "Pourtant, la fourmi continue sans perdre une seule heure.",
+          "translations": {
+            "en": "However, the ant continues without wasting a single hour.",
+            "fr": "Pourtant, la fourmi continue sans perdre une seule heure.",
+            "es": "Sin embargo, la hormiga continúa sin perder una sola hora."
+          },
+          "tokens": [
+            {
+              "text": "Pourtant",
+              "normalized": "pourtant",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "however",
+                "fr": "pourtant",
+                "es": "sin embargo"
+              },
+              "id": "b2.s4.t1",
+              "startMs": 24838,
+              "endMs": 25378
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s4.t2"
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b2.s4.t3",
+              "startMs": 25378,
+              "endMs": 25498
+            },
+            {
+              "text": "fourmi",
+              "normalized": "fourmi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ant",
+                "fr": "fourmi",
+                "es": "hormiga"
+              },
+              "id": "b2.s4.t4",
+              "startMs": 25498,
+              "endMs": 25828
+            },
+            {
+              "text": "continue",
+              "normalized": "continue",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "continues",
+                "fr": "continue",
+                "es": "continúa"
+              },
+              "id": "b2.s4.t5",
+              "startMs": 25828,
+              "endMs": 26268
+            },
+            {
+              "text": "sans",
+              "normalized": "sans",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "without",
+                "fr": "sans",
+                "es": "sin"
+              },
+              "id": "b2.s4.t6",
+              "startMs": 26268,
+              "endMs": 26458
+            },
+            {
+              "text": "perdre",
+              "normalized": "perdre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to lose",
+                "fr": "perdre",
+                "es": "perder"
+              },
+              "id": "b2.s4.t7",
+              "startMs": 26518,
+              "endMs": 26818
+            },
+            {
+              "text": "une",
+              "normalized": "une",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "une",
+                "es": "una"
+              },
+              "id": "b2.s4.t8",
+              "startMs": 26818,
+              "endMs": 26978
+            },
+            {
+              "text": "seule",
+              "normalized": "seule",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "single",
+                "fr": "seule",
+                "es": "sola"
+              },
+              "id": "b2.s4.t9",
+              "startMs": 26978,
+              "endMs": 27188
+            },
+            {
+              "text": "heure",
+              "normalized": "heure",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hour",
+                "fr": "heure",
+                "es": "hora"
+              },
+              "id": "b2.s4.t10",
+              "startMs": 27258,
+              "endMs": 27518
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s4.t11"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3",
+      "sentences": [
+        {
+          "id": "b3.s1",
+          "text": "La cigale la regarde et rit de ses efforts.",
+          "translations": {
+            "en": "The cicada watches her and laughs at her efforts.",
+            "fr": "La cigale la regarde et rit de ses efforts.",
+            "es": "La cigarra la mira y se ríe de sus esfuerzos."
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b3.s1.t1",
+              "startMs": 28899,
+              "endMs": 28979
+            },
+            {
+              "text": "cigale",
+              "normalized": "cigale",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cicada",
+                "fr": "cigale",
+                "es": "cigarra"
+              },
+              "id": "b3.s1.t2",
+              "startMs": 28979,
+              "endMs": 29399
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b3.s1.t3",
+              "startMs": 29399,
+              "endMs": 29539
+            },
+            {
+              "text": "regarde",
+              "normalized": "regarde",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "looks",
+                "fr": "regarde",
+                "es": "mira"
+              },
+              "id": "b3.s1.t4",
+              "startMs": 29539,
+              "endMs": 30019
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b3.s1.t5",
+              "startMs": 30069,
+              "endMs": 30169
+            },
+            {
+              "text": "rit",
+              "normalized": "rit",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "laughs",
+                "fr": "rit",
+                "es": "ríe"
+              },
+              "id": "b3.s1.t6",
+              "startMs": 30169,
+              "endMs": 30209
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b3.s1.t7",
+              "startMs": 30409,
+              "endMs": 30519
+            },
+            {
+              "text": "ses",
+              "normalized": "ses",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "ses",
+                "es": "sus"
+              },
+              "id": "b3.s1.t8",
+              "startMs": 30519,
+              "endMs": 30729
+            },
+            {
+              "text": "efforts",
+              "normalized": "efforts",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "efforts",
+                "fr": "efforts",
+                "es": "esfuerzos"
+              },
+              "id": "b3.s1.t9",
+              "startMs": 30729,
+              "endMs": 31219
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s1.t10"
+            }
+          ]
+        },
+        {
+          "id": "b3.s2",
+          "text": "La cigale demande : « Pourquoi travailler pendant une journée si agréable ? »",
+          "translations": {
+            "en": "The cicada asks: “Why work during such a pleasant day?”",
+            "fr": "La cigale demande : « Pourquoi travailler pendant une journée si agréable ? »",
+            "es": "La cigarra pregunta: «¿Por qué trabajar durante un día tan agradable?»"
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b3.s2.t1",
+              "startMs": 32304,
+              "endMs": 32404
+            },
+            {
+              "text": "cigale",
+              "normalized": "cigale",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cicada",
+                "fr": "cigale",
+                "es": "cigarra"
+              },
+              "id": "b3.s2.t2",
+              "startMs": 32404,
+              "endMs": 32884
+            },
+            {
+              "text": "demande",
+              "normalized": "demande",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "asks",
+                "fr": "demande",
+                "es": "pregunta"
+              },
+              "id": "b3.s2.t3",
+              "startMs": 32884,
+              "endMs": 33424
+            },
+            {
+              "text": ":",
+              "normalized": ":",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b3.s2.t4"
+            },
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b3.s2.t5"
+            },
+            {
+              "text": "Pourquoi",
+              "normalized": "pourquoi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "why",
+                "fr": "pourquoi",
+                "es": "por qué"
+              },
+              "id": "b3.s2.t6",
+              "startMs": 33904,
+              "endMs": 34014
+            },
+            {
+              "text": "travailler",
+              "normalized": "travailler",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to work",
+                "fr": "travailler",
+                "es": "trabajar"
+              },
+              "id": "b3.s2.t7",
+              "startMs": 34104,
+              "endMs": 34634
+            },
+            {
+              "text": "pendant",
+              "normalized": "pendant",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "during",
+                "fr": "pendant",
+                "es": "durante"
+              },
+              "id": "b3.s2.t8",
+              "startMs": 34634,
+              "endMs": 35034
+            },
+            {
+              "text": "une",
+              "normalized": "une",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "une",
+                "es": "una"
+              },
+              "id": "b3.s2.t9",
+              "startMs": 35034,
+              "endMs": 35204
+            },
+            {
+              "text": "journée",
+              "normalized": "journée",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "day",
+                "fr": "journée",
+                "es": "día"
+              },
+              "id": "b3.s2.t10",
+              "startMs": 35204,
+              "endMs": 35634
+            },
+            {
+              "text": "si",
+              "normalized": "si",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "so",
+                "fr": "si",
+                "es": "tan"
+              },
+              "id": "b3.s2.t11",
+              "startMs": 35664,
+              "endMs": 35774
+            },
+            {
+              "text": "agréable",
+              "normalized": "agréable",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "pleasant",
+                "fr": "agréable",
+                "es": "agradable"
+              },
+              "id": "b3.s2.t12",
+              "startMs": 35774,
+              "endMs": 36780
+            },
+            {
+              "text": "?",
+              "normalized": "?",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b3.s2.t13"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b3.s2.t14"
+            }
+          ]
+        },
+        {
+          "id": "b3.s3",
+          "text": "« Viens plutôt chanter avec moi sous ce grand arbre. »",
+          "translations": {
+            "en": "“Come sing with me under this big tree instead.”",
+            "fr": "« Viens plutôt chanter avec moi sous ce grand arbre. »",
+            "es": "«Ven mejor a cantar conmigo bajo este gran árbol»."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s3.t1"
+            },
+            {
+              "text": "Viens",
+              "normalized": "viens",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "come",
+                "fr": "viens",
+                "es": "ven"
+              },
+              "id": "b3.s3.t2",
+              "startMs": 37130,
+              "endMs": 37580
+            },
+            {
+              "text": "plutôt",
+              "normalized": "plutôt",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "instead",
+                "fr": "plutôt",
+                "es": "mejor"
+              },
+              "id": "b3.s3.t3",
+              "startMs": 37580,
+              "endMs": 38040
+            },
+            {
+              "text": "chanter",
+              "normalized": "chanter",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to sing",
+                "fr": "chanter",
+                "es": "cantar"
+              },
+              "id": "b3.s3.t4",
+              "startMs": 38040,
+              "endMs": 38650
+            },
+            {
+              "text": "avec",
+              "normalized": "avec",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b3.s3.t5",
+              "startMs": 38650,
+              "endMs": 38760
+            },
+            {
+              "text": "moi",
+              "normalized": "moi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "me",
+                "fr": "moi",
+                "es": "mí"
+              },
+              "id": "b3.s3.t6",
+              "startMs": 38760,
+              "endMs": 38950
+            },
+            {
+              "text": "sous",
+              "normalized": "sous",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "under",
+                "fr": "sous",
+                "es": "bajo"
+              },
+              "id": "b3.s3.t7",
+              "startMs": 38950,
+              "endMs": 39210
+            },
+            {
+              "text": "ce",
+              "normalized": "ce",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "this",
+                "fr": "ce",
+                "es": "este"
+              },
+              "id": "b3.s3.t8",
+              "startMs": 39210,
+              "endMs": 39340
+            },
+            {
+              "text": "grand",
+              "normalized": "grand",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "big",
+                "fr": "grand",
+                "es": "grande"
+              },
+              "id": "b3.s3.t9",
+              "startMs": 39340,
+              "endMs": 39640
+            },
+            {
+              "text": "arbre",
+              "normalized": "arbre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tree",
+                "fr": "arbre",
+                "es": "árbol"
+              },
+              "id": "b3.s3.t10",
+              "startMs": 39640,
+              "endMs": 40642
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s3.t11"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b3.s3.t12"
+            }
+          ]
+        },
+        {
+          "id": "b3.s4",
+          "text": "La fourmi refuse doucement et reprend son chemin.",
+          "translations": {
+            "en": "The ant gently refuses and continues on her way.",
+            "fr": "La fourmi refuse doucement et reprend son chemin.",
+            "es": "La hormiga se niega amablemente y retoma su camino."
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b3.s4.t1",
+              "startMs": 41052,
+              "endMs": 41122
+            },
+            {
+              "text": "fourmi",
+              "normalized": "fourmi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ant",
+                "fr": "fourmi",
+                "es": "hormiga"
+              },
+              "id": "b3.s4.t2",
+              "startMs": 41122,
+              "endMs": 41512
+            },
+            {
+              "text": "refuse",
+              "normalized": "refuse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "refuses",
+                "fr": "refuse",
+                "es": "rechaza"
+              },
+              "id": "b3.s4.t3",
+              "startMs": 41512,
+              "endMs": 41902
+            },
+            {
+              "text": "doucement",
+              "normalized": "doucement",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "gently",
+                "fr": "doucement",
+                "es": "suavemente"
+              },
+              "id": "b3.s4.t4",
+              "startMs": 41902,
+              "endMs": 42492
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b3.s4.t5",
+              "startMs": 42492,
+              "endMs": 42492
+            },
+            {
+              "text": "reprend",
+              "normalized": "reprend",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "resumes",
+                "fr": "reprend",
+                "es": "retoma"
+              },
+              "id": "b3.s4.t6",
+              "startMs": 42492,
+              "endMs": 42982
+            },
+            {
+              "text": "son",
+              "normalized": "son",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "son",
+                "es": "su"
+              },
+              "id": "b3.s4.t7",
+              "startMs": 42982,
+              "endMs": 43142
+            },
+            {
+              "text": "chemin",
+              "normalized": "chemin",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "path",
+                "fr": "chemin",
+                "es": "camino"
+              },
+              "id": "b3.s4.t8",
+              "startMs": 43142,
+              "endMs": 43472
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s4.t9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b4",
+      "sentences": [
+        {
+          "id": "b4.s1",
+          "text": "« Je prépare déjà les jours froids », répond la fourmi.",
+          "translations": {
+            "en": "“I am already preparing for the cold days,” replies the ant.",
+            "fr": "« Je prépare déjà les jours froids », répond la fourmi.",
+            "es": "«Ya me preparo para los días fríos», responde la hormiga."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s1.t1"
+            },
+            {
+              "text": "Je",
+              "normalized": "je",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "I",
+                "fr": "je",
+                "es": "yo"
+              },
+              "id": "b4.s1.t2",
+              "startMs": 44950,
+              "endMs": 45050
+            },
+            {
+              "text": "prépare",
+              "normalized": "prépare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "prepares",
+                "fr": "prépare",
+                "es": "prepara"
+              },
+              "id": "b4.s1.t3",
+              "startMs": 45050,
+              "endMs": 45470
+            },
+            {
+              "text": "déjà",
+              "normalized": "déjà",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "already",
+                "fr": "déjà",
+                "es": "ya"
+              },
+              "id": "b4.s1.t4",
+              "startMs": 45470,
+              "endMs": 45790
+            },
+            {
+              "text": "les",
+              "normalized": "les",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b4.s1.t5",
+              "startMs": 45790,
+              "endMs": 45950
+            },
+            {
+              "text": "jours",
+              "normalized": "jours",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "days",
+                "fr": "jours",
+                "es": "días"
+              },
+              "id": "b4.s1.t6",
+              "startMs": 45950,
+              "endMs": 46210
+            },
+            {
+              "text": "froids",
+              "normalized": "froids",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cold",
+                "fr": "froids",
+                "es": "fríos"
+              },
+              "id": "b4.s1.t7",
+              "startMs": 46210,
+              "endMs": 46900
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b4.s1.t8"
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s1.t9"
+            },
+            {
+              "text": "répond",
+              "normalized": "répond",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "replies",
+                "fr": "répond",
+                "es": "responde"
+              },
+              "id": "b4.s1.t10",
+              "startMs": 46900,
+              "endMs": 47080
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b4.s1.t11",
+              "startMs": 47150,
+              "endMs": 47210
+            },
+            {
+              "text": "fourmi",
+              "normalized": "fourmi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ant",
+                "fr": "fourmi",
+                "es": "hormiga"
+              },
+              "id": "b4.s1.t12",
+              "startMs": 47210,
+              "endMs": 48190
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s1.t13"
+            }
+          ]
+        },
+        {
+          "id": "b4.s2",
+          "text": "« Quand l'hiver arrivera, la nourriture deviendra très rare. »",
+          "translations": {
+            "en": "“When winter arrives, food will become very scarce.”",
+            "fr": "« Quand l'hiver arrivera, la nourriture deviendra très rare. »",
+            "es": "«Cuando llegue el invierno, la comida será muy escasa»."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s2.t1"
+            },
+            {
+              "text": "Quand",
+              "normalized": "quand",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "when",
+                "fr": "quand",
+                "es": "cuando"
+              },
+              "id": "b4.s2.t2",
+              "startMs": 48590,
+              "endMs": 48820
+            },
+            {
+              "text": "l'",
+              "normalized": "l'",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "l'",
+                "es": "el"
+              },
+              "id": "b4.s2.t3",
+              "startMs": 48820,
+              "endMs": 48870
+            },
+            {
+              "text": "hiver",
+              "normalized": "hiver",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "winter",
+                "fr": "hiver",
+                "es": "invierno"
+              },
+              "id": "b4.s2.t4",
+              "startMs": 48870,
+              "endMs": 49320
+            },
+            {
+              "text": "arrivera",
+              "normalized": "arrivera",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "will arrive",
+                "fr": "arrivera",
+                "es": "llegará"
+              },
+              "id": "b4.s2.t5",
+              "startMs": 49320,
+              "endMs": 49770
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s2.t6"
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b4.s2.t7",
+              "startMs": 49770,
+              "endMs": 49780
+            },
+            {
+              "text": "nourriture",
+              "normalized": "nourriture",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "food",
+                "fr": "nourriture",
+                "es": "comida"
+              },
+              "id": "b4.s2.t8",
+              "startMs": 49780,
+              "endMs": 50495
+            },
+            {
+              "text": "deviendra",
+              "normalized": "deviendra",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "will become",
+                "fr": "deviendra",
+                "es": "se volverá"
+              },
+              "id": "b4.s2.t9",
+              "startMs": 50495,
+              "endMs": 51210
+            },
+            {
+              "text": "très",
+              "normalized": "très",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "id": "b4.s2.t10",
+              "startMs": 51210,
+              "endMs": 51540
+            },
+            {
+              "text": "rare",
+              "normalized": "rare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "scarce",
+                "fr": "rare",
+                "es": "escasa"
+              },
+              "id": "b4.s2.t11",
+              "startMs": 51560,
+              "endMs": 51830
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s2.t12"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b4.s2.t13"
+            }
+          ]
+        },
+        {
+          "id": "b4.s3",
+          "text": "La cigale hausse les épaules et recommence sa chanson.",
+          "translations": {
+            "en": "The cicada shrugs and starts her song again.",
+            "fr": "La cigale hausse les épaules et recommence sa chanson.",
+            "es": "La cigarra se encoge de hombros y vuelve a cantar."
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b4.s3.t1",
+              "startMs": 52699,
+              "endMs": 52759
+            },
+            {
+              "text": "cigale",
+              "normalized": "cigale",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cicada",
+                "fr": "cigale",
+                "es": "cigarra"
+              },
+              "id": "b4.s3.t2",
+              "startMs": 52759,
+              "endMs": 53119
+            },
+            {
+              "text": "hausse",
+              "normalized": "hausse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "raises",
+                "fr": "hausse",
+                "es": "levanta"
+              },
+              "id": "b4.s3.t3",
+              "startMs": 53119,
+              "endMs": 53479
+            },
+            {
+              "text": "les",
+              "normalized": "les",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b4.s3.t4",
+              "startMs": 53479,
+              "endMs": 53559
+            },
+            {
+              "text": "épaules",
+              "normalized": "épaules",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "shoulders",
+                "fr": "épaules",
+                "es": "hombros"
+              },
+              "id": "b4.s3.t5",
+              "startMs": 53559,
+              "endMs": 54149
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b4.s3.t6",
+              "startMs": 54149,
+              "endMs": 54269
+            },
+            {
+              "text": "recommence",
+              "normalized": "recommence",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "starts again",
+                "fr": "recommence",
+                "es": "recomienza"
+              },
+              "id": "b4.s3.t7",
+              "startMs": 54269,
+              "endMs": 54889
+            },
+            {
+              "text": "sa",
+              "normalized": "sa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b4.s3.t8",
+              "startMs": 54889,
+              "endMs": 54909
+            },
+            {
+              "text": "chanson",
+              "normalized": "chanson",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "song",
+                "fr": "chanson",
+                "es": "canción"
+              },
+              "id": "b4.s3.t9",
+              "startMs": 54909,
+              "endMs": 56028
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s3.t10"
+            }
+          ]
+        },
+        {
+          "id": "b4.s4",
+          "text": "Pour elle, l'hiver paraît encore très loin.",
+          "translations": {
+            "en": "To her, winter still seems very far away.",
+            "fr": "Pour elle, l'hiver paraît encore très loin.",
+            "es": "Para ella, el invierno todavía parece muy lejano."
+          },
+          "tokens": [
+            {
+              "text": "Pour",
+              "normalized": "pour",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "for",
+                "fr": "pour",
+                "es": "para"
+              },
+              "id": "b4.s4.t1",
+              "startMs": 56488,
+              "endMs": 56578
+            },
+            {
+              "text": "elle",
+              "normalized": "elle",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b4.s4.t2",
+              "startMs": 56578,
+              "endMs": 56778
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s4.t3"
+            },
+            {
+              "text": "l'",
+              "normalized": "l'",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "l'",
+                "es": "el"
+              },
+              "id": "b4.s4.t4",
+              "startMs": 56878,
+              "endMs": 56928
+            },
+            {
+              "text": "hiver",
+              "normalized": "hiver",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "winter",
+                "fr": "hiver",
+                "es": "invierno"
+              },
+              "id": "b4.s4.t5",
+              "startMs": 56928,
+              "endMs": 57253
+            },
+            {
+              "text": "paraît",
+              "normalized": "paraît",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "seems",
+                "fr": "paraît",
+                "es": "parece"
+              },
+              "id": "b4.s4.t6",
+              "startMs": 57253,
+              "endMs": 57578
+            },
+            {
+              "text": "encore",
+              "normalized": "encore",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "still",
+                "fr": "encore",
+                "es": "todavía"
+              },
+              "id": "b4.s4.t7",
+              "startMs": 57578,
+              "endMs": 57808
+            },
+            {
+              "text": "très",
+              "normalized": "très",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "id": "b4.s4.t8",
+              "startMs": 57878,
+              "endMs": 58118
+            },
+            {
+              "text": "loin",
+              "normalized": "loin",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "far",
+                "fr": "loin",
+                "es": "lejos"
+              },
+              "id": "b4.s4.t9",
+              "startMs": 58128,
+              "endMs": 58328
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s4.t10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b5",
+      "sentences": [
+        {
+          "id": "b5.s1",
+          "text": "Les semaines passent, puis le vent devient plus frais.",
+          "translations": {
+            "en": "The weeks pass, and then the wind becomes cooler.",
+            "fr": "Les semaines passent, puis le vent devient plus frais.",
+            "es": "Pasan las semanas y el viento se vuelve más fresco."
+          },
+          "tokens": [
+            {
+              "text": "Les",
+              "normalized": "les",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b5.s1.t1",
+              "startMs": 59739,
+              "endMs": 59859
+            },
+            {
+              "text": "semaines",
+              "normalized": "semaines",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "weeks",
+                "fr": "semaines",
+                "es": "semanas"
+              },
+              "id": "b5.s1.t2",
+              "startMs": 59859,
+              "endMs": 60279
+            },
+            {
+              "text": "passent",
+              "normalized": "passent",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "pass",
+                "fr": "passent",
+                "es": "pasan"
+              },
+              "id": "b5.s1.t3",
+              "startMs": 60279,
+              "endMs": 60999
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s1.t4"
+            },
+            {
+              "text": "puis",
+              "normalized": "puis",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "then",
+                "fr": "puis",
+                "es": "después"
+              },
+              "id": "b5.s1.t5",
+              "startMs": 60999,
+              "endMs": 61019
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b5.s1.t6",
+              "startMs": 61019,
+              "endMs": 61099
+            },
+            {
+              "text": "vent",
+              "normalized": "vent",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wind",
+                "fr": "vent",
+                "es": "viento"
+              },
+              "id": "b5.s1.t7",
+              "startMs": 61099,
+              "endMs": 61269
+            },
+            {
+              "text": "devient",
+              "normalized": "devient",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "becomes",
+                "fr": "devient",
+                "es": "se vuelve"
+              },
+              "id": "b5.s1.t8",
+              "startMs": 61269,
+              "endMs": 61579
+            },
+            {
+              "text": "plus",
+              "normalized": "plus",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "more",
+                "fr": "plus",
+                "es": "más"
+              },
+              "id": "b5.s1.t9",
+              "startMs": 61579,
+              "endMs": 61749
+            },
+            {
+              "text": "frais",
+              "normalized": "frais",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cooler",
+                "fr": "frais",
+                "es": "fresco"
+              },
+              "id": "b5.s1.t10",
+              "startMs": 61749,
+              "endMs": 62585
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s1.t11"
+            }
+          ]
+        },
+        {
+          "id": "b5.s2",
+          "text": "Les feuilles tombent, et les nuits arrivent plus tôt.",
+          "translations": {
+            "en": "The leaves fall, and the nights arrive earlier.",
+            "fr": "Les feuilles tombent, et les nuits arrivent plus tôt.",
+            "es": "Caen las hojas y las noches llegan más temprano."
+          },
+          "tokens": [
+            {
+              "text": "Les",
+              "normalized": "les",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b5.s2.t1",
+              "startMs": 62985,
+              "endMs": 63095
+            },
+            {
+              "text": "feuilles",
+              "normalized": "feuilles",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "leaves",
+                "fr": "feuilles",
+                "es": "hojas"
+              },
+              "id": "b5.s2.t2",
+              "startMs": 63095,
+              "endMs": 63570
+            },
+            {
+              "text": "tombent",
+              "normalized": "tombent",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fall",
+                "fr": "tombent",
+                "es": "caen"
+              },
+              "id": "b5.s2.t3",
+              "startMs": 63570,
+              "endMs": 64045
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s2.t4"
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b5.s2.t5",
+              "startMs": 64045,
+              "endMs": 64045
+            },
+            {
+              "text": "les",
+              "normalized": "les",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b5.s2.t6",
+              "startMs": 64105,
+              "endMs": 64205
+            },
+            {
+              "text": "nuits",
+              "normalized": "nuits",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "nights",
+                "fr": "nuits",
+                "es": "noches"
+              },
+              "id": "b5.s2.t7",
+              "startMs": 64205,
+              "endMs": 64605
+            },
+            {
+              "text": "arrivent",
+              "normalized": "arrivent",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "arrive",
+                "fr": "arrivent",
+                "es": "llegan"
+              },
+              "id": "b5.s2.t8",
+              "startMs": 64605,
+              "endMs": 65005
+            },
+            {
+              "text": "plus",
+              "normalized": "plus",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "more",
+                "fr": "plus",
+                "es": "más"
+              },
+              "id": "b5.s2.t9",
+              "startMs": 65005,
+              "endMs": 65115
+            },
+            {
+              "text": "tôt",
+              "normalized": "tôt",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "early",
+                "fr": "tôt",
+                "es": "temprano"
+              },
+              "id": "b5.s2.t10",
+              "startMs": 65115,
+              "endMs": 65830
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s2.t11"
+            }
+          ]
+        },
+        {
+          "id": "b5.s3",
+          "text": "Enfin, la neige couvre les champs et les chemins.",
+          "translations": {
+            "en": "Finally, snow covers the fields and paths.",
+            "fr": "Enfin, la neige couvre les champs et les chemins.",
+            "es": "Finalmente, la nieve cubre los campos y los caminos."
+          },
+          "tokens": [
+            {
+              "text": "Enfin",
+              "normalized": "enfin",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "finally",
+                "fr": "enfin",
+                "es": "finalmente"
+              },
+              "id": "b5.s3.t1",
+              "startMs": 66230,
+              "endMs": 66420
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s3.t2"
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b5.s3.t3",
+              "startMs": 66550,
+              "endMs": 66640
+            },
+            {
+              "text": "neige",
+              "normalized": "neige",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "snow",
+                "fr": "neige",
+                "es": "nieve"
+              },
+              "id": "b5.s3.t4",
+              "startMs": 66640,
+              "endMs": 66950
+            },
+            {
+              "text": "couvre",
+              "normalized": "couvre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "covers",
+                "fr": "couvre",
+                "es": "cubre"
+              },
+              "id": "b5.s3.t5",
+              "startMs": 66950,
+              "endMs": 67260
+            },
+            {
+              "text": "les",
+              "normalized": "les",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b5.s3.t6",
+              "startMs": 67260,
+              "endMs": 67340
+            },
+            {
+              "text": "champs",
+              "normalized": "champs",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fields",
+                "fr": "champs",
+                "es": "campos"
+              },
+              "id": "b5.s3.t7",
+              "startMs": 67340,
+              "endMs": 67650
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b5.s3.t8",
+              "startMs": 67650,
+              "endMs": 67750
+            },
+            {
+              "text": "les",
+              "normalized": "les",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b5.s3.t9",
+              "startMs": 67750,
+              "endMs": 67900
+            },
+            {
+              "text": "chemins",
+              "normalized": "chemins",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "paths",
+                "fr": "chemins",
+                "es": "caminos"
+              },
+              "id": "b5.s3.t10",
+              "startMs": 67900,
+              "endMs": 68794
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s3.t11"
+            }
+          ]
+        },
+        {
+          "id": "b5.s4",
+          "text": "La cigale ne trouve plus rien à manger dehors.",
+          "translations": {
+            "en": "The cicada can no longer find anything to eat outside.",
+            "fr": "La cigale ne trouve plus rien à manger dehors.",
+            "es": "La cigarra ya no encuentra nada para comer fuera."
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b5.s4.t1",
+              "startMs": 69194,
+              "endMs": 69264
+            },
+            {
+              "text": "cigale",
+              "normalized": "cigale",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cicada",
+                "fr": "cigale",
+                "es": "cigarra"
+              },
+              "id": "b5.s4.t2",
+              "startMs": 69264,
+              "endMs": 69634
+            },
+            {
+              "text": "ne",
+              "normalized": "ne",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "not",
+                "fr": "ne",
+                "es": "no"
+              },
+              "id": "b5.s4.t3",
+              "startMs": 69634,
+              "endMs": 69754
+            },
+            {
+              "text": "trouve",
+              "normalized": "trouve",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "finds",
+                "fr": "trouve",
+                "es": "encuentra"
+              },
+              "id": "b5.s4.t4",
+              "startMs": 69754,
+              "endMs": 70114
+            },
+            {
+              "text": "plus",
+              "normalized": "plus",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "more",
+                "fr": "plus",
+                "es": "más"
+              },
+              "id": "b5.s4.t5",
+              "startMs": 70184,
+              "endMs": 70384
+            },
+            {
+              "text": "rien",
+              "normalized": "rien",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "nothing",
+                "fr": "rien",
+                "es": "nada"
+              },
+              "id": "b5.s4.t6",
+              "startMs": 70384,
+              "endMs": 70634
+            },
+            {
+              "text": "à",
+              "normalized": "à",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b5.s4.t7",
+              "startMs": 70634,
+              "endMs": 70744
+            },
+            {
+              "text": "manger",
+              "normalized": "manger",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to eat",
+                "fr": "manger",
+                "es": "comer"
+              },
+              "id": "b5.s4.t8",
+              "startMs": 70754,
+              "endMs": 71134
+            },
+            {
+              "text": "dehors",
+              "normalized": "dehors",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "outside",
+                "fr": "dehors",
+                "es": "afuera"
+              },
+              "id": "b5.s4.t9",
+              "startMs": 71134,
+              "endMs": 72150
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s4.t10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b6",
+      "sentences": [
+        {
+          "id": "b6.s1",
+          "text": "Elle cherche des graines, mais tout reste blanc et vide.",
+          "translations": {
+            "en": "She searches for seeds, but everything remains white and empty.",
+            "fr": "Elle cherche des graines, mais tout reste blanc et vide.",
+            "es": "Busca semillas, pero todo permanece blanco y vacío."
+          },
+          "tokens": [
+            {
+              "text": "Elle",
+              "normalized": "elle",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b6.s1.t1",
+              "startMs": 72900,
+              "endMs": 73040
+            },
+            {
+              "text": "cherche",
+              "normalized": "cherche",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "searches",
+                "fr": "cherche",
+                "es": "busca"
+              },
+              "id": "b6.s1.t2",
+              "startMs": 73040,
+              "endMs": 73310
+            },
+            {
+              "text": "des",
+              "normalized": "des",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "some",
+                "fr": "des",
+                "es": "unos"
+              },
+              "id": "b6.s1.t3",
+              "startMs": 73370,
+              "endMs": 73520
+            },
+            {
+              "text": "graines",
+              "normalized": "graines",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "seeds",
+                "fr": "graines",
+                "es": "semillas"
+              },
+              "id": "b6.s1.t4",
+              "startMs": 73520,
+              "endMs": 73980
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s1.t5"
+            },
+            {
+              "text": "mais",
+              "normalized": "mais",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "but",
+                "fr": "mais",
+                "es": "pero"
+              },
+              "id": "b6.s1.t6",
+              "startMs": 73980,
+              "endMs": 74020
+            },
+            {
+              "text": "tout",
+              "normalized": "tout",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "all",
+                "fr": "tout",
+                "es": "todo"
+              },
+              "id": "b6.s1.t7",
+              "startMs": 74230,
+              "endMs": 74350
+            },
+            {
+              "text": "reste",
+              "normalized": "reste",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "remains",
+                "fr": "reste",
+                "es": "permanece"
+              },
+              "id": "b6.s1.t8",
+              "startMs": 74460,
+              "endMs": 74740
+            },
+            {
+              "text": "blanc",
+              "normalized": "blanc",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "white",
+                "fr": "blanc",
+                "es": "blanco"
+              },
+              "id": "b6.s1.t9",
+              "startMs": 74740,
+              "endMs": 75030
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b6.s1.t10",
+              "startMs": 75030,
+              "endMs": 75140
+            },
+            {
+              "text": "vide",
+              "normalized": "vide",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "empty",
+                "fr": "vide",
+                "es": "vacío"
+              },
+              "id": "b6.s1.t11",
+              "startMs": 75140,
+              "endMs": 75370
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s1.t12"
+            }
+          ]
+        },
+        {
+          "id": "b6.s2",
+          "text": "Son ventre est creux, et ses petites pattes tremblent.",
+          "translations": {
+            "en": "Her stomach is empty, and her little legs tremble.",
+            "fr": "Son ventre est creux, et ses petites pattes tremblent.",
+            "es": "Tiene el estómago vacío y le tiemblan las patitas."
+          },
+          "tokens": [
+            {
+              "text": "Son",
+              "normalized": "son",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "his",
+                "fr": "son",
+                "es": "su"
+              },
+              "id": "b6.s2.t1",
+              "startMs": 76478,
+              "endMs": 76598
+            },
+            {
+              "text": "ventre",
+              "normalized": "ventre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "stomach",
+                "fr": "ventre",
+                "es": "estómago"
+              },
+              "id": "b6.s2.t2",
+              "startMs": 76598,
+              "endMs": 77008
+            },
+            {
+              "text": "est",
+              "normalized": "est",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es"
+              },
+              "id": "b6.s2.t3",
+              "startMs": 77008,
+              "endMs": 77128
+            },
+            {
+              "text": "creux",
+              "normalized": "creux",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "empty",
+                "fr": "creux",
+                "es": "vacío"
+              },
+              "id": "b6.s2.t4",
+              "startMs": 77128,
+              "endMs": 77608
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s2.t5"
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b6.s2.t6",
+              "startMs": 77608,
+              "endMs": 77608
+            },
+            {
+              "text": "ses",
+              "normalized": "ses",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "ses",
+                "es": "sus"
+              },
+              "id": "b6.s2.t7",
+              "startMs": 77658,
+              "endMs": 77788
+            },
+            {
+              "text": "petites",
+              "normalized": "petites",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "little",
+                "fr": "petites",
+                "es": "pequeñas"
+              },
+              "id": "b6.s2.t8",
+              "startMs": 77798,
+              "endMs": 78178
+            },
+            {
+              "text": "pattes",
+              "normalized": "pattes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "legs",
+                "fr": "pattes",
+                "es": "patas"
+              },
+              "id": "b6.s2.t9",
+              "startMs": 78178,
+              "endMs": 78839
+            },
+            {
+              "text": "tremblent",
+              "normalized": "tremblent",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tremble",
+                "fr": "tremblent",
+                "es": "tiemblan"
+              },
+              "id": "b6.s2.t10",
+              "startMs": 78839,
+              "endMs": 79501
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s2.t11"
+            }
+          ]
+        },
+        {
+          "id": "b6.s3",
+          "text": "Elle pense alors à la maison de la fourmi.",
+          "translations": {
+            "en": "Then she thinks about the ant's home.",
+            "fr": "Elle pense alors à la maison de la fourmi.",
+            "es": "Entonces piensa en la casa de la hormiga."
+          },
+          "tokens": [
+            {
+              "text": "Elle",
+              "normalized": "elle",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b6.s3.t1",
+              "startMs": 79901,
+              "endMs": 80091
+            },
+            {
+              "text": "pense",
+              "normalized": "pense",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "thinks",
+                "fr": "pense",
+                "es": "piensa"
+              },
+              "id": "b6.s3.t2",
+              "startMs": 80091,
+              "endMs": 80391
+            },
+            {
+              "text": "alors",
+              "normalized": "alors",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "then",
+                "fr": "alors",
+                "es": "entonces"
+              },
+              "id": "b6.s3.t3",
+              "startMs": 80391,
+              "endMs": 80691
+            },
+            {
+              "text": "à",
+              "normalized": "à",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b6.s3.t4",
+              "startMs": 80691,
+              "endMs": 80761
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b6.s3.t5",
+              "startMs": 80811,
+              "endMs": 80931
+            },
+            {
+              "text": "maison",
+              "normalized": "maison",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "home",
+                "fr": "maison",
+                "es": "casa"
+              },
+              "id": "b6.s3.t6",
+              "startMs": 80931,
+              "endMs": 81291
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b6.s3.t7",
+              "startMs": 81291,
+              "endMs": 81411
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b6.s3.t8",
+              "startMs": 81411,
+              "endMs": 81501
+            },
+            {
+              "text": "fourmi",
+              "normalized": "fourmi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ant",
+                "fr": "fourmi",
+                "es": "hormiga"
+              },
+              "id": "b6.s3.t9",
+              "startMs": 81501,
+              "endMs": 82344
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s3.t10"
+            }
+          ]
+        },
+        {
+          "id": "b6.s4",
+          "text": "Là-bas, des réserves attendent dans un abri chaud.",
+          "translations": {
+            "en": "There, supplies are waiting in a warm shelter.",
+            "fr": "Là-bas, des réserves attendent dans un abri chaud.",
+            "es": "Allí esperan provisiones en un refugio cálido."
+          },
+          "tokens": [
+            {
+              "text": "Là-bas",
+              "normalized": "là-bas",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "over there",
+                "fr": "là-bas",
+                "es": "allí"
+              },
+              "id": "b6.s4.t1",
+              "startMs": 82694,
+              "endMs": 83194
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s4.t2"
+            },
+            {
+              "text": "des",
+              "normalized": "des",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "some",
+                "fr": "des",
+                "es": "unos"
+              },
+              "id": "b6.s4.t3",
+              "startMs": 83194,
+              "endMs": 83284
+            },
+            {
+              "text": "réserves",
+              "normalized": "réserves",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "supplies",
+                "fr": "réserves",
+                "es": "reservas"
+              },
+              "id": "b6.s4.t4",
+              "startMs": 83284,
+              "endMs": 83829
+            },
+            {
+              "text": "attendent",
+              "normalized": "attendent",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wait",
+                "fr": "attendent",
+                "es": "esperan"
+              },
+              "id": "b6.s4.t5",
+              "startMs": 83829,
+              "endMs": 84374
+            },
+            {
+              "text": "dans",
+              "normalized": "dans",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b6.s4.t6",
+              "startMs": 84374,
+              "endMs": 84554
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b6.s4.t7",
+              "startMs": 84554,
+              "endMs": 84644
+            },
+            {
+              "text": "abri",
+              "normalized": "abri",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "shelter",
+                "fr": "abri",
+                "es": "refugio"
+              },
+              "id": "b6.s4.t8",
+              "startMs": 84644,
+              "endMs": 84824
+            },
+            {
+              "text": "chaud",
+              "normalized": "chaud",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "warm",
+                "fr": "chaud",
+                "es": "cálido"
+              },
+              "id": "b6.s4.t9",
+              "startMs": 84824,
+              "endMs": 85054
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s4.t10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b7",
+      "sentences": [
+        {
+          "id": "b7.s1",
+          "text": "La cigale frappe timidement à la petite porte.",
+          "translations": {
+            "en": "The cicada timidly knocks on the little door.",
+            "fr": "La cigale frappe timidement à la petite porte.",
+            "es": "La cigarra llama tímidamente a la pequeña puerta."
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b7.s1.t1",
+              "startMs": 86403,
+              "endMs": 86483
+            },
+            {
+              "text": "cigale",
+              "normalized": "cigale",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cicada",
+                "fr": "cigale",
+                "es": "cigarra"
+              },
+              "id": "b7.s1.t2",
+              "startMs": 86483,
+              "endMs": 86949
+            },
+            {
+              "text": "frappe",
+              "normalized": "frappe",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "knocks",
+                "fr": "frappe",
+                "es": "llama"
+              },
+              "id": "b7.s1.t3",
+              "startMs": 86949,
+              "endMs": 87416
+            },
+            {
+              "text": "timidement",
+              "normalized": "timidement",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "timidly",
+                "fr": "timidement",
+                "es": "tímidamente"
+              },
+              "id": "b7.s1.t4",
+              "startMs": 87416,
+              "endMs": 87883
+            },
+            {
+              "text": "à",
+              "normalized": "à",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b7.s1.t5",
+              "startMs": 87883,
+              "endMs": 88013
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b7.s1.t6",
+              "startMs": 88013,
+              "endMs": 88123
+            },
+            {
+              "text": "petite",
+              "normalized": "petite",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "small",
+                "fr": "petite",
+                "es": "pequeña"
+              },
+              "id": "b7.s1.t7",
+              "startMs": 88213,
+              "endMs": 88423
+            },
+            {
+              "text": "porte",
+              "normalized": "porte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "carries",
+                "fr": "porte",
+                "es": "lleva"
+              },
+              "id": "b7.s1.t8",
+              "startMs": 88583,
+              "endMs": 88763
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s1.t9"
+            }
+          ]
+        },
+        {
+          "id": "b7.s2",
+          "text": "« Voisine, donne quelques graines, je vous prie. »",
+          "translations": {
+            "en": "“Neighbor, please give me a few seeds.”",
+            "fr": "« Voisine, donne quelques graines, je vous prie. »",
+            "es": "«Vecina, dame algunas semillas, por favor»."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s2.t1"
+            },
+            {
+              "text": "Voisine",
+              "normalized": "voisine",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "neighbor",
+                "fr": "voisine",
+                "es": "vecina"
+              },
+              "id": "b7.s2.t2",
+              "startMs": 89750,
+              "endMs": 90700
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s2.t3"
+            },
+            {
+              "text": "donne",
+              "normalized": "donne",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "gives",
+                "fr": "donne",
+                "es": "da"
+              },
+              "id": "b7.s2.t4",
+              "startMs": 90700,
+              "endMs": 91000
+            },
+            {
+              "text": "quelques",
+              "normalized": "quelques",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a few",
+                "fr": "quelques",
+                "es": "algunos"
+              },
+              "id": "b7.s2.t5",
+              "startMs": 91000,
+              "endMs": 91620
+            },
+            {
+              "text": "graines",
+              "normalized": "graines",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "seeds",
+                "fr": "graines",
+                "es": "semillas"
+              },
+              "id": "b7.s2.t6",
+              "startMs": 91620,
+              "endMs": 92490
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s2.t7"
+            },
+            {
+              "text": "je",
+              "normalized": "je",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "I",
+                "fr": "je",
+                "es": "yo"
+              },
+              "id": "b7.s2.t8",
+              "startMs": 92490,
+              "endMs": 92490
+            },
+            {
+              "text": "vous",
+              "normalized": "vous",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "you",
+                "fr": "vous",
+                "es": "usted"
+              },
+              "id": "b7.s2.t9",
+              "startMs": 92670,
+              "endMs": 92670
+            },
+            {
+              "text": "prie",
+              "normalized": "prie",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "please",
+                "fr": "prie",
+                "es": "por favor"
+              },
+              "id": "b7.s2.t10",
+              "startMs": 92670,
+              "endMs": 92675
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s2.t11"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b7.s2.t12"
+            }
+          ]
+        },
+        {
+          "id": "b7.s3",
+          "text": "« Je vous rendrai tout après le retour du soleil. »",
+          "translations": {
+            "en": "“I will return everything after the sun comes back.”",
+            "fr": "« Je vous rendrai tout après le retour du soleil. »",
+            "es": "«Lo devolveré todo cuando regrese el sol»."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s3.t1"
+            },
+            {
+              "text": "Je",
+              "normalized": "je",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "I",
+                "fr": "je",
+                "es": "yo"
+              },
+              "id": "b7.s3.t2",
+              "startMs": 93075,
+              "endMs": 93145
+            },
+            {
+              "text": "vous",
+              "normalized": "vous",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "you",
+                "fr": "vous",
+                "es": "usted"
+              },
+              "id": "b7.s3.t3",
+              "startMs": 93145,
+              "endMs": 93385
+            },
+            {
+              "text": "rendrai",
+              "normalized": "rendrai",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "will return",
+                "fr": "rendrai",
+                "es": "devolveré"
+              },
+              "id": "b7.s3.t4",
+              "startMs": 93385,
+              "endMs": 93805
+            },
+            {
+              "text": "tout",
+              "normalized": "tout",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "all",
+                "fr": "tout",
+                "es": "todo"
+              },
+              "id": "b7.s3.t5",
+              "startMs": 93805,
+              "endMs": 93865
+            },
+            {
+              "text": "après",
+              "normalized": "après",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "after",
+                "fr": "après",
+                "es": "después de"
+              },
+              "id": "b7.s3.t6",
+              "startMs": 94095,
+              "endMs": 94345
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b7.s3.t7",
+              "startMs": 94475,
+              "endMs": 94535
+            },
+            {
+              "text": "retour",
+              "normalized": "retour",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "return",
+                "fr": "retour",
+                "es": "regreso"
+              },
+              "id": "b7.s3.t8",
+              "startMs": 94535,
+              "endMs": 94905
+            },
+            {
+              "text": "du",
+              "normalized": "du",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b7.s3.t9",
+              "startMs": 94905,
+              "endMs": 95025
+            },
+            {
+              "text": "soleil",
+              "normalized": "soleil",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sun",
+                "fr": "soleil",
+                "es": "sol"
+              },
+              "id": "b7.s3.t10",
+              "startMs": 95025,
+              "endMs": 96095
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s3.t11"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b7.s3.t12"
+            }
+          ]
+        },
+        {
+          "id": "b7.s4",
+          "text": "La fourmi demande comment elle occupait tout son été.",
+          "translations": {
+            "en": "The ant asks how she spent her whole summer.",
+            "fr": "La fourmi demande comment elle occupait tout son été.",
+            "es": "La hormiga pregunta cómo ocupaba todo su verano."
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b7.s4.t1",
+              "startMs": 96515,
+              "endMs": 96545
+            },
+            {
+              "text": "fourmi",
+              "normalized": "fourmi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ant",
+                "fr": "fourmi",
+                "es": "hormiga"
+              },
+              "id": "b7.s4.t2",
+              "startMs": 96545,
+              "endMs": 96855
+            },
+            {
+              "text": "demande",
+              "normalized": "demande",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "asks",
+                "fr": "demande",
+                "es": "pregunta"
+              },
+              "id": "b7.s4.t3",
+              "startMs": 96855,
+              "endMs": 97225
+            },
+            {
+              "text": "comment",
+              "normalized": "comment",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "how",
+                "fr": "comment",
+                "es": "cómo"
+              },
+              "id": "b7.s4.t4",
+              "startMs": 97225,
+              "endMs": 97495
+            },
+            {
+              "text": "elle",
+              "normalized": "elle",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b7.s4.t5",
+              "startMs": 97695,
+              "endMs": 97805
+            },
+            {
+              "text": "occupait",
+              "normalized": "occupait",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "spent",
+                "fr": "occupait",
+                "es": "ocupaba"
+              },
+              "id": "b7.s4.t6",
+              "startMs": 97805,
+              "endMs": 98235
+            },
+            {
+              "text": "tout",
+              "normalized": "tout",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "all",
+                "fr": "tout",
+                "es": "todo"
+              },
+              "id": "b7.s4.t7",
+              "startMs": 98235,
+              "endMs": 98445
+            },
+            {
+              "text": "son",
+              "normalized": "son",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "son",
+                "es": "su"
+              },
+              "id": "b7.s4.t8",
+              "startMs": 98445,
+              "endMs": 98605
+            },
+            {
+              "text": "été",
+              "normalized": "été",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "summer",
+                "fr": "été",
+                "es": "verano"
+              },
+              "id": "b7.s4.t9",
+              "startMs": 98605,
+              "endMs": 98875
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s4.t10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b8",
+      "sentences": [
+        {
+          "id": "b8.s1",
+          "text": "La cigale répond : « Je chantais pour tous les animaux. »",
+          "translations": {
+            "en": "The cicada replies: “I sang for all the animals.”",
+            "fr": "La cigale répond : « Je chantais pour tous les animaux. »",
+            "es": "La cigarra responde: «Cantaba para todos los animales»."
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b8.s1.t1",
+              "startMs": 100393,
+              "endMs": 100463
+            },
+            {
+              "text": "cigale",
+              "normalized": "cigale",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cicada",
+                "fr": "cigale",
+                "es": "cigarra"
+              },
+              "id": "b8.s1.t2",
+              "startMs": 100463,
+              "endMs": 100833
+            },
+            {
+              "text": "répond",
+              "normalized": "répond",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "replies",
+                "fr": "répond",
+                "es": "responde"
+              },
+              "id": "b8.s1.t3",
+              "startMs": 100833,
+              "endMs": 101193
+            },
+            {
+              "text": ":",
+              "normalized": ":",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b8.s1.t4"
+            },
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b8.s1.t5"
+            },
+            {
+              "text": "Je",
+              "normalized": "je",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "I",
+                "fr": "je",
+                "es": "yo"
+              },
+              "id": "b8.s1.t6",
+              "startMs": 101433,
+              "endMs": 101503
+            },
+            {
+              "text": "chantais",
+              "normalized": "chantais",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "was singing",
+                "fr": "chantais",
+                "es": "cantaba"
+              },
+              "id": "b8.s1.t7",
+              "startMs": 101503,
+              "endMs": 102083
+            },
+            {
+              "text": "pour",
+              "normalized": "pour",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "for",
+                "fr": "pour",
+                "es": "para"
+              },
+              "id": "b8.s1.t8",
+              "startMs": 102083,
+              "endMs": 102293
+            },
+            {
+              "text": "tous",
+              "normalized": "tous",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "all",
+                "fr": "tous",
+                "es": "todos"
+              },
+              "id": "b8.s1.t9",
+              "startMs": 102373,
+              "endMs": 102433
+            },
+            {
+              "text": "les",
+              "normalized": "les",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b8.s1.t10",
+              "startMs": 102603,
+              "endMs": 102793
+            },
+            {
+              "text": "animaux",
+              "normalized": "animaux",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "animals",
+                "fr": "animaux",
+                "es": "animales"
+              },
+              "id": "b8.s1.t11",
+              "startMs": 102793,
+              "endMs": 103740
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b8.s1.t12"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b8.s1.t13"
+            }
+          ]
+        },
+        {
+          "id": "b8.s2",
+          "text": "La fourmi soupire devant cette réponse peu prudente.",
+          "translations": {
+            "en": "The ant sighs at this unwise answer.",
+            "fr": "La fourmi soupire devant cette réponse peu prudente.",
+            "es": "La hormiga suspira ante esta respuesta poco prudente."
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b8.s2.t1",
+              "startMs": 104150,
+              "endMs": 104210
+            },
+            {
+              "text": "fourmi",
+              "normalized": "fourmi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ant",
+                "fr": "fourmi",
+                "es": "hormiga"
+              },
+              "id": "b8.s2.t2",
+              "startMs": 104210,
+              "endMs": 104605
+            },
+            {
+              "text": "soupire",
+              "normalized": "soupire",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sighs",
+                "fr": "soupire",
+                "es": "suspira"
+              },
+              "id": "b8.s2.t3",
+              "startMs": 104605,
+              "endMs": 105000
+            },
+            {
+              "text": "devant",
+              "normalized": "devant",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "before",
+                "fr": "devant",
+                "es": "ante"
+              },
+              "id": "b8.s2.t4",
+              "startMs": 105000,
+              "endMs": 105230
+            },
+            {
+              "text": "cette",
+              "normalized": "cette",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "this",
+                "fr": "cette",
+                "es": "esta"
+              },
+              "id": "b8.s2.t5",
+              "startMs": 105490,
+              "endMs": 105690
+            },
+            {
+              "text": "réponse",
+              "normalized": "réponse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "answer",
+                "fr": "réponse",
+                "es": "respuesta"
+              },
+              "id": "b8.s2.t6",
+              "startMs": 105690,
+              "endMs": 106180
+            },
+            {
+              "text": "peu",
+              "normalized": "peu",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "little",
+                "fr": "peu",
+                "es": "poco"
+              },
+              "id": "b8.s2.t7",
+              "startMs": 106180,
+              "endMs": 106350
+            },
+            {
+              "text": "prudente",
+              "normalized": "prudente",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wise",
+                "fr": "prudente",
+                "es": "prudente"
+              },
+              "id": "b8.s2.t8",
+              "startMs": 106350,
+              "endMs": 107560
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b8.s2.t9"
+            }
+          ]
+        },
+        {
+          "id": "b8.s3",
+          "text": "Elle partage finalement un petit repas, mais donne un conseil.",
+          "translations": {
+            "en": "She finally shares a small meal but gives some advice.",
+            "fr": "Elle partage finalement un petit repas, mais donne un conseil.",
+            "es": "Finalmente comparte una pequeña comida, pero da un consejo."
+          },
+          "tokens": [
+            {
+              "text": "Elle",
+              "normalized": "elle",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b8.s3.t1",
+              "startMs": 107960,
+              "endMs": 108150
+            },
+            {
+              "text": "partage",
+              "normalized": "partage",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "shares",
+                "fr": "partage",
+                "es": "comparte"
+              },
+              "id": "b8.s3.t2",
+              "startMs": 108150,
+              "endMs": 108570
+            },
+            {
+              "text": "finalement",
+              "normalized": "finalement",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "finally",
+                "fr": "finalement",
+                "es": "finalmente"
+              },
+              "id": "b8.s3.t3",
+              "startMs": 108570,
+              "endMs": 109180
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b8.s3.t4",
+              "startMs": 109180,
+              "endMs": 109240
+            },
+            {
+              "text": "petit",
+              "normalized": "petit",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "small",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b8.s3.t5",
+              "startMs": 109320,
+              "endMs": 109600
+            },
+            {
+              "text": "repas",
+              "normalized": "repas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "meal",
+                "fr": "repas",
+                "es": "comida"
+              },
+              "id": "b8.s3.t6",
+              "startMs": 109600,
+              "endMs": 110180
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b8.s3.t7"
+            },
+            {
+              "text": "mais",
+              "normalized": "mais",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "but",
+                "fr": "mais",
+                "es": "pero"
+              },
+              "id": "b8.s3.t8",
+              "startMs": 110180,
+              "endMs": 110280
+            },
+            {
+              "text": "donne",
+              "normalized": "donne",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "gives",
+                "fr": "donne",
+                "es": "da"
+              },
+              "id": "b8.s3.t9",
+              "startMs": 110280,
+              "endMs": 110560
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b8.s3.t10",
+              "startMs": 110560,
+              "endMs": 110640
+            },
+            {
+              "text": "conseil",
+              "normalized": "conseil",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "advice",
+                "fr": "conseil",
+                "es": "consejo"
+              },
+              "id": "b8.s3.t11",
+              "startMs": 110640,
+              "endMs": 111755
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b8.s3.t12"
+            }
+          ]
+        },
+        {
+          "id": "b8.s4",
+          "text": "« Demain, travaille avec moi avant de commencer tes chansons. »",
+          "translations": {
+            "en": "“Tomorrow, work with me before starting your songs.”",
+            "fr": "« Demain, travaille avec moi avant de commencer tes chansons. »",
+            "es": "«Mañana, trabaja conmigo antes de empezar tus canciones»."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b8.s4.t1"
+            },
+            {
+              "text": "Demain",
+              "normalized": "demain",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tomorrow",
+                "fr": "demain",
+                "es": "mañana"
+              },
+              "id": "b8.s4.t2",
+              "startMs": 112105,
+              "endMs": 112795
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b8.s4.t3"
+            },
+            {
+              "text": "travaille",
+              "normalized": "travaille",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "works",
+                "fr": "travaille",
+                "es": "trabaja"
+              },
+              "id": "b8.s4.t4",
+              "startMs": 112795,
+              "endMs": 113205
+            },
+            {
+              "text": "avec",
+              "normalized": "avec",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b8.s4.t5",
+              "startMs": 113255,
+              "endMs": 113415
+            },
+            {
+              "text": "moi",
+              "normalized": "moi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "me",
+                "fr": "moi",
+                "es": "mí"
+              },
+              "id": "b8.s4.t6",
+              "startMs": 113495,
+              "endMs": 113705
+            },
+            {
+              "text": "avant",
+              "normalized": "avant",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "before",
+                "fr": "avant",
+                "es": "antes de"
+              },
+              "id": "b8.s4.t7",
+              "startMs": 113705,
+              "endMs": 113955
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b8.s4.t8",
+              "startMs": 113955,
+              "endMs": 114055
+            },
+            {
+              "text": "commencer",
+              "normalized": "commencer",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to begin",
+                "fr": "commencer",
+                "es": "empezar"
+              },
+              "id": "b8.s4.t9",
+              "startMs": 114055,
+              "endMs": 114405
+            },
+            {
+              "text": "tes",
+              "normalized": "tes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "your",
+                "fr": "tes",
+                "es": "tus"
+              },
+              "id": "b8.s4.t10",
+              "startMs": 114485,
+              "endMs": 114595
+            },
+            {
+              "text": "chansons",
+              "normalized": "chansons",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "songs",
+                "fr": "chansons",
+                "es": "canciones"
+              },
+              "id": "b8.s4.t11",
+              "startMs": 114595,
+              "endMs": 115665
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b8.s4.t12"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b8.s4.t13"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b9",
+      "sentences": [
+        {
+          "id": "b9.s1",
+          "text": "La cigale accepte et remercie sa voisine pour cette chance.",
+          "translations": {
+            "en": "The cicada agrees and thanks her neighbor for this chance.",
+            "fr": "La cigale accepte et remercie sa voisine pour cette chance.",
+            "es": "La cigarra acepta y agradece esta oportunidad a su vecina."
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b9.s1.t1",
+              "startMs": 116425,
+              "endMs": 116515
+            },
+            {
+              "text": "cigale",
+              "normalized": "cigale",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cicada",
+                "fr": "cigale",
+                "es": "cigarra"
+              },
+              "id": "b9.s1.t2",
+              "startMs": 116515,
+              "endMs": 116995
+            },
+            {
+              "text": "accepte",
+              "normalized": "accepte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "accepts",
+                "fr": "accepte",
+                "es": "acepta"
+              },
+              "id": "b9.s1.t3",
+              "startMs": 116995,
+              "endMs": 117475
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b9.s1.t4",
+              "startMs": 117475,
+              "endMs": 117625
+            },
+            {
+              "text": "remercie",
+              "normalized": "remercie",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "thanks",
+                "fr": "remercie",
+                "es": "agradece"
+              },
+              "id": "b9.s1.t5",
+              "startMs": 117625,
+              "endMs": 118265
+            },
+            {
+              "text": "sa",
+              "normalized": "sa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b9.s1.t6",
+              "startMs": 118265,
+              "endMs": 118365
+            },
+            {
+              "text": "voisine",
+              "normalized": "voisine",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "neighbor",
+                "fr": "voisine",
+                "es": "vecina"
+              },
+              "id": "b9.s1.t7",
+              "startMs": 118365,
+              "endMs": 118925
+            },
+            {
+              "text": "pour",
+              "normalized": "pour",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "for",
+                "fr": "pour",
+                "es": "para"
+              },
+              "id": "b9.s1.t8",
+              "startMs": 118925,
+              "endMs": 119075
+            },
+            {
+              "text": "cette",
+              "normalized": "cette",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "this",
+                "fr": "cette",
+                "es": "esta"
+              },
+              "id": "b9.s1.t9",
+              "startMs": 119135,
+              "endMs": 119395
+            },
+            {
+              "text": "chance",
+              "normalized": "chance",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "chance",
+                "fr": "chance",
+                "es": "oportunidad"
+              },
+              "id": "b9.s1.t10",
+              "startMs": 119395,
+              "endMs": 119635
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b9.s1.t11"
+            }
+          ]
+        },
+        {
+          "id": "b9.s2",
+          "text": "Le lendemain, elles cherchent ensemble des graines cachées près du village.",
+          "translations": {
+            "en": "The next day, they search together for seeds hidden near the village.",
+            "fr": "Le lendemain, elles cherchent ensemble des graines cachées près du village.",
+            "es": "Al día siguiente, buscan juntas semillas escondidas cerca del pueblo."
+          },
+          "tokens": [
+            {
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b9.s2.t1",
+              "startMs": 120643,
+              "endMs": 120693
+            },
+            {
+              "text": "lendemain",
+              "normalized": "lendemain",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "next day",
+                "fr": "lendemain",
+                "es": "día siguiente"
+              },
+              "id": "b9.s2.t2",
+              "startMs": 120693,
+              "endMs": 121263
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b9.s2.t3"
+            },
+            {
+              "text": "elles",
+              "normalized": "elles",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "they",
+                "fr": "elles",
+                "es": "ellas"
+              },
+              "id": "b9.s2.t4",
+              "startMs": 121263,
+              "endMs": 121533
+            },
+            {
+              "text": "cherchent",
+              "normalized": "cherchent",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "search",
+                "fr": "cherchent",
+                "es": "buscan"
+              },
+              "id": "b9.s2.t5",
+              "startMs": 121533,
+              "endMs": 122063
+            },
+            {
+              "text": "ensemble",
+              "normalized": "ensemble",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "together",
+                "fr": "ensemble",
+                "es": "juntos"
+              },
+              "id": "b9.s2.t6",
+              "startMs": 122063,
+              "endMs": 122503
+            },
+            {
+              "text": "des",
+              "normalized": "des",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "some",
+                "fr": "des",
+                "es": "unos"
+              },
+              "id": "b9.s2.t7",
+              "startMs": 122503,
+              "endMs": 122653
+            },
+            {
+              "text": "graines",
+              "normalized": "graines",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "seeds",
+                "fr": "graines",
+                "es": "semillas"
+              },
+              "id": "b9.s2.t8",
+              "startMs": 122653,
+              "endMs": 123053
+            },
+            {
+              "text": "cachées",
+              "normalized": "cachées",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hidden",
+                "fr": "cachées",
+                "es": "escondidas"
+              },
+              "id": "b9.s2.t9",
+              "startMs": 123053,
+              "endMs": 123453
+            },
+            {
+              "text": "près",
+              "normalized": "près",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "near",
+                "fr": "près",
+                "es": "cerca de"
+              },
+              "id": "b9.s2.t10",
+              "startMs": 123453,
+              "endMs": 123653
+            },
+            {
+              "text": "du",
+              "normalized": "du",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b9.s2.t11",
+              "startMs": 123653,
+              "endMs": 123753
+            },
+            {
+              "text": "village",
+              "normalized": "village",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "village",
+                "fr": "village",
+                "es": "pueblo"
+              },
+              "id": "b9.s2.t12",
+              "startMs": 123753,
+              "endMs": 124093
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b9.s2.t13"
+            }
+          ]
+        },
+        {
+          "id": "b9.s3",
+          "text": "La cigale travaille lentement, puis trouve un rythme plus facile.",
+          "translations": {
+            "en": "The cicada works slowly, then finds an easier rhythm.",
+            "fr": "La cigale travaille lentement, puis trouve un rythme plus facile.",
+            "es": "La cigarra trabaja lentamente y encuentra un ritmo más fácil."
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b9.s3.t1",
+              "startMs": 125102,
+              "endMs": 125142
+            },
+            {
+              "text": "cigale",
+              "normalized": "cigale",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cicada",
+                "fr": "cigale",
+                "es": "cigarra"
+              },
+              "id": "b9.s3.t2",
+              "startMs": 125142,
+              "endMs": 125482
+            },
+            {
+              "text": "travaille",
+              "normalized": "travaille",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "works",
+                "fr": "travaille",
+                "es": "trabaja"
+              },
+              "id": "b9.s3.t3",
+              "startMs": 125482,
+              "endMs": 125992
+            },
+            {
+              "text": "lentement",
+              "normalized": "lentement",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "slowly",
+                "fr": "lentement",
+                "es": "lentamente"
+              },
+              "id": "b9.s3.t4",
+              "startMs": 125992,
+              "endMs": 126632
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b9.s3.t5"
+            },
+            {
+              "text": "puis",
+              "normalized": "puis",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "then",
+                "fr": "puis",
+                "es": "después"
+              },
+              "id": "b9.s3.t6",
+              "startMs": 126632,
+              "endMs": 126672
+            },
+            {
+              "text": "trouve",
+              "normalized": "trouve",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "finds",
+                "fr": "trouve",
+                "es": "encuentra"
+              },
+              "id": "b9.s3.t7",
+              "startMs": 126962,
+              "endMs": 127232
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b9.s3.t8",
+              "startMs": 127232,
+              "endMs": 127352
+            },
+            {
+              "text": "rythme",
+              "normalized": "rythme",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "pace",
+                "fr": "rythme",
+                "es": "ritmo"
+              },
+              "id": "b9.s3.t9",
+              "startMs": 127352,
+              "endMs": 127742
+            },
+            {
+              "text": "plus",
+              "normalized": "plus",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "more",
+                "fr": "plus",
+                "es": "más"
+              },
+              "id": "b9.s3.t10",
+              "startMs": 127742,
+              "endMs": 127952
+            },
+            {
+              "text": "facile",
+              "normalized": "facile",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "easy",
+                "fr": "facile",
+                "es": "fácil"
+              },
+              "id": "b9.s3.t11",
+              "startMs": 127952,
+              "endMs": 128312
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b9.s3.t12"
+            }
+          ]
+        },
+        {
+          "id": "b9.s4",
+          "text": "À midi, la fourmi invite sa nouvelle amie à chanter.",
+          "translations": {
+            "en": "At noon, the ant invites her new friend to sing.",
+            "fr": "À midi, la fourmi invite sa nouvelle amie à chanter.",
+            "es": "Al mediodía, la hormiga invita a cantar a su nueva amiga."
+          },
+          "tokens": [
+            {
+              "text": "À",
+              "normalized": "à",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b9.s4.t1",
+              "startMs": 129450,
+              "endMs": 129520
+            },
+            {
+              "text": "midi",
+              "normalized": "midi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "noon",
+                "fr": "midi",
+                "es": "mediodía"
+              },
+              "id": "b9.s4.t2",
+              "startMs": 129520,
+              "endMs": 129890
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b9.s4.t3"
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b9.s4.t4",
+              "startMs": 129890,
+              "endMs": 129940
+            },
+            {
+              "text": "fourmi",
+              "normalized": "fourmi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ant",
+                "fr": "fourmi",
+                "es": "hormiga"
+              },
+              "id": "b9.s4.t5",
+              "startMs": 129940,
+              "endMs": 130380
+            },
+            {
+              "text": "invite",
+              "normalized": "invite",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "invites",
+                "fr": "invite",
+                "es": "invita"
+              },
+              "id": "b9.s4.t6",
+              "startMs": 130380,
+              "endMs": 130760
+            },
+            {
+              "text": "sa",
+              "normalized": "sa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b9.s4.t7",
+              "startMs": 130760,
+              "endMs": 130880
+            },
+            {
+              "text": "nouvelle",
+              "normalized": "nouvelle",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "new",
+                "fr": "nouvelle",
+                "es": "nueva"
+              },
+              "id": "b9.s4.t8",
+              "startMs": 130880,
+              "endMs": 131390
+            },
+            {
+              "text": "amie",
+              "normalized": "amie",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "female friend",
+                "fr": "amie",
+                "es": "amiga"
+              },
+              "id": "b9.s4.t9",
+              "startMs": 131390,
+              "endMs": 131630
+            },
+            {
+              "text": "à",
+              "normalized": "à",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b9.s4.t10",
+              "startMs": 131630,
+              "endMs": 131750
+            },
+            {
+              "text": "chanter",
+              "normalized": "chanter",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to sing",
+                "fr": "chanter",
+                "es": "cantar"
+              },
+              "id": "b9.s4.t11",
+              "startMs": 131750,
+              "endMs": 132746
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b9.s4.t12"
+            }
+          ]
+        },
+        {
+          "id": "b9.s5",
+          "text": "Toutes deux comprennent que travail et plaisir peuvent vivre ensemble.",
+          "translations": {
+            "en": "Both understand that work and pleasure can exist together.",
+            "fr": "Toutes deux comprennent que travail et plaisir peuvent vivre ensemble.",
+            "es": "Las dos comprenden que el trabajo y el placer pueden convivir."
+          },
+          "tokens": [
+            {
+              "text": "Toutes",
+              "normalized": "toutes",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "all",
+                "fr": "toutes",
+                "es": "todas"
+              },
+              "id": "b9.s5.t1",
+              "startMs": 133096,
+              "endMs": 133396
+            },
+            {
+              "text": "deux",
+              "normalized": "deux",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "two",
+                "fr": "deux",
+                "es": "dos"
+              },
+              "id": "b9.s5.t2",
+              "startMs": 133396,
+              "endMs": 133546
+            },
+            {
+              "text": "comprennent",
+              "normalized": "comprennent",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "understand",
+                "fr": "comprennent",
+                "es": "comprenden"
+              },
+              "id": "b9.s5.t3",
+              "startMs": 133546,
+              "endMs": 134226
+            },
+            {
+              "text": "que",
+              "normalized": "que",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "that",
+                "fr": "que",
+                "es": "que"
+              },
+              "id": "b9.s5.t4",
+              "startMs": 134226,
+              "endMs": 134296
+            },
+            {
+              "text": "travail",
+              "normalized": "travail",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "work",
+                "fr": "travail",
+                "es": "trabajo"
+              },
+              "id": "b9.s5.t5",
+              "startMs": 134296,
+              "endMs": 134696
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b9.s5.t6",
+              "startMs": 134696,
+              "endMs": 134746
+            },
+            {
+              "text": "plaisir",
+              "normalized": "plaisir",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "pleasure",
+                "fr": "plaisir",
+                "es": "placer"
+              },
+              "id": "b9.s5.t7",
+              "startMs": 134966,
+              "endMs": 135426
+            },
+            {
+              "text": "peuvent",
+              "normalized": "peuvent",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "can",
+                "fr": "peuvent",
+                "es": "pueden"
+              },
+              "id": "b9.s5.t8",
+              "startMs": 135546,
+              "endMs": 135776
+            },
+            {
+              "text": "vivre",
+              "normalized": "vivre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to live",
+                "fr": "vivre",
+                "es": "vivir"
+              },
+              "id": "b9.s5.t9",
+              "startMs": 135776,
+              "endMs": 136016
+            },
+            {
+              "text": "ensemble",
+              "normalized": "ensemble",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "together",
+                "fr": "ensemble",
+                "es": "juntos"
+              },
+              "id": "b9.s5.t10",
+              "startMs": 136016,
+              "endMs": 136396
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b9.s5.t11"
+            }
+          ]
+        },
+        {
+          "id": "b9.s6",
+          "text": "Morale : il faut préparer demain sans oublier la joie d'aujourd'hui.",
+          "translations": {
+            "en": "Moral: prepare for tomorrow without forgetting today's joy.",
+            "fr": "Morale : il faut préparer demain sans oublier la joie d'aujourd'hui.",
+            "es": "Moraleja: hay que preparar el mañana sin olvidar la alegría de hoy."
+          },
+          "tokens": [
+            {
+              "text": "Morale",
+              "normalized": "morale",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "moral",
+                "fr": "morale",
+                "es": "moraleja"
+              },
+              "id": "b9.s6.t1",
+              "startMs": 137482,
+              "endMs": 137972
+            },
+            {
+              "text": ":",
+              "normalized": ":",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b9.s6.t2"
+            },
+            {
+              "text": "il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b9.s6.t3",
+              "startMs": 137972,
+              "endMs": 138102
+            },
+            {
+              "text": "faut",
+              "normalized": "faut",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "must",
+                "fr": "faut",
+                "es": "hay que"
+              },
+              "id": "b9.s6.t4",
+              "startMs": 138102,
+              "endMs": 138392
+            },
+            {
+              "text": "préparer",
+              "normalized": "préparer",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to prepare",
+                "fr": "préparer",
+                "es": "preparar"
+              },
+              "id": "b9.s6.t5",
+              "startMs": 138392,
+              "endMs": 139032
+            },
+            {
+              "text": "demain",
+              "normalized": "demain",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tomorrow",
+                "fr": "demain",
+                "es": "mañana"
+              },
+              "id": "b9.s6.t6",
+              "startMs": 139032,
+              "endMs": 139482
+            },
+            {
+              "text": "sans",
+              "normalized": "sans",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "without",
+                "fr": "sans",
+                "es": "sin"
+              },
+              "id": "b9.s6.t7",
+              "startMs": 139482,
+              "endMs": 139712
+            },
+            {
+              "text": "oublier",
+              "normalized": "oublier",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to forget",
+                "fr": "oublier",
+                "es": "olvidar"
+              },
+              "id": "b9.s6.t8",
+              "startMs": 139712,
+              "endMs": 140102
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b9.s6.t9",
+              "startMs": 140102,
+              "endMs": 140212
+            },
+            {
+              "text": "joie",
+              "normalized": "joie",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "joy",
+                "fr": "joie",
+                "es": "alegría"
+              },
+              "id": "b9.s6.t10",
+              "startMs": 140212,
+              "endMs": 140432
+            },
+            {
+              "text": "d'",
+              "normalized": "d'",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b9.s6.t11",
+              "startMs": 140432,
+              "endMs": 140472
+            },
+            {
+              "text": "aujourd'hui",
+              "normalized": "aujourd'hui",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "today",
+                "fr": "aujourd'hui",
+                "es": "hoy"
+              },
+              "id": "b9.s6.t12",
+              "startMs": 140472,
+              "endMs": 141655
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b9.s6.t13"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

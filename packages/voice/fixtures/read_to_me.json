@@ -1,0 +1,34 @@
+{
+  "mode": "read_to_me",
+  "steps": [
+    { "kind": "event", "delayMs": 0, "event": { "type": "state", "state": "connecting" } },
+    { "kind": "event", "delayMs": 150, "event": { "type": "state", "state": "listening" } },
+    { "kind": "event", "delayMs": 150, "event": { "type": "state", "state": "speaking" } },
+    {
+      "kind": "event",
+      "delayMs": 100,
+      "event": { "type": "reading", "tokenIds": ["b1.s1.t1", "b1.s1.t2", "b1.s1.t3"] }
+    },
+    {
+      "kind": "event",
+      "delayMs": 400,
+      "event": { "type": "reading", "tokenIds": ["b1.s2.t1", "b1.s2.t2"] }
+    },
+    {
+      "kind": "event",
+      "delayMs": 400,
+      "event": { "type": "reading", "tokenIds": ["b1.s3.t1", "b1.s3.t2", "b1.s3.t3"] }
+    },
+    {
+      "kind": "event",
+      "delayMs": 200,
+      "event": {
+        "type": "caption",
+        "speaker": "tutor",
+        "text": "Voilà, c'est la fin du passage pour l'instant.",
+        "final": true
+      }
+    },
+    { "kind": "event", "delayMs": 100, "event": { "type": "state", "state": "listening" } }
+  ]
+}

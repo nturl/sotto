@@ -1,0 +1,3666 @@
+{
+  "id": "pt-jabuti-onca-01",
+  "bookId": "pt-jabuti-onca",
+  "title": "Capítulo 1",
+  "order": 1,
+  "blocks": [
+    {
+      "id": "b1",
+      "sentences": [
+        {
+          "id": "b1.s1",
+          "text": "O jabuti vive em uma grande floresta verde.",
+          "translations": {
+            "en": "The tortoise lives in a big green forest.",
+            "fr": "La tortue vit dans une grande forêt verte.",
+            "es": "La tortuga vive en un gran bosque verde."
+          },
+          "tokens": [
+            {
+              "text": "O",
+              "normalized": "o",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s1.t1",
+              "startMs": 50,
+              "endMs": 60
+            },
+            {
+              "text": "jabuti",
+              "normalized": "jabuti",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tortoise",
+                "fr": "tortue",
+                "es": "tortuga"
+              },
+              "id": "b1.s1.t2",
+              "startMs": 60,
+              "endMs": 470
+            },
+            {
+              "text": "vive",
+              "normalized": "vive",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lives",
+                "fr": "vit",
+                "es": "vive"
+              },
+              "id": "b1.s1.t3",
+              "startMs": 470,
+              "endMs": 720
+            },
+            {
+              "text": "em",
+              "normalized": "em",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s1.t4",
+              "startMs": 730,
+              "endMs": 860
+            },
+            {
+              "text": "uma",
+              "normalized": "uma",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "une",
+                "es": "una"
+              },
+              "id": "b1.s1.t5",
+              "startMs": 860,
+              "endMs": 1060
+            },
+            {
+              "text": "grande",
+              "normalized": "grande",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "big",
+                "fr": "grand",
+                "es": "grande"
+              },
+              "id": "b1.s1.t6",
+              "startMs": 1060,
+              "endMs": 1460
+            },
+            {
+              "text": "floresta",
+              "normalized": "floresta",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "forest",
+                "fr": "forêt",
+                "es": "bosque"
+              },
+              "id": "b1.s1.t7",
+              "startMs": 1460,
+              "endMs": 2000
+            },
+            {
+              "text": "verde",
+              "normalized": "verde",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "green",
+                "fr": "vert",
+                "es": "verde"
+              },
+              "id": "b1.s1.t8",
+              "startMs": 2000,
+              "endMs": 2250
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s1.t9"
+            }
+          ]
+        },
+        {
+          "id": "b1.s2",
+          "text": "Ele é um animal pequeno e calmo.",
+          "translations": {
+            "en": "He is a small and calm animal.",
+            "fr": "C'est un animal petit et calme.",
+            "es": "Él es un animal pequeño y tranquilo."
+          },
+          "tokens": [
+            {
+              "text": "Ele",
+              "normalized": "ele",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b1.s2.t1",
+              "startMs": 3391,
+              "endMs": 3561
+            },
+            {
+              "text": "é",
+              "normalized": "é",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es"
+              },
+              "id": "b1.s2.t2",
+              "startMs": 3561,
+              "endMs": 3711
+            },
+            {
+              "text": "um",
+              "normalized": "um",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s2.t3",
+              "startMs": 3711,
+              "endMs": 3861
+            },
+            {
+              "text": "animal",
+              "normalized": "animal",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "animal",
+                "fr": "animal",
+                "es": "animal"
+              },
+              "id": "b1.s2.t4",
+              "startMs": 3861,
+              "endMs": 4311
+            },
+            {
+              "text": "pequeno",
+              "normalized": "pequeno",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "small",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b1.s2.t5",
+              "startMs": 4311,
+              "endMs": 4831
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s2.t6",
+              "startMs": 4831,
+              "endMs": 4901
+            },
+            {
+              "text": "calmo",
+              "normalized": "calmo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "calm",
+                "fr": "calme",
+                "es": "tranquilo"
+              },
+              "id": "b1.s2.t7",
+              "startMs": 4901,
+              "endMs": 5507
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s2.t8"
+            }
+          ]
+        },
+        {
+          "id": "b1.s3",
+          "text": "O jabuti tem uma carapaça dura e forte.",
+          "translations": {
+            "en": "The tortoise has a hard and strong shell.",
+            "fr": "La tortue a une carapace dure et solide.",
+            "es": "La tortuga tiene un caparazón duro y fuerte."
+          },
+          "tokens": [
+            {
+              "text": "O",
+              "normalized": "o",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s3.t1",
+              "startMs": 5907,
+              "endMs": 5937
+            },
+            {
+              "text": "jabuti",
+              "normalized": "jabuti",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tortoise",
+                "fr": "tortue",
+                "es": "tortuga"
+              },
+              "id": "b1.s3.t2",
+              "startMs": 5937,
+              "endMs": 6407
+            },
+            {
+              "text": "tem",
+              "normalized": "tem",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "has",
+                "fr": "a",
+                "es": "tiene"
+              },
+              "id": "b1.s3.t3",
+              "startMs": 6407,
+              "endMs": 6607
+            },
+            {
+              "text": "uma",
+              "normalized": "uma",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "une",
+                "es": "una"
+              },
+              "id": "b1.s3.t4",
+              "startMs": 6717,
+              "endMs": 6887
+            },
+            {
+              "text": "carapaça",
+              "normalized": "carapaça",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "shell",
+                "fr": "carapace",
+                "es": "caparazón"
+              },
+              "id": "b1.s3.t5",
+              "startMs": 6887,
+              "endMs": 7587
+            },
+            {
+              "text": "dura",
+              "normalized": "dura",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hard",
+                "fr": "dure",
+                "es": "dura"
+              },
+              "id": "b1.s3.t6",
+              "startMs": 7587,
+              "endMs": 7907
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s3.t7",
+              "startMs": 7907,
+              "endMs": 7987
+            },
+            {
+              "text": "forte",
+              "normalized": "forte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "strong",
+                "fr": "fort",
+                "es": "fuerte"
+              },
+              "id": "b1.s3.t8",
+              "startMs": 7987,
+              "endMs": 8417
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t9"
+            }
+          ]
+        },
+        {
+          "id": "b1.s4",
+          "text": "Ele caminha devagar entre as árvores altas.",
+          "translations": {
+            "en": "He walks slowly among the tall trees.",
+            "fr": "Il marche lentement parmi les grands arbres.",
+            "es": "Él camina despacio entre los árboles altos."
+          },
+          "tokens": [
+            {
+              "text": "Ele",
+              "normalized": "ele",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b1.s4.t1",
+              "startMs": 9147,
+              "endMs": 9307
+            },
+            {
+              "text": "caminha",
+              "normalized": "caminha",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "walks",
+                "fr": "marche",
+                "es": "camina"
+              },
+              "id": "b1.s4.t2",
+              "startMs": 9307,
+              "endMs": 9797
+            },
+            {
+              "text": "devagar",
+              "normalized": "devagar",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "slowly",
+                "fr": "lentement",
+                "es": "despacio"
+              },
+              "id": "b1.s4.t3",
+              "startMs": 9797,
+              "endMs": 10287
+            },
+            {
+              "text": "entre",
+              "normalized": "entre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "among",
+                "fr": "parmi",
+                "es": "entre"
+              },
+              "id": "b1.s4.t4",
+              "startMs": 10287,
+              "endMs": 10597
+            },
+            {
+              "text": "as",
+              "normalized": "as",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "las"
+              },
+              "id": "b1.s4.t5",
+              "startMs": 10707,
+              "endMs": 10777
+            },
+            {
+              "text": "árvores",
+              "normalized": "árvores",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "trees",
+                "fr": "arbres",
+                "es": "árboles"
+              },
+              "id": "b1.s4.t6",
+              "startMs": 10777,
+              "endMs": 11508
+            },
+            {
+              "text": "altas",
+              "normalized": "altas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tall",
+                "fr": "hautes",
+                "es": "altas"
+              },
+              "id": "b1.s4.t7",
+              "startMs": 11508,
+              "endMs": 12238
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s4.t8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "sentences": [
+        {
+          "id": "b2.s1",
+          "text": "A onça pintada também vive nessa floresta.",
+          "translations": {
+            "en": "The jaguar also lives in this forest.",
+            "fr": "Le jaguar vit aussi dans cette forêt.",
+            "es": "El jaguar también vive en este bosque."
+          },
+          "tokens": [
+            {
+              "text": "A",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b2.s1.t1",
+              "startMs": 12988,
+              "endMs": 12998
+            },
+            {
+              "text": "onça",
+              "normalized": "onça",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "jaguar",
+                "fr": "jaguar",
+                "es": "jaguar"
+              },
+              "id": "b2.s1.t2",
+              "startMs": 12998,
+              "endMs": 13408
+            },
+            {
+              "text": "pintada",
+              "normalized": "pintada",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "spotted",
+                "fr": "tachetée",
+                "es": "pintada"
+              },
+              "id": "b2.s1.t3",
+              "startMs": 13408,
+              "endMs": 13818
+            },
+            {
+              "text": "também",
+              "normalized": "também",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "also",
+                "fr": "aussi",
+                "es": "también"
+              },
+              "id": "b2.s1.t4",
+              "startMs": 13818,
+              "endMs": 14278
+            },
+            {
+              "text": "vive",
+              "normalized": "vive",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lives",
+                "fr": "vit",
+                "es": "vive"
+              },
+              "id": "b2.s1.t5",
+              "startMs": 14278,
+              "endMs": 14538
+            },
+            {
+              "text": "nessa",
+              "normalized": "nessa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in this",
+                "fr": "dans cette",
+                "es": "en esta"
+              },
+              "id": "b2.s1.t6",
+              "startMs": 14538,
+              "endMs": 14858
+            },
+            {
+              "text": "floresta",
+              "normalized": "floresta",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "forest",
+                "fr": "forêt",
+                "es": "bosque"
+              },
+              "id": "b2.s1.t7",
+              "startMs": 14858,
+              "endMs": 15954
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s1.t8"
+            }
+          ]
+        },
+        {
+          "id": "b2.s2",
+          "text": "Ela é um bicho grande, feroz e veloz.",
+          "translations": {
+            "en": "She is a big, fierce, and fast beast.",
+            "fr": "C'est une bête grande, féroce et rapide.",
+            "es": "Ella es una bestia grande, feroz y veloz."
+          },
+          "tokens": [
+            {
+              "text": "Ela",
+              "normalized": "ela",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b2.s2.t1",
+              "startMs": 16354,
+              "endMs": 16504
+            },
+            {
+              "text": "é",
+              "normalized": "é",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es"
+              },
+              "id": "b2.s2.t2",
+              "startMs": 16504,
+              "endMs": 16634
+            },
+            {
+              "text": "um",
+              "normalized": "um",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b2.s2.t3",
+              "startMs": 16634,
+              "endMs": 16724
+            },
+            {
+              "text": "bicho",
+              "normalized": "bicho",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "creature",
+                "fr": "bête",
+                "es": "bicho"
+              },
+              "id": "b2.s2.t4",
+              "startMs": 16724,
+              "endMs": 17094
+            },
+            {
+              "text": "grande",
+              "normalized": "grande",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "big",
+                "fr": "grand",
+                "es": "grande"
+              },
+              "id": "b2.s2.t5",
+              "startMs": 17094,
+              "endMs": 17484
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s2.t6"
+            },
+            {
+              "text": "feroz",
+              "normalized": "feroz",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fierce",
+                "fr": "féroce",
+                "es": "feroz"
+              },
+              "id": "b2.s2.t7",
+              "startMs": 17484,
+              "endMs": 17944
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b2.s2.t8",
+              "startMs": 17944,
+              "endMs": 18004
+            },
+            {
+              "text": "veloz",
+              "normalized": "veloz",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "swift",
+                "fr": "rapide",
+                "es": "veloz"
+              },
+              "id": "b2.s2.t9",
+              "startMs": 18004,
+              "endMs": 18895
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s2.t10"
+            }
+          ]
+        },
+        {
+          "id": "b2.s3",
+          "text": "A onça tem garras longas e dentes afiados.",
+          "translations": {
+            "en": "The jaguar has long claws and sharp teeth.",
+            "fr": "Le jaguar a de longues griffes et des dents pointues.",
+            "es": "El jaguar tiene garras largas y dientes afilados."
+          },
+          "tokens": [
+            {
+              "text": "A",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b2.s3.t1",
+              "startMs": 19295,
+              "endMs": 19315
+            },
+            {
+              "text": "onça",
+              "normalized": "onça",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "jaguar",
+                "fr": "jaguar",
+                "es": "jaguar"
+              },
+              "id": "b2.s3.t2",
+              "startMs": 19315,
+              "endMs": 19675
+            },
+            {
+              "text": "tem",
+              "normalized": "tem",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "has",
+                "fr": "a",
+                "es": "tiene"
+              },
+              "id": "b2.s3.t3",
+              "startMs": 19675,
+              "endMs": 19895
+            },
+            {
+              "text": "garras",
+              "normalized": "garras",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "claws",
+                "fr": "griffes",
+                "es": "garras"
+              },
+              "id": "b2.s3.t4",
+              "startMs": 19895,
+              "endMs": 20335
+            },
+            {
+              "text": "longas",
+              "normalized": "longas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "long",
+                "fr": "longues",
+                "es": "largas"
+              },
+              "id": "b2.s3.t5",
+              "startMs": 20335,
+              "endMs": 20775
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b2.s3.t6",
+              "startMs": 20775,
+              "endMs": 20825
+            },
+            {
+              "text": "dentes",
+              "normalized": "dentes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "teeth",
+                "fr": "dents",
+                "es": "dientes"
+              },
+              "id": "b2.s3.t7",
+              "startMs": 20825,
+              "endMs": 21630
+            },
+            {
+              "text": "afiados",
+              "normalized": "afiados",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sharp",
+                "fr": "pointus",
+                "es": "afilados"
+              },
+              "id": "b2.s3.t8",
+              "startMs": 21630,
+              "endMs": 22436
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s3.t9"
+            }
+          ]
+        },
+        {
+          "id": "b2.s4",
+          "text": "Todos os outros bichos têm medo dela.",
+          "translations": {
+            "en": "All the other animals are afraid of her.",
+            "fr": "Tous les autres animaux ont peur d'elle.",
+            "es": "Todos los otros animales le tienen miedo."
+          },
+          "tokens": [
+            {
+              "text": "Todos",
+              "normalized": "todos",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "all",
+                "fr": "tous",
+                "es": "todos"
+              },
+              "id": "b2.s4.t1",
+              "startMs": 22856,
+              "endMs": 23116
+            },
+            {
+              "text": "os",
+              "normalized": "os",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b2.s4.t2",
+              "startMs": 23116,
+              "endMs": 23246
+            },
+            {
+              "text": "outros",
+              "normalized": "outros",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "other",
+                "fr": "autres",
+                "es": "otros"
+              },
+              "id": "b2.s4.t3",
+              "startMs": 23246,
+              "endMs": 23636
+            },
+            {
+              "text": "bichos",
+              "normalized": "bichos",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "creatures",
+                "fr": "bêtes",
+                "es": "bichos"
+              },
+              "id": "b2.s4.t4",
+              "startMs": 23636,
+              "endMs": 24036
+            },
+            {
+              "text": "têm",
+              "normalized": "têm",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "have",
+                "fr": "ont",
+                "es": "tienen"
+              },
+              "id": "b2.s4.t5",
+              "startMs": 24036,
+              "endMs": 24276
+            },
+            {
+              "text": "medo",
+              "normalized": "medo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fear",
+                "fr": "peur",
+                "es": "miedo"
+              },
+              "id": "b2.s4.t6",
+              "startMs": 24366,
+              "endMs": 24556
+            },
+            {
+              "text": "dela",
+              "normalized": "dela",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "her",
+                "fr": "d'elle",
+                "es": "de ella"
+              },
+              "id": "b2.s4.t7",
+              "startMs": 24556,
+              "endMs": 24816
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s4.t8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3",
+      "sentences": [
+        {
+          "id": "b3.s1",
+          "text": "Mas o pequeno jabuti não sente medo.",
+          "translations": {
+            "en": "But the little tortoise does not feel fear.",
+            "fr": "Mais la petite tortue n'a pas peur.",
+            "es": "Pero la pequeña tortuga no tiene miedo."
+          },
+          "tokens": [
+            {
+              "text": "Mas",
+              "normalized": "mas",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "but",
+                "fr": "mais",
+                "es": "pero"
+              },
+              "id": "b3.s1.t1",
+              "startMs": 26179,
+              "endMs": 26329
+            },
+            {
+              "text": "o",
+              "normalized": "o",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s1.t2",
+              "startMs": 26369,
+              "endMs": 26419
+            },
+            {
+              "text": "pequeno",
+              "normalized": "pequeno",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "small",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b3.s1.t3",
+              "startMs": 26419,
+              "endMs": 26919
+            },
+            {
+              "text": "jabuti",
+              "normalized": "jabuti",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tortoise",
+                "fr": "tortue",
+                "es": "tortuga"
+              },
+              "id": "b3.s1.t4",
+              "startMs": 26919,
+              "endMs": 27419
+            },
+            {
+              "text": "não",
+              "normalized": "não",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "not",
+                "fr": "ne pas",
+                "es": "no"
+              },
+              "id": "b3.s1.t5",
+              "startMs": 27419,
+              "endMs": 27719
+            },
+            {
+              "text": "sente",
+              "normalized": "sente",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "feels",
+                "fr": "ressent",
+                "es": "siente"
+              },
+              "id": "b3.s1.t6",
+              "startMs": 27719,
+              "endMs": 28099
+            },
+            {
+              "text": "medo",
+              "normalized": "medo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fear",
+                "fr": "peur",
+                "es": "miedo"
+              },
+              "id": "b3.s1.t7",
+              "startMs": 28099,
+              "endMs": 28449
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s1.t8"
+            }
+          ]
+        },
+        {
+          "id": "b3.s2",
+          "text": "Ele é muito sábio e muito esperto.",
+          "translations": {
+            "en": "He is very wise and very clever.",
+            "fr": "Il est très sage et très rusé.",
+            "es": "Él es muy sabio y muy listo."
+          },
+          "tokens": [
+            {
+              "text": "Ele",
+              "normalized": "ele",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b3.s2.t1",
+              "startMs": 29170,
+              "endMs": 29330
+            },
+            {
+              "text": "é",
+              "normalized": "é",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es"
+              },
+              "id": "b3.s2.t2",
+              "startMs": 29330,
+              "endMs": 29470
+            },
+            {
+              "text": "muito",
+              "normalized": "muito",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "id": "b3.s2.t3",
+              "startMs": 29470,
+              "endMs": 29830
+            },
+            {
+              "text": "sábio",
+              "normalized": "sábio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wise",
+                "fr": "sage",
+                "es": "sabio"
+              },
+              "id": "b3.s2.t4",
+              "startMs": 29830,
+              "endMs": 30280
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b3.s2.t5",
+              "startMs": 30280,
+              "endMs": 30350
+            },
+            {
+              "text": "muito",
+              "normalized": "muito",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "id": "b3.s2.t6",
+              "startMs": 30350,
+              "endMs": 30730
+            },
+            {
+              "text": "esperto",
+              "normalized": "esperto",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "clever",
+                "fr": "rusé",
+                "es": "listo"
+              },
+              "id": "b3.s2.t7",
+              "startMs": 30730,
+              "endMs": 31460
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t8"
+            }
+          ]
+        },
+        {
+          "id": "b3.s3",
+          "text": "O jabuti sempre pensa antes de agir.",
+          "translations": {
+            "en": "The tortoise always thinks before acting.",
+            "fr": "La tortue réfléchit toujours avant d'agir.",
+            "es": "La tortuga siempre piensa antes de actuar."
+          },
+          "tokens": [
+            {
+              "text": "O",
+              "normalized": "o",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s3.t1",
+              "startMs": 31860,
+              "endMs": 31880
+            },
+            {
+              "text": "jabuti",
+              "normalized": "jabuti",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tortoise",
+                "fr": "tortue",
+                "es": "tortuga"
+              },
+              "id": "b3.s3.t2",
+              "startMs": 31880,
+              "endMs": 32340
+            },
+            {
+              "text": "sempre",
+              "normalized": "sempre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "always",
+                "fr": "toujours",
+                "es": "siempre"
+              },
+              "id": "b3.s3.t3",
+              "startMs": 32340,
+              "endMs": 32800
+            },
+            {
+              "text": "pensa",
+              "normalized": "pensa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "thinks",
+                "fr": "pense",
+                "es": "piensa"
+              },
+              "id": "b3.s3.t4",
+              "startMs": 32800,
+              "endMs": 33180
+            },
+            {
+              "text": "antes",
+              "normalized": "antes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "before",
+                "fr": "avant",
+                "es": "antes"
+              },
+              "id": "b3.s3.t5",
+              "startMs": 33180,
+              "endMs": 33560
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b3.s3.t6",
+              "startMs": 33560,
+              "endMs": 33710
+            },
+            {
+              "text": "agir",
+              "normalized": "agir",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to act",
+                "fr": "agir",
+                "es": "actuar"
+              },
+              "id": "b3.s3.t7",
+              "startMs": 33710,
+              "endMs": 34551
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s3.t8"
+            }
+          ]
+        },
+        {
+          "id": "b3.s4",
+          "text": "Ele sabe enganar os animais maiores.",
+          "translations": {
+            "en": "He knows how to trick larger animals.",
+            "fr": "Il sait tromper les plus grands animaux.",
+            "es": "Él sabe engañar a los animales más grandes."
+          },
+          "tokens": [
+            {
+              "text": "Ele",
+              "normalized": "ele",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b3.s4.t1",
+              "startMs": 34961,
+              "endMs": 35111
+            },
+            {
+              "text": "sabe",
+              "normalized": "sabe",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "knows",
+                "fr": "sait",
+                "es": "sabe"
+              },
+              "id": "b3.s4.t2",
+              "startMs": 35111,
+              "endMs": 35391
+            },
+            {
+              "text": "enganar",
+              "normalized": "enganar",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to trick",
+                "fr": "tromper",
+                "es": "engañar"
+              },
+              "id": "b3.s4.t3",
+              "startMs": 35391,
+              "endMs": 35881
+            },
+            {
+              "text": "os",
+              "normalized": "os",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b3.s4.t4",
+              "startMs": 35881,
+              "endMs": 36011
+            },
+            {
+              "text": "animais",
+              "normalized": "animais",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "animals",
+                "fr": "animaux",
+                "es": "animales"
+              },
+              "id": "b3.s4.t5",
+              "startMs": 36011,
+              "endMs": 36814
+            },
+            {
+              "text": "maiores",
+              "normalized": "maiores",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "larger",
+                "fr": "plus grands",
+                "es": "más grandes"
+              },
+              "id": "b3.s4.t6",
+              "startMs": 36814,
+              "endMs": 37616
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s4.t7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b4",
+      "sentences": [
+        {
+          "id": "b4.s1",
+          "text": "Um belo dia, o jabuti passeia pela mata.",
+          "translations": {
+            "en": "One fine day, the tortoise strolls through the woods.",
+            "fr": "Un beau jour, la tortue se promène dans la forêt.",
+            "es": "Un buen día, la tortuga se pasea por el bosque."
+          },
+          "tokens": [
+            {
+              "text": "Um",
+              "normalized": "um",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b4.s1.t1",
+              "startMs": 38366,
+              "endMs": 38456
+            },
+            {
+              "text": "belo",
+              "normalized": "belo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fine",
+                "fr": "beau",
+                "es": "hermoso"
+              },
+              "id": "b4.s1.t2",
+              "startMs": 38456,
+              "endMs": 38746
+            },
+            {
+              "text": "dia",
+              "normalized": "dia",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "day",
+                "fr": "jour",
+                "es": "día"
+              },
+              "id": "b4.s1.t3",
+              "startMs": 38746,
+              "endMs": 38956
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s1.t4"
+            },
+            {
+              "text": "o",
+              "normalized": "o",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s1.t5",
+              "startMs": 39096,
+              "endMs": 39156
+            },
+            {
+              "text": "jabuti",
+              "normalized": "jabuti",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tortoise",
+                "fr": "tortue",
+                "es": "tortuga"
+              },
+              "id": "b4.s1.t6",
+              "startMs": 39156,
+              "endMs": 39621
+            },
+            {
+              "text": "passeia",
+              "normalized": "passeia",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "strolls",
+                "fr": "se promène",
+                "es": "se pasea"
+              },
+              "id": "b4.s1.t7",
+              "startMs": 39621,
+              "endMs": 40086
+            },
+            {
+              "text": "pela",
+              "normalized": "pela",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "through the",
+                "fr": "par la",
+                "es": "por la"
+              },
+              "id": "b4.s1.t8",
+              "startMs": 40086,
+              "endMs": 40306
+            },
+            {
+              "text": "mata",
+              "normalized": "mata",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "woods",
+                "fr": "bois",
+                "es": "bosque"
+              },
+              "id": "b4.s1.t9",
+              "startMs": 40396,
+              "endMs": 40666
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s1.t10"
+            }
+          ]
+        },
+        {
+          "id": "b4.s2",
+          "text": "Perto do rio claro, ele vê algo branco.",
+          "translations": {
+            "en": "Near the clear river, he sees something white.",
+            "fr": "Près de la rivière claire, il voit quelque chose de blanc.",
+            "es": "Cerca del río claro, ve algo blanco."
+          },
+          "tokens": [
+            {
+              "text": "Perto",
+              "normalized": "perto",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "near",
+                "fr": "près",
+                "es": "cerca"
+              },
+              "id": "b4.s2.t1",
+              "startMs": 41632,
+              "endMs": 42022
+            },
+            {
+              "text": "do",
+              "normalized": "do",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b4.s2.t2",
+              "startMs": 42022,
+              "endMs": 42182
+            },
+            {
+              "text": "rio",
+              "normalized": "rio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "river",
+                "fr": "rivière",
+                "es": "río"
+              },
+              "id": "b4.s2.t3",
+              "startMs": 42182,
+              "endMs": 42412
+            },
+            {
+              "text": "claro",
+              "normalized": "claro",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "clear",
+                "fr": "clair",
+                "es": "claro"
+              },
+              "id": "b4.s2.t4",
+              "startMs": 42412,
+              "endMs": 42712
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s2.t5"
+            },
+            {
+              "text": "ele",
+              "normalized": "ele",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b4.s2.t6",
+              "startMs": 42962,
+              "endMs": 43162
+            },
+            {
+              "text": "vê",
+              "normalized": "vê",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sees",
+                "fr": "voit",
+                "es": "ve"
+              },
+              "id": "b4.s2.t7",
+              "startMs": 43162,
+              "endMs": 43362
+            },
+            {
+              "text": "algo",
+              "normalized": "algo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "something",
+                "fr": "quelque chose",
+                "es": "algo"
+              },
+              "id": "b4.s2.t8",
+              "startMs": 43362,
+              "endMs": 43632
+            },
+            {
+              "text": "branco",
+              "normalized": "branco",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "white",
+                "fr": "blanc",
+                "es": "blanco"
+              },
+              "id": "b4.s2.t9",
+              "startMs": 43632,
+              "endMs": 44266
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s2.t10"
+            }
+          ]
+        },
+        {
+          "id": "b4.s3",
+          "text": "No chão macio, há um osso bem seco.",
+          "translations": {
+            "en": "On the soft ground, there is a very dry bone.",
+            "fr": "Sur le sol doux, il y a un os bien sec.",
+            "es": "En el suelo suave, hay un hueso bien seco."
+          },
+          "tokens": [
+            {
+              "text": "No",
+              "normalized": "no",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "in the",
+                "fr": "dans le",
+                "es": "en el"
+              },
+              "id": "b4.s3.t1",
+              "startMs": 44666,
+              "endMs": 44776
+            },
+            {
+              "text": "chão",
+              "normalized": "chão",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ground",
+                "fr": "sol",
+                "es": "suelo"
+              },
+              "id": "b4.s3.t2",
+              "startMs": 44776,
+              "endMs": 45191
+            },
+            {
+              "text": "macio",
+              "normalized": "macio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "soft",
+                "fr": "doux",
+                "es": "suave"
+              },
+              "id": "b4.s3.t3",
+              "startMs": 45191,
+              "endMs": 45606
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s3.t4"
+            },
+            {
+              "text": "há",
+              "normalized": "há",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "there is",
+                "fr": "il y a",
+                "es": "hay"
+              },
+              "id": "b4.s3.t5",
+              "startMs": 45606,
+              "endMs": 45796
+            },
+            {
+              "text": "um",
+              "normalized": "um",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b4.s3.t6",
+              "startMs": 45796,
+              "endMs": 45886
+            },
+            {
+              "text": "osso",
+              "normalized": "osso",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "bone",
+                "fr": "os",
+                "es": "hueso"
+              },
+              "id": "b4.s3.t7",
+              "startMs": 45886,
+              "endMs": 46266
+            },
+            {
+              "text": "bem",
+              "normalized": "bem",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very",
+                "fr": "bien",
+                "es": "bien"
+              },
+              "id": "b4.s3.t8",
+              "startMs": 46266,
+              "endMs": 46506
+            },
+            {
+              "text": "seco",
+              "normalized": "seco",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dry",
+                "fr": "sec",
+                "es": "seco"
+              },
+              "id": "b4.s3.t9",
+              "startMs": 46506,
+              "endMs": 47032
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s3.t10"
+            }
+          ]
+        },
+        {
+          "id": "b4.s4",
+          "text": "O osso é antigo, liso e completamente oco.",
+          "translations": {
+            "en": "The bone is old, smooth, and completely hollow.",
+            "fr": "L'os est ancien, lisse et complètement creux.",
+            "es": "El hueso es antiguo, liso y completamente hueco."
+          },
+          "tokens": [
+            {
+              "text": "O",
+              "normalized": "o",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s4.t1",
+              "startMs": 47432,
+              "endMs": 47452
+            },
+            {
+              "text": "osso",
+              "normalized": "osso",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "bone",
+                "fr": "os",
+                "es": "hueso"
+              },
+              "id": "b4.s4.t2",
+              "startMs": 47452,
+              "endMs": 47802
+            },
+            {
+              "text": "é",
+              "normalized": "é",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es"
+              },
+              "id": "b4.s4.t3",
+              "startMs": 47802,
+              "endMs": 47902
+            },
+            {
+              "text": "antigo",
+              "normalized": "antigo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ancient",
+                "fr": "ancien",
+                "es": "antiguo"
+              },
+              "id": "b4.s4.t4",
+              "startMs": 47902,
+              "endMs": 48357
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s4.t5"
+            },
+            {
+              "text": "liso",
+              "normalized": "liso",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "smooth",
+                "fr": "lisse",
+                "es": "liso"
+              },
+              "id": "b4.s4.t6",
+              "startMs": 48357,
+              "endMs": 48812
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b4.s4.t7",
+              "startMs": 48812,
+              "endMs": 48872
+            },
+            {
+              "text": "completamente",
+              "normalized": "completamente",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "completely",
+                "fr": "complètement",
+                "es": "completamente"
+              },
+              "id": "b4.s4.t8",
+              "startMs": 48872,
+              "endMs": 49882
+            },
+            {
+              "text": "oco",
+              "normalized": "oco",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hollow",
+                "fr": "creux",
+                "es": "hueco"
+              },
+              "id": "b4.s4.t9",
+              "startMs": 49882,
+              "endMs": 50473
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s4.t10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b5",
+      "sentences": [
+        {
+          "id": "b5.s1",
+          "text": "O jabuti olha o osso e tem uma ideia.",
+          "translations": {
+            "en": "The tortoise looks at the bone and has an idea.",
+            "fr": "La tortue regarde l'os et a une idée.",
+            "es": "La tortuga mira el hueso y tiene una idea."
+          },
+          "tokens": [
+            {
+              "text": "O",
+              "normalized": "o",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b5.s1.t1",
+              "startMs": 51223,
+              "endMs": 51243
+            },
+            {
+              "text": "jabuti",
+              "normalized": "jabuti",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tortoise",
+                "fr": "tortue",
+                "es": "tortuga"
+              },
+              "id": "b5.s1.t2",
+              "startMs": 51243,
+              "endMs": 51683
+            },
+            {
+              "text": "olha",
+              "normalized": "olha",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "looks at",
+                "fr": "regarde",
+                "es": "mira"
+              },
+              "id": "b5.s1.t3",
+              "startMs": 51683,
+              "endMs": 51973
+            },
+            {
+              "text": "o",
+              "normalized": "o",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b5.s1.t4",
+              "startMs": 51973,
+              "endMs": 52043
+            },
+            {
+              "text": "osso",
+              "normalized": "osso",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "bone",
+                "fr": "os",
+                "es": "hueso"
+              },
+              "id": "b5.s1.t5",
+              "startMs": 52043,
+              "endMs": 52323
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b5.s1.t6",
+              "startMs": 52323,
+              "endMs": 52393
+            },
+            {
+              "text": "tem",
+              "normalized": "tem",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "has",
+                "fr": "a",
+                "es": "tiene"
+              },
+              "id": "b5.s1.t7",
+              "startMs": 52393,
+              "endMs": 52583
+            },
+            {
+              "text": "uma",
+              "normalized": "uma",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "une",
+                "es": "una"
+              },
+              "id": "b5.s1.t8",
+              "startMs": 52603,
+              "endMs": 52793
+            },
+            {
+              "text": "ideia",
+              "normalized": "ideia",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "idea",
+                "fr": "idée",
+                "es": "idea"
+              },
+              "id": "b5.s1.t9",
+              "startMs": 52873,
+              "endMs": 53203
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s1.t10"
+            }
+          ]
+        },
+        {
+          "id": "b5.s2",
+          "text": "Ele limpa o osso com muito carinho.",
+          "translations": {
+            "en": "He cleans the bone with great care.",
+            "fr": "Il nettoie l'os avec beaucoup de soin.",
+            "es": "Él limpia el hueso con mucho cariño."
+          },
+          "tokens": [
+            {
+              "text": "Ele",
+              "normalized": "ele",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b5.s2.t1",
+              "startMs": 54239,
+              "endMs": 54409
+            },
+            {
+              "text": "limpa",
+              "normalized": "limpa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cleans",
+                "fr": "nettoie",
+                "es": "limpia"
+              },
+              "id": "b5.s2.t2",
+              "startMs": 54409,
+              "endMs": 54779
+            },
+            {
+              "text": "o",
+              "normalized": "o",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b5.s2.t3",
+              "startMs": 54779,
+              "endMs": 54839
+            },
+            {
+              "text": "osso",
+              "normalized": "osso",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "bone",
+                "fr": "os",
+                "es": "hueso"
+              },
+              "id": "b5.s2.t4",
+              "startMs": 54839,
+              "endMs": 55119
+            },
+            {
+              "text": "com",
+              "normalized": "com",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b5.s2.t5",
+              "startMs": 55119,
+              "endMs": 55309
+            },
+            {
+              "text": "muito",
+              "normalized": "muito",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "id": "b5.s2.t6",
+              "startMs": 55339,
+              "endMs": 55709
+            },
+            {
+              "text": "carinho",
+              "normalized": "carinho",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "care",
+                "fr": "soin",
+                "es": "cariño"
+              },
+              "id": "b5.s2.t7",
+              "startMs": 55709,
+              "endMs": 56554
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s2.t8"
+            }
+          ]
+        },
+        {
+          "id": "b5.s3",
+          "text": "O jabuti faz pequenos furos no osso seco.",
+          "translations": {
+            "en": "The tortoise makes small holes in the dry bone.",
+            "fr": "La tortue fait de petits trous dans l'os sec.",
+            "es": "La tortuga hace pequeños agujeros en el hueso seco."
+          },
+          "tokens": [
+            {
+              "text": "O",
+              "normalized": "o",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b5.s3.t1",
+              "startMs": 56944,
+              "endMs": 56974
+            },
+            {
+              "text": "jabuti",
+              "normalized": "jabuti",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tortoise",
+                "fr": "tortue",
+                "es": "tortuga"
+              },
+              "id": "b5.s3.t2",
+              "startMs": 56974,
+              "endMs": 57404
+            },
+            {
+              "text": "faz",
+              "normalized": "faz",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "makes",
+                "fr": "fait",
+                "es": "hace"
+              },
+              "id": "b5.s3.t3",
+              "startMs": 57404,
+              "endMs": 57624
+            },
+            {
+              "text": "pequenos",
+              "normalized": "pequenos",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "small",
+                "fr": "petits",
+                "es": "pequeños"
+              },
+              "id": "b5.s3.t4",
+              "startMs": 57624,
+              "endMs": 58094
+            },
+            {
+              "text": "furos",
+              "normalized": "furos",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "holes",
+                "fr": "trous",
+                "es": "agujeros"
+              },
+              "id": "b5.s3.t5",
+              "startMs": 58094,
+              "endMs": 58564
+            },
+            {
+              "text": "no",
+              "normalized": "no",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in the",
+                "fr": "dans le",
+                "es": "en el"
+              },
+              "id": "b5.s3.t6",
+              "startMs": 58564,
+              "endMs": 58704
+            },
+            {
+              "text": "osso",
+              "normalized": "osso",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "bone",
+                "fr": "os",
+                "es": "hueso"
+              },
+              "id": "b5.s3.t7",
+              "startMs": 58704,
+              "endMs": 59250
+            },
+            {
+              "text": "seco",
+              "normalized": "seco",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dry",
+                "fr": "sec",
+                "es": "seco"
+              },
+              "id": "b5.s3.t8",
+              "startMs": 59250,
+              "endMs": 59795
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s3.t9"
+            }
+          ]
+        },
+        {
+          "id": "b5.s4",
+          "text": "Agora, o osso vira uma flauta perfeita.",
+          "translations": {
+            "en": "Now, the bone becomes a perfect flute.",
+            "fr": "Maintenant, l'os devient une flûte parfaite.",
+            "es": "Ahora, el hueso se convierte en una flauta perfecta."
+          },
+          "tokens": [
+            {
+              "text": "Agora",
+              "normalized": "agora",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "now",
+                "fr": "maintenant",
+                "es": "ahora"
+              },
+              "id": "b5.s4.t1",
+              "startMs": 60195,
+              "endMs": 60495
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s4.t2"
+            },
+            {
+              "text": "o",
+              "normalized": "o",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b5.s4.t3",
+              "startMs": 60625,
+              "endMs": 60675
+            },
+            {
+              "text": "osso",
+              "normalized": "osso",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "bone",
+                "fr": "os",
+                "es": "hueso"
+              },
+              "id": "b5.s4.t4",
+              "startMs": 60675,
+              "endMs": 60955
+            },
+            {
+              "text": "vira",
+              "normalized": "vira",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "becomes",
+                "fr": "devient",
+                "es": "se vuelve"
+              },
+              "id": "b5.s4.t5",
+              "startMs": 60955,
+              "endMs": 61235
+            },
+            {
+              "text": "uma",
+              "normalized": "uma",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "une",
+                "es": "una"
+              },
+              "id": "b5.s4.t6",
+              "startMs": 61235,
+              "endMs": 61445
+            },
+            {
+              "text": "flauta",
+              "normalized": "flauta",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "flute",
+                "fr": "flûte",
+                "es": "flauta"
+              },
+              "id": "b5.s4.t7",
+              "startMs": 61445,
+              "endMs": 62203
+            },
+            {
+              "text": "perfeita",
+              "normalized": "perfeita",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "perfect",
+                "fr": "parfaite",
+                "es": "perfecta"
+              },
+              "id": "b5.s4.t8",
+              "startMs": 62203,
+              "endMs": 62961
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s4.t9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b6",
+      "sentences": [
+        {
+          "id": "b6.s1",
+          "text": "O jabuti sopra e toca a flauta nova.",
+          "translations": {
+            "en": "The tortoise blows and plays the new flute.",
+            "fr": "La tortue souffle et joue de la nouvelle flûte.",
+            "es": "La tortuga sopla y toca la flauta nueva."
+          },
+          "tokens": [
+            {
+              "text": "O",
+              "normalized": "o",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b6.s1.t1",
+              "startMs": 63711,
+              "endMs": 63731
+            },
+            {
+              "text": "jabuti",
+              "normalized": "jabuti",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tortoise",
+                "fr": "tortue",
+                "es": "tortuga"
+              },
+              "id": "b6.s1.t2",
+              "startMs": 63731,
+              "endMs": 64181
+            },
+            {
+              "text": "sopra",
+              "normalized": "sopra",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "blows",
+                "fr": "souffle",
+                "es": "sopla"
+              },
+              "id": "b6.s1.t3",
+              "startMs": 64181,
+              "endMs": 64631
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b6.s1.t4",
+              "startMs": 64631,
+              "endMs": 64641
+            },
+            {
+              "text": "toca",
+              "normalized": "toca",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "plays",
+                "fr": "joue",
+                "es": "toca"
+              },
+              "id": "b6.s1.t5",
+              "startMs": 64641,
+              "endMs": 64951
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b6.s1.t6",
+              "startMs": 64951,
+              "endMs": 65021
+            },
+            {
+              "text": "flauta",
+              "normalized": "flauta",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "flute",
+                "fr": "flûte",
+                "es": "flauta"
+              },
+              "id": "b6.s1.t7",
+              "startMs": 65021,
+              "endMs": 65481
+            },
+            {
+              "text": "nova",
+              "normalized": "nova",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "new",
+                "fr": "nouvelle",
+                "es": "nueva"
+              },
+              "id": "b6.s1.t8",
+              "startMs": 65481,
+              "endMs": 65791
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s1.t9"
+            }
+          ]
+        },
+        {
+          "id": "b6.s2",
+          "text": "O som do instrumento é doce e suave.",
+          "translations": {
+            "en": "The sound of the instrument is sweet and soft.",
+            "fr": "Le son de l'instrument est doux et suave.",
+            "es": "El sonido del instrumento es dulce y suave."
+          },
+          "tokens": [
+            {
+              "text": "O",
+              "normalized": "o",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b6.s2.t1",
+              "startMs": 66802,
+              "endMs": 66822
+            },
+            {
+              "text": "som",
+              "normalized": "som",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sound",
+                "fr": "son",
+                "es": "sonido"
+              },
+              "id": "b6.s2.t2",
+              "startMs": 66822,
+              "endMs": 67042
+            },
+            {
+              "text": "do",
+              "normalized": "do",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b6.s2.t3",
+              "startMs": 67042,
+              "endMs": 67182
+            },
+            {
+              "text": "instrumento",
+              "normalized": "instrumento",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "instrument",
+                "fr": "instrument",
+                "es": "instrumento"
+              },
+              "id": "b6.s2.t4",
+              "startMs": 67182,
+              "endMs": 68062
+            },
+            {
+              "text": "é",
+              "normalized": "é",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es"
+              },
+              "id": "b6.s2.t5",
+              "startMs": 68062,
+              "endMs": 68162
+            },
+            {
+              "text": "doce",
+              "normalized": "doce",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sweet",
+                "fr": "doux",
+                "es": "dulce"
+              },
+              "id": "b6.s2.t6",
+              "startMs": 68162,
+              "endMs": 68452
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b6.s2.t7",
+              "startMs": 68452,
+              "endMs": 68512
+            },
+            {
+              "text": "suave",
+              "normalized": "suave",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "soft",
+                "fr": "doux",
+                "es": "suave"
+              },
+              "id": "b6.s2.t8",
+              "startMs": 68512,
+              "endMs": 69267
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s2.t9"
+            }
+          ]
+        },
+        {
+          "id": "b6.s3",
+          "text": "O pequeno artista canta com muita alegria.",
+          "translations": {
+            "en": "The little artist sings with great joy.",
+            "fr": "Le petit artiste chante avec beaucoup de joie.",
+            "es": "El pequeño artista canta con mucha alegría."
+          },
+          "tokens": [
+            {
+              "text": "O",
+              "normalized": "o",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b6.s3.t1",
+              "startMs": 69667,
+              "endMs": 69687
+            },
+            {
+              "text": "pequeno",
+              "normalized": "pequeno",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "small",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b6.s3.t2",
+              "startMs": 69687,
+              "endMs": 70181
+            },
+            {
+              "text": "artista",
+              "normalized": "artista",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "artist",
+                "fr": "artiste",
+                "es": "artista"
+              },
+              "id": "b6.s3.t3",
+              "startMs": 70181,
+              "endMs": 70674
+            },
+            {
+              "text": "canta",
+              "normalized": "canta",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sings",
+                "fr": "chante",
+                "es": "canta"
+              },
+              "id": "b6.s3.t4",
+              "startMs": 70674,
+              "endMs": 71167
+            },
+            {
+              "text": "com",
+              "normalized": "com",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b6.s3.t5",
+              "startMs": 71167,
+              "endMs": 71347
+            },
+            {
+              "text": "muita",
+              "normalized": "muita",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "great",
+                "fr": "beaucoup de",
+                "es": "mucha"
+              },
+              "id": "b6.s3.t6",
+              "startMs": 71347,
+              "endMs": 71727
+            },
+            {
+              "text": "alegria",
+              "normalized": "alegria",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "joy",
+                "fr": "joie",
+                "es": "alegría"
+              },
+              "id": "b6.s3.t7",
+              "startMs": 71727,
+              "endMs": 72483
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s3.t8"
+            }
+          ]
+        },
+        {
+          "id": "b6.s4",
+          "text": "Os macacos e os pássaros escutam a melodia.",
+          "translations": {
+            "en": "The monkeys and the birds listen to the melody.",
+            "fr": "Les singes et les oiseaux écoutent la mélodie.",
+            "es": "Los monos y los pájaros escuchan la melodía."
+          },
+          "tokens": [
+            {
+              "text": "Os",
+              "normalized": "os",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b6.s4.t1",
+              "startMs": 72883,
+              "endMs": 72963
+            },
+            {
+              "text": "macacos",
+              "normalized": "macacos",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "monkeys",
+                "fr": "singes",
+                "es": "monos"
+              },
+              "id": "b6.s4.t2",
+              "startMs": 72963,
+              "endMs": 73493
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b6.s4.t3",
+              "startMs": 73493,
+              "endMs": 73493
+            },
+            {
+              "text": "os",
+              "normalized": "os",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b6.s4.t4",
+              "startMs": 73523,
+              "endMs": 73623
+            },
+            {
+              "text": "pássaros",
+              "normalized": "pássaros",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "birds",
+                "fr": "oiseaux",
+                "es": "pájaros"
+              },
+              "id": "b6.s4.t5",
+              "startMs": 73623,
+              "endMs": 74153
+            },
+            {
+              "text": "escutam",
+              "normalized": "escutam",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "listen to",
+                "fr": "écoutent",
+                "es": "escuchan"
+              },
+              "id": "b6.s4.t6",
+              "startMs": 74153,
+              "endMs": 74683
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b6.s4.t7",
+              "startMs": 74683,
+              "endMs": 74733
+            },
+            {
+              "text": "melodia",
+              "normalized": "melodia",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "melody",
+                "fr": "mélodie",
+                "es": "melodía"
+              },
+              "id": "b6.s4.t8",
+              "startMs": 74733,
+              "endMs": 75849
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s4.t9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b7",
+      "sentences": [
+        {
+          "id": "b7.s1",
+          "text": "A onça faminta descansa perto dali.",
+          "translations": {
+            "en": "The hungry jaguar is resting nearby.",
+            "fr": "Le jaguar affamé se repose tout près.",
+            "es": "El jaguar hambriento descansa cerca de allí."
+          },
+          "tokens": [
+            {
+              "text": "A",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b7.s1.t1",
+              "startMs": 76589,
+              "endMs": 76609
+            },
+            {
+              "text": "onça",
+              "normalized": "onça",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "jaguar",
+                "fr": "jaguar",
+                "es": "jaguar"
+              },
+              "id": "b7.s1.t2",
+              "startMs": 76609,
+              "endMs": 77046
+            },
+            {
+              "text": "faminta",
+              "normalized": "faminta",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hungry",
+                "fr": "affamée",
+                "es": "hambrienta"
+              },
+              "id": "b7.s1.t3",
+              "startMs": 77046,
+              "endMs": 77482
+            },
+            {
+              "text": "descansa",
+              "normalized": "descansa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "rests",
+                "fr": "se repose",
+                "es": "descansa"
+              },
+              "id": "b7.s1.t4",
+              "startMs": 77482,
+              "endMs": 77919
+            },
+            {
+              "text": "perto",
+              "normalized": "perto",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "near",
+                "fr": "près",
+                "es": "cerca"
+              },
+              "id": "b7.s1.t5",
+              "startMs": 77919,
+              "endMs": 78249
+            },
+            {
+              "text": "dali",
+              "normalized": "dali",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "from there",
+                "fr": "de là",
+                "es": "de allí"
+              },
+              "id": "b7.s1.t6",
+              "startMs": 78249,
+              "endMs": 79065
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s1.t7"
+            }
+          ]
+        },
+        {
+          "id": "b7.s2",
+          "text": "De repente, ela escuta a música bonita.",
+          "translations": {
+            "en": "Suddenly, she hears the beautiful music.",
+            "fr": "Soudain, elle entend la belle musique.",
+            "es": "De repente, escucha la música hermosa."
+          },
+          "tokens": [
+            {
+              "text": "De",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b7.s2.t1",
+              "startMs": 79505,
+              "endMs": 79545
+            },
+            {
+              "text": "repente",
+              "normalized": "repente",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sudden",
+                "fr": "soudain",
+                "es": "repente"
+              },
+              "id": "b7.s2.t2",
+              "startMs": 79545,
+              "endMs": 80025
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s2.t3"
+            },
+            {
+              "text": "ela",
+              "normalized": "ela",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b7.s2.t4",
+              "startMs": 80155,
+              "endMs": 80355
+            },
+            {
+              "text": "escuta",
+              "normalized": "escuta",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hears",
+                "fr": "entend",
+                "es": "escucha"
+              },
+              "id": "b7.s2.t5",
+              "startMs": 80355,
+              "endMs": 80765
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b7.s2.t6",
+              "startMs": 80765,
+              "endMs": 80815
+            },
+            {
+              "text": "música",
+              "normalized": "música",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "music",
+                "fr": "musique",
+                "es": "música"
+              },
+              "id": "b7.s2.t7",
+              "startMs": 80815,
+              "endMs": 81295
+            },
+            {
+              "text": "bonita",
+              "normalized": "bonita",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "beautiful",
+                "fr": "belle",
+                "es": "hermosa"
+              },
+              "id": "b7.s2.t8",
+              "startMs": 81295,
+              "endMs": 82081
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s2.t9"
+            }
+          ]
+        },
+        {
+          "id": "b7.s3",
+          "text": "A onça quer saber quem toca o instrumento.",
+          "translations": {
+            "en": "The jaguar wants to know who is playing the instrument.",
+            "fr": "Le jaguar veut savoir qui joue de l'instrument.",
+            "es": "El jaguar quiere saber quién toca el instrumento."
+          },
+          "tokens": [
+            {
+              "text": "A",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b7.s3.t1",
+              "startMs": 82481,
+              "endMs": 82501
+            },
+            {
+              "text": "onça",
+              "normalized": "onça",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "jaguar",
+                "fr": "jaguar",
+                "es": "jaguar"
+              },
+              "id": "b7.s3.t2",
+              "startMs": 82501,
+              "endMs": 82851
+            },
+            {
+              "text": "quer",
+              "normalized": "quer",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wants",
+                "fr": "veut",
+                "es": "quiere"
+              },
+              "id": "b7.s3.t3",
+              "startMs": 82851,
+              "endMs": 83131
+            },
+            {
+              "text": "saber",
+              "normalized": "saber",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to know",
+                "fr": "savoir",
+                "es": "saber"
+              },
+              "id": "b7.s3.t4",
+              "startMs": 83131,
+              "endMs": 83481
+            },
+            {
+              "text": "quem",
+              "normalized": "quem",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "who",
+                "fr": "qui",
+                "es": "quién"
+              },
+              "id": "b7.s3.t5",
+              "startMs": 83481,
+              "endMs": 83761
+            },
+            {
+              "text": "toca",
+              "normalized": "toca",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "plays",
+                "fr": "joue",
+                "es": "toca"
+              },
+              "id": "b7.s3.t6",
+              "startMs": 83761,
+              "endMs": 83991
+            },
+            {
+              "text": "o",
+              "normalized": "o",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b7.s3.t7",
+              "startMs": 84081,
+              "endMs": 84111
+            },
+            {
+              "text": "instrumento",
+              "normalized": "instrumento",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "instrument",
+                "fr": "instrument",
+                "es": "instrumento"
+              },
+              "id": "b7.s3.t8",
+              "startMs": 84111,
+              "endMs": 85071
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s3.t9"
+            }
+          ]
+        },
+        {
+          "id": "b7.s4",
+          "text": "Ela quer capturar e comer o músico distraído.",
+          "translations": {
+            "en": "She wants to capture and eat the distracted musician.",
+            "fr": "Elle veut capturer et manger le musicien distrait.",
+            "es": "Ella quiere capturar y comerse al músico distraído."
+          },
+          "tokens": [
+            {
+              "text": "Ela",
+              "normalized": "ela",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b7.s4.t1",
+              "startMs": 85471,
+              "endMs": 85611
+            },
+            {
+              "text": "quer",
+              "normalized": "quer",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wants",
+                "fr": "veut",
+                "es": "quiere"
+              },
+              "id": "b7.s4.t2",
+              "startMs": 85611,
+              "endMs": 85861
+            },
+            {
+              "text": "capturar",
+              "normalized": "capturar",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to capture",
+                "fr": "capturer",
+                "es": "capturar"
+              },
+              "id": "b7.s4.t3",
+              "startMs": 85861,
+              "endMs": 86361
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b7.s4.t4",
+              "startMs": 86361,
+              "endMs": 86421
+            },
+            {
+              "text": "comer",
+              "normalized": "comer",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to eat",
+                "fr": "manger",
+                "es": "comer"
+              },
+              "id": "b7.s4.t5",
+              "startMs": 86421,
+              "endMs": 86731
+            },
+            {
+              "text": "o",
+              "normalized": "o",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b7.s4.t6",
+              "startMs": 86761,
+              "endMs": 86801
+            },
+            {
+              "text": "músico",
+              "normalized": "músico",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "musician",
+                "fr": "musicien",
+                "es": "músico"
+              },
+              "id": "b7.s4.t7",
+              "startMs": 86801,
+              "endMs": 87632
+            },
+            {
+              "text": "distraído",
+              "normalized": "distraído",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "distracted",
+                "fr": "distrait",
+                "es": "distraído"
+              },
+              "id": "b7.s4.t8",
+              "startMs": 87632,
+              "endMs": 88462
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s4.t9"
+            }
+          ]
+        },
+        {
+          "id": "b7.s5",
+          "text": "A fera corre depressa na direção do som.",
+          "translations": {
+            "en": "The beast runs quickly in the direction of the sound.",
+            "fr": "La bête court vite dans la direction du son.",
+            "es": "La bestia corre deprisa en dirección al sonido."
+          },
+          "tokens": [
+            {
+              "text": "A",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b7.s5.t1",
+              "startMs": 88852,
+              "endMs": 88882
+            },
+            {
+              "text": "fera",
+              "normalized": "fera",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "beast",
+                "fr": "bête",
+                "es": "fiera"
+              },
+              "id": "b7.s5.t2",
+              "startMs": 88882,
+              "endMs": 89172
+            },
+            {
+              "text": "corre",
+              "normalized": "corre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "runs",
+                "fr": "court",
+                "es": "corre"
+              },
+              "id": "b7.s5.t3",
+              "startMs": 89172,
+              "endMs": 89532
+            },
+            {
+              "text": "depressa",
+              "normalized": "depressa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "quickly",
+                "fr": "vite",
+                "es": "deprisa"
+              },
+              "id": "b7.s5.t4",
+              "startMs": 89532,
+              "endMs": 90152
+            },
+            {
+              "text": "na",
+              "normalized": "na",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in the",
+                "fr": "dans la",
+                "es": "en la"
+              },
+              "id": "b7.s5.t5",
+              "startMs": 90152,
+              "endMs": 90252
+            },
+            {
+              "text": "direção",
+              "normalized": "direção",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "direction",
+                "fr": "direction",
+                "es": "dirección"
+              },
+              "id": "b7.s5.t6",
+              "startMs": 90252,
+              "endMs": 90902
+            },
+            {
+              "text": "do",
+              "normalized": "do",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b7.s5.t7",
+              "startMs": 90902,
+              "endMs": 91042
+            },
+            {
+              "text": "som",
+              "normalized": "som",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sound",
+                "fr": "son",
+                "es": "sonido"
+              },
+              "id": "b7.s5.t8",
+              "startMs": 91042,
+              "endMs": 91292
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s5.t9"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

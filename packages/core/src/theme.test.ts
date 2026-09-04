@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { colors, type, radius, space, shadow, motion, theme } from './theme.js';
+import { colors, type, radius, space, shadow, motion, theme } from './theme.ts';
 
 describe('@sotto/core theme', () => {
   it('exports the full token set', () => {

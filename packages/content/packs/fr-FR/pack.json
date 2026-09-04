@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "locale": "fr-FR",
+  "language": {
+    "locale": "fr-FR",
+    "baseLanguage": "fr",
+    "region": "FR",
+    "script": "Latn",
+    "nativeName": "français",
+    "localizedNames": {
+      "en": "French",
+      "es": "francés",
+      "fr": "français",
+      "pt": "francês",
+      "it": "francese",
+      "zh-Hans": "法语",
+      "zh-Hant": "法語",
+      "ro": "franceză",
+      "ca": "francès"
+    },
+    "direction": "ltr",
+    "stability": "stable",
+    "tokenizer": "latin",
+    "typography": "latin",
+    "pronunciationGuide": "none",
+    "tutorNotes": "Standard Metropolitan French pronunciation: nasal vowels (an, en, in, on, un), the front-rounded u, and mostly silent final consonants except where liaison applies. Elision merges short function words into the next word (\"l'\", \"d'\", \"qu'\") — treat these as normal clitics, not separate words.",
+    "ttsVoice": "ff_siwis",
+    "ttsLangCode": "f",
+    "sttLanguage": "fr",
+    "catalog": "fr"
+  },
+  "books": [
+    {
+      "bookId": "fr-chat-botte",
+      "contentLocale": "fr-FR",
+      "title": "Le Chat botté",
+      "author": "Charles Perrault",
+      "level": "A1",
+      "categories": [
+        "tales"
+      ],
+      "estimatedMinutes": 10,
+      "localizedTitles": {
+        "en": "Puss in Boots",
+        "fr": "Le Chat botté",
+        "es": "El gato con botas"
+      },
+      "premise": {
+        "en": "A clever cat uses boots and bold tricks to change his poor master's life.",
+        "fr": "Un chat intelligent utilise des bottes et des ruses pour changer la vie de son pauvre maître.",
+        "es": "Un gato inteligente usa unas botas y varias astucias para cambiar la vida de su pobre amo."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 3
+    },
+    {
+      "bookId": "fr-fables-la-fontaine",
+      "contentLocale": "fr-FR",
+      "title": "Trois fables de La Fontaine",
+      "author": "Jean de La Fontaine",
+      "level": "A1",
+      "categories": [
+        "fables"
+      ],
+      "estimatedMinutes": 10,
+      "localizedTitles": {
+        "en": "Three Fables by La Fontaine",
+        "fr": "Trois fables de La Fontaine",
+        "es": "Tres fábulas de La Fontaine"
+      },
+      "premise": {
+        "en": "Three animals learn about vanity, preparation, and perseverance.",
+        "fr": "Trois animaux découvrent la vanité, la prévoyance et la persévérance.",
+        "es": "Tres animales aprenden sobre la vanidad, la previsión y la perseverancia."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 3
+    },
+    {
+      "bookId": "fr-petit-chaperon-rouge",
+      "contentLocale": "fr-FR",
+      "title": "Le Petit Chaperon rouge",
+      "author": "Charles Perrault",
+      "level": "A0",
+      "categories": [
+        "tales"
+      ],
+      "estimatedMinutes": 5,
+      "localizedTitles": {
+        "en": "Little Red Riding Hood",
+        "fr": "Le Petit Chaperon rouge",
+        "es": "Caperucita Roja"
+      },
+      "premise": {
+        "en": "A little girl meets a clever wolf while visiting her sick grandmother.",
+        "fr": "Une petite fille rencontre un loup rusé en allant voir sa grand-mère malade.",
+        "es": "Una niña encuentra a un lobo astuto cuando va a visitar a su abuela enferma."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 2
+    }
+  ],
+  "generatedAt": "2026-09-04T21:35:57.227Z"
+}

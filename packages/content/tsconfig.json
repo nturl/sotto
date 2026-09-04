@@ -1,8 +1,12 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist"
+    "rootDir": ".",
+    "outDir": "dist",
+    // The CLI runs directly under Node's native TS type-stripping (no build
+    // step), which requires relative imports to use the real ".ts"
+    // extension — plain Node does not do TS's usual ".js" -> ".ts" mapping.
+    "allowImportingTsExtensions": true
   },
-  "include": ["src"]
+  "include": ["src", "test"]
 }

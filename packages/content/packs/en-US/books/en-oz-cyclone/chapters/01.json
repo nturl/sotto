@@ -1,0 +1,5960 @@
+{
+  "id": "en-oz-cyclone-01",
+  "bookId": "en-oz-cyclone",
+  "title": "Chapter 1: The Great Cyclone",
+  "order": 1,
+  "blocks": [
+    {
+      "id": "b1",
+      "sentences": [
+        {
+          "id": "b1.s1",
+          "text": "Dorothy lived in the middle of Kansas.",
+          "translations": {
+            "en": "Dorothy lived in the middle of Kansas.",
+            "fr": "Dorothée vivait au milieu du Kansas.",
+            "es": "Dorita vivía en medio de Kansas."
+          },
+          "tokens": [
+            {
+              "text": "Dorothy",
+              "normalized": "dorothy",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Dorothy",
+                "fr": "Dorothée",
+                "es": "Dorita"
+              },
+              "id": "b1.s1.t1",
+              "startMs": 50,
+              "endMs": 500
+            },
+            {
+              "text": "lived",
+              "normalized": "lived",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lived",
+                "fr": "vivait",
+                "es": "vivía"
+              },
+              "id": "b1.s1.t2",
+              "startMs": 500,
+              "endMs": 840
+            },
+            {
+              "text": "in",
+              "normalized": "in",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s1.t3",
+              "startMs": 850,
+              "endMs": 970
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s1.t4",
+              "startMs": 1010,
+              "endMs": 1200
+            },
+            {
+              "text": "middle",
+              "normalized": "middle",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "middle",
+                "fr": "milieu",
+                "es": "medio"
+              },
+              "id": "b1.s1.t5",
+              "startMs": 1200,
+              "endMs": 1620
+            },
+            {
+              "text": "of",
+              "normalized": "of",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b1.s1.t6",
+              "startMs": 1620,
+              "endMs": 1750
+            },
+            {
+              "text": "Kansas",
+              "normalized": "kansas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Kansas",
+                "fr": "Kansas",
+                "es": "Kansas"
+              },
+              "id": "b1.s1.t7",
+              "startMs": 1750,
+              "endMs": 2060
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s1.t8"
+            }
+          ]
+        },
+        {
+          "id": "b1.s2",
+          "text": "She lived with Uncle Henry and Aunt Em.",
+          "translations": {
+            "en": "She lived with Uncle Henry and Aunt Em.",
+            "fr": "Elle vivait avec son oncle Henry et sa tante Em.",
+            "es": "Vivía con su tío Henry y su tía Em."
+          },
+          "tokens": [
+            {
+              "text": "She",
+              "normalized": "she",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b1.s2.t1",
+              "startMs": 2886,
+              "endMs": 3046
+            },
+            {
+              "text": "lived",
+              "normalized": "lived",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lived",
+                "fr": "vivait",
+                "es": "vivía"
+              },
+              "id": "b1.s2.t2",
+              "startMs": 3046,
+              "endMs": 3376
+            },
+            {
+              "text": "with",
+              "normalized": "with",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b1.s2.t3",
+              "startMs": 3426,
+              "endMs": 3706
+            },
+            {
+              "text": "Uncle",
+              "normalized": "uncle",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "uncle",
+                "fr": "oncle",
+                "es": "tío"
+              },
+              "id": "b1.s2.t4",
+              "startMs": 3706,
+              "endMs": 4076
+            },
+            {
+              "text": "Henry",
+              "normalized": "henry",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Henry",
+                "fr": "Henry",
+                "es": "Henry"
+              },
+              "id": "b1.s2.t5",
+              "startMs": 4076,
+              "endMs": 4446
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s2.t6",
+              "startMs": 4446,
+              "endMs": 4646
+            },
+            {
+              "text": "Aunt",
+              "normalized": "aunt",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "aunt",
+                "fr": "tante",
+                "es": "tía"
+              },
+              "id": "b1.s2.t7",
+              "startMs": 4666,
+              "endMs": 4946
+            },
+            {
+              "text": "Em",
+              "normalized": "em",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Em",
+                "fr": "Em",
+                "es": "Em"
+              },
+              "id": "b1.s2.t8",
+              "startMs": 4946,
+              "endMs": 4976
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s2.t9"
+            }
+          ]
+        },
+        {
+          "id": "b1.s3",
+          "text": "Uncle Henry was a hardworking farmer.",
+          "translations": {
+            "en": "Uncle Henry was a hardworking farmer.",
+            "fr": "L'oncle Henry était un fermier travailleur.",
+            "es": "El tío Henry era un granjero trabajador."
+          },
+          "tokens": [
+            {
+              "text": "Uncle",
+              "normalized": "uncle",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "uncle",
+                "fr": "oncle",
+                "es": "tío"
+              },
+              "id": "b1.s3.t1",
+              "startMs": 5770,
+              "endMs": 6090
+            },
+            {
+              "text": "Henry",
+              "normalized": "henry",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Henry",
+                "fr": "Henry",
+                "es": "Henry"
+              },
+              "id": "b1.s3.t2",
+              "startMs": 6090,
+              "endMs": 6470
+            },
+            {
+              "text": "was",
+              "normalized": "was",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "was",
+                "fr": "était",
+                "es": "era"
+              },
+              "id": "b1.s3.t3",
+              "startMs": 6470,
+              "endMs": 6550
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s3.t4",
+              "startMs": 6780,
+              "endMs": 6780
+            },
+            {
+              "text": "hardworking",
+              "normalized": "hardworking",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hardworking",
+                "fr": "travailleur",
+                "es": "trabajador"
+              },
+              "id": "b1.s3.t5",
+              "startMs": 6780,
+              "endMs": 7610
+            },
+            {
+              "text": "farmer",
+              "normalized": "farmer",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "farmer",
+                "fr": "fermier",
+                "es": "granjero"
+              },
+              "id": "b1.s3.t6",
+              "startMs": 7610,
+              "endMs": 7930
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t7"
+            }
+          ]
+        },
+        {
+          "id": "b1.s4",
+          "text": "Their wooden house was small and humble.",
+          "translations": {
+            "en": "Their wooden house was small and humble.",
+            "fr": "Leur maison en bois était petite et modeste.",
+            "es": "Su casa de madera era pequeña y humilde."
+          },
+          "tokens": [
+            {
+              "text": "Their",
+              "normalized": "their",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "their",
+                "fr": "leur",
+                "es": "su"
+              },
+              "id": "b1.s4.t1",
+              "startMs": 8779,
+              "endMs": 8999
+            },
+            {
+              "text": "wooden",
+              "normalized": "wooden",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wooden",
+                "fr": "en bois",
+                "es": "de madera"
+              },
+              "id": "b1.s4.t2",
+              "startMs": 9009,
+              "endMs": 9359
+            },
+            {
+              "text": "house",
+              "normalized": "house",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "house",
+                "fr": "maison",
+                "es": "casa"
+              },
+              "id": "b1.s4.t3",
+              "startMs": 9359,
+              "endMs": 9629
+            },
+            {
+              "text": "was",
+              "normalized": "was",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "was",
+                "fr": "était",
+                "es": "era"
+              },
+              "id": "b1.s4.t4",
+              "startMs": 9699,
+              "endMs": 9819
+            },
+            {
+              "text": "small",
+              "normalized": "small",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "small",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b1.s4.t5",
+              "startMs": 9819,
+              "endMs": 10109
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s4.t6",
+              "startMs": 10109,
+              "endMs": 10269
+            },
+            {
+              "text": "humble",
+              "normalized": "humble",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "humble",
+                "fr": "modeste",
+                "es": "humilde"
+              },
+              "id": "b1.s4.t7",
+              "startMs": 10269,
+              "endMs": 10609
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s4.t8"
+            }
+          ]
+        },
+        {
+          "id": "b1.s5",
+          "text": "They had one room and a small cellar under the floor.",
+          "translations": {
+            "en": "They had one room and a small cellar under the floor.",
+            "fr": "Ils avaient une seule pièce et une petite cave sous le plancher.",
+            "es": "Tenían una sola habitación y un pequeño sótano bajo el suelo."
+          },
+          "tokens": [
+            {
+              "text": "They",
+              "normalized": "they",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "they",
+                "fr": "ils",
+                "es": "ellos"
+              },
+              "id": "b1.s5.t1",
+              "startMs": 11488,
+              "endMs": 11688
+            },
+            {
+              "text": "had",
+              "normalized": "had",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "had",
+                "fr": "avait",
+                "es": "tenía"
+              },
+              "id": "b1.s5.t2",
+              "startMs": 11688,
+              "endMs": 11878
+            },
+            {
+              "text": "one",
+              "normalized": "one",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "one",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s5.t3",
+              "startMs": 11878,
+              "endMs": 12068
+            },
+            {
+              "text": "room",
+              "normalized": "room",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "room",
+                "fr": "pièce",
+                "es": "habitación"
+              },
+              "id": "b1.s5.t4",
+              "startMs": 12068,
+              "endMs": 12318
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s5.t5",
+              "startMs": 12318,
+              "endMs": 12418
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s5.t6",
+              "startMs": 12578,
+              "endMs": 12578
+            },
+            {
+              "text": "small",
+              "normalized": "small",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "small",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b1.s5.t7",
+              "startMs": 12678,
+              "endMs": 12908
+            },
+            {
+              "text": "cellar",
+              "normalized": "cellar",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cellar",
+                "fr": "cave",
+                "es": "sótano"
+              },
+              "id": "b1.s5.t8",
+              "startMs": 12908,
+              "endMs": 13328
+            },
+            {
+              "text": "under",
+              "normalized": "under",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "under",
+                "fr": "sous",
+                "es": "bajo"
+              },
+              "id": "b1.s5.t9",
+              "startMs": 13328,
+              "endMs": 13628
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s5.t10",
+              "startMs": 13628,
+              "endMs": 13818
+            },
+            {
+              "text": "floor",
+              "normalized": "floor",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "floor",
+                "fr": "sol",
+                "es": "suelo"
+              },
+              "id": "b1.s5.t11",
+              "startMs": 13818,
+              "endMs": 14138
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s5.t12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "sentences": [
+        {
+          "id": "b2.s1",
+          "text": "The great prairie was flat and dry.",
+          "translations": {
+            "en": "The great prairie was flat and dry.",
+            "fr": "La grande prairie était plate et sèche.",
+            "es": "La gran pradera era plana y seca."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s1.t1",
+              "startMs": 15445,
+              "endMs": 15585
+            },
+            {
+              "text": "great",
+              "normalized": "great",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "great",
+                "fr": "grand",
+                "es": "gran"
+              },
+              "id": "b2.s1.t2",
+              "startMs": 15585,
+              "endMs": 15935
+            },
+            {
+              "text": "prairie",
+              "normalized": "prairie",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "prairie",
+                "fr": "prairie",
+                "es": "pradera"
+              },
+              "id": "b2.s1.t3",
+              "startMs": 15935,
+              "endMs": 16425
+            },
+            {
+              "text": "was",
+              "normalized": "was",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "was",
+                "fr": "était",
+                "es": "era"
+              },
+              "id": "b2.s1.t4",
+              "startMs": 16425,
+              "endMs": 16555
+            },
+            {
+              "text": "flat",
+              "normalized": "flat",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "flat",
+                "fr": "plat",
+                "es": "plano"
+              },
+              "id": "b2.s1.t5",
+              "startMs": 16685,
+              "endMs": 16915
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b2.s1.t6",
+              "startMs": 16915,
+              "endMs": 17115
+            },
+            {
+              "text": "dry",
+              "normalized": "dry",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dry",
+                "fr": "sec",
+                "es": "seco"
+              },
+              "id": "b2.s1.t7",
+              "startMs": 17125,
+              "endMs": 17215
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s1.t8"
+            }
+          ]
+        },
+        {
+          "id": "b2.s2",
+          "text": "Not a single tree grew near the little house.",
+          "translations": {
+            "en": "Not a single tree grew near the little house.",
+            "fr": "Pas un seul arbre ne poussait près de la petite maison.",
+            "es": "Ni un solo árbol crecía cerca de la casita."
+          },
+          "tokens": [
+            {
+              "text": "Not",
+              "normalized": "not",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "not",
+                "fr": "pas",
+                "es": "no"
+              },
+              "id": "b2.s2.t1",
+              "startMs": 18030,
+              "endMs": 18150
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b2.s2.t2",
+              "startMs": 18150,
+              "endMs": 18200
+            },
+            {
+              "text": "single",
+              "normalized": "single",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "single",
+                "fr": "seul",
+                "es": "solo"
+              },
+              "id": "b2.s2.t3",
+              "startMs": 18200,
+              "endMs": 18550
+            },
+            {
+              "text": "tree",
+              "normalized": "tree",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tree",
+                "fr": "arbre",
+                "es": "árbol"
+              },
+              "id": "b2.s2.t4",
+              "startMs": 18550,
+              "endMs": 18780
+            },
+            {
+              "text": "grew",
+              "normalized": "grew",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "grew",
+                "fr": "poussait",
+                "es": "crecía"
+              },
+              "id": "b2.s2.t5",
+              "startMs": 18780,
+              "endMs": 19010
+            },
+            {
+              "text": "near",
+              "normalized": "near",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "near",
+                "fr": "près de",
+                "es": "cerca de"
+              },
+              "id": "b2.s2.t6",
+              "startMs": 19010,
+              "endMs": 19050
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s2.t7",
+              "startMs": 19260,
+              "endMs": 19410
+            },
+            {
+              "text": "little",
+              "normalized": "little",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "little",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b2.s2.t8",
+              "startMs": 19410,
+              "endMs": 19760
+            },
+            {
+              "text": "house",
+              "normalized": "house",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "house",
+                "fr": "maison",
+                "es": "casa"
+              },
+              "id": "b2.s2.t9",
+              "startMs": 19760,
+              "endMs": 20050
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s2.t10"
+            }
+          ]
+        },
+        {
+          "id": "b2.s3",
+          "text": "The hot summer sun burned the land.",
+          "translations": {
+            "en": "The hot summer sun burned the land.",
+            "fr": "Le chaud soleil d'été brûlait la terre.",
+            "es": "El cálido sol de verano quemaba la tierra."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s3.t1",
+              "startMs": 21168,
+              "endMs": 21328
+            },
+            {
+              "text": "hot",
+              "normalized": "hot",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hot",
+                "fr": "chaud",
+                "es": "caliente"
+              },
+              "id": "b2.s3.t2",
+              "startMs": 21328,
+              "endMs": 21418
+            },
+            {
+              "text": "summer",
+              "normalized": "summer",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "summer",
+                "fr": "été",
+                "es": "verano"
+              },
+              "id": "b2.s3.t3",
+              "startMs": 21598,
+              "endMs": 21998
+            },
+            {
+              "text": "sun",
+              "normalized": "sun",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sun",
+                "fr": "soleil",
+                "es": "sol"
+              },
+              "id": "b2.s3.t4",
+              "startMs": 21998,
+              "endMs": 22218
+            },
+            {
+              "text": "burned",
+              "normalized": "burned",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "burned",
+                "fr": "a brûlé",
+                "es": "quemó"
+              },
+              "id": "b2.s3.t5",
+              "startMs": 22218,
+              "endMs": 22668
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s3.t6",
+              "startMs": 22668,
+              "endMs": 22888
+            },
+            {
+              "text": "land",
+              "normalized": "land",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "land",
+                "fr": "terre",
+                "es": "tierra"
+              },
+              "id": "b2.s3.t7",
+              "startMs": 22888,
+              "endMs": 23058
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s3.t8"
+            }
+          ]
+        },
+        {
+          "id": "b2.s4",
+          "text": "The grass was gray and dry.",
+          "translations": {
+            "en": "The grass was gray and dry.",
+            "fr": "L'herbe était grise et sèche.",
+            "es": "La hierba estaba gris y seca."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s4.t1",
+              "startMs": 23891,
+              "endMs": 24071
+            },
+            {
+              "text": "grass",
+              "normalized": "grass",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "grass",
+                "fr": "herbe",
+                "es": "hierba"
+              },
+              "id": "b2.s4.t2",
+              "startMs": 24071,
+              "endMs": 24421
+            },
+            {
+              "text": "was",
+              "normalized": "was",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "was",
+                "fr": "était",
+                "es": "era"
+              },
+              "id": "b2.s4.t3",
+              "startMs": 24521,
+              "endMs": 24711
+            },
+            {
+              "text": "gray",
+              "normalized": "gray",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "gray",
+                "fr": "gris",
+                "es": "gris"
+              },
+              "id": "b2.s4.t4",
+              "startMs": 24711,
+              "endMs": 25011
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b2.s4.t5",
+              "startMs": 25031,
+              "endMs": 25261
+            },
+            {
+              "text": "dry",
+              "normalized": "dry",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dry",
+                "fr": "sec",
+                "es": "seco"
+              },
+              "id": "b2.s4.t6",
+              "startMs": 25261,
+              "endMs": 25371
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s4.t7"
+            }
+          ]
+        },
+        {
+          "id": "b2.s5",
+          "text": "Even the wood of the house was gray.",
+          "translations": {
+            "en": "Even the wood of the house was gray.",
+            "fr": "Même le bois de la maison était gris.",
+            "es": "Incluso la madera de la casa era gris."
+          },
+          "tokens": [
+            {
+              "text": "Even",
+              "normalized": "even",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "even",
+                "fr": "même",
+                "es": "incluso"
+              },
+              "id": "b2.s5.t1",
+              "startMs": 26187,
+              "endMs": 26307
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s5.t2",
+              "startMs": 26347,
+              "endMs": 26507
+            },
+            {
+              "text": "wood",
+              "normalized": "wood",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wood",
+                "fr": "bois",
+                "es": "madera"
+              },
+              "id": "b2.s5.t3",
+              "startMs": 26507,
+              "endMs": 26717
+            },
+            {
+              "text": "of",
+              "normalized": "of",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b2.s5.t4",
+              "startMs": 26717,
+              "endMs": 26817
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s5.t5",
+              "startMs": 26817,
+              "endMs": 26977
+            },
+            {
+              "text": "house",
+              "normalized": "house",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "house",
+                "fr": "maison",
+                "es": "casa"
+              },
+              "id": "b2.s5.t6",
+              "startMs": 26977,
+              "endMs": 27237
+            },
+            {
+              "text": "was",
+              "normalized": "was",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "was",
+                "fr": "était",
+                "es": "era"
+              },
+              "id": "b2.s5.t7",
+              "startMs": 27237,
+              "endMs": 27397
+            },
+            {
+              "text": "gray",
+              "normalized": "gray",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "gray",
+                "fr": "gris",
+                "es": "gris"
+              },
+              "id": "b2.s5.t8",
+              "startMs": 27397,
+              "endMs": 27607
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s5.t9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3",
+      "sentences": [
+        {
+          "id": "b3.s1",
+          "text": "Dorothy had a little black dog.",
+          "translations": {
+            "en": "Dorothy had a little black dog.",
+            "fr": "Dorothée avait un petit chien noir.",
+            "es": "Dorita tenía un perrito negro."
+          },
+          "tokens": [
+            {
+              "text": "Dorothy",
+              "normalized": "dorothy",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Dorothy",
+                "fr": "Dorothée",
+                "es": "Dorita"
+              },
+              "id": "b3.s1.t1",
+              "startMs": 29051,
+              "endMs": 29511
+            },
+            {
+              "text": "had",
+              "normalized": "had",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "had",
+                "fr": "avait",
+                "es": "tenía"
+              },
+              "id": "b3.s1.t2",
+              "startMs": 29511,
+              "endMs": 29731
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b3.s1.t3",
+              "startMs": 29731,
+              "endMs": 29801
+            },
+            {
+              "text": "little",
+              "normalized": "little",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "little",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b3.s1.t4",
+              "startMs": 29801,
+              "endMs": 30201
+            },
+            {
+              "text": "black",
+              "normalized": "black",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "black",
+                "fr": "noir",
+                "es": "negro"
+              },
+              "id": "b3.s1.t5",
+              "startMs": 30251,
+              "endMs": 30601
+            },
+            {
+              "text": "dog",
+              "normalized": "dog",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dog",
+                "fr": "chien",
+                "es": "perro"
+              },
+              "id": "b3.s1.t6",
+              "startMs": 30601,
+              "endMs": 30711
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s1.t7"
+            }
+          ]
+        },
+        {
+          "id": "b3.s2",
+          "text": "His name was Toto.",
+          "translations": {
+            "en": "His name was Toto.",
+            "fr": "Son nom était Toto.",
+            "es": "Su nombre era Toto."
+          },
+          "tokens": [
+            {
+              "text": "His",
+              "normalized": "his",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "his",
+                "fr": "son",
+                "es": "su"
+              },
+              "id": "b3.s2.t1",
+              "startMs": 31558,
+              "endMs": 31748
+            },
+            {
+              "text": "name",
+              "normalized": "name",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "name",
+                "fr": "nom",
+                "es": "nombre"
+              },
+              "id": "b3.s2.t2",
+              "startMs": 31748,
+              "endMs": 32038
+            },
+            {
+              "text": "was",
+              "normalized": "was",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "was",
+                "fr": "était",
+                "es": "era"
+              },
+              "id": "b3.s2.t3",
+              "startMs": 32148,
+              "endMs": 32398
+            },
+            {
+              "text": "Toto",
+              "normalized": "toto",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Toto",
+                "fr": "Toto",
+                "es": "Toto"
+              },
+              "id": "b3.s2.t4",
+              "startMs": 32398,
+              "endMs": 33019
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t5"
+            }
+          ]
+        },
+        {
+          "id": "b3.s3",
+          "text": "Toto had shiny black eyes and soft black hair.",
+          "translations": {
+            "en": "Toto had shiny black eyes and soft black hair.",
+            "fr": "Toto avait des yeux noirs brillants et des poils noirs doux.",
+            "es": "Toto tenía ojos negros brillantes y pelo negro suave."
+          },
+          "tokens": [
+            {
+              "text": "Toto",
+              "normalized": "toto",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Toto",
+                "fr": "Toto",
+                "es": "Toto"
+              },
+              "id": "b3.s3.t1",
+              "startMs": 33369,
+              "endMs": 33699
+            },
+            {
+              "text": "had",
+              "normalized": "had",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "had",
+                "fr": "avait",
+                "es": "tenía"
+              },
+              "id": "b3.s3.t2",
+              "startMs": 33699,
+              "endMs": 33919
+            },
+            {
+              "text": "shiny",
+              "normalized": "shiny",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "shiny",
+                "fr": "brillant",
+                "es": "brillante"
+              },
+              "id": "b3.s3.t3",
+              "startMs": 33959,
+              "endMs": 34339
+            },
+            {
+              "text": "black",
+              "normalized": "black",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "black",
+                "fr": "noir",
+                "es": "negro"
+              },
+              "id": "b3.s3.t4",
+              "startMs": 34389,
+              "endMs": 34779
+            },
+            {
+              "text": "eyes",
+              "normalized": "eyes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "eyes",
+                "fr": "yeux",
+                "es": "ojos"
+              },
+              "id": "b3.s3.t5",
+              "startMs": 34779,
+              "endMs": 34979
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b3.s3.t6",
+              "startMs": 35219,
+              "endMs": 35389
+            },
+            {
+              "text": "soft",
+              "normalized": "soft",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "soft",
+                "fr": "doux",
+                "es": "suave"
+              },
+              "id": "b3.s3.t7",
+              "startMs": 35409,
+              "endMs": 35729
+            },
+            {
+              "text": "black",
+              "normalized": "black",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "black",
+                "fr": "noir",
+                "es": "negro"
+              },
+              "id": "b3.s3.t8",
+              "startMs": 35729,
+              "endMs": 36129
+            },
+            {
+              "text": "hair",
+              "normalized": "hair",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hair",
+                "fr": "cheveux",
+                "es": "pelo"
+              },
+              "id": "b3.s3.t9",
+              "startMs": 36129,
+              "endMs": 36319
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s3.t10"
+            }
+          ]
+        },
+        {
+          "id": "b3.s4",
+          "text": "He played games with Dorothy every single day.",
+          "translations": {
+            "en": "He played games with Dorothy every single day.",
+            "fr": "Il jouait à des jeux avec Dorothée chaque jour.",
+            "es": "Jugaba a juegos con Dorita todos los días."
+          },
+          "tokens": [
+            {
+              "text": "He",
+              "normalized": "he",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b3.s4.t1",
+              "startMs": 37187,
+              "endMs": 37237
+            },
+            {
+              "text": "played",
+              "normalized": "played",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "played",
+                "fr": "a joué",
+                "es": "jugó"
+              },
+              "id": "b3.s4.t2",
+              "startMs": 37237,
+              "endMs": 37687
+            },
+            {
+              "text": "games",
+              "normalized": "games",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "games",
+                "fr": "jeux",
+                "es": "juegos"
+              },
+              "id": "b3.s4.t3",
+              "startMs": 37687,
+              "endMs": 38007
+            },
+            {
+              "text": "with",
+              "normalized": "with",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b3.s4.t4",
+              "startMs": 38117,
+              "endMs": 38337
+            },
+            {
+              "text": "Dorothy",
+              "normalized": "dorothy",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Dorothy",
+                "fr": "Dorothée",
+                "es": "Dorita"
+              },
+              "id": "b3.s4.t5",
+              "startMs": 38417,
+              "endMs": 38897
+            },
+            {
+              "text": "every",
+              "normalized": "every",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "every",
+                "fr": "chaque",
+                "es": "cada"
+              },
+              "id": "b3.s4.t6",
+              "startMs": 38897,
+              "endMs": 39277
+            },
+            {
+              "text": "single",
+              "normalized": "single",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "single",
+                "fr": "seul",
+                "es": "solo"
+              },
+              "id": "b3.s4.t7",
+              "startMs": 39277,
+              "endMs": 39727
+            },
+            {
+              "text": "day",
+              "normalized": "day",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "day",
+                "fr": "jour",
+                "es": "día"
+              },
+              "id": "b3.s4.t8",
+              "startMs": 39727,
+              "endMs": 39827
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s4.t9"
+            }
+          ]
+        },
+        {
+          "id": "b3.s5",
+          "text": "The little dog made Dorothy laugh and smile.",
+          "translations": {
+            "en": "The little dog made Dorothy laugh and smile.",
+            "fr": "Le petit chien faisait rire et sourire Dorothée.",
+            "es": "El perrito hacía reír y sonreír a Dorita."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s5.t1",
+              "startMs": 40668,
+              "endMs": 40818
+            },
+            {
+              "text": "little",
+              "normalized": "little",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "little",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b3.s5.t2",
+              "startMs": 40818,
+              "endMs": 41238
+            },
+            {
+              "text": "dog",
+              "normalized": "dog",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dog",
+                "fr": "chien",
+                "es": "perro"
+              },
+              "id": "b3.s5.t3",
+              "startMs": 41238,
+              "endMs": 41448
+            },
+            {
+              "text": "made",
+              "normalized": "made",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "made",
+                "fr": "a fait",
+                "es": "hizo"
+              },
+              "id": "b3.s5.t4",
+              "startMs": 41448,
+              "endMs": 41728
+            },
+            {
+              "text": "Dorothy",
+              "normalized": "dorothy",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Dorothy",
+                "fr": "Dorothée",
+                "es": "Dorita"
+              },
+              "id": "b3.s5.t5",
+              "startMs": 41728,
+              "endMs": 42218
+            },
+            {
+              "text": "laugh",
+              "normalized": "laugh",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "laugh",
+                "fr": "rire",
+                "es": "reír"
+              },
+              "id": "b3.s5.t6",
+              "startMs": 42218,
+              "endMs": 42568
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b3.s5.t7",
+              "startMs": 42568,
+              "endMs": 42768
+            },
+            {
+              "text": "smile",
+              "normalized": "smile",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "smile",
+                "fr": "sourire",
+                "es": "sonrisa"
+              },
+              "id": "b3.s5.t8",
+              "startMs": 42768,
+              "endMs": 42978
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s5.t9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b4",
+      "sentences": [
+        {
+          "id": "b4.s1",
+          "text": "Uncle Henry worked hard from early morning until dark night.",
+          "translations": {
+            "en": "Uncle Henry worked hard from early morning until dark night.",
+            "fr": "L'oncle Henry travaillait dur du matin tôt jusqu'à la nuit noire.",
+            "es": "El tío Henry trabajaba duro desde temprano en la mañana hasta la noche oscura."
+          },
+          "tokens": [
+            {
+              "text": "Uncle",
+              "normalized": "uncle",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "uncle",
+                "fr": "oncle",
+                "es": "tío"
+              },
+              "id": "b4.s1.t1",
+              "startMs": 44126,
+              "endMs": 44416
+            },
+            {
+              "text": "Henry",
+              "normalized": "henry",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Henry",
+                "fr": "Henry",
+                "es": "Henry"
+              },
+              "id": "b4.s1.t2",
+              "startMs": 44416,
+              "endMs": 44746
+            },
+            {
+              "text": "worked",
+              "normalized": "worked",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "worked",
+                "fr": "travaillait",
+                "es": "trabajaba"
+              },
+              "id": "b4.s1.t3",
+              "startMs": 44746,
+              "endMs": 45136
+            },
+            {
+              "text": "hard",
+              "normalized": "hard",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hard",
+                "fr": "dur",
+                "es": "duro"
+              },
+              "id": "b4.s1.t4",
+              "startMs": 45156,
+              "endMs": 45406
+            },
+            {
+              "text": "from",
+              "normalized": "from",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "from",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b4.s1.t5",
+              "startMs": 45406,
+              "endMs": 45666
+            },
+            {
+              "text": "early",
+              "normalized": "early",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "early",
+                "fr": "tôt",
+                "es": "temprano"
+              },
+              "id": "b4.s1.t6",
+              "startMs": 45676,
+              "endMs": 45996
+            },
+            {
+              "text": "morning",
+              "normalized": "morning",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "morning",
+                "fr": "matin",
+                "es": "mañana"
+              },
+              "id": "b4.s1.t7",
+              "startMs": 45996,
+              "endMs": 46326
+            },
+            {
+              "text": "until",
+              "normalized": "until",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "until",
+                "fr": "jusqu'à",
+                "es": "hasta"
+              },
+              "id": "b4.s1.t8",
+              "startMs": 46606,
+              "endMs": 46866
+            },
+            {
+              "text": "dark",
+              "normalized": "dark",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dark",
+                "fr": "sombre",
+                "es": "oscuro"
+              },
+              "id": "b4.s1.t9",
+              "startMs": 46916,
+              "endMs": 47226
+            },
+            {
+              "text": "night",
+              "normalized": "night",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "night",
+                "fr": "nuit",
+                "es": "noche"
+              },
+              "id": "b4.s1.t10",
+              "startMs": 47226,
+              "endMs": 47536
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s1.t11"
+            }
+          ]
+        },
+        {
+          "id": "b4.s2",
+          "text": "He rarely smiled and never laughed aloud.",
+          "translations": {
+            "en": "He rarely smiled and never laughed aloud.",
+            "fr": "Il souriait rarement et ne riait jamais à voix haute.",
+            "es": "Rara vez sonreía y nunca se reía en voz alta."
+          },
+          "tokens": [
+            {
+              "text": "He",
+              "normalized": "he",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b4.s2.t1",
+              "startMs": 48407,
+              "endMs": 48437
+            },
+            {
+              "text": "rarely",
+              "normalized": "rarely",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "rarely",
+                "fr": "rarement",
+                "es": "raramente"
+              },
+              "id": "b4.s2.t2",
+              "startMs": 48437,
+              "endMs": 48847
+            },
+            {
+              "text": "smiled",
+              "normalized": "smiled",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "smiled",
+                "fr": "a souri",
+                "es": "sonrió"
+              },
+              "id": "b4.s2.t3",
+              "startMs": 48847,
+              "endMs": 49267
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b4.s2.t4",
+              "startMs": 49267,
+              "endMs": 49417
+            },
+            {
+              "text": "never",
+              "normalized": "never",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "never",
+                "fr": "jamais",
+                "es": "nunca"
+              },
+              "id": "b4.s2.t5",
+              "startMs": 49647,
+              "endMs": 49837
+            },
+            {
+              "text": "laughed",
+              "normalized": "laughed",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "laughed",
+                "fr": "a ri",
+                "es": "rio"
+              },
+              "id": "b4.s2.t6",
+              "startMs": 49837,
+              "endMs": 50317
+            },
+            {
+              "text": "aloud",
+              "normalized": "aloud",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "aloud",
+                "fr": "à voix haute",
+                "es": "en voz alta"
+              },
+              "id": "b4.s2.t7",
+              "startMs": 50317,
+              "endMs": 50667
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s2.t8"
+            }
+          ]
+        },
+        {
+          "id": "b4.s3",
+          "text": "Aunt Em was also very quiet and sad.",
+          "translations": {
+            "en": "Aunt Em was also very quiet and sad.",
+            "fr": "La tante Em était aussi très silencieuse et triste.",
+            "es": "La tía Em también era muy silenciosa y triste."
+          },
+          "tokens": [
+            {
+              "text": "Aunt",
+              "normalized": "aunt",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "aunt",
+                "fr": "tante",
+                "es": "tía"
+              },
+              "id": "b4.s3.t1",
+              "startMs": 51578,
+              "endMs": 51778
+            },
+            {
+              "text": "Em",
+              "normalized": "em",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Em",
+                "fr": "Em",
+                "es": "Em"
+              },
+              "id": "b4.s3.t2",
+              "startMs": 51828,
+              "endMs": 51948
+            },
+            {
+              "text": "was",
+              "normalized": "was",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "was",
+                "fr": "était",
+                "es": "era"
+              },
+              "id": "b4.s3.t3",
+              "startMs": 51948,
+              "endMs": 52138
+            },
+            {
+              "text": "also",
+              "normalized": "also",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "also",
+                "fr": "aussi",
+                "es": "también"
+              },
+              "id": "b4.s3.t4",
+              "startMs": 52158,
+              "endMs": 52418
+            },
+            {
+              "text": "very",
+              "normalized": "very",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "id": "b4.s3.t5",
+              "startMs": 52428,
+              "endMs": 52718
+            },
+            {
+              "text": "quiet",
+              "normalized": "quiet",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "quiet",
+                "fr": "silencieuse",
+                "es": "silenciosa"
+              },
+              "id": "b4.s3.t6",
+              "startMs": 52718,
+              "endMs": 53068
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b4.s3.t7",
+              "startMs": 53068,
+              "endMs": 53278
+            },
+            {
+              "text": "sad",
+              "normalized": "sad",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sad",
+                "fr": "triste",
+                "es": "triste"
+              },
+              "id": "b4.s3.t8",
+              "startMs": 53278,
+              "endMs": 53488
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s3.t9"
+            }
+          ]
+        },
+        {
+          "id": "b4.s4",
+          "text": "The dry prairie had taken away her bright smile.",
+          "translations": {
+            "en": "The dry prairie had taken away her bright smile.",
+            "fr": "La prairie sèche avait emporté son sourire éclatant.",
+            "es": "La pradera seca le había quitado su brillante sonrisa."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s4.t1",
+              "startMs": 54575,
+              "endMs": 54705
+            },
+            {
+              "text": "dry",
+              "normalized": "dry",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dry",
+                "fr": "sec",
+                "es": "seco"
+              },
+              "id": "b4.s4.t2",
+              "startMs": 54705,
+              "endMs": 54885
+            },
+            {
+              "text": "prairie",
+              "normalized": "prairie",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "prairie",
+                "fr": "prairie",
+                "es": "pradera"
+              },
+              "id": "b4.s4.t3",
+              "startMs": 54885,
+              "endMs": 55415
+            },
+            {
+              "text": "had",
+              "normalized": "had",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "had",
+                "fr": "avait",
+                "es": "tenía"
+              },
+              "id": "b4.s4.t4",
+              "startMs": 55415,
+              "endMs": 55525
+            },
+            {
+              "text": "taken",
+              "normalized": "taken",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "taken",
+                "fr": "enlevé",
+                "es": "quitado"
+              },
+              "id": "b4.s4.t5",
+              "startMs": 55525,
+              "endMs": 55845
+            },
+            {
+              "text": "away",
+              "normalized": "away",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "away",
+                "fr": "au loin",
+                "es": "lejos"
+              },
+              "id": "b4.s4.t6",
+              "startMs": 55845,
+              "endMs": 56095
+            },
+            {
+              "text": "her",
+              "normalized": "her",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "her",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b4.s4.t7",
+              "startMs": 56095,
+              "endMs": 56285
+            },
+            {
+              "text": "bright",
+              "normalized": "bright",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "bright",
+                "fr": "brillant",
+                "es": "brillante"
+              },
+              "id": "b4.s4.t8",
+              "startMs": 56285,
+              "endMs": 56665
+            },
+            {
+              "text": "smile",
+              "normalized": "smile",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "smile",
+                "fr": "sourire",
+                "es": "sonrisa"
+              },
+              "id": "b4.s4.t9",
+              "startMs": 56665,
+              "endMs": 56865
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s4.t10"
+            }
+          ]
+        },
+        {
+          "id": "b4.s5",
+          "text": "Only little Toto brought joy to Dorothy.",
+          "translations": {
+            "en": "Only little Toto brought joy to Dorothy.",
+            "fr": "Seul le petit Toto apportait de la joie à Dorothée.",
+            "es": "Solo el pequeño Toto le daba alegría a Dorita."
+          },
+          "tokens": [
+            {
+              "text": "Only",
+              "normalized": "only",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "only",
+                "fr": "seulement",
+                "es": "solo"
+              },
+              "id": "b4.s5.t1",
+              "startMs": 57695,
+              "endMs": 57965
+            },
+            {
+              "text": "little",
+              "normalized": "little",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "little",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b4.s5.t2",
+              "startMs": 57965,
+              "endMs": 58445
+            },
+            {
+              "text": "Toto",
+              "normalized": "toto",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Toto",
+                "fr": "Toto",
+                "es": "Toto"
+              },
+              "id": "b4.s5.t3",
+              "startMs": 58445,
+              "endMs": 58855
+            },
+            {
+              "text": "brought",
+              "normalized": "brought",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "brought",
+                "fr": "apportait",
+                "es": "traía"
+              },
+              "id": "b4.s5.t4",
+              "startMs": 58855,
+              "endMs": 59235
+            },
+            {
+              "text": "joy",
+              "normalized": "joy",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "joy",
+                "fr": "joie",
+                "es": "alegría"
+              },
+              "id": "b4.s5.t5",
+              "startMs": 59235,
+              "endMs": 59425
+            },
+            {
+              "text": "to",
+              "normalized": "to",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b4.s5.t6",
+              "startMs": 59425,
+              "endMs": 59555
+            },
+            {
+              "text": "Dorothy",
+              "normalized": "dorothy",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Dorothy",
+                "fr": "Dorothée",
+                "es": "Dorita"
+              },
+              "id": "b4.s5.t7",
+              "startMs": 59555,
+              "endMs": 59855
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s5.t8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b5",
+      "sentences": [
+        {
+          "id": "b5.s1",
+          "text": "One afternoon, the sky turned very dark and cold.",
+          "translations": {
+            "en": "One afternoon, the sky turned very dark and cold.",
+            "fr": "Un après-midi, le ciel devint très sombre et froid.",
+            "es": "Una tarde, el cielo se volvió muy oscuro y frío."
+          },
+          "tokens": [
+            {
+              "text": "One",
+              "normalized": "one",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "one",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b5.s1.t1",
+              "startMs": 61033,
+              "endMs": 61223
+            },
+            {
+              "text": "afternoon",
+              "normalized": "afternoon",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "afternoon",
+                "fr": "après-midi",
+                "es": "tarde"
+              },
+              "id": "b5.s1.t2",
+              "startMs": 61223,
+              "endMs": 61873
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s1.t3"
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b5.s1.t4",
+              "startMs": 62193,
+              "endMs": 62323
+            },
+            {
+              "text": "sky",
+              "normalized": "sky",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sky",
+                "fr": "ciel",
+                "es": "cielo"
+              },
+              "id": "b5.s1.t5",
+              "startMs": 62363,
+              "endMs": 62543
+            },
+            {
+              "text": "turned",
+              "normalized": "turned",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "turned",
+                "fr": "est devenu",
+                "es": "se volvió"
+              },
+              "id": "b5.s1.t6",
+              "startMs": 62583,
+              "endMs": 63023
+            },
+            {
+              "text": "very",
+              "normalized": "very",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "id": "b5.s1.t7",
+              "startMs": 63023,
+              "endMs": 63313
+            },
+            {
+              "text": "dark",
+              "normalized": "dark",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dark",
+                "fr": "sombre",
+                "es": "oscuro"
+              },
+              "id": "b5.s1.t8",
+              "startMs": 63313,
+              "endMs": 63603
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b5.s1.t9",
+              "startMs": 63603,
+              "endMs": 63813
+            },
+            {
+              "text": "cold",
+              "normalized": "cold",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cold",
+                "fr": "froid",
+                "es": "frío"
+              },
+              "id": "b5.s1.t10",
+              "startMs": 63813,
+              "endMs": 64023
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s1.t11"
+            }
+          ]
+        },
+        {
+          "id": "b5.s2",
+          "text": "A strong wind blew from the north.",
+          "translations": {
+            "en": "A strong wind blew from the north.",
+            "fr": "Un vent violent soufflait du nord.",
+            "es": "Un viento fuerte soplaba desde el norte."
+          },
+          "tokens": [
+            {
+              "text": "A",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b5.s2.t1",
+              "startMs": 64844,
+              "endMs": 64864
+            },
+            {
+              "text": "strong",
+              "normalized": "strong",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "strong",
+                "fr": "fort",
+                "es": "fuerte"
+              },
+              "id": "b5.s2.t2",
+              "startMs": 64864,
+              "endMs": 65294
+            },
+            {
+              "text": "wind",
+              "normalized": "wind",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wind",
+                "fr": "vent",
+                "es": "viento"
+              },
+              "id": "b5.s2.t3",
+              "startMs": 65294,
+              "endMs": 65574
+            },
+            {
+              "text": "blew",
+              "normalized": "blew",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "blew",
+                "fr": "a soufflé",
+                "es": "sopló"
+              },
+              "id": "b5.s2.t4",
+              "startMs": 65574,
+              "endMs": 65854
+            },
+            {
+              "text": "from",
+              "normalized": "from",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "from",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b5.s2.t5",
+              "startMs": 65854,
+              "endMs": 66134
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b5.s2.t6",
+              "startMs": 66134,
+              "endMs": 66344
+            },
+            {
+              "text": "north",
+              "normalized": "north",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "north",
+                "fr": "nord",
+                "es": "norte"
+              },
+              "id": "b5.s2.t7",
+              "startMs": 66344,
+              "endMs": 66454
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s2.t8"
+            }
+          ]
+        },
+        {
+          "id": "b5.s3",
+          "text": "Uncle Henry stood outside and looked at the black clouds.",
+          "translations": {
+            "en": "Uncle Henry stood outside and looked at the black clouds.",
+            "fr": "L'oncle Henry se tenait dehors et regardait les nuages noirs.",
+            "es": "El tío Henry se quedó afuera y miró las nubes negras."
+          },
+          "tokens": [
+            {
+              "text": "Uncle",
+              "normalized": "uncle",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "uncle",
+                "fr": "oncle",
+                "es": "tío"
+              },
+              "id": "b5.s3.t1",
+              "startMs": 67393,
+              "endMs": 67663
+            },
+            {
+              "text": "Henry",
+              "normalized": "henry",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Henry",
+                "fr": "Henry",
+                "es": "Henry"
+              },
+              "id": "b5.s3.t2",
+              "startMs": 67663,
+              "endMs": 67983
+            },
+            {
+              "text": "stood",
+              "normalized": "stood",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "stood",
+                "fr": "se tenait",
+                "es": "se paró"
+              },
+              "id": "b5.s3.t3",
+              "startMs": 67983,
+              "endMs": 68303
+            },
+            {
+              "text": "outside",
+              "normalized": "outside",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "outside",
+                "fr": "dehors",
+                "es": "afuera"
+              },
+              "id": "b5.s3.t4",
+              "startMs": 68303,
+              "endMs": 68753
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b5.s3.t5",
+              "startMs": 68753,
+              "endMs": 68923
+            },
+            {
+              "text": "looked",
+              "normalized": "looked",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "looked",
+                "fr": "a regardé",
+                "es": "miró"
+              },
+              "id": "b5.s3.t6",
+              "startMs": 69163,
+              "endMs": 69323
+            },
+            {
+              "text": "at",
+              "normalized": "at",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "at",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b5.s3.t7",
+              "startMs": 69323,
+              "endMs": 69383
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b5.s3.t8",
+              "startMs": 69473,
+              "endMs": 69633
+            },
+            {
+              "text": "black",
+              "normalized": "black",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "black",
+                "fr": "noir",
+                "es": "negro"
+              },
+              "id": "b5.s3.t9",
+              "startMs": 69633,
+              "endMs": 69893
+            },
+            {
+              "text": "clouds",
+              "normalized": "clouds",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "clouds",
+                "fr": "nuages",
+                "es": "nubes"
+              },
+              "id": "b5.s3.t10",
+              "startMs": 70003,
+              "endMs": 70323
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s3.t11"
+            }
+          ]
+        },
+        {
+          "id": "b5.s4",
+          "text": "He heard a low sound across the empty plains.",
+          "translations": {
+            "en": "He heard a low sound across the empty plains.",
+            "fr": "Il entendit un bruit sourd à travers les plaines vides.",
+            "es": "Oyó un sonido grave a través de las llanuras vacías."
+          },
+          "tokens": [
+            {
+              "text": "He",
+              "normalized": "he",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b5.s4.t1",
+              "startMs": 71341,
+              "endMs": 71401
+            },
+            {
+              "text": "heard",
+              "normalized": "heard",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "heard",
+                "fr": "a entendu",
+                "es": "oyó"
+              },
+              "id": "b5.s4.t2",
+              "startMs": 71401,
+              "endMs": 71741
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b5.s4.t3",
+              "startMs": 71751,
+              "endMs": 71821
+            },
+            {
+              "text": "low",
+              "normalized": "low",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "low",
+                "fr": "bas",
+                "es": "bajo"
+              },
+              "id": "b5.s4.t4",
+              "startMs": 71821,
+              "endMs": 72021
+            },
+            {
+              "text": "sound",
+              "normalized": "sound",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sound",
+                "fr": "son",
+                "es": "sonido"
+              },
+              "id": "b5.s4.t5",
+              "startMs": 72021,
+              "endMs": 72381
+            },
+            {
+              "text": "across",
+              "normalized": "across",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "across",
+                "fr": "à travers",
+                "es": "a través de"
+              },
+              "id": "b5.s4.t6",
+              "startMs": 72381,
+              "endMs": 72781
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b5.s4.t7",
+              "startMs": 72831,
+              "endMs": 72951
+            },
+            {
+              "text": "empty",
+              "normalized": "empty",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "empty",
+                "fr": "vide",
+                "es": "vacío"
+              },
+              "id": "b5.s4.t8",
+              "startMs": 73011,
+              "endMs": 73361
+            },
+            {
+              "text": "plains",
+              "normalized": "plains",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "plains",
+                "fr": "plaines",
+                "es": "llanuras"
+              },
+              "id": "b5.s4.t9",
+              "startMs": 73361,
+              "endMs": 73651
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s4.t10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b6",
+      "sentences": [
+        {
+          "id": "b6.s1",
+          "text": "\"A great cyclone is coming!\" Uncle Henry shouted loudly.",
+          "translations": {
+            "en": "\"A great cyclone is coming!\" Uncle Henry shouted loudly.",
+            "fr": "« Un grand cyclone arrive ! » cria très fort l'oncle Henry.",
+            "es": "—¡Viene un gran ciclón! —gritó con fuerza el tío Henry."
+          },
+          "tokens": [
+            {
+              "text": "\"",
+              "normalized": "\"",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s1.t1"
+            },
+            {
+              "text": "A",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b6.s1.t2",
+              "startMs": 74829,
+              "endMs": 74889
+            },
+            {
+              "text": "great",
+              "normalized": "great",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "great",
+                "fr": "grand",
+                "es": "gran"
+              },
+              "id": "b6.s1.t3",
+              "startMs": 74889,
+              "endMs": 75119
+            },
+            {
+              "text": "cyclone",
+              "normalized": "cyclone",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cyclone",
+                "fr": "cyclone",
+                "es": "ciclón"
+              },
+              "id": "b6.s1.t4",
+              "startMs": 75119,
+              "endMs": 75699
+            },
+            {
+              "text": "is",
+              "normalized": "is",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "está"
+              },
+              "id": "b6.s1.t5",
+              "startMs": 75699,
+              "endMs": 75799
+            },
+            {
+              "text": "coming",
+              "normalized": "coming",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "coming",
+                "fr": "arrivant",
+                "es": "viniendo"
+              },
+              "id": "b6.s1.t6",
+              "startMs": 75849,
+              "endMs": 76209
+            },
+            {
+              "text": "!",
+              "normalized": "!",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s1.t7"
+            },
+            {
+              "text": "\"",
+              "normalized": "\"",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s1.t8"
+            },
+            {
+              "text": "Uncle",
+              "normalized": "uncle",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "uncle",
+                "fr": "oncle",
+                "es": "tío"
+              },
+              "id": "b6.s1.t9",
+              "startMs": 76609,
+              "endMs": 76769
+            },
+            {
+              "text": "Henry",
+              "normalized": "henry",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Henry",
+                "fr": "Henry",
+                "es": "Henry"
+              },
+              "id": "b6.s1.t10",
+              "startMs": 76779,
+              "endMs": 77119
+            },
+            {
+              "text": "shouted",
+              "normalized": "shouted",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "shouted",
+                "fr": "a crié",
+                "es": "gritó"
+              },
+              "id": "b6.s1.t11",
+              "startMs": 77119,
+              "endMs": 77579
+            },
+            {
+              "text": "loudly",
+              "normalized": "loudly",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "loudly",
+                "fr": "fortement",
+                "es": "con fuerza"
+              },
+              "id": "b6.s1.t12",
+              "startMs": 77629,
+              "endMs": 78009
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s1.t13"
+            }
+          ]
+        },
+        {
+          "id": "b6.s2",
+          "text": "\"Run to the cellar right now!\" Aunt Em cried.",
+          "translations": {
+            "en": "\"Run to the cellar right now!\" Aunt Em cried.",
+            "fr": "« Courez à la cave tout de suite ! » s'écria la tante Em.",
+            "es": "—¡Corran al sótano ahora mismo! —exclamó la tía Em."
+          },
+          "tokens": [
+            {
+              "text": "\"",
+              "normalized": "\"",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s2.t1"
+            },
+            {
+              "text": "Run",
+              "normalized": "run",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "run",
+                "fr": "courir",
+                "es": "correr"
+              },
+              "id": "b6.s2.t2",
+              "startMs": 78978,
+              "endMs": 79108
+            },
+            {
+              "text": "to",
+              "normalized": "to",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b6.s2.t3",
+              "startMs": 79108,
+              "endMs": 79228
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b6.s2.t4",
+              "startMs": 79228,
+              "endMs": 79418
+            },
+            {
+              "text": "cellar",
+              "normalized": "cellar",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cellar",
+                "fr": "cave",
+                "es": "sótano"
+              },
+              "id": "b6.s2.t5",
+              "startMs": 79418,
+              "endMs": 79788
+            },
+            {
+              "text": "right",
+              "normalized": "right",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "right",
+                "fr": "tout de suite",
+                "es": "ahora mismo"
+              },
+              "id": "b6.s2.t6",
+              "startMs": 79788,
+              "endMs": 80108
+            },
+            {
+              "text": "now",
+              "normalized": "now",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "now",
+                "fr": "maintenant",
+                "es": "ahora"
+              },
+              "id": "b6.s2.t7",
+              "startMs": 80108,
+              "endMs": 80298
+            },
+            {
+              "text": "!",
+              "normalized": "!",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s2.t8"
+            },
+            {
+              "text": "\"",
+              "normalized": "\"",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s2.t9"
+            },
+            {
+              "text": "Aunt",
+              "normalized": "aunt",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "aunt",
+                "fr": "tante",
+                "es": "tía"
+              },
+              "id": "b6.s2.t10",
+              "startMs": 80658,
+              "endMs": 80668
+            },
+            {
+              "text": "Em",
+              "normalized": "em",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Em",
+                "fr": "Em",
+                "es": "Em"
+              },
+              "id": "b6.s2.t11",
+              "startMs": 80668,
+              "endMs": 80788
+            },
+            {
+              "text": "cried",
+              "normalized": "cried",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cried",
+                "fr": "a crié",
+                "es": "gritó"
+              },
+              "id": "b6.s2.t12",
+              "startMs": 80788,
+              "endMs": 81028
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s2.t13"
+            }
+          ]
+        },
+        {
+          "id": "b6.s3",
+          "text": "She pulled open the small wooden door in the floor.",
+          "translations": {
+            "en": "She pulled open the small wooden door in the floor.",
+            "fr": "Elle ouvrit la petite trappe en bois dans le plancher.",
+            "es": "Abrió la pequeña puerta de madera en el suelo."
+          },
+          "tokens": [
+            {
+              "text": "She",
+              "normalized": "she",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b6.s3.t1",
+              "startMs": 82277,
+              "endMs": 82417
+            },
+            {
+              "text": "pulled",
+              "normalized": "pulled",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "pulled",
+                "fr": "a tiré",
+                "es": "tiró"
+              },
+              "id": "b6.s3.t2",
+              "startMs": 82417,
+              "endMs": 82807
+            },
+            {
+              "text": "open",
+              "normalized": "open",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "open",
+                "fr": "ouvert",
+                "es": "abierto"
+              },
+              "id": "b6.s3.t3",
+              "startMs": 82807,
+              "endMs": 83067
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b6.s3.t4",
+              "startMs": 83067,
+              "endMs": 83247
+            },
+            {
+              "text": "small",
+              "normalized": "small",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "small",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b6.s3.t5",
+              "startMs": 83277,
+              "endMs": 83577
+            },
+            {
+              "text": "wooden",
+              "normalized": "wooden",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wooden",
+                "fr": "en bois",
+                "es": "de madera"
+              },
+              "id": "b6.s3.t6",
+              "startMs": 83577,
+              "endMs": 83967
+            },
+            {
+              "text": "door",
+              "normalized": "door",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "door",
+                "fr": "porte",
+                "es": "puerta"
+              },
+              "id": "b6.s3.t7",
+              "startMs": 83967,
+              "endMs": 84227
+            },
+            {
+              "text": "in",
+              "normalized": "in",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b6.s3.t8",
+              "startMs": 84227,
+              "endMs": 84317
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b6.s3.t9",
+              "startMs": 84447,
+              "endMs": 84547
+            },
+            {
+              "text": "floor",
+              "normalized": "floor",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "floor",
+                "fr": "sol",
+                "es": "suelo"
+              },
+              "id": "b6.s3.t10",
+              "startMs": 84547,
+              "endMs": 84737
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s3.t11"
+            }
+          ]
+        },
+        {
+          "id": "b6.s4",
+          "text": "Aunt Em climbed down quickly into the dark shelter.",
+          "translations": {
+            "en": "Aunt Em climbed down quickly into the dark shelter.",
+            "fr": "La tante Em descendit rapidement dans le sombre abri.",
+            "es": "La tía Em bajó de prisa al refugio oscuro."
+          },
+          "tokens": [
+            {
+              "text": "Aunt",
+              "normalized": "aunt",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "aunt",
+                "fr": "tante",
+                "es": "tía"
+              },
+              "id": "b6.s4.t1",
+              "startMs": 85567,
+              "endMs": 85767
+            },
+            {
+              "text": "Em",
+              "normalized": "em",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Em",
+                "fr": "Em",
+                "es": "Em"
+              },
+              "id": "b6.s4.t2",
+              "startMs": 85767,
+              "endMs": 85887
+            },
+            {
+              "text": "climbed",
+              "normalized": "climbed",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "climbed",
+                "fr": "est descendue",
+                "es": "bajó"
+              },
+              "id": "b6.s4.t3",
+              "startMs": 85887,
+              "endMs": 86417
+            },
+            {
+              "text": "down",
+              "normalized": "down",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "down",
+                "fr": "en bas",
+                "es": "abajo"
+              },
+              "id": "b6.s4.t4",
+              "startMs": 86417,
+              "endMs": 86717
+            },
+            {
+              "text": "quickly",
+              "normalized": "quickly",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "quickly",
+                "fr": "rapidement",
+                "es": "rápidamente"
+              },
+              "id": "b6.s4.t5",
+              "startMs": 86717,
+              "endMs": 87277
+            },
+            {
+              "text": "into",
+              "normalized": "into",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "into",
+                "fr": "dans",
+                "es": "hacia dentro"
+              },
+              "id": "b6.s4.t6",
+              "startMs": 87277,
+              "endMs": 87527
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b6.s4.t7",
+              "startMs": 87527,
+              "endMs": 87717
+            },
+            {
+              "text": "dark",
+              "normalized": "dark",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dark",
+                "fr": "sombre",
+                "es": "oscuro"
+              },
+              "id": "b6.s4.t8",
+              "startMs": 87797,
+              "endMs": 87987
+            },
+            {
+              "text": "shelter",
+              "normalized": "shelter",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "shelter",
+                "fr": "abri",
+                "es": "refugio"
+              },
+              "id": "b6.s4.t9",
+              "startMs": 87987,
+              "endMs": 88267
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s4.t10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b7",
+      "sentences": [
+        {
+          "id": "b7.s1",
+          "text": "Dorothy ran across the room to catch Toto.",
+          "translations": {
+            "en": "Dorothy ran across the room to catch Toto.",
+            "fr": "Dorothée courut à travers la pièce pour attraper Toto.",
+            "es": "Dorita corrió por la habitación para atrapar a Toto."
+          },
+          "tokens": [
+            {
+              "text": "Dorothy",
+              "normalized": "dorothy",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Dorothy",
+                "fr": "Dorothée",
+                "es": "Dorita"
+              },
+              "id": "b7.s1.t1",
+              "startMs": 89439,
+              "endMs": 89899
+            },
+            {
+              "text": "ran",
+              "normalized": "ran",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ran",
+                "fr": "a couru",
+                "es": "corrió"
+              },
+              "id": "b7.s1.t2",
+              "startMs": 89899,
+              "endMs": 90119
+            },
+            {
+              "text": "across",
+              "normalized": "across",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "across",
+                "fr": "à travers",
+                "es": "a través de"
+              },
+              "id": "b7.s1.t3",
+              "startMs": 90119,
+              "endMs": 90559
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b7.s1.t4",
+              "startMs": 90559,
+              "endMs": 90779
+            },
+            {
+              "text": "room",
+              "normalized": "room",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "room",
+                "fr": "pièce",
+                "es": "habitación"
+              },
+              "id": "b7.s1.t5",
+              "startMs": 90779,
+              "endMs": 91069
+            },
+            {
+              "text": "to",
+              "normalized": "to",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b7.s1.t6",
+              "startMs": 91069,
+              "endMs": 91209
+            },
+            {
+              "text": "catch",
+              "normalized": "catch",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "catch",
+                "fr": "attraper",
+                "es": "atrapar"
+              },
+              "id": "b7.s1.t7",
+              "startMs": 91209,
+              "endMs": 91559
+            },
+            {
+              "text": "Toto",
+              "normalized": "toto",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Toto",
+                "fr": "Toto",
+                "es": "Toto"
+              },
+              "id": "b7.s1.t8",
+              "startMs": 91559,
+              "endMs": 92138
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s1.t9"
+            }
+          ]
+        },
+        {
+          "id": "b7.s2",
+          "text": "The little dog was frightened by the terrible wind.",
+          "translations": {
+            "en": "The little dog was frightened by the terrible wind.",
+            "fr": "Le petit chien était effrayé par le vent terrible.",
+            "es": "El perrito estaba asustado por el viento terrible."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b7.s2.t1",
+              "startMs": 92558,
+              "endMs": 92668
+            },
+            {
+              "text": "little",
+              "normalized": "little",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "little",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b7.s2.t2",
+              "startMs": 92668,
+              "endMs": 93018
+            },
+            {
+              "text": "dog",
+              "normalized": "dog",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dog",
+                "fr": "chien",
+                "es": "perro"
+              },
+              "id": "b7.s2.t3",
+              "startMs": 93018,
+              "endMs": 93188
+            },
+            {
+              "text": "was",
+              "normalized": "was",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "was",
+                "fr": "était",
+                "es": "era"
+              },
+              "id": "b7.s2.t4",
+              "startMs": 93188,
+              "endMs": 93378
+            },
+            {
+              "text": "frightened",
+              "normalized": "frightened",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "frightened",
+                "fr": "effrayé",
+                "es": "asustado"
+              },
+              "id": "b7.s2.t5",
+              "startMs": 93378,
+              "endMs": 93918
+            },
+            {
+              "text": "by",
+              "normalized": "by",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "by",
+                "fr": "par",
+                "es": "por"
+              },
+              "id": "b7.s2.t6",
+              "startMs": 93998,
+              "endMs": 94108
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b7.s2.t7",
+              "startMs": 94118,
+              "endMs": 94318
+            },
+            {
+              "text": "terrible",
+              "normalized": "terrible",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "terrible",
+                "fr": "terrible",
+                "es": "terrible"
+              },
+              "id": "b7.s2.t8",
+              "startMs": 94318,
+              "endMs": 94838
+            },
+            {
+              "text": "wind",
+              "normalized": "wind",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wind",
+                "fr": "vent",
+                "es": "viento"
+              },
+              "id": "b7.s2.t9",
+              "startMs": 94848,
+              "endMs": 94998
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s2.t10"
+            }
+          ]
+        },
+        {
+          "id": "b7.s3",
+          "text": "He ran under the bed and hid in the shadow.",
+          "translations": {
+            "en": "He ran under the bed and hid in the shadow.",
+            "fr": "Il courut sous le lit et se cacha dans l'ombre.",
+            "es": "Corrió debajo de la cama y se escondió en la sombra."
+          },
+          "tokens": [
+            {
+              "text": "He",
+              "normalized": "he",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b7.s3.t1",
+              "startMs": 95888,
+              "endMs": 95918
+            },
+            {
+              "text": "ran",
+              "normalized": "ran",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ran",
+                "fr": "a couru",
+                "es": "corrió"
+              },
+              "id": "b7.s3.t2",
+              "startMs": 95918,
+              "endMs": 96148
+            },
+            {
+              "text": "under",
+              "normalized": "under",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "under",
+                "fr": "sous",
+                "es": "bajo"
+              },
+              "id": "b7.s3.t3",
+              "startMs": 96148,
+              "endMs": 96538
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b7.s3.t4",
+              "startMs": 96538,
+              "endMs": 96768
+            },
+            {
+              "text": "bed",
+              "normalized": "bed",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "bed",
+                "fr": "lit",
+                "es": "cama"
+              },
+              "id": "b7.s3.t5",
+              "startMs": 96768,
+              "endMs": 96828
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b7.s3.t6",
+              "startMs": 97088,
+              "endMs": 97188
+            },
+            {
+              "text": "hid",
+              "normalized": "hid",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hid",
+                "fr": "s'est caché",
+                "es": "se escondió"
+              },
+              "id": "b7.s3.t7",
+              "startMs": 97258,
+              "endMs": 97428
+            },
+            {
+              "text": "in",
+              "normalized": "in",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b7.s3.t8",
+              "startMs": 97428,
+              "endMs": 97558
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b7.s3.t9",
+              "startMs": 97558,
+              "endMs": 97758
+            },
+            {
+              "text": "shadow",
+              "normalized": "shadow",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "shadow",
+                "fr": "ombre",
+                "es": "sombra"
+              },
+              "id": "b7.s3.t10",
+              "startMs": 97758,
+              "endMs": 98018
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s3.t11"
+            }
+          ]
+        },
+        {
+          "id": "b7.s4",
+          "text": "Dorothy picked him up safely in her arms.",
+          "translations": {
+            "en": "Dorothy picked him up safely in her arms.",
+            "fr": "Dorothée le prit prudemment dans ses bras.",
+            "es": "Dorita lo tomó con cuidado en sus brazos."
+          },
+          "tokens": [
+            {
+              "text": "Dorothy",
+              "normalized": "dorothy",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Dorothy",
+                "fr": "Dorothée",
+                "es": "Dorita"
+              },
+              "id": "b7.s4.t1",
+              "startMs": 98837,
+              "endMs": 99277
+            },
+            {
+              "text": "picked",
+              "normalized": "picked",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "picked",
+                "fr": "a pris",
+                "es": "tomó"
+              },
+              "id": "b7.s4.t2",
+              "startMs": 99277,
+              "endMs": 99697
+            },
+            {
+              "text": "him",
+              "normalized": "him",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "him",
+                "fr": "le",
+                "es": "lo"
+              },
+              "id": "b7.s4.t3",
+              "startMs": 99697,
+              "endMs": 99877
+            },
+            {
+              "text": "up",
+              "normalized": "up",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "up",
+                "fr": "en haut",
+                "es": "arriba"
+              },
+              "id": "b7.s4.t4",
+              "startMs": 99957,
+              "endMs": 100047
+            },
+            {
+              "text": "safely",
+              "normalized": "safely",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "safely",
+                "fr": "en sécurité",
+                "es": "con cuidado"
+              },
+              "id": "b7.s4.t5",
+              "startMs": 100047,
+              "endMs": 100467
+            },
+            {
+              "text": "in",
+              "normalized": "in",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b7.s4.t6",
+              "startMs": 100467,
+              "endMs": 100607
+            },
+            {
+              "text": "her",
+              "normalized": "her",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "her",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b7.s4.t7",
+              "startMs": 100607,
+              "endMs": 100797
+            },
+            {
+              "text": "arms",
+              "normalized": "arms",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "arms",
+                "fr": "bras",
+                "es": "brazos"
+              },
+              "id": "b7.s4.t8",
+              "startMs": 100807,
+              "endMs": 100977
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s4.t9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b8",
+      "sentences": [
+        {
+          "id": "b8.s1",
+          "text": "Suddenly, a loud crash shook the entire building.",
+          "translations": {
+            "en": "Suddenly, a loud crash shook the entire building.",
+            "fr": "Soudain, un bruit fracassant secoua tout le bâtiment.",
+            "es": "De repente, un fuerte estruendo sacudió todo el edificio."
+          },
+          "tokens": [
+            {
+              "text": "Suddenly",
+              "normalized": "suddenly",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "suddenly",
+                "fr": "soudainement",
+                "es": "de repente"
+              },
+              "id": "b8.s1.t1",
+              "startMs": 102242,
+              "endMs": 102602
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b8.s1.t2"
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b8.s1.t3",
+              "startMs": 102832,
+              "endMs": 102832
+            },
+            {
+              "text": "loud",
+              "normalized": "loud",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "loud",
+                "fr": "fort",
+                "es": "fuerte"
+              },
+              "id": "b8.s1.t4",
+              "startMs": 102842,
+              "endMs": 103112
+            },
+            {
+              "text": "crash",
+              "normalized": "crash",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "crash",
+                "fr": "fracas",
+                "es": "estruendo"
+              },
+              "id": "b8.s1.t5",
+              "startMs": 103112,
+              "endMs": 103462
+            },
+            {
+              "text": "shook",
+              "normalized": "shook",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "shook",
+                "fr": "a secoué",
+                "es": "sacudió"
+              },
+              "id": "b8.s1.t6",
+              "startMs": 103462,
+              "endMs": 103762
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b8.s1.t7",
+              "startMs": 103822,
+              "endMs": 104022
+            },
+            {
+              "text": "entire",
+              "normalized": "entire",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "entire",
+                "fr": "entier",
+                "es": "entero"
+              },
+              "id": "b8.s1.t8",
+              "startMs": 104022,
+              "endMs": 104432
+            },
+            {
+              "text": "building",
+              "normalized": "building",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "building",
+                "fr": "bâtiment",
+                "es": "edificio"
+              },
+              "id": "b8.s1.t9",
+              "startMs": 104432,
+              "endMs": 104862
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b8.s1.t10"
+            }
+          ]
+        },
+        {
+          "id": "b8.s2",
+          "text": "A mighty blast of air struck the house.",
+          "translations": {
+            "en": "A mighty blast of air struck the house.",
+            "fr": "Une puissante rafale d'air frappa la maison.",
+            "es": "Una ráfaga de aire poderosa golpeó la casa."
+          },
+          "tokens": [
+            {
+              "text": "A",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b8.s2.t1",
+              "startMs": 105695,
+              "endMs": 105705
+            },
+            {
+              "text": "mighty",
+              "normalized": "mighty",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mighty",
+                "fr": "puissant",
+                "es": "poderoso"
+              },
+              "id": "b8.s2.t2",
+              "startMs": 105705,
+              "endMs": 106075
+            },
+            {
+              "text": "blast",
+              "normalized": "blast",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "blast",
+                "fr": "rafale",
+                "es": "ráfaga"
+              },
+              "id": "b8.s2.t3",
+              "startMs": 106075,
+              "endMs": 106375
+            },
+            {
+              "text": "of",
+              "normalized": "of",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b8.s2.t4",
+              "startMs": 106375,
+              "endMs": 106415
+            },
+            {
+              "text": "air",
+              "normalized": "air",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "air",
+                "fr": "air",
+                "es": "aire"
+              },
+              "id": "b8.s2.t5",
+              "startMs": 106505,
+              "endMs": 106675
+            },
+            {
+              "text": "struck",
+              "normalized": "struck",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "struck",
+                "fr": "a frappé",
+                "es": "golpeó"
+              },
+              "id": "b8.s2.t6",
+              "startMs": 106675,
+              "endMs": 107025
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b8.s2.t7",
+              "startMs": 107145,
+              "endMs": 107225
+            },
+            {
+              "text": "house",
+              "normalized": "house",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "house",
+                "fr": "maison",
+                "es": "casa"
+              },
+              "id": "b8.s2.t8",
+              "startMs": 107225,
+              "endMs": 107515
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b8.s2.t9"
+            }
+          ]
+        },
+        {
+          "id": "b8.s3",
+          "text": "The house rose slowly up into the wild sky.",
+          "translations": {
+            "en": "The house rose slowly up into the wild sky.",
+            "fr": "La maison monta lentement dans le ciel déchaîné.",
+            "es": "La casa se elevó lentamente hacia el cielo furioso."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b8.s3.t1",
+              "startMs": 108427,
+              "endMs": 108587
+            },
+            {
+              "text": "house",
+              "normalized": "house",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "house",
+                "fr": "maison",
+                "es": "casa"
+              },
+              "id": "b8.s3.t2",
+              "startMs": 108587,
+              "endMs": 108957
+            },
+            {
+              "text": "rose",
+              "normalized": "rose",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "rose",
+                "fr": "est montée",
+                "es": "subió"
+              },
+              "id": "b8.s3.t3",
+              "startMs": 108957,
+              "endMs": 109157
+            },
+            {
+              "text": "slowly",
+              "normalized": "slowly",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "slowly",
+                "fr": "lentement",
+                "es": "lentamente"
+              },
+              "id": "b8.s3.t4",
+              "startMs": 109247,
+              "endMs": 109667
+            },
+            {
+              "text": "up",
+              "normalized": "up",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "up",
+                "fr": "en haut",
+                "es": "arriba"
+              },
+              "id": "b8.s3.t5",
+              "startMs": 109747,
+              "endMs": 109827
+            },
+            {
+              "text": "into",
+              "normalized": "into",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "into",
+                "fr": "dans",
+                "es": "hacia dentro"
+              },
+              "id": "b8.s3.t6",
+              "startMs": 109827,
+              "endMs": 110117
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b8.s3.t7",
+              "startMs": 110117,
+              "endMs": 110277
+            },
+            {
+              "text": "wild",
+              "normalized": "wild",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wild",
+                "fr": "sauvage",
+                "es": "salvaje"
+              },
+              "id": "b8.s3.t8",
+              "startMs": 110377,
+              "endMs": 110617
+            },
+            {
+              "text": "sky",
+              "normalized": "sky",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sky",
+                "fr": "ciel",
+                "es": "cielo"
+              },
+              "id": "b8.s3.t9",
+              "startMs": 110627,
+              "endMs": 110717
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b8.s3.t10"
+            }
+          ]
+        },
+        {
+          "id": "b8.s4",
+          "text": "It spun around and around in the violent air.",
+          "translations": {
+            "en": "It spun around and around in the violent air.",
+            "fr": "Elle tournoya encore et encore dans l'air violent.",
+            "es": "Giró y giró en el aire violento."
+          },
+          "tokens": [
+            {
+              "text": "It",
+              "normalized": "it",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "it",
+                "fr": "il",
+                "es": "ello"
+              },
+              "id": "b8.s4.t1",
+              "startMs": 111536,
+              "endMs": 111606
+            },
+            {
+              "text": "spun",
+              "normalized": "spun",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "spun",
+                "fr": "a tournoyé",
+                "es": "giró"
+              },
+              "id": "b8.s4.t2",
+              "startMs": 111716,
+              "endMs": 111886
+            },
+            {
+              "text": "around",
+              "normalized": "around",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "around",
+                "fr": "autour",
+                "es": "alrededor"
+              },
+              "id": "b8.s4.t3",
+              "startMs": 111886,
+              "endMs": 112296
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b8.s4.t4",
+              "startMs": 112296,
+              "endMs": 112496
+            },
+            {
+              "text": "around",
+              "normalized": "around",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "around",
+                "fr": "autour",
+                "es": "alrededor"
+              },
+              "id": "b8.s4.t5",
+              "startMs": 112496,
+              "endMs": 112946
+            },
+            {
+              "text": "in",
+              "normalized": "in",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b8.s4.t6",
+              "startMs": 112946,
+              "endMs": 113096
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b8.s4.t7",
+              "startMs": 113096,
+              "endMs": 113316
+            },
+            {
+              "text": "violent",
+              "normalized": "violent",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "violent",
+                "fr": "violent",
+                "es": "violento"
+              },
+              "id": "b8.s4.t8",
+              "startMs": 113316,
+              "endMs": 113796
+            },
+            {
+              "text": "air",
+              "normalized": "air",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "air",
+                "fr": "air",
+                "es": "aire"
+              },
+              "id": "b8.s4.t9",
+              "startMs": 113846,
+              "endMs": 113936
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b8.s4.t10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b9",
+      "sentences": [
+        {
+          "id": "b9.s1",
+          "text": "The house flew high above the dark gray clouds.",
+          "translations": {
+            "en": "The house flew high above the dark gray clouds.",
+            "fr": "La maison vola haut au-dessus des nuages gris foncé.",
+            "es": "La casa voló muy alto sobre las nubes grises y oscuras."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b9.s1.t1",
+              "startMs": 115096,
+              "endMs": 115236
+            },
+            {
+              "text": "house",
+              "normalized": "house",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "house",
+                "fr": "maison",
+                "es": "casa"
+              },
+              "id": "b9.s1.t2",
+              "startMs": 115236,
+              "endMs": 115576
+            },
+            {
+              "text": "flew",
+              "normalized": "flew",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "flew",
+                "fr": "a volé",
+                "es": "voló"
+              },
+              "id": "b9.s1.t3",
+              "startMs": 115576,
+              "endMs": 115726
+            },
+            {
+              "text": "high",
+              "normalized": "high",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "high",
+                "fr": "haut",
+                "es": "alto"
+              },
+              "id": "b9.s1.t4",
+              "startMs": 115866,
+              "endMs": 116106
+            },
+            {
+              "text": "above",
+              "normalized": "above",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "above",
+                "fr": "au-dessus de",
+                "es": "por encima de"
+              },
+              "id": "b9.s1.t5",
+              "startMs": 116126,
+              "endMs": 116456
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b9.s1.t6",
+              "startMs": 116456,
+              "endMs": 116656
+            },
+            {
+              "text": "dark",
+              "normalized": "dark",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dark",
+                "fr": "sombre",
+                "es": "oscuro"
+              },
+              "id": "b9.s1.t7",
+              "startMs": 116656,
+              "endMs": 116926
+            },
+            {
+              "text": "gray",
+              "normalized": "gray",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "gray",
+                "fr": "gris",
+                "es": "gris"
+              },
+              "id": "b9.s1.t8",
+              "startMs": 116926,
+              "endMs": 117196
+            },
+            {
+              "text": "clouds",
+              "normalized": "clouds",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "clouds",
+                "fr": "nuages",
+                "es": "nubes"
+              },
+              "id": "b9.s1.t9",
+              "startMs": 117196,
+              "endMs": 117546
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b9.s1.t10"
+            }
+          ]
+        },
+        {
+          "id": "b9.s2",
+          "text": "Dorothy held Toto tight against her warm chest.",
+          "translations": {
+            "en": "Dorothy held Toto tight against her warm chest.",
+            "fr": "Dorothée serrait fort Toto contre sa poitrine chaude.",
+            "es": "Dorita apretó a Toto contra su pecho cálido."
+          },
+          "tokens": [
+            {
+              "text": "Dorothy",
+              "normalized": "dorothy",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Dorothy",
+                "fr": "Dorothée",
+                "es": "Dorita"
+              },
+              "id": "b9.s2.t1",
+              "startMs": 118365,
+              "endMs": 118845
+            },
+            {
+              "text": "held",
+              "normalized": "held",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "held",
+                "fr": "serrait",
+                "es": "sostenía"
+              },
+              "id": "b9.s2.t2",
+              "startMs": 118845,
+              "endMs": 119145
+            },
+            {
+              "text": "Toto",
+              "normalized": "toto",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Toto",
+                "fr": "Toto",
+                "es": "Toto"
+              },
+              "id": "b9.s2.t3",
+              "startMs": 119145,
+              "endMs": 119415
+            },
+            {
+              "text": "tight",
+              "normalized": "tight",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tight",
+                "fr": "serré",
+                "es": "apretado"
+              },
+              "id": "b9.s2.t4",
+              "startMs": 119415,
+              "endMs": 119655
+            },
+            {
+              "text": "against",
+              "normalized": "against",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "against",
+                "fr": "contre",
+                "es": "contra"
+              },
+              "id": "b9.s2.t5",
+              "startMs": 119925,
+              "endMs": 120335
+            },
+            {
+              "text": "her",
+              "normalized": "her",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "her",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b9.s2.t6",
+              "startMs": 120335,
+              "endMs": 120555
+            },
+            {
+              "text": "warm",
+              "normalized": "warm",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "warm",
+                "fr": "chaud",
+                "es": "cálido"
+              },
+              "id": "b9.s2.t7",
+              "startMs": 120555,
+              "endMs": 120855
+            },
+            {
+              "text": "chest",
+              "normalized": "chest",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "chest",
+                "fr": "poitrine",
+                "es": "pecho"
+              },
+              "id": "b9.s2.t8",
+              "startMs": 120855,
+              "endMs": 121175
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b9.s2.t9"
+            }
+          ]
+        },
+        {
+          "id": "b9.s3",
+          "text": "The strong wind carried them through the empty air.",
+          "translations": {
+            "en": "The strong wind carried them through the empty air.",
+            "fr": "Le vent puissant les transportait à travers l'air vide.",
+            "es": "El viento fuerte los llevó por el aire vacío."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b9.s3.t1",
+              "startMs": 122004,
+              "endMs": 122144
+            },
+            {
+              "text": "strong",
+              "normalized": "strong",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "strong",
+                "fr": "fort",
+                "es": "fuerte"
+              },
+              "id": "b9.s3.t2",
+              "startMs": 122144,
+              "endMs": 122534
+            },
+            {
+              "text": "wind",
+              "normalized": "wind",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wind",
+                "fr": "vent",
+                "es": "viento"
+              },
+              "id": "b9.s3.t3",
+              "startMs": 122534,
+              "endMs": 122774
+            },
+            {
+              "text": "carried",
+              "normalized": "carried",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "carried",
+                "fr": "transportait",
+                "es": "llevaba"
+              },
+              "id": "b9.s3.t4",
+              "startMs": 122794,
+              "endMs": 123254
+            },
+            {
+              "text": "them",
+              "normalized": "them",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "them",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b9.s3.t5",
+              "startMs": 123254,
+              "endMs": 123534
+            },
+            {
+              "text": "through",
+              "normalized": "through",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "through",
+                "fr": "à travers",
+                "es": "a través de"
+              },
+              "id": "b9.s3.t6",
+              "startMs": 123644,
+              "endMs": 123984
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b9.s3.t7",
+              "startMs": 123984,
+              "endMs": 124174
+            },
+            {
+              "text": "empty",
+              "normalized": "empty",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "empty",
+                "fr": "vide",
+                "es": "vacío"
+              },
+              "id": "b9.s3.t8",
+              "startMs": 124174,
+              "endMs": 124464
+            },
+            {
+              "text": "air",
+              "normalized": "air",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "air",
+                "fr": "air",
+                "es": "aire"
+              },
+              "id": "b9.s3.t9",
+              "startMs": 124474,
+              "endMs": 124564
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b9.s3.t10"
+            }
+          ]
+        },
+        {
+          "id": "b9.s4",
+          "text": "It felt like riding a boat on a stormy river.",
+          "translations": {
+            "en": "It felt like riding a boat on a stormy river.",
+            "fr": "C'était comme voguer sur un bateau au milieu d'un fleuve agité.",
+            "es": "Se sentía como viajar en un bote sobre un río tormentoso."
+          },
+          "tokens": [
+            {
+              "text": "It",
+              "normalized": "it",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "it",
+                "fr": "il",
+                "es": "ello"
+              },
+              "id": "b9.s4.t1",
+              "startMs": 125364,
+              "endMs": 125424
+            },
+            {
+              "text": "felt",
+              "normalized": "felt",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "felt",
+                "fr": "semblait",
+                "es": "se sentía"
+              },
+              "id": "b9.s4.t2",
+              "startMs": 125544,
+              "endMs": 125734
+            },
+            {
+              "text": "like",
+              "normalized": "like",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "like",
+                "fr": "comme",
+                "es": "como"
+              },
+              "id": "b9.s4.t3",
+              "startMs": 125734,
+              "endMs": 126014
+            },
+            {
+              "text": "riding",
+              "normalized": "riding",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "riding",
+                "fr": "naviguer",
+                "es": "viajar"
+              },
+              "id": "b9.s4.t4",
+              "startMs": 126014,
+              "endMs": 126434
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b9.s4.t5",
+              "startMs": 126434,
+              "endMs": 126504
+            },
+            {
+              "text": "boat",
+              "normalized": "boat",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "boat",
+                "fr": "bateau",
+                "es": "bote"
+              },
+              "id": "b9.s4.t6",
+              "startMs": 126504,
+              "endMs": 126784
+            },
+            {
+              "text": "on",
+              "normalized": "on",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "on",
+                "fr": "sur",
+                "es": "en"
+              },
+              "id": "b9.s4.t7",
+              "startMs": 126784,
+              "endMs": 126924
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b9.s4.t8",
+              "startMs": 126924,
+              "endMs": 126954
+            },
+            {
+              "text": "stormy",
+              "normalized": "stormy",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "stormy",
+                "fr": "orageux",
+                "es": "tormentoso"
+              },
+              "id": "b9.s4.t9",
+              "startMs": 126954,
+              "endMs": 127414
+            },
+            {
+              "text": "river",
+              "normalized": "river",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "river",
+                "fr": "rivière",
+                "es": "río"
+              },
+              "id": "b9.s4.t10",
+              "startMs": 127414,
+              "endMs": 127624
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b9.s4.t11"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b10",
+      "sentences": [
+        {
+          "id": "b10.s1",
+          "text": "Many long hours passed inside the floating house.",
+          "translations": {
+            "en": "Many long hours passed inside the floating house.",
+            "fr": "Plusieurs longues heures passèrent à l'intérieur de la maison volante.",
+            "es": "Pasaron muchas horas largas dentro de la casa flotante."
+          },
+          "tokens": [
+            {
+              "text": "Many",
+              "normalized": "many",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "many",
+                "fr": "plusieurs",
+                "es": "muchos"
+              },
+              "id": "b10.s1.t1",
+              "startMs": 128801,
+              "endMs": 129021
+            },
+            {
+              "text": "long",
+              "normalized": "long",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "long",
+                "fr": "long",
+                "es": "largo"
+              },
+              "id": "b10.s1.t2",
+              "startMs": 129021,
+              "endMs": 129291
+            },
+            {
+              "text": "hours",
+              "normalized": "hours",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hours",
+                "fr": "heures",
+                "es": "horas"
+              },
+              "id": "b10.s1.t3",
+              "startMs": 129291,
+              "endMs": 129621
+            },
+            {
+              "text": "passed",
+              "normalized": "passed",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "passed",
+                "fr": "ont passé",
+                "es": "pasaron"
+              },
+              "id": "b10.s1.t4",
+              "startMs": 129631,
+              "endMs": 130031
+            },
+            {
+              "text": "inside",
+              "normalized": "inside",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "inside",
+                "fr": "à l'intérieur",
+                "es": "dentro de"
+              },
+              "id": "b10.s1.t5",
+              "startMs": 130031,
+              "endMs": 130431
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b10.s1.t6",
+              "startMs": 130431,
+              "endMs": 130591
+            },
+            {
+              "text": "floating",
+              "normalized": "floating",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "floating",
+                "fr": "flottant",
+                "es": "flotante"
+              },
+              "id": "b10.s1.t7",
+              "startMs": 130631,
+              "endMs": 131161
+            },
+            {
+              "text": "house",
+              "normalized": "house",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "house",
+                "fr": "maison",
+                "es": "casa"
+              },
+              "id": "b10.s1.t8",
+              "startMs": 131161,
+              "endMs": 131441
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b10.s1.t9"
+            }
+          ]
+        },
+        {
+          "id": "b10.s2",
+          "text": "The strange rocking motion became gentle and steady.",
+          "translations": {
+            "en": "The strange rocking motion became gentle and steady.",
+            "fr": "L'étrange balancement devint doux et régulier.",
+            "es": "El extraño balanceo se volvió suave y constante."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b10.s2.t1",
+              "startMs": 132257,
+              "endMs": 132397
+            },
+            {
+              "text": "strange",
+              "normalized": "strange",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "strange",
+                "fr": "étrange",
+                "es": "extraño"
+              },
+              "id": "b10.s2.t2",
+              "startMs": 132427,
+              "endMs": 132867
+            },
+            {
+              "text": "rocking",
+              "normalized": "rocking",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "rocking",
+                "fr": "balancement",
+                "es": "balanceo"
+              },
+              "id": "b10.s2.t3",
+              "startMs": 132867,
+              "endMs": 133327
+            },
+            {
+              "text": "motion",
+              "normalized": "motion",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "motion",
+                "fr": "mouvement",
+                "es": "movimiento"
+              },
+              "id": "b10.s2.t4",
+              "startMs": 133327,
+              "endMs": 133577
+            },
+            {
+              "text": "became",
+              "normalized": "became",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "became",
+                "fr": "est devenu",
+                "es": "se volvió"
+              },
+              "id": "b10.s2.t5",
+              "startMs": 133887,
+              "endMs": 134227
+            },
+            {
+              "text": "gentle",
+              "normalized": "gentle",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "gentle",
+                "fr": "doux",
+                "es": "suave"
+              },
+              "id": "b10.s2.t6",
+              "startMs": 134227,
+              "endMs": 134687
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b10.s2.t7",
+              "startMs": 134687,
+              "endMs": 134927
+            },
+            {
+              "text": "steady",
+              "normalized": "steady",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "steady",
+                "fr": "régulier",
+                "es": "constante"
+              },
+              "id": "b10.s2.t8",
+              "startMs": 134927,
+              "endMs": 135287
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b10.s2.t9"
+            }
+          ]
+        },
+        {
+          "id": "b10.s3",
+          "text": "Dorothy crawled onto her soft little bed.",
+          "translations": {
+            "en": "Dorothy crawled onto her soft little bed.",
+            "fr": "Dorothée rampa sur son petit lit douillet.",
+            "es": "Dorita gateó hasta su suave camita."
+          },
+          "tokens": [
+            {
+              "text": "Dorothy",
+              "normalized": "dorothy",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Dorothy",
+                "fr": "Dorothée",
+                "es": "Dorita"
+              },
+              "id": "b10.s3.t1",
+              "startMs": 136106,
+              "endMs": 136556
+            },
+            {
+              "text": "crawled",
+              "normalized": "crawled",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "crawled",
+                "fr": "a rampé",
+                "es": "gateó"
+              },
+              "id": "b10.s3.t2",
+              "startMs": 136556,
+              "endMs": 137046
+            },
+            {
+              "text": "onto",
+              "normalized": "onto",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "onto",
+                "fr": "sur",
+                "es": "sobre"
+              },
+              "id": "b10.s3.t3",
+              "startMs": 137046,
+              "endMs": 137326
+            },
+            {
+              "text": "her",
+              "normalized": "her",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "her",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b10.s3.t4",
+              "startMs": 137326,
+              "endMs": 137536
+            },
+            {
+              "text": "soft",
+              "normalized": "soft",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "soft",
+                "fr": "doux",
+                "es": "suave"
+              },
+              "id": "b10.s3.t5",
+              "startMs": 137536,
+              "endMs": 137816
+            },
+            {
+              "text": "little",
+              "normalized": "little",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "little",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b10.s3.t6",
+              "startMs": 137816,
+              "endMs": 138236
+            },
+            {
+              "text": "bed",
+              "normalized": "bed",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "bed",
+                "fr": "lit",
+                "es": "cama"
+              },
+              "id": "b10.s3.t7",
+              "startMs": 138236,
+              "endMs": 138326
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b10.s3.t8"
+            }
+          ]
+        },
+        {
+          "id": "b10.s4",
+          "text": "She closed her eyes and soon fell fast asleep.",
+          "translations": {
+            "en": "She closed her eyes and soon fell fast asleep.",
+            "fr": "Elle ferma les yeux et s'endormit bientôt profondément.",
+            "es": "Cerró los ojos y pronto se quedó profundamente dormida."
+          },
+          "tokens": [
+            {
+              "text": "She",
+              "normalized": "she",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b10.s4.t1",
+              "startMs": 139125,
+              "endMs": 139255
+            },
+            {
+              "text": "closed",
+              "normalized": "closed",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "closed",
+                "fr": "a fermé",
+                "es": "cerró"
+              },
+              "id": "b10.s4.t2",
+              "startMs": 139295,
+              "endMs": 139675
+            },
+            {
+              "text": "her",
+              "normalized": "her",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "her",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b10.s4.t3",
+              "startMs": 139675,
+              "endMs": 139875
+            },
+            {
+              "text": "eyes",
+              "normalized": "eyes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "eyes",
+                "fr": "yeux",
+                "es": "ojos"
+              },
+              "id": "b10.s4.t4",
+              "startMs": 139875,
+              "endMs": 140105
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b10.s4.t5",
+              "startMs": 140385,
+              "endMs": 140475
+            },
+            {
+              "text": "soon",
+              "normalized": "soon",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "soon",
+                "fr": "bientôt",
+                "es": "pronto"
+              },
+              "id": "b10.s4.t6",
+              "startMs": 140475,
+              "endMs": 140745
+            },
+            {
+              "text": "fell",
+              "normalized": "fell",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fell",
+                "fr": "s'est endormie",
+                "es": "se quedó"
+              },
+              "id": "b10.s4.t7",
+              "startMs": 140745,
+              "endMs": 140945
+            },
+            {
+              "text": "fast",
+              "normalized": "fast",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fast",
+                "fr": "profondément",
+                "es": "profundamente"
+              },
+              "id": "b10.s4.t8",
+              "startMs": 141065,
+              "endMs": 141225
+            },
+            {
+              "text": "asleep",
+              "normalized": "asleep",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "asleep",
+                "fr": "endormie",
+                "es": "dormida"
+              },
+              "id": "b10.s4.t9",
+              "startMs": 141315,
+              "endMs": 141685
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b10.s4.t10"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

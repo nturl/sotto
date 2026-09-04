@@ -1,0 +1,5572 @@
+{
+  "id": "fr-chat-botte-02",
+  "bookId": "fr-chat-botte",
+  "title": "Chapitre 2 — Le marquis de Carabas",
+  "order": 2,
+  "blocks": [
+    {
+      "id": "b1",
+      "sentences": [
+        {
+          "id": "b1.s1",
+          "text": "Le lendemain, le roi voyage en carrosse avec sa fille.",
+          "translations": {
+            "en": "The next day, the king travels by carriage with his daughter.",
+            "fr": "Le lendemain, le roi voyage en carrosse avec sa fille.",
+            "es": "Al día siguiente, el rey viaja en carruaje con su hija."
+          },
+          "tokens": [
+            {
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s1.t1",
+              "startMs": 60,
+              "endMs": 120
+            },
+            {
+              "text": "lendemain",
+              "normalized": "lendemain",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "next day",
+                "fr": "lendemain",
+                "es": "día siguiente"
+              },
+              "id": "b1.s1.t2",
+              "startMs": 120,
+              "endMs": 910
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s1.t3"
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s1.t4",
+              "startMs": 910,
+              "endMs": 920
+            },
+            {
+              "text": "roi",
+              "normalized": "roi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "king",
+                "fr": "roi",
+                "es": "rey"
+              },
+              "id": "b1.s1.t5",
+              "startMs": 920,
+              "endMs": 1150
+            },
+            {
+              "text": "voyage",
+              "normalized": "voyage",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "travels",
+                "fr": "voyage",
+                "es": "viaja"
+              },
+              "id": "b1.s1.t6",
+              "startMs": 1150,
+              "endMs": 1480
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "en",
+                "es": "en"
+              },
+              "id": "b1.s1.t7",
+              "startMs": 1480,
+              "endMs": 1600
+            },
+            {
+              "text": "carrosse",
+              "normalized": "carrosse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "carriage",
+                "fr": "carrosse",
+                "es": "carruaje"
+              },
+              "id": "b1.s1.t8",
+              "startMs": 1600,
+              "endMs": 2100
+            },
+            {
+              "text": "avec",
+              "normalized": "avec",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b1.s1.t9",
+              "startMs": 2100,
+              "endMs": 2350
+            },
+            {
+              "text": "sa",
+              "normalized": "sa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b1.s1.t10",
+              "startMs": 2350,
+              "endMs": 2460
+            },
+            {
+              "text": "fille",
+              "normalized": "fille",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "daughter",
+                "fr": "fille",
+                "es": "hija"
+              },
+              "id": "b1.s1.t11",
+              "startMs": 2520,
+              "endMs": 2700
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s1.t12"
+            }
+          ]
+        },
+        {
+          "id": "b1.s2",
+          "text": "La princesse est jeune, aimable, et elle observe attentivement la route.",
+          "translations": {
+            "en": "The princess is young and kind, and she watches the road carefully.",
+            "fr": "La princesse est jeune, aimable, et elle observe attentivement la route.",
+            "es": "La princesa es joven y amable, y observa atentamente el camino."
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b1.s2.t1",
+              "startMs": 3989,
+              "endMs": 4059
+            },
+            {
+              "text": "princesse",
+              "normalized": "princesse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "princess",
+                "fr": "princesse",
+                "es": "princesa"
+              },
+              "id": "b1.s2.t2",
+              "startMs": 4059,
+              "endMs": 4729
+            },
+            {
+              "text": "est",
+              "normalized": "est",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es"
+              },
+              "id": "b1.s2.t3",
+              "startMs": 4729,
+              "endMs": 4859
+            },
+            {
+              "text": "jeune",
+              "normalized": "jeune",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "young",
+                "fr": "jeune",
+                "es": "joven"
+              },
+              "id": "b1.s2.t4",
+              "startMs": 4859,
+              "endMs": 5189
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s2.t5"
+            },
+            {
+              "text": "aimable",
+              "normalized": "aimable",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "kind",
+                "fr": "aimable",
+                "es": "amable"
+              },
+              "id": "b1.s2.t6",
+              "startMs": 5189,
+              "endMs": 6049
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s2.t7"
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s2.t8",
+              "startMs": 6049,
+              "endMs": 6049
+            },
+            {
+              "text": "elle",
+              "normalized": "elle",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b1.s2.t9",
+              "startMs": 6249,
+              "endMs": 6279
+            },
+            {
+              "text": "observe",
+              "normalized": "observe",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "watches",
+                "fr": "observe",
+                "es": "observa"
+              },
+              "id": "b1.s2.t10",
+              "startMs": 6279,
+              "endMs": 6649
+            },
+            {
+              "text": "attentivement",
+              "normalized": "attentivement",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "carefully",
+                "fr": "attentivement",
+                "es": "atentamente"
+              },
+              "id": "b1.s2.t11",
+              "startMs": 6649,
+              "endMs": 7429
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b1.s2.t12",
+              "startMs": 7429,
+              "endMs": 7539
+            },
+            {
+              "text": "route",
+              "normalized": "route",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "road",
+                "fr": "route",
+                "es": "camino"
+              },
+              "id": "b1.s2.t13",
+              "startMs": 7539,
+              "endMs": 7819
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s2.t14"
+            }
+          ]
+        },
+        {
+          "id": "b1.s3",
+          "text": "Le chat connaît leur chemin et court devant le carrosse.",
+          "translations": {
+            "en": "The cat knows their route and runs ahead of the carriage.",
+            "fr": "Le chat connaît leur chemin et court devant le carrosse.",
+            "es": "El gato conoce su camino y corre delante del carruaje."
+          },
+          "tokens": [
+            {
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s3.t1",
+              "startMs": 8931,
+              "endMs": 8991
+            },
+            {
+              "text": "chat",
+              "normalized": "chat",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cat",
+                "fr": "chat",
+                "es": "gato"
+              },
+              "id": "b1.s3.t2",
+              "startMs": 8991,
+              "endMs": 9241
+            },
+            {
+              "text": "connaît",
+              "normalized": "connaît",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "knows",
+                "fr": "connaît",
+                "es": "conoce"
+              },
+              "id": "b1.s3.t3",
+              "startMs": 9241,
+              "endMs": 9731
+            },
+            {
+              "text": "leur",
+              "normalized": "leur",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "their",
+                "fr": "leur",
+                "es": "su"
+              },
+              "id": "b1.s3.t4",
+              "startMs": 9731,
+              "endMs": 9981
+            },
+            {
+              "text": "chemin",
+              "normalized": "chemin",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "path",
+                "fr": "chemin",
+                "es": "camino"
+              },
+              "id": "b1.s3.t5",
+              "startMs": 9981,
+              "endMs": 10191
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s3.t6",
+              "startMs": 10361,
+              "endMs": 10461
+            },
+            {
+              "text": "court",
+              "normalized": "court",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "runs",
+                "fr": "court",
+                "es": "corre"
+              },
+              "id": "b1.s3.t7",
+              "startMs": 10551,
+              "endMs": 10781
+            },
+            {
+              "text": "devant",
+              "normalized": "devant",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "before",
+                "fr": "devant",
+                "es": "delante de"
+              },
+              "id": "b1.s3.t8",
+              "startMs": 10781,
+              "endMs": 11071
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s3.t9",
+              "startMs": 11151,
+              "endMs": 11271
+            },
+            {
+              "text": "carrosse",
+              "normalized": "carrosse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "carriage",
+                "fr": "carrosse",
+                "es": "carruaje"
+              },
+              "id": "b1.s3.t10",
+              "startMs": 11271,
+              "endMs": 12089
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t11"
+            }
+          ]
+        },
+        {
+          "id": "b1.s4",
+          "text": "Son maître entre dans la rivière, comme le chat lui demande.",
+          "translations": {
+            "en": "His master enters the river, as the cat asks him.",
+            "fr": "Son maître entre dans la rivière, comme le chat lui demande.",
+            "es": "Su amo entra en el río, como le pide el gato."
+          },
+          "tokens": [
+            {
+              "text": "Son",
+              "normalized": "son",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "his",
+                "fr": "son",
+                "es": "su"
+              },
+              "id": "b1.s4.t1",
+              "startMs": 12489,
+              "endMs": 12619
+            },
+            {
+              "text": "maître",
+              "normalized": "maître",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "master",
+                "fr": "maître",
+                "es": "amo"
+              },
+              "id": "b1.s4.t2",
+              "startMs": 12619,
+              "endMs": 13089
+            },
+            {
+              "text": "entre",
+              "normalized": "entre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "enters",
+                "fr": "entre",
+                "es": "entra"
+              },
+              "id": "b1.s4.t3",
+              "startMs": 13089,
+              "endMs": 13319
+            },
+            {
+              "text": "dans",
+              "normalized": "dans",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s4.t4",
+              "startMs": 13319,
+              "endMs": 13559
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b1.s4.t5",
+              "startMs": 13559,
+              "endMs": 13629
+            },
+            {
+              "text": "rivière",
+              "normalized": "rivière",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "river",
+                "fr": "rivière",
+                "es": "río"
+              },
+              "id": "b1.s4.t6",
+              "startMs": 13629,
+              "endMs": 14429
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s4.t7"
+            },
+            {
+              "text": "comme",
+              "normalized": "comme",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "like",
+                "fr": "comme",
+                "es": "como"
+              },
+              "id": "b1.s4.t8",
+              "startMs": 14429,
+              "endMs": 14449
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s4.t9",
+              "startMs": 14449,
+              "endMs": 14559
+            },
+            {
+              "text": "chat",
+              "normalized": "chat",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cat",
+                "fr": "chat",
+                "es": "gato"
+              },
+              "id": "b1.s4.t10",
+              "startMs": 14559,
+              "endMs": 14769
+            },
+            {
+              "text": "lui",
+              "normalized": "lui",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "him",
+                "fr": "lui",
+                "es": "le"
+              },
+              "id": "b1.s4.t11",
+              "startMs": 14769,
+              "endMs": 14939
+            },
+            {
+              "text": "demande",
+              "normalized": "demande",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "asks",
+                "fr": "demande",
+                "es": "pregunta"
+              },
+              "id": "b1.s4.t12",
+              "startMs": 14939,
+              "endMs": 15319
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s4.t13"
+            }
+          ]
+        },
+        {
+          "id": "b1.s5",
+          "text": "Ses vieux vêtements restent cachés derrière un arbre.",
+          "translations": {
+            "en": "His old clothes remain hidden behind a tree.",
+            "fr": "Ses vieux vêtements restent cachés derrière un arbre.",
+            "es": "Su ropa vieja queda escondida detrás de un árbol."
+          },
+          "tokens": [
+            {
+              "text": "Ses",
+              "normalized": "ses",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "his",
+                "fr": "ses",
+                "es": "sus"
+              },
+              "id": "b1.s5.t1",
+              "startMs": 16432,
+              "endMs": 16442
+            },
+            {
+              "text": "vieux",
+              "normalized": "vieux",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "old",
+                "fr": "vieux",
+                "es": "viejo"
+              },
+              "id": "b1.s5.t2",
+              "startMs": 16442,
+              "endMs": 16847
+            },
+            {
+              "text": "vêtements",
+              "normalized": "vêtements",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "clothes",
+                "fr": "vêtements",
+                "es": "ropa"
+              },
+              "id": "b1.s5.t3",
+              "startMs": 16847,
+              "endMs": 17252
+            },
+            {
+              "text": "restent",
+              "normalized": "restent",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "remain",
+                "fr": "restent",
+                "es": "quedan"
+              },
+              "id": "b1.s5.t4",
+              "startMs": 17252,
+              "endMs": 17657
+            },
+            {
+              "text": "cachés",
+              "normalized": "cachés",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hidden",
+                "fr": "cachés",
+                "es": "ocultos"
+              },
+              "id": "b1.s5.t5",
+              "startMs": 17657,
+              "endMs": 18062
+            },
+            {
+              "text": "derrière",
+              "normalized": "derrière",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "behind",
+                "fr": "derrière",
+                "es": "detrás"
+              },
+              "id": "b1.s5.t6",
+              "startMs": 18062,
+              "endMs": 18542
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s5.t7",
+              "startMs": 18542,
+              "endMs": 18642
+            },
+            {
+              "text": "arbre",
+              "normalized": "arbre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tree",
+                "fr": "arbre",
+                "es": "árbol"
+              },
+              "id": "b1.s5.t8",
+              "startMs": 18642,
+              "endMs": 19606
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s5.t9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "sentences": [
+        {
+          "id": "b2.s1",
+          "text": "Quand le carrosse approche, le chat crie de toutes ses forces.",
+          "translations": {
+            "en": "When the carriage approaches, the cat shouts with all his strength.",
+            "fr": "Quand le carrosse approche, le chat crie de toutes ses forces.",
+            "es": "Cuando el carruaje se acerca, el gato grita con todas sus fuerzas."
+          },
+          "tokens": [
+            {
+              "text": "Quand",
+              "normalized": "quand",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "when",
+                "fr": "quand",
+                "es": "cuando"
+              },
+              "id": "b2.s1.t1",
+              "startMs": 20416,
+              "endMs": 20536
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s1.t2",
+              "startMs": 20536,
+              "endMs": 20616
+            },
+            {
+              "text": "carrosse",
+              "normalized": "carrosse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "carriage",
+                "fr": "carrosse",
+                "es": "carruaje"
+              },
+              "id": "b2.s1.t3",
+              "startMs": 20616,
+              "endMs": 21071
+            },
+            {
+              "text": "approche",
+              "normalized": "approche",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "approaches",
+                "fr": "approche",
+                "es": "se acerca"
+              },
+              "id": "b2.s1.t4",
+              "startMs": 21071,
+              "endMs": 21526
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s1.t5"
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s1.t6",
+              "startMs": 21526,
+              "endMs": 21596
+            },
+            {
+              "text": "chat",
+              "normalized": "chat",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cat",
+                "fr": "chat",
+                "es": "gato"
+              },
+              "id": "b2.s1.t7",
+              "startMs": 21776,
+              "endMs": 21916
+            },
+            {
+              "text": "crie",
+              "normalized": "crie",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "shouts",
+                "fr": "crie",
+                "es": "grita"
+              },
+              "id": "b2.s1.t8",
+              "startMs": 21916,
+              "endMs": 22256
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b2.s1.t9",
+              "startMs": 22256,
+              "endMs": 22276
+            },
+            {
+              "text": "toutes",
+              "normalized": "toutes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "all",
+                "fr": "toutes",
+                "es": "todas"
+              },
+              "id": "b2.s1.t10",
+              "startMs": 22276,
+              "endMs": 22606
+            },
+            {
+              "text": "ses",
+              "normalized": "ses",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "ses",
+                "es": "sus"
+              },
+              "id": "b2.s1.t11",
+              "startMs": 22696,
+              "endMs": 22826
+            },
+            {
+              "text": "forces",
+              "normalized": "forces",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "strength",
+                "fr": "forces",
+                "es": "fuerzas"
+              },
+              "id": "b2.s1.t12",
+              "startMs": 22926,
+              "endMs": 23096
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s1.t13"
+            }
+          ]
+        },
+        {
+          "id": "b2.s2",
+          "text": "« Au secours ! Le marquis de Carabas se noie ! »",
+          "translations": {
+            "en": "“Help! The Marquis of Carabas is drowning!”",
+            "fr": "« Au secours ! Le marquis de Carabas se noie ! »",
+            "es": "«¡Socorro! ¡El marqués de Carabás se ahoga!»"
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s2.t1"
+            },
+            {
+              "text": "Au",
+              "normalized": "au",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to the",
+                "fr": "au",
+                "es": "al"
+              },
+              "id": "b2.s2.t2",
+              "startMs": 24178,
+              "endMs": 24258
+            },
+            {
+              "text": "secours",
+              "normalized": "secours",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "help",
+                "fr": "secours",
+                "es": "socorro"
+              },
+              "id": "b2.s2.t3",
+              "startMs": 24258,
+              "endMs": 24838
+            },
+            {
+              "text": "!",
+              "normalized": "!",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b2.s2.t4"
+            },
+            {
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s2.t5",
+              "startMs": 24838,
+              "endMs": 24938
+            },
+            {
+              "text": "marquis",
+              "normalized": "marquis",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "marquis",
+                "fr": "marquis",
+                "es": "marqués"
+              },
+              "id": "b2.s2.t6",
+              "startMs": 24938,
+              "endMs": 25548
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b2.s2.t7",
+              "startMs": 25548,
+              "endMs": 25548
+            },
+            {
+              "text": "Carabas",
+              "normalized": "carabas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Carabas",
+                "fr": "Carabas",
+                "es": "Carabás"
+              },
+              "id": "b2.s2.t8",
+              "startMs": 25548,
+              "endMs": 26032
+            },
+            {
+              "text": "se",
+              "normalized": "se",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "himself",
+                "fr": "se",
+                "es": "se"
+              },
+              "id": "b2.s2.t9",
+              "startMs": 26032,
+              "endMs": 26517
+            },
+            {
+              "text": "noie",
+              "normalized": "noie",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is drowning",
+                "fr": "noie",
+                "es": "se ahoga"
+              },
+              "id": "b2.s2.t10",
+              "startMs": 26517,
+              "endMs": 27001
+            },
+            {
+              "text": "!",
+              "normalized": "!",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b2.s2.t11"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b2.s2.t12"
+            }
+          ]
+        },
+        {
+          "id": "b2.s3",
+          "text": "Les gardes arrêtent le carrosse et tirent vite le garçon de la rivière.",
+          "translations": {
+            "en": "The guards stop the carriage and quickly pull the boy from the river.",
+            "fr": "Les gardes arrêtent le carrosse et tirent vite le garçon de la rivière.",
+            "es": "Los guardias detienen el carruaje y sacan rápidamente al muchacho del río."
+          },
+          "tokens": [
+            {
+              "text": "Les",
+              "normalized": "les",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b2.s3.t1",
+              "startMs": 27411,
+              "endMs": 27551
+            },
+            {
+              "text": "gardes",
+              "normalized": "gardes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "guards",
+                "fr": "gardes",
+                "es": "guardias"
+              },
+              "id": "b2.s3.t2",
+              "startMs": 27551,
+              "endMs": 28076
+            },
+            {
+              "text": "arrêtent",
+              "normalized": "arrêtent",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "stop",
+                "fr": "arrêtent",
+                "es": "detienen"
+              },
+              "id": "b2.s3.t3",
+              "startMs": 28076,
+              "endMs": 28601
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s3.t4",
+              "startMs": 28601,
+              "endMs": 28681
+            },
+            {
+              "text": "carrosse",
+              "normalized": "carrosse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "carriage",
+                "fr": "carrosse",
+                "es": "carruaje"
+              },
+              "id": "b2.s3.t5",
+              "startMs": 28681,
+              "endMs": 29321
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b2.s3.t6",
+              "startMs": 29321,
+              "endMs": 29381
+            },
+            {
+              "text": "tirent",
+              "normalized": "tirent",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "pull",
+                "fr": "tirent",
+                "es": "sacan"
+              },
+              "id": "b2.s3.t7",
+              "startMs": 29381,
+              "endMs": 29701
+            },
+            {
+              "text": "vite",
+              "normalized": "vite",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "quickly",
+                "fr": "vite",
+                "es": "rápidamente"
+              },
+              "id": "b2.s3.t8",
+              "startMs": 29701,
+              "endMs": 29921
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s3.t9",
+              "startMs": 29921,
+              "endMs": 29941
+            },
+            {
+              "text": "garçon",
+              "normalized": "garçon",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "boy",
+                "fr": "garçon",
+                "es": "muchacho"
+              },
+              "id": "b2.s3.t10",
+              "startMs": 29941,
+              "endMs": 30431
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b2.s3.t11",
+              "startMs": 30431,
+              "endMs": 30511
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b2.s3.t12",
+              "startMs": 30511,
+              "endMs": 30621
+            },
+            {
+              "text": "rivière",
+              "normalized": "rivière",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "river",
+                "fr": "rivière",
+                "es": "río"
+              },
+              "id": "b2.s3.t13",
+              "startMs": 30621,
+              "endMs": 31655
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s3.t14"
+            }
+          ]
+        },
+        {
+          "id": "b2.s4",
+          "text": "Le chat explique que des voleurs ont pris les beaux vêtements du marquis.",
+          "translations": {
+            "en": "The cat explains that thieves took the marquis's fine clothes.",
+            "fr": "Le chat explique que des voleurs ont pris les beaux vêtements du marquis.",
+            "es": "El gato explica que unos ladrones se llevaron la ropa elegante del marqués."
+          },
+          "tokens": [
+            {
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s4.t1",
+              "startMs": 32055,
+              "endMs": 32135
+            },
+            {
+              "text": "chat",
+              "normalized": "chat",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cat",
+                "fr": "chat",
+                "es": "gato"
+              },
+              "id": "b2.s4.t2",
+              "startMs": 32135,
+              "endMs": 32395
+            },
+            {
+              "text": "explique",
+              "normalized": "explique",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "explains",
+                "fr": "explique",
+                "es": "explica"
+              },
+              "id": "b2.s4.t3",
+              "startMs": 32395,
+              "endMs": 33095
+            },
+            {
+              "text": "que",
+              "normalized": "que",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "that",
+                "fr": "que",
+                "es": "que"
+              },
+              "id": "b2.s4.t4",
+              "startMs": 33095,
+              "endMs": 33105
+            },
+            {
+              "text": "des",
+              "normalized": "des",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "some",
+                "fr": "des",
+                "es": "unos"
+              },
+              "id": "b2.s4.t5",
+              "startMs": 33105,
+              "endMs": 33295
+            },
+            {
+              "text": "voleurs",
+              "normalized": "voleurs",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "thieves",
+                "fr": "voleurs",
+                "es": "ladrones"
+              },
+              "id": "b2.s4.t6",
+              "startMs": 33295,
+              "endMs": 33915
+            },
+            {
+              "text": "ont",
+              "normalized": "ont",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "have",
+                "fr": "ont",
+                "es": "han"
+              },
+              "id": "b2.s4.t7",
+              "startMs": 33915,
+              "endMs": 33915
+            },
+            {
+              "text": "pris",
+              "normalized": "pris",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "took",
+                "fr": "pris",
+                "es": "tomaron"
+              },
+              "id": "b2.s4.t8",
+              "startMs": 33955,
+              "endMs": 34065
+            },
+            {
+              "text": "les",
+              "normalized": "les",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b2.s4.t9",
+              "startMs": 34115,
+              "endMs": 34215
+            },
+            {
+              "text": "beaux",
+              "normalized": "beaux",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fine",
+                "fr": "beaux",
+                "es": "elegantes"
+              },
+              "id": "b2.s4.t10",
+              "startMs": 34215,
+              "endMs": 34535
+            },
+            {
+              "text": "vêtements",
+              "normalized": "vêtements",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "clothes",
+                "fr": "vêtements",
+                "es": "ropa"
+              },
+              "id": "b2.s4.t11",
+              "startMs": 34535,
+              "endMs": 34855
+            },
+            {
+              "text": "du",
+              "normalized": "du",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b2.s4.t12",
+              "startMs": 34855,
+              "endMs": 34935
+            },
+            {
+              "text": "marquis",
+              "normalized": "marquis",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "marquis",
+                "fr": "marquis",
+                "es": "marqués"
+              },
+              "id": "b2.s4.t13",
+              "startMs": 34935,
+              "endMs": 35858
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s4.t14"
+            }
+          ]
+        },
+        {
+          "id": "b2.s5",
+          "text": "En réalité, aucun voleur ne passe près de la rivière.",
+          "translations": {
+            "en": "In reality, no thief passes near the river.",
+            "fr": "En réalité, aucun voleur ne passe près de la rivière.",
+            "es": "En realidad, ningún ladrón pasa cerca del río."
+          },
+          "tokens": [
+            {
+              "text": "En",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "in",
+                "fr": "en",
+                "es": "en"
+              },
+              "id": "b2.s5.t1",
+              "startMs": 36258,
+              "endMs": 36318
+            },
+            {
+              "text": "réalité",
+              "normalized": "réalité",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "reality",
+                "fr": "réalité",
+                "es": "realidad"
+              },
+              "id": "b2.s5.t2",
+              "startMs": 36318,
+              "endMs": 36728
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s5.t3"
+            },
+            {
+              "text": "aucun",
+              "normalized": "aucun",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "no",
+                "fr": "aucun",
+                "es": "ningún"
+              },
+              "id": "b2.s5.t4",
+              "startMs": 36938,
+              "endMs": 36998
+            },
+            {
+              "text": "voleur",
+              "normalized": "voleur",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "thief",
+                "fr": "voleur",
+                "es": "ladrón"
+              },
+              "id": "b2.s5.t5",
+              "startMs": 36998,
+              "endMs": 37558
+            },
+            {
+              "text": "ne",
+              "normalized": "ne",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "not",
+                "fr": "ne",
+                "es": "no"
+              },
+              "id": "b2.s5.t6",
+              "startMs": 37558,
+              "endMs": 37668
+            },
+            {
+              "text": "passe",
+              "normalized": "passe",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "passes",
+                "fr": "passe",
+                "es": "pasa"
+              },
+              "id": "b2.s5.t7",
+              "startMs": 37668,
+              "endMs": 37948
+            },
+            {
+              "text": "près",
+              "normalized": "près",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "near",
+                "fr": "près",
+                "es": "cerca"
+              },
+              "id": "b2.s5.t8",
+              "startMs": 37948,
+              "endMs": 38208
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b2.s5.t9",
+              "startMs": 38298,
+              "endMs": 38338
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b2.s5.t10",
+              "startMs": 38338,
+              "endMs": 38448
+            },
+            {
+              "text": "rivière",
+              "normalized": "rivière",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "river",
+                "fr": "rivière",
+                "es": "río"
+              },
+              "id": "b2.s5.t11",
+              "startMs": 38448,
+              "endMs": 39561
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s5.t12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3",
+      "sentences": [
+        {
+          "id": "b3.s1",
+          "text": "Le roi ordonne à ses serviteurs de lui apporter un costume magnifique.",
+          "translations": {
+            "en": "The king orders his servants to bring him a magnificent suit.",
+            "fr": "Le roi ordonne à ses serviteurs de lui apporter un costume magnifique.",
+            "es": "El rey ordena a sus sirvientes que le traigan un traje magnífico."
+          },
+          "tokens": [
+            {
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s1.t1",
+              "startMs": 40331,
+              "endMs": 40421
+            },
+            {
+              "text": "roi",
+              "normalized": "roi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "king",
+                "fr": "roi",
+                "es": "rey"
+              },
+              "id": "b3.s1.t2",
+              "startMs": 40421,
+              "endMs": 40821
+            },
+            {
+              "text": "ordonne",
+              "normalized": "ordonne",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "orders",
+                "fr": "ordonne",
+                "es": "ordena"
+              },
+              "id": "b3.s1.t3",
+              "startMs": 40821,
+              "endMs": 41221
+            },
+            {
+              "text": "à",
+              "normalized": "à",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b3.s1.t4",
+              "startMs": 41221,
+              "endMs": 41381
+            },
+            {
+              "text": "ses",
+              "normalized": "ses",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "ses",
+                "es": "sus"
+              },
+              "id": "b3.s1.t5",
+              "startMs": 41381,
+              "endMs": 41441
+            },
+            {
+              "text": "serviteurs",
+              "normalized": "serviteurs",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "servants",
+                "fr": "serviteurs",
+                "es": "sirvientes"
+              },
+              "id": "b3.s1.t6",
+              "startMs": 41441,
+              "endMs": 42441
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b3.s1.t7",
+              "startMs": 42441,
+              "endMs": 42551
+            },
+            {
+              "text": "lui",
+              "normalized": "lui",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "him",
+                "fr": "lui",
+                "es": "le"
+              },
+              "id": "b3.s1.t8",
+              "startMs": 42551,
+              "endMs": 42711
+            },
+            {
+              "text": "apporter",
+              "normalized": "apporter",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to bring",
+                "fr": "apporter",
+                "es": "traer"
+              },
+              "id": "b3.s1.t9",
+              "startMs": 42711,
+              "endMs": 43161
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b3.s1.t10",
+              "startMs": 43161,
+              "endMs": 43261
+            },
+            {
+              "text": "costume",
+              "normalized": "costume",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "suit",
+                "fr": "costume",
+                "es": "traje"
+              },
+              "id": "b3.s1.t11",
+              "startMs": 43261,
+              "endMs": 43531
+            },
+            {
+              "text": "magnifique",
+              "normalized": "magnifique",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "magnificent",
+                "fr": "magnifique",
+                "es": "magnífico"
+              },
+              "id": "b3.s1.t12",
+              "startMs": 43531,
+              "endMs": 44874
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s1.t13"
+            }
+          ]
+        },
+        {
+          "id": "b3.s2",
+          "text": "Le garçon met ce costume et paraît soudain riche et élégant.",
+          "translations": {
+            "en": "The boy puts on the suit and suddenly looks rich and elegant.",
+            "fr": "Le garçon met ce costume et paraît soudain riche et élégant.",
+            "es": "El muchacho se pone el traje y de pronto parece rico y elegante."
+          },
+          "tokens": [
+            {
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s2.t1",
+              "startMs": 45284,
+              "endMs": 45364
+            },
+            {
+              "text": "garçon",
+              "normalized": "garçon",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "boy",
+                "fr": "garçon",
+                "es": "muchacho"
+              },
+              "id": "b3.s2.t2",
+              "startMs": 45364,
+              "endMs": 45874
+            },
+            {
+              "text": "met",
+              "normalized": "met",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "puts on",
+                "fr": "met",
+                "es": "se pone"
+              },
+              "id": "b3.s2.t3",
+              "startMs": 45874,
+              "endMs": 46064
+            },
+            {
+              "text": "ce",
+              "normalized": "ce",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "this",
+                "fr": "ce",
+                "es": "este"
+              },
+              "id": "b3.s2.t4",
+              "startMs": 46144,
+              "endMs": 46204
+            },
+            {
+              "text": "costume",
+              "normalized": "costume",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "suit",
+                "fr": "costume",
+                "es": "traje"
+              },
+              "id": "b3.s2.t5",
+              "startMs": 46284,
+              "endMs": 46784
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b3.s2.t6",
+              "startMs": 46784,
+              "endMs": 46864
+            },
+            {
+              "text": "paraît",
+              "normalized": "paraît",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "appears",
+                "fr": "paraît",
+                "es": "parece"
+              },
+              "id": "b3.s2.t7",
+              "startMs": 46864,
+              "endMs": 47187
+            },
+            {
+              "text": "soudain",
+              "normalized": "soudain",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "suddenly",
+                "fr": "soudain",
+                "es": "de pronto"
+              },
+              "id": "b3.s2.t8",
+              "startMs": 47187,
+              "endMs": 47510
+            },
+            {
+              "text": "riche",
+              "normalized": "riche",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "rich",
+                "fr": "riche",
+                "es": "rico"
+              },
+              "id": "b3.s2.t9",
+              "startMs": 47510,
+              "endMs": 47834
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b3.s2.t10",
+              "startMs": 47834,
+              "endMs": 47934
+            },
+            {
+              "text": "élégant",
+              "normalized": "élégant",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "elegant",
+                "fr": "élégant",
+                "es": "elegante"
+              },
+              "id": "b3.s2.t11",
+              "startMs": 47934,
+              "endMs": 49043
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t12"
+            }
+          ]
+        },
+        {
+          "id": "b3.s3",
+          "text": "La princesse sourit quand elle voit son visage doux.",
+          "translations": {
+            "en": "The princess smiles when she sees his gentle face.",
+            "fr": "La princesse sourit quand elle voit son visage doux.",
+            "es": "La princesa sonríe cuando ve su rostro amable."
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b3.s3.t1",
+              "startMs": 49453,
+              "endMs": 49513
+            },
+            {
+              "text": "princesse",
+              "normalized": "princesse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "princess",
+                "fr": "princesse",
+                "es": "princesa"
+              },
+              "id": "b3.s3.t2",
+              "startMs": 49513,
+              "endMs": 49963
+            },
+            {
+              "text": "sourit",
+              "normalized": "sourit",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "smiles",
+                "fr": "sourit",
+                "es": "sonríe"
+              },
+              "id": "b3.s3.t3",
+              "startMs": 49963,
+              "endMs": 50413
+            },
+            {
+              "text": "quand",
+              "normalized": "quand",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "when",
+                "fr": "quand",
+                "es": "cuando"
+              },
+              "id": "b3.s3.t4",
+              "startMs": 50413,
+              "endMs": 50523
+            },
+            {
+              "text": "elle",
+              "normalized": "elle",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b3.s3.t5",
+              "startMs": 50763,
+              "endMs": 50953
+            },
+            {
+              "text": "voit",
+              "normalized": "voit",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sees",
+                "fr": "voit",
+                "es": "ve"
+              },
+              "id": "b3.s3.t6",
+              "startMs": 50953,
+              "endMs": 51193
+            },
+            {
+              "text": "son",
+              "normalized": "son",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "son",
+                "es": "su"
+              },
+              "id": "b3.s3.t7",
+              "startMs": 51193,
+              "endMs": 51323
+            },
+            {
+              "text": "visage",
+              "normalized": "visage",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "face",
+                "fr": "visage",
+                "es": "rostro"
+              },
+              "id": "b3.s3.t8",
+              "startMs": 51323,
+              "endMs": 51949
+            },
+            {
+              "text": "doux",
+              "normalized": "doux",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "gentle",
+                "fr": "doux",
+                "es": "amable"
+              },
+              "id": "b3.s3.t9",
+              "startMs": 51949,
+              "endMs": 52575
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s3.t10"
+            }
+          ]
+        },
+        {
+          "id": "b3.s4",
+          "text": "Le jeune homme reste poli, malgré sa grande surprise.",
+          "translations": {
+            "en": "The young man remains polite despite his great surprise.",
+            "fr": "Le jeune homme reste poli, malgré sa grande surprise.",
+            "es": "El joven sigue siendo cortés a pesar de su gran sorpresa."
+          },
+          "tokens": [
+            {
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s4.t1",
+              "startMs": 52985,
+              "endMs": 53045
+            },
+            {
+              "text": "jeune",
+              "normalized": "jeune",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "young",
+                "fr": "jeune",
+                "es": "joven"
+              },
+              "id": "b3.s4.t2",
+              "startMs": 53045,
+              "endMs": 53345
+            },
+            {
+              "text": "homme",
+              "normalized": "homme",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "man",
+                "fr": "homme",
+                "es": "hombre"
+              },
+              "id": "b3.s4.t3",
+              "startMs": 53345,
+              "endMs": 53645
+            },
+            {
+              "text": "reste",
+              "normalized": "reste",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "remains",
+                "fr": "reste",
+                "es": "permanece"
+              },
+              "id": "b3.s4.t4",
+              "startMs": 53645,
+              "endMs": 53855
+            },
+            {
+              "text": "poli",
+              "normalized": "poli",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "polite",
+                "fr": "poli",
+                "es": "cortés"
+              },
+              "id": "b3.s4.t5",
+              "startMs": 53855,
+              "endMs": 54350
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s4.t6"
+            },
+            {
+              "text": "malgré",
+              "normalized": "malgré",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "despite",
+                "fr": "malgré",
+                "es": "a pesar de"
+              },
+              "id": "b3.s4.t7",
+              "startMs": 54350,
+              "endMs": 54845
+            },
+            {
+              "text": "sa",
+              "normalized": "sa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b3.s4.t8",
+              "startMs": 54845,
+              "endMs": 54945
+            },
+            {
+              "text": "grande",
+              "normalized": "grande",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "great",
+                "fr": "grande",
+                "es": "gran"
+              },
+              "id": "b3.s4.t9",
+              "startMs": 54945,
+              "endMs": 55345
+            },
+            {
+              "text": "surprise",
+              "normalized": "surprise",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "surprise",
+                "fr": "surprise",
+                "es": "sorpresa"
+              },
+              "id": "b3.s4.t10",
+              "startMs": 55345,
+              "endMs": 55885
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s4.t11"
+            }
+          ]
+        },
+        {
+          "id": "b3.s5",
+          "text": "Le roi invite le garçon à monter dans le carrosse royal.",
+          "translations": {
+            "en": "The king invites the boy to enter the royal carriage.",
+            "fr": "Le roi invite le garçon à monter dans le carrosse royal.",
+            "es": "El rey invita al muchacho a subir al carruaje real."
+          },
+          "tokens": [
+            {
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s5.t1",
+              "startMs": 57063,
+              "endMs": 57133
+            },
+            {
+              "text": "roi",
+              "normalized": "roi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "king",
+                "fr": "roi",
+                "es": "rey"
+              },
+              "id": "b3.s5.t2",
+              "startMs": 57133,
+              "endMs": 57343
+            },
+            {
+              "text": "invite",
+              "normalized": "invite",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "invites",
+                "fr": "invite",
+                "es": "invita"
+              },
+              "id": "b3.s5.t3",
+              "startMs": 57343,
+              "endMs": 57743
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s5.t4",
+              "startMs": 57843,
+              "endMs": 57913
+            },
+            {
+              "text": "garçon",
+              "normalized": "garçon",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "boy",
+                "fr": "garçon",
+                "es": "muchacho"
+              },
+              "id": "b3.s5.t5",
+              "startMs": 57913,
+              "endMs": 58453
+            },
+            {
+              "text": "à",
+              "normalized": "à",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b3.s5.t6",
+              "startMs": 58453,
+              "endMs": 58473
+            },
+            {
+              "text": "monter",
+              "normalized": "monter",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to get in",
+                "fr": "monter",
+                "es": "subir"
+              },
+              "id": "b3.s5.t7",
+              "startMs": 58683,
+              "endMs": 58873
+            },
+            {
+              "text": "dans",
+              "normalized": "dans",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b3.s5.t8",
+              "startMs": 58873,
+              "endMs": 59083
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s5.t9",
+              "startMs": 59083,
+              "endMs": 59183
+            },
+            {
+              "text": "carrosse",
+              "normalized": "carrosse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "carriage",
+                "fr": "carrosse",
+                "es": "carruaje"
+              },
+              "id": "b3.s5.t10",
+              "startMs": 59183,
+              "endMs": 59603
+            },
+            {
+              "text": "royal",
+              "normalized": "royal",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "royal",
+                "fr": "royal",
+                "es": "real"
+              },
+              "id": "b3.s5.t11",
+              "startMs": 59603,
+              "endMs": 59873
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s5.t12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b4",
+      "sentences": [
+        {
+          "id": "b4.s1",
+          "text": "Le chat court devant eux et rencontre des paysans dans un pré.",
+          "translations": {
+            "en": "The cat runs ahead of them and meets peasants in a meadow.",
+            "fr": "Le chat court devant eux et rencontre des paysans dans un pré.",
+            "es": "El gato corre delante de ellos y encuentra campesinos en un prado."
+          },
+          "tokens": [
+            {
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s1.t1",
+              "startMs": 61542,
+              "endMs": 61612
+            },
+            {
+              "text": "chat",
+              "normalized": "chat",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cat",
+                "fr": "chat",
+                "es": "gato"
+              },
+              "id": "b4.s1.t2",
+              "startMs": 61612,
+              "endMs": 61862
+            },
+            {
+              "text": "court",
+              "normalized": "court",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "runs",
+                "fr": "court",
+                "es": "corre"
+              },
+              "id": "b4.s1.t3",
+              "startMs": 61862,
+              "endMs": 62172
+            },
+            {
+              "text": "devant",
+              "normalized": "devant",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "before",
+                "fr": "devant",
+                "es": "delante de"
+              },
+              "id": "b4.s1.t4",
+              "startMs": 62172,
+              "endMs": 62532
+            },
+            {
+              "text": "eux",
+              "normalized": "eux",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "them",
+                "fr": "eux",
+                "es": "ellos"
+              },
+              "id": "b4.s1.t5",
+              "startMs": 62532,
+              "endMs": 62848
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b4.s1.t6",
+              "startMs": 62848,
+              "endMs": 63165
+            },
+            {
+              "text": "rencontre",
+              "normalized": "rencontre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "meets",
+                "fr": "rencontre",
+                "es": "encuentra"
+              },
+              "id": "b4.s1.t7",
+              "startMs": 63165,
+              "endMs": 63482
+            },
+            {
+              "text": "des",
+              "normalized": "des",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "some",
+                "fr": "des",
+                "es": "unos"
+              },
+              "id": "b4.s1.t8",
+              "startMs": 63482,
+              "endMs": 63602
+            },
+            {
+              "text": "paysans",
+              "normalized": "paysans",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "peasants",
+                "fr": "paysans",
+                "es": "campesinos"
+              },
+              "id": "b4.s1.t9",
+              "startMs": 63602,
+              "endMs": 64042
+            },
+            {
+              "text": "dans",
+              "normalized": "dans",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b4.s1.t10",
+              "startMs": 64042,
+              "endMs": 64272
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b4.s1.t11",
+              "startMs": 64272,
+              "endMs": 64382
+            },
+            {
+              "text": "pré",
+              "normalized": "pré",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "meadow",
+                "fr": "pré",
+                "es": "prado"
+              },
+              "id": "b4.s1.t12",
+              "startMs": 64382,
+              "endMs": 64592
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s1.t13"
+            }
+          ]
+        },
+        {
+          "id": "b4.s2",
+          "text": "« À qui appartient ce beau pré ? » demande le chat.",
+          "translations": {
+            "en": "“Who owns this beautiful meadow?” asks the cat.",
+            "fr": "« À qui appartient ce beau pré ? » demande le chat.",
+            "es": "«¿A quién pertenece este hermoso prado?», pregunta el gato."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s2.t1"
+            },
+            {
+              "text": "À",
+              "normalized": "à",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b4.s2.t2",
+              "startMs": 65783,
+              "endMs": 65883
+            },
+            {
+              "text": "qui",
+              "normalized": "qui",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "who",
+                "fr": "qui",
+                "es": "quien"
+              },
+              "id": "b4.s2.t3",
+              "startMs": 65883,
+              "endMs": 65923
+            },
+            {
+              "text": "appartient",
+              "normalized": "appartient",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "belongs",
+                "fr": "appartient",
+                "es": "pertenece"
+              },
+              "id": "b4.s2.t4",
+              "startMs": 65923,
+              "endMs": 66543
+            },
+            {
+              "text": "ce",
+              "normalized": "ce",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "this",
+                "fr": "ce",
+                "es": "este"
+              },
+              "id": "b4.s2.t5",
+              "startMs": 66543,
+              "endMs": 66583
+            },
+            {
+              "text": "beau",
+              "normalized": "beau",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "beautiful",
+                "fr": "beau",
+                "es": "hermoso"
+              },
+              "id": "b4.s2.t6",
+              "startMs": 66653,
+              "endMs": 66853
+            },
+            {
+              "text": "pré",
+              "normalized": "pré",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "meadow",
+                "fr": "pré",
+                "es": "prado"
+              },
+              "id": "b4.s2.t7",
+              "startMs": 66853,
+              "endMs": 67063
+            },
+            {
+              "text": "?",
+              "normalized": "?",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b4.s2.t8"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b4.s2.t9"
+            },
+            {
+              "text": "demande",
+              "normalized": "demande",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "asks",
+                "fr": "demande",
+                "es": "pregunta"
+              },
+              "id": "b4.s2.t10",
+              "startMs": 67403,
+              "endMs": 67743
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s2.t11",
+              "startMs": 67743,
+              "endMs": 67843
+            },
+            {
+              "text": "chat",
+              "normalized": "chat",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cat",
+                "fr": "chat",
+                "es": "gato"
+              },
+              "id": "b4.s2.t12",
+              "startMs": 67843,
+              "endMs": 68053
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s2.t13"
+            }
+          ]
+        },
+        {
+          "id": "b4.s3",
+          "text": "« Il appartient au terrible ogre du château », répondent les paysans.",
+          "translations": {
+            "en": "“It belongs to the terrible ogre in the castle,” answer the peasants.",
+            "fr": "« Il appartient au terrible ogre du château », répondent les paysans.",
+            "es": "«Pertenece al terrible ogro del castillo», responden los campesinos."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s3.t1"
+            },
+            {
+              "text": "Il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b4.s3.t2",
+              "startMs": 69161,
+              "endMs": 69281
+            },
+            {
+              "text": "appartient",
+              "normalized": "appartient",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "belongs",
+                "fr": "appartient",
+                "es": "pertenece"
+              },
+              "id": "b4.s3.t3",
+              "startMs": 69281,
+              "endMs": 69881
+            },
+            {
+              "text": "au",
+              "normalized": "au",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to the",
+                "fr": "au",
+                "es": "al"
+              },
+              "id": "b4.s3.t4",
+              "startMs": 69881,
+              "endMs": 69931
+            },
+            {
+              "text": "terrible",
+              "normalized": "terrible",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "terrible",
+                "fr": "terrible",
+                "es": "terrible"
+              },
+              "id": "b4.s3.t5",
+              "startMs": 70001,
+              "endMs": 70491
+            },
+            {
+              "text": "ogre",
+              "normalized": "ogre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ogre",
+                "fr": "ogre",
+                "es": "ogro"
+              },
+              "id": "b4.s3.t6",
+              "startMs": 70491,
+              "endMs": 70731
+            },
+            {
+              "text": "du",
+              "normalized": "du",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b4.s3.t7",
+              "startMs": 70731,
+              "endMs": 70851
+            },
+            {
+              "text": "château",
+              "normalized": "château",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "castle",
+                "fr": "château",
+                "es": "castillo"
+              },
+              "id": "b4.s3.t8",
+              "startMs": 70851,
+              "endMs": 71466
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b4.s3.t9"
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s3.t10"
+            },
+            {
+              "text": "répondent",
+              "normalized": "répondent",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "answer",
+                "fr": "répondent",
+                "es": "responden"
+              },
+              "id": "b4.s3.t11",
+              "startMs": 71466,
+              "endMs": 72081
+            },
+            {
+              "text": "les",
+              "normalized": "les",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b4.s3.t12",
+              "startMs": 72081,
+              "endMs": 72221
+            },
+            {
+              "text": "paysans",
+              "normalized": "paysans",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "peasants",
+                "fr": "paysans",
+                "es": "campesinos"
+              },
+              "id": "b4.s3.t13",
+              "startMs": 72221,
+              "endMs": 73140
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s3.t14"
+            }
+          ]
+        },
+        {
+          "id": "b4.s4",
+          "text": "Le chat leur promet un danger si le roi entend cette réponse.",
+          "translations": {
+            "en": "The cat promises them danger if the king hears that answer.",
+            "fr": "Le chat leur promet un danger si le roi entend cette réponse.",
+            "es": "El gato les promete peligro si el rey oye esa respuesta."
+          },
+          "tokens": [
+            {
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s4.t1",
+              "startMs": 73550,
+              "endMs": 73620
+            },
+            {
+              "text": "chat",
+              "normalized": "chat",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cat",
+                "fr": "chat",
+                "es": "gato"
+              },
+              "id": "b4.s4.t2",
+              "startMs": 73620,
+              "endMs": 73890
+            },
+            {
+              "text": "leur",
+              "normalized": "leur",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "their",
+                "fr": "leur",
+                "es": "su"
+              },
+              "id": "b4.s4.t3",
+              "startMs": 73890,
+              "endMs": 74160
+            },
+            {
+              "text": "promet",
+              "normalized": "promet",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "promises",
+                "fr": "promet",
+                "es": "promete"
+              },
+              "id": "b4.s4.t4",
+              "startMs": 74160,
+              "endMs": 74570
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b4.s4.t5",
+              "startMs": 74570,
+              "endMs": 74700
+            },
+            {
+              "text": "danger",
+              "normalized": "danger",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "danger",
+                "fr": "danger",
+                "es": "peligro"
+              },
+              "id": "b4.s4.t6",
+              "startMs": 74700,
+              "endMs": 75150
+            },
+            {
+              "text": "si",
+              "normalized": "si",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "if",
+                "fr": "si",
+                "es": "si"
+              },
+              "id": "b4.s4.t7",
+              "startMs": 75150,
+              "endMs": 75200
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s4.t8",
+              "startMs": 75390,
+              "endMs": 75390
+            },
+            {
+              "text": "roi",
+              "normalized": "roi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "king",
+                "fr": "roi",
+                "es": "rey"
+              },
+              "id": "b4.s4.t9",
+              "startMs": 75390,
+              "endMs": 75570
+            },
+            {
+              "text": "entend",
+              "normalized": "entend",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hears",
+                "fr": "entend",
+                "es": "oye"
+              },
+              "id": "b4.s4.t10",
+              "startMs": 75570,
+              "endMs": 75930
+            },
+            {
+              "text": "cette",
+              "normalized": "cette",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "this",
+                "fr": "cette",
+                "es": "esta"
+              },
+              "id": "b4.s4.t11",
+              "startMs": 75930,
+              "endMs": 76210
+            },
+            {
+              "text": "réponse",
+              "normalized": "réponse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "answer",
+                "fr": "réponse",
+                "es": "respuesta"
+              },
+              "id": "b4.s4.t12",
+              "startMs": 76250,
+              "endMs": 76720
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s4.t13"
+            }
+          ]
+        },
+        {
+          "id": "b4.s5",
+          "text": "« Dites que le pré appartient au marquis de Carabas. »",
+          "translations": {
+            "en": "“Say that the meadow belongs to the Marquis of Carabas.”",
+            "fr": "« Dites que le pré appartient au marquis de Carabas. »",
+            "es": "«Digan que el prado pertenece al marqués de Carabás»."
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s5.t1"
+            },
+            {
+              "text": "Dites",
+              "normalized": "dites",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "say",
+                "fr": "dites",
+                "es": "digan"
+              },
+              "id": "b4.s5.t2",
+              "startMs": 77819,
+              "endMs": 78129
+            },
+            {
+              "text": "que",
+              "normalized": "que",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "that",
+                "fr": "que",
+                "es": "que"
+              },
+              "id": "b4.s5.t3",
+              "startMs": 78129,
+              "endMs": 78239
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s5.t4",
+              "startMs": 78329,
+              "endMs": 78439
+            },
+            {
+              "text": "pré",
+              "normalized": "pré",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "meadow",
+                "fr": "pré",
+                "es": "prado"
+              },
+              "id": "b4.s5.t5",
+              "startMs": 78439,
+              "endMs": 78909
+            },
+            {
+              "text": "appartient",
+              "normalized": "appartient",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "belongs",
+                "fr": "appartient",
+                "es": "pertenece"
+              },
+              "id": "b4.s5.t6",
+              "startMs": 78909,
+              "endMs": 79379
+            },
+            {
+              "text": "au",
+              "normalized": "au",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to the",
+                "fr": "au",
+                "es": "al"
+              },
+              "id": "b4.s5.t7",
+              "startMs": 79379,
+              "endMs": 79399
+            },
+            {
+              "text": "marquis",
+              "normalized": "marquis",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "marquis",
+                "fr": "marquis",
+                "es": "marqués"
+              },
+              "id": "b4.s5.t8",
+              "startMs": 79399,
+              "endMs": 79939
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b4.s5.t9",
+              "startMs": 79939,
+              "endMs": 80059
+            },
+            {
+              "text": "Carabas",
+              "normalized": "carabas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Carabas",
+                "fr": "Carabas",
+                "es": "Carabás"
+              },
+              "id": "b4.s5.t10",
+              "startMs": 80059,
+              "endMs": 81026
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s5.t11"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b4.s5.t12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b5",
+      "sentences": [
+        {
+          "id": "b5.s1",
+          "text": "Plus loin, il donne le même ordre aux moissonneurs.",
+          "translations": {
+            "en": "Farther on, he gives the same order to the harvesters.",
+            "fr": "Plus loin, il donne le même ordre aux moissonneurs.",
+            "es": "Más adelante, da la misma orden a los segadores."
+          },
+          "tokens": [
+            {
+              "text": "Plus",
+              "normalized": "plus",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "more",
+                "fr": "plus",
+                "es": "más"
+              },
+              "id": "b5.s1.t1",
+              "startMs": 81856,
+              "endMs": 81966
+            },
+            {
+              "text": "loin",
+              "normalized": "loin",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "farther",
+                "fr": "loin",
+                "es": "lejos"
+              },
+              "id": "b5.s1.t2",
+              "startMs": 81966,
+              "endMs": 82206
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s1.t3"
+            },
+            {
+              "text": "il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b5.s1.t4",
+              "startMs": 82366,
+              "endMs": 82446
+            },
+            {
+              "text": "donne",
+              "normalized": "donne",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "gives",
+                "fr": "donne",
+                "es": "da"
+              },
+              "id": "b5.s1.t5",
+              "startMs": 82446,
+              "endMs": 82756
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b5.s1.t6",
+              "startMs": 82756,
+              "endMs": 82876
+            },
+            {
+              "text": "même",
+              "normalized": "même",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "same",
+                "fr": "même",
+                "es": "misma"
+              },
+              "id": "b5.s1.t7",
+              "startMs": 82876,
+              "endMs": 83186
+            },
+            {
+              "text": "ordre",
+              "normalized": "ordre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "order",
+                "fr": "ordre",
+                "es": "orden"
+              },
+              "id": "b5.s1.t8",
+              "startMs": 83186,
+              "endMs": 83649
+            },
+            {
+              "text": "aux",
+              "normalized": "aux",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to the",
+                "fr": "aux",
+                "es": "a los"
+              },
+              "id": "b5.s1.t9",
+              "startMs": 83649,
+              "endMs": 84112
+            },
+            {
+              "text": "moissonneurs",
+              "normalized": "moissonneurs",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "harvesters",
+                "fr": "moissonneurs",
+                "es": "segadores"
+              },
+              "id": "b5.s1.t10",
+              "startMs": 84112,
+              "endMs": 84574
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s1.t11"
+            }
+          ]
+        },
+        {
+          "id": "b5.s2",
+          "text": "Il parle aussi aux bergers qui gardent de grands troupeaux.",
+          "translations": {
+            "en": "He also speaks to shepherds tending large herds.",
+            "fr": "Il parle aussi aux bergers qui gardent de grands troupeaux.",
+            "es": "También habla con pastores que cuidan grandes rebaños."
+          },
+          "tokens": [
+            {
+              "text": "Il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b5.s2.t1",
+              "startMs": 84984,
+              "endMs": 85064
+            },
+            {
+              "text": "parle",
+              "normalized": "parle",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "speaks",
+                "fr": "parle",
+                "es": "habla"
+              },
+              "id": "b5.s2.t2",
+              "startMs": 85064,
+              "endMs": 85404
+            },
+            {
+              "text": "aussi",
+              "normalized": "aussi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "also",
+                "fr": "aussi",
+                "es": "también"
+              },
+              "id": "b5.s2.t3",
+              "startMs": 85404,
+              "endMs": 85734
+            },
+            {
+              "text": "aux",
+              "normalized": "aux",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to the",
+                "fr": "aux",
+                "es": "a los"
+              },
+              "id": "b5.s2.t4",
+              "startMs": 85734,
+              "endMs": 85854
+            },
+            {
+              "text": "bergers",
+              "normalized": "bergers",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "shepherds",
+                "fr": "bergers",
+                "es": "pastores"
+              },
+              "id": "b5.s2.t5",
+              "startMs": 85854,
+              "endMs": 86464
+            },
+            {
+              "text": "qui",
+              "normalized": "qui",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "who",
+                "fr": "qui",
+                "es": "quien"
+              },
+              "id": "b5.s2.t6",
+              "startMs": 86464,
+              "endMs": 86504
+            },
+            {
+              "text": "gardent",
+              "normalized": "gardent",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tend",
+                "fr": "gardent",
+                "es": "cuidan"
+              },
+              "id": "b5.s2.t7",
+              "startMs": 86504,
+              "endMs": 86934
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b5.s2.t8",
+              "startMs": 86934,
+              "endMs": 87024
+            },
+            {
+              "text": "grands",
+              "normalized": "grands",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "large",
+                "fr": "grands",
+                "es": "grandes"
+              },
+              "id": "b5.s2.t9",
+              "startMs": 87024,
+              "endMs": 87314
+            },
+            {
+              "text": "troupeaux",
+              "normalized": "troupeaux",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "herds",
+                "fr": "troupeaux",
+                "es": "rebaños"
+              },
+              "id": "b5.s2.t10",
+              "startMs": 87314,
+              "endMs": 88237
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s2.t11"
+            }
+          ]
+        },
+        {
+          "id": "b5.s3",
+          "text": "Quand le roi passe, tous nomment le marquis de Carabas.",
+          "translations": {
+            "en": "When the king passes, everyone names the Marquis of Carabas.",
+            "fr": "Quand le roi passe, tous nomment le marquis de Carabas.",
+            "es": "Cuando pasa el rey, todos nombran al marqués de Carabás."
+          },
+          "tokens": [
+            {
+              "text": "Quand",
+              "normalized": "quand",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "when",
+                "fr": "quand",
+                "es": "cuando"
+              },
+              "id": "b5.s3.t1",
+              "startMs": 88697,
+              "endMs": 88857
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b5.s3.t2",
+              "startMs": 88857,
+              "endMs": 88937
+            },
+            {
+              "text": "roi",
+              "normalized": "roi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "king",
+                "fr": "roi",
+                "es": "rey"
+              },
+              "id": "b5.s3.t3",
+              "startMs": 88937,
+              "endMs": 89197
+            },
+            {
+              "text": "passe",
+              "normalized": "passe",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "passes",
+                "fr": "passe",
+                "es": "pasa"
+              },
+              "id": "b5.s3.t4",
+              "startMs": 89197,
+              "endMs": 89367
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s3.t5"
+            },
+            {
+              "text": "tous",
+              "normalized": "tous",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "everyone",
+                "fr": "tous",
+                "es": "todos"
+              },
+              "id": "b5.s3.t6",
+              "startMs": 89497,
+              "endMs": 89577
+            },
+            {
+              "text": "nomment",
+              "normalized": "nomment",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "name",
+                "fr": "nomment",
+                "es": "nombran"
+              },
+              "id": "b5.s3.t7",
+              "startMs": 89577,
+              "endMs": 90167
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b5.s3.t8",
+              "startMs": 90167,
+              "endMs": 90287
+            },
+            {
+              "text": "marquis",
+              "normalized": "marquis",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "marquis",
+                "fr": "marquis",
+                "es": "marqués"
+              },
+              "id": "b5.s3.t9",
+              "startMs": 90287,
+              "endMs": 90707
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b5.s3.t10",
+              "startMs": 90707,
+              "endMs": 90827
+            },
+            {
+              "text": "Carabas",
+              "normalized": "carabas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Carabas",
+                "fr": "Carabas",
+                "es": "Carabás"
+              },
+              "id": "b5.s3.t11",
+              "startMs": 90827,
+              "endMs": 91791
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s3.t12"
+            }
+          ]
+        },
+        {
+          "id": "b5.s4",
+          "text": "Le roi admire ces terres, ces prés et ces nombreux animaux.",
+          "translations": {
+            "en": "The king admires these lands, meadows, and many animals.",
+            "fr": "Le roi admire ces terres, ces prés et ces nombreux animaux.",
+            "es": "El rey admira esas tierras, esos prados y los numerosos animales."
+          },
+          "tokens": [
+            {
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b5.s4.t1",
+              "startMs": 92201,
+              "endMs": 92281
+            },
+            {
+              "text": "roi",
+              "normalized": "roi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "king",
+                "fr": "roi",
+                "es": "rey"
+              },
+              "id": "b5.s4.t2",
+              "startMs": 92281,
+              "endMs": 92491
+            },
+            {
+              "text": "admire",
+              "normalized": "admire",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "admires",
+                "fr": "admire",
+                "es": "admira"
+              },
+              "id": "b5.s4.t3",
+              "startMs": 92491,
+              "endMs": 92921
+            },
+            {
+              "text": "ces",
+              "normalized": "ces",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "these",
+                "fr": "ces",
+                "es": "estos"
+              },
+              "id": "b5.s4.t4",
+              "startMs": 92921,
+              "endMs": 93248
+            },
+            {
+              "text": "terres",
+              "normalized": "terres",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lands",
+                "fr": "terres",
+                "es": "tierras"
+              },
+              "id": "b5.s4.t5",
+              "startMs": 93248,
+              "endMs": 93575
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s4.t6"
+            },
+            {
+              "text": "ces",
+              "normalized": "ces",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "these",
+                "fr": "ces",
+                "es": "estos"
+              },
+              "id": "b5.s4.t7",
+              "startMs": 93575,
+              "endMs": 93901
+            },
+            {
+              "text": "prés",
+              "normalized": "prés",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "meadows",
+                "fr": "prés",
+                "es": "prados"
+              },
+              "id": "b5.s4.t8",
+              "startMs": 93901,
+              "endMs": 94181
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b5.s4.t9",
+              "startMs": 94181,
+              "endMs": 94271
+            },
+            {
+              "text": "ces",
+              "normalized": "ces",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "these",
+                "fr": "ces",
+                "es": "estos"
+              },
+              "id": "b5.s4.t10",
+              "startMs": 94271,
+              "endMs": 94411
+            },
+            {
+              "text": "nombreux",
+              "normalized": "nombreux",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "numerous",
+                "fr": "nombreux",
+                "es": "numerosos"
+              },
+              "id": "b5.s4.t11",
+              "startMs": 94411,
+              "endMs": 94791
+            },
+            {
+              "text": "animaux",
+              "normalized": "animaux",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "animals",
+                "fr": "animaux",
+                "es": "animales"
+              },
+              "id": "b5.s4.t12",
+              "startMs": 94791,
+              "endMs": 95756
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s4.t13"
+            }
+          ]
+        },
+        {
+          "id": "b5.s5",
+          "text": "Il croit que son invité possède un domaine immense.",
+          "translations": {
+            "en": "He believes that his guest owns an immense estate.",
+            "fr": "Il croit que son invité possède un domaine immense.",
+            "es": "Cree que su invitado posee una finca inmensa."
+          },
+          "tokens": [
+            {
+              "text": "Il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b5.s5.t1",
+              "startMs": 96166,
+              "endMs": 96226
+            },
+            {
+              "text": "croit",
+              "normalized": "croit",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "believes",
+                "fr": "croit",
+                "es": "cree"
+              },
+              "id": "b5.s5.t2",
+              "startMs": 96226,
+              "endMs": 96526
+            },
+            {
+              "text": "que",
+              "normalized": "que",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "that",
+                "fr": "que",
+                "es": "que"
+              },
+              "id": "b5.s5.t3",
+              "startMs": 96526,
+              "endMs": 96706
+            },
+            {
+              "text": "son",
+              "normalized": "son",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "son",
+                "es": "su"
+              },
+              "id": "b5.s5.t4",
+              "startMs": 96706,
+              "endMs": 96886
+            },
+            {
+              "text": "invité",
+              "normalized": "invité",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "guest",
+                "fr": "invité",
+                "es": "invitado"
+              },
+              "id": "b5.s5.t5",
+              "startMs": 96886,
+              "endMs": 97361
+            },
+            {
+              "text": "possède",
+              "normalized": "possède",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "owns",
+                "fr": "possède",
+                "es": "posee"
+              },
+              "id": "b5.s5.t6",
+              "startMs": 97361,
+              "endMs": 97836
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b5.s5.t7",
+              "startMs": 97836,
+              "endMs": 97946
+            },
+            {
+              "text": "domaine",
+              "normalized": "domaine",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "estate",
+                "fr": "domaine",
+                "es": "finca"
+              },
+              "id": "b5.s5.t8",
+              "startMs": 97946,
+              "endMs": 98366
+            },
+            {
+              "text": "immense",
+              "normalized": "immense",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "immense",
+                "fr": "immense",
+                "es": "inmenso"
+              },
+              "id": "b5.s5.t9",
+              "startMs": 98366,
+              "endMs": 98796
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s5.t10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b6",
+      "sentences": [
+        {
+          "id": "b6.s1",
+          "text": "Le garçon ne comprend pas, mais il remercie les travailleurs avec respect.",
+          "translations": {
+            "en": "The boy does not understand, but he thanks the workers respectfully.",
+            "fr": "Le garçon ne comprend pas, mais il remercie les travailleurs avec respect.",
+            "es": "El muchacho no comprende, pero agradece a los trabajadores con respeto."
+          },
+          "tokens": [
+            {
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b6.s1.t1",
+              "startMs": 100265,
+              "endMs": 100345
+            },
+            {
+              "text": "garçon",
+              "normalized": "garçon",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "boy",
+                "fr": "garçon",
+                "es": "muchacho"
+              },
+              "id": "b6.s1.t2",
+              "startMs": 100345,
+              "endMs": 100855
+            },
+            {
+              "text": "ne",
+              "normalized": "ne",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "not",
+                "fr": "ne",
+                "es": "no"
+              },
+              "id": "b6.s1.t3",
+              "startMs": 100855,
+              "endMs": 100935
+            },
+            {
+              "text": "comprend",
+              "normalized": "comprend",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "understands",
+                "fr": "comprend",
+                "es": "comprende"
+              },
+              "id": "b6.s1.t4",
+              "startMs": 100935,
+              "endMs": 101465
+            },
+            {
+              "text": "pas",
+              "normalized": "pas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "not",
+                "fr": "pas",
+                "es": "no"
+              },
+              "id": "b6.s1.t5",
+              "startMs": 101465,
+              "endMs": 101555
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s1.t6"
+            },
+            {
+              "text": "mais",
+              "normalized": "mais",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "but",
+                "fr": "mais",
+                "es": "pero"
+              },
+              "id": "b6.s1.t7",
+              "startMs": 101835,
+              "endMs": 101855
+            },
+            {
+              "text": "il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b6.s1.t8",
+              "startMs": 102165,
+              "endMs": 102165
+            },
+            {
+              "text": "remercie",
+              "normalized": "remercie",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "thanks",
+                "fr": "remercie",
+                "es": "agradece"
+              },
+              "id": "b6.s1.t9",
+              "startMs": 102165,
+              "endMs": 102615
+            },
+            {
+              "text": "les",
+              "normalized": "les",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b6.s1.t10",
+              "startMs": 102615,
+              "endMs": 102775
+            },
+            {
+              "text": "travailleurs",
+              "normalized": "travailleurs",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "workers",
+                "fr": "travailleurs",
+                "es": "trabajadores"
+              },
+              "id": "b6.s1.t11",
+              "startMs": 102775,
+              "endMs": 103455
+            },
+            {
+              "text": "avec",
+              "normalized": "avec",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b6.s1.t12",
+              "startMs": 103455,
+              "endMs": 103675
+            },
+            {
+              "text": "respect",
+              "normalized": "respect",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "respect",
+                "fr": "respect",
+                "es": "respeto"
+              },
+              "id": "b6.s1.t13",
+              "startMs": 103675,
+              "endMs": 104075
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s1.t14"
+            }
+          ]
+        },
+        {
+          "id": "b6.s2",
+          "text": "La princesse apprécie sa modestie et sa voix sincère.",
+          "translations": {
+            "en": "The princess appreciates his modesty and sincere voice.",
+            "fr": "La princesse apprécie sa modestie et sa voix sincère.",
+            "es": "La princesa aprecia su modestia y su voz sincera."
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b6.s2.t1",
+              "startMs": 105447,
+              "endMs": 105517
+            },
+            {
+              "text": "princesse",
+              "normalized": "princesse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "princess",
+                "fr": "princesse",
+                "es": "princesa"
+              },
+              "id": "b6.s2.t2",
+              "startMs": 105517,
+              "endMs": 106107
+            },
+            {
+              "text": "apprécie",
+              "normalized": "apprécie",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "appreciates",
+                "fr": "apprécie",
+                "es": "aprecia"
+              },
+              "id": "b6.s2.t3",
+              "startMs": 106107,
+              "endMs": 106697
+            },
+            {
+              "text": "sa",
+              "normalized": "sa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b6.s2.t4",
+              "startMs": 106697,
+              "endMs": 106797
+            },
+            {
+              "text": "modestie",
+              "normalized": "modestie",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "modesty",
+                "fr": "modestie",
+                "es": "modestia"
+              },
+              "id": "b6.s2.t5",
+              "startMs": 106797,
+              "endMs": 107497
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b6.s2.t6",
+              "startMs": 107497,
+              "endMs": 107497
+            },
+            {
+              "text": "sa",
+              "normalized": "sa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b6.s2.t7",
+              "startMs": 107537,
+              "endMs": 107647
+            },
+            {
+              "text": "voix",
+              "normalized": "voix",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "voice",
+                "fr": "voix",
+                "es": "voz"
+              },
+              "id": "b6.s2.t8",
+              "startMs": 107707,
+              "endMs": 107937
+            },
+            {
+              "text": "sincère",
+              "normalized": "sincère",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sincere",
+                "fr": "sincère",
+                "es": "sincera"
+              },
+              "id": "b6.s2.t9",
+              "startMs": 107937,
+              "endMs": 108975
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s2.t10"
+            }
+          ]
+        },
+        {
+          "id": "b6.s3",
+          "text": "Le chat arrive enfin devant un château aux hautes tours.",
+          "translations": {
+            "en": "The cat finally arrives before a castle with high towers.",
+            "fr": "Le chat arrive enfin devant un château aux hautes tours.",
+            "es": "El gato llega por fin ante un castillo con altas torres."
+          },
+          "tokens": [
+            {
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b6.s3.t1",
+              "startMs": 109385,
+              "endMs": 109435
+            },
+            {
+              "text": "chat",
+              "normalized": "chat",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cat",
+                "fr": "chat",
+                "es": "gato"
+              },
+              "id": "b6.s3.t2",
+              "startMs": 109435,
+              "endMs": 109655
+            },
+            {
+              "text": "arrive",
+              "normalized": "arrive",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "arrives",
+                "fr": "arrive",
+                "es": "llega"
+              },
+              "id": "b6.s3.t3",
+              "startMs": 109655,
+              "endMs": 109985
+            },
+            {
+              "text": "enfin",
+              "normalized": "enfin",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "finally",
+                "fr": "enfin",
+                "es": "por fin"
+              },
+              "id": "b6.s3.t4",
+              "startMs": 109985,
+              "endMs": 110265
+            },
+            {
+              "text": "devant",
+              "normalized": "devant",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "before",
+                "fr": "devant",
+                "es": "delante de"
+              },
+              "id": "b6.s3.t5",
+              "startMs": 110265,
+              "endMs": 110595
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b6.s3.t6",
+              "startMs": 110595,
+              "endMs": 110695
+            },
+            {
+              "text": "château",
+              "normalized": "château",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "castle",
+                "fr": "château",
+                "es": "castillo"
+              },
+              "id": "b6.s3.t7",
+              "startMs": 110695,
+              "endMs": 111140
+            },
+            {
+              "text": "aux",
+              "normalized": "aux",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to the",
+                "fr": "aux",
+                "es": "a los"
+              },
+              "id": "b6.s3.t8",
+              "startMs": 111140,
+              "endMs": 111586
+            },
+            {
+              "text": "hautes",
+              "normalized": "hautes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "high",
+                "fr": "hautes",
+                "es": "altas"
+              },
+              "id": "b6.s3.t9",
+              "startMs": 111586,
+              "endMs": 112031
+            },
+            {
+              "text": "tours",
+              "normalized": "tours",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "towers",
+                "fr": "tours",
+                "es": "torres"
+              },
+              "id": "b6.s3.t10",
+              "startMs": 112031,
+              "endMs": 112477
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s3.t11"
+            }
+          ]
+        },
+        {
+          "id": "b6.s4",
+          "text": "Ce château appartient vraiment à un ogre puissant et très riche.",
+          "translations": {
+            "en": "This castle really belongs to a powerful and very rich ogre.",
+            "fr": "Ce château appartient vraiment à un ogre puissant et très riche.",
+            "es": "Este castillo pertenece realmente a un ogro poderoso y muy rico."
+          },
+          "tokens": [
+            {
+              "text": "Ce",
+              "normalized": "ce",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "this",
+                "fr": "ce",
+                "es": "este"
+              },
+              "id": "b6.s4.t1",
+              "startMs": 112877,
+              "endMs": 112917
+            },
+            {
+              "text": "château",
+              "normalized": "château",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "castle",
+                "fr": "château",
+                "es": "castillo"
+              },
+              "id": "b6.s4.t2",
+              "startMs": 112917,
+              "endMs": 113427
+            },
+            {
+              "text": "appartient",
+              "normalized": "appartient",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "belongs",
+                "fr": "appartient",
+                "es": "pertenece"
+              },
+              "id": "b6.s4.t3",
+              "startMs": 113427,
+              "endMs": 113937
+            },
+            {
+              "text": "vraiment",
+              "normalized": "vraiment",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "really",
+                "fr": "vraiment",
+                "es": "realmente"
+              },
+              "id": "b6.s4.t4",
+              "startMs": 113937,
+              "endMs": 114387
+            },
+            {
+              "text": "à",
+              "normalized": "à",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b6.s4.t5",
+              "startMs": 114387,
+              "endMs": 114467
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b6.s4.t6",
+              "startMs": 114577,
+              "endMs": 114607
+            },
+            {
+              "text": "ogre",
+              "normalized": "ogre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ogre",
+                "fr": "ogre",
+                "es": "ogro"
+              },
+              "id": "b6.s4.t7",
+              "startMs": 114607,
+              "endMs": 114962
+            },
+            {
+              "text": "puissant",
+              "normalized": "puissant",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "powerful",
+                "fr": "puissant",
+                "es": "poderoso"
+              },
+              "id": "b6.s4.t8",
+              "startMs": 114962,
+              "endMs": 115317
+            },
+            {
+              "text": "et",
+              "normalized": "et",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b6.s4.t9",
+              "startMs": 115317,
+              "endMs": 115387
+            },
+            {
+              "text": "très",
+              "normalized": "très",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "id": "b6.s4.t10",
+              "startMs": 115387,
+              "endMs": 115667
+            },
+            {
+              "text": "riche",
+              "normalized": "riche",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "rich",
+                "fr": "riche",
+                "es": "rico"
+              },
+              "id": "b6.s4.t11",
+              "startMs": 115667,
+              "endMs": 116616
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s4.t12"
+            }
+          ]
+        },
+        {
+          "id": "b6.s5",
+          "text": "Sans hésiter, le chat frappe à la grande porte.",
+          "translations": {
+            "en": "Without hesitating, the cat knocks on the great door.",
+            "fr": "Sans hésiter, le chat frappe à la grande porte.",
+            "es": "Sin dudar, el gato llama a la gran puerta."
+          },
+          "tokens": [
+            {
+              "text": "Sans",
+              "normalized": "sans",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "without",
+                "fr": "sans",
+                "es": "sin"
+              },
+              "id": "b6.s5.t1",
+              "startMs": 117016,
+              "endMs": 117216
+            },
+            {
+              "text": "hésiter",
+              "normalized": "hésiter",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to hesitate",
+                "fr": "hésiter",
+                "es": "dudar"
+              },
+              "id": "b6.s5.t2",
+              "startMs": 117216,
+              "endMs": 117956
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s5.t3"
+            },
+            {
+              "text": "le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b6.s5.t4",
+              "startMs": 117956,
+              "endMs": 117956
+            },
+            {
+              "text": "chat",
+              "normalized": "chat",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cat",
+                "fr": "chat",
+                "es": "gato"
+              },
+              "id": "b6.s5.t5",
+              "startMs": 118016,
+              "endMs": 118206
+            },
+            {
+              "text": "frappe",
+              "normalized": "frappe",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "knocks",
+                "fr": "frappe",
+                "es": "llama"
+              },
+              "id": "b6.s5.t6",
+              "startMs": 118206,
+              "endMs": 118586
+            },
+            {
+              "text": "à",
+              "normalized": "à",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b6.s5.t7",
+              "startMs": 118586,
+              "endMs": 118706
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b6.s5.t8",
+              "startMs": 118706,
+              "endMs": 118826
+            },
+            {
+              "text": "grande",
+              "normalized": "grande",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "great",
+                "fr": "grande",
+                "es": "gran"
+              },
+              "id": "b6.s5.t9",
+              "startMs": 118826,
+              "endMs": 119146
+            },
+            {
+              "text": "porte",
+              "normalized": "porte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "door",
+                "fr": "porte",
+                "es": "puerta"
+              },
+              "id": "b6.s5.t10",
+              "startMs": 119246,
+              "endMs": 119416
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s5.t11"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b7",
+      "sentences": [
+        {
+          "id": "b7.s1",
+          "text": "Il sait que la partie la plus dangereuse commence maintenant.",
+          "translations": {
+            "en": "He knows that the most dangerous part begins now.",
+            "fr": "Il sait que la partie la plus dangereuse commence maintenant.",
+            "es": "Sabe que la parte más peligrosa comienza ahora."
+          },
+          "tokens": [
+            {
+              "text": "Il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b7.s1.t1",
+              "startMs": 120837,
+              "endMs": 120897
+            },
+            {
+              "text": "sait",
+              "normalized": "sait",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "knows",
+                "fr": "sait",
+                "es": "sabe"
+              },
+              "id": "b7.s1.t2",
+              "startMs": 120897,
+              "endMs": 121087
+            },
+            {
+              "text": "que",
+              "normalized": "que",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "that",
+                "fr": "que",
+                "es": "que"
+              },
+              "id": "b7.s1.t3",
+              "startMs": 121187,
+              "endMs": 121277
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b7.s1.t4",
+              "startMs": 121277,
+              "endMs": 121387
+            },
+            {
+              "text": "partie",
+              "normalized": "partie",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "part",
+                "fr": "partie",
+                "es": "parte"
+              },
+              "id": "b7.s1.t5",
+              "startMs": 121387,
+              "endMs": 121687
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b7.s1.t6",
+              "startMs": 121827,
+              "endMs": 121827
+            },
+            {
+              "text": "plus",
+              "normalized": "plus",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "more",
+                "fr": "plus",
+                "es": "más"
+              },
+              "id": "b7.s1.t7",
+              "startMs": 121837,
+              "endMs": 121967
+            },
+            {
+              "text": "dangereuse",
+              "normalized": "dangereuse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dangerous",
+                "fr": "dangereuse",
+                "es": "peligrosa"
+              },
+              "id": "b7.s1.t8",
+              "startMs": 121967,
+              "endMs": 122587
+            },
+            {
+              "text": "commence",
+              "normalized": "commence",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "begins",
+                "fr": "commence",
+                "es": "empieza"
+              },
+              "id": "b7.s1.t9",
+              "startMs": 122587,
+              "endMs": 122907
+            },
+            {
+              "text": "maintenant",
+              "normalized": "maintenant",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "now",
+                "fr": "maintenant",
+                "es": "ahora"
+              },
+              "id": "b7.s1.t10",
+              "startMs": 123057,
+              "endMs": 123557
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s1.t11"
+            }
+          ]
+        },
+        {
+          "id": "b7.s2",
+          "text": "Pour aider son maître, il doit vaincre ce maître des lieux.",
+          "translations": {
+            "en": "To help his master, he must defeat the master of this place.",
+            "fr": "Pour aider son maître, il doit vaincre ce maître des lieux.",
+            "es": "Para ayudar a su amo, debe vencer al dueño de este lugar."
+          },
+          "tokens": [
+            {
+              "text": "Pour",
+              "normalized": "pour",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "for",
+                "fr": "pour",
+                "es": "para"
+              },
+              "id": "b7.s2.t1",
+              "startMs": 124710,
+              "endMs": 124830
+            },
+            {
+              "text": "aider",
+              "normalized": "aider",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to help",
+                "fr": "aider",
+                "es": "ayudar"
+              },
+              "id": "b7.s2.t2",
+              "startMs": 124830,
+              "endMs": 125070
+            },
+            {
+              "text": "son",
+              "normalized": "son",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "son",
+                "es": "su"
+              },
+              "id": "b7.s2.t3",
+              "startMs": 125070,
+              "endMs": 125210
+            },
+            {
+              "text": "maître",
+              "normalized": "maître",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "master",
+                "fr": "maître",
+                "es": "amo"
+              },
+              "id": "b7.s2.t4",
+              "startMs": 125210,
+              "endMs": 125680
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s2.t5"
+            },
+            {
+              "text": "il",
+              "normalized": "il",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b7.s2.t6",
+              "startMs": 125680,
+              "endMs": 125770
+            },
+            {
+              "text": "doit",
+              "normalized": "doit",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "must",
+                "fr": "doit",
+                "es": "debe"
+              },
+              "id": "b7.s2.t7",
+              "startMs": 126010,
+              "endMs": 126010
+            },
+            {
+              "text": "vaincre",
+              "normalized": "vaincre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to defeat",
+                "fr": "vaincre",
+                "es": "vencer"
+              },
+              "id": "b7.s2.t8",
+              "startMs": 126010,
+              "endMs": 126390
+            },
+            {
+              "text": "ce",
+              "normalized": "ce",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "this",
+                "fr": "ce",
+                "es": "este"
+              },
+              "id": "b7.s2.t9",
+              "startMs": 126390,
+              "endMs": 126500
+            },
+            {
+              "text": "maître",
+              "normalized": "maître",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "master",
+                "fr": "maître",
+                "es": "amo"
+              },
+              "id": "b7.s2.t10",
+              "startMs": 126500,
+              "endMs": 126890
+            },
+            {
+              "text": "des",
+              "normalized": "des",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "some",
+                "fr": "des",
+                "es": "unos"
+              },
+              "id": "b7.s2.t11",
+              "startMs": 126890,
+              "endMs": 126990
+            },
+            {
+              "text": "lieux",
+              "normalized": "lieux",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "place",
+                "fr": "lieux",
+                "es": "lugar"
+              },
+              "id": "b7.s2.t12",
+              "startMs": 126990,
+              "endMs": 127970
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s2.t13"
+            }
+          ]
+        },
+        {
+          "id": "b7.s3",
+          "text": "Son petit cœur bat vite, mais son esprit reste clair.",
+          "translations": {
+            "en": "His little heart beats fast, but his mind remains clear.",
+            "fr": "Son petit cœur bat vite, mais son esprit reste clair.",
+            "es": "Su pequeño corazón late rápido, pero su mente permanece clara."
+          },
+          "tokens": [
+            {
+              "text": "Son",
+              "normalized": "son",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "his",
+                "fr": "son",
+                "es": "su"
+              },
+              "id": "b7.s3.t1",
+              "startMs": 128370,
+              "endMs": 128470
+            },
+            {
+              "text": "petit",
+              "normalized": "petit",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "small",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b7.s3.t2",
+              "startMs": 128510,
+              "endMs": 128750
+            },
+            {
+              "text": "cœur",
+              "normalized": "cœur",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "heart",
+                "fr": "cœur",
+                "es": "corazón"
+              },
+              "id": "b7.s3.t3",
+              "startMs": 128830,
+              "endMs": 129120
+            },
+            {
+              "text": "bat",
+              "normalized": "bat",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "beats",
+                "fr": "bat",
+                "es": "late"
+              },
+              "id": "b7.s3.t4",
+              "startMs": 129120,
+              "endMs": 129300
+            },
+            {
+              "text": "vite",
+              "normalized": "vite",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "quickly",
+                "fr": "vite",
+                "es": "rápidamente"
+              },
+              "id": "b7.s3.t5",
+              "startMs": 129300,
+              "endMs": 129550
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s3.t6"
+            },
+            {
+              "text": "mais",
+              "normalized": "mais",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "but",
+                "fr": "mais",
+                "es": "pero"
+              },
+              "id": "b7.s3.t7",
+              "startMs": 129710,
+              "endMs": 129990
+            },
+            {
+              "text": "son",
+              "normalized": "son",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "son",
+                "es": "su"
+              },
+              "id": "b7.s3.t8",
+              "startMs": 129990,
+              "endMs": 130210
+            },
+            {
+              "text": "esprit",
+              "normalized": "esprit",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mind",
+                "fr": "esprit",
+                "es": "mente"
+              },
+              "id": "b7.s3.t9",
+              "startMs": 130210,
+              "endMs": 130640
+            },
+            {
+              "text": "reste",
+              "normalized": "reste",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "remains",
+                "fr": "reste",
+                "es": "permanece"
+              },
+              "id": "b7.s3.t10",
+              "startMs": 130640,
+              "endMs": 130940
+            },
+            {
+              "text": "clair",
+              "normalized": "clair",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "clear",
+                "fr": "clair",
+                "es": "claro"
+              },
+              "id": "b7.s3.t11",
+              "startMs": 131020,
+              "endMs": 131380
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b7.s3.t12"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

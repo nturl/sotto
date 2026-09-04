@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "locale": "pt-BR",
+  "language": {
+    "locale": "pt-BR",
+    "baseLanguage": "pt",
+    "region": "BR",
+    "script": "Latn",
+    "nativeName": "português (Brasil)",
+    "localizedNames": {
+      "en": "Portuguese",
+      "es": "portugués",
+      "fr": "portugais",
+      "pt": "português",
+      "it": "portoghese",
+      "zh-Hans": "葡萄牙语",
+      "zh-Hant": "葡萄牙語",
+      "ro": "portugheză",
+      "ca": "portuguès"
+    },
+    "direction": "ltr",
+    "stability": "stable",
+    "tokenizer": "latin",
+    "typography": "latin",
+    "pronunciationGuide": "none",
+    "tutorNotes": "Brazilian Portuguese: open vowels, \"de\"/\"te\" palatalized toward \"dji\"/\"tchi\" before i/final e, and \"você\" as the everyday second person rather than \"tu\". Vocabulary and spelling follow Brazilian norms, distinct from European Portuguese.",
+    "ttsVoice": "pf_dora",
+    "ttsLangCode": "p",
+    "sttLanguage": "pt",
+    "catalog": "pt"
+  },
+  "books": [
+    {
+      "bookId": "pt-jabuti-onca",
+      "contentLocale": "pt-BR",
+      "title": "O jabuti e a onça",
+      "author": "Sílvio Romero (collector)",
+      "level": "A0",
+      "categories": [
+        "folk"
+      ],
+      "estimatedMinutes": 3,
+      "localizedTitles": {
+        "en": "The Tortoise and the Jaguar",
+        "fr": "La tortue et le jaguar",
+        "es": "La tortuga y el jaguar"
+      },
+      "premise": {
+        "en": "A clever little tortoise makes a flute from an old bone and outsmarts a hungry jaguar in the Brazilian forest.",
+        "fr": "Une petite tortue rusée fabrique une flûte avec un vieil os et déjoue un jaguar affamé dans la forêt brésilienne.",
+        "es": "Una pequeña y astuta tortuga fabrica una flauta con un hueso viejo y engaña a un jaguar hambriento en la selva brasileña."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 2
+    }
+  ],
+  "generatedAt": "2026-09-04T21:35:57.227Z"
+}

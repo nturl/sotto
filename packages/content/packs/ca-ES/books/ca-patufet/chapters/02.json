@@ -1,0 +1,3330 @@
+{
+  "id": "ca-patufet-02",
+  "bookId": "ca-patufet",
+  "title": "El bou i la col",
+  "order": 2,
+  "blocks": [
+    {
+      "id": "b1",
+      "sentences": [
+        {
+          "id": "b1.s1",
+          "text": "El pare treballa al camp de bon matí.",
+          "translations": {
+            "en": "The father works in the field early in the morning.",
+            "fr": "Le père travaille dans le champ de bon matin.",
+            "es": "El padre trabaja en el campo temprano por la mañana."
+          },
+          "tokens": [
+            {
+              "text": "El",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s1.t1"
+            },
+            {
+              "text": "pare",
+              "normalized": "pare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "father",
+                "fr": "père",
+                "es": "padre"
+              },
+              "id": "b1.s1.t2"
+            },
+            {
+              "text": "treballa",
+              "normalized": "treballa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "works",
+                "fr": "travaille",
+                "es": "trabaja"
+              },
+              "id": "b1.s1.t3"
+            },
+            {
+              "text": "al",
+              "normalized": "al",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to the, in the",
+                "fr": "au",
+                "es": "al"
+              },
+              "id": "b1.s1.t4"
+            },
+            {
+              "text": "camp",
+              "normalized": "camp",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "field",
+                "fr": "champ",
+                "es": "campo"
+              },
+              "id": "b1.s1.t5"
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of, from",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b1.s1.t6"
+            },
+            {
+              "text": "bon",
+              "normalized": "bon",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "good",
+                "fr": "bon",
+                "es": "buen"
+              },
+              "id": "b1.s1.t7"
+            },
+            {
+              "text": "matí",
+              "normalized": "matí",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "morning",
+                "fr": "matin",
+                "es": "mañana"
+              },
+              "id": "b1.s1.t8"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s1.t9"
+            }
+          ]
+        },
+        {
+          "id": "b1.s2",
+          "text": "El pare té molta gana i està cansat.",
+          "translations": {
+            "en": "The father is very hungry and tired.",
+            "fr": "Le père a très faim et est fatigué.",
+            "es": "El padre tiene mucha hambre y está cansado."
+          },
+          "tokens": [
+            {
+              "text": "El",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s2.t1"
+            },
+            {
+              "text": "pare",
+              "normalized": "pare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "father",
+                "fr": "père",
+                "es": "padre"
+              },
+              "id": "b1.s2.t2"
+            },
+            {
+              "text": "té",
+              "normalized": "té",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "has",
+                "fr": "a",
+                "es": "tiene"
+              },
+              "id": "b1.s2.t3"
+            },
+            {
+              "text": "molta",
+              "normalized": "molta",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "much, a lot of",
+                "fr": "beaucoup de",
+                "es": "mucha"
+              },
+              "id": "b1.s2.t4"
+            },
+            {
+              "text": "gana",
+              "normalized": "gana",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hunger",
+                "fr": "faim",
+                "es": "hambre"
+              },
+              "id": "b1.s2.t5"
+            },
+            {
+              "text": "i",
+              "normalized": "i",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s2.t6"
+            },
+            {
+              "text": "està",
+              "normalized": "està",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "está"
+              },
+              "id": "b1.s2.t7"
+            },
+            {
+              "text": "cansat",
+              "normalized": "cansat",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tired",
+                "fr": "fatigué",
+                "es": "cansado"
+              },
+              "id": "b1.s2.t8"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s2.t9"
+            }
+          ]
+        },
+        {
+          "id": "b1.s3",
+          "text": "La mare prepara un cistell amb el dinar.",
+          "translations": {
+            "en": "The mother prepares a basket with lunch.",
+            "fr": "La mère prépare un panier avec le déjeuner.",
+            "es": "La madre prepara una cesta con la comida."
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the; her, it",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b1.s3.t1"
+            },
+            {
+              "text": "mare",
+              "normalized": "mare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mother",
+                "fr": "mère",
+                "es": "madre"
+              },
+              "id": "b1.s3.t2"
+            },
+            {
+              "text": "prepara",
+              "normalized": "prepara",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "prepares",
+                "fr": "prépare",
+                "es": "prepara"
+              },
+              "id": "b1.s3.t3"
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a, an",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s3.t4"
+            },
+            {
+              "text": "cistell",
+              "normalized": "cistell",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "basket",
+                "fr": "panier",
+                "es": "cesta"
+              },
+              "id": "b1.s3.t5"
+            },
+            {
+              "text": "amb",
+              "normalized": "amb",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b1.s3.t6"
+            },
+            {
+              "text": "el",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s3.t7"
+            },
+            {
+              "text": "dinar",
+              "normalized": "dinar",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lunch",
+                "fr": "déjeuner",
+                "es": "comida"
+              },
+              "id": "b1.s3.t8"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t9"
+            }
+          ]
+        },
+        {
+          "id": "b1.s4",
+          "text": "En Patufet vol portar el cistell al seu pare.",
+          "translations": {
+            "en": "Patufet wants to take the basket to his father.",
+            "fr": "Patufet veut apporter le panier à son père.",
+            "es": "Patufet quiere llevar la cesta a su padre."
+          },
+          "tokens": [
+            {
+              "text": "En",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "honorific particle; in",
+                "fr": "particule de nom ; en",
+                "es": "partícula de nombre; en"
+              },
+              "id": "b1.s4.t1"
+            },
+            {
+              "text": "Patufet",
+              "normalized": "patufet",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Patufet",
+                "fr": "Patufet",
+                "es": "Patufet"
+              },
+              "id": "b1.s4.t2"
+            },
+            {
+              "text": "vol",
+              "normalized": "vol",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wants",
+                "fr": "veut",
+                "es": "quiere"
+              },
+              "id": "b1.s4.t3"
+            },
+            {
+              "text": "portar",
+              "normalized": "portar",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to carry, take",
+                "fr": "apporter",
+                "es": "llevar"
+              },
+              "id": "b1.s4.t4"
+            },
+            {
+              "text": "el",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s4.t5"
+            },
+            {
+              "text": "cistell",
+              "normalized": "cistell",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "basket",
+                "fr": "panier",
+                "es": "cesta"
+              },
+              "id": "b1.s4.t6"
+            },
+            {
+              "text": "al",
+              "normalized": "al",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to the, in the",
+                "fr": "au",
+                "es": "al"
+              },
+              "id": "b1.s4.t7"
+            },
+            {
+              "text": "seu",
+              "normalized": "seu",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his, her",
+                "fr": "son",
+                "es": "su"
+              },
+              "id": "b1.s4.t8"
+            },
+            {
+              "text": "pare",
+              "normalized": "pare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "father",
+                "fr": "père",
+                "es": "padre"
+              },
+              "id": "b1.s4.t9"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s4.t10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "sentences": [
+        {
+          "id": "b2.s1",
+          "text": "En Patufet agafa el cistell i camina cap al camp.",
+          "translations": {
+            "en": "Patufet takes the basket and walks towards the field.",
+            "fr": "Patufet prend le panier et marche vers le champ.",
+            "es": "Patufet toma la cesta y camina hacia el campo."
+          },
+          "tokens": [
+            {
+              "text": "En",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "honorific particle; in",
+                "fr": "particule de nom ; en",
+                "es": "partícula de nombre; en"
+              },
+              "id": "b2.s1.t1"
+            },
+            {
+              "text": "Patufet",
+              "normalized": "patufet",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Patufet",
+                "fr": "Patufet",
+                "es": "Patufet"
+              },
+              "id": "b2.s1.t2"
+            },
+            {
+              "text": "agafa",
+              "normalized": "agafa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "takes, grabs",
+                "fr": "prend",
+                "es": "toma, coge"
+              },
+              "id": "b2.s1.t3"
+            },
+            {
+              "text": "el",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s1.t4"
+            },
+            {
+              "text": "cistell",
+              "normalized": "cistell",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "basket",
+                "fr": "panier",
+                "es": "cesta"
+              },
+              "id": "b2.s1.t5"
+            },
+            {
+              "text": "i",
+              "normalized": "i",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b2.s1.t6"
+            },
+            {
+              "text": "camina",
+              "normalized": "camina",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "walks",
+                "fr": "marche",
+                "es": "camina"
+              },
+              "id": "b2.s1.t7"
+            },
+            {
+              "text": "cap",
+              "normalized": "cap",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "head; towards",
+                "fr": "tête ; vers",
+                "es": "cabeza; hacia"
+              },
+              "id": "b2.s1.t8"
+            },
+            {
+              "text": "al",
+              "normalized": "al",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to the, in the",
+                "fr": "au",
+                "es": "al"
+              },
+              "id": "b2.s1.t9"
+            },
+            {
+              "text": "camp",
+              "normalized": "camp",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "field",
+                "fr": "champ",
+                "es": "campo"
+              },
+              "id": "b2.s1.t10"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s1.t11"
+            }
+          ]
+        },
+        {
+          "id": "b2.s2",
+          "text": "De sobte, el cel es torna fosc i gris.",
+          "translations": {
+            "en": "Suddenly, the sky turns dark and grey.",
+            "fr": "Soudain, le ciel devient sombre et gris.",
+            "es": "De repente, el cielo se vuelve oscuro y gris."
+          },
+          "tokens": [
+            {
+              "text": "De",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "of, from",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b2.s2.t1"
+            },
+            {
+              "text": "sobte",
+              "normalized": "sobte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sudden (de sobte: suddenly)",
+                "fr": "soudain",
+                "es": "repente"
+              },
+              "id": "b2.s2.t2"
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s2.t3"
+            },
+            {
+              "text": "el",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s2.t4"
+            },
+            {
+              "text": "cel",
+              "normalized": "cel",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sky",
+                "fr": "ciel",
+                "es": "cielo"
+              },
+              "id": "b2.s2.t5"
+            },
+            {
+              "text": "es",
+              "normalized": "es",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "himself, itself",
+                "fr": "se",
+                "es": "se"
+              },
+              "id": "b2.s2.t6"
+            },
+            {
+              "text": "torna",
+              "normalized": "torna",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "returns; turns",
+                "fr": "rentre ; devient",
+                "es": "regresa; vuelve"
+              },
+              "id": "b2.s2.t7"
+            },
+            {
+              "text": "fosc",
+              "normalized": "fosc",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dark",
+                "fr": "sombre",
+                "es": "oscuro"
+              },
+              "id": "b2.s2.t8"
+            },
+            {
+              "text": "i",
+              "normalized": "i",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b2.s2.t9"
+            },
+            {
+              "text": "gris",
+              "normalized": "gris",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "grey",
+                "fr": "gris",
+                "es": "gris"
+              },
+              "id": "b2.s2.t10"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s2.t11"
+            }
+          ]
+        },
+        {
+          "id": "b2.s3",
+          "text": "Comença a ploure amb gotes grosses d'aigua.",
+          "translations": {
+            "en": "It begins to rain with large drops of water.",
+            "fr": "Il commence à pleuvoir avec de grosses gouttes d'eau.",
+            "es": "Empieza a llover con gotas grandes de agua."
+          },
+          "tokens": [
+            {
+              "text": "Comença",
+              "normalized": "comença",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "begins",
+                "fr": "commence",
+                "es": "empieza"
+              },
+              "id": "b2.s3.t1"
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to, in",
+                "fr": "à",
+                "es": "a, en"
+              },
+              "id": "b2.s3.t2"
+            },
+            {
+              "text": "ploure",
+              "normalized": "ploure",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to rain",
+                "fr": "pleuvoir",
+                "es": "llover"
+              },
+              "id": "b2.s3.t3"
+            },
+            {
+              "text": "amb",
+              "normalized": "amb",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b2.s3.t4"
+            },
+            {
+              "text": "gotes",
+              "normalized": "gotes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "drops",
+                "fr": "gouttes",
+                "es": "gotas"
+              },
+              "id": "b2.s3.t5"
+            },
+            {
+              "text": "grosses",
+              "normalized": "grosses",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "large, big",
+                "fr": "grosses",
+                "es": "grandes"
+              },
+              "id": "b2.s3.t6"
+            },
+            {
+              "text": "d'",
+              "normalized": "d'",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b2.s3.t7"
+            },
+            {
+              "text": "aigua",
+              "normalized": "aigua",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "water",
+                "fr": "eau",
+                "es": "agua"
+              },
+              "id": "b2.s3.t8"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s3.t9"
+            }
+          ]
+        },
+        {
+          "id": "b2.s4",
+          "text": "En Patufet busca un bon refugi contra la pluja.",
+          "translations": {
+            "en": "Patufet looks for good shelter from the rain.",
+            "fr": "Patufet cherche un bon abri contre la pluie.",
+            "es": "Patufet busca un buen refugio contra la lluvia."
+          },
+          "tokens": [
+            {
+              "text": "En",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "honorific particle; in",
+                "fr": "particule de nom ; en",
+                "es": "partícula de nombre; en"
+              },
+              "id": "b2.s4.t1"
+            },
+            {
+              "text": "Patufet",
+              "normalized": "patufet",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Patufet",
+                "fr": "Patufet",
+                "es": "Patufet"
+              },
+              "id": "b2.s4.t2"
+            },
+            {
+              "text": "busca",
+              "normalized": "busca",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "looks for",
+                "fr": "cherche",
+                "es": "busca"
+              },
+              "id": "b2.s4.t3"
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a, an",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b2.s4.t4"
+            },
+            {
+              "text": "bon",
+              "normalized": "bon",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "good",
+                "fr": "bon",
+                "es": "buen"
+              },
+              "id": "b2.s4.t5"
+            },
+            {
+              "text": "refugi",
+              "normalized": "refugi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "shelter",
+                "fr": "abri",
+                "es": "refugio"
+              },
+              "id": "b2.s4.t6"
+            },
+            {
+              "text": "contra",
+              "normalized": "contra",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "against",
+                "fr": "contre",
+                "es": "contra"
+              },
+              "id": "b2.s4.t7"
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the; her, it",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b2.s4.t8"
+            },
+            {
+              "text": "pluja",
+              "normalized": "pluja",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "rain",
+                "fr": "pluie",
+                "es": "lluvia"
+              },
+              "id": "b2.s4.t9"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s4.t10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3",
+      "sentences": [
+        {
+          "id": "b3.s1",
+          "text": "El nen veu una col molt gran al camp.",
+          "translations": {
+            "en": "The boy sees a very large cabbage in the field.",
+            "fr": "Le garçon voit un très grand chou dans le champ.",
+            "es": "El niño ve una col muy grande en el campo."
+          },
+          "tokens": [
+            {
+              "text": "El",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s1.t1"
+            },
+            {
+              "text": "nen",
+              "normalized": "nen",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "boy, child",
+                "fr": "garçon, enfant",
+                "es": "niño"
+              },
+              "id": "b3.s1.t2"
+            },
+            {
+              "text": "veu",
+              "normalized": "veu",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sees; voice",
+                "fr": "voit ; voix",
+                "es": "ve; voz"
+              },
+              "id": "b3.s1.t3"
+            },
+            {
+              "text": "una",
+              "normalized": "una",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a, an",
+                "fr": "une",
+                "es": "una"
+              },
+              "id": "b3.s1.t4"
+            },
+            {
+              "text": "col",
+              "normalized": "col",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cabbage",
+                "fr": "chou",
+                "es": "col"
+              },
+              "id": "b3.s1.t5"
+            },
+            {
+              "text": "molt",
+              "normalized": "molt",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very, a lot",
+                "fr": "très, beaucoup",
+                "es": "muy, mucho"
+              },
+              "id": "b3.s1.t6"
+            },
+            {
+              "text": "gran",
+              "normalized": "gran",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "big, large",
+                "fr": "grand",
+                "es": "grande"
+              },
+              "id": "b3.s1.t7"
+            },
+            {
+              "text": "al",
+              "normalized": "al",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to the, in the",
+                "fr": "au",
+                "es": "al"
+              },
+              "id": "b3.s1.t8"
+            },
+            {
+              "text": "camp",
+              "normalized": "camp",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "field",
+                "fr": "champ",
+                "es": "campo"
+              },
+              "id": "b3.s1.t9"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s1.t10"
+            }
+          ]
+        },
+        {
+          "id": "b3.s2",
+          "text": "Ell s'amaga a sota de la fulla de la col.",
+          "translations": {
+            "en": "He hides under the leaf of the cabbage.",
+            "fr": "Il se cache sous la feuille du chou.",
+            "es": "Él se esconde debajo de la hoja de la col."
+          },
+          "tokens": [
+            {
+              "text": "Ell",
+              "normalized": "ell",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b3.s2.t1"
+            },
+            {
+              "text": "s'",
+              "normalized": "s'",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "himself, herself, itself",
+                "fr": "s'",
+                "es": "se"
+              },
+              "id": "b3.s2.t2"
+            },
+            {
+              "text": "amaga",
+              "normalized": "amaga",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "hides",
+                "fr": "cache",
+                "es": "esconde"
+              },
+              "id": "b3.s2.t3"
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to, in",
+                "fr": "à",
+                "es": "a, en"
+              },
+              "id": "b3.s2.t4"
+            },
+            {
+              "text": "sota",
+              "normalized": "sota",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "under, beneath",
+                "fr": "sous",
+                "es": "debajo"
+              },
+              "id": "b3.s2.t5"
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of, from",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b3.s2.t6"
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the; her, it",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b3.s2.t7"
+            },
+            {
+              "text": "fulla",
+              "normalized": "fulla",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "leaf",
+                "fr": "feuille",
+                "es": "hoja"
+              },
+              "id": "b3.s2.t8"
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of, from",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b3.s2.t9"
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the; her, it",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b3.s2.t10"
+            },
+            {
+              "text": "col",
+              "normalized": "col",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cabbage",
+                "fr": "chou",
+                "es": "col"
+              },
+              "id": "b3.s2.t11"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t12"
+            }
+          ]
+        },
+        {
+          "id": "b3.s3",
+          "text": "Un bou gran i famolenc passa per allà.",
+          "translations": {
+            "en": "A big and hungry ox passes by.",
+            "fr": "Un grand bœuf affamé passe par là.",
+            "es": "Un buey grande y hambriento pasa por allí."
+          },
+          "tokens": [
+            {
+              "text": "Un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "a, an",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b3.s3.t1"
+            },
+            {
+              "text": "bou",
+              "normalized": "bou",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ox",
+                "fr": "bœuf",
+                "es": "buey"
+              },
+              "id": "b3.s3.t2"
+            },
+            {
+              "text": "gran",
+              "normalized": "gran",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "big, large",
+                "fr": "grand",
+                "es": "grande"
+              },
+              "id": "b3.s3.t3"
+            },
+            {
+              "text": "i",
+              "normalized": "i",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b3.s3.t4"
+            },
+            {
+              "text": "famolenc",
+              "normalized": "famolenc",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hungry, starving",
+                "fr": "affamé",
+                "es": "hambriento"
+              },
+              "id": "b3.s3.t5"
+            },
+            {
+              "text": "passa",
+              "normalized": "passa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "passes",
+                "fr": "passe",
+                "es": "pasa"
+              },
+              "id": "b3.s3.t6"
+            },
+            {
+              "text": "per",
+              "normalized": "per",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "for, to, in order to",
+                "fr": "pour",
+                "es": "para, por"
+              },
+              "id": "b3.s3.t7"
+            },
+            {
+              "text": "allà",
+              "normalized": "allà",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "there",
+                "fr": "là-bas",
+                "es": "allí"
+              },
+              "id": "b3.s3.t8"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s3.t9"
+            }
+          ]
+        },
+        {
+          "id": "b3.s4",
+          "text": "El bou té molta gana i busca herba fresca.",
+          "translations": {
+            "en": "The ox is very hungry and looks for fresh grass.",
+            "fr": "Le bœuf a très faim et cherche de l'herbe fraîche.",
+            "es": "El buey tiene mucha hambre y busca hierba fresca."
+          },
+          "tokens": [
+            {
+              "text": "El",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s4.t1"
+            },
+            {
+              "text": "bou",
+              "normalized": "bou",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ox",
+                "fr": "bœuf",
+                "es": "buey"
+              },
+              "id": "b3.s4.t2"
+            },
+            {
+              "text": "té",
+              "normalized": "té",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "has",
+                "fr": "a",
+                "es": "tiene"
+              },
+              "id": "b3.s4.t3"
+            },
+            {
+              "text": "molta",
+              "normalized": "molta",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "much, a lot of",
+                "fr": "beaucoup de",
+                "es": "mucha"
+              },
+              "id": "b3.s4.t4"
+            },
+            {
+              "text": "gana",
+              "normalized": "gana",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hunger",
+                "fr": "faim",
+                "es": "hambre"
+              },
+              "id": "b3.s4.t5"
+            },
+            {
+              "text": "i",
+              "normalized": "i",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b3.s4.t6"
+            },
+            {
+              "text": "busca",
+              "normalized": "busca",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "looks for",
+                "fr": "cherche",
+                "es": "busca"
+              },
+              "id": "b3.s4.t7"
+            },
+            {
+              "text": "herba",
+              "normalized": "herba",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "grass",
+                "fr": "herbe",
+                "es": "hierba"
+              },
+              "id": "b3.s4.t8"
+            },
+            {
+              "text": "fresca",
+              "normalized": "fresca",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fresh",
+                "fr": "fraîche",
+                "es": "fresca"
+              },
+              "id": "b3.s4.t9"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s4.t10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b4",
+      "sentences": [
+        {
+          "id": "b4.s1",
+          "text": "El bou veu la col verda i se la menja tota.",
+          "translations": {
+            "en": "The ox sees the green cabbage and eats it all.",
+            "fr": "Le bœuf voit le chou vert et le mange tout entier.",
+            "es": "El buey ve la col verde y se la come entera."
+          },
+          "tokens": [
+            {
+              "text": "El",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s1.t1"
+            },
+            {
+              "text": "bou",
+              "normalized": "bou",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ox",
+                "fr": "bœuf",
+                "es": "buey"
+              },
+              "id": "b4.s1.t2"
+            },
+            {
+              "text": "veu",
+              "normalized": "veu",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sees; voice",
+                "fr": "voit ; voix",
+                "es": "ve; voz"
+              },
+              "id": "b4.s1.t3"
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the; her, it",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b4.s1.t4"
+            },
+            {
+              "text": "col",
+              "normalized": "col",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cabbage",
+                "fr": "chou",
+                "es": "col"
+              },
+              "id": "b4.s1.t5"
+            },
+            {
+              "text": "verda",
+              "normalized": "verda",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "green",
+                "fr": "verte",
+                "es": "verde"
+              },
+              "id": "b4.s1.t6"
+            },
+            {
+              "text": "i",
+              "normalized": "i",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b4.s1.t7"
+            },
+            {
+              "text": "se",
+              "normalized": "se",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "himself, herself, itself",
+                "fr": "se",
+                "es": "se"
+              },
+              "id": "b4.s1.t8"
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the; her, it",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b4.s1.t9"
+            },
+            {
+              "text": "menja",
+              "normalized": "menja",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "eats",
+                "fr": "mange",
+                "es": "come"
+              },
+              "id": "b4.s1.t10"
+            },
+            {
+              "text": "tota",
+              "normalized": "tota",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "all, whole",
+                "fr": "toute",
+                "es": "toda"
+              },
+              "id": "b4.s1.t11"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s1.t12"
+            }
+          ]
+        },
+        {
+          "id": "b4.s2",
+          "text": "L'animal s'empassa la col i també en Patufet!",
+          "translations": {
+            "en": "The animal swallows the cabbage and also Patufet!",
+            "fr": "L'animal avale le chou et aussi Patufet !",
+            "es": "¡El animal se traga la col y también a Patufet!"
+          },
+          "tokens": [
+            {
+              "text": "L'",
+              "normalized": "l'",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the; him, her",
+                "fr": "le, la ; l'",
+                "es": "el, la; lo, la"
+              },
+              "id": "b4.s2.t1"
+            },
+            {
+              "text": "animal",
+              "normalized": "animal",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "animal",
+                "fr": "animal",
+                "es": "animal"
+              },
+              "id": "b4.s2.t2"
+            },
+            {
+              "text": "s'",
+              "normalized": "s'",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "himself, herself, itself",
+                "fr": "s'",
+                "es": "se"
+              },
+              "id": "b4.s2.t3"
+            },
+            {
+              "text": "empassa",
+              "normalized": "empassa",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "swallows",
+                "fr": "avale",
+                "es": "traga"
+              },
+              "id": "b4.s2.t4"
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the; her, it",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b4.s2.t5"
+            },
+            {
+              "text": "col",
+              "normalized": "col",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cabbage",
+                "fr": "chou",
+                "es": "col"
+              },
+              "id": "b4.s2.t6"
+            },
+            {
+              "text": "i",
+              "normalized": "i",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b4.s2.t7"
+            },
+            {
+              "text": "també",
+              "normalized": "també",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "also, too",
+                "fr": "aussi",
+                "es": "también"
+              },
+              "id": "b4.s2.t8"
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "honorific particle; in",
+                "fr": "particule de nom ; en",
+                "es": "partícula de nombre; en"
+              },
+              "id": "b4.s2.t9"
+            },
+            {
+              "text": "Patufet",
+              "normalized": "patufet",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Patufet",
+                "fr": "Patufet",
+                "es": "Patufet"
+              },
+              "id": "b4.s2.t10"
+            },
+            {
+              "text": "!",
+              "normalized": "!",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s2.t11"
+            }
+          ]
+        },
+        {
+          "id": "b4.s3",
+          "text": "Ara en Patufet és dins de la panxa fosca del bou.",
+          "translations": {
+            "en": "Now Patufet is inside the dark belly of the ox.",
+            "fr": "Maintenant Patufet est dans le ventre sombre du bœuf.",
+            "es": "Ahora Patufet está dentro de la barriga oscura del buey."
+          },
+          "tokens": [
+            {
+              "text": "Ara",
+              "normalized": "ara",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "now",
+                "fr": "maintenant",
+                "es": "ahora"
+              },
+              "id": "b4.s3.t1"
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "honorific particle; in",
+                "fr": "particule de nom ; en",
+                "es": "partícula de nombre; en"
+              },
+              "id": "b4.s3.t2"
+            },
+            {
+              "text": "Patufet",
+              "normalized": "patufet",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Patufet",
+                "fr": "Patufet",
+                "es": "Patufet"
+              },
+              "id": "b4.s3.t3"
+            },
+            {
+              "text": "és",
+              "normalized": "és",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es"
+              },
+              "id": "b4.s3.t4"
+            },
+            {
+              "text": "dins",
+              "normalized": "dins",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "inside",
+                "fr": "dans",
+                "es": "dentro"
+              },
+              "id": "b4.s3.t5"
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of, from",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b4.s3.t6"
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the; her, it",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b4.s3.t7"
+            },
+            {
+              "text": "panxa",
+              "normalized": "panxa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "belly",
+                "fr": "ventre",
+                "es": "barriga"
+              },
+              "id": "b4.s3.t8"
+            },
+            {
+              "text": "fosca",
+              "normalized": "fosca",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dark",
+                "fr": "sombre",
+                "es": "oscura"
+              },
+              "id": "b4.s3.t9"
+            },
+            {
+              "text": "del",
+              "normalized": "del",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b4.s3.t10"
+            },
+            {
+              "text": "bou",
+              "normalized": "bou",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ox",
+                "fr": "bœuf",
+                "es": "buey"
+              },
+              "id": "b4.s3.t11"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s3.t12"
+            }
+          ]
+        },
+        {
+          "id": "b4.s4",
+          "text": "La pluja s'acaba i el sol surt de nou.",
+          "translations": {
+            "en": "The rain stops and the sun comes out again.",
+            "fr": "La pluie s'arrête et le soleil sort à nouveau.",
+            "es": "La lluvia se termina y el sol sale de nuevo."
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the; her, it",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b4.s4.t1"
+            },
+            {
+              "text": "pluja",
+              "normalized": "pluja",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "rain",
+                "fr": "pluie",
+                "es": "lluvia"
+              },
+              "id": "b4.s4.t2"
+            },
+            {
+              "text": "s'",
+              "normalized": "s'",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "himself, herself, itself",
+                "fr": "s'",
+                "es": "se"
+              },
+              "id": "b4.s4.t3"
+            },
+            {
+              "text": "acaba",
+              "normalized": "acaba",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "ends",
+                "fr": "se termine",
+                "es": "termina"
+              },
+              "id": "b4.s4.t4"
+            },
+            {
+              "text": "i",
+              "normalized": "i",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b4.s4.t5"
+            },
+            {
+              "text": "el",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s4.t6"
+            },
+            {
+              "text": "sol",
+              "normalized": "sol",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sun",
+                "fr": "soleil",
+                "es": "sol"
+              },
+              "id": "b4.s4.t7"
+            },
+            {
+              "text": "surt",
+              "normalized": "surt",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "goes out, comes out",
+                "fr": "sort",
+                "es": "sale"
+              },
+              "id": "b4.s4.t8"
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of, from",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b4.s4.t9"
+            },
+            {
+              "text": "nou",
+              "normalized": "nou",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "new; again",
+                "fr": "nouveau",
+                "es": "nuevo"
+              },
+              "id": "b4.s4.t10"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s4.t11"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b5",
+      "sentences": [
+        {
+          "id": "b5.s1",
+          "text": "Els pares busquen el seu fill per tot arreu.",
+          "translations": {
+            "en": "The parents search for their son everywhere.",
+            "fr": "Les parents cherchent leur fils partout.",
+            "es": "Los padres buscan a su hijo por todas partes."
+          },
+          "tokens": [
+            {
+              "text": "Els",
+              "normalized": "els",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b5.s1.t1"
+            },
+            {
+              "text": "pares",
+              "normalized": "pares",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "parents",
+                "fr": "parents",
+                "es": "padres"
+              },
+              "id": "b5.s1.t2"
+            },
+            {
+              "text": "busquen",
+              "normalized": "busquen",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "look for",
+                "fr": "cherchent",
+                "es": "buscan"
+              },
+              "id": "b5.s1.t3"
+            },
+            {
+              "text": "el",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b5.s1.t4"
+            },
+            {
+              "text": "seu",
+              "normalized": "seu",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his, her",
+                "fr": "son",
+                "es": "su"
+              },
+              "id": "b5.s1.t5"
+            },
+            {
+              "text": "fill",
+              "normalized": "fill",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "son",
+                "fr": "fils",
+                "es": "hijo"
+              },
+              "id": "b5.s1.t6"
+            },
+            {
+              "text": "per",
+              "normalized": "per",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "for, to, in order to",
+                "fr": "pour",
+                "es": "para, por"
+              },
+              "id": "b5.s1.t7"
+            },
+            {
+              "text": "tot",
+              "normalized": "tot",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "all, whole",
+                "fr": "tout",
+                "es": "todo"
+              },
+              "id": "b5.s1.t8"
+            },
+            {
+              "text": "arreu",
+              "normalized": "arreu",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "around, everywhere",
+                "fr": "partout",
+                "es": "alrededor, todas partes"
+              },
+              "id": "b5.s1.t9"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s1.t10"
+            }
+          ]
+        },
+        {
+          "id": "b5.s2",
+          "text": "La mare crida amb angoixa: «Patufet, on ets?»",
+          "translations": {
+            "en": "The mother cries out in anguish: \"Patufet, where are you?\"",
+            "fr": "La mère crie avec angoisse : « Patufet, où es-tu ? »",
+            "es": "La madre grita con angustia: «Patufet, ¿dónde estás?»"
+          },
+          "tokens": [
+            {
+              "text": "La",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the; her, it",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b5.s2.t1"
+            },
+            {
+              "text": "mare",
+              "normalized": "mare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mother",
+                "fr": "mère",
+                "es": "madre"
+              },
+              "id": "b5.s2.t2"
+            },
+            {
+              "text": "crida",
+              "normalized": "crida",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "shouts, cries out",
+                "fr": "crie",
+                "es": "grita"
+              },
+              "id": "b5.s2.t3"
+            },
+            {
+              "text": "amb",
+              "normalized": "amb",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b5.s2.t4"
+            },
+            {
+              "text": "angoixa",
+              "normalized": "angoixa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "anguish, distress",
+                "fr": "angoisse",
+                "es": "angustia"
+              },
+              "id": "b5.s2.t5"
+            },
+            {
+              "text": ":",
+              "normalized": ":",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s2.t6"
+            },
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": true,
+              "id": "b5.s2.t7"
+            },
+            {
+              "text": "Patufet",
+              "normalized": "patufet",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Patufet",
+                "fr": "Patufet",
+                "es": "Patufet"
+              },
+              "id": "b5.s2.t8"
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s2.t9"
+            },
+            {
+              "text": "on",
+              "normalized": "on",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "where",
+                "fr": "où",
+                "es": "dónde, donde"
+              },
+              "id": "b5.s2.t10"
+            },
+            {
+              "text": "ets",
+              "normalized": "ets",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "are (you are)",
+                "fr": "es",
+                "es": "estás"
+              },
+              "id": "b5.s2.t11"
+            },
+            {
+              "text": "?",
+              "normalized": "?",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s2.t12"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s2.t13"
+            }
+          ]
+        },
+        {
+          "id": "b5.s3",
+          "text": "Una veu petita respon des de la panxa.",
+          "translations": {
+            "en": "A small voice answers from inside the belly.",
+            "fr": "Une petite voix répond depuis le ventre.",
+            "es": "Una voz pequeña responde desde la barriga."
+          },
+          "tokens": [
+            {
+              "text": "Una",
+              "normalized": "una",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "a, an",
+                "fr": "une",
+                "es": "una"
+              },
+              "id": "b5.s3.t1"
+            },
+            {
+              "text": "veu",
+              "normalized": "veu",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sees; voice",
+                "fr": "voit ; voix",
+                "es": "ve; voz"
+              },
+              "id": "b5.s3.t2"
+            },
+            {
+              "text": "petita",
+              "normalized": "petita",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "small, little",
+                "fr": "petite",
+                "es": "pequeña"
+              },
+              "id": "b5.s3.t3"
+            },
+            {
+              "text": "respon",
+              "normalized": "respon",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "answers, responds",
+                "fr": "répond",
+                "es": "responde"
+              },
+              "id": "b5.s3.t4"
+            },
+            {
+              "text": "des",
+              "normalized": "des",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "from, since",
+                "fr": "depuis",
+                "es": "desde"
+              },
+              "id": "b5.s3.t5"
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of, from",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b5.s3.t6"
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the; her, it",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b5.s3.t7"
+            },
+            {
+              "text": "panxa",
+              "normalized": "panxa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "belly",
+                "fr": "ventre",
+                "es": "barriga"
+              },
+              "id": "b5.s3.t8"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s3.t9"
+            }
+          ]
+        },
+        {
+          "id": "b5.s4",
+          "text": "«Sóc a la panxa del bou, on no hi neva ni hi plou!»",
+          "translations": {
+            "en": "\"I am in the belly of the ox, where it neither snows nor rains!\"",
+            "fr": "« Je suis dans le ventre du bœuf, où il ne neige ni ne pleut ! »",
+            "es": "«¡Estoy en la barriga del buey, donde ni nieva ni llueve!»"
+          },
+          "tokens": [
+            {
+              "text": "«",
+              "normalized": "«",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s4.t1"
+            },
+            {
+              "text": "Sóc",
+              "normalized": "sóc",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "am (I am)",
+                "fr": "suis",
+                "es": "soy, estoy"
+              },
+              "id": "b5.s4.t2"
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to, in",
+                "fr": "à",
+                "es": "a, en"
+              },
+              "id": "b5.s4.t3"
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the; her, it",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b5.s4.t4"
+            },
+            {
+              "text": "panxa",
+              "normalized": "panxa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "belly",
+                "fr": "ventre",
+                "es": "barriga"
+              },
+              "id": "b5.s4.t5"
+            },
+            {
+              "text": "del",
+              "normalized": "del",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b5.s4.t6"
+            },
+            {
+              "text": "bou",
+              "normalized": "bou",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ox",
+                "fr": "bœuf",
+                "es": "buey"
+              },
+              "id": "b5.s4.t7"
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s4.t8"
+            },
+            {
+              "text": "on",
+              "normalized": "on",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "where",
+                "fr": "où",
+                "es": "dónde, donde"
+              },
+              "id": "b5.s4.t9"
+            },
+            {
+              "text": "no",
+              "normalized": "no",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "not, no",
+                "fr": "ne pas, non",
+                "es": "no"
+              },
+              "id": "b5.s4.t10"
+            },
+            {
+              "text": "hi",
+              "normalized": "hi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "there",
+                "fr": "y",
+                "es": "ahí"
+              },
+              "id": "b5.s4.t11"
+            },
+            {
+              "text": "neva",
+              "normalized": "neva",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "snows",
+                "fr": "neige",
+                "es": "nieva"
+              },
+              "id": "b5.s4.t12"
+            },
+            {
+              "text": "ni",
+              "normalized": "ni",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "nor, neither",
+                "fr": "ni",
+                "es": "ni"
+              },
+              "id": "b5.s4.t13"
+            },
+            {
+              "text": "hi",
+              "normalized": "hi",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "there",
+                "fr": "y",
+                "es": "ahí"
+              },
+              "id": "b5.s4.t14"
+            },
+            {
+              "text": "plou",
+              "normalized": "plou",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "rains",
+                "fr": "pleut",
+                "es": "llueve"
+              },
+              "id": "b5.s4.t15"
+            },
+            {
+              "text": "!",
+              "normalized": "!",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s4.t16"
+            },
+            {
+              "text": "»",
+              "normalized": "»",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b5.s4.t17"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b6",
+      "sentences": [
+        {
+          "id": "b6.s1",
+          "text": "Els pares troben el bou i li donen molta herba.",
+          "translations": {
+            "en": "The parents find the ox and give it lots of grass.",
+            "fr": "Les parents trouvent le bœuf et lui donnent beaucoup d'herbe.",
+            "es": "Los padres encuentran al buey y le dan mucha hierba."
+          },
+          "tokens": [
+            {
+              "text": "Els",
+              "normalized": "els",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b6.s1.t1"
+            },
+            {
+              "text": "pares",
+              "normalized": "pares",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "parents",
+                "fr": "parents",
+                "es": "padres"
+              },
+              "id": "b6.s1.t2"
+            },
+            {
+              "text": "troben",
+              "normalized": "troben",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "find",
+                "fr": "trouvent",
+                "es": "encuentran"
+              },
+              "id": "b6.s1.t3"
+            },
+            {
+              "text": "el",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b6.s1.t4"
+            },
+            {
+              "text": "bou",
+              "normalized": "bou",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ox",
+                "fr": "bœuf",
+                "es": "buey"
+              },
+              "id": "b6.s1.t5"
+            },
+            {
+              "text": "i",
+              "normalized": "i",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b6.s1.t6"
+            },
+            {
+              "text": "li",
+              "normalized": "li",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to him, to her",
+                "fr": "lui",
+                "es": "le"
+              },
+              "id": "b6.s1.t7"
+            },
+            {
+              "text": "donen",
+              "normalized": "donen",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "give",
+                "fr": "donnent",
+                "es": "dan"
+              },
+              "id": "b6.s1.t8"
+            },
+            {
+              "text": "molta",
+              "normalized": "molta",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "much, a lot of",
+                "fr": "beaucoup de",
+                "es": "mucha"
+              },
+              "id": "b6.s1.t9"
+            },
+            {
+              "text": "herba",
+              "normalized": "herba",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "grass",
+                "fr": "herbe",
+                "es": "hierba"
+              },
+              "id": "b6.s1.t10"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s1.t11"
+            }
+          ]
+        },
+        {
+          "id": "b6.s2",
+          "text": "El bou menja tanta herba que té molts gasos.",
+          "translations": {
+            "en": "The ox eats so much grass that it has a lot of gas.",
+            "fr": "Le bœuf mange tellement d'herbe qu'il a beaucoup de gaz.",
+            "es": "El buey come tanta hierba que tiene muchos gases."
+          },
+          "tokens": [
+            {
+              "text": "El",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b6.s2.t1"
+            },
+            {
+              "text": "bou",
+              "normalized": "bou",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ox",
+                "fr": "bœuf",
+                "es": "buey"
+              },
+              "id": "b6.s2.t2"
+            },
+            {
+              "text": "menja",
+              "normalized": "menja",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "eats",
+                "fr": "mange",
+                "es": "come"
+              },
+              "id": "b6.s2.t3"
+            },
+            {
+              "text": "tanta",
+              "normalized": "tanta",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "so much",
+                "fr": "tant de",
+                "es": "tanta"
+              },
+              "id": "b6.s2.t4"
+            },
+            {
+              "text": "herba",
+              "normalized": "herba",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "grass",
+                "fr": "herbe",
+                "es": "hierba"
+              },
+              "id": "b6.s2.t5"
+            },
+            {
+              "text": "que",
+              "normalized": "que",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "that, which",
+                "fr": "que",
+                "es": "que"
+              },
+              "id": "b6.s2.t6"
+            },
+            {
+              "text": "té",
+              "normalized": "té",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "has",
+                "fr": "a",
+                "es": "tiene"
+              },
+              "id": "b6.s2.t7"
+            },
+            {
+              "text": "molts",
+              "normalized": "molts",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "many, lots of",
+                "fr": "beaucoup de",
+                "es": "muchos"
+              },
+              "id": "b6.s2.t8"
+            },
+            {
+              "text": "gasos",
+              "normalized": "gasos",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "gas",
+                "fr": "gaz",
+                "es": "gases"
+              },
+              "id": "b6.s2.t9"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s2.t10"
+            }
+          ]
+        },
+        {
+          "id": "b6.s3",
+          "text": "De sobte, el bou fa un gran pet sonor!",
+          "translations": {
+            "en": "Suddenly, the ox lets out a loud fart!",
+            "fr": "Soudain, le bœuf fait un grand pet sonore !",
+            "es": "¡De repente, el buey se tira un gran pedo sonoro!"
+          },
+          "tokens": [
+            {
+              "text": "De",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "of, from",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b6.s3.t1"
+            },
+            {
+              "text": "sobte",
+              "normalized": "sobte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sudden (de sobte: suddenly)",
+                "fr": "soudain",
+                "es": "repente"
+              },
+              "id": "b6.s3.t2"
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s3.t3"
+            },
+            {
+              "text": "el",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b6.s3.t4"
+            },
+            {
+              "text": "bou",
+              "normalized": "bou",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ox",
+                "fr": "bœuf",
+                "es": "buey"
+              },
+              "id": "b6.s3.t5"
+            },
+            {
+              "text": "fa",
+              "normalized": "fa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "makes, does",
+                "fr": "fait",
+                "es": "hace"
+              },
+              "id": "b6.s3.t6"
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a, an",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b6.s3.t7"
+            },
+            {
+              "text": "gran",
+              "normalized": "gran",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "big, large",
+                "fr": "grand",
+                "es": "grande"
+              },
+              "id": "b6.s3.t8"
+            },
+            {
+              "text": "pet",
+              "normalized": "pet",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fart",
+                "fr": "pet",
+                "es": "pedo"
+              },
+              "id": "b6.s3.t9"
+            },
+            {
+              "text": "sonor",
+              "normalized": "sonor",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "loud, resounding",
+                "fr": "sonore",
+                "es": "sonoro"
+              },
+              "id": "b6.s3.t10"
+            },
+            {
+              "text": "!",
+              "normalized": "!",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s3.t11"
+            }
+          ]
+        },
+        {
+          "id": "b6.s4",
+          "text": "En Patufet surt disparat pels aires, viu i sa!",
+          "translations": {
+            "en": "Patufet shoots out through the air, safe and sound!",
+            "fr": "Patufet est expulsé dans les airs, sain et sauf !",
+            "es": "¡Patufet sale disparado por los aires, vivo y sano!"
+          },
+          "tokens": [
+            {
+              "text": "En",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "honorific particle; in",
+                "fr": "particule de nom ; en",
+                "es": "partícula de nombre; en"
+              },
+              "id": "b6.s4.t1"
+            },
+            {
+              "text": "Patufet",
+              "normalized": "patufet",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Patufet",
+                "fr": "Patufet",
+                "es": "Patufet"
+              },
+              "id": "b6.s4.t2"
+            },
+            {
+              "text": "surt",
+              "normalized": "surt",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "goes out, comes out",
+                "fr": "sort",
+                "es": "sale"
+              },
+              "id": "b6.s4.t3"
+            },
+            {
+              "text": "disparat",
+              "normalized": "disparat",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "shot out, projected",
+                "fr": "expulsé",
+                "es": "disparado"
+              },
+              "id": "b6.s4.t4"
+            },
+            {
+              "text": "pels",
+              "normalized": "pels",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "through the, in the",
+                "fr": "par les",
+                "es": "por los"
+              },
+              "id": "b6.s4.t5"
+            },
+            {
+              "text": "aires",
+              "normalized": "aires",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "air, skies",
+                "fr": "airs",
+                "es": "aires"
+              },
+              "id": "b6.s4.t6"
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s4.t7"
+            },
+            {
+              "text": "viu",
+              "normalized": "viu",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lives; alive",
+                "fr": "vit ; vivant",
+                "es": "vive; vivo"
+              },
+              "id": "b6.s4.t8"
+            },
+            {
+              "text": "i",
+              "normalized": "i",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b6.s4.t9"
+            },
+            {
+              "text": "sa",
+              "normalized": "sa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "healthy, sound",
+                "fr": "sain",
+                "es": "sano"
+              },
+              "id": "b6.s4.t10"
+            },
+            {
+              "text": "!",
+              "normalized": "!",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s4.t11"
+            }
+          ]
+        },
+        {
+          "id": "b6.s5",
+          "text": "Tota la família s'abraça amb molta alegria.",
+          "translations": {
+            "en": "The whole family hugs with great joy.",
+            "fr": "Toute la famille s'embrasse avec une grande joie.",
+            "es": "Toda la familia se abraza con mucha alegría."
+          },
+          "tokens": [
+            {
+              "text": "Tota",
+              "normalized": "tota",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "all, whole",
+                "fr": "toute",
+                "es": "toda"
+              },
+              "id": "b6.s5.t1"
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the; her, it",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b6.s5.t2"
+            },
+            {
+              "text": "família",
+              "normalized": "família",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "family",
+                "fr": "famille",
+                "es": "familia"
+              },
+              "id": "b6.s5.t3"
+            },
+            {
+              "text": "s'",
+              "normalized": "s'",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "himself, herself, itself",
+                "fr": "s'",
+                "es": "se"
+              },
+              "id": "b6.s5.t4"
+            },
+            {
+              "text": "abraça",
+              "normalized": "abraça",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "hugs",
+                "fr": "embrasse",
+                "es": "abraza"
+              },
+              "id": "b6.s5.t5"
+            },
+            {
+              "text": "amb",
+              "normalized": "amb",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b6.s5.t6"
+            },
+            {
+              "text": "molta",
+              "normalized": "molta",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "much, a lot of",
+                "fr": "beaucoup de",
+                "es": "mucha"
+              },
+              "id": "b6.s5.t7"
+            },
+            {
+              "text": "alegria",
+              "normalized": "alegria",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "joy",
+                "fr": "joie",
+                "es": "alegría"
+              },
+              "id": "b6.s5.t8"
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b6.s5.t9"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

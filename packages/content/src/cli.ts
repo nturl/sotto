@@ -2,55 +2,51 @@
 /**
  * sotto-content — build, validate, narrate, and generate covers for
  * content packs (planning/CONTRACTS.md §2).
- *
- * WS-0 scaffold only: subcommands are stubs. WS-1/WS-5 implement the real
- * pipeline (packages/content/src/**).
  */
 import { parseArgs } from 'node:util';
-import { existsSync, readdirSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import path from 'node:path';
+import { runBuildCommand } from './build.ts';
+import { runValidateCommand, runValidateFixturesCommand } from './validate.ts';
+import { runNarrateCommand } from './narrate.ts';
+import { runCoversCommand } from './covers.ts';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const PACKS_DIR = path.join(__dirname, '..', 'packs');
-
-function packsIsEmpty(): boolean {
-  if (!existsSync(PACKS_DIR)) return true;
-  return readdirSync(PACKS_DIR).filter((f) => !f.startsWith('.')).length === 0;
-}
-
-function main(): void {
-  const { positionals } = parseArgs({
+async function main(): Promise<void> {
+  const { positionals, values } = parseArgs({
     args: process.argv.slice(2),
     allowPositionals: true,
+    options: {
+      fill: { type: 'boolean', default: false },
+      force: { type: 'boolean', default: false },
+      fixtures: { type: 'boolean', default: false },
+    },
   });
   const [command, bookId] = positionals;
 
   switch (command) {
     case 'build':
-      console.log('sotto-content build: not implemented');
-      process.exit(0);
+      await runBuildCommand({ fill: values.fill, only: bookId });
       break;
     case 'validate':
-      if (packsIsEmpty()) {
-        console.log('sotto-content validate: packs/ is empty, nothing to validate');
-        process.exit(0);
+      if (values.fixtures) {
+        runValidateFixturesCommand();
+      } else {
+        runValidateCommand();
       }
-      console.log('sotto-content validate: not implemented');
-      process.exit(0);
       break;
     case 'narrate':
-      console.log(`sotto-content narrate${bookId ? ` ${bookId}` : ''}: not implemented`);
-      process.exit(0);
+      await runNarrateCommand({ bookId, force: values.force });
       break;
     case 'covers':
-      console.log('sotto-content covers: not implemented');
-      process.exit(0);
+      runCoversCommand();
       break;
     default:
-      console.error('usage: sotto-content <build|validate|narrate|covers> [bookId]');
-      process.exit(1);
+      console.error(
+        'usage: sotto-content <build|validate|narrate|covers> [bookId] [--fill] [--force] [--fixtures]',
+      );
+      process.exitCode = 1;
   }
 }
 
-main();
+main().catch((err) => {
+  console.error(err);
+  process.exitCode = 1;
+});

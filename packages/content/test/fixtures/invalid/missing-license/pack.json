@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "locale": "fr-FR",
+  "language": {
+    "locale": "fr-FR",
+    "baseLanguage": "fr",
+    "region": "FR",
+    "script": "Latn",
+    "nativeName": "français",
+    "localizedNames": {
+      "en": "French",
+      "es": "francés",
+      "fr": "français",
+      "pt": "francês",
+      "it": "francese",
+      "zh-Hans": "法语",
+      "zh-Hant": "法語",
+      "ro": "franceză",
+      "ca": "francès"
+    },
+    "direction": "ltr",
+    "stability": "stable",
+    "tokenizer": "latin",
+    "typography": "latin",
+    "pronunciationGuide": "none",
+    "tutorNotes": "fixture",
+    "ttsVoice": "ff_siwis",
+    "ttsLangCode": "f",
+    "sttLanguage": "fr",
+    "catalog": "fr"
+  },
+  "books": [
+    {
+      "bookId": "fx-book",
+      "contentLocale": "fr-FR",
+      "title": "Fixture",
+      "author": "Test Author",
+      "level": "A1",
+      "categories": ["tales"],
+      "estimatedMinutes": 1,
+      "localizedTitles": {
+        "en": "Fixture"
+      },
+      "premise": {
+        "en": "A fixture."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 1
+    }
+  ],
+  "generatedAt": "2026-09-04T20:29:38.975Z"
+}

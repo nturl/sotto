@@ -1,0 +1,1989 @@
+{
+  "id": "en-aesop-fables-02",
+  "bookId": "en-aesop-fables",
+  "title": "The Lion and the Mouse",
+  "order": 2,
+  "blocks": [
+    {
+      "id": "b1",
+      "sentences": [
+        {
+          "id": "b1.s1",
+          "text": "A big lion sleeps in the warm sun.",
+          "translations": {
+            "en": "A big lion sleeps in the warm sun.",
+            "fr": "Un grand lion dort sous le chaud soleil.",
+            "es": "Un gran león duerme bajo el cálido sol."
+          },
+          "tokens": [
+            {
+              "text": "A",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s1.t1",
+              "startMs": 50,
+              "endMs": 80
+            },
+            {
+              "text": "big",
+              "normalized": "big",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "big",
+                "fr": "grand",
+                "es": "grande"
+              },
+              "id": "b1.s1.t2",
+              "startMs": 80,
+              "endMs": 280
+            },
+            {
+              "text": "lion",
+              "normalized": "lion",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lion",
+                "fr": "lion",
+                "es": "león"
+              },
+              "id": "b1.s1.t3",
+              "startMs": 360,
+              "endMs": 630
+            },
+            {
+              "text": "sleeps",
+              "normalized": "sleeps",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sleeps",
+                "fr": "dort",
+                "es": "duerme"
+              },
+              "id": "b1.s1.t4",
+              "startMs": 630,
+              "endMs": 1100
+            },
+            {
+              "text": "in",
+              "normalized": "in",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s1.t5",
+              "startMs": 1100,
+              "endMs": 1260
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s1.t6",
+              "startMs": 1260,
+              "endMs": 1500
+            },
+            {
+              "text": "warm",
+              "normalized": "warm",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "warm",
+                "fr": "chaud",
+                "es": "cálido"
+              },
+              "id": "b1.s1.t7",
+              "startMs": 1500,
+              "endMs": 1800
+            },
+            {
+              "text": "sun",
+              "normalized": "sun",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sun",
+                "fr": "soleil",
+                "es": "sol"
+              },
+              "id": "b1.s1.t8",
+              "startMs": 1800,
+              "endMs": 1920
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s1.t9"
+            }
+          ]
+        },
+        {
+          "id": "b1.s2",
+          "text": "A little mouse runs across his nose.",
+          "translations": {
+            "en": "A little mouse runs across his nose.",
+            "fr": "Une petite souris court sur son nez.",
+            "es": "Un pequeño ratón corre sobre su nariz."
+          },
+          "tokens": [
+            {
+              "text": "A",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s2.t1",
+              "startMs": 2733,
+              "endMs": 2763
+            },
+            {
+              "text": "little",
+              "normalized": "little",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "little",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b1.s2.t2",
+              "startMs": 2763,
+              "endMs": 3233
+            },
+            {
+              "text": "mouse",
+              "normalized": "mouse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mouse",
+                "fr": "souris",
+                "es": "ratón"
+              },
+              "id": "b1.s2.t3",
+              "startMs": 3233,
+              "endMs": 3643
+            },
+            {
+              "text": "runs",
+              "normalized": "runs",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "runs",
+                "fr": "court",
+                "es": "corre"
+              },
+              "id": "b1.s2.t4",
+              "startMs": 3643,
+              "endMs": 3963
+            },
+            {
+              "text": "across",
+              "normalized": "across",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "across",
+                "fr": "à travers",
+                "es": "a través de"
+              },
+              "id": "b1.s2.t5",
+              "startMs": 3963,
+              "endMs": 4443
+            },
+            {
+              "text": "his",
+              "normalized": "his",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "son",
+                "es": "su"
+              },
+              "id": "b1.s2.t6",
+              "startMs": 4443,
+              "endMs": 4673
+            },
+            {
+              "text": "nose",
+              "normalized": "nose",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "nose",
+                "fr": "nez",
+                "es": "nariz"
+              },
+              "id": "b1.s2.t7",
+              "startMs": 4673,
+              "endMs": 4883
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s2.t8"
+            }
+          ]
+        },
+        {
+          "id": "b1.s3",
+          "text": "The lion wakes up and catches the mouse.",
+          "translations": {
+            "en": "The lion wakes up and catches the mouse.",
+            "fr": "Le lion se réveille et attrape la souris.",
+            "es": "El león se despierta y atrapa al ratón."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s3.t1",
+              "startMs": 5707,
+              "endMs": 5847
+            },
+            {
+              "text": "lion",
+              "normalized": "lion",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lion",
+                "fr": "lion",
+                "es": "león"
+              },
+              "id": "b1.s3.t2",
+              "startMs": 5847,
+              "endMs": 6107
+            },
+            {
+              "text": "wakes",
+              "normalized": "wakes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wakes",
+                "fr": "se réveille",
+                "es": "se despierta"
+              },
+              "id": "b1.s3.t3",
+              "startMs": 6107,
+              "endMs": 6437
+            },
+            {
+              "text": "up",
+              "normalized": "up",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "up",
+                "fr": "en haut",
+                "es": "arriba"
+              },
+              "id": "b1.s3.t4",
+              "startMs": 6437,
+              "endMs": 6537
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s3.t5",
+              "startMs": 6677,
+              "endMs": 6767
+            },
+            {
+              "text": "catches",
+              "normalized": "catches",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "catches",
+                "fr": "attrape",
+                "es": "atrapa"
+              },
+              "id": "b1.s3.t6",
+              "startMs": 6767,
+              "endMs": 7227
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s3.t7",
+              "startMs": 7227,
+              "endMs": 7417
+            },
+            {
+              "text": "mouse",
+              "normalized": "mouse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mouse",
+                "fr": "souris",
+                "es": "ratón"
+              },
+              "id": "b1.s3.t8",
+              "startMs": 7437,
+              "endMs": 7657
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t9"
+            }
+          ]
+        },
+        {
+          "id": "b1.s4",
+          "text": "He opens his mouth to eat her.",
+          "translations": {
+            "en": "He opens his mouth to eat her.",
+            "fr": "Il ouvre la gueule pour la manger.",
+            "es": "Abre la boca para comérselo."
+          },
+          "tokens": [
+            {
+              "text": "He",
+              "normalized": "he",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b1.s4.t1",
+              "startMs": 8540,
+              "endMs": 8560
+            },
+            {
+              "text": "opens",
+              "normalized": "opens",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "opens",
+                "fr": "ouvre",
+                "es": "abre"
+              },
+              "id": "b1.s4.t2",
+              "startMs": 8560,
+              "endMs": 8840
+            },
+            {
+              "text": "his",
+              "normalized": "his",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "son",
+                "es": "su"
+              },
+              "id": "b1.s4.t3",
+              "startMs": 8910,
+              "endMs": 9120
+            },
+            {
+              "text": "mouth",
+              "normalized": "mouth",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mouth",
+                "fr": "bouche",
+                "es": "boca"
+              },
+              "id": "b1.s4.t4",
+              "startMs": 9120,
+              "endMs": 9450
+            },
+            {
+              "text": "to",
+              "normalized": "to",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b1.s4.t5",
+              "startMs": 9520,
+              "endMs": 9610
+            },
+            {
+              "text": "eat",
+              "normalized": "eat",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "eat",
+                "fr": "manger",
+                "es": "comer"
+              },
+              "id": "b1.s4.t6",
+              "startMs": 9610,
+              "endMs": 9820
+            },
+            {
+              "text": "her",
+              "normalized": "her",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "her",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b1.s4.t7",
+              "startMs": 9820,
+              "endMs": 10010
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s4.t8"
+            }
+          ]
+        },
+        {
+          "id": "b1.s5",
+          "text": "The little mouse begs for her life.",
+          "translations": {
+            "en": "The little mouse begs for her life.",
+            "fr": "La petite souris supplie pour sa vie.",
+            "es": "El pequeño ratón suplica por su vida."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s5.t1",
+              "startMs": 10930,
+              "endMs": 11060
+            },
+            {
+              "text": "little",
+              "normalized": "little",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "little",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b1.s5.t2",
+              "startMs": 11060,
+              "endMs": 11400
+            },
+            {
+              "text": "mouse",
+              "normalized": "mouse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mouse",
+                "fr": "souris",
+                "es": "ratón"
+              },
+              "id": "b1.s5.t3",
+              "startMs": 11440,
+              "endMs": 11740
+            },
+            {
+              "text": "begs",
+              "normalized": "begs",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "begs",
+                "fr": "supplie",
+                "es": "suplica"
+              },
+              "id": "b1.s5.t4",
+              "startMs": 11740,
+              "endMs": 12000
+            },
+            {
+              "text": "for",
+              "normalized": "for",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "for",
+                "fr": "pour",
+                "es": "para"
+              },
+              "id": "b1.s5.t5",
+              "startMs": 12000,
+              "endMs": 12190
+            },
+            {
+              "text": "her",
+              "normalized": "her",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "her",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b1.s5.t6",
+              "startMs": 12190,
+              "endMs": 12350
+            },
+            {
+              "text": "life",
+              "normalized": "life",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "life",
+                "fr": "vie",
+                "es": "vida"
+              },
+              "id": "b1.s5.t7",
+              "startMs": 12350,
+              "endMs": 12520
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s5.t8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "sentences": [
+        {
+          "id": "b2.s1",
+          "text": "She says that she can help him one day.",
+          "translations": {
+            "en": "She says that she can help him one day.",
+            "fr": "Elle dit qu'elle peut l'aider un jour.",
+            "es": "Dice que puede ayudarlo algún día."
+          },
+          "tokens": [
+            {
+              "text": "She",
+              "normalized": "she",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b2.s1.t1",
+              "startMs": 13692,
+              "endMs": 13812
+            },
+            {
+              "text": "says",
+              "normalized": "says",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "says",
+                "fr": "dit",
+                "es": "dice"
+              },
+              "id": "b2.s1.t2",
+              "startMs": 13812,
+              "endMs": 14062
+            },
+            {
+              "text": "that",
+              "normalized": "that",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "that",
+                "fr": "que",
+                "es": "que"
+              },
+              "id": "b2.s1.t3",
+              "startMs": 14062,
+              "endMs": 14252
+            },
+            {
+              "text": "she",
+              "normalized": "she",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b2.s1.t4",
+              "startMs": 14322,
+              "endMs": 14462
+            },
+            {
+              "text": "can",
+              "normalized": "can",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "can",
+                "fr": "peut",
+                "es": "puede"
+              },
+              "id": "b2.s1.t5",
+              "startMs": 14532,
+              "endMs": 14662
+            },
+            {
+              "text": "help",
+              "normalized": "help",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "help",
+                "fr": "aider",
+                "es": "ayudar"
+              },
+              "id": "b2.s1.t6",
+              "startMs": 14682,
+              "endMs": 14922
+            },
+            {
+              "text": "him",
+              "normalized": "him",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "him",
+                "fr": "lui",
+                "es": "él"
+              },
+              "id": "b2.s1.t7",
+              "startMs": 14922,
+              "endMs": 15102
+            },
+            {
+              "text": "one",
+              "normalized": "one",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "one",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b2.s1.t8",
+              "startMs": 15102,
+              "endMs": 15262
+            },
+            {
+              "text": "day",
+              "normalized": "day",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "day",
+                "fr": "jour",
+                "es": "día"
+              },
+              "id": "b2.s1.t9",
+              "startMs": 15282,
+              "endMs": 15452
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s1.t10"
+            }
+          ]
+        },
+        {
+          "id": "b2.s2",
+          "text": "The lion laughs at her funny words.",
+          "translations": {
+            "en": "The lion laughs at her funny words.",
+            "fr": "Le lion rit de ses paroles amusantes.",
+            "es": "El león se ríe de sus divertidas palabras."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s2.t1",
+              "startMs": 16374,
+              "endMs": 16534
+            },
+            {
+              "text": "lion",
+              "normalized": "lion",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lion",
+                "fr": "lion",
+                "es": "león"
+              },
+              "id": "b2.s2.t2",
+              "startMs": 16534,
+              "endMs": 16834
+            },
+            {
+              "text": "laughs",
+              "normalized": "laughs",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "laughs",
+                "fr": "rit",
+                "es": "se ríe"
+              },
+              "id": "b2.s2.t3",
+              "startMs": 16834,
+              "endMs": 17274
+            },
+            {
+              "text": "at",
+              "normalized": "at",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "at",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b2.s2.t4",
+              "startMs": 17274,
+              "endMs": 17424
+            },
+            {
+              "text": "her",
+              "normalized": "her",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "her",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b2.s2.t5",
+              "startMs": 17554,
+              "endMs": 17644
+            },
+            {
+              "text": "funny",
+              "normalized": "funny",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "funny",
+                "fr": "drôle",
+                "es": "divertido"
+              },
+              "id": "b2.s2.t6",
+              "startMs": 17644,
+              "endMs": 18004
+            },
+            {
+              "text": "words",
+              "normalized": "words",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "words",
+                "fr": "mots",
+                "es": "palabras"
+              },
+              "id": "b2.s2.t7",
+              "startMs": 18004,
+              "endMs": 18264
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s2.t8"
+            }
+          ]
+        },
+        {
+          "id": "b2.s3",
+          "text": "But the kind lion lets her go free.",
+          "translations": {
+            "en": "But the kind lion lets her go free.",
+            "fr": "Mais le gentil lion la laisse partir libre.",
+            "es": "Pero el amable león lo deja ir libre."
+          },
+          "tokens": [
+            {
+              "text": "But",
+              "normalized": "but",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "but",
+                "fr": "mais",
+                "es": "pero"
+              },
+              "id": "b2.s3.t1",
+              "startMs": 19073,
+              "endMs": 19233
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s3.t2",
+              "startMs": 19293,
+              "endMs": 19463
+            },
+            {
+              "text": "kind",
+              "normalized": "kind",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "kind",
+                "fr": "gentil",
+                "es": "amable"
+              },
+              "id": "b2.s3.t3",
+              "startMs": 19463,
+              "endMs": 19763
+            },
+            {
+              "text": "lion",
+              "normalized": "lion",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lion",
+                "fr": "lion",
+                "es": "león"
+              },
+              "id": "b2.s3.t4",
+              "startMs": 19763,
+              "endMs": 20063
+            },
+            {
+              "text": "lets",
+              "normalized": "lets",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lets",
+                "fr": "laisse",
+                "es": "deja"
+              },
+              "id": "b2.s3.t5",
+              "startMs": 20063,
+              "endMs": 20363
+            },
+            {
+              "text": "her",
+              "normalized": "her",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "her",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b2.s3.t6",
+              "startMs": 20363,
+              "endMs": 20523
+            },
+            {
+              "text": "go",
+              "normalized": "go",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "go",
+                "fr": "aller",
+                "es": "ir"
+              },
+              "id": "b2.s3.t7",
+              "startMs": 20653,
+              "endMs": 20733
+            },
+            {
+              "text": "free",
+              "normalized": "free",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "free",
+                "fr": "libre",
+                "es": "libre"
+              },
+              "id": "b2.s3.t8",
+              "startMs": 20733,
+              "endMs": 20903
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s3.t9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3",
+      "sentences": [
+        {
+          "id": "b3.s1",
+          "text": "One week later, hunters catch the big lion.",
+          "translations": {
+            "en": "One week later, hunters catch the big lion.",
+            "fr": "Une semaine plus tard, des chasseurs attrapent le grand lion.",
+            "es": "Una semana después, unos cazadores atrapan al gran león."
+          },
+          "tokens": [
+            {
+              "text": "One",
+              "normalized": "one",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "one",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b3.s1.t1",
+              "startMs": 22071,
+              "endMs": 22261
+            },
+            {
+              "text": "week",
+              "normalized": "week",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "week",
+                "fr": "semaine",
+                "es": "semana"
+              },
+              "id": "b3.s1.t2",
+              "startMs": 22261,
+              "endMs": 22581
+            },
+            {
+              "text": "later",
+              "normalized": "later",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "later",
+                "fr": "plus tard",
+                "es": "más tarde"
+              },
+              "id": "b3.s1.t3",
+              "startMs": 22581,
+              "endMs": 22901
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s1.t4"
+            },
+            {
+              "text": "hunters",
+              "normalized": "hunters",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hunters",
+                "fr": "chasseurs",
+                "es": "cazadores"
+              },
+              "id": "b3.s1.t5",
+              "startMs": 23231,
+              "endMs": 23651
+            },
+            {
+              "text": "catch",
+              "normalized": "catch",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "catch",
+                "fr": "attrapent",
+                "es": "atrapan"
+              },
+              "id": "b3.s1.t6",
+              "startMs": 23651,
+              "endMs": 23971
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s1.t7",
+              "startMs": 24011,
+              "endMs": 24231
+            },
+            {
+              "text": "big",
+              "normalized": "big",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "big",
+                "fr": "grand",
+                "es": "grande"
+              },
+              "id": "b3.s1.t8",
+              "startMs": 24231,
+              "endMs": 24441
+            },
+            {
+              "text": "lion",
+              "normalized": "lion",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lion",
+                "fr": "lion",
+                "es": "león"
+              },
+              "id": "b3.s1.t9",
+              "startMs": 24441,
+              "endMs": 24601
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s1.t10"
+            }
+          ]
+        },
+        {
+          "id": "b3.s2",
+          "text": "They tie him to a tree with heavy ropes.",
+          "translations": {
+            "en": "They tie him to a tree with heavy ropes.",
+            "fr": "Ils l'attachent à un arbre avec de lourdes cordes.",
+            "es": "Lo atan a un árbol con cuerdas pesadas."
+          },
+          "tokens": [
+            {
+              "text": "They",
+              "normalized": "they",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "they",
+                "fr": "ils",
+                "es": "ellos"
+              },
+              "id": "b3.s2.t1",
+              "startMs": 25440,
+              "endMs": 25620
+            },
+            {
+              "text": "tie",
+              "normalized": "tie",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tie",
+                "fr": "attachent",
+                "es": "atan"
+              },
+              "id": "b3.s2.t2",
+              "startMs": 25620,
+              "endMs": 25790
+            },
+            {
+              "text": "him",
+              "normalized": "him",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "him",
+                "fr": "lui",
+                "es": "él"
+              },
+              "id": "b3.s2.t3",
+              "startMs": 25790,
+              "endMs": 25960
+            },
+            {
+              "text": "to",
+              "normalized": "to",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b3.s2.t4",
+              "startMs": 25960,
+              "endMs": 26070
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b3.s2.t5",
+              "startMs": 26070,
+              "endMs": 26120
+            },
+            {
+              "text": "tree",
+              "normalized": "tree",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tree",
+                "fr": "arbre",
+                "es": "árbol"
+              },
+              "id": "b3.s2.t6",
+              "startMs": 26120,
+              "endMs": 26350
+            },
+            {
+              "text": "with",
+              "normalized": "with",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b3.s2.t7",
+              "startMs": 26350,
+              "endMs": 26550
+            },
+            {
+              "text": "heavy",
+              "normalized": "heavy",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "heavy",
+                "fr": "lourd",
+                "es": "pesado"
+              },
+              "id": "b3.s2.t8",
+              "startMs": 26640,
+              "endMs": 26860
+            },
+            {
+              "text": "ropes",
+              "normalized": "ropes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ropes",
+                "fr": "cordes",
+                "es": "cuerdas"
+              },
+              "id": "b3.s2.t9",
+              "startMs": 26860,
+              "endMs": 27140
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t10"
+            }
+          ]
+        },
+        {
+          "id": "b3.s3",
+          "text": "The lion roars loudly in pain.",
+          "translations": {
+            "en": "The lion roars loudly in pain.",
+            "fr": "Le lion rugit fort de douleur.",
+            "es": "El león ruge fuertemente de dolor."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s3.t1",
+              "startMs": 28292,
+              "endMs": 28472
+            },
+            {
+              "text": "lion",
+              "normalized": "lion",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lion",
+                "fr": "lion",
+                "es": "león"
+              },
+              "id": "b3.s3.t2",
+              "startMs": 28472,
+              "endMs": 28782
+            },
+            {
+              "text": "roars",
+              "normalized": "roars",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "roars",
+                "fr": "rugit",
+                "es": "ruge"
+              },
+              "id": "b3.s3.t3",
+              "startMs": 28782,
+              "endMs": 29192
+            },
+            {
+              "text": "loudly",
+              "normalized": "loudly",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "loudly",
+                "fr": "bruyamment",
+                "es": "ruidosamente"
+              },
+              "id": "b3.s3.t4",
+              "startMs": 29192,
+              "endMs": 29662
+            },
+            {
+              "text": "in",
+              "normalized": "in",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b3.s3.t5",
+              "startMs": 29662,
+              "endMs": 29832
+            },
+            {
+              "text": "pain",
+              "normalized": "pain",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "pain",
+                "fr": "douleur",
+                "es": "dolor"
+              },
+              "id": "b3.s3.t6",
+              "startMs": 29832,
+              "endMs": 30042
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s3.t7"
+            }
+          ]
+        },
+        {
+          "id": "b3.s4",
+          "text": "The little mouse hears his loud roar.",
+          "translations": {
+            "en": "The little mouse hears his loud roar.",
+            "fr": "La petite souris entend son fort rugissement.",
+            "es": "El pequeño ratón escucha su fuerte rugido."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s4.t1",
+              "startMs": 30876,
+              "endMs": 31006
+            },
+            {
+              "text": "little",
+              "normalized": "little",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "little",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b3.s4.t2",
+              "startMs": 31006,
+              "endMs": 31386
+            },
+            {
+              "text": "mouse",
+              "normalized": "mouse",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mouse",
+                "fr": "souris",
+                "es": "ratón"
+              },
+              "id": "b3.s4.t3",
+              "startMs": 31386,
+              "endMs": 31716
+            },
+            {
+              "text": "hears",
+              "normalized": "hears",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hears",
+                "fr": "entend",
+                "es": "escucha"
+              },
+              "id": "b3.s4.t4",
+              "startMs": 31716,
+              "endMs": 32036
+            },
+            {
+              "text": "his",
+              "normalized": "his",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "son",
+                "es": "su"
+              },
+              "id": "b3.s4.t5",
+              "startMs": 32036,
+              "endMs": 32226
+            },
+            {
+              "text": "loud",
+              "normalized": "loud",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "loud",
+                "fr": "fort",
+                "es": "fuerte"
+              },
+              "id": "b3.s4.t6",
+              "startMs": 32226,
+              "endMs": 32486
+            },
+            {
+              "text": "roar",
+              "normalized": "roar",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "roar",
+                "fr": "rugissement",
+                "es": "rugido"
+              },
+              "id": "b3.s4.t7",
+              "startMs": 32486,
+              "endMs": 32626
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s4.t8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b4",
+      "sentences": [
+        {
+          "id": "b4.s1",
+          "text": "She runs to the lion and bites the ropes.",
+          "translations": {
+            "en": "She runs to the lion and bites the ropes.",
+            "fr": "Elle court vers le lion et mord les cordes.",
+            "es": "Corre hacia el león y muerde las cuerdas."
+          },
+          "tokens": [
+            {
+              "text": "She",
+              "normalized": "she",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "she",
+                "fr": "elle",
+                "es": "ella"
+              },
+              "id": "b4.s1.t1",
+              "startMs": 33823,
+              "endMs": 33963
+            },
+            {
+              "text": "runs",
+              "normalized": "runs",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "runs",
+                "fr": "court",
+                "es": "corre"
+              },
+              "id": "b4.s1.t2",
+              "startMs": 33963,
+              "endMs": 34233
+            },
+            {
+              "text": "to",
+              "normalized": "to",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b4.s1.t3",
+              "startMs": 34313,
+              "endMs": 34383
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s1.t4",
+              "startMs": 34383,
+              "endMs": 34593
+            },
+            {
+              "text": "lion",
+              "normalized": "lion",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lion",
+                "fr": "lion",
+                "es": "león"
+              },
+              "id": "b4.s1.t5",
+              "startMs": 34593,
+              "endMs": 34873
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b4.s1.t6",
+              "startMs": 34873,
+              "endMs": 35063
+            },
+            {
+              "text": "bites",
+              "normalized": "bites",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "bites",
+                "fr": "mord",
+                "es": "muerde"
+              },
+              "id": "b4.s1.t7",
+              "startMs": 35103,
+              "endMs": 35443
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s1.t8",
+              "startMs": 35443,
+              "endMs": 35653
+            },
+            {
+              "text": "ropes",
+              "normalized": "ropes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ropes",
+                "fr": "cordes",
+                "es": "cuerdas"
+              },
+              "id": "b4.s1.t9",
+              "startMs": 35653,
+              "endMs": 35933
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s1.t10"
+            }
+          ]
+        },
+        {
+          "id": "b4.s2",
+          "text": "Her sharp teeth cut through the net.",
+          "translations": {
+            "en": "Her sharp teeth cut through the net.",
+            "fr": "Ses dents pointues coupent le filet.",
+            "es": "Sus dientes afilados cortan la red."
+          },
+          "tokens": [
+            {
+              "text": "Her",
+              "normalized": "her",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "her",
+                "fr": "sa",
+                "es": "su"
+              },
+              "id": "b4.s2.t1",
+              "startMs": 36784,
+              "endMs": 36884
+            },
+            {
+              "text": "sharp",
+              "normalized": "sharp",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sharp",
+                "fr": "pointu",
+                "es": "afilado"
+              },
+              "id": "b4.s2.t2",
+              "startMs": 36884,
+              "endMs": 37154
+            },
+            {
+              "text": "teeth",
+              "normalized": "teeth",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "teeth",
+                "fr": "dents",
+                "es": "dientes"
+              },
+              "id": "b4.s2.t3",
+              "startMs": 37264,
+              "endMs": 37454
+            },
+            {
+              "text": "cut",
+              "normalized": "cut",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cut",
+                "fr": "coupent",
+                "es": "cortan"
+              },
+              "id": "b4.s2.t4",
+              "startMs": 37514,
+              "endMs": 37714
+            },
+            {
+              "text": "through",
+              "normalized": "through",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "through",
+                "fr": "à travers",
+                "es": "a través de"
+              },
+              "id": "b4.s2.t5",
+              "startMs": 37714,
+              "endMs": 38154
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s2.t6",
+              "startMs": 38154,
+              "endMs": 38264
+            },
+            {
+              "text": "net",
+              "normalized": "net",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "net",
+                "fr": "filet",
+                "es": "red"
+              },
+              "id": "b4.s2.t7",
+              "startMs": 38344,
+              "endMs": 38424
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s2.t8"
+            }
+          ]
+        },
+        {
+          "id": "b4.s3",
+          "text": "The lion is free once more.",
+          "translations": {
+            "en": "The lion is free once more.",
+            "fr": "Le lion est de nouveau libre.",
+            "es": "El león está libre otra vez."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s3.t1",
+              "startMs": 39231,
+              "endMs": 39361
+            },
+            {
+              "text": "lion",
+              "normalized": "lion",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lion",
+                "fr": "lion",
+                "es": "león"
+              },
+              "id": "b4.s3.t2",
+              "startMs": 39361,
+              "endMs": 39631
+            },
+            {
+              "text": "is",
+              "normalized": "is",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es"
+              },
+              "id": "b4.s3.t3",
+              "startMs": 39631,
+              "endMs": 39761
+            },
+            {
+              "text": "free",
+              "normalized": "free",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "free",
+                "fr": "libre",
+                "es": "libre"
+              },
+              "id": "b4.s3.t4",
+              "startMs": 39761,
+              "endMs": 40031
+            },
+            {
+              "text": "once",
+              "normalized": "once",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "once",
+                "fr": "une fois",
+                "es": "una vez"
+              },
+              "id": "b4.s3.t5",
+              "startMs": 40031,
+              "endMs": 40241
+            },
+            {
+              "text": "more",
+              "normalized": "more",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "more",
+                "fr": "plus",
+                "es": "más"
+              },
+              "id": "b4.s3.t6",
+              "startMs": 40291,
+              "endMs": 40591
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s3.t7"
+            }
+          ]
+        },
+        {
+          "id": "b4.s4",
+          "text": "Little friends can show great kindness.",
+          "translations": {
+            "en": "Little friends can show great kindness.",
+            "fr": "Les petits amis peuvent faire preuve d'une grande bonté.",
+            "es": "Los pequeños amigos pueden mostrar una gran bondad."
+          },
+          "tokens": [
+            {
+              "text": "Little",
+              "normalized": "little",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "little",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b4.s4.t1",
+              "startMs": 41480,
+              "endMs": 41680
+            },
+            {
+              "text": "friends",
+              "normalized": "friends",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "friends",
+                "fr": "amis",
+                "es": "amigos"
+              },
+              "id": "b4.s4.t2",
+              "startMs": 41800,
+              "endMs": 42120
+            },
+            {
+              "text": "can",
+              "normalized": "can",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "can",
+                "fr": "peut",
+                "es": "puede"
+              },
+              "id": "b4.s4.t3",
+              "startMs": 42330,
+              "endMs": 42390
+            },
+            {
+              "text": "show",
+              "normalized": "show",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "show",
+                "fr": "montrer",
+                "es": "mostrar"
+              },
+              "id": "b4.s4.t4",
+              "startMs": 42390,
+              "endMs": 42630
+            },
+            {
+              "text": "great",
+              "normalized": "great",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "great",
+                "fr": "grand",
+                "es": "gran"
+              },
+              "id": "b4.s4.t5",
+              "startMs": 42630,
+              "endMs": 42920
+            },
+            {
+              "text": "kindness",
+              "normalized": "kindness",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "kindness",
+                "fr": "bonté",
+                "es": "bondad"
+              },
+              "id": "b4.s4.t6",
+              "startMs": 42920,
+              "endMs": 43390
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s4.t7"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

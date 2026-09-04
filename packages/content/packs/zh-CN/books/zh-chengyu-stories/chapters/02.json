@@ -1,0 +1,1972 @@
+{
+  "id": "zh-chengyu-stories-02",
+  "bookId": "zh-chengyu-stories",
+  "title": "画蛇添足",
+  "order": 2,
+  "blocks": [
+    {
+      "id": "b1",
+      "sentences": [
+        {
+          "id": "b1.s1",
+          "text": "从前，有几个人。",
+          "translations": {
+            "en": "Once, there were a few people.",
+            "fr": "Autrefois, il y avait quelques personnes.",
+            "es": "Había una vez unas personas."
+          },
+          "tokens": [
+            {
+              "text": "从前",
+              "normalized": "从前",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "once upon a time",
+                "fr": "autrefois",
+                "es": "había una vez"
+              },
+              "pinyin": "cóngqián",
+              "id": "b1.s1.t1",
+              "startMs": 0,
+              "endMs": 520
+            },
+            {
+              "text": "，",
+              "normalized": "，",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s1.t2"
+            },
+            {
+              "text": "有",
+              "normalized": "有",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "have; there is",
+                "fr": "avoir; il y a",
+                "es": "tener; haber"
+              },
+              "pinyin": "yǒu",
+              "id": "b1.s1.t3",
+              "startMs": 520,
+              "endMs": 780
+            },
+            {
+              "text": "几个",
+              "normalized": "几个",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "a few",
+                "fr": "quelques",
+                "es": "unos"
+              },
+              "pinyin": "jǐ ge",
+              "id": "b1.s1.t4",
+              "startMs": 780,
+              "endMs": 1290
+            },
+            {
+              "text": "人",
+              "normalized": "人",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "person",
+                "fr": "personne",
+                "es": "persona"
+              },
+              "pinyin": "rén",
+              "id": "b1.s1.t5",
+              "startMs": 1290,
+              "endMs": 1460
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s1.t6"
+            }
+          ]
+        },
+        {
+          "id": "b1.s2",
+          "text": "他们有一壶酒。",
+          "translations": {
+            "en": "They had a pot of wine.",
+            "fr": "Ils avaient une cruche de vin.",
+            "es": "Tenían una jarra de vino."
+          },
+          "tokens": [
+            {
+              "text": "他们",
+              "normalized": "他们",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "they",
+                "fr": "ils",
+                "es": "ellos"
+              },
+              "pinyin": "tāmen",
+              "id": "b1.s2.t1",
+              "startMs": 2227,
+              "endMs": 2591
+            },
+            {
+              "text": "有",
+              "normalized": "有",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "have; there is",
+                "fr": "avoir; il y a",
+                "es": "tener; haber"
+              },
+              "pinyin": "yǒu",
+              "id": "b1.s2.t2",
+              "startMs": 2591,
+              "endMs": 2954
+            },
+            {
+              "text": "一壶",
+              "normalized": "一壶",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "one pot",
+                "fr": "une cruche",
+                "es": "una jarra"
+              },
+              "pinyin": "yī hú",
+              "id": "b1.s2.t3",
+              "startMs": 2954,
+              "endMs": 3317
+            },
+            {
+              "text": "酒",
+              "normalized": "酒",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "wine",
+                "fr": "vin",
+                "es": "vino"
+              },
+              "pinyin": "jiǔ",
+              "id": "b1.s2.t4",
+              "startMs": 3317,
+              "endMs": 3427
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s2.t5"
+            }
+          ]
+        },
+        {
+          "id": "b1.s3",
+          "text": "酒不多。",
+          "translations": {
+            "en": "There was not much wine.",
+            "fr": "Il n'y avait pas beaucoup de vin.",
+            "es": "No había mucho vino."
+          },
+          "tokens": [
+            {
+              "text": "酒",
+              "normalized": "酒",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "wine",
+                "fr": "vin",
+                "es": "vino"
+              },
+              "pinyin": "jiǔ",
+              "id": "b1.s3.t1",
+              "startMs": 4208,
+              "endMs": 4653
+            },
+            {
+              "text": "不",
+              "normalized": "不",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "not",
+                "fr": "ne... pas",
+                "es": "no"
+              },
+              "pinyin": "bù",
+              "id": "b1.s3.t2",
+              "startMs": 4653,
+              "endMs": 5099
+            },
+            {
+              "text": "多",
+              "normalized": "多",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "much, many",
+                "fr": "beaucoup",
+                "es": "mucho"
+              },
+              "pinyin": "duō",
+              "id": "b1.s3.t3",
+              "startMs": 5099,
+              "endMs": 5545
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t4"
+            }
+          ]
+        },
+        {
+          "id": "b1.s4",
+          "text": "只够一个人喝。",
+          "translations": {
+            "en": "It was only enough for one person to drink.",
+            "fr": "Il y en avait seulement pour une personne.",
+            "es": "Solo alcanzaba para que bebiera una persona."
+          },
+          "tokens": [
+            {
+              "text": "只",
+              "normalized": "只",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "only",
+                "fr": "seulement",
+                "es": "solo"
+              },
+              "pinyin": "zhǐ",
+              "id": "b1.s4.t1",
+              "startMs": 5975,
+              "endMs": 6125
+            },
+            {
+              "text": "够",
+              "normalized": "够",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "enough",
+                "fr": "suffire",
+                "es": "alcanzar"
+              },
+              "pinyin": "gòu",
+              "id": "b1.s4.t2",
+              "startMs": 6125,
+              "endMs": 6345
+            },
+            {
+              "text": "一个",
+              "normalized": "一个",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "one, a",
+                "fr": "un, une",
+                "es": "un, una"
+              },
+              "pinyin": "yī ge",
+              "id": "b1.s4.t3",
+              "startMs": 6345,
+              "endMs": 6795
+            },
+            {
+              "text": "人",
+              "normalized": "人",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "person",
+                "fr": "personne",
+                "es": "persona"
+              },
+              "pinyin": "rén",
+              "id": "b1.s4.t4",
+              "startMs": 6935,
+              "endMs": 7035
+            },
+            {
+              "text": "喝",
+              "normalized": "喝",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to drink",
+                "fr": "boire",
+                "es": "beber"
+              },
+              "pinyin": "hē",
+              "id": "b1.s4.t5",
+              "startMs": 7035,
+              "endMs": 7155
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s4.t6"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "sentences": [
+        {
+          "id": "b2.s1",
+          "text": "他们都想喝这壶酒。",
+          "translations": {
+            "en": "They all wanted to drink this pot of wine.",
+            "fr": "Ils voulaient tous boire cette cruche de vin.",
+            "es": "Todos querían beber esa jarra de vino."
+          },
+          "tokens": [
+            {
+              "text": "他们",
+              "normalized": "他们",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "they",
+                "fr": "ils",
+                "es": "ellos"
+              },
+              "pinyin": "tāmen",
+              "id": "b2.s1.t1",
+              "startMs": 8364,
+              "endMs": 8774
+            },
+            {
+              "text": "都",
+              "normalized": "都",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "all",
+                "fr": "tous",
+                "es": "todos"
+              },
+              "pinyin": "dōu",
+              "id": "b2.s1.t2",
+              "startMs": 8774,
+              "endMs": 9014
+            },
+            {
+              "text": "想",
+              "normalized": "想",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to think; to want",
+                "fr": "penser; vouloir",
+                "es": "pensar; querer"
+              },
+              "pinyin": "xiǎng",
+              "id": "b2.s1.t3",
+              "startMs": 9014,
+              "endMs": 9174
+            },
+            {
+              "text": "喝",
+              "normalized": "喝",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to drink",
+                "fr": "boire",
+                "es": "beber"
+              },
+              "pinyin": "hē",
+              "id": "b2.s1.t4",
+              "startMs": 9284,
+              "endMs": 9494
+            },
+            {
+              "text": "这",
+              "normalized": "这",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "this",
+                "fr": "ce",
+                "es": "este"
+              },
+              "pinyin": "zhè",
+              "id": "b2.s1.t5",
+              "startMs": 9494,
+              "endMs": 9734
+            },
+            {
+              "text": "壶",
+              "normalized": "壶",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "pot, jug",
+                "fr": "cruche",
+                "es": "jarra"
+              },
+              "pinyin": "hú",
+              "id": "b2.s1.t6",
+              "startMs": 9734,
+              "endMs": 9974
+            },
+            {
+              "text": "酒",
+              "normalized": "酒",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "wine",
+                "fr": "vin",
+                "es": "vino"
+              },
+              "pinyin": "jiǔ",
+              "id": "b2.s1.t7",
+              "startMs": 9974,
+              "endMs": 10114
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s1.t8"
+            }
+          ]
+        },
+        {
+          "id": "b2.s2",
+          "text": "他们说：“谁先画好蛇，谁喝这壶酒。”",
+          "translations": {
+            "en": "They said, \"Whoever draws the snake first drinks this pot of wine.\"",
+            "fr": "Ils ont dit : « Celui qui dessine le serpent le premier boit ce vin. »",
+            "es": "Dijeron: «El que dibuje primero la serpiente bebe esta jarra de vino.»"
+          },
+          "tokens": [
+            {
+              "text": "他们",
+              "normalized": "他们",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "they",
+                "fr": "ils",
+                "es": "ellos"
+              },
+              "pinyin": "tāmen",
+              "id": "b2.s2.t1",
+              "startMs": 10965,
+              "endMs": 11455
+            },
+            {
+              "text": "说",
+              "normalized": "说",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to say; to mean",
+                "fr": "dire; vouloir dire",
+                "es": "decir; significar"
+              },
+              "pinyin": "shuō",
+              "id": "b2.s2.t2",
+              "startMs": 11455,
+              "endMs": 11615
+            },
+            {
+              "text": "：",
+              "normalized": "：",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s2.t3"
+            },
+            {
+              "text": "“",
+              "normalized": "“",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s2.t4"
+            },
+            {
+              "text": "谁",
+              "normalized": "谁",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "who",
+                "fr": "qui",
+                "es": "quién"
+              },
+              "pinyin": "shéi",
+              "id": "b2.s2.t5",
+              "startMs": 11725,
+              "endMs": 11985
+            },
+            {
+              "text": "先",
+              "normalized": "先",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "first",
+                "fr": "d'abord",
+                "es": "primero"
+              },
+              "pinyin": "xiān",
+              "id": "b2.s2.t6",
+              "startMs": 11985,
+              "endMs": 12235
+            },
+            {
+              "text": "画",
+              "normalized": "画",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to draw",
+                "fr": "dessiner",
+                "es": "dibujar"
+              },
+              "pinyin": "huà",
+              "id": "b2.s2.t7",
+              "startMs": 12235,
+              "endMs": 12485
+            },
+            {
+              "text": "好",
+              "normalized": "好",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "good",
+                "fr": "bon",
+                "es": "bueno"
+              },
+              "pinyin": "hǎo",
+              "id": "b2.s2.t8",
+              "startMs": 12485,
+              "endMs": 12735
+            },
+            {
+              "text": "蛇",
+              "normalized": "蛇",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "snake",
+                "fr": "serpent",
+                "es": "serpiente"
+              },
+              "pinyin": "shé",
+              "id": "b2.s2.t9",
+              "startMs": 12735,
+              "endMs": 12915
+            },
+            {
+              "text": "，",
+              "normalized": "，",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s2.t10"
+            },
+            {
+              "text": "谁",
+              "normalized": "谁",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "who",
+                "fr": "qui",
+                "es": "quién"
+              },
+              "pinyin": "shéi",
+              "id": "b2.s2.t11",
+              "startMs": 13085,
+              "endMs": 13275
+            },
+            {
+              "text": "喝",
+              "normalized": "喝",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to drink",
+                "fr": "boire",
+                "es": "beber"
+              },
+              "pinyin": "hē",
+              "id": "b2.s2.t12",
+              "startMs": 13275,
+              "endMs": 13495
+            },
+            {
+              "text": "这",
+              "normalized": "这",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "this",
+                "fr": "ce",
+                "es": "este"
+              },
+              "pinyin": "zhè",
+              "id": "b2.s2.t13",
+              "startMs": 13555,
+              "endMs": 13695
+            },
+            {
+              "text": "壶",
+              "normalized": "壶",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "pot, jug",
+                "fr": "cruche",
+                "es": "jarra"
+              },
+              "pinyin": "hú",
+              "id": "b2.s2.t14",
+              "startMs": 13805,
+              "endMs": 14045
+            },
+            {
+              "text": "酒",
+              "normalized": "酒",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "wine",
+                "fr": "vin",
+                "es": "vino"
+              },
+              "pinyin": "jiǔ",
+              "id": "b2.s2.t15",
+              "startMs": 14045,
+              "endMs": 14245
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s2.t16"
+            },
+            {
+              "text": "”",
+              "normalized": "”",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s2.t17"
+            }
+          ]
+        },
+        {
+          "id": "b2.s3",
+          "text": "一个人很快画好了蛇。",
+          "translations": {
+            "en": "One man drew the snake very quickly.",
+            "fr": "Un homme a dessiné le serpent très vite.",
+            "es": "Un hombre dibujó la serpiente muy rápido."
+          },
+          "tokens": [
+            {
+              "text": "一个",
+              "normalized": "一个",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "one, a",
+                "fr": "un, une",
+                "es": "un, una"
+              },
+              "pinyin": "yī ge",
+              "id": "b2.s3.t1",
+              "startMs": 15076,
+              "endMs": 15456
+            },
+            {
+              "text": "人",
+              "normalized": "人",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "person",
+                "fr": "personne",
+                "es": "persona"
+              },
+              "pinyin": "rén",
+              "id": "b2.s3.t2",
+              "startMs": 15456,
+              "endMs": 15586
+            },
+            {
+              "text": "很快",
+              "normalized": "很快",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "very fast",
+                "fr": "très vite",
+                "es": "muy rápido"
+              },
+              "pinyin": "hěn kuài",
+              "id": "b2.s3.t3",
+              "startMs": 15586,
+              "endMs": 16116
+            },
+            {
+              "text": "画",
+              "normalized": "画",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to draw",
+                "fr": "dessiner",
+                "es": "dibujar"
+              },
+              "pinyin": "huà",
+              "id": "b2.s3.t4",
+              "startMs": 16116,
+              "endMs": 16336
+            },
+            {
+              "text": "好",
+              "normalized": "好",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "good",
+                "fr": "bon",
+                "es": "bueno"
+              },
+              "pinyin": "hǎo",
+              "id": "b2.s3.t5",
+              "startMs": 16336,
+              "endMs": 16556
+            },
+            {
+              "text": "了",
+              "normalized": "了",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(completed action)",
+                "fr": "(action accomplie)",
+                "es": "(acción completada)"
+              },
+              "pinyin": "le",
+              "id": "b2.s3.t6",
+              "startMs": 16556,
+              "endMs": 16776
+            },
+            {
+              "text": "蛇",
+              "normalized": "蛇",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "snake",
+                "fr": "serpent",
+                "es": "serpiente"
+              },
+              "pinyin": "shé",
+              "id": "b2.s3.t7",
+              "startMs": 16776,
+              "endMs": 16916
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s3.t8"
+            }
+          ]
+        },
+        {
+          "id": "b2.s4",
+          "text": "他看别人还没画好。",
+          "translations": {
+            "en": "He saw that the others had not finished.",
+            "fr": "Il a vu que les autres n'avaient pas fini.",
+            "es": "Vio que los demás no habían terminado."
+          },
+          "tokens": [
+            {
+              "text": "他",
+              "normalized": "他",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "pinyin": "tā",
+              "id": "b2.s4.t1",
+              "startMs": 17724,
+              "endMs": 17844
+            },
+            {
+              "text": "看",
+              "normalized": "看",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to look",
+                "fr": "regarder",
+                "es": "mirar"
+              },
+              "pinyin": "kàn",
+              "id": "b2.s4.t2",
+              "startMs": 17924,
+              "endMs": 18104
+            },
+            {
+              "text": "别人",
+              "normalized": "别人",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "others",
+                "fr": "les autres",
+                "es": "los demás"
+              },
+              "pinyin": "biérén",
+              "id": "b2.s4.t3",
+              "startMs": 18104,
+              "endMs": 18624
+            },
+            {
+              "text": "还",
+              "normalized": "还",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "still",
+                "fr": "encore",
+                "es": "todavía"
+              },
+              "pinyin": "hái",
+              "id": "b2.s4.t4",
+              "startMs": 18624,
+              "endMs": 18824
+            },
+            {
+              "text": "没",
+              "normalized": "没",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "not (past)",
+                "fr": "ne pas (passé)",
+                "es": "no (pasado)"
+              },
+              "pinyin": "méi",
+              "id": "b2.s4.t5",
+              "startMs": 18824,
+              "endMs": 19054
+            },
+            {
+              "text": "画",
+              "normalized": "画",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to draw",
+                "fr": "dessiner",
+                "es": "dibujar"
+              },
+              "pinyin": "huà",
+              "id": "b2.s4.t6",
+              "startMs": 19054,
+              "endMs": 19284
+            },
+            {
+              "text": "好",
+              "normalized": "好",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "good",
+                "fr": "bon",
+                "es": "bueno"
+              },
+              "pinyin": "hǎo",
+              "id": "b2.s4.t7",
+              "startMs": 19284,
+              "endMs": 19404
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s4.t8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3",
+      "sentences": [
+        {
+          "id": "b3.s1",
+          "text": "他很高兴。",
+          "translations": {
+            "en": "He was very pleased.",
+            "fr": "Il était très content.",
+            "es": "Estaba muy contento."
+          },
+          "tokens": [
+            {
+              "text": "他",
+              "normalized": "他",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "pinyin": "tā",
+              "id": "b3.s1.t1",
+              "startMs": 20576,
+              "endMs": 20756
+            },
+            {
+              "text": "很",
+              "normalized": "很",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "pinyin": "hěn",
+              "id": "b3.s1.t2",
+              "startMs": 20856,
+              "endMs": 21086
+            },
+            {
+              "text": "高兴",
+              "normalized": "高兴",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "happy",
+                "fr": "content",
+                "es": "contento"
+              },
+              "pinyin": "gāoxìng",
+              "id": "b3.s1.t3",
+              "startMs": 21086,
+              "endMs": 22000
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s1.t4"
+            }
+          ]
+        },
+        {
+          "id": "b3.s2",
+          "text": "他说：“我给蛇画上脚吧！”",
+          "translations": {
+            "en": "He said, \"I'll draw feet on the snake!\"",
+            "fr": "Il a dit : « Je vais dessiner des pattes au serpent ! »",
+            "es": "Dijo: «¡Le voy a dibujar patas a la serpiente!»"
+          },
+          "tokens": [
+            {
+              "text": "他",
+              "normalized": "他",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "pinyin": "tā",
+              "id": "b3.s2.t1",
+              "startMs": 22400,
+              "endMs": 22610
+            },
+            {
+              "text": "说",
+              "normalized": "说",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to say; to mean",
+                "fr": "dire; vouloir dire",
+                "es": "decir; significar"
+              },
+              "pinyin": "shuō",
+              "id": "b3.s2.t2",
+              "startMs": 22610,
+              "endMs": 22870
+            },
+            {
+              "text": "：",
+              "normalized": "：",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t3"
+            },
+            {
+              "text": "“",
+              "normalized": "“",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t4"
+            },
+            {
+              "text": "我",
+              "normalized": "我",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "I, me",
+                "fr": "je, me",
+                "es": "yo, me"
+              },
+              "pinyin": "wǒ",
+              "id": "b3.s2.t5",
+              "startMs": 22870,
+              "endMs": 23130
+            },
+            {
+              "text": "给",
+              "normalized": "给",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "for; to give",
+                "fr": "pour; donner",
+                "es": "para; dar"
+              },
+              "pinyin": "gěi",
+              "id": "b3.s2.t6",
+              "startMs": 23130,
+              "endMs": 23390
+            },
+            {
+              "text": "蛇",
+              "normalized": "蛇",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "snake",
+                "fr": "serpent",
+                "es": "serpiente"
+              },
+              "pinyin": "shé",
+              "id": "b3.s2.t7",
+              "startMs": 23390,
+              "endMs": 23640
+            },
+            {
+              "text": "画",
+              "normalized": "画",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to draw",
+                "fr": "dessiner",
+                "es": "dibujar"
+              },
+              "pinyin": "huà",
+              "id": "b3.s2.t8",
+              "startMs": 23640,
+              "endMs": 23900
+            },
+            {
+              "text": "上",
+              "normalized": "上",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "on",
+                "fr": "sur",
+                "es": "encima"
+              },
+              "pinyin": "shàng",
+              "id": "b3.s2.t9",
+              "startMs": 23900,
+              "endMs": 24160
+            },
+            {
+              "text": "脚",
+              "normalized": "脚",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "foot, leg",
+                "fr": "pied, patte",
+                "es": "pie, pata"
+              },
+              "pinyin": "jiǎo",
+              "id": "b3.s2.t10",
+              "startMs": 24160,
+              "endMs": 24410
+            },
+            {
+              "text": "吧",
+              "normalized": "吧",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(suggestion particle)",
+                "fr": "(particule de suggestion)",
+                "es": "(partícula de sugerencia)"
+              },
+              "pinyin": "ba",
+              "id": "b3.s2.t11",
+              "startMs": 24410,
+              "endMs": 24590
+            },
+            {
+              "text": "！",
+              "normalized": "！",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t12"
+            },
+            {
+              "text": "”",
+              "normalized": "”",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t13"
+            }
+          ]
+        },
+        {
+          "id": "b3.s3",
+          "text": "这时，另一个人画好了。",
+          "translations": {
+            "en": "At that moment, another man finished his drawing.",
+            "fr": "À ce moment-là, un autre homme a fini son dessin.",
+            "es": "En ese momento, otro hombre terminó su dibujo."
+          },
+          "tokens": [
+            {
+              "text": "这时",
+              "normalized": "这时",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "at this moment",
+                "fr": "à ce moment",
+                "es": "en ese momento"
+              },
+              "pinyin": "zhèshí",
+              "id": "b3.s3.t1",
+              "startMs": 25403,
+              "endMs": 25913
+            },
+            {
+              "text": "，",
+              "normalized": "，",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s3.t2"
+            },
+            {
+              "text": "另一个",
+              "normalized": "另一个",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "another",
+                "fr": "un autre",
+                "es": "otro"
+              },
+              "pinyin": "lìng yī ge",
+              "id": "b3.s3.t3",
+              "startMs": 25913,
+              "endMs": 26423
+            },
+            {
+              "text": "人",
+              "normalized": "人",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "person",
+                "fr": "personne",
+                "es": "persona"
+              },
+              "pinyin": "rén",
+              "id": "b3.s3.t4",
+              "startMs": 26423,
+              "endMs": 26553
+            },
+            {
+              "text": "画",
+              "normalized": "画",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to draw",
+                "fr": "dessiner",
+                "es": "dibujar"
+              },
+              "pinyin": "huà",
+              "id": "b3.s3.t5",
+              "startMs": 26643,
+              "endMs": 26813
+            },
+            {
+              "text": "好",
+              "normalized": "好",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "good",
+                "fr": "bon",
+                "es": "bueno"
+              },
+              "pinyin": "hǎo",
+              "id": "b3.s3.t6",
+              "startMs": 26813,
+              "endMs": 27208
+            },
+            {
+              "text": "了",
+              "normalized": "了",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(completed action)",
+                "fr": "(action accomplie)",
+                "es": "(acción completada)"
+              },
+              "pinyin": "le",
+              "id": "b3.s3.t7",
+              "startMs": 27208,
+              "endMs": 27602
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s3.t8"
+            }
+          ]
+        },
+        {
+          "id": "b3.s4",
+          "text": "他说：“蛇没有脚！”",
+          "translations": {
+            "en": "He said, \"Snakes have no feet!\"",
+            "fr": "Il a dit : « Les serpents n'ont pas de pattes ! »",
+            "es": "Dijo: «¡Las serpientes no tienen patas!»"
+          },
+          "tokens": [
+            {
+              "text": "他",
+              "normalized": "他",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "pinyin": "tā",
+              "id": "b3.s4.t1",
+              "startMs": 28002,
+              "endMs": 28212
+            },
+            {
+              "text": "说",
+              "normalized": "说",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to say; to mean",
+                "fr": "dire; vouloir dire",
+                "es": "decir; significar"
+              },
+              "pinyin": "shuō",
+              "id": "b3.s4.t2",
+              "startMs": 28212,
+              "endMs": 28472
+            },
+            {
+              "text": "：",
+              "normalized": "：",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s4.t3"
+            },
+            {
+              "text": "“",
+              "normalized": "“",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s4.t4"
+            },
+            {
+              "text": "蛇",
+              "normalized": "蛇",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "snake",
+                "fr": "serpent",
+                "es": "serpiente"
+              },
+              "pinyin": "shé",
+              "id": "b3.s4.t5",
+              "startMs": 28472,
+              "endMs": 28722
+            },
+            {
+              "text": "没有",
+              "normalized": "没有",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "not have; did not",
+                "fr": "ne pas avoir; ne pas",
+                "es": "no tener; no"
+              },
+              "pinyin": "méiyǒu",
+              "id": "b3.s4.t6",
+              "startMs": 28722,
+              "endMs": 29252
+            },
+            {
+              "text": "脚",
+              "normalized": "脚",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "foot, leg",
+                "fr": "pied, patte",
+                "es": "pie, pata"
+              },
+              "pinyin": "jiǎo",
+              "id": "b3.s4.t7",
+              "startMs": 29252,
+              "endMs": 29422
+            },
+            {
+              "text": "！",
+              "normalized": "！",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s4.t8"
+            },
+            {
+              "text": "”",
+              "normalized": "”",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s4.t9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b4",
+      "sentences": [
+        {
+          "id": "b4.s1",
+          "text": "“你画的不是蛇！”",
+          "translations": {
+            "en": "\"What you drew is not a snake!\"",
+            "fr": "« Ce que tu as dessiné n'est pas un serpent ! »",
+            "es": "«¡Lo que dibujaste no es una serpiente!»"
+          },
+          "tokens": [
+            {
+              "text": "“",
+              "normalized": "“",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s1.t1"
+            },
+            {
+              "text": "你",
+              "normalized": "你",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "you",
+                "fr": "tu",
+                "es": "tú"
+              },
+              "pinyin": "nǐ",
+              "id": "b4.s1.t2",
+              "startMs": 30785,
+              "endMs": 31015
+            },
+            {
+              "text": "画",
+              "normalized": "画",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to draw",
+                "fr": "dessiner",
+                "es": "dibujar"
+              },
+              "pinyin": "huà",
+              "id": "b4.s1.t3",
+              "startMs": 31015,
+              "endMs": 31205
+            },
+            {
+              "text": "的",
+              "normalized": "的",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(possessive/descriptive)",
+                "fr": "de (possessif)",
+                "es": "de (posesivo)"
+              },
+              "pinyin": "de",
+              "id": "b4.s1.t4",
+              "startMs": 31275,
+              "endMs": 31475
+            },
+            {
+              "text": "不",
+              "normalized": "不",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "not",
+                "fr": "ne... pas",
+                "es": "no"
+              },
+              "pinyin": "bù",
+              "id": "b4.s1.t5",
+              "startMs": 31475,
+              "endMs": 31710
+            },
+            {
+              "text": "是",
+              "normalized": "是",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to be",
+                "fr": "être",
+                "es": "ser"
+              },
+              "pinyin": "shì",
+              "id": "b4.s1.t6",
+              "startMs": 31710,
+              "endMs": 31945
+            },
+            {
+              "text": "蛇",
+              "normalized": "蛇",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "snake",
+                "fr": "serpent",
+                "es": "serpiente"
+              },
+              "pinyin": "shé",
+              "id": "b4.s1.t7",
+              "startMs": 31945,
+              "endMs": 32115
+            },
+            {
+              "text": "！",
+              "normalized": "！",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s1.t8"
+            },
+            {
+              "text": "”",
+              "normalized": "”",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s1.t9"
+            }
+          ]
+        },
+        {
+          "id": "b4.s2",
+          "text": "他拿了酒，喝了。",
+          "translations": {
+            "en": "He took the wine and drank it.",
+            "fr": "Il a pris le vin et l'a bu.",
+            "es": "Tomó el vino y lo bebió."
+          },
+          "tokens": [
+            {
+              "text": "他",
+              "normalized": "他",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "pinyin": "tā",
+              "id": "b4.s2.t1",
+              "startMs": 32943,
+              "endMs": 33093
+            },
+            {
+              "text": "拿",
+              "normalized": "拿",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to take",
+                "fr": "prendre",
+                "es": "tomar"
+              },
+              "pinyin": "ná",
+              "id": "b4.s2.t2",
+              "startMs": 33093,
+              "endMs": 33313
+            },
+            {
+              "text": "了",
+              "normalized": "了",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(completed action)",
+                "fr": "(action accomplie)",
+                "es": "(acción completada)"
+              },
+              "pinyin": "le",
+              "id": "b4.s2.t3",
+              "startMs": 33313,
+              "endMs": 33533
+            },
+            {
+              "text": "酒",
+              "normalized": "酒",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "wine",
+                "fr": "vin",
+                "es": "vino"
+              },
+              "pinyin": "jiǔ",
+              "id": "b4.s2.t4",
+              "startMs": 33533,
+              "endMs": 33753
+            },
+            {
+              "text": "，",
+              "normalized": "，",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s2.t5"
+            },
+            {
+              "text": "喝",
+              "normalized": "喝",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to drink",
+                "fr": "boire",
+                "es": "beber"
+              },
+              "pinyin": "hē",
+              "id": "b4.s2.t6",
+              "startMs": 33753,
+              "endMs": 33973
+            },
+            {
+              "text": "了",
+              "normalized": "了",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(completed action)",
+                "fr": "(action accomplie)",
+                "es": "(acción completada)"
+              },
+              "pinyin": "le",
+              "id": "b4.s2.t7",
+              "startMs": 33973,
+              "endMs": 34093
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s2.t8"
+            }
+          ]
+        },
+        {
+          "id": "b4.s3",
+          "text": "画脚的人没有酒喝。",
+          "translations": {
+            "en": "The man who drew feet got no wine to drink.",
+            "fr": "L'homme qui a dessiné des pattes n'a pas eu de vin.",
+            "es": "El hombre que dibujó patas se quedó sin vino."
+          },
+          "tokens": [
+            {
+              "text": "画",
+              "normalized": "画",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to draw",
+                "fr": "dessiner",
+                "es": "dibujar"
+              },
+              "pinyin": "huà",
+              "id": "b4.s3.t1",
+              "startMs": 34982,
+              "endMs": 35092
+            },
+            {
+              "text": "脚",
+              "normalized": "脚",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "foot, leg",
+                "fr": "pied, patte",
+                "es": "pie, pata"
+              },
+              "pinyin": "jiǎo",
+              "id": "b4.s3.t2",
+              "startMs": 35092,
+              "endMs": 35302
+            },
+            {
+              "text": "的",
+              "normalized": "的",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(possessive/descriptive)",
+                "fr": "de (possessif)",
+                "es": "de (posesivo)"
+              },
+              "pinyin": "de",
+              "id": "b4.s3.t3",
+              "startMs": 35302,
+              "endMs": 35522
+            },
+            {
+              "text": "人",
+              "normalized": "人",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "person",
+                "fr": "personne",
+                "es": "persona"
+              },
+              "pinyin": "rén",
+              "id": "b4.s3.t4",
+              "startMs": 35522,
+              "endMs": 35742
+            },
+            {
+              "text": "没有",
+              "normalized": "没有",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "not have; did not",
+                "fr": "ne pas avoir; ne pas",
+                "es": "no tener; no"
+              },
+              "pinyin": "méiyǒu",
+              "id": "b4.s3.t5",
+              "startMs": 35742,
+              "endMs": 36182
+            },
+            {
+              "text": "酒",
+              "normalized": "酒",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "wine",
+                "fr": "vin",
+                "es": "vino"
+              },
+              "pinyin": "jiǔ",
+              "id": "b4.s3.t6",
+              "startMs": 36182,
+              "endMs": 36402
+            },
+            {
+              "text": "喝",
+              "normalized": "喝",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to drink",
+                "fr": "boire",
+                "es": "beber"
+              },
+              "pinyin": "hē",
+              "id": "b4.s3.t7",
+              "startMs": 36402,
+              "endMs": 36532
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s3.t8"
+            }
+          ]
+        },
+        {
+          "id": "b4.s4",
+          "text": "现在，成语“画蛇添足”说的是做了没用的事。",
+          "translations": {
+            "en": "Today, the idiom \"huà shé tiān zú\" describes doing something useless.",
+            "fr": "Aujourd'hui, le chengyu « huà shé tiān zú » décrit une action inutile.",
+            "es": "Hoy, el chengyu \"huà shé tiān zú\" describe hacer algo inútil."
+          },
+          "tokens": [
+            {
+              "text": "现在",
+              "normalized": "现在",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "now",
+                "fr": "maintenant",
+                "es": "ahora"
+              },
+              "pinyin": "xiànzài",
+              "id": "b4.s4.t1",
+              "startMs": 37492,
+              "endMs": 37952
+            },
+            {
+              "text": "，",
+              "normalized": "，",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s4.t2"
+            },
+            {
+              "text": "成语",
+              "normalized": "成语",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "idiom",
+                "fr": "chengyu, idiotisme",
+                "es": "chengyu, modismo"
+              },
+              "pinyin": "chéngyǔ",
+              "id": "b4.s4.t3",
+              "startMs": 37952,
+              "endMs": 38612
+            },
+            {
+              "text": "“",
+              "normalized": "“",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s4.t4"
+            },
+            {
+              "text": "画蛇添足",
+              "normalized": "画蛇添足",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "drawing feet on a snake (idiom)",
+                "fr": "dessiner des pattes au serpent (chengyu)",
+                "es": "dibujar patas a la serpiente (chengyu)"
+              },
+              "pinyin": "huà shé tiān zú",
+              "id": "b4.s4.t5",
+              "startMs": 38612,
+              "endMs": 39272
+            },
+            {
+              "text": "”",
+              "normalized": "”",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s4.t6"
+            },
+            {
+              "text": "说",
+              "normalized": "说",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to say; to mean",
+                "fr": "dire; vouloir dire",
+                "es": "decir; significar"
+              },
+              "pinyin": "shuō",
+              "id": "b4.s4.t7",
+              "startMs": 39272,
+              "endMs": 39442
+            },
+            {
+              "text": "的",
+              "normalized": "的",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(possessive/descriptive)",
+                "fr": "de (possessif)",
+                "es": "de (posesivo)"
+              },
+              "pinyin": "de",
+              "id": "b4.s4.t8",
+              "startMs": 39442,
+              "endMs": 39617
+            },
+            {
+              "text": "是",
+              "normalized": "是",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to be",
+                "fr": "être",
+                "es": "ser"
+              },
+              "pinyin": "shì",
+              "id": "b4.s4.t9",
+              "startMs": 39617,
+              "endMs": 39792
+            },
+            {
+              "text": "做",
+              "normalized": "做",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to do",
+                "fr": "faire",
+                "es": "hacer"
+              },
+              "pinyin": "zuò",
+              "id": "b4.s4.t10",
+              "startMs": 39792,
+              "endMs": 39962
+            },
+            {
+              "text": "了",
+              "normalized": "了",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(completed action)",
+                "fr": "(action accomplie)",
+                "es": "(acción completada)"
+              },
+              "pinyin": "le",
+              "id": "b4.s4.t11",
+              "startMs": 39962,
+              "endMs": 40132
+            },
+            {
+              "text": "没用",
+              "normalized": "没用",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "useless",
+                "fr": "inutile",
+                "es": "inútil"
+              },
+              "pinyin": "méiyòng",
+              "id": "b4.s4.t12",
+              "startMs": 40132,
+              "endMs": 40472
+            },
+            {
+              "text": "的",
+              "normalized": "的",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "(possessive/descriptive)",
+                "fr": "de (possessif)",
+                "es": "de (posesivo)"
+              },
+              "pinyin": "de",
+              "id": "b4.s4.t13",
+              "startMs": 40472,
+              "endMs": 40642
+            },
+            {
+              "text": "事",
+              "normalized": "事",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "thing, matter",
+                "fr": "chose, affaire",
+                "es": "cosa, asunto"
+              },
+              "pinyin": "shì",
+              "id": "b4.s4.t14",
+              "startMs": 40642,
+              "endMs": 40892
+            },
+            {
+              "text": "。",
+              "normalized": "。",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s4.t15"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

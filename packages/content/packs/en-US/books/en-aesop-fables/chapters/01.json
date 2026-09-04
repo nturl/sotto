@@ -1,0 +1,1842 @@
+{
+  "id": "en-aesop-fables-01",
+  "bookId": "en-aesop-fables",
+  "title": "The Tortoise and the Hare",
+  "order": 1,
+  "blocks": [
+    {
+      "id": "b1",
+      "sentences": [
+        {
+          "id": "b1.s1",
+          "text": "A hare meets a tortoise on a sunny road.",
+          "translations": {
+            "en": "A hare meets a tortoise on a sunny road.",
+            "fr": "Un lièvre rencontre une tortue sur une route ensoleillée.",
+            "es": "Una liebre se encuentra con una tortuga en un camino soleado."
+          },
+          "tokens": [
+            {
+              "text": "A",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s1.t1",
+              "startMs": 50,
+              "endMs": 70
+            },
+            {
+              "text": "hare",
+              "normalized": "hare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hare",
+                "fr": "lièvre",
+                "es": "liebre"
+              },
+              "id": "b1.s1.t2",
+              "startMs": 70,
+              "endMs": 360
+            },
+            {
+              "text": "meets",
+              "normalized": "meets",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "meets",
+                "fr": "rencontre",
+                "es": "encuentra"
+              },
+              "id": "b1.s1.t3",
+              "startMs": 360,
+              "endMs": 730
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s1.t4",
+              "startMs": 730,
+              "endMs": 770
+            },
+            {
+              "text": "tortoise",
+              "normalized": "tortoise",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tortoise",
+                "fr": "tortue",
+                "es": "tortuga"
+              },
+              "id": "b1.s1.t5",
+              "startMs": 770,
+              "endMs": 1390
+            },
+            {
+              "text": "on",
+              "normalized": "on",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "on",
+                "fr": "sur",
+                "es": "en"
+              },
+              "id": "b1.s1.t6",
+              "startMs": 1390,
+              "endMs": 1480
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s1.t7",
+              "startMs": 1560,
+              "endMs": 1600
+            },
+            {
+              "text": "sunny",
+              "normalized": "sunny",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sunny",
+                "fr": "ensoleillé",
+                "es": "soleado"
+              },
+              "id": "b1.s1.t8",
+              "startMs": 1600,
+              "endMs": 1950
+            },
+            {
+              "text": "road",
+              "normalized": "road",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "road",
+                "fr": "route",
+                "es": "camino"
+              },
+              "id": "b1.s1.t9",
+              "startMs": 1950,
+              "endMs": 2140
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s1.t10"
+            }
+          ]
+        },
+        {
+          "id": "b1.s2",
+          "text": "The hare is very proud of his speed.",
+          "translations": {
+            "en": "The hare is very proud of his speed.",
+            "fr": "Le lièvre est très fier de sa vitesse.",
+            "es": "La liebre está muy orgullosa de su velocidad."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s2.t1",
+              "startMs": 2970,
+              "endMs": 3070
+            },
+            {
+              "text": "hare",
+              "normalized": "hare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hare",
+                "fr": "lièvre",
+                "es": "liebre"
+              },
+              "id": "b1.s2.t2",
+              "startMs": 3120,
+              "endMs": 3390
+            },
+            {
+              "text": "is",
+              "normalized": "is",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es"
+              },
+              "id": "b1.s2.t3",
+              "startMs": 3390,
+              "endMs": 3510
+            },
+            {
+              "text": "very",
+              "normalized": "very",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "id": "b1.s2.t4",
+              "startMs": 3550,
+              "endMs": 3760
+            },
+            {
+              "text": "proud",
+              "normalized": "proud",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "proud",
+                "fr": "fier",
+                "es": "orgulloso"
+              },
+              "id": "b1.s2.t5",
+              "startMs": 3850,
+              "endMs": 4130
+            },
+            {
+              "text": "of",
+              "normalized": "of",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b1.s2.t6",
+              "startMs": 4130,
+              "endMs": 4270
+            },
+            {
+              "text": "his",
+              "normalized": "his",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his",
+                "fr": "son",
+                "es": "su"
+              },
+              "id": "b1.s2.t7",
+              "startMs": 4310,
+              "endMs": 4490
+            },
+            {
+              "text": "speed",
+              "normalized": "speed",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "speed",
+                "fr": "vitesse",
+                "es": "velocidad"
+              },
+              "id": "b1.s2.t8",
+              "startMs": 4490,
+              "endMs": 4670
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s2.t9"
+            }
+          ]
+        },
+        {
+          "id": "b1.s3",
+          "text": "He laughs at the slow tortoise.",
+          "translations": {
+            "en": "He laughs at the slow tortoise.",
+            "fr": "Il se moque de la lente tortue.",
+            "es": "Él se ríe de la tortuga lenta."
+          },
+          "tokens": [
+            {
+              "text": "He",
+              "normalized": "he",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b1.s3.t1",
+              "startMs": 5548,
+              "endMs": 5588
+            },
+            {
+              "text": "laughs",
+              "normalized": "laughs",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "laughs",
+                "fr": "rit",
+                "es": "se ríe"
+              },
+              "id": "b1.s3.t2",
+              "startMs": 5588,
+              "endMs": 5988
+            },
+            {
+              "text": "at",
+              "normalized": "at",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "at",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b1.s3.t3",
+              "startMs": 5988,
+              "endMs": 6118
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s3.t4",
+              "startMs": 6118,
+              "endMs": 6318
+            },
+            {
+              "text": "slow",
+              "normalized": "slow",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "slow",
+                "fr": "lent",
+                "es": "lento"
+              },
+              "id": "b1.s3.t5",
+              "startMs": 6318,
+              "endMs": 6518
+            },
+            {
+              "text": "tortoise",
+              "normalized": "tortoise",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tortoise",
+                "fr": "tortue",
+                "es": "tortuga"
+              },
+              "id": "b1.s3.t6",
+              "startMs": 6518,
+              "endMs": 7418
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t7"
+            }
+          ]
+        },
+        {
+          "id": "b1.s4",
+          "text": "The tortoise smiles and asks for a race.",
+          "translations": {
+            "en": "The tortoise smiles and asks for a race.",
+            "fr": "La tortue sourit et demande une course.",
+            "es": "La tortuga sonríe y pide una carrera."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s4.t1",
+              "startMs": 7828,
+              "endMs": 7948
+            },
+            {
+              "text": "tortoise",
+              "normalized": "tortoise",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tortoise",
+                "fr": "tortue",
+                "es": "tortuga"
+              },
+              "id": "b1.s4.t2",
+              "startMs": 7948,
+              "endMs": 8548
+            },
+            {
+              "text": "smiles",
+              "normalized": "smiles",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "smiles",
+                "fr": "sourit",
+                "es": "sonríe"
+              },
+              "id": "b1.s4.t3",
+              "startMs": 8548,
+              "endMs": 8978
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s4.t4",
+              "startMs": 8978,
+              "endMs": 9188
+            },
+            {
+              "text": "asks",
+              "normalized": "asks",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "asks",
+                "fr": "demande",
+                "es": "pide"
+              },
+              "id": "b1.s4.t5",
+              "startMs": 9188,
+              "endMs": 9478
+            },
+            {
+              "text": "for",
+              "normalized": "for",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "for",
+                "fr": "pour",
+                "es": "para"
+              },
+              "id": "b1.s4.t6",
+              "startMs": 9478,
+              "endMs": 9688
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s4.t7",
+              "startMs": 9688,
+              "endMs": 9738
+            },
+            {
+              "text": "race",
+              "normalized": "race",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "race",
+                "fr": "course",
+                "es": "carrera"
+              },
+              "id": "b1.s4.t8",
+              "startMs": 9758,
+              "endMs": 9948
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s4.t9"
+            }
+          ]
+        },
+        {
+          "id": "b1.s5",
+          "text": "The hare agrees and laughs again.",
+          "translations": {
+            "en": "The hare agrees and laughs again.",
+            "fr": "Le lièvre accepte et rit encore.",
+            "es": "La liebre acepta y vuelve a reír."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s5.t1",
+              "startMs": 10771,
+              "endMs": 10831
+            },
+            {
+              "text": "hare",
+              "normalized": "hare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hare",
+                "fr": "lièvre",
+                "es": "liebre"
+              },
+              "id": "b1.s5.t2",
+              "startMs": 10911,
+              "endMs": 11111
+            },
+            {
+              "text": "agrees",
+              "normalized": "agrees",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "agrees",
+                "fr": "accepte",
+                "es": "acepta"
+              },
+              "id": "b1.s5.t3",
+              "startMs": 11111,
+              "endMs": 11461
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s5.t4",
+              "startMs": 11461,
+              "endMs": 11631
+            },
+            {
+              "text": "laughs",
+              "normalized": "laughs",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "laughs",
+                "fr": "rit",
+                "es": "se ríe"
+              },
+              "id": "b1.s5.t5",
+              "startMs": 11631,
+              "endMs": 11971
+            },
+            {
+              "text": "again",
+              "normalized": "again",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "again",
+                "fr": "encore",
+                "es": "otra vez"
+              },
+              "id": "b1.s5.t6",
+              "startMs": 11981,
+              "endMs": 12271
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s5.t7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "sentences": [
+        {
+          "id": "b2.s1",
+          "text": "The race begins in the green forest.",
+          "translations": {
+            "en": "The race begins in the green forest.",
+            "fr": "La course commence dans la forêt verte.",
+            "es": "La carrera empieza en el bosque verde."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s1.t1",
+              "startMs": 13510,
+              "endMs": 13670
+            },
+            {
+              "text": "race",
+              "normalized": "race",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "race",
+                "fr": "course",
+                "es": "carrera"
+              },
+              "id": "b2.s1.t2",
+              "startMs": 13670,
+              "endMs": 13880
+            },
+            {
+              "text": "begins",
+              "normalized": "begins",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "begins",
+                "fr": "commence",
+                "es": "empieza"
+              },
+              "id": "b2.s1.t3",
+              "startMs": 13960,
+              "endMs": 14400
+            },
+            {
+              "text": "in",
+              "normalized": "in",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b2.s1.t4",
+              "startMs": 14400,
+              "endMs": 14520
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s1.t5",
+              "startMs": 14570,
+              "endMs": 14760
+            },
+            {
+              "text": "green",
+              "normalized": "green",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "green",
+                "fr": "vert",
+                "es": "verde"
+              },
+              "id": "b2.s1.t6",
+              "startMs": 14760,
+              "endMs": 15120
+            },
+            {
+              "text": "forest",
+              "normalized": "forest",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "forest",
+                "fr": "forêt",
+                "es": "bosque"
+              },
+              "id": "b2.s1.t7",
+              "startMs": 15120,
+              "endMs": 15430
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s1.t8"
+            }
+          ]
+        },
+        {
+          "id": "b2.s2",
+          "text": "The hare runs ahead very fast.",
+          "translations": {
+            "en": "The hare runs ahead very fast.",
+            "fr": "Le lièvre court devant très vite.",
+            "es": "La liebre corre adelante muy rápido."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s2.t1",
+              "startMs": 16269,
+              "endMs": 16449
+            },
+            {
+              "text": "hare",
+              "normalized": "hare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hare",
+                "fr": "lièvre",
+                "es": "liebre"
+              },
+              "id": "b2.s2.t2",
+              "startMs": 16449,
+              "endMs": 16769
+            },
+            {
+              "text": "runs",
+              "normalized": "runs",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "runs",
+                "fr": "court",
+                "es": "corre"
+              },
+              "id": "b2.s2.t3",
+              "startMs": 16769,
+              "endMs": 17089
+            },
+            {
+              "text": "ahead",
+              "normalized": "ahead",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ahead",
+                "fr": "devant",
+                "es": "adelante"
+              },
+              "id": "b2.s2.t4",
+              "startMs": 17089,
+              "endMs": 17459
+            },
+            {
+              "text": "very",
+              "normalized": "very",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "id": "b2.s2.t5",
+              "startMs": 17569,
+              "endMs": 17769
+            },
+            {
+              "text": "fast",
+              "normalized": "fast",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fast",
+                "fr": "vite",
+                "es": "rápido"
+              },
+              "id": "b2.s2.t6",
+              "startMs": 17769,
+              "endMs": 17999
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s2.t7"
+            }
+          ]
+        },
+        {
+          "id": "b2.s3",
+          "text": "He sees that the tortoise is far behind.",
+          "translations": {
+            "en": "He sees that the tortoise is far behind.",
+            "fr": "Il voit que la tortue est loin derrière.",
+            "es": "Él ve que la tortuga está muy atrás."
+          },
+          "tokens": [
+            {
+              "text": "He",
+              "normalized": "he",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b2.s3.t1",
+              "startMs": 18848,
+              "endMs": 18898
+            },
+            {
+              "text": "sees",
+              "normalized": "sees",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sees",
+                "fr": "voit",
+                "es": "ve"
+              },
+              "id": "b2.s3.t2",
+              "startMs": 18898,
+              "endMs": 19188
+            },
+            {
+              "text": "that",
+              "normalized": "that",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "that",
+                "fr": "que",
+                "es": "que"
+              },
+              "id": "b2.s3.t3",
+              "startMs": 19188,
+              "endMs": 19468
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s3.t4",
+              "startMs": 19478,
+              "endMs": 19688
+            },
+            {
+              "text": "tortoise",
+              "normalized": "tortoise",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tortoise",
+                "fr": "tortue",
+                "es": "tortuga"
+              },
+              "id": "b2.s3.t5",
+              "startMs": 19688,
+              "endMs": 20258
+            },
+            {
+              "text": "is",
+              "normalized": "is",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es"
+              },
+              "id": "b2.s3.t6",
+              "startMs": 20258,
+              "endMs": 20368
+            },
+            {
+              "text": "far",
+              "normalized": "far",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "far",
+                "fr": "loin",
+                "es": "lejos"
+              },
+              "id": "b2.s3.t7",
+              "startMs": 20408,
+              "endMs": 20608
+            },
+            {
+              "text": "behind",
+              "normalized": "behind",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "behind",
+                "fr": "derrière",
+                "es": "detrás"
+              },
+              "id": "b2.s3.t8",
+              "startMs": 20608,
+              "endMs": 20878
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s3.t9"
+            }
+          ]
+        },
+        {
+          "id": "b2.s4",
+          "text": "The hare sits under a big tree.",
+          "translations": {
+            "en": "The hare sits under a big tree.",
+            "fr": "Le lièvre s'assoit sous un grand arbre.",
+            "es": "La liebre se sienta debajo de un gran árbol."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b2.s4.t1",
+              "startMs": 21714,
+              "endMs": 21874
+            },
+            {
+              "text": "hare",
+              "normalized": "hare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hare",
+                "fr": "lièvre",
+                "es": "liebre"
+              },
+              "id": "b2.s4.t2",
+              "startMs": 21924,
+              "endMs": 22194
+            },
+            {
+              "text": "sits",
+              "normalized": "sits",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sits",
+                "fr": "s'assoit",
+                "es": "se sienta"
+              },
+              "id": "b2.s4.t3",
+              "startMs": 22194,
+              "endMs": 22514
+            },
+            {
+              "text": "under",
+              "normalized": "under",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "under",
+                "fr": "sous",
+                "es": "debajo de"
+              },
+              "id": "b2.s4.t4",
+              "startMs": 22514,
+              "endMs": 22894
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b2.s4.t5",
+              "startMs": 22894,
+              "endMs": 22934
+            },
+            {
+              "text": "big",
+              "normalized": "big",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "big",
+                "fr": "grand",
+                "es": "grande"
+              },
+              "id": "b2.s4.t6",
+              "startMs": 22984,
+              "endMs": 23204
+            },
+            {
+              "text": "tree",
+              "normalized": "tree",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tree",
+                "fr": "arbre",
+                "es": "árbol"
+              },
+              "id": "b2.s4.t7",
+              "startMs": 23204,
+              "endMs": 23374
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s4.t8"
+            }
+          ]
+        },
+        {
+          "id": "b2.s5",
+          "text": "Soon he falls fast asleep.",
+          "translations": {
+            "en": "Soon he falls fast asleep.",
+            "fr": "Bientôt, il s'endort profondément.",
+            "es": "Pronto se queda profundamente dormido."
+          },
+          "tokens": [
+            {
+              "text": "Soon",
+              "normalized": "soon",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "soon",
+                "fr": "bientôt",
+                "es": "pronto"
+              },
+              "id": "b2.s5.t1",
+              "startMs": 24309,
+              "endMs": 24459
+            },
+            {
+              "text": "he",
+              "normalized": "he",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b2.s5.t2",
+              "startMs": 24459,
+              "endMs": 24549
+            },
+            {
+              "text": "falls",
+              "normalized": "falls",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "falls",
+                "fr": "tombe",
+                "es": "cae"
+              },
+              "id": "b2.s5.t3",
+              "startMs": 24629,
+              "endMs": 25009
+            },
+            {
+              "text": "fast",
+              "normalized": "fast",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fast",
+                "fr": "vite",
+                "es": "rápido"
+              },
+              "id": "b2.s5.t4",
+              "startMs": 25009,
+              "endMs": 25309
+            },
+            {
+              "text": "asleep",
+              "normalized": "asleep",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "asleep",
+                "fr": "endormi",
+                "es": "dormido"
+              },
+              "id": "b2.s5.t5",
+              "startMs": 25309,
+              "endMs": 25669
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b2.s5.t6"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3",
+      "sentences": [
+        {
+          "id": "b3.s1",
+          "text": "The slow tortoise walks and walks.",
+          "translations": {
+            "en": "The slow tortoise walks and walks.",
+            "fr": "La lente tortue marche et marche.",
+            "es": "La tortuga lenta camina y camina."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s1.t1",
+              "startMs": 26853,
+              "endMs": 26973
+            },
+            {
+              "text": "slow",
+              "normalized": "slow",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "slow",
+                "fr": "lent",
+                "es": "lento"
+              },
+              "id": "b3.s1.t2",
+              "startMs": 27053,
+              "endMs": 27283
+            },
+            {
+              "text": "tortoise",
+              "normalized": "tortoise",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tortoise",
+                "fr": "tortue",
+                "es": "tortuga"
+              },
+              "id": "b3.s1.t3",
+              "startMs": 27283,
+              "endMs": 27823
+            },
+            {
+              "text": "walks",
+              "normalized": "walks",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "walks",
+                "fr": "marche",
+                "es": "camina"
+              },
+              "id": "b3.s1.t4",
+              "startMs": 27823,
+              "endMs": 28163
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b3.s1.t5",
+              "startMs": 28163,
+              "endMs": 28353
+            },
+            {
+              "text": "walks",
+              "normalized": "walks",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "walks",
+                "fr": "marche",
+                "es": "camina"
+              },
+              "id": "b3.s1.t6",
+              "startMs": 28373,
+              "endMs": 28613
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s1.t7"
+            }
+          ]
+        },
+        {
+          "id": "b3.s2",
+          "text": "He does not stop to rest.",
+          "translations": {
+            "en": "He does not stop to rest.",
+            "fr": "Elle ne s'arrête pas pour se reposer.",
+            "es": "No se detiene a descansar."
+          },
+          "tokens": [
+            {
+              "text": "He",
+              "normalized": "he",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b3.s2.t1",
+              "startMs": 29477,
+              "endMs": 29547
+            },
+            {
+              "text": "does",
+              "normalized": "does",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "does",
+                "fr": "fait",
+                "es": "hace"
+              },
+              "id": "b3.s2.t2",
+              "startMs": 29547,
+              "endMs": 29877
+            },
+            {
+              "text": "not",
+              "normalized": "not",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "not",
+                "fr": "pas",
+                "es": "no"
+              },
+              "id": "b3.s2.t3",
+              "startMs": 29877,
+              "endMs": 30127
+            },
+            {
+              "text": "stop",
+              "normalized": "stop",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "stop",
+                "fr": "s'arrêter",
+                "es": "detenerse"
+              },
+              "id": "b3.s2.t4",
+              "startMs": 30127,
+              "endMs": 30457
+            },
+            {
+              "text": "to",
+              "normalized": "to",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b3.s2.t5",
+              "startMs": 30457,
+              "endMs": 30617
+            },
+            {
+              "text": "rest",
+              "normalized": "rest",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "rest",
+                "fr": "se reposer",
+                "es": "descansar"
+              },
+              "id": "b3.s2.t6",
+              "startMs": 30617,
+              "endMs": 30837
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s2.t7"
+            }
+          ]
+        },
+        {
+          "id": "b3.s3",
+          "text": "He passes the sleeping hare on the path.",
+          "translations": {
+            "en": "He passes the sleeping hare on the path.",
+            "fr": "Elle dépasse le lièvre endormi sur le chemin.",
+            "es": "Pasa a la liebre dormida en el camino."
+          },
+          "tokens": [
+            {
+              "text": "He",
+              "normalized": "he",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "he",
+                "fr": "il",
+                "es": "él"
+              },
+              "id": "b3.s3.t1",
+              "startMs": 31688,
+              "endMs": 31718
+            },
+            {
+              "text": "passes",
+              "normalized": "passes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "passes",
+                "fr": "dépasse",
+                "es": "pasa"
+              },
+              "id": "b3.s3.t2",
+              "startMs": 31718,
+              "endMs": 32038
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s3.t3",
+              "startMs": 32108,
+              "endMs": 32248
+            },
+            {
+              "text": "sleeping",
+              "normalized": "sleeping",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "sleeping",
+                "fr": "endormi",
+                "es": "dormido"
+              },
+              "id": "b3.s3.t4",
+              "startMs": 32248,
+              "endMs": 32658
+            },
+            {
+              "text": "hare",
+              "normalized": "hare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hare",
+                "fr": "lièvre",
+                "es": "liebre"
+              },
+              "id": "b3.s3.t5",
+              "startMs": 32738,
+              "endMs": 32958
+            },
+            {
+              "text": "on",
+              "normalized": "on",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "on",
+                "fr": "sur",
+                "es": "en"
+              },
+              "id": "b3.s3.t6",
+              "startMs": 32958,
+              "endMs": 33078
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b3.s3.t7",
+              "startMs": 33078,
+              "endMs": 33258
+            },
+            {
+              "text": "path",
+              "normalized": "path",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "path",
+                "fr": "chemin",
+                "es": "camino"
+              },
+              "id": "b3.s3.t8",
+              "startMs": 33258,
+              "endMs": 33498
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b3.s3.t9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b4",
+      "sentences": [
+        {
+          "id": "b4.s1",
+          "text": "The tortoise reaches the finish line first.",
+          "translations": {
+            "en": "The tortoise reaches the finish line first.",
+            "fr": "La tortue franchit la ligne d'arrivée en premier.",
+            "es": "La tortuga llega a la meta en primer lugar."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s1.t1",
+              "startMs": 34797,
+              "endMs": 34877
+            },
+            {
+              "text": "tortoise",
+              "normalized": "tortoise",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tortoise",
+                "fr": "tortue",
+                "es": "tortuga"
+              },
+              "id": "b4.s1.t2",
+              "startMs": 34877,
+              "endMs": 35567
+            },
+            {
+              "text": "reaches",
+              "normalized": "reaches",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "reaches",
+                "fr": "atteint",
+                "es": "alcanza"
+              },
+              "id": "b4.s1.t3",
+              "startMs": 35567,
+              "endMs": 35737
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s1.t4",
+              "startMs": 35787,
+              "endMs": 35917
+            },
+            {
+              "text": "finish",
+              "normalized": "finish",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "finish",
+                "fr": "arrivée",
+                "es": "meta"
+              },
+              "id": "b4.s1.t5",
+              "startMs": 35997,
+              "endMs": 36297
+            },
+            {
+              "text": "line",
+              "normalized": "line",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "line",
+                "fr": "ligne",
+                "es": "línea"
+              },
+              "id": "b4.s1.t6",
+              "startMs": 36297,
+              "endMs": 36527
+            },
+            {
+              "text": "first",
+              "normalized": "first",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "first",
+                "fr": "premier",
+                "es": "primero"
+              },
+              "id": "b4.s1.t7",
+              "startMs": 36527,
+              "endMs": 36817
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s1.t8"
+            }
+          ]
+        },
+        {
+          "id": "b4.s2",
+          "text": "The hare wakes up and cries.",
+          "translations": {
+            "en": "The hare wakes up and cries.",
+            "fr": "Le lièvre se réveille et pleure.",
+            "es": "La liebre se despierta y llora."
+          },
+          "tokens": [
+            {
+              "text": "The",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s2.t1",
+              "startMs": 37934,
+              "endMs": 38034
+            },
+            {
+              "text": "hare",
+              "normalized": "hare",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hare",
+                "fr": "lièvre",
+                "es": "liebre"
+              },
+              "id": "b4.s2.t2",
+              "startMs": 38074,
+              "endMs": 38294
+            },
+            {
+              "text": "wakes",
+              "normalized": "wakes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wakes",
+                "fr": "se réveille",
+                "es": "se despierta"
+              },
+              "id": "b4.s2.t3",
+              "startMs": 38294,
+              "endMs": 38594
+            },
+            {
+              "text": "up",
+              "normalized": "up",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "up",
+                "fr": "en haut",
+                "es": "arriba"
+              },
+              "id": "b4.s2.t4",
+              "startMs": 38664,
+              "endMs": 38724
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b4.s2.t5",
+              "startMs": 38724,
+              "endMs": 38904
+            },
+            {
+              "text": "cries",
+              "normalized": "cries",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cries",
+                "fr": "pleure",
+                "es": "llora"
+              },
+              "id": "b4.s2.t6",
+              "startMs": 38904,
+              "endMs": 39214
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s2.t7"
+            }
+          ]
+        },
+        {
+          "id": "b4.s3",
+          "text": "Slow and steady wins the race.",
+          "translations": {
+            "en": "Slow and steady wins the race.",
+            "fr": "Rien ne sert de courir, il faut partir à point.",
+            "es": "Lento pero seguro se gana la carrera."
+          },
+          "tokens": [
+            {
+              "text": "Slow",
+              "normalized": "slow",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "slow",
+                "fr": "lent",
+                "es": "lento"
+              },
+              "id": "b4.s3.t1",
+              "startMs": 40248,
+              "endMs": 40378
+            },
+            {
+              "text": "and",
+              "normalized": "and",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b4.s3.t2",
+              "startMs": 40378,
+              "endMs": 40608
+            },
+            {
+              "text": "steady",
+              "normalized": "steady",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "steady",
+                "fr": "régulier",
+                "es": "constante"
+              },
+              "id": "b4.s3.t3",
+              "startMs": 40608,
+              "endMs": 41058
+            },
+            {
+              "text": "wins",
+              "normalized": "wins",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "wins",
+                "fr": "gagne",
+                "es": "gana"
+              },
+              "id": "b4.s3.t4",
+              "startMs": 41058,
+              "endMs": 41358
+            },
+            {
+              "text": "the",
+              "normalized": "the",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b4.s3.t5",
+              "startMs": 41358,
+              "endMs": 41578
+            },
+            {
+              "text": "race",
+              "normalized": "race",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "race",
+                "fr": "course",
+                "es": "carrera"
+              },
+              "id": "b4.s3.t6",
+              "startMs": 41578,
+              "endMs": 41778
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b4.s3.t7"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

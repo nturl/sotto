@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "locale": "zh-CN",
+  "language": {
+    "locale": "zh-CN",
+    "baseLanguage": "zh",
+    "region": "CN",
+    "script": "Hans",
+    "nativeName": "中文（简体）",
+    "localizedNames": {
+      "en": "Chinese",
+      "es": "chino",
+      "fr": "chinois",
+      "pt": "chinês",
+      "it": "cinese",
+      "zh-Hans": "中文",
+      "zh-Hant": "中文",
+      "ro": "chineză",
+      "ca": "xinès"
+    },
+    "direction": "ltr",
+    "stability": "stable",
+    "tokenizer": "presegmented",
+    "typography": "cjk",
+    "pronunciationGuide": "pinyin",
+    "tutorNotes": "Mandarin as spoken in mainland China, written in Simplified characters. Tones carry meaning (mā/má/mǎ/mà) — always name and correct the tone, not just the syllable. Pinyin is a pronunciation aid only; the learner reads characters.",
+    "ttsVoice": "zf_xiaoxiao",
+    "ttsLangCode": "z",
+    "sttLanguage": "zh",
+    "catalog": "zh-Hans"
+  },
+  "books": [
+    {
+      "bookId": "zh-chengyu-stories",
+      "contentLocale": "zh-CN",
+      "title": "三个成语故事",
+      "author": "Traditional (ancient Chinese sources: Han Feizi, Zhan Guo Ce)",
+      "level": "A0",
+      "categories": [
+        "idioms"
+      ],
+      "estimatedMinutes": 4,
+      "localizedTitles": {
+        "en": "Three Chinese Idiom Stories",
+        "fr": "Trois histoires de chengyu",
+        "es": "Tres historias de chengyu"
+      },
+      "premise": {
+        "en": "Three classic fables behind famous Chinese idioms, retold in very simple modern Mandarin.",
+        "fr": "Trois fables classiques à l'origine de chengyu célèbres, racontées en mandarin moderne très simple.",
+        "es": "Tres fábulas clásicas que dieron origen a chengyu famosos, contadas en mandarín moderno muy sencillo."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 3
+    }
+  ],
+  "generatedAt": "2026-09-04T21:35:57.228Z"
+}

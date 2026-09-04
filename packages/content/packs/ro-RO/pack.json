@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "locale": "ro-RO",
+  "language": {
+    "locale": "ro-RO",
+    "baseLanguage": "ro",
+    "region": "RO",
+    "script": "Latn",
+    "nativeName": "română",
+    "localizedNames": {
+      "en": "Romanian",
+      "es": "rumano",
+      "fr": "roumain",
+      "pt": "romeno",
+      "it": "rumeno",
+      "zh-Hans": "罗马尼亚语",
+      "zh-Hant": "羅馬尼亞語",
+      "ro": "română",
+      "ca": "romanès"
+    },
+    "direction": "ltr",
+    "stability": "beta",
+    "tokenizer": "latin",
+    "typography": "latin",
+    "pronunciationGuide": "none",
+    "tutorNotes": "Standard Romanian: five extra letters beyond the base Latin alphabet (ă, â, î, ș, ț) each mark a distinct sound — never approximate ș/ț as plain s/t. No TTS voice is available yet, so lean on written models and phonetic description in text.",
+    "ttsVoice": null,
+    "ttsLangCode": null,
+    "sttLanguage": "ro",
+    "catalog": "ro"
+  },
+  "books": [
+    {
+      "bookId": "ro-capra-trei-iezi",
+      "contentLocale": "ro-RO",
+      "title": "Capra cu trei iezi",
+      "author": "Ion Creangă",
+      "level": "A0",
+      "categories": [
+        "folk"
+      ],
+      "estimatedMinutes": 4,
+      "localizedTitles": {
+        "en": "The Goat with Three Kids",
+        "fr": "La Chèvre aux trois chevreaux",
+        "es": "La cabra con tres cabritos"
+      },
+      "premise": {
+        "en": "A mother goat warns her three kids about the wolf, but the wolf has a trick.",
+        "fr": "Une mère chèvre met ses trois chevreaux en garde contre le loup, mais le loup a un stratagème.",
+        "es": "Una cabra madre advierte a sus tres cabritos sobre el lobo, pero el lobo tiene un truco."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 2
+    }
+  ],
+  "generatedAt": "2026-09-04T22:23:34.923Z"
+}

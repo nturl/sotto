@@ -30,3 +30,6 @@ planning/research/
 
 # local model caches
 .cache/
+
+# downloaded voice models (fetched via `pnpm --filter @sotto/server models:fetch`)
+apps/server/models/*.onnx

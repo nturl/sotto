@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "models:fetch": "tsx scripts/fetch-models.ts",
+    "smoke": "tsx scripts/voice-smoke.ts"
   },
   "dependencies": {
     "@fastify/cors": "^10.1.0",
@@ -14,6 +16,9 @@
     "@sotto/core": "workspace:*",
     "fastify": "^5.6.1",
     "zod": "^3.24.1"
+  },
+  "optionalDependencies": {
+    "onnxruntime-node": "^1.20.1"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",

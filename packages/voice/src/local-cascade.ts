@@ -1,0 +1,241 @@
+/**
+ * LocalCascadeProvider: WebSocket VoiceProvider client for apps/server's
+ * voice pipeline (planning/CONTRACTS.md §5a/§5b). This is the default
+ * provider.
+ */
+import type { ToolName, ToolResult, TutorMode } from '@sotto/core';
+import type { VoiceEvent, VoiceState } from './events.ts';
+import type { PassageContext, SessionOptions, VoiceProvider } from './provider.ts';
+import type { AudioAdapter } from './transports/audio-adapter.js';
+
+// ---- Wire protocol (§5b) ----
+
+interface SessionCreateResponse {
+  sessionId: string;
+  wsUrl: string;
+  sampleRate: number;
+  limits: { maxMs: number; idleMs: number };
+}
+
+type ServerMessage =
+  | { t: 'state'; state: VoiceState }
+  | { t: 'caption'; speaker: 'learner' | 'tutor'; text: string; final: boolean }
+  | { t: 'tool_call'; callId: string; name: ToolName; args: unknown }
+  | { t: 'reading'; tokenIds: string[] }
+  | { t: 'limit'; reason: 'max_duration' | 'idle' }
+  | { t: 'error'; code: string; message: string; recoverable: boolean }
+  | { t: 'audio_start'; utteranceId: string }
+  | { t: 'audio_end'; utteranceId: string; cancelled?: boolean };
+
+type ClientMessage =
+  | { t: 'mode'; mode: TutorMode }
+  | { t: 'mute'; muted: boolean }
+  | { t: 'ptt'; active: boolean }
+  | { t: 'interrupt' }
+  | { t: 'replay' }
+  | { t: 'text'; text: string }
+  | { t: 'tool_result'; callId: string; ok: boolean; result?: unknown; error?: string }
+  | { t: 'passage'; passage: PassageContext }
+  | { t: 'end' };
+
+const TUTOR_SAMPLE_RATE = 24000;
+const RECONNECT_DELAY_MS = 1000;
+
+export interface LocalCascadeOptions {
+  serverUrl: string;
+  audio: AudioAdapter;
+  fetch?: typeof fetch;
+  WebSocket?: typeof WebSocket;
+}
+
+export class LocalCascadeProvider implements VoiceProvider {
+  private readonly serverUrl: string;
+  private readonly audio: AudioAdapter;
+  private readonly fetchImpl: typeof fetch;
+  private readonly WebSocketImpl: typeof WebSocket;
+
+  private ws: WebSocket | null = null;
+  private listeners = new Set<(e: VoiceEvent) => void>();
+  private lastOptions: SessionOptions | null = null;
+  private state: VoiceState = 'idle';
+  private reconnectAttempted = false;
+  private intentionalDisconnect = false;
+
+  private currentUtteranceId: string | null = null;
+  private currentUtteranceChunks: ArrayBuffer[] = [];
+
+  constructor(opts: LocalCascadeOptions) {
+    this.serverUrl = opts.serverUrl.replace(/\/$/, '');
+    this.audio = opts.audio;
+    this.fetchImpl = opts.fetch ?? fetch;
+    this.WebSocketImpl = opts.WebSocket ?? (globalThis.WebSocket as typeof WebSocket);
+  }
+
+  on(listener: (e: VoiceEvent) => void): () => void {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
+  }
+
+  private emit(e: VoiceEvent): void {
+    if (e.type === 'state') this.state = e.state;
+    for (const l of this.listeners) l(e);
+  }
+
+  async connect(opts: SessionOptions): Promise<void> {
+    this.lastOptions = opts;
+    this.intentionalDisconnect = false;
+    await this.openConnection(opts);
+  }
+
+  private async openConnection(opts: SessionOptions): Promise<void> {
+    this.emit({ type: 'state', state: 'connecting' });
+
+    const res = await this.fetchImpl(`${this.serverUrl}/voice/session`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(opts),
+    });
+    if (!res.ok) {
+      this.emit({ type: 'error', code: 'session_create_failed', message: `${res.status}`, recoverable: false });
+      this.emit({ type: 'state', state: 'error' });
+      return;
+    }
+    const session = (await res.json()) as SessionCreateResponse;
+
+    const ws = new this.WebSocketImpl(session.wsUrl);
+    ws.binaryType = 'arraybuffer';
+    this.ws = ws;
+
+    ws.addEventListener('open', () => {
+      this.reconnectAttempted = false;
+      void this.audio.startCapture((buf) => {
+        if (ws.readyState === ws.OPEN) ws.send(buf);
+      });
+    });
+
+    ws.addEventListener('message', (ev: MessageEvent) => {
+      this.handleServerData(ev.data as string | ArrayBuffer);
+    });
+
+    ws.addEventListener('close', () => {
+      this.audio.stopCapture();
+      this.audio.stopPlayback();
+      if (this.intentionalDisconnect) return;
+      if (!this.reconnectAttempted && this.lastOptions) {
+        this.reconnectAttempted = true;
+        this.emit({ type: 'state', state: 'reconnecting' });
+        setTimeout(() => {
+          if (this.intentionalDisconnect || !this.lastOptions) return;
+          void this.openConnection(this.lastOptions);
+        }, RECONNECT_DELAY_MS);
+      } else {
+        this.emit({ type: 'state', state: 'ended' });
+      }
+    });
+
+    ws.addEventListener('error', () => {
+      this.emit({ type: 'error', code: 'ws_error', message: 'WebSocket error', recoverable: true });
+    });
+  }
+
+  private handleServerData(data: string | ArrayBuffer): void {
+    if (typeof data !== 'string') {
+      if (this.currentUtteranceId) {
+        this.currentUtteranceChunks.push(data);
+        this.audio.playPcm(data, TUTOR_SAMPLE_RATE);
+      }
+      return;
+    }
+
+    let msg: ServerMessage;
+    try {
+      msg = JSON.parse(data) as ServerMessage;
+    } catch {
+      return;
+    }
+
+    switch (msg.t) {
+      case 'state':
+        this.emit({ type: 'state', state: msg.state });
+        break;
+      case 'caption':
+        this.emit({ type: 'caption', speaker: msg.speaker, text: msg.text, final: msg.final });
+        break;
+      case 'tool_call':
+        this.emit({ type: 'tool_call', callId: msg.callId, name: msg.name, args: msg.args });
+        break;
+      case 'reading':
+        this.emit({ type: 'reading', tokenIds: msg.tokenIds });
+        break;
+      case 'limit':
+        this.emit({ type: 'limit', reason: msg.reason });
+        break;
+      case 'error':
+        this.emit({ type: 'error', code: msg.code, message: msg.message, recoverable: msg.recoverable });
+        break;
+      case 'audio_start':
+        this.currentUtteranceId = msg.utteranceId;
+        this.currentUtteranceChunks = [];
+        break;
+      case 'audio_end':
+        if (msg.cancelled) this.audio.stopPlayback();
+        this.currentUtteranceId = null;
+        this.currentUtteranceChunks = [];
+        break;
+    }
+  }
+
+  private send(msg: ClientMessage): void {
+    if (this.ws && this.ws.readyState === this.ws.OPEN) {
+      this.ws.send(JSON.stringify(msg));
+    }
+  }
+
+  async disconnect(): Promise<void> {
+    this.intentionalDisconnect = true;
+    this.lastOptions = null;
+    this.send({ t: 'end' });
+    this.audio.stopCapture();
+    this.audio.stopPlayback();
+    this.ws?.close();
+    this.ws = null;
+  }
+
+  setMode(mode: TutorMode): void {
+    this.send({ t: 'mode', mode });
+  }
+
+  setMuted(muted: boolean): void {
+    this.send({ t: 'mute', muted });
+  }
+
+  pushToTalk(active: boolean): void {
+    this.send({ t: 'ptt', active });
+  }
+
+  interrupt(): void {
+    this.audio.stopPlayback();
+    this.send({ t: 'interrupt' });
+  }
+
+  replayLast(): void {
+    this.send({ t: 'replay' });
+  }
+
+  sendText(text: string): void {
+    this.send({ t: 'text', text });
+  }
+
+  respondTool(callId: string, result: ToolResult): void {
+    // @sotto/core's ToolResult is a discriminated union of specific success
+    // shapes (some carrying `ok: true`, get_current_passage's carrying none
+    // at all) plus ToolFailure (`ok: false`); the wire protocol (§5b) wants
+    // a flat { ok, result?, error? }, so only an explicit `ok: false` counts
+    // as failure — everything else is forwarded as the success payload.
+    if ('ok' in result && result.ok === false) {
+      this.send({ t: 'tool_result', callId, ok: false, error: result.error });
+    } else {
+      this.send({ t: 'tool_result', callId, ok: true, result });
+    }
+  }
+}

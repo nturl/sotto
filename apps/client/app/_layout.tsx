@@ -3,6 +3,7 @@ import { Inter_400Regular, Inter_500Medium } from '@expo-google-fonts/inter';
 import { Stack } from 'expo-router';
 import { colors } from '@sotto/core/theme';
 import { View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -17,11 +18,13 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-        contentStyle: { backgroundColor: colors.canvas },
-      }}
-    />
+    <SafeAreaProvider>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: colors.canvas },
+        }}
+      />
+    </SafeAreaProvider>
   );
 }

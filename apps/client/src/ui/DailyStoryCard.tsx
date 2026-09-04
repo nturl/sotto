@@ -1,0 +1,147 @@
+/**
+ * DailyStoryCard — surface card, radius 10, with the one gradient allowed in
+ * the system: a deep-teal -> sage panel on the left third holding the cover
+ * (4px peach cutout). Mono eyebrow "HISTOIRE DU JOUR", live countdown to
+ * local midnight in mono. The whole card is a cutout pressable (6px peach).
+ *
+ * NOTE: the teal (#1F4F57) and sage (#5B8A6B) are named verbatim in
+ * DESIGN.md but have no tokens in packages/core/src/theme.ts, and WS-2 may
+ * not edit packages/. They live here as named constants until a
+ * `dailyTeal`/`dailySage` token exists — flagged in the work report.
+ */
+import { useEffect, useState } from 'react';
+import { Animated, Pressable, StyleSheet, View } from 'react-native';
+import { colors, radius, shadow, space } from '@sotto/core/theme';
+import { useT } from '../i18n/useT';
+import { usePressAnimation } from './Button';
+import { Cover } from './Cover';
+import type { LibraryBook } from './data';
+import { Defs, LinearGradient, Rect, Stop, Svg } from './svg';
+import { SectionEyebrow } from './SectionEyebrow';
+import { Text } from './Text';
+import { webCursor } from './tokens';
+
+/** DESIGN.md daily-card gradient stops (see file header note). */
+export const DAILY_GRADIENT = { from: '#1F4F57', to: '#5B8A6B' } as const;
+
+function pad2(value: number): string {
+  return String(value).padStart(2, '0');
+}
+
+/** HH:MM:SS remaining until local midnight, ticking every second. */
+function useMidnightCountdown(): string {
+  const [label, setLabel] = useState('--:--:--');
+  useEffect(() => {
+    const tick = () => {
+      const now = new Date();
+      const midnight = new Date(now);
+      midnight.setHours(24, 0, 0, 0);
+      const remaining = Math.max(0, midnight.getTime() - now.getTime());
+      const hours = Math.floor(remaining / 3_600_000);
+      const minutes = Math.floor((remaining % 3_600_000) / 60_000);
+      const seconds = Math.floor((remaining % 60_000) / 1000);
+      setLabel(`${pad2(hours)}:${pad2(minutes)}:${pad2(seconds)}`);
+    };
+    tick();
+    const interval = setInterval(tick, 1000);
+    return () => clearInterval(interval);
+  }, []);
+  return label;
+}
+
+export function DailyStoryCard({ book, onPress }: { book: LibraryBook; onPress: () => void }) {
+  const t = useT();
+  const countdown = useMidnightCountdown();
+  const [pressed, setPressed] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const animation = usePressAnimation(pressed || hovered);
+
+  const faceTranslate = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, shadow.cutoutPeach.offsetX - shadow.pressed.offsetX],
+  });
+  const shadowOffset = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [shadow.cutoutPeach.offsetX, shadow.pressed.offsetX],
+  });
+
+  return (
+    <Pressable
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel={`${t('home.dailyEyebrow')}: ${book.title}`}
+      onPressIn={() => setPressed(true)}
+      onPressOut={() => setPressed(false)}
+      onHoverIn={() => setHovered(true)}
+      onHoverOut={() => setHovered(false)}
+      style={webCursor}
+    >
+      <View>
+        <Animated.View
+          pointerEvents="none"
+          style={[
+            StyleSheet.absoluteFill,
+            styles.cutout,
+            { transform: [{ translateX: shadowOffset }, { translateY: shadowOffset }] },
+          ]}
+        />
+        <Animated.View
+          style={[styles.card, { transform: [{ translateX: faceTranslate }, { translateY: faceTranslate }] }]}
+        >
+          <View style={styles.panel}>
+            <Svg style={StyleSheet.absoluteFill} viewBox="0 0 100 100" preserveAspectRatio="none" fallbackColor={DAILY_GRADIENT.from}>
+              <Defs>
+                <LinearGradient id="daily-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <Stop offset="0%" stopColor={DAILY_GRADIENT.from} />
+                  <Stop offset="100%" stopColor={DAILY_GRADIENT.to} />
+                </LinearGradient>
+              </Defs>
+              <Rect x={0} y={0} width={100} height={100} fill="url(#daily-gradient)" />
+            </Svg>
+            <Cover art={book.cover} width={72} height={108} cutout cutoutSize={4} accessibilityLabel={book.title} />
+          </View>
+          <View style={styles.body}>
+            <SectionEyebrow>{t('home.dailyEyebrow')}</SectionEyebrow>
+            <Text role="heading" size={20} numberOfLines={1}>
+              {book.title}
+            </Text>
+            <Text role="caption" size={12}>
+              {t('home.dailyMeta', { minutes: book.minutes, level: book.level })}
+            </Text>
+            <Text role="mono">{countdown}</Text>
+          </View>
+        </Animated.View>
+      </View>
+    </Pressable>
+  );
+}
+
+const styles = StyleSheet.create({
+  cutout: {
+    borderRadius: radius.md,
+    backgroundColor: colors.peach,
+  },
+  card: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.hairline,
+    flexDirection: 'row',
+  },
+  panel: {
+    width: '34%',
+    borderTopLeftRadius: radius.md,
+    borderBottomLeftRadius: radius.md,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: space.lg,
+  },
+  body: {
+    flex: 1,
+    minWidth: 0,
+    paddingVertical: space.lg,
+    paddingHorizontal: 14,
+    gap: 6,
+  },
+});

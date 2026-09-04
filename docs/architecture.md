@@ -42,7 +42,7 @@ covering preferences, reading progress, saved words, and completed books.
 ## Voice transport
 
 `apps/server` exposes `POST /voice/session` (creates a session, returns a
-WebSocket URL) and `ws://host:8787/voice/ws?session=<id>`. Client audio is
+WebSocket URL) and `ws://host:8790/voice/ws?session=<id>`. Client audio is
 PCM16 mono 16kHz frames sent as binary WebSocket messages; the server relays
 JSON control/event messages that mirror the `VoiceEvent` union so the UI is
 transport-agnostic (the `FakeVoiceProvider` emits the identical event shape

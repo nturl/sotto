@@ -1,0 +1,1425 @@
+{
+ "schemaVersion": 1,
+ "bookId": "zh-chengyu-stories",
+ "contentLocale": "zh-CN",
+ "editions": [
+  "zh-TW"
+ ],
+ "title": "三个成语故事",
+ "author": "Traditional (ancient Chinese sources: Han Feizi, Zhan Guo Ce)",
+ "sourceEdition": "Idiom stories 守株待兔， 画蛇添足， 狐假虎威 retold in modern Mandarin; classical sources on Chinese Wikisource",
+ "sourceUrl": "https://zh.wikisource.org/",
+ "sourceJurisdiction": "Public domain worldwide (ancient sources; this is a new modern adaptation)",
+ "adaptationEditor": "Sotto contributors (AI first draft, unreviewed)",
+ "reviewStatus": "draft",
+ "level": "A0",
+ "categories": [
+  "idioms"
+ ],
+ "estimatedMinutes": 4,
+ "localizedTitles": {
+  "en": "Three Chinese Idiom Stories",
+  "fr": "Trois histoires de chengyu",
+  "es": "Tres historias de chengyu"
+ },
+ "premise": {
+  "en": "Three classic fables behind famous Chinese idioms, retold in very simple modern Mandarin.",
+  "fr": "Trois fables classiques à l'origine de chengyu célèbres, racontées en mandarin moderne très simple.",
+  "es": "Tres fábulas clásicas que dieron origen a chengyu famosos, contadas en mandarín moderno muy sencillo."
+ },
+ "summary": {
+  "en": "A farmer waits for a lucky rabbit, an artist draws too much, and a clever fox walks with a tiger. Each short story explains where a well-known four-character idiom comes from and what it means today.",
+  "fr": "Un fermier attend un lapin chanceux, un artiste dessine trop, et un renard malin marche avec un tigre. Chaque histoire courte explique l'origine d'un chengyu célèbre et son sens aujourd'hui.",
+  "es": "Un campesino espera un conejo de suerte, un artista dibuja de más y un zorro astuto camina con un tigre. Cada historia corta explica el origen de un chengyu famoso y lo que significa hoy."
+ },
+ "contentWarning": null,
+ "tutorNotes": {
+  "pronunciation": "Watch the retroflex initials zh/ch/sh in 守株 (shǒu zhū), 蛇 (shé) and 树 (shù), and the neutral tones in 兔子 (tùzi), 狐狸 (húli), 们 (men) and 吧 (ba). The particle 得 in 跑得很快 is light, \"de\". The character 一 changes tone in speech (yì tiān, yí ge) although the text always writes the base form 一.",
+  "grammar": "The text contrasts 了 for completed actions (死了， 吃了， 跑了) with 没（有） for negating past events (没有再来）: remember that 不 negates present or future, while 没 negates completed past actions. One 把 construction appears: 他把兔子带回家.",
+  "culture": "Chengyu are four-character idioms, and most of them have a story behind them; 守株待兔 comes from Han Feizi, while 画蛇添足 and 狐假虎威 come from Zhan Guo Ce. These idioms are used constantly in modern Chinese speech and writing, so knowing the little story is the key to understanding the idiom.",
+  "commonErrors": "Learners often read a chengyu word by word instead of treating it as one fixed unit. Another frequent error is using 不 for past negation where 没（有） is required. Word order with 都 also trips learners: 都 goes after the subject it quantifies （动物们都跑了）, never before it."
+ },
+ "vocabulary": [
+  {
+   "word": "成语",
+   "pinyin": "chéngyǔ",
+   "gloss": {
+    "en": "idiom",
+    "fr": "chengyu, idiotisme",
+    "es": "chengyu, modismo"
+   }
+  },
+  {
+   "word": "守株待兔",
+   "pinyin": "shǒu zhū dài tù",
+   "gloss": {
+    "en": "waiting by a stump for rabbits",
+    "fr": "attendre un lièvre près d'un arbre",
+    "es": "esperar un conejo junto al árbol"
+   }
+  },
+  {
+   "word": "画蛇添足",
+   "pinyin": "huà shé tiān zú",
+   "gloss": {
+    "en": "drawing feet on a snake",
+    "fr": "dessiner des pattes au serpent",
+    "es": "dibujar patas a la serpiente"
+   }
+  },
+  {
+   "word": "狐假虎威",
+   "pinyin": "hú jiǎ hǔ wēi",
+   "gloss": {
+    "en": "the fox borrows the tiger's might",
+    "fr": "le renard emprunte la force du tigre",
+    "es": "el zorro toma prestada la fuerza del tigre"
+   }
+  },
+  {
+   "word": "农夫",
+   "pinyin": "nóngfū",
+   "gloss": {
+    "en": "farmer",
+    "fr": "fermier",
+    "es": "campesino"
+   }
+  },
+  {
+   "word": "兔子",
+   "pinyin": "tùzi",
+   "gloss": {
+    "en": "rabbit",
+    "fr": "lapin",
+    "es": "conejo"
+   }
+  },
+  {
+   "word": "运气",
+   "pinyin": "yùnqi",
+   "gloss": {
+    "en": "luck",
+    "fr": "chance",
+    "es": "suerte"
+   }
+  },
+  {
+   "word": "努力",
+   "pinyin": "nǔlì",
+   "gloss": {
+    "en": "to work hard",
+    "fr": "faire des efforts",
+    "es": "esforzarse"
+   }
+  },
+  {
+   "word": "酒",
+   "pinyin": "jiǔ",
+   "gloss": {
+    "en": "wine",
+    "fr": "vin",
+    "es": "vino"
+   }
+  },
+  {
+   "word": "蛇",
+   "pinyin": "shé",
+   "gloss": {
+    "en": "snake",
+    "fr": "serpent",
+    "es": "serpiente"
+   }
+  },
+  {
+   "word": "脚",
+   "pinyin": "jiǎo",
+   "gloss": {
+    "en": "foot, leg",
+    "fr": "pied, patte",
+    "es": "pie, pata"
+   }
+  },
+  {
+   "word": "老虎",
+   "pinyin": "lǎohǔ",
+   "gloss": {
+    "en": "tiger",
+    "fr": "tigre",
+    "es": "tigre"
+   }
+  },
+  {
+   "word": "狐狸",
+   "pinyin": "húli",
+   "gloss": {
+    "en": "fox",
+    "fr": "renard",
+    "es": "zorro"
+   }
+  },
+  {
+   "word": "聪明",
+   "pinyin": "cōngming",
+   "gloss": {
+    "en": "clever",
+    "fr": "malin",
+    "es": "listo"
+   }
+  },
+  {
+   "word": "以为",
+   "pinyin": "yǐwéi",
+   "gloss": {
+    "en": "to think (mistakenly)",
+    "fr": "croire (à tort)",
+    "es": "creer (por error)"
+   }
+  },
+  {
+   "word": "力量",
+   "pinyin": "lìliang",
+   "gloss": {
+    "en": "strength, power",
+    "fr": "force",
+    "es": "fuerza"
+   }
+  }
+ ],
+ "comprehension": [
+  {
+   "question": {
+    "en": "Why did the farmer stop working?",
+    "fr": "Pourquoi le fermier a-t-il arrêté de travailler ?",
+    "es": "¿Por qué dejó de trabajar el campesino?"
+   }
+  },
+  {
+   "question": {
+    "en": "In 画蛇添足， who drank the wine in the end?",
+    "fr": "Dans « huà shé tiān zú », qui a bu le vin à la fin ?",
+    "es": "En \"huà shé tiān zú\", ¿quién bebió el vino al final?"
+   }
+  },
+  {
+   "question": {
+    "en": "Why did the animals run away from the fox?",
+    "fr": "Pourquoi les animaux se sont-ils enfuis devant le renard ?",
+    "es": "¿Por qué huyeron los animales delante del zorro?"
+   }
+  },
+  {
+   "question": {
+    "en": "What does the idiom 狐假虎威 mean today?",
+    "fr": "Que signifie le chengyu « hú jiǎ hǔ wēi » aujourd'hui ?",
+    "es": "¿Qué significa hoy el chengyu \"hú jiǎ hǔ wēi\"?"
+   }
+  }
+ ],
+ "license": {
+  "spdx": "CC-BY-SA-4.0",
+  "attribution": "Sotto contributors; based on ancient public-domain sources (Han Feizi, Zhan Guo Ce)"
+ },
+ "hantOverrides": {
+  "一个": "一個",
+  "几个": "幾個",
+  "另一个": "另一個",
+  "一只": "一隻",
+  "从前": "從前",
+  "农夫": "農夫",
+  "干活": "幹活",
+  "大树": "大樹",
+  "树": "樹",
+  "树上": "樹上",
+  "带": "帶",
+  "旁边": "旁邊",
+  "来": "來",
+  "过来": "過來",
+  "东西": "東西",
+  "现在": "現在",
+  "运气": "運氣",
+  "说": "說",
+  "成语": "成語",
+  "一壶": "一壺",
+  "壶": "壺",
+  "够": "夠",
+  "谁": "誰",
+  "这": "這",
+  "这时": "這時",
+  "还": "還",
+  "没": "沒",
+  "没有": "沒有",
+  "没用": "沒用",
+  "给": "給",
+  "脚": "腳",
+  "画": "畫",
+  "画蛇添足": "畫蛇添足",
+  "里": "裡",
+  "田里": "田裡",
+  "他们": "他們",
+  "聪明": "聰明",
+  "动物": "動物",
+  "们": "們",
+  "见": "見",
+  "进": "進",
+  "鸟": "鳥",
+  "飞": "飛",
+  "以为": "以為",
+  "其实": "其實",
+  "吓": "嚇",
+  "后": "後",
+  "高兴": "高興"
+ },
+ "chapters": [
+  {
+   "title": "守株待兔",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "从前 有 一个 农夫 。",
+       "translation": {
+        "en": "Once there was a farmer.",
+        "fr": "Autrefois, il y avait un fermier.",
+        "es": "Había una vez un campesino."
+       }
+      },
+      {
+       "text": "他 每天 在 田里 干活 。",
+       "translation": {
+        "en": "He worked in the fields every day.",
+        "fr": "Il travaillait aux champs tous les jours.",
+        "es": "Trabajaba en el campo todos los días."
+       }
+      },
+      {
+       "text": "田里 有 一棵 大树 。",
+       "translation": {
+        "en": "In the field there was a big tree.",
+        "fr": "Il y avait un grand arbre dans le champ.",
+        "es": "En el campo había un árbol grande."
+       }
+      },
+      {
+       "text": "一天 ， 一只 兔子 跑 过来 。",
+       "translation": {
+        "en": "One day, a rabbit ran over.",
+        "fr": "Un jour, un lapin est arrivé en courant.",
+        "es": "Un día, un conejo vino corriendo."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "兔子 跑 得 很快 。",
+       "translation": {
+        "en": "The rabbit ran very fast.",
+        "fr": "Le lapin courait très vite.",
+        "es": "El conejo corría muy rápido."
+       }
+      },
+      {
+       "text": "它 撞 在 树上 ， 死 了 。",
+       "translation": {
+        "en": "It hit the tree and died.",
+        "fr": "Il s'est cogné contre l'arbre et il est mort.",
+        "es": "Chocó contra el árbol y murió."
+       }
+      },
+      {
+       "text": "农夫 很 高兴 。",
+       "translation": {
+        "en": "The farmer was very happy.",
+        "fr": "Le fermier était très content.",
+        "es": "El campesino estaba muy contento."
+       }
+      },
+      {
+       "text": "他 把 兔子 带 回 家 ， 吃 了 。",
+       "translation": {
+        "en": "He took the rabbit home and ate it.",
+        "fr": "Il a ramené le lapin à la maison et l'a mangé.",
+        "es": "Llevó el conejo a casa y se lo comió."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "兔子 很 好吃 。",
+       "translation": {
+        "en": "The rabbit was tasty.",
+        "fr": "Le lapin était bon.",
+        "es": "El conejo estaba rico."
+       }
+      },
+      {
+       "text": "他 想 ： “ 天天 有 兔子 就 好 了 。 ”",
+       "translation": {
+        "en": "He thought, \"If only I had a rabbit every day!\"",
+        "fr": "Il a pensé : « Si j'avais un lapin tous les jours ! »",
+        "es": "Pensó: «¡Si tuviera un conejo todos los días!»"
+       }
+      },
+      {
+       "text": "第二天 ， 他 不 干活 了 。",
+       "translation": {
+        "en": "The next day, he did not work.",
+        "fr": "Le lendemain, il n'a pas travaillé.",
+        "es": "Al día siguiente, no trabajó."
+       }
+      },
+      {
+       "text": "他 坐 在 树 旁边 ， 等 兔子 。",
+       "translation": {
+        "en": "He sat by the tree and waited for rabbits.",
+        "fr": "Il s'est assis à côté de l'arbre et a attendu les lapins.",
+        "es": "Se sentó junto al árbol y esperó a los conejos."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "他 等 了 一天 又 一天 。",
+       "translation": {
+        "en": "He waited day after day.",
+        "fr": "Il a attendu jour après jour.",
+        "es": "Esperó día tras día."
+       }
+      },
+      {
+       "text": "可是 兔子 没有 再 来 。",
+       "translation": {
+        "en": "But no rabbit came again.",
+        "fr": "Mais aucun lapin n'est revenu.",
+        "es": "Pero ningún conejo volvió."
+       }
+      },
+      {
+       "text": "他 没有 东西 吃 了 。",
+       "translation": {
+        "en": "He had nothing to eat.",
+        "fr": "Il n'avait rien à manger.",
+        "es": "No tenía nada que comer."
+       }
+      },
+      {
+       "text": "现在 ， 成语 “ 守株待兔 ” 说 的 是 只 等 运气 、 不 努力 的 人 。",
+       "translation": {
+        "en": "Today, the idiom \"shǒu zhū dài tù\" describes people who only wait for luck and do not work hard.",
+        "fr": "Aujourd'hui, le chengyu « shǒu zhū dài tù » décrit les gens qui attendent la chance sans faire d'efforts.",
+        "es": "Hoy, el chengyu \"shǒu zhū dài tù\" describe a las personas que solo esperan la suerte y no se esfuerzan."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "画蛇添足",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "从前 ， 有 几个 人 。",
+       "translation": {
+        "en": "Once, there were a few people.",
+        "fr": "Autrefois, il y avait quelques personnes.",
+        "es": "Había una vez unas personas."
+       }
+      },
+      {
+       "text": "他们 有 一壶 酒 。",
+       "translation": {
+        "en": "They had a pot of wine.",
+        "fr": "Ils avaient une cruche de vin.",
+        "es": "Tenían una jarra de vino."
+       }
+      },
+      {
+       "text": "酒 不 多 。",
+       "translation": {
+        "en": "There was not much wine.",
+        "fr": "Il n'y avait pas beaucoup de vin.",
+        "es": "No había mucho vino."
+       }
+      },
+      {
+       "text": "只 够 一个 人 喝 。",
+       "translation": {
+        "en": "It was only enough for one person to drink.",
+        "fr": "Il y en avait seulement pour une personne.",
+        "es": "Solo alcanzaba para que bebiera una persona."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "他们 都 想 喝 这 壶 酒 。",
+       "translation": {
+        "en": "They all wanted to drink this pot of wine.",
+        "fr": "Ils voulaient tous boire cette cruche de vin.",
+        "es": "Todos querían beber esa jarra de vino."
+       }
+      },
+      {
+       "text": "他们 说 ： “ 谁 先 画 好 蛇 ， 谁 喝 这 壶 酒 。 ”",
+       "translation": {
+        "en": "They said, \"Whoever draws the snake first drinks this pot of wine.\"",
+        "fr": "Ils ont dit : « Celui qui dessine le serpent le premier boit ce vin. »",
+        "es": "Dijeron: «El que dibuje primero la serpiente bebe esta jarra de vino.»"
+       }
+      },
+      {
+       "text": "一个 人 很快 画 好 了 蛇 。",
+       "translation": {
+        "en": "One man drew the snake very quickly.",
+        "fr": "Un homme a dessiné le serpent très vite.",
+        "es": "Un hombre dibujó la serpiente muy rápido."
+       }
+      },
+      {
+       "text": "他 看 别人 还 没 画 好 。",
+       "translation": {
+        "en": "He saw that the others had not finished.",
+        "fr": "Il a vu que les autres n'avaient pas fini.",
+        "es": "Vio que los demás no habían terminado."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "他 很 高兴 。",
+       "translation": {
+        "en": "He was very pleased.",
+        "fr": "Il était très content.",
+        "es": "Estaba muy contento."
+       }
+      },
+      {
+       "text": "他 说 ： “ 我 给 蛇 画 上 脚 吧 ！ ”",
+       "translation": {
+        "en": "He said, \"I'll draw feet on the snake!\"",
+        "fr": "Il a dit : « Je vais dessiner des pattes au serpent ! »",
+        "es": "Dijo: «¡Le voy a dibujar patas a la serpiente!»"
+       }
+      },
+      {
+       "text": "这时 ， 另一个 人 画 好 了 。",
+       "translation": {
+        "en": "At that moment, another man finished his drawing.",
+        "fr": "À ce moment-là, un autre homme a fini son dessin.",
+        "es": "En ese momento, otro hombre terminó su dibujo."
+       }
+      },
+      {
+       "text": "他 说 ： “ 蛇 没有 脚 ！ ”",
+       "translation": {
+        "en": "He said, \"Snakes have no feet!\"",
+        "fr": "Il a dit : « Les serpents n'ont pas de pattes ! »",
+        "es": "Dijo: «¡Las serpientes no tienen patas!»"
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "“ 你 画 的 不 是 蛇 ！ ”",
+       "translation": {
+        "en": "\"What you drew is not a snake!\"",
+        "fr": "« Ce que tu as dessiné n'est pas un serpent ! »",
+        "es": "«¡Lo que dibujaste no es una serpiente!»"
+       }
+      },
+      {
+       "text": "他 拿 了 酒 ， 喝 了 。",
+       "translation": {
+        "en": "He took the wine and drank it.",
+        "fr": "Il a pris le vin et l'a bu.",
+        "es": "Tomó el vino y lo bebió."
+       }
+      },
+      {
+       "text": "画 脚 的 人 没有 酒 喝 。",
+       "translation": {
+        "en": "The man who drew feet got no wine to drink.",
+        "fr": "L'homme qui a dessiné des pattes n'a pas eu de vin.",
+        "es": "El hombre que dibujó patas se quedó sin vino."
+       }
+      },
+      {
+       "text": "现在 ， 成语 “ 画蛇添足 ” 说 的 是 做 了 没用 的 事 。",
+       "translation": {
+        "en": "Today, the idiom \"huà shé tiān zú\" describes doing something useless.",
+        "fr": "Aujourd'hui, le chengyu « huà shé tiān zú » décrit une action inutile.",
+        "es": "Hoy, el chengyu \"huà shé tiān zú\" describe hacer algo inútil."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "狐假虎威",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "从前 ， 森林 里 有 一只 老虎 。",
+       "translation": {
+        "en": "Once, there was a tiger in the forest.",
+        "fr": "Autrefois, il y avait un tigre dans la forêt.",
+        "es": "Había una vez un tigre en el bosque."
+       }
+      },
+      {
+       "text": "动物 们 都 怕 老虎 。",
+       "translation": {
+        "en": "All the animals feared the tiger.",
+        "fr": "Tous les animaux craignaient le tigre.",
+        "es": "Todos los animales temían al tigre."
+       }
+      },
+      {
+       "text": "狐狸 很 聪明 。",
+       "translation": {
+        "en": "The fox was very clever.",
+        "fr": "Le renard était très malin.",
+        "es": "El zorro era muy listo."
+       }
+      },
+      {
+       "text": "一天 ， 老虎 抓住 了 一只 狐狸 。",
+       "translation": {
+        "en": "One day, the tiger caught a fox.",
+        "fr": "Un jour, le tigre a attrapé un renard.",
+        "es": "Un día, el tigre atrapó a un zorro."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "老虎 想 吃 狐狸 。",
+       "translation": {
+        "en": "The tiger wanted to eat the fox.",
+        "fr": "Le tigre voulait manger le renard.",
+        "es": "El tigre quería comerse al zorro."
+       }
+      },
+      {
+       "text": "狐狸 说 ： “ 你 不 能 吃 我 ！ ”",
+       "translation": {
+        "en": "The fox said, \"You cannot eat me!\"",
+        "fr": "Le renard a dit : « Tu ne peux pas me manger ! »",
+        "es": "El zorro dijo: «¡No puedes comerme!»"
+       }
+      },
+      {
+       "text": "“ 我 是 所有 动物 的 王 。 ”",
+       "translation": {
+        "en": "\"I am the king of all the animals.\"",
+        "fr": "« Je suis le roi de tous les animaux. »",
+        "es": "«Soy el rey de todos los animales.»"
+       }
+      },
+      {
+       "text": "“ 你 跟 我 走 一 走 ， 看 一 看 。 ”",
+       "translation": {
+        "en": "\"Come with me and take a look.\"",
+        "fr": "« Suis-moi et regarde. »",
+        "es": "«Ven conmigo y mira.»"
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "老虎 跟 狐狸 走 进 森林 。",
+       "translation": {
+        "en": "The tiger walked into the forest with the fox.",
+        "fr": "Le tigre est entré dans la forêt avec le renard.",
+        "es": "El tigre entró en el bosque con el zorro."
+       }
+      },
+      {
+       "text": "狐狸 走 在 前 面 ， 老虎 走 在 后 面 。",
+       "translation": {
+        "en": "The fox walked in front, and the tiger walked behind.",
+        "fr": "Le renard marchait devant, et le tigre derrière.",
+        "es": "El zorro caminaba delante y el tigre detrás."
+       }
+      },
+      {
+       "text": "森林 里 的 动物 很 多 。",
+       "translation": {
+        "en": "There were many animals in the forest.",
+        "fr": "Il y avait beaucoup d'animaux dans la forêt.",
+        "es": "Había muchos animales en el bosque."
+       }
+      },
+      {
+       "text": "动物 们 看 见 他们 ， 都 跑 了 。",
+       "translation": {
+        "en": "When the animals saw them, they all ran away.",
+        "fr": "Quand les animaux les ont vus, ils se sont tous enfuis.",
+        "es": "Cuando los animales los vieron, todos huyeron."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "兔子 跑 了 ， 鸟 也 飞 了 。",
+       "translation": {
+        "en": "The rabbits ran, and the birds flew away too.",
+        "fr": "Les lapins ont couru, et les oiseaux se sont envolés aussi.",
+        "es": "Los conejos corrieron y los pájaros también volaron."
+       }
+      },
+      {
+       "text": "老虎 以为 动物 怕 狐狸 。",
+       "translation": {
+        "en": "The tiger thought the animals feared the fox.",
+        "fr": "Le tigre a cru que les animaux craignaient le renard.",
+        "es": "El tigre creyó que los animales temían al zorro."
+       }
+      },
+      {
+       "text": "其实 ， 动物 怕 的 是 老虎 。",
+       "translation": {
+        "en": "Actually, what the animals feared was the tiger.",
+        "fr": "En fait, c'est le tigre que les animaux craignaient.",
+        "es": "En realidad, lo que los animales temían era al tigre."
+       }
+      },
+      {
+       "text": "现在 ， 成语 “ 狐假虎威 ” 说 的 是 借 别人 的 力量 吓 人 。",
+       "translation": {
+        "en": "Today, the idiom \"hú jiǎ hǔ wēi\" describes people who use someone else's power to frighten others.",
+        "fr": "Aujourd'hui, le chengyu « hú jiǎ hǔ wēi » décrit ceux qui utilisent le pouvoir d'autrui pour effrayer les gens.",
+        "es": "Hoy, el chengyu \"hú jiǎ hǔ wēi\" describe a quienes usan el poder de otro para asustar a la gente."
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "glossary": {
+  "从前": {
+   "pinyin": "cóngqián",
+   "en": "once upon a time",
+   "fr": "autrefois",
+   "es": "había una vez"
+  },
+  "有": {
+   "pinyin": "yǒu",
+   "en": "have; there is",
+   "fr": "avoir; il y a",
+   "es": "tener; haber"
+  },
+  "一个": {
+   "pinyin": "yī ge",
+   "en": "one, a",
+   "fr": "un, une",
+   "es": "un, una"
+  },
+  "农夫": {
+   "pinyin": "nóngfū",
+   "en": "farmer",
+   "fr": "fermier",
+   "es": "campesino"
+  },
+  "他": {
+   "pinyin": "tā",
+   "en": "he",
+   "fr": "il",
+   "es": "él"
+  },
+  "每天": {
+   "pinyin": "měitiān",
+   "en": "every day",
+   "fr": "chaque jour",
+   "es": "cada día"
+  },
+  "在": {
+   "pinyin": "zài",
+   "en": "at, in",
+   "fr": "à, dans",
+   "es": "en"
+  },
+  "田里": {
+   "pinyin": "tián lǐ",
+   "en": "in the fields",
+   "fr": "aux champs",
+   "es": "en el campo"
+  },
+  "干活": {
+   "pinyin": "gànhuó",
+   "en": "to work",
+   "fr": "travailler",
+   "es": "trabajar"
+  },
+  "一棵": {
+   "pinyin": "yī kē",
+   "en": "one (tree)",
+   "fr": "un (arbre)",
+   "es": "un (árbol)"
+  },
+  "大树": {
+   "pinyin": "dà shù",
+   "en": "big tree",
+   "fr": "grand arbre",
+   "es": "árbol grande"
+  },
+  "一天": {
+   "pinyin": "yī tiān",
+   "en": "one day",
+   "fr": "un jour",
+   "es": "un día"
+  },
+  "一只": {
+   "pinyin": "yī zhī",
+   "en": "one (animal)",
+   "fr": "un (animal)",
+   "es": "un (animal)"
+  },
+  "兔子": {
+   "pinyin": "tùzi",
+   "en": "rabbit",
+   "fr": "lapin",
+   "es": "conejo"
+  },
+  "跑": {
+   "pinyin": "pǎo",
+   "en": "to run",
+   "fr": "courir",
+   "es": "correr"
+  },
+  "过来": {
+   "pinyin": "guòlái",
+   "en": "to come over",
+   "fr": "venir",
+   "es": "acercarse"
+  },
+  "得": {
+   "pinyin": "de",
+   "en": "(complement marker)",
+   "fr": "(marque de complément)",
+   "es": "(marca de complemento)"
+  },
+  "很快": {
+   "pinyin": "hěn kuài",
+   "en": "very fast",
+   "fr": "très vite",
+   "es": "muy rápido"
+  },
+  "它": {
+   "pinyin": "tā",
+   "en": "it (animal)",
+   "fr": "il (animal)",
+   "es": "él (animal)"
+  },
+  "撞": {
+   "pinyin": "zhuàng",
+   "en": "to bump into",
+   "fr": "se cogner",
+   "es": "chocar"
+  },
+  "树上": {
+   "pinyin": "shù shang",
+   "en": "on the tree",
+   "fr": "sur l'arbre",
+   "es": "en el árbol"
+  },
+  "死": {
+   "pinyin": "sǐ",
+   "en": "to die",
+   "fr": "mourir",
+   "es": "morir"
+  },
+  "了": {
+   "pinyin": "le",
+   "en": "(completed action)",
+   "fr": "(action accomplie)",
+   "es": "(acción completada)"
+  },
+  "很": {
+   "pinyin": "hěn",
+   "en": "very",
+   "fr": "très",
+   "es": "muy"
+  },
+  "高兴": {
+   "pinyin": "gāoxìng",
+   "en": "happy",
+   "fr": "content",
+   "es": "contento"
+  },
+  "把": {
+   "pinyin": "bǎ",
+   "en": "(object marker)",
+   "fr": "(marque d'objet)",
+   "es": "(marca de objeto)"
+  },
+  "带": {
+   "pinyin": "dài",
+   "en": "to bring",
+   "fr": "apporter",
+   "es": "llevar"
+  },
+  "回": {
+   "pinyin": "huí",
+   "en": "to return",
+   "fr": "retourner",
+   "es": "volver"
+  },
+  "家": {
+   "pinyin": "jiā",
+   "en": "home",
+   "fr": "maison",
+   "es": "casa"
+  },
+  "吃": {
+   "pinyin": "chī",
+   "en": "to eat",
+   "fr": "manger",
+   "es": "comer"
+  },
+  "好吃": {
+   "pinyin": "hǎochī",
+   "en": "tasty",
+   "fr": "bon (à manger)",
+   "es": "rico"
+  },
+  "想": {
+   "pinyin": "xiǎng",
+   "en": "to think; to want",
+   "fr": "penser; vouloir",
+   "es": "pensar; querer"
+  },
+  "天天": {
+   "pinyin": "tiāntiān",
+   "en": "every day",
+   "fr": "tous les jours",
+   "es": "todos los días"
+  },
+  "就": {
+   "pinyin": "jiù",
+   "en": "then; just",
+   "fr": "alors; juste",
+   "es": "entonces; justo"
+  },
+  "好": {
+   "pinyin": "hǎo",
+   "en": "good",
+   "fr": "bon",
+   "es": "bueno"
+  },
+  "第二天": {
+   "pinyin": "dì èr tiān",
+   "en": "the next day",
+   "fr": "le lendemain",
+   "es": "al día siguiente"
+  },
+  "不": {
+   "pinyin": "bù",
+   "en": "not",
+   "fr": "ne... pas",
+   "es": "no"
+  },
+  "坐": {
+   "pinyin": "zuò",
+   "en": "to sit",
+   "fr": "s'asseoir",
+   "es": "sentarse"
+  },
+  "树": {
+   "pinyin": "shù",
+   "en": "tree",
+   "fr": "arbre",
+   "es": "árbol"
+  },
+  "旁边": {
+   "pinyin": "pángbiān",
+   "en": "beside",
+   "fr": "à côté",
+   "es": "al lado"
+  },
+  "等": {
+   "pinyin": "děng",
+   "en": "to wait",
+   "fr": "attendre",
+   "es": "esperar"
+  },
+  "又": {
+   "pinyin": "yòu",
+   "en": "again",
+   "fr": "encore",
+   "es": "otra vez"
+  },
+  "可是": {
+   "pinyin": "kěshì",
+   "en": "but",
+   "fr": "mais",
+   "es": "pero"
+  },
+  "没有": {
+   "pinyin": "méiyǒu",
+   "en": "not have; did not",
+   "fr": "ne pas avoir; ne pas",
+   "es": "no tener; no"
+  },
+  "再": {
+   "pinyin": "zài",
+   "en": "again",
+   "fr": "de nouveau",
+   "es": "de nuevo"
+  },
+  "来": {
+   "pinyin": "lái",
+   "en": "to come",
+   "fr": "venir",
+   "es": "venir"
+  },
+  "东西": {
+   "pinyin": "dōngxi",
+   "en": "thing; food",
+   "fr": "chose; nourriture",
+   "es": "cosa; comida"
+  },
+  "现在": {
+   "pinyin": "xiànzài",
+   "en": "now",
+   "fr": "maintenant",
+   "es": "ahora"
+  },
+  "成语": {
+   "pinyin": "chéngyǔ",
+   "en": "idiom",
+   "fr": "chengyu, idiotisme",
+   "es": "chengyu, modismo"
+  },
+  "守株待兔": {
+   "pinyin": "shǒu zhū dài tù",
+   "en": "waiting by a stump for rabbits (idiom)",
+   "fr": "attendre un lièvre près d'un arbre (chengyu)",
+   "es": "esperar un conejo junto al árbol (chengyu)"
+  },
+  "说": {
+   "pinyin": "shuō",
+   "en": "to say; to mean",
+   "fr": "dire; vouloir dire",
+   "es": "decir; significar"
+  },
+  "的": {
+   "pinyin": "de",
+   "en": "(possessive/descriptive)",
+   "fr": "de (possessif)",
+   "es": "de (posesivo)"
+  },
+  "是": {
+   "pinyin": "shì",
+   "en": "to be",
+   "fr": "être",
+   "es": "ser"
+  },
+  "只": {
+   "pinyin": "zhǐ",
+   "en": "only",
+   "fr": "seulement",
+   "es": "solo"
+  },
+  "运气": {
+   "pinyin": "yùnqi",
+   "en": "luck",
+   "fr": "chance",
+   "es": "suerte"
+  },
+  "努力": {
+   "pinyin": "nǔlì",
+   "en": "to work hard",
+   "fr": "faire des efforts",
+   "es": "esforzarse"
+  },
+  "人": {
+   "pinyin": "rén",
+   "en": "person",
+   "fr": "personne",
+   "es": "persona"
+  },
+  "几个": {
+   "pinyin": "jǐ ge",
+   "en": "a few",
+   "fr": "quelques",
+   "es": "unos"
+  },
+  "他们": {
+   "pinyin": "tāmen",
+   "en": "they",
+   "fr": "ils",
+   "es": "ellos"
+  },
+  "一壶": {
+   "pinyin": "yī hú",
+   "en": "one pot",
+   "fr": "une cruche",
+   "es": "una jarra"
+  },
+  "酒": {
+   "pinyin": "jiǔ",
+   "en": "wine",
+   "fr": "vin",
+   "es": "vino"
+  },
+  "多": {
+   "pinyin": "duō",
+   "en": "much, many",
+   "fr": "beaucoup",
+   "es": "mucho"
+  },
+  "够": {
+   "pinyin": "gòu",
+   "en": "enough",
+   "fr": "suffire",
+   "es": "alcanzar"
+  },
+  "喝": {
+   "pinyin": "hē",
+   "en": "to drink",
+   "fr": "boire",
+   "es": "beber"
+  },
+  "都": {
+   "pinyin": "dōu",
+   "en": "all",
+   "fr": "tous",
+   "es": "todos"
+  },
+  "这": {
+   "pinyin": "zhè",
+   "en": "this",
+   "fr": "ce",
+   "es": "este"
+  },
+  "壶": {
+   "pinyin": "hú",
+   "en": "pot, jug",
+   "fr": "cruche",
+   "es": "jarra"
+  },
+  "谁": {
+   "pinyin": "shéi",
+   "en": "who",
+   "fr": "qui",
+   "es": "quién"
+  },
+  "先": {
+   "pinyin": "xiān",
+   "en": "first",
+   "fr": "d'abord",
+   "es": "primero"
+  },
+  "画": {
+   "pinyin": "huà",
+   "en": "to draw",
+   "fr": "dessiner",
+   "es": "dibujar"
+  },
+  "蛇": {
+   "pinyin": "shé",
+   "en": "snake",
+   "fr": "serpent",
+   "es": "serpiente"
+  },
+  "别人": {
+   "pinyin": "biérén",
+   "en": "others",
+   "fr": "les autres",
+   "es": "los demás"
+  },
+  "还": {
+   "pinyin": "hái",
+   "en": "still",
+   "fr": "encore",
+   "es": "todavía"
+  },
+  "没": {
+   "pinyin": "méi",
+   "en": "not (past)",
+   "fr": "ne pas (passé)",
+   "es": "no (pasado)"
+  },
+  "我": {
+   "pinyin": "wǒ",
+   "en": "I, me",
+   "fr": "je, me",
+   "es": "yo, me"
+  },
+  "给": {
+   "pinyin": "gěi",
+   "en": "for; to give",
+   "fr": "pour; donner",
+   "es": "para; dar"
+  },
+  "上": {
+   "pinyin": "shàng",
+   "en": "on",
+   "fr": "sur",
+   "es": "encima"
+  },
+  "脚": {
+   "pinyin": "jiǎo",
+   "en": "foot, leg",
+   "fr": "pied, patte",
+   "es": "pie, pata"
+  },
+  "吧": {
+   "pinyin": "ba",
+   "en": "(suggestion particle)",
+   "fr": "(particule de suggestion)",
+   "es": "(partícula de sugerencia)"
+  },
+  "这时": {
+   "pinyin": "zhèshí",
+   "en": "at this moment",
+   "fr": "à ce moment",
+   "es": "en ese momento"
+  },
+  "另一个": {
+   "pinyin": "lìng yī ge",
+   "en": "another",
+   "fr": "un autre",
+   "es": "otro"
+  },
+  "你": {
+   "pinyin": "nǐ",
+   "en": "you",
+   "fr": "tu",
+   "es": "tú"
+  },
+  "拿": {
+   "pinyin": "ná",
+   "en": "to take",
+   "fr": "prendre",
+   "es": "tomar"
+  },
+  "做": {
+   "pinyin": "zuò",
+   "en": "to do",
+   "fr": "faire",
+   "es": "hacer"
+  },
+  "没用": {
+   "pinyin": "méiyòng",
+   "en": "useless",
+   "fr": "inutile",
+   "es": "inútil"
+  },
+  "事": {
+   "pinyin": "shì",
+   "en": "thing, matter",
+   "fr": "chose, affaire",
+   "es": "cosa, asunto"
+  },
+  "画蛇添足": {
+   "pinyin": "huà shé tiān zú",
+   "en": "drawing feet on a snake (idiom)",
+   "fr": "dessiner des pattes au serpent (chengyu)",
+   "es": "dibujar patas a la serpiente (chengyu)"
+  },
+  "森林": {
+   "pinyin": "sēnlín",
+   "en": "forest",
+   "fr": "forêt",
+   "es": "bosque"
+  },
+  "里": {
+   "pinyin": "lǐ",
+   "en": "inside",
+   "fr": "dans",
+   "es": "dentro"
+  },
+  "老虎": {
+   "pinyin": "lǎohǔ",
+   "en": "tiger",
+   "fr": "tigre",
+   "es": "tigre"
+  },
+  "动物": {
+   "pinyin": "dòngwù",
+   "en": "animal",
+   "fr": "animal",
+   "es": "animal"
+  },
+  "们": {
+   "pinyin": "men",
+   "en": "(plural marker)",
+   "fr": "(marque de pluriel)",
+   "es": "(marca de plural)"
+  },
+  "怕": {
+   "pinyin": "pà",
+   "en": "to fear",
+   "fr": "craindre",
+   "es": "temer"
+  },
+  "狐狸": {
+   "pinyin": "húli",
+   "en": "fox",
+   "fr": "renard",
+   "es": "zorro"
+  },
+  "聪明": {
+   "pinyin": "cōngming",
+   "en": "clever",
+   "fr": "malin",
+   "es": "listo"
+  },
+  "抓住": {
+   "pinyin": "zhuāzhù",
+   "en": "to catch",
+   "fr": "attraper",
+   "es": "atrapar"
+  },
+  "能": {
+   "pinyin": "néng",
+   "en": "can, be able to",
+   "fr": "pouvoir",
+   "es": "poder"
+  },
+  "所有": {
+   "pinyin": "suǒyǒu",
+   "en": "all",
+   "fr": "tous",
+   "es": "todos"
+  },
+  "王": {
+   "pinyin": "wáng",
+   "en": "king",
+   "fr": "roi",
+   "es": "rey"
+  },
+  "跟": {
+   "pinyin": "gēn",
+   "en": "with; to follow",
+   "fr": "avec; suivre",
+   "es": "con; seguir"
+  },
+  "走": {
+   "pinyin": "zǒu",
+   "en": "to walk",
+   "fr": "marcher",
+   "es": "caminar"
+  },
+  "一": {
+   "pinyin": "yī",
+   "en": "one",
+   "fr": "un",
+   "es": "uno"
+  },
+  "看": {
+   "pinyin": "kàn",
+   "en": "to look",
+   "fr": "regarder",
+   "es": "mirar"
+  },
+  "进": {
+   "pinyin": "jìn",
+   "en": "to enter",
+   "fr": "entrer",
+   "es": "entrar"
+  },
+  "前": {
+   "pinyin": "qián",
+   "en": "front",
+   "fr": "devant",
+   "es": "delante"
+  },
+  "面": {
+   "pinyin": "miàn",
+   "en": "side",
+   "fr": "côté",
+   "es": "lado"
+  },
+  "后": {
+   "pinyin": "hòu",
+   "en": "back, behind",
+   "fr": "derrière",
+   "es": "detrás"
+  },
+  "见": {
+   "pinyin": "jiàn",
+   "en": "to see",
+   "fr": "voir",
+   "es": "ver"
+  },
+  "鸟": {
+   "pinyin": "niǎo",
+   "en": "bird",
+   "fr": "oiseau",
+   "es": "pájaro"
+  },
+  "也": {
+   "pinyin": "yě",
+   "en": "also",
+   "fr": "aussi",
+   "es": "también"
+  },
+  "飞": {
+   "pinyin": "fēi",
+   "en": "to fly",
+   "fr": "voler",
+   "es": "volar"
+  },
+  "以为": {
+   "pinyin": "yǐwéi",
+   "en": "to think (mistakenly)",
+   "fr": "croire (à tort)",
+   "es": "creer (por error)"
+  },
+  "其实": {
+   "pinyin": "qíshí",
+   "en": "actually",
+   "fr": "en fait",
+   "es": "en realidad"
+  },
+  "借": {
+   "pinyin": "jiè",
+   "en": "to borrow",
+   "fr": "emprunter",
+   "es": "tomar prestado"
+  },
+  "力量": {
+   "pinyin": "lìliang",
+   "en": "strength, power",
+   "fr": "force",
+   "es": "fuerza"
+  },
+  "吓": {
+   "pinyin": "xià",
+   "en": "to frighten",
+   "fr": "effrayer",
+   "es": "asustar"
+  },
+  "狐假虎威": {
+   "pinyin": "hú jiǎ hǔ wēi",
+   "en": "the fox borrows the tiger's might (idiom)",
+   "fr": "le renard emprunte la force du tigre (chengyu)",
+   "es": "el zorro toma prestada la fuerza del tigre (chengyu)"
+  }
+ }
+}

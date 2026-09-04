@@ -1,0 +1,3362 @@
+{
+ "schemaVersion": 1,
+ "bookId": "fr-chat-botte",
+ "contentLocale": "fr-FR",
+ "title": "Le Chat botté",
+ "author": "Charles Perrault",
+ "sourceEdition": "Histoires ou contes du temps passé (1697), Project Gutenberg French tales bookshelf",
+ "sourceUrl": "https://www.gutenberg.org/ebooks/bookshelf/392",
+ "sourceJurisdiction": "Public domain worldwide (author died 1703)",
+ "adaptationEditor": "Sotto contributors (AI first draft, unreviewed)",
+ "reviewStatus": "draft",
+ "level": "A1",
+ "categories": [
+  "tales"
+ ],
+ "estimatedMinutes": 10,
+ "localizedTitles": {
+  "en": "Puss in Boots",
+  "fr": "Le Chat botté",
+  "es": "El gato con botas"
+ },
+ "premise": {
+  "en": "A clever cat uses boots and bold tricks to change his poor master's life.",
+  "fr": "Un chat intelligent utilise des bottes et des ruses pour changer la vie de son pauvre maître.",
+  "es": "Un gato inteligente usa unas botas y varias astucias para cambiar la vida de su pobre amo."
+ },
+ "summary": {
+  "en": "A miller's youngest son inherits only a cat. The unusual animal promises to help him and begins an ambitious plan involving a king, a princess, and a dangerous ogre.",
+  "fr": "Le plus jeune fils d'un meunier reçoit seulement un chat. Cet animal extraordinaire promet de l'aider et prépare un plan ambitieux avec un roi, une princesse et un ogre dangereux.",
+  "es": "El hijo menor de un molinero recibe solamente un gato. El extraordinario animal promete ayudarlo y prepara un plan ambicioso con un rey, una princesa y un ogro peligroso."
+ },
+ "contentWarning": "Mild peril and an ogre who is eaten after transforming into a mouse.",
+ "tutorNotes": {
+  "pronunciation": "Practice the French u in « curieux » and « puissant » without turning it into English oo. Final consonants are often silent in words such as « grand », « petit », and « prend », while the final sound is heard in « fils » here.",
+  "grammar": "The story mainly uses the present tense to make the action immediate. Notice object pronouns before verbs in forms such as « lui demande » and « le remercie ».",
+  "culture": "This adaptation follows Charles Perrault's seventeenth-century French fairy tale. Mills, hereditary titles, arranged royal marriages, and powerful landowners reflect the social world imagined by the original story.",
+  "commonErrors": "Do not confuse « son » meaning his or her with « sont » meaning are. Learners also often mix up « au », meaning to the or at the, and « aux », its plural form."
+ },
+ "vocabulary": [
+  {
+   "word": "meunier",
+   "gloss": {
+    "en": "miller",
+    "fr": "meunier",
+    "es": "molinero"
+   }
+  },
+  {
+   "word": "héritage",
+   "gloss": {
+    "en": "inheritance",
+    "fr": "héritage",
+    "es": "herencia"
+   }
+  },
+  {
+   "word": "bottes",
+   "gloss": {
+    "en": "boots",
+    "fr": "bottes",
+    "es": "botas"
+   }
+  },
+  {
+   "word": "lapin",
+   "gloss": {
+    "en": "rabbit",
+    "fr": "lapin",
+    "es": "conejo"
+   }
+  },
+  {
+   "word": "révérence",
+   "gloss": {
+    "en": "bow",
+    "fr": "révérence",
+    "es": "reverencia"
+   }
+  },
+  {
+   "word": "marquis",
+   "gloss": {
+    "en": "marquis",
+    "fr": "marquis",
+    "es": "marqués"
+   }
+  },
+  {
+   "word": "carrosse",
+   "gloss": {
+    "en": "carriage",
+    "fr": "carrosse",
+    "es": "carruaje"
+   }
+  },
+  {
+   "word": "voleurs",
+   "gloss": {
+    "en": "thieves",
+    "fr": "voleurs",
+    "es": "ladrones"
+   }
+  },
+  {
+   "word": "paysans",
+   "gloss": {
+    "en": "peasants",
+    "fr": "paysans",
+    "es": "campesinos"
+   }
+  },
+  {
+   "word": "domaine",
+   "gloss": {
+    "en": "estate",
+    "fr": "domaine",
+    "es": "finca"
+   }
+  },
+  {
+   "word": "ogre",
+   "gloss": {
+    "en": "ogre",
+    "fr": "ogre",
+    "es": "ogro"
+   }
+  },
+  {
+   "word": "trésors",
+   "gloss": {
+    "en": "treasures",
+    "fr": "trésors",
+    "es": "tesoros"
+   }
+  },
+  {
+   "word": "souris",
+   "gloss": {
+    "en": "mouse",
+    "fr": "souris",
+    "es": "ratón"
+   }
+  },
+  {
+   "word": "mariage",
+   "gloss": {
+    "en": "wedding",
+    "fr": "mariage",
+    "es": "boda"
+   }
+  },
+  {
+   "word": "fidèle",
+   "gloss": {
+    "en": "faithful",
+    "fr": "fidèle",
+    "es": "fiel"
+   }
+  }
+ ],
+ "comprehension": [
+  {
+   "question": {
+    "en": "What does the miller's youngest son inherit?",
+    "fr": "Que reçoit le plus jeune fils du meunier ?",
+    "es": "¿Qué recibe el hijo menor del molinero?"
+   }
+  },
+  {
+   "question": {
+    "en": "Why does the cat bring rabbits to the king?",
+    "fr": "Pourquoi le chat apporte-t-il des lapins au roi ?",
+    "es": "¿Por qué lleva el gato conejos al rey?"
+   }
+  },
+  {
+   "question": {
+    "en": "How does the cat make the king believe his master is rich?",
+    "fr": "Comment le chat fait-il croire au roi que son maître est riche ?",
+    "es": "¿Cómo hace creer el gato al rey que su amo es rico?"
+   }
+  },
+  {
+   "question": {
+    "en": "What animal does the ogre become before the cat eats him?",
+    "fr": "Quel animal devient l'ogre avant que le chat le mange ?",
+    "es": "¿En qué animal se convierte el ogro antes de que el gato se lo coma?"
+   }
+  }
+ ],
+ "license": {
+  "spdx": "CC-BY-SA-4.0",
+  "attribution": "Sotto contributors; based on the public-domain original by Charles Perrault"
+ },
+ "chapters": [
+  {
+   "title": "Chapitre 1 — Un étrange héritage",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "Dans un petit village, un vieux meunier vit avec ses trois fils.",
+       "translation": {
+        "en": "In a small village, an old miller lives with his three sons.",
+        "fr": "Dans un petit village, un vieux meunier vit avec ses trois fils.",
+        "es": "En un pequeño pueblo, un viejo molinero vive con sus tres hijos."
+       }
+      },
+      {
+       "text": "Un jour, il tombe malade et comprend que sa mort approche.",
+       "translation": {
+        "en": "One day, he falls ill and understands that his death is near.",
+        "fr": "Un jour, il tombe malade et comprend que sa mort approche.",
+        "es": "Un día, cae enfermo y comprende que su muerte se acerca."
+       }
+      },
+      {
+       "text": "Il donne son moulin au fils aîné et son âne au second.",
+       "translation": {
+        "en": "He gives his mill to the eldest son and his donkey to the second.",
+        "fr": "Il donne son moulin au fils aîné et son âne au second.",
+        "es": "Da su molino al hijo mayor y su burro al segundo."
+       }
+      },
+      {
+       "text": "Au plus jeune, il laisse seulement un chat gris.",
+       "translation": {
+        "en": "To the youngest, he leaves only a gray cat.",
+        "fr": "Au plus jeune, il laisse seulement un chat gris.",
+        "es": "Al menor, le deja solamente un gato gris."
+       }
+      },
+      {
+       "text": "Le pauvre garçon regarde le chat et commence à pleurer.",
+       "translation": {
+        "en": "The poor boy looks at the cat and begins to cry.",
+        "fr": "Le pauvre garçon regarde le chat et commence à pleurer.",
+        "es": "El pobre muchacho mira al gato y empieza a llorar."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "« Mes frères peuvent travailler, mais moi, je ne possède rien », dit-il.",
+       "translation": {
+        "en": "“My brothers can work, but I own nothing,” he says.",
+        "fr": "« Mes frères peuvent travailler, mais moi, je ne possède rien », dit-il.",
+        "es": "«Mis hermanos pueden trabajar, pero yo no poseo nada», dice."
+       }
+      },
+      {
+       "text": "Le chat entend ces mots et saute doucement sur une chaise.",
+       "translation": {
+        "en": "The cat hears these words and gently jumps onto a chair.",
+        "fr": "Le chat entend ces mots et saute doucement sur une chaise.",
+        "es": "El gato oye estas palabras y salta suavemente sobre una silla."
+       }
+      },
+      {
+       "text": "« Ne soyez pas triste, mon maître », répond-il avec calme.",
+       "translation": {
+        "en": "“Do not be sad, my master,” he answers calmly.",
+        "fr": "« Ne soyez pas triste, mon maître », répond-il avec calme.",
+        "es": "«No esté triste, amo mío», responde con calma."
+       }
+      },
+      {
+       "text": "« Donnez un sac solide et une paire de bottes. »",
+       "translation": {
+        "en": "“Give me a strong bag and a pair of boots.”",
+        "fr": "« Donnez un sac solide et une paire de bottes. »",
+        "es": "«Déme un saco resistente y un par de botas»."
+       }
+      },
+      {
+       "text": "« Ensuite, vous verrez que votre héritage vaut quelque chose. »",
+       "translation": {
+        "en": "“Then you will see that your inheritance is worth something.”",
+        "fr": "« Ensuite, vous verrez que votre héritage vaut quelque chose. »",
+        "es": "«Después verá que su herencia vale algo»."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Le garçon trouve cette idée étrange, car les chats portent rarement des bottes.",
+       "translation": {
+        "en": "The boy finds this idea strange, because cats rarely wear boots.",
+        "fr": "Le garçon trouve cette idée étrange, car les chats portent rarement des bottes.",
+        "es": "Al muchacho le parece extraña la idea, porque los gatos rara vez usan botas."
+       }
+      },
+      {
+       "text": "Pourtant, son compagnon semble intelligent et parle avec une grande confiance.",
+       "translation": {
+        "en": "However, his companion seems intelligent and speaks with great confidence.",
+        "fr": "Pourtant, son compagnon semble intelligent et parle avec une grande confiance.",
+        "es": "Sin embargo, su compañero parece inteligente y habla con mucha confianza."
+       }
+      },
+      {
+       "text": "Il dépense ses dernières pièces chez le cordonnier du village.",
+       "translation": {
+        "en": "He spends his last coins at the village shoemaker's shop.",
+        "fr": "Il dépense ses dernières pièces chez le cordonnier du village.",
+        "es": "Gasta sus últimas monedas en la tienda del zapatero del pueblo."
+       }
+      },
+      {
+       "text": "Bientôt, le chat met ses bottes et prend le sac.",
+       "translation": {
+        "en": "Soon, the cat puts on his boots and takes the bag.",
+        "fr": "Bientôt, le chat met ses bottes et prend le sac.",
+        "es": "Pronto, el gato se pone las botas y toma el saco."
+       }
+      },
+      {
+       "text": "Il marche alors vers un champ où vivent beaucoup de lapins.",
+       "translation": {
+        "en": "He then walks toward a field where many rabbits live.",
+        "fr": "Il marche alors vers un champ où vivent beaucoup de lapins.",
+        "es": "Luego camina hacia un campo donde viven muchos conejos."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Dans le sac, il place du son et quelques feuilles fraîches.",
+       "translation": {
+        "en": "In the bag, he puts bran and some fresh leaves.",
+        "fr": "Dans le sac, il place du son et quelques feuilles fraîches.",
+        "es": "En el saco pone salvado y algunas hojas frescas."
+       }
+      },
+      {
+       "text": "Puis il se couche près du chemin et attend sans bouger.",
+       "translation": {
+        "en": "Then he lies near the path and waits without moving.",
+        "fr": "Puis il se couche près du chemin et attend sans bouger.",
+        "es": "Después se acuesta cerca del camino y espera sin moverse."
+       }
+      },
+      {
+       "text": "Un jeune lapin entre bientôt dans le sac pour manger.",
+       "translation": {
+        "en": "A young rabbit soon enters the bag to eat.",
+        "fr": "Un jeune lapin entre bientôt dans le sac pour manger.",
+        "es": "Un conejo joven pronto entra en el saco para comer."
+       }
+      },
+      {
+       "text": "Le chat ferme vite le sac et félicite sa propre patience.",
+       "translation": {
+        "en": "The cat quickly closes the bag and praises his own patience.",
+        "fr": "Le chat ferme vite le sac et félicite sa propre patience.",
+        "es": "El gato cierra rápidamente el saco y felicita su propia paciencia."
+       }
+      },
+      {
+       "text": "Après cela, il part vers le grand palais du roi.",
+       "translation": {
+        "en": "After that, he leaves for the king's great palace.",
+        "fr": "Après cela, il part vers le grand palais du roi.",
+        "es": "Después, parte hacia el gran palacio del rey."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Devant le roi, le chat fait une profonde révérence.",
+       "translation": {
+        "en": "Before the king, the cat makes a deep bow.",
+        "fr": "Devant le roi, le chat fait une profonde révérence.",
+        "es": "Ante el rey, el gato hace una profunda reverencia."
+       }
+      },
+      {
+       "text": "« Sire, voici un lapin offert par monsieur le marquis de Carabas. »",
+       "translation": {
+        "en": "“Sire, here is a rabbit offered by the Marquis of Carabas.”",
+        "fr": "« Sire, voici un lapin offert par monsieur le marquis de Carabas. »",
+        "es": "«Señor, aquí tiene un conejo ofrecido por el marqués de Carabás»."
+       }
+      },
+      {
+       "text": "Ce nom noble est inventé, mais le roi ne le sait pas.",
+       "translation": {
+        "en": "This noble name is invented, but the king does not know it.",
+        "fr": "Ce nom noble est inventé, mais le roi ne le sait pas.",
+        "es": "Este nombre noble es inventado, pero el rey no lo sabe."
+       }
+      },
+      {
+       "text": "Le roi accepte le cadeau et remercie ce mystérieux marquis.",
+       "translation": {
+        "en": "The king accepts the gift and thanks this mysterious marquis.",
+        "fr": "Le roi accepte le cadeau et remercie ce mystérieux marquis.",
+        "es": "El rey acepta el regalo y da las gracias a este misterioso marqués."
+       }
+      },
+      {
+       "text": "Le chat rentre le soir et raconte son succès au garçon.",
+       "translation": {
+        "en": "The cat returns in the evening and tells the boy about his success.",
+        "fr": "Le chat rentre le soir et raconte son succès au garçon.",
+        "es": "El gato regresa por la noche y cuenta su éxito al muchacho."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Pendant plusieurs semaines, il apporte encore des lapins et des perdrix.",
+       "translation": {
+        "en": "For several weeks, he brings more rabbits and partridges.",
+        "fr": "Pendant plusieurs semaines, il apporte encore des lapins et des perdrix.",
+        "es": "Durante varias semanas, lleva más conejos y perdices."
+       }
+      },
+      {
+       "text": "Chaque fois, il annonce un présent du marquis de Carabas.",
+       "translation": {
+        "en": "Each time, he announces a present from the Marquis of Carabas.",
+        "fr": "Chaque fois, il annonce un présent du marquis de Carabas.",
+        "es": "Cada vez, anuncia un presente del marqués de Carabás."
+       }
+      },
+      {
+       "text": "Le roi devient curieux, et le jeune homme retrouve un peu de courage.",
+       "translation": {
+        "en": "The king becomes curious, and the young man regains some courage.",
+        "fr": "Le roi devient curieux, et le jeune homme retrouve un peu de courage.",
+        "es": "El rey siente curiosidad y el joven recupera un poco de valor."
+       }
+      },
+      {
+       "text": "Le chat prépare maintenant une étape plus audacieuse de son plan.",
+       "translation": {
+        "en": "The cat now prepares a bolder stage of his plan.",
+        "fr": "Le chat prépare maintenant une étape plus audacieuse de son plan.",
+        "es": "El gato prepara ahora una etapa más audaz de su plan."
+       }
+      },
+      {
+       "text": "« Demain, allez dans la rivière et gardez confiance en moi », dit le chat.",
+       "translation": {
+        "en": "“Tomorrow, go into the river and trust me,” says the cat.",
+        "fr": "« Demain, allez dans la rivière et gardez confiance en moi », dit le chat.",
+        "es": "«Mañana, entre en el río y confíe en mí», dice el gato."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Chapitre 2 — Le marquis de Carabas",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "Le lendemain, le roi voyage en carrosse avec sa fille.",
+       "translation": {
+        "en": "The next day, the king travels by carriage with his daughter.",
+        "fr": "Le lendemain, le roi voyage en carrosse avec sa fille.",
+        "es": "Al día siguiente, el rey viaja en carruaje con su hija."
+       }
+      },
+      {
+       "text": "La princesse est jeune, aimable, et elle observe attentivement la route.",
+       "translation": {
+        "en": "The princess is young and kind, and she watches the road carefully.",
+        "fr": "La princesse est jeune, aimable, et elle observe attentivement la route.",
+        "es": "La princesa es joven y amable, y observa atentamente el camino."
+       }
+      },
+      {
+       "text": "Le chat connaît leur chemin et court devant le carrosse.",
+       "translation": {
+        "en": "The cat knows their route and runs ahead of the carriage.",
+        "fr": "Le chat connaît leur chemin et court devant le carrosse.",
+        "es": "El gato conoce su camino y corre delante del carruaje."
+       }
+      },
+      {
+       "text": "Son maître entre dans la rivière, comme le chat lui demande.",
+       "translation": {
+        "en": "His master enters the river, as the cat asks him.",
+        "fr": "Son maître entre dans la rivière, comme le chat lui demande.",
+        "es": "Su amo entra en el río, como le pide el gato."
+       }
+      },
+      {
+       "text": "Ses vieux vêtements restent cachés derrière un arbre.",
+       "translation": {
+        "en": "His old clothes remain hidden behind a tree.",
+        "fr": "Ses vieux vêtements restent cachés derrière un arbre.",
+        "es": "Su ropa vieja queda escondida detrás de un árbol."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Quand le carrosse approche, le chat crie de toutes ses forces.",
+       "translation": {
+        "en": "When the carriage approaches, the cat shouts with all his strength.",
+        "fr": "Quand le carrosse approche, le chat crie de toutes ses forces.",
+        "es": "Cuando el carruaje se acerca, el gato grita con todas sus fuerzas."
+       }
+      },
+      {
+       "text": "« Au secours ! Le marquis de Carabas se noie ! »",
+       "translation": {
+        "en": "“Help! The Marquis of Carabas is drowning!”",
+        "fr": "« Au secours ! Le marquis de Carabas se noie ! »",
+        "es": "«¡Socorro! ¡El marqués de Carabás se ahoga!»"
+       }
+      },
+      {
+       "text": "Les gardes arrêtent le carrosse et tirent vite le garçon de la rivière.",
+       "translation": {
+        "en": "The guards stop the carriage and quickly pull the boy from the river.",
+        "fr": "Les gardes arrêtent le carrosse et tirent vite le garçon de la rivière.",
+        "es": "Los guardias detienen el carruaje y sacan rápidamente al muchacho del río."
+       }
+      },
+      {
+       "text": "Le chat explique que des voleurs ont pris les beaux vêtements du marquis.",
+       "translation": {
+        "en": "The cat explains that thieves took the marquis's fine clothes.",
+        "fr": "Le chat explique que des voleurs ont pris les beaux vêtements du marquis.",
+        "es": "El gato explica que unos ladrones se llevaron la ropa elegante del marqués."
+       }
+      },
+      {
+       "text": "En réalité, aucun voleur ne passe près de la rivière.",
+       "translation": {
+        "en": "In reality, no thief passes near the river.",
+        "fr": "En réalité, aucun voleur ne passe près de la rivière.",
+        "es": "En realidad, ningún ladrón pasa cerca del río."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Le roi ordonne à ses serviteurs de lui apporter un costume magnifique.",
+       "translation": {
+        "en": "The king orders his servants to bring him a magnificent suit.",
+        "fr": "Le roi ordonne à ses serviteurs de lui apporter un costume magnifique.",
+        "es": "El rey ordena a sus sirvientes que le traigan un traje magnífico."
+       }
+      },
+      {
+       "text": "Le garçon met ce costume et paraît soudain riche et élégant.",
+       "translation": {
+        "en": "The boy puts on the suit and suddenly looks rich and elegant.",
+        "fr": "Le garçon met ce costume et paraît soudain riche et élégant.",
+        "es": "El muchacho se pone el traje y de pronto parece rico y elegante."
+       }
+      },
+      {
+       "text": "La princesse sourit quand elle voit son visage doux.",
+       "translation": {
+        "en": "The princess smiles when she sees his gentle face.",
+        "fr": "La princesse sourit quand elle voit son visage doux.",
+        "es": "La princesa sonríe cuando ve su rostro amable."
+       }
+      },
+      {
+       "text": "Le jeune homme reste poli, malgré sa grande surprise.",
+       "translation": {
+        "en": "The young man remains polite despite his great surprise.",
+        "fr": "Le jeune homme reste poli, malgré sa grande surprise.",
+        "es": "El joven sigue siendo cortés a pesar de su gran sorpresa."
+       }
+      },
+      {
+       "text": "Le roi invite le garçon à monter dans le carrosse royal.",
+       "translation": {
+        "en": "The king invites the boy to enter the royal carriage.",
+        "fr": "Le roi invite le garçon à monter dans le carrosse royal.",
+        "es": "El rey invita al muchacho a subir al carruaje real."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Le chat court devant eux et rencontre des paysans dans un pré.",
+       "translation": {
+        "en": "The cat runs ahead of them and meets peasants in a meadow.",
+        "fr": "Le chat court devant eux et rencontre des paysans dans un pré.",
+        "es": "El gato corre delante de ellos y encuentra campesinos en un prado."
+       }
+      },
+      {
+       "text": "« À qui appartient ce beau pré ? » demande le chat.",
+       "translation": {
+        "en": "“Who owns this beautiful meadow?” asks the cat.",
+        "fr": "« À qui appartient ce beau pré ? » demande le chat.",
+        "es": "«¿A quién pertenece este hermoso prado?», pregunta el gato."
+       }
+      },
+      {
+       "text": "« Il appartient au terrible ogre du château », répondent les paysans.",
+       "translation": {
+        "en": "“It belongs to the terrible ogre in the castle,” answer the peasants.",
+        "fr": "« Il appartient au terrible ogre du château », répondent les paysans.",
+        "es": "«Pertenece al terrible ogro del castillo», responden los campesinos."
+       }
+      },
+      {
+       "text": "Le chat leur promet un danger si le roi entend cette réponse.",
+       "translation": {
+        "en": "The cat promises them danger if the king hears that answer.",
+        "fr": "Le chat leur promet un danger si le roi entend cette réponse.",
+        "es": "El gato les promete peligro si el rey oye esa respuesta."
+       }
+      },
+      {
+       "text": "« Dites que le pré appartient au marquis de Carabas. »",
+       "translation": {
+        "en": "“Say that the meadow belongs to the Marquis of Carabas.”",
+        "fr": "« Dites que le pré appartient au marquis de Carabas. »",
+        "es": "«Digan que el prado pertenece al marqués de Carabás»."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Plus loin, il donne le même ordre aux moissonneurs.",
+       "translation": {
+        "en": "Farther on, he gives the same order to the harvesters.",
+        "fr": "Plus loin, il donne le même ordre aux moissonneurs.",
+        "es": "Más adelante, da la misma orden a los segadores."
+       }
+      },
+      {
+       "text": "Il parle aussi aux bergers qui gardent de grands troupeaux.",
+       "translation": {
+        "en": "He also speaks to shepherds tending large herds.",
+        "fr": "Il parle aussi aux bergers qui gardent de grands troupeaux.",
+        "es": "También habla con pastores que cuidan grandes rebaños."
+       }
+      },
+      {
+       "text": "Quand le roi passe, tous nomment le marquis de Carabas.",
+       "translation": {
+        "en": "When the king passes, everyone names the Marquis of Carabas.",
+        "fr": "Quand le roi passe, tous nomment le marquis de Carabas.",
+        "es": "Cuando pasa el rey, todos nombran al marqués de Carabás."
+       }
+      },
+      {
+       "text": "Le roi admire ces terres, ces prés et ces nombreux animaux.",
+       "translation": {
+        "en": "The king admires these lands, meadows, and many animals.",
+        "fr": "Le roi admire ces terres, ces prés et ces nombreux animaux.",
+        "es": "El rey admira esas tierras, esos prados y los numerosos animales."
+       }
+      },
+      {
+       "text": "Il croit que son invité possède un domaine immense.",
+       "translation": {
+        "en": "He believes that his guest owns an immense estate.",
+        "fr": "Il croit que son invité possède un domaine immense.",
+        "es": "Cree que su invitado posee una finca inmensa."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Le garçon ne comprend pas, mais il remercie les travailleurs avec respect.",
+       "translation": {
+        "en": "The boy does not understand, but he thanks the workers respectfully.",
+        "fr": "Le garçon ne comprend pas, mais il remercie les travailleurs avec respect.",
+        "es": "El muchacho no comprende, pero agradece a los trabajadores con respeto."
+       }
+      },
+      {
+       "text": "La princesse apprécie sa modestie et sa voix sincère.",
+       "translation": {
+        "en": "The princess appreciates his modesty and sincere voice.",
+        "fr": "La princesse apprécie sa modestie et sa voix sincère.",
+        "es": "La princesa aprecia su modestia y su voz sincera."
+       }
+      },
+      {
+       "text": "Le chat arrive enfin devant un château aux hautes tours.",
+       "translation": {
+        "en": "The cat finally arrives before a castle with high towers.",
+        "fr": "Le chat arrive enfin devant un château aux hautes tours.",
+        "es": "El gato llega por fin ante un castillo con altas torres."
+       }
+      },
+      {
+       "text": "Ce château appartient vraiment à un ogre puissant et très riche.",
+       "translation": {
+        "en": "This castle really belongs to a powerful and very rich ogre.",
+        "fr": "Ce château appartient vraiment à un ogre puissant et très riche.",
+        "es": "Este castillo pertenece realmente a un ogro poderoso y muy rico."
+       }
+      },
+      {
+       "text": "Sans hésiter, le chat frappe à la grande porte.",
+       "translation": {
+        "en": "Without hesitating, the cat knocks on the great door.",
+        "fr": "Sans hésiter, le chat frappe à la grande porte.",
+        "es": "Sin dudar, el gato llama a la gran puerta."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Il sait que la partie la plus dangereuse commence maintenant.",
+       "translation": {
+        "en": "He knows that the most dangerous part begins now.",
+        "fr": "Il sait que la partie la plus dangereuse commence maintenant.",
+        "es": "Sabe que la parte más peligrosa comienza ahora."
+       }
+      },
+      {
+       "text": "Pour aider son maître, il doit vaincre ce maître des lieux.",
+       "translation": {
+        "en": "To help his master, he must defeat the master of this place.",
+        "fr": "Pour aider son maître, il doit vaincre ce maître des lieux.",
+        "es": "Para ayudar a su amo, debe vencer al dueño de este lugar."
+       }
+      },
+      {
+       "text": "Son petit cœur bat vite, mais son esprit reste clair.",
+       "translation": {
+        "en": "His little heart beats fast, but his mind remains clear.",
+        "fr": "Son petit cœur bat vite, mais son esprit reste clair.",
+        "es": "Su pequeño corazón late rápido, pero su mente permanece clara."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Chapitre 3 — Le château de l'ogre",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "Cet ogre reçoit le chat dans une salle pleine de trésors.",
+       "translation": {
+        "en": "This ogre receives the cat in a room full of treasures.",
+        "fr": "Cet ogre reçoit le chat dans une salle pleine de trésors.",
+        "es": "Este ogro recibe al gato en una sala llena de tesoros."
+       }
+      },
+      {
+       "text": "Il porte une veste rouge et tient une énorme coupe.",
+       "translation": {
+        "en": "He wears a red jacket and holds an enormous cup.",
+        "fr": "Il porte une veste rouge et tient une énorme coupe.",
+        "es": "Lleva una chaqueta roja y sostiene una copa enorme."
+       }
+      },
+      {
+       "text": "Le chat le salue poliment et loue sa réputation magique.",
+       "translation": {
+        "en": "The cat greets him politely and praises his magical reputation.",
+        "fr": "Le chat le salue poliment et loue sa réputation magique.",
+        "es": "El gato lo saluda cortésmente y elogia su reputación mágica."
+       }
+      },
+      {
+       "text": "« On raconte que vous pouvez devenir tout animal », dit-il.",
+       "translation": {
+        "en": "“People say that you can become any animal,” he says.",
+        "fr": "« On raconte que vous pouvez devenir tout animal », dit-il.",
+        "es": "«Dicen que puede convertirse en cualquier animal», dice."
+       }
+      },
+      {
+       "text": "Cet ogre rit, car il aime beaucoup les compliments.",
+       "translation": {
+        "en": "The ogre laughs because he greatly enjoys compliments.",
+        "fr": "Cet ogre rit, car il aime beaucoup les compliments.",
+        "es": "El ogro se ríe porque le gustan mucho los cumplidos."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "« Cette histoire est vraie », dit cet ogre avec une voix terrible.",
+       "translation": {
+        "en": "“This story is true,” says the ogre in a terrible voice.",
+        "fr": "« Cette histoire est vraie », dit cet ogre avec une voix terrible.",
+        "es": "«Esta historia es cierta», dice el ogro con una voz terrible."
+       }
+      },
+      {
+       "text": "Aussitôt, il devient un grand lion devant le chat.",
+       "translation": {
+        "en": "At once, he becomes a large lion before the cat.",
+        "fr": "Aussitôt, il devient un grand lion devant le chat.",
+        "es": "De inmediato, se convierte en un gran león ante el gato."
+       }
+      },
+      {
+       "text": "Le chat saute sur une armoire et tremble de peur.",
+       "translation": {
+        "en": "The cat jumps onto a wardrobe and trembles with fear.",
+        "fr": "Le chat saute sur une armoire et tremble de peur.",
+        "es": "El gato salta sobre un armario y tiembla de miedo."
+       }
+      },
+      {
+       "text": "Quand le lion disparaît, il descend lentement vers le sol.",
+       "translation": {
+        "en": "When the lion disappears, he slowly descends toward the floor.",
+        "fr": "Quand le lion disparaît, il descend lentement vers le sol.",
+        "es": "Cuando desaparece el león, baja lentamente hacia el suelo."
+       }
+      },
+      {
+       "text": "« Votre pouvoir est vraiment extraordinaire », dit le chat.",
+       "translation": {
+        "en": "“Your power is truly extraordinary,” says the cat.",
+        "fr": "« Votre pouvoir est vraiment extraordinaire », dit le chat.",
+        "es": "«Su poder es verdaderamente extraordinario», dice el gato."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "« Mais vous pouvez devenir un animal très petit, comme une souris ? »",
+       "translation": {
+        "en": "“But can you become a very small animal, like a mouse?”",
+        "fr": "« Mais vous pouvez devenir un animal très petit, comme une souris ? »",
+        "es": "«¿Pero puede convertirse en un animal muy pequeño, como un ratón?»"
+       }
+      },
+      {
+       "text": "Cet ogre trouve cette question facile et accepte le défi.",
+       "translation": {
+        "en": "The ogre finds this challenge easy and accepts it.",
+        "fr": "Cet ogre trouve cette question facile et accepte le défi.",
+        "es": "El ogro considera fácil la pregunta y acepta el desafío."
+       }
+      },
+      {
+       "text": "En une seconde, une petite souris court sur le tapis.",
+       "translation": {
+        "en": "In one second, a little mouse runs across the carpet.",
+        "fr": "En une seconde, une petite souris court sur le tapis.",
+        "es": "En un segundo, un pequeño ratón corre sobre la alfombra."
+       }
+      },
+      {
+       "text": "Le chat bondit aussitôt et mange la souris.",
+       "translation": {
+        "en": "The cat immediately leaps and eats the mouse.",
+        "fr": "Le chat bondit aussitôt et mange la souris.",
+        "es": "El gato salta de inmediato y se come al ratón."
+       }
+      },
+      {
+       "text": "Ainsi, le terrible ogre ne peut plus menacer personne.",
+       "translation": {
+        "en": "Thus, the terrible ogre can no longer threaten anyone.",
+        "fr": "Ainsi, le terrible ogre ne peut plus menacer personne.",
+        "es": "Así, el terrible ogro ya no puede amenazar a nadie."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Le roi arrive alors avec la princesse et le faux marquis.",
+       "translation": {
+        "en": "The king then arrives with the princess and the false marquis.",
+        "fr": "Le roi arrive alors avec la princesse et le faux marquis.",
+        "es": "El rey llega entonces con la princesa y el falso marqués."
+       }
+      },
+      {
+       "text": "Le chat ouvre la porte et souhaite la bienvenue à tous.",
+       "translation": {
+        "en": "The cat opens the door and welcomes everyone.",
+        "fr": "Le chat ouvre la porte et souhaite la bienvenue à tous.",
+        "es": "El gato abre la puerta y da la bienvenida a todos."
+       }
+      },
+      {
+       "text": "« Sire, entrez dans le château du marquis de Carabas. »",
+       "translation": {
+        "en": "“Sire, enter the castle of the Marquis of Carabas.”",
+        "fr": "« Sire, entrez dans le château du marquis de Carabas. »",
+        "es": "«Señor, entre en el castillo del marqués de Carabás»."
+       }
+      },
+      {
+       "text": "Des tables portent du pain, des fruits et des plats délicieux.",
+       "translation": {
+        "en": "Tables hold bread, fruit, and delicious dishes.",
+        "fr": "Des tables portent du pain, des fruits et des plats délicieux.",
+        "es": "Las mesas tienen pan, frutas y platos deliciosos."
+       }
+      },
+      {
+       "text": "Les serviteurs de cet ogre servent ce repas sans poser de questions.",
+       "translation": {
+        "en": "The ogre's servants serve the meal without asking questions.",
+        "fr": "Les serviteurs de cet ogre servent ce repas sans poser de questions.",
+        "es": "Los sirvientes del ogro sirven la comida sin hacer preguntas."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Le roi visite les salles, les jardins et les grandes écuries.",
+       "translation": {
+        "en": "The king visits the rooms, gardens, and large stables.",
+        "fr": "Le roi visite les salles, les jardins et les grandes écuries.",
+        "es": "El rey visita las salas, los jardines y los grandes establos."
+       }
+      },
+      {
+       "text": "Il pense aux terres admirées pendant toute la journée.",
+       "translation": {
+        "en": "He thinks about the lands admired throughout the day.",
+        "fr": "Il pense aux terres admirées pendant toute la journée.",
+        "es": "Piensa en las tierras admiradas durante todo el día."
+       }
+      },
+      {
+       "text": "Ce jeune marquis lui semble riche, bon et fort.",
+       "translation": {
+        "en": "This young marquis seems rich, kind, and strong to him.",
+        "fr": "Ce jeune marquis lui semble riche, bon et fort.",
+        "es": "Este joven marqués le parece rico, bueno y fuerte."
+       }
+      },
+      {
+       "text": "La princesse parle longtemps avec le fils du meunier.",
+       "translation": {
+        "en": "The princess speaks with the miller's son for a long time.",
+        "fr": "La princesse parle longtemps avec le fils du meunier.",
+        "es": "La princesa habla mucho tiempo con el hijo del molinero."
+       }
+      },
+      {
+       "text": "Elle découvre un homme sensible derrière son costume élégant.",
+       "translation": {
+        "en": "She discovers a sensitive man behind his elegant clothes.",
+        "fr": "Elle découvre un homme sensible derrière son costume élégant.",
+        "es": "Descubre a un hombre sensible detrás de su traje elegante."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Après le repas, le roi prend le garçon à part.",
+       "translation": {
+        "en": "After the meal, the king takes the boy aside.",
+        "fr": "Après le repas, le roi prend le garçon à part.",
+        "es": "Después de la comida, el rey lleva al muchacho aparte."
+       }
+      },
+      {
+       "text": "« Marquis, ma fille vous aime, et je connais vos qualités. »",
+       "translation": {
+        "en": "“Marquis, my daughter loves you, and I know your qualities.”",
+        "fr": "« Marquis, ma fille vous aime, et je connais vos qualités. »",
+        "es": "«Marqués, mi hija lo ama y conozco sus cualidades»."
+       }
+      },
+      {
+       "text": "« Vous voulez devenir son mari et vivre près de nous ? »",
+       "translation": {
+        "en": "“Do you want to become her husband and live near us?”",
+        "fr": "« Vous voulez devenir son mari et vivre près de nous ? »",
+        "es": "«¿Quiere convertirse en su esposo y vivir cerca de nosotros?»"
+       }
+      },
+      {
+       "text": "Le garçon regarde la princesse, qui attend sa réponse avec émotion.",
+       "translation": {
+        "en": "The boy looks at the princess, who awaits his answer with emotion.",
+        "fr": "Le garçon regarde la princesse, qui attend sa réponse avec émotion.",
+        "es": "El muchacho mira a la princesa, que espera su respuesta con emoción."
+       }
+      },
+      {
+       "text": "Il accepte avec joie, car il aime déjà la jeune femme.",
+       "translation": {
+        "en": "He accepts joyfully, because he already loves the young woman.",
+        "fr": "Il accepte avec joie, car il aime déjà la jeune femme.",
+        "es": "Acepta con alegría porque ya ama a la joven."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Le mariage est célébré quelques jours plus tard au château.",
+       "translation": {
+        "en": "The wedding is celebrated at the castle a few days later.",
+        "fr": "Le mariage est célébré quelques jours plus tard au château.",
+        "es": "La boda se celebra unos días después en el castillo."
+       }
+      },
+      {
+       "text": "Tout le village vient danser, manger et féliciter les nouveaux époux.",
+       "translation": {
+        "en": "The whole village comes to dance, eat, and congratulate the newlyweds.",
+        "fr": "Tout le village vient danser, manger et féliciter les nouveaux époux.",
+        "es": "Todo el pueblo viene a bailar, comer y felicitar a los recién casados."
+       }
+      },
+      {
+       "text": "Le fils du meunier devient vraiment le marquis de Carabas.",
+       "translation": {
+        "en": "The miller's son truly becomes the Marquis of Carabas.",
+        "fr": "Le fils du meunier devient vraiment le marquis de Carabas.",
+        "es": "El hijo del molinero se convierte realmente en el marqués de Carabás."
+       }
+      },
+      {
+       "text": "Il aide toujours sa famille et se souvient de sa vie pauvre.",
+       "translation": {
+        "en": "He always helps his family and remembers his poor life.",
+        "fr": "Il aide toujours sa famille et se souvient de sa vie pauvre.",
+        "es": "Siempre ayuda a su familia y recuerda su vida pobre."
+       }
+      },
+      {
+       "text": "Ses frères reçoivent son aide et comprennent leur ancienne erreur.",
+       "translation": {
+        "en": "His brothers receive his help and understand their former mistake.",
+        "fr": "Ses frères reçoivent son aide et comprennent leur ancienne erreur.",
+        "es": "Sus hermanos reciben su ayuda y comprenden su antiguo error."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Quant au chat, il reçoit des habits fins et un coussin.",
+       "translation": {
+        "en": "As for the cat, he receives fine clothes and a cushion.",
+        "fr": "Quant au chat, il reçoit des habits fins et un coussin.",
+        "es": "En cuanto al gato, recibe ropa fina y un cojín."
+       }
+      },
+      {
+       "text": "Il vit désormais comme un grand seigneur auprès du couple.",
+       "translation": {
+        "en": "He now lives like a great lord beside the couple.",
+        "fr": "Il vit désormais comme un grand seigneur auprès du couple.",
+        "es": "Desde entonces vive como un gran señor junto a la pareja."
+       }
+      },
+      {
+       "text": "Parfois, il chasse une souris, mais seulement pour son plaisir.",
+       "translation": {
+        "en": "Sometimes he hunts a mouse, but only for pleasure.",
+        "fr": "Parfois, il chasse une souris, mais seulement pour son plaisir.",
+        "es": "A veces caza un ratón, pero solamente por placer."
+       }
+      },
+      {
+       "text": "Son intelligence a changé le destin de toute une famille.",
+       "translation": {
+        "en": "His intelligence has changed the fate of an entire family.",
+        "fr": "Son intelligence a changé le destin de toute une famille.",
+        "es": "Su inteligencia ha cambiado el destino de toda una familia."
+       }
+      },
+      {
+       "text": "Le nouveau marquis remercie souvent son fidèle ami botté.",
+       "translation": {
+        "en": "The new marquis often thanks his faithful booted friend.",
+        "fr": "Le nouveau marquis remercie souvent son fidèle ami botté.",
+        "es": "El nuevo marqués agradece a menudo a su fiel amigo con botas."
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "glossary": {
+  "a": {
+   "en": "has",
+   "fr": "a",
+   "es": "ha"
+  },
+  "accepte": {
+   "en": "accepts",
+   "fr": "accepte",
+   "es": "acepta"
+  },
+  "admire": {
+   "en": "admires",
+   "fr": "admire",
+   "es": "admira"
+  },
+  "aimable": {
+   "en": "kind",
+   "fr": "aimable",
+   "es": "amable"
+  },
+  "aime": {
+   "en": "loves",
+   "fr": "aime",
+   "es": "ama"
+  },
+  "aîné": {
+   "en": "eldest",
+   "fr": "aîné",
+   "es": "mayor"
+  },
+  "aide": {
+   "en": "helps",
+   "fr": "aide",
+   "es": "ayuda"
+  },
+  "aider": {
+   "en": "to help",
+   "fr": "aider",
+   "es": "ayudar"
+  },
+  "allez": {
+   "en": "go",
+   "fr": "allez",
+   "es": "vaya"
+  },
+  "alors": {
+   "en": "then",
+   "fr": "alors",
+   "es": "entonces"
+  },
+  "ami": {
+   "en": "friend",
+   "fr": "ami",
+   "es": "amigo"
+  },
+  "ancienne": {
+   "en": "former",
+   "fr": "ancienne",
+   "es": "antigua"
+  },
+  "âne": {
+   "en": "donkey",
+   "fr": "âne",
+   "es": "burro"
+  },
+  "animal": {
+   "en": "animal",
+   "fr": "animal",
+   "es": "animal"
+  },
+  "animaux": {
+   "en": "animals",
+   "fr": "animaux",
+   "es": "animales"
+  },
+  "annonce": {
+   "en": "announces",
+   "fr": "annonce",
+   "es": "anuncia"
+  },
+  "apporte": {
+   "en": "brings",
+   "fr": "apporte",
+   "es": "lleva"
+  },
+  "apporter": {
+   "en": "to bring",
+   "fr": "apporter",
+   "es": "traer"
+  },
+  "approche": {
+   "en": "approaches",
+   "fr": "approche",
+   "es": "se acerca"
+  },
+  "apprécie": {
+   "en": "appreciates",
+   "fr": "apprécie",
+   "es": "aprecia"
+  },
+  "après": {
+   "en": "after",
+   "fr": "après",
+   "es": "después"
+  },
+  "arbre": {
+   "en": "tree",
+   "fr": "arbre",
+   "es": "árbol"
+  },
+  "armoire": {
+   "en": "wardrobe",
+   "fr": "armoire",
+   "es": "armario"
+  },
+  "arrêtent": {
+   "en": "stop",
+   "fr": "arrêtent",
+   "es": "detienen"
+  },
+  "arrive": {
+   "en": "arrives",
+   "fr": "arrive",
+   "es": "llega"
+  },
+  "assitôt": {
+   "en": "immediately",
+   "fr": "aussitôt",
+   "es": "enseguida"
+  },
+  "attend": {
+   "en": "waits",
+   "fr": "attend",
+   "es": "espera"
+  },
+  "attentivement": {
+   "en": "carefully",
+   "fr": "attentivement",
+   "es": "atentamente"
+  },
+  "au": {
+   "en": "to the",
+   "fr": "au",
+   "es": "al"
+  },
+  "aucun": {
+   "en": "no",
+   "fr": "aucun",
+   "es": "ningún"
+  },
+  "audacieuse": {
+   "en": "bold",
+   "fr": "audacieuse",
+   "es": "audaz"
+  },
+  "aussi": {
+   "en": "also",
+   "fr": "aussi",
+   "es": "también"
+  },
+  "aussitôt": {
+   "en": "immediately",
+   "fr": "aussitôt",
+   "es": "enseguida"
+  },
+  "aux": {
+   "en": "to the",
+   "fr": "aux",
+   "es": "a los"
+  },
+  "avec": {
+   "en": "with",
+   "fr": "avec",
+   "es": "con"
+  },
+  "bat": {
+   "en": "beats",
+   "fr": "bat",
+   "es": "late"
+  },
+  "beau": {
+   "en": "beautiful",
+   "fr": "beau",
+   "es": "hermoso"
+  },
+  "beaucoup": {
+   "en": "many",
+   "fr": "beaucoup",
+   "es": "muchos"
+  },
+  "beaux": {
+   "en": "fine",
+   "fr": "beaux",
+   "es": "elegantes"
+  },
+  "bergers": {
+   "en": "shepherds",
+   "fr": "bergers",
+   "es": "pastores"
+  },
+  "bienvenue": {
+   "en": "welcome",
+   "fr": "bienvenue",
+   "es": "bienvenida"
+  },
+  "bientôt": {
+   "en": "soon",
+   "fr": "bientôt",
+   "es": "pronto"
+  },
+  "bondit": {
+   "en": "leaps",
+   "fr": "bondit",
+   "es": "salta"
+  },
+  "bon": {
+   "en": "good",
+   "fr": "bon",
+   "es": "bueno"
+  },
+  "bottes": {
+   "en": "boots",
+   "fr": "bottes",
+   "es": "botas"
+  },
+  "botté": {
+   "en": "booted",
+   "fr": "botté",
+   "es": "con botas"
+  },
+  "bouger": {
+   "en": "to move",
+   "fr": "bouger",
+   "es": "moverse"
+  },
+  "cadeau": {
+   "en": "gift",
+   "fr": "cadeau",
+   "es": "regalo"
+  },
+  "calme": {
+   "en": "calm",
+   "fr": "calme",
+   "es": "calma"
+  },
+  "car": {
+   "en": "because",
+   "fr": "car",
+   "es": "porque"
+  },
+  "carabas": {
+   "en": "Carabas",
+   "fr": "Carabas",
+   "es": "Carabás"
+  },
+  "carrosse": {
+   "en": "carriage",
+   "fr": "carrosse",
+   "es": "carruaje"
+  },
+  "ce": {
+   "en": "this",
+   "fr": "ce",
+   "es": "este"
+  },
+  "célébré": {
+   "en": "celebrated",
+   "fr": "célébré",
+   "es": "celebrado"
+  },
+  "cela": {
+   "en": "that",
+   "fr": "cela",
+   "es": "eso"
+  },
+  "ces": {
+   "en": "these",
+   "fr": "ces",
+   "es": "estos"
+  },
+  "cet": {
+   "en": "this",
+   "fr": "cet",
+   "es": "este"
+  },
+  "cette": {
+   "en": "this",
+   "fr": "cette",
+   "es": "esta"
+  },
+  "chaise": {
+   "en": "chair",
+   "fr": "chaise",
+   "es": "silla"
+  },
+  "champ": {
+   "en": "field",
+   "fr": "champ",
+   "es": "campo"
+  },
+  "changé": {
+   "en": "changed",
+   "fr": "changé",
+   "es": "cambiado"
+  },
+  "chaque": {
+   "en": "each",
+   "fr": "chaque",
+   "es": "cada"
+  },
+  "chasse": {
+   "en": "hunts",
+   "fr": "chasse",
+   "es": "caza"
+  },
+  "chat": {
+   "en": "cat",
+   "fr": "chat",
+   "es": "gato"
+  },
+  "chats": {
+   "en": "cats",
+   "fr": "chats",
+   "es": "gatos"
+  },
+  "château": {
+   "en": "castle",
+   "fr": "château",
+   "es": "castillo"
+  },
+  "chez": {
+   "en": "at",
+   "fr": "chez",
+   "es": "en casa de"
+  },
+  "chemin": {
+   "en": "path",
+   "fr": "chemin",
+   "es": "camino"
+  },
+  "chose": {
+   "en": "thing",
+   "fr": "chose",
+   "es": "cosa"
+  },
+  "clair": {
+   "en": "clear",
+   "fr": "clair",
+   "es": "claro"
+  },
+  "comme": {
+   "en": "like",
+   "fr": "comme",
+   "es": "como"
+  },
+  "commence": {
+   "en": "begins",
+   "fr": "commence",
+   "es": "empieza"
+  },
+  "compagnon": {
+   "en": "companion",
+   "fr": "compagnon",
+   "es": "compañero"
+  },
+  "compliments": {
+   "en": "compliments",
+   "fr": "compliments",
+   "es": "cumplidos"
+  },
+  "comprend": {
+   "en": "understands",
+   "fr": "comprend",
+   "es": "comprende"
+  },
+  "comprennent": {
+   "en": "understand",
+   "fr": "comprennent",
+   "es": "comprenden"
+  },
+  "confiance": {
+   "en": "trust",
+   "fr": "confiance",
+   "es": "confianza"
+  },
+  "connais": {
+   "en": "know",
+   "fr": "connais",
+   "es": "conozco"
+  },
+  "connaît": {
+   "en": "knows",
+   "fr": "connaît",
+   "es": "conoce"
+  },
+  "cordonnier": {
+   "en": "shoemaker",
+   "fr": "cordonnier",
+   "es": "zapatero"
+  },
+  "cœur": {
+   "en": "heart",
+   "fr": "cœur",
+   "es": "corazón"
+  },
+  "couche": {
+   "en": "lies down",
+   "fr": "couche",
+   "es": "se acuesta"
+  },
+  "coupe": {
+   "en": "cup",
+   "fr": "coupe",
+   "es": "copa"
+  },
+  "couple": {
+   "en": "couple",
+   "fr": "couple",
+   "es": "pareja"
+  },
+  "courage": {
+   "en": "courage",
+   "fr": "courage",
+   "es": "valor"
+  },
+  "court": {
+   "en": "runs",
+   "fr": "court",
+   "es": "corre"
+  },
+  "crie": {
+   "en": "shouts",
+   "fr": "crie",
+   "es": "grita"
+  },
+  "croit": {
+   "en": "believes",
+   "fr": "croit",
+   "es": "cree"
+  },
+  "curieux": {
+   "en": "curious",
+   "fr": "curieux",
+   "es": "curioso"
+  },
+  "danser": {
+   "en": "to dance",
+   "fr": "danser",
+   "es": "bailar"
+  },
+  "danger": {
+   "en": "danger",
+   "fr": "danger",
+   "es": "peligro"
+  },
+  "dangereuse": {
+   "en": "dangerous",
+   "fr": "dangereuse",
+   "es": "peligrosa"
+  },
+  "dans": {
+   "en": "in",
+   "fr": "dans",
+   "es": "en"
+  },
+  "de": {
+   "en": "of",
+   "fr": "de",
+   "es": "de"
+  },
+  "défi": {
+   "en": "challenge",
+   "fr": "défi",
+   "es": "desafío"
+  },
+  "déjà": {
+   "en": "already",
+   "fr": "déjà",
+   "es": "ya"
+  },
+  "délicieux": {
+   "en": "delicious",
+   "fr": "délicieux",
+   "es": "deliciosos"
+  },
+  "demain": {
+   "en": "tomorrow",
+   "fr": "demain",
+   "es": "mañana"
+  },
+  "demande": {
+   "en": "asks",
+   "fr": "demande",
+   "es": "pregunta"
+  },
+  "dépense": {
+   "en": "spends",
+   "fr": "dépense",
+   "es": "gasta"
+  },
+  "dernières": {
+   "en": "last",
+   "fr": "dernières",
+   "es": "últimas"
+  },
+  "derrière": {
+   "en": "behind",
+   "fr": "derrière",
+   "es": "detrás"
+  },
+  "des": {
+   "en": "some",
+   "fr": "des",
+   "es": "unos"
+  },
+  "descend": {
+   "en": "descends",
+   "fr": "descend",
+   "es": "baja"
+  },
+  "désormais": {
+   "en": "from now on",
+   "fr": "désormais",
+   "es": "desde entonces"
+  },
+  "destin": {
+   "en": "fate",
+   "fr": "destin",
+   "es": "destino"
+  },
+  "devant": {
+   "en": "before",
+   "fr": "devant",
+   "es": "delante de"
+  },
+  "devenir": {
+   "en": "to become",
+   "fr": "devenir",
+   "es": "convertirse"
+  },
+  "devient": {
+   "en": "becomes",
+   "fr": "devient",
+   "es": "se convierte"
+  },
+  "dit": {
+   "en": "says",
+   "fr": "dit",
+   "es": "dice"
+  },
+  "dites": {
+   "en": "say",
+   "fr": "dites",
+   "es": "digan"
+  },
+  "doit": {
+   "en": "must",
+   "fr": "doit",
+   "es": "debe"
+  },
+  "domaine": {
+   "en": "estate",
+   "fr": "domaine",
+   "es": "finca"
+  },
+  "donne": {
+   "en": "gives",
+   "fr": "donne",
+   "es": "da"
+  },
+  "donnez": {
+   "en": "give",
+   "fr": "donnez",
+   "es": "dé"
+  },
+  "doucement": {
+   "en": "gently",
+   "fr": "doucement",
+   "es": "suavemente"
+  },
+  "doux": {
+   "en": "gentle",
+   "fr": "doux",
+   "es": "amable"
+  },
+  "du": {
+   "en": "of the",
+   "fr": "du",
+   "es": "del"
+  },
+  "écuries": {
+   "en": "stables",
+   "fr": "écuries",
+   "es": "establos"
+  },
+  "elle": {
+   "en": "she",
+   "fr": "elle",
+   "es": "ella"
+  },
+  "élégant": {
+   "en": "elegant",
+   "fr": "élégant",
+   "es": "elegante"
+  },
+  "émotion": {
+   "en": "emotion",
+   "fr": "émotion",
+   "es": "emoción"
+  },
+  "en": {
+   "en": "in",
+   "fr": "en",
+   "es": "en"
+  },
+  "encore": {
+   "en": "more",
+   "fr": "encore",
+   "es": "más"
+  },
+  "enfin": {
+   "en": "finally",
+   "fr": "enfin",
+   "es": "por fin"
+  },
+  "énorme": {
+   "en": "enormous",
+   "fr": "énorme",
+   "es": "enorme"
+  },
+  "ensuite": {
+   "en": "then",
+   "fr": "ensuite",
+   "es": "después"
+  },
+  "entend": {
+   "en": "hears",
+   "fr": "entend",
+   "es": "oye"
+  },
+  "entre": {
+   "en": "enters",
+   "fr": "entre",
+   "es": "entra"
+  },
+  "entrez": {
+   "en": "enter",
+   "fr": "entrez",
+   "es": "entre"
+  },
+  "erreur": {
+   "en": "mistake",
+   "fr": "erreur",
+   "es": "error"
+  },
+  "esprit": {
+   "en": "mind",
+   "fr": "esprit",
+   "es": "mente"
+  },
+  "est": {
+   "en": "is",
+   "fr": "est",
+   "es": "es"
+  },
+  "et": {
+   "en": "and",
+   "fr": "et",
+   "es": "y"
+  },
+  "étape": {
+   "en": "stage",
+   "fr": "étape",
+   "es": "etapa"
+  },
+  "étrange": {
+   "en": "strange",
+   "fr": "étrange",
+   "es": "extraña"
+  },
+  "eux": {
+   "en": "them",
+   "fr": "eux",
+   "es": "ellos"
+  },
+  "extraordinaire": {
+   "en": "extraordinary",
+   "fr": "extraordinaire",
+   "es": "extraordinario"
+  },
+  "explique": {
+   "en": "explains",
+   "fr": "explique",
+   "es": "explica"
+  },
+  "facile": {
+   "en": "easy",
+   "fr": "facile",
+   "es": "fácil"
+  },
+  "fait": {
+   "en": "makes",
+   "fr": "fait",
+   "es": "hace"
+  },
+  "famille": {
+   "en": "family",
+   "fr": "famille",
+   "es": "familia"
+  },
+  "faux": {
+   "en": "false",
+   "fr": "faux",
+   "es": "falso"
+  },
+  "félicite": {
+   "en": "praises",
+   "fr": "félicite",
+   "es": "felicita"
+  },
+  "féliciter": {
+   "en": "to congratulate",
+   "fr": "féliciter",
+   "es": "felicitar"
+  },
+  "femme": {
+   "en": "woman",
+   "fr": "femme",
+   "es": "mujer"
+  },
+  "ferme": {
+   "en": "closes",
+   "fr": "ferme",
+   "es": "cierra"
+  },
+  "feuilles": {
+   "en": "leaves",
+   "fr": "feuilles",
+   "es": "hojas"
+  },
+  "fidèle": {
+   "en": "faithful",
+   "fr": "fidèle",
+   "es": "fiel"
+  },
+  "fille": {
+   "en": "daughter",
+   "fr": "fille",
+   "es": "hija"
+  },
+  "fils": {
+   "en": "son",
+   "fr": "fils",
+   "es": "hijo"
+  },
+  "fins": {
+   "en": "fine",
+   "fr": "fins",
+   "es": "finos"
+  },
+  "fois": {
+   "en": "time",
+   "fr": "fois",
+   "es": "vez"
+  },
+  "forces": {
+   "en": "strength",
+   "fr": "forces",
+   "es": "fuerzas"
+  },
+  "fort": {
+   "en": "strong",
+   "fr": "fort",
+   "es": "fuerte"
+  },
+  "frappe": {
+   "en": "knocks",
+   "fr": "frappe",
+   "es": "llama"
+  },
+  "frères": {
+   "en": "brothers",
+   "fr": "frères",
+   "es": "hermanos"
+  },
+  "fraîches": {
+   "en": "fresh",
+   "fr": "fraîches",
+   "es": "frescas"
+  },
+  "fruits": {
+   "en": "fruit",
+   "fr": "fruits",
+   "es": "frutas"
+  },
+  "garde": {
+   "en": "helps",
+   "fr": "garde",
+   "es": "ayuda"
+  },
+  "gardent": {
+   "en": "tend",
+   "fr": "gardent",
+   "es": "cuidan"
+  },
+  "gardez": {
+   "en": "keep",
+   "fr": "gardez",
+   "es": "mantenga"
+  },
+  "gardes": {
+   "en": "guards",
+   "fr": "gardes",
+   "es": "guardias"
+  },
+  "garçon": {
+   "en": "boy",
+   "fr": "garçon",
+   "es": "muchacho"
+  },
+  "grand": {
+   "en": "great",
+   "fr": "grand",
+   "es": "gran"
+  },
+  "grande": {
+   "en": "great",
+   "fr": "grande",
+   "es": "gran"
+  },
+  "grandes": {
+   "en": "large",
+   "fr": "grandes",
+   "es": "grandes"
+  },
+  "grands": {
+   "en": "large",
+   "fr": "grands",
+   "es": "grandes"
+  },
+  "gris": {
+   "en": "gray",
+   "fr": "gris",
+   "es": "gris"
+  },
+  "habits": {
+   "en": "clothes",
+   "fr": "habits",
+   "es": "ropa"
+  },
+  "hautes": {
+   "en": "high",
+   "fr": "hautes",
+   "es": "altas"
+  },
+  "héritage": {
+   "en": "inheritance",
+   "fr": "héritage",
+   "es": "herencia"
+  },
+  "hésiter": {
+   "en": "to hesitate",
+   "fr": "hésiter",
+   "es": "dudar"
+  },
+  "histoire": {
+   "en": "story",
+   "fr": "histoire",
+   "es": "historia"
+  },
+  "homme": {
+   "en": "man",
+   "fr": "homme",
+   "es": "hombre"
+  },
+  "il": {
+   "en": "he",
+   "fr": "il",
+   "es": "él"
+  },
+  "immense": {
+   "en": "immense",
+   "fr": "immense",
+   "es": "inmenso"
+  },
+  "intelligence": {
+   "en": "intelligence",
+   "fr": "intelligence",
+   "es": "inteligencia"
+  },
+  "intelligent": {
+   "en": "intelligent",
+   "fr": "intelligent",
+   "es": "inteligente"
+  },
+  "invite": {
+   "en": "invites",
+   "fr": "invite",
+   "es": "invita"
+  },
+  "invité": {
+   "en": "guest",
+   "fr": "invité",
+   "es": "invitado"
+  },
+  "inventé": {
+   "en": "invented",
+   "fr": "inventé",
+   "es": "inventado"
+  },
+  "jardins": {
+   "en": "gardens",
+   "fr": "jardins",
+   "es": "jardines"
+  },
+  "je": {
+   "en": "I",
+   "fr": "je",
+   "es": "yo"
+  },
+  "joie": {
+   "en": "joy",
+   "fr": "joie",
+   "es": "alegría"
+  },
+  "jour": {
+   "en": "day",
+   "fr": "jour",
+   "es": "día"
+  },
+  "journée": {
+   "en": "day",
+   "fr": "journée",
+   "es": "jornada"
+  },
+  "jours": {
+   "en": "days",
+   "fr": "jours",
+   "es": "días"
+  },
+  "la": {
+   "en": "the",
+   "fr": "la",
+   "es": "la"
+  },
+  "lapin": {
+   "en": "rabbit",
+   "fr": "lapin",
+   "es": "conejo"
+  },
+  "lapins": {
+   "en": "rabbits",
+   "fr": "lapins",
+   "es": "conejos"
+  },
+  "le": {
+   "en": "the",
+   "fr": "le",
+   "es": "el"
+  },
+  "lendemain": {
+   "en": "next day",
+   "fr": "lendemain",
+   "es": "día siguiente"
+  },
+  "lentement": {
+   "en": "slowly",
+   "fr": "lentement",
+   "es": "lentamente"
+  },
+  "les": {
+   "en": "the",
+   "fr": "les",
+   "es": "los"
+  },
+  "leur": {
+   "en": "their",
+   "fr": "leur",
+   "es": "su"
+  },
+  "lieux": {
+   "en": "place",
+   "fr": "lieux",
+   "es": "lugar"
+  },
+  "lion": {
+   "en": "lion",
+   "fr": "lion",
+   "es": "león"
+  },
+  "loin": {
+   "en": "farther",
+   "fr": "loin",
+   "es": "lejos"
+  },
+  "longtemps": {
+   "en": "a long time",
+   "fr": "longtemps",
+   "es": "mucho tiempo"
+  },
+  "loue": {
+   "en": "praises",
+   "fr": "loue",
+   "es": "elogia"
+  },
+  "lui": {
+   "en": "him",
+   "fr": "lui",
+   "es": "le"
+  },
+  "ma": {
+   "en": "my",
+   "fr": "ma",
+   "es": "mi"
+  },
+  "magique": {
+   "en": "magical",
+   "fr": "magique",
+   "es": "mágica"
+  },
+  "magnifique": {
+   "en": "magnificent",
+   "fr": "magnifique",
+   "es": "magnífico"
+  },
+  "mais": {
+   "en": "but",
+   "fr": "mais",
+   "es": "pero"
+  },
+  "malade": {
+   "en": "ill",
+   "fr": "malade",
+   "es": "enfermo"
+  },
+  "mange": {
+   "en": "eats",
+   "fr": "mange",
+   "es": "come"
+  },
+  "manger": {
+   "en": "to eat",
+   "fr": "manger",
+   "es": "comer"
+  },
+  "mari": {
+   "en": "husband",
+   "fr": "mari",
+   "es": "esposo"
+  },
+  "mariage": {
+   "en": "wedding",
+   "fr": "mariage",
+   "es": "boda"
+  },
+  "marche": {
+   "en": "walks",
+   "fr": "marche",
+   "es": "camina"
+  },
+  "marquis": {
+   "en": "marquis",
+   "fr": "marquis",
+   "es": "marqués"
+  },
+  "maître": {
+   "en": "master",
+   "fr": "maître",
+   "es": "amo"
+  },
+  "menacer": {
+   "en": "to threaten",
+   "fr": "menacer",
+   "es": "amenazar"
+  },
+  "mes": {
+   "en": "my",
+   "fr": "mes",
+   "es": "mis"
+  },
+  "met": {
+   "en": "puts on",
+   "fr": "met",
+   "es": "se pone"
+  },
+  "meunier": {
+   "en": "miller",
+   "fr": "meunier",
+   "es": "molinero"
+  },
+  "même": {
+   "en": "same",
+   "fr": "même",
+   "es": "misma"
+  },
+  "moi": {
+   "en": "me",
+   "fr": "moi",
+   "es": "mí"
+  },
+  "moissonneurs": {
+   "en": "harvesters",
+   "fr": "moissonneurs",
+   "es": "segadores"
+  },
+  "mon": {
+   "en": "my",
+   "fr": "mon",
+   "es": "mi"
+  },
+  "monsieur": {
+   "en": "mister",
+   "fr": "monsieur",
+   "es": "señor"
+  },
+  "monter": {
+   "en": "to get in",
+   "fr": "monter",
+   "es": "subir"
+  },
+  "mort": {
+   "en": "death",
+   "fr": "mort",
+   "es": "muerte"
+  },
+  "mots": {
+   "en": "words",
+   "fr": "mots",
+   "es": "palabras"
+  },
+  "moulin": {
+   "en": "mill",
+   "fr": "moulin",
+   "es": "molino"
+  },
+  "mystérieux": {
+   "en": "mysterious",
+   "fr": "mystérieux",
+   "es": "misterioso"
+  },
+  "ne": {
+   "en": "not",
+   "fr": "ne",
+   "es": "no"
+  },
+  "noble": {
+   "en": "noble",
+   "fr": "noble",
+   "es": "noble"
+  },
+  "noie": {
+   "en": "is drowning",
+   "fr": "noie",
+   "es": "se ahoga"
+  },
+  "nom": {
+   "en": "name",
+   "fr": "nom",
+   "es": "nombre"
+  },
+  "nomment": {
+   "en": "name",
+   "fr": "nomment",
+   "es": "nombran"
+  },
+  "nous": {
+   "en": "us",
+   "fr": "nous",
+   "es": "nosotros"
+  },
+  "nouveau": {
+   "en": "new",
+   "fr": "nouveau",
+   "es": "nuevo"
+  },
+  "nouveaux": {
+   "en": "new",
+   "fr": "nouveaux",
+   "es": "nuevos"
+  },
+  "nombreux": {
+   "en": "numerous",
+   "fr": "nombreux",
+   "es": "numerosos"
+  },
+  "observe": {
+   "en": "watches",
+   "fr": "observe",
+   "es": "observa"
+  },
+  "offert": {
+   "en": "offered",
+   "fr": "offert",
+   "es": "ofrecido"
+  },
+  "ogre": {
+   "en": "ogre",
+   "fr": "ogre",
+   "es": "ogro"
+  },
+  "on": {
+   "en": "people",
+   "fr": "on",
+   "es": "la gente"
+  },
+  "ont": {
+   "en": "have",
+   "fr": "ont",
+   "es": "han"
+  },
+  "ordonne": {
+   "en": "orders",
+   "fr": "ordonne",
+   "es": "ordena"
+  },
+  "ordre": {
+   "en": "order",
+   "fr": "ordre",
+   "es": "orden"
+  },
+  "où": {
+   "en": "where",
+   "fr": "où",
+   "es": "donde"
+  },
+  "ouvre": {
+   "en": "opens",
+   "fr": "ouvre",
+   "es": "abre"
+  },
+  "pain": {
+   "en": "bread",
+   "fr": "pain",
+   "es": "pan"
+  },
+  "paire": {
+   "en": "pair",
+   "fr": "paire",
+   "es": "par"
+  },
+  "palais": {
+   "en": "palace",
+   "fr": "palais",
+   "es": "palacio"
+  },
+  "par": {
+   "en": "by",
+   "fr": "par",
+   "es": "por"
+  },
+  "parfois": {
+   "en": "sometimes",
+   "fr": "parfois",
+   "es": "a veces"
+  },
+  "parle": {
+   "en": "speaks",
+   "fr": "parle",
+   "es": "habla"
+  },
+  "part": {
+   "en": "leaves",
+   "fr": "part",
+   "es": "parte"
+  },
+  "partie": {
+   "en": "part",
+   "fr": "partie",
+   "es": "parte"
+  },
+  "pas": {
+   "en": "not",
+   "fr": "pas",
+   "es": "no"
+  },
+  "passe": {
+   "en": "passes",
+   "fr": "passe",
+   "es": "pasa"
+  },
+  "patience": {
+   "en": "patience",
+   "fr": "patience",
+   "es": "paciencia"
+  },
+  "pauvre": {
+   "en": "poor",
+   "fr": "pauvre",
+   "es": "pobre"
+  },
+  "paysans": {
+   "en": "peasants",
+   "fr": "paysans",
+   "es": "campesinos"
+  },
+  "pendant": {
+   "en": "during",
+   "fr": "pendant",
+   "es": "durante"
+  },
+  "pense": {
+   "en": "thinks",
+   "fr": "pense",
+   "es": "piensa"
+  },
+  "perdrix": {
+   "en": "partridges",
+   "fr": "perdrix",
+   "es": "perdices"
+  },
+  "personne": {
+   "en": "anyone",
+   "fr": "personne",
+   "es": "nadie"
+  },
+  "peu": {
+   "en": "a little",
+   "fr": "peu",
+   "es": "un poco"
+  },
+  "peur": {
+   "en": "fear",
+   "fr": "peur",
+   "es": "miedo"
+  },
+  "peut": {
+   "en": "can",
+   "fr": "peut",
+   "es": "puede"
+  },
+  "peuvent": {
+   "en": "can",
+   "fr": "peuvent",
+   "es": "pueden"
+  },
+  "pièces": {
+   "en": "coins",
+   "fr": "pièces",
+   "es": "monedas"
+  },
+  "place": {
+   "en": "puts",
+   "fr": "place",
+   "es": "pone"
+  },
+  "plan": {
+   "en": "plan",
+   "fr": "plan",
+   "es": "plan"
+  },
+  "plats": {
+   "en": "dishes",
+   "fr": "plats",
+   "es": "platos"
+  },
+  "pleine": {
+   "en": "full",
+   "fr": "pleine",
+   "es": "llena"
+  },
+  "pleurer": {
+   "en": "to cry",
+   "fr": "pleurer",
+   "es": "llorar"
+  },
+  "plaisir": {
+   "en": "pleasure",
+   "fr": "plaisir",
+   "es": "placer"
+  },
+  "plus": {
+   "en": "more",
+   "fr": "plus",
+   "es": "más"
+  },
+  "plusieurs": {
+   "en": "several",
+   "fr": "plusieurs",
+   "es": "varias"
+  },
+  "poli": {
+   "en": "polite",
+   "fr": "poli",
+   "es": "cortés"
+  },
+  "poliment": {
+   "en": "politely",
+   "fr": "poliment",
+   "es": "cortésmente"
+  },
+  "porte": {
+   "en": "door",
+   "fr": "porte",
+   "es": "puerta"
+  },
+  "portent": {
+   "en": "wear",
+   "fr": "portent",
+   "es": "llevan"
+  },
+  "poser": {
+   "en": "to ask",
+   "fr": "poser",
+   "es": "hacer"
+  },
+  "possède": {
+   "en": "owns",
+   "fr": "possède",
+   "es": "posee"
+  },
+  "pouvez": {
+   "en": "can",
+   "fr": "pouvez",
+   "es": "puede"
+  },
+  "pouvoir": {
+   "en": "power",
+   "fr": "pouvoir",
+   "es": "poder"
+  },
+  "pour": {
+   "en": "for",
+   "fr": "pour",
+   "es": "para"
+  },
+  "pourtant": {
+   "en": "however",
+   "fr": "pourtant",
+   "es": "sin embargo"
+  },
+  "prend": {
+   "en": "takes",
+   "fr": "prend",
+   "es": "toma"
+  },
+  "pré": {
+   "en": "meadow",
+   "fr": "pré",
+   "es": "prado"
+  },
+  "prépare": {
+   "en": "prepares",
+   "fr": "prépare",
+   "es": "prepara"
+  },
+  "près": {
+   "en": "near",
+   "fr": "près",
+   "es": "cerca"
+  },
+  "prés": {
+   "en": "meadows",
+   "fr": "prés",
+   "es": "prados"
+  },
+  "présent": {
+   "en": "present",
+   "fr": "présent",
+   "es": "presente"
+  },
+  "princesse": {
+   "en": "princess",
+   "fr": "princesse",
+   "es": "princesa"
+  },
+  "pris": {
+   "en": "took",
+   "fr": "pris",
+   "es": "tomaron"
+  },
+  "profonde": {
+   "en": "deep",
+   "fr": "profonde",
+   "es": "profunda"
+  },
+  "promet": {
+   "en": "promises",
+   "fr": "promet",
+   "es": "promete"
+  },
+  "propre": {
+   "en": "own",
+   "fr": "propre",
+   "es": "propia"
+  },
+  "puissant": {
+   "en": "powerful",
+   "fr": "puissant",
+   "es": "poderoso"
+  },
+  "puis": {
+   "en": "then",
+   "fr": "puis",
+   "es": "después"
+  },
+  "quand": {
+   "en": "when",
+   "fr": "quand",
+   "es": "cuando"
+  },
+  "quant": {
+   "en": "as for",
+   "fr": "quant",
+   "es": "en cuanto a"
+  },
+  "que": {
+   "en": "that",
+   "fr": "que",
+   "es": "que"
+  },
+  "quelque": {
+   "en": "some",
+   "fr": "quelque",
+   "es": "alguna"
+  },
+  "quelques": {
+   "en": "some",
+   "fr": "quelques",
+   "es": "algunos"
+  },
+  "question": {
+   "en": "question",
+   "fr": "question",
+   "es": "pregunta"
+  },
+  "questions": {
+   "en": "questions",
+   "fr": "questions",
+   "es": "preguntas"
+  },
+  "qui": {
+   "en": "who",
+   "fr": "qui",
+   "es": "quien"
+  },
+  "qualités": {
+   "en": "qualities",
+   "fr": "qualités",
+   "es": "cualidades"
+  },
+  "rarement": {
+   "en": "rarely",
+   "fr": "rarement",
+   "es": "rara vez"
+  },
+  "raconte": {
+   "en": "tells",
+   "fr": "raconte",
+   "es": "cuenta"
+  },
+  "réalité": {
+   "en": "reality",
+   "fr": "réalité",
+   "es": "realidad"
+  },
+  "reçoit": {
+   "en": "receives",
+   "fr": "reçoit",
+   "es": "recibe"
+  },
+  "reçoivent": {
+   "en": "receive",
+   "fr": "reçoivent",
+   "es": "reciben"
+  },
+  "regarde": {
+   "en": "looks at",
+   "fr": "regarde",
+   "es": "mira"
+  },
+  "remercie": {
+   "en": "thanks",
+   "fr": "remercie",
+   "es": "agradece"
+  },
+  "rencontre": {
+   "en": "meets",
+   "fr": "rencontre",
+   "es": "encuentra"
+  },
+  "rentre": {
+   "en": "returns",
+   "fr": "rentre",
+   "es": "regresa"
+  },
+  "repas": {
+   "en": "meal",
+   "fr": "repas",
+   "es": "comida"
+  },
+  "répond": {
+   "en": "answers",
+   "fr": "répond",
+   "es": "responde"
+  },
+  "répondent": {
+   "en": "answer",
+   "fr": "répondent",
+   "es": "responden"
+  },
+  "réponse": {
+   "en": "answer",
+   "fr": "réponse",
+   "es": "respuesta"
+  },
+  "réputation": {
+   "en": "reputation",
+   "fr": "réputation",
+   "es": "reputación"
+  },
+  "respect": {
+   "en": "respect",
+   "fr": "respect",
+   "es": "respeto"
+  },
+  "reste": {
+   "en": "remains",
+   "fr": "reste",
+   "es": "permanece"
+  },
+  "restent": {
+   "en": "remain",
+   "fr": "restent",
+   "es": "quedan"
+  },
+  "retrouve": {
+   "en": "regains",
+   "fr": "retrouve",
+   "es": "recupera"
+  },
+  "révérence": {
+   "en": "bow",
+   "fr": "révérence",
+   "es": "reverencia"
+  },
+  "riche": {
+   "en": "rich",
+   "fr": "riche",
+   "es": "rico"
+  },
+  "rien": {
+   "en": "nothing",
+   "fr": "rien",
+   "es": "nada"
+  },
+  "rit": {
+   "en": "laughs",
+   "fr": "rit",
+   "es": "ríe"
+  },
+  "rivière": {
+   "en": "river",
+   "fr": "rivière",
+   "es": "río"
+  },
+  "roi": {
+   "en": "king",
+   "fr": "roi",
+   "es": "rey"
+  },
+  "rouge": {
+   "en": "red",
+   "fr": "rouge",
+   "es": "roja"
+  },
+  "route": {
+   "en": "road",
+   "fr": "route",
+   "es": "camino"
+  },
+  "royal": {
+   "en": "royal",
+   "fr": "royal",
+   "es": "real"
+  },
+  "sa": {
+   "en": "his",
+   "fr": "sa",
+   "es": "su"
+  },
+  "sac": {
+   "en": "bag",
+   "fr": "sac",
+   "es": "saco"
+  },
+  "sait": {
+   "en": "knows",
+   "fr": "sait",
+   "es": "sabe"
+  },
+  "salle": {
+   "en": "room",
+   "fr": "salle",
+   "es": "sala"
+  },
+  "salles": {
+   "en": "rooms",
+   "fr": "salles",
+   "es": "salas"
+  },
+  "salue": {
+   "en": "greets",
+   "fr": "salue",
+   "es": "saluda"
+  },
+  "sans": {
+   "en": "without",
+   "fr": "sans",
+   "es": "sin"
+  },
+  "saute": {
+   "en": "jumps",
+   "fr": "saute",
+   "es": "salta"
+  },
+  "se": {
+   "en": "himself",
+   "fr": "se",
+   "es": "se"
+  },
+  "seconde": {
+   "en": "second",
+   "fr": "seconde",
+   "es": "segundo"
+  },
+  "second": {
+   "en": "second",
+   "fr": "second",
+   "es": "segundo"
+  },
+  "secours": {
+   "en": "help",
+   "fr": "secours",
+   "es": "socorro"
+  },
+  "seigneur": {
+   "en": "lord",
+   "fr": "seigneur",
+   "es": "señor"
+  },
+  "semaines": {
+   "en": "weeks",
+   "fr": "semaines",
+   "es": "semanas"
+  },
+  "semble": {
+   "en": "seems",
+   "fr": "semble",
+   "es": "parece"
+  },
+  "sensible": {
+   "en": "sensitive",
+   "fr": "sensible",
+   "es": "sensible"
+  },
+  "servent": {
+   "en": "serve",
+   "fr": "servent",
+   "es": "sirven"
+  },
+  "serviteurs": {
+   "en": "servants",
+   "fr": "serviteurs",
+   "es": "sirvientes"
+  },
+  "ses": {
+   "en": "his",
+   "fr": "ses",
+   "es": "sus"
+  },
+  "seulement": {
+   "en": "only",
+   "fr": "seulement",
+   "es": "solamente"
+  },
+  "si": {
+   "en": "if",
+   "fr": "si",
+   "es": "si"
+  },
+  "sincère": {
+   "en": "sincere",
+   "fr": "sincère",
+   "es": "sincera"
+  },
+  "sire": {
+   "en": "sire",
+   "fr": "sire",
+   "es": "señor"
+  },
+  "soyez": {
+   "en": "be",
+   "fr": "soyez",
+   "es": "esté"
+  },
+  "soir": {
+   "en": "evening",
+   "fr": "soir",
+   "es": "noche"
+  },
+  "sol": {
+   "en": "floor",
+   "fr": "sol",
+   "es": "suelo"
+  },
+  "solide": {
+   "en": "strong",
+   "fr": "solide",
+   "es": "resistente"
+  },
+  "son": {
+   "en": "his",
+   "fr": "son",
+   "es": "su"
+  },
+  "soudain": {
+   "en": "suddenly",
+   "fr": "soudain",
+   "es": "de pronto"
+  },
+  "souhait": {
+   "en": "wish",
+   "fr": "souhait",
+   "es": "deseo"
+  },
+  "souhaite": {
+   "en": "wishes",
+   "fr": "souhaite",
+   "es": "desea"
+  },
+  "souvent": {
+   "en": "often",
+   "fr": "souvent",
+   "es": "a menudo"
+  },
+  "souris": {
+   "en": "mouse",
+   "fr": "souris",
+   "es": "ratón"
+  },
+  "souvient": {
+   "en": "remembers",
+   "fr": "souvient",
+   "es": "recuerda"
+  },
+  "succès": {
+   "en": "success",
+   "fr": "succès",
+   "es": "éxito"
+  },
+  "sur": {
+   "en": "on",
+   "fr": "sur",
+   "es": "sobre"
+  },
+  "surprise": {
+   "en": "surprise",
+   "fr": "surprise",
+   "es": "sorpresa"
+  },
+  "sourit": {
+   "en": "smiles",
+   "fr": "sourit",
+   "es": "sonríe"
+  },
+  "tables": {
+   "en": "tables",
+   "fr": "tables",
+   "es": "mesas"
+  },
+  "tapis": {
+   "en": "carpet",
+   "fr": "tapis",
+   "es": "alfombra"
+  },
+  "tard": {
+   "en": "later",
+   "fr": "tard",
+   "es": "después"
+  },
+  "terres": {
+   "en": "lands",
+   "fr": "terres",
+   "es": "tierras"
+  },
+  "terrible": {
+   "en": "terrible",
+   "fr": "terrible",
+   "es": "terrible"
+  },
+  "tient": {
+   "en": "holds",
+   "fr": "tient",
+   "es": "sostiene"
+  },
+  "tirent": {
+   "en": "pull",
+   "fr": "tirent",
+   "es": "sacan"
+  },
+  "tombe": {
+   "en": "falls",
+   "fr": "tombe",
+   "es": "cae"
+  },
+  "tous": {
+   "en": "everyone",
+   "fr": "tous",
+   "es": "todos"
+  },
+  "toujours": {
+   "en": "always",
+   "fr": "toujours",
+   "es": "siempre"
+  },
+  "tout": {
+   "en": "any",
+   "fr": "tout",
+   "es": "cualquier"
+  },
+  "toute": {
+   "en": "whole",
+   "fr": "toute",
+   "es": "toda"
+  },
+  "toutes": {
+   "en": "all",
+   "fr": "toutes",
+   "es": "todas"
+  },
+  "tours": {
+   "en": "towers",
+   "fr": "tours",
+   "es": "torres"
+  },
+  "travailler": {
+   "en": "to work",
+   "fr": "travailler",
+   "es": "trabajar"
+  },
+  "travailleurs": {
+   "en": "workers",
+   "fr": "travailleurs",
+   "es": "trabajadores"
+  },
+  "tremble": {
+   "en": "trembles",
+   "fr": "tremble",
+   "es": "tiembla"
+  },
+  "trésors": {
+   "en": "treasures",
+   "fr": "trésors",
+   "es": "tesoros"
+  },
+  "très": {
+   "en": "very",
+   "fr": "très",
+   "es": "muy"
+  },
+  "triste": {
+   "en": "sad",
+   "fr": "triste",
+   "es": "triste"
+  },
+  "trois": {
+   "en": "three",
+   "fr": "trois",
+   "es": "tres"
+  },
+  "troupeaux": {
+   "en": "herds",
+   "fr": "troupeaux",
+   "es": "rebaños"
+  },
+  "trouve": {
+   "en": "finds",
+   "fr": "trouve",
+   "es": "considera"
+  },
+  "un": {
+   "en": "a",
+   "fr": "un",
+   "es": "un"
+  },
+  "une": {
+   "en": "a",
+   "fr": "une",
+   "es": "una"
+  },
+  "vaincre": {
+   "en": "to defeat",
+   "fr": "vaincre",
+   "es": "vencer"
+  },
+  "vaut": {
+   "en": "is worth",
+   "fr": "vaut",
+   "es": "vale"
+  },
+  "vers": {
+   "en": "toward",
+   "fr": "vers",
+   "es": "hacia"
+  },
+  "verrez": {
+   "en": "will see",
+   "fr": "verrez",
+   "es": "verá"
+  },
+  "veste": {
+   "en": "jacket",
+   "fr": "veste",
+   "es": "chaqueta"
+  },
+  "vêtements": {
+   "en": "clothes",
+   "fr": "vêtements",
+   "es": "ropa"
+  },
+  "vie": {
+   "en": "life",
+   "fr": "vie",
+   "es": "vida"
+  },
+  "vient": {
+   "en": "comes",
+   "fr": "vient",
+   "es": "viene"
+  },
+  "vieux": {
+   "en": "old",
+   "fr": "vieux",
+   "es": "viejo"
+  },
+  "village": {
+   "en": "village",
+   "fr": "village",
+   "es": "pueblo"
+  },
+  "visage": {
+   "en": "face",
+   "fr": "visage",
+   "es": "rostro"
+  },
+  "visite": {
+   "en": "visits",
+   "fr": "visite",
+   "es": "visita"
+  },
+  "vit": {
+   "en": "lives",
+   "fr": "vit",
+   "es": "vive"
+  },
+  "vite": {
+   "en": "quickly",
+   "fr": "vite",
+   "es": "rápidamente"
+  },
+  "vivent": {
+   "en": "live",
+   "fr": "vivent",
+   "es": "viven"
+  },
+  "vivre": {
+   "en": "to live",
+   "fr": "vivre",
+   "es": "vivir"
+  },
+  "voici": {
+   "en": "here is",
+   "fr": "voici",
+   "es": "aquí está"
+  },
+  "voit": {
+   "en": "sees",
+   "fr": "voit",
+   "es": "ve"
+  },
+  "voix": {
+   "en": "voice",
+   "fr": "voix",
+   "es": "voz"
+  },
+  "voleur": {
+   "en": "thief",
+   "fr": "voleur",
+   "es": "ladrón"
+  },
+  "voleurs": {
+   "en": "thieves",
+   "fr": "voleurs",
+   "es": "ladrones"
+  },
+  "vos": {
+   "en": "your",
+   "fr": "vos",
+   "es": "sus"
+  },
+  "votre": {
+   "en": "your",
+   "fr": "votre",
+   "es": "su"
+  },
+  "vous": {
+   "en": "you",
+   "fr": "vous",
+   "es": "usted"
+  },
+  "voulez": {
+   "en": "want",
+   "fr": "voulez",
+   "es": "quiere"
+  },
+  "voyage": {
+   "en": "travels",
+   "fr": "voyage",
+   "es": "viaja"
+  },
+  "vraie": {
+   "en": "true",
+   "fr": "vraie",
+   "es": "cierta"
+  },
+  "vraiment": {
+   "en": "really",
+   "fr": "vraiment",
+   "es": "realmente"
+  },
+  "à": {
+   "en": "to",
+   "fr": "à",
+   "es": "a"
+  },
+  "époux": {
+   "en": "newlyweds",
+   "fr": "époux",
+   "es": "recién casados"
+  },
+  "petit": {
+   "en": "small",
+   "fr": "petit",
+   "es": "pequeño"
+  },
+  "jeune": {
+   "en": "young",
+   "fr": "jeune",
+   "es": "joven"
+  },
+  "laisse": {
+   "en": "leaves",
+   "fr": "laisse",
+   "es": "deja"
+  },
+  "dit-il": {
+   "en": "he says",
+   "fr": "dit-il",
+   "es": "dice él"
+  },
+  "répond-il": {
+   "en": "he replies",
+   "fr": "répond-il",
+   "es": "responde él"
+  },
+  "idée": {
+   "en": "idea",
+   "fr": "idée",
+   "es": "idea"
+  },
+  "maintenant": {
+   "en": "now",
+   "fr": "maintenant",
+   "es": "ahora"
+  },
+  "cachés": {
+   "en": "hidden",
+   "fr": "cachés",
+   "es": "ocultos"
+  },
+  "costume": {
+   "en": "suit",
+   "fr": "costume",
+   "es": "traje"
+  },
+  "paraît": {
+   "en": "appears",
+   "fr": "paraît",
+   "es": "parece"
+  },
+  "malgré": {
+   "en": "despite",
+   "fr": "malgré",
+   "es": "a pesar de"
+  },
+  "appartient": {
+   "en": "belongs",
+   "fr": "appartient",
+   "es": "pertenece"
+  },
+  "modestie": {
+   "en": "modesty",
+   "fr": "modestie",
+   "es": "modestia"
+  },
+  "disparaît": {
+   "en": "disappears",
+   "fr": "disparaît",
+   "es": "desaparece"
+  },
+  "petite": {
+   "en": "small",
+   "fr": "petite",
+   "es": "pequeña"
+  },
+  "ainsi": {
+   "en": "thus",
+   "fr": "ainsi",
+   "es": "así"
+  },
+  "admirées": {
+   "en": "admired",
+   "fr": "admirées",
+   "es": "admiradas"
+  },
+  "découvre": {
+   "en": "discovers",
+   "fr": "découvre",
+   "es": "descubre"
+  },
+  "coussin": {
+   "en": "cushion",
+   "fr": "coussin",
+   "es": "cojín"
+  },
+  "auprès": {
+   "en": "by",
+   "fr": "auprès",
+   "es": "junto a"
+  }
+ }
+}

@@ -1,0 +1,1544 @@
+{
+ "schemaVersion": 1,
+ "bookId": "ca-patufet",
+ "contentLocale": "ca-ES",
+ "title": "En Patufet",
+ "author": "Traditional (Catalan folk tale)",
+ "sourceEdition": "Traditional Catalan rondalla, public domain",
+ "sourceUrl": "https://ca.wikisource.org/wiki/En_Patufet",
+ "sourceJurisdiction": "Public domain worldwide (traditional)",
+ "adaptationEditor": "Sotto contributors (AI first draft, unreviewed)",
+ "reviewStatus": "draft",
+ "level": "A0",
+ "categories": [
+  "folk"
+ ],
+ "estimatedMinutes": 3,
+ "localizedTitles": {
+  "en": "Patufet",
+  "fr": "Patufet",
+  "es": "Patufet"
+ },
+ "premise": {
+  "en": "A tiny boy as small as a grain of rice goes on an adventure to help his parents.",
+  "fr": "Un minuscule garçon aussi petit qu'un grain de riz part à l'aventure pour aider ses parents.",
+  "es": "Un niño diminuto tan pequeño como un grano de arroz vive una aventura para ayudar a sus padres."
+ },
+ "summary": {
+  "en": "Tiny Patufet goes to the village shop to buy saffron, singing a cheerful song so nobody steps on him. Later, while bringing lunch to his father in the fields, he gets swallowed by an ox and must find a clever way back home.",
+  "fr": "Le minuscule Patufet va au magasin du village acheter du safran, chantant gaiement pour que personne ne l'écrase. Plus tard, en apportant le déjeuner à son père dans les champs, il est avalé par un bœuf et doit trouver un moyen rusé de rentrer chez lui.",
+  "es": "El diminuto Patufet va a la tienda del pueblo a comprar azafrán, cantando alegremente para que nadie lo pise. Más tarde, al llevarle el almuerzo a su padre al campo, un buey se lo traga y debe encontrar una manera ingeniosa de volver a casa."
+ },
+ "contentWarning": null,
+ "tutorNotes": {
+  "pronunciation": "Watch out for the open and closed vowels in words like 'arròs' and 'bou'. Pay special attention to sibilants and the digraph 'tx' or 'x' in 'panxa' and 'aixafat', which sounds like the English 'sh'. Also, remember that final consonants such as the 't' in 'petit' and 'Patufet' are clearly enunciated in Catalan.",
+  "grammar": "This story illustrates the standard Catalan personal article 'en' used before masculine names, as in 'en Patufet'. Learners should also observe apostrophized clitics and prepositions such as 'l'estimen', 's'amaga', and 'd'arròs'. Notice how negation is formed simply with 'no' preceding the conjugated verb without an auxiliary particle.",
+  "culture": "En Patufet is the most cherished folk character in Catalan children's folklore, representing courage, cleverness, and usefulness despite miniature size. His walking rhyme 'Patim, patam, patum' is universally known by children across Catalonia, Valencia, and the Balearic Islands. The story reflects traditional agrarian life where families grew vegetables, prepared saffron rice, and used working oxen.",
+  "commonErrors": "Learners often omit weak pronominal particles like 'hi' in idiomatic structures such as 'no hi ha' or 'on no hi neva'. Another common pitfall is confusing contractions with prepositions, such as using 'a el' instead of the required 'al', or 'per el' instead of 'pel'. Beginners may also forget that descriptive adjectives usually follow nouns in Catalan, as in 'col verda'."
+ },
+ "vocabulary": [
+  {
+   "word": "eixerit",
+   "gloss": {
+    "en": "clever, lively",
+    "fr": "dégourdi",
+    "es": "despierto"
+   }
+  },
+  {
+   "word": "safrà",
+   "gloss": {
+    "en": "saffron",
+    "fr": "safran",
+    "es": "azafrán"
+   }
+  },
+  {
+   "word": "menut",
+   "gloss": {
+    "en": "tiny",
+    "fr": "tout petit",
+    "es": "menudo"
+   }
+  },
+  {
+   "word": "moneda",
+   "gloss": {
+    "en": "coin",
+    "fr": "pièce",
+    "es": "moneda"
+   }
+  },
+  {
+   "word": "botiga",
+   "gloss": {
+    "en": "shop",
+    "fr": "magasin",
+    "es": "tienda"
+   }
+  },
+  {
+   "word": "trepitgeu",
+   "gloss": {
+    "en": "step on",
+    "fr": "écrasez",
+    "es": "piséis"
+   }
+  },
+  {
+   "word": "cistell",
+   "gloss": {
+    "en": "basket",
+    "fr": "panier",
+    "es": "cesta"
+   }
+  },
+  {
+   "word": "refugi",
+   "gloss": {
+    "en": "shelter",
+    "fr": "abri",
+    "es": "refugio"
+   }
+  },
+  {
+   "word": "col",
+   "gloss": {
+    "en": "cabbage",
+    "fr": "chou",
+    "es": "col"
+   }
+  },
+  {
+   "word": "bou",
+   "gloss": {
+    "en": "ox",
+    "fr": "bœuf",
+    "es": "buey"
+   }
+  },
+  {
+   "word": "famolenc",
+   "gloss": {
+    "en": "hungry",
+    "fr": "affamé",
+    "es": "hambriento"
+   }
+  },
+  {
+   "word": "empassa",
+   "gloss": {
+    "en": "swallows",
+    "fr": "avale",
+    "es": "traga"
+   }
+  },
+  {
+   "word": "panxa",
+   "gloss": {
+    "en": "belly",
+    "fr": "ventre",
+    "es": "barriga"
+   }
+  },
+  {
+   "word": "pet",
+   "gloss": {
+    "en": "fart",
+    "fr": "pet",
+    "es": "pedo"
+   }
+  },
+  {
+   "word": "disparat",
+   "gloss": {
+    "en": "shot out",
+    "fr": "expulsé",
+    "es": "disparado"
+   }
+  }
+ ],
+ "comprehension": [
+  {
+   "question": {
+    "en": "What does Patufet go to buy at the shop?",
+    "fr": "Qu'est-ce que Patufet va acheter au magasin ?",
+    "es": "¿Qué va a comprar Patufet a la tienda?"
+   }
+  },
+  {
+   "question": {
+    "en": "Why does Patufet sing his song in the street?",
+    "fr": "Pourquoi Patufet chante-t-il sa chanson dans la rue ?",
+    "es": "¿Por qué canta Patufet su canción en la calle?"
+   }
+  },
+  {
+   "question": {
+    "en": "Where does Patufet hide when it begins to rain?",
+    "fr": "Où Patufet se cache-t-il quand il commence à pleuvoir ?",
+    "es": "¿Dónde se esconde Patufet cuando empieza a llover?"
+   }
+  },
+  {
+   "question": {
+    "en": "How does Patufet get out of the ox's belly?",
+    "fr": "Comment Patufet sort-il du ventre du bœuf ?",
+    "es": "¿Cómo sale Patufet de la barriga del buey?"
+   }
+  }
+ ],
+ "license": {
+  "spdx": "CC-BY-SA-4.0",
+  "attribution": "Sotto contributors; based on the traditional Catalan folk tale"
+ },
+ "chapters": [
+  {
+   "title": "En Patufet i el safrà",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "En Patufet és un nen molt petit.",
+       "translation": {
+        "en": "Patufet is a very small boy.",
+        "fr": "Patufet est un très petit garçon.",
+        "es": "Patufet es un niño muy pequeño."
+       }
+      },
+      {
+       "text": "Ell és tan petit com un gra d'arròs.",
+       "translation": {
+        "en": "He is as small as a grain of rice.",
+        "fr": "Il est aussi petit qu'un grain de riz.",
+        "es": "Él es tan pequeño como un grano de arroz."
+       }
+      },
+      {
+       "text": "Però en Patufet és molt valent i eixerit.",
+       "translation": {
+        "en": "But Patufet is very brave and clever.",
+        "fr": "Mais Patufet est très courageux et dégourdi.",
+        "es": "Pero Patufet es muy valiente y despierto."
+       }
+      },
+      {
+       "text": "Els seus pares l'estimen molt.",
+       "translation": {
+        "en": "His parents love him very much.",
+        "fr": "Ses parents l'aiment beaucoup.",
+        "es": "Sus padres lo quieren mucho."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "La família viu en una casa blanca del poble.",
+       "translation": {
+        "en": "The family lives in a white house in the village.",
+        "fr": "La famille vit dans une maison blanche du village.",
+        "es": "La familia vive en una casa blanca del pueblo."
+       }
+      },
+      {
+       "text": "Avui la mare vol cuinar un arròs groc.",
+       "translation": {
+        "en": "Today the mother wants to cook yellow rice.",
+        "fr": "Aujourd'hui la mère veut cuisiner un riz jaune.",
+        "es": "Hoy la madre quiere cocinar un arroz amarillo."
+       }
+      },
+      {
+       "text": "La mare mira la cuina amb tristesa.",
+       "translation": {
+        "en": "The mother looks at the kitchen with sadness.",
+        "fr": "La mère regarde la cuisine avec tristesse.",
+        "es": "La madre mira la cocina con tristeza."
+       }
+      },
+      {
+       "text": "A la cuina no hi ha safrà.",
+       "translation": {
+        "en": "In the kitchen there is no saffron.",
+        "fr": "Dans la cuisine il n'y a pas de safran.",
+        "es": "En la cocina no hay azafrán."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "En Patufet diu a la mare: «Jo vaig a la botiga».",
+       "translation": {
+        "en": "Patufet says to his mother: \"I am going to the shop.\"",
+        "fr": "Patufet dit à sa mère : « Je vais au magasin ».",
+        "es": "Patufet le dice a su madre: «Yo voy a la tienda»."
+       }
+      },
+      {
+       "text": "La mare té por perquè en Patufet és menut.",
+       "translation": {
+        "en": "The mother is afraid because Patufet is tiny.",
+        "fr": "La mère a peur parce que Patufet est tout petit.",
+        "es": "La madre tiene miedo porque Patufet es menudo."
+       }
+      },
+      {
+       "text": "Però el nen somriu i demana una moneda.",
+       "translation": {
+        "en": "But the boy smiles and asks for a coin.",
+        "fr": "Mais le garçon sourit et demande une pièce.",
+        "es": "Pero el niño sonríe y pide una moneda."
+       }
+      },
+      {
+       "text": "La mare li dona una moneda grossa.",
+       "translation": {
+        "en": "The mother gives him a large coin.",
+        "fr": "La mère lui donne une grosse pièce.",
+        "es": "La madre le da una moneda grande."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "La moneda és gairebé tan grossa com ell.",
+       "translation": {
+        "en": "The coin is almost as big as he is.",
+        "fr": "La pièce est presque aussi grosse que lui.",
+        "es": "La moneda es casi tan grande como él."
+       }
+      },
+      {
+       "text": "En Patufet camina pel mig del carrer.",
+       "translation": {
+        "en": "Patufet walks down the middle of the street.",
+        "fr": "Patufet marche au milieu de la rue.",
+        "es": "Patufet camina por el medio de la calle."
+       }
+      },
+      {
+       "text": "La gent del poble no veu el nen.",
+       "translation": {
+        "en": "The people of the village do not see the boy.",
+        "fr": "Les gens du village ne voient pas le garçon.",
+        "es": "La gente del pueblo no ve al niño."
+       }
+      },
+      {
+       "text": "La gent només veu una moneda que es mou.",
+       "translation": {
+        "en": "People only see a coin that moves.",
+        "fr": "Les gens voient seulement une pièce qui bouge.",
+        "es": "La gente solo ve una moneda que se mueve."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Per no ser aixafat, en Patufet canta fort.",
+       "translation": {
+        "en": "To avoid being stepped on, Patufet sings loudly.",
+        "fr": "Pour ne pas être écrasé, Patufet chante fort.",
+        "es": "Para no ser aplastado, Patufet canta fuerte."
+       }
+      },
+      {
+       "text": "«Patim, patam, patum, homes i dones del cap dret!»",
+       "translation": {
+        "en": "\"Patim, patam, patum, men and women standing tall!\"",
+        "fr": "« Patim, patam, patum, hommes et femmes la tête haute ! »",
+        "es": "«¡Patim, patam, patum, hombres y mujeres erguidos!»"
+       }
+      },
+      {
+       "text": "«Patim, patam, patum, no trepitgeu en Patufet!»",
+       "translation": {
+        "en": "\"Patim, patam, patum, do not step on Patufet!\"",
+        "fr": "« Patim, patam, patum, n'écrasez pas Patufet ! »",
+        "es": "«¡Patim, patam, patum, no piséis a Patufet!»"
+       }
+      },
+      {
+       "text": "Tothom s'atura i escolta la veu clara.",
+       "translation": {
+        "en": "Everyone stops and listens to the clear voice.",
+        "fr": "Tout le monde s'arrête et écoute la voix claire.",
+        "es": "Todo el mundo se detiene y escucha la voz clara."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "En Patufet arriba a la botiga del poble.",
+       "translation": {
+        "en": "Patufet arrives at the village shop.",
+        "fr": "Patufet arrive au magasin du village.",
+        "es": "Patufet llega a la tienda del pueblo."
+       }
+      },
+      {
+       "text": "Ell compra el safrà amb la seva moneda.",
+       "translation": {
+        "en": "He buys the saffron with his coin.",
+        "fr": "Il achète le safran avec sa pièce.",
+        "es": "Él compra el azafrán con su moneda."
+       }
+      },
+      {
+       "text": "Després, en Patufet torna content cap a casa.",
+       "translation": {
+        "en": "Afterwards, Patufet returns home happy.",
+        "fr": "Ensuite, Patufet rentre chez lui content.",
+        "es": "Después, Patufet regresa contento a casa."
+       }
+      },
+      {
+       "text": "La mare prepara el dinar amb el bon safrà.",
+       "translation": {
+        "en": "The mother prepares lunch with the good saffron.",
+        "fr": "La mère prépare le déjeuner avec le bon safran.",
+        "es": "La madre prepara la comida con el buen azafrán."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "El bou i la col",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "El pare treballa al camp de bon matí.",
+       "translation": {
+        "en": "The father works in the field early in the morning.",
+        "fr": "Le père travaille dans le champ de bon matin.",
+        "es": "El padre trabaja en el campo temprano por la mañana."
+       }
+      },
+      {
+       "text": "El pare té molta gana i està cansat.",
+       "translation": {
+        "en": "The father is very hungry and tired.",
+        "fr": "Le père a très faim et est fatigué.",
+        "es": "El padre tiene mucha hambre y está cansado."
+       }
+      },
+      {
+       "text": "La mare prepara un cistell amb el dinar.",
+       "translation": {
+        "en": "The mother prepares a basket with lunch.",
+        "fr": "La mère prépare un panier avec le déjeuner.",
+        "es": "La madre prepara una cesta con la comida."
+       }
+      },
+      {
+       "text": "En Patufet vol portar el cistell al seu pare.",
+       "translation": {
+        "en": "Patufet wants to take the basket to his father.",
+        "fr": "Patufet veut apporter le panier à son père.",
+        "es": "Patufet quiere llevar la cesta a su padre."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "En Patufet agafa el cistell i camina cap al camp.",
+       "translation": {
+        "en": "Patufet takes the basket and walks towards the field.",
+        "fr": "Patufet prend le panier et marche vers le champ.",
+        "es": "Patufet toma la cesta y camina hacia el campo."
+       }
+      },
+      {
+       "text": "De sobte, el cel es torna fosc i gris.",
+       "translation": {
+        "en": "Suddenly, the sky turns dark and grey.",
+        "fr": "Soudain, le ciel devient sombre et gris.",
+        "es": "De repente, el cielo se vuelve oscuro y gris."
+       }
+      },
+      {
+       "text": "Comença a ploure amb gotes grosses d'aigua.",
+       "translation": {
+        "en": "It begins to rain with large drops of water.",
+        "fr": "Il commence à pleuvoir avec de grosses gouttes d'eau.",
+        "es": "Empieza a llover con gotas grandes de agua."
+       }
+      },
+      {
+       "text": "En Patufet busca un bon refugi contra la pluja.",
+       "translation": {
+        "en": "Patufet looks for good shelter from the rain.",
+        "fr": "Patufet cherche un bon abri contre la pluie.",
+        "es": "Patufet busca un buen refugio contra la lluvia."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "El nen veu una col molt gran al camp.",
+       "translation": {
+        "en": "The boy sees a very large cabbage in the field.",
+        "fr": "Le garçon voit un très grand chou dans le champ.",
+        "es": "El niño ve una col muy grande en el campo."
+       }
+      },
+      {
+       "text": "Ell s'amaga a sota de la fulla de la col.",
+       "translation": {
+        "en": "He hides under the leaf of the cabbage.",
+        "fr": "Il se cache sous la feuille du chou.",
+        "es": "Él se esconde debajo de la hoja de la col."
+       }
+      },
+      {
+       "text": "Un bou gran i famolenc passa per allà.",
+       "translation": {
+        "en": "A big and hungry ox passes by.",
+        "fr": "Un grand bœuf affamé passe par là.",
+        "es": "Un buey grande y hambriento pasa por allí."
+       }
+      },
+      {
+       "text": "El bou té molta gana i busca herba fresca.",
+       "translation": {
+        "en": "The ox is very hungry and looks for fresh grass.",
+        "fr": "Le bœuf a très faim et cherche de l'herbe fraîche.",
+        "es": "El buey tiene mucha hambre y busca hierba fresca."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "El bou veu la col verda i se la menja tota.",
+       "translation": {
+        "en": "The ox sees the green cabbage and eats it all.",
+        "fr": "Le bœuf voit le chou vert et le mange tout entier.",
+        "es": "El buey ve la col verde y se la come entera."
+       }
+      },
+      {
+       "text": "L'animal s'empassa la col i també en Patufet!",
+       "translation": {
+        "en": "The animal swallows the cabbage and also Patufet!",
+        "fr": "L'animal avale le chou et aussi Patufet !",
+        "es": "¡El animal se traga la col y también a Patufet!"
+       }
+      },
+      {
+       "text": "Ara en Patufet és dins de la panxa fosca del bou.",
+       "translation": {
+        "en": "Now Patufet is inside the dark belly of the ox.",
+        "fr": "Maintenant Patufet est dans le ventre sombre du bœuf.",
+        "es": "Ahora Patufet está dentro de la barriga oscura del buey."
+       }
+      },
+      {
+       "text": "La pluja s'acaba i el sol surt de nou.",
+       "translation": {
+        "en": "The rain stops and the sun comes out again.",
+        "fr": "La pluie s'arrête et le soleil sort à nouveau.",
+        "es": "La lluvia se termina y el sol sale de nuevo."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Els pares busquen el seu fill per tot arreu.",
+       "translation": {
+        "en": "The parents search for their son everywhere.",
+        "fr": "Les parents cherchent leur fils partout.",
+        "es": "Los padres buscan a su hijo por todas partes."
+       }
+      },
+      {
+       "text": "La mare crida amb angoixa: «Patufet, on ets?»",
+       "translation": {
+        "en": "The mother cries out in anguish: \"Patufet, where are you?\"",
+        "fr": "La mère crie avec angoisse : « Patufet, où es-tu ? »",
+        "es": "La madre grita con angustia: «Patufet, ¿dónde estás?»"
+       }
+      },
+      {
+       "text": "Una veu petita respon des de la panxa.",
+       "translation": {
+        "en": "A small voice answers from inside the belly.",
+        "fr": "Une petite voix répond depuis le ventre.",
+        "es": "Una voz pequeña responde desde la barriga."
+       }
+      },
+      {
+       "text": "«Sóc a la panxa del bou, on no hi neva ni hi plou!»",
+       "translation": {
+        "en": "\"I am in the belly of the ox, where it neither snows nor rains!\"",
+        "fr": "« Je suis dans le ventre du bœuf, où il ne neige ni ne pleut ! »",
+        "es": "«¡Estoy en la barriga del buey, donde ni nieva ni llueve!»"
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Els pares troben el bou i li donen molta herba.",
+       "translation": {
+        "en": "The parents find the ox and give it lots of grass.",
+        "fr": "Les parents trouvent le bœuf et lui donnent beaucoup d'herbe.",
+        "es": "Los padres encuentran al buey y le dan mucha hierba."
+       }
+      },
+      {
+       "text": "El bou menja tanta herba que té molts gasos.",
+       "translation": {
+        "en": "The ox eats so much grass that it has a lot of gas.",
+        "fr": "Le bœuf mange tellement d'herbe qu'il a beaucoup de gaz.",
+        "es": "El buey come tanta hierba que tiene muchos gases."
+       }
+      },
+      {
+       "text": "De sobte, el bou fa un gran pet sonor!",
+       "translation": {
+        "en": "Suddenly, the ox lets out a loud fart!",
+        "fr": "Soudain, le bœuf fait un grand pet sonore !",
+        "es": "¡De repente, el buey se tira un gran pedo sonoro!"
+       }
+      },
+      {
+       "text": "En Patufet surt disparat pels aires, viu i sa!",
+       "translation": {
+        "en": "Patufet shoots out through the air, safe and sound!",
+        "fr": "Patufet est expulsé dans les airs, sain et sauf !",
+        "es": "¡Patufet sale disparado por los aires, vivo y sano!"
+       }
+      },
+      {
+       "text": "Tota la família s'abraça amb molta alegria.",
+       "translation": {
+        "en": "The whole family hugs with great joy.",
+        "fr": "Toute la famille s'embrasse avec une grande joie.",
+        "es": "Toda la familia se abraza con mucha alegría."
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "glossary": {
+  "a": {
+   "en": "to, in",
+   "fr": "à",
+   "es": "a, en"
+  },
+  "abraça": {
+   "en": "hugs",
+   "fr": "embrasse",
+   "es": "abraza"
+  },
+  "acaba": {
+   "en": "ends",
+   "fr": "se termine",
+   "es": "termina"
+  },
+  "agafa": {
+   "en": "takes, grabs",
+   "fr": "prend",
+   "es": "toma, coge"
+  },
+  "aigua": {
+   "en": "water",
+   "fr": "eau",
+   "es": "agua"
+  },
+  "aires": {
+   "en": "air, skies",
+   "fr": "airs",
+   "es": "aires"
+  },
+  "aixafat": {
+   "en": "crushed, stepped on",
+   "fr": "écrasé",
+   "es": "aplastado"
+  },
+  "al": {
+   "en": "to the, in the",
+   "fr": "au",
+   "es": "al"
+  },
+  "alegria": {
+   "en": "joy",
+   "fr": "joie",
+   "es": "alegría"
+  },
+  "allà": {
+   "en": "there",
+   "fr": "là-bas",
+   "es": "allí"
+  },
+  "amaga": {
+   "en": "hides",
+   "fr": "cache",
+   "es": "esconde"
+  },
+  "amb": {
+   "en": "with",
+   "fr": "avec",
+   "es": "con"
+  },
+  "angoixa": {
+   "en": "anguish, distress",
+   "fr": "angoisse",
+   "es": "angustia"
+  },
+  "animal": {
+   "en": "animal",
+   "fr": "animal",
+   "es": "animal"
+  },
+  "ara": {
+   "en": "now",
+   "fr": "maintenant",
+   "es": "ahora"
+  },
+  "arriba": {
+   "en": "arrives",
+   "fr": "arrive",
+   "es": "llega"
+  },
+  "arreu": {
+   "en": "around, everywhere",
+   "fr": "partout",
+   "es": "alrededor, todas partes"
+  },
+  "arròs": {
+   "en": "rice",
+   "fr": "riz",
+   "es": "arroz"
+  },
+  "atura": {
+   "en": "stops",
+   "fr": "arrête",
+   "es": "detiene"
+  },
+  "avui": {
+   "en": "today",
+   "fr": "aujourd'hui",
+   "es": "hoy"
+  },
+  "blanca": {
+   "en": "white",
+   "fr": "blanche",
+   "es": "blanca"
+  },
+  "bon": {
+   "en": "good",
+   "fr": "bon",
+   "es": "buen"
+  },
+  "botiga": {
+   "en": "shop",
+   "fr": "magasin",
+   "es": "tienda"
+  },
+  "bou": {
+   "en": "ox",
+   "fr": "bœuf",
+   "es": "buey"
+  },
+  "busca": {
+   "en": "looks for",
+   "fr": "cherche",
+   "es": "busca"
+  },
+  "busquen": {
+   "en": "look for",
+   "fr": "cherchent",
+   "es": "buscan"
+  },
+  "camina": {
+   "en": "walks",
+   "fr": "marche",
+   "es": "camina"
+  },
+  "camp": {
+   "en": "field",
+   "fr": "champ",
+   "es": "campo"
+  },
+  "cansat": {
+   "en": "tired",
+   "fr": "fatigué",
+   "es": "cansado"
+  },
+  "canta": {
+   "en": "sings",
+   "fr": "chante",
+   "es": "canta"
+  },
+  "cap": {
+   "en": "head; towards",
+   "fr": "tête ; vers",
+   "es": "cabeza; hacia"
+  },
+  "carrer": {
+   "en": "street",
+   "fr": "rue",
+   "es": "calle"
+  },
+  "casa": {
+   "en": "house, home",
+   "fr": "maison",
+   "es": "casa"
+  },
+  "cel": {
+   "en": "sky",
+   "fr": "ciel",
+   "es": "cielo"
+  },
+  "cistell": {
+   "en": "basket",
+   "fr": "panier",
+   "es": "cesta"
+  },
+  "clara": {
+   "en": "clear",
+   "fr": "claire",
+   "es": "clara"
+  },
+  "col": {
+   "en": "cabbage",
+   "fr": "chou",
+   "es": "col"
+  },
+  "com": {
+   "en": "as, like",
+   "fr": "comme",
+   "es": "como"
+  },
+  "comença": {
+   "en": "begins",
+   "fr": "commence",
+   "es": "empieza"
+  },
+  "compra": {
+   "en": "buys",
+   "fr": "achète",
+   "es": "compra"
+  },
+  "content": {
+   "en": "happy, glad",
+   "fr": "content",
+   "es": "contento"
+  },
+  "contra": {
+   "en": "against",
+   "fr": "contre",
+   "es": "contra"
+  },
+  "crida": {
+   "en": "shouts, cries out",
+   "fr": "crie",
+   "es": "grita"
+  },
+  "cuina": {
+   "en": "kitchen",
+   "fr": "cuisine",
+   "es": "cocina"
+  },
+  "cuinar": {
+   "en": "to cook",
+   "fr": "cuisiner",
+   "es": "cocinar"
+  },
+  "d'": {
+   "en": "of",
+   "fr": "de",
+   "es": "de"
+  },
+  "de": {
+   "en": "of, from",
+   "fr": "de",
+   "es": "de"
+  },
+  "del": {
+   "en": "of the",
+   "fr": "du",
+   "es": "del"
+  },
+  "demana": {
+   "en": "asks for",
+   "fr": "demande",
+   "es": "pide"
+  },
+  "des": {
+   "en": "from, since",
+   "fr": "depuis",
+   "es": "desde"
+  },
+  "després": {
+   "en": "afterwards",
+   "fr": "ensuite",
+   "es": "después"
+  },
+  "dinar": {
+   "en": "lunch",
+   "fr": "déjeuner",
+   "es": "comida"
+  },
+  "dins": {
+   "en": "inside",
+   "fr": "dans",
+   "es": "dentro"
+  },
+  "disparat": {
+   "en": "shot out, projected",
+   "fr": "expulsé",
+   "es": "disparado"
+  },
+  "diu": {
+   "en": "says",
+   "fr": "dit",
+   "es": "dice"
+  },
+  "dona": {
+   "en": "gives",
+   "fr": "donne",
+   "es": "da"
+  },
+  "dones": {
+   "en": "women",
+   "fr": "femmes",
+   "es": "mujeres"
+  },
+  "donen": {
+   "en": "give",
+   "fr": "donnent",
+   "es": "dan"
+  },
+  "dret": {
+   "en": "standing, upright",
+   "fr": "debout",
+   "es": "erguido"
+  },
+  "eixerit": {
+   "en": "clever, lively",
+   "fr": "dégourdi",
+   "es": "despierto"
+  },
+  "el": {
+   "en": "the",
+   "fr": "le",
+   "es": "el"
+  },
+  "ell": {
+   "en": "he",
+   "fr": "il",
+   "es": "él"
+  },
+  "els": {
+   "en": "the",
+   "fr": "les",
+   "es": "los"
+  },
+  "empassa": {
+   "en": "swallows",
+   "fr": "avale",
+   "es": "traga"
+  },
+  "en": {
+   "en": "honorific particle; in",
+   "fr": "particule de nom ; en",
+   "es": "partícula de nombre; en"
+  },
+  "es": {
+   "en": "himself, itself",
+   "fr": "se",
+   "es": "se"
+  },
+  "escolta": {
+   "en": "listens to",
+   "fr": "écoute",
+   "es": "escucha"
+  },
+  "està": {
+   "en": "is",
+   "fr": "est",
+   "es": "está"
+  },
+  "estimen": {
+   "en": "love",
+   "fr": "aiment",
+   "es": "quieren"
+  },
+  "ets": {
+   "en": "are (you are)",
+   "fr": "es",
+   "es": "estás"
+  },
+  "fa": {
+   "en": "makes, does",
+   "fr": "fait",
+   "es": "hace"
+  },
+  "família": {
+   "en": "family",
+   "fr": "famille",
+   "es": "familia"
+  },
+  "famolenc": {
+   "en": "hungry, starving",
+   "fr": "affamé",
+   "es": "hambriento"
+  },
+  "fill": {
+   "en": "son",
+   "fr": "fils",
+   "es": "hijo"
+  },
+  "fort": {
+   "en": "loudly, strong",
+   "fr": "fort",
+   "es": "fuerte"
+  },
+  "fosc": {
+   "en": "dark",
+   "fr": "sombre",
+   "es": "oscuro"
+  },
+  "fosca": {
+   "en": "dark",
+   "fr": "sombre",
+   "es": "oscura"
+  },
+  "fresca": {
+   "en": "fresh",
+   "fr": "fraîche",
+   "es": "fresca"
+  },
+  "fulla": {
+   "en": "leaf",
+   "fr": "feuille",
+   "es": "hoja"
+  },
+  "gairebé": {
+   "en": "almost",
+   "fr": "presque",
+   "es": "casi"
+  },
+  "gana": {
+   "en": "hunger",
+   "fr": "faim",
+   "es": "hambre"
+  },
+  "gasos": {
+   "en": "gas",
+   "fr": "gaz",
+   "es": "gases"
+  },
+  "gent": {
+   "en": "people",
+   "fr": "gens",
+   "es": "gente"
+  },
+  "gotes": {
+   "en": "drops",
+   "fr": "gouttes",
+   "es": "gotas"
+  },
+  "gra": {
+   "en": "grain",
+   "fr": "grain",
+   "es": "grano"
+  },
+  "gran": {
+   "en": "big, large",
+   "fr": "grand",
+   "es": "grande"
+  },
+  "gris": {
+   "en": "grey",
+   "fr": "gris",
+   "es": "gris"
+  },
+  "groc": {
+   "en": "yellow",
+   "fr": "jaune",
+   "es": "amarillo"
+  },
+  "grossa": {
+   "en": "large, big",
+   "fr": "grosse",
+   "es": "grande"
+  },
+  "grosses": {
+   "en": "large, big",
+   "fr": "grosses",
+   "es": "grandes"
+  },
+  "ha": {
+   "en": "has (there is)",
+   "fr": "a",
+   "es": "ha, hay"
+  },
+  "herba": {
+   "en": "grass",
+   "fr": "herbe",
+   "es": "hierba"
+  },
+  "hi": {
+   "en": "there",
+   "fr": "y",
+   "es": "ahí"
+  },
+  "homes": {
+   "en": "men",
+   "fr": "hommes",
+   "es": "hombres"
+  },
+  "i": {
+   "en": "and",
+   "fr": "et",
+   "es": "y"
+  },
+  "jo": {
+   "en": "I",
+   "fr": "je",
+   "es": "yo"
+  },
+  "l'": {
+   "en": "the; him, her",
+   "fr": "le, la ; l'",
+   "es": "el, la; lo, la"
+  },
+  "la": {
+   "en": "the; her, it",
+   "fr": "la",
+   "es": "la"
+  },
+  "li": {
+   "en": "to him, to her",
+   "fr": "lui",
+   "es": "le"
+  },
+  "mare": {
+   "en": "mother",
+   "fr": "mère",
+   "es": "madre"
+  },
+  "matí": {
+   "en": "morning",
+   "fr": "matin",
+   "es": "mañana"
+  },
+  "menja": {
+   "en": "eats",
+   "fr": "mange",
+   "es": "come"
+  },
+  "menut": {
+   "en": "tiny, small",
+   "fr": "menu, tout petit",
+   "es": "menudo, pequeño"
+  },
+  "mig": {
+   "en": "middle",
+   "fr": "milieu",
+   "es": "medio"
+  },
+  "mira": {
+   "en": "looks at",
+   "fr": "regarde",
+   "es": "mira"
+  },
+  "molt": {
+   "en": "very, a lot",
+   "fr": "très, beaucoup",
+   "es": "muy, mucho"
+  },
+  "molta": {
+   "en": "much, a lot of",
+   "fr": "beaucoup de",
+   "es": "mucha"
+  },
+  "molts": {
+   "en": "many, lots of",
+   "fr": "beaucoup de",
+   "es": "muchos"
+  },
+  "moneda": {
+   "en": "coin",
+   "fr": "pièce",
+   "es": "moneda"
+  },
+  "mou": {
+   "en": "moves",
+   "fr": "bouge",
+   "es": "mueve"
+  },
+  "nen": {
+   "en": "boy, child",
+   "fr": "garçon, enfant",
+   "es": "niño"
+  },
+  "neva": {
+   "en": "snows",
+   "fr": "neige",
+   "es": "nieva"
+  },
+  "ni": {
+   "en": "nor, neither",
+   "fr": "ni",
+   "es": "ni"
+  },
+  "no": {
+   "en": "not, no",
+   "fr": "ne pas, non",
+   "es": "no"
+  },
+  "només": {
+   "en": "only",
+   "fr": "seulement",
+   "es": "solo"
+  },
+  "nou": {
+   "en": "new; again",
+   "fr": "nouveau",
+   "es": "nuevo"
+  },
+  "on": {
+   "en": "where",
+   "fr": "où",
+   "es": "dónde, donde"
+  },
+  "panxa": {
+   "en": "belly",
+   "fr": "ventre",
+   "es": "barriga"
+  },
+  "pare": {
+   "en": "father",
+   "fr": "père",
+   "es": "padre"
+  },
+  "pares": {
+   "en": "parents",
+   "fr": "parents",
+   "es": "padres"
+  },
+  "passa": {
+   "en": "passes",
+   "fr": "passe",
+   "es": "pasa"
+  },
+  "patam": {
+   "en": "sound of footsteps",
+   "fr": "bruit de pas",
+   "es": "sonido de pasos"
+  },
+  "patim": {
+   "en": "sound of footsteps",
+   "fr": "bruit de pas",
+   "es": "sonido de pasos"
+  },
+  "patufet": {
+   "en": "Patufet",
+   "fr": "Patufet",
+   "es": "Patufet"
+  },
+  "patum": {
+   "en": "sound of footsteps",
+   "fr": "bruit de pas",
+   "es": "sonido de pasos"
+  },
+  "pel": {
+   "en": "through the, along the",
+   "fr": "par le",
+   "es": "por el"
+  },
+  "pels": {
+   "en": "through the, in the",
+   "fr": "par les",
+   "es": "por los"
+  },
+  "per": {
+   "en": "for, to, in order to",
+   "fr": "pour",
+   "es": "para, por"
+  },
+  "però": {
+   "en": "but",
+   "fr": "mais",
+   "es": "pero"
+  },
+  "perquè": {
+   "en": "because",
+   "fr": "parce que",
+   "es": "porque"
+  },
+  "pet": {
+   "en": "fart",
+   "fr": "pet",
+   "es": "pedo"
+  },
+  "petit": {
+   "en": "small, little",
+   "fr": "petit",
+   "es": "pequeño"
+  },
+  "petita": {
+   "en": "small, little",
+   "fr": "petite",
+   "es": "pequeña"
+  },
+  "plou": {
+   "en": "rains",
+   "fr": "pleut",
+   "es": "llueve"
+  },
+  "ploure": {
+   "en": "to rain",
+   "fr": "pleuvoir",
+   "es": "llover"
+  },
+  "pluja": {
+   "en": "rain",
+   "fr": "pluie",
+   "es": "lluvia"
+  },
+  "poble": {
+   "en": "village, town",
+   "fr": "village",
+   "es": "pueblo"
+  },
+  "por": {
+   "en": "fear",
+   "fr": "peur",
+   "es": "miedo"
+  },
+  "portar": {
+   "en": "to carry, take",
+   "fr": "apporter",
+   "es": "llevar"
+  },
+  "prepara": {
+   "en": "prepares",
+   "fr": "prépare",
+   "es": "prepara"
+  },
+  "que": {
+   "en": "that, which",
+   "fr": "que",
+   "es": "que"
+  },
+  "refugi": {
+   "en": "shelter",
+   "fr": "abri",
+   "es": "refugio"
+  },
+  "respon": {
+   "en": "answers, responds",
+   "fr": "répond",
+   "es": "responde"
+  },
+  "s'": {
+   "en": "himself, herself, itself",
+   "fr": "s'",
+   "es": "se"
+  },
+  "sa": {
+   "en": "healthy, sound",
+   "fr": "sain",
+   "es": "sano"
+  },
+  "safrà": {
+   "en": "saffron",
+   "fr": "safran",
+   "es": "azafrán"
+  },
+  "se": {
+   "en": "himself, herself, itself",
+   "fr": "se",
+   "es": "se"
+  },
+  "ser": {
+   "en": "to be",
+   "fr": "être",
+   "es": "ser"
+  },
+  "seu": {
+   "en": "his, her",
+   "fr": "son",
+   "es": "su"
+  },
+  "seus": {
+   "en": "his, her",
+   "fr": "ses",
+   "es": "sus"
+  },
+  "seva": {
+   "en": "his, her",
+   "fr": "sa",
+   "es": "su"
+  },
+  "sobte": {
+   "en": "sudden (de sobte: suddenly)",
+   "fr": "soudain",
+   "es": "repente"
+  },
+  "sol": {
+   "en": "sun",
+   "fr": "soleil",
+   "es": "sol"
+  },
+  "somriu": {
+   "en": "smiles",
+   "fr": "sourit",
+   "es": "sonríe"
+  },
+  "sonor": {
+   "en": "loud, resounding",
+   "fr": "sonore",
+   "es": "sonoro"
+  },
+  "sota": {
+   "en": "under, beneath",
+   "fr": "sous",
+   "es": "debajo"
+  },
+  "sóc": {
+   "en": "am (I am)",
+   "fr": "suis",
+   "es": "soy, estoy"
+  },
+  "surt": {
+   "en": "goes out, comes out",
+   "fr": "sort",
+   "es": "sale"
+  },
+  "també": {
+   "en": "also, too",
+   "fr": "aussi",
+   "es": "también"
+  },
+  "tan": {
+   "en": "so, as",
+   "fr": "aussi, si",
+   "es": "tan"
+  },
+  "tanta": {
+   "en": "so much",
+   "fr": "tant de",
+   "es": "tanta"
+  },
+  "tothom": {
+   "en": "everyone",
+   "fr": "tout le monde",
+   "es": "todo el mundo"
+  },
+  "tot": {
+   "en": "all, whole",
+   "fr": "tout",
+   "es": "todo"
+  },
+  "tota": {
+   "en": "all, whole",
+   "fr": "toute",
+   "es": "toda"
+  },
+  "treballa": {
+   "en": "works",
+   "fr": "travaille",
+   "es": "trabaja"
+  },
+  "trepitgeu": {
+   "en": "step on",
+   "fr": "écrasez, marchez sur",
+   "es": "piséis"
+  },
+  "tristesa": {
+   "en": "sadness",
+   "fr": "tristesse",
+   "es": "tristeza"
+  },
+  "troben": {
+   "en": "find",
+   "fr": "trouvent",
+   "es": "encuentran"
+  },
+  "té": {
+   "en": "has",
+   "fr": "a",
+   "es": "tiene"
+  },
+  "torna": {
+   "en": "returns; turns",
+   "fr": "rentre ; devient",
+   "es": "regresa; vuelve"
+  },
+  "un": {
+   "en": "a, an",
+   "fr": "un",
+   "es": "un"
+  },
+  "una": {
+   "en": "a, an",
+   "fr": "une",
+   "es": "una"
+  },
+  "vaig": {
+   "en": "go (I go)",
+   "fr": "vais",
+   "es": "voy"
+  },
+  "valent": {
+   "en": "brave",
+   "fr": "courageux",
+   "es": "valiente"
+  },
+  "verda": {
+   "en": "green",
+   "fr": "verte",
+   "es": "verde"
+  },
+  "veu": {
+   "en": "sees; voice",
+   "fr": "voit ; voix",
+   "es": "ve; voz"
+  },
+  "viu": {
+   "en": "lives; alive",
+   "fr": "vit ; vivant",
+   "es": "vive; vivo"
+  },
+  "vol": {
+   "en": "wants",
+   "fr": "veut",
+   "es": "quiere"
+  },
+  "és": {
+   "en": "is",
+   "fr": "est",
+   "es": "es"
+  }
+ }
+}

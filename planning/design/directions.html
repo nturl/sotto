@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sotto Directions</title>
+<style>
+  /* ============ SHEET TOKENS (bare :root, declared before use) ============ */
+  :root {
+    --sheet-canvas: #EDEBE6;
+    --sheet-ink: #1B1D22;
+    --sheet-hairline: rgba(27, 29, 34, 0.14);
+    --sheet-secondary: #5C5A55;
+    --sheet-mono: 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
+    --sheet-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --sheet-serif: 'Iowan Old Style', 'Charter', Georgia, serif;
+    --sheet-max: 1100px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --sheet-canvas: #141518;
+      --sheet-ink: #D6D5D0;
+      --sheet-hairline: rgba(214, 213, 208, 0.16);
+      --sheet-secondary: #9C9A94;
+    }
+  }
+  :root[data-theme="dark"] {
+    --sheet-canvas: #141518;
+    --sheet-ink: #D6D5D0;
+    --sheet-hairline: rgba(214, 213, 208, 0.16);
+    --sheet-secondary: #9C9A94;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--sheet-canvas);
+    color: var(--sheet-ink);
+    font-family: var(--sheet-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .wrap { max-width: var(--sheet-max); margin: 0 auto; padding: 0 24px; }
+
+  .mono {
+    font-family: var(--sheet-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .hairline {
+    height: 1px;
+    background: var(--sheet-hairline);
+    width: 100%;
+  }
+
+  .rhythm { padding-top: 96px; padding-bottom: 96px; }
+
+  /* ---------- header ---------- */
+  header.sheet-header { padding-top: 56px; padding-bottom: 40px; }
+  header.sheet-header h1 {
+    font-family: var(--sheet-serif);
+    font-weight: 300;
+    font-size: clamp(30px, 4vw + 12px, 46px);
+    letter-spacing: -0.015em;
+    margin: 0 0 12px 0;
+  }
+  header.sheet-header p.axis {
+    margin: 0;
+    color: var(--sheet-secondary);
+    font-size: 15px;
+    max-width: 620px;
+    line-height: 1.5;
+  }
+
+  /* ---------- band shell ---------- */
+  .band { width: 100%; padding: 72px 0; }
+  .band-inner {
+    max-width: var(--sheet-max);
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .band-left { display: flex; flex-direction: column; gap: 28px; min-width: 0; }
+  .band-right { display: flex; flex-direction: column; gap: 28px; order: 2; min-width: 0; }
+
+  @media (max-width: 900px) {
+    .band-inner { grid-template-columns: 1fr; }
+    .band-right { order: -1; }
+  }
+
+  .band-name {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--sheet-mono);
+    opacity: 0.7;
+    margin: 0 0 6px 0;
+  }
+  .band-title {
+    margin: 0;
+    font-weight: 400;
+  }
+  .band-thesis {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 46ch;
+  }
+
+  .swatch-strip { display: flex; gap: 14px; flex-wrap: wrap; min-width: 0; }
+  .swatch { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+  .swatch-chip { width: 44px; height: 44px; border-radius: 6px; border: 1px solid rgba(0,0,0,0.08); }
+  .swatch-label { font-family: var(--sheet-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.75; }
+
+  .type-specimen { display: flex; flex-direction: column; gap: 10px; }
+  .type-specimen .row { display: flex; align-items: baseline; gap: 10px; }
+  .type-specimen .tag { font-family: var(--sheet-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.6; width: 64px; flex-shrink: 0; }
+
+  .block-group { display: flex; flex-direction: column; gap: 20px; }
+  .block { display: flex; flex-direction: column; gap: 6px; }
+  .block .eyebrow { font-family: var(--sheet-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.65; }
+  .block p { margin: 0; font-size: 15px; line-height: 1.55; max-width: 52ch; }
+
+  .phone-frame {
+    width: 390px;
+    max-width: 100%;
+    border-radius: 40px;
+    border: 1px solid var(--sheet-hairline);
+    overflow: hidden;
+    background: #fff;
+  }
+  .frame-caption {
+    font-family: var(--sheet-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--sheet-secondary);
+    margin: 0;
+  }
+
+  /* ============ BAND A: PAPER ============ */
+  .band-a {
+    --a-canvas: #F4ECDF;
+    --a-ink: #221E1B;
+    --a-secondary: #6E6459;
+    --a-accent: #E4572E;
+    --a-cover-shadow: #F2C8B4;
+    --a-bone: #EFE3D0;
+    --a-radius-sm: 2px;
+    --a-radius-lg: 10px;
+    --a-serif: 'Iowan Old Style', 'Charter', Georgia, serif;
+    --a-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --a-mono: 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
+    background: var(--a-canvas);
+    color: var(--a-ink);
+  }
+  .band-a .band-thesis, .band-a .block p, .band-a .band-name, .band-a .eyebrow,
+  .band-a .swatch-label, .band-a .type-specimen .tag, .band-a .frame-caption { color: var(--a-secondary); }
+  .band-a .band-title { font-family: var(--a-serif); font-weight: 300; font-size: clamp(28px, 3vw + 14px, 38px); color: var(--a-ink); }
+  .band-a .hairline-local { height: 1px; background: rgba(34,30,27,0.14); }
+
+  .a-phone { background: var(--a-canvas); padding: 22px 20px 28px; font-family: var(--a-sans); }
+  .a-cover-wrap { display: flex; gap: 16px; margin-bottom: 18px; }
+  .a-cover {
+    width: 150px; height: 225px; border-radius: var(--a-radius-sm); flex-shrink: 0;
+    box-shadow: 6px 6px 0 0 var(--a-cover-shadow);
+  }
+  .a-book-meta { display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; }
+  .a-title { font-family: var(--a-serif); font-weight: 300; font-size: 34px; letter-spacing: -0.015em; line-height: 1.05; margin: 0; }
+  .a-author { font-size: 15px; color: var(--a-secondary); margin: 0; }
+  .a-strip {
+    display: inline-block; font-family: var(--a-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+    background: var(--a-bone); border-radius: var(--a-radius-lg); padding: 6px 10px; width: fit-content;
+  }
+  .a-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+  .a-btn {
+    border: none; border-radius: var(--a-radius-lg); font-family: var(--a-sans); font-size: 16px; font-weight: 500;
+    padding: 14px 18px; min-height: 44px; cursor: pointer;
+    transition: transform 120ms ease, box-shadow 120ms ease;
+  }
+  .a-btn-primary { background: var(--a-accent); color: #FBF3E9; box-shadow: 4px 4px 0 0 var(--a-ink); }
+  .a-btn-secondary { background: var(--a-bone); color: var(--a-ink); border: 1px solid rgba(34,30,27,0.16); box-shadow: none; }
+  .a-btn.is-pressed.a-btn-primary { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 var(--a-ink); }
+  .a-btn.is-pressed.a-btn-secondary { transform: translate(1px, 1px); }
+
+  .a-shelf-wrap { padding: 20px 20px 26px; background: var(--a-canvas); }
+  .a-shelf-row { display: flex; gap: 16px; align-items: flex-end; padding-bottom: 14px; }
+  .a-shelf-book { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .a-shelf-cover { width: 84px; height: 126px; border-radius: var(--a-radius-sm); box-shadow: 6px 6px 0 0 var(--a-cover-shadow); }
+  .a-shelf-title { font-family: var(--a-serif); font-weight: 400; font-size: 12px; text-align: center; margin: 0; color: var(--a-ink); }
+  .a-shelf-rule { height: 1px; background: rgba(34,30,27,0.25); margin-top: -14px; }
+
+  /* ============ BAND B: HIGHLIGHTER ============ */
+  .band-b {
+    --b-canvas: #FFF6E8;
+    --b-ink: #1F1A17;
+    --b-secondary: #7A6E64;
+    --b-accent: #FF5A3C;
+    --b-accent-2: #F0440A;
+    --b-highlight-current: #FFD8A8;
+    --b-highlight-read: #FFE9CF;
+    --b-radius-card: 12px;
+    --b-radius-pill: 9999px;
+    --sweep-fill: 55%;
+    --b-rounded: ui-rounded, 'SF Pro Rounded', -apple-system, 'Segoe UI', system-ui, sans-serif;
+    --b-serif: 'Iowan Old Style', 'Charter', Georgia, serif;
+    --b-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --b-mono: 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
+    background: var(--b-canvas);
+    color: var(--b-ink);
+  }
+  .band-b .band-thesis, .band-b .block p, .band-b .band-name, .band-b .eyebrow,
+  .band-b .swatch-label, .band-b .type-specimen .tag, .band-b .frame-caption { color: var(--b-secondary); }
+  .band-b .band-title { font-family: var(--b-rounded); font-weight: 700; font-size: clamp(26px, 3vw + 12px, 34px); color: var(--b-ink); }
+
+  .b-heading-mark { position: relative; display: inline-block; }
+  .b-heading-mark::before {
+    content: ""; position: absolute; left: -4px; right: -4px; bottom: 2px; height: 0.55em;
+    background: var(--b-highlight-current); transform: skewX(-8deg); z-index: -1; border-radius: 2px;
+  }
+
+  .b-phone { background: var(--b-canvas); padding: 22px 20px 20px; font-family: var(--b-sans); }
+  .b-passage { font-family: var(--b-serif); font-size: 19px; line-height: 1.55; margin: 0 0 16px 0; }
+  .b-word { position: relative; padding: 0 1px; }
+  .b-word.b-read { background: var(--b-highlight-read); border-radius: 2px; }
+  .b-word.b-current { border-radius: 2px; background: linear-gradient(to right, var(--b-highlight-current) var(--sweep-fill, 55%), transparent var(--sweep-fill, 55%)); transition: background-position 0ms; }
+  .b-word.b-current.sweep-anim { transition: background 180ms cubic-bezier(.2,.8,.2,1); }
+  .b-word.b-selected { background: rgba(255, 90, 60, 0.18); border-radius: 2px; outline: 1px dotted rgba(255, 90, 60, 0.6); outline-offset: 1px; }
+
+  .b-panel {
+    border-radius: var(--b-radius-card); border-top: 1px solid rgba(31,26,23,0.14);
+    padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px;
+  }
+  .b-panel-word { font-family: var(--b-serif); font-size: 24px; margin: 0; }
+  .b-panel-gloss { font-size: 15px; color: var(--b-secondary); margin: 0; }
+  .b-panel-actions { display: flex; align-items: center; gap: 10px; }
+  .b-speaker {
+    width: 40px; height: 40px; border-radius: 50%; background: var(--b-accent); border: none; color: #fff;
+    display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;
+  }
+  .b-save-btn {
+    font-family: var(--b-sans); font-weight: 500; font-size: 14px; background: var(--b-canvas);
+    border: 2px solid var(--b-ink); border-radius: var(--b-radius-pill); padding: 8px 16px; cursor: pointer; min-height: 44px;
+  }
+
+  .b-transport { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .b-transport button { background: none; border: none; cursor: pointer; color: var(--b-ink); display: flex; align-items: center; justify-content: center; }
+  .b-transport .b-play {
+    width: 56px; height: 56px; border-radius: 50%; background: var(--b-accent); border: 2px solid var(--b-ink);
+    color: #fff; display: flex; align-items: center; justify-content: center;
+  }
+  .b-progress-row { display: flex; align-items: center; gap: 8px; }
+  .b-progress-track { flex: 1; height: 6px; border-radius: var(--b-radius-pill); background: rgba(31,26,23,0.12); overflow: hidden; }
+  .b-progress-fill { width: 42%; height: 100%; background: var(--b-accent); border-radius: var(--b-radius-pill); }
+  .b-progress-label { font-family: var(--b-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--b-secondary); }
+
+  .b-replay-btn {
+    align-self: flex-start; font-family: var(--b-sans); font-size: 13px; font-weight: 500; color: var(--b-ink);
+    background: var(--b-canvas); border: 2px solid rgba(31,26,23,0.12); border-radius: var(--b-radius-card);
+    padding: 8px 14px; cursor: pointer; margin-top: 4px;
+  }
+
+  /* ============ BAND C: VOICE ============ */
+  .band-c {
+    --c-canvas: #F2F1EC;
+    --c-ink: #1B1D22;
+    --c-secondary: #6B7079;
+    --c-accent: #1D6B5F;
+    --c-quiet: #9AA0A8;
+    --c-radius-flat: 0px;
+    --c-radius-panel: 8px;
+    --c-serif: 'Iowan Old Style', 'Charter', Georgia, serif;
+    --c-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --c-mono: 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
+    background: var(--c-canvas);
+    color: var(--c-ink);
+  }
+  .band-c .band-thesis, .band-c .block p, .band-c .band-name, .band-c .eyebrow,
+  .band-c .swatch-label, .band-c .type-specimen .tag, .band-c .frame-caption { color: var(--c-secondary); }
+  .band-c .band-title { font-family: var(--c-serif); font-weight: 300; font-size: clamp(28px, 3vw + 14px, 40px); letter-spacing: -0.02em; color: var(--c-ink); }
+
+  .c-phone { background: var(--c-canvas); padding: 22px 20px 24px; font-family: var(--c-sans); }
+  .c-state-row { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+  .c-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c-accent); flex-shrink: 0; }
+  .c-state-word { font-family: var(--c-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--c-ink); }
+
+  .c-passage { font-family: var(--c-serif); font-size: 20px; line-height: 1.6; margin: 0 0 18px 0; }
+  .c-word { color: var(--c-quiet); transition: color 0ms; }
+  .c-word.filled-ink { color: var(--c-ink); }
+  .c-word.filled-teal { color: var(--c-accent); }
+  .c-word.anim { transition: color 90ms linear; }
+
+  .c-caption-wrap {
+    border-radius: var(--c-radius-panel); border-top: 1px solid rgba(27,29,34,0.14);
+    padding: 12px 14px; margin-bottom: 18px;
+  }
+  .c-caption-label { font-family: var(--c-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--c-secondary); margin: 0 0 4px 0; }
+  .c-caption-text { font-size: 15px; margin: 0; }
+
+  .c-controls { display: flex; align-items: center; justify-content: space-between; }
+  .c-icon-btn { background: none; border: none; padding: 10px; min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--c-ink); }
+  .c-play-btn {
+    font-family: var(--c-sans); font-size: 13px; font-weight: 500; color: #fff; background: var(--c-accent);
+    border: none; border-radius: var(--c-radius-panel); padding: 8px 16px; cursor: pointer; margin-top: 14px;
+  }
+
+  /* ---------- reply builder ---------- */
+  .reply-builder { padding: 72px 0 96px; }
+  .reply-builder h2 {
+    font-family: var(--sheet-serif); font-weight: 300; font-size: clamp(24px, 2vw + 14px, 30px); margin: 0 0 8px 0;
+  }
+  .reply-builder .lede { color: var(--sheet-secondary); font-size: 14px; margin: 0 0 32px 0; }
+
+  .rb-band-block { margin-bottom: 28px; }
+  .rb-band-name { font-family: var(--sheet-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .rb-chips { display: flex; gap: 22px; }
+  .rb-chip {
+    background: none; border: none; font-family: var(--sheet-sans); font-size: 14px; color: var(--sheet-secondary);
+    padding: 6px 0; cursor: pointer; border-bottom: 2px solid transparent; min-height: 32px;
+  }
+  .rb-chip[aria-pressed="true"] { color: var(--sheet-ink); border-bottom-color: var(--sheet-ink); font-weight: 500; }
+
+  .rb-base { display: flex; align-items: center; gap: 20px; margin: 32px 0; }
+  .rb-base-label { font-family: var(--sheet-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .rb-radio-row { display: flex; gap: 16px; }
+  .rb-radio { display: flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer; }
+
+  .rb-output { display: flex; flex-direction: column; gap: 12px; }
+  .rb-textarea {
+    width: 100%; min-height: 90px; resize: vertical; font-family: var(--sheet-sans); font-size: 15px;
+    padding: 14px; border-radius: 10px; border: 1px solid var(--sheet-hairline); background: transparent; color: var(--sheet-ink);
+  }
+  .rb-copy-btn {
+    align-self: flex-start; font-family: var(--sheet-sans); font-size: 14px; font-weight: 500; color: #fff;
+    background: var(--sheet-ink); border: none; border-radius: 8px; padding: 10px 18px; cursor: pointer; min-height: 44px;
+  }
+  .rb-copy-btn[data-copied="true"] { background: #3E7D5C; }
+
+  footer.sheet-footer { padding: 32px 24px 64px; text-align: center; }
+  footer.sheet-footer p { font-family: var(--sheet-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sheet-secondary); margin: 0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="sheet-header wrap">
+  <h1>Sotto: three directions</h1>
+  <p class="axis">Axis: where the delight lives, in the object, in the chrome, or in the voice.</p>
+</header>
+
+<div class="hairline"></div>
+
+<!-- ============ BAND A: PAPER ============ -->
+<section class="band band-a">
+  <div class="band-inner">
+    <div class="band-left">
+      <div>
+        <p class="band-name">Direction A</p>
+        <h2 class="band-title">Paper</h2>
+      </div>
+      <p class="band-thesis">This direction says: a book is a thing you hold. Every cover is a paper cutout sitting on the page, and the app is the desk.</p>
+
+      <div class="swatch-strip">
+        <div class="swatch"><div class="swatch-chip" style="background:#F4ECDF"></div><span class="swatch-label">Canvas F4ECDF</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#221E1B"></div><span class="swatch-label">Ink 221E1B</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#6E6459"></div><span class="swatch-label">2nd 6E6459</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#E4572E"></div><span class="swatch-label">Accent E4572E</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#F2C8B4"></div><span class="swatch-label">Shadow F2C8B4</span></div>
+      </div>
+
+      <div class="type-specimen">
+        <div class="row"><span class="tag">Display</span><span style="font-family:'Iowan Old Style',Charter,Georgia,serif;font-weight:300;font-size:34px;">Nightjar</span></div>
+        <div class="row"><span class="tag">Reading</span><span style="font-family:'Iowan Old Style',Charter,Georgia,serif;font-size:17px;">the cutout casts one hard shadow</span></div>
+        <div class="row"><span class="tag">UI</span><span style="font-size:16px;font-weight:500;">Start voice mode</span></div>
+        <div class="row"><span class="tag">Mono</span><span class="mono">12 MIN &middot; A1</span></div>
+      </div>
+
+      <div class="block-group">
+        <div class="block"><p class="eyebrow">Commits to</p><p>Tactility, calm, editorial confidence. One cutout shadow used everywhere, disciplined to a single job.</p></div>
+        <div class="block"><p class="eyebrow">Trades away</p><p>Overt playfulness. On a phone the hard shadow needs restraint or it reads as retro pastiche.</p></div>
+        <div class="block"><p class="eyebrow">Right when</p><p>Noel wants adults to feel this is a serious reading habit that happens to be charming.</p></div>
+        <div class="block"><p class="eyebrow">Build DNA</p><p>Anchor: Medium's cream broadsheet discipline crossed with Shade's hard offset shadow. Radii {2, 10}. Serif 300 to 400, never bold. Accent E4572E does exactly two jobs: CTA fill and cutout shadow color.</p></div>
+        <div class="block"><p class="eyebrow">Taken all the way</p><p>The whole app feels like a well set paperback with one coral ribbon.</p></div>
+      </div>
+    </div>
+
+    <div class="band-right">
+      <div>
+        <div class="phone-frame">
+          <div class="a-phone">
+            <div class="a-cover-wrap">
+              <svg class="a-cover" viewBox="0 0 150 225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nightjar cover">
+                <rect width="150" height="225" fill="#2E2A3D"/>
+                <circle cx="108" cy="52" r="28" fill="#F2C8B4"/>
+                <circle cx="118" cy="42" r="24" fill="#2E2A3D"/>
+                <circle cx="30" cy="150" r="2.5" fill="#E4572E"/>
+                <circle cx="52" cy="120" r="2" fill="#F4ECDF"/>
+                <circle cx="70" cy="170" r="1.6" fill="#F4ECDF"/>
+                <circle cx="24" cy="90" r="1.6" fill="#F4ECDF"/>
+              </svg>
+              <div class="a-book-meta">
+                <p class="a-title">Nightjar</p>
+                <p class="a-author">R. Aoki</p>
+                <span class="a-strip mono">12 MIN &middot; A1</span>
+              </div>
+            </div>
+            <div class="a-actions">
+              <button class="a-btn a-btn-primary" id="aPrimaryBtn">Start voice mode</button>
+              <button class="a-btn a-btn-secondary" id="aSecondaryBtn">Read alone</button>
+            </div>
+          </div>
+        </div>
+        <p class="frame-caption">Direction fragment, not a finished comp.</p>
+      </div>
+
+      <div>
+        <div class="phone-frame">
+          <div class="a-shelf-wrap">
+            <div class="a-shelf-row">
+              <div class="a-shelf-book">
+                <svg class="a-shelf-cover" viewBox="0 0 84 126" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Salt Path cover">
+                  <rect width="84" height="126" fill="#C9DCE0"/>
+                  <circle cx="60" cy="30" r="14" fill="#E4572E"/>
+                  <path d="M0 92 Q21 78 42 92 T84 92 V126 H0 Z" fill="#6E8F99"/>
+                </svg>
+                <p class="a-shelf-title">Salt Path</p>
+              </div>
+              <div class="a-shelf-book">
+                <svg class="a-shelf-cover" viewBox="0 0 84 126" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nightjar cover small">
+                  <rect width="84" height="126" fill="#2E2A3D"/>
+                  <circle cx="58" cy="30" r="16" fill="#F2C8B4"/>
+                  <circle cx="63" cy="24" r="14" fill="#2E2A3D"/>
+                  <circle cx="18" cy="90" r="1.6" fill="#F4ECDF"/>
+                  <circle cx="30" cy="70" r="1.3" fill="#F4ECDF"/>
+                </svg>
+                <p class="a-shelf-title">Nightjar</p>
+              </div>
+              <div class="a-shelf-book">
+                <svg class="a-shelf-cover" viewBox="0 0 84 126" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Low Tide cover">
+                  <rect width="84" height="126" fill="#E7C9A8"/>
+                  <rect x="0" y="70" width="84" height="2" fill="#3B5B6B"/>
+                  <path d="M34 50 L54 70 H14 Z" fill="#3B5B6B"/>
+                  <circle cx="62" cy="34" r="9" fill="#E4572E"/>
+                </svg>
+                <p class="a-shelf-title">Low Tide</p>
+              </div>
+            </div>
+            <div class="a-shelf-rule"></div>
+          </div>
+        </div>
+        <p class="frame-caption">Direction fragment, not a finished comp.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="hairline" style="background:var(--sheet-canvas)"></div>
+<div class="hairline"></div>
+
+<!-- ============ BAND B: HIGHLIGHTER ============ -->
+<section class="band band-b">
+  <div class="band-inner">
+    <div class="band-left">
+      <div>
+        <p class="band-name">Direction B</p>
+        <h2 class="band-title">Highlighter</h2>
+      </div>
+      <p class="band-thesis">This direction says: learning is marking things up. Color is a highlighter pen you drag over the words.</p>
+
+      <div class="swatch-strip">
+        <div class="swatch"><div class="swatch-chip" style="background:#FFF6E8"></div><span class="swatch-label">Canvas FFF6E8</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#1F1A17"></div><span class="swatch-label">Ink 1F1A17</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#7A6E64"></div><span class="swatch-label">2nd 7A6E64</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#FF5A3C"></div><span class="swatch-label">Accent FF5A3C</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#FFD8A8"></div><span class="swatch-label">Mark FFD8A8</span></div>
+      </div>
+
+      <div class="type-specimen">
+        <div class="row"><span class="tag">Display</span><span style="font-family:ui-rounded,'SF Pro Rounded',sans-serif;font-weight:700;font-size:32px;">For you <span class="b-heading-mark">today</span></span></div>
+        <div class="row"><span class="tag">Reading</span><span style="font-family:'Iowan Old Style',Charter,Georgia,serif;font-size:19px;">un cuervo negro encuentra un queso</span></div>
+        <div class="row"><span class="tag">UI</span><span style="font-size:16px;font-weight:500;">Save word</span></div>
+        <div class="row"><span class="tag">Mono</span><span class="mono">1.0x</span></div>
+      </div>
+
+      <div class="block-group">
+        <div class="block"><p class="eyebrow">Commits to</p><p>Fun, energy, instant legibility of state. Narration progress is visible as marks left on the page.</p></div>
+        <div class="block"><p class="eyebrow">Trades away</p><p>Calm. Risks reading young, and the heavy rounded display face will fight the serif if used past headings.</p></div>
+        <div class="block"><p class="eyebrow">Right when</p><p>Noel wants the app to feel like a game you play with a pen, and daily return energy matters more than gravitas.</p></div>
+        <div class="block"><p class="eyebrow">Build DNA</p><p>Anchor: Duolingo's sticker buttons crossed with Ramp's highlighter marker device. Radii {12, 9999}. One allowed gradient, on the primary CTA only. The sweep is drawn as a skewed rectangle, 180ms cubic-bezier(.2,.8,.2,1).</p></div>
+        <div class="block"><p class="eyebrow">Taken all the way</p><p>Every screen has one marker stroke and nothing else colored. The sweep is the brand.</p></div>
+      </div>
+    </div>
+
+    <div class="band-right">
+      <div>
+        <div class="phone-frame">
+          <div class="b-phone">
+            <p class="b-passage" id="bPassage">
+              <span class="b-word b-read">Un</span> <span class="b-word b-read">cuervo</span> <span class="b-word b-read">negro</span> <span class="b-word b-read">encuentra</span> <span class="b-word b-read">un</span> <span class="b-word b-read">trozo</span> <span class="b-word b-read">de</span> <span class="b-word b-read">queso</span> <span class="b-word b-read">en</span> <span class="b-word b-read">el</span> <span class="b-word b-selected">bosque.</span> <span class="b-word b-read">Se</span> <span class="b-word b-read">sienta</span> <span class="b-word b-read">en</span> <span class="b-word b-read">un</span> <span class="b-word b-read">&aacute;rbol</span> <span class="b-word b-read">alto</span> <span class="b-word b-read">con</span> <span class="b-word b-read">el</span> <span class="b-word b-read">queso</span> <span class="b-word b-read">en</span> <span class="b-word b-read">el</span> <span class="b-word b-read">pico.</span> <span class="b-word b-read">Un</span> <span class="b-word b-read">zorro</span> <span class="b-word b-read">astuto</span> <span class="b-word b-read">pasa</span> <span class="b-word b-read">y</span> <span class="b-word b-read">ve</span> <span class="b-word b-read">el</span> <span class="b-word b-current" id="bCurrentWord" style="--sweep-fill:55%">queso.</span> <span class="b-word">El</span> <span class="b-word">zorro</span> <span class="b-word">dice:</span> <span class="b-word">canta</span> <span class="b-word">para</span> <span class="b-word">m&iacute;.</span> <span class="b-word">El</span> <span class="b-word">cuervo</span> <span class="b-word">abre</span> <span class="b-word">el</span> <span class="b-word">pico</span> <span class="b-word">y</span> <span class="b-word">el</span> <span class="b-word">queso</span> <span class="b-word">cae.</span> <span class="b-word">El</span> <span class="b-word">zorro</span> <span class="b-word">toma</span> <span class="b-word">el</span> <span class="b-word">queso</span> <span class="b-word">y</span> <span class="b-word">se</span> <span class="b-word">va</span> <span class="b-word">contento.</span>
+            </p>
+            <button class="b-replay-btn" id="bReplayBtn" aria-pressed="false">Replay sweep</button>
+
+            <div class="b-panel">
+              <p class="b-panel-word">bosque</p>
+              <p class="b-panel-gloss">forest</p>
+              <div class="b-panel-actions">
+                <button class="b-speaker" aria-label="Play pronunciation">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg>
+                </button>
+                <button class="b-save-btn">Save</button>
+              </div>
+            </div>
+
+            <div class="b-transport">
+              <button aria-label="Previous"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM20 6l-10 6 10 6z"/></svg></button>
+              <button aria-label="Back 10 seconds"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12a8 8 0 1 1 2.5 5.8"/><path d="M4 6v6h6"/></svg></button>
+              <button class="b-play" aria-label="Play"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></button>
+              <button aria-label="Forward 10 seconds"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12a8 8 0 1 0-2.5 5.8"/><path d="M20 6v6h-6"/></svg></button>
+              <button aria-label="Next"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM4 6l10 6-10 6z"/></svg></button>
+            </div>
+            <div class="b-progress-row">
+              <span class="b-progress-label">1:04</span>
+              <div class="b-progress-track"><div class="b-progress-fill"></div></div>
+              <span class="b-progress-label">1.0x</span>
+              <span class="b-progress-label">2:31</span>
+            </div>
+          </div>
+        </div>
+        <p class="frame-caption">Direction fragment, not a finished comp.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="hairline" style="background:var(--sheet-canvas)"></div>
+<div class="hairline"></div>
+
+<!-- ============ BAND C: VOICE ============ -->
+<section class="band band-c">
+  <div class="band-inner">
+    <div class="band-left">
+      <div>
+        <p class="band-name">Direction C</p>
+        <h2 class="band-title">Voice</h2>
+      </div>
+      <p class="band-thesis">This direction says: the tutor is a presence in the text, not a widget above it. The words light up as they are spoken.</p>
+
+      <div class="swatch-strip">
+        <div class="swatch"><div class="swatch-chip" style="background:#F2F1EC"></div><span class="swatch-label">Canvas F2F1EC</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#1B1D22"></div><span class="swatch-label">Ink 1B1D22</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#6B7079"></div><span class="swatch-label">2nd 6B7079</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#1D6B5F"></div><span class="swatch-label">Accent 1D6B5F</span></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#9AA0A8"></div><span class="swatch-label">Quiet 9AA0A8</span></div>
+      </div>
+
+      <div class="type-specimen">
+        <div class="row"><span class="tag">Display</span><span style="font-family:'Iowan Old Style',Charter,Georgia,serif;font-weight:300;font-size:36px;letter-spacing:-0.02em;">Voice</span></div>
+        <div class="row"><span class="tag">Reading</span><span style="font-family:'Iowan Old Style',Charter,Georgia,serif;font-size:20px;">le chat sort de la maison</span></div>
+        <div class="row"><span class="tag">UI</span><span style="font-size:16px;font-weight:500;">End session</span></div>
+        <div class="row"><span class="tag">Mono</span><span class="mono">Tutor speaking</span></div>
+      </div>
+
+      <div class="block-group">
+        <div class="block"><p class="eyebrow">Commits to</p><p>Premium calm, the tutor as the product, accessibility. State is always a word, never a color guess.</p></div>
+        <div class="block"><p class="eyebrow">Trades away</p><p>Warmth and obvious fun. A cool stone canvas is a harder sell for a cozy books habit, and the library stays quiet.</p></div>
+        <div class="block"><p class="eyebrow">Right when</p><p>Noel wants the voice tutor to be the reason people talk about this app, and is fine letting the library be quiet.</p></div>
+        <div class="block"><p class="eyebrow">Build DNA</p><p>Anchor: Things's restraint as brand crossed with Haptic's scroll word fill, repurposed as speech fill. Radii {0, 8}. No coral anywhere. The tutor bubble is nothing, the fill is everything.</p></div>
+        <div class="block"><p class="eyebrow">Taken all the way</p><p>The whole app is stone and ink with one teal that only ever means spoken.</p></div>
+      </div>
+    </div>
+
+    <div class="band-right">
+      <div>
+        <div class="phone-frame">
+          <div class="c-phone">
+            <div class="c-state-row">
+              <span class="c-dot"></span>
+              <span class="c-state-word" id="cStateWord">TUTOR SPEAKING</span>
+            </div>
+            <p class="c-passage" id="cPassage"></p>
+            <div class="c-caption-wrap">
+              <p class="c-caption-label">Tutor said</p>
+              <p class="c-caption-text">Le chat s'assoit devant la porte du poissonnier.</p>
+            </div>
+            <div class="c-controls">
+              <button class="c-icon-btn" aria-label="Mute"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M16 9l5 6M21 9l-5 6"/></svg></button>
+              <button class="c-icon-btn" aria-label="Replay"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12a8 8 0 1 1 2.5 5.8"/><path d="M4 6v6h6"/></svg></button>
+              <button class="c-icon-btn" aria-label="Stop"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="6" y="6" width="12" height="12" rx="1.5"/></svg></button>
+              <button class="c-icon-btn" aria-label="End"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 5l14 14M19 5 5 19"/></svg></button>
+            </div>
+            <button class="c-play-btn" id="cPlayBtn" aria-pressed="false">Play</button>
+          </div>
+        </div>
+        <p class="frame-caption">Direction fragment, not a finished comp.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="hairline" style="background:var(--sheet-canvas)"></div>
+<div class="hairline"></div>
+
+<!-- ============ REPLY BUILDER ============ -->
+<section class="reply-builder wrap">
+  <h2>Build the reply</h2>
+  <p class="lede">Pick a base direction, mark what to steal or skip from the other two, then copy the instruction.</p>
+
+  <div class="rb-band-block" data-band="A">
+    <p class="rb-band-name mono">Direction A: Paper</p>
+    <div class="rb-chips" role="group" aria-label="Direction A action">
+      <button class="rb-chip" data-action="steal">Steal</button>
+      <button class="rb-chip" data-action="skip" aria-pressed="true">Skip</button>
+      <button class="rb-chip" data-action="deeper">Go deeper</button>
+    </div>
+  </div>
+  <div class="rb-band-block" data-band="B">
+    <p class="rb-band-name mono">Direction B: Highlighter</p>
+    <div class="rb-chips" role="group" aria-label="Direction B action">
+      <button class="rb-chip" data-action="steal">Steal</button>
+      <button class="rb-chip" data-action="skip">Skip</button>
+      <button class="rb-chip" data-action="deeper" aria-pressed="true">Go deeper</button>
+    </div>
+  </div>
+  <div class="rb-band-block" data-band="C">
+    <p class="rb-band-name mono">Direction C: Voice</p>
+    <div class="rb-chips" role="group" aria-label="Direction C action">
+      <button class="rb-chip" data-action="steal">Steal</button>
+      <button class="rb-chip" data-action="skip" aria-pressed="true">Skip</button>
+      <button class="rb-chip" data-action="deeper">Go deeper</button>
+    </div>
+  </div>
+
+  <div class="rb-base">
+    <span class="rb-base-label mono">Base direction</span>
+    <div class="rb-radio-row">
+      <label class="rb-radio"><input type="radio" name="rbBase" value="A"> A. Paper</label>
+      <label class="rb-radio"><input type="radio" name="rbBase" value="B" checked> B. Highlighter</label>
+      <label class="rb-radio"><input type="radio" name="rbBase" value="C"> C. Voice</label>
+    </div>
+  </div>
+
+  <div class="rb-output">
+    <textarea class="rb-textarea" id="rbTextarea" readonly></textarea>
+    <button class="rb-copy-btn" id="rbCopyBtn">Copy</button>
+  </div>
+</section>
+
+<footer class="sheet-footer">
+  <p>Sotto design directions, drafted by Cleo</p>
+</footer>
+
+<script>
+(function () {
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- A: button press (2px translate + shadow shrink, 120ms) ---------- */
+  ['aPrimaryBtn', 'aSecondaryBtn'].forEach(function (id) {
+    var btn = document.getElementById(id);
+    if (!btn) return;
+    var press = function () { btn.classList.add('is-pressed'); };
+    var release = function () { btn.classList.remove('is-pressed'); };
+    btn.addEventListener('pointerdown', press);
+    btn.addEventListener('pointerup', release);
+    btn.addEventListener('pointerleave', release);
+    btn.addEventListener('pointercancel', release);
+  });
+
+  /* ---------- B: highlighter sweep replay ---------- */
+  var bReplayBtn = document.getElementById('bReplayBtn');
+  var bCurrentWord = document.getElementById('bCurrentWord');
+  var SWEEP_END = '55%';
+  if (bReplayBtn && bCurrentWord) {
+    bReplayBtn.addEventListener('click', function () {
+      bReplayBtn.setAttribute('aria-pressed', 'true');
+      if (reduceMotion) {
+        bCurrentWord.style.setProperty('--sweep-fill', SWEEP_END);
+        setTimeout(function () { bReplayBtn.setAttribute('aria-pressed', 'false'); }, 50);
+        return;
+      }
+      bCurrentWord.classList.remove('sweep-anim');
+      bCurrentWord.style.setProperty('--sweep-fill', '0%');
+      void bCurrentWord.offsetWidth; /* force reflow to restart the transition */
+      bCurrentWord.classList.add('sweep-anim');
+      bCurrentWord.style.setProperty('--sweep-fill', SWEEP_END);
+      setTimeout(function () { bReplayBtn.setAttribute('aria-pressed', 'false'); }, 220);
+    });
+  }
+
+  /* ---------- C: speech fill play control ---------- */
+  var cPassageEl = document.getElementById('cPassage');
+  var frenchWords = "Le chat noir sort de la maison tôt le matin. Il marche vers le marché du village. Les vendeurs préparent leurs fruits et leurs légumes sur les tables en bois. Le chat sent le poisson frais chez le poissonnier et il s'assoit devant sa porte. Une vieille femme lui donne un petit morceau de poisson. Le chat mange lentement et puis il retourne chez lui content.".split(' ');
+  var TUTOR_END = 40;   /* words 0..39 ink (tutor) */
+  var LEARNER_END = 42; /* words 40..41 teal (learner) */
+
+  var wordSpans = [];
+  if (cPassageEl) {
+    frenchWords.forEach(function (w, i) {
+      var span = document.createElement('span');
+      span.className = 'c-word';
+      span.textContent = w;
+      cPassageEl.appendChild(span);
+      cPassageEl.appendChild(document.createTextNode(' '));
+      wordSpans.push(span);
+    });
+    setEndState();
+  }
+
+  function setEndState() {
+    wordSpans.forEach(function (span, i) {
+      span.classList.remove('filled-ink', 'filled-teal', 'anim');
+      if (i < TUTOR_END) span.classList.add('filled-ink');
+      else if (i < LEARNER_END) span.classList.add('filled-teal');
+    });
+  }
+
+  var cPlayBtn = document.getElementById('cPlayBtn');
+  if (cPlayBtn && cPassageEl) {
+    cPlayBtn.addEventListener('click', function () {
+      cPlayBtn.setAttribute('aria-pressed', 'true');
+      if (reduceMotion) {
+        setEndState();
+        cPlayBtn.setAttribute('aria-pressed', 'false');
+        return;
+      }
+      wordSpans.forEach(function (span) {
+        span.classList.remove('filled-ink', 'filled-teal');
+        span.classList.add('anim');
+      });
+      wordSpans.forEach(function (span, i) {
+        if (i >= LEARNER_END) return;
+        setTimeout(function () {
+          span.classList.add(i < TUTOR_END ? 'filled-ink' : 'filled-teal');
+        }, i * 60);
+      });
+      setTimeout(function () { cPlayBtn.setAttribute('aria-pressed', 'false'); }, LEARNER_END * 60 + 100);
+    });
+  }
+
+  /* ---------- Reply builder ---------- */
+  var STORAGE_KEY = 'sotto-directions-reply-builder';
+
+  var bandActions = { A: 'skip', B: 'deeper', C: 'skip' };
+  var baseDirection = 'B';
+
+  var stealPhrase = {
+    A: "take A's cutout shadow on covers",
+    B: "take B's highlighter sweep on saved words",
+    C: "take C's speech fill on narration"
+  };
+  var bandName = { A: 'A', B: 'B', C: 'C' };
+
+  function loadState() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      var saved = JSON.parse(raw);
+      if (saved && saved.bandActions) bandActions = saved.bandActions;
+      if (saved && saved.baseDirection) baseDirection = saved.baseDirection;
+    } catch (e) { /* localStorage unavailable, use defaults */ }
+  }
+
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ bandActions: bandActions, baseDirection: baseDirection }));
+    } catch (e) { /* ignore write failures */ }
+  }
+
+  function applyStateToUI() {
+    document.querySelectorAll('.rb-band-block').forEach(function (block) {
+      var band = block.getAttribute('data-band');
+      block.querySelectorAll('.rb-chip').forEach(function (chip) {
+        var isActive = chip.getAttribute('data-action') === bandActions[band];
+        chip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+    });
+    document.querySelectorAll('input[name="rbBase"]').forEach(function (radio) {
+      radio.checked = radio.value === baseDirection;
+    });
+  }
+
+  function composeInstruction() {
+    var order = ['A', 'B', 'C'];
+    var parts = [];
+    order.forEach(function (band) {
+      if (band === baseDirection) return;
+      var action = bandActions[band];
+      if (action === 'steal') parts.push(stealPhrase[band]);
+      else if (action === 'skip') parts.push('skip ' + bandName[band]);
+      /* 'deeper' on a non-base band has no sentence contribution */
+    });
+    var sentence = 'Build ' + baseDirection + (parts.length ? ', ' + parts.join(', ') : '') + '.';
+    if (bandActions[baseDirection] === 'deeper') {
+      sentence += ' Go deeper on ' + baseDirection + '.';
+    }
+    return sentence;
+  }
+
+  function refreshOutput() {
+    var textarea = document.getElementById('rbTextarea');
+    if (textarea) textarea.value = composeInstruction();
+  }
+
+  document.querySelectorAll('.rb-band-block').forEach(function (block) {
+    var band = block.getAttribute('data-band');
+    block.querySelectorAll('.rb-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        bandActions[band] = chip.getAttribute('data-action');
+        applyStateToUI();
+        refreshOutput();
+        saveState();
+      });
+    });
+  });
+
+  document.querySelectorAll('input[name="rbBase"]').forEach(function (radio) {
+    radio.addEventListener('change', function () {
+      if (radio.checked) {
+        baseDirection = radio.value;
+        refreshOutput();
+        saveState();
+      }
+    });
+  });
+
+  var rbCopyBtn = document.getElementById('rbCopyBtn');
+  if (rbCopyBtn) {
+    rbCopyBtn.addEventListener('click', function () {
+      var textarea = document.getElementById('rbTextarea');
+      var text = textarea ? textarea.value : '';
+      var markCopied = function () {
+        rbCopyBtn.textContent = 'Copied';
+        rbCopyBtn.setAttribute('data-copied', 'true');
+        setTimeout(function () {
+          rbCopyBtn.textContent = 'Copy';
+          rbCopyBtn.removeAttribute('data-copied');
+        }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(markCopied, function () {
+          fallbackCopy(textarea, markCopied);
+        });
+      } else {
+        fallbackCopy(textarea, markCopied);
+      }
+    });
+  }
+
+  function fallbackCopy(textarea, done) {
+    if (!textarea) return;
+    try {
+      textarea.removeAttribute('readonly');
+      textarea.select();
+      document.execCommand('copy');
+      textarea.setAttribute('readonly', 'true');
+      done();
+    } catch (e) { /* copy unsupported, leave text selected for manual copy */ }
+  }
+
+  loadState();
+  applyStateToUI();
+  refreshOutput();
+})();
+</script>
+
+</body>
+</html>

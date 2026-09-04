@@ -1,0 +1,1938 @@
+{
+ "schemaVersion": 1,
+ "bookId": "en-aesop-fables",
+ "contentLocale": "en-US",
+ "title": "Four Fables of Aesop",
+ "author": "Aesop",
+ "sourceEdition": "Aesop's Fables, public-domain English editions on Project Gutenberg's Children's Literature bookshelf",
+ "sourceUrl": "https://www.gutenberg.org/ebooks/bookshelf/20",
+ "sourceJurisdiction": "Public domain worldwide (ancient text; write your own modern adaptation)",
+ "adaptationEditor": "Sotto contributors (AI first draft, unreviewed)",
+ "reviewStatus": "draft",
+ "level": "A0",
+ "categories": [
+  "fables"
+ ],
+ "estimatedMinutes": 4,
+ "localizedTitles": {
+  "en": "Four Fables of Aesop",
+  "fr": "Quatre fables d'Ésope",
+  "es": "Cuatro fábulas de Esopo"
+ },
+ "premise": {
+  "en": "Four classic short tales with simple animal characters and timeless lessons.",
+  "fr": "Quatre contes courts classiques avec des animaux simples et des leçons intemporelles.",
+  "es": "Cuatro cuentos cortos clásicos con animales sencillos y lecciones eternas."
+ },
+ "summary": {
+  "en": "Enjoy four famous fables about animals and a mischievous shepherd. Learn why slow and steady can win, how small friends can help, why bitter excuses fool no one, and why truth matters.",
+  "fr": "Découvrez quatre fables célèbres sur des animaux et un berger espiègle. Apprenez pourquoi la persévérance gagne, comment les petits amis aident et pourquoi la vérité compte.",
+  "es": "Disfruta de cuatro fábulas famosas sobre animales y un pastor travieso. Aprende por qué la constancia gana, cómo los amigos pequeños ayudan y por qué la verdad importa."
+ },
+ "contentWarning": null,
+ "tutorNotes": {
+  "pronunciation": "Learners often struggle with English vowel digraphs such as 'ea' in 'reaches' (/iː/) versus 'heavy' (/ɛ/). Pay attention to the voiced dental fricative /ð/ in 'the', 'they', and 'their'. Final consonant clusters in words like 'laughs' (/fs/), 'bites' (/ts/), and 'asks' (/sks/) require clear articulation without inserting extra vowel sounds.",
+  "grammar": "This text highlights the third-person singular present simple inflection '-s' and '-es' (for example: 'runs', 'catches', 'watches', and 'goes'). Notice that base verbs ending in sibilants take '-es' and add a syllable (/ɪz/). Notice also standard present negation using 'does not' plus the bare infinitive verb.",
+  "culture": "Aesop's fables are foundational allegories in Western storytelling and everyday moral idioms. Expressions such as 'sour grapes' or 'crying wolf' originate directly from these ancient Greek fables. They provide shared cultural touchstones across literature, journalism, and daily speech.",
+  "commonErrors": "Beginners frequently forget to add the '-s' inflection for third-person singular subjects (saying 'he run' instead of 'he runs'). Another common mistake is retaining '-s' on the main verb after 'does not' (saying 'does not stops' instead of 'does not stop'). Watch out for confusing the adjective 'slow' with the adverb 'slowly'."
+ },
+ "vocabulary": [
+  {
+   "word": "tortoise",
+   "gloss": {
+    "en": "tortoise",
+    "fr": "tortue",
+    "es": "tortuga"
+   }
+  },
+  {
+   "word": "hare",
+   "gloss": {
+    "en": "hare",
+    "fr": "lièvre",
+    "es": "liebre"
+   }
+  },
+  {
+   "word": "steady",
+   "gloss": {
+    "en": "steady",
+    "fr": "régulier",
+    "es": "constante"
+   }
+  },
+  {
+   "word": "shepherd",
+   "gloss": {
+    "en": "shepherd",
+    "fr": "berger",
+    "es": "pastor"
+   }
+  },
+  {
+   "word": "fierce",
+   "gloss": {
+    "en": "fierce",
+    "fr": "féroce",
+    "es": "feroz"
+   }
+  },
+  {
+   "word": "vine",
+   "gloss": {
+    "en": "vine",
+    "fr": "vigne",
+    "es": "parra"
+   }
+  },
+  {
+   "word": "ripe",
+   "gloss": {
+    "en": "ripe",
+    "fr": "mûr",
+    "es": "maduro"
+   }
+  },
+  {
+   "word": "roar",
+   "gloss": {
+    "en": "roar",
+    "fr": "rugissement",
+    "es": "rugido"
+   }
+  },
+  {
+   "word": "hunters",
+   "gloss": {
+    "en": "hunters",
+    "fr": "chasseurs",
+    "es": "cazadores"
+   }
+  },
+  {
+   "word": "ropes",
+   "gloss": {
+    "en": "ropes",
+    "fr": "cordes",
+    "es": "cuerdas"
+   }
+  },
+  {
+   "word": "trick",
+   "gloss": {
+    "en": "trick",
+    "fr": "tour",
+    "es": "broma"
+   }
+  },
+  {
+   "word": "sour",
+   "gloss": {
+    "en": "sour",
+    "fr": "acide",
+    "es": "agrio"
+   }
+  },
+  {
+   "word": "liar",
+   "gloss": {
+    "en": "liar",
+    "fr": "menteur",
+    "es": "mentiroso"
+   }
+  },
+  {
+   "word": "helpless",
+   "gloss": {
+    "en": "helpless",
+    "fr": "sans défense",
+    "es": "indefenso"
+   }
+  },
+  {
+   "word": "kindness",
+   "gloss": {
+    "en": "kindness",
+    "fr": "bonté",
+    "es": "bondad"
+   }
+  }
+ ],
+ "comprehension": [
+  {
+   "question": {
+    "en": "Why does the tortoise win the race against the hare?",
+    "fr": "Pourquoi la tortue gagne-t-elle la course contre le lièvre ?",
+    "es": "¿Por qué gana la tortuga la carrera contra la liebre?"
+   }
+  },
+  {
+   "question": {
+    "en": "How does the little mouse help the big lion?",
+    "fr": "Comment la petite souris aide-t-elle le grand lion ?",
+    "es": "¿Cómo ayuda el pequeño ratón al gran león?"
+   }
+  },
+  {
+   "question": {
+    "en": "Why does the fox say that the grapes are sour?",
+    "fr": "Pourquoi le renard dit-il que les raisins sont verts ?",
+    "es": "¿Por qué dice el zorro que las uvas están agrias?"
+   }
+  },
+  {
+   "question": {
+    "en": "Why does nobody help the shepherd boy when the real wolf comes?",
+    "fr": "Pourquoi personne n'aide-t-il le jeune berger quand le vrai loup arrive ?",
+    "es": "¿Por qué nadie ayuda al joven pastor cuando llega el lobo real?"
+   }
+  }
+ ],
+ "license": {
+  "spdx": "CC-BY-SA-4.0",
+  "attribution": "Sotto contributors; based on the public-domain original by Aesop"
+ },
+ "chapters": [
+  {
+   "title": "The Tortoise and the Hare",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "A hare meets a tortoise on a sunny road.",
+       "translation": {
+        "en": "A hare meets a tortoise on a sunny road.",
+        "fr": "Un lièvre rencontre une tortue sur une route ensoleillée.",
+        "es": "Una liebre se encuentra con una tortuga en un camino soleado."
+       }
+      },
+      {
+       "text": "The hare is very proud of his speed.",
+       "translation": {
+        "en": "The hare is very proud of his speed.",
+        "fr": "Le lièvre est très fier de sa vitesse.",
+        "es": "La liebre está muy orgullosa de su velocidad."
+       }
+      },
+      {
+       "text": "He laughs at the slow tortoise.",
+       "translation": {
+        "en": "He laughs at the slow tortoise.",
+        "fr": "Il se moque de la lente tortue.",
+        "es": "Él se ríe de la tortuga lenta."
+       }
+      },
+      {
+       "text": "The tortoise smiles and asks for a race.",
+       "translation": {
+        "en": "The tortoise smiles and asks for a race.",
+        "fr": "La tortue sourit et demande une course.",
+        "es": "La tortuga sonríe y pide una carrera."
+       }
+      },
+      {
+       "text": "The hare agrees and laughs again.",
+       "translation": {
+        "en": "The hare agrees and laughs again.",
+        "fr": "Le lièvre accepte et rit encore.",
+        "es": "La liebre acepta y vuelve a reír."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "The race begins in the green forest.",
+       "translation": {
+        "en": "The race begins in the green forest.",
+        "fr": "La course commence dans la forêt verte.",
+        "es": "La carrera empieza en el bosque verde."
+       }
+      },
+      {
+       "text": "The hare runs ahead very fast.",
+       "translation": {
+        "en": "The hare runs ahead very fast.",
+        "fr": "Le lièvre court devant très vite.",
+        "es": "La liebre corre adelante muy rápido."
+       }
+      },
+      {
+       "text": "He sees that the tortoise is far behind.",
+       "translation": {
+        "en": "He sees that the tortoise is far behind.",
+        "fr": "Il voit que la tortue est loin derrière.",
+        "es": "Él ve que la tortuga está muy atrás."
+       }
+      },
+      {
+       "text": "The hare sits under a big tree.",
+       "translation": {
+        "en": "The hare sits under a big tree.",
+        "fr": "Le lièvre s'assoit sous un grand arbre.",
+        "es": "La liebre se sienta debajo de un gran árbol."
+       }
+      },
+      {
+       "text": "Soon he falls fast asleep.",
+       "translation": {
+        "en": "Soon he falls fast asleep.",
+        "fr": "Bientôt, il s'endort profondément.",
+        "es": "Pronto se queda profundamente dormido."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "The slow tortoise walks and walks.",
+       "translation": {
+        "en": "The slow tortoise walks and walks.",
+        "fr": "La lente tortue marche et marche.",
+        "es": "La tortuga lenta camina y camina."
+       }
+      },
+      {
+       "text": "He does not stop to rest.",
+       "translation": {
+        "en": "He does not stop to rest.",
+        "fr": "Elle ne s'arrête pas pour se reposer.",
+        "es": "No se detiene a descansar."
+       }
+      },
+      {
+       "text": "He passes the sleeping hare on the path.",
+       "translation": {
+        "en": "He passes the sleeping hare on the path.",
+        "fr": "Elle dépasse le lièvre endormi sur le chemin.",
+        "es": "Pasa a la liebre dormida en el camino."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "The tortoise reaches the finish line first.",
+       "translation": {
+        "en": "The tortoise reaches the finish line first.",
+        "fr": "La tortue franchit la ligne d'arrivée en premier.",
+        "es": "La tortuga llega a la meta en primer lugar."
+       }
+      },
+      {
+       "text": "The hare wakes up and cries.",
+       "translation": {
+        "en": "The hare wakes up and cries.",
+        "fr": "Le lièvre se réveille et pleure.",
+        "es": "La liebre se despierta y llora."
+       }
+      },
+      {
+       "text": "Slow and steady wins the race.",
+       "translation": {
+        "en": "Slow and steady wins the race.",
+        "fr": "Rien ne sert de courir, il faut partir à point.",
+        "es": "Lento pero seguro se gana la carrera."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "The Lion and the Mouse",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "A big lion sleeps in the warm sun.",
+       "translation": {
+        "en": "A big lion sleeps in the warm sun.",
+        "fr": "Un grand lion dort sous le chaud soleil.",
+        "es": "Un gran león duerme bajo el cálido sol."
+       }
+      },
+      {
+       "text": "A little mouse runs across his nose.",
+       "translation": {
+        "en": "A little mouse runs across his nose.",
+        "fr": "Une petite souris court sur son nez.",
+        "es": "Un pequeño ratón corre sobre su nariz."
+       }
+      },
+      {
+       "text": "The lion wakes up and catches the mouse.",
+       "translation": {
+        "en": "The lion wakes up and catches the mouse.",
+        "fr": "Le lion se réveille et attrape la souris.",
+        "es": "El león se despierta y atrapa al ratón."
+       }
+      },
+      {
+       "text": "He opens his mouth to eat her.",
+       "translation": {
+        "en": "He opens his mouth to eat her.",
+        "fr": "Il ouvre la gueule pour la manger.",
+        "es": "Abre la boca para comérselo."
+       }
+      },
+      {
+       "text": "The little mouse begs for her life.",
+       "translation": {
+        "en": "The little mouse begs for her life.",
+        "fr": "La petite souris supplie pour sa vie.",
+        "es": "El pequeño ratón suplica por su vida."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "She says that she can help him one day.",
+       "translation": {
+        "en": "She says that she can help him one day.",
+        "fr": "Elle dit qu'elle peut l'aider un jour.",
+        "es": "Dice que puede ayudarlo algún día."
+       }
+      },
+      {
+       "text": "The lion laughs at her funny words.",
+       "translation": {
+        "en": "The lion laughs at her funny words.",
+        "fr": "Le lion rit de ses paroles amusantes.",
+        "es": "El león se ríe de sus divertidas palabras."
+       }
+      },
+      {
+       "text": "But the kind lion lets her go free.",
+       "translation": {
+        "en": "But the kind lion lets her go free.",
+        "fr": "Mais le gentil lion la laisse partir libre.",
+        "es": "Pero el amable león lo deja ir libre."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "One week later, hunters catch the big lion.",
+       "translation": {
+        "en": "One week later, hunters catch the big lion.",
+        "fr": "Une semaine plus tard, des chasseurs attrapent le grand lion.",
+        "es": "Una semana después, unos cazadores atrapan al gran león."
+       }
+      },
+      {
+       "text": "They tie him to a tree with heavy ropes.",
+       "translation": {
+        "en": "They tie him to a tree with heavy ropes.",
+        "fr": "Ils l'attachent à un arbre avec de lourdes cordes.",
+        "es": "Lo atan a un árbol con cuerdas pesadas."
+       }
+      },
+      {
+       "text": "The lion roars loudly in pain.",
+       "translation": {
+        "en": "The lion roars loudly in pain.",
+        "fr": "Le lion rugit fort de douleur.",
+        "es": "El león ruge fuertemente de dolor."
+       }
+      },
+      {
+       "text": "The little mouse hears his loud roar.",
+       "translation": {
+        "en": "The little mouse hears his loud roar.",
+        "fr": "La petite souris entend son fort rugissement.",
+        "es": "El pequeño ratón escucha su fuerte rugido."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "She runs to the lion and bites the ropes.",
+       "translation": {
+        "en": "She runs to the lion and bites the ropes.",
+        "fr": "Elle court vers le lion et mord les cordes.",
+        "es": "Corre hacia el león y muerde las cuerdas."
+       }
+      },
+      {
+       "text": "Her sharp teeth cut through the net.",
+       "translation": {
+        "en": "Her sharp teeth cut through the net.",
+        "fr": "Ses dents pointues coupent le filet.",
+        "es": "Sus dientes afilados cortan la red."
+       }
+      },
+      {
+       "text": "The lion is free once more.",
+       "translation": {
+        "en": "The lion is free once more.",
+        "fr": "Le lion est de nouveau libre.",
+        "es": "El león está libre otra vez."
+       }
+      },
+      {
+       "text": "Little friends can show great kindness.",
+       "translation": {
+        "en": "Little friends can show great kindness.",
+        "fr": "Les petits amis peuvent faire preuve d'une grande bonté.",
+        "es": "Los pequeños amigos pueden mostrar una gran bondad."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "The Fox and the Grapes",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "A hungry fox walks through a sunny garden.",
+       "translation": {
+        "en": "A hungry fox walks through a sunny garden.",
+        "fr": "Un renard affamé marche dans un jardin ensoleillé.",
+        "es": "Un zorro hambriento camina por un jardín soleado."
+       }
+      },
+      {
+       "text": "His stomach is completely empty.",
+       "translation": {
+        "en": "His stomach is completely empty.",
+        "fr": "Son estomac est complètement vide.",
+        "es": "Su estómago está completamente vacío."
+       }
+      },
+      {
+       "text": "He looks everywhere for food to eat.",
+       "translation": {
+        "en": "He looks everywhere for food to eat.",
+        "fr": "Il cherche partout de la nourriture à manger.",
+        "es": "Busca comida por todas partes para comer."
+       }
+      },
+      {
+       "text": "Then he looks up at a tall wooden vine.",
+       "translation": {
+        "en": "Then he looks up at a tall wooden vine.",
+        "fr": "Puis il lève les yeux vers une haute vigne en bois.",
+        "es": "Luego mira hacia arriba a una alta parra de madera."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "He sees many sweet purple grapes hanging high.",
+       "translation": {
+        "en": "He sees many sweet purple grapes hanging high.",
+        "fr": "Il voit beaucoup de raisins violets sucrés suspendus haut.",
+        "es": "Ve muchas uvas moradas dulces colgando en lo alto."
+       }
+      },
+      {
+       "text": "The ripe grapes look very juicy and fresh.",
+       "translation": {
+        "en": "The ripe grapes look very juicy and fresh.",
+        "fr": "Les raisins mûrs ont l'air très juteux et frais.",
+        "es": "Las uvas maduras se ven muy jugosas y frescas."
+       }
+      },
+      {
+       "text": "The fox wants the grapes very much.",
+       "translation": {
+        "en": "The fox wants the grapes very much.",
+        "fr": "Le renard veut beaucoup les raisins.",
+        "es": "El zorro desea mucho las uvas."
+       }
+      },
+      {
+       "text": "His mouth waters with desire.",
+       "translation": {
+        "en": "His mouth waters with desire.",
+        "fr": "L'eau lui vient à la bouche avec envie.",
+        "es": "Se le hace la boca agua de deseo."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "The fox takes a step back.",
+       "translation": {
+        "en": "The fox takes a step back.",
+        "fr": "Le renard fait un pas en arrière.",
+        "es": "El zorro da un paso atrás."
+       }
+      },
+      {
+       "text": "He jumps high into the air.",
+       "translation": {
+        "en": "He jumps high into the air.",
+        "fr": "Il saute haut dans les airs.",
+        "es": "Salta alto en el aire."
+       }
+      },
+      {
+       "text": "But he misses the sweet purple fruit.",
+       "translation": {
+        "en": "But he misses the sweet purple fruit.",
+        "fr": "Mais il manque le fruit doux et violet.",
+        "es": "Pero falla el dulce fruto morado."
+       }
+      },
+      {
+       "text": "He tries again and jumps higher.",
+       "translation": {
+        "en": "He tries again and jumps higher.",
+        "fr": "Il réessaie et saute plus haut.",
+        "es": "Intenta de nuevo y salta más alto."
+       }
+      },
+      {
+       "text": "Still he cannot touch the grapes.",
+       "translation": {
+        "en": "Still he cannot touch the grapes.",
+        "fr": "Pourtant, il ne peut toujours pas toucher les raisins.",
+        "es": "Aún no puede tocar las uvas."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "The tired fox gives up at last.",
+       "translation": {
+        "en": "The tired fox gives up at last.",
+        "fr": "Le renard fatigué abandonne enfin.",
+        "es": "El zorro cansado se rinde por fin."
+       }
+      },
+      {
+       "text": "He turns his head and walks away.",
+       "translation": {
+        "en": "He turns his head and walks away.",
+        "fr": "Il tourne la tête et s'en va.",
+        "es": "Gira la cabeza y se aleja caminando."
+       }
+      },
+      {
+       "text": "He says that the grapes are sour anyway.",
+       "translation": {
+        "en": "He says that the grapes are sour anyway.",
+        "fr": "Il dit que les raisins sont verts de toute façon.",
+        "es": "Dice que las uvas están agrias de todos modos."
+       }
+      },
+      {
+       "text": "It is easy to dislike what you cannot have.",
+       "translation": {
+        "en": "It is easy to dislike what you cannot have.",
+        "fr": "Il est facile de mépriser ce que l'on ne peut pas avoir.",
+        "es": "Es fácil despreciar lo que no se puede tener."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "The Boy Who Cried Wolf",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "A young shepherd boy watches sheep near a dark forest.",
+       "translation": {
+        "en": "A young shepherd boy watches sheep near a dark forest.",
+        "fr": "Un jeune berger surveille des moutons près d'une forêt sombre.",
+        "es": "Un joven pastor cuida ovejas cerca de un bosque oscuro."
+       }
+      },
+      {
+       "text": "He feels very lonely and bored on the hill.",
+       "translation": {
+        "en": "He feels very lonely and bored on the hill.",
+        "fr": "Il se sent très seul et s'ennuie sur la colline.",
+        "es": "Se siente muy solo y aburrido en la colina."
+       }
+      },
+      {
+       "text": "He decides to play a bad trick on the village.",
+       "translation": {
+        "en": "He decides to play a bad trick on the village.",
+        "fr": "Il décide de jouer un mauvais tour au village.",
+        "es": "Decide gastarle una mala broma al pueblo."
+       }
+      },
+      {
+       "text": "He runs to the edge and shouts loudly.",
+       "translation": {
+        "en": "He runs to the edge and shouts loudly.",
+        "fr": "Il court vers le bord et crie fort.",
+        "es": "Corre hasta el borde y grita fuerte."
+       }
+      },
+      {
+       "text": "He shouts that a wolf is attacking the sheep.",
+       "translation": {
+        "en": "He shouts that a wolf is attacking the sheep.",
+        "fr": "Il crie qu'un loup attaque les moutons.",
+        "es": "Grita que un lobo está atacando a las ovejas."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "The kind villagers run up the hill to help.",
+       "translation": {
+        "en": "The kind villagers run up the hill to help.",
+        "fr": "Les gentils villageois montent la colline en courant pour aider.",
+        "es": "Los amables aldeanos suben la colina corriendo para ayudar."
+       }
+      },
+      {
+       "text": "But they find no wolf in the grass.",
+       "translation": {
+        "en": "But they find no wolf in the grass.",
+        "fr": "Mais ils ne trouvent aucun loup dans l'herbe.",
+        "es": "Pero no encuentran ningún lobo en la hierba."
+       }
+      },
+      {
+       "text": "The boy laughs at their red faces.",
+       "translation": {
+        "en": "The boy laughs at their red faces.",
+        "fr": "Le garçon rit de leurs visages rouges.",
+        "es": "El niño se ríe de sus caras rojas."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "The next day, the boy plays the trick again.",
+       "translation": {
+        "en": "The next day, the boy plays the trick again.",
+        "fr": "Le lendemain, le garçon recommence son tour.",
+        "es": "Al día siguiente, el niño repite la broma."
+       }
+      },
+      {
+       "text": "The villagers run up the hill once more.",
+       "translation": {
+        "en": "The villagers run up the hill once more.",
+        "fr": "Les villageois montent la colline en courant une fois de plus.",
+        "es": "Los aldeanos suben la colina corriendo una vez más."
+       }
+      },
+      {
+       "text": "Again they find only the laughing boy.",
+       "translation": {
+        "en": "Again they find only the laughing boy.",
+        "fr": "De nouveau, ils ne trouvent que le garçon qui rit.",
+        "es": "Otra vez encuentran solamente al niño risueño."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "In the evening, a real wolf comes from the trees.",
+       "translation": {
+        "en": "In the evening, a real wolf comes from the trees.",
+        "fr": "Le soir, un vrai loup sort des arbres.",
+        "es": "Por la tarde, un lobo real sale de entre los árboles."
+       }
+      },
+      {
+       "text": "The fierce wolf attacks the helpless sheep.",
+       "translation": {
+        "en": "The fierce wolf attacks the helpless sheep.",
+        "fr": "Le loup féroce attaque les moutons sans défense.",
+        "es": "El lobo feroz ataca a las indefensas ovejas."
+       }
+      },
+      {
+       "text": "The terrified boy shouts for help in panic.",
+       "translation": {
+        "en": "The terrified boy shouts for help in panic.",
+        "fr": "Le garçon terrifié appelle à l'aide en panique.",
+        "es": "El niño aterrorizado pide ayuda con pánico."
+       }
+      },
+      {
+       "text": "But nobody comes to help the lying boy.",
+       "translation": {
+        "en": "But nobody comes to help the lying boy.",
+        "fr": "Mais personne ne vient aider le garçon menteur.",
+        "es": "Pero nadie viene a ayudar al niño mentiroso."
+       }
+      },
+      {
+       "text": "Nobody believes a liar, even when he tells the truth.",
+       "translation": {
+        "en": "Nobody believes a liar, even when he tells the truth.",
+        "fr": "Personne ne croit un menteur, même lorsqu'il dit la vérité.",
+        "es": "Nadie le cree a un mentiroso, ni siquiera cuando dice la verdad."
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "glossary": {
+  "a": {
+   "en": "a",
+   "fr": "un",
+   "es": "un"
+  },
+  "across": {
+   "en": "across",
+   "fr": "à travers",
+   "es": "a través de"
+  },
+  "aesop": {
+   "en": "Aesop",
+   "fr": "Ésope",
+   "es": "Esopo"
+  },
+  "again": {
+   "en": "again",
+   "fr": "encore",
+   "es": "otra vez"
+  },
+  "agrees": {
+   "en": "agrees",
+   "fr": "accepte",
+   "es": "acepta"
+  },
+  "ahead": {
+   "en": "ahead",
+   "fr": "devant",
+   "es": "adelante"
+  },
+  "air": {
+   "en": "air",
+   "fr": "air",
+   "es": "aire"
+  },
+  "and": {
+   "en": "and",
+   "fr": "et",
+   "es": "y"
+  },
+  "anyway": {
+   "en": "anyway",
+   "fr": "de toute façon",
+   "es": "de todos modos"
+  },
+  "are": {
+   "en": "are",
+   "fr": "sont",
+   "es": "son"
+  },
+  "asks": {
+   "en": "asks",
+   "fr": "demande",
+   "es": "pide"
+  },
+  "asleep": {
+   "en": "asleep",
+   "fr": "endormi",
+   "es": "dormido"
+  },
+  "at": {
+   "en": "at",
+   "fr": "à",
+   "es": "a"
+  },
+  "attacks": {
+   "en": "attacks",
+   "fr": "attaque",
+   "es": "ataca"
+  },
+  "attacking": {
+   "en": "attacking",
+   "fr": "attaquant",
+   "es": "atacando"
+  },
+  "away": {
+   "en": "away",
+   "fr": "au loin",
+   "es": "lejos"
+  },
+  "back": {
+   "en": "back",
+   "fr": "en arrière",
+   "es": "atrás"
+  },
+  "bad": {
+   "en": "bad",
+   "fr": "mauvais",
+   "es": "malo"
+  },
+  "begins": {
+   "en": "begins",
+   "fr": "commence",
+   "es": "empieza"
+  },
+  "begs": {
+   "en": "begs",
+   "fr": "supplie",
+   "es": "suplica"
+  },
+  "behind": {
+   "en": "behind",
+   "fr": "derrière",
+   "es": "detrás"
+  },
+  "believes": {
+   "en": "believes",
+   "fr": "croit",
+   "es": "cree"
+  },
+  "big": {
+   "en": "big",
+   "fr": "grand",
+   "es": "grande"
+  },
+  "bites": {
+   "en": "bites",
+   "fr": "mord",
+   "es": "muerde"
+  },
+  "bored": {
+   "en": "bored",
+   "fr": "ennuyé",
+   "es": "aburrido"
+  },
+  "boy": {
+   "en": "boy",
+   "fr": "garçon",
+   "es": "niño"
+  },
+  "but": {
+   "en": "but",
+   "fr": "mais",
+   "es": "pero"
+  },
+  "can": {
+   "en": "can",
+   "fr": "peut",
+   "es": "puede"
+  },
+  "cannot": {
+   "en": "cannot",
+   "fr": "ne peut pas",
+   "es": "no puede"
+  },
+  "catches": {
+   "en": "catches",
+   "fr": "attrape",
+   "es": "atrapa"
+  },
+  "catch": {
+   "en": "catch",
+   "fr": "attrapent",
+   "es": "atrapan"
+  },
+  "comes": {
+   "en": "comes",
+   "fr": "vient",
+   "es": "viene"
+  },
+  "completely": {
+   "en": "completely",
+   "fr": "complètement",
+   "es": "completamente"
+  },
+  "cried": {
+   "en": "cried",
+   "fr": "criait",
+   "es": "gritaba"
+  },
+  "cries": {
+   "en": "cries",
+   "fr": "pleure",
+   "es": "llora"
+  },
+  "cut": {
+   "en": "cut",
+   "fr": "coupent",
+   "es": "cortan"
+  },
+  "dark": {
+   "en": "dark",
+   "fr": "sombre",
+   "es": "oscuro"
+  },
+  "day": {
+   "en": "day",
+   "fr": "jour",
+   "es": "día"
+  },
+  "decides": {
+   "en": "decides",
+   "fr": "décide",
+   "es": "decide"
+  },
+  "desire": {
+   "en": "desire",
+   "fr": "envie",
+   "es": "deseo"
+  },
+  "dislike": {
+   "en": "dislike",
+   "fr": "détester",
+   "es": "disgustar"
+  },
+  "does": {
+   "en": "does",
+   "fr": "fait",
+   "es": "hace"
+  },
+  "easy": {
+   "en": "easy",
+   "fr": "facile",
+   "es": "fácil"
+  },
+  "eat": {
+   "en": "eat",
+   "fr": "manger",
+   "es": "comer"
+  },
+  "edge": {
+   "en": "edge",
+   "fr": "bord",
+   "es": "borde"
+  },
+  "empty": {
+   "en": "empty",
+   "fr": "vide",
+   "es": "vacío"
+  },
+  "evening": {
+   "en": "evening",
+   "fr": "soir",
+   "es": "tarde"
+  },
+  "even": {
+   "en": "even",
+   "fr": "même",
+   "es": "incluso"
+  },
+  "everywhere": {
+   "en": "everywhere",
+   "fr": "partout",
+   "es": "por todas partes"
+  },
+  "fables": {
+   "en": "fables",
+   "fr": "fables",
+   "es": "fábulas"
+  },
+  "faces": {
+   "en": "faces",
+   "fr": "visages",
+   "es": "caras"
+  },
+  "falls": {
+   "en": "falls",
+   "fr": "tombe",
+   "es": "cae"
+  },
+  "far": {
+   "en": "far",
+   "fr": "loin",
+   "es": "lejos"
+  },
+  "fast": {
+   "en": "fast",
+   "fr": "vite",
+   "es": "rápido"
+  },
+  "feels": {
+   "en": "feels",
+   "fr": "se sent",
+   "es": "se siente"
+  },
+  "fierce": {
+   "en": "fierce",
+   "fr": "féroce",
+   "es": "feroz"
+  },
+  "find": {
+   "en": "find",
+   "fr": "trouvent",
+   "es": "encuentran"
+  },
+  "finish": {
+   "en": "finish",
+   "fr": "arrivée",
+   "es": "meta"
+  },
+  "first": {
+   "en": "first",
+   "fr": "premier",
+   "es": "primero"
+  },
+  "food": {
+   "en": "food",
+   "fr": "nourriture",
+   "es": "comida"
+  },
+  "for": {
+   "en": "for",
+   "fr": "pour",
+   "es": "para"
+  },
+  "forest": {
+   "en": "forest",
+   "fr": "forêt",
+   "es": "bosque"
+  },
+  "four": {
+   "en": "four",
+   "fr": "quatre",
+   "es": "cuatro"
+  },
+  "fox": {
+   "en": "fox",
+   "fr": "renard",
+   "es": "zorro"
+  },
+  "free": {
+   "en": "free",
+   "fr": "libre",
+   "es": "libre"
+  },
+  "fresh": {
+   "en": "fresh",
+   "fr": "frais",
+   "es": "fresco"
+  },
+  "friends": {
+   "en": "friends",
+   "fr": "amis",
+   "es": "amigos"
+  },
+  "from": {
+   "en": "from",
+   "fr": "de",
+   "es": "de"
+  },
+  "fruit": {
+   "en": "fruit",
+   "fr": "fruit",
+   "es": "fruta"
+  },
+  "funny": {
+   "en": "funny",
+   "fr": "drôle",
+   "es": "divertido"
+  },
+  "garden": {
+   "en": "garden",
+   "fr": "jardin",
+   "es": "jardín"
+  },
+  "gives": {
+   "en": "gives",
+   "fr": "donne",
+   "es": "da"
+  },
+  "go": {
+   "en": "go",
+   "fr": "aller",
+   "es": "ir"
+  },
+  "grapes": {
+   "en": "grapes",
+   "fr": "raisins",
+   "es": "uvas"
+  },
+  "grass": {
+   "en": "grass",
+   "fr": "herbe",
+   "es": "hierba"
+  },
+  "great": {
+   "en": "great",
+   "fr": "grand",
+   "es": "gran"
+  },
+  "green": {
+   "en": "green",
+   "fr": "vert",
+   "es": "verde"
+  },
+  "hanging": {
+   "en": "hanging",
+   "fr": "suspendu",
+   "es": "colgando"
+  },
+  "hare": {
+   "en": "hare",
+   "fr": "lièvre",
+   "es": "liebre"
+  },
+  "have": {
+   "en": "have",
+   "fr": "avoir",
+   "es": "tener"
+  },
+  "he": {
+   "en": "he",
+   "fr": "il",
+   "es": "él"
+  },
+  "head": {
+   "en": "head",
+   "fr": "tête",
+   "es": "cabeza"
+  },
+  "hears": {
+   "en": "hears",
+   "fr": "entend",
+   "es": "escucha"
+  },
+  "heavy": {
+   "en": "heavy",
+   "fr": "lourd",
+   "es": "pesado"
+  },
+  "helpless": {
+   "en": "helpless",
+   "fr": "sans défense",
+   "es": "indefenso"
+  },
+  "help": {
+   "en": "help",
+   "fr": "aider",
+   "es": "ayudar"
+  },
+  "her": {
+   "en": "her",
+   "fr": "sa",
+   "es": "su"
+  },
+  "high": {
+   "en": "high",
+   "fr": "haut",
+   "es": "alto"
+  },
+  "higher": {
+   "en": "higher",
+   "fr": "plus haut",
+   "es": "más alto"
+  },
+  "hill": {
+   "en": "hill",
+   "fr": "colline",
+   "es": "colina"
+  },
+  "him": {
+   "en": "him",
+   "fr": "lui",
+   "es": "él"
+  },
+  "his": {
+   "en": "his",
+   "fr": "son",
+   "es": "su"
+  },
+  "hungry": {
+   "en": "hungry",
+   "fr": "affamé",
+   "es": "hambriento"
+  },
+  "hunters": {
+   "en": "hunters",
+   "fr": "chasseurs",
+   "es": "cazadores"
+  },
+  "in": {
+   "en": "in",
+   "fr": "dans",
+   "es": "en"
+  },
+  "into": {
+   "en": "into",
+   "fr": "dans",
+   "es": "en"
+  },
+  "is": {
+   "en": "is",
+   "fr": "est",
+   "es": "es"
+  },
+  "it": {
+   "en": "it",
+   "fr": "il",
+   "es": "ello"
+  },
+  "juicy": {
+   "en": "juicy",
+   "fr": "juteux",
+   "es": "jugoso"
+  },
+  "jumps": {
+   "en": "jumps",
+   "fr": "saute",
+   "es": "salta"
+  },
+  "kindness": {
+   "en": "kindness",
+   "fr": "bonté",
+   "es": "bondad"
+  },
+  "kind": {
+   "en": "kind",
+   "fr": "gentil",
+   "es": "amable"
+  },
+  "last": {
+   "en": "last",
+   "fr": "dernier",
+   "es": "último"
+  },
+  "later": {
+   "en": "later",
+   "fr": "plus tard",
+   "es": "más tarde"
+  },
+  "laughing": {
+   "en": "laughing",
+   "fr": "rieur",
+   "es": "risueño"
+  },
+  "laughs": {
+   "en": "laughs",
+   "fr": "rit",
+   "es": "se ríe"
+  },
+  "lets": {
+   "en": "lets",
+   "fr": "laisse",
+   "es": "deja"
+  },
+  "liar": {
+   "en": "liar",
+   "fr": "menteur",
+   "es": "mentiroso"
+  },
+  "life": {
+   "en": "life",
+   "fr": "vie",
+   "es": "vida"
+  },
+  "line": {
+   "en": "line",
+   "fr": "ligne",
+   "es": "línea"
+  },
+  "lion": {
+   "en": "lion",
+   "fr": "lion",
+   "es": "león"
+  },
+  "little": {
+   "en": "little",
+   "fr": "petit",
+   "es": "pequeño"
+  },
+  "lonely": {
+   "en": "lonely",
+   "fr": "seul",
+   "es": "solitario"
+  },
+  "looks": {
+   "en": "looks",
+   "fr": "regarde",
+   "es": "mira"
+  },
+  "look": {
+   "en": "look",
+   "fr": "ont l'air",
+   "es": "se ven"
+  },
+  "loud": {
+   "en": "loud",
+   "fr": "fort",
+   "es": "fuerte"
+  },
+  "loudly": {
+   "en": "loudly",
+   "fr": "bruyamment",
+   "es": "ruidosamente"
+  },
+  "lying": {
+   "en": "lying",
+   "fr": "menteur",
+   "es": "mentiroso"
+  },
+  "many": {
+   "en": "many",
+   "fr": "beaucoup",
+   "es": "muchos"
+  },
+  "meets": {
+   "en": "meets",
+   "fr": "rencontre",
+   "es": "encuentra"
+  },
+  "misses": {
+   "en": "misses",
+   "fr": "manque",
+   "es": "falla"
+  },
+  "more": {
+   "en": "more",
+   "fr": "plus",
+   "es": "más"
+  },
+  "mouse": {
+   "en": "mouse",
+   "fr": "souris",
+   "es": "ratón"
+  },
+  "mouth": {
+   "en": "mouth",
+   "fr": "bouche",
+   "es": "boca"
+  },
+  "much": {
+   "en": "much",
+   "fr": "beaucoup",
+   "es": "mucho"
+  },
+  "near": {
+   "en": "near",
+   "fr": "près de",
+   "es": "cerca de"
+  },
+  "net": {
+   "en": "net",
+   "fr": "filet",
+   "es": "red"
+  },
+  "next": {
+   "en": "next",
+   "fr": "prochain",
+   "es": "próximo"
+  },
+  "no": {
+   "en": "no",
+   "fr": "aucun",
+   "es": "ningún"
+  },
+  "nobody": {
+   "en": "nobody",
+   "fr": "personne",
+   "es": "nadie"
+  },
+  "nose": {
+   "en": "nose",
+   "fr": "nez",
+   "es": "nariz"
+  },
+  "not": {
+   "en": "not",
+   "fr": "pas",
+   "es": "no"
+  },
+  "of": {
+   "en": "of",
+   "fr": "de",
+   "es": "de"
+  },
+  "on": {
+   "en": "on",
+   "fr": "sur",
+   "es": "en"
+  },
+  "once": {
+   "en": "once",
+   "fr": "une fois",
+   "es": "una vez"
+  },
+  "one": {
+   "en": "one",
+   "fr": "un",
+   "es": "un"
+  },
+  "only": {
+   "en": "only",
+   "fr": "seulement",
+   "es": "solo"
+  },
+  "opens": {
+   "en": "opens",
+   "fr": "ouvre",
+   "es": "abre"
+  },
+  "pain": {
+   "en": "pain",
+   "fr": "douleur",
+   "es": "dolor"
+  },
+  "panic": {
+   "en": "panic",
+   "fr": "panique",
+   "es": "pánico"
+  },
+  "passes": {
+   "en": "passes",
+   "fr": "dépasse",
+   "es": "pasa"
+  },
+  "path": {
+   "en": "path",
+   "fr": "chemin",
+   "es": "camino"
+  },
+  "play": {
+   "en": "play",
+   "fr": "jouer",
+   "es": "jugar"
+  },
+  "plays": {
+   "en": "plays",
+   "fr": "joue",
+   "es": "juega"
+  },
+  "proud": {
+   "en": "proud",
+   "fr": "fier",
+   "es": "orgulloso"
+  },
+  "purple": {
+   "en": "purple",
+   "fr": "violet",
+   "es": "morado"
+  },
+  "race": {
+   "en": "race",
+   "fr": "course",
+   "es": "carrera"
+  },
+  "reaches": {
+   "en": "reaches",
+   "fr": "atteint",
+   "es": "alcanza"
+  },
+  "real": {
+   "en": "real",
+   "fr": "vrai",
+   "es": "real"
+  },
+  "red": {
+   "en": "red",
+   "fr": "rouge",
+   "es": "rojo"
+  },
+  "rest": {
+   "en": "rest",
+   "fr": "se reposer",
+   "es": "descansar"
+  },
+  "ripe": {
+   "en": "ripe",
+   "fr": "mûr",
+   "es": "maduro"
+  },
+  "road": {
+   "en": "road",
+   "fr": "route",
+   "es": "camino"
+  },
+  "roar": {
+   "en": "roar",
+   "fr": "rugissement",
+   "es": "rugido"
+  },
+  "roars": {
+   "en": "roars",
+   "fr": "rugit",
+   "es": "ruge"
+  },
+  "ropes": {
+   "en": "ropes",
+   "fr": "cordes",
+   "es": "cuerdas"
+  },
+  "run": {
+   "en": "run",
+   "fr": "courir",
+   "es": "correr"
+  },
+  "runs": {
+   "en": "runs",
+   "fr": "court",
+   "es": "corre"
+  },
+  "says": {
+   "en": "says",
+   "fr": "dit",
+   "es": "dice"
+  },
+  "sees": {
+   "en": "sees",
+   "fr": "voit",
+   "es": "ve"
+  },
+  "sharp": {
+   "en": "sharp",
+   "fr": "pointu",
+   "es": "afilado"
+  },
+  "sheep": {
+   "en": "sheep",
+   "fr": "moutons",
+   "es": "ovejas"
+  },
+  "shepherd": {
+   "en": "shepherd",
+   "fr": "berger",
+   "es": "pastor"
+  },
+  "she": {
+   "en": "she",
+   "fr": "elle",
+   "es": "ella"
+  },
+  "shouts": {
+   "en": "shouts",
+   "fr": "crie",
+   "es": "grita"
+  },
+  "show": {
+   "en": "show",
+   "fr": "montrer",
+   "es": "mostrar"
+  },
+  "sits": {
+   "en": "sits",
+   "fr": "s'assoit",
+   "es": "se sienta"
+  },
+  "sleeping": {
+   "en": "sleeping",
+   "fr": "endormi",
+   "es": "dormido"
+  },
+  "sleeps": {
+   "en": "sleeps",
+   "fr": "dort",
+   "es": "duerme"
+  },
+  "slow": {
+   "en": "slow",
+   "fr": "lent",
+   "es": "lento"
+  },
+  "smiles": {
+   "en": "smiles",
+   "fr": "sourit",
+   "es": "sonríe"
+  },
+  "soon": {
+   "en": "soon",
+   "fr": "bientôt",
+   "es": "pronto"
+  },
+  "sour": {
+   "en": "sour",
+   "fr": "acide",
+   "es": "agrio"
+  },
+  "speed": {
+   "en": "speed",
+   "fr": "vitesse",
+   "es": "velocidad"
+  },
+  "steady": {
+   "en": "steady",
+   "fr": "régulier",
+   "es": "constante"
+  },
+  "step": {
+   "en": "step",
+   "fr": "pas",
+   "es": "paso"
+  },
+  "still": {
+   "en": "still",
+   "fr": "encore",
+   "es": "todavía"
+  },
+  "stomach": {
+   "en": "stomach",
+   "fr": "estomac",
+   "es": "estómago"
+  },
+  "stop": {
+   "en": "stop",
+   "fr": "s'arrêter",
+   "es": "detenerse"
+  },
+  "sun": {
+   "en": "sun",
+   "fr": "soleil",
+   "es": "sol"
+  },
+  "sunny": {
+   "en": "sunny",
+   "fr": "ensoleillé",
+   "es": "soleado"
+  },
+  "sweet": {
+   "en": "sweet",
+   "fr": "doux",
+   "es": "dulce"
+  },
+  "takes": {
+   "en": "takes",
+   "fr": "prend",
+   "es": "toma"
+  },
+  "tall": {
+   "en": "tall",
+   "fr": "haut",
+   "es": "alto"
+  },
+  "teeth": {
+   "en": "teeth",
+   "fr": "dents",
+   "es": "dientes"
+  },
+  "tells": {
+   "en": "tells",
+   "fr": "dit",
+   "es": "dice"
+  },
+  "terrified": {
+   "en": "terrified",
+   "fr": "terrifié",
+   "es": "aterrorizado"
+  },
+  "that": {
+   "en": "that",
+   "fr": "que",
+   "es": "que"
+  },
+  "the": {
+   "en": "the",
+   "fr": "le",
+   "es": "el"
+  },
+  "their": {
+   "en": "their",
+   "fr": "leur",
+   "es": "su"
+  },
+  "then": {
+   "en": "then",
+   "fr": "ensuite",
+   "es": "luego"
+  },
+  "they": {
+   "en": "they",
+   "fr": "ils",
+   "es": "ellos"
+  },
+  "through": {
+   "en": "through",
+   "fr": "à travers",
+   "es": "a través de"
+  },
+  "tie": {
+   "en": "tie",
+   "fr": "attachent",
+   "es": "atan"
+  },
+  "tired": {
+   "en": "tired",
+   "fr": "fatigué",
+   "es": "cansado"
+  },
+  "to": {
+   "en": "to",
+   "fr": "à",
+   "es": "a"
+  },
+  "tortoise": {
+   "en": "tortoise",
+   "fr": "tortue",
+   "es": "tortuga"
+  },
+  "touch": {
+   "en": "touch",
+   "fr": "toucher",
+   "es": "tocar"
+  },
+  "tree": {
+   "en": "tree",
+   "fr": "arbre",
+   "es": "árbol"
+  },
+  "trees": {
+   "en": "trees",
+   "fr": "arbres",
+   "es": "árboles"
+  },
+  "trick": {
+   "en": "trick",
+   "fr": "tour",
+   "es": "truco"
+  },
+  "tries": {
+   "en": "tries",
+   "fr": "essaie",
+   "es": "intenta"
+  },
+  "truth": {
+   "en": "truth",
+   "fr": "vérité",
+   "es": "verdad"
+  },
+  "turns": {
+   "en": "turns",
+   "fr": "tourne",
+   "es": "gira"
+  },
+  "under": {
+   "en": "under",
+   "fr": "sous",
+   "es": "debajo de"
+  },
+  "up": {
+   "en": "up",
+   "fr": "en haut",
+   "es": "arriba"
+  },
+  "very": {
+   "en": "very",
+   "fr": "très",
+   "es": "muy"
+  },
+  "village": {
+   "en": "village",
+   "fr": "village",
+   "es": "pueblo"
+  },
+  "villagers": {
+   "en": "villagers",
+   "fr": "villageois",
+   "es": "aldeanos"
+  },
+  "vine": {
+   "en": "vine",
+   "fr": "vigne",
+   "es": "parra"
+  },
+  "wakes": {
+   "en": "wakes",
+   "fr": "se réveille",
+   "es": "se despierta"
+  },
+  "walks": {
+   "en": "walks",
+   "fr": "marche",
+   "es": "camina"
+  },
+  "wants": {
+   "en": "wants",
+   "fr": "veut",
+   "es": "quiere"
+  },
+  "warm": {
+   "en": "warm",
+   "fr": "chaud",
+   "es": "cálido"
+  },
+  "watches": {
+   "en": "watches",
+   "fr": "surveille",
+   "es": "vigila"
+  },
+  "waters": {
+   "en": "waters",
+   "fr": "salive",
+   "es": "agua"
+  },
+  "week": {
+   "en": "week",
+   "fr": "semaine",
+   "es": "semana"
+  },
+  "what": {
+   "en": "what",
+   "fr": "ce que",
+   "es": "lo que"
+  },
+  "when": {
+   "en": "when",
+   "fr": "quand",
+   "es": "cuando"
+  },
+  "who": {
+   "en": "who",
+   "fr": "qui",
+   "es": "quien"
+  },
+  "wins": {
+   "en": "wins",
+   "fr": "gagne",
+   "es": "gana"
+  },
+  "with": {
+   "en": "with",
+   "fr": "avec",
+   "es": "con"
+  },
+  "wolf": {
+   "en": "wolf",
+   "fr": "loup",
+   "es": "lobo"
+  },
+  "wooden": {
+   "en": "wooden",
+   "fr": "en bois",
+   "es": "de madera"
+  },
+  "words": {
+   "en": "words",
+   "fr": "mots",
+   "es": "palabras"
+  },
+  "you": {
+   "en": "you",
+   "fr": "vous",
+   "es": "tú"
+  },
+  "young": {
+   "en": "young",
+   "fr": "jeune",
+   "es": "joven"
+  }
+ }
+}

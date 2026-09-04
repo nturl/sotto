@@ -1,0 +1,1231 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sotto System</title>
+<style>
+  /* ============================================================
+     TOKENS - declared once on bare :root before any use
+     ============================================================ */
+  :root {
+    /* sheet chrome (Cleo house style, not app tokens) */
+    --sheet-canvas: #EDEBE6;
+    --sheet-ink: #1B1D22;
+    --sheet-hairline: rgba(27, 29, 34, 0.14);
+    --sheet-secondary: #5C5A55;
+    --sheet-mono: 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
+    --sheet-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --sheet-serif: 'Iowan Old Style', 'Charter', Georgia, serif;
+    --sheet-max: 1180px;
+
+    /* Sotto app tokens - Direction A, "Paper" */
+    --canvas: #F4ECDF;
+    --surface: #FBF6EC;
+    --surface-2: #EFE4D2;
+    --ink: #221E1B;
+    --ink-2: #6E6459;
+    --ink-3: #9C9287;
+    --hairline: rgba(34, 30, 27, 0.12);
+    --accent: #E4572E;
+    --peach: #F2C8B4;
+    --mark: #FFD8A8;
+    --quiet: #B5AB9F;
+    --ok: #4E7D5B;
+    --warn: #B8651B;
+
+    --radius-sm: 2px;
+    --radius-lg: 10px;
+    --radius-full: 9999px;
+
+    --sp-1: 4px;
+    --sp-2: 8px;
+    --sp-3: 12px;
+    --sp-4: 16px;
+    --sp-6: 24px;
+    --sp-8: 32px;
+    --sp-12: 48px;
+
+    --font-serif: 'Iowan Old Style', 'Charter', Georgia, serif;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --font-mono: 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
+
+    --ease-press: 120ms ease;
+    --ease-sweep: 240ms cubic-bezier(.2, .8, .2, 1);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--sheet-canvas);
+    color: var(--sheet-ink);
+    font-family: var(--sheet-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img, svg { max-width: 100%; }
+
+  .wrap { max-width: var(--sheet-max); margin: 0 auto; padding: 0 24px; }
+
+  .hairline { height: 1px; background: var(--sheet-hairline); width: 100%; }
+
+  .eyebrow {
+    font-family: var(--sheet-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--sheet-secondary);
+    margin: 0 0 10px 0;
+  }
+
+  section.rhythm { padding: 64px 0; }
+  section.rhythm h2.section-title {
+    font-family: var(--sheet-serif);
+    font-weight: 300;
+    font-size: clamp(22px, 1.4vw + 16px, 28px);
+    margin: 0 0 6px 0;
+  }
+  section.rhythm p.section-lede {
+    color: var(--sheet-secondary);
+    font-size: 14px;
+    margin: 0 0 32px 0;
+    max-width: 62ch;
+  }
+
+  /* ---------- header ---------- */
+  header.top { padding: 56px 0 40px; }
+  header.top h1 {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(28px, 3vw + 14px, 40px);
+    letter-spacing: -0.01em;
+    margin: 0 0 14px 0;
+    color: var(--sheet-ink);
+  }
+  header.top p.northstar {
+    margin: 0;
+    color: var(--sheet-secondary);
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 68ch;
+  }
+
+  /* ============================================================
+     TOKENS SECTION
+     ============================================================ */
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 16px;
+  }
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .swatch-chip {
+    width: 100%;
+    height: 56px;
+    border-radius: 8px;
+    border: 1px solid var(--hairline);
+  }
+  .swatch-hex { font-family: var(--sheet-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--sheet-ink); }
+  .swatch-role { font-size: 12px; color: var(--sheet-secondary); line-height: 1.4; }
+
+  .type-rows { display: flex; flex-direction: column; gap: 22px; margin-top: 40px; }
+  .type-row { display: flex; align-items: baseline; gap: 18px; border-bottom: 1px solid var(--sheet-hairline); padding-bottom: 18px; }
+  .type-row .tag { font-family: var(--sheet-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sheet-secondary); width: 90px; flex-shrink: 0; }
+  .type-sample-display { font-family: var(--font-serif); font-weight: 300; font-size: 34px; line-height: 1.05; letter-spacing: -0.015em; color: var(--ink); }
+  .type-sample-heading { font-family: var(--font-serif); font-weight: 400; font-size: 22px; line-height: 1.15; letter-spacing: -0.01em; color: var(--ink); }
+  .type-sample-reading { font-family: var(--font-serif); font-weight: 400; font-size: 20px; line-height: 1.55; color: var(--ink); }
+  .type-sample-ui { font-family: var(--font-sans); font-weight: 500; font-size: 16px; line-height: 1.4; color: var(--ink); }
+  .type-sample-caption { font-family: var(--font-sans); font-weight: 400; font-size: 13px; line-height: 1.4; color: var(--ink-2); }
+  .type-sample-mono { font-family: var(--font-mono); font-weight: 400; font-size: 11px; line-height: 1; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+
+  .token-subgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; margin-top: 48px; }
+
+  .radius-row { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-end; }
+  .radius-chip { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .radius-chip .box { width: 64px; height: 64px; background: var(--surface-2); border: 1px solid var(--hairline); }
+  .radius-chip .lbl { font-family: var(--sheet-mono); font-size: 10px; color: var(--sheet-secondary); }
+
+  .shadow-row { display: flex; gap: 48px; flex-wrap: wrap; }
+  .shadow-spec { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .shadow-spec .box {
+    width: 90px; height: 90px; background: var(--surface); border-radius: var(--radius-lg);
+    margin: 0 12px 12px 0;
+  }
+  .shadow-spec .box.peach { box-shadow: 6px 6px 0 0 var(--peach); }
+  .shadow-spec .box.ink { box-shadow: 4px 4px 0 0 var(--ink); }
+  .shadow-spec .lbl { font-family: var(--sheet-mono); font-size: 10px; color: var(--sheet-secondary); text-align: center; }
+
+  .spacing-bar { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
+  .spacing-unit { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .spacing-unit .stick { width: 14px; background: var(--accent); border-radius: 2px; }
+  .spacing-unit .lbl { font-family: var(--sheet-mono); font-size: 10px; color: var(--sheet-secondary); }
+
+  /* ============================================================
+     DEVICES SECTION
+     ============================================================ */
+  .device-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
+  .device-card {
+    background: var(--canvas);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px 32px;
+  }
+  .device-card .eyebrow { color: var(--ink-3); }
+  .device-card h3 { font-family: var(--font-serif); font-weight: 400; font-size: 18px; margin: 0 0 6px 0; color: var(--ink); }
+  .device-card p.hint { font-size: 13px; color: var(--ink-2); margin: 0 0 22px 0; line-height: 1.5; }
+
+  /* device A: cutout press */
+  .press-btn {
+    border: none;
+    border-radius: var(--radius-lg);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 16px;
+    color: #FBF3E9;
+    background: var(--accent);
+    padding: 14px 22px;
+    min-height: 44px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 0 var(--ink);
+    transition: transform var(--ease-press), box-shadow var(--ease-press);
+  }
+  .press-btn.is-pressed { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 var(--ink); }
+  @media (prefers-reduced-motion: reduce) { .press-btn { transition: none; } }
+
+  /* device B: marker stroke */
+  .marker-sentence { font-family: var(--font-serif); font-size: 20px; line-height: 1.9; color: var(--ink); }
+  .marker-word {
+    position: relative;
+    cursor: pointer;
+    padding: 2px 1px;
+    background: none;
+    border: none;
+    font: inherit;
+    color: inherit;
+    font-family: inherit;
+  }
+  .marker-word .stroke {
+    position: absolute;
+    left: 1px; right: 1px; bottom: -2px; height: 8px;
+    background: var(--mark);
+    transform: skewX(-10deg) scaleX(0);
+    transform-origin: left center;
+    clip-path: polygon(0% 30%, 4% 0%, 96% 12%, 100% 35%, 100% 78%, 96% 100%, 4% 88%, 0% 62%);
+    transition: transform var(--ease-sweep);
+    z-index: -1;
+  }
+  .marker-word.is-saved .stroke { transform: skewX(-10deg) scaleX(1); }
+  @media (prefers-reduced-motion: reduce) { .marker-word .stroke { transition: none; } }
+
+  /* device C: speech fill */
+  .speech-passage { font-family: var(--font-serif); font-size: 18px; line-height: 1.7; color: var(--ink); margin: 0 0 20px 0; }
+  .speech-word { color: var(--quiet); }
+  .speech-word.is-filled { color: var(--ink); }
+  .speech-word.is-anim { transition: color 60ms linear; }
+  .ghost-btn {
+    font-family: var(--font-sans); font-weight: 500; font-size: 14px; color: var(--ink);
+    background: var(--surface-2); border: none; border-radius: var(--radius-lg);
+    padding: 10px 18px; cursor: pointer; min-height: 44px;
+  }
+
+  /* ============================================================
+     COMPONENTS SECTION
+     ============================================================ */
+  .component-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; }
+  .component-card {
+    background: var(--canvas);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .component-card .eyebrow { color: var(--ink-3); margin-bottom: 2px; }
+
+  .btn { font-family: var(--font-sans); font-weight: 500; font-size: 16px; border-radius: var(--radius-lg); padding: 14px 20px; min-height: 44px; border: none; cursor: pointer; }
+  .btn-primary { background: var(--accent); color: #FBF3E9; box-shadow: 4px 4px 0 0 var(--ink); }
+  .btn-primary.is-pressed { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 var(--ink); }
+  .btn-secondary { background: var(--surface-2); color: var(--ink); }
+  .btn-disabled { background: var(--surface-2); color: var(--ink-3); cursor: not-allowed; }
+
+  .booktile { width: 110px; display: flex; flex-direction: column; gap: 8px; }
+  .booktile .cover { width: 110px; height: 165px; border-radius: var(--radius-sm); box-shadow: 6px 6px 0 0 var(--peach); }
+  .booktile .title { font-family: var(--font-serif); font-size: 13px; color: var(--ink); margin: 4px 0 0; }
+  .booktile .author { font-size: 12px; color: var(--ink-2); margin: 0; }
+  .progress-track { width: 100%; height: 3px; border-radius: var(--radius-full); background: var(--surface-2); overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: var(--radius-full); }
+
+  .chip { display: inline-flex; align-items: center; font-family: var(--font-sans); font-size: 13px; font-weight: 400; padding: 8px 14px; border-radius: var(--radius-full); background: var(--surface-2); color: var(--ink); border: 1px solid var(--hairline); cursor: pointer; }
+  .chip.is-selected { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+
+  .metastrip { display: inline-flex; align-items: center; gap: 8px; background: var(--surface-2); border-radius: var(--radius-lg); padding: 8px 12px; font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink); }
+  .metastrip .div { width: 1px; height: 12px; background: var(--hairline); }
+
+  .translation-sheet { width: 100%; max-width: 280px; background: var(--surface); border-radius: var(--radius-lg) var(--radius-lg) 0 0; border-top: 1px solid var(--hairline); padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .translation-sheet .handle { width: 36px; height: 4px; border-radius: var(--radius-full); background: var(--ink-3); margin: 0 auto 4px; }
+  .translation-sheet .empty { font-size: 13px; color: var(--ink-3); text-align: center; padding: 10px 0; }
+  .translation-sheet .word { font-family: var(--font-serif); font-size: 24px; margin: 0; color: var(--ink); }
+  .translation-sheet .gloss { font-size: 15px; color: var(--ink-2); margin: 0; }
+  .translation-sheet .row { display: flex; align-items: center; gap: 10px; }
+  .speaker-ring { width: 44px; height: 44px; border-radius: var(--radius-full); border: 2px solid var(--accent); background: none; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--accent); flex-shrink: 0; }
+  .save-chip { font-family: var(--font-sans); font-weight: 500; font-size: 14px; background: var(--surface-2); border: none; border-radius: var(--radius-lg); padding: 10px 14px; cursor: pointer; color: var(--ink); display: inline-flex; align-items: center; gap: 6px; }
+  .save-chip.is-saved { background: var(--mark); border: 1.5px solid var(--ink); box-shadow: 4px 4px 0 0 var(--ink); }
+
+  .tabbar { display: flex; width: 100%; max-width: 320px; background: var(--surface); border-top: 1px solid var(--hairline); }
+  .tabbar .tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 0 8px; font-family: var(--font-sans); font-size: 11px; color: var(--ink-2); }
+  .tabbar .tab.is-active { color: var(--accent); font-weight: 500; }
+
+  .sessionbar { width: 100%; max-width: 320px; height: 56px; background: var(--surface); border-top: 1px solid var(--hairline); display: flex; align-items: center; gap: 10px; padding: 0 12px; }
+  .sessionbar .thumb { width: 32px; height: 48px; border-radius: var(--radius-sm); box-shadow: 2px 2px 0 0 var(--peach); flex-shrink: 0; }
+  .sessionbar .meta { flex: 1; min-width: 0; }
+  .sessionbar .meta .t { font-size: 14px; font-weight: 500; color: var(--ink); margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sessionbar .meta .m { font-size: 12px; color: var(--ink-2); margin: 0; }
+  .sessionbar .state { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ok); }
+
+  .searchinput { display: flex; align-items: center; gap: 8px; width: 100%; max-width: 300px; background: var(--surface-2); border-radius: var(--radius-lg); padding: 10px 14px; color: var(--ink-2); font-family: var(--font-sans); font-size: 15px; }
+
+  .wordcard { width: 100%; max-width: 300px; background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-lg); padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+  .wordcard .txt { flex: 1; }
+  .wordcard .txt .w { font-family: var(--font-serif); font-size: 20px; margin: 0; position: relative; display: inline-block; }
+  .wordcard .txt .g { font-size: 13px; color: var(--ink-2); margin: 2px 0 0; }
+
+  .ratingrow { display: flex; gap: 8px; width: 100%; max-width: 320px; }
+  .ratingrow button { flex: 1; background: var(--surface-2); border: none; border-radius: var(--radius-lg); padding: 12px 6px; font-family: var(--font-sans); font-size: 13px; color: var(--ink); cursor: pointer; }
+  .ratingrow button.suggested { border: 1.5px solid var(--ink); }
+
+  /* ============================================================
+     SCREENS SECTION
+     ============================================================ */
+  .screens-outer { background: var(--sheet-canvas); }
+  .screens-scroll { overflow-x: auto; padding: 8px 24px 32px; -webkit-overflow-scrolling: touch; }
+  .screens-track { display: flex; gap: 24px; width: max-content; }
+  .phone-frame { width: 390px; flex-shrink: 0; border-radius: 40px; border: 1px solid var(--hairline); overflow: hidden; background: var(--canvas); }
+  .phone-inner { height: 780px; overflow: hidden; display: flex; flex-direction: column; position: relative; }
+  .frame-caption { font-family: var(--sheet-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sheet-secondary); margin: 10px 0 0; text-align: center; }
+
+  .scr-pad { padding: 20px; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .scr-display { font-family: var(--font-serif); font-weight: 300; font-size: 34px; letter-spacing: -0.015em; line-height: 1.05; color: var(--ink); margin: 0; }
+
+  /* onboarding */
+  .ob-option { display: flex; align-items: center; justify-content: space-between; background: var(--surface); border-bottom: 1px solid var(--hairline); padding: 16px 14px; position: relative; }
+  .ob-option.is-selected { border-left: 3px solid var(--accent); padding-left: 11px; }
+  .ob-option .native { font-family: var(--font-serif); font-size: 17px; color: var(--ink); margin: 0; }
+  .ob-option .local { font-size: 13px; color: var(--ink-2); margin: 2px 0 0; }
+  .ob-voice-row { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+
+  /* home */
+  .home-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .icon-btn { width: 40px; height: 40px; border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; color: var(--ink); background: none; border: none; }
+  .daily-card { background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--hairline); display: flex; overflow: visible; margin-bottom: 32px; }
+  .daily-panel { width: 34%; flex-shrink: 0; background: linear-gradient(135deg, #1F4F57, #5B8A6B); border-radius: var(--radius-lg) 0 0 var(--radius-lg); display: flex; align-items: center; justify-content: center; padding: 16px 0; }
+  .daily-body { flex: 1; padding: 16px 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .rail { margin-bottom: 32px; }
+  .rail h3 { font-family: var(--font-serif); font-weight: 400; font-size: 22px; margin: 0 0 12px 0; color: var(--ink); }
+  .rail-row { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 4px; }
+
+  /* library */
+  .chip-row { display: flex; gap: 8px; margin-bottom: 24px; overflow-x: auto; }
+  .seeall { font-family: var(--font-sans); font-weight: 500; font-size: 13px; color: var(--ink-2); }
+
+  /* book detail */
+  .back-link { font-size: 15px; font-weight: 500; color: var(--accent); display: flex; align-items: center; gap: 4px; margin-bottom: 18px; }
+  .bd-cover-wrap { display: flex; justify-content: center; margin-bottom: 20px; }
+  .bd-cover { width: 180px; height: 270px; border-radius: var(--radius-sm); box-shadow: 6px 6px 0 0 var(--peach); }
+  .bd-title { font-family: var(--font-serif); font-weight: 300; font-size: 30px; text-align: center; margin: 0 0 4px; color: var(--ink); }
+  .bd-author { text-align: center; color: var(--ink-2); font-size: 15px; margin: 0; }
+  .bd-sub { text-align: center; color: var(--ink-3); font-size: 13px; margin: 4px 0 18px; }
+  .bd-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+
+  /* reader */
+  .rd-top { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px 0; }
+  .rd-chapter { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); }
+  .rd-text { font-family: var(--font-serif); font-size: 20px; line-height: 1.55; color: var(--ink); padding: 18px 24px 0; flex: 1; overflow-y: auto; }
+  .rd-text p { margin: 0 0 18px; }
+  .rd-word { position: relative; z-index: 0; }
+  .rd-word.quiet { color: var(--quiet); }
+  .rd-word.spoken { color: var(--ink); }
+  .rd-word.dotted { border-bottom: 1px dotted rgba(242, 200, 180, 0.35); }
+  .rd-word.selected { background: rgba(242, 200, 180, 0.18); border-radius: 2px; }
+  .rd-word.saved .stroke2 { position: absolute; left: 0; right: 0; bottom: -2px; height: 7px; background: var(--mark); transform: skewX(-10deg); clip-path: polygon(0% 30%, 4% 0%, 96% 12%, 100% 35%, 100% 78%, 96% 100%, 4% 88%, 0% 62%); z-index: -1; }
+  .rd-sheet { background: var(--surface); border-top: 1px solid var(--hairline); border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 12px 20px 16px; }
+  .rd-transport { display: flex; align-items: center; justify-content: space-between; padding: 10px 24px 4px; }
+  .rd-transport .tbtn { background: none; border: none; color: var(--ink); }
+  .rd-playring { width: 56px; height: 56px; border-radius: 50%; border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; color: var(--accent); background: none; }
+  .rd-progress { display: flex; gap: 3px; padding: 4px 24px 14px; }
+  .rd-progress .seg { flex: 1; height: 4px; border-radius: var(--radius-full); background: var(--surface-2); }
+  .rd-progress .seg.filled { background: var(--ink); }
+  .rd-labels { display: flex; justify-content: space-between; padding: 0 24px 16px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; color: var(--ink-2); text-transform: uppercase; }
+
+  /* voice */
+  .vc-state { display: flex; align-items: center; gap: 8px; padding: 20px 20px 0; }
+  .vc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .vc-state-word { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink); }
+  .vc-passage { font-family: var(--font-serif); font-size: 19px; line-height: 1.65; color: var(--ink); padding: 18px 20px; }
+  .vc-chips { display: flex; gap: 8px; padding: 0 20px 16px; flex-wrap: wrap; }
+  .vc-chip { font-family: var(--font-sans); font-size: 13px; background: var(--surface-2); border-radius: var(--radius-full); padding: 8px 14px; color: var(--ink); }
+  .vc-chip.active { background: var(--ink); color: var(--surface); }
+  .vc-caption { background: var(--surface); border-top: 1px solid var(--hairline); margin: 0 20px 16px; border-radius: var(--radius-lg); padding: 10px 14px; }
+  .vc-caption .lbl { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); margin: 0 0 4px; }
+  .vc-caption .txt { font-size: 14px; color: var(--ink); margin: 0; }
+  .vc-controls { display: flex; justify-content: space-around; padding: 4px 20px 18px; }
+  .vc-ghost { width: 44px; height: 44px; border-radius: 50%; background: none; border: none; color: var(--ink); display: flex; align-items: center; justify-content: center; }
+  .vc-ptt-wrap { display: flex; justify-content: center; padding-bottom: 20px; }
+  .vc-ptt { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--accent); background: none; color: var(--accent); display: flex; align-items: center; justify-content: center; }
+
+  /* vocabulary */
+  .voc-selector { display: flex; align-items: center; gap: 12px; background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--hairline); padding: 12px; margin-bottom: 18px; }
+  .voc-selector .cvr { width: 40px; height: 60px; border-radius: var(--radius-sm); box-shadow: 3px 3px 0 0 var(--peach); flex-shrink: 0; }
+  .voc-selector .info { flex: 1; }
+  .voc-selector .info .t { margin: 0; font-family: var(--font-serif); font-size: 15px; color: var(--ink); }
+  .voc-selector .info .c { margin: 2px 0 0; font-size: 12px; color: var(--ink-2); }
+  .voc-list { display: flex; flex-direction: column; gap: 10px; flex: 1; overflow-y: auto; }
+
+  /* review */
+  .rv-card { background: var(--surface); border-radius: var(--radius-lg); padding: 32px 20px; text-align: center; margin: 40px 0 24px; }
+  .rv-word { font-family: var(--font-serif); font-size: 30px; margin: 0 0 14px; color: var(--ink); }
+  .rv-link { font-size: 14px; color: var(--accent); text-decoration: underline; }
+  .rv-progress { text-align: center; font-family: var(--font-mono); font-size: 11px; color: var(--ink-2); letter-spacing: 0.08em; margin-top: 8px; }
+
+  /* profile */
+  .pf-group { background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--hairline); margin-bottom: 20px; overflow: hidden; }
+  .pf-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--hairline); }
+  .pf-row:last-child { border-bottom: none; }
+  .pf-row .k { font-size: 15px; color: var(--ink); }
+  .pf-row .v { font-size: 14px; color: var(--ink-2); display: flex; align-items: center; gap: 4px; }
+  .pf-row .v.destructive { color: var(--warn); }
+
+  /* ============================================================
+     DESKTOP SECTION
+     ============================================================ */
+  .desktop-wrap { overflow-x: auto; padding-bottom: 8px; }
+  .desktop-frame { width: 1200px; min-width: 1200px; border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden; display: flex; background: var(--canvas); height: 620px; }
+  .dt-sidebar { width: 220px; flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--hairline); padding: 24px 20px; }
+  .dt-wordmark { font-family: var(--font-serif); font-weight: 300; font-size: 22px; color: var(--ink); margin: 0 0 28px; }
+  .dt-nav-row { padding: 10px 8px; font-size: 15px; color: var(--ink-2); border-radius: 8px; margin-bottom: 4px; }
+  .dt-nav-row.active { background: var(--surface-2); color: var(--ink); font-weight: 500; }
+  .dt-passage { width: 620px; flex-shrink: 0; padding: 40px; font-family: var(--font-serif); font-size: 20px; line-height: 1.6; color: var(--ink); overflow-y: auto; }
+  .dt-right { width: 360px; flex-shrink: 0; background: var(--surface); border-left: 1px solid var(--hairline); padding: 28px 24px; }
+  .dt-right > * { width: 100%; max-width: 100%; }
+  .dt-right h4 { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); margin: 0 0 12px; }
+
+  /* ============================================================
+     DON'T SECTION
+     ============================================================ */
+  .dont-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--sheet-hairline); }
+  .dont-item { padding: 20px 20px 20px 0; border-bottom: 1px solid var(--sheet-hairline); }
+  .dont-item .n { font-family: var(--sheet-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--sheet-secondary); margin: 0 0 6px; }
+  .dont-item p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--sheet-ink); }
+
+  footer.sheet-footer { padding: 32px 24px 64px; text-align: center; }
+  footer.sheet-footer p { font-family: var(--sheet-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sheet-secondary); margin: 0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ inline SVG cover sprite (defs only, hidden) ============ -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+<defs>
+
+<symbol id="cover-night" viewBox="0 0 150 225">
+  <rect width="150" height="225" fill="#2E2A3D"/>
+  <circle cx="104" cy="54" r="26" fill="#F2C8B4"/>
+  <circle cx="114" cy="45" r="22" fill="#2E2A3D"/>
+  <circle cx="28" cy="150" r="2.4" fill="#E7C9A8"/>
+  <circle cx="50" cy="118" r="1.8" fill="#F4ECDF"/>
+  <circle cx="68" cy="172" r="1.5" fill="#F4ECDF"/>
+  <circle cx="22" cy="88" r="1.5" fill="#F4ECDF"/>
+  <circle cx="126" cy="150" r="1.6" fill="#F4ECDF"/>
+  <text x="75" y="205" text-anchor="middle" font-family="Iowan Old Style, Charter, Georgia, serif" font-weight="300" font-size="17" fill="#F4ECDF">Nocturne</text>
+</symbol>
+
+<symbol id="cover-dune" viewBox="0 0 150 225">
+  <rect width="150" height="225" fill="#E7C9A8"/>
+  <circle cx="112" cy="50" r="18" fill="#D98C4A"/>
+  <path d="M0 150 Q40 122 80 150 T150 148 V225 H0 Z" fill="#C9A876"/>
+  <path d="M0 178 Q45 158 90 178 T150 176 V225 H0 Z" fill="#B58F5E"/>
+  <text x="75" y="205" text-anchor="middle" font-family="Iowan Old Style, Charter, Georgia, serif" font-weight="300" font-size="18" fill="#3B2A1E">Dune</text>
+</symbol>
+
+<symbol id="cover-river" viewBox="0 0 150 225">
+  <rect width="150" height="225" fill="#2F5A63"/>
+  <path d="M0 90 Q40 70 75 90 T150 88 V130 Q110 112 75 130 T0 128 Z" fill="#7FA8AE"/>
+  <path d="M0 140 Q40 122 75 140 T150 138 V170 Q110 154 75 170 T0 168 Z" fill="#4C818A"/>
+  <circle cx="30" cy="45" r="9" fill="#F4ECDF"/>
+  <text x="75" y="205" text-anchor="middle" font-family="Iowan Old Style, Charter, Georgia, serif" font-weight="300" font-size="16" fill="#F4ECDF">Rivière</text>
+</symbol>
+
+<symbol id="cover-lantern" viewBox="0 0 150 225">
+  <rect width="150" height="225" fill="#3B2A2E"/>
+  <line x1="75" y1="40" x2="75" y2="62" stroke="#D9A441" stroke-width="2"/>
+  <rect x="58" y="62" width="34" height="46" rx="4" fill="#D9A441"/>
+  <rect x="66" y="108" width="18" height="8" fill="#D9A441"/>
+  <circle cx="75" cy="85" r="9" fill="#F4ECDF"/>
+  <text x="75" y="205" text-anchor="middle" font-family="Iowan Old Style, Charter, Georgia, serif" font-weight="300" font-size="16" fill="#F4ECDF">Lanterne</text>
+</symbol>
+
+<symbol id="cover-fox" viewBox="0 0 150 225">
+  <rect width="150" height="225" fill="#8C4A2F"/>
+  <path d="M75 60 L110 130 Q75 155 40 130 Z" fill="#EFCBA0"/>
+  <path d="M52 68 L68 92 L40 92 Z" fill="#EFCBA0"/>
+  <path d="M98 68 L110 92 L82 92 Z" fill="#EFCBA0"/>
+  <circle cx="75" cy="118" r="4" fill="#3B2A1E"/>
+  <text x="75" y="205" text-anchor="middle" font-family="Iowan Old Style, Charter, Georgia, serif" font-weight="300" font-size="16" fill="#F4ECDF">Renard</text>
+</symbol>
+
+<symbol id="cover-sail" viewBox="0 0 150 225">
+  <rect width="150" height="225" fill="#24425A"/>
+  <rect x="0" y="140" width="150" height="4" fill="#7FA8AE"/>
+  <path d="M50 60 L50 140 L95 140 Z" fill="#F4ECDF"/>
+  <path d="M20 140 L130 140 L110 160 L40 160 Z" fill="#3B5B6B"/>
+  <text x="75" y="205" text-anchor="middle" font-family="Iowan Old Style, Charter, Georgia, serif" font-weight="300" font-size="16" fill="#F4ECDF">Voilier</text>
+</symbol>
+
+<symbol id="cover-mountain" viewBox="0 0 150 225">
+  <rect width="150" height="225" fill="#5B6B73"/>
+  <path d="M0 140 L45 70 L75 108 L100 60 L150 140 Z" fill="#3E4A52"/>
+  <path d="M55 140 L85 96 L115 140 Z" fill="#8FA3AA"/>
+  <circle cx="85" cy="60" r="8" fill="#E7C9A8"/>
+  <text x="75" y="205" text-anchor="middle" font-family="Iowan Old Style, Charter, Georgia, serif" font-weight="300" font-size="18" fill="#F4ECDF">Col</text>
+</symbol>
+
+<symbol id="cover-market" viewBox="0 0 150 225">
+  <rect width="150" height="225" fill="#EFDCC0"/>
+  <path d="M14 70 H62 L56 96 H20 Z" fill="#3F6E5E"/>
+  <path d="M70 66 H120 L114 96 H76 Z" fill="#A85C36"/>
+  <rect x="20" y="96" width="36" height="34" fill="#D9C6A3"/>
+  <rect x="76" y="96" width="38" height="34" fill="#D9C6A3"/>
+  <text x="75" y="205" text-anchor="middle" font-family="Iowan Old Style, Charter, Georgia, serif" font-weight="300" font-size="17" fill="#3B2A1E">Marché</text>
+</symbol>
+
+</defs>
+</svg>
+
+<div class="wrap">
+
+  <header class="top">
+    <h1>Sotto design system</h1>
+    <p class="northstar">North star: a well-set paperback with one coral ribbon. Books are paper things on a warm desk; the app stays quiet so the text and covers carry the delight.</p>
+  </header>
+
+</div>
+
+<div class="hairline"></div>
+
+<div class="wrap">
+<section class="rhythm" id="tokens">
+  <p class="eyebrow">01 - Tokens</p>
+  <h2 class="section-title">Color, type, radius, elevation, spacing</h2>
+  <p class="section-lede">Thirteen colors, two type families standing in for Fraunces and Inter, three radii, two cutout shadows, one spacing scale.</p>
+
+  <div class="swatch-grid">
+    <div class="swatch"><div class="swatch-chip" style="background:#F4ECDF"></div><span class="swatch-hex">#F4ECDF</span><span class="swatch-role">canvas - app background, every screen</span></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#FBF6EC;border:1px solid var(--hairline)"></div><span class="swatch-hex">#FBF6EC</span><span class="swatch-role">surface - cards, sheets, docked panels, tab bar</span></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#EFE4D2"></div><span class="swatch-hex">#EFE4D2</span><span class="swatch-role">surface-2 - secondary buttons, chips, metadata strip, progress track</span></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#221E1B"></div><span class="swatch-hex">#221E1B</span><span class="swatch-role">ink - primary text, primary-button shadow, icon strokes</span></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#6E6459"></div><span class="swatch-hex">#6E6459</span><span class="swatch-role">ink-2 - secondary text, inactive tab labels</span></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#9C9287"></div><span class="swatch-hex">#9C9287</span><span class="swatch-role">ink-3 - muted / legal text</span></div>
+    <div class="swatch"><div class="swatch-chip" style="background:rgba(34,30,27,0.12)"></div><span class="swatch-hex">rgba(34,30,27,.12)</span><span class="swatch-role">hairline - borders, dividers</span></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#E4572E"></div><span class="swatch-hex">#E4572E</span><span class="swatch-role">accent - primary CTA fill + active tab. Nowhere else.</span></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#F2C8B4"></div><span class="swatch-hex">#F2C8B4</span><span class="swatch-role">peach - cutout shadow color, 18% word-selection fill</span></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#FFD8A8"></div><span class="swatch-hex">#FFD8A8</span><span class="swatch-role">mark - saved-word marker stroke</span></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#B5AB9F"></div><span class="swatch-hex">#B5AB9F</span><span class="swatch-role">quiet - unspoken narration words</span></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#4E7D5B"></div><span class="swatch-hex">#4E7D5B</span><span class="swatch-role">ok - offline / ready states only, never a button</span></div>
+    <div class="swatch"><div class="swatch-chip" style="background:#B8651B"></div><span class="swatch-hex">#B8651B</span><span class="swatch-role">warn - error / limit text only</span></div>
+  </div>
+
+  <div class="type-rows">
+    <div class="type-row"><span class="tag">Display 34</span><span class="type-sample-display">Pour toi</span></div>
+    <div class="type-row"><span class="tag">Heading 22</span><span class="type-sample-heading">Qu'y a-t-il dedans ?</span></div>
+    <div class="type-row"><span class="tag">Reading 20</span><span class="type-sample-reading">le petit renard traverse la forêt tranquille</span></div>
+    <div class="type-row"><span class="tag">UI 16</span><span class="type-sample-ui">Commencer la révision</span></div>
+    <div class="type-row"><span class="tag">Caption 13</span><span class="type-sample-caption">Version simplifiée, niveau A1</span></div>
+    <div class="type-row"><span class="tag">Mono 11</span><span class="type-sample-mono">12 min · A1</span></div>
+  </div>
+
+  <div class="token-subgrid">
+    <div>
+      <p class="eyebrow" style="margin-top:0">Radius {2, 10, 9999}</p>
+      <div class="radius-row">
+        <div class="radius-chip"><div class="box" style="border-radius:2px"></div><span class="lbl">2 - covers, images</span></div>
+        <div class="radius-chip"><div class="box" style="border-radius:10px"></div><span class="lbl">10 - cards, sheets, buttons</span></div>
+        <div class="radius-chip"><div class="box" style="border-radius:9999px"></div><span class="lbl">9999 - speaker, play ring</span></div>
+      </div>
+    </div>
+    <div>
+      <p class="eyebrow" style="margin-top:0">Cutout shadows</p>
+      <div class="shadow-row">
+        <div class="shadow-spec"><div class="box peach"></div><span class="lbl">6px 6px 0 0 peach<br>covers, daily card</span></div>
+        <div class="shadow-spec"><div class="box ink"></div><span class="lbl">4px 4px 0 0 ink<br>primary CTA, saved</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:48px">
+    <p class="eyebrow">Spacing scale 4 / 8 / 12 / 16 / 24 / 32 / 48</p>
+    <div class="spacing-bar">
+      <div class="spacing-unit"><div class="stick" style="height:4px"></div><span class="lbl">4</span></div>
+      <div class="spacing-unit"><div class="stick" style="height:8px"></div><span class="lbl">8</span></div>
+      <div class="spacing-unit"><div class="stick" style="height:12px"></div><span class="lbl">12</span></div>
+      <div class="spacing-unit"><div class="stick" style="height:16px"></div><span class="lbl">16</span></div>
+      <div class="spacing-unit"><div class="stick" style="height:24px"></div><span class="lbl">24</span></div>
+      <div class="spacing-unit"><div class="stick" style="height:32px"></div><span class="lbl">32</span></div>
+      <div class="spacing-unit"><div class="stick" style="height:48px"></div><span class="lbl">48</span></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="hairline"></div>
+
+<div class="wrap">
+<section class="rhythm" id="devices">
+  <p class="eyebrow">02 - Signature devices</p>
+  <h2 class="section-title">Three, each with one job</h2>
+  <p class="section-lede">The cutout press, the marker stroke, and speech fill. Everything else in the app is quiet on purpose.</p>
+
+  <div class="device-grid">
+    <div class="device-card">
+      <p class="eyebrow">Device A - the cutout</p>
+      <h3>Press pushes paper flat</h3>
+      <p class="hint">Press and hold the button. It translates 2px and the ink shadow shrinks from 4px to 2px, 120ms ease.</p>
+      <button class="press-btn" id="pressDemo">Commencer</button>
+    </div>
+
+    <div class="device-card">
+      <p class="eyebrow">Device B - the marker stroke</p>
+      <h3>Saved words carry a mark</h3>
+      <p class="hint">Click a word to draw a skewed peach stroke under it, 240ms. Click again to erase it right to left.</p>
+      <p class="marker-sentence" id="markerSentence"></p>
+    </div>
+
+    <div class="device-card">
+      <p class="eyebrow">Device C - speech fill</p>
+      <h3>Quiet becomes ink as the narrator arrives</h3>
+      <p class="hint">Press play. Each word turns from quiet to ink with a 60ms stagger, no highlight box chases the voice.</p>
+      <p class="speech-passage" id="speechPassage"></p>
+      <button class="ghost-btn" id="speechPlay">Lire</button>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="hairline"></div>
+
+<div class="wrap">
+<section class="rhythm" id="components">
+  <p class="eyebrow">03 - Components</p>
+  <h2 class="section-title">The building blocks</h2>
+  <p class="section-lede">Every component below is built only from the tokens declared above.</p>
+
+  <div class="component-grid">
+
+    <div class="component-card">
+      <p class="eyebrow">Button - primary</p>
+      <button class="btn btn-primary">Lire</button>
+    </div>
+    <div class="component-card">
+      <p class="eyebrow">Button - secondary</p>
+      <button class="btn btn-secondary">Mode vocal</button>
+    </div>
+    <div class="component-card">
+      <p class="eyebrow">Button - pressed</p>
+      <button class="btn btn-primary is-pressed">Lire</button>
+    </div>
+    <div class="component-card">
+      <p class="eyebrow">Button - disabled</p>
+      <button class="btn btn-disabled" disabled>Lire</button>
+    </div>
+
+    <div class="component-card">
+      <p class="eyebrow">BookTile</p>
+      <div class="booktile">
+        <svg class="cover" viewBox="0 0 150 225" width="110" height="165" role="img" aria-label="couverture Dune"><use href="#cover-dune"/></svg>
+        <p class="title">Dune</p>
+        <p class="author">M. Farah</p>
+        <div class="progress-track"><div class="progress-fill" style="width:58%"></div></div>
+      </div>
+    </div>
+
+    <div class="component-card">
+      <p class="eyebrow">Chip - default / selected</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span class="chip">Fables</span>
+        <span class="chip is-selected">A1</span>
+      </div>
+    </div>
+
+    <div class="component-card">
+      <p class="eyebrow">MetaStrip</p>
+      <div class="metastrip"><span>12 MIN</span><span class="div"></span><span>A1</span></div>
+    </div>
+
+    <div class="component-card">
+      <p class="eyebrow">TranslationSheet - vide</p>
+      <div class="translation-sheet"><div class="handle"></div><p class="empty">Touchez un mot pour le traduire</p></div>
+    </div>
+    <div class="component-card">
+      <p class="eyebrow">TranslationSheet - sélectionné</p>
+      <div class="translation-sheet">
+        <div class="handle"></div>
+        <p class="word">renard</p>
+        <p class="gloss">fox</p>
+        <div class="row"><button class="speaker-ring"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg></button><button class="save-chip">Enregistrer</button></div>
+      </div>
+    </div>
+    <div class="component-card">
+      <p class="eyebrow">TranslationSheet - enregistré</p>
+      <div class="translation-sheet">
+        <div class="handle"></div>
+        <p class="word">renard</p>
+        <p class="gloss">fox</p>
+        <div class="row"><button class="speaker-ring"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg></button><button class="save-chip is-saved">Enregistré</button></div>
+      </div>
+    </div>
+
+    <div class="component-card">
+      <p class="eyebrow">TabBar - Pour toi actif</p>
+      <div class="tabbar">
+        <div class="tab is-active">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l9 8h-3v9h-5v-6H11v6H6v-9H3z"/></svg>
+          Pour toi
+        </div>
+        <div class="tab">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h6v16H4zM14 4h6v16h-6z"/></svg>
+          Bibliothèque
+        </div>
+        <div class="tab">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h5"/></svg>
+          Vocabulaire
+        </div>
+      </div>
+    </div>
+
+    <div class="component-card">
+      <p class="eyebrow">SessionBar</p>
+      <div class="sessionbar">
+        <svg class="thumb" viewBox="0 0 150 225" width="32" height="48"><use href="#cover-fox"/></svg>
+        <div class="meta"><p class="t">Renard</p><p class="m">Mode vocal</p></div>
+        <span class="state">En écoute</span>
+      </div>
+    </div>
+
+    <div class="component-card">
+      <p class="eyebrow">SearchInput</p>
+      <div class="searchinput">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        Rechercher un livre
+      </div>
+    </div>
+
+    <div class="component-card">
+      <p class="eyebrow">WordCard</p>
+      <div class="wordcard">
+        <svg class="mini-speaker" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="border:2px solid var(--accent);border-radius:9999px;padding:8px;flex-shrink:0"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg>
+        <div class="txt">
+          <p class="w">renard<span style="position:absolute;left:1px;right:1px;bottom:-2px;height:7px;background:var(--mark);transform:skewX(-10deg);clip-path:polygon(0% 30%,4% 0%,96% 12%,100% 35%,100% 78%,96% 100%,4% 88%,0% 62%);z-index:-1"></span></p>
+          <p class="g">fox</p>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-3)" stroke-width="2"><path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m2 0-1 13a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1L6 7"/></svg>
+      </div>
+    </div>
+
+    <div class="component-card">
+      <p class="eyebrow">RatingRow</p>
+      <div class="ratingrow">
+        <button>À revoir</button>
+        <button class="suggested">Difficile</button>
+        <button>Facile</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+</div>
+
+<div class="hairline"></div>
+
+<section class="rhythm screens-outer" id="screens">
+  <div class="wrap">
+    <p class="eyebrow">04 - Screens</p>
+    <h2 class="section-title">Real scale, 390px frames</h2>
+    <p class="section-lede">Scrolls horizontally inside its own row; the page itself never scrolls sideways.</p>
+  </div>
+
+  <div class="screens-scroll">
+    <div class="screens-track">
+
+      <!-- ONBOARDING -->
+      <div>
+        <div class="phone-frame"><div class="phone-inner">
+          <div class="scr-pad">
+            <p class="scr-display">J'apprends</p>
+            <div style="margin-top:24px">
+              <div class="ob-option is-selected"><div><p class="native">Français</p><p class="local">French</p></div></div>
+              <div class="ob-option"><div><p class="native">Español</p><p class="local">Spanish</p></div></div>
+              <div class="ob-option"><div><p class="native">中文</p><p class="local">Chinese</p></div></div>
+              <div class="ob-option"><div><p class="native">Italiano</p><p class="local">Italian</p></div></div>
+            </div>
+            <div class="ob-voice-row">
+              <button class="speaker-ring"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg></button>
+              <span style="font-size:13px;color:var(--ink-2)">Écouter un exemple</span>
+            </div>
+            <div style="flex:1"></div>
+            <button class="btn btn-primary" style="width:100%">Continuer</button>
+          </div>
+        </div></div>
+        <p class="frame-caption">Onboarding - j'apprends</p>
+      </div>
+
+      <!-- HOME -->
+      <div>
+        <div class="phone-frame"><div class="phone-inner">
+          <div class="scr-pad" style="overflow-y:auto">
+            <div class="home-top">
+              <p class="scr-display">Pour toi</p>
+              <div style="display:flex;gap:6px">
+                <span class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></span>
+                <span class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="9" width="16" height="11" rx="1"/><path d="M12 9V6M8 9c0-2 1.5-4 4-4s4 2 4 4"/></svg></span>
+              </div>
+            </div>
+
+            <div class="daily-card">
+              <div class="daily-panel"><svg viewBox="0 0 150 225" width="72" height="108" style="box-shadow:4px 4px 0 0 var(--peach);border-radius:2px"><use href="#cover-market"/></svg></div>
+              <div class="daily-body">
+                <span class="eyebrow" style="margin:0;color:var(--ink-3)">Histoire du jour</span>
+                <p style="font-family:var(--font-serif);font-size:20px;margin:0;color:var(--ink)">Marché</p>
+                <p style="font-size:12px;color:var(--ink-2);margin:0">6 min · A1</p>
+                <span class="type-sample-mono" style="color:var(--ink-2)">23:41:07</span>
+              </div>
+            </div>
+
+            <div class="rail">
+              <h3>Reprendre</h3>
+              <div class="rail-row">
+                <div class="booktile"><svg class="cover" viewBox="0 0 150 225" width="110" height="165"><use href="#cover-fox"/></svg><p class="title">Renard</p><p class="author">M. Farah</p><div class="progress-track"><div class="progress-fill" style="width:64%"></div></div></div>
+                <div class="booktile"><svg class="cover" viewBox="0 0 150 225" width="110" height="165"><use href="#cover-river"/></svg><p class="title">Rivière</p><p class="author">L. Nadeau</p><div class="progress-track"><div class="progress-fill" style="width:22%"></div></div></div>
+              </div>
+            </div>
+
+            <div class="rail">
+              <h3>Nouveautés</h3>
+              <div class="rail-row">
+                <div class="booktile"><svg class="cover" viewBox="0 0 150 225" width="110" height="165"><use href="#cover-night"/></svg><p class="title">Nocturne</p><p class="author">R. Aoki</p><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div></div>
+                <div class="booktile"><svg class="cover" viewBox="0 0 150 225" width="110" height="165"><use href="#cover-sail"/></svg><p class="title">Voilier</p><p class="author">C. Ibarra</p><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="tabbar">
+            <div class="tab is-active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l9 8h-3v9h-5v-6H11v6H6v-9H3z"/></svg>Pour toi</div>
+            <div class="tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h6v16H4zM14 4h6v16h-6z"/></svg>Bibliothèque</div>
+            <div class="tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h5"/></svg>Vocabulaire</div>
+          </div>
+        </div></div>
+        <p class="frame-caption">Home - pour toi</p>
+      </div>
+
+      <!-- LIBRARY -->
+      <div>
+        <div class="phone-frame"><div class="phone-inner">
+          <div class="scr-pad" style="overflow-y:auto">
+            <div class="home-top">
+              <p class="scr-display">Bibliothèque</p>
+              <span class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+            </div>
+            <div class="chip-row">
+              <span class="chip is-selected">Tout</span>
+              <span class="chip">Fables</span>
+              <span class="chip">A1</span>
+              <span class="chip">A2</span>
+              <span class="chip">Voyage</span>
+            </div>
+            <div class="rail">
+              <div style="display:flex;justify-content:space-between;align-items:baseline"><h3>Fables d'animaux</h3><span class="seeall">Voir tout</span></div>
+              <div class="rail-row">
+                <div class="booktile"><svg class="cover" viewBox="0 0 150 225" width="110" height="165"><use href="#cover-fox"/></svg><p class="title">Renard</p><p class="author">M. Farah</p><div class="progress-track"><div class="progress-fill" style="width:64%"></div></div></div>
+                <div class="booktile"><svg class="cover" viewBox="0 0 150 225" width="110" height="165"><use href="#cover-lantern"/></svg><p class="title">Lanterne</p><p class="author">S. Okafor</p><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div></div>
+              </div>
+            </div>
+            <div class="rail">
+              <div style="display:flex;justify-content:space-between;align-items:baseline"><h3>Voyage</h3><span class="seeall">Voir tout</span></div>
+              <div class="rail-row">
+                <div class="booktile"><svg class="cover" viewBox="0 0 150 225" width="110" height="165"><use href="#cover-mountain"/></svg><p class="title">Col</p><p class="author">D. Reyes</p><div class="progress-track"><div class="progress-fill" style="width:8%"></div></div></div>
+                <div class="booktile"><svg class="cover" viewBox="0 0 150 225" width="110" height="165"><use href="#cover-dune"/></svg><p class="title">Dune</p><p class="author">M. Farah</p><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="tabbar">
+            <div class="tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l9 8h-3v9h-5v-6H11v6H6v-9H3z"/></svg>Pour toi</div>
+            <div class="tab is-active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h6v16H4zM14 4h6v16h-6z"/></svg>Bibliothèque</div>
+            <div class="tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h5"/></svg>Vocabulaire</div>
+          </div>
+        </div></div>
+        <p class="frame-caption">Library - bibliothèque</p>
+      </div>
+
+      <!-- BOOK DETAIL -->
+      <div>
+        <div class="phone-frame"><div class="phone-inner">
+          <div class="scr-pad" style="overflow-y:auto">
+            <span class="back-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>Retour</span>
+            <div class="bd-cover-wrap"><svg class="bd-cover" viewBox="0 0 150 225"><use href="#cover-fox"/></svg></div>
+            <p class="bd-title">Renard</p>
+            <p class="bd-author">Maya Farah</p>
+            <p class="bd-sub">Version simplifiée</p>
+            <div style="display:flex;justify-content:center;margin-bottom:20px">
+              <div class="metastrip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span>12 MIN</span><span class="div"></span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0 0 4h13"/></svg><span>A1</span></div>
+            </div>
+            <h3 style="font-family:var(--font-serif);font-weight:400;font-size:22px;margin:0 0 8px;color:var(--ink)">Qu'y a-t-il dedans ?</h3>
+            <p style="font-size:15px;line-height:1.5;color:var(--ink);margin:0 0 8px">Un jeune renard quitte sa tanière pour la première fois et découvre une ferme tranquille au bord de la rivière.</p>
+            <p style="font-size:12px;color:var(--ink-3);margin:0 0 20px">Traduction générée, à vérifier avant usage pédagogique.</p>
+            <div class="bd-actions">
+              <button class="btn btn-primary" style="display:flex;align-items:center;justify-content:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="#FBF3E9"><path d="M8 5v14l11-7z"/></svg>Lire</button>
+              <button class="btn btn-secondary" style="display:flex;align-items:center;justify-content:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h3l3 8 4-16 3 8h5"/></svg>Mode vocal</button>
+            </div>
+          </div>
+        </div></div>
+        <p class="frame-caption">Book detail - fiche livre</p>
+      </div>
+
+      <!-- READER -->
+      <div>
+        <div class="phone-frame"><div class="phone-inner">
+          <div class="rd-top">
+            <span class="rd-chapter">Chapitre 1</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2"><path d="M5 5l14 14M19 5 5 19"/></svg>
+          </div>
+          <div class="rd-text" id="readerText"></div>
+          <div class="rd-sheet">
+            <div class="handle"></div>
+            <div class="row">
+              <p class="word" style="margin:0">renard</p>
+            </div>
+            <p class="gloss" style="margin:2px 0 10px">fox</p>
+            <div class="row"><button class="speaker-ring"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg></button><button class="save-chip is-saved">Enregistré</button>
+                <span style="font-size:12px;color:var(--ink-2);margin-left:10px">Détails</span><span style="font-size:12px;color:var(--ink-2);margin-left:14px">Signaler</span></div>
+          </div>
+          <div class="rd-transport">
+            <button class="tbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM20 6l-10 6 10 6z"/></svg></button>
+            <button class="tbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12a8 8 0 1 1 2.5 5.8"/><path d="M4 6v6h6"/></svg></button>
+            <button class="rd-playring"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+            <button class="tbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12a8 8 0 1 0-2.5 5.8"/><path d="M20 6v6h-6"/></svg></button>
+            <button class="tbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM4 6l10 6-10 6z"/></svg></button>
+          </div>
+          <div class="rd-progress">
+            <span class="seg filled"></span><span class="seg filled"></span><span class="seg"></span><span class="seg"></span>
+          </div>
+          <div class="rd-labels"><span>1:04</span><span>1.0x</span><span>2:31</span></div>
+        </div></div>
+        <p class="frame-caption">Reader - lecture, narration en cours</p>
+      </div>
+
+      <!-- VOICE -->
+      <div>
+        <div class="phone-frame"><div class="phone-inner">
+          <div class="scr-pad" style="padding:0 0 8px">
+            <div class="vc-state"><span class="vc-dot"></span><span class="vc-state-word">Je vous écoute</span></div>
+            <p class="vc-passage" id="voicePassage"></p>
+            <div class="vc-chips">
+              <span class="vc-chip active">Lis-moi l'histoire</span>
+              <span class="vc-chip">Pose-moi des questions</span>
+              <span class="vc-chip">Corrige-moi</span>
+              <span class="vc-chip">Discutons</span>
+            </div>
+            <div class="vc-caption"><p class="lbl">Vous avez dit</p><p class="txt">Où va le renard ce matin ?</p></div>
+            <div style="flex:1"></div>
+            <div class="vc-controls">
+              <button class="vc-ghost" aria-label="Muet"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M16 9l5 6M21 9l-5 6"/></svg></button>
+              <button class="vc-ghost" aria-label="Rejouer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 12a8 8 0 1 1 2.5 5.8"/><path d="M4 6v6h6"/></svg></button>
+              <button class="vc-ghost" aria-label="Arrêter"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="6" y="6" width="12" height="12" rx="1.5"/></svg></button>
+              <button class="vc-ghost" aria-label="Terminer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 5l14 14M19 5 5 19"/></svg></button>
+            </div>
+            <div class="vc-ptt-wrap"><button class="vc-ptt"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button></div>
+          </div>
+        </div></div>
+        <p class="frame-caption">Voice - mode vocal</p>
+      </div>
+
+      <!-- VOCABULARY -->
+      <div>
+        <div class="phone-frame"><div class="phone-inner">
+          <div class="scr-pad" style="overflow-y:auto">
+            <p class="scr-display" style="margin-bottom:18px">Vocabulaire</p>
+            <div class="voc-selector">
+              <svg class="cvr" viewBox="0 0 150 225" width="40" height="60"><use href="#cover-fox"/></svg>
+              <div class="info"><p class="t">Renard</p><p class="c">2 mots</p></div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink-2)" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+            </div>
+            <div class="voc-list">
+              <div class="wordcard">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="border:2px solid var(--accent);border-radius:9999px;padding:8px;flex-shrink:0"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg>
+                <div class="txt"><p class="w">tanière<span style="position:absolute;left:1px;right:1px;bottom:-2px;height:7px;background:var(--mark);transform:skewX(-10deg);clip-path:polygon(0% 30%,4% 0%,96% 12%,100% 35%,100% 78%,96% 100%,4% 88%,0% 62%);z-index:-1"></span></p><p class="g">den</p></div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-3)" stroke-width="2"><path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m2 0-1 13a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1L6 7"/></svg>
+              </div>
+              <div class="wordcard">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="border:2px solid var(--accent);border-radius:9999px;padding:8px;flex-shrink:0"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg>
+                <div class="txt"><p class="w">poulailler<span style="position:absolute;left:1px;right:1px;bottom:-2px;height:7px;background:var(--mark);transform:skewX(-10deg);clip-path:polygon(0% 30%,4% 0%,96% 12%,100% 35%,100% 78%,96% 100%,4% 88%,0% 62%);z-index:-1"></span></p><p class="g">henhouse</p></div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-3)" stroke-width="2"><path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m2 0-1 13a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1L6 7"/></svg>
+              </div>
+            </div>
+            <button class="btn btn-primary" style="width:100%;margin-top:16px">Commencer la révision (12)</button>
+          </div>
+        </div></div>
+        <p class="frame-caption">Vocabulary - vocabulaire</p>
+      </div>
+
+      <!-- REVIEW -->
+      <div>
+        <div class="phone-frame"><div class="phone-inner">
+          <div class="scr-pad">
+            <span class="back-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>Retour</span>
+            <div class="rv-card">
+              <p class="rv-word">tanière</p>
+              <button class="speaker-ring" style="margin-bottom:14px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg></button>
+              <div><span class="rv-link">Afficher la traduction</span></div>
+            </div>
+            <div class="ratingrow">
+              <button>À revoir</button>
+              <button class="suggested">Difficile</button>
+              <button>Facile</button>
+            </div>
+            <p class="rv-progress">4 / 12</p>
+          </div>
+        </div></div>
+        <p class="frame-caption">Review - carte de révision</p>
+      </div>
+
+      <!-- PROFILE -->
+      <div>
+        <div class="phone-frame"><div class="phone-inner">
+          <div class="scr-pad" style="overflow-y:auto">
+            <span class="back-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>Retour</span>
+            <p class="eyebrow" style="color:var(--ink-3)">Langues</p>
+            <div class="pf-group">
+              <div class="pf-row"><span class="k">J'apprends</span><span class="v">Français <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span></div>
+              <div class="pf-row"><span class="k">Expliquer en</span><span class="v">English <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span></div>
+              <div class="pf-row"><span class="k">Langue de l'app</span><span class="v">English <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span></div>
+            </div>
+            <p class="eyebrow" style="color:var(--ink-3)">Préférences du tuteur</p>
+            <div class="pf-group">
+              <div class="pf-row"><span class="k">Vitesse de narration</span><span class="v">Normale <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span></div>
+              <div class="pf-row"><span class="k">Sous-titres</span><span class="v">Activés</span></div>
+            </div>
+            <p class="eyebrow" style="color:var(--ink-3)">Données</p>
+            <div class="pf-group">
+              <div class="pf-row"><span class="k">Exporter</span><span class="v"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span></div>
+              <div class="pf-row"><span class="k">Importer</span><span class="v"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span></div>
+              <div class="pf-row"><span class="k">Réinitialiser</span><span class="v destructive">Réinitialiser</span></div>
+            </div>
+            <p class="eyebrow" style="color:var(--ink-3)">À propos</p>
+            <div class="pf-group">
+              <div class="pf-row"><span class="k">Confidentialité</span><span class="v"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span></div>
+              <div class="pf-row"><span class="k">Conditions</span><span class="v"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span></div>
+              <div class="pf-row"><span class="k">Donner un retour</span><span class="v"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span></div>
+              <div class="pf-row"><span class="k">Licences du contenu</span><span class="v"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span></div>
+            </div>
+          </div>
+        </div></div>
+        <p class="frame-caption">Profile - profil et réglages</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+<div class="hairline"></div>
+
+<section class="rhythm" id="desktop">
+  <p class="eyebrow">05 - Desktop</p>
+  <h2 class="section-title">Split reader layout, 900px and up</h2>
+  <p class="section-lede">220px sidebar, 620px passage column, 360px translation and tutor panel. Scrolls inside its own frame below 1100px viewports.</p>
+
+  <div class="desktop-wrap">
+    <div class="desktop-frame">
+      <div class="dt-sidebar">
+        <p class="dt-wordmark">Sotto</p>
+        <div class="dt-nav-row active">Pour toi</div>
+        <div class="dt-nav-row">Bibliothèque</div>
+        <div class="dt-nav-row">Vocabulaire</div>
+      </div>
+      <div class="dt-passage" id="desktopPassage"></div>
+      <div class="dt-right">
+        <h4>Traduction</h4>
+        <div class="translation-sheet is-saved" style="max-width:none;border-radius:10px;border:1px solid var(--hairline);border-top:1px solid var(--hairline)">
+          <p class="word">tanière</p>
+          <p class="gloss">den</p>
+          <div class="row"><button class="speaker-ring"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg></button><button class="save-chip is-saved">Enregistré</button></div>
+        </div>
+        <h4 style="margin-top:28px">Le tuteur dit</h4>
+        <div class="vc-caption" style="margin:0"><p class="txt">Le mot tanière désigne le terrier où vit le renard.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="hairline"></div>
+
+<div class="wrap">
+<section class="rhythm" id="donts">
+  <p class="eyebrow">06 - Don't</p>
+  <h2 class="section-title">Discipline, not decoration</h2>
+  <div class="dont-grid">
+    <div class="dont-item"><p class="n">01</p><p>No blurred shadows, no glass, no gradients on surfaces except the daily card's teal panel.</p></div>
+    <div class="dont-item"><p class="n">02</p><p>No accent outside CTA fill and the active tab; the speaker ring uses accent as a 2px outline only.</p></div>
+    <div class="dont-item"><p class="n">03</p><p>No bold Fraunces. Weight 300 or 400 only.</p></div>
+    <div class="dont-item"><p class="n">04</p><p>No pill-chip navigation, no orb, no mascot, no flags as language identifiers.</p></div>
+    <div class="dont-item"><p class="n">05</p><p>No highlight box chasing narration; speech fill only.</p></div>
+    <div class="dont-item"><p class="n">06</p><p>No inline colors in screens; every value comes from the token file.</p></div>
+  </div>
+</section>
+</div>
+
+<footer class="sheet-footer">
+  <p>Sotto design system, drafted by Cleo</p>
+</footer>
+
+<script>
+(function () {
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Device A: cutout press ---------- */
+  var pressBtn = document.getElementById('pressDemo');
+  if (pressBtn) {
+    var press = function () { pressBtn.classList.add('is-pressed'); };
+    var release = function () { pressBtn.classList.remove('is-pressed'); };
+    pressBtn.addEventListener('pointerdown', press);
+    pressBtn.addEventListener('pointerup', release);
+    pressBtn.addEventListener('pointerleave', release);
+    pressBtn.addEventListener('pointercancel', release);
+  }
+
+  /* ---------- Device B: marker stroke, click to save / unsave ---------- */
+  var markerWords = "Le petit renard traverse la forêt tranquille avant le lever du jour".split(' ');
+  var markerHost = document.getElementById('markerSentence');
+  if (markerHost) {
+    markerWords.forEach(function (w, i) {
+      var btn = document.createElement('button');
+      btn.className = 'marker-word';
+      btn.type = 'button';
+      var stroke = document.createElement('span');
+      stroke.className = 'stroke';
+      btn.appendChild(document.createTextNode(w));
+      btn.appendChild(stroke);
+      btn.addEventListener('click', function () {
+        btn.classList.toggle('is-saved');
+      });
+      markerHost.appendChild(btn);
+      markerHost.appendChild(document.createTextNode(i < markerWords.length - 1 ? ' ' : ''));
+    });
+  }
+
+  /* ---------- Device C: speech fill ---------- */
+  var speechWords = "Le petit renard sort de sa tanière tôt le matin et traverse la forêt tranquille pour trouver de quoi manger près de la vieille ferme au bord de la rivière avant le lever du soleil sur les champs endormis".split(' ');
+  var speechHost = document.getElementById('speechPassage');
+  var speechSpans = [];
+  if (speechHost) {
+    speechWords.forEach(function (w) {
+      var span = document.createElement('span');
+      span.className = 'speech-word';
+      span.textContent = w;
+      speechHost.appendChild(span);
+      speechHost.appendChild(document.createTextNode(' '));
+      speechSpans.push(span);
+    });
+  }
+  var speechPlay = document.getElementById('speechPlay');
+  if (speechPlay && speechHost) {
+    speechPlay.addEventListener('click', function () {
+      if (reduceMotion) {
+        speechSpans.forEach(function (s) { s.classList.add('is-filled'); });
+        return;
+      }
+      speechSpans.forEach(function (s) { s.classList.remove('is-filled'); s.classList.add('is-anim'); });
+      speechSpans.forEach(function (s, i) {
+        setTimeout(function () { s.classList.add('is-filled'); }, i * 60);
+      });
+    });
+  }
+
+  /* ---------- Reader screen: static end-state passage ---------- */
+  var readerParas = [
+    "Le petit renard sort de sa tanière tôt le matin et traverse la forêt tranquille.".split(' '),
+    "Il trouve un poulailler près de la vieille ferme au bord de la rivière.".split(' '),
+    "Le fermier dort encore et le renard s'approche sans faire de bruit.".split(' ')
+  ];
+  var readerHost = document.getElementById('readerText');
+  if (readerHost) {
+    var flatIndex = 0;
+    var totalWords = readerParas.reduce(function (n, p) { return n + p.length; }, 0);
+    var spokenCount = Math.round(totalWords * 0.6);
+    var savedIdx = [3, 11];
+    var selectedIdx = 16;
+    readerParas.forEach(function (para) {
+      var p = document.createElement('p');
+      para.forEach(function (w, i) {
+        var span = document.createElement('span');
+        span.className = 'rd-word dotted ' + (flatIndex < spokenCount ? 'spoken' : 'quiet');
+        if (savedIdx.indexOf(flatIndex) !== -1) {
+          span.classList.add('saved');
+          var stroke = document.createElement('span');
+          stroke.className = 'stroke2';
+          span.appendChild(document.createTextNode(w));
+          span.appendChild(stroke);
+        } else if (flatIndex === selectedIdx) {
+          span.classList.add('selected');
+          span.textContent = w;
+        } else {
+          span.textContent = w;
+        }
+        p.appendChild(span);
+        p.appendChild(document.createTextNode(' '));
+        flatIndex++;
+      });
+      readerHost.appendChild(p);
+    });
+  }
+
+  /* ---------- Voice screen: static speech-fill passage ---------- */
+  var voiceWords = "Le renard s'approche du poulailler sans faire de bruit et regarde autour de lui avec attention".split(' ');
+  var voiceHost = document.getElementById('voicePassage');
+  if (voiceHost) {
+    voiceWords.forEach(function (w, i) {
+      var span = document.createElement('span');
+      span.className = 'speech-word' + (i < 7 ? ' is-filled' : '');
+      if (i === 9 || i === 10) span.style.background = 'rgba(242,200,180,0.18)';
+      span.textContent = w;
+      voiceHost.appendChild(span);
+      voiceHost.appendChild(document.createTextNode(' '));
+    });
+  }
+
+  /* ---------- Desktop passage ---------- */
+  var dtHost = document.getElementById('desktopPassage');
+  if (dtHost) {
+    var dtParas = [
+      "Le petit renard sort de sa tanière tôt le matin et traverse la forêt tranquille avant le lever du jour.",
+      "Il trouve un poulailler près de la vieille ferme, au bord de la rivière qui coule lentement dans la vallée.",
+      "Un chat gris le regarde de loin, assis sur une pierre plate, sans bouger et sans faire de bruit."
+    ];
+    dtParas.forEach(function (t) {
+      var p = document.createElement('p');
+      p.style.margin = '0 0 20px';
+      p.textContent = t;
+      dtHost.appendChild(p);
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

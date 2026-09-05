@@ -49,7 +49,8 @@ export function BookTile({
   const [hovered, setHovered] = useState(false);
   const hoverActive = isDesktop && hovered;
   const t = useT();
-  const resolvedCaption = caption !== undefined ? caption : book.private ? t('import.yourBook') : null;
+  const resolvedCaption =
+    caption !== undefined ? caption : book.private ? t('import.yourBook') : null;
 
   return (
     <Pressable

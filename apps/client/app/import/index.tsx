@@ -45,7 +45,10 @@ export default function ImportEntryScreen() {
   // learner's file off-device to a host that never processes it. Only
   // start a *local* import when that URL is genuinely loopback, or the
   // caller explicitly configured a non-default server (EXPO_PUBLIC_SERVER_URL).
-  const localImportAllowed = canImportLocally(serverUrl(), Boolean(process.env.EXPO_PUBLIC_SERVER_URL));
+  const localImportAllowed = canImportLocally(
+    serverUrl(),
+    Boolean(process.env.EXPO_PUBLIC_SERVER_URL),
+  );
   const hostedAvailable =
     cloud.enabled &&
     me.status === 'signed-in' &&

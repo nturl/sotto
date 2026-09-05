@@ -52,7 +52,10 @@ export function hardSplitParagraph(paragraph: string, maxChars = MAX_PARAGRAPH_C
 }
 
 /** Applies hardSplitParagraph across a whole paragraph list. */
-export function hardSplitParagraphs(paragraphs: string[], maxChars = MAX_PARAGRAPH_CHARS): string[] {
+export function hardSplitParagraphs(
+  paragraphs: string[],
+  maxChars = MAX_PARAGRAPH_CHARS,
+): string[] {
   return paragraphs.flatMap((p) => hardSplitParagraph(p, maxChars));
 }
 

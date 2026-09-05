@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { hardSplitParagraph, MAX_CHAPTERS, MAX_IMPORT_CHARS, MAX_PARAGRAPH_CHARS } from '../../src/import/limits.ts';
+import {
+  hardSplitParagraph,
+  MAX_CHAPTERS,
+  MAX_IMPORT_CHARS,
+  MAX_PARAGRAPH_CHARS,
+} from '../../src/import/limits.ts';
 import { parseSource } from '../../src/import/parse/dispatch.ts';
 import { ImportError } from '../../src/import/types.ts';
 

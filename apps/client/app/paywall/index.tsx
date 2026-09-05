@@ -34,7 +34,10 @@ const isTestBuild =
  * French "/mois" suffix regardless of the interface language). The
  * amount itself is locale-formatted via Intl.NumberFormat; the "/mo"
  * suffix comes from the `paywall.perMonth` catalog key. */
-function priceLabel(plan: PlanOffer, t: (key: MessageKey, values?: MessageValues) => string): string {
+function priceLabel(
+  plan: PlanOffer,
+  t: (key: MessageKey, values?: MessageValues) => string,
+): string {
   const amount = new Intl.NumberFormat(getUiCatalog(), {
     style: 'currency',
     currency: 'USD',

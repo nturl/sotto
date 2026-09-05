@@ -16,7 +16,9 @@ vi.mock('@sotto/content/import', async () => {
       return new Promise((resolve, reject) => {
         resolveImport = resolve;
         rejectImport = reject;
-        opts.signal?.addEventListener('abort', () => reject(new DOMException('aborted', 'AbortError')));
+        opts.signal?.addEventListener('abort', () =>
+          reject(new DOMException('aborted', 'AbortError')),
+        );
       });
     }),
   };
@@ -25,7 +27,11 @@ vi.mock('@sotto/content/import', async () => {
 const { ImportJobRegistry, AUDIO_RETENTION_MS } = await import('./jobs.ts');
 
 function fakeResult(): { book: unknown; chapters: unknown[]; audio: Map<string, Uint8Array> } {
-  return { book: { bookId: 'private-test' }, chapters: [], audio: new Map([['01.mp3', new Uint8Array([1, 2, 3])]]) };
+  return {
+    book: { bookId: 'private-test' },
+    chapters: [],
+    audio: new Map([['01.mp3', new Uint8Array([1, 2, 3])]]),
+  };
 }
 
 describe('ImportJobRegistry (finding 9)', () => {
@@ -76,7 +82,7 @@ describe('ImportJobRegistry (finding 9)', () => {
     expect(registry.isBusy()).toBe(false);
   });
 
-  it('frees a finished job\'s audio buffers after AUDIO_RETENTION_MS, keeping the job record', async () => {
+  it("frees a finished job's audio buffers after AUDIO_RETENTION_MS, keeping the job record", async () => {
     const registry = new ImportJobRegistry({ autoSweep: false });
     const job = registry.start(
       { bytes: new Uint8Array(), filename: 'book.txt' },

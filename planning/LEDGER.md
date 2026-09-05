@@ -448,3 +448,4 @@ Routing per KICKOFF-4 §Routing: Opus lanes for anything touching a key, token, 
 - Permissions: README.md, docs index pages, apps/client/app.config.ts manifest fields only, docs/evidence/readme-walk-2026-09-05.log. NOT: any other docs/*.md (content session), packages/**, apps/server/**. Path-scoped commits.
 - Stop when: the walk passes under 30 minutes and the commits are pushed.
 - Escalate when: the walk fails because of a setup step that needs code, not docs; name the step and stop.
+- 2026-09-05 17:30 Free PWA deployed with B2 from a clean `git archive` of HEAD (1d74023): dpl_HGaXa3y3mZcW7aiFeTrg6rSn59RM (production), https://readsotto.app; live bundle carries the BYOK provider (`sotto.byok.openaiKey`, `gpt-4o-mini-transcribe` present); hosted smoke PASS at 375/1440 (docs/evidence/hosted-smoke-run4-b2-2026-09-05.log). Gate 1 remaining: R4-A README walk (dispatched).

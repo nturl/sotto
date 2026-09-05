@@ -28,13 +28,18 @@
  */
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Easing, Platform, Text as RNText, type TextStyle } from 'react-native';
-import { colors, motion, radius } from '@sotto/core/theme';
-import { Text } from '../Text';
-import { peachSelection, peachUnderline } from '../tokens';
+import { motion, radius, type schemes } from '@sotto/core/theme';
+// ThemedText (not the plain Text component) so the paragraph wrapper's
+// base color follows the active scheme too — see
+// ui/theme/ThemedText.tsx's doc comment.
+import { ThemedText as Text, useTheme } from '../theme';
+import { withAlpha } from '../tokens';
 import { useReducedMotion } from '../useReducedMotion';
 import type { SpeechSentence, SpeechToken } from '../SpeechFillText';
 
 const LONG_PRESS_MS = 350;
+
+type ThemeColors = Record<keyof (typeof schemes)['light'], string>;
 
 export type SelectableSpeechTextProps = {
   sentences: SpeechSentence[];
@@ -61,6 +66,9 @@ function SpeechWord({
   underline,
   reduced,
   isWord,
+  colors,
+  peachSelection,
+  peachUnderline,
   onPress,
   onPointerDown,
   onPointerEnter,
@@ -74,6 +82,12 @@ function SpeechWord({
   underline: boolean;
   reduced: boolean;
   isWord: boolean;
+  /** Active scheme's palette (DESIGN.md dark-mode task) — read via
+   * useTheme() in the parent and passed down so this leaf, called per
+   * token, doesn't each subscribe to the theme context separately. */
+  colors: ThemeColors;
+  peachSelection: string;
+  peachUnderline: string;
   onPress?: () => void;
   onPointerDown?: (e: { pointerType?: string; clientX: number; clientY: number }) => void;
   onPointerEnter?: () => void;
@@ -111,7 +125,13 @@ function SpeechWord({
           borderRadius: radius.sm,
         },
         saved ? { transform: [{ skewX: '-10deg' }] } : null,
-        underline ? styleUnderline : null,
+        underline
+          ? {
+              borderBottomWidth: 1,
+              borderBottomColor: peachUnderline,
+              borderStyle: 'dotted' as const,
+            }
+          : null,
       ]}
     >
       {text}
@@ -131,6 +151,9 @@ export function SelectableSpeechText({
 }: SelectableSpeechTextProps) {
   const reduced = useReducedMotion();
   const isWeb = Platform.OS === 'web';
+  const { colors } = useTheme();
+  const peachSelectionActive = useMemo(() => withAlpha(colors.peach, 0.18), [colors.peach]);
+  const peachUnderlineActive = useMemo(() => withAlpha(colors.peach, 0.35), [colors.peach]);
 
   // Flat reading-order id list for this block, used only to compute the
   // *preview* highlight while dragging (the parent recomputes the
@@ -243,6 +266,9 @@ export function SelectableSpeechText({
                   underline={underline && !!token.isWord && !token.saved}
                   reduced={reduced}
                   isWord={!!token.isWord}
+                  colors={colors}
+                  peachSelection={peachSelectionActive}
+                  peachUnderline={peachUnderlineActive}
                   onPress={onTap && token.isWord ? () => onTap(token, sentence) : undefined}
                   onPointerDown={token.isWord ? (e) => handlePointerDown(token.id, e) : undefined}
                   onPointerEnter={token.isWord ? () => handlePointerEnter(token.id) : undefined}
@@ -259,10 +285,4 @@ export function SelectableSpeechText({
 const readingCjkStyle: TextStyle = {
   fontSize: 22,
   lineHeight: Math.round(22 * 1.8),
-};
-
-const styleUnderline: TextStyle = {
-  borderBottomWidth: 1,
-  borderBottomColor: peachUnderline,
-  borderStyle: 'dotted',
 };

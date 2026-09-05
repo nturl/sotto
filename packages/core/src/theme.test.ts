@@ -1,5 +1,29 @@
 import { describe, expect, it } from 'vitest';
-import { colors, type, radius, space, shadow, motion, theme } from './theme.ts';
+import {
+  colors,
+  darkColors,
+  schemes,
+  type,
+  radius,
+  space,
+  shadow,
+  motion,
+  theme,
+} from './theme.ts';
+
+/** WCAG relative-luminance contrast ratio between two #RRGGBB colors.
+ * https://www.w3.org/TR/WCAG21/#dfn-relative-luminance */
+function contrastRatio(hexA: string, hexB: string): number {
+  const luminance = (hex: string) => {
+    const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(1 + i, 3 + i), 16) / 255);
+    const channel = (v: number) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
+    return 0.2126 * channel(r!) + 0.7152 * channel(g!) + 0.0722 * channel(b!);
+  };
+  const sorted = [luminance(hexA), luminance(hexB)].sort((a, b) => b - a);
+  const l1 = sorted[0]!;
+  const l2 = sorted[1]!;
+  return (l1 + 0.05) / (l2 + 0.05);
+}
 
 describe('@sotto/core theme', () => {
   it('exports the full token set', () => {
@@ -24,5 +48,19 @@ describe('@sotto/core theme', () => {
     expect(motion.speechFillStaggerMs).toBe(60);
 
     expect(theme.colors).toBe(colors);
+  });
+
+  it('gives every light token a dark counterpart', () => {
+    expect(Object.keys(darkColors).sort()).toEqual(Object.keys(colors).sort());
+    expect(schemes.light).toBe(colors);
+    expect(schemes.dark).toBe(darkColors);
+  });
+
+  it('meets WCAG contrast minimums for dark-scheme text on canvas', () => {
+    // Body text (ink) needs AAA-level 7:1; muted/legal text (ink-3) needs
+    // the standard AA 4.5:1 (DESIGN.md's own light-mode ink-3 comment cites
+    // the same 4.5:1 bar).
+    expect(contrastRatio(darkColors.ink, darkColors.canvas)).toBeGreaterThanOrEqual(7);
+    expect(contrastRatio(darkColors.ink3, darkColors.canvas)).toBeGreaterThanOrEqual(4.5);
   });
 });

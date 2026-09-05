@@ -27,6 +27,9 @@ const UserPreferencesSchema = z
     speakingPace: z.enum(['slow', 'normal']),
     narrationSpeed: z.union([z.literal(0.75), z.literal(1), z.literal(1.25)]),
     onboarded: z.boolean(),
+    // Dark-mode task (models.ts): kept optional so old export files without
+    // it still validate under .strict() below.
+    colorScheme: z.enum(['system', 'light', 'dark']).optional(),
   })
   .strict() satisfies z.ZodType<UserPreferences>;
 

@@ -174,12 +174,16 @@
   "tutor.browser.download": "Transferir os modelos do tutor",
   "tutor.browser.downloading": "A transferir…",
   "tutor.browser.ready": "Os modelos do tutor estão instalados neste navegador.",
-  "tutor.browser.sliceNote": "Por enquanto só funciona o reconhecimento de fala: o tutor ouve-o, mas ainda não responde.",
+  "tutor.browser.sliceNote": "O tutor ouve-o, responde-lhe e pode guardar palavras. Fala em voz alta nos livros em inglês; nas outras línguas ainda responde apenas em texto.",
   "tutor.browser.remove": "Remover os modelos",
   "tutor.browser.failed": "A transferência não terminou. Verifique a ligação e tente novamente.",
   "tutor.browser.privacy": "Transferidos uma só vez do servidor de modelos e guardados neste navegador. Sem conta, sem servidor, sem registos.",
   "tutor.browser.unsupported": "Este navegador não consegue executar o tutor: não tem WebGPU.",
   "tutor.browser.unsupportedHint": "Experimente uma versão recente do Chrome, Edge ou Safari num computador. A leitura, a narração e a tradução ao toque continuam a funcionar.",
   "tutor.browser.eventualTotal": "O tutor completo (fala, modelo de linguagem e voz) terá cerca de {size} MB.",
-  "tutor.browser.settingsRow": "Modelos do tutor"
+  "tutor.browser.settingsRow": "Modelos do tutor",
+  "settings.scheme.title": "Aparência",
+  "settings.scheme.system": "Sistema",
+  "settings.scheme.light": "Claro",
+  "settings.scheme.dark": "Escuro"
 }

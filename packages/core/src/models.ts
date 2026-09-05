@@ -201,6 +201,9 @@ export interface UserPreferences {
   speakingPace: 'slow' | 'normal';
   narrationSpeed: 0.75 | 1 | 1.25;
   onboarded: boolean;
+  /** 'system' resolves to the OS/browser preference; absent on old exports
+   * (client treats missing as 'system'). */
+  colorScheme?: 'system' | 'light' | 'dark';
 }
 
 export interface VoiceSessionRecord {

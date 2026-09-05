@@ -44,6 +44,7 @@ export const DEFAULT_PREFERENCES: UserPreferences = {
   speakingPace: 'normal',
   narrationSpeed: 1,
   onboarded: false,
+  colorScheme: 'system',
 };
 
 const MAX_CAPTIONS = 50;

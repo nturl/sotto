@@ -174,12 +174,16 @@
   "tutor.browser.download": "Download tutor models",
   "tutor.browser.downloading": "Downloading…",
   "tutor.browser.ready": "Tutor models are installed in this browser.",
-  "tutor.browser.sliceNote": "So far only speech recognition runs here: the tutor hears you but does not answer yet.",
+  "tutor.browser.sliceNote": "The tutor listens, replies, and can save words now. It speaks its replies for English books; in other languages it still answers in text only.",
   "tutor.browser.remove": "Remove models",
   "tutor.browser.failed": "The download did not finish. Check your connection and try again.",
   "tutor.browser.privacy": "Downloaded once from the model host, then kept in this browser. No account, no server, nothing recorded.",
   "tutor.browser.unsupported": "This browser cannot run the tutor: it has no WebGPU.",
   "tutor.browser.unsupportedHint": "Try a recent Chrome, Edge, or Safari on a desktop. Reading, narration, and tap-to-translate still work.",
   "tutor.browser.eventualTotal": "The complete tutor (speech, language model, and voice) will be about {size} MB.",
-  "tutor.browser.settingsRow": "Tutor models"
+  "tutor.browser.settingsRow": "Tutor models",
+  "settings.scheme.title": "Appearance",
+  "settings.scheme.system": "System",
+  "settings.scheme.light": "Light",
+  "settings.scheme.dark": "Dark"
 }

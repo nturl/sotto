@@ -174,12 +174,16 @@
   "tutor.browser.download": "下载导师模型",
   "tutor.browser.downloading": "正在下载…",
   "tutor.browser.ready": "导师模型已安装在此浏览器中。",
-  "tutor.browser.sliceNote": "目前只有语音识别可用：导师能听见你，但还不会回答。",
+  "tutor.browser.sliceNote": "导师现在能听你说话、给出回答，还能保存单词。英语书籍会用语音朗读回答；其他语言目前只用文字回答。",
   "tutor.browser.remove": "删除模型",
   "tutor.browser.failed": "下载未完成。请检查网络后重试。",
   "tutor.browser.privacy": "只从模型服务器下载一次，然后保存在此浏览器中。无需账号，无服务器，不留记录。",
   "tutor.browser.unsupported": "此浏览器无法运行导师：不支持 WebGPU。",
   "tutor.browser.unsupportedHint": "请在电脑上使用较新版本的 Chrome、Edge 或 Safari。阅读、朗读和点按翻译仍然可用。",
   "tutor.browser.eventualTotal": "完整的导师（语音识别、语言模型和语音合成）约需 {size} MB。",
-  "tutor.browser.settingsRow": "导师模型"
+  "tutor.browser.settingsRow": "导师模型",
+  "settings.scheme.title": "外观",
+  "settings.scheme.system": "系统",
+  "settings.scheme.light": "浅色",
+  "settings.scheme.dark": "深色"
 }

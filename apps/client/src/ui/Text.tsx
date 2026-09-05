@@ -31,7 +31,10 @@ const ROLE_FONT: Record<TextRole, string> = {
   mono: fonts.mono,
 };
 
-const ROLE_COLOR: Record<TextRole, ColorToken> = {
+/** Exported so ui/theme/ThemedText.tsx (dark-mode-migrated screens only)
+ * can look up each role's default color token without duplicating this
+ * map — see that file's doc comment for why Text itself stays static. */
+export const ROLE_COLOR: Record<TextRole, ColorToken> = {
   display: 'ink',
   heading: 'ink',
   reading: 'ink',

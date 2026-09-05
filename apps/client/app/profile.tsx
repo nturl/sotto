@@ -213,6 +213,11 @@ export default function ProfileScreen() {
                 setPreference('defaultTutorMode', cycle(TUTOR_MODES, preferences.defaultTutorMode)),
             },
             {
+              label: t('settings.scheme.title'),
+              value: t(`settings.scheme.${preferences.colorScheme ?? 'system'}` as const),
+              onPress: go('/settings/appearance'),
+            },
+            {
               label: t('tutor.browser.settingsRow'),
               onPress: go('/settings/models'),
             },

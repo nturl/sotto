@@ -24,6 +24,42 @@ export const colors = {
 
 export type ColorToken = keyof typeof colors;
 
+/**
+ * Dark palette — "Paper at night." Same roles as `colors` (the light
+ * palette), so every screen that reads a color token keeps working
+ * unchanged when the active scheme flips; only the hex values differ.
+ * `dailyTeal`/`dailySage` (the one gradient) and cover illustrations keep
+ * their own colourways in both schemes, per DESIGN.md.
+ */
+export const darkColors = {
+  canvas: '#1B1815', // warm charcoal canvas, not pure black
+  surface: '#232019',
+  surface2: '#2C2820',
+  ink: '#F1EAE0', // >= 7:1 on canvas (contrast test below)
+  ink2: '#B8AFA3',
+  ink3: '#8A8176', // >= 4.5:1 on canvas (contrast test below)
+  hairline: 'rgba(241,234,224,0.12)',
+  accent: '#E4572E', // unchanged — one job, same job in both schemes
+  peach: '#6B3F30', // cutout shadow, darkened to keep the cutout legible on a dark surface
+  mark: '#8A6A2E', // saved-word marker stroke, darkened; text over it must stay ink-colored
+  quiet: '#5E574F', // unspoken narration words, darkened
+  ok: '#5C9470', // slightly lightened for legibility on dark surfaces
+  warn: '#D07A3B', // slightly lightened for legibility on dark surfaces
+  dailyTeal: '#1F4F57', // gradient unchanged
+  dailySage: '#5B8A6B', // gradient unchanged
+} as const satisfies Record<keyof typeof colors, string>;
+
+/** Named schemes for the client's color-scheme provider. `colors` stays the
+ * default export (light) so every existing `colors.*` call site keeps
+ * compiling; `schemes` is the new lookup a scheme-aware consumer reads by
+ * name. */
+export const schemes = {
+  light: colors,
+  dark: darkColors,
+} as const;
+
+export type SchemeName = keyof typeof schemes;
+
 type TypeRole = {
   face: string;
   size: number;
@@ -133,6 +169,6 @@ export const motion = {
   speechFillStaggerMs: 60,
 } as const;
 
-export const theme = { colors, type, radius, space, shadow, motion } as const;
+export const theme = { colors, darkColors, schemes, type, radius, space, shadow, motion } as const;
 
 export type Theme = typeof theme;

@@ -174,12 +174,16 @@
   "tutor.browser.download": "下載導師模型",
   "tutor.browser.downloading": "正在下載…",
   "tutor.browser.ready": "導師模型已安裝在此瀏覽器中。",
-  "tutor.browser.sliceNote": "目前只有語音辨識可用：導師聽得見你，但還不會回答。",
+  "tutor.browser.sliceNote": "導師現在能聽你說話、給出回答，還能儲存單字。英語書籍會用語音朗讀回答；其他語言目前只用文字回答。",
   "tutor.browser.remove": "刪除模型",
   "tutor.browser.failed": "下載未完成。請檢查網路後再試一次。",
   "tutor.browser.privacy": "只從模型伺服器下載一次，然後儲存在此瀏覽器中。不需帳號，沒有伺服器，不留紀錄。",
   "tutor.browser.unsupported": "此瀏覽器無法執行導師：不支援 WebGPU。",
   "tutor.browser.unsupportedHint": "請在電腦上使用較新版本的 Chrome、Edge 或 Safari。閱讀、朗讀和點按翻譯仍然可用。",
   "tutor.browser.eventualTotal": "完整的導師（語音辨識、語言模型和語音合成）約需 {size} MB。",
-  "tutor.browser.settingsRow": "導師模型"
+  "tutor.browser.settingsRow": "導師模型",
+  "settings.scheme.title": "外觀",
+  "settings.scheme.system": "系統",
+  "settings.scheme.light": "淺色",
+  "settings.scheme.dark": "深色"
 }

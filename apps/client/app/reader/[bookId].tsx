@@ -13,10 +13,12 @@ import {
   type LayoutChangeEvent,
   type NativeSyntheticEvent,
   type NativeScrollEvent,
+  type ViewStyle,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { getLanguage, type Block, type Chapter, type Sentence, type Token } from '@sotto/core';
-import { colors, radius, space } from '@sotto/core/theme';
+import { radius, space, type schemes } from '@sotto/core/theme';
+import { useTheme } from '../../src/ui/theme';
 import { useT } from '../../src/i18n/useT';
 import { BookTile } from '../../src/ui/BookTile';
 import { Cover } from '../../src/ui/Cover';
@@ -45,13 +47,30 @@ import {
   spanText,
   type FlatBlockToken,
 } from '../../src/ui/reader/selection';
-import { Text } from '../../src/ui/Text';
 import { webCursor } from '../../src/ui/tokens';
 import { playAudioSlice, useNarrationPlayer, type NarrationSpeed } from '../../src/platform/audio';
 import { useSottoStore } from '../../src/state/store';
 import { buildSavedWord } from '../../src/state/vocabulary';
+// ThemedText resolves color against the active scheme (unlike the plain
+// `Text` component, which stays statically light — see
+// ui/theme/ThemedText.tsx's doc comment for why); aliased so every
+// existing `<Text ...>` call site in this file picks it up without a
+// rename.
+import { ThemedText as Text } from '../../src/ui/theme';
 
 const SPEEDS: NarrationSpeed[] = [0.75, 1, 1.25];
+
+type ThemeColors = Record<keyof (typeof schemes)['light'], string>;
+
+/** Styles with no color token in them — safe as a plain module-scope
+ * constant (unlike `createStyles` below, they never need to change with
+ * the active scheme), so ReaderBlock (which doesn't call useTheme) can use
+ * them directly. */
+const staticStyles = StyleSheet.create({
+  block: {
+    marginBottom: space.lg,
+  },
+});
 
 function formatClock(ms: number): string {
   const total = Math.max(0, Math.round(ms / 1000));
@@ -70,6 +89,8 @@ function flattenTokens(chapter: Chapter): Token[] {
 export default function ReaderScreen() {
   const t = useT();
   const router = useRouter();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const { bookId, mode } = useLocalSearchParams<{ bookId: string; mode?: string }>();
   const library = useLibrary();
 
@@ -553,80 +574,185 @@ export default function ReaderScreen() {
     </View>
   );
 
-  return (
-    <View style={styles.root} onLayout={(e) => setWidth(e.nativeEvent.layout.width)}>
-      <View style={[styles.header, { paddingHorizontal: space.gutter.phone }]}>
-        <Text role="mono" numberOfLines={1} style={styles.chapterLabel}>
-          {chapterSummary?.title ?? ''}
-        </Text>
+  // DESKTOP.md §5: passage column caps at 620 (left-aligned within the
+  // remaining space left of the docked panel — a plain maxWidth on each
+  // block inside a flex:1 column wrapper achieves this without a manual
+  // spacer, since flexbox's default stretch+flex-start already leaves any
+  // capped item flush left). Transport docks to the bottom of the passage
+  // column only (not the full viewport, which would run it under the
+  // panel too) — same flex-pinned-bottom technique as the phone layout,
+  // just scoped inside the passage wrapper instead of the screen root.
+  const transportView = audioUri ? (
+    <View
+      style={[styles.transport, isDesktop && styles.transportDesktop]}
+      onLayout={(e) => setTransportHeight(e.nativeEvent.layout.height)}
+    >
+      <View style={styles.progressTrack}>
+        {chapter?.blocks.map((block) => {
+          const tokens = block.sentences.flatMap((s) => s.tokens);
+          const first = tokens.find((tk) => tk.startMs !== undefined)?.startMs ?? 0;
+          const last =
+            [...tokens].reverse().find((tk) => tk.endMs !== undefined)?.endMs ?? first + 1;
+          const fraction =
+            narration.positionMs <= first
+              ? 0
+              : narration.positionMs >= last
+                ? 1
+                : (narration.positionMs - first) / Math.max(1, last - first);
+          return (
+            <View key={block.id} style={styles.progressSegment}>
+              <View style={[styles.progressFill, { width: `${Math.round(fraction * 100)}%` }]} />
+            </View>
+          );
+        })}
+      </View>
+      <View style={styles.transportRow}>
         <IconButton
-          icon={<CloseGlyph size={20} />}
-          accessibilityLabel={t('common.close')}
-          onPress={() => router.back()}
+          icon={<SkipPrevGlyph size={22} color={colors.ink} />}
+          accessibilityLabel={t('reader.prevChapter')}
+          onPress={() => {
+            const prev = book?.chapters[chapterIndex - 1];
+            if (prev) setChapterId(prev.id);
+          }}
+        />
+        <Pressable onPress={() => narration.seekBy(-10)} style={webCursor}>
+          <Text role="mono">-10</Text>
+        </Pressable>
+        <IconButton
+          variant="ring"
+          size={56}
+          icon={
+            narration.playing ? (
+              <PauseGlyph size={22} color={colors.accent} />
+            ) : (
+              <PlayGlyph size={22} color={colors.accent} />
+            )
+          }
+          accessibilityLabel={narration.playing ? t('reader.pause') : t('reader.play')}
+          onPress={() => (narration.playing ? narration.pause() : narration.play())}
+        />
+        <Pressable onPress={() => narration.seekBy(10)} style={webCursor}>
+          <Text role="mono">+10</Text>
+        </Pressable>
+        <IconButton
+          icon={<SkipNextGlyph size={22} color={colors.ink} />}
+          accessibilityLabel={t('reader.nextChapter')}
+          onPress={() => {
+            const next = book?.chapters[chapterIndex + 1];
+            if (next) setChapterId(next.id);
+          }}
         />
       </View>
-
-      <View style={styles.body}>
-        <ScrollView
-          style={styles.flex}
-          contentContainerStyle={[
-            styles.scrollContent,
-            {
-              paddingHorizontal: space.gutter.phone,
-              paddingBottom: transportHeight + (isDesktop ? 0 : sheetHeight) + space.xxl,
-            },
-          ]}
-          onScroll={onScroll}
-          scrollEventThrottle={64}
+      <View style={styles.transportMeta}>
+        <Text role="mono" color="ink2">
+          {formatClock(narration.positionMs)}
+        </Text>
+        <Pressable
+          onPress={() => {
+            const idx = SPEEDS.indexOf(preferences.narrationSpeed as NarrationSpeed);
+            const next = SPEEDS[(idx + 1) % SPEEDS.length]!;
+            useSottoStore.getState().setPreference('narrationSpeed', next);
+          }}
+          style={webCursor}
         >
-          {chapter?.blocks.map((block, index) => (
-            <ReaderBlock
-              key={block.id}
-              block={block}
-              cjk={!!cjk}
-              savedTokenIds={savedTokenIds}
-              selectedTokenIds={selectedSpanTokenIds}
-              narratingIndex={narratingIndex}
-              tokenIndexById={tokenIndexById}
-              onSelect={(token, sentence) => {
-                setShowSentenceDetail(false);
-                setSelectedToken({ token, sentence });
-              }}
-              onSpanSelect={(span) => {
-                if (span.length === 0) return;
-                const tokens = span.map((f) => f.token);
-                const firstToken = span[0] as FlatBlockToken;
-                const wholeSentence =
-                  isSingleSentenceSpan(span) &&
-                  isWholeSentenceSpan(
-                    firstToken.sentence,
-                    tokens.map((tk) => tk.id),
-                  )
-                    ? firstToken.sentence
-                    : undefined;
-                setShowSentenceDetail(false);
-                setSelectedToken({
-                  token: firstToken.token,
-                  sentence: firstToken.sentence,
-                  spanTokens: tokens,
-                  wholeSentence,
-                });
-              }}
-              onLongPressSentence={(sentence) => {
-                setSelectedToken({ token: sentence.tokens[0]!, sentence });
-                setShowSentenceDetail(true);
-              }}
-              onLayout={
-                index === chapter.blocks.length - 1
-                  ? (e) => {
-                      lastBlockBottomRef.current =
-                        e.nativeEvent.layout.y + e.nativeEvent.layout.height;
-                    }
-                  : undefined
-              }
+          <Text role="mono" color="ink2">
+            {preferences.narrationSpeed}x
+          </Text>
+        </Pressable>
+        <Text role="mono" color="ink2">
+          -{formatClock(Math.max(0, narration.durationMs - narration.positionMs))}
+        </Text>
+      </View>
+    </View>
+  ) : null;
+
+  return (
+    <View style={styles.root} onLayout={(e) => setWidth(e.nativeEvent.layout.width)}>
+      <View style={styles.body}>
+        {/* Passage wrapper fills all space left of the docked panel; its
+            children (header/scroll/transport) each cap at 620 so the
+            column reads as left-aligned instead of centered or stretched. */}
+        <View style={styles.passageWrapper}>
+          <View
+            style={[
+              styles.header,
+              { paddingHorizontal: space.gutter.phone },
+              isDesktop && styles.passageCapped,
+            ]}
+          >
+            <Text role="mono" numberOfLines={1} style={styles.chapterLabel}>
+              {chapterSummary?.title ?? ''}
+            </Text>
+            <IconButton
+              icon={<CloseGlyph size={20} color={colors.ink} />}
+              accessibilityLabel={t('common.close')}
+              onPress={() => router.back()}
             />
-          ))}
-        </ScrollView>
+          </View>
+
+          <ScrollView
+            style={[styles.flex, isDesktop && styles.passageCapped]}
+            contentContainerStyle={[
+              styles.scrollContent,
+              {
+                paddingHorizontal: space.gutter.phone,
+                paddingBottom: transportHeight + (isDesktop ? 0 : sheetHeight) + space.xxl,
+              },
+            ]}
+            onScroll={onScroll}
+            scrollEventThrottle={64}
+          >
+            {chapter?.blocks.map((block, index) => (
+              <ReaderBlock
+                key={block.id}
+                block={block}
+                cjk={!!cjk}
+                savedTokenIds={savedTokenIds}
+                selectedTokenIds={selectedSpanTokenIds}
+                narratingIndex={narratingIndex}
+                tokenIndexById={tokenIndexById}
+                onSelect={(token, sentence) => {
+                  setShowSentenceDetail(false);
+                  setSelectedToken({ token, sentence });
+                }}
+                onSpanSelect={(span) => {
+                  if (span.length === 0) return;
+                  const tokens = span.map((f) => f.token);
+                  const firstToken = span[0] as FlatBlockToken;
+                  const wholeSentence =
+                    isSingleSentenceSpan(span) &&
+                    isWholeSentenceSpan(
+                      firstToken.sentence,
+                      tokens.map((tk) => tk.id),
+                    )
+                      ? firstToken.sentence
+                      : undefined;
+                  setShowSentenceDetail(false);
+                  setSelectedToken({
+                    token: firstToken.token,
+                    sentence: firstToken.sentence,
+                    spanTokens: tokens,
+                    wholeSentence,
+                  });
+                }}
+                onLongPressSentence={(sentence) => {
+                  setSelectedToken({ token: sentence.tokens[0]!, sentence });
+                  setShowSentenceDetail(true);
+                }}
+                onLayout={
+                  index === chapter.blocks.length - 1
+                    ? (e) => {
+                        lastBlockBottomRef.current =
+                          e.nativeEvent.layout.y + e.nativeEvent.layout.height;
+                      }
+                    : undefined
+                }
+              />
+            ))}
+          </ScrollView>
+
+          {isDesktop ? transportView : null}
+        </View>
 
         {isDesktop ? <View style={styles.desktopPanel}>{translationPanel}</View> : null}
       </View>
@@ -642,91 +768,7 @@ export default function ReaderScreen() {
         </Sheet>
       ) : null}
 
-      {audioUri ? (
-        <View
-          style={styles.transport}
-          onLayout={(e) => setTransportHeight(e.nativeEvent.layout.height)}
-        >
-          <View style={styles.progressTrack}>
-            {chapter?.blocks.map((block) => {
-              const tokens = block.sentences.flatMap((s) => s.tokens);
-              const first = tokens.find((tk) => tk.startMs !== undefined)?.startMs ?? 0;
-              const last =
-                [...tokens].reverse().find((tk) => tk.endMs !== undefined)?.endMs ?? first + 1;
-              const fraction =
-                narration.positionMs <= first
-                  ? 0
-                  : narration.positionMs >= last
-                    ? 1
-                    : (narration.positionMs - first) / Math.max(1, last - first);
-              return (
-                <View key={block.id} style={styles.progressSegment}>
-                  <View
-                    style={[styles.progressFill, { width: `${Math.round(fraction * 100)}%` }]}
-                  />
-                </View>
-              );
-            })}
-          </View>
-          <View style={styles.transportRow}>
-            <IconButton
-              icon={<SkipPrevGlyph size={22} />}
-              accessibilityLabel={t('reader.prevChapter')}
-              onPress={() => {
-                const prev = book?.chapters[chapterIndex - 1];
-                if (prev) setChapterId(prev.id);
-              }}
-            />
-            <Pressable onPress={() => narration.seekBy(-10)} style={webCursor}>
-              <Text role="mono">-10</Text>
-            </Pressable>
-            <IconButton
-              variant="ring"
-              size={56}
-              icon={
-                narration.playing ? (
-                  <PauseGlyph size={22} color={colors.accent} />
-                ) : (
-                  <PlayGlyph size={22} color={colors.accent} />
-                )
-              }
-              accessibilityLabel={narration.playing ? t('reader.pause') : t('reader.play')}
-              onPress={() => (narration.playing ? narration.pause() : narration.play())}
-            />
-            <Pressable onPress={() => narration.seekBy(10)} style={webCursor}>
-              <Text role="mono">+10</Text>
-            </Pressable>
-            <IconButton
-              icon={<SkipNextGlyph size={22} />}
-              accessibilityLabel={t('reader.nextChapter')}
-              onPress={() => {
-                const next = book?.chapters[chapterIndex + 1];
-                if (next) setChapterId(next.id);
-              }}
-            />
-          </View>
-          <View style={styles.transportMeta}>
-            <Text role="mono" color="ink2">
-              {formatClock(narration.positionMs)}
-            </Text>
-            <Pressable
-              onPress={() => {
-                const idx = SPEEDS.indexOf(preferences.narrationSpeed as NarrationSpeed);
-                const next = SPEEDS[(idx + 1) % SPEEDS.length]!;
-                useSottoStore.getState().setPreference('narrationSpeed', next);
-              }}
-              style={webCursor}
-            >
-              <Text role="mono" color="ink2">
-                {preferences.narrationSpeed}x
-              </Text>
-            </Pressable>
-            <Text role="mono" color="ink2">
-              -{formatClock(Math.max(0, narration.durationMs - narration.positionMs))}
-            </Text>
-          </View>
-        </View>
-      ) : null}
+      {!isDesktop ? transportView : null}
     </View>
   );
 }
@@ -781,7 +823,7 @@ function ReaderBlock({
   const flatBlockTokens = flattenBlockTokens(block);
 
   return (
-    <View style={styles.block} onLayout={onLayout}>
+    <View style={staticStyles.block} onLayout={onLayout}>
       <SelectableSpeechText
         sentences={sentences}
         selectedSpanTokenIds={selectedTokenIds}
@@ -815,12 +857,14 @@ function CompletionView({
 }) {
   const t = useT();
   const router = useRouter();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   return (
     <View style={[styles.root, styles.completionRoot]}>
       <View style={styles.completionHeader}>
         <View />
         <IconButton
-          icon={<CloseGlyph size={20} />}
+          icon={<CloseGlyph size={20} color={colors.ink} />}
           accessibilityLabel={t('common.close')}
           onPress={onClose}
         />
@@ -836,7 +880,7 @@ function CompletionView({
         />
       ) : null}
       <View style={styles.completionArrow}>
-        <HandDrawnArrowGlyph />
+        <HandDrawnArrowGlyph color={colors.ink} />
       </View>
       <View style={styles.completionCard}>
         <Text role="heading" style={styles.completionTitle}>
@@ -852,142 +896,168 @@ function CompletionView({
   );
 }
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: colors.canvas,
-  },
-  flex: { flex: 1 },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingTop: space.xl,
-    paddingBottom: space.md,
-  },
-  chapterLabel: {
-    flex: 1,
-    marginRight: space.md,
-  },
-  body: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  scrollContent: {
-    paddingTop: space.sm,
-  },
-  block: {
-    marginBottom: space.lg,
-  },
-  desktopPanel: {
-    width: 360,
-    borderLeftWidth: 1,
-    borderLeftColor: colors.hairline,
-    backgroundColor: colors.surface,
-    padding: space.xl,
-  },
-  mobileSheet: {
-    maxHeight: '60%',
-  },
-  panelInner: {
-    gap: space.sm,
-  },
-  panelHeaderRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  panelActions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.lg,
-    marginTop: space.sm,
-  },
-  saveButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.xs,
-    backgroundColor: colors.surface2,
-    borderRadius: radius.md,
-    paddingVertical: space.sm,
-    paddingHorizontal: space.md,
-  },
-  saveButtonActive: {
-    backgroundColor: colors.mark,
-    borderWidth: 1.5,
-    borderColor: colors.ink,
-  },
-  sentenceDetail: {
-    marginTop: space.sm,
-  },
-  emptyState: {
-    padding: space.lg,
-    textAlign: 'center',
-  },
-  flexShrink: {
-    flexShrink: 1,
-  },
-  transport: {
-    borderTopWidth: 1,
-    borderTopColor: colors.hairline,
-    backgroundColor: colors.surface,
-    paddingHorizontal: space.gutter.phone,
-    paddingTop: space.md,
-    paddingBottom: space.lg,
-    gap: space.sm,
-  },
-  progressTrack: {
-    flexDirection: 'row',
-    gap: 2,
-    height: 3,
-  },
-  progressSegment: {
-    flex: 1,
-    backgroundColor: colors.surface2,
-    borderRadius: radius.full,
-    overflow: 'hidden',
-  },
-  progressFill: {
-    height: '100%',
-    backgroundColor: colors.ink,
-  },
-  transportRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: space.xl,
-  },
-  transportMeta: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  completionRoot: {
-    alignItems: 'center',
-    paddingTop: space.xl,
-    paddingHorizontal: space.gutter.phone,
-  },
-  completionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignSelf: 'stretch',
-  },
-  completionArrow: {
-    marginVertical: space.lg,
-  },
-  completionCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.hairline,
-    padding: space.xl,
-    alignSelf: 'stretch',
-    gap: space.lg,
-  },
-  completionTitle: {
-    textAlign: 'center',
-  },
-  completionTiles: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-});
+/** Dark-mode note: this is a function (not a module-scope constant) so it
+ * can be re-invoked with the active scheme's colors — a plain
+ * `StyleSheet.create({...colors.x})` at module load bakes in whatever
+ * palette was active at import time and never updates again (the same
+ * limitation every other screen's static styles have; see
+ * ui/theme/ThemeProvider.tsx's doc comment). ReaderScreen/CompletionView
+ * call this via `useMemo(() => createStyles(colors), [colors])` so the
+ * reader specifically stays reactive to Appearance changes. */
+function createStyles(colors: ThemeColors) {
+  return StyleSheet.create({
+    root: {
+      flex: 1,
+      backgroundColor: colors.canvas,
+    },
+    flex: { flex: 1 },
+    header: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingTop: space.xl,
+      paddingBottom: space.md,
+    },
+    chapterLabel: {
+      flex: 1,
+      marginRight: space.md,
+    },
+    body: {
+      flex: 1,
+      flexDirection: 'row',
+    },
+    // Fills all space left of the docked 360px panel; its children cap at
+    // 620 individually (styles.passageCapped) so the passage reads as
+    // left-aligned within this wrapper rather than centered or stretched to
+    // the panel's edge (DESKTOP.md §5).
+    passageWrapper: {
+      flex: 1,
+    },
+    passageCapped: {
+      maxWidth: 620,
+    },
+    scrollContent: {
+      paddingTop: space.sm,
+    },
+    desktopPanel: {
+      width: 360,
+      borderLeftWidth: 1,
+      borderLeftColor: colors.hairline,
+      backgroundColor: colors.surface,
+      padding: space.xl,
+      // DESKTOP.md §5: docked right, sticky to the viewport while the
+      // passage column scrolls past on the left.
+      ...(Platform.OS === 'web' ? { position: 'sticky', top: 0 } : null),
+    } as ViewStyle,
+    mobileSheet: {
+      maxHeight: '60%',
+    },
+    panelInner: {
+      gap: space.sm,
+    },
+    panelHeaderRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    panelActions: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space.lg,
+      marginTop: space.sm,
+    },
+    saveButton: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space.xs,
+      backgroundColor: colors.surface2,
+      borderRadius: radius.md,
+      paddingVertical: space.sm,
+      paddingHorizontal: space.md,
+    },
+    saveButtonActive: {
+      backgroundColor: colors.mark,
+      borderWidth: 1.5,
+      borderColor: colors.ink,
+    },
+    sentenceDetail: {
+      marginTop: space.sm,
+    },
+    emptyState: {
+      padding: space.lg,
+      textAlign: 'center',
+    },
+    flexShrink: {
+      flexShrink: 1,
+    },
+    transport: {
+      borderTopWidth: 1,
+      borderTopColor: colors.hairline,
+      backgroundColor: colors.surface,
+      paddingHorizontal: space.gutter.phone,
+      paddingTop: space.md,
+      paddingBottom: space.lg,
+      gap: space.sm,
+    },
+    // DESKTOP.md §5: transport docks to the bottom of the passage column
+    // only (620 max), not the full viewport width under the panel too.
+    transportDesktop: {
+      maxWidth: 620,
+      ...(Platform.OS === 'web' ? { position: 'sticky', bottom: 0 } : null),
+    } as ViewStyle,
+    progressTrack: {
+      flexDirection: 'row',
+      gap: 2,
+      height: 3,
+    },
+    progressSegment: {
+      flex: 1,
+      backgroundColor: colors.surface2,
+      borderRadius: radius.full,
+      overflow: 'hidden',
+    },
+    progressFill: {
+      height: '100%',
+      backgroundColor: colors.ink,
+    },
+    transportRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: space.xl,
+    },
+    transportMeta: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    completionRoot: {
+      alignItems: 'center',
+      paddingTop: space.xl,
+      paddingHorizontal: space.gutter.phone,
+    },
+    completionHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignSelf: 'stretch',
+    },
+    completionArrow: {
+      marginVertical: space.lg,
+    },
+    completionCard: {
+      backgroundColor: colors.surface,
+      borderRadius: radius.md,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+      padding: space.xl,
+      alignSelf: 'stretch',
+      gap: space.lg,
+    },
+    completionTitle: {
+      textAlign: 'center',
+    },
+    completionTiles: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+    },
+  });
+}

@@ -174,12 +174,16 @@
   "tutor.browser.download": "Télécharger les modèles du tuteur",
   "tutor.browser.downloading": "Téléchargement…",
   "tutor.browser.ready": "Les modèles du tuteur sont installés dans ce navigateur.",
-  "tutor.browser.sliceNote": "Pour l'instant, seule la reconnaissance vocale fonctionne ici : le tuteur vous entend mais ne répond pas encore.",
+  "tutor.browser.sliceNote": "Le tuteur vous écoute, vous répond et peut enregistrer des mots. Il vous parle à voix haute pour les livres en anglais ; dans les autres langues, il répond encore seulement par texte.",
   "tutor.browser.remove": "Supprimer les modèles",
   "tutor.browser.failed": "Le téléchargement n'a pas abouti. Vérifiez votre connexion et réessayez.",
   "tutor.browser.privacy": "Téléchargés une seule fois depuis l'hébergeur des modèles, puis conservés dans ce navigateur. Aucun compte, aucun serveur, aucun enregistrement.",
   "tutor.browser.unsupported": "Ce navigateur ne peut pas faire fonctionner le tuteur : il n'a pas WebGPU.",
   "tutor.browser.unsupportedHint": "Essayez une version récente de Chrome, Edge ou Safari sur ordinateur. La lecture, la narration et la traduction au toucher fonctionnent toujours.",
   "tutor.browser.eventualTotal": "Le tuteur complet (parole, modèle de langue et voix) fera environ {size} Mo.",
-  "tutor.browser.settingsRow": "Modèles du tuteur"
+  "tutor.browser.settingsRow": "Modèles du tuteur",
+  "settings.scheme.title": "Apparence",
+  "settings.scheme.system": "Système",
+  "settings.scheme.light": "Clair",
+  "settings.scheme.dark": "Sombre"
 }

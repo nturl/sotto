@@ -241,6 +241,16 @@ export class HttpCloudAdapter implements CloudAdapter {
     });
   }
 
+  async realtimeEnd(
+    callId: string,
+    report: { audioSecondsIn: number; audioSecondsOut: number },
+  ): Promise<void> {
+    await this.request('/voice/realtime/end', {
+      method: 'POST',
+      body: JSON.stringify({ callId, ...report }),
+    });
+  }
+
   async importBook(
     file: Blob,
     opts: ImportOptions,

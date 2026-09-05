@@ -182,6 +182,13 @@ export class FakeCloudAdapter implements CloudAdapter {
     };
   }
 
+  async realtimeEnd(
+    _callId: string,
+    _report: { audioSecondsIn: number; audioSecondsOut: number },
+  ): Promise<void> {
+    // no-op — nothing server-side to close in fake mode.
+  }
+
   async importBook(
     _file: Blob,
     _opts: ImportOptions,

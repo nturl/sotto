@@ -150,6 +150,7 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
         },
         passage: buildPassageWindow(chapter, progress[bookId]?.tokenId),
         savedWords: savedWordList,
+        cloudProvider: me.status === 'signed-in' ? me.me.entitlement.provider : undefined,
       });
     }
 

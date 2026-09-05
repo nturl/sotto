@@ -55,6 +55,9 @@ export class NullCloud implements CloudAdapter {
   realtimeSecret() {
     return noCloud();
   }
+  realtimeEnd() {
+    return noCloud();
+  }
   importBook() {
     return noCloud();
   }

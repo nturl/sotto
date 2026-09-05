@@ -122,6 +122,16 @@ export interface CloudAdapter {
   stubSubscribe(plan: string): Promise<Entitlement>;
   voiceSession(opts: SessionOptions): Promise<CloudVoiceSession>;
   realtimeSecret(opts: SessionOptions): Promise<RealtimeSecret>;
+  /** POST /voice/realtime/end (CLOUD-API.md): reported client-side audio
+   * seconds for a Realtime call — a cross-check only, never trusted for
+   * the cap or the spend ceiling (those are booked server-side off wall
+   * clock; see sotto-cloud DECISIONS.md #22 and adversarial review 3
+   * finding 4). Finding 3's missing half: without this, a Realtime call
+   * is only ever closed by the server's reaper, at the full ceiling. */
+  realtimeEnd(
+    callId: string,
+    report: { audioSecondsIn: number; audioSecondsOut: number },
+  ): Promise<void>;
   importBook(
     file: Blob,
     opts: ImportOptions,

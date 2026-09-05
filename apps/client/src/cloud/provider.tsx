@@ -20,7 +20,7 @@ import { HttpCloudAdapter } from './http';
  * graph (via `getCloudAdapter`, below), which several unit tests import.
  * React Native Web always runs in a real DOM (`document` exists); true
  * native JS engines (Hermes/JSC) never have one. */
-function detectPlatform(): 'web' | 'native' {
+export function detectPlatform(): 'web' | 'native' {
   return typeof document === 'undefined' ? 'native' : 'web';
 }
 

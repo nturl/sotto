@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Sotto reads with you</title>
+    <meta
+      name="description"
+      content="Sotto is a free, open-source graded reader. Read a story at your level, tap any word for a translation, hear it narrated, talk it over with a voice tutor."
+    />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <!--
+  Cleo landing, 2026-09-05. Spec: planning/design/LANDING.md.
+  Skeleton at planning/design/landing-skeleton.html. Fonts are Fraunces
+  300/400 and Inter 400/500, served same-origin from /fonts/ (copied at
+  build from @expo-google-fonts by scripts/build-web.mjs).
+-->
+    <style>
+      @font-face {
+        font-family: 'Fraunces';
+        src: url('/fonts/Fraunces_300Light.ttf') format('truetype');
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Fraunces';
+        src: url('/fonts/Fraunces_400Regular.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Inter';
+        src: url('/fonts/Inter_400Regular.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Inter';
+        src: url('/fonts/Inter_500Medium.ttf') format('truetype');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      :root {
+        /* darkColors from packages/core/src/theme.ts, "Paper at night" */
+        --canvas: #1b1815;
+        --surface: #232019;
+        --surface-2: #2c2820;
+        --ink: #f1eae0;
+        --ink-2: #b8afa3;
+        --ink-3: #8a8176;
+        --hairline: rgba(241, 234, 224, 0.12);
+        --accent: #e4572e;
+        --peach: #6b3f30;
+        --peach-fill: rgba(107, 63, 48, 0.42);
+
+        --serif: 'Fraunces', 'Iowan Old Style', 'Palatino', Georgia, serif;
+        --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+        --mono: ui-monospace, 'SF Mono', Menlo, monospace;
+
+        --measure: 38rem;
+        --wide: 44rem;
+        --gutter: 20px;
+        --section: 64px;
+        --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      @media (min-width: 900px) {
+        :root {
+          --gutter: 48px;
+          --section: 112px;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        background: var(--canvas);
+        -webkit-font-smoothing: antialiased;
+      }
+      body {
+        margin: 0;
+        background: var(--canvas);
+        color: var(--ink);
+        font: 400 1rem/1.55 var(--sans);
+        font-feature-settings: 'ss01', 'cv11';
+      }
+      a {
+        color: var(--ink);
+        text-decoration: underline;
+        text-decoration-color: var(--hairline);
+        text-underline-offset: 0.18em;
+        transition: text-decoration-color 120ms ease;
+      }
+      a:hover {
+        text-decoration-color: var(--ink-2);
+      }
+      :focus-visible {
+        outline: 1.5px solid var(--ink);
+        outline-offset: 3px;
+      }
+
+      .col {
+        width: 100%;
+        max-width: var(--wide);
+        margin: 0 auto;
+        padding: 0 var(--gutter);
+      }
+      .col.wide {
+        max-width: var(--wide);
+      }
+      .measure {
+        max-width: var(--measure);
+      }
+      section {
+        padding-top: var(--section);
+      }
+      .meta {
+        font: 400 0.6875rem/1 var(--mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+      }
+
+      /* 1 Masthead */
+      header {
+        border-bottom: 1px solid var(--hairline);
+      }
+      header .col {
+        max-width: var(--wide);
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        gap: 16px;
+      }
+      .wordmark {
+        display: inline-block;
+        padding: 10px 0;
+        font: 300 1.5rem/1 var(--serif);
+        letter-spacing: -0.01em;
+        color: var(--ink);
+        text-decoration: none;
+      }
+
+      /* 2 Hero */
+      h1 {
+        max-width: 20ch;
+        font: 300 clamp(2.25rem, 1.6rem + 3.2vw, 4rem)/1.05 var(--serif);
+        letter-spacing: -0.02em;
+        margin: 16px 0 32px;
+      }
+      .passage {
+        max-width: var(--measure);
+        font: 300 clamp(1.375rem, 1.15rem + 0.8vw, 1.625rem)/1.45 var(--serif);
+        letter-spacing: -0.005em;
+        margin: 0;
+      }
+      .passage .w {
+        transition: color 220ms var(--ease);
+      }
+      .passage.filling .w {
+        color: var(--ink-3);
+      }
+      .passage.filling .w.lit {
+        color: var(--ink);
+      }
+      .tok {
+        text-decoration: underline dotted rgba(107, 63, 48, 0.9);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.14em;
+        border-radius: 2px;
+        cursor: default;
+        transition: background-color 120ms ease;
+      }
+      .tok.on,
+      .tok:hover {
+        background: var(--peach-fill);
+      }
+
+      /* 3 Glosses (the device: linked gloss focus) */
+      .glosses {
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid var(--hairline);
+      }
+      .glosses dt,
+      .glosses dd {
+        margin: 0;
+      }
+      .glosses > div {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 6px;
+        padding: 18px 8px;
+        margin: 0 -8px;
+        border-bottom: 1px solid var(--hairline);
+        transition: background-color 120ms ease;
+      }
+      .glosses > div.on,
+      .glosses > div:hover {
+        background: var(--surface-2);
+      }
+      .glosses .gw {
+        font: 400 1.375rem/1.2 var(--serif);
+        color: var(--ink);
+      }
+      .glosses .gm {
+        color: var(--ink-2);
+      }
+
+      /* 4 CTA: the cutout */
+      .cta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 56px;
+        width: 100%;
+        background: var(--accent);
+        color: var(--canvas);
+        font: 500 1.0625rem/1 var(--sans);
+        text-decoration: none;
+        border-radius: 10px;
+        box-shadow: 4px 4px 0 0 var(--peach);
+        transition:
+          transform 120ms ease,
+          box-shadow 120ms ease,
+          filter 120ms ease;
+      }
+      .cta:hover {
+        filter: brightness(0.96);
+      }
+      .cta:active {
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0 0 var(--peach);
+      }
+      @media (min-width: 600px) {
+        .cta {
+          width: auto;
+          display: inline-flex;
+          padding: 0 40px;
+        }
+      }
+      .start {
+        margin-top: 40px;
+        max-width: var(--measure);
+      }
+      .cta-note {
+        color: var(--ink-2);
+        font-size: 0.8125rem;
+        margin: 20px 0 0;
+      }
+
+      /* 5 Four ways, 6 Phone steps: rows, never cards */
+      h2 {
+        font: 300 1.75rem/1.15 var(--serif);
+        letter-spacing: -0.01em;
+        margin: 0 0 24px;
+      }
+      .rows {
+        display: grid;
+        grid-template-columns: 1fr;
+        border-top: 1px solid var(--hairline);
+      }
+      .rows > div {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 6px 24px;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--hairline);
+      }
+      .rows .head {
+        display: none;
+      }
+      .rows .cell {
+        color: var(--ink-2);
+      }
+      .rows .cell.lead {
+        color: var(--ink);
+      }
+      .rows .cell[data-label]::before {
+        content: attr(data-label);
+        display: block;
+        font: 400 0.6875rem/1 var(--mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        margin-bottom: 4px;
+      }
+      .num {
+        font-feature-settings: 'tnum';
+      }
+      .rowlink {
+        display: inline-block;
+        padding: 10px 0;
+        margin: -10px 0;
+      }
+      @media (min-width: 700px) {
+        .rows > div,
+        .rows .head {
+          grid-template-columns: 1.4fr 1.2fr 1fr;
+        }
+        .rows .head {
+          display: grid;
+          padding: 0 0 10px;
+          border-bottom: 1px solid var(--hairline);
+        }
+        .rows .cell[data-label]::before {
+          content: none;
+        }
+      }
+      .steps {
+        counter-reset: s;
+      }
+      .steps > div {
+        grid-template-columns: 2.5rem 1fr;
+      }
+      .steps > div::before {
+        counter-increment: s;
+        content: counter(s);
+        font: 300 1.375rem/1.2 var(--serif);
+        color: var(--ink-3);
+      }
+
+      /* 7 Footer */
+      footer {
+        padding: var(--section) 0 48px;
+      }
+      footer .col {
+        max-width: var(--wide);
+      }
+      footer nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 24px;
+        padding-top: 12px;
+        border-top: 1px solid var(--hairline);
+      }
+      footer nav a {
+        display: inline-block;
+        padding: 12px 0;
+      }
+      footer p {
+        color: var(--ink-3);
+        font-size: 0.8125rem;
+        margin: 24px 0 0;
+        max-width: var(--measure);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+        }
+        .passage.filling .w {
+          color: var(--ink);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="col">
+        <a class="wordmark" href="/">Sotto</a>
+        <span class="meta">Free · Open source · No account</span>
+      </div>
+    </header>
+
+    <main>
+      <section id="read">
+        <div class="col wide">
+          <p class="meta">Level A2 · About 30 seconds</p>
+          <h1>Sotto reads with you.</h1>
+          <p class="passage" id="passage">
+            Sotto is a free <span class="tok" data-gloss="graded">graded reader</span>. You pick a
+            language and a level, open a book, and read. Tap any word for a translation, or press
+            play and hear the story <span class="tok" data-gloss="narrated">narrated</span>. When
+            you want to talk about what you read, a
+            <span class="tok" data-gloss="tutor">voice tutor</span> listens and answers, using
+            <span class="tok" data-gloss="key">your own key</span> or the
+            <span class="tok" data-gloss="plan">plan</span>. Nothing is recorded. Everything runs in
+            your browser, and if you would rather run it on your own machine, you can
+            <span class="tok" data-gloss="selfhost">self-host</span> it.
+          </p>
+          <div class="start">
+            <a class="cta" href="/start">Start reading</a>
+            <p class="cta-note">
+              No account. Nothing leaves your device. A book you have opened keeps working offline.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="words">
+        <div class="col">
+          <div class="measure">
+            <h2>The underlined words</h2>
+            <dl class="glosses" id="glosses">
+              <div data-gloss="graded">
+                <dt class="gw">graded reader</dt>
+                <dd class="gm">
+                  A book rewritten at your level. Sotto's books are machine-adapted drafts, and
+                  their levels are estimates.
+                </dd>
+              </div>
+              <div data-gloss="narrated">
+                <dt class="gw">narrated</dt>
+                <dd class="gm">
+                  Every story has audio. The words fill in as the narrator reaches them, and single
+                  words have their own pronunciation.
+                </dd>
+              </div>
+              <div data-gloss="tutor">
+                <dt class="gw">voice tutor</dt>
+                <dd class="gm">
+                  Talk about the passage. It can read to you, explain grammar, quiz your
+                  pronunciation, or just discuss the story.
+                </dd>
+              </div>
+              <div data-gloss="key">
+                <dt class="gw">your own key</dt>
+                <dd class="gm">
+                  Paste an OpenAI key in Settings. The page calls OpenAI directly from your browser;
+                  the key stays on your device and OpenAI bills you, not us.
+                </dd>
+              </div>
+              <div data-gloss="plan">
+                <dt class="gw">plan</dt>
+                <dd class="gm">
+                  One hosted plan at app.readsotto.app, <span class="num">$9.99</span> a month with
+                  a 3-day trial, for people who would rather not manage a key.
+                </dd>
+              </div>
+              <div data-gloss="selfhost">
+                <dt class="gw">self-host</dt>
+                <dd class="gm">
+                  <code>docker compose up</code> serves the app and the tutor from one origin on
+                  your own hardware, with local models or your own key.
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section id="ways">
+        <div class="col wide">
+          <h2>Four ways to run it</h2>
+          <div class="rows">
+            <div class="head">
+              <span class="meta">Way</span><span class="meta">What it costs</span
+              ><span class="meta">Where</span>
+            </div>
+            <div>
+              <span class="cell lead">Read</span
+              ><span class="cell" data-label="What it costs">Free</span
+              ><span class="cell" data-label="Where">readsotto.app</span>
+            </div>
+            <div>
+              <span class="cell lead">Talk to the tutor with your own key</span
+              ><span class="cell" data-label="What it costs"
+                >You pay OpenAI directly, about a cent a minute</span
+              ><span class="cell" data-label="Where">Settings in the app</span>
+            </div>
+            <div>
+              <span class="cell lead">Talk to the tutor on the plan</span
+              ><span class="cell num" data-label="What it costs">$9.99 a month, 3-day trial</span
+              ><span class="cell" data-label="Where"
+                ><a class="rowlink" href="https://app.readsotto.app">app.readsotto.app</a></span
+              >
+            </div>
+            <div>
+              <span class="cell lead">Run it yourself</span
+              ><span class="cell" data-label="What it costs">Free, your hardware</span
+              ><span class="cell" data-label="Where"
+                ><a
+                  class="rowlink"
+                  href="https://github.com/nturl/sotto/blob/main/docs/self-hosting.md"
+                  >Self-hosting guide</a
+                ></span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="phone">
+        <div class="col wide">
+          <h2>Add it to your phone</h2>
+          <div class="rows steps">
+            <div>
+              <span class="cell lead">iPhone: in Safari, tap Share, then Add to Home Screen.</span>
+            </div>
+            <div>
+              <span class="cell lead">Android: in Chrome, open the menu, then Install app.</span>
+            </div>
+            <div><span class="cell lead">Open a book once. It keeps working offline.</span></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="col">
+        <nav>
+          <a href="https://github.com/nturl/sotto">GitHub</a>
+          <a href="https://github.com/nturl/sotto/blob/main/docs/self-hosting.md">Self-hosting</a>
+          <a href="https://github.com/nturl/sotto/blob/main/docs/byok.md">Your own key</a>
+          <a href="https://github.com/nturl/sotto/blob/main/docs/adding-a-book.md">Add a book</a>
+        </nav>
+        <p>
+          Code Apache-2.0. Stories CC BY-SA 4.0. The books are machine-adapted drafts and their
+          levels are estimates. No analytics on this page or in the app.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Linked gloss focus: emphasis only. All content is visible without this script.
+      (function () {
+        var toks = document.querySelectorAll('.tok');
+        var rows = document.querySelectorAll('#glosses > div');
+        function set(id, on) {
+          toks.forEach(function (t) {
+            if (t.dataset.gloss === id) t.classList.toggle('on', on);
+          });
+          rows.forEach(function (r) {
+            if (r.dataset.gloss === id) r.classList.toggle('on', on);
+          });
+        }
+        function bind(el) {
+          var id = el.dataset.gloss;
+          el.addEventListener('mouseenter', function () {
+            set(id, true);
+          });
+          el.addEventListener('mouseleave', function () {
+            set(id, false);
+          });
+          el.addEventListener('click', function () {
+            var on = !el.classList.contains('on');
+            rows.forEach(function (r) {
+              set(r.dataset.gloss, false);
+            });
+            set(id, on);
+          });
+        }
+        toks.forEach(bind);
+        rows.forEach(bind);
+
+        // Speech fill, once, on load: ink-3 -> ink, 40ms stagger, under 1.8s. Words are
+        // readable at every frame; reduced motion renders the final frame via CSS.
+        var passage = document.getElementById('passage');
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var walker = document.createTreeWalker(passage, NodeFilter.SHOW_TEXT);
+        var textNodes = [],
+          n;
+        while ((n = walker.nextNode())) if (n.nodeValue.trim()) textNodes.push(n);
+        textNodes.forEach(function (node) {
+          var frag = document.createDocumentFragment();
+          node.nodeValue.split(/(\s+)/).forEach(function (part) {
+            if (!part) return;
+            if (/^\s+$/.test(part)) {
+              frag.appendChild(document.createTextNode(part));
+              return;
+            }
+            var s = document.createElement('span');
+            s.className = 'w';
+            s.textContent = part;
+            frag.appendChild(s);
+          });
+          node.parentNode.replaceChild(frag, node);
+        });
+        var words = passage.querySelectorAll('.w');
+        passage.classList.add('filling');
+        var step = Math.min(40, 1600 / words.length);
+        words.forEach(function (w, i) {
+          setTimeout(
+            function () {
+              w.classList.add('lit');
+            },
+            200 + i * step,
+          );
+        });
+        setTimeout(
+          function () {
+            passage.classList.remove('filling');
+          },
+          200 + words.length * step + 300,
+        );
+      })();
+    </script>
+  </body>
+</html>

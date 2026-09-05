@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 /**
  * "First contact on the hosted link" smoke test (O2-A, OVERNIGHT-2.md Lane
- * A): a stranger opening BASE_URL should be reading a narrated story within
- * two taps, at both a phone and a desktop width, be able to install the
- * site (manifest + registered service worker), and be able to reload an
- * already-opened book while offline.
+ * A): a stranger opening BASE_URL lands on the static landing page (Cleo
+ * spec, planning/design/LANDING.md), clicks "Start reading", and should
+ * then be reading a narrated story within two more taps, at both a phone
+ * and a desktop width, be able to install the site (manifest + registered
+ * service worker), and be able to reload an already-opened book while
+ * offline.
  *
  * Usage:
  *   node apps/client/e2e/hosted.mjs                # BASE_URL defaults to
@@ -109,6 +111,28 @@ async function runAtWidth({ width, height, label }) {
 
   await page.goto(BASE_URL, { waitUntil: 'load' });
   log(`${label}: cold visit loaded`);
+
+  // Landing page (Cleo spec, planning/design/LANDING.md): / is the static
+  // landing, not the app. Assert the headline, then click "Start reading"
+  // (href="/start") to enter the app — the same fast-path onboarding flow
+  // the rest of this smoke exercised before the landing page existed.
+  const landingHeadline = page.getByRole('heading', { name: 'Sotto reads with you.' });
+  try {
+    await landingHeadline.waitFor({ state: 'visible', timeout: 15000 });
+    log(`${label}: landing headline visible`);
+  } catch {
+    fail(`${label}: landing heading "Sotto reads with you." never became visible`);
+  }
+  const startLink = page.getByRole('link', { name: 'Start reading' });
+  try {
+    await startLink.waitFor({ state: 'visible', timeout: 5000 });
+  } catch {
+    fail(`${label}: landing "Start reading" link never became visible`);
+    await browser.close();
+    return;
+  }
+  await startLink.click();
+  log(`${label}: clicked landing "Start reading" link`);
 
   // <link rel="manifest"> present (installability check 1/2).
   const hasManifest = await page.evaluate(() => !!document.querySelector('link[rel="manifest"]'));

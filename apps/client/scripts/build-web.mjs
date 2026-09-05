@@ -12,24 +12,39 @@
  *
  * A3 (PWA, OVERNIGHT-2.md Lane A) also happens here, after the export:
  * Expo's web export does not read public/index.html for manifest/meta tags,
- * so dist/index.html is patched in place; and public/sw.js needs a build-time
- * manifest of the app-shell files to precache (their /_expo/static names
- * are content-hashed and only exist post-export), written to
+ * so dist/index.html (renamed to dist/app.html, see the landing step below)
+ * is patched in place; and public/sw.js needs a build-time manifest of the
+ * app-shell files to precache (their /_expo/static names are
+ * content-hashed and only exist post-export), written to
  * dist/sw-manifest.json.
+ *
+ * Landing page (Cleo spec, planning/design/LANDING.md): Expo's export
+ * produces a single dist/index.html for the app. That gets renamed to
+ * dist/app.html (and the manifest/meta/__SOTTO_STATIC__ injections below
+ * run against app.html instead), then the static landing source at
+ * web/landing/index.html is copied in as the new dist/index.html, along
+ * with the four TTFs it references at /fonts/. vercel.json's catch-all
+ * rewrite and public/sw.js's offline fallback both point at /app.html so
+ * the app keeps serving every other path on the same origin.
  */
 import {
+  copyFileSync,
   cpSync,
   existsSync,
   mkdirSync,
   readdirSync,
   readFileSync,
+  renameSync,
   statSync,
   writeFileSync,
 } from 'node:fs';
 import { execSync } from 'node:child_process';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { colors } from '@sotto/core/theme';
+
+const require = createRequire(import.meta.url);
 
 const clientDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const packsDir = path.resolve(clientDir, '../../packages/content/packs');
@@ -45,6 +60,10 @@ execSync('npx expo export --platform web --output-dir dist', {
   // Empty string => contentApi.serverUrl() resolves to the page's own origin.
   env: { ...process.env, EXPO_PUBLIC_SERVER_URL: '' },
 });
+
+// Landing page takes over dist/index.html; the exported app shell moves to
+// dist/app.html, where the rest of this script's injections (below) run.
+renameSync(path.join(dist, 'index.html'), path.join(dist, 'app.html'));
 
 const outPacks = path.join(dist, 'content', 'packs');
 mkdirSync(outPacks, { recursive: true });
@@ -66,7 +85,7 @@ const manifestWebmanifest = {
   short_name: 'Sotto',
   description:
     'A free, local-first graded reader for learning a language by reading and listening.',
-  start_url: '/',
+  start_url: '/start',
   scope: '/',
   display: 'standalone',
   background_color: colors.canvas,
@@ -87,8 +106,8 @@ writeFileSync(
   JSON.stringify(manifestWebmanifest, null, 2),
 );
 
-// --- A3: index.html meta/link injection -------------------------------------
-const indexPath = path.join(dist, 'index.html');
+// --- A3: app.html meta/link injection ---------------------------------------
+const indexPath = path.join(dist, 'app.html');
 let html = readFileSync(indexPath, 'utf-8');
 const injected = [
   '<link rel="manifest" href="/manifest.webmanifest">',
@@ -116,6 +135,22 @@ if (!html.includes('__SOTTO_STATIC__')) {
   html = html.replace('</head>', '    <script>window.__SOTTO_STATIC__=true;</script>\n  </head>');
   writeFileSync(indexPath, html);
 }
+
+// --- Landing page: copy source to dist/index.html, fonts to dist/fonts/ ----
+copyFileSync(path.join(clientDir, 'web/landing/index.html'), path.join(dist, 'index.html'));
+const fontsDir = path.join(dist, 'fonts');
+mkdirSync(fontsDir, { recursive: true });
+const landingFonts = [
+  '@expo-google-fonts/fraunces/300Light/Fraunces_300Light.ttf',
+  '@expo-google-fonts/fraunces/400Regular/Fraunces_400Regular.ttf',
+  '@expo-google-fonts/inter/400Regular/Inter_400Regular.ttf',
+  '@expo-google-fonts/inter/500Medium/Inter_500Medium.ttf',
+];
+for (const specifier of landingFonts) {
+  const src = require.resolve(specifier);
+  copyFileSync(src, path.join(fontsDir, path.basename(src)));
+}
+console.log(`web build: landing page + ${landingFonts.length} fonts copied to dist/`);
 
 // --- A3: service-worker precache manifest -----------------------------------
 // Every file the export produced outside of dist/content (the packs are

@@ -1,0 +1,198 @@
+# readsotto.app landing evidence — 2026-09-05
+
+## pnpm web:export (tail)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/800ExtraBold_Italic/Inter_800ExtraBold_Italic.7ca909a56537d965feef41abe58b87e0.ttf (349KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/800ExtraBold/Inter_800ExtraBold.6016034293c084aa0c056e83938bf1cc.ttf (345KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/900Black_Italic/Inter_900Black_Italic.d5f78c24de59ce5e4bad405e10e71941.ttf (349KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.bcec6eda9700a81ba92c483a2f2c02c1.ttf (345KB)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/arrow_down.017bc6ba3fc25503e5eb5e53826d48a8.png (9.5KB)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/error.d1ea1496f9057eb392d5bbf3732a61b7.png (469B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/file.19eeb73b9593a38f8e9f418337fc7d10.png (138B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/forward.d8b800c443b8972542883e0b9de2bdc6.png (188B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/pkg.ab19f4cbc543357183a20571f68380a3.png (364B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/react-navigation/elements/back-icon-mask.0a328cd9c1afd0afe8e3b1ec5165b1b4.png (653B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/react-navigation/elements/back-icon.35ba0eaec5a4f5ed12ca16fabeae451d.png (207B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/react-navigation/elements/clear-icon.c94f6478e7ae0cdd9f15de1fcb9e5e55.png (4 variations | 425B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/react-navigation/elements/close-icon.808e1b1b9b53114ec2838071a7e6daa7.png (4 variations | 235B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/react-navigation/elements/search-icon.286d67d3f74808a60a78d3ebf1a5fb57.png (928B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/sitemap.412dd9275b6b48ad28f5e3d81bb1f626.png (465B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/unmatched.20e71bdf79e3a97bf55fd9e164041578.png (4.8KB)
+
+› web bundles (2):
+_expo/static/js/web/entry-cd956b03dd62381baec02262491e4c6d.js (1.9MB)
+_expo/static/js/web/SecureStore-58c4daa003e5c7e530704fe65ac66a2d.js (2.4KB)
+
+› Files (3):
+favicon.ico (15KB)
+index.html (1.2KB)
+metadata.json (49B)
+
+Exported: dist
+web build: 9 packs copied to dist/content/packs
+web build: landing page + 4 fonts copied to dist/
+web build: PWA manifest + sw-manifest.json written (37 shell files, v1788648328167.3528)
+web:export exit code: 0
+
+## serve-static.mjs smoke
+serve-static: /Users/noelturlington/Claude/sotto/apps/client/dist on http://localhost:8090
+
+## curl -sI http://localhost:8090/  (landing)
+HTTP/1.1 200 OK
+content-type: text/html; charset=utf-8
+cache-control: no-cache
+Date: Sat, 05 Sep 2026 22:45:37 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+
+## curl -sI http://localhost:8090/reader/anything  (app shell / SPA fallback)
+HTTP/1.1 200 OK
+content-type: text/html; charset=utf-8
+cache-control: no-cache
+Date: Sat, 05 Sep 2026 22:45:37 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+
+## body confirmation: / serves landing h1, /reader/anything serves app.html
+GET / -> h1: <h1>Sotto reads with you.</h1>
+GET /reader/anything -> title: <title>Sotto</title>
+
+## BASE_URL=http://localhost:8090 node e2e/hosted.mjs (375 and 1440)
+[hosted-smoke 2026-09-05T22:45:44.288Z] BASE_URL=http://localhost:8090
+[hosted-smoke 2026-09-05T22:45:44.289Z] --- width 375 ---
+[hosted-smoke 2026-09-05T22:45:44.517Z] 375: cold visit loaded
+[hosted-smoke 2026-09-05T22:45:44.534Z] 375: landing headline visible
+[hosted-smoke 2026-09-05T22:45:44.591Z] 375: clicked landing "Start reading" link
+[hosted-smoke 2026-09-05T22:45:44.593Z] 375: manifest link present
+[hosted-smoke 2026-09-05T22:45:44.768Z] 375: tap 1 — clicked "Start reading in French"
+[hosted-smoke 2026-09-05T22:45:44.769Z] 375: reader visible at http://localhost:8090/reader/fr-cendrillon
+[hosted-smoke 2026-09-05T22:45:44.885Z] 375: first-visit content cache has this book's chapter JSON
+[hosted-smoke 2026-09-05T22:45:44.886Z] 375: first-visit content cache has this book's narration audio
+[hosted-smoke 2026-09-05T22:45:44.911Z] 375: tap 2 — clicked play
+[hosted-smoke 2026-09-05T22:45:45.919Z] 375: narration playing within 10s
+[hosted-smoke 2026-09-05T22:45:45.964Z] 375: tapped "Une", translation panel shown
+[hosted-smoke 2026-09-05T22:45:46.616Z] 375: saved "Une" to vocabulary
+[hosted-smoke 2026-09-05T22:45:47.168Z] 375: saved word survived reload
+[hosted-smoke 2026-09-05T22:45:47.170Z] 375: service worker registered
+[hosted-smoke 2026-09-05T22:45:48.683Z] 375: shell cache (sotto-shell-1788648328167.3528) has index.html
+[hosted-smoke 2026-09-05T22:45:48.683Z] 375: skipping content-cache assertion — BASE_URL's hostname is a local-dev loopback name, so contentApi.ts resolves packs cross-origin (see file header note)
+[hosted-smoke 2026-09-05T22:45:48.689Z] 375: offline fetch('/index.html') -> 200
+[hosted-smoke 2026-09-05T22:45:48.689Z] 375: offline fetch(chapter json) -> 200
+[hosted-smoke 2026-09-05T22:45:48.689Z] 375: offline fetch(audio, Range bytes=0-1) -> 206
+[hosted-smoke 2026-09-05T22:45:48.805Z] 375: offline reload rendered the reader (network-level offline honored by the SW)
+[hosted-smoke 2026-09-05T22:45:48.849Z] --- width 375 done ---
+[hosted-smoke 2026-09-05T22:45:48.849Z] --- width 1440 ---
+[hosted-smoke 2026-09-05T22:45:49.023Z] 1440: cold visit loaded
+[hosted-smoke 2026-09-05T22:45:49.041Z] 1440: landing headline visible
+[hosted-smoke 2026-09-05T22:45:49.094Z] 1440: clicked landing "Start reading" link
+[hosted-smoke 2026-09-05T22:45:49.096Z] 1440: manifest link present
+[hosted-smoke 2026-09-05T22:45:49.271Z] 1440: tap 1 — clicked "Start reading in French"
+[hosted-smoke 2026-09-05T22:45:49.272Z] 1440: reader visible at http://localhost:8090/reader/fr-cendrillon
+[hosted-smoke 2026-09-05T22:45:49.621Z] 1440: first-visit content cache has this book's chapter JSON
+[hosted-smoke 2026-09-05T22:45:49.621Z] 1440: first-visit content cache has this book's narration audio
+[hosted-smoke 2026-09-05T22:45:49.641Z] 1440: tap 2 — clicked play
+[hosted-smoke 2026-09-05T22:45:50.397Z] 1440: narration playing within 10s
+[hosted-smoke 2026-09-05T22:45:50.447Z] 1440: tapped "Une", translation panel shown
+[hosted-smoke 2026-09-05T22:45:50.781Z] 1440: saved "Une" to vocabulary
+[hosted-smoke 2026-09-05T22:45:51.324Z] 1440: saved word survived reload
+[hosted-smoke 2026-09-05T22:45:51.325Z] 1440: service worker registered
+[hosted-smoke 2026-09-05T22:45:52.831Z] 1440: shell cache (sotto-shell-1788648328167.3528) has index.html
+[hosted-smoke 2026-09-05T22:45:52.831Z] 1440: skipping content-cache assertion — BASE_URL's hostname is a local-dev loopback name, so contentApi.ts resolves packs cross-origin (see file header note)
+[hosted-smoke 2026-09-05T22:45:52.837Z] 1440: offline fetch('/index.html') -> 200
+[hosted-smoke 2026-09-05T22:45:52.838Z] 1440: offline fetch(chapter json) -> 200
+[hosted-smoke 2026-09-05T22:45:52.838Z] 1440: offline fetch(audio, Range bytes=0-1) -> 206
+[hosted-smoke 2026-09-05T22:45:52.944Z] 1440: offline reload rendered the reader (network-level offline honored by the SW)
+[hosted-smoke 2026-09-05T22:45:52.995Z] --- width 1440 done ---
+[hosted-smoke 2026-09-05T22:45:52.996Z] RESULT: PASS
+hosted.mjs exit code: 0
+
+## Same-origin network requests for GET / (landing)
+http://localhost:8090/
+http://localhost:8090/fonts/Fraunces_300Light.ttf
+http://localhost:8090/fonts/Inter_500Medium.ttf
+http://localhost:8090/fonts/Inter_400Regular.ttf
+http://localhost:8090/fonts/Fraunces_400Regular.ttf
+
+## cleo_verify.py http://localhost:8090/ --proof <scratchpad>/proof-landing
+cleo_verify: http://localhost:8090/
+  [PASS] accent-count-1280-dark       1 distinct saturated hue(s): 14deg(['a.cta'])
+  [PASS] accent-count-1280-light      1 distinct saturated hue(s): 14deg(['a.cta'])
+  [PASS] accent-count-375-dark        1 distinct saturated hue(s): 14deg(['a.cta'])
+  [PASS] accent-count-375-light       1 distinct saturated hue(s): 14deg(['a.cta'])
+  [PASS] bold-display-1280-dark       no bold display elements
+  [PASS] bold-display-1280-light      no bold display elements
+  [PASS] bold-display-375-dark        no bold display elements
+  [PASS] bold-display-375-light       no bold display elements
+  [PASS] card-grid-tell               no uniform card grid tell
+  [PASS] console                      0 console.error, 0 uncaught page errors
+  [PASS] contrast-1280-dark           sampled=124 failing=0 unknown-bg=0
+  [PASS] contrast-1280-light          sampled=124 failing=0 unknown-bg=0
+  [PASS] contrast-375-dark            sampled=121 failing=0 unknown-bg=0
+  [PASS] contrast-375-light           sampled=121 failing=0 unknown-bg=0
+  [PASS] display-size                 largest visible font-size=64.0px on h1 (threshold: fail<40, warn<56)
+  [PASS] external                     no external network requests or references
+  [PASS] hidden-content-1280-dark     nothing stuck hidden after scroll sweep
+  [PASS] hidden-content-1280-light    nothing stuck hidden after scroll sweep
+  [PASS] hidden-content-375-dark      nothing stuck hidden after scroll sweep
+  [PASS] hidden-content-375-light     nothing stuck hidden after scroll sweep
+  [PASS] imagery-repeat               skipped: only 0 candidate image(s) wider than 80px (need >=3)
+  [WARN] js-disabled                  js-disabled visible chars=1537 vs js-enabled=1803 (ratio=0.85; FAIL if 0 chars or ratio<0.6, WARN if <0.9)
+  [PASS] measure                      median cpl=67.5 across 8 element(s) (PASS 45-75, WARN 40-45/75-90, FAIL <40/>90) :: worst: dd.gm cpl=79.5 (2ln/159ch, range); p cpl=79.0 (2ln/158ch, range); p#passage cpl=55.0 (9ln/495ch, range)
+  [PASS] overflow-1280-dark           scrollWidth=1280 innerWidth=1280 (at 1280px)
+  [PASS] overflow-1280-light          scrollWidth=1280 innerWidth=1280 (at 1280px)
+  [PASS] overflow-375-dark            scrollWidth=375 innerWidth=375 (at 375px)
+  [PASS] overflow-375-light           scrollWidth=375 innerWidth=375 (at 375px)
+  [PASS] pure-surfaces-1280-dark      no pure #fff/#000 surfaces
+  [PASS] pure-surfaces-1280-light     no pure #fff/#000 surfaces
+  [PASS] pure-surfaces-375-dark       no pure #fff/#000 surfaces
+  [PASS] pure-surfaces-375-light      no pure #fff/#000 surfaces
+  [PASS] radius-vocab-1280-dark       2 distinct radius value(s) (excl. 0/pill): [2, 10]
+  [PASS] radius-vocab-1280-light      2 distinct radius value(s) (excl. 0/pill): [2, 10]
+  [PASS] radius-vocab-375-dark        2 distinct radius value(s) (excl. 0/pill): [2, 10]
+  [PASS] radius-vocab-375-light       2 distinct radius value(s) (excl. 0/pill): [2, 10]
+  [PASS] shadows-1280-dark            no neutral shadows
+  [PASS] shadows-1280-light           no neutral shadows
+  [PASS] shadows-375-dark             no neutral shadows
+  [PASS] shadows-375-light            no neutral shadows
+  [PASS] single-file                  1 <style> block(s), 1 <script> block(s)
+  [PASS] tap-targets-375-dark         all tap targets >= 40x40
+  [PASS] tap-targets-375-light        all tap targets >= 40x40
+
+Overall: PASS (with warnings)  (16.6s)
+cleo_verify exit code: 0
+
+## pnpm check (repo root)
+$ pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm content:validate
+$ prettier --check .
+Checking formatting...
+[warn] apps/client/src/ui/data.test.ts
+[warn] packages/content/drafts/en-doyle-red-headed-league.draft.json
+[warn] packages/content/drafts/en-london-build-a-fire.draft.json
+[warn] packages/content/drafts/en-poe-tell-tale-heart.draft.json
+[warn] packages/content/drafts/es-becquer-maese-perez.draft.json
+[warn] packages/content/drafts/es-clarin-adios-cordera.draft.json
+[warn] packages/content/drafts/es-dario-rey-burgues.draft.json
+[warn] packages/content/drafts/es-larra-vuelva-usted.draft.json
+[warn] packages/content/drafts/es-palma-tradiciones.draft.json
+[warn] packages/content/drafts/fr-daudet-derniere-classe.draft.json
+[warn] packages/content/drafts/fr-daudet-les-etoiles.draft.json
+[warn] packages/content/drafts/fr-flaubert-coeur-simple.draft.json
+[warn] packages/content/drafts/fr-maupassant-le-horla.draft.json
+[warn] packages/content/drafts/fr-merimee-mateo-falcone.draft.json
+[warn] packages/content/drafts/fr-voltaire-candide.draft.json
+[warn] packages/content/drafts/zh-luxun-kong-yiji.draft.json
+[warn] Code style issues found in 16 files. Run Prettier with --write to fix.
+[ELIFECYCLE] Command failed with exit code 1.
+[ELIFECYCLE] Command failed with exit code 1.
+pnpm check exit code: 1
+
+## Note on pnpm check failure
+pnpm check fails at format:check on 16 files (apps/client/src/ui/data.test.ts
+and 15 packages/content/drafts/*.draft.json). All 16 are OUTSIDE this build
+lane's permitted paths (apps/client/web/landing/**, scripts/build-web.mjs,
+scripts/serve-static.mjs, public/sw.js, vercel.json, app/start.tsx,
+e2e/hosted.mjs) and are pre-existing dirty-tree files from another session
+(per task PERMISSIONS: "~70 dirty paths from another session"). Not fixed,
+per instructions. apps/client/web/landing/index.html itself is
+prettier-clean (formatted in this session).

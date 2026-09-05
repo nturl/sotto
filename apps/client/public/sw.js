@@ -4,10 +4,12 @@
  * bundler — plain JS so it can sit in public/ untouched by the Expo web
  * export and be registered as-is from app/_layout.tsx.
  *
- * - Precaches the app shell (index.html + the hashed /_expo/static JS/CSS
+ * - Precaches the app shell (app.html, index.html + the hashed /_expo/static JS/CSS
  *   files) using the file list build-web.mjs writes to /sw-manifest.json
  *   after each export. The manifest's `version` names the shell cache, so
  *   a new deploy gets a fresh cache and the old one is dropped on activate.
+ *   The offline navigate fallback below serves /app.html (the app shell;
+ *   / is the static landing page, which the SW's shell cache also has).
  * - Runtime-caches same-origin /content/packs/** the first time a file is
  *   requested (cache-first), so a book already opened once keeps working
  *   offline — including its audio.
@@ -292,7 +294,7 @@ self.addEventListener('fetch', (event) => {
 
   // App shell: cache-first, network fallback. Navigation requests
   // (`mode: 'navigate'`, e.g. a hard reload on /reader/<id>) fall back to
-  // the cached index.html when offline, since this is a client-routed SPA.
+  // the cached app.html when offline, since this is a client-routed SPA.
   event.respondWith(
     (async () => {
       const shellCache = await resolveCacheName(SHELL_CACHE_PREFIX);
@@ -301,7 +303,7 @@ self.addEventListener('fetch', (event) => {
       } catch (err) {
         if (event.request.mode === 'navigate') {
           const cache = await caches.open(shellCache);
-          const index = await cache.match('/index.html');
+          const index = await cache.match('/app.html');
           if (index) return index;
         }
         throw err;

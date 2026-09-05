@@ -4,7 +4,8 @@
  * two vercel.json rewrites so `pnpm e2e:hosted` and manual checks can run
  * against a local export exactly as the hosted site behaves:
  *   /content/packs  -> /content/packs/index.json
- *   anything else that is not a file -> /index.html (SPA fallback)
+ *   anything else that is not a file -> /app.html (SPA fallback; the
+ *     landing page owns / and is served directly as dist/index.html)
  * Usage: node scripts/serve-static.mjs [port=8090] [dir=dist]
  */
 import { createReadStream, existsSync, statSync } from 'node:fs';
@@ -52,6 +53,9 @@ createServer((req, res) => {
   if (pathname === '/content/packs' || pathname === '/content/packs/') {
     pathname = '/content/packs/index.json';
   }
+  if (pathname === '/') {
+    pathname = '/index.html';
+  }
   const filePath = path.join(dist, pathname);
   if (filePath.startsWith(dist) && existsSync(filePath) && statSync(filePath).isFile()) {
     send(res, filePath);
@@ -64,7 +68,9 @@ createServer((req, res) => {
     res.end('not found');
     return;
   }
-  send(res, path.join(dist, 'index.html'));
+  // Extension-less path that isn't a real file: SPA fallback into the app
+  // shell (not the landing page, which only owns exactly "/").
+  send(res, path.join(dist, 'app.html'));
 }).listen(port, () => {
   console.log(`serve-static: ${dist} on http://localhost:${port}`);
 });

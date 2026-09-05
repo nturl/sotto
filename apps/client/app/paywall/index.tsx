@@ -14,7 +14,7 @@ import { useCloud } from '../../src/cloud/provider';
 import type { PlanOffer } from '../../src/cloud/types';
 import { CloudError } from '../../src/cloud/types';
 import { useMe } from '../../src/cloud/useMe';
-import { useT, type MessageKey } from '../../src/i18n/useT';
+import { getUiCatalog, useT, type MessageKey, type MessageValues } from '../../src/i18n/useT';
 import { BackLink } from '../../src/ui/BackLink';
 import { Button } from '../../src/ui/Button';
 import { Card } from '../../src/ui/Card';
@@ -29,8 +29,17 @@ const PRIVACY_URL = 'https://github.com/nturl/sotto/blob/main/docs/privacy.md';
 const isTestBuild =
   process.env.EXPO_PUBLIC_CLOUD === 'fake' || process.env.EXPO_PUBLIC_CLOUD_STAGING === '1';
 
-function priceLabel(plan: PlanOffer): string {
-  return `$${plan.priceUsd.toFixed(2)}/mois`;
+/** Formats a plan's monthly USD price for the current interface locale
+ * (adversarial review 3 coordinator note: this used to hardcode the
+ * French "/mois" suffix regardless of the interface language). The
+ * amount itself is locale-formatted via Intl.NumberFormat; the "/mo"
+ * suffix comes from the `paywall.perMonth` catalog key. */
+function priceLabel(plan: PlanOffer, t: (key: MessageKey, values?: MessageValues) => string): string {
+  const amount = new Intl.NumberFormat(getUiCatalog(), {
+    style: 'currency',
+    currency: 'USD',
+  }).format(plan.priceUsd);
+  return `${amount}${t('paywall.perMonth')}`;
 }
 
 export default function PaywallScreen() {
@@ -159,7 +168,7 @@ export default function PaywallScreen() {
                     disabled={busy}
                     accessibilityRole="radio"
                     accessibilityState={{ selected: isSelected, disabled: busy }}
-                    accessibilityLabel={`${plan.name} — ${priceLabel(plan)}`}
+                    accessibilityLabel={`${plan.name} — ${priceLabel(plan, t)}`}
                     style={isDesktop ? styles.cardWrapDesktop : undefined}
                   >
                     <Card
@@ -171,7 +180,7 @@ export default function PaywallScreen() {
                     >
                       <SectionEyebrow>{plan.name.toUpperCase()}</SectionEyebrow>
                       <Text role="heading" size={22} style={styles.planPrice}>
-                        {priceLabel(plan)}
+                        {priceLabel(plan, t)}
                       </Text>
                       <View style={styles.planBullets}>
                         <Text role="caption" color="ink2">
@@ -194,7 +203,7 @@ export default function PaywallScreen() {
               title={
                 busy
                   ? '···'
-                  : t('paywall.subscribe', { price: selected ? priceLabel(selected) : '' })
+                  : t('paywall.subscribe', { price: selected ? priceLabel(selected, t) : '' })
               }
               disabled={busy || !selected}
               onPress={() => void subscribe()}
@@ -203,7 +212,7 @@ export default function PaywallScreen() {
 
             {Platform.OS === 'ios' && selected ? (
               <Text role="caption" color="ink3" style={styles.webPriceCaption}>
-                {t('paywall.webPrice.prefix', { price: priceLabel(selected) })}
+                {t('paywall.webPrice.prefix', { price: priceLabel(selected, t) })}
                 <Text role="caption" color="accent" onPress={openWeb}>
                   {t('paywall.webPrice.link')}
                 </Text>

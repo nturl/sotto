@@ -387,3 +387,24 @@ Not done, by decision (STRATEGY.md): Fly deploy of sotto-cloud, TestFlight uploa
 
 Changed files this run: OSS 249 files across 146 (including Noel's parallel planning session's commits) commits (8a141ff..HEAD); sotto-cloud 88 tracked files across 17 commits.
 - 2026-09-05 15:20 Follow-up deploy with all 17 word sprites (zh books took ~1 min each, not the projected hours): dpl_AsELp1PHuFKsnvqqbm4GM3R7f2th, hosted smoke PASS (docs/evidence/hosted-smoke-run3-final-2026-09-05.log), zh words.mp3 served live (1.2 MB). Run 3 has no open items on the orchestrator's side.
+
+## Run 4 — A, B, C, D (2026-09-05 evening, Fable orchestrating; spec: planning/KICKOFF-4.md)
+
+Routing per KICKOFF-4 §Routing: Opus lanes for anything touching a key, token, webhook or entitlement (B1, B2 key handling, D1, D3, R); Sonnet for B3, C, A, D2, S. No App Store work. Shared-tree rules from Gate 0 apply to every lane: explicit-path `git add`/`git commit -- <paths>` only; never stage, stash, checkout or format files Noel's content session is editing (packages/content/**, packages/core/src/**, docs/screenshots/web/**, docs/*.md, planning/*.md other than this ledger); if a lane needs one of those files it stops and reports.
+
+### Gate 0 (orchestrator, 2026-09-05 evening)
+- OSS `HEAD == origin/main` at 98f0d95; sotto-cloud `HEAD == origin/main` at 73ad92a. VERIFIED by `git fetch` + `rev-parse`.
+- sotto-cloud `vendor/sotto` pin d06abf6 is reachable from public OSS origin/main (`merge-base --is-ancestor`), and the rewrite commit d4774ae is an ancestor of HEAD. Run 3's C4 re-pin holds; R4-D1 need not re-pin unless it bumps.
+- OSS working tree dirty with ~36 paths from Noel's content session (packages/content/**, packages/core/src/**, docs/screenshots/web/**, docs/*.md, planning/CONTRACTS.md, apps/client/app/(tabs)/library.tsx, apps/client/app/onboarding/level.tsx, apps/client/src/import/api.ts, apps/client/src/ui/dev/fixtures.ts, apps/server/src/import/routes.ts, apps/server/src/voice/types.ts, plus untracked drafts/scripts). Untouched by this run.
+- `pnpm check` runs on the committed tree in isolation: `git worktree add --detach <scratchpad>/sotto-head HEAD`, fresh `pnpm install --frozen-lockfile`, then `pnpm check`; result recorded below when it finishes. The working tree is not the gate because of the in-flight files above.
+- Plan headroom at start: GREEN (5h 48%, 7d 32%).
+- Noel's steps 1 (domain) and Stripe activation are DONE per KICKOFF-4. Not present at start: `FLY_API_TOKEN`, Stripe keys, OpenAI broker key, a throwaway BYOK spike key. `fly`/`flyctl` and `docker` are installed; the `stripe` CLI is not.
+
+### R4-B1 CORS spike (Opus; dispatched 2026-09-05 evening, phase 1 without a key)
+- Task: prove from a static page in iPhone-shaped Safari (Playwright WebKit, iPhone device descriptor) and desktop Chrome (Playwright Chromium) that api.openai.com accepts browser-origin calls with a user-supplied key for `POST /v1/audio/transcriptions`, `POST /v1/chat/completions`, `POST /v1/audio/speech`, and that the Realtime WebSocket (`wss://api.openai.com/v1/realtime`) accepts a standard key from a page via the documented browser subprotocol. Phase 1 (no key): record the CORS preflight response for each endpoint from a real browser origin (the hosted PWA origin https://sotto-steel.vercel.app and `file://`), and the 401 body shape with a deliberately invalid key, which proves the browser can read the response at all. Phase 2 (key present as `SOTTO_BYOK_SPIKE_KEY` in the shell or the macOS keychain item `sotto-byok-spike`, never a file): the three 200s and one open socket, request/response shapes, exact CORS headers.
+- Inputs: a throwaway key Noel provides for this spike only, revoked after; Playwright already installed for apps/client/e2e.
+- Output: docs/evidence/byok-cors-2026-09-05.log with request/response shapes and the exact CORS headers seen, no key material and no key-derived value (mask everything after `sk-` to 4 chars, and grep the log for `sk-` before committing).
+- Proof: phase 1: four preflights observed and the 401 JSON body readable from page JS in both browsers. Phase 2: three 200s and one open socket from the same page.
+- Permissions: docs/evidence/** only. Spike page and scripts live in the session scratchpad, not the repo. Commit `-- docs/evidence/byok-cors-2026-09-05.log`. No changes to the hosted PWA.
+- Stop when: the four calls are proven or refused, or phase 1 is complete and phase 2 is waiting on the key.
+- Escalate when: any of the three REST endpoints refuses browser origins (no `Access-Control-Allow-Origin` on the preflight, or the browser blocks the response); then B becomes "BYOK via C's server" and B2 is re-scoped before it starts.

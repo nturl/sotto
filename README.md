@@ -62,6 +62,19 @@ whisper-server -m "$SOTTO_WHISPER_MODEL" --host 127.0.0.1 --port 9001 \
   --inference-path /v1/audio/transcriptions --convert
 ```
 
+### Server env vars
+
+The server has no accounts/auth — anything that can reach it can drive your
+local models, so these matter even on a laptop:
+
+| Var                  | Default                             | Meaning                                                                                                                                                                              |
+| -------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `SOTTO_HOST`         | `127.0.0.1`                         | Bind address. Set to `0.0.0.0` only to test from a phone on the same trusted LAN.                                                                                                    |
+| `SOTTO_CORS_ORIGINS` | Expo web dev ports (`8081`, `8082`) | Comma-separated allowlist of browser `Origin` headers. Any `localhost`/`127.0.0.1` origin is always allowed regardless of this value; native clients send no Origin and always pass. |
+| `SOTTO_MAX_SESSIONS` | `4`                                 | Caps concurrent voice sessions (pending + connected) across all clients.                                                                                                             |
+
+See `.env.example` for the full list, including the STT/LLM/TTS URLs above.
+
 See [docs/local-models.md](docs/local-models.md) for the full setup (all
 three services, VAD notes, LLM call shape), or
 [docs/openai.md](docs/openai.md) to point the same cascade at OpenAI's
@@ -92,14 +105,21 @@ and narration coverage in [docs/supported-languages.md](docs/supported-languages
 \* No region-specific seed content yet — the sibling region locale's books
 are the reference; see [docs/adding-a-language.md](docs/adding-a-language.md).
 
-## Content is AI-drafted, unreviewed
+## Status
 
-Every seeded book is a first-draft abridgment produced with AI assistance
-from a public-domain source (`reviewStatus: "draft"` in every `book.json`) —
-**none has a recorded human language review yet**. Treat the readers as a
-functional demo of the pipeline, not vetted learning material, until a
-`reviewedBy` review lands. See [docs/attribution.md](docs/attribution.md)
-and [docs/verification.md](docs/verification.md) criterion 27.
+This is a first build (one overnight session plus one adversarial-review
+fix pass), not a finished product. All app copy in this README/docs is
+hand-written, but **every seeded book is AI-drafted** — a first-draft
+abridgment produced with AI assistance from a public-domain source
+(`reviewStatus: "draft"` in every `book.json`) — and **none has a recorded
+human language review yet**. Treat the readers as a functional demo of the
+pipeline, not vetted learning material, until a `reviewedBy` review lands.
+
+What's actually been verified, what's PASS/PARTIAL/DEFERRED/FAIL, and what
+was found and fixed vs. found-and-not-fixed is tracked honestly in
+[docs/verification.md](docs/verification.md) — read that before trusting
+any specific feature claim in this file. See also
+[docs/attribution.md](docs/attribution.md) for per-book content provenance.
 
 ## License
 

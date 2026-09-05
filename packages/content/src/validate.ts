@@ -12,7 +12,7 @@ import {
   type Pack,
   type Token,
 } from '@sotto/core';
-import { CLIENT_I18N_DIR, PACKS_DIR, TEST_FIXTURES_DIR } from './paths.ts';
+import { CLIENT_I18N_DIR, PACKS_DIR, SOURCE_DIR, TEST_FIXTURES_DIR } from './paths.ts';
 
 export interface ValidationIssue {
   scope: string;
@@ -107,6 +107,36 @@ function validateChapter(
   return issues;
 }
 
+/**
+ * ADVERSARIAL-REVIEW.md §2 "content/licensing": the zh-TW edition is built
+ * by exact-token/greedy replacement against the zh-CN source bundle's
+ * `hantOverrides` map (build.ts's `convertGreedy`/`convertChaptersToHant`);
+ * anything not in that map (or added to the source afterward and never
+ * re-run through the build) ships unconverted, and nothing previously
+ * caught that. Re-derives the same map the build used and flags any
+ * remaining simplified single character in a zh-TW book's title or token
+ * text — a signal the pack is stale relative to its source, not that the
+ * map itself is complete (a still-real gap this doesn't close).
+ */
+function zhTwUnconvertedSimplifiedChars(localeDir: string, bookId: string): Set<string> {
+  if (path.basename(localeDir) !== 'zh-TW') return new Set();
+  const baseBookId = bookId.replace(/-hant$/, '');
+  const bundle = readJson<{ hantOverrides?: Record<string, string> }>(
+    path.join(SOURCE_DIR, `${baseBookId}.bundle.json`),
+  );
+  const overrides = bundle?.hantOverrides;
+  if (!overrides) return new Set();
+  return new Set(Object.keys(overrides).filter((key) => key.length === 1));
+}
+
+function findSimplifiedChars(text: string, simplifiedChars: Set<string>): string[] {
+  const found = new Set<string>();
+  for (const ch of text) {
+    if (simplifiedChars.has(ch)) found.add(ch);
+  }
+  return [...found];
+}
+
 function validateBook(localeDir: string, bookId: string): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
   const dir = path.join(localeDir, 'books', bookId);
@@ -166,6 +196,20 @@ function validateBook(localeDir: string, bookId: string): ValidationIssue[] {
   }
   const needsPinyin = language?.pronunciationGuide === 'pinyin';
 
+  const simplifiedChars = zhTwUnconvertedSimplifiedChars(localeDir, bookId);
+  if (simplifiedChars.size > 0) {
+    const titleHits = findSimplifiedChars(book.title, simplifiedChars);
+    if (titleHits.length > 0) {
+      issues.push(
+        issue(
+          scope,
+          'zh-tw-unconverted-simplified',
+          `book.json title "${book.title}" still contains unconverted simplified character(s): ${titleHits.join(', ')}`,
+        ),
+      );
+    }
+  }
+
   for (const chapterSummary of book.chapters ?? []) {
     const chapterPath = path.join(dir, chapterSummary.file);
     if (!existsSync(chapterPath)) {
@@ -188,6 +232,26 @@ function validateBook(localeDir: string, bookId: string): ValidationIssue[] {
       continue;
     }
     issues.push(...validateChapter(`${scope}/${chapterSummary.file}`, chapter, needsPinyin));
+
+    if (simplifiedChars.size > 0) {
+      const chapterScope = `${scope}/${chapterSummary.file}`;
+      chapter.blocks.forEach((block) => {
+        block.sentences.forEach((sentence) => {
+          sentence.tokens.forEach((token) => {
+            const hits = findSimplifiedChars(token.text, simplifiedChars);
+            if (hits.length > 0) {
+              issues.push(
+                issue(
+                  chapterScope,
+                  'zh-tw-unconverted-simplified',
+                  `token "${token.id}" ("${token.text}") still contains unconverted simplified character(s): ${hits.join(', ')}`,
+                ),
+              );
+            }
+          });
+        });
+      });
+    }
   }
 
   return issues;

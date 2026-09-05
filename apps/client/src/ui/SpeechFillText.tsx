@@ -124,9 +124,7 @@ export function SpeechFillText({
         <Fragment key={sentence.id}>
           {!cjk && sentenceIndex > 0 ? <RNText> </RNText> : null}
           <RNText
-            onLongPress={
-              onLongPressSentence ? () => onLongPressSentence(sentence) : undefined
-            }
+            onLongPress={onLongPressSentence ? () => onLongPressSentence(sentence) : undefined}
           >
             {sentence.tokens.map((token, i) => (
               <Fragment key={token.id}>
@@ -139,9 +137,7 @@ export function SpeechFillText({
                   underline={underline && !!token.isWord && !token.saved}
                   reduced={reduced}
                   onPress={
-                    onPressToken && token.isWord
-                      ? () => onPressToken(token, sentence)
-                      : undefined
+                    onPressToken && token.isWord ? () => onPressToken(token, sentence) : undefined
                   }
                 />
               </Fragment>

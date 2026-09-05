@@ -1,0 +1,55 @@
+$ node apps/client/e2e/voice-live.mjs
+[t+0.0s] Synthesizing phase A wav (explain): "¿Qué significa la palabra cigarra?"
+[t+2.2s] Synthesizing phase B wav (save): "Guarda la palabra cigarra."
+[t+3.7s] --- Phase A-explain: launching Chromium (fake mic = phase-a.wav) ---
+[t+4.4s] Phase A-explain: navigating to /voice/es-fabulas-samaniego
+[t+4.9s] [A-explain] state -> listening
+[t+7.7s] [A-explain] state -> thinking
+[t+8.9s] [A-explain] caption: You: Significa la palabra cigarra.
+[t+30.3s] [A-explain] state -> speaking
+[t+39.2s] [A-explain] caption: Tutor: La palabra «cigarra» significa «cigarra» (el insecto que canta en verano).
+[t+40.0s] [A-explain] state -> listening
+[t+40.0s] [A-explain] caption: Tutor: La palabra «cigarra» significa «cigarra» (el insecto que canta en verano). En la fábula, es el personaje que canta y no guarda comida.
+[t+40.0s] Phase A-explain: stop condition met.
+[t+40.1s] --- Phase B-save: launching Chromium (fake mic = phase-b.wav) ---
+[t+40.5s] Phase B-save: navigating to /voice/es-fabulas-samaniego
+[t+41.1s] [B-save] state -> listening
+[t+43.5s] [B-save] state -> thinking
+[t+44.3s] [B-save] caption: You: Guarda la palabra cigarra.
+[t+50.4s] [B-save] state -> speaking
+[t+54.4s] [B-save] state -> listening
+[t+54.4s] [B-save] caption: Tutor: La palabra "cigarra" se ha guardado. ¿Quieres saber más sobre esta fábula?
+[t+54.4s] Phase B-save: stop condition met.
+
+===== Full timeline (both phases) =====
+  [t+4.9s] state: listening
+  [t+7.7s] state: thinking
+  [t+8.9s] caption: You: Significa la palabra cigarra.
+  [t+30.3s] state: speaking
+  [t+39.2s] caption: Tutor: La palabra «cigarra» significa «cigarra» (el insecto que canta en verano).
+  [t+40.0s] state: listening
+  [t+40.0s] caption: Tutor: La palabra «cigarra» significa «cigarra» (el insecto que canta en verano). En la fábula, es el personaje que canta y no guarda comida.
+  [t+41.1s] state: listening
+  [t+43.5s] state: thinking
+  [t+44.3s] caption: You: Guarda la palabra cigarra.
+  [t+50.4s] state: speaking
+  [t+54.4s] state: listening
+  [t+54.4s] caption: Tutor: La palabra "cigarra" se ha guardado. ¿Quieres saber más sobre esta fábula?
+
+===== States observed =====
+  Phase A: listening -> thinking -> speaking -> listening
+  Phase B: listening -> thinking -> speaking -> listening
+
+===== Vocabulary store after phase B =====
+  ["verano","cigarra"]
+
+===== Assertions =====
+  [PASS] phase A: learner caption contains "cigarra"
+  [PASS] phase A: tutor caption present (word explained)
+  [PASS] phase A: state cycled listening -> thinking -> speaking
+  [PASS] phase B: learner caption contains "cigarra" (save request heard)
+  [PASS] phase B: saved word "cigarra" in vocabulary store
+  [PASS] no page/console errors in either phase
+
+Final screenshots: /Users/noelturlington/Claude/sotto/docs/screenshots/web/voice-live-A-explain-final.png, /Users/noelturlington/Claude/sotto/docs/screenshots/web/voice-live-B-save-final.png
+EXIT=0

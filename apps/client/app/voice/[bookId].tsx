@@ -1,9 +1,10 @@
 /**
  * Voice screen — DESIGN.md "Voice screen". CONTRACTS §6 route: /voice/[bookId].
  */
-import { useMemo, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getLanguage, type TutorMode } from '@sotto/core';
 import { colors, radius, space } from '@sotto/core/theme';
 import { useT } from '../../src/i18n/useT';
@@ -19,6 +20,14 @@ import { useVoiceSession } from '../../src/voice/useVoiceSession';
 
 const MODES: TutorMode[] = ['read_to_me', 'read_with_me', 'pronunciation', 'discuss'];
 
+// ADVERSARIAL-REVIEW.md §1.9 / §3 row 28: SpeechFillText painted the whole
+// passage `quiet` whenever no `reading` event had ever arrived — the
+// permanent state in discuss/pronunciation and while just listening, since
+// nothing is ever "read" there. Now the passage defaults to ink and only
+// dims-then-fills while a reading event is actively in flight (for this
+// window after the last one, or until the voice state changes).
+const READING_ACTIVE_WINDOW_MS = 6000;
+
 function stateColor(state: string): string {
   if (state === 'listening') return colors.accent;
   if (state === 'speaking' || state === 'thinking') return colors.ink;
@@ -28,6 +37,7 @@ function stateColor(state: string): string {
 export default function VoiceScreen() {
   const t = useT();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const {
     bookId,
     mode: modeParam,
@@ -72,6 +82,26 @@ export default function VoiceScreen() {
     return idx;
   }, [flatTokens, session.readingTokenIds]);
 
+  // A `reading` event marks the start of an active read; it never clears on
+  // its own (readingTokenIds only resets when the session ends), so track
+  // activity with a timer instead of trusting "non-empty" forever.
+  const [readingActive, setReadingActive] = useState(false);
+  const lastVoiceStateRef = useRef(session.voiceState);
+
+  useEffect(() => {
+    if (session.readingTokenIds.length === 0) return;
+    setReadingActive(true);
+    const timer = setTimeout(() => setReadingActive(false), READING_ACTIVE_WINDOW_MS);
+    return () => clearTimeout(timer);
+  }, [session.readingTokenIds]);
+
+  useEffect(() => {
+    if (lastVoiceStateRef.current !== session.voiceState) {
+      lastVoiceStateRef.current = session.voiceState;
+      setReadingActive(false);
+    }
+  }, [session.voiceState]);
+
   // Grouped by sentence (not a single flattened token array) so
   // SpeechFillText — the same flowing-paragraph renderer the reader uses —
   // can join sentences inline with its own single inter-sentence space,
@@ -87,7 +117,7 @@ export default function VoiceScreen() {
             text: tk.text,
             spaceBefore: tk.spaceBefore,
             isWord: tk.isWord,
-            spoken: currentIndex >= 0 && flatTokens.indexOf(tk) <= currentIndex,
+            spoken: !readingActive || (currentIndex >= 0 && flatTokens.indexOf(tk) <= currentIndex),
           })),
       }))
     : [];
@@ -102,7 +132,7 @@ export default function VoiceScreen() {
   const recentCaptions = session.captions.slice(-6);
 
   return (
-    <View style={styles.root}>
+    <View style={[styles.root, { paddingBottom: space.xl + insets.bottom }]}>
       <View style={styles.header}>
         <View style={styles.stateRow}>
           <View style={[styles.dot, { backgroundColor: stateColor(session.voiceState) }]} />
@@ -117,7 +147,7 @@ export default function VoiceScreen() {
         />
       </View>
 
-      <View style={styles.passage}>
+      <ScrollView style={styles.passageScroll} contentContainerStyle={styles.passage}>
         {hasPassage ? (
           <SpeechFillText
             sentences={passageSentences}
@@ -129,7 +159,7 @@ export default function VoiceScreen() {
             {t('voice.loading')}
           </Text>
         )}
-      </View>
+      </ScrollView>
 
       {session.explanation ? (
         <View style={styles.explanationCard}>
@@ -273,8 +303,18 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
   },
+  // ADVERSARIAL-REVIEW.md §1.9/§3 row 28: the passage used to be a plain
+  // View with no scroll, so a chapter's-worth of text pushed the mode
+  // chips/captions/controls/PTT ring below the viewport with nothing able
+  // to reclaim the space — clipping the ring at narrow widths (375/430).
+  // `flex: 1` + `minHeight: 0` lets this ScrollView shrink and scroll
+  // instead, so everything below it stays pinned and on screen.
+  passageScroll: {
+    flex: 1,
+    minHeight: 0,
+  },
   passage: {
-    marginBottom: space.lg,
+    paddingBottom: space.lg,
   },
   explanationCard: {
     backgroundColor: colors.surface,

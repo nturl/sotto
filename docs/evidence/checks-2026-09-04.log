@@ -1,0 +1,93 @@
+$ pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm content:validate
+$ prettier --check .
+Checking formatting...
+All matched files use Prettier code style!
+$ eslint .
+
+/Users/noelturlington/Claude/sotto/apps/client/src/state/vocabulary.test.ts
+  95:17  warning  '_a' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  96:17  warning  '_b' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/noelturlington/Claude/sotto/apps/client/src/ui/languages.ts
+  107:47  warning  'catalog' is assigned a value but never used. Allowed unused args must match /^_/u  @typescript-eslint/no-unused-vars
+
+/Users/noelturlington/Claude/sotto/apps/client/src/voice/toolContext.test.ts
+  191:11  warning  '_id1' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  192:16  warning  '_savedAt1' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  193:15  warning  '_review1' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  194:16  warning  '_t1' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  195:19  warning  '_s1' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  196:19  warning  '_w1' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  197:23  warning  '_n1' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  198:20  warning  '_tr1' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  199:24  warning  '_c1' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  203:11  warning  '_id2' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  204:16  warning  '_savedAt2' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  205:15  warning  '_review2' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  206:16  warning  '_t2' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  207:19  warning  '_s2' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  208:19  warning  '_w2' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  209:23  warning  '_n2' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  210:20  warning  '_tr2' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  211:24  warning  '_c2' is assigned a value but never used        @typescript-eslint/no-unused-vars
+
+✖ 21 problems (0 errors, 21 warnings)
+
+$ pnpm -r --if-present run typecheck
+Scope: 5 of 6 workspace projects
+packages/core typecheck$ tsc --noEmit
+packages/core typecheck: Done
+apps/server typecheck$ tsc --noEmit
+packages/voice typecheck$ tsc --noEmit
+packages/content typecheck$ tsc --noEmit
+packages/voice typecheck: Done
+apps/client typecheck$ tsc --noEmit
+packages/content typecheck: Done
+apps/server typecheck: Done
+apps/client typecheck: Done
+$ vitest run
+
+ RUN  v3.2.7 /Users/noelturlington/Claude/sotto
+
+ ✓ packages/core/src/review.test.ts (8 tests) 4ms
+ ✓ apps/server/src/voice/vad.test.ts (8 tests) 3ms
+ ✓ packages/voice/test/local-cascade.test.ts (9 tests) 7ms
+ ✓ apps/client/src/state/selectors.test.ts (8 tests) 18ms
+ ✓ apps/client/src/state/createStore.test.ts (8 tests) 6ms
+ ✓ apps/server/src/voice/session.test.ts (7 tests) 13ms
+ ✓ apps/client/src/voice/toolContext.test.ts (10 tests) 9ms
+ ✓ packages/core/src/tools.test.ts (10 tests) 6ms
+ ✓ packages/core/src/prompt.test.ts (4 tests) 6ms
+ ✓ packages/content/test/align.test.ts (9 tests) 4ms
+ ✓ apps/client/src/voice/sessionManager.test.ts (2 tests) 179ms
+ ✓ packages/core/src/tokenize.test.ts (10 tests) 9ms
+ ✓ apps/client/src/voice/controller.test.ts (3 tests) 7ms
+ ✓ apps/client/src/state/importExport.test.ts (3 tests) 14ms
+ ✓ packages/content/test/gloss-fill.test.ts (5 tests) 5ms
+ ✓ apps/server/src/voice/prompt.test.ts (5 tests) 3ms
+ ✓ apps/server/src/app.test.ts (7 tests) 325ms
+ ✓ packages/voice/test/fake.test.ts (9 tests) 25ms
+ ✓ packages/core/src/export.test.ts (4 tests) 5ms
+ ✓ packages/content/test/types.test.ts (6 tests) 23ms
+ ✓ packages/content/test/wav.test.ts (6 tests) 3ms
+ ✓ apps/server/src/security.test.ts (10 tests) 8ms
+ ✓ packages/content/test/covers.test.ts (5 tests) 6ms
+ ✓ apps/server/src/voice/wav.test.ts (4 tests) 106ms
+ ✓ apps/server/src/voice/markers.test.ts (5 tests) 2ms
+ ✓ apps/server/src/voice/chunker.test.ts (6 tests) 24ms
+ ✓ packages/core/src/theme.test.ts (1 test) 2ms
+ ✓ apps/client/src/platform/persistence.test.ts (4 tests) 3ms
+ ✓ apps/client/src/state/vocabulary.test.ts (4 tests) 4ms
+
+ Test Files  29 passed (29)
+      Tests  180 passed (180)
+   Start at  21:27:45
+   Duration  2.54s (transform 1.04s, setup 0ms, collect 2.63s, tests 830ms, environment 3ms, prepare 2.56s)
+
+$ pnpm --filter @sotto/content validate
+$ node src/cli.ts validate
+
+sotto-content validate:
+  (no errors)
+
+0 errors across /Users/noelturlington/Claude/sotto/packages/content/packs

@@ -10,6 +10,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  type LayoutChangeEvent,
   type NativeSyntheticEvent,
   type NativeScrollEvent,
 } from 'react-native';
@@ -23,6 +24,7 @@ import { bookAssetUrl, useLibrary } from '../../src/ui/data';
 import {
   BookmarkGlyph,
   CloseGlyph,
+  HandDrawnArrowGlyph,
   PauseGlyph,
   PlayGlyph,
   SkipNextGlyph,
@@ -122,6 +124,15 @@ export default function ReaderScreen() {
   const cjk = language?.typography === 'cjk';
 
   const flatTokens = useMemo(() => (chapter ? flattenTokens(chapter) : []), [chapter]);
+  // ADVERSARIAL-REVIEW.md §2 "fragility": `flatTokens.indexOf(token)` used
+  // to run per token per render inside ReaderBlock, and narration updates
+  // `positionMs` every ~60ms — an O(n²) scan per frame on a long chapter.
+  // Precomputed once per chapter instead.
+  const tokenIndexById = useMemo(() => {
+    const map = new Map<string, number>();
+    flatTokens.forEach((tk, i) => map.set(tk.id, i));
+    return map;
+  }, [flatTokens]);
   const audioUri =
     chapterSummary?.audio && locale
       ? bookAssetUrl(bookId ?? '', chapterSummary.audio, locale)
@@ -152,6 +163,16 @@ export default function ReaderScreen() {
   const chapterIndex = book?.chapters.findIndex((c) => c.id === chapterId) ?? -1;
   const isLastChapter = book ? chapterIndex === book.chapters.length - 1 : false;
 
+  // ADVERSARIAL-REVIEW.md §2 "fragility": completion used to fire on
+  // `percentComplete >= 0.999` derived from the scroll fraction alone, so
+  // scrolling to the bottom of the last chapter (even a quick flick, or
+  // overscroll bounce) marked the book complete without the last block ever
+  // being on screen. Instead, the last block of the last chapter records
+  // its own bottom edge on layout, and completion requires that edge to
+  // have actually scrolled into the viewport at least once.
+  const lastBlockBottomRef = useRef<number | null>(null);
+  const lastBlockSeenRef = useRef(false);
+
   const persistProgress = useCallback(
     (fraction: number, positionMs: number) => {
       if (!bookId || !chapterId || !book) return;
@@ -164,7 +185,7 @@ export default function ReaderScreen() {
         percentComplete,
         updatedAt: new Date().toISOString(),
       });
-      if (percentComplete >= 0.999 && isLastChapter) {
+      if (isLastChapter && lastBlockSeenRef.current) {
         markCompleted(bookId);
         setProgress({
           bookId,
@@ -181,17 +202,35 @@ export default function ReaderScreen() {
   );
 
   // Narration reaching the end of the passage advances/completes progress.
+  // Listening to the whole chapter's audio is itself sufficient evidence of
+  // having gone through the last block (the learner need not also have
+  // scrolled), so this path counts as "seen" for the completion gate above.
   useEffect(() => {
     if (
       narration.durationMs > 0 &&
       narration.positionMs >= narration.durationMs - 250 &&
       narration.playing
     ) {
+      if (isLastChapter) lastBlockSeenRef.current = true;
       persistProgress(1, narration.positionMs);
     }
-  }, [narration.positionMs, narration.durationMs, narration.playing, persistProgress]);
+  }, [
+    narration.positionMs,
+    narration.durationMs,
+    narration.playing,
+    persistProgress,
+    isLastChapter,
+  ]);
 
   const lastFractionRef = useRef(existingProgress?.percentComplete ?? 0);
+
+  // Reset the "last block seen" gate whenever the chapter changes — it
+  // must be re-earned for each chapter, and a stale bottom from the
+  // previous chapter would otherwise complete the book on the first scroll.
+  useEffect(() => {
+    lastBlockBottomRef.current = null;
+    lastBlockSeenRef.current = false;
+  }, [chapterId]);
 
   const onScroll = useCallback(
     (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -202,6 +241,12 @@ export default function ReaderScreen() {
       const maxScroll = Math.max(1, contentSize.height - layoutMeasurement.height);
       const fraction = Math.min(1, Math.max(0, contentOffset.y / maxScroll));
       lastFractionRef.current = fraction;
+      if (
+        lastBlockBottomRef.current !== null &&
+        contentOffset.y + layoutMeasurement.height >= lastBlockBottomRef.current - 4
+      ) {
+        lastBlockSeenRef.current = true;
+      }
       persistProgress(fraction, narration.positionMs);
     },
     [persistProgress, narration.positionMs],
@@ -287,15 +332,14 @@ export default function ReaderScreen() {
   };
 
   const report = () => {
-    const subject = encodeURIComponent(
-      `Sotto — ${book?.title ?? bookId} / ${chapterSummary?.title ?? ''}`,
+    // ADVERSARIAL-REVIEW.md §2 "fakes / dead controls": this used to be a
+    // mailto: to a domain that doesn't resolve to a Sotto inbox, so reports
+    // went nowhere. Opens the repo's bug-report issue template instead.
+    void Linking.openURL('https://github.com/nturl/sotto/issues/new?template=bug_report.md').catch(
+      () => {
+        pushToast(t('reader.reportFailed'));
+      },
     );
-    const body = encodeURIComponent(
-      `Chapter: ${chapterSummary?.title ?? ''}\nToken: ${selectedToken?.token.text ?? ''}\n`,
-    );
-    void Linking.openURL(`mailto:feedback@sotto.app?subject=${subject}&body=${body}`).catch(() => {
-      pushToast(t('reader.reportFailed'));
-    });
   };
 
   if (!bookId) return null;
@@ -416,7 +460,7 @@ export default function ReaderScreen() {
           onScroll={onScroll}
           scrollEventThrottle={64}
         >
-          {chapter?.blocks.map((block) => (
+          {chapter?.blocks.map((block, index) => (
             <ReaderBlock
               key={block.id}
               block={block}
@@ -424,12 +468,20 @@ export default function ReaderScreen() {
               savedTokenIds={savedTokenIds}
               selectedTokenId={selectedToken?.token.id}
               narratingIndex={narratingIndex}
-              flatTokens={flatTokens}
+              tokenIndexById={tokenIndexById}
               onSelect={(token, sentence) => setSelectedToken({ token, sentence })}
               onLongPressSentence={(sentence) => {
                 setSelectedToken({ token: sentence.tokens[0]!, sentence });
                 setShowSentenceDetail(true);
               }}
+              onLayout={
+                index === chapter.blocks.length - 1
+                  ? (e) => {
+                      lastBlockBottomRef.current =
+                        e.nativeEvent.layout.y + e.nativeEvent.layout.height;
+                    }
+                  : undefined
+              }
             />
           ))}
         </ScrollView>
@@ -449,7 +501,10 @@ export default function ReaderScreen() {
       ) : null}
 
       {audioUri ? (
-        <View style={styles.transport} onLayout={(e) => setTransportHeight(e.nativeEvent.layout.height)}>
+        <View
+          style={styles.transport}
+          onLayout={(e) => setTransportHeight(e.nativeEvent.layout.height)}
+        >
           <View style={styles.progressTrack}>
             {chapter?.blocks.map((block) => {
               const tokens = block.sentences.flatMap((s) => s.tokens);
@@ -535,33 +590,37 @@ export default function ReaderScreen() {
 }
 
 /** Builds the SpeechFillText input for one paragraph (block): every token's
- * `spoken` flag is resolved against the chapter-wide flatTokens/narratingIndex
+ * `spoken` flag is resolved against the chapter-wide tokenIndexById/narratingIndex
  * (a block only holds a subset of sentences, so each token's position within
- * `flatTokens` — not its position within the block — is what "spoken"
- * narration progress compares against). */
+ * the whole chapter — not its position within the block — is what "spoken"
+ * narration progress compares against). `tokenIndexById` is precomputed once
+ * per chapter by the parent rather than an `indexOf` scan per token per
+ * render (ADVERSARIAL-REVIEW.md §2 "fragility"). */
 function ReaderBlock({
   block,
   cjk,
   savedTokenIds,
   selectedTokenId,
   narratingIndex,
-  flatTokens,
+  tokenIndexById,
   onSelect,
   onLongPressSentence,
+  onLayout,
 }: {
   block: Block;
   cjk: boolean;
   savedTokenIds: Set<string>;
   selectedTokenId: string | undefined;
   narratingIndex: number;
-  flatTokens: Token[];
+  tokenIndexById: Map<string, number>;
   onSelect: (token: Token, sentence: Sentence) => void;
   onLongPressSentence: (sentence: Sentence) => void;
+  onLayout?: (event: LayoutChangeEvent) => void;
 }) {
   const sentences: SpeechSentence[] = block.sentences.map((sentence) => ({
     id: sentence.id,
     tokens: sentence.tokens.map((token) => {
-      const globalIndex = flatTokens.indexOf(token);
+      const globalIndex = tokenIndexById.get(token.id) ?? -1;
       return {
         id: token.id,
         text: token.text,
@@ -574,7 +633,7 @@ function ReaderBlock({
   }));
 
   return (
-    <View style={styles.block}>
+    <View style={styles.block} onLayout={onLayout}>
       <SpeechFillText
         sentences={sentences}
         selectedId={selectedTokenId}
@@ -625,9 +684,9 @@ function CompletionView({
           accessibilityLabel={book.title}
         />
       ) : null}
-      <Text role="display" size={24} style={styles.completionArrow}>
-        ↓
-      </Text>
+      <View style={styles.completionArrow}>
+        <HandDrawnArrowGlyph />
+      </View>
       <View style={styles.completionCard}>
         <Text role="heading" style={styles.completionTitle}>
           {t('reader.chooseNext')}

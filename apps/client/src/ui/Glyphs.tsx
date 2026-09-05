@@ -237,6 +237,40 @@ export function ForwardGlyph(props: GlyphProps) {
   );
 }
 
+/**
+ * Completion view's "hand-drawn arrow" (DESIGN.md "Completion": "a
+ * hand-drawn arrow — single 1.5px ink SVG path with slight wobble"). Was
+ * the literal `↓` character (ADVERSARIAL-REVIEW.md design-drift list); this
+ * is a single stroked path whose shaft bows very slightly left-then-right
+ * rather than a straight line, ending in an asymmetric arrowhead.
+ */
+export function HandDrawnArrowGlyph({
+  width = 24,
+  height = 40,
+  color = colors.ink,
+  strokeWidth = 1.5,
+}: {
+  width?: number;
+  height?: number;
+  color?: string;
+  strokeWidth?: number;
+}) {
+  return (
+    <Svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 40"
+      fill="none"
+      stroke={color}
+      strokeWidth={strokeWidth}
+    >
+      <Path d="M12 2 C 10.5 8 13.5 13 12 19 C 10.7 25 13.4 29 12 34" strokeLinecap="round" />
+      <Path d="M12 34 L5.5 27.5" strokeLinecap="round" />
+      <Path d="M12 34 L18 28.5" strokeLinecap="round" />
+    </Svg>
+  );
+}
+
 /** The marker-stroke rough-ends polygon (DESIGN.md device B), shared with MarkerStroke. */
 export function MarkerStrokeShape({
   width,

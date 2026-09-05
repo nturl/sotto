@@ -48,6 +48,13 @@ export type ShellProps = {
   contentStyle?: ViewStyle;
   /** Extra bottom padding (e.g. to clear a pinned footer). */
   contentBottomPadding?: number;
+  /** False for onboarding (ADVERSARIAL-REVIEW.md design-drift list): the
+   * desktop sidebar is the (tabs) app's own navigation, and must not wrap a
+   * screen the learner reaches before that app shell has anything to show
+   * (no book library yet, no settled preferences) — onboarding stays a
+   * plain canvas screen at every width. Default true for every other Shell
+   * caller (book detail, profile, review, search, licences, settings). */
+  sidebar?: boolean;
 };
 
 export function useLayoutMetrics() {
@@ -67,6 +74,7 @@ export function Shell({
   scroll = true,
   contentStyle,
   contentBottomPadding = space.xl,
+  sidebar = true,
 }: ShellProps) {
   const insets = useSafeAreaInsets();
   const { isDesktop, gutter } = useLayoutMetrics();
@@ -92,7 +100,7 @@ export function Shell({
     <View style={[styles.root, { paddingTop: isDesktop ? 0 : insets.top }]}>
       <FocusOutlineStyle />
       <View style={styles.row}>
-        {isDesktop ? <Sidebar /> : null}
+        {isDesktop && sidebar ? <Sidebar /> : null}
         {scroll ? (
           <ScrollView
             style={styles.flex}

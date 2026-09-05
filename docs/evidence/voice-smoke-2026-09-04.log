@@ -1,0 +1,160 @@
+$ tsx scripts/voice-smoke.ts
+[t+    0ms] No wav file given — synthesizing learner speech with Kokoro (fr-FR).
+[t+ 2357ms] Synthesized utterance 1: 1486ms, utterance 2: 1656ms
+[t+ 2357ms] Creating session at http://127.0.0.1:8790/voice/session
+[t+ 2363ms] Session created: {
+  sessionId: '0486d2f9-3f20-484a-a3fd-ee9cf34e3bf0',
+  wsUrl: 'ws://127.0.0.1:8790/voice/ws?session=0486d2f9-3f20-484a-a3fd-ee9cf34e3bf0',
+  sampleRate: 16000,
+  limits: { maxMs: 1200000, idleMs: 90000 }
+}
+[t+ 2366ms] WebSocket open.
+[t+ 2367ms] utterance 1: sent 75 frames (1486ms of audio)
+[t+ 2368ms] utterance 1 trailing silence: sent 45 frames (900ms of audio)
+[t+ 2369ms] <- { t: 'state', state: 'listening' }
+[t+ 2369ms] <- { t: 'state', state: 'thinking' }
+[t+ 3045ms] <- {
+  t: 'caption',
+  speaker: 'learner',
+  text: 'Que veut dire Tanière ?',
+  final: true
+}
+[t+ 8651ms] <- { t: 'state', state: 'speaking' }
+[t+ 8652ms] <- {
+  t: 'audio_start',
+  utteranceId: '5e2b511f-f060-4e44-9a81-5c27d5c60bb6'
+}
+[t+ 8652ms] --- Tutor is speaking: sending second utterance now to demonstrate barge-in ---
+[t+ 8654ms] utterance 2 (barge-in): sent 83 frames (1656ms of audio)
+[t+ 8654ms] utterance 2 trailing silence: sent 45 frames (900ms of audio)
+[t+ 8655ms] <- {
+  t: 'audio_end',
+  utteranceId: '5e2b511f-f060-4e44-9a81-5c27d5c60bb6',
+  cancelled: true
+}
+[t+ 8655ms] <- { t: 'state', state: 'listening' }
+[t+ 8657ms] <- { t: 'state', state: 'thinking' }
+[t+ 9500ms] <- {
+  t: 'caption',
+  speaker: 'learner',
+  text: 'Enregistre le mot « Tanière ».',
+  final: true
+}
+[t+12770ms] <- {
+  t: 'tool_call',
+  callId: 'riGGYAEHTEgPMvB71QurF6ll0uyAo7EK',
+  name: 'save_vocabulary',
+  args: {
+    tokenId: 'b1.s2.t6',
+    word: 'tanière',
+    translation: "den (animal's home)"
+  }
+}
+[t+12772ms] -> responding to tool_call riGGYAEHTEgPMvB71QurF6ll0uyAo7EK with { ok: true, result: { savedWordId: 'sw1' } }
+[t+13953ms] <- { t: 'state', state: 'speaking' }
+[t+13954ms] <- {
+  t: 'audio_start',
+  utteranceId: '5224c7c7-e396-4990-b8f2-5d3c7f8d5bfc'
+}
+[t+22133ms] <- binary audio frame (4800 bytes), total so far: 4800 bytes
+[t+22134ms] <- binary audio frame (4800 bytes), total so far: 9600 bytes
+[t+22134ms] <- binary audio frame (4800 bytes), total so far: 14400 bytes
+[t+22134ms] <- binary audio frame (4800 bytes), total so far: 19200 bytes
+[t+22134ms] <- binary audio frame (4800 bytes), total so far: 24000 bytes
+[t+22135ms] <- binary audio frame (4800 bytes), total so far: 28800 bytes
+[t+22135ms] <- binary audio frame (4800 bytes), total so far: 33600 bytes
+[t+22135ms] <- binary audio frame (4800 bytes), total so far: 38400 bytes
+[t+22135ms] <- binary audio frame (4800 bytes), total so far: 43200 bytes
+[t+22137ms] <- binary audio frame (4800 bytes), total so far: 48000 bytes
+[t+22138ms] <- binary audio frame (4800 bytes), total so far: 52800 bytes
+[t+22138ms] <- binary audio frame (4800 bytes), total so far: 57600 bytes
+[t+22138ms] <- binary audio frame (4800 bytes), total so far: 62400 bytes
+[t+22138ms] <- binary audio frame (4800 bytes), total so far: 67200 bytes
+[t+22138ms] <- binary audio frame (4800 bytes), total so far: 72000 bytes
+[t+22138ms] <- binary audio frame (4800 bytes), total so far: 76800 bytes
+[t+22141ms] <- binary audio frame (4800 bytes), total so far: 81600 bytes
+[t+22141ms] <- binary audio frame (4800 bytes), total so far: 86400 bytes
+[t+22143ms] <- binary audio frame (4800 bytes), total so far: 91200 bytes
+[t+22145ms] <- binary audio frame (4800 bytes), total so far: 96000 bytes
+[t+22145ms] <- binary audio frame (4800 bytes), total so far: 100800 bytes
+[t+22145ms] <- binary audio frame (4800 bytes), total so far: 105600 bytes
+[t+22145ms] <- binary audio frame (4800 bytes), total so far: 110400 bytes
+[t+22145ms] <- binary audio frame (4800 bytes), total so far: 115200 bytes
+[t+22146ms] <- binary audio frame (4800 bytes), total so far: 120000 bytes
+[t+22146ms] <- binary audio frame (4800 bytes), total so far: 124800 bytes
+[t+22146ms] <- binary audio frame (1596 bytes), total so far: 126396 bytes
+[t+22147ms] <- {
+  t: 'caption',
+  speaker: 'tutor',
+  text: 'Est-ce que tu comprends ce que signifie "tanière" ?',
+  final: false
+}
+[t+22147ms] <- { t: 'audio_end', utteranceId: '5224c7c7-e396-4990-b8f2-5d3c7f8d5bfc' }
+[t+22147ms] <- {
+  t: 'caption',
+  speaker: 'tutor',
+  text: '"Tanière" veut dire le lieu où un animal sauvage vit, comme un terrier ou une tanière.\n' +
+    '\n' +
+    'Est-ce que tu comprends ce que signifie "tanière" ?',
+  final: true
+}
+[t+22148ms] <- { t: 'state', state: 'listening' }
+[t+26326ms] <- binary audio frame (4800 bytes), total so far: 131196 bytes
+[t+26329ms] <- binary audio frame (4800 bytes), total so far: 135996 bytes
+[t+26330ms] <- binary audio frame (4800 bytes), total so far: 140796 bytes
+[t+26330ms] <- binary audio frame (4800 bytes), total so far: 145596 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 150396 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 155196 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 159996 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 164796 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 169596 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 174396 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 179196 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 183996 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 188796 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 193596 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 198396 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 203196 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 207996 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 212796 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 217596 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 222396 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 227196 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 231996 bytes
+[t+26331ms] <- binary audio frame (4800 bytes), total so far: 236796 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 241596 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 246396 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 251196 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 255996 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 260796 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 265596 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 270396 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 275196 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 279996 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 284796 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 289596 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 294396 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 299196 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 303996 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 308796 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 313596 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 318396 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 323196 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 327996 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 332796 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 337596 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 342396 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 347196 bytes
+[t+26332ms] <- binary audio frame (4800 bytes), total so far: 351996 bytes
+[t+26332ms] <- binary audio frame (2274 bytes), total so far: 354270 bytes
+[t+26332ms] <- {
+  t: 'caption',
+  speaker: 'tutor',
+  text: '"Tanière" veut dire le lieu où un animal sauvage vit, comme un terrier ou une tanière.',
+  final: false
+}
+[t+30373ms] --- Summary ---
+[t+30376ms] Total tutor audio bytes received: 354270
+[t+30377ms] Saw at least one audio_start: true
+[t+30377ms] Saw a cancelled audio_end (barge-in worked): true
+EXIT=0

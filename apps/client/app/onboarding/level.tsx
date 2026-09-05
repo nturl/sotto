@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import { colors, space } from '@sotto/core/theme';
 import { useT, type MessageKey } from '../../src/i18n/useT';
 import { Button } from '../../src/ui/Button';
-import { setPreference } from '../../src/ui/data';
+import { setPreference, usePreferences } from '../../src/ui/data';
 import type { BookLevel } from '../../src/ui/dev/fixtures';
 import { OptionRow } from '../../src/ui/OptionRow';
 import { Shell, useLayoutMetrics } from '../../src/ui/Shell';
@@ -19,8 +19,14 @@ const LEVELS: Array<{ value: BookLevel; descKey: MessageKey }> = [
 export default function OnboardingLevelScreen() {
   const t = useT();
   const router = useRouter();
+  const preferences = usePreferences();
   const { gutter } = useLayoutMetrics();
   const [level, setLevel] = useState<BookLevel>('A1');
+
+  // Same gate as onboarding/languages.tsx and app/index.tsx: an
+  // already-onboarded user landing here directly (deep link, back
+  // navigation) goes to home instead of redoing setup.
+  if (preferences.onboarded) return <Redirect href="/(tabs)/home" />;
 
   const finish = () => {
     setPreference('level', level);
@@ -29,7 +35,7 @@ export default function OnboardingLevelScreen() {
   };
 
   return (
-    <Shell contentBottomPadding={120}>
+    <Shell contentBottomPadding={120} sidebar={false}>
       <Text role="display" style={styles.title}>
         {t('onboarding.step.level')}
       </Text>

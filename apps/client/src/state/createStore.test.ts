@@ -140,3 +140,50 @@ describe('createSottoStore vocabulary + progress', () => {
     expect(useStore.getState().completedBooks).toEqual([PROGRESS.bookId]);
   });
 });
+
+// ADVERSARIAL-REVIEW.md §1.9: a streamed utterance's final caption must
+// replace its own partial fragments, not pile up alongside them.
+describe('createSottoStore pushCaption', () => {
+  it("replaces the tutor's trailing streamed partials with the final caption", async () => {
+    const persistence = createFakePersistence();
+    const { useStore, hydrate } = createSottoStore(persistence);
+    await hydrate();
+
+    useStore
+      .getState()
+      .pushCaption({ speaker: 'tutor', text: 'La palabra "cigarra" está guardada.', final: false });
+    useStore
+      .getState()
+      .pushCaption({ speaker: 'tutor', text: '¿Quieres que te explique algo más?', final: false });
+    useStore.getState().pushCaption({
+      speaker: 'tutor',
+      text: 'La palabra "cigarra" está guardada. ¿Quieres que te explique algo más?',
+      final: true,
+    });
+
+    const captions = useStore.getState().captions;
+    expect(captions).toHaveLength(1);
+    expect(captions[0]!.final).toBe(true);
+    expect(captions[0]!.text).toBe(
+      'La palabra "cigarra" está guardada. ¿Quieres que te explique algo más?',
+    );
+  });
+
+  it("replaces the learner's own partial with their final, without touching an unrelated prior tutor line", async () => {
+    const persistence = createFakePersistence();
+    const { useStore, hydrate } = createSottoStore(persistence);
+    await hydrate();
+
+    useStore.getState().pushCaption({ speaker: 'tutor', text: 'Bonjour.', final: true });
+    useStore.getState().pushCaption({ speaker: 'learner', text: 'Je vou...', final: false });
+    useStore
+      .getState()
+      .pushCaption({ speaker: 'learner', text: 'Je voudrais un mot.', final: true });
+
+    const captions = useStore.getState().captions;
+    expect(captions.map((c) => ({ speaker: c.speaker, text: c.text, final: c.final }))).toEqual([
+      { speaker: 'tutor', text: 'Bonjour.', final: true },
+      { speaker: 'learner', text: 'Je voudrais un mot.', final: true },
+    ]);
+  });
+});

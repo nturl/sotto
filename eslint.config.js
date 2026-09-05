@@ -55,6 +55,8 @@ export default tseslint.config(
         Buffer: 'readonly',
         indexedDB: 'readonly',
         document: 'readonly',
+        NodeFilter: 'readonly',
+        getComputedStyle: 'readonly',
       },
     },
   },

@@ -121,7 +121,9 @@ export function resumeSessionUI(): void {
 }
 
 export function setMode(mode: TutorMode): void {
-  active?.provider.setMode(mode);
+  if (!active) return;
+  active.provider.setMode(mode);
+  useSottoStore.getState().patchSessionRecord({ mode });
 }
 
 export function setMuted(muted: boolean): void {

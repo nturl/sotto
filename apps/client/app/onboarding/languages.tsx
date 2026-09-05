@@ -147,7 +147,7 @@ export default function OnboardingLanguagesScreen() {
   );
 
   return (
-    <Shell contentBottomPadding={120}>
+    <Shell contentBottomPadding={120} sidebar={false}>
       <Text role="display" style={styles.title}>
         {t(STEP_TITLES[step])}
       </Text>

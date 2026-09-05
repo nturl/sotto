@@ -255,11 +255,31 @@ export function createSottoStore(persistence: Persistence): {
       })),
     setVoiceState: (state) => set({ voiceState: state }),
     pushCaption: (entry) =>
-      set((s) => ({
-        captions: [...s.captions, { ...entry, id: genId('cap'), createdAt: Date.now() }].slice(
-          -MAX_CAPTIONS,
-        ),
-      })),
+      set((s) => {
+        // ADVERSARIAL-REVIEW.md §1.9: the tutor (and the learner) streams an
+        // utterance as several non-final fragments followed by one final
+        // caption; appending unconditionally left both the fragments and
+        // the final in the transcript (duplicated/triplicated captions).
+        // The final one supersedes — by utterance, not by whole-list — so
+        // only the trailing same-speaker, non-final run is dropped.
+        let captions = s.captions;
+        if (entry.final) {
+          let cut = captions.length;
+          while (
+            cut > 0 &&
+            !captions[cut - 1]!.final &&
+            captions[cut - 1]!.speaker === entry.speaker
+          ) {
+            cut -= 1;
+          }
+          captions = captions.slice(0, cut);
+        }
+        return {
+          captions: [...captions, { ...entry, id: genId('cap'), createdAt: Date.now() }].slice(
+            -MAX_CAPTIONS,
+          ),
+        };
+      }),
     pushToolEvent: (entry) =>
       set((s) => ({
         lastToolEvents: [

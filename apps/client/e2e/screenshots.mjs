@@ -195,6 +195,34 @@ async function main() {
     await locator.waitFor({ state: 'visible', timeout: timeoutMs });
   }
 
+  // ADVERSARIAL-REVIEW.md §1.9: the committed `-voice-speaking.png` used to
+  // be captured the instant the "parle" state label appeared, which can
+  // land before SpeechFillText's quiet->ink animation has actually painted
+  // any word — the shot then shows the whole passage still quiet/unreadable.
+  // Poll for a real token whose computed colour equals the `ink` token
+  // (#221E1B / rgb(34, 30, 27), @sotto/core/theme) before shooting.
+  const INK_RGB = 'rgb(34, 30, 27)';
+  async function waitForInkToken(timeoutMs) {
+    await page.waitForFunction(
+      (inkColor) => {
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT);
+        for (let node = walker.currentNode; node; node = walker.nextNode()) {
+          if (
+            node.childElementCount === 0 &&
+            node.textContent &&
+            node.textContent.trim().length > 0 &&
+            getComputedStyle(node).color === inkColor
+          ) {
+            return true;
+          }
+        }
+        return false;
+      },
+      INK_RGB,
+      { timeout: timeoutMs },
+    );
+  }
+
   for (const width of WIDTHS) {
     await page.setViewportSize({ width, height: heightFor(width) });
     // 'networkidle' (fonts etc.) can take over a second to resolve — long
@@ -213,6 +241,11 @@ async function main() {
       await waitForStateLabel(['parle'], 5000);
     } catch {
       issues.push(`voice(${width}): never saw speaking state label`);
+    }
+    try {
+      await waitForInkToken(8000);
+    } catch {
+      issues.push(`voice(${width}): no token turned ink before capturing voice-speaking`);
     }
     await page.screenshot({ path: path.join(OUT_DIR, `${width}-voice-speaking.png`) });
     log(`${width}-voice-speaking.png`);

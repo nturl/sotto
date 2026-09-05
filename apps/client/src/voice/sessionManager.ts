@@ -176,7 +176,7 @@ export function startSession(params: {
 
     active = { bookId, chapterId, provider, unsubscribe };
 
-    void provider.connect(sessionOptions).catch((err: unknown) => {
+    void provider.connect(sessionOptions).catch(() => {
       // The Realtime provider throws NotSupportedError on native (no
       // WebRTC transport there yet), and the server answers 503
       // `realtime_unavailable` until SOTTO_CLOUD_REALTIME_ENABLED is set —

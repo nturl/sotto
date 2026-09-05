@@ -3,7 +3,6 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 // Control importBook's timing/resolution from each test without touching
 // the real pipeline (mirrors routes.test.ts's mock of the same module).
 let resolveImport: ((result: unknown) => void) | undefined;
-let rejectImport: ((err: unknown) => void) | undefined;
 let lastSignal: AbortSignal | undefined;
 
 vi.mock('@sotto/content/import', async () => {
@@ -15,7 +14,6 @@ vi.mock('@sotto/content/import', async () => {
       lastSignal = opts.signal;
       return new Promise((resolve, reject) => {
         resolveImport = resolve;
-        rejectImport = reject;
         opts.signal?.addEventListener('abort', () =>
           reject(new DOMException('aborted', 'AbortError')),
         );
@@ -38,7 +36,6 @@ describe('ImportJobRegistry (finding 9)', () => {
   beforeEach(() => {
     vi.useFakeTimers();
     resolveImport = undefined;
-    rejectImport = undefined;
     lastSignal = undefined;
   });
   afterEach(() => {

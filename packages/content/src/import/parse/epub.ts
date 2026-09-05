@@ -12,12 +12,7 @@
 import { unzipSync, type UnzipFileInfo } from 'fflate';
 import { XMLParser } from 'fast-xml-parser';
 import { ImportError, type ParsedChapter, type ParsedDocument } from '../types.ts';
-import {
-  EPUB_INFLATION_RATIO,
-  EPUB_MAX_ENTRIES,
-  hardSplitParagraphs,
-  MAX_CHAPTERS,
-} from '../limits.ts';
+import { EPUB_INFLATION_RATIO, EPUB_MAX_ENTRIES, hardSplitParagraphs } from '../limits.ts';
 
 const xmlParser = new XMLParser({
   ignoreAttributes: false,

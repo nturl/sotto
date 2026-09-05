@@ -40,6 +40,17 @@ export interface WorkerInitPayload {
   /** When false the worker must not touch the network: it only reports
    * `ready` if every model is already in the browser cache. */
   allowDownload: boolean;
+  /** Diagnostic-only overrides for the STT/LLM-contention experiments in
+   * docs/evidence/browser-tutor-stt-regression-2026-09-05.log. Never set by
+   * the app's normal session flow — only by the e2e harness, via
+   * `window.__SOTTO_TUTOR_DEBUG__` (see sessionManager.ts). */
+  debug?: {
+    /** Skip loading the LLM entirely, to isolate STT-alone timing. */
+    skipLlm?: boolean;
+    /** Force whisper onto a specific device instead of the normal
+     * webgpu-then-wasm probe order. */
+    forceSttDevice?: 'webgpu' | 'wasm';
+  };
 }
 
 // ---- main -> worker ----

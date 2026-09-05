@@ -1,0 +1,174 @@
+================================================================================
+Sotto — in-browser tutor STT/LLM-contention regression: root cause + fix
+Run: 2026-09-05, macOS 15 / M-series, Chromium via Playwright, headless,
+     --enable-unsafe-webgpu --use-angle=metal.
+
+BACKGROUND
+  planning/BROWSER-TUTOR.md's "Slice 2 + 3 status" note flagged, unproven:
+  whisper transcription of a 2.7s clip took 1.05s and was correct in the
+  slice-1 e2e (STT only, no LLM), but ~21s and garbage ("de de de de...")
+  in two slice-2/3 runs, both with the ~1.1GB WebLLM Qwen3 engine also
+  resident on the same WebGPU device. Leading hypothesis: WebGPU resource
+  contention between the two models. This log disproves that hypothesis,
+  identifies the real cause, and records the fix.
+
+METHOD
+  Diagnostic-only hooks were added (never exercised by a real session):
+  `WorkerInitPayload.debug` (protocol.ts) with `skipLlm` and
+  `forceSttDevice`, threaded through provider.ts and read by
+  sessionManager.ts from `window.__SOTTO_TUTOR_DEBUG__` (a global the real
+  app never sets). browser-tutor.mjs gained env vars to drive it:
+  DEBUG_SKIP_LLM, DEBUG_STT_DEVICE, STT_ONLY (stop right after the first
+  `stt_ms` metric instead of waiting out the full two-turn flow),
+  SINGLE_UTTERANCE (restore slice-1's one-utterance fixture instead of the
+  two-utterance tool-round-trip wav), PROFILE_NAME (name the persistent
+  Chromium profile, so a "fresh profile" run is trivial to get).
+
+  Ground truth for the audio itself: the exact synthesized fixture wav was
+  also fed to this machine's native whisper-server (ggml-large-v3-turbo,
+  127.0.0.1:9001) directly, bypassing the browser pipeline entirely.
+
+EXPERIMENT TABLE
+
+  (a) LLM never loaded (debug.skipLlm), llama-server RUNNING (the state
+      found at the start of this session), reused profile.
+        stt_load_ms = 2382ms webgpu
+        stt_ms      = 21042ms webgpu  ->  "de la de de de de de de de de de..."
+      SLOW AND WRONG, with the LLM not resident in this worker at all.
+      Already inconsistent with "WebLLM residency causes it."
+
+  (c) LLM never loaded, llama-server STOPPED (confirmed via
+      `curl :8790/health` -> llm:false and `pgrep llama-server` empty
+      before and after), fresh Chromium profile (never loaded this model
+      before, so no stale cache).
+        stt_load_ms = 1668-2062ms webgpu
+        stt_ms      = 20791-21809ms webgpu  ->  "de de de de de de..."
+      SLOW AND WRONG, with the LLM not resident ANYWHERE in the browser
+      process and the only other GPU consumer on the machine stopped.
+      Rules out both native-process GPU contention and WebLLM residency.
+
+  (extra) Same as (c) but with the fake-mic wav trimmed to a SINGLE
+      utterance (SINGLE_UTTERANCE=1) — slice-1's exact fixture shape,
+      ruling out "the two-utterance tool-round-trip wav changes VAD
+      segmentation of the first utterance."
+        stt_ms = 20492ms webgpu  ->  "que a que que que que que que..."
+      Still slow and wrong. Rules out the audio-fixture-shape hypothesis.
+
+  (extra) Ground truth: the identical raw wav segment, submitted directly
+      to the native whisper-server (large-v3-turbo, no browser involved):
+        -> "¿Qué significa la palabra cigarra?"  (correct)
+      The audio is fine. The defect is inside the browser STT call.
+
+  (d) STT forced onto wasm (DEBUG_STT_DEVICE=wasm) with the ORIGINAL
+      catalog dtype (encoder fp16, decoder_model_merged q8):
+        stt_load_failed = "Can't create a session. ERROR_CODE: 1,
+          ... InsertedPrecisionFreeCast_/layer_norm/... " (encoder)
+        stt_load_failed = "... qdq_actions.cc:137 TransposeDQWeightsFor
+          MatMulNBits Missing required scale: ...decoder.embed_tokens...
+          " (decoder, once the encoder's dtype was patched to fp32)
+      wasm's CPU execution provider cannot even BUILD a session from
+      either the fp16 encoder or the q8 decoder_model_merged export —
+      a hard graph-build failure, not the silent upcast models.ts's
+      original comment assumed. This means the documented fallback-matrix
+      claim ("adapter load fails -> worker retries on wasm automatically")
+      was never actually exercised for this model/dtype combination.
+
+  (e) `adapter.limits` (requested every run once WebGPU is confirmed
+      present): nothing resembling a degraded/memory-limited adapter —
+      maxBufferSize and maxStorageBufferBindingSize both report the
+      normal 4294967292 (~4GB-1) ceiling, texture dimensions at the
+      standard 16384/2048/2048. No sign of a fallback or software adapter.
+
+ROOT CAUSE
+  The fp16 ENCODER dtype (models.ts's original `encoder_model: 'fp16'`)
+  is what breaks WebGPU decoding on this environment. Isolated two ways:
+    1. Generation-kwargs experiment: adding `max_new_tokens: 128` and
+       `no_repeat_ngram_size: 3` to the STT call (previously nothing was
+       passed at all) turned the failure from "slow AND garbage" into
+       "fast but still wrong" (695ms, "que no"; or 618-827ms, empty) —
+       proving the ~20s cost IS the decoder running to its token budget
+       in a repetition loop, not the "same slow work" contention would
+       predict. This is a symptom-mask, not a fix (still wrong).
+    2. Targeted A/B, the decisive test: WebGPU device, encoder forced to
+       fp32, decoder LEFT AT q8 (no device change, no download-size
+       explosion) — repeated on two independent fresh profiles:
+         stt_ms = 1357ms webgpu -> "¿Qué significa la palabra cigarrara?"
+         stt_ms = 1023ms webgpu -> "significa la palabra cigarrera."
+       Correct (modulo whisper-base's own known ending/first-word
+       imprecision — the SAME "cigarrara" typo the slice-1 log already
+       documented as "whisper-base's ending, not a bug"), and fast.
+  Conclusion: the fp16 encoder export triggers a WebGPU-side decoder
+  repetition-collapse in the currently pinned @huggingface/transformers /
+  onnxruntime-web versions on this hardware. It has nothing to do with
+  the LLM, with the native llama-server process, with the browser
+  profile, or with the audio. The original hypothesis in
+  planning/BROWSER-TUTOR.md is DISPROVEN.
+
+FIX SHIPPED
+  1. models.ts: `STT_MODEL.dtype.encoder_model` changed fp16 -> fp32.
+     Decoder stays q8 (still correct per the original accuracy
+     measurement in this same file; q8 only costs punctuation/casing).
+     `sizeMb` updated 95 -> 136 (fp32 encoder is larger; still far under
+     whisper-small's ~249MB q8 export that was ruled out for budget).
+  2. worker.ts's `dtypeForDevice`: since wasm cannot build a session from
+     the q8 decoder at all (experiment (d)), the wasm path additionally
+     upgrades the decoder to fp32 — used only when the wasm attempt is
+     actually taken (the encoder is already fp32 in the catalog for
+     every device, so no per-device encoder override is needed anymore).
+  3. Defense in depth, independent of the encoder fix: the STT call now
+     passes `no_repeat_ngram_size: 3, max_new_tokens: 128` so any future
+     decoder-collapse (this model, or a future model swap) fails FAST
+     and bounded instead of silently expensive.
+  4. `packages/voice/src/browser-cascade/stt-fallback.ts` (new):
+     `isDegenerateTranscript` (repeated-token detector) and
+     `SttFallbackTracker` (session-scoped: a slow (>8s) or degenerate
+     WebGPU attempt permanently switches that session's STT to wasm,
+     discards the bad transcript instead of feeding it to the LLM, and
+     emits a one-time tutor-caption note). Pure logic, no ML calls — unit
+     tested with fake timings/transcripts in
+     packages/voice/test/browser-cascade-stt-fallback.test.ts (13 tests).
+     This is the safety net the task asked for; with the encoder fix in
+     place it is not expected to trigger in normal operation, but it now
+     also guards the case where the wasm fallback itself needs a
+     different dtype than whatever is already cached for another device
+     (see CAVEAT below).
+
+VERIFICATION (post-fix, fresh profile, llama-server confirmed stopped,
+  LLM not loaded — isolating STT exactly as in the failing experiments
+  above):
+    stt_load_ms = 5019ms webgpu   (fp32 encoder is bigger; one-time, at
+                                    session connect, not per-turn)
+    stt_ms      = 1023ms webgpu   2.5s segment
+    caption: "significa la palabra cigarrera."
+  Correct, fast, no fallback triggered. Well under both the 8s fallback
+  threshold and the 5s per-turn target.
+
+CAVEAT — reactive mid-session fallback and cache granularity
+  transformers.js's `experimental_transformers-hash-cache` appears to key
+  on model id, not on model id + dtype: reusing an ALREADY-webgpu-loaded
+  profile and then forcing a wasm reload with a different dtype
+  (SttFallbackTracker's actual runtime behavior) sometimes reused stale
+  cached files and hit the same "Can't create a session" error as
+  experiment (d), even after the dtype fix, on a profile that had
+  already loaded the model once under a different dtype. This did NOT
+  reproduce on a genuinely fresh profile (a real first-time visitor).
+  Given the encoder fix removes the need for the reactive fallback to
+  fire in the first place, this is recorded as a known limitation of the
+  safety net rather than chased further: if it ever engages on a
+  returning visitor whose profile already cached the webgpu dtype files,
+  the wasm reload may itself fail, at which point `stt_fallback_reload_failed`
+  is logged and the session continues caption-only for STT until the
+  learner reloads the page (a fresh worker re-derives from the same
+  profile's cache, so this is a rare, one-time rough edge, not a stuck
+  state).
+
+WHAT THIS DOES NOT EXPLAIN
+  The full slice-4 e2e run (docs/evidence/browser-tutor-slice4-2026-09-05.log)
+  surfaced a separate, pre-existing issue unrelated to STT: the tutor's
+  first LLM turn sometimes completes with no visible reply at all (state
+  goes thinking -> listening with no caption, no error, no metric). The
+  same silent-first-turn shape is visible in the original
+  docs/evidence/browser-tutor-slice2-3-2026-09-05.log's turn 1, so this
+  predates every change in this log and is out of scope for the STT
+  regression this document is about. Not investigated further here.
+================================================================================

@@ -20,6 +20,7 @@ import {
   type PassageContext,
   type SessionOptions,
   type VoiceProvider,
+  type WorkerInitPayload,
 } from '@sotto/voice';
 import { createAudioAdapter } from '../platform/audio-adapter';
 import { serverUrl } from '../state/contentApi';
@@ -40,9 +41,23 @@ import { createToolContext } from './toolContext';
  * emit the same VoiceEvents, so nothing downstream of here can tell them
  * apart.
  */
+/**
+ * Diagnostic-only escape hatch for the STT/LLM-contention experiments
+ * (docs/evidence/browser-tutor-stt-regression-2026-09-05.log). The e2e
+ * harness sets `window.__SOTTO_TUTOR_DEBUG__` via `page.addInitScript`
+ * before the app loads; the normal app never sets this global, so
+ * production sessions always get `undefined` here.
+ */
+function debugOverride(): WorkerInitPayload['debug'] | undefined {
+  const g = globalThis as { __SOTTO_TUTOR_DEBUG__?: WorkerInitPayload['debug'] };
+  return g.__SOTTO_TUTOR_DEBUG__;
+}
+
 function pickProvider(path: VoicePath): VoiceProvider {
   if (process.env.EXPO_PUBLIC_VOICE === 'fake') return new FakeVoiceProvider(systemClock);
-  if (path === 'browser') return new BrowserCascadeProvider({ audio: createAudioAdapter() });
+  if (path === 'browser') {
+    return new BrowserCascadeProvider({ audio: createAudioAdapter(), debug: debugOverride() });
+  }
   return new LocalCascadeProvider({ serverUrl: serverUrl(), audio: createAudioAdapter() });
 }
 

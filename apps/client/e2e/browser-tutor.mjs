@@ -52,7 +52,30 @@
  * Usage: node apps/client/e2e/browser-tutor.mjs
  *   PORT=8091          port for `npx serve dist -s`
  *   KEEP_PROFILE=1     reuse the cached models from a previous run
+ *
+ * Diagnostic-only flags added for the STT/LLM-contention regression
+ * (docs/evidence/browser-tutor-stt-regression-2026-09-05.log). None of
+ * these are set on a real session — they inject
+ * `window.__SOTTO_TUTOR_DEBUG__` before the app loads, which
+ * sessionManager.ts's `pickProvider` forwards into the worker's init
+ * payload (protocol.ts's `WorkerInitPayload.debug`) only when present:
+ *   DEBUG_SKIP_LLM=1        never load the WebLLM engine (isolate STT timing)
+ *   DEBUG_STT_DEVICE=wasm   force whisper onto wasm instead of webgpu
+ *   STT_ONLY=1              stop the run right after the first `stt_ms`
+ *                           metric instead of waiting for the full two-turn
+ *                           tool round trip — the point of these runs is
+ *                           STT latency/correctness, not the whole pipeline
  */
+const DEBUG_SKIP_LLM = process.env.DEBUG_SKIP_LLM === '1';
+const DEBUG_STT_DEVICE = process.env.DEBUG_STT_DEVICE; // 'webgpu' | 'wasm' | undefined
+const STT_ONLY = process.env.STT_ONLY === '1';
+// Slice 1's original fixture (docs/evidence/browser-tutor-slice1-2026-09-05.log)
+// played back a SINGLE utterance; the fake-mic wav has carried two
+// utterances back-to-back (with a 2.5s silence gap) since slice 2 added the
+// tool-round-trip phase. SINGLE_UTTERANCE=1 restores the slice-1 shape, to
+// test whether the second utterance's presence in the file changes VAD
+// segmentation of the first one.
+const SINGLE_UTTERANCE = process.env.SINGLE_UTTERANCE === '1';
 import { execFile, spawn } from 'node:child_process';
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -65,7 +88,7 @@ const run = promisify(execFile);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const clientDir = path.resolve(__dirname, '..');
 const CACHE_DIR = path.join(__dirname, '.cache');
-const PROFILE_DIR = path.join(CACHE_DIR, 'browser-tutor-profile');
+const PROFILE_DIR = path.join(CACHE_DIR, process.env.PROFILE_NAME ?? 'browser-tutor-profile');
 const DIST = path.join(clientDir, 'dist');
 const PORT = Number(process.env.PORT ?? 8091);
 const BASE_URL = `http://localhost:${PORT}`;
@@ -244,7 +267,10 @@ async function main() {
   if (!process.env.KEEP_PROFILE) rmSync(PROFILE_DIR, { recursive: true, force: true });
 
   log(`Synthesizing fake-mic wav: "${UTTERANCE}" then "${TOOL_UTTERANCE}"`);
-  const wav = await buildFakeMicWav([UTTERANCE, TOOL_UTTERANCE], 'browser-tutor');
+  const wav = await buildFakeMicWav(
+    SINGLE_UTTERANCE ? [UTTERANCE] : [UTTERANCE, TOOL_UTTERANCE],
+    'browser-tutor',
+  );
 
   log(`Serving ${path.relative(clientDir, DIST)} on ${BASE_URL}`);
   const server = serveDist();
@@ -269,8 +295,19 @@ async function main() {
     );
 
     const page = context.pages()[0] ?? (await context.newPage());
+    if (DEBUG_SKIP_LLM || DEBUG_STT_DEVICE) {
+      const debug = {
+        ...(DEBUG_SKIP_LLM ? { skipLlm: true } : {}),
+        ...(DEBUG_STT_DEVICE ? { forceSttDevice: DEBUG_STT_DEVICE } : {}),
+      };
+      log(`Injecting window.__SOTTO_TUTOR_DEBUG__ = ${JSON.stringify(debug)}`);
+      await context.addInitScript((d) => {
+        globalThis.__SOTTO_TUTOR_DEBUG__ = d;
+      }, debug);
+    }
     const pageErrors = [];
     const workerLog = [];
+    let sawSttMetric = false;
     page.on('pageerror', (err) => pageErrors.push(err.message));
     page.on('requestfailed', (req) => {
       const url = req.url();
@@ -288,6 +325,7 @@ async function main() {
       if (/\[sotto-tutor\]/.test(text)) {
         workerLog.push(text);
         log(text);
+        if (/stt_ms=/.test(text)) sawSttMetric = true;
       }
     });
 
@@ -298,12 +336,16 @@ async function main() {
       if (!('gpu' in navigator)) return { present: false, adapter: false };
       try {
         const adapter = await navigator.gpu.requestAdapter();
-        return { present: true, adapter: !!adapter };
+        if (!adapter) return { present: true, adapter: false };
+        const limits = {};
+        for (const key in adapter.limits) limits[key] = adapter.limits[key];
+        return { present: true, adapter: true, limits };
       } catch (err) {
         return { present: true, adapter: false, error: String(err) };
       }
     });
     log(`WebGPU: navigator.gpu=${gpu.present} adapter=${gpu.adapter}`);
+    if (gpu.limits) log(`adapter.limits = ${JSON.stringify(gpu.limits)}`);
 
     // The exact probe the capability gate makes (contentApi.fetchHealth).
     const healthStatus = await page.evaluate(async () => {
@@ -447,6 +489,26 @@ async function main() {
       // Phase A done, tutor answered (turn 1), the save command was heard,
       // and the tool round trip's turn (2) has also completed.
       if (sawLearnerCaption && sawToolLearnerCaption && turnsCompleted >= 2) break;
+      if (STT_ONLY && sawSttMetric) {
+        // Give the caption — and, if a wasm fallback reload triggers, its
+        // retry — a moment to land before we snapshot and exit. Extendable
+        // for diagnostics that need to observe the reactive fallback path.
+        await page.waitForTimeout(Number(process.env.STT_ONLY_WAIT_MS ?? 1000));
+        const finalSnapshot = await page.evaluate(() =>
+          document.body.innerText
+            .split('\n')
+            .map((l) => l.trim())
+            .filter((l) => /^(You|Tutor):/.test(l)),
+        );
+        for (const line of finalSnapshot) {
+          if (!timeline.includes(line)) {
+            timeline.push(line);
+            log(`caption: ${line}`);
+          }
+        }
+        log('STT_ONLY=1: stopping right after the first stt_ms metric');
+        break;
+      }
       await page.waitForTimeout(400);
     }
 

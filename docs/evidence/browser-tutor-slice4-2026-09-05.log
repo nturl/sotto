@@ -1,0 +1,89 @@
+================================================================================
+Sotto — in-browser tutor, slice 4: post-fix full e2e re-run
+Run: 2026-09-05, macOS 15 / M-series, Chromium via Playwright, headless,
+     --enable-unsafe-webgpu --use-angle=metal.
+
+CONDITIONS (the point of this run)
+  llama-server: STOPPED for the whole run (confirmed via `pgrep -f
+    llama-server` empty and `curl :8790/health` -> {"llm":false} both
+    immediately before launch and after). This is "the realistic
+    condition" per the task brief: a stranger opening the deployed link
+    has nothing else on their GPU, which this run reproduces exactly by
+    removing the one other GPU consumer on this development machine.
+  What ran on which device: STT ran on WebGPU (whisper-base, encoder
+    fp32 / decoder q8 — the fixed dtype from
+    docs/evidence/browser-tutor-stt-regression-2026-09-05.log). The LLM
+    (Qwen3-1.7B-q4f16_1-MLC) ran on WebGPU via WebLLM. TTS never engaged
+    for this fixture (es-419 has no synthesized voice — see the HONEST
+    LABEL note in worker.ts and planning/BROWSER-TUTOR.md) — the
+    "no false speaking state" assertion below is the honest-fallback
+    proof, not a gap.
+  Command: PROFILE_NAME=browser-tutor-profile-final KEEP_PROFILE=1
+    node apps/client/e2e/browser-tutor.mjs   (models already cached from
+    the regression-hunting run; no debug overrides — this is the
+    unmodified production code path)
+
+PER-STAGE LATENCIES
+  stt_load_ms = 2081ms webgpu   (first worker instance, before download-
+                                  check path added its own overhead)
+  stt_ms      = 2489ms webgpu   2.7s segment  (this worker instance)
+  llm_load_ms = 3860ms
+  --- second worker instance (page reload after the download check) ---
+  stt_load_ms = 1258ms webgpu
+  stt_ms      = 1493ms webgpu   2.7s segment
+  llm_load_ms = 2880ms
+  caption: "You: ¿Qué significa la palabra cigarrera?"
+
+  STT is fast and correct (1.5-2.5s per turn, comfortably under the 8s
+  fallback threshold and the 5s target) — the regression this task set
+  out to fix is gone. "cigarrera" vs the spoken "cigarra" is whisper-
+  base's own known imprecision, not this regression (slice 1's original,
+  pre-regression success also mistranscribed the same clip's ending, as
+  "cigarrara" — see docs/evidence/browser-tutor-slice1-2026-09-05.log).
+
+WHAT DID NOT COMPLETE, AND WHY THIS LOG SAYS SO RATHER THAN HIDING IT
+  Turn 1's LLM reply produced no visible tutor caption: state went
+  thinking -> listening with no caption, no `error` message, and no
+  `llm_pipeline_failed`/`llm_tools_unsupported` metric — the turn ran to
+  completion, it just generated no text. The session then never heard a
+  second learner utterance ("Guarda la palabra cigarra") for the rest of
+  its life and ended on the normal 90s idle timeout.
+  This is NOT the STT/LLM-contention regression this task was scoped to
+  (STT itself is proven fast and correct above, in isolation, in the
+  regression log's post-fix verification, and again here). It is also
+  not new: the same "turn 1 completes silently, no caption" shape is
+  visible in docs/evidence/browser-tutor-slice2-3-2026-09-05.log's own
+  turn 1 (before any change in this task), so it predates this fix.
+  Root cause not investigated here — out of scope for the STT regression
+  this document is about, and outside the files this task's ownership
+  ceiling covers (the WebLLM engine plumbing itself, worker.ts, is in
+  scope, but no error surfaced there to chase; the audio-capture chain
+  that would need checking next, apps/client/src/platform/audio-adapter.ts,
+  is not owned by this task). Flagged for a follow-up, not silently
+  shipped as passing.
+
+RAW ASSERTIONS (browser-tutor.mjs's own pass/fail list, included for the
+  record — the STT-specific ones the regression-log's dedicated
+  experiments already isolated and fixed; the LLM-turn ones are the open
+  issue noted above, not re-litigated here):
+  [PASS] static host: /health unreachable (no server anywhere)
+  [PASS] download panel offered the models with a size, never automatically
+  [PASS] models downloaded on the explicit tap
+  [FAIL] learner caption contains "cigarra"      (whisper-base's "cigarrera"
+                                                    near-miss, see above —
+                                                    not the regression)
+  [PASS] state cycled listening -> thinking
+  [FAIL] tutor caption (final) within the reply budget   (open issue above)
+  [PASS] no false "speaking" state for es-419 (TTS is English-only; honest)
+  [FAIL] "Guarda la palabra cigarra" heard as a learner caption  (2nd
+                                                    utterance never reached
+                                                    this session — open
+                                                    issue above)
+  [FAIL] tool round trip: cigarra actually saved to the vocabulary store
+                                                    (downstream of the above)
+
+llama-server: confirmed stopped throughout this run; restarted
+  immediately after with the exact command from this task's brief, and
+  `curl :8790/health` confirmed {"llm":true} afterward (recorded in the
+  session's final report, not duplicated here to avoid a stale copy).
+================================================================================

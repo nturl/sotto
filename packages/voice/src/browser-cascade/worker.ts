@@ -28,6 +28,7 @@ import { KokoroTTS } from 'kokoro-js';
 import { buildSystemInstruction, TOOL_DEFINITIONS, type TutorPassageContext } from '@sotto/core';
 import type { VoiceState } from '../events.ts';
 import { EnergyVad, SpeechBuffer } from './vad.ts';
+import { isDegenerateTranscript, SttFallbackTracker } from './stt-fallback.ts';
 import {
   TutorTurnRunner,
   type ChatMessage,
@@ -111,24 +112,58 @@ function progressReporter(modelId: string): (info: ProgressInfo) => void {
 }
 
 /**
+ * models.ts's encoder dtype (fp16) is a WebGPU-only export: the wasm/CPU
+ * execution provider cannot even build a session from that graph — verified
+ * live (docs/evidence/browser-tutor-stt-regression-2026-09-05.log,
+ * experiment (d)) as a hard `Can't create a session` ORT_FAIL, not the
+ * silent upcast this repo's own models.ts comment assumed. So the wasm
+ * fallback needs the fp32 encoder that models.ts already measured as
+ * correct — only the WebGPU path gets the smaller fp16 one.
+ */
+/**
+ * The catalog dtype (models.ts's `STT_MODEL.dtype`) is fp32 encoder / q8
+ * decoder — fp32 fixed the WebGPU decode-collapse regression (see the big
+ * comment on `STT_MODEL`). That q8 decoder still fails outright on wasm's
+ * CPU execution provider ("Can't create a session" — a hard graph-build
+ * failure, not the silent upcast this repo's own comment once assumed;
+ * verified live, docs/evidence/browser-tutor-stt-regression-2026-09-05.log
+ * experiment (d)), so the wasm path additionally upgrades the decoder to
+ * fp32 — the combination models.ts's own accuracy measurement already
+ * covers.
+ */
+function dtypeForDevice(
+  dtype: Record<string, string>,
+  device: 'webgpu' | 'wasm',
+): Record<string, string> {
+  if (device !== 'wasm' || !dtype.decoder_model_merged) return dtype;
+  return { ...dtype, decoder_model_merged: 'fp32' };
+}
+
+/**
  * Loads whisper, preferring WebGPU and falling back to wasm. `dtype` is
  * per sub-model (whisper exports an encoder and a merged decoder, and the
  * two want different precisions — see models.ts for the measurements).
  */
-async function loadStt(spec: WorkerInitPayload['stt']): Promise<void> {
+async function loadStt(
+  spec: WorkerInitPayload['stt'],
+  forceDevice?: 'webgpu' | 'wasm',
+): Promise<void> {
   if (sttPipeline) return;
   const dtype = spec.dtype;
   const started = Date.now();
 
-  const attempts: Array<'webgpu' | 'wasm'> =
-    typeof navigator !== 'undefined' && 'gpu' in navigator ? ['webgpu', 'wasm'] : ['wasm'];
+  const attempts: Array<'webgpu' | 'wasm'> = forceDevice
+    ? [forceDevice]
+    : typeof navigator !== 'undefined' && 'gpu' in navigator
+      ? ['webgpu', 'wasm']
+      : ['wasm'];
 
   let lastError: unknown = null;
   for (const device of attempts) {
     try {
       sttPipeline = (await pipeline('automatic-speech-recognition', spec.id, {
         device,
-        dtype: dtype as never,
+        dtype: dtypeForDevice(dtype, device) as never,
         progress_callback: progressReporter(spec.id),
       })) as AutomaticSpeechRecognitionPipeline;
       sttDevice = device;
@@ -405,6 +440,10 @@ interface SessionState {
 
 let session: SessionState | null = null;
 
+/** One tracker per worker (one worker per session) — see stt-fallback.ts
+ * for the regression this defends against. */
+const sttFallback = new SttFallbackTracker();
+
 const TOOL_RESULT_TIMEOUT_MS = 30_000;
 const MAX_TOOL_ITERATIONS = 4;
 const MAX_HISTORY_MESSAGES = 24;
@@ -560,17 +599,62 @@ async function transcribeSegment(segment: Int16Array): Promise<void> {
     const result = (await sttPipeline(audio, {
       language: iso639(session.payload.learner.learningLocale),
       task: 'transcribe',
+      // Bounds the "de de de de..." decoder-collapse failure mode
+      // (docs/evidence/browser-tutor-stt-regression-2026-09-05.log): with no
+      // generation kwargs at all, whisper-base on WebGPU here was observed
+      // to fall into a token-repetition loop and run to whatever
+      // max_new_tokens its (unpinned, `main`-branch) generation_config.json
+      // happens to default to — which is also why the failure was ~20x
+      // slower, not just wrong: it decoded far more tokens than a real
+      // short answer ever needs, not "the same work done slowly". Both
+      // knobs make that failure short and cheap instead of silently
+      // expensive: no_repeat_ngram_size stops the loop from re-forming,
+      // and max_new_tokens caps worst-case latency regardless.
+      no_repeat_ngram_size: 3,
+      max_new_tokens: 128,
     } as never)) as { text?: string } | Array<{ text?: string }>;
     const text = (Array.isArray(result) ? (result[0]?.text ?? '') : (result.text ?? '')).trim();
+    const elapsedMs = Date.now() - started;
+    const deviceAtAttempt = sttDevice ?? 'webgpu';
 
     post({
       t: 'metric',
       name: 'stt_ms',
-      ms: Date.now() - started,
+      ms: elapsedMs,
       detail: `${sttDevice ?? '?'} ${(segment.length / WORKER_SAMPLE_RATE).toFixed(1)}s`,
     });
 
-    if (!text) {
+    // Safety net for the WebGPU STT/LLM-contention regression (see
+    // stt-fallback.ts): a slow or degenerate WebGPU result switches this
+    // session to wasm for every subsequent utterance.
+    const tripped = sttFallback.shouldFallback(deviceAtAttempt, { ms: elapsedMs, text });
+    if (tripped) {
+      post({
+        t: 'metric',
+        name: 'stt_fallback_wasm',
+        ms: elapsedMs,
+        detail: text.slice(0, 60),
+      });
+      sttPipeline = null;
+      sttDevice = null;
+      try {
+        await loadStt(session.payload.stt, 'wasm');
+      } catch (err) {
+        post({
+          t: 'metric',
+          name: 'stt_fallback_reload_failed',
+          ms: 0,
+          detail: err instanceof Error ? err.message : String(err),
+        });
+      }
+      const note = sttFallback.consumeNote();
+      if (note) post({ t: 'caption', speaker: 'tutor', text: note, final: true });
+    }
+
+    // A fallback-triggering degenerate transcript is discarded rather than
+    // sent to the LLM as if it were a real question — the learner just
+    // needs to repeat themselves, now on the more reliable device.
+    if (!text || (tripped && isDegenerateTranscript(text))) {
       setState('listening');
       return;
     }
@@ -643,7 +727,7 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
     switch (msg.t) {
       case 'download':
         try {
-          await loadStt(msg.payload.stt);
+          await loadStt(msg.payload.stt, msg.payload.debug?.forceSttDevice);
           await loadLlm();
           await loadTts();
           post({ t: 'ready', stages: { stt: true, llm: true, tts: true } });
@@ -674,19 +758,26 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
         };
         session = s;
         try {
-          await loadStt(msg.payload.stt);
-          try {
-            await loadLlm();
-          } catch (err) {
-            // LLM failing to load is not fatal to the session: STT still
-            // works, and runTutorTurn() degrades to caption-only when
-            // `llmEngine` is null rather than hanging.
-            post({
-              t: 'metric',
-              name: 'llm_load_failed',
-              ms: 0,
-              detail: err instanceof Error ? err.message : String(err),
-            });
+          await loadStt(msg.payload.stt, msg.payload.debug?.forceSttDevice);
+          if (msg.payload.debug?.skipLlm) {
+            // Diagnostic-only: isolate STT timing from LLM/WebGPU
+            // contention (docs/evidence/browser-tutor-stt-regression-
+            // 2026-09-05.log, experiment (a)). Never set by a real session.
+            post({ t: 'metric', name: 'llm_load_skipped', ms: 0, detail: 'debug.skipLlm' });
+          } else {
+            try {
+              await loadLlm();
+            } catch (err) {
+              // LLM failing to load is not fatal to the session: STT still
+              // works, and runTutorTurn() degrades to caption-only when
+              // `llmEngine` is null rather than hanging.
+              post({
+                t: 'metric',
+                name: 'llm_load_failed',
+                ms: 0,
+                detail: err instanceof Error ? err.message : String(err),
+              });
+            }
           }
           s.turnRunner = makeTurnRunner(s);
           post({ t: 'ready', stages: { stt: true, llm: !!llmEngine, tts: false } });

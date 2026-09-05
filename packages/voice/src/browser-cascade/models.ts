@@ -35,11 +35,29 @@ export interface TutorModelSpec {
  *   encoder fp32 + decoder q8 -> "que significa la palabra cigarras"  (right)
  *   encoder fp32 + decoder fp32 -> "¿Qué significa la palabra cigarras?"
  * Quantizing the ENCODER is what loses the word; quantizing the decoder
- * costs only punctuation and casing. fp16 keeps the encoder's precision at
- * half the bytes (41.3 MB), which WebGPU handles natively — so:
- * encoder fp16 (41.3) + decoder_model_merged q8 (53.7) = ~95 MB, inside the
- * budget. On the wasm fallback fp16 is not supported and transformers.js
- * upcasts, which costs memory but not accuracy.
+ * costs only punctuation and casing.
+ *
+ * The encoder dtype was originally fp16 (41.3 MB, half the bytes of fp32,
+ * "which WebGPU handles natively"). That was wrong in a way the slice-1
+ * fixture never caught: with the fp16 encoder, this repo's own WebGPU
+ * whisper decoding regressed into a token-repetition loop — "de de de
+ * de..." — that runs to whatever max_new_tokens its generation_config.json
+ * defaults to instead of stopping at EOS, which is also why it was ~20x
+ * slower (more tokens decoded, not "the same work done slowly"). Root-caused
+ * in docs/evidence/browser-tutor-stt-regression-2026-09-05.log: reproduced
+ * with the LLM never loaded, with the machine's native llama-server
+ * stopped, and on a completely fresh browser profile, ruling out every
+ * GPU-contention hypothesis; a native ground-truth transcription of the
+ * exact same audio file was correct, ruling out the audio; forcing the
+ * encoder to fp32 while keeping WebGPU as the device and the decoder at q8
+ * fixed it outright (confirmed live, same fresh-profile methodology). So
+ * fp32 is now the encoder dtype on every device — the smaller fp16 export is
+ * not used at all. The decoder stays q8 (85 MB combined, and q8 costs only
+ * punctuation/casing per the measurement above); wasm's CPU execution
+ * provider additionally cannot build a session from a quantized
+ * decoder_model_merged at all ("Can't create a session", a hard graph-build
+ * failure, not a slowdown) — the wasm fallback in worker.ts's
+ * `dtypeForDevice` upgrades the decoder to fp32 too, only for that device.
  *
  * LLM and TTS now load too (slices 2/3), so `TUTOR_MODELS` — what the
  * download button actually fetches — covers all three. `TTS_MODEL` still
@@ -51,9 +69,9 @@ export interface TutorModelSpec {
 export const STT_MODEL: TutorModelSpec = {
   id: 'onnx-community/whisper-base',
   name: 'Whisper base (speech to text)',
-  sizeMb: 95,
+  sizeMb: 136,
   stage: 'stt',
-  dtype: { encoder_model: 'fp16', decoder_model_merged: 'q8' },
+  dtype: { encoder_model: 'fp32', decoder_model_merged: 'q8' },
 };
 
 export const LLM_MODEL: TutorModelSpec = {

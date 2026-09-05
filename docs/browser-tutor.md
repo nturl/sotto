@@ -19,9 +19,17 @@ models", frees the space; the app then offers the download again.
 
 | Stage          | Model                                   | Approx. download |
 | -------------- | --------------------------------------- | ---------------- |
-| Speech to text | Whisper base (encoder fp16, decoder q8) | 95 MB            |
+| Speech to text | Whisper base (encoder fp32, decoder q8) | 136 MB           |
 | Tutor          | Qwen3 1.7B (q4f16, MLC)                 | ~1.1 GB          |
 | Voice          | Kokoro 82M                              | ~90 MB           |
+
+### Honest capability matrix
+
+| Stage          | Where it can run                | Notes                                                                                                                                                                                                                                                        |
+| -------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Speech to text | WebGPU (default) or WebAssembly | WebGPU is the fast path (~1-2.5s per turn). If a session's WebGPU transcription is ever unreliable — slower than 8s, or a repeated-token transcript — that session switches to WebAssembly on its own for the rest of it, with a one-time caption saying so. |
+| Tutor (LLM)    | WebGPU only                     | Qwen3 1.7B has no WebAssembly path in this build; without WebGPU, only STT and captions work.                                                                                                                                                                |
+| Voice (TTS)    | English only                    | See "Speech is English-only for now" above — fr/es/other tutor replies stay text-only captions, never silently attempted.                                                                                                                                    |
 
 The tutor listens, replies, and can call the same seven tools as the local
 server (save a word, jump to a sentence, switch modes, and so on) — all
@@ -44,7 +52,10 @@ calls, just as text captions rather than audio. The panel says so.
 - Roughly 1.5 GB of free disk for the full set, once slices 2 and 3 land.
 
 If WebGPU is present but the GPU adapter fails to initialize, the tutor falls
-back to WebAssembly on its own. Slower, same behaviour.
+back to WebAssembly on its own. Speech recognition also switches to
+WebAssembly mid-session, automatically, if it is ever too slow (over 8
+seconds) or produces a garbled transcript — a one-time caption says so, and
+every turn after that runs on WebAssembly instead. Slower, same behaviour.
 
 ## Where the files come from
 

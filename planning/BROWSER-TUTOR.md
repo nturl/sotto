@@ -120,7 +120,7 @@ Only the panel's `download`, on a tap, sets it true.
 
 | Stage | Model | Size | Notes |
 |---|---|---|---|
-| STT | `onnx-community/whisper-base`, encoder fp16 + decoder_merged q8 | 95 MB | shipped, slice 1 |
+| STT | `onnx-community/whisper-base`, encoder fp32 + decoder_merged q8 | 136 MB | shipped, slice 1; encoder dtype changed fp16→fp32 2026-09-05, see below |
 | LLM | Qwen3 1.7B q4f16_1 (MLC) | ~1.1 GB | slice 2 |
 | TTS | Kokoro 82M ONNX | ~90 MB | slice 3 |
 
@@ -133,9 +133,16 @@ transformers.js on CPU produced:
 - encoder fp32 + decoder fp32 → "¿Qué significa la palabra cigarras?"
 
 Quantizing the *encoder* is what loses the word; quantizing the decoder costs
-punctuation and casing. fp16 keeps the encoder's precision at half the bytes
-and WebGPU handles it natively, which is how the model fits under 100 MB and
-still hears the word. whisper-small would be better again but its q8 export is
+punctuation and casing.
+
+The encoder dtype was originally fp16 ("half the bytes, and WebGPU handles it
+natively"). That was wrong in a way the slice-1 fixture never caught: fp16
+turned out to be the root cause of the STT/LLM-contention regression below —
+it causes WebGPU whisper decoding to collapse into a token-repetition loop on
+this environment, independent of the LLM. Root-caused and fixed 2026-09-05;
+see `docs/evidence/browser-tutor-stt-regression-2026-09-05.log`. The encoder
+is now fp32 on every device (136 MB total, up from 95 MB) and the fp16 export
+is not used at all. whisper-small would be better again but its q8 export is
 ~249 MB.
 
 ## Capability gate
@@ -178,6 +185,7 @@ non-secure context simply reports "not installed" instead of throwing.
 | Static host, WebGPU, no models | download panel with names, sizes, progress |
 | Static host, no WebGPU | "This browser cannot run the tutor: it has no WebGPU", plus Read alone |
 | WebGPU present but adapter load fails | worker retries on wasm automatically; slower, same output |
+| STT on WebGPU is slow (>8s) or garbled mid-session | that session switches STT to wasm automatically, discards the bad transcript, and shows a one-time caption saying so (`stt-fallback.ts`) |
 | Download fails | panel shows the failure plus the library's own error text |
 | Site data blocked / private window | tutor runs this session, panel keeps offering the download |
 
@@ -266,18 +274,32 @@ when a `<think>...</think>` reasoning block streamed straight through as
 tutor captions before that field was added; `stripThinking`/`safeReleaseIndex`
 in `markers.ts` now also strip/hold back `<think>` blocks as defense in depth.
 
-**Open issue, not yet root-caused: STT latency/quality regresses hard once the
-LLM is also loaded.** whisper transcription of the same 2.7s clip that took
-1.05s and was correct in the slice-1 e2e took ~21s and produced garbage
-repeated tokens ("de de de de...") in two separate slice-2/3 e2e runs, both
-with the 1.1GB WebLLM model also resident on the same WebGPU device. STT
-alone (slice 1, no LLM loaded) was never slow or wrong. Leading hypothesis:
-WebGPU resource contention between the two simultaneously-resident models;
-unproven — the next diagnostic step is a controlled run that loads STT,
-transcribes, THEN loads the LLM, to see whether the slowdown is about order,
-simultaneity, or something else. This exceeds this document's own "> 20s
-per-turn" escalation threshold and is flagged rather than silently shipped;
-see `docs/evidence/browser-tutor-slice2-3-2026-09-05.log` for the two runs.
+**Resolved 2026-09-05 — root cause was NOT the LLM.** The STT-latency/quality
+regression flagged here (whisper transcription of the same 2.7s clip that
+took 1.05s and was correct in the slice-1 e2e taking ~21s and producing
+garbage repeated tokens, "de de de de...", in two slice-2/3 e2e runs) was
+reproduced with the LLM never loaded in the worker at all, with this
+machine's native llama-server process stopped, and on a completely fresh
+browser profile — disproving the leading "WebGPU contention between the two
+resident models" hypothesis outright. The real cause: the whisper-base
+encoder's fp16 dtype triggers a WebGPU decoder repetition-collapse in the
+currently pinned `@huggingface/transformers`/onnxruntime-web versions on this
+hardware (the ~20x slowdown IS the decoder running to its token budget in a
+loop, not "the same work done slowly" — confirmed by adding
+`no_repeat_ngram_size`/`max_new_tokens` and watching the failure shape change
+from slow-and-wrong to fast-and-wrong). Forcing the encoder to fp32 (keeping
+WebGPU as the device, keeping the decoder at q8) fixed it outright, verified
+on two independent fresh profiles. `STT_MODEL`'s dtype in `models.ts` is now
+fp32 for the encoder on every device; a session-scoped safety net
+(`stt-fallback.ts`) additionally switches a session to wasm if WebGPU STT is
+ever slow or degenerate again, as defense in depth rather than the primary
+fix. Full experiment table, the ruled-out hypotheses, and the wasm-side
+caveat (its q8 decoder can't build a session at all, independent of this
+bug) are in `docs/evidence/browser-tutor-stt-regression-2026-09-05.log`; the
+post-fix full e2e re-run is `docs/evidence/browser-tutor-slice4-2026-09-05.log`,
+which also surfaced a separate, pre-existing, unrelated issue (the tutor's
+first LLM turn sometimes produces no visible reply) — present in the
+original slice-2/3 log too, so out of scope here and not yet root-caused.
 
 ## Slice 2 (LLM + tools) — checklist
 

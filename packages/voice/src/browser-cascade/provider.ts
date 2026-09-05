@@ -45,6 +45,9 @@ export interface BrowserCascadeOptions {
   limits?: { maxMs: number; idleMs: number };
   /** Emitted for the download panel while weights are fetched. */
   onProgress?: (p: ModelProgress) => void;
+  /** Diagnostic-only overrides forwarded verbatim into `WorkerInitPayload.debug`
+   * — see protocol.ts. Only the e2e harness sets this (sessionManager.ts). */
+  debug?: WorkerInitPayload['debug'];
 }
 
 const DEFAULT_LIMITS = { maxMs: 1_200_000, idleMs: 90_000 };
@@ -54,7 +57,11 @@ function defaultWorkerFactory(url: string): WorkerFactory {
 }
 
 /** Turns SessionOptions into the worker's init payload. */
-function initPayload(opts: SessionOptions, allowDownload: boolean): WorkerInitPayload {
+function initPayload(
+  opts: SessionOptions,
+  allowDownload: boolean,
+  debug?: WorkerInitPayload['debug'],
+): WorkerInitPayload {
   return {
     stt: { id: STT_MODEL.id, dtype: STT_MODEL.dtype ?? {} },
     learner: {
@@ -67,6 +74,7 @@ function initPayload(opts: SessionOptions, allowDownload: boolean): WorkerInitPa
     passage: opts.passage,
     savedWords: opts.savedWords,
     allowDownload,
+    ...(debug ? { debug } : {}),
   };
 }
 
@@ -75,6 +83,7 @@ export class BrowserCascadeProvider implements VoiceProvider {
   private readonly makeWorker: WorkerFactory;
   private readonly limits: { maxMs: number; idleMs: number };
   private readonly onProgress?: (p: ModelProgress) => void;
+  private readonly debug?: WorkerInitPayload['debug'];
 
   private worker: WorkerLike | null = null;
   private listeners = new Set<(e: VoiceEvent) => void>();
@@ -92,6 +101,7 @@ export class BrowserCascadeProvider implements VoiceProvider {
       opts.workerFactory ?? defaultWorkerFactory(opts.workerUrl ?? DEFAULT_WORKER_URL);
     this.limits = opts.limits ?? DEFAULT_LIMITS;
     this.onProgress = opts.onProgress;
+    this.debug = opts.debug;
   }
 
   // ---- VoiceProvider ----
@@ -132,7 +142,7 @@ export class BrowserCascadeProvider implements VoiceProvider {
 
     // `allowDownload: false` — a session never pulls weights on its own. The
     // download panel does that explicitly, on a tap, with sizes shown.
-    worker.postMessage({ t: 'init', payload: initPayload(opts, false) });
+    worker.postMessage({ t: 'init', payload: initPayload(opts, false, this.debug) });
 
     this.armLimits();
 

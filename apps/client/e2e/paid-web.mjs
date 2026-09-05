@@ -218,9 +218,13 @@ async function runWidthInner(browser, width) {
 
   await page.goto(`${BASE_URL}/usage`, { waitUntil: 'domcontentloaded' });
   let usageText = '';
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 20; i++) {
     usageText = await page.locator('body').innerText();
     if (/250/.test(usageText)) break;
+    // Halfway through, force a hard reload in case a stale cached response
+    // (this app ships a service worker, apps/client/public/sw.js) is
+    // serving the pre-subscribe /me — a plain wait cannot fix that.
+    if (i === 9) await page.reload({ waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(300);
   }
   record(`[${width}] usage screen renders the standard caps (250 / 2)`, /250/.test(usageText));

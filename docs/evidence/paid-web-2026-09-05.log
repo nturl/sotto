@@ -1,59 +1,59 @@
 [t+0.0s] === width 375 ===
 [t+1.3s] screenshot 375-paid-web-signedout.png
 [t+2.2s] [PASS] [375] magic-link send shows Sent
-[t+2.2s] [PASS] [375] magic link readable from the staging log — http://127.0.0.1:8797/auth/magic-link/verify?token=dU_LuB7-HDlRg1zoCMXX9_aca_-nAYoP86_N2JhQQDE
+[t+2.2s] [PASS] [375] magic link readable from the staging log — http://127.0.0.1:8797/auth/magic-link/verify?token=3Z_47wZFwx1IlUx2n8eUrvJsxRuyuCuffQQrS_jgkEE
 [t+3.5s] [PASS] [375] signed in — account shows the email
 [t+3.7s] screenshot 375-paid-web-account-signedin.png
 [t+4.7s] [PASS] [375] paywall shows one plan card — looked for "SOTTO"
 [t+4.7s] [PASS] [375] paywall shows the monthly price
-[t+5.0s] screenshot 375-paid-web-paywall-month.png
+[t+4.9s] screenshot 375-paid-web-paywall-month.png
 [t+5.3s] [PASS] [375] paywall toggle shows the yearly price
 [t+5.5s] screenshot 375-paid-web-paywall-year.png
 [t+8.7s] [PASS] [375] stub subscribe upgrades the entitlement (TEST MODE)
-[t+9.3s] [FAIL] [375] usage shows the standard tutor-minutes cap (250)
-[t+9.3s] [FAIL] [375] usage shows the standard imports cap (2)
-[t+9.5s] screenshot 375-paid-web-usage.png
-[t+9.9s] Terms link target observed in DOM text near: (no href attr on RN Web text node)
-[t+10.0s] === width 1440 ===
-[t+11.5s] screenshot 1440-paid-web-signedout.png
-[t+12.3s] [PASS] [1440] magic-link send shows Sent
-[t+12.3s] [PASS] [1440] magic link readable from the staging log — http://127.0.0.1:8797/auth/magic-link/verify?token=JOjUn1Za-d1Fvo1g30g-n75K-uvGRtoaxsYhIGlncFY
-[t+13.5s] [PASS] [1440] signed in — account shows the email
-[t+13.8s] screenshot 1440-paid-web-account-signedin.png
-[t+18.8s] [PASS] [1440] paywall shows one plan card — looked for "SOTTO"
-[t+18.8s] [PASS] [1440] paywall shows the monthly price
-[t+19.0s] screenshot 1440-paid-web-paywall-month.png
-[t+19.4s] [PASS] [1440] paywall toggle shows the yearly price
-[t+19.6s] screenshot 1440-paid-web-paywall-year.png
+[t+8.7s] [PASS] [375] entitlement shows the standard tutor-minutes cap (250) — {"plan":"standard","tutorMinutesCap":250,"tutorMinutesUsed":0,"tutorMinutesRemaining":250,"importBooksCap":2,"importsUsed":0,"narratedMinutesCap":120,"renewsAt":"2026-10-05T22:14:18.192Z","provider":"cascade-openai"}
+[t+8.7s] [PASS] [375] entitlement shows the standard imports cap (2)
+[t+9.1s] [PASS] [375] usage screen renders the standard caps (250 / 2)
+[t+9.3s] screenshot 375-paid-web-usage.png
+[t+9.7s] Terms link target observed in DOM text near: (no href attr on RN Web text node)
+[t+9.8s] === width 1440 ===
+[t+11.0s] screenshot 1440-paid-web-signedout.png
+[t+11.9s] [PASS] [1440] magic-link send shows Sent
+[t+11.9s] [PASS] [1440] magic link readable from the staging log — http://127.0.0.1:8797/auth/magic-link/verify?token=igtngrdEFTAndFRcQURgPaAwrmu_8Vjz3xkx3aajyOI
+[t+13.2s] [PASS] [1440] signed in — account shows the email
+[t+13.4s] screenshot 1440-paid-web-account-signedin.png
+[t+18.4s] [PASS] [1440] paywall shows one plan card — looked for "SOTTO"
+[t+18.4s] [PASS] [1440] paywall shows the monthly price
+[t+18.7s] screenshot 1440-paid-web-paywall-month.png
+[t+19.0s] [PASS] [1440] paywall toggle shows the yearly price
+[t+19.2s] screenshot 1440-paid-web-paywall-year.png
 [t+30.1s] [PASS] [1440] stub subscribe upgrades the entitlement (TEST MODE)
-[t+30.6s] [PASS] [1440] usage shows the standard tutor-minutes cap (250)
-[t+30.6s] [PASS] [1440] usage shows the standard imports cap (2)
-[t+30.9s] screenshot 1440-paid-web-usage.png
-[t+31.3s] Terms link target observed in DOM text near: (no href attr on RN Web text node)
-[t+31.4s] [PASS] GET /terms -> 200 — 200
-[t+31.4s] [PASS] GET /privacy -> 200 — 200
-[t+31.4s] === one cascade-openai tutor turn, then the cap ===
-[t+31.4s] [PASS] POST /auth/magic-link (re-send for a fresh cookie) -> 200
-[t+31.4s] [PASS] magic-link verify sets a session cookie — sotto_session=0Ffeh853-4OGxEHsIvNLLN9uiO6SXBEUao8XQrJmvGA
-[t+31.4s] [PASS] POST /voice/session -> 200 (cascade-openai) — {"sessionId":"58a24de0-8ab0-4311-b563-6402bd04fc00","wsUrl":"ws://127.0.0.1:8797/voice/ws?session=8uPF_RAnzMiBZVx-HOXi7d6v0GfeV500U28Gp7cyigE","sampleRate":16000,"limits":{"maxMs":1200000,"idleMs":90000},"provider":"cascade-openai","remainingSeconds":15000}
-[t+38.2s] WS <- {"t":"state","state":"listening"}
-[t+40.8s] WS <- {"t":"state","state":"thinking"}
-[t+41.7s] WS <- {"t":"caption","speaker":"learner","text":"Une jolie petite fille vit près d'un village.","final":true}
-[t+42.1s] WS <- {"t":"state","state":"speaking"}
-[t+42.1s] WS <- {"t":"audio_start","utteranceId":"3332a2b1-079c-4782-989e-f4d0352d58d6"}
-[t+43.0s] WS <- {"t":"caption","speaker":"tutor","text":"Très bien.","final":false}
-[t+43.5s] WS <- {"t":"caption","speaker":"tutor","text":"Répète après moi : \"Une jolie petite fille vit près d'un village.\"","final":false}
-[t+43.5s] WS <- {"t":"audio_end","utteranceId":"3332a2b1-079c-4782-989e-f4d0352d58d6"}
-[t+43.5s] WS <- {"t":"caption","speaker":"tutor","text":"Très bien. Répète après moi : \"Une jolie petite fille vit près d'un village.\"","final":true}
-[t+43.5s] WS <- {"t":"state","state":"listening"}
-[t+68.2s] WS <- {"t":"usage","secondsUsed":9,"remainingSeconds":14991}
-[t+77.6s] [PASS] WS: at least one caption event
-[t+77.6s] [PASS] WS: audio_end reached
-[t+77.6s] lowering the cap via sqlite3
-[t+77.7s] [PASS] POST /voice/session with the cap exhausted -> refused with a clear message — {"error":"cap_exhausted","message":"You have used all your tutor minutes for this period. They reset on October 5, 2026."}
-[t+77.7s] POST /account/delete/request -> 429 (sign-in is fresh, so DELETE alone is also enough)
-[t+77.7s] [PASS] DELETE /account -> 204 — 204
-[t+77.7s] [PASS] GET /me after deletion -> 401 — 401
-[t+77.7s] 2 ISSUE(S)
-[t+77.7s] ISSUE: [375] usage shows the standard tutor-minutes cap (250)
-[t+77.7s] ISSUE: [375] usage shows the standard imports cap (2)
+[t+30.6s] [PASS] [1440] entitlement shows the standard tutor-minutes cap (250) — {"plan":"standard","tutorMinutesCap":250,"tutorMinutesUsed":0,"tutorMinutesRemaining":250,"importBooksCap":2,"importsUsed":0,"narratedMinutesCap":120,"renewsAt":"2026-10-05T22:14:31.942Z","provider":"cascade-openai"}
+[t+30.6s] [PASS] [1440] entitlement shows the standard imports cap (2)
+[t+31.0s] [PASS] [1440] usage screen renders the standard caps (250 / 2)
+[t+31.2s] screenshot 1440-paid-web-usage.png
+[t+31.6s] Terms link target observed in DOM text near: (no href attr on RN Web text node)
+[t+31.7s] [PASS] GET /terms -> 200 — 200
+[t+31.7s] [PASS] GET /privacy -> 200 — 200
+[t+31.7s] === one cascade-openai tutor turn, then the cap ===
+[t+31.8s] [PASS] POST /auth/magic-link (re-send for a fresh cookie) -> 200
+[t+31.8s] [PASS] magic-link verify sets a session cookie — sotto_session=XNdbCF18GfpmrtzwIijraxteWybCisykerLliJ90vPo
+[t+31.8s] [PASS] POST /voice/session -> 200 (cascade-openai) — {"sessionId":"c0e561c2-f5c0-4850-b171-1c4200695c99","wsUrl":"ws://127.0.0.1:8797/voice/ws?session=kPf3LbbIC8kXgY3EafeVfgc8OHu4sRtyWssweuThw14","sampleRate":16000,"limits":{"maxMs":1200000,"idleMs":90000},"provider":"cascade-openai","remainingSeconds":15000}
+[t+33.0s] WS <- {"t":"state","state":"listening"}
+[t+35.4s] WS <- {"t":"state","state":"thinking"}
+[t+36.4s] WS <- {"t":"caption","speaker":"learner","text":"Une jolie petite fille vit près d'un village.","final":true}
+[t+37.8s] WS <- {"t":"state","state":"speaking"}
+[t+37.8s] WS <- {"t":"audio_start","utteranceId":"911989a3-be8d-412f-b01d-fe95050aa26d"}
+[t+39.1s] WS <- {"t":"caption","speaker":"tutor","text":"Répète après moi : \"Une jolie petite fille vit près d'un village.\"","final":false}
+[t+39.1s] WS <- {"t":"audio_end","utteranceId":"911989a3-be8d-412f-b01d-fe95050aa26d"}
+[t+39.1s] WS <- {"t":"caption","speaker":"tutor","text":"Très bien. Répète après moi : \"Une jolie petite fille vit près d'un village.\"","final":true}
+[t+39.1s] WS <- {"t":"state","state":"listening"}
+[t+39.2s] WS <- {"t":"caption","speaker":"tutor","text":"Très bien.","final":false}
+[t+63.0s] WS <- {"t":"usage","secondsUsed":10,"remainingSeconds":14990}
+[t+77.9s] [PASS] WS: at least one caption event
+[t+77.9s] [PASS] WS: audio_end reached
+[t+77.9s] lowering the cap via sqlite3
+[t+77.9s] [PASS] POST /voice/session with the cap exhausted -> refused with a clear message — {"error":"cap_exhausted","message":"You have used all your tutor minutes for this period. They reset on October 5, 2026."}
+[t+77.9s] POST /account/delete/request -> 429 (sign-in is fresh, so DELETE alone is also enough)
+[t+77.9s] [PASS] DELETE /account -> 204 — 204
+[t+77.9s] [PASS] GET /me after deletion -> 401 — 401
+[t+77.9s] ALL PASS

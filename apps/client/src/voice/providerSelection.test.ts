@@ -8,8 +8,9 @@
  * surface with a fake CloudAdapter and a mocked `detectPlatform`.
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { LocalCascadeProvider, OpenAIRealtimeProvider } from '@sotto/voice';
+import { LocalCascadeProvider, OpenAIDirectProvider, OpenAIRealtimeProvider } from '@sotto/voice';
 import { createSottoStore } from '../state/createStore';
+import { removeByokKey, setByokKey } from './byokKey';
 import type { Persistence } from '../platform/persistence.types';
 
 function fakePersistence(): Persistence {
@@ -82,8 +83,21 @@ afterEach(async () => {
   process.env.EXPO_PUBLIC_VOICE = ORIGINAL_VOICE_ENV;
   const sessionManager = await import('./sessionManager');
   sessionManager.endSession();
+  await removeByokKey();
+  vi.unstubAllGlobals();
   vi.clearAllMocks();
 });
+
+/** Minimal localStorage stand-in — vitest/Node has none, and byokKey.ts
+ * reads `globalThis.localStorage` at call time (see byokKey.test.ts). */
+function stubLocalStorage(): void {
+  const map = new Map<string, string>();
+  vi.stubGlobal('localStorage', {
+    getItem: (k: string) => map.get(k) ?? null,
+    setItem: (k: string, v: string) => void map.set(k, v),
+    removeItem: (k: string) => void map.delete(k),
+  } as unknown as Storage);
+}
 
 describe('cloud voice provider selection (finding 3)', () => {
   it('constructs OpenAIRealtimeProvider for a realtime-capable plan on web', async () => {
@@ -151,5 +165,42 @@ describe('cloud voice provider selection (finding 3)', () => {
 
     expect(sessionManager.getProvider()).toBeInstanceOf(LocalCascadeProvider);
     expect(sessionManager.getProvider()).not.toBeInstanceOf(OpenAIRealtimeProvider);
+  });
+});
+
+describe('byok voice provider selection (R4-B2)', () => {
+  it('constructs OpenAIDirectProvider when a key is stored on this device', async () => {
+    stubLocalStorage();
+    await setByokKey('sk-test-not-a-real-credential');
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'es-fabulas',
+      chapterId: 'es-fabulas-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'es-419', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+      path: 'byok',
+    });
+
+    expect(sessionManager.getProvider()).toBeInstanceOf(OpenAIDirectProvider);
+  });
+
+  it('falls back to the local provider when the key was removed after the gate ran', async () => {
+    stubLocalStorage();
+    await removeByokKey();
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'es-fabulas',
+      chapterId: 'es-fabulas-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'es-419', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+      path: 'byok',
+    });
+
+    expect(sessionManager.getProvider()).toBeInstanceOf(LocalCascadeProvider);
+    expect(sessionManager.getProvider()).not.toBeInstanceOf(OpenAIDirectProvider);
   });
 });

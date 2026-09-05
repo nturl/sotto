@@ -67,3 +67,20 @@ export type { EnergyVadOptions, VadEvent, VadEventType } from './browser-cascade
 // Slice 3: one-shot pronunciation sample for onboarding + the reader's
 // translation panel (English only, cached-models only — see sample.ts).
 export { synthesizeSample, playSample, type SynthesizedSample } from './browser-cascade/sample.ts';
+// R4-B2: bring-your-own-key tutor — the same cascade, run from the page
+// straight against api.openai.com with the learner's own key
+// (planning/LEDGER.md "R4-B2", docs/byok.md). No ML library and no worker,
+// so this IS reachable from Metro, unlike ./browser-cascade/worker.ts.
+export { OpenAIDirectProvider, type OpenAIDirectOptions } from './openai-direct/provider.ts';
+export {
+  validateOpenAIKey,
+  voiceForLocale,
+  byokError,
+  OpenAIChatEngine,
+  OpenAIHttpError,
+  pcm16ToWav,
+  OPENAI_BASE_URL,
+  TTS_VOICES,
+  type KeyValidation,
+  type ByokErrorShape,
+} from './openai-direct/api.ts';

@@ -16,6 +16,7 @@ import {
   BrowserCascadeProvider,
   FakeVoiceProvider,
   LocalCascadeProvider,
+  OpenAIDirectProvider,
   OpenAIRealtimeProvider,
   systemClock,
   type PassageContext,
@@ -30,6 +31,7 @@ import { serverUrl } from '../state/contentApi';
 import { genId } from '../state/types';
 import { useSottoStore } from '../state/store';
 import type { VoicePath } from './availability';
+import { cachedByokKey } from './byokKey';
 import { createVoiceController } from './controller';
 import { createToolContext } from './toolContext';
 
@@ -40,11 +42,12 @@ const REALTIME_PROVIDER_IDS = new Set<CloudProviderId>(['realtime-mini', 'realti
  *
  * `EXPO_PUBLIC_VOICE=fake` always wins (screenshot e2e, unit tests). After
  * that the capability gate has already decided — `availability.path` is
- * 'local' when apps/server answered /health healthy, and 'browser' on the
- * static host with WebGPU and the models cached — so this only has to build
- * the matching provider. Both implement the same VoiceProvider interface and
- * emit the same VoiceEvents, so nothing downstream of here can tell them
- * apart.
+ * 'local' when apps/server answered /health healthy, 'browser' on the
+ * static host with WebGPU and the models cached, and 'byok' (R4-B2) when
+ * the learner has stored their own OpenAI key — so this only has to build
+ * the matching provider. They all implement the same VoiceProvider
+ * interface and emit the same VoiceEvents, so nothing downstream of here
+ * can tell them apart.
  */
 /**
  * Diagnostic-only escape hatch for the STT/LLM-contention experiments
@@ -81,6 +84,20 @@ function pickProvider(
   if (process.env.EXPO_PUBLIC_VOICE === 'fake') return new FakeVoiceProvider(systemClock);
   if (path === 'browser') {
     return new BrowserCascadeProvider({ audio: createAudioAdapter(), debug: debugOverride() });
+  }
+  if (path === 'byok') {
+    // R4-B2: the learner's own OpenAI key, read from device storage
+    // (byokKey.ts) — never from the persisted store, never logged. The
+    // availability gate only picks this path after `hasByokKey()` resolved
+    // true, which warms `cachedByokKey()`; a null here means the key was
+    // removed between the gate and this call, so fall back to the default
+    // local provider rather than constructing a provider with no
+    // credentials (which would fail opaquely on every request — the 401
+    // body is unreadable browser-direct, see docs/byok.md).
+    const apiKey = cachedByokKey();
+    if (apiKey) {
+      return new OpenAIDirectProvider({ apiKey, audio: createAudioAdapter() });
+    }
   }
   if (path === 'cloud') {
     // Finding 3 (adversarial review 3): the Realtime path's two

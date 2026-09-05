@@ -9,6 +9,7 @@ import type { Health } from '../state/contentApi';
 import {
   availabilityFromHealth,
   browserAvailability,
+  byokPathUsable,
   cloudPathUsable,
   resolveAvailability,
 } from './availability';
@@ -222,5 +223,71 @@ describe('resolveAvailability — R3-S cloud gate', () => {
 
   it('is unchanged from the pre-R3-S default when cloudUsable is omitted', async () => {
     expect(await resolveAvailability(health())).toEqual({ status: 'ready', path: 'local' });
+  });
+});
+
+describe('resolveAvailability — R4-B2 byok gate', () => {
+  it('on a phone with no server, a stored key beats the download prompt outright', async () => {
+    vi.stubGlobal('navigator', {});
+    stubCaches([]);
+    expect(await resolveAvailability(null, { byokUsable: true, isDesktop: false })).toEqual({
+      status: 'ready',
+      path: 'byok',
+    });
+  });
+
+  it('on a phone, a usable cloud path still wins, with byok offered alongside', async () => {
+    expect(
+      await resolveAvailability(null, { byokUsable: true, cloudUsable: true, isDesktop: false }),
+    ).toEqual({ status: 'ready', path: 'cloud', alternatives: ['cloud', 'byok'] });
+  });
+
+  it('on desktop, a healthy local server stays the chosen path with byok as an alternative', async () => {
+    expect(await resolveAvailability(health(), { byokUsable: true, isDesktop: true })).toEqual({
+      status: 'ready',
+      path: 'local',
+      alternatives: ['local', 'byok'],
+    });
+  });
+
+  it('on desktop with no server, the free browser tutor is chosen and byok offered', async () => {
+    vi.stubGlobal('navigator', { gpu: {} });
+    stubCaches(TUTOR_MODELS.map((m) => m.id));
+    expect(await resolveAvailability(null, { byokUsable: true, isDesktop: true })).toEqual({
+      status: 'ready',
+      path: 'browser',
+      alternatives: ['browser', 'byok'],
+    });
+  });
+
+  it('on desktop with no server and no WebGPU, the key runs the tutor', async () => {
+    vi.stubGlobal('navigator', {});
+    stubCaches([]);
+    expect(await resolveAvailability(null, { byokUsable: true, isDesktop: true })).toEqual({
+      status: 'ready',
+      path: 'byok',
+    });
+  });
+
+  it('on desktop with no server, no WebGPU and a paid plan, offers byok and cloud', async () => {
+    vi.stubGlobal('navigator', {});
+    stubCaches([]);
+    expect(
+      await resolveAvailability(null, { byokUsable: true, cloudUsable: true, isDesktop: true }),
+    ).toEqual({ status: 'ready', path: 'byok', alternatives: ['byok', 'cloud'] });
+  });
+
+  it('without a stored key nothing changes: no server and no WebGPU is still no-webgpu', async () => {
+    vi.stubGlobal('navigator', {});
+    stubCaches([]);
+    expect(await resolveAvailability(null, { byokUsable: false, isDesktop: true })).toEqual({
+      status: 'unavailable',
+      reason: 'no-webgpu',
+      missing: [],
+    });
+  });
+
+  it('byokPathUsable answers false when no key is stored on this device', async () => {
+    await expect(byokPathUsable()).resolves.toBe(false);
   });
 });

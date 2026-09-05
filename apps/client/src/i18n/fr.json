@@ -316,5 +316,21 @@
   "import.hosted.offer": "Importer avec mon offre",
   "import.hosted.queued.heading": "Import envoyé",
   "import.hosted.queued.body": "Votre livre est en cours de traitement sur nos serveurs. Revenez dans votre bibliothèque dans quelques minutes.",
-  "import.reader.narratingChapter": "Préparation de la narration de ce chapitre…"
+  "import.reader.narratingChapter": "Préparation de la narration de ce chapitre…",
+  "byok.row": "Utiliser votre propre clé OpenAI",
+  "byok.on": "Activé",
+  "byok.off": "Désactivé",
+  "byok.title": "Votre clé OpenAI",
+  "byok.caption": "Conservée uniquement sur cet appareil. Envoyée uniquement à api.openai.com. Vous payez OpenAI directement.",
+  "byok.placeholder": "sk-…",
+  "byok.save": "Enregistrer",
+  "byok.remove": "Supprimer",
+  "byok.invalid": "Cette clé a été refusée. Vérifiez-la et réessayez.",
+  "byok.saved": "Clé enregistrée.",
+  "byok.removed": "Clé supprimée.",
+  "byok.checking": "Vérification…",
+  "byok.networkError": "Impossible de joindre OpenAI. Vérifiez votre connexion et réessayez.",
+  "byok.stored": "Une clé est enregistrée sur cet appareil ({masked}).",
+  "byok.docsLink": "Comment ça marche",
+  "byok.pathLabel": "Votre clé"
 }

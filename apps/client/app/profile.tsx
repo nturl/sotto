@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { useRouter, type Href } from 'expo-router';
 import { buildExport, parseImport, type TutorMode, type UserPreferences } from '@sotto/core';
@@ -21,6 +21,7 @@ import { useTheme } from '../src/ui/theme';
 import { webCursor, withAlpha } from '../src/ui/tokens';
 import { useSottoStore } from '../src/state/store';
 import { deleteAudioAssets } from '../src/import/privateAudio';
+import { hasByokKey } from '../src/voice/byokKey';
 
 const NARRATION_SPEEDS: UserPreferences['narrationSpeed'][] = [0.75, 1, 1.25];
 const CORRECTION_FREQUENCIES: UserPreferences['correctionFrequency'][] = ['low', 'normal', 'high'];
@@ -48,6 +49,14 @@ export default function ProfileScreen() {
   const me = useMe();
   const privateBooks = useSottoStore((s) => s.privateBooks);
   const [manageImportsOpen, setManageImportsOpen] = useState(false);
+
+  // R4-B2: whether the learner has stored their own OpenAI key on this
+  // device (apps/client/src/voice/byokKey.ts). Only the boolean reaches
+  // this screen; the key itself never leaves that module.
+  const [byokOn, setByokOn] = useState(false);
+  useEffect(() => {
+    void hasByokKey().then(setByokOn);
+  }, []);
 
   const soon = () => setToast(t('settings.comingSoon'));
   const go = (href: Href) => () => router.push(href);
@@ -218,6 +227,13 @@ export default function ProfileScreen() {
             {
               label: t('tutor.browser.settingsRow'),
               onPress: go('/settings/models'),
+            },
+            {
+              // R4-B2: bring-your-own-key tutor. Shows only whether a key
+              // is stored, never any part of the key itself.
+              label: t('byok.row'),
+              value: byokOn ? t('byok.on') : t('byok.off'),
+              onPress: go('/settings/openai-key'),
             },
           ]}
         />

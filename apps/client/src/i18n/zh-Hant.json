@@ -316,5 +316,21 @@
   "import.hosted.offer": "改用我的方案匯入",
   "import.hosted.queued.heading": "匯入已送出",
   "import.hosted.queued.body": "您的書籍正在我們的伺服器上處理。幾分鐘後回到您的書庫查看。",
-  "import.reader.narratingChapter": "正在準備本章的朗讀…"
+  "import.reader.narratingChapter": "正在準備本章的朗讀…",
+  "byok.row": "使用你自己的 OpenAI 金鑰",
+  "byok.on": "已開啟",
+  "byok.off": "已關閉",
+  "byok.title": "你的 OpenAI 金鑰",
+  "byok.caption": "僅儲存在本裝置上。僅傳送至 api.openai.com。費用由你直接支付給 OpenAI。",
+  "byok.placeholder": "sk-…",
+  "byok.save": "儲存",
+  "byok.remove": "移除",
+  "byok.invalid": "此金鑰未被接受。請檢查後再試一次。",
+  "byok.saved": "金鑰已儲存。",
+  "byok.removed": "金鑰已移除。",
+  "byok.checking": "正在驗證…",
+  "byok.networkError": "無法連線至 OpenAI。請檢查網路後再試一次。",
+  "byok.stored": "本裝置已儲存一組金鑰（{masked}）。",
+  "byok.docsLink": "運作方式",
+  "byok.pathLabel": "你的金鑰"
 }

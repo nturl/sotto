@@ -316,5 +316,21 @@
   "import.hosted.offer": "改用我的套餐导入",
   "import.hosted.queued.heading": "导入已提交",
   "import.hosted.queued.body": "你的图书正在我们的服务器上处理。几分钟后回到你的书库查看。",
-  "import.reader.narratingChapter": "正在准备本章的朗读…"
+  "import.reader.narratingChapter": "正在准备本章的朗读…",
+  "byok.row": "使用你自己的 OpenAI 密钥",
+  "byok.on": "已开启",
+  "byok.off": "已关闭",
+  "byok.title": "你的 OpenAI 密钥",
+  "byok.caption": "仅保存在本设备上。仅发送至 api.openai.com。费用由你直接支付给 OpenAI。",
+  "byok.placeholder": "sk-…",
+  "byok.save": "保存",
+  "byok.remove": "移除",
+  "byok.invalid": "该密钥未被接受。请检查后重试。",
+  "byok.saved": "密钥已保存。",
+  "byok.removed": "密钥已移除。",
+  "byok.checking": "正在验证…",
+  "byok.networkError": "无法连接 OpenAI。请检查网络后重试。",
+  "byok.stored": "本设备已保存一个密钥（{masked}）。",
+  "byok.docsLink": "工作原理",
+  "byok.pathLabel": "你的密钥"
 }

@@ -1,0 +1,365 @@
+/**
+ * OpenAIDirectProvider (lane R4-B2): the bring-your-own-key tutor, driven
+ * entirely through a mocked `fetch` so no test ever touches api.openai.com
+ * or needs a key.
+ *
+ * What's covered: one full turn (STT -> streamed chat with a tool call ->
+ * respondTool -> continuation -> TTS -> audio_end), barge-in aborting the
+ * in-flight request, and the two error mappings the card names (401 ->
+ * `byok_invalid_key`, not recoverable; 429 -> recoverable).
+ */
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import type { AudioAdapter } from '../src/transports/audio-adapter.ts';
+import type { VoiceEvent } from '../src/events.ts';
+import type { SessionOptions } from '../src/provider.ts';
+import { OpenAIDirectProvider } from '../src/openai-direct/provider.ts';
+import {
+  byokError,
+  OpenAIHttpError,
+  pcm16ToWav,
+  validateOpenAIKey,
+  voiceForLocale,
+} from '../src/openai-direct/api.ts';
+
+const KEY = 'test-key-not-a-real-credential';
+
+const SESSION: SessionOptions = {
+  bookId: 'es-fabulas-samaniego',
+  chapterId: 'c1',
+  mode: 'discuss',
+  learner: { level: 'A1', learningLocale: 'es-419', explanationLocale: 'en' },
+  passage: {
+    chapterTitle: 'La cigarra y la hormiga',
+    sentences: [
+      {
+        id: 'c1.s1',
+        text: 'Cantando la cigarra pasó el verano entero.',
+        tokenIds: ['c1.s1.t1', 'c1.s1.t2'],
+        words: [
+          { id: 'c1.s1.t1', text: 'Cantando' },
+          { id: 'c1.s1.t2', text: 'cigarra' },
+        ],
+      },
+    ],
+    positionTokenId: 'c1.s1.t1',
+  },
+  savedWords: [],
+};
+
+class FakeAudio implements AudioAdapter {
+  onPcm16: ((buf: ArrayBuffer) => void) | null = null;
+  played: Array<{ bytes: number; sampleRate: number }> = [];
+  stopPlaybackCalls = 0;
+  stopCaptureCalls = 0;
+
+  async startCapture(onPcm16: (buf: ArrayBuffer) => void): Promise<void> {
+    this.onPcm16 = onPcm16;
+  }
+  stopCapture(): void {
+    this.stopCaptureCalls += 1;
+  }
+  playPcm(buf: ArrayBuffer, sampleRate: number): void {
+    this.played.push({ bytes: buf.byteLength, sampleRate });
+  }
+  stopPlayback(): void {
+    this.stopPlaybackCalls += 1;
+  }
+}
+
+/** One SSE frame per chunk, exactly as api.openai.com streams them —
+ * including the `obfuscation` padding field the R4-B1 log found, which a
+ * consumer must ignore. */
+function sse(chunks: unknown[]): string {
+  return chunks.map((c) => `data: ${JSON.stringify(c)}\n\n`).join('') + 'data: [DONE]\n\n';
+}
+
+function textChunk(content: string) {
+  return { obfuscation: 'xxxxx', choices: [{ delta: { content } }] };
+}
+
+function toolChunk(name: string, args: string) {
+  return {
+    obfuscation: 'xxxxx',
+    choices: [
+      {
+        delta: { tool_calls: [{ index: 0, id: 'call_abc', function: { name, arguments: args } }] },
+      },
+    ],
+  };
+}
+
+function pcmResponse(samples = 2400): Response {
+  // Headerless PCM16 at 24 kHz — what response_format 'pcm' returns.
+  return new Response(new Int16Array(samples).buffer, {
+    status: 200,
+    headers: { 'content-type': 'audio/pcm' },
+  });
+}
+
+describe('api helpers', () => {
+  it('wraps PCM16 in a canonical 16 kHz mono WAV header', () => {
+    const wav = pcm16ToWav(new Int16Array([1, -1, 2, -2]));
+    const view = new DataView(wav);
+    expect(String.fromCharCode(...new Uint8Array(wav, 0, 4))).toBe('RIFF');
+    expect(String.fromCharCode(...new Uint8Array(wav, 8, 4))).toBe('WAVE');
+    expect(view.getUint16(20, true)).toBe(1); // PCM
+    expect(view.getUint16(22, true)).toBe(1); // mono
+    expect(view.getUint32(24, true)).toBe(16000);
+    expect(view.getUint16(34, true)).toBe(16); // bits per sample
+    expect(wav.byteLength).toBe(44 + 8);
+  });
+
+  it('maps 401/403 to a non-recoverable byok_invalid_key and 429 to a recoverable one', () => {
+    expect(byokError(new OpenAIHttpError(401, 'HTTP 401'))).toMatchObject({
+      code: 'byok_invalid_key',
+      recoverable: false,
+    });
+    expect(byokError(new OpenAIHttpError(403, 'HTTP 403'))).toMatchObject({
+      code: 'byok_invalid_key',
+      recoverable: false,
+    });
+    expect(byokError(new OpenAIHttpError(429, 'HTTP 429'))).toMatchObject({
+      code: 'byok_rate_limited',
+      recoverable: true,
+    });
+    // The opaque browser-CORS rejection a bad key produces on the inference
+    // endpoints (R4-B1 phase 2) is not a readable status, so it stays
+    // recoverable rather than being guessed at.
+    expect(byokError(new TypeError('Failed to fetch'))).toMatchObject({
+      code: 'byok_network_failed',
+      recoverable: true,
+    });
+  });
+
+  it('picks one documented voice per language and falls back to alloy', () => {
+    expect(voiceForLocale('es-419')).toBe('coral');
+    expect(voiceForLocale('fr-FR')).toBe('ballad');
+    expect(voiceForLocale('zh-Hans')).toBe('verse');
+    expect(voiceForLocale('sw-KE')).toBe('alloy');
+  });
+
+  it('validates a key against GET /v1/models, the only readable 401', async () => {
+    const calls: string[] = [];
+    const ok = vi.fn(async (url: string) => {
+      calls.push(url);
+      return new Response('{"data":[]}', { status: 200 });
+    });
+    await expect(validateOpenAIKey(KEY, ok as unknown as typeof fetch)).resolves.toEqual({
+      ok: true,
+    });
+    expect(calls[0]).toBe('https://api.openai.com/v1/models');
+
+    const bad = vi.fn(
+      async () =>
+        new Response('{"error":{"code":"invalid_api_key"}}', {
+          status: 401,
+        }),
+    );
+    await expect(validateOpenAIKey('nope', bad as unknown as typeof fetch)).resolves.toMatchObject({
+      ok: false,
+      reason: 'invalid',
+    });
+
+    const limited = vi.fn(async () => new Response('', { status: 429 }));
+    await expect(validateOpenAIKey(KEY, limited as unknown as typeof fetch)).resolves.toMatchObject(
+      { ok: false, reason: 'rate_limited' },
+    );
+  });
+});
+
+describe('OpenAIDirectProvider', () => {
+  let audio: FakeAudio;
+  let events: VoiceEvent[];
+  let diagnostics: string[];
+
+  beforeEach(() => {
+    audio = new FakeAudio();
+    events = [];
+    diagnostics = [];
+    vi.spyOn(console, 'info').mockImplementation((msg?: unknown) => {
+      diagnostics.push(String(msg));
+    });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  function collect(provider: OpenAIDirectProvider): void {
+    provider.on((e) => events.push(e));
+  }
+
+  it('runs one full turn: STT -> streamed tool call -> respondTool -> continuation -> TTS', async () => {
+    const hosts: string[] = [];
+    const chatBodies: string[] = [];
+    let chatCalls = 0;
+
+    const fakeFetch = vi.fn(async (input: string, init?: RequestInit) => {
+      hosts.push(new URL(input).host);
+      if (input.endsWith('/audio/transcriptions')) {
+        expect((init?.headers as Record<string, string>).Authorization).toBe(`Bearer ${KEY}`);
+        return new Response(JSON.stringify({ text: '¿Qué significa cigarra?' }), { status: 200 });
+      }
+      if (input.endsWith('/chat/completions')) {
+        chatCalls += 1;
+        chatBodies.push(String(init?.body));
+        if (chatCalls === 1) {
+          return new Response(
+            sse([
+              textChunk('Buena pregunta. '),
+              toolChunk('save_vocabulary', '{"tokenId":"c1.s1.t2","word":"cigarra"}'),
+            ]),
+            { status: 200, headers: { 'content-type': 'text/event-stream' } },
+          );
+        }
+        return new Response(sse([textChunk('Lo guardé. Significa "cicada". ')]), {
+          status: 200,
+          headers: { 'content-type': 'text/event-stream' },
+        });
+      }
+      if (input.endsWith('/audio/speech')) return pcmResponse();
+      throw new Error(`unexpected request to ${input}`);
+    });
+
+    const provider = new OpenAIDirectProvider({
+      apiKey: KEY,
+      audio,
+      fetch: fakeFetch as unknown as typeof fetch,
+    });
+    collect(provider);
+    provider.on((e) => {
+      if (e.type === 'tool_call') {
+        provider.respondTool(e.callId, { ok: true, savedWordId: 'w1' });
+      }
+    });
+
+    await provider.connect(SESSION);
+    expect(events.map((e) => (e.type === 'state' ? e.state : null))).toContain('listening');
+
+    // Push-to-talk drives STT without depending on VAD thresholds.
+    provider.pushToTalk(true);
+    audio.onPcm16!(new Int16Array(3200).buffer); // 200 ms of silence-shaped PCM
+    provider.pushToTalk(false);
+
+    await vi.waitFor(() => {
+      expect(diagnostics.some((d) => d.startsWith('[sotto-byok] audio_end'))).toBe(true);
+    });
+
+    // Every request went to api.openai.com and nowhere else.
+    expect([...new Set(hosts)]).toEqual(['api.openai.com']);
+
+    const captions = events.filter((e) => e.type === 'caption');
+    expect(captions.some((c) => c.speaker === 'learner' && c.text.includes('cigarra'))).toBe(true);
+    expect(captions.some((c) => c.speaker === 'tutor' && c.text.includes('Buena pregunta'))).toBe(
+      true,
+    );
+    expect(captions.some((c) => c.speaker === 'tutor' && c.text.includes('Lo guardé'))).toBe(true);
+
+    // The tool round trip actually reached the model: the second request
+    // carries the assistant tool_call and our tool result.
+    expect(chatCalls).toBe(2);
+    expect(chatBodies[1]).toContain('"role":"tool"');
+    expect(chatBodies[1]).toContain('savedWordId');
+    // The turn's own tool definitions went out on the first request.
+    expect(chatBodies[0]).toContain('save_vocabulary');
+
+    // Speech played back at the hardcoded 24 kHz (the pcm response carries
+    // no rate information at all — R4-B1 phase 2, fact 2).
+    expect(audio.played.length).toBeGreaterThan(0);
+    expect(audio.played.every((p) => p.sampleRate === 24000)).toBe(true);
+
+    const states = events.filter((e) => e.type === 'state').map((e) => e.state);
+    expect(states).toContain('thinking');
+    expect(states).toContain('speaking');
+    expect(states[states.length - 1]).toBe('listening');
+
+    await provider.disconnect();
+  });
+
+  it('interrupt aborts the in-flight chat request and stops playback', async () => {
+    let seenSignal: AbortSignal | null = null;
+    const fakeFetch = vi.fn(async (input: string, init?: RequestInit) => {
+      if (input.endsWith('/chat/completions')) {
+        seenSignal = init?.signal ?? null;
+        // Never resolves on its own; only the abort ends it, exactly as a
+        // real streaming fetch behaves under barge-in.
+        return new Promise<Response>((_resolve, reject) => {
+          init?.signal?.addEventListener('abort', () => {
+            const err = new Error('aborted');
+            err.name = 'AbortError';
+            reject(err);
+          });
+        });
+      }
+      throw new Error(`unexpected request to ${input}`);
+    });
+
+    const provider = new OpenAIDirectProvider({
+      apiKey: KEY,
+      audio,
+      fetch: fakeFetch as unknown as typeof fetch,
+    });
+    collect(provider);
+    await provider.connect(SESSION);
+
+    provider.sendText('hola');
+    await vi.waitFor(() => expect(seenSignal).not.toBeNull());
+    expect(seenSignal!.aborted).toBe(false);
+
+    provider.interrupt();
+    expect(seenSignal!.aborted).toBe(true);
+    expect(audio.stopPlaybackCalls).toBeGreaterThan(0);
+    // An aborted turn is not an error the learner has to see.
+    expect(events.filter((e) => e.type === 'error')).toHaveLength(0);
+
+    await provider.disconnect();
+  });
+
+  it('reports a 401 as byok_invalid_key and does not keep listening', async () => {
+    const fakeFetch = vi.fn(
+      async () => new Response('{"error":{"message":"bad key"}}', { status: 401 }),
+    );
+    const provider = new OpenAIDirectProvider({
+      apiKey: KEY,
+      audio,
+      fetch: fakeFetch as unknown as typeof fetch,
+    });
+    collect(provider);
+    await provider.connect(SESSION);
+
+    provider.sendText('hola');
+    await vi.waitFor(() => {
+      expect(events.some((e) => e.type === 'error')).toBe(true);
+    });
+    const error = events.find((e) => e.type === 'error')!;
+    expect(error).toMatchObject({ code: 'byok_invalid_key', recoverable: false });
+    const states = events.filter((e) => e.type === 'state').map((e) => e.state);
+    expect(states[states.length - 1]).toBe('error');
+
+    await provider.disconnect();
+  });
+
+  it('reports a 429 as a recoverable byok_rate_limited and stays listening', async () => {
+    const fakeFetch = vi.fn(async () => new Response('{"error":{}}', { status: 429 }));
+    const provider = new OpenAIDirectProvider({
+      apiKey: KEY,
+      audio,
+      fetch: fakeFetch as unknown as typeof fetch,
+    });
+    collect(provider);
+    await provider.connect(SESSION);
+
+    provider.sendText('hola');
+    await vi.waitFor(() => {
+      expect(events.some((e) => e.type === 'error')).toBe(true);
+    });
+    expect(events.find((e) => e.type === 'error')).toMatchObject({
+      code: 'byok_rate_limited',
+      recoverable: true,
+    });
+    const states = events.filter((e) => e.type === 'state').map((e) => e.state);
+    expect(states[states.length - 1]).toBe('listening');
+
+    await provider.disconnect();
+  });
+});

@@ -316,5 +316,21 @@
   "import.hosted.offer": "Importar con mi plan",
   "import.hosted.queued.heading": "Importación enviada",
   "import.hosted.queued.body": "Tu libro se está procesando en nuestros servidores. Vuelve a tu biblioteca en unos minutos.",
-  "import.reader.narratingChapter": "Preparando la narración de este capítulo…"
+  "import.reader.narratingChapter": "Preparando la narración de este capítulo…",
+  "byok.row": "Usar tu propia clave de OpenAI",
+  "byok.on": "Activado",
+  "byok.off": "Desactivado",
+  "byok.title": "Tu clave de OpenAI",
+  "byok.caption": "Se guarda solo en este dispositivo. Se envía solo a api.openai.com. Pagas a OpenAI directamente.",
+  "byok.placeholder": "sk-…",
+  "byok.save": "Guardar",
+  "byok.remove": "Eliminar",
+  "byok.invalid": "No se aceptó esa clave. Compruébala e inténtalo de nuevo.",
+  "byok.saved": "Clave guardada.",
+  "byok.removed": "Clave eliminada.",
+  "byok.checking": "Comprobando…",
+  "byok.networkError": "No se pudo conectar con OpenAI. Comprueba tu conexión e inténtalo de nuevo.",
+  "byok.stored": "Hay una clave guardada en este dispositivo ({masked}).",
+  "byok.docsLink": "Cómo funciona",
+  "byok.pathLabel": "Tu clave"
 }

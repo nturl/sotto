@@ -246,7 +246,10 @@ export default function VoiceScreen() {
               ]}
             >
               <Text role="caption" color={session.activePath === p ? 'surface' : 'ink'}>
-                {t(`voice.path.${p}` as const)}
+                {/* R4-B2: byok's label lives with the rest of the
+                    bring-your-own-key copy rather than under voice.path.*,
+                    so the two stay in sync when either is retranslated. */}
+                {p === 'byok' ? t('byok.pathLabel') : t(`voice.path.${p}` as const)}
               </Text>
             </Pressable>
           ))}

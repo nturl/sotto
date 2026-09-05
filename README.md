@@ -44,9 +44,10 @@ tracked in [docs/verification.md](docs/verification.md).
 
 - **Hosted PWA** — [sotto-steel.vercel.app](https://sotto-steel.vercel.app),
   free, no account, reading works fully with no setup.
-- **Bring your own key** — talk to the voice tutor on the hosted PWA using
-  your own OpenAI key, nothing installed. Coming in this run; see
-  [docs/byok.md](docs/byok.md).
+- **Bring your own key** — paste your own OpenAI key into Settings and the
+  hosted PWA runs the full voice tutor from the page itself: nothing
+  installed, no account, no server of ours in the path, and OpenAI bills
+  you directly. See [docs/byok.md](docs/byok.md).
 - **Your own server** — `docker compose up`, Fly, or your own Mac over
   Tailscale: one origin, your own key or local models, no accounts. See
   [docs/self-hosting.md](docs/self-hosting.md).

@@ -1,0 +1,117 @@
+Self-hosting proof (Lane R3-H, planning/STRATEGY.md CONFIRM 5)
+Date: 2026-09-05
+Repo: ~/Claude/sotto, main (final commit for this lane: see git log)
+
+=== 1. Server env (this run) ===
+apps/server started via: pnpm exec tsx src/index.ts (no --watch — tsx watch
+restarts on any package/core|content file save, which killed an earlier
+live-turn run mid-session when a concurrent lane edited shared packages;
+switching off watch mode fixed that)
+
+SOTTO_PORT=8792
+SOTTO_HOST=0.0.0.0
+SOTTO_STATIC_DIR=<repo>/apps/client/dist   (from `pnpm web:export`)
+SOTTO_BASIC_AUTH=sotto:demo-only            (demo credential — never reuse)
+SOTTO_STT_URL=https://api.openai.com/v1   SOTTO_STT_MODEL=whisper-1
+SOTTO_LLM_URL=https://api.openai.com/v1   SOTTO_LLM_MODEL=gpt-4o-mini
+SOTTO_TTS_URL=https://api.openai.com/v1   SOTTO_TTS_MODEL=tts-1
+SOTTO_API_KEY=<from apps/server/.env, never printed>
+
+=== 2. curl checks: Basic-auth guard + static route ===
+$ curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:8792/health
+200                                          (open with no credential)
+$ curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:8792/
+401                                          (protected, no credential)
+$ curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:8792/content/packs
+401
+$ curl -s -o /dev/null -w "%{http_code}\n" -u sotto:demo-only http://127.0.0.1:8792/
+200
+$ curl -s -u sotto:demo-only http://127.0.0.1:8792/health
+{"ok":true,"stt":true,"llm":true,"tts":true,"vad":"energy"}
+$ curl -s -o /dev/null -w "%{http_code}\n" -u sotto:demo-only http://127.0.0.1:8792/content/packs
+200
+
+=== 3. Bugs found and fixed while proving Tier 2 live (see git log) ===
+- fix(server): drop llama-server-only params (chat_template_kwargs,
+  cache_prompt) when the LLM URL is api.openai.com — OpenAI's real
+  /v1/chat/completions 400s on unrecognized arguments. First live attempt
+  failed with:
+    "LLM request failed: 400 ... Unrecognized request arguments supplied:
+     cache_prompt, chat_template_kwargs"
+- fix(server): use a valid OpenAI voice (alloy) and omit lang_code for TTS
+  on api.openai.com — Kokoro's locale-mapped voice name (e.g. ef_dora) is
+  not in OpenAI's voice enum. Second live attempt failed with:
+    "TTS request failed: 400 ... Input should be 'nova', 'shimmer', 'echo',
+     'onyx', 'fable', 'alloy', 'ash', 'sage' or 'coral'"
+  Both fixes are conditional on the LLM/TTS URL's hostname, covered by
+  apps/server/src/voice/llm.test.ts and tts.test.ts.
+
+=== 4. Live Playwright run (apps/client/e2e/self-hosted-voice.mjs), after both fixes ===
+$ BASE_URL=http://127.0.0.1:8792 SOTTO_BASIC_AUTH_USER=sotto \
+  SOTTO_BASIC_AUTH_PASS=demo-only node e2e/self-hosted-voice.mjs
+
+[t+0.0s] Synthesizing fake-mic wav (local TTS, independent of server cascade): "¿Qué significa la palabra cigarra?"
+[t+7.5s] Loading http://127.0.0.1:8792 (unseeded — expect onboarding)
+[t+8.3s] Landed on: http://127.0.0.1:8792/onboarding (onboarding=true)
+[t+9.4s] Home reached at: http://127.0.0.1:8792/home
+[t+10.4s] Book detail reached at: http://127.0.0.1:8792/book/es-fabulas-samaniego
+[t+12.5s] Reader reached; narration asset fetched=true
+[t+12.6s] Navigating to /voice/es-fabulas-samaniego
+[t+13.0s] state -> idle
+[t+13.8s] WebSocket opened: ws://127.0.0.1:8792/voice/ws?session=61637305-d229-4266-8f00-69ce9c7c61f0
+[t+13.8s] state -> listening
+[t+16.7s] state -> thinking
+[t+17.9s] caption: You: ¿Qué significa la palabra cigarra?
+[t+19.1s] state -> speaking
+[t+20.7s] state -> listening
+[t+20.7s] caption: Tutor: La palabra "cigarra" es un insecto que canta en el verano. En inglés, se traduce como "cicada." ¿Quieres saber algo más sobre la cigarra en la historia?
+[t+20.7s] Stop condition met (tutor replied, session back to listening = audio_end).
+
+===== Assertions =====
+  [PASS] onboarding rendered on first unseeded load
+  [PASS] narration audio asset fetched in reader
+  [PASS] voice/ws opened on the self-hosted origin (:8792)
+  [PASS] learner caption heard (fake mic, contains target word)
+  [PASS] tutor caption received (real OpenAI cascade)
+  [PASS] state cycled listening -> thinking -> speaking
+  [PASS] no page/console errors
+
+Turn latency (voice screen load -> first tutor caption): 7.8s
+Screenshots: docs/screenshots/web/375-selfhost-reader.png, docs/screenshots/web/375-selfhost-voice.png
+
+$ echo $?
+0
+
+=== 5. Server-side per-stage timing (this turn, session 61637305-...) ===
+stt_ms: 1200          (whisper-1, learner utterance = 3.77s audio)
+llm_first_token_ms: 826   (gpt-4o-mini, first streamed token)
+tts_first_audio_ms: 1183 / 1471   (tts-1, first PCM chunk per sentence, two TTS calls — the reply was sentence-chunked)
+Total voice-screen-load -> first tutor caption (client-measured): 7.8s
+(includes VAD trailing-silence wait before STT starts, not just model latency)
+
+=== 6. Cost estimate for this turn ===
+Not pulled from OpenAI's billing dashboard (no billing API available in this
+session) — computed from this run's actual measured audio/text lengths and
+OpenAI's published per-unit rates:
+  - whisper-1: 3.77s learner audio = 0.063 min * $0.006/min      = $0.00038
+  - gpt-4o-mini: ~1000 input tok (est., system+context+utterance)
+      * $0.15/1M + ~40 output tok * $0.60/1M                     = $0.00017
+  - tts-1: 155 chars (tutor reply) * $0.000015/char               = $0.00233
+  ---------------------------------------------------------------------
+  Total, this turn: ~$0.0029 (the gpt-4o-mini input-token count is an
+  estimate — the exact system-prompt length wasn't counted — everything
+  else is measured directly from this run.)
+
+=== 7. HTTPS / phone check ===
+$ which tailscale caddy
+/usr/local/bin/tailscale
+(caddy not found)
+$ tailscale status
+Tailscale is stopped.
+Starting/logging in the Tailscale daemon is a system-level network change
+this lane did not make unattended (see docs/self-hosting.md). LAN reachability
+itself was verified: the server bound 0.0.0.0 and printed
+"Server listening at http://192.168.1.26:8792" alongside the loopback
+listener. A real iPhone was not available in this environment to confirm
+the HTTPS-for-microphone requirement directly; that gap is documented in
+docs/self-hosting.md rather than asserted as verified.

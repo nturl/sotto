@@ -20,7 +20,13 @@ describe('synthesizeSpeech request body', () => {
       return pcmResponse();
     }) as unknown as typeof fetch;
 
-    await synthesizeSpeech('Hola', 'es-419', 1, { url: 'https://api.openai.com/v1', fetchImpl }, () => {});
+    await synthesizeSpeech(
+      'Hola',
+      'es-419',
+      1,
+      { url: 'https://api.openai.com/v1', fetchImpl },
+      () => {},
+    );
 
     expect(capturedBody).toBeDefined();
     expect(capturedBody!.voice).toBe('alloy');

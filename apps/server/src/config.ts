@@ -38,7 +38,11 @@ const envSchema = z.object({
   // Wall-clock ceiling for one import job (adversarial review 3, finding
   // 9) — a hung/adversarially slow import is aborted and failed once it
   // passes this, instead of leaving the importer permanently busy.
-  IMPORT_JOB_MAX_MS: z.coerce.number().int().positive().default(45 * 60_000),
+  IMPORT_JOB_MAX_MS: z.coerce
+    .number()
+    .int()
+    .positive()
+    .default(45 * 60_000),
   // Absolute path to a static web build (apps/client's `dist/`, from
   // `pnpm web:export`) to serve at `/` with an SPA fallback to
   // `index.html`. Unset by default — this server has no static assets to

@@ -27,6 +27,7 @@
     "e2e:screenshots": "node apps/client/e2e/screenshots.mjs",
     "e2e:voice": "node apps/client/e2e/voice-live.mjs",
     "e2e:hosted": "node apps/client/e2e/hosted.mjs",
+    "e2e:rows": "node apps/client/e2e/rows.mjs",
     "deploy:web": "pnpm --filter @sotto/client deploy:web"
   },
   "devDependencies": {

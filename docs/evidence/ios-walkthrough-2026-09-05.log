@@ -1,0 +1,159 @@
+Sotto iOS dev-client build + walkthrough — 2026-09-05
+======================================================
+
+PRE-FLIGHT VERIFICATION (re-checked, not trusted from task text)
+------------------------------------------------------------
+$ xcode-select -p
+/Applications/Xcode.app/Contents/Developer
+
+$ curl -s http://localhost:8790/health
+{"ok":true,"stt":true,"llm":true,"tts":true,"vad":"energy"}
+
+$ xcrun simctl list devices | grep -i "iPhone 17 Pro"
+    iPhone 17 Pro (CA722C16-13E5-4579-A876-638F0C1C51C6) (Shutdown)
+    iPhone 17 Pro Max (C5C9D4B3-11F5-4A1A-B1A8-0E622E290F42) (Shutdown)
+
+Both re-confirmed true. Booted iPhone 17 Pro:
+$ xcrun simctl boot "iPhone 17 Pro"
+-> (Booted)
+
+SCHEME / ROUTE DISCOVERY
+-------------------------
+apps/client/app.json -> "scheme": "sotto"
+Routes found under apps/client/app/:
+  app/index.tsx                -> gate: Redirect to /(tabs)/home if preferences.onboarded, else /onboarding
+  app/onboarding/index.tsx     -> onboarding; has its own "already onboarded" redirect but is NOT the
+                                   only gate — the (tabs) routes themselves have no onboarding guard.
+  app/(tabs)/home.tsx           -> home tab ("For you")
+  app/(tabs)/library.tsx        -> library tab
+  app/(tabs)/vocabulary.tsx     -> vocabulary tab
+  app/book/[bookId].tsx         -> book detail
+  app/read/[bookId].tsx         -> reader
+  app/reader/[bookId].tsx       -> (also exists; read/[bookId] is the one used by book detail's "Read" button per route naming)
+  app/voice/[bookId].tsx        -> voice mode
+
+Persistence: src/platform/persistence.native.ts uses `expo-sqlite/kv-store` (SQLite-backed KV),
+NOT IndexedDB. No pre-seed hook was found for native (unlike apps/client/e2e/screenshots.mjs's
+web IndexedDB seeding) — confirmed by reading persistence.native.ts and app/index.tsx. Native
+onboarding was walked fresh via deep link, not seeded.
+
+Sample book id used for deep links (from apps/client/dist/content/packs/fr-FR/books/):
+  fr-chevre-de-m-seguin  ("La Chèvre de M. Seguin", Alphonse Daudet — matches the "For you" story
+  shown after a fresh onboarding-bypass deep link, confirming the id was live/correct.)
+
+BUILD
+-----
+$ cd apps/client && LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 npx expo run:ios --device "iPhone 17 Pro"
+  (run in background, log: docs/evidence/build-attempt1.log)
+
+Result: SUCCEEDED on the FIRST attempt. No fix/retry needed.
+  - CocoaPods install: succeeded ("Installed CocoaPods")
+  - xcodebuild: "Build Succeeded — 0 error(s), and 1 warning(s)"
+    (warning: "ignoring duplicate libraries: '-lc++'" — benign linker warning, pre-existing)
+  - Installed on iPhone 17 Pro, bundle id xyz.noelturlington.sotto
+  - Opened via dev-client deep link:
+    xyz.noelturlington.sotto://expo-development-client/?url=http%3A%2F%2F192.168.1.26%3A8081
+  - Metro confirmed listening on :8081 (lsof -i :8081 showed the expo/node process LISTENing)
+
+App launched automatically in the simulator as expected. First screenshot taken
+(docs/screenshots/ios/01-launch-state.png) showed the HOME screen already ("Pour toi"/French UI),
+not onboarding — the simulator's data container for this bundle id already existed from a prior
+build/run on this same simulator (xcrun simctl listapps showed an existing Bundle/DataContainer
+before this session's first boot), so onboarding state had persisted across the reinstall-by-build.
+To capture true onboarding, the app was explicitly uninstalled and the already-built .app
+reinstalled fresh (`xcrun simctl uninstall` + `xcrun simctl install` — both simulator-state
+operations, no source files touched), then reopened via the same dev-client URL. This produced a
+genuine first-launch onboarding screen (see screenshot 02).
+
+INTERACTION METHOD
+------------------
+Method 1 — mcp__Claude_Code_iOS_Simulator__control (attach):
+  Tried: control(action="attach", device="iPhone 17 Pro")
+  Result: ERROR — "Xcode is installed but not selected. Run `sudo xcode-select -s
+  /Applications/Xcode.app/Contents/Developer`..."
+  This is the tool's own internal check (distinct from the shell's `xcode-select -p`, which
+  already reported the correct path both before and during this session). The fix requires `sudo`
+  and the user's password, which cannot be supplied in this non-interactive session. Per the
+  task's instructions, this was not force-fixed — it was tried once, failed, and abandoned in favor
+  of method 2.
+
+Method 2 — xcrun simctl openurl deep links:
+  Used successfully for every screen that is addressable by a route: onboarding (via fresh
+  install + relaunch, not a deep link per se, but the natural first-launch route), home, book
+  detail, reader, and vocabulary. This was the method that worked and was used for all
+  screenshots below except the very first (natural launch).
+
+  Key finding used to reach home/vocabulary despite onboarding not being completed by a tap:
+  the onboarding gate lives only in app/index.tsx and app/onboarding/index.tsx (redirect if
+  already onboarded); the (tabs) routes and book/reader routes have no onboarding guard of their
+  own, so `sotto:///(tabs)/home`, `sotto:///book/<id>`, `sotto:///read/<id>`, and
+  `sotto:///(tabs)/vocabulary` all navigate directly regardless of onboarding-completion state.
+
+Method 3 — osascript/System Events UI scripting on the Simulator app window:
+  NOT ATTEMPTED. Reasoning: this session is non-interactive/background — there is no live user
+  available to grant the request_access / Full Control approval that computer-use-style tooling
+  requires, and CLAUDE.md's own safety rule ("never type into a GUI window that could contain user
+  content without confirming focus") plus the task's own instruction ("only if you have permission
+  ... don't fight it, just note it") both counsel against blind-clicking the user's real desktop
+  without a confirmed grant. Per the task's own allowance, method 3 was skipped since methods 1
+  and 2 were both tried and 2 succeeded for everything reachable by route; only the two
+  touch-only interactions (tap a word, tap Save) were left unreached, and those specifically need
+  real touch/tap coordinates inside the WebView/text renderer, not a navigable route.
+
+SCREENSHOTS CAPTURED (docs/screenshots/ios/)
+---------------------------------------------
+01-onboarding-launch.png       - natural launch, but app had stale persisted state from an
+                                  earlier build on this simulator -> landed on Home (French UI),
+                                  not onboarding. Superseded by 02/03 below.
+01-launch-state.png            - same screen, larger capture (Home, "Pour toi", stale state)
+02-fresh-onboarding-attempt.png - TRUE onboarding screen, after uninstall + fresh install +
+                                  relaunch via dev-client URL: "Read a story out loud" /
+                                  "Start reading in French" / "Choose languages instead"
+03-home-via-deeplink.png       - Home ("For you", English UI, French learning language),
+                                  reached via `sotto:///(tabs)/home` while onboarding was still
+                                  incomplete (onboarding gate does not block tab routes)
+04-book-detail.png             - Book detail for "La Chèvre de M. Seguin" (Alphonse Daudet),
+                                  reached via `sotto:///book/fr-chevre-de-m-seguin`
+05-reader.png                  - Reader, Chapter 1 of the same book, reached via
+                                  `sotto:///read/fr-chevre-de-m-seguin`; French text rendered,
+                                  audio player controls visible (play/±10s/next, 0:00 / -1:26)
+06-vocabulary.png              - Vocabulary tab (empty state: "Save a word while reading to see
+                                  it here."), reached via `sotto:///(tabs)/vocabulary`
+
+SCREEN-BY-SCREEN: REACHED vs NOT REACHED
+------------------------------------------
+[REACHED] onboarding      - screenshot 02, via fresh install + natural first launch (dev-client URL)
+[REACHED] home             - screenshot 03 (and 01/01b, stale-state variant), via deep link
+[REACHED] book detail      - screenshot 04, via deep link `sotto:///book/fr-chevre-de-m-seguin`
+[REACHED] reader           - screenshot 05, via deep link `sotto:///read/fr-chevre-de-m-seguin`
+[NOT REACHED] tap a word to translate
+    Reason: this is an in-page touch interaction on rendered story text inside the reader (no
+    route/query-param exists to trigger a translation popup for a specific word). No interactive
+    tap method was available: method 1 (native simulator control tool) failed on an xcode-select
+    check that needs sudo/password we cannot supply; method 3 (blind AppleScript/System Events
+    clicking) was not attempted for lack of a confirmable permission grant in this non-interactive
+    session. Deep links (method 2) cannot address this because it is pure gesture state, not a route.
+[NOT REACHED] save the word
+    Reason: same as above — saving a translated word requires first tapping the word (blocked as
+    above) and then tapping a "Save" affordance in the resulting popover/sheet. Neither step is
+    reachable by URL.
+[REACHED] vocabulary        - screenshot 06, via deep link `sotto:///(tabs)/vocabulary`; correctly
+    shows the empty state since no word was saved (consistent with tap-translate/save being
+    unreached, not a bug)
+
+SUMMARY
+-------
+Build: SUCCEEDED on first try, no fix needed, no retry needed.
+Interaction method that worked: xcrun simctl openurl deep links (method 2), for every
+  route-addressable screen (onboarding via fresh natural launch, home, book detail, reader,
+  vocabulary).
+Interaction method that failed: mcp__Claude_Code_iOS_Simulator__control "attach" (method 1) —
+  blocked on an internal xcode-select check requiring sudo, which needs interactive user auth
+  not available in this session.
+Interaction method not attempted: OS-level UI scripting / AppleScript (method 3) — no confirmable
+  permission grant available in this non-interactive session; consistent with the task's own
+  guidance to skip it when denied/unavailable rather than force it.
+Not exercised: tap-to-translate and save-word, both pure touch gestures inside the reader with no
+  deep-link equivalent.
+No source files were modified. No files outside docs/screenshots/ios/** and docs/evidence/** were
+written.

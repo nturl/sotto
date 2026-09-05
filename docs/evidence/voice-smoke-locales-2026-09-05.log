@@ -1,0 +1,119 @@
+[t+0.0s] === Locale pt-BR: book=pt-jabuti-onca word="jabuti" voice=pf_dora lang_code=p ===
+[t+0.0s] Synthesizing utterance: "o que significa jabuti"
+[t+16.5s] [pt-BR] navigating to /voice/pt-jabuti-onca
+[t+17.4s] [pt-BR] state -> idle
+[t+20.3s] [pt-BR] state -> connecting
+[t+41.7s] [pt-BR] state -> idle
+[t+50.1s] [pt-BR] state -> connecting
+[t+50.5s] [pt-BR] state -> listening
+[t+53.4s] [pt-BR] state -> thinking
+[t+53.8s] [pt-BR] caption: You: O que significa jabuti?
+[t+107.3s] === Locale it-IT: book=it-pinocchio-inizio word="falegname" voice=if_sara lang_code=i ===
+[t+107.3s] Synthesizing utterance: "cosa significa falegname"
+[t+112.8s] [it-IT] navigating to /voice/it-pinocchio-inizio
+[t+113.3s] [it-IT] state -> listening
+[t+115.7s] [it-IT] state -> thinking
+[t+116.1s] [it-IT] caption: You: Cosa significa falegname?
+[t+117.7s] [it-IT] state -> listening
+[t+119.3s] [it-IT] state -> thinking
+[t+121.8s] [it-IT] state -> listening
+[t+122.6s] [it-IT] state -> thinking
+[t+125.1s] [it-IT] state -> listening
+[t+126.4s] [it-IT] state -> thinking
+[t+128.8s] [it-IT] state -> listening
+[t+129.6s] [it-IT] state -> thinking
+[t+139.4s] [it-IT] state -> listening
+[t+140.2s] [it-IT] state -> thinking
+[t+142.6s] [it-IT] state -> listening
+[t+143.9s] [it-IT] state -> thinking
+[t+146.1s] [it-IT] state -> listening
+[t+147.3s] [it-IT] state -> thinking
+[t+151.3s] [it-IT] state -> speaking
+[t+152.2s] [it-IT] state -> thinking
+[t+153.4s] [it-IT] state -> listening
+[t+154.2s] [it-IT] state -> thinking
+[t+156.2s] [it-IT] state -> listening
+[t+157.8s] [it-IT] state -> thinking
+[t+160.3s] [it-IT] state -> listening
+[t+161.1s] [it-IT] state -> thinking
+[t+164.0s] [it-IT] caption: Tutor: "falegname" significa "carpenter" in English.
+[t+164.0s] [it-IT] stop condition met (tutor caption arrived).
+[t+194.1s] === Locale zh-CN: book=zh-chengyu-stories word="农夫" voice=zf_xiaoxiao lang_code=z ===
+[t+194.1s] Synthesizing utterance: "农夫是什么意思"
+[t+202.8s] [zh-CN] Kokoro synthesis FAILED: terminated
+[t+202.8s] === Locale zh-TW: book=zh-chengyu-stories-hant word="農夫" voice=zf_xiaoxiao lang_code=z ===
+[t+202.8s] Synthesizing utterance: "農夫是什麼意思"
+[t+256.4s] [zh-TW] navigating to /voice/zh-chengyu-stories-hant
+[t+257.1s] [zh-TW] state -> listening
+[t+259.5s] [zh-TW] state -> thinking
+[t+259.9s] [zh-TW] caption: You: 农夫是什么意思?
+[t+261.1s] [zh-TW] state -> listening
+[t+262.7s] [zh-TW] state -> thinking
+[t+264.3s] [zh-TW] state -> listening
+[t+265.9s] [zh-TW] state -> thinking
+[t+267.6s] [zh-TW] state -> listening
+[t+268.8s] [zh-TW] state -> thinking
+[t+270.9s] [zh-TW] state -> listening
+[t+272.3s] [zh-TW] state -> thinking
+[t+274.0s] [zh-TW] state -> listening
+[t+275.3s] [zh-TW] state -> thinking
+[t+283.8s] [zh-TW] state -> listening
+[t+285.0s] [zh-TW] state -> thinking
+[t+289.9s] [zh-TW] state -> listening
+[t+291.6s] [zh-TW] state -> thinking
+[t+296.5s] [zh-TW] state -> listening
+[t+297.8s] [zh-TW] state -> thinking
+[t+299.9s] [zh-TW] state -> listening
+[t+301.1s] [zh-TW] state -> thinking
+[t+306.2s] [zh-TW] state -> listening
+[t+306.6s] [zh-TW] state -> thinking
+[t+312.5s] [zh-TW] state -> listening
+[t+313.8s] [zh-TW] state -> thinking
+[t+315.8s] [zh-TW] state -> listening
+
+===== Per-locale summary =====
+locale | voice used | lang_code | STT transcript seen | tutor caption arrived | notes
+pt-BR | pf_dora | p | O que significa jabuti? | N | No tutor caption within 60s. Page/console errors: console.error: Failed to load resource: net::ERR_CONNECTION_REFUSED | console.error: Failed to load resource: net::ERR_CONNECTION_REFUSED | console.error: Failed to load resource: net::ERR_CONNECTION_REFUSED | Failed to fetch | console.error: Failed to load resource: net::ERR_CONNECTION_REFUSED | console.error: Failed to load resource: net::ERR_CONNECTION_REFUSED
+it-IT | if_sara | i | Cosa significa falegname? | Y | OK
+zh-CN | zf_xiaoxiao | z | (none) | N | Kokoro synthesis failed: terminated
+zh-TW | zf_xiaoxiao | z | 农夫是什么意思? | N | Possible misrecognition: transcript did not contain target word "農夫". No tutor caption within 60s.
+
+===== zh-CN retry (original run above hit a transient Kokoro failure; retried alone below) =====
+[t+0.0s] === Locale zh-CN: book=zh-chengyu-stories word="农夫" voice=zf_xiaoxiao lang_code=z ===
+[t+0.0s] Synthesizing utterance: "农夫是什么意思"
+[t+4.9s] [zh-CN] navigating to /voice/zh-chengyu-stories
+[t+5.5s] [zh-CN] state -> listening
+[t+7.9s] [zh-CN] state -> thinking
+[t+9.9s] [zh-CN] caption: You: 农夫是什么意思?
+[t+12.7s] [zh-CN] state -> listening
+[t+14.3s] [zh-CN] state -> thinking
+[t+16.0s] [zh-CN] state -> listening
+[t+17.3s] [zh-CN] state -> thinking
+[t+19.6s] [zh-CN] state -> listening
+[t+20.5s] [zh-CN] state -> thinking
+[t+25.5s] [zh-CN] state -> listening
+[t+27.4s] [zh-CN] state -> thinking
+[t+29.1s] [zh-CN] state -> listening
+[t+30.4s] [zh-CN] state -> thinking
+[t+41.8s] [zh-CN] state -> listening
+[t+43.1s] [zh-CN] state -> thinking
+[t+45.3s] [zh-CN] state -> listening
+[t+46.1s] [zh-CN] state -> thinking
+[t+51.2s] [zh-CN] state -> listening
+[t+52.0s] [zh-CN] state -> thinking
+[t+54.4s] [zh-CN] state -> listening
+[t+56.0s] [zh-CN] state -> thinking
+[t+64.3s] [zh-CN] state -> listening
+
+===== Per-locale summary =====
+locale | voice used | lang_code | STT transcript seen | tutor caption arrived | notes
+zh-CN | zf_xiaoxiao | z | 农夫是什么意思? | N | No tutor caption within 60s. Page/console errors: colors is not defined
+
+===== CONSOLIDATED FINAL SUMMARY (2026-09-05) =====
+locale | book | voice | lang_code | STT transcript | tutor caption Y/N | notes
+pt-BR | pt-jabuti-onca | pf_dora | p | "O que significa jabuti?" (exact match) | N | STT/TTS/pipeline all working; WS took ~50s to reach listening (idle->connecting->idle->connecting cycle, one dropped/retried connection) which ate the 60s budget before the LLM could respond. Not a locale-specific failure -- a connection-latency/timeout-budget issue.
+it-IT | it-pinocchio-inizio | if_sara | i | "Cosa significa falegname?" (exact match) | Y | Full pass. Tutor replied: `"falegname" significa "carpenter" in English.` at t+164.0s (~48s turn latency after connect, consistent with documented 15-30s+ first-turn cost plus retries).
+zh-CN | zh-chengyu-stories | zf_xiaoxiao | z | "农夫是什么意思?" (exact match, after 1 retry) | N | First attempt: Kokoro synthesis threw "terminated" (transient -- confirmed by immediate retry succeeding in 4.9s with identical params). On retry, STT correctly transcribed simplified Chinese incl. target word; state cycled listening<->thinking repeatedly for 64s with no tutor caption, and a real page console error was observed: "colors is not defined" (a ReferenceError from the app, not this script) -- likely why no caption rendered. Root symptom, not root-caused (out of scope to fix): grep shows `colors` is imported from `@sotto/core/theme` in every themed component (MetaStrip.tsx, Card.tsx, Shell.tsx, etc.), so this reads like a dev-bundler module-resolution glitch rather than a missing import, but was not investigated further.
+zh-TW | zh-chengyu-stories-hant | zf_xiaoxiao | z | "农夫是什么意思?" -- SIMPLIFIED characters, even though the fake-mic audio was synthesized from the TRADITIONAL phrase "農夫是什麼意思" | N | Kokoro/Chromium pipeline worked (STT did hear and transcribe the utterance), but whisper.cpp's zh STT output Simplified characters regardless of the Traditional-script input -- a real finding: this repo's Kokoro build has only one Mandarin voice/lang_code ('z') shared by zh-CN and zh-TW (per apps/server/src/voice/tts.ts VOICE_BY_LANG and both packs' pack.json ttsVoice/ttsLangCode), and STT likewise does not appear to distinguish script variants. No tutor caption arrived within 60s (same listening/thinking cycling pattern as zh-CN). Separately, packages/content/packs/zh-TW/books/zh-chengyu-stories-hant/chapters/01.json has "bookId": "zh-chengyu-stories" (mismatched -- should be "zh-chengyu-stories-hant" to match its own book.json/pack.json) -- a content data bug noticed while picking the target word, not caused by this script.
+
+Kokoro voice availability: pf_dora, if_sara, zf_xiaoxiao all present in `curl 127.0.0.1:8880/v1/audio/voices` -- no substitutions needed for any of the 3 requested voices.

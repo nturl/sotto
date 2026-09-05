@@ -1,0 +1,66 @@
+$ node scripts/build-web.mjs   # apps/client, dist/ already fresh, verified
+$ node scripts/serve-static.mjs 8092 &
+$ curl -so /dev/null -w '%{http_code}\n' http://localhost:8092/content/packs/es-419/books/es-fabulas-samaniego/audio/01.mp3
+200
+$ curl -so /dev/null -w '%{http_code}\n' -H 'Range: bytes=0-1' http://localhost:8092/.../01.mp3
+200   # serve-static.mjs ignores Range entirely -> always 200, never 206.
+       # (rules out the "Cache API rejects 206" theory as the cause here)
+
+Playwright run against http://localhost:8092 (real static export, real sw.js,
+real dist/): seeded preferences via IndexedDB (same keyval-store pattern as
+screenshots.mjs), navigated to /reader/es-fabulas-samaniego?mode=narration,
+waited for navigator.serviceWorker.ready, waited 4-6s for content fetches +
+narration autostart, then read back every Cache Storage key.
+
+Result: caches.keys() = ["sotto-shell-<version>"] only. NO
+"sotto-content-*" cache exists at all -- not the chapter JSON, not the
+audio mp3, not even the /content/packs index. Worse than Gate 1's "1 file
+for this book" -- on this run it's 0 files.
+
+Root cause (verified by listening to actual page.on('request') traffic
+during the same run):
+
+  http://localhost:8790/content/packs
+  http://localhost:8790/content/packs/es-419/books/es-fabulas-samaniego/book.json
+  http://localhost:8790/content/packs/es-419/books/es-fabulas-samaniego/audio/01.mp3
+  http://localhost:8790/content/packs/es-419/books/es-fabulas-samaniego/chapters/01.json
+
+Every content/audio request went to localhost:8790 (apps/server), NOT to
+localhost:8092 (the static export's own origin the page was loaded from).
+apps/client/src/state/contentApi.ts's serverUrl() (lines 27-34):
+
+  export function serverUrl(): string {
+    const configured = process.env.EXPO_PUBLIC_SERVER_URL;
+    if (configured) return configured;
+    const loc = (globalThis as { location?: ... }).location;
+    if (loc && !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(loc.hostname)) return loc.origin;
+    return 'http://localhost:8790';
+  }
+
+The comment above it says the static-hosting case ("packs are served from
+the page's own origin") is detected by checking the hostname ISN'T
+localhost/127.0.0.1. That heuristic is backwards for local verification of
+the static build: serving the exported dist/ on localhost:8092 (exactly
+what scripts/serve-static.mjs is for) makes loc.hostname === 'localhost',
+so this function falls through to the hardcoded 'http://localhost:8790'
+dev-server URL instead of loc.origin (8092) -- even though dist/content/
+packs/** is bundled into the static export and IS being served correctly
+by serve-static.mjs on 8092 (verified: the two curl checks above against
+:8092 both return 200).
+
+Combined with apps/client/public/sw.js's fetch handler (line ~94):
+  if (url.origin !== self.location.origin) return; // pass through, untouched
+every content request -- book.json, chapter json, AND the audio mp3 alike
+-- is cross-origin relative to the page (8092 vs 8790) and the SW never
+intercepts any of them, so cache-first content caching never engages for
+ANY content file in this configuration, not just audio.
+
+This means: (a) the specific "audio not cached" asymmetry Gate 1 saw is
+plausibly a variant of this same bug (their setup may have had a
+:8790 vs real deployed origin mismatch too, or EXPO_PUBLIC_SERVER_URL set
+inconsistently), and (b) more importantly, there is currently no way to
+locally verify the production static-export offline-caching path by
+serving it on localhost -- it will only ever exercise the real caching
+code path once deployed to a non-localhost hostname (e.g. Vercel), which
+this session did not do. Not authorized to fix contentApi.ts (outside Lane
+E ownership) -- reported as a finding only.

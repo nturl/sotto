@@ -31,6 +31,30 @@
   },
   "books": [
     {
+      "bookId": "fr-cendrillon",
+      "contentLocale": "fr-FR",
+      "title": "Cendrillon",
+      "author": "Charles Perrault",
+      "level": "A1",
+      "categories": [
+        "tales"
+      ],
+      "estimatedMinutes": 6,
+      "localizedTitles": {
+        "en": "Cendrillon",
+        "fr": "Cendrillon",
+        "es": "Cenicienta"
+      },
+      "premise": {
+        "en": "A kind girl is treated cruelly by her stepmother and stepsisters, until a fairy godmother changes everything for one magical night.",
+        "fr": "Une jeune fille gentille est traitée cruellement par sa belle-mère et ses belles-sœurs, jusqu'à ce qu'une fée marraine change tout pour une seule nuit magique.",
+        "es": "Una chica amable es tratada cruelmente por su madrastra y sus hermanastros, hasta que una hada madrina lo cambia todo durante una noche mágica."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 3
+    },
+    {
       "bookId": "fr-chat-botte",
       "contentLocale": "fr-FR",
       "title": "Le Chat botté",
@@ -49,6 +73,31 @@
         "en": "A clever cat uses boots and bold tricks to change his poor master's life.",
         "fr": "Un chat intelligent utilise des bottes et des ruses pour changer la vie de son pauvre maître.",
         "es": "Un gato inteligente usa unas botas y varias astucias para cambiar la vida de su pobre amo."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 3
+    },
+    {
+      "bookId": "fr-chevre-de-m-seguin",
+      "contentLocale": "fr-FR",
+      "title": "La Chèvre de M. Seguin",
+      "author": "Alphonse Daudet",
+      "level": "A2",
+      "categories": [
+        "fables",
+        "classics"
+      ],
+      "estimatedMinutes": 7,
+      "localizedTitles": {
+        "en": "La Chèvre de M. Seguin",
+        "fr": "La Chèvre de M. Seguin",
+        "es": "La cabra del señor Seguin"
+      },
+      "premise": {
+        "en": "A spirited young goat longs for freedom from her rope and her master's small yard, and gets one unforgettable day of it on the wild mountain.",
+        "fr": "Une jeune chèvre pleine d'esprit aspire à la liberté, loin de sa corde et de la petite cour de son maître, et vit un jour inoubliable de liberté sur la montagne sauvage.",
+        "es": "Una joven cabra llena de espíritu anhela la libertad lejos de su cuerda y del pequeño corral de su amo, y vive un día inolvidable de libertad en la montaña salvaje."
       },
       "reviewStatus": "draft",
       "cover": "cover.svg",
@@ -103,5 +152,5 @@
       "chapterCount": 2
     }
   ],
-  "generatedAt": "2026-09-05T00:38:08.424Z"
+  "generatedAt": "2026-09-05T03:38:21.721Z"
 }

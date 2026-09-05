@@ -1,0 +1,3761 @@
+{
+  "id": "es-monte-de-las-animas-01",
+  "bookId": "es-monte-de-las-animas",
+  "title": "Capítulo 1 — La leyenda del monte",
+  "order": 1,
+  "blocks": [
+    {
+      "id": "b1",
+      "sentences": [
+        {
+          "id": "b1.s1",
+          "text": "Al norte de un antiguo valle español, se levantaba un monte cubierto de robles oscuros.",
+          "translations": {
+            "es": "Al norte de un antiguo valle español, se levantaba un monte cubierto de robles oscuros.",
+            "en": "North of an ancient Spanish valley stood a hill covered with dark oaks.",
+            "fr": "Au nord d'une ancienne vallée espagnole s'élevait une colline couverte de chênes sombres."
+          },
+          "tokens": [
+            {
+              "text": "Al",
+              "normalized": "al",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to the",
+                "fr": "au",
+                "es": "al"
+              },
+              "id": "b1.s1.t1",
+              "startMs": 40,
+              "endMs": 120
+            },
+            {
+              "text": "norte",
+              "normalized": "norte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "north",
+                "fr": "nord",
+                "es": "norte"
+              },
+              "id": "b1.s1.t2",
+              "startMs": 120,
+              "endMs": 430
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b1.s1.t3",
+              "startMs": 430,
+              "endMs": 550
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s1.t4",
+              "startMs": 550,
+              "endMs": 670
+            },
+            {
+              "text": "antiguo",
+              "normalized": "antiguo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ancient",
+                "fr": "ancien",
+                "es": "antiguo"
+              },
+              "id": "b1.s1.t5",
+              "startMs": 670,
+              "endMs": 1090
+            },
+            {
+              "text": "valle",
+              "normalized": "valle",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "valley",
+                "fr": "vallée",
+                "es": "valle"
+              },
+              "id": "b1.s1.t6",
+              "startMs": 1090,
+              "endMs": 1400
+            },
+            {
+              "text": "español",
+              "normalized": "español",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Spanish",
+                "fr": "espagnol",
+                "es": "español"
+              },
+              "id": "b1.s1.t7",
+              "startMs": 1400,
+              "endMs": 2020
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s1.t8"
+            },
+            {
+              "text": "se",
+              "normalized": "se",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "was",
+                "fr": "se",
+                "es": "se"
+              },
+              "id": "b1.s1.t9",
+              "startMs": 2220,
+              "endMs": 2220
+            },
+            {
+              "text": "levantaba",
+              "normalized": "levantaba",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "rose",
+                "fr": "s'élevait",
+                "es": "levantaba"
+              },
+              "id": "b1.s1.t10",
+              "startMs": 2380,
+              "endMs": 2730
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s1.t11",
+              "startMs": 2820,
+              "endMs": 2910
+            },
+            {
+              "text": "monte",
+              "normalized": "monte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mountain",
+                "fr": "mont",
+                "es": "monte"
+              },
+              "id": "b1.s1.t12",
+              "startMs": 2950,
+              "endMs": 3280
+            },
+            {
+              "text": "cubierto",
+              "normalized": "cubierto",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "covered",
+                "fr": "couvert",
+                "es": "cubierto"
+              },
+              "id": "b1.s1.t13",
+              "startMs": 3280,
+              "endMs": 3810
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b1.s1.t14",
+              "startMs": 3810,
+              "endMs": 3830
+            },
+            {
+              "text": "robles",
+              "normalized": "robles",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "oaks",
+                "fr": "chênes",
+                "es": "robles"
+              },
+              "id": "b1.s1.t15",
+              "startMs": 3970,
+              "endMs": 4340
+            },
+            {
+              "text": "oscuros",
+              "normalized": "oscuros",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dark",
+                "fr": "sombres",
+                "es": "oscuros"
+              },
+              "id": "b1.s1.t16",
+              "startMs": 4340,
+              "endMs": 5040
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s1.t17"
+            }
+          ]
+        },
+        {
+          "id": "b1.s2",
+          "text": "Hace muchos siglos, los templarios vivían cerca de un monte solitario.",
+          "translations": {
+            "es": "Hace muchos siglos, los templarios vivían cerca de un monte solitario.",
+            "en": "Many centuries ago, the Templars lived near a solitary hill.",
+            "fr": "Il y a plusieurs siècles, les Templiers vivaient près d'une colline solitaire."
+          },
+          "tokens": [
+            {
+              "text": "Hace",
+              "normalized": "hace",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "ago",
+                "fr": "il y a",
+                "es": "hace"
+              },
+              "id": "b1.s2.t1",
+              "startMs": 5716,
+              "endMs": 5976
+            },
+            {
+              "text": "muchos",
+              "normalized": "muchos",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "many",
+                "fr": "beaucoup de",
+                "es": "muchos"
+              },
+              "id": "b1.s2.t2",
+              "startMs": 5976,
+              "endMs": 6456
+            },
+            {
+              "text": "siglos",
+              "normalized": "siglos",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "centuries",
+                "fr": "siècles",
+                "es": "siglos"
+              },
+              "id": "b1.s2.t3",
+              "startMs": 6456,
+              "endMs": 7106
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s2.t4"
+            },
+            {
+              "text": "los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s2.t5",
+              "startMs": 7156,
+              "endMs": 7276
+            },
+            {
+              "text": "templarios",
+              "normalized": "templarios",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Templars",
+                "fr": "Templiers",
+                "es": "templarios"
+              },
+              "id": "b1.s2.t6",
+              "startMs": 7366,
+              "endMs": 7886
+            },
+            {
+              "text": "vivían",
+              "normalized": "vivían",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lived",
+                "fr": "vivaient",
+                "es": "vivían"
+              },
+              "id": "b1.s2.t7",
+              "startMs": 7976,
+              "endMs": 8356
+            },
+            {
+              "text": "cerca",
+              "normalized": "cerca",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "near",
+                "fr": "près",
+                "es": "cerca"
+              },
+              "id": "b1.s2.t8",
+              "startMs": 8486,
+              "endMs": 8756
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b1.s2.t9",
+              "startMs": 8756,
+              "endMs": 8886
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s2.t10",
+              "startMs": 8886,
+              "endMs": 9016
+            },
+            {
+              "text": "monte",
+              "normalized": "monte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mountain",
+                "fr": "mont",
+                "es": "monte"
+              },
+              "id": "b1.s2.t11",
+              "startMs": 9016,
+              "endMs": 9336
+            },
+            {
+              "text": "solitario",
+              "normalized": "solitario",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "lonely",
+                "fr": "solitaire",
+                "es": "solitario"
+              },
+              "id": "b1.s2.t12",
+              "startMs": 9336,
+              "endMs": 10006
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s2.t13"
+            }
+          ]
+        },
+        {
+          "id": "b1.s3",
+          "text": "El monte tenía un nombre terrible: el Monte de las Ánimas.",
+          "translations": {
+            "es": "El monte tenía un nombre terrible: el Monte de las Ánimas.",
+            "en": "The hill had a terrible name: the Hill of Souls.",
+            "fr": "La colline portait un nom terrible : la Colline des Âmes."
+          },
+          "tokens": [
+            {
+              "text": "El",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s3.t1",
+              "startMs": 10597,
+              "endMs": 10677
+            },
+            {
+              "text": "monte",
+              "normalized": "monte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mountain",
+                "fr": "mont",
+                "es": "monte"
+              },
+              "id": "b1.s3.t2",
+              "startMs": 10677,
+              "endMs": 10997
+            },
+            {
+              "text": "tenía",
+              "normalized": "tenía",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "had",
+                "fr": "avait",
+                "es": "tenía"
+              },
+              "id": "b1.s3.t3",
+              "startMs": 10997,
+              "endMs": 11377
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s3.t4",
+              "startMs": 11377,
+              "endMs": 11497
+            },
+            {
+              "text": "nombre",
+              "normalized": "nombre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "name",
+                "fr": "nom",
+                "es": "nombre"
+              },
+              "id": "b1.s3.t5",
+              "startMs": 11497,
+              "endMs": 11867
+            },
+            {
+              "text": "terrible",
+              "normalized": "terrible",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "terrible",
+                "fr": "terrible",
+                "es": "terrible"
+              },
+              "id": "b1.s3.t6",
+              "startMs": 11877,
+              "endMs": 12527
+            },
+            {
+              "text": ":",
+              "normalized": ":",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t7"
+            },
+            {
+              "text": "el",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s3.t8",
+              "startMs": 12697,
+              "endMs": 12697
+            },
+            {
+              "text": "Monte",
+              "normalized": "monte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mountain",
+                "fr": "mont",
+                "es": "monte"
+              },
+              "id": "b1.s3.t9",
+              "startMs": 12767,
+              "endMs": 13057
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b1.s3.t10",
+              "startMs": 13057,
+              "endMs": 13197
+            },
+            {
+              "text": "las",
+              "normalized": "las",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "las"
+              },
+              "id": "b1.s3.t11",
+              "startMs": 13197,
+              "endMs": 13397
+            },
+            {
+              "text": "Ánimas",
+              "normalized": "ánimas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "souls",
+                "fr": "âmes",
+                "es": "ánimas"
+              },
+              "id": "b1.s3.t12",
+              "startMs": 13407,
+              "endMs": 13937
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t13"
+            }
+          ]
+        },
+        {
+          "id": "b1.s4",
+          "text": "Los templarios cazaban allí y a veces molestaban a los cazadores del pueblo.",
+          "translations": {
+            "es": "Los templarios cazaban allí y a veces molestaban a los cazadores del pueblo.",
+            "en": "The Templars hunted there and sometimes bothered the villagers' hunters.",
+            "fr": "Les Templiers chassaient là-bas et dérangeaient parfois les chasseurs du village."
+          },
+          "tokens": [
+            {
+              "text": "Los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s4.t1",
+              "startMs": 14523,
+              "endMs": 14643
+            },
+            {
+              "text": "templarios",
+              "normalized": "templarios",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Templars",
+                "fr": "Templiers",
+                "es": "templarios"
+              },
+              "id": "b1.s4.t2",
+              "startMs": 14743,
+              "endMs": 15313
+            },
+            {
+              "text": "cazaban",
+              "normalized": "cazaban",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hunted",
+                "fr": "chassaient",
+                "es": "cazaban"
+              },
+              "id": "b1.s4.t3",
+              "startMs": 15383,
+              "endMs": 15773
+            },
+            {
+              "text": "allí",
+              "normalized": "allí",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "there",
+                "fr": "là",
+                "es": "allí"
+              },
+              "id": "b1.s4.t4",
+              "startMs": 15773,
+              "endMs": 16133
+            },
+            {
+              "text": "y",
+              "normalized": "y",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s4.t5",
+              "startMs": 16133,
+              "endMs": 16163
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b1.s4.t6",
+              "startMs": 16233,
+              "endMs": 16333
+            },
+            {
+              "text": "veces",
+              "normalized": "veces",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "times",
+                "fr": "fois",
+                "es": "veces"
+              },
+              "id": "b1.s4.t7",
+              "startMs": 16333,
+              "endMs": 16783
+            },
+            {
+              "text": "molestaban",
+              "normalized": "molestaban",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "bothered",
+                "fr": "dérangeaient",
+                "es": "molestaban"
+              },
+              "id": "b1.s4.t8",
+              "startMs": 17053,
+              "endMs": 17633
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b1.s4.t9",
+              "startMs": 17633,
+              "endMs": 17683
+            },
+            {
+              "text": "los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s4.t10",
+              "startMs": 17683,
+              "endMs": 17833
+            },
+            {
+              "text": "cazadores",
+              "normalized": "cazadores",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hunters",
+                "fr": "chasseurs",
+                "es": "cazadores"
+              },
+              "id": "b1.s4.t11",
+              "startMs": 17883,
+              "endMs": 18353
+            },
+            {
+              "text": "del",
+              "normalized": "del",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b1.s4.t12",
+              "startMs": 18413,
+              "endMs": 18503
+            },
+            {
+              "text": "pueblo",
+              "normalized": "pueblo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "town",
+                "fr": "village",
+                "es": "pueblo"
+              },
+              "id": "b1.s4.t13",
+              "startMs": 18603,
+              "endMs": 18973
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s4.t14"
+            }
+          ]
+        },
+        {
+          "id": "b1.s5",
+          "text": "Por eso, la gente del pueblo desconfiaba mucho de los templarios.",
+          "translations": {
+            "es": "Por eso, la gente del pueblo desconfiaba mucho de los templarios.",
+            "en": "For this reason, the villagers distrusted the Templars greatly.",
+            "fr": "Pour cette raison, les villageois se méfiaient beaucoup des Templiers."
+          },
+          "tokens": [
+            {
+              "text": "Por",
+              "normalized": "por",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "for",
+                "fr": "pour",
+                "es": "por"
+              },
+              "id": "b1.s5.t1",
+              "startMs": 19573,
+              "endMs": 19713
+            },
+            {
+              "text": "eso",
+              "normalized": "eso",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "that",
+                "fr": "cela",
+                "es": "eso"
+              },
+              "id": "b1.s5.t2",
+              "startMs": 19713,
+              "endMs": 20043
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s5.t3"
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b1.s5.t4",
+              "startMs": 20173,
+              "endMs": 20173
+            },
+            {
+              "text": "gente",
+              "normalized": "gente",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "people",
+                "fr": "gens",
+                "es": "gente"
+              },
+              "id": "b1.s5.t5",
+              "startMs": 20183,
+              "endMs": 20513
+            },
+            {
+              "text": "del",
+              "normalized": "del",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b1.s5.t6",
+              "startMs": 20513,
+              "endMs": 20713
+            },
+            {
+              "text": "pueblo",
+              "normalized": "pueblo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "town",
+                "fr": "village",
+                "es": "pueblo"
+              },
+              "id": "b1.s5.t7",
+              "startMs": 20713,
+              "endMs": 21123
+            },
+            {
+              "text": "desconfiaba",
+              "normalized": "desconfiaba",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "distrusted",
+                "fr": "se méfiait",
+                "es": "desconfiaba"
+              },
+              "id": "b1.s5.t8",
+              "startMs": 21123,
+              "endMs": 21863
+            },
+            {
+              "text": "mucho",
+              "normalized": "mucho",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "much",
+                "fr": "beaucoup",
+                "es": "mucho"
+              },
+              "id": "b1.s5.t9",
+              "startMs": 21863,
+              "endMs": 22193
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b1.s5.t10",
+              "startMs": 22263,
+              "endMs": 22333
+            },
+            {
+              "text": "los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s5.t11",
+              "startMs": 22333,
+              "endMs": 22533
+            },
+            {
+              "text": "templarios",
+              "normalized": "templarios",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Templars",
+                "fr": "Templiers",
+                "es": "templarios"
+              },
+              "id": "b1.s5.t12",
+              "startMs": 22533,
+              "endMs": 23273
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s5.t13"
+            }
+          ]
+        },
+        {
+          "id": "b1.s6",
+          "text": "Una noche, los habitantes del pueblo se enfrentaron a los templarios en el monte.",
+          "translations": {
+            "es": "Una noche, los habitantes del pueblo se enfrentaron a los templarios en el monte.",
+            "en": "One night, the villagers confronted the Templars on the hill.",
+            "fr": "Une nuit, les villageois affrontèrent les Templiers sur la colline."
+          },
+          "tokens": [
+            {
+              "text": "Una",
+              "normalized": "una",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "a",
+                "fr": "une",
+                "es": "una"
+              },
+              "id": "b1.s6.t1",
+              "startMs": 23857,
+              "endMs": 24027
+            },
+            {
+              "text": "noche",
+              "normalized": "noche",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "night",
+                "fr": "nuit",
+                "es": "noche"
+              },
+              "id": "b1.s6.t2",
+              "startMs": 24027,
+              "endMs": 24537
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s6.t3"
+            },
+            {
+              "text": "los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s6.t4",
+              "startMs": 24537,
+              "endMs": 24757
+            },
+            {
+              "text": "habitantes",
+              "normalized": "habitantes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "inhabitants",
+                "fr": "habitants",
+                "es": "habitantes"
+              },
+              "id": "b1.s6.t5",
+              "startMs": 24757,
+              "endMs": 25447
+            },
+            {
+              "text": "del",
+              "normalized": "del",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b1.s6.t6",
+              "startMs": 25497,
+              "endMs": 25707
+            },
+            {
+              "text": "pueblo",
+              "normalized": "pueblo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "town",
+                "fr": "village",
+                "es": "pueblo"
+              },
+              "id": "b1.s6.t7",
+              "startMs": 25707,
+              "endMs": 26067
+            },
+            {
+              "text": "se",
+              "normalized": "se",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "was",
+                "fr": "se",
+                "es": "se"
+              },
+              "id": "b1.s6.t8",
+              "startMs": 26237,
+              "endMs": 26287
+            },
+            {
+              "text": "enfrentaron",
+              "normalized": "enfrentaron",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "faced",
+                "fr": "affrontèrent",
+                "es": "enfrentaron"
+              },
+              "id": "b1.s6.t9",
+              "startMs": 26297,
+              "endMs": 26907
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b1.s6.t10",
+              "startMs": 26907,
+              "endMs": 26957
+            },
+            {
+              "text": "los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s6.t11",
+              "startMs": 26957,
+              "endMs": 27117
+            },
+            {
+              "text": "templarios",
+              "normalized": "templarios",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Templars",
+                "fr": "Templiers",
+                "es": "templarios"
+              },
+              "id": "b1.s6.t12",
+              "startMs": 27117,
+              "endMs": 27677
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s6.t13",
+              "startMs": 27677,
+              "endMs": 27777
+            },
+            {
+              "text": "el",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s6.t14",
+              "startMs": 27777,
+              "endMs": 27897
+            },
+            {
+              "text": "monte",
+              "normalized": "monte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mountain",
+                "fr": "mont",
+                "es": "monte"
+              },
+              "id": "b1.s6.t15",
+              "startMs": 27897,
+              "endMs": 28387
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s6.t16"
+            }
+          ]
+        },
+        {
+          "id": "b1.s7",
+          "text": "Muchos hombres murieron esa noche, templarios y cazadores del pueblo por igual.",
+          "translations": {
+            "es": "Muchos hombres murieron esa noche, templarios y cazadores del pueblo por igual.",
+            "en": "Many men died that night, Templars and villagers' hunters alike.",
+            "fr": "Beaucoup d'hommes moururent cette nuit-là, Templiers et chasseurs du village confondus."
+          },
+          "tokens": [
+            {
+              "text": "Muchos",
+              "normalized": "muchos",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "many",
+                "fr": "beaucoup de",
+                "es": "muchos"
+              },
+              "id": "b1.s7.t1",
+              "startMs": 29098,
+              "endMs": 29418
+            },
+            {
+              "text": "hombres",
+              "normalized": "hombres",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "men",
+                "fr": "hommes",
+                "es": "hombres"
+              },
+              "id": "b1.s7.t2",
+              "startMs": 29418,
+              "endMs": 29798
+            },
+            {
+              "text": "murieron",
+              "normalized": "murieron",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "died",
+                "fr": "moururent",
+                "es": "murieron"
+              },
+              "id": "b1.s7.t3",
+              "startMs": 29868,
+              "endMs": 30378
+            },
+            {
+              "text": "esa",
+              "normalized": "esa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "that",
+                "fr": "cette",
+                "es": "esa"
+              },
+              "id": "b1.s7.t4",
+              "startMs": 30378,
+              "endMs": 30568
+            },
+            {
+              "text": "noche",
+              "normalized": "noche",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "night",
+                "fr": "nuit",
+                "es": "noche"
+              },
+              "id": "b1.s7.t5",
+              "startMs": 30568,
+              "endMs": 31048
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s7.t6"
+            },
+            {
+              "text": "templarios",
+              "normalized": "templarios",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Templars",
+                "fr": "Templiers",
+                "es": "templarios"
+              },
+              "id": "b1.s7.t7",
+              "startMs": 31048,
+              "endMs": 31818
+            },
+            {
+              "text": "y",
+              "normalized": "y",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s7.t8",
+              "startMs": 31818,
+              "endMs": 31888
+            },
+            {
+              "text": "cazadores",
+              "normalized": "cazadores",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "hunters",
+                "fr": "chasseurs",
+                "es": "cazadores"
+              },
+              "id": "b1.s7.t9",
+              "startMs": 31888,
+              "endMs": 32578
+            },
+            {
+              "text": "del",
+              "normalized": "del",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b1.s7.t10",
+              "startMs": 32638,
+              "endMs": 32738
+            },
+            {
+              "text": "pueblo",
+              "normalized": "pueblo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "town",
+                "fr": "village",
+                "es": "pueblo"
+              },
+              "id": "b1.s7.t11",
+              "startMs": 32848,
+              "endMs": 33078
+            },
+            {
+              "text": "por",
+              "normalized": "por",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "for",
+                "fr": "pour",
+                "es": "por"
+              },
+              "id": "b1.s7.t12",
+              "startMs": 33158,
+              "endMs": 33328
+            },
+            {
+              "text": "igual",
+              "normalized": "igual",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "equally",
+                "fr": "également",
+                "es": "igual"
+              },
+              "id": "b1.s7.t13",
+              "startMs": 33328,
+              "endMs": 33668
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s7.t14"
+            }
+          ]
+        },
+        {
+          "id": "b1.s8",
+          "text": "Los templarios llevaban largas capas blancas con una cruz roja en el pecho.",
+          "translations": {
+            "es": "Los templarios llevaban largas capas blancas con una cruz roja en el pecho.",
+            "en": "The Templars wore long white cloaks with a red cross on their chests.",
+            "fr": "Les Templiers portaient de longues capes blanches avec une croix rouge sur la poitrine."
+          },
+          "tokens": [
+            {
+              "text": "Los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s8.t1",
+              "startMs": 34263,
+              "endMs": 34373
+            },
+            {
+              "text": "templarios",
+              "normalized": "templarios",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Templars",
+                "fr": "Templiers",
+                "es": "templarios"
+              },
+              "id": "b1.s8.t2",
+              "startMs": 34463,
+              "endMs": 35053
+            },
+            {
+              "text": "llevaban",
+              "normalized": "llevaban",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "were wearing",
+                "fr": "portaient",
+                "es": "llevaban"
+              },
+              "id": "b1.s8.t3",
+              "startMs": 35103,
+              "endMs": 35633
+            },
+            {
+              "text": "largas",
+              "normalized": "largas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "long",
+                "fr": "longues",
+                "es": "largas"
+              },
+              "id": "b1.s8.t4",
+              "startMs": 35633,
+              "endMs": 36053
+            },
+            {
+              "text": "capas",
+              "normalized": "capas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cloaks",
+                "fr": "capes",
+                "es": "capas"
+              },
+              "id": "b1.s8.t5",
+              "startMs": 36053,
+              "endMs": 36383
+            },
+            {
+              "text": "blancas",
+              "normalized": "blancas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "white",
+                "fr": "blanches",
+                "es": "blancas"
+              },
+              "id": "b1.s8.t6",
+              "startMs": 36463,
+              "endMs": 37003
+            },
+            {
+              "text": "con",
+              "normalized": "con",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b1.s8.t7",
+              "startMs": 37103,
+              "endMs": 37223
+            },
+            {
+              "text": "una",
+              "normalized": "una",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "une",
+                "es": "una"
+              },
+              "id": "b1.s8.t8",
+              "startMs": 37223,
+              "endMs": 37353
+            },
+            {
+              "text": "cruz",
+              "normalized": "cruz",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cross",
+                "fr": "croix",
+                "es": "cruz"
+              },
+              "id": "b1.s8.t9",
+              "startMs": 37463,
+              "endMs": 37713
+            },
+            {
+              "text": "roja",
+              "normalized": "roja",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "red",
+                "fr": "rouge",
+                "es": "roja"
+              },
+              "id": "b1.s8.t10",
+              "startMs": 37713,
+              "endMs": 37923
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s8.t11",
+              "startMs": 37993,
+              "endMs": 38133
+            },
+            {
+              "text": "el",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s8.t12",
+              "startMs": 38133,
+              "endMs": 38213
+            },
+            {
+              "text": "pecho",
+              "normalized": "pecho",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "chest",
+                "fr": "poitrine",
+                "es": "pecho"
+              },
+              "id": "b1.s8.t13",
+              "startMs": 38303,
+              "endMs": 38653
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s8.t14"
+            }
+          ]
+        },
+        {
+          "id": "b1.s9",
+          "text": "Desde entonces, cuenta la leyenda que sus almas no descansan en paz.",
+          "translations": {
+            "es": "Desde entonces, cuenta la leyenda que sus almas no descansan en paz.",
+            "en": "Since then, legend says their souls do not rest in peace.",
+            "fr": "Depuis lors, la légende dit que leurs âmes ne reposent pas en paix."
+          },
+          "tokens": [
+            {
+              "text": "Desde",
+              "normalized": "desde",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "since",
+                "fr": "depuis",
+                "es": "desde"
+              },
+              "id": "b1.s9.t1",
+              "startMs": 39274,
+              "endMs": 39534
+            },
+            {
+              "text": "entonces",
+              "normalized": "entonces",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "then",
+                "fr": "alors",
+                "es": "entonces"
+              },
+              "id": "b1.s9.t2",
+              "startMs": 39534,
+              "endMs": 40164
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s9.t3"
+            },
+            {
+              "text": "cuenta",
+              "normalized": "cuenta",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "tells",
+                "fr": "raconte",
+                "es": "cuenta"
+              },
+              "id": "b1.s9.t4",
+              "startMs": 40374,
+              "endMs": 40584
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b1.s9.t5",
+              "startMs": 40584,
+              "endMs": 40704
+            },
+            {
+              "text": "leyenda",
+              "normalized": "leyenda",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "legend",
+                "fr": "légende",
+                "es": "leyenda"
+              },
+              "id": "b1.s9.t6",
+              "startMs": 40704,
+              "endMs": 41164
+            },
+            {
+              "text": "que",
+              "normalized": "que",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "that",
+                "fr": "que",
+                "es": "que"
+              },
+              "id": "b1.s9.t7",
+              "startMs": 41164,
+              "endMs": 41364
+            },
+            {
+              "text": "sus",
+              "normalized": "sus",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "their",
+                "fr": "leurs",
+                "es": "sus"
+              },
+              "id": "b1.s9.t8",
+              "startMs": 41424,
+              "endMs": 41604
+            },
+            {
+              "text": "almas",
+              "normalized": "almas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "souls",
+                "fr": "âmes",
+                "es": "almas"
+              },
+              "id": "b1.s9.t9",
+              "startMs": 41604,
+              "endMs": 41924
+            },
+            {
+              "text": "no",
+              "normalized": "no",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "not",
+                "fr": "ne ... pas",
+                "es": "no"
+              },
+              "id": "b1.s9.t10",
+              "startMs": 42024,
+              "endMs": 42144
+            },
+            {
+              "text": "descansan",
+              "normalized": "descansan",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "rest",
+                "fr": "se reposent",
+                "es": "descansan"
+              },
+              "id": "b1.s9.t11",
+              "startMs": 42144,
+              "endMs": 42794
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s9.t12",
+              "startMs": 42794,
+              "endMs": 42914
+            },
+            {
+              "text": "paz",
+              "normalized": "paz",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "peace",
+                "fr": "paix",
+                "es": "paz"
+              },
+              "id": "b1.s9.t13",
+              "startMs": 43004,
+              "endMs": 43304
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s9.t14"
+            }
+          ]
+        },
+        {
+          "id": "b1.s10",
+          "text": "Cada año, en la noche de Todos los Santos, las almas regresan.",
+          "translations": {
+            "es": "Cada año, en la noche de Todos los Santos, las almas regresan.",
+            "en": "Every year, on All Saints' Night, the souls return.",
+            "fr": "Chaque année, la nuit de la Toussaint, les âmes reviennent."
+          },
+          "tokens": [
+            {
+              "text": "Cada",
+              "normalized": "cada",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "each",
+                "fr": "chaque",
+                "es": "cada"
+              },
+              "id": "b1.s10.t1",
+              "startMs": 43915,
+              "endMs": 44125
+            },
+            {
+              "text": "año",
+              "normalized": "año",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "year",
+                "fr": "an",
+                "es": "año"
+              },
+              "id": "b1.s10.t2",
+              "startMs": 44125,
+              "endMs": 44545
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s10.t3"
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s10.t4",
+              "startMs": 44545,
+              "endMs": 44575
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b1.s10.t5",
+              "startMs": 44785,
+              "endMs": 44825
+            },
+            {
+              "text": "noche",
+              "normalized": "noche",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "night",
+                "fr": "nuit",
+                "es": "noche"
+              },
+              "id": "b1.s10.t6",
+              "startMs": 44825,
+              "endMs": 45155
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b1.s10.t7",
+              "startMs": 45225,
+              "endMs": 45315
+            },
+            {
+              "text": "Todos",
+              "normalized": "todos",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "all",
+                "fr": "tous",
+                "es": "todos"
+              },
+              "id": "b1.s10.t8",
+              "startMs": 45315,
+              "endMs": 45665
+            },
+            {
+              "text": "los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s10.t9",
+              "startMs": 45665,
+              "endMs": 45875
+            },
+            {
+              "text": "Santos",
+              "normalized": "santos",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "saints",
+                "fr": "saints",
+                "es": "santos"
+              },
+              "id": "b1.s10.t10",
+              "startMs": 45875,
+              "endMs": 46475
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s10.t11"
+            },
+            {
+              "text": "las",
+              "normalized": "las",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "las"
+              },
+              "id": "b1.s10.t12",
+              "startMs": 46545,
+              "endMs": 46685
+            },
+            {
+              "text": "almas",
+              "normalized": "almas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "souls",
+                "fr": "âmes",
+                "es": "almas"
+              },
+              "id": "b1.s10.t13",
+              "startMs": 46765,
+              "endMs": 47035
+            },
+            {
+              "text": "regresan",
+              "normalized": "regresan",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "return",
+                "fr": "reviennent",
+                "es": "regresan"
+              },
+              "id": "b1.s10.t14",
+              "startMs": 47095,
+              "endMs": 47685
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s10.t15"
+            }
+          ]
+        },
+        {
+          "id": "b1.s11",
+          "text": "Los fantasmas de los templarios cabalgan otra vez por el monte oscuro.",
+          "translations": {
+            "es": "Los fantasmas de los templarios cabalgan otra vez por el monte oscuro.",
+            "en": "The Templars' ghosts ride again through the dark hill.",
+            "fr": "Les fantômes des Templiers chevauchent à nouveau à travers la colline sombre."
+          },
+          "tokens": [
+            {
+              "text": "Los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s11.t1",
+              "startMs": 48263,
+              "endMs": 48393
+            },
+            {
+              "text": "fantasmas",
+              "normalized": "fantasmas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ghosts",
+                "fr": "fantômes",
+                "es": "fantasmas"
+              },
+              "id": "b1.s11.t2",
+              "startMs": 48393,
+              "endMs": 48933
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b1.s11.t3",
+              "startMs": 48933,
+              "endMs": 49053
+            },
+            {
+              "text": "los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s11.t4",
+              "startMs": 49053,
+              "endMs": 49203
+            },
+            {
+              "text": "templarios",
+              "normalized": "templarios",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Templars",
+                "fr": "Templiers",
+                "es": "templarios"
+              },
+              "id": "b1.s11.t5",
+              "startMs": 49293,
+              "endMs": 49853
+            },
+            {
+              "text": "cabalgan",
+              "normalized": "cabalgan",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ride",
+                "fr": "montent",
+                "es": "cabalgan"
+              },
+              "id": "b1.s11.t6",
+              "startMs": 49853,
+              "endMs": 50383
+            },
+            {
+              "text": "otra",
+              "normalized": "otra",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "another",
+                "fr": "autre",
+                "es": "otra"
+              },
+              "id": "b1.s11.t7",
+              "startMs": 50383,
+              "endMs": 50653
+            },
+            {
+              "text": "vez",
+              "normalized": "vez",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "time",
+                "fr": "fois",
+                "es": "vez"
+              },
+              "id": "b1.s11.t8",
+              "startMs": 50653,
+              "endMs": 50853
+            },
+            {
+              "text": "por",
+              "normalized": "por",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "for",
+                "fr": "pour",
+                "es": "por"
+              },
+              "id": "b1.s11.t9",
+              "startMs": 50853,
+              "endMs": 51053
+            },
+            {
+              "text": "el",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s11.t10",
+              "startMs": 51053,
+              "endMs": 51143
+            },
+            {
+              "text": "monte",
+              "normalized": "monte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mountain",
+                "fr": "mont",
+                "es": "monte"
+              },
+              "id": "b1.s11.t11",
+              "startMs": 51253,
+              "endMs": 51523
+            },
+            {
+              "text": "oscuro",
+              "normalized": "oscuro",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dark",
+                "fr": "sombre",
+                "es": "oscuro"
+              },
+              "id": "b1.s11.t12",
+              "startMs": 51523,
+              "endMs": 52213
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s11.t13"
+            }
+          ]
+        },
+        {
+          "id": "b1.s12",
+          "text": "Los ancianos del pueblo contaban la historia a los niños junto al fuego.",
+          "translations": {
+            "es": "Los ancianos del pueblo contaban la historia a los niños junto al fuego.",
+            "en": "The village elders told the story to the children by the fire.",
+            "fr": "Les anciens du village racontaient l'histoire aux enfants près du feu."
+          },
+          "tokens": [
+            {
+              "text": "Los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s12.t1",
+              "startMs": 52879,
+              "endMs": 53059
+            },
+            {
+              "text": "ancianos",
+              "normalized": "ancianos",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "elders",
+                "fr": "anciens",
+                "es": "ancianos"
+              },
+              "id": "b1.s12.t2",
+              "startMs": 53059,
+              "endMs": 53679
+            },
+            {
+              "text": "del",
+              "normalized": "del",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b1.s12.t3",
+              "startMs": 53679,
+              "endMs": 53909
+            },
+            {
+              "text": "pueblo",
+              "normalized": "pueblo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "town",
+                "fr": "village",
+                "es": "pueblo"
+              },
+              "id": "b1.s12.t4",
+              "startMs": 53909,
+              "endMs": 54179
+            },
+            {
+              "text": "contaban",
+              "normalized": "contaban",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "told",
+                "fr": "racontaient",
+                "es": "contaban"
+              },
+              "id": "b1.s12.t5",
+              "startMs": 54469,
+              "endMs": 54859
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b1.s12.t6",
+              "startMs": 54859,
+              "endMs": 54979
+            },
+            {
+              "text": "historia",
+              "normalized": "historia",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "story",
+                "fr": "histoire",
+                "es": "historia"
+              },
+              "id": "b1.s12.t7",
+              "startMs": 54979,
+              "endMs": 55469
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b1.s12.t8",
+              "startMs": 55469,
+              "endMs": 55529
+            },
+            {
+              "text": "los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s12.t9",
+              "startMs": 55529,
+              "endMs": 55679
+            },
+            {
+              "text": "niños",
+              "normalized": "niños",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "children",
+                "fr": "enfants",
+                "es": "niños"
+              },
+              "id": "b1.s12.t10",
+              "startMs": 55699,
+              "endMs": 56069
+            },
+            {
+              "text": "junto",
+              "normalized": "junto",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "by",
+                "fr": "près",
+                "es": "junto"
+              },
+              "id": "b1.s12.t11",
+              "startMs": 56069,
+              "endMs": 56429
+            },
+            {
+              "text": "al",
+              "normalized": "al",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to the",
+                "fr": "au",
+                "es": "al"
+              },
+              "id": "b1.s12.t12",
+              "startMs": 56429,
+              "endMs": 56539
+            },
+            {
+              "text": "fuego",
+              "normalized": "fuego",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fire",
+                "fr": "feu",
+                "es": "fuego"
+              },
+              "id": "b1.s12.t13",
+              "startMs": 56679,
+              "endMs": 57009
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s12.t14"
+            }
+          ]
+        },
+        {
+          "id": "b1.s13",
+          "text": "Nadie del pueblo se atreve a subir al monte esa noche.",
+          "translations": {
+            "es": "Nadie del pueblo se atreve a subir al monte esa noche.",
+            "en": "No one from the village dares to climb the hill that night.",
+            "fr": "Personne du village n'ose monter sur la colline cette nuit-là."
+          },
+          "tokens": [
+            {
+              "text": "Nadie",
+              "normalized": "nadie",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "nobody",
+                "fr": "personne",
+                "es": "nadie"
+              },
+              "id": "b1.s13.t1",
+              "startMs": 57595,
+              "endMs": 57865
+            },
+            {
+              "text": "del",
+              "normalized": "del",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b1.s13.t2",
+              "startMs": 57895,
+              "endMs": 57995
+            },
+            {
+              "text": "pueblo",
+              "normalized": "pueblo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "town",
+                "fr": "village",
+                "es": "pueblo"
+              },
+              "id": "b1.s13.t3",
+              "startMs": 58115,
+              "endMs": 58485
+            },
+            {
+              "text": "se",
+              "normalized": "se",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "was",
+                "fr": "se",
+                "es": "se"
+              },
+              "id": "b1.s13.t4",
+              "startMs": 58705,
+              "endMs": 58705
+            },
+            {
+              "text": "atreve",
+              "normalized": "atreve",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "dares",
+                "fr": "ose",
+                "es": "atreve"
+              },
+              "id": "b1.s13.t5",
+              "startMs": 58715,
+              "endMs": 59165
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b1.s13.t6",
+              "startMs": 59165,
+              "endMs": 59245
+            },
+            {
+              "text": "subir",
+              "normalized": "subir",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to go up",
+                "fr": "monter",
+                "es": "subir"
+              },
+              "id": "b1.s13.t7",
+              "startMs": 59245,
+              "endMs": 59615
+            },
+            {
+              "text": "al",
+              "normalized": "al",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to the",
+                "fr": "au",
+                "es": "al"
+              },
+              "id": "b1.s13.t8",
+              "startMs": 59635,
+              "endMs": 59795
+            },
+            {
+              "text": "monte",
+              "normalized": "monte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mountain",
+                "fr": "mont",
+                "es": "monte"
+              },
+              "id": "b1.s13.t9",
+              "startMs": 59795,
+              "endMs": 60185
+            },
+            {
+              "text": "esa",
+              "normalized": "esa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "that",
+                "fr": "cette",
+                "es": "esa"
+              },
+              "id": "b1.s13.t10",
+              "startMs": 60185,
+              "endMs": 60425
+            },
+            {
+              "text": "noche",
+              "normalized": "noche",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "night",
+                "fr": "nuit",
+                "es": "noche"
+              },
+              "id": "b1.s13.t11",
+              "startMs": 60425,
+              "endMs": 60865
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s13.t12"
+            }
+          ]
+        },
+        {
+          "id": "b1.s14",
+          "text": "Muchos años después, una familia noble celebraba esa misma noche en su casa.",
+          "translations": {
+            "es": "Muchos años después, una familia noble celebraba esa misma noche en su casa.",
+            "en": "Many years later, a noble family was celebrating that same night at their home.",
+            "fr": "De nombreuses années plus tard, une famille noble célébrait cette même nuit dans sa maison."
+          },
+          "tokens": [
+            {
+              "text": "Muchos",
+              "normalized": "muchos",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "many",
+                "fr": "beaucoup de",
+                "es": "muchos"
+              },
+              "id": "b1.s14.t1",
+              "startMs": 61460,
+              "endMs": 61770
+            },
+            {
+              "text": "años",
+              "normalized": "años",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "years",
+                "fr": "ans",
+                "es": "años"
+              },
+              "id": "b1.s14.t2",
+              "startMs": 61800,
+              "endMs": 62090
+            },
+            {
+              "text": "después",
+              "normalized": "después",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "later",
+                "fr": "plus tard",
+                "es": "después"
+              },
+              "id": "b1.s14.t3",
+              "startMs": 62090,
+              "endMs": 62700
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s14.t4"
+            },
+            {
+              "text": "una",
+              "normalized": "una",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "une",
+                "es": "una"
+              },
+              "id": "b1.s14.t5",
+              "startMs": 62990,
+              "endMs": 62990
+            },
+            {
+              "text": "familia",
+              "normalized": "familia",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "family",
+                "fr": "famille",
+                "es": "familia"
+              },
+              "id": "b1.s14.t6",
+              "startMs": 63020,
+              "endMs": 63540
+            },
+            {
+              "text": "noble",
+              "normalized": "noble",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "noble",
+                "fr": "noble",
+                "es": "noble"
+              },
+              "id": "b1.s14.t7",
+              "startMs": 63540,
+              "endMs": 63950
+            },
+            {
+              "text": "celebraba",
+              "normalized": "celebraba",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "was celebrating",
+                "fr": "célébrait",
+                "es": "celebraba"
+              },
+              "id": "b1.s14.t8",
+              "startMs": 63950,
+              "endMs": 64530
+            },
+            {
+              "text": "esa",
+              "normalized": "esa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "that",
+                "fr": "cette",
+                "es": "esa"
+              },
+              "id": "b1.s14.t9",
+              "startMs": 64530,
+              "endMs": 64750
+            },
+            {
+              "text": "misma",
+              "normalized": "misma",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "same",
+                "fr": "même",
+                "es": "misma"
+              },
+              "id": "b1.s14.t10",
+              "startMs": 64750,
+              "endMs": 65130
+            },
+            {
+              "text": "noche",
+              "normalized": "noche",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "night",
+                "fr": "nuit",
+                "es": "noche"
+              },
+              "id": "b1.s14.t11",
+              "startMs": 65130,
+              "endMs": 65410
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s14.t12",
+              "startMs": 65410,
+              "endMs": 65570
+            },
+            {
+              "text": "su",
+              "normalized": "su",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "their",
+                "fr": "leur",
+                "es": "su"
+              },
+              "id": "b1.s14.t13",
+              "startMs": 65580,
+              "endMs": 65750
+            },
+            {
+              "text": "casa",
+              "normalized": "casa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "house",
+                "fr": "maison",
+                "es": "casa"
+              },
+              "id": "b1.s14.t14",
+              "startMs": 65750,
+              "endMs": 66090
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s14.t15"
+            }
+          ]
+        },
+        {
+          "id": "b1.s15",
+          "text": "Entre los invitados estaban los primos Alonso y Beatriz.",
+          "translations": {
+            "es": "Entre los invitados estaban los primos Alonso y Beatriz.",
+            "en": "Among the guests were the cousins Alonso and Beatriz.",
+            "fr": "Parmi les invités se trouvaient les cousins Alonso et Béatrice."
+          },
+          "tokens": [
+            {
+              "text": "Entre",
+              "normalized": "entre",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "among",
+                "fr": "parmi",
+                "es": "entre"
+              },
+              "id": "b1.s15.t1",
+              "startMs": 66666,
+              "endMs": 66986
+            },
+            {
+              "text": "los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s15.t2",
+              "startMs": 66986,
+              "endMs": 67206
+            },
+            {
+              "text": "invitados",
+              "normalized": "invitados",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "guests",
+                "fr": "invités",
+                "es": "invitados"
+              },
+              "id": "b1.s15.t3",
+              "startMs": 67206,
+              "endMs": 67716
+            },
+            {
+              "text": "estaban",
+              "normalized": "estaban",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "were",
+                "fr": "étaient",
+                "es": "estaban"
+              },
+              "id": "b1.s15.t4",
+              "startMs": 67936,
+              "endMs": 68366
+            },
+            {
+              "text": "los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s15.t5",
+              "startMs": 68366,
+              "endMs": 68506
+            },
+            {
+              "text": "primos",
+              "normalized": "primos",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cousins",
+                "fr": "cousins",
+                "es": "primos"
+              },
+              "id": "b1.s15.t6",
+              "startMs": 68666,
+              "endMs": 69016
+            },
+            {
+              "text": "Alonso",
+              "normalized": "alonso",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Alonso",
+                "fr": "Alonso",
+                "es": "Alonso"
+              },
+              "id": "b1.s15.t7",
+              "startMs": 69016,
+              "endMs": 69436
+            },
+            {
+              "text": "y",
+              "normalized": "y",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s15.t8",
+              "startMs": 69436,
+              "endMs": 69506
+            },
+            {
+              "text": "Beatriz",
+              "normalized": "beatriz",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Beatriz",
+                "fr": "Beatriz",
+                "es": "Beatriz"
+              },
+              "id": "b1.s15.t9",
+              "startMs": 69506,
+              "endMs": 70086
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s15.t10"
+            }
+          ]
+        },
+        {
+          "id": "b1.s16",
+          "text": "Alonso amaba en secreto a su prima Beatriz desde hacía tiempo.",
+          "translations": {
+            "es": "Alonso amaba en secreto a su prima Beatriz desde hacía tiempo.",
+            "en": "Alonso had secretly loved his cousin Beatriz for a long time.",
+            "fr": "Alonso aimait en secret sa cousine Béatrice depuis longtemps."
+          },
+          "tokens": [
+            {
+              "text": "Alonso",
+              "normalized": "alonso",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Alonso",
+                "fr": "Alonso",
+                "es": "Alonso"
+              },
+              "id": "b1.s16.t1",
+              "startMs": 70667,
+              "endMs": 71037
+            },
+            {
+              "text": "amaba",
+              "normalized": "amaba",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "loved",
+                "fr": "aimait",
+                "es": "amaba"
+              },
+              "id": "b1.s16.t2",
+              "startMs": 71037,
+              "endMs": 71347
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s16.t3",
+              "startMs": 71387,
+              "endMs": 71507
+            },
+            {
+              "text": "secreto",
+              "normalized": "secreto",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "secret",
+                "fr": "secret",
+                "es": "secreto"
+              },
+              "id": "b1.s16.t4",
+              "startMs": 71567,
+              "endMs": 72027
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "a"
+              },
+              "id": "b1.s16.t5",
+              "startMs": 72027,
+              "endMs": 72087
+            },
+            {
+              "text": "su",
+              "normalized": "su",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "their",
+                "fr": "leur",
+                "es": "su"
+              },
+              "id": "b1.s16.t6",
+              "startMs": 72187,
+              "endMs": 72237
+            },
+            {
+              "text": "prima",
+              "normalized": "prima",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cousin",
+                "fr": "cousine",
+                "es": "prima"
+              },
+              "id": "b1.s16.t7",
+              "startMs": 72237,
+              "endMs": 72597
+            },
+            {
+              "text": "Beatriz",
+              "normalized": "beatriz",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Beatriz",
+                "fr": "Beatriz",
+                "es": "Beatriz"
+              },
+              "id": "b1.s16.t8",
+              "startMs": 72597,
+              "endMs": 73097
+            },
+            {
+              "text": "desde",
+              "normalized": "desde",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "since",
+                "fr": "depuis",
+                "es": "desde"
+              },
+              "id": "b1.s16.t9",
+              "startMs": 73097,
+              "endMs": 73457
+            },
+            {
+              "text": "hacía",
+              "normalized": "hacía",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ago",
+                "fr": "faisait",
+                "es": "hacía"
+              },
+              "id": "b1.s16.t10",
+              "startMs": 73457,
+              "endMs": 73887
+            },
+            {
+              "text": "tiempo",
+              "normalized": "tiempo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "time",
+                "fr": "temps",
+                "es": "tiempo"
+              },
+              "id": "b1.s16.t11",
+              "startMs": 73887,
+              "endMs": 74417
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s16.t12"
+            }
+          ]
+        },
+        {
+          "id": "b1.s17",
+          "text": "Los dos jóvenes escuchaban con atención la vieja leyenda del monte.",
+          "translations": {
+            "es": "Los dos jóvenes escuchaban con atención la vieja leyenda del monte.",
+            "en": "The two young people listened attentively to the old legend of the hill.",
+            "fr": "Les deux jeunes écoutaient attentivement l'ancienne légende de la colline."
+          },
+          "tokens": [
+            {
+              "text": "Los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s17.t1",
+              "startMs": 75008,
+              "endMs": 75128
+            },
+            {
+              "text": "dos",
+              "normalized": "dos",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "two",
+                "fr": "deux",
+                "es": "dos"
+              },
+              "id": "b1.s17.t2",
+              "startMs": 75198,
+              "endMs": 75348
+            },
+            {
+              "text": "jóvenes",
+              "normalized": "jóvenes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "young people",
+                "fr": "jeunes",
+                "es": "jóvenes"
+              },
+              "id": "b1.s17.t3",
+              "startMs": 75388,
+              "endMs": 75828
+            },
+            {
+              "text": "escuchaban",
+              "normalized": "escuchaban",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "were listening",
+                "fr": "écoutaient",
+                "es": "escuchaban"
+              },
+              "id": "b1.s17.t4",
+              "startMs": 76138,
+              "endMs": 76638
+            },
+            {
+              "text": "con",
+              "normalized": "con",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b1.s17.t5",
+              "startMs": 76678,
+              "endMs": 76858
+            },
+            {
+              "text": "atención",
+              "normalized": "atención",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "attention",
+                "fr": "attention",
+                "es": "atención"
+              },
+              "id": "b1.s17.t6",
+              "startMs": 76918,
+              "endMs": 77578
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b1.s17.t7",
+              "startMs": 77578,
+              "endMs": 77718
+            },
+            {
+              "text": "vieja",
+              "normalized": "vieja",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "old",
+                "fr": "vieux",
+                "es": "vieja"
+              },
+              "id": "b1.s17.t8",
+              "startMs": 77718,
+              "endMs": 78038
+            },
+            {
+              "text": "leyenda",
+              "normalized": "leyenda",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "legend",
+                "fr": "légende",
+                "es": "leyenda"
+              },
+              "id": "b1.s17.t9",
+              "startMs": 78068,
+              "endMs": 78558
+            },
+            {
+              "text": "del",
+              "normalized": "del",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of the",
+                "fr": "du",
+                "es": "del"
+              },
+              "id": "b1.s17.t10",
+              "startMs": 78558,
+              "endMs": 78768
+            },
+            {
+              "text": "monte",
+              "normalized": "monte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "mountain",
+                "fr": "mont",
+                "es": "monte"
+              },
+              "id": "b1.s17.t11",
+              "startMs": 78768,
+              "endMs": 79158
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s17.t12"
+            }
+          ]
+        },
+        {
+          "id": "b1.s18",
+          "text": "Otros primos e invitados escuchaban también, algunos con miedo verdadero.",
+          "translations": {
+            "es": "Otros primos e invitados escuchaban también, algunos con miedo verdadero.",
+            "en": "Other cousins and guests were also listening, some with genuine fear.",
+            "fr": "D'autres cousins et invités écoutaient aussi, certains avec une vraie peur."
+          },
+          "tokens": [
+            {
+              "text": "Otros",
+              "normalized": "otros",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "other",
+                "fr": "autres",
+                "es": "otros"
+              },
+              "id": "b1.s18.t1",
+              "startMs": 79863,
+              "endMs": 80123
+            },
+            {
+              "text": "primos",
+              "normalized": "primos",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cousins",
+                "fr": "cousins",
+                "es": "primos"
+              },
+              "id": "b1.s18.t2",
+              "startMs": 80243,
+              "endMs": 80533
+            },
+            {
+              "text": "e",
+              "normalized": "e",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s18.t3",
+              "startMs": 80613,
+              "endMs": 80613
+            },
+            {
+              "text": "invitados",
+              "normalized": "invitados",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "guests",
+                "fr": "invités",
+                "es": "invitados"
+              },
+              "id": "b1.s18.t4",
+              "startMs": 80623,
+              "endMs": 81223
+            },
+            {
+              "text": "escuchaban",
+              "normalized": "escuchaban",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "were listening",
+                "fr": "écoutaient",
+                "es": "escuchaban"
+              },
+              "id": "b1.s18.t5",
+              "startMs": 81253,
+              "endMs": 81873
+            },
+            {
+              "text": "también",
+              "normalized": "también",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "also",
+                "fr": "aussi",
+                "es": "también"
+              },
+              "id": "b1.s18.t6",
+              "startMs": 81873,
+              "endMs": 82433
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s18.t7"
+            },
+            {
+              "text": "algunos",
+              "normalized": "algunos",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "some",
+                "fr": "certains",
+                "es": "algunos"
+              },
+              "id": "b1.s18.t8",
+              "startMs": 82723,
+              "endMs": 83123
+            },
+            {
+              "text": "con",
+              "normalized": "con",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b1.s18.t9",
+              "startMs": 83123,
+              "endMs": 83383
+            },
+            {
+              "text": "miedo",
+              "normalized": "miedo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "fear",
+                "fr": "peur",
+                "es": "miedo"
+              },
+              "id": "b1.s18.t10",
+              "startMs": 83383,
+              "endMs": 83663
+            },
+            {
+              "text": "verdadero",
+              "normalized": "verdadero",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "real",
+                "fr": "vrai",
+                "es": "verdadero"
+              },
+              "id": "b1.s18.t11",
+              "startMs": 83663,
+              "endMs": 84303
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s18.t12"
+            }
+          ]
+        },
+        {
+          "id": "b1.s19",
+          "text": "Alonso, en cambio, escuchaba la leyenda pensando solamente en Beatriz.",
+          "translations": {
+            "es": "Alonso, en cambio, escuchaba la leyenda pensando solamente en Beatriz.",
+            "en": "Alonso, on the other hand, listened to the legend thinking only of Beatriz.",
+            "fr": "Alonso, en revanche, écoutait la légende en pensant seulement à Béatrice."
+          },
+          "tokens": [
+            {
+              "text": "Alonso",
+              "normalized": "alonso",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Alonso",
+                "fr": "Alonso",
+                "es": "Alonso"
+              },
+              "id": "b1.s19.t1",
+              "startMs": 84889,
+              "endMs": 85319
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s19.t2"
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s19.t3",
+              "startMs": 85319,
+              "endMs": 85439
+            },
+            {
+              "text": "cambio",
+              "normalized": "cambio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "change",
+                "fr": "changement",
+                "es": "cambio"
+              },
+              "id": "b1.s19.t4",
+              "startMs": 85439,
+              "endMs": 85989
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s19.t5"
+            },
+            {
+              "text": "escuchaba",
+              "normalized": "escuchaba",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "was listening",
+                "fr": "écoutait",
+                "es": "escuchaba"
+              },
+              "id": "b1.s19.t6",
+              "startMs": 85989,
+              "endMs": 86679
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b1.s19.t7",
+              "startMs": 86679,
+              "endMs": 86829
+            },
+            {
+              "text": "leyenda",
+              "normalized": "leyenda",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "legend",
+                "fr": "légende",
+                "es": "leyenda"
+              },
+              "id": "b1.s19.t8",
+              "startMs": 86829,
+              "endMs": 87379
+            },
+            {
+              "text": "pensando",
+              "normalized": "pensando",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "thinking",
+                "fr": "pensant",
+                "es": "pensando"
+              },
+              "id": "b1.s19.t9",
+              "startMs": 87379,
+              "endMs": 87879
+            },
+            {
+              "text": "solamente",
+              "normalized": "solamente",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "only",
+                "fr": "seulement",
+                "es": "solamente"
+              },
+              "id": "b1.s19.t10",
+              "startMs": 87879,
+              "endMs": 88519
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s19.t11",
+              "startMs": 88519,
+              "endMs": 88639
+            },
+            {
+              "text": "Beatriz",
+              "normalized": "beatriz",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Beatriz",
+                "fr": "Beatriz",
+                "es": "Beatriz"
+              },
+              "id": "b1.s19.t12",
+              "startMs": 88649,
+              "endMs": 89139
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s19.t13"
+            }
+          ]
+        },
+        {
+          "id": "b1.s20",
+          "text": "Beatriz sonreía, pero no creía completamente en fantasmas ni en almas.",
+          "translations": {
+            "es": "Beatriz sonreía, pero no creía completamente en fantasmas ni en almas.",
+            "en": "Beatriz smiled, but she did not fully believe in ghosts or souls.",
+            "fr": "Béatrice souriait, mais elle ne croyait pas complètement aux fantômes ni aux âmes."
+          },
+          "tokens": [
+            {
+              "text": "Beatriz",
+              "normalized": "beatriz",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Beatriz",
+                "fr": "Beatriz",
+                "es": "Beatriz"
+              },
+              "id": "b1.s20.t1",
+              "startMs": 89750,
+              "endMs": 90140
+            },
+            {
+              "text": "sonreía",
+              "normalized": "sonreía",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "was smiling",
+                "fr": "souriait",
+                "es": "sonreía"
+              },
+              "id": "b1.s20.t2",
+              "startMs": 90140,
+              "endMs": 90800
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s20.t3"
+            },
+            {
+              "text": "pero",
+              "normalized": "pero",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "but",
+                "fr": "mais",
+                "es": "pero"
+              },
+              "id": "b1.s20.t4",
+              "startMs": 90800,
+              "endMs": 90810
+            },
+            {
+              "text": "no",
+              "normalized": "no",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "not",
+                "fr": "ne ... pas",
+                "es": "no"
+              },
+              "id": "b1.s20.t5",
+              "startMs": 91100,
+              "endMs": 91190
+            },
+            {
+              "text": "creía",
+              "normalized": "creía",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "believed",
+                "fr": "croyait",
+                "es": "creía"
+              },
+              "id": "b1.s20.t6",
+              "startMs": 91190,
+              "endMs": 91590
+            },
+            {
+              "text": "completamente",
+              "normalized": "completamente",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "completely",
+                "fr": "complètement",
+                "es": "completamente"
+              },
+              "id": "b1.s20.t7",
+              "startMs": 91590,
+              "endMs": 92460
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s20.t8",
+              "startMs": 92460,
+              "endMs": 92520
+            },
+            {
+              "text": "fantasmas",
+              "normalized": "fantasmas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "ghosts",
+                "fr": "fantômes",
+                "es": "fantasmas"
+              },
+              "id": "b1.s20.t9",
+              "startMs": 92600,
+              "endMs": 93190
+            },
+            {
+              "text": "ni",
+              "normalized": "ni",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "nor",
+                "fr": "ni",
+                "es": "ni"
+              },
+              "id": "b1.s20.t10",
+              "startMs": 93190,
+              "endMs": 93320
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s20.t11",
+              "startMs": 93320,
+              "endMs": 93450
+            },
+            {
+              "text": "almas",
+              "normalized": "almas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "souls",
+                "fr": "âmes",
+                "es": "almas"
+              },
+              "id": "b1.s20.t12",
+              "startMs": 93450,
+              "endMs": 94030
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s20.t13"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

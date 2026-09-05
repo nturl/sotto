@@ -57,6 +57,13 @@ createServer((req, res) => {
     send(res, filePath);
     return;
   }
+  // Paths that look like files (have an extension) 404 instead of falling
+  // back to the shell, so a wrong asset URL is visible rather than cached as HTML.
+  if (path.extname(pathname)) {
+    res.writeHead(404, { 'content-type': 'text/plain; charset=utf-8' });
+    res.end('not found');
+    return;
+  }
   send(res, path.join(dist, 'index.html'));
 }).listen(port, () => {
   console.log(`serve-static: ${dist} on http://localhost:${port}`);

@@ -1,0 +1,2090 @@
+{
+ "schemaVersion": 1,
+ "bookId": "fr-cendrillon",
+ "contentLocale": "fr-FR",
+ "title": "Cendrillon",
+ "author": "Charles Perrault",
+ "sourceEdition": "Cendrillon, in Histoires ou Contes du temps passé (1697), Project Gutenberg ebook 20972",
+ "sourceUrl": "https://www.gutenberg.org/ebooks/20972",
+ "sourceJurisdiction": "Public domain worldwide (Charles Perrault died 1703)",
+ "adaptationEditor": "Sotto contributors (AI first draft, unreviewed)",
+ "reviewStatus": "draft",
+ "level": "A1",
+ "categories": [
+  "tales"
+ ],
+ "estimatedMinutes": 6,
+ "localizedTitles": {
+  "en": "Cendrillon",
+  "fr": "Cendrillon",
+  "es": "Cenicienta"
+ },
+ "premise": {
+  "en": "A kind girl is treated cruelly by her stepmother and stepsisters, until a fairy godmother changes everything for one magical night.",
+  "fr": "Une jeune fille gentille est traitée cruellement par sa belle-mère et ses belles-sœurs, jusqu'à ce qu'une fée marraine change tout pour une seule nuit magique.",
+  "es": "Una chica amable es tratada cruelmente por su madrastra y sus hermanastros, hasta que una hada madrina lo cambia todo durante una noche mágica."
+ },
+ "summary": {
+  "en": "Forced into housework by her stepmother, Cendrillon gets a magical night at the royal ball thanks to her fairy godmother. When the spell breaks at midnight, a lost glass slipper is all the prince has to find her again.",
+  "fr": "Contrainte aux travaux ménagers par sa belle-mère, Cendrillon profite d'une nuit magique au bal royal grâce à sa fée marraine. Lorsque le sortilège se brise à minuit, une pantoufle de verre perdue est tout ce que le prince a pour la retrouver.",
+  "es": "Obligada a hacer las tareas domésticas por su madrastra, Cenicienta disfruta de una noche mágica en el baile real gracias a su hada madrina. Cuando el hechizo se rompe a medianoche, una zapatilla de cristal perdida es todo lo que el príncipe tiene para volver a encontrarla."
+ },
+ "contentWarning": null,
+ "tutorNotes": {
+  "pronunciation": "Practice the French silent final consonants in words like « bal », « prince », and « verre »; listen for liaison in phrases like « les invités ».",
+  "grammar": "This adaptation stays in the present tense throughout to keep the story accessible at A1. Notice reflexive verbs such as « s'assoit » and « se marient ».",
+  "culture": "This retelling follows Charles Perrault's 1697 version of Cinderella, the source of the now-famous fairy godmother, pumpkin carriage, and glass slippers.",
+  "commonErrors": "Learners often confuse « belle-mère » (stepmother) with « grand-mère » (grandmother), and may forget that « minuit » (midnight) is masculine."
+ },
+ "vocabulary": [
+  {
+   "word": "belle-mère",
+   "gloss": {
+    "en": "stepmother",
+    "fr": "belle-mère",
+    "es": "madrastra"
+   }
+  },
+  {
+   "word": "demi-sœurs",
+   "gloss": {
+    "en": "stepsisters",
+    "fr": "demi-sœurs",
+    "es": "hermanastras"
+   }
+  },
+  {
+   "word": "citrouille",
+   "gloss": {
+    "en": "pumpkin",
+    "fr": "citrouille",
+    "es": "calabaza"
+   }
+  },
+  {
+   "word": "baguette",
+   "gloss": {
+    "en": "magic wand",
+    "fr": "baguette",
+    "es": "varita"
+   }
+  },
+  {
+   "word": "carrosse",
+   "gloss": {
+    "en": "carriage",
+    "fr": "carrosse",
+    "es": "carroza"
+   }
+  },
+  {
+   "word": "pantoufle",
+   "gloss": {
+    "en": "slipper",
+    "fr": "pantoufle",
+    "es": "zapatilla"
+   }
+  },
+  {
+   "word": "minuit",
+   "gloss": {
+    "en": "midnight",
+    "fr": "minuit",
+    "es": "medianoche"
+   }
+  },
+  {
+   "word": "marraine",
+   "gloss": {
+    "en": "godmother",
+    "fr": "marraine",
+    "es": "madrina"
+   }
+  },
+  {
+   "word": "royaume",
+   "gloss": {
+    "en": "kingdom",
+    "fr": "royaume",
+    "es": "reino"
+   }
+  },
+  {
+   "word": "cendre",
+   "gloss": {
+    "en": "ash",
+    "fr": "cendre",
+    "es": "ceniza"
+   }
+  },
+  {
+   "word": "verre",
+   "gloss": {
+    "en": "glass",
+    "fr": "verre",
+    "es": "vidrio"
+   }
+  },
+  {
+   "word": "jalouses",
+   "gloss": {
+    "en": "jealous",
+    "fr": "jalouses",
+    "es": "celosas"
+   }
+  },
+  {
+   "word": "bal",
+   "gloss": {
+    "en": "ball (dance)",
+    "fr": "bal",
+    "es": "baile"
+   }
+  },
+  {
+   "word": "château",
+   "gloss": {
+    "en": "castle",
+    "fr": "château",
+    "es": "castillo"
+   }
+  },
+  {
+   "word": "fée",
+   "gloss": {
+    "en": "fairy",
+    "fr": "fée",
+    "es": "hada"
+   }
+  },
+  {
+   "word": "prince",
+   "gloss": {
+    "en": "prince",
+    "fr": "prince",
+    "es": "príncipe"
+   }
+  }
+ ],
+ "comprehension": [
+  {
+   "question": {
+    "en": "Why does everyone call the girl \"Cendrillon\"?",
+    "fr": "Pourquoi tout le monde appelle-t-il la fille « Cendrillon » ?",
+    "es": "¿Por qué todos llaman a la chica \"Cenicienta\"?"
+   }
+  },
+  {
+   "question": {
+    "en": "What does the fairy godmother turn the pumpkin into?",
+    "fr": "Que transforme la fée marraine le citrouille ?",
+    "es": "¿En qué convierte la hada madrina la calabaza?"
+   }
+  },
+  {
+   "question": {
+    "en": "What must Cendrillon do before midnight?",
+    "fr": "Que doit faire Cendrillon avant minuit ?",
+    "es": "¿Qué debe hacer Cenicienta antes de medianoche?"
+   }
+  },
+  {
+   "question": {
+    "en": "What does Cendrillon lose while running down the stairs?",
+    "fr": "Que perd Cendrillon en courant dans l'escalier ?",
+    "es": "¿Qué pierde Cenicienta mientras corre por las escaleras?"
+   }
+  },
+  {
+   "question": {
+    "en": "How does the prince find Cendrillon again?",
+    "fr": "Comment le prince retrouve-t-il Cendrillon ?",
+    "es": "¿Cómo encuentra el príncipe a Cenicienta de nuevo?"
+   }
+  }
+ ],
+ "license": {
+  "spdx": "CC-BY-SA-4.0",
+  "attribution": "Sotto contributors; based on the public-domain original by Charles Perrault"
+ },
+ "chapters": [
+  {
+   "title": "Chapitre 1 — Une vie difficile",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "Une jeune fille habite avec son père et sa belle-mère.",
+       "translation": {
+        "fr": "Une jeune fille habite avec son père et sa belle-mère.",
+        "en": "A young girl lives with her father and her stepmother.",
+        "es": "Una joven vive con su padre y su madrastra."
+       }
+      },
+      {
+       "text": "Sa belle-mère a deux filles, dures et jalouses.",
+       "translation": {
+        "fr": "Sa belle-mère a deux filles, dures et jalouses.",
+        "en": "Her stepmother has two daughters, who are harsh and jealous.",
+        "es": "Su madrastra tiene dos hijas, duras y celosas."
+       }
+      },
+      {
+       "text": "La mère de la jeune fille est morte il y a longtemps.",
+       "translation": {
+        "fr": "La mère de la jeune fille est morte il y a longtemps.",
+        "en": "The young girl's mother died a long time ago.",
+        "es": "La madre de la joven murió hace mucho tiempo."
+       }
+      },
+      {
+       "text": "La belle-mère n'aime pas la jeune fille.",
+       "translation": {
+        "fr": "La belle-mère n'aime pas la jeune fille.",
+        "en": "The stepmother does not like the young girl.",
+        "es": "La madrastra no le gusta la joven."
+       }
+      },
+      {
+       "text": "Elle donne tout le travail de la maison à la jeune fille.",
+       "translation": {
+        "fr": "Elle donne tout le travail de la maison à la jeune fille.",
+        "en": "She gives all the housework to the young girl.",
+        "es": "Ella le da todo el trabajo de la casa a la joven."
+       }
+      },
+      {
+       "text": "La jeune fille lave, nettoie et fait la cuisine toute la journée.",
+       "translation": {
+        "fr": "La jeune fille lave, nettoie et fait la cuisine toute la journée.",
+        "en": "The young girl washes, cleans, and cooks all day long.",
+        "es": "La joven lava, limpia y cocina todo el día."
+       }
+      },
+      {
+       "text": "Le soir, elle est fatiguée et elle s'assoit près du feu.",
+       "translation": {
+        "fr": "Le soir, elle est fatiguée et elle s'assoit près du feu.",
+        "en": "In the evening, she is tired and sits by the fire.",
+        "es": "Por la noche, está cansada y se sienta junto al fuego."
+       }
+      },
+      {
+       "text": "Elle dort souvent dans la cendre, alors on l'appelle Cendrillon.",
+       "translation": {
+        "fr": "Elle dort souvent dans la cendre, alors on l'appelle Cendrillon.",
+        "en": "She often sleeps in the ashes, so they call her Cinderella.",
+        "es": "A menudo duerme en las cenizas, por eso la llaman Cenicienta."
+       }
+      },
+      {
+       "text": "Ses deux demi-sœurs portent de belles robes et de beaux bijoux.",
+       "translation": {
+        "fr": "Ses deux demi-sœurs portent de belles robes et de beaux bijoux.",
+        "en": "Her two stepsisters wear beautiful dresses and fine jewelry.",
+        "es": "Sus dos hermanastras llevan vestidos bonitos y joyas hermosas."
+       }
+      },
+      {
+       "text": "Cendrillon porte de vieux vêtements simples.",
+       "translation": {
+        "fr": "Cendrillon porte de vieux vêtements simples.",
+        "en": "Cinderella wears old, simple clothes.",
+        "es": "Cenicienta lleva ropa vieja y sencilla."
+       }
+      },
+      {
+       "text": "Malgré tout, Cendrillon reste douce et gentille.",
+       "translation": {
+        "fr": "Malgré tout, Cendrillon reste douce et gentille.",
+        "en": "Despite everything, Cinderella remains sweet and kind.",
+        "es": "A pesar de todo, Cenicienta sigue siendo dulce y amable."
+       }
+      },
+      {
+       "text": "Un jour, le fils du roi organise un grand bal.",
+       "translation": {
+        "fr": "Un jour, le fils du roi organise un grand bal.",
+        "en": "One day, the king's son organizes a grand ball.",
+        "es": "Un día, el hijo del rey organiza un gran baile."
+       }
+      },
+      {
+       "text": "Le prince invite toutes les jeunes filles du royaume.",
+       "translation": {
+        "fr": "Le prince invite toutes les jeunes filles du royaume.",
+        "en": "The prince invites all the young girls in the kingdom.",
+        "es": "El príncipe invita a todas las jóvenes del reino."
+       }
+      },
+      {
+       "text": "Les deux sœurs sont très contentes et préparent leurs robes.",
+       "translation": {
+        "fr": "Les deux sœurs sont très contentes et préparent leurs robes.",
+        "en": "The two sisters are very happy and prepare their dresses.",
+        "es": "Las dos hermanas están muy contentas y preparan sus vestidos."
+       }
+      },
+      {
+       "text": "Cendrillon aide ses sœurs à se préparer pour le bal.",
+       "translation": {
+        "fr": "Cendrillon aide ses sœurs à se préparer pour le bal.",
+        "en": "Cinderella helps her sisters get ready for the ball.",
+        "es": "Cenicienta ayuda a sus hermanas a prepararse para el baile."
+       }
+      },
+      {
+       "text": "« Tu ne viens pas avec nous », dit une sœur méchamment.",
+       "translation": {
+        "fr": "« Tu ne viens pas avec nous », dit une sœur méchamment.",
+        "en": "\"You are not coming with us,\" says one sister maliciously.",
+        "es": "\"No vienes con nosotros\", dice una hermana con malicia."
+       }
+      },
+      {
+       "text": "Cendrillon reste seule à la maison et elle pleure.",
+       "translation": {
+        "fr": "Cendrillon reste seule à la maison et elle pleure.",
+        "en": "Cinderella stays alone at home and cries.",
+        "es": "Cenicienta se queda sola en casa y llora."
+       }
+      },
+      {
+       "text": "Cendrillon rêve parfois d'une vie meilleure et plus heureuse.",
+       "translation": {
+        "fr": "Cendrillon rêve parfois d'une vie meilleure et plus heureuse.",
+        "en": "Cinderella sometimes dreams of a better and happier life.",
+        "es": "Cenicienta a veces sueña con una vida mejor y más feliz."
+       }
+      },
+      {
+       "text": "Elle ne se plaint jamais devant sa belle-mère sévère.",
+       "translation": {
+        "fr": "Elle ne se plaint jamais devant sa belle-mère sévère.",
+        "en": "She never complains in front of her strict stepmother.",
+        "es": "Ella nunca se queja delante de su estricta madrastra."
+       }
+      },
+      {
+       "text": "Soudain, une lumière brillante apparaît dans la cuisine.",
+       "translation": {
+        "fr": "Soudain, une lumière brillante apparaît dans la cuisine.",
+        "en": "Suddenly, a bright light appears in the kitchen.",
+        "es": "De repente, aparece una luz brillante en la cocina."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Chapitre 2 — La fée et le bal",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "Une fée, la marraine de Cendrillon, arrive dans la cuisine.",
+       "translation": {
+        "fr": "Une fée, la marraine de Cendrillon, arrive dans la cuisine.",
+        "en": "A fairy, Cinderella's godmother, arrives in the kitchen.",
+        "es": "Una hada, la madrina de Cenicienta, llega a la cocina."
+       }
+      },
+      {
+       "text": "« Pourquoi pleures-tu, mon enfant ? » demande la fée.",
+       "translation": {
+        "fr": "« Pourquoi pleures-tu, mon enfant ? » demande la fée.",
+        "en": "\"Why are you crying, my child?\" asks the fairy.",
+        "es": "\"¿Por qué lloras, mi niño?\" pregunta la hada."
+       }
+      },
+      {
+       "text": "« Je veux aller au bal, mais je n'ai rien à porter », répond Cendrillon.",
+       "translation": {
+        "fr": "« Je veux aller au bal, mais je n'ai rien à porter », répond Cendrillon.",
+        "en": "\"I want to go to the ball, but I have nothing to wear,\" replies Cinderella.",
+        "es": "\"Quiero ir al baile, pero no tengo nada que ponerme,\" responde Cenicienta."
+       }
+      },
+      {
+       "text": "La fée sourit et dit : « Va chercher une citrouille. »",
+       "translation": {
+        "fr": "La fée sourit et dit : « Va chercher une citrouille. »",
+        "en": "The fairy smiles and says: \"Go get a pumpkin.\"",
+        "es": "La hada sonríe y dice: \"Ve a buscar una calabaza.\""
+       }
+      },
+      {
+       "text": "Cendrillon apporte une grosse citrouille du jardin.",
+       "translation": {
+        "fr": "Cendrillon apporte une grosse citrouille du jardin.",
+        "en": "Cinderella brings a large pumpkin from the garden.",
+        "es": "Cenicienta trae una gran calabaza del jardín."
+       }
+      },
+      {
+       "text": "La fée touche la citrouille avec sa baguette magique.",
+       "translation": {
+        "fr": "La fée touche la citrouille avec sa baguette magique.",
+        "en": "The fairy touches the pumpkin with her magic wand.",
+        "es": "La hada toca la calabaza con su varita mágica."
+       }
+      },
+      {
+       "text": "La citrouille se transforme en un carrosse doré.",
+       "translation": {
+        "fr": "La citrouille se transforme en un carrosse doré.",
+        "en": "The pumpkin transforms into a golden carriage.",
+        "es": "La calabaza se transforma en un carruaje dorado."
+       }
+      },
+      {
+       "text": "La fée trouve six souris et les change en six chevaux blancs.",
+       "translation": {
+        "fr": "La fée trouve six souris et les change en six chevaux blancs.",
+        "en": "The fairy finds six mice and turns them into six white horses.",
+        "es": "La hada encuentra seis ratones y los convierte en seis caballos blancos."
+       }
+      },
+      {
+       "text": "Elle touche la robe simple de Cendrillon avec sa baguette.",
+       "translation": {
+        "fr": "Elle touche la robe simple de Cendrillon avec sa baguette.",
+        "en": "She touches Cinderella's simple dress with her wand.",
+        "es": "Ella toca el vestido sencillo de Cenicienta con su varita."
+       }
+      },
+      {
+       "text": "La robe devient une magnifique robe bleue.",
+       "translation": {
+        "fr": "La robe devient une magnifique robe bleue.",
+        "en": "The dress becomes a magnificent blue gown.",
+        "es": "El vestido se convierte en un magnífico vestido azul."
+       }
+      },
+      {
+       "text": "La fée donne à Cendrillon deux petites pantoufles de verre.",
+       "translation": {
+        "fr": "La fée donne à Cendrillon deux petites pantoufles de verre.",
+        "en": "The fairy gives Cinderella two little glass slippers.",
+        "es": "La hada le da a Cenicienta dos pequeñas zapatillas de cristal."
+       }
+      },
+      {
+       "text": "« Tu peux aller au bal maintenant », dit la fée.",
+       "translation": {
+        "fr": "« Tu peux aller au bal maintenant », dit la fée.",
+        "en": "\"You can go to the ball now,\" says the fairy.",
+        "es": "\"Ya puedes ir al baile,\" dice la hada."
+       }
+      },
+      {
+       "text": "« Mais tu dois rentrer avant minuit », ajoute-t-elle sérieusement.",
+       "translation": {
+        "fr": "« Mais tu dois rentrer avant minuit », ajoute-t-elle sérieusement.",
+        "en": "\"But you must return before midnight,\" she adds seriously.",
+        "es": "\"Pero debes volver antes de la medianoche,\" añade seriamente."
+       }
+      },
+      {
+       "text": "« Après minuit, la magie disparaît complètement. »",
+       "translation": {
+        "fr": "« Après minuit, la magie disparaît complètement. »",
+        "en": "\"After midnight, the magic disappears completely.\"",
+        "es": "\"Después de la medianoche, la magia desaparece por completo.\""
+       }
+      },
+      {
+       "text": "Cendrillon promet de rentrer à temps et elle part.",
+       "translation": {
+        "fr": "Cendrillon promet de rentrer à temps et elle part.",
+        "en": "Cinderella promises to return on time and she leaves.",
+        "es": "Cenicienta promete volver a tiempo y se marcha."
+       }
+      },
+      {
+       "text": "Les invités du bal portent des vêtements magnifiques et chers.",
+       "translation": {
+        "fr": "Les invités du bal portent des vêtements magnifiques et chers.",
+        "en": "The ball guests are wearing magnificent and expensive clothes.",
+        "es": "Los invitados del baile llevan ropa magnífica y cara."
+       }
+      },
+      {
+       "text": "La musique joue doucement pendant toute la soirée du bal.",
+       "translation": {
+        "fr": "La musique joue doucement pendant toute la soirée du bal.",
+        "en": "The music plays softly throughout the evening of the ball.",
+        "es": "La música suena suavemente durante toda la velada del baile."
+       }
+      },
+      {
+       "text": "Au bal, tout le monde regarde la belle inconnue.",
+       "translation": {
+        "fr": "Au bal, tout le monde regarde la belle inconnue.",
+        "en": "At the ball, everyone looks at the beautiful stranger.",
+        "es": "En el baile, todos miran a la hermosa desconocida."
+       }
+      },
+      {
+       "text": "Le prince danse seulement avec elle toute la soirée.",
+       "translation": {
+        "fr": "Le prince danse seulement avec elle toute la soirée.",
+        "en": "The prince dances only with her all evening.",
+        "es": "El príncipe baila solo con ella toda la noche."
+       }
+      },
+      {
+       "text": "Personne ne reconnaît la pauvre Cendrillon dans sa belle robe.",
+       "translation": {
+        "fr": "Personne ne reconnaît la pauvre Cendrillon dans sa belle robe.",
+        "en": "No one recognizes poor Cinderella in her beautiful dress.",
+        "es": "Nadie reconoce a la pobre Cenicienta en su hermoso vestido."
+       }
+      },
+      {
+       "text": "Ses sœurs, jalouses, ne la reconnaissent pas non plus.",
+       "translation": {
+        "fr": "Ses sœurs, jalouses, ne la reconnaissent pas non plus.",
+        "en": "Her jealous sisters do not recognize her either.",
+        "es": "Sus hermanas, celosas, tampoco la reconocen."
+       }
+      },
+      {
+       "text": "Cendrillon oublie l'heure, tant elle est heureuse.",
+       "translation": {
+        "fr": "Cendrillon oublie l'heure, tant elle est heureuse.",
+        "en": "Cinderella forgets the time, so happy is she.",
+        "es": "Cenicienta olvida la hora, tan feliz está."
+       }
+      },
+      {
+       "text": "Soudain, une horloge sonne minuit dans le grand salon.",
+       "translation": {
+        "fr": "Soudain, une horloge sonne minuit dans le grand salon.",
+        "en": "Suddenly, a clock strikes midnight in the large living room.",
+        "es": "De repente, un reloj da las doce en el gran salón."
+       }
+      },
+      {
+       "text": "Cendrillon se lève vite et court vers la porte.",
+       "translation": {
+        "fr": "Cendrillon se lève vite et court vers la porte.",
+        "en": "Cinderella gets up quickly and runs towards the door.",
+        "es": "Cenicienta se levanta rápidamente y corre hacia la puerta."
+       }
+      },
+      {
+       "text": "Dans sa hâte, elle perd une pantoufle de verre sur l'escalier.",
+       "translation": {
+        "fr": "Dans sa hâte, elle perd une pantoufle de verre sur l'escalier.",
+        "en": "In her haste, she loses a glass slipper on the stairs.",
+        "es": "En su prisa, pierde una zapatilla de cristal en las escaleras."
+       }
+      },
+      {
+       "text": "Le prince ramasse la petite pantoufle mais ne peut pas la rattraper.",
+       "translation": {
+        "fr": "Le prince ramasse la petite pantoufle mais ne peut pas la rattraper.",
+        "en": "The prince picks up the little slipper but cannot catch her.",
+        "es": "El príncipe recoge la pequeña zapatilla pero no puede alcanzarla."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Chapitre 3 — La pantoufle perdue",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "Le lendemain, le prince cherche partout la femme mystérieuse.",
+       "translation": {
+        "fr": "Le lendemain, le prince cherche partout la femme mystérieuse.",
+        "en": "The next day, the prince searches everywhere for the mysterious woman.",
+        "es": "Al día siguiente, el príncipe busca por todas partes a la mujer misteriosa."
+       }
+      },
+      {
+       "text": "Il annonce : « Je vais épouser la fille qui porte cette pantoufle. »",
+       "translation": {
+        "fr": "Il annonce : « Je vais épouser la fille qui porte cette pantoufle. »",
+        "en": "He announces: \"I will marry the girl who fits this slipper.\"",
+        "es": "Anuncia: \"Me casaré con la chica que le quede bien este zapato.\""
+       }
+      },
+      {
+       "text": "Ses serviteurs visitent toutes les maisons du royaume.",
+       "translation": {
+        "fr": "Ses serviteurs visitent toutes les maisons du royaume.",
+        "en": "His servants visit every house in the kingdom.",
+        "es": "Sus sirvientes visitan todas las casas del reino."
+       }
+      },
+      {
+       "text": "Enfin, ils arrivent chez Cendrillon et ses sœurs.",
+       "translation": {
+        "fr": "Enfin, ils arrivent chez Cendrillon et ses sœurs.",
+        "en": "Finally, they arrive at Cinderella's and her sisters' house.",
+        "es": "Finalmente, llegan a la casa de Cenicienta y sus hermanas."
+       }
+      },
+      {
+       "text": "Les deux sœurs essaient la pantoufle, mais leurs pieds sont trop grands.",
+       "translation": {
+        "fr": "Les deux sœurs essaient la pantoufle, mais leurs pieds sont trop grands.",
+        "en": "The two sisters try on the slipper, but their feet are too big.",
+        "es": "Las dos hermanas prueban el zapato, pero sus pies son demasiado grandes."
+       }
+      },
+      {
+       "text": "« Laissez-moi essayer », dit doucement Cendrillon.",
+       "translation": {
+        "fr": "« Laissez-moi essayer », dit doucement Cendrillon.",
+        "en": "\"Let me try,\" says Cinderella softly.",
+        "es": "\"Déjenme probar,\" dice suavemente Cenicienta."
+       }
+      },
+      {
+       "text": "Ses sœurs rient, mais le serviteur accepte.",
+       "translation": {
+        "fr": "Ses sœurs rient, mais le serviteur accepte.",
+        "en": "Her sisters laugh, but the servant agrees.",
+        "es": "Sus hermanas se ríen, pero el sirviente acepta."
+       }
+      },
+      {
+       "text": "La pantoufle glisse parfaitement sur le pied de Cendrillon.",
+       "translation": {
+        "fr": "La pantoufle glisse parfaitement sur le pied de Cendrillon.",
+        "en": "The slipper slides perfectly onto Cinderella's foot.",
+        "es": "El zapato se desliza perfectamente en el pie de Cenicienta."
+       }
+      },
+      {
+       "text": "Cendrillon sort alors l'autre pantoufle de sa poche.",
+       "translation": {
+        "fr": "Cendrillon sort alors l'autre pantoufle de sa poche.",
+        "en": "Cinderella then takes out the other slipper from her pocket.",
+        "es": "Cenicienta saca entonces el otro zapato de su bolsillo."
+       }
+      },
+      {
+       "text": "Tout le monde reconnaît enfin la belle fille du bal.",
+       "translation": {
+        "fr": "Tout le monde reconnaît enfin la belle fille du bal.",
+        "en": "Everyone finally recognizes the beautiful girl from the ball.",
+        "es": "Todos reconocen finalmente a la hermosa chica del baile."
+       }
+      },
+      {
+       "text": "Le prince arrive et reconnaît immédiatement Cendrillon.",
+       "translation": {
+        "fr": "Le prince arrive et reconnaît immédiatement Cendrillon.",
+        "en": "The prince arrives and immediately recognizes Cinderella.",
+        "es": "El príncipe llega y reconoce inmediatamente a Cenicienta."
+       }
+      },
+      {
+       "text": "Il tombe amoureux d'elle une seconde fois.",
+       "translation": {
+        "fr": "Il tombe amoureux d'elle une seconde fois.",
+        "en": "He falls in love with her a second time.",
+        "es": "Se enamora de ella por segunda vez."
+       }
+      },
+      {
+       "text": "Cendrillon pardonne à sa belle-mère et à ses sœurs.",
+       "translation": {
+        "fr": "Cendrillon pardonne à sa belle-mère et à ses sœurs.",
+        "en": "Cinderella forgives her stepmother and her sisters.",
+        "es": "Cenicienta perdona a su madrastra y a sus hermanas."
+       }
+      },
+      {
+       "text": "Le prince et Cendrillon se marient bientôt au château.",
+       "translation": {
+        "fr": "Le prince et Cendrillon se marient bientôt au château.",
+        "en": "The prince and Cinderella marry soon at the castle.",
+        "es": "El príncipe y Cenicienta se casan pronto en el castillo."
+       }
+      },
+      {
+       "text": "Les gens du royaume parlent de cette histoire extraordinaire pendant longtemps.",
+       "translation": {
+        "fr": "Les gens du royaume parlent de cette histoire extraordinaire pendant longtemps.",
+        "en": "The people of the kingdom talk about this extraordinary story for a long time.",
+        "es": "La gente del reino habla de esta historia extraordinaria durante mucho tiempo."
+       }
+      },
+      {
+       "text": "Cendrillon devient une princesse aimée par tout le royaume.",
+       "translation": {
+        "fr": "Cendrillon devient une princesse aimée par tout le royaume.",
+        "en": "Cinderella becomes a princess loved by the entire kingdom.",
+        "es": "Cenicienta se convierte en una princesa amada por todo el reino."
+       }
+      },
+      {
+       "text": "Ils vivent heureux ensemble pendant de nombreuses années.",
+       "translation": {
+        "fr": "Ils vivent heureux ensemble pendant de nombreuses années.",
+        "en": "They live happily together for many years.",
+        "es": "Viven felices juntos durante muchos años."
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "glossary": {
+  "une": {
+   "en": "a",
+   "fr": "une",
+   "es": "una"
+  },
+  "jeune": {
+   "en": "young",
+   "fr": "jeune",
+   "es": "joven"
+  },
+  "fille": {
+   "en": "girl",
+   "fr": "fille",
+   "es": "niña"
+  },
+  "habite": {
+   "en": "lives",
+   "fr": "habite",
+   "es": "vive"
+  },
+  "avec": {
+   "en": "with",
+   "fr": "avec",
+   "es": "con"
+  },
+  "son": {
+   "en": "her",
+   "fr": "son",
+   "es": "su"
+  },
+  "père": {
+   "en": "father",
+   "fr": "père",
+   "es": "padre"
+  },
+  "et": {
+   "en": "and",
+   "fr": "et",
+   "es": "y"
+  },
+  "sa": {
+   "en": "her",
+   "fr": "sa",
+   "es": "su"
+  },
+  "belle-mère": {
+   "en": "stepmother",
+   "fr": "belle-mère",
+   "es": "madrastra"
+  },
+  "a": {
+   "en": "has",
+   "fr": "a",
+   "es": "tiene"
+  },
+  "deux": {
+   "en": "two",
+   "fr": "deux",
+   "es": "dos"
+  },
+  "filles": {
+   "en": "girls",
+   "fr": "filles",
+   "es": "niñas"
+  },
+  "dures": {
+   "en": "hard",
+   "fr": "dures",
+   "es": "duras"
+  },
+  "jalouses": {
+   "en": "jealous",
+   "fr": "jalouses",
+   "es": "celosas"
+  },
+  "la": {
+   "en": "the",
+   "fr": "la",
+   "es": "la"
+  },
+  "mère": {
+   "en": "mother",
+   "fr": "mère",
+   "es": "madre"
+  },
+  "de": {
+   "en": "of",
+   "fr": "de",
+   "es": "de"
+  },
+  "est": {
+   "en": "is",
+   "fr": "est",
+   "es": "es"
+  },
+  "morte": {
+   "en": "dead",
+   "fr": "morte",
+   "es": "muerta"
+  },
+  "il": {
+   "en": "it",
+   "fr": "il",
+   "es": "él"
+  },
+  "y": {
+   "en": "there",
+   "fr": "y",
+   "es": "hay"
+  },
+  "longtemps": {
+   "en": "a long time",
+   "fr": "longtemps",
+   "es": "mucho tiempo"
+  },
+  "n'": {
+   "en": "not",
+   "fr": "n'",
+   "es": "no"
+  },
+  "aime": {
+   "en": "loves",
+   "fr": "aime",
+   "es": "ama"
+  },
+  "pas": {
+   "en": "not",
+   "fr": "pas",
+   "es": "no"
+  },
+  "elle": {
+   "en": "she",
+   "fr": "elle",
+   "es": "ella"
+  },
+  "donne": {
+   "en": "gives",
+   "fr": "donne",
+   "es": "da"
+  },
+  "tout": {
+   "en": "all",
+   "fr": "tout",
+   "es": "todo"
+  },
+  "le": {
+   "en": "the",
+   "fr": "le",
+   "es": "el"
+  },
+  "travail": {
+   "en": "work",
+   "fr": "travail",
+   "es": "trabajo"
+  },
+  "maison": {
+   "en": "house",
+   "fr": "maison",
+   "es": "casa"
+  },
+  "à": {
+   "en": "to",
+   "fr": "à",
+   "es": "a"
+  },
+  "lave": {
+   "en": "washes",
+   "fr": "lave",
+   "es": "lava"
+  },
+  "nettoie": {
+   "en": "cleans",
+   "fr": "nettoie",
+   "es": "limpia"
+  },
+  "fait": {
+   "en": "does",
+   "fr": "fait",
+   "es": "hace"
+  },
+  "cuisine": {
+   "en": "cooking",
+   "fr": "cuisine",
+   "es": "cocina"
+  },
+  "toute": {
+   "en": "all",
+   "fr": "toute",
+   "es": "toda"
+  },
+  "journée": {
+   "en": "day",
+   "fr": "journée",
+   "es": "día"
+  },
+  "soir": {
+   "en": "evening",
+   "fr": "soir",
+   "es": "tarde"
+  },
+  "fatiguée": {
+   "en": "tired",
+   "fr": "fatiguée",
+   "es": "cansada"
+  },
+  "s'": {
+   "en": "reflexive pronoun (herself)",
+   "fr": "se",
+   "es": "se"
+  },
+  "assoit": {
+   "en": "sits",
+   "fr": "s'assoit",
+   "es": "se sienta"
+  },
+  "près": {
+   "en": "near",
+   "fr": "près",
+   "es": "cerca"
+  },
+  "du": {
+   "en": "of the / by the",
+   "fr": "du",
+   "es": "del"
+  },
+  "feu": {
+   "en": "fire",
+   "fr": "feu",
+   "es": "fuego"
+  },
+  "dort": {
+   "en": "sleeps",
+   "fr": "dort",
+   "es": "duerme"
+  },
+  "souvent": {
+   "en": "often",
+   "fr": "souvent",
+   "es": "a menudo"
+  },
+  "dans": {
+   "en": "in",
+   "fr": "dans",
+   "es": "en"
+  },
+  "cendre": {
+   "en": "ash",
+   "fr": "cendre",
+   "es": "ceniza"
+  },
+  "alors": {
+   "en": "so / then",
+   "fr": "alors",
+   "es": "entonces"
+  },
+  "on": {
+   "en": "one / people / they",
+   "fr": "on",
+   "es": "uno / la gente"
+  },
+  "l'": {
+   "en": "her / it",
+   "fr": "la / l'",
+   "es": "la"
+  },
+  "appelle": {
+   "en": "calls",
+   "fr": "appelle",
+   "es": "llama"
+  },
+  "cendrillon": {
+   "en": "Cinderella",
+   "fr": "Cendrillon",
+   "es": "Cenicienta"
+  },
+  "ses": {
+   "en": "her",
+   "fr": "ses",
+   "es": "sus"
+  },
+  "demi-sœurs": {
+   "en": "stepsisters",
+   "fr": "demi-sœurs",
+   "es": "hermanastros"
+  },
+  "portent": {
+   "en": "wear",
+   "fr": "portent",
+   "es": "llevan"
+  },
+  "belles": {
+   "en": "beautiful",
+   "fr": "belles",
+   "es": "hermosas"
+  },
+  "robes": {
+   "en": "dresses",
+   "fr": "robes",
+   "es": "vestidos"
+  },
+  "beaux": {
+   "en": "beautiful",
+   "fr": "beaux",
+   "es": "hermosos"
+  },
+  "bijoux": {
+   "en": "jewelry",
+   "fr": "bijoux",
+   "es": "joyas"
+  },
+  "porte": {
+   "en": "wears",
+   "fr": "porte",
+   "es": "lleva"
+  },
+  "vieux": {
+   "en": "old",
+   "fr": "vieux",
+   "es": "viejos"
+  },
+  "vêtements": {
+   "en": "clothes",
+   "fr": "vêtements",
+   "es": "ropa"
+  },
+  "simples": {
+   "en": "simple",
+   "fr": "simples",
+   "es": "simples"
+  },
+  "malgré": {
+   "en": "despite",
+   "fr": "malgré",
+   "es": "a pesar de"
+  },
+  "reste": {
+   "en": "remains",
+   "fr": "reste",
+   "es": "permanece"
+  },
+  "douce": {
+   "en": "sweet / gentle",
+   "fr": "douce",
+   "es": "dulce"
+  },
+  "gentille": {
+   "en": "kind",
+   "fr": "gentille",
+   "es": "amable"
+  },
+  "un": {
+   "en": "a / one",
+   "fr": "un",
+   "es": "un"
+  },
+  "jour": {
+   "en": "day",
+   "fr": "jour",
+   "es": "día"
+  },
+  "fils": {
+   "en": "son",
+   "fr": "fils",
+   "es": "hijo"
+  },
+  "roi": {
+   "en": "king",
+   "fr": "roi",
+   "es": "rey"
+  },
+  "organise": {
+   "en": "organizes",
+   "fr": "organise",
+   "es": "organiza"
+  },
+  "grand": {
+   "en": "big / grand",
+   "fr": "grand",
+   "es": "gran"
+  },
+  "bal": {
+   "en": "ball",
+   "fr": "bal",
+   "es": "baile"
+  },
+  "prince": {
+   "en": "prince",
+   "fr": "prince",
+   "es": "príncipe"
+  },
+  "invite": {
+   "en": "invites",
+   "fr": "invite",
+   "es": "invita"
+  },
+  "toutes": {
+   "en": "all",
+   "fr": "toutes",
+   "es": "todas"
+  },
+  "les": {
+   "en": "the",
+   "fr": "les",
+   "es": "las"
+  },
+  "jeunes": {
+   "en": "young",
+   "fr": "jeunes",
+   "es": "jóvenes"
+  },
+  "royaume": {
+   "en": "kingdom",
+   "fr": "royaume",
+   "es": "reino"
+  },
+  "sœurs": {
+   "en": "sisters",
+   "fr": "sœurs",
+   "es": "hermanas"
+  },
+  "sont": {
+   "en": "are",
+   "fr": "sont",
+   "es": "son"
+  },
+  "très": {
+   "en": "very",
+   "fr": "très",
+   "es": "muy"
+  },
+  "contentes": {
+   "en": "happy",
+   "fr": "contentes",
+   "es": "contentas"
+  },
+  "préparent": {
+   "en": "prepare",
+   "fr": "préparent",
+   "es": "preparan"
+  },
+  "leurs": {
+   "en": "their",
+   "fr": "leurs",
+   "es": "sus"
+  },
+  "aide": {
+   "en": "helps",
+   "fr": "aide",
+   "es": "ayuda"
+  },
+  "se": {
+   "en": "themselves",
+   "fr": "se",
+   "es": "se"
+  },
+  "préparer": {
+   "en": "to prepare",
+   "fr": "préparer",
+   "es": "prepararse"
+  },
+  "pour": {
+   "en": "for",
+   "fr": "pour",
+   "es": "para"
+  },
+  "tu": {
+   "en": "you",
+   "fr": "tu",
+   "es": "tú"
+  },
+  "ne": {
+   "en": "not",
+   "fr": "ne",
+   "es": "no"
+  },
+  "viens": {
+   "en": "come",
+   "fr": "viens",
+   "es": "vienes"
+  },
+  "nous": {
+   "en": "us",
+   "fr": "nous",
+   "es": "nos"
+  },
+  "dit": {
+   "en": "says",
+   "fr": "dit",
+   "es": "dice"
+  },
+  "sœur": {
+   "en": "sister",
+   "fr": "sœur",
+   "es": "hermana"
+  },
+  "méchamment": {
+   "en": "meanly",
+   "fr": "méchamment",
+   "es": "malvadamente"
+  },
+  "seule": {
+   "en": "alone",
+   "fr": "seule",
+   "es": "sola"
+  },
+  "pleure": {
+   "en": "cries",
+   "fr": "pleure",
+   "es": "llora"
+  },
+  "rêve": {
+   "en": "dreams",
+   "fr": "rêve",
+   "es": "sueña"
+  },
+  "parfois": {
+   "en": "sometimes",
+   "fr": "parfois",
+   "es": "a veces"
+  },
+  "d'": {
+   "en": "of",
+   "fr": "d'",
+   "es": "de"
+  },
+  "vie": {
+   "en": "life",
+   "fr": "vie",
+   "es": "vida"
+  },
+  "meilleure": {
+   "en": "better",
+   "fr": "meilleure",
+   "es": "mejor"
+  },
+  "plus": {
+   "en": "more",
+   "fr": "plus",
+   "es": "más"
+  },
+  "heureuse": {
+   "en": "happy",
+   "fr": "heureuse",
+   "es": "feliz"
+  },
+  "plaint": {
+   "en": "complains",
+   "fr": "plaint",
+   "es": "se queja"
+  },
+  "jamais": {
+   "en": "never",
+   "fr": "jamais",
+   "es": "nunca"
+  },
+  "devant": {
+   "en": "in front of",
+   "fr": "devant",
+   "es": "delante de"
+  },
+  "sévère": {
+   "en": "strict",
+   "fr": "sévère",
+   "es": "severa"
+  },
+  "soudain": {
+   "en": "suddenly",
+   "fr": "soudain",
+   "es": "de repente"
+  },
+  "lumière": {
+   "en": "light",
+   "fr": "lumière",
+   "es": "luz"
+  },
+  "brillante": {
+   "en": "bright",
+   "fr": "brillante",
+   "es": "brillante"
+  },
+  "apparaît": {
+   "en": "appears",
+   "fr": "apparaît",
+   "es": "aparece"
+  },
+  "fée": {
+   "en": "fairy",
+   "fr": "fée",
+   "es": "hada"
+  },
+  "marraine": {
+   "en": "godmother",
+   "fr": "marraine",
+   "es": "madrina"
+  },
+  "arrive": {
+   "en": "arrives",
+   "fr": "arrive",
+   "es": "llega"
+  },
+  "pourquoi": {
+   "en": "why",
+   "fr": "pourquoi",
+   "es": "por qué"
+  },
+  "pleures-tu": {
+   "en": "are you crying",
+   "fr": "pleures-tu",
+   "es": "estás llorando"
+  },
+  "mon": {
+   "en": "my",
+   "fr": "mon",
+   "es": "mi"
+  },
+  "enfant": {
+   "en": "child",
+   "fr": "enfant",
+   "es": "niño"
+  },
+  "demande": {
+   "en": "asks",
+   "fr": "demande",
+   "es": "pregunta"
+  },
+  "je": {
+   "en": "I",
+   "fr": "je",
+   "es": "yo"
+  },
+  "veux": {
+   "en": "want",
+   "fr": "veux",
+   "es": "quiero"
+  },
+  "aller": {
+   "en": "to go",
+   "fr": "aller",
+   "es": "ir"
+  },
+  "au": {
+   "en": "to the",
+   "fr": "au",
+   "es": "al"
+  },
+  "mais": {
+   "en": "but",
+   "fr": "mais",
+   "es": "pero"
+  },
+  "ai": {
+   "en": "have",
+   "fr": "ai",
+   "es": "tengo"
+  },
+  "rien": {
+   "en": "nothing",
+   "fr": "rien",
+   "es": "nada"
+  },
+  "porter": {
+   "en": "to wear",
+   "fr": "porter",
+   "es": "llevar puesto"
+  },
+  "répond": {
+   "en": "replies",
+   "fr": "répond",
+   "es": "responde"
+  },
+  "sourit": {
+   "en": "smiles",
+   "fr": "sourit",
+   "es": "sonríe"
+  },
+  "va": {
+   "en": "go",
+   "fr": "va",
+   "es": "ve"
+  },
+  "chercher": {
+   "en": "to fetch",
+   "fr": "chercher",
+   "es": "buscar"
+  },
+  "citrouille": {
+   "en": "pumpkin",
+   "fr": "citrouille",
+   "es": "calabaza"
+  },
+  "apporte": {
+   "en": "brings",
+   "fr": "apporte",
+   "es": "trae"
+  },
+  "grosse": {
+   "en": "big",
+   "fr": "grosse",
+   "es": "grande"
+  },
+  "jardin": {
+   "en": "garden",
+   "fr": "jardin",
+   "es": "jardín"
+  },
+  "touche": {
+   "en": "touches",
+   "fr": "touche",
+   "es": "toca"
+  },
+  "baguette": {
+   "en": "wand",
+   "fr": "baguette",
+   "es": "varita"
+  },
+  "magique": {
+   "en": "magic",
+   "fr": "magique",
+   "es": "mágica"
+  },
+  "transforme": {
+   "en": "transforms",
+   "fr": "transforme",
+   "es": "transforma"
+  },
+  "en": {
+   "en": "into",
+   "fr": "en",
+   "es": "en"
+  },
+  "carrosse": {
+   "en": "carriage",
+   "fr": "carrosse",
+   "es": "coche"
+  },
+  "doré": {
+   "en": "golden",
+   "fr": "doré",
+   "es": "dorado"
+  },
+  "trouve": {
+   "en": "finds",
+   "fr": "trouve",
+   "es": "encuentra"
+  },
+  "six": {
+   "en": "six",
+   "fr": "six",
+   "es": "seis"
+  },
+  "souris": {
+   "en": "mice",
+   "fr": "souris",
+   "es": "ratones"
+  },
+  "change": {
+   "en": "changes",
+   "fr": "change",
+   "es": "cambia"
+  },
+  "chevaux": {
+   "en": "horses",
+   "fr": "chevaux",
+   "es": "caballos"
+  },
+  "blancs": {
+   "en": "white",
+   "fr": "blancs",
+   "es": "blancos"
+  },
+  "robe": {
+   "en": "dress",
+   "fr": "robe",
+   "es": "vestido"
+  },
+  "simple": {
+   "en": "simple",
+   "fr": "simple",
+   "es": "sencillo"
+  },
+  "devient": {
+   "en": "becomes",
+   "fr": "devient",
+   "es": "se convierte"
+  },
+  "magnifique": {
+   "en": "magnificent",
+   "fr": "magnifique",
+   "es": "magnífico"
+  },
+  "bleue": {
+   "en": "blue",
+   "fr": "bleue",
+   "es": "azul"
+  },
+  "petites": {
+   "en": "small",
+   "fr": "petites",
+   "es": "pequeñas"
+  },
+  "pantoufles": {
+   "en": "slippers",
+   "fr": "pantoufles",
+   "es": "zapatillas"
+  },
+  "verre": {
+   "en": "glass",
+   "fr": "verre",
+   "es": "vidrio"
+  },
+  "peux": {
+   "en": "can",
+   "fr": "peux",
+   "es": "puede"
+  },
+  "maintenant": {
+   "en": "now",
+   "fr": "maintenant",
+   "es": "ahora"
+  },
+  "dois": {
+   "en": "must",
+   "fr": "dois",
+   "es": "debes"
+  },
+  "rentrer": {
+   "en": "to return home",
+   "fr": "rentrer",
+   "es": "volver a casa"
+  },
+  "avant": {
+   "en": "before",
+   "fr": "avant",
+   "es": "antes"
+  },
+  "minuit": {
+   "en": "midnight",
+   "fr": "minuit",
+   "es": "medianoche"
+  },
+  "ajoute-t-elle": {
+   "en": "she adds",
+   "fr": "ajoute-t-elle",
+   "es": "añade"
+  },
+  "sérieusement": {
+   "en": "seriously",
+   "fr": "sérieusement",
+   "es": "seriamente"
+  },
+  "après": {
+   "en": "after",
+   "fr": "après",
+   "es": "después"
+  },
+  "magie": {
+   "en": "magic",
+   "fr": "magie",
+   "es": "magia"
+  },
+  "disparaît": {
+   "en": "disappears",
+   "fr": "disparaît",
+   "es": "desaparece"
+  },
+  "complètement": {
+   "en": "completely",
+   "fr": "complètement",
+   "es": "completamente"
+  },
+  "promet": {
+   "en": "promises",
+   "fr": "promet",
+   "es": "promete"
+  },
+  "temps": {
+   "en": "time",
+   "fr": "temps",
+   "es": "tiempo"
+  },
+  "part": {
+   "en": "leaves",
+   "fr": "part",
+   "es": "se va"
+  },
+  "invités": {
+   "en": "guests",
+   "fr": "invités",
+   "es": "invitados"
+  },
+  "des": {
+   "en": "some",
+   "fr": "des",
+   "es": "unos"
+  },
+  "magnifiques": {
+   "en": "magnificent",
+   "fr": "magnifiques",
+   "es": "magníficos"
+  },
+  "chers": {
+   "en": "expensive",
+   "fr": "chers",
+   "es": "caros"
+  },
+  "musique": {
+   "en": "music",
+   "fr": "musique",
+   "es": "música"
+  },
+  "joue": {
+   "en": "plays",
+   "fr": "joue",
+   "es": "toca"
+  },
+  "doucement": {
+   "en": "softly",
+   "fr": "doucement",
+   "es": "suavemente"
+  },
+  "pendant": {
+   "en": "during",
+   "fr": "pendant",
+   "es": "durante"
+  },
+  "soirée": {
+   "en": "evening",
+   "fr": "soirée",
+   "es": "velada"
+  },
+  "monde": {
+   "en": "everyone",
+   "fr": "monde",
+   "es": "todo el mundo"
+  },
+  "regarde": {
+   "en": "looks at",
+   "fr": "regarde",
+   "es": "mira"
+  },
+  "belle": {
+   "en": "beautiful",
+   "fr": "belle",
+   "es": "hermosa"
+  },
+  "inconnue": {
+   "en": "stranger",
+   "fr": "inconnue",
+   "es": "desconocida"
+  },
+  "danse": {
+   "en": "dances",
+   "fr": "danse",
+   "es": "baila"
+  },
+  "seulement": {
+   "en": "only",
+   "fr": "seulement",
+   "es": "solo"
+  },
+  "personne": {
+   "en": "no one",
+   "fr": "personne",
+   "es": "nadie"
+  },
+  "reconnaît": {
+   "en": "recognizes",
+   "fr": "reconnaît",
+   "es": "reconoce"
+  },
+  "pauvre": {
+   "en": "poor",
+   "fr": "pauvre",
+   "es": "pobre"
+  },
+  "reconnaissent": {
+   "en": "recognize",
+   "fr": "reconnaissent",
+   "es": "reconocen"
+  },
+  "non": {
+   "en": "neither",
+   "fr": "non",
+   "es": "tampoco"
+  },
+  "oublie": {
+   "en": "forgets",
+   "fr": "oublie",
+   "es": "olvida"
+  },
+  "heure": {
+   "en": "time",
+   "fr": "heure",
+   "es": "hora"
+  },
+  "tant": {
+   "en": "so",
+   "fr": "tant",
+   "es": "tanto"
+  },
+  "horloge": {
+   "en": "clock",
+   "fr": "horloge",
+   "es": "reloj"
+  },
+  "sonne": {
+   "en": "strikes",
+   "fr": "sonne",
+   "es": "da las"
+  },
+  "salon": {
+   "en": "living room",
+   "fr": "salon",
+   "es": "salón"
+  },
+  "lève": {
+   "en": "gets up",
+   "fr": "lève",
+   "es": "se levanta"
+  },
+  "vite": {
+   "en": "quickly",
+   "fr": "vite",
+   "es": "rápidamente"
+  },
+  "court": {
+   "en": "runs",
+   "fr": "court",
+   "es": "corre"
+  },
+  "vers": {
+   "en": "towards",
+   "fr": "vers",
+   "es": "hacia"
+  },
+  "hâte": {
+   "en": "haste",
+   "fr": "hâte",
+   "es": "prisa"
+  },
+  "perd": {
+   "en": "loses",
+   "fr": "perd",
+   "es": "pierde"
+  },
+  "pantoufle": {
+   "en": "slipper",
+   "fr": "pantoufle",
+   "es": "zapatilla"
+  },
+  "sur": {
+   "en": "on",
+   "fr": "sur",
+   "es": "sobre"
+  },
+  "escalier": {
+   "en": "stairs",
+   "fr": "escalier",
+   "es": "escalera"
+  },
+  "ramasse": {
+   "en": "picks up",
+   "fr": "ramasse",
+   "es": "recoge"
+  },
+  "petite": {
+   "en": "small",
+   "fr": "petite",
+   "es": "pequeña"
+  },
+  "peut": {
+   "en": "can",
+   "fr": "peut",
+   "es": "puede"
+  },
+  "rattraper": {
+   "en": "catch",
+   "fr": "rattraper",
+   "es": "atrapar"
+  },
+  "lendemain": {
+   "en": "next day",
+   "fr": "lendemain",
+   "es": "al día siguiente"
+  },
+  "cherche": {
+   "en": "searches",
+   "fr": "cherche",
+   "es": "busca"
+  },
+  "partout": {
+   "en": "everywhere",
+   "fr": "partout",
+   "es": "por todas partes"
+  },
+  "femme": {
+   "en": "woman",
+   "fr": "femme",
+   "es": "mujer"
+  },
+  "mystérieuse": {
+   "en": "mysterious",
+   "fr": "mystérieuse",
+   "es": "misteriosa"
+  },
+  "annonce": {
+   "en": "announces",
+   "fr": "annonce",
+   "es": "anuncia"
+  },
+  "vais": {
+   "en": "am going to",
+   "fr": "vais",
+   "es": "voy a"
+  },
+  "épouser": {
+   "en": "marry",
+   "fr": "épouser",
+   "es": "casarse con"
+  },
+  "qui": {
+   "en": "who",
+   "fr": "qui",
+   "es": "que"
+  },
+  "cette": {
+   "en": "this",
+   "fr": "cette",
+   "es": "esta"
+  },
+  "serviteurs": {
+   "en": "servants",
+   "fr": "serviteurs",
+   "es": "sirvientes"
+  },
+  "visitent": {
+   "en": "visit",
+   "fr": "visitent",
+   "es": "visitan"
+  },
+  "maisons": {
+   "en": "houses",
+   "fr": "maisons",
+   "es": "casas"
+  },
+  "enfin": {
+   "en": "finally",
+   "fr": "enfin",
+   "es": "finalmente"
+  },
+  "ils": {
+   "en": "they",
+   "fr": "ils",
+   "es": "ellos"
+  },
+  "arrivent": {
+   "en": "arrive",
+   "fr": "arrivent",
+   "es": "llegan"
+  },
+  "chez": {
+   "en": "at the home of",
+   "fr": "chez",
+   "es": "en casa de"
+  },
+  "essaient": {
+   "en": "try",
+   "fr": "essaient",
+   "es": "prueban"
+  },
+  "pieds": {
+   "en": "feet",
+   "fr": "pieds",
+   "es": "pies"
+  },
+  "trop": {
+   "en": "too",
+   "fr": "trop",
+   "es": "demasiado"
+  },
+  "grands": {
+   "en": "big",
+   "fr": "grands",
+   "es": "grandes"
+  },
+  "laissez-moi": {
+   "en": "let me",
+   "fr": "laissez-moi",
+   "es": "déjame"
+  },
+  "essayer": {
+   "en": "try",
+   "fr": "essayer",
+   "es": "probar"
+  },
+  "rient": {
+   "en": "laugh",
+   "fr": "rient",
+   "es": "se ríen"
+  },
+  "serviteur": {
+   "en": "servant",
+   "fr": "serviteur",
+   "es": "sirviente"
+  },
+  "accepte": {
+   "en": "accepts",
+   "fr": "accepte",
+   "es": "acepta"
+  },
+  "glisse": {
+   "en": "slides",
+   "fr": "glisse",
+   "es": "desliza"
+  },
+  "parfaitement": {
+   "en": "perfectly",
+   "fr": "parfaitement",
+   "es": "perfectamente"
+  },
+  "pied": {
+   "en": "foot",
+   "fr": "pied",
+   "es": "pie"
+  },
+  "sort": {
+   "en": "takes out",
+   "fr": "sort",
+   "es": "saca"
+  },
+  "autre": {
+   "en": "other",
+   "fr": "autre",
+   "es": "otra"
+  },
+  "poche": {
+   "en": "pocket",
+   "fr": "poche",
+   "es": "bolsillo"
+  },
+  "immédiatement": {
+   "en": "immediately",
+   "fr": "immédiatement",
+   "es": "inmediatamente"
+  },
+  "tombe": {
+   "en": "falls",
+   "fr": "tombe",
+   "es": "cae"
+  },
+  "amoureux": {
+   "en": "in love",
+   "fr": "amoureux",
+   "es": "enamorado"
+  },
+  "seconde": {
+   "en": "second",
+   "fr": "seconde",
+   "es": "segunda"
+  },
+  "fois": {
+   "en": "time",
+   "fr": "fois",
+   "es": "vez"
+  },
+  "pardonne": {
+   "en": "forgives",
+   "fr": "pardonne",
+   "es": "perdona"
+  },
+  "marient": {
+   "en": "marry",
+   "fr": "marient",
+   "es": "se casan"
+  },
+  "bientôt": {
+   "en": "soon",
+   "fr": "bientôt",
+   "es": "pronto"
+  },
+  "château": {
+   "en": "castle",
+   "fr": "château",
+   "es": "castillo"
+  },
+  "gens": {
+   "en": "people",
+   "fr": "gens",
+   "es": "gente"
+  },
+  "parlent": {
+   "en": "talk",
+   "fr": "parlent",
+   "es": "hablan"
+  },
+  "histoire": {
+   "en": "story",
+   "fr": "histoire",
+   "es": "historia"
+  },
+  "extraordinaire": {
+   "en": "extraordinary",
+   "fr": "extraordinaire",
+   "es": "extraordinaria"
+  },
+  "princesse": {
+   "en": "princess",
+   "fr": "princesse",
+   "es": "princesa"
+  },
+  "aimée": {
+   "en": "loved",
+   "fr": "aimée",
+   "es": "querida"
+  },
+  "par": {
+   "en": "by",
+   "fr": "par",
+   "es": "por"
+  },
+  "vivent": {
+   "en": "live",
+   "fr": "vivent",
+   "es": "viven"
+  },
+  "heureux": {
+   "en": "happy",
+   "fr": "heureux",
+   "es": "felices"
+  },
+  "ensemble": {
+   "en": "together",
+   "fr": "ensemble",
+   "es": "juntos"
+  },
+  "nombreuses": {
+   "en": "many",
+   "fr": "nombreuses",
+   "es": "muchas"
+  },
+  "années": {
+   "en": "years",
+   "fr": "années",
+   "es": "años"
+  }
+ }
+}

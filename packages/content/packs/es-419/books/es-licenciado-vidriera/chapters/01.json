@@ -1,0 +1,2138 @@
+{
+  "id": "es-licenciado-vidriera-01",
+  "bookId": "es-licenciado-vidriera",
+  "title": "Capítulo 1 — Tomás, el estudiante brillante",
+  "order": 1,
+  "blocks": [
+    {
+      "id": "b1",
+      "sentences": [
+        {
+          "id": "b1.s1",
+          "text": "Tomás nace en un pueblo pequeño y pobre de España.",
+          "translations": {
+            "es": "Tomás nace en un pueblo pequeño y pobre de España.",
+            "en": "Tomás is born in a small, poor town in Spain.",
+            "fr": "Tomás naît dans une petite ville pauvre d'Espagne."
+          },
+          "tokens": [
+            {
+              "text": "Tomás",
+              "normalized": "tomás",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Thomas",
+                "fr": "Thomas",
+                "es": "Tomás"
+              },
+              "id": "b1.s1.t1",
+              "startMs": 60,
+              "endMs": 440
+            },
+            {
+              "text": "nace",
+              "normalized": "nace",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is born",
+                "fr": "naît",
+                "es": "nace"
+              },
+              "id": "b1.s1.t2",
+              "startMs": 440,
+              "endMs": 720
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s1.t3",
+              "startMs": 740,
+              "endMs": 880
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s1.t4",
+              "startMs": 880,
+              "endMs": 1030
+            },
+            {
+              "text": "pueblo",
+              "normalized": "pueblo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "town",
+                "fr": "village",
+                "es": "pueblo"
+              },
+              "id": "b1.s1.t5",
+              "startMs": 1030,
+              "endMs": 1490
+            },
+            {
+              "text": "pequeño",
+              "normalized": "pequeño",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "small",
+                "fr": "petit",
+                "es": "pequeño"
+              },
+              "id": "b1.s1.t6",
+              "startMs": 1580,
+              "endMs": 2070
+            },
+            {
+              "text": "y",
+              "normalized": "y",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s1.t7",
+              "startMs": 2070,
+              "endMs": 2150
+            },
+            {
+              "text": "pobre",
+              "normalized": "pobre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "poor",
+                "fr": "pauvre",
+                "es": "pobre"
+              },
+              "id": "b1.s1.t8",
+              "startMs": 2150,
+              "endMs": 2500
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b1.s1.t9",
+              "startMs": 2500,
+              "endMs": 2640
+            },
+            {
+              "text": "España",
+              "normalized": "españa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Spain",
+                "fr": "Espagne",
+                "es": "España"
+              },
+              "id": "b1.s1.t10",
+              "startMs": 2640,
+              "endMs": 3160
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s1.t11"
+            }
+          ]
+        },
+        {
+          "id": "b1.s2",
+          "text": "Desde niño, prefiere los libros a los juegos con otros niños.",
+          "translations": {
+            "es": "Desde niño, prefiere los libros a los juegos con otros niños.",
+            "en": "From childhood, he prefers books to playing with other children.",
+            "fr": "Dès son enfance, il préfère les livres aux jeux avec les autres enfants."
+          },
+          "tokens": [
+            {
+              "text": "Desde",
+              "normalized": "desde",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "since",
+                "fr": "depuis",
+                "es": "desde"
+              },
+              "id": "b1.s2.t1",
+              "startMs": 3773,
+              "endMs": 4023
+            },
+            {
+              "text": "niño",
+              "normalized": "niño",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "child",
+                "fr": "enfant",
+                "es": "enfant"
+              },
+              "id": "b1.s2.t2",
+              "startMs": 4023,
+              "endMs": 4453
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s2.t3"
+            },
+            {
+              "text": "prefiere",
+              "normalized": "prefiere",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "prefers",
+                "fr": "préfère",
+                "es": "prefiere"
+              },
+              "id": "b1.s2.t4",
+              "startMs": 4683,
+              "endMs": 5003
+            },
+            {
+              "text": "los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s2.t5",
+              "startMs": 5013,
+              "endMs": 5213
+            },
+            {
+              "text": "libros",
+              "normalized": "libros",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "books",
+                "fr": "livres",
+                "es": "libros"
+              },
+              "id": "b1.s2.t6",
+              "startMs": 5213,
+              "endMs": 5633
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "à"
+              },
+              "id": "b1.s2.t7",
+              "startMs": 5663,
+              "endMs": 5713
+            },
+            {
+              "text": "los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s2.t8",
+              "startMs": 5713,
+              "endMs": 5893
+            },
+            {
+              "text": "juegos",
+              "normalized": "juegos",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "games",
+                "fr": "jeux",
+                "es": "juegos"
+              },
+              "id": "b1.s2.t9",
+              "startMs": 6003,
+              "endMs": 6283
+            },
+            {
+              "text": "con",
+              "normalized": "con",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "with",
+                "fr": "avec",
+                "es": "con"
+              },
+              "id": "b1.s2.t10",
+              "startMs": 6293,
+              "endMs": 6503
+            },
+            {
+              "text": "otros",
+              "normalized": "otros",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "other",
+                "fr": "autres",
+                "es": "otros"
+              },
+              "id": "b1.s2.t11",
+              "startMs": 6503,
+              "endMs": 6843
+            },
+            {
+              "text": "niños",
+              "normalized": "niños",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "children",
+                "fr": "enfants",
+                "es": "niños"
+              },
+              "id": "b1.s2.t12",
+              "startMs": 6843,
+              "endMs": 7273
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s2.t13"
+            }
+          ]
+        },
+        {
+          "id": "b1.s3",
+          "text": "Sus padres no tienen dinero, pero apoyan su amor por el estudio.",
+          "translations": {
+            "es": "Sus padres no tienen dinero, pero apoyan su amor por el estudio.",
+            "en": "His parents have no money, but they support his love of learning.",
+            "fr": "Ses parents n'ont pas d'argent, mais ils soutiennent son amour pour l'étude."
+          },
+          "tokens": [
+            {
+              "text": "Sus",
+              "normalized": "sus",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "his",
+                "fr": "ses",
+                "es": "sus"
+              },
+              "id": "b1.s3.t1",
+              "startMs": 7859,
+              "endMs": 7999
+            },
+            {
+              "text": "padres",
+              "normalized": "padres",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "parents",
+                "fr": "parents",
+                "es": "padres"
+              },
+              "id": "b1.s3.t2",
+              "startMs": 8099,
+              "endMs": 8379
+            },
+            {
+              "text": "no",
+              "normalized": "no",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "not",
+                "fr": "ne...pas",
+                "es": "no"
+              },
+              "id": "b1.s3.t3",
+              "startMs": 8379,
+              "endMs": 8519
+            },
+            {
+              "text": "tienen",
+              "normalized": "tienen",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "have",
+                "fr": "ont",
+                "es": "tienen"
+              },
+              "id": "b1.s3.t4",
+              "startMs": 8519,
+              "endMs": 8909
+            },
+            {
+              "text": "dinero",
+              "normalized": "dinero",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "money",
+                "fr": "argent",
+                "es": "dinero"
+              },
+              "id": "b1.s3.t5",
+              "startMs": 8909,
+              "endMs": 9439
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t6"
+            },
+            {
+              "text": "pero",
+              "normalized": "pero",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "but",
+                "fr": "mais",
+                "es": "pero"
+              },
+              "id": "b1.s3.t7",
+              "startMs": 9719,
+              "endMs": 9769
+            },
+            {
+              "text": "apoyan",
+              "normalized": "apoyan",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "support",
+                "fr": "soutiennent",
+                "es": "apoyan"
+              },
+              "id": "b1.s3.t8",
+              "startMs": 9769,
+              "endMs": 10219
+            },
+            {
+              "text": "su",
+              "normalized": "su",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his/her/their",
+                "fr": "son/sa/leur",
+                "es": "su"
+              },
+              "id": "b1.s3.t9",
+              "startMs": 10219,
+              "endMs": 10369
+            },
+            {
+              "text": "amor",
+              "normalized": "amor",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "love",
+                "fr": "amour",
+                "es": "amor"
+              },
+              "id": "b1.s3.t10",
+              "startMs": 10369,
+              "endMs": 10669
+            },
+            {
+              "text": "por",
+              "normalized": "por",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "for",
+                "fr": "pour",
+                "es": "por"
+              },
+              "id": "b1.s3.t11",
+              "startMs": 10669,
+              "endMs": 10899
+            },
+            {
+              "text": "el",
+              "normalized": "el",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              },
+              "id": "b1.s3.t12",
+              "startMs": 10899,
+              "endMs": 11089
+            },
+            {
+              "text": "estudio",
+              "normalized": "estudio",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "study",
+                "fr": "étude",
+                "es": "estudio"
+              },
+              "id": "b1.s3.t13",
+              "startMs": 11089,
+              "endMs": 11629
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s3.t14"
+            }
+          ]
+        },
+        {
+          "id": "b1.s4",
+          "text": "Tomás Rodaja es un niño pobre, pero muy inteligente.",
+          "translations": {
+            "es": "Tomás Rodaja es un niño pobre, pero muy inteligente.",
+            "en": "Tomás Rodaja is a poor but very intelligent boy.",
+            "fr": "Tomás Rodaja est un garçon pauvre mais très intelligent."
+          },
+          "tokens": [
+            {
+              "text": "Tomás",
+              "normalized": "tomás",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Thomas",
+                "fr": "Thomas",
+                "es": "Tomás"
+              },
+              "id": "b1.s4.t1",
+              "startMs": 12234,
+              "endMs": 12524
+            },
+            {
+              "text": "Rodaja",
+              "normalized": "rodaja",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "slice",
+                "fr": "tranche",
+                "es": "rodaja"
+              },
+              "id": "b1.s4.t2",
+              "startMs": 12594,
+              "endMs": 13014
+            },
+            {
+              "text": "es",
+              "normalized": "es",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "is",
+                "fr": "est",
+                "es": "es"
+              },
+              "id": "b1.s4.t3",
+              "startMs": 13014,
+              "endMs": 13154
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s4.t4",
+              "startMs": 13154,
+              "endMs": 13284
+            },
+            {
+              "text": "niño",
+              "normalized": "niño",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "child",
+                "fr": "enfant",
+                "es": "enfant"
+              },
+              "id": "b1.s4.t5",
+              "startMs": 13304,
+              "endMs": 13674
+            },
+            {
+              "text": "pobre",
+              "normalized": "pobre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "poor",
+                "fr": "pauvre",
+                "es": "pobre"
+              },
+              "id": "b1.s4.t6",
+              "startMs": 13674,
+              "endMs": 14124
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s4.t7"
+            },
+            {
+              "text": "pero",
+              "normalized": "pero",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "but",
+                "fr": "mais",
+                "es": "pero"
+              },
+              "id": "b1.s4.t8",
+              "startMs": 14244,
+              "endMs": 14424
+            },
+            {
+              "text": "muy",
+              "normalized": "muy",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "id": "b1.s4.t9",
+              "startMs": 14424,
+              "endMs": 14614
+            },
+            {
+              "text": "inteligente",
+              "normalized": "inteligente",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "intelligent",
+                "fr": "intelligent",
+                "es": "inteligente"
+              },
+              "id": "b1.s4.t10",
+              "startMs": 14614,
+              "endMs": 15334
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s4.t11"
+            }
+          ]
+        },
+        {
+          "id": "b1.s5",
+          "text": "Le gusta mucho estudiar y aprender cosas nuevas.",
+          "translations": {
+            "es": "Le gusta mucho estudiar y aprender cosas nuevas.",
+            "en": "He really enjoys studying and learning new things.",
+            "fr": "Il aime beaucoup étudier et apprendre de nouvelles choses."
+          },
+          "tokens": [
+            {
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "to him/her/you (formal)",
+                "fr": "lui/te",
+                "es": "le"
+              },
+              "id": "b1.s5.t1",
+              "startMs": 15907,
+              "endMs": 16007
+            },
+            {
+              "text": "gusta",
+              "normalized": "gusta",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "likes",
+                "fr": "aime",
+                "es": "gusta"
+              },
+              "id": "b1.s5.t2",
+              "startMs": 16007,
+              "endMs": 16367
+            },
+            {
+              "text": "mucho",
+              "normalized": "mucho",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very much",
+                "fr": "beaucoup",
+                "es": "mucho"
+              },
+              "id": "b1.s5.t3",
+              "startMs": 16367,
+              "endMs": 16717
+            },
+            {
+              "text": "estudiar",
+              "normalized": "estudiar",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to study",
+                "fr": "étudier",
+                "es": "estudiar"
+              },
+              "id": "b1.s5.t4",
+              "startMs": 16727,
+              "endMs": 17267
+            },
+            {
+              "text": "y",
+              "normalized": "y",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s5.t5",
+              "startMs": 17397,
+              "endMs": 17397
+            },
+            {
+              "text": "aprender",
+              "normalized": "aprender",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to learn",
+                "fr": "apprendre",
+                "es": "aprender"
+              },
+              "id": "b1.s5.t6",
+              "startMs": 17447,
+              "endMs": 17937
+            },
+            {
+              "text": "cosas",
+              "normalized": "cosas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "things",
+                "fr": "choses",
+                "es": "cosas"
+              },
+              "id": "b1.s5.t7",
+              "startMs": 18037,
+              "endMs": 18357
+            },
+            {
+              "text": "nuevas",
+              "normalized": "nuevas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "new",
+                "fr": "nouvelles",
+                "es": "nuevas"
+              },
+              "id": "b1.s5.t8",
+              "startMs": 18407,
+              "endMs": 18867
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s5.t9"
+            }
+          ]
+        },
+        {
+          "id": "b1.s6",
+          "text": "Un día, decide viajar por España para estudiar más.",
+          "translations": {
+            "es": "Un día, decide viajar por España para estudiar más.",
+            "en": "One day, he decides to travel around Spain to study more.",
+            "fr": "Un jour, il décide de voyager à travers l'Espagne pour étudier davantage."
+          },
+          "tokens": [
+            {
+              "text": "Un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s6.t1",
+              "startMs": 19457,
+              "endMs": 19567
+            },
+            {
+              "text": "día",
+              "normalized": "día",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "day",
+                "fr": "jour",
+                "es": "día"
+              },
+              "id": "b1.s6.t2",
+              "startMs": 19567,
+              "endMs": 19887
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s6.t3"
+            },
+            {
+              "text": "decide",
+              "normalized": "decide",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "decides",
+                "fr": "décide",
+                "es": "decide"
+              },
+              "id": "b1.s6.t4",
+              "startMs": 19887,
+              "endMs": 20357
+            },
+            {
+              "text": "viajar",
+              "normalized": "viajar",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to travel",
+                "fr": "voyager",
+                "es": "viajar"
+              },
+              "id": "b1.s6.t5",
+              "startMs": 20357,
+              "endMs": 20827
+            },
+            {
+              "text": "por",
+              "normalized": "por",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "for",
+                "fr": "pour",
+                "es": "por"
+              },
+              "id": "b1.s6.t6",
+              "startMs": 20827,
+              "endMs": 21087
+            },
+            {
+              "text": "España",
+              "normalized": "españa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Spain",
+                "fr": "Espagne",
+                "es": "España"
+              },
+              "id": "b1.s6.t7",
+              "startMs": 21087,
+              "endMs": 21547
+            },
+            {
+              "text": "para",
+              "normalized": "para",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to/for",
+                "fr": "pour",
+                "es": "para"
+              },
+              "id": "b1.s6.t8",
+              "startMs": 21547,
+              "endMs": 21807
+            },
+            {
+              "text": "estudiar",
+              "normalized": "estudiar",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to study",
+                "fr": "étudier",
+                "es": "estudiar"
+              },
+              "id": "b1.s6.t9",
+              "startMs": 21807,
+              "endMs": 22327
+            },
+            {
+              "text": "más",
+              "normalized": "más",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "more",
+                "fr": "plus",
+                "es": "más"
+              },
+              "id": "b1.s6.t10",
+              "startMs": 22327,
+              "endMs": 22607
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s6.t11"
+            }
+          ]
+        },
+        {
+          "id": "b1.s7",
+          "text": "Camina de ciudad en ciudad, visitando muchas escuelas.",
+          "translations": {
+            "es": "Camina de ciudad en ciudad, visitando muchas escuelas.",
+            "en": "He walks from city to city, visiting many schools.",
+            "fr": "Il marche de ville en ville, visitant de nombreuses écoles."
+          },
+          "tokens": [
+            {
+              "text": "Camina",
+              "normalized": "camina",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "walks",
+                "fr": "marche",
+                "es": "camina"
+              },
+              "id": "b1.s7.t1",
+              "startMs": 23198,
+              "endMs": 23588
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b1.s7.t2",
+              "startMs": 23588,
+              "endMs": 23678
+            },
+            {
+              "text": "ciudad",
+              "normalized": "ciudad",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "city",
+                "fr": "ville",
+                "es": "ciudad"
+              },
+              "id": "b1.s7.t3",
+              "startMs": 23798,
+              "endMs": 24168
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s7.t4",
+              "startMs": 24168,
+              "endMs": 24258
+            },
+            {
+              "text": "ciudad",
+              "normalized": "ciudad",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "city",
+                "fr": "ville",
+                "es": "ciudad"
+              },
+              "id": "b1.s7.t5",
+              "startMs": 24318,
+              "endMs": 24658
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s7.t6"
+            },
+            {
+              "text": "visitando",
+              "normalized": "visitando",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "visiting",
+                "fr": "visitant",
+                "es": "visitando"
+              },
+              "id": "b1.s7.t7",
+              "startMs": 24908,
+              "endMs": 25428
+            },
+            {
+              "text": "muchas",
+              "normalized": "muchas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "many",
+                "fr": "beaucoup de",
+                "es": "muchas"
+              },
+              "id": "b1.s7.t8",
+              "startMs": 25428,
+              "endMs": 25818
+            },
+            {
+              "text": "escuelas",
+              "normalized": "escuelas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "schools",
+                "fr": "écoles",
+                "es": "escuelas"
+              },
+              "id": "b1.s7.t9",
+              "startMs": 25848,
+              "endMs": 26408
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s7.t10"
+            }
+          ]
+        },
+        {
+          "id": "b1.s8",
+          "text": "Llega a la famosa ciudad de Salamanca.",
+          "translations": {
+            "es": "Llega a la famosa ciudad de Salamanca.",
+            "en": "He arrives in the famous city of Salamanca.",
+            "fr": "Il arrive dans la célèbre ville de Salamanque."
+          },
+          "tokens": [
+            {
+              "text": "Llega",
+              "normalized": "llega",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "arrives",
+                "fr": "arrive",
+                "es": "llega"
+              },
+              "id": "b1.s8.t1",
+              "startMs": 27020,
+              "endMs": 27300
+            },
+            {
+              "text": "a",
+              "normalized": "a",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to",
+                "fr": "à",
+                "es": "à"
+              },
+              "id": "b1.s8.t2",
+              "startMs": 27300,
+              "endMs": 27370
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b1.s8.t3",
+              "startMs": 27370,
+              "endMs": 27510
+            },
+            {
+              "text": "famosa",
+              "normalized": "famosa",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "famous",
+                "fr": "célèbre",
+                "es": "famosa"
+              },
+              "id": "b1.s8.t4",
+              "startMs": 27510,
+              "endMs": 27940
+            },
+            {
+              "text": "ciudad",
+              "normalized": "ciudad",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "city",
+                "fr": "ville",
+                "es": "ciudad"
+              },
+              "id": "b1.s8.t5",
+              "startMs": 27940,
+              "endMs": 28390
+            },
+            {
+              "text": "de",
+              "normalized": "de",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "of",
+                "fr": "de",
+                "es": "de"
+              },
+              "id": "b1.s8.t6",
+              "startMs": 28390,
+              "endMs": 28590
+            },
+            {
+              "text": "Salamanca",
+              "normalized": "salamanca",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "Salamanca",
+                "fr": "Salamanque",
+                "es": "Salamanca"
+              },
+              "id": "b1.s8.t7",
+              "startMs": 28590,
+              "endMs": 29270
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s8.t8"
+            }
+          ]
+        },
+        {
+          "id": "b1.s9",
+          "text": "Allí, entra en la gran universidad para estudiar derecho.",
+          "translations": {
+            "es": "Allí, entra en la gran universidad para estudiar derecho.",
+            "en": "There, he enters the large university to study law.",
+            "fr": "Là-bas, il entre à la grande université pour étudier le droit."
+          },
+          "tokens": [
+            {
+              "text": "Allí",
+              "normalized": "allí",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "there",
+                "fr": "là",
+                "es": "allí"
+              },
+              "id": "b1.s9.t1",
+              "startMs": 29865,
+              "endMs": 30165
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s9.t2"
+            },
+            {
+              "text": "entra",
+              "normalized": "entra",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "enters",
+                "fr": "entre",
+                "es": "entra"
+              },
+              "id": "b1.s9.t3",
+              "startMs": 30165,
+              "endMs": 30515
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s9.t4",
+              "startMs": 30575,
+              "endMs": 30665
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b1.s9.t5",
+              "startMs": 30665,
+              "endMs": 30805
+            },
+            {
+              "text": "gran",
+              "normalized": "gran",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "great",
+                "fr": "grande",
+                "es": "gran"
+              },
+              "id": "b1.s9.t6",
+              "startMs": 30805,
+              "endMs": 31095
+            },
+            {
+              "text": "universidad",
+              "normalized": "universidad",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "university",
+                "fr": "université",
+                "es": "universidad"
+              },
+              "id": "b1.s9.t7",
+              "startMs": 31095,
+              "endMs": 31885
+            },
+            {
+              "text": "para",
+              "normalized": "para",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to/for",
+                "fr": "pour",
+                "es": "para"
+              },
+              "id": "b1.s9.t8",
+              "startMs": 32015,
+              "endMs": 32135
+            },
+            {
+              "text": "estudiar",
+              "normalized": "estudiar",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to study",
+                "fr": "étudier",
+                "es": "estudiar"
+              },
+              "id": "b1.s9.t9",
+              "startMs": 32135,
+              "endMs": 32555
+            },
+            {
+              "text": "derecho",
+              "normalized": "derecho",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "law",
+                "fr": "droit",
+                "es": "derecho"
+              },
+              "id": "b1.s9.t10",
+              "startMs": 32555,
+              "endMs": 33095
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s9.t11"
+            }
+          ]
+        },
+        {
+          "id": "b1.s10",
+          "text": "Estudia mucho, día y noche, sin descansar.",
+          "translations": {
+            "es": "Estudia mucho, día y noche, sin descansar.",
+            "en": "He studies hard, day and night, without resting.",
+            "fr": "Il travaille beaucoup, jour et nuit, sans se reposer."
+          },
+          "tokens": [
+            {
+              "text": "Estudia",
+              "normalized": "estudia",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "studies",
+                "fr": "étudie",
+                "es": "estudia"
+              },
+              "id": "b1.s10.t1",
+              "startMs": 33671,
+              "endMs": 34121
+            },
+            {
+              "text": "mucho",
+              "normalized": "mucho",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very much",
+                "fr": "beaucoup",
+                "es": "mucho"
+              },
+              "id": "b1.s10.t2",
+              "startMs": 34121,
+              "endMs": 34611
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s10.t3"
+            },
+            {
+              "text": "día",
+              "normalized": "día",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "day",
+                "fr": "jour",
+                "es": "día"
+              },
+              "id": "b1.s10.t4",
+              "startMs": 34771,
+              "endMs": 34881
+            },
+            {
+              "text": "y",
+              "normalized": "y",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s10.t5",
+              "startMs": 34881,
+              "endMs": 34941
+            },
+            {
+              "text": "noche",
+              "normalized": "noche",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "night",
+                "fr": "nuit",
+                "es": "noche"
+              },
+              "id": "b1.s10.t6",
+              "startMs": 34941,
+              "endMs": 35391
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s10.t7"
+            },
+            {
+              "text": "sin",
+              "normalized": "sin",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "without",
+                "fr": "sans",
+                "es": "sin"
+              },
+              "id": "b1.s10.t8",
+              "startMs": 35391,
+              "endMs": 35621
+            },
+            {
+              "text": "descansar",
+              "normalized": "descansar",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "to rest",
+                "fr": "se reposer",
+                "es": "descansar"
+              },
+              "id": "b1.s10.t9",
+              "startMs": 35621,
+              "endMs": 36331
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s10.t10"
+            }
+          ]
+        },
+        {
+          "id": "b1.s11",
+          "text": "Los profesores admiran su inteligencia y su memoria.",
+          "translations": {
+            "es": "Los profesores admiran su inteligencia y su memoria.",
+            "en": "The professors admire his intelligence and memory.",
+            "fr": "Les professeurs admirent son intelligence et sa mémoire."
+          },
+          "tokens": [
+            {
+              "text": "Los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s11.t1",
+              "startMs": 36912,
+              "endMs": 37032
+            },
+            {
+              "text": "profesores",
+              "normalized": "profesores",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "teachers",
+                "fr": "professeurs",
+                "es": "profesores"
+              },
+              "id": "b1.s11.t2",
+              "startMs": 37162,
+              "endMs": 37772
+            },
+            {
+              "text": "admiran",
+              "normalized": "admiran",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "admire",
+                "fr": "admirent",
+                "es": "admiran"
+              },
+              "id": "b1.s11.t3",
+              "startMs": 38012,
+              "endMs": 38332
+            },
+            {
+              "text": "su",
+              "normalized": "su",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his/her/their",
+                "fr": "son/sa/leur",
+                "es": "su"
+              },
+              "id": "b1.s11.t4",
+              "startMs": 38362,
+              "endMs": 38512
+            },
+            {
+              "text": "inteligencia",
+              "normalized": "inteligencia",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "intelligence",
+                "fr": "intelligence",
+                "es": "inteligencia"
+              },
+              "id": "b1.s11.t5",
+              "startMs": 38512,
+              "endMs": 39462
+            },
+            {
+              "text": "y",
+              "normalized": "y",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s11.t6",
+              "startMs": 39462,
+              "endMs": 39552
+            },
+            {
+              "text": "su",
+              "normalized": "su",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his/her/their",
+                "fr": "son/sa/leur",
+                "es": "su"
+              },
+              "id": "b1.s11.t7",
+              "startMs": 39552,
+              "endMs": 39712
+            },
+            {
+              "text": "memoria",
+              "normalized": "memoria",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "memory",
+                "fr": "mémoire",
+                "es": "memoria"
+              },
+              "id": "b1.s11.t8",
+              "startMs": 39712,
+              "endMs": 40272
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s11.t9"
+            }
+          ]
+        },
+        {
+          "id": "b1.s12",
+          "text": "Los otros estudiantes lo respetan mucho también.",
+          "translations": {
+            "es": "Los otros estudiantes lo respetan mucho también.",
+            "en": "The other students also respect him greatly.",
+            "fr": "Les autres étudiants le respectent aussi beaucoup."
+          },
+          "tokens": [
+            {
+              "text": "Los",
+              "normalized": "los",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "les",
+                "es": "los"
+              },
+              "id": "b1.s12.t1",
+              "startMs": 40853,
+              "endMs": 40953
+            },
+            {
+              "text": "otros",
+              "normalized": "otros",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "other",
+                "fr": "autres",
+                "es": "otros"
+              },
+              "id": "b1.s12.t2",
+              "startMs": 41033,
+              "endMs": 41373
+            },
+            {
+              "text": "estudiantes",
+              "normalized": "estudiantes",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "students",
+                "fr": "étudiants",
+                "es": "estudiantes"
+              },
+              "id": "b1.s12.t3",
+              "startMs": 41373,
+              "endMs": 42033
+            },
+            {
+              "text": "lo",
+              "normalized": "lo",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "him",
+                "fr": "le",
+                "es": "lo"
+              },
+              "id": "b1.s12.t4",
+              "startMs": 42283,
+              "endMs": 42393
+            },
+            {
+              "text": "respetan",
+              "normalized": "respetan",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "respect",
+                "fr": "respectent",
+                "es": "respetan"
+              },
+              "id": "b1.s12.t5",
+              "startMs": 42393,
+              "endMs": 42953
+            },
+            {
+              "text": "mucho",
+              "normalized": "mucho",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very much",
+                "fr": "beaucoup",
+                "es": "mucho"
+              },
+              "id": "b1.s12.t6",
+              "startMs": 42953,
+              "endMs": 43273
+            },
+            {
+              "text": "también",
+              "normalized": "también",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "also",
+                "fr": "aussi",
+                "es": "también"
+              },
+              "id": "b1.s12.t7",
+              "startMs": 43273,
+              "endMs": 43793
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s12.t8"
+            }
+          ]
+        },
+        {
+          "id": "b1.s13",
+          "text": "Tomás siempre da respuestas ingeniosas y divertidas.",
+          "translations": {
+            "es": "Tomás siempre da respuestas ingeniosas y divertidas.",
+            "en": "Tomás always gives clever and funny answers.",
+            "fr": "Tomás donne toujours des réponses ingénieuses et amusantes."
+          },
+          "tokens": [
+            {
+              "text": "Tomás",
+              "normalized": "tomás",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Thomas",
+                "fr": "Thomas",
+                "es": "Tomás"
+              },
+              "id": "b1.s13.t1",
+              "startMs": 44389,
+              "endMs": 44639
+            },
+            {
+              "text": "siempre",
+              "normalized": "siempre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "always",
+                "fr": "toujours",
+                "es": "siempre"
+              },
+              "id": "b1.s13.t2",
+              "startMs": 44739,
+              "endMs": 45209
+            },
+            {
+              "text": "da",
+              "normalized": "da",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "gives",
+                "fr": "donne",
+                "es": "da"
+              },
+              "id": "b1.s13.t3",
+              "startMs": 45209,
+              "endMs": 45329
+            },
+            {
+              "text": "respuestas",
+              "normalized": "respuestas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "answers",
+                "fr": "réponses",
+                "es": "respuestas"
+              },
+              "id": "b1.s13.t4",
+              "startMs": 45349,
+              "endMs": 46019
+            },
+            {
+              "text": "ingeniosas",
+              "normalized": "ingeniosas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "clever",
+                "fr": "ingénieuses",
+                "es": "ingeniosas"
+              },
+              "id": "b1.s13.t5",
+              "startMs": 46019,
+              "endMs": 46649
+            },
+            {
+              "text": "y",
+              "normalized": "y",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "and",
+                "fr": "et",
+                "es": "y"
+              },
+              "id": "b1.s13.t6",
+              "startMs": 46729,
+              "endMs": 46829
+            },
+            {
+              "text": "divertidas",
+              "normalized": "divertidas",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "funny",
+                "fr": "amusantes",
+                "es": "divertidas"
+              },
+              "id": "b1.s13.t7",
+              "startMs": 46829,
+              "endMs": 47489
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s13.t8"
+            }
+          ]
+        },
+        {
+          "id": "b1.s14",
+          "text": "Pronto, todos en la ciudad conocen su nombre.",
+          "translations": {
+            "es": "Pronto, todos en la ciudad conocen su nombre.",
+            "en": "Soon, everyone in the city knows his name.",
+            "fr": "Bientôt, tout le monde dans la ville connaît son nom."
+          },
+          "tokens": [
+            {
+              "text": "Pronto",
+              "normalized": "pronto",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "soon",
+                "fr": "bientôt",
+                "es": "pronto"
+              },
+              "id": "b1.s14.t1",
+              "startMs": 48079,
+              "endMs": 48479
+            },
+            {
+              "text": ",",
+              "normalized": ",",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s14.t2"
+            },
+            {
+              "text": "todos",
+              "normalized": "todos",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "everyone",
+                "fr": "tout le monde",
+                "es": "todos"
+              },
+              "id": "b1.s14.t3",
+              "startMs": 48479,
+              "endMs": 48869
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s14.t4",
+              "startMs": 48869,
+              "endMs": 48969
+            },
+            {
+              "text": "la",
+              "normalized": "la",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "the",
+                "fr": "la",
+                "es": "la"
+              },
+              "id": "b1.s14.t5",
+              "startMs": 49009,
+              "endMs": 49169
+            },
+            {
+              "text": "ciudad",
+              "normalized": "ciudad",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "city",
+                "fr": "ville",
+                "es": "ciudad"
+              },
+              "id": "b1.s14.t6",
+              "startMs": 49169,
+              "endMs": 49629
+            },
+            {
+              "text": "conocen",
+              "normalized": "conocen",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "know",
+                "fr": "connaissent",
+                "es": "conocen"
+              },
+              "id": "b1.s14.t7",
+              "startMs": 49629,
+              "endMs": 50169
+            },
+            {
+              "text": "su",
+              "normalized": "su",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "his/her/their",
+                "fr": "son/sa/leur",
+                "es": "su"
+              },
+              "id": "b1.s14.t8",
+              "startMs": 50169,
+              "endMs": 50319
+            },
+            {
+              "text": "nombre",
+              "normalized": "nombre",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "name",
+                "fr": "nom",
+                "es": "nombre"
+              },
+              "id": "b1.s14.t9",
+              "startMs": 50319,
+              "endMs": 50839
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s14.t10"
+            }
+          ]
+        },
+        {
+          "id": "b1.s15",
+          "text": "Tomás se convierte en un estudiante muy famoso.",
+          "translations": {
+            "es": "Tomás se convierte en un estudiante muy famoso.",
+            "en": "Tomás becomes a very famous student.",
+            "fr": "Tomás devient un étudiant très célèbre."
+          },
+          "tokens": [
+            {
+              "text": "Tomás",
+              "normalized": "tomás",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "Thomas",
+                "fr": "Thomas",
+                "es": "Tomás"
+              },
+              "id": "b1.s15.t1",
+              "startMs": 51439,
+              "endMs": 51689
+            },
+            {
+              "text": "se",
+              "normalized": "se",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "becomes",
+                "fr": "devient",
+                "es": "se"
+              },
+              "id": "b1.s15.t2",
+              "startMs": 51779,
+              "endMs": 51869
+            },
+            {
+              "text": "convierte",
+              "normalized": "convierte",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "becomes",
+                "fr": "devient",
+                "es": "convierte"
+              },
+              "id": "b1.s15.t3",
+              "startMs": 51939,
+              "endMs": 52479
+            },
+            {
+              "text": "en",
+              "normalized": "en",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "in",
+                "fr": "dans",
+                "es": "en"
+              },
+              "id": "b1.s15.t4",
+              "startMs": 52479,
+              "endMs": 52529
+            },
+            {
+              "text": "un",
+              "normalized": "un",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "a",
+                "fr": "un",
+                "es": "un"
+              },
+              "id": "b1.s15.t5",
+              "startMs": 52639,
+              "endMs": 52739
+            },
+            {
+              "text": "estudiante",
+              "normalized": "estudiante",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "student",
+                "fr": "étudiant",
+                "es": "estudiante"
+              },
+              "id": "b1.s15.t6",
+              "startMs": 52739,
+              "endMs": 53439
+            },
+            {
+              "text": "muy",
+              "normalized": "muy",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "very",
+                "fr": "très",
+                "es": "muy"
+              },
+              "id": "b1.s15.t7",
+              "startMs": 53439,
+              "endMs": 53659
+            },
+            {
+              "text": "famoso",
+              "normalized": "famoso",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "famous",
+                "fr": "célèbre",
+                "es": "famoso"
+              },
+              "id": "b1.s15.t8",
+              "startMs": 53659,
+              "endMs": 54279
+            },
+            {
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false,
+              "id": "b1.s15.t9"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

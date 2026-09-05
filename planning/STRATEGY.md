@@ -1,6 +1,8 @@
 # Sotto strategy: what the product is, what it costs, what stops (2026-09-05)
 
-Planning-only session, Sonnet, no code. Reasoned from PAID-TIER-PLAN.md,
+Planning-only session, Sonnet, no code. One brief fact corrected on the way: the
+public flip is already done (repo PUBLIC, history rewritten at d4774ae), so nothing
+below waits on it. Reasoned from PAID-TIER-PLAN.md,
 ADVERSARIAL-REVIEW-3.md, LEDGER.md Run 3, docs/app-store.md,
 docs/evidence/public-flip-plan-2026-09-05.md, and sotto-cloud's
 docs/evidence/voice-broker-staging-2026-09-05.log + DECISIONS.md. Evidence tags:
@@ -48,8 +50,8 @@ sotto-cloud or the paywall until a trigger fires.
 
 **Triggers to un-park** (any one):
 
-1. Three separate strangers ask for a hosted tutor or phone tutor after the public
-   flip, in issues or messages, unprompted.
+1. Three separate strangers ask for a hosted tutor or phone tutor, in issues or
+   messages, unprompted. The repo is already public, so the clock is running.
 2. Noel has used his own self-hosted instance for the tutor for four weeks and his
    OpenAI bill for it is over $10/mo. At that point the per-minute economics are his
    own measured numbers, not a projection.
@@ -118,7 +120,7 @@ add-on, rename Standard, set caps above. No code.
 Revenue is not the metric. These are:
 
 1. **Noel finishes one Spanish book in Sotto**, tutor sessions included, on the
-   phone PWA and the Mac, within four weeks of the public flip. Streak and
+   phone PWA and the Mac, within four weeks of today (by 2026-10-03). Streak and
    books-finished already exist in learner state; no new telemetry (CONTRACTS §0).
 2. **A stranger can self-host from the README in under 30 minutes** with no cloud:
    clone, `pnpm dev`, read a book, tap a word. One external issue or PR within a
@@ -127,9 +129,12 @@ Revenue is not the metric. These are:
    PWA (free), OpenAI on Noel's own key under a hard project budget, optional one
    small machine for the self-hosted server. Set the OpenAI monthly budget limit now
    because auto-reload is on (CONFIRM 4).
-4. **The repo is public with clean history** (public-flip plan), so the project can
-   be pointed at from the site and the resume as an AI/LLM build, which is the
-   positioning Noel wants.
+4. **The repo is public with clean history.** VERIFIED this session: github.com/nturl/sotto
+   is PUBLIC, the filter-repo rewrite (d4774ae) is an ancestor of HEAD, and the three
+   pre-rewrite commits that still match the reference name locally are unreachable
+   from origin/main. The brief's "public flip pending" is stale. What remains is the
+   sotto-cloud submodule pin (§5) and pointing the site and resume at the repo as an
+   AI/LLM build, which is the positioning Noel wants.
 
 Not success: MRR, App Store rating, subscriber count. If those show up they are a
 trigger (§1), not a goal.
@@ -158,9 +163,11 @@ Finish (already in flight or cheap, and they serve the free product):
 - Lazy narration wired into the reader's chapter switch (R3-I gap).
 - Word-audio sprites for the remaining books, then deploy.
 - Content QA F4 (Noel's human review of FR/ES levels).
-- Public flip: fresh-history repo per the plan's recommendation (CONFIRM 3), then
-  flip. sotto-cloud vendors the OSS repo as a submodule at a pre-rewrite SHA and must
-  re-pin after the rewrite (ADVERSARIAL-REVIEW-3 §3).
+- Re-pin sotto-cloud's `vendor/sotto` submodule. VERIFIED: it points at 5c755bd, a
+  pre-rewrite SHA that is not in the public repo's history. Anyone cloning sotto-cloud
+  with submodules gets a missing commit, and the pin keeps the scrubbed strings alive
+  in a repo that is meant to go public someday. One-line fix, then a sotto-cloud
+  commit (CONFIRM 3).
 - README section "Run Sotto for yourself on a phone": self-host apps/server + static
   client on one origin with your own OpenAI key. This is the personal-tutor path
   that replaces the paid tier for Noel.
@@ -192,9 +199,9 @@ until it is.
 1. **Park paid** as described in §1, with the three triggers. Yes/no.
 2. **One plan at $9.99/mo or $79/yr, 250 cascade minutes, 2 imports, Stripe only**, if
    and when un-parked. Numbers are config; nothing to build now.
-3. **Public-flip history: fresh-history repo** (the plan's recommendation) rather than
-   `git filter-repo --replace-text`. Noel runs it; nothing here rewrites history. Also
-   confirms sotto-cloud re-pins its submodule afterward.
+3. **Re-pin sotto-cloud's submodule to a post-rewrite SHA** (currently 5c755bd,
+   pre-rewrite). Approve a Sonnet lane in sotto-cloud to do it and re-run `pnpm check`.
+   The public flip itself is done; the public-flip plan document is now historical.
 4. **Set a hard monthly budget on the OpenAI project now** (suggest $20) since
    auto-reload is on. Noel's step in the OpenAI dashboard.
 5. **Personal phone tutor path**: self-host apps/server + static client on one origin

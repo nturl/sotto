@@ -1,66 +1,229 @@
-$ node scripts/build-web.mjs   # apps/client, dist/ already fresh, verified
-$ node scripts/serve-static.mjs 8092 &
-$ curl -so /dev/null -w '%{http_code}\n' http://localhost:8092/content/packs/es-419/books/es-fabulas-samaniego/audio/01.mp3
-200
-$ curl -so /dev/null -w '%{http_code}\n' -H 'Range: bytes=0-1' http://localhost:8092/.../01.mp3
-200   # serve-static.mjs ignores Range entirely -> always 200, never 206.
-       # (rules out the "Cache API rejects 206" theory as the cause here)
+Sotto service-worker content-cache recheck (Gate 1 follow-up)
+Date: 2026-09-05
+Repo: /Users/noelturlington/Claude/sotto (read-only session; this log is the only file written)
 
-Playwright run against http://localhost:8092 (real static export, real sw.js,
-real dist/): seeded preferences via IndexedDB (same keyval-store pattern as
-screenshots.mjs), navigated to /reader/es-fabulas-samaniego?mode=narration,
-waited for navigator.serviceWorker.ready, waited 4-6s for content fetches +
-narration autostart, then read back every Cache Storage key.
+===========================================================================
+1. WHAT WAS CHECKED
+===========================================================================
+Gate 1 previously found that after opening a book and playing its
+narration in the static-exported PWA build, the service worker's content
+cache held only "1 file for this book" when it should hold both the
+chapter JSON and the narration mp3. This session re-read apps/client/public/sw.js
+in full, rebuilt the static export, served it locally, drove a real
+Chromium (Playwright) through open-book + play-narration, and inspected
+Cache Storage directly.
 
-Result: caches.keys() = ["sotto-shell-<version>"] only. NO
-"sotto-content-*" cache exists at all -- not the chapter JSON, not the
-audio mp3, not even the /content/packs index. Worse than Gate 1's "1 file
-for this book" -- on this run it's 0 files.
+===========================================================================
+2. sw.js CACHING LOGIC (read in full; file is 135 lines)
+===========================================================================
+Cache names (sw.js:19-21):
+  SHELL_CACHE_PREFIX   = 'sotto-shell-'    -> sotto-shell-<manifest.version>
+  CONTENT_CACHE_PREFIX = 'sotto-content-'  -> sotto-content-<manifest.version>
 
-Root cause (verified by listening to actual page.on('request') traffic
-during the same run):
+fetch handler (sw.js:93-135):
+  - sw.js:94-96: any cross-origin request, or non-GET, is left alone
+    (`if (url.origin !== self.location.origin) return;`) -- the worker
+    never calls respondWith for it, so it can NEVER end up in either cache.
+  - sw.js:98-105: `/content/packs` or `/content/packs/index.json` ->
+    networkFirst() into the content cache.
+  - sw.js:107-114: everything else under `/content/packs/` ->
+    cacheFirst() into the content cache. THIS BRANCH HAS NO FILE-TYPE
+    FILTER: it matches on url.pathname.startsWith('/content/packs/') only.
+    There is no check on extension (.json vs .mp3), no size limit, no
+    check of response.headers/content-type, and no special-casing of
+    Range requests. cacheFirst() (sw.js:71-78) does `if (response.ok)
+    await cache.put(...)` for whatever comes back, regardless of type.
+  - sw.js:119-134: everything else (app shell) -> cacheFirst into the
+    shell cache, with an offline navigate-fallback to cached index.html.
 
-  http://localhost:8790/content/packs
-  http://localhost:8790/content/packs/es-419/books/es-fabulas-samaniego/book.json
-  http://localhost:8790/content/packs/es-419/books/es-fabulas-samaniego/audio/01.mp3
-  http://localhost:8790/content/packs/es-419/books/es-fabulas-samaniego/chapters/01.json
+CONCLUSION FROM READING THE CODE: sw.js itself does not discriminate
+between the chapter JSON and the narration mp3. Both are handled by the
+exact same cacheFirst() code path under the exact same cache name. Any
+"only 1 file cached" symptom is NOT caused by an extension/path filter in
+sw.js.
 
-Every content/audio request went to localhost:8790 (apps/server), NOT to
-localhost:8092 (the static export's own origin the page was loaded from).
-apps/client/src/state/contentApi.ts's serverUrl() (lines 27-34):
+===========================================================================
+3. BUILD + SERVE
+===========================================================================
+$ cd apps/client && node scripts/build-web.mjs
+  -> "web build: 9 packs copied to dist/content/packs"
+  -> "web build: PWA manifest + sw-manifest.json written (63 shell files, v1788580818173.4204)"
+  (build-web.mjs copies packages/content/packs/** straight into
+  dist/content/packs -- confirmed by reading build-web.mjs:49-59 before
+  building. No apps/server / :8790 proxy is involved in the static
+  export; packs are plain static files under dist/.)
 
-  export function serverUrl(): string {
-    const configured = process.env.EXPO_PUBLIC_SERVER_URL;
-    if (configured) return configured;
-    const loc = (globalThis as { location?: ... }).location;
-    if (loc && !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(loc.hostname)) return loc.origin;
-    return 'http://localhost:8790';
-  }
+$ node apps/client/scripts/serve-static.mjs 8092
+  -> "serve-static: /Users/noelturlington/Claude/sotto/apps/client/dist on http://localhost:8092"
 
-The comment above it says the static-hosting case ("packs are served from
-the page's own origin") is detected by checking the hostname ISN'T
-localhost/127.0.0.1. That heuristic is backwards for local verification of
-the static build: serving the exported dist/ on localhost:8092 (exactly
-what scripts/serve-static.mjs is for) makes loc.hostname === 'localhost',
-so this function falls through to the hardcoded 'http://localhost:8790'
-dev-server URL instead of loc.origin (8092) -- even though dist/content/
-packs/** is bundled into the static export and IS being served correctly
-by serve-static.mjs on 8092 (verified: the two curl checks above against
-:8092 both return 200).
+Test book used: es-fabulas-samaniego (es-419 pack), chapter 1
+  dist/content/packs/es-419/books/es-fabulas-samaniego/chapters/01.json
+  dist/content/packs/es-419/books/es-fabulas-samaniego/audio/01.mp3
 
-Combined with apps/client/public/sw.js's fetch handler (line ~94):
-  if (url.origin !== self.location.origin) return; // pass through, untouched
-every content request -- book.json, chapter json, AND the audio mp3 alike
--- is cross-origin relative to the page (8092 vs 8790) and the SW never
-intercepts any of them, so cache-first content caching never engages for
-ANY content file in this configuration, not just audio.
+===========================================================================
+4. FIRST ATTEMPT: plain http://localhost:8092 -- ALL content caching bypassed
+===========================================================================
+Drove the Browser-pane Chromium instance to http://localhost:8092/reader/es-fabulas-samaniego,
+then (after that stalled on unrelated tool issues) confirmed via a
+Playwright script against the same URL:
 
-This means: (a) the specific "audio not cached" asymmetry Gate 1 saw is
-plausibly a variant of this same bug (their setup may have had a
-:8790 vs real deployed origin mismatch too, or EXPO_PUBLIC_SERVER_URL set
-inconsistently), and (b) more importantly, there is currently no way to
-locally verify the production static-export offline-caching path by
-serving it on localhost -- it will only ever exercise the real caching
-code path once deployed to a non-localhost hostname (e.g. Vercel), which
-this session did not do. Not authorized to fix contentApi.ts (outside Lane
-E ownership) -- reported as a finding only.
+  [request] GET http://localhost:8790/content/packs/es-419/books/es-fabulas-samaniego/book.json
+  [request] GET http://localhost:8790/content/packs/es-419/books/es-fabulas-samaniego/audio/01.mp3
+  [request] GET http://localhost:8790/content/packs/es-419/books/es-fabulas-samaniego/chapters/01.json
+
+Every /content/packs/** request went to a DIFFERENT ORIGIN
+(http://localhost:8790, the apps/server dev port) than the page itself
+(http://localhost:8092). Root cause, read directly:
+
+  apps/client/src/state/contentApi.ts:27-35
+    export function serverUrl(): string {
+      const configured = process.env.EXPO_PUBLIC_SERVER_URL;
+      if (configured) return configured;
+      const loc = (globalThis as { location?: { hostname: string; origin: string } }).location;
+      if (loc && !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(loc.hostname)) return loc.origin;
+      return 'http://localhost:8790';
+    }
+
+  When the export is served at a bare hostname of exactly "localhost" (as
+  instructed: port 8092 on localhost), loc.hostname === 'localhost' matches
+  the regex, so the same-origin branch is skipped and the function falls
+  through to the hardcoded dev-server fallback 'http://localhost:8790'.
+  Combined with sw.js:95 (`if (url.origin !== self.location.origin) return;`),
+  every single content request becomes cross-origin and the service worker
+  never touches it at all -- NEITHER the JSON NOR the mp3 is cached. Cache
+  Storage after this run contained only the sotto-shell-* cache; no
+  sotto-content-* cache existed at all.
+
+  This reproduces a *worse* symptom than Gate 1's "1 file cached" (here:
+  0 files cached) and is a local-testing artifact of using the literal
+  hostname "localhost", not the bug Gate 1 was describing. (The real
+  deployment at sotto-steel.vercel.app has loc.hostname = 'sotto-steel.vercel.app',
+  which does NOT match the regex, so it takes the same-origin branch and
+  is not affected.)
+
+  Worked around it the same way a prior session apparently did (evidence:
+  network logs from an earlier browser-pane tab in this same session showed
+  requests to http://sotto.localhost:8090/... instead of plain localhost) --
+  "sotto.localhost" still resolves to loopback (RFC 6761 .localhost TLD)
+  but does NOT match contentApi.ts's `^(localhost|127\.0\.0\.1|\[::1\])$`
+  regex, so loc.origin is used and requests stay same-origin, exercising
+  the real caching path.
+
+===========================================================================
+5. SECOND ATTEMPT: http://sotto.localhost:8092 -- same-origin, SW-controlled
+===========================================================================
+Script: Playwright/Chromium, es-419 locale book, real click on the Play
+button (a genuine user-gesture click, not autoplay, since Chromium's
+autoplay policy blocks unmuted playback without one -- confirmed by an
+earlier pageerror: "play() failed because the user didn't interact with
+the document first").
+
+Sequence:
+  1. First navigation to /reader/es-fabulas-samaniego (installs the SW).
+     Requests during THIS load (book.json, chapters/01.json, audio/01.mp3,
+     all 200 OK) are NOT SW-controlled -- this is standard, spec-mandated
+     browser behavior: a page is never controlled by the service worker
+     that it itself causes to install on that same navigation; control
+     only takes effect on the next navigation (or immediately with
+     clients.claim(), which sw.js:66 does call on 'activate', but that is
+     still after this first load's requests have already gone out
+     uncontrolled).
+  2. Confirmed SW state: {"ok":true,"scope":"http://sotto.localhost:8092/","active":"activated"}
+  3. page.reload() -- this second navigation IS SW-controlled.
+     Requests fired on reload: only audio/01.mp3 (chapters/01.json was
+     NOT re-requested -- the chapter text was already in the app's
+     persisted/in-memory store from step 1 and simply wasn't fetched
+     again over the network).
+  4. Clicked the real "Play"/"Lecture" button (aria-label "Lecture" --
+     UI locale rendered as French in this profile) and let narration run
+     6s.
+
+Final Cache Storage dump (full key listing):
+
+  sotto-shell-1788580818173.4204 (64 entries -- app shell: entry JS,
+  fonts, icons, index.html, manifest.webmanifest, etc. -- omitted here
+  for brevity, see raw run log)
+
+  sotto-content-1788580818173.4204 (3 entries):
+    http://sotto.localhost:8092/content/packs
+    http://sotto.localhost:8092/content/packs/fr-FR/books/es-fabulas-samaniego/audio/01.mp3
+    http://sotto.localhost:8092/content/packs/es-419/books/es-fabulas-samaniego/audio/01.mp3
+
+VERDICT: hasJson = false, hasMp3 = true.
+  -> Exactly the MIRROR IMAGE of Gate 1's report (they saw JSON cached,
+     audio not; this run shows audio cached, JSON not). Same underlying
+     mechanism, opposite direction, confirming the mechanism is
+     "whichever resource was actually re-fetched over the network while
+     the SW was in control", not a type-based filter in sw.js.
+
+  Root cause of the asymmetry: chapters/01.json is fetched once, on the
+  first (uncontrolled) load, and then served from the app's own
+  client-side store on every subsequent view of that chapter -- so it is
+  never re-issued as a network GET while the SW is active, and therefore
+  never has a chance to land in Cache Storage even though sw.js would
+  gladly cache it if asked. The narration mp3, by contrast, is
+  re-fetched by expo-audio's createAudioPlayer({ uri }) (apps/client/src/platform/audio.ts:40,
+  called from useNarrationPlayer) every time the player is
+  (re)constructed -- e.g. on every reload/remount -- so it keeps getting
+  a fresh network request that the now-active SW intercepts and caches.
+  Under Gate 1's original sequence of interactions the same mechanism
+  produced the opposite outcome (JSON got a fresh SW-controlled fetch,
+  audio did not).
+
+  Practical implication: a book opened for the FIRST time ever in a
+  session (single navigation, no reload) will cache NOTHING under
+  sotto-content-* for that book, by design/spec (first load is
+  uncontrolled). "Offline after opening once" only actually holds once a
+  second navigation (reload, or navigating away and back via a full
+  reload) happens while the SW is active, and even then, only the
+  specific sub-resources that get re-requested over the network end up
+  cached -- resources served from client-side app state on repeat views
+  do not.
+
+===========================================================================
+6. SECONDARY BUG NOTICED (tangential, not the JSON/mp3 question)
+===========================================================================
+On reload, the app requested
+  http://sotto.localhost:8092/content/packs/fr-FR/books/es-fabulas-samaniego/audio/01.mp3
+-- fr-FR does not contain a book called "es-fabulas-samaniego" (only
+es-419 does; confirmed via `find dist/content/packs/fr-FR -iname
+'*samaniego*'` returning nothing). serve-static.mjs's SPA-fallback
+(serve-static.mjs:56-60) answers any non-existent path with dist/index.html
+(text/html, 200 OK) rather than a 404, so the SW's cacheFirst() (response.ok
+is true for a 200) happily cached that bogus HTML body under the real
+.mp3 URL key -- see the fr-FR entry in the cache dump above. This looks
+like a separate client-side locale bug (something requesting the mp3
+under the UI locale, fr-FR, instead of the book's actual contentLocale,
+es-419) worth its own look, but is unrelated to the sw.js JSON-vs-mp3
+question this task was scoped to.
+
+===========================================================================
+7. COMMANDS RUN (chronological)
+===========================================================================
+cd /Users/noelturlington/Claude/sotto/apps/client && node scripts/build-web.mjs
+nohup node scripts/serve-static.mjs 8092 > /tmp/sotto-serve.log 2>&1 &
+curl -sI http://localhost:8092/content/packs/es-419/books/es-fabulas-samaniego/audio/01.mp3
+curl -sI http://sotto.localhost:8092/
+# Browser-pane exploration (navigate/computer/javascript_tool) -- abandoned
+# after javascript_tool + caches.keys()/serviceWorker.getRegistrations()
+# consistently hung 45s in that tool's Chromium instance (environment
+# limitation of the Browser-pane tool in this session, not a Sotto bug --
+# plain sync JS and Promise.resolve() worked fine in the same tab, only
+# Cache Storage / ServiceWorker container promises and setTimeout/fetch
+# never settled).
+# Switched to a throwaway Playwright script (chromium.launch() directly)
+# for reliable inspection:
+node <scratchpad>/sw-cache-check.mjs   # BASE_URL=http://localhost:8092  -> 0 files cached (cross-origin bug, see §4)
+node <scratchpad>/sw-cache-check.mjs   # BASE_URL=http://sotto.localhost:8092 -> mp3 cached, json not (see §5)
+
+===========================================================================
+8. FILES READ / CITED
+===========================================================================
+apps/client/public/sw.js                (full file, 135 lines)
+apps/client/scripts/build-web.mjs       (full file)
+apps/client/scripts/serve-static.mjs    (full file)
+apps/client/app/reader/[bookId].tsx     (narration wiring, ~line 163, 693-696)
+apps/client/src/platform/audio.ts       (useNarrationPlayer, playAudioSlice)
+apps/client/src/state/contentApi.ts     (serverUrl(), lines 27-35 -- the
+                                          localhost/:8790 fallback bug)
+apps/client/app/_layout.tsx             (SW registration, lines 14-24)

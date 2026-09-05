@@ -314,35 +314,37 @@ export default function ImportEntryScreen() {
   return (
     <Shell>
       <BackLink />
-      <Text role="display" size={28} style={styles.title}>
-        {t('import.pickFile.title')}
-      </Text>
+      <View style={styles.pickColumn}>
+        <Text role="display" size={28} style={styles.title}>
+          {t('import.pickFile.title')}
+        </Text>
 
-      <View style={styles.formatList}>
-        <FormatRow
-          mono={t('import.pickFile.epubLabel')}
-          body={t('import.pickFile.epubDesc')}
-          onPress={() => void pick()}
-        />
-        <FormatRow
-          mono={t('import.pickFile.txtLabel')}
-          body={t('import.pickFile.txtDesc')}
-          onPress={() => void pick()}
-        />
-        <FormatRow
-          mono={t('import.pickFile.mdLabel')}
-          body={t('import.pickFile.mdDesc')}
-          onPress={() => void pick()}
-        />
-        <FormatRow
-          mono={t('import.pickFile.pdfLabel')}
-          body={t('import.pickFile.pdfDesc')}
-          disabled
-        />
+        <View style={styles.formatList}>
+          <FormatRow
+            mono={t('import.pickFile.epubLabel')}
+            body={t('import.pickFile.epubDesc')}
+            onPress={() => void pick()}
+          />
+          <FormatRow
+            mono={t('import.pickFile.txtLabel')}
+            body={t('import.pickFile.txtDesc')}
+            onPress={() => void pick()}
+          />
+          <FormatRow
+            mono={t('import.pickFile.mdLabel')}
+            body={t('import.pickFile.mdDesc')}
+            onPress={() => void pick()}
+          />
+          <FormatRow
+            mono={t('import.pickFile.pdfLabel')}
+            body={t('import.pickFile.pdfDesc')}
+            disabled
+          />
+        </View>
+        <Text role="caption" color="ink3" style={styles.drmNote}>
+          {t('import.pickFile.drmNote')}
+        </Text>
       </View>
-      <Text role="caption" color="ink3" style={styles.drmNote}>
-        {t('import.pickFile.drmNote')}
-      </Text>
     </Shell>
   );
 }
@@ -389,6 +391,12 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     title: {
       marginTop: space.sm,
       marginBottom: space.xl,
+    },
+    // IMPORT.md's Proof section: at >=900px the pick-a-file screen renders
+    // as a centered 480px column, not stretched to the sidebar content
+    // width — same treatment previewColumn already had.
+    pickColumn: {
+      maxWidth: 480,
     },
     formatList: {
       gap: space.md,

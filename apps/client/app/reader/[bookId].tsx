@@ -56,6 +56,7 @@ import {
 } from '../../src/platform/audio';
 import { useSottoStore } from '../../src/state/store';
 import { buildSavedWord } from '../../src/state/vocabulary';
+import { useLazyNarration } from '../../src/import/useLazyNarration';
 // ThemedText resolves color against the active scheme (unlike the plain
 // `Text` component, which stays statically light — see
 // ui/theme/ThemedText.tsx's doc comment for why); aliased so every
@@ -197,6 +198,7 @@ export default function ReaderScreen() {
   }, [book, chapterId]);
 
   const chapterSummary = book?.chapters.find((c) => c.id === chapterId);
+  const chapterIndex = book?.chapters.findIndex((c) => c.id === chapterId) ?? -1;
   const chapterKey = bookId && chapterId ? `${bookId}:${chapterId}` : undefined;
   const chapter = chapterKey ? chapters[chapterKey] : undefined;
 
@@ -204,6 +206,24 @@ export default function ReaderScreen() {
     if (bookId && chapterId && chapterSummary)
       void loadChapter(bookId, chapterId, chapterSummary.file);
   }, [bookId, chapterId, chapterSummary, loadChapter]);
+
+  // R3-I gap (LEDGER: "lazy narration not yet wired into the reader's
+  // chapter switch"): a private book imported with narrate:'first' only
+  // has chapter 1 narrated up front; later chapters have no `.audio` until
+  // narrated on demand. Trigger that here whenever the chapter switches to
+  // one still missing audio — the hook mutates the store's book/chapter
+  // entries in place, so `chapterSummary`/`audioUri` below pick up the
+  // result once it lands, same as switching to an already-narrated chapter.
+  const { narrating: narratingOnDemand, narrateChapter: narrateOnDemand } = useLazyNarration();
+  const attemptedNarrationRef = useRef<Set<string>>(new Set());
+  useEffect(() => {
+    if (!bookId || !book?.private || chapterIndex < 0 || chapterSummary?.audio) return;
+    const key = `${bookId}:${chapterIndex}`;
+    if (attemptedNarrationRef.current.has(key)) return;
+    attemptedNarrationRef.current.add(key);
+    void narrateOnDemand(bookId, chapterIndex);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bookId, book?.private, chapterIndex, chapterSummary?.audio]);
 
   const isDesktop = width >= 900;
   const language = locale ? getLanguage(locale) : undefined;
@@ -263,7 +283,6 @@ export default function ReaderScreen() {
     return new Set((selectedToken.spanTokens ?? [selectedToken.token]).map((tk) => tk.id));
   }, [selectedToken]);
 
-  const chapterIndex = book?.chapters.findIndex((c) => c.id === chapterId) ?? -1;
   const isLastChapter = book ? chapterIndex === book.chapters.length - 1 : false;
 
   // ADVERSARIAL-REVIEW.md §2 "fragility": completion used to fire on
@@ -723,6 +742,18 @@ export default function ReaderScreen() {
     </View>
   ) : null;
 
+  // No audio yet for this private-book chapter, and narration was just
+  // kicked off on demand (the effect above) — same caption style IMPORT.md
+  // §4 uses for "the remaining chapters keep preparing in the background".
+  const narratingOnDemandCaption =
+    !audioUri && book?.private && narratingOnDemand ? (
+      <View style={[styles.transport, isDesktop && styles.transportDesktop]}>
+        <Text role="caption" color="ink2">
+          {t('import.reader.narratingChapter')}
+        </Text>
+      </View>
+    ) : null;
+
   return (
     <View style={styles.root} onLayout={(e) => setWidth(e.nativeEvent.layout.width)}>
       <View style={styles.body}>
@@ -808,7 +839,7 @@ export default function ReaderScreen() {
             ))}
           </ScrollView>
 
-          {isDesktop ? transportView : null}
+          {isDesktop ? (transportView ?? narratingOnDemandCaption) : null}
         </View>
 
         {isDesktop ? <View style={styles.desktopPanel}>{translationPanel}</View> : null}
@@ -825,7 +856,7 @@ export default function ReaderScreen() {
         </Sheet>
       ) : null}
 
-      {!isDesktop ? transportView : null}
+      {!isDesktop ? (transportView ?? narratingOnDemandCaption) : null}
     </View>
   );
 }

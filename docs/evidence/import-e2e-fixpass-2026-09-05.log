@@ -1,0 +1,33 @@
+[import-e2e 2026-09-05T18:38:59.566Z] opening http://localhost:8095/import
+[import-e2e 2026-09-05T18:39:00.371Z] pick-a-file screen rendered
+[import-e2e 2026-09-05T18:39:00.393Z] screenshot saved: docs/screenshots/web/375-import-preview.png
+[import-e2e 2026-09-05T18:39:00.447Z] file selected: /private/tmp/claude-502/-Users-noelturlington-Claude/0d7d9e7e-61af-4c14-b366-9a4a37dbe35c/scratchpad/petit.txt
+[import-e2e 2026-09-05T18:39:00.458Z] preview screen rendered
+[import-e2e 2026-09-05T18:39:00.503Z] screenshot saved: docs/screenshots/web/375-import-preview.png
+[import-e2e 2026-09-05T18:39:00.538Z] screenshot saved: docs/screenshots/web/1440-import-preview.png
+[import-e2e 2026-09-05T18:39:00.573Z] tapped the Importer CTA
+[import-e2e 2026-09-05T18:39:00.592Z] progress screen: http://localhost:8095/import/d083834a-1c26-48d1-b5ba-78b41a852d6e
+[import-e2e 2026-09-05T18:39:00.616Z] screenshot saved: docs/screenshots/web/375-import-progress.png
+[import-e2e 2026-09-05T18:39:00.641Z] screenshot saved: docs/screenshots/web/1440-import-progress.png
+[import-e2e 2026-09-05T18:44:54.769Z] import finished
+[import-e2e 2026-09-05T18:44:54.809Z] screenshot saved: docs/screenshots/web/375-import-progress.png
+[import-e2e 2026-09-05T18:44:54.879Z] book detail: http://localhost:8095/book/private-f0473993
+[import-e2e 2026-09-05T18:44:54.992Z] reader: http://localhost:8095/reader/private-f0473993
+[import-e2e 2026-09-05T18:44:57.024Z] screenshot saved: docs/screenshots/web/375-import-reader.png
+[import-e2e 2026-09-05T18:44:57.071Z] screenshot saved: docs/screenshots/web/1440-import-reader.png
+[import-e2e 2026-09-05T18:44:57.080Z] reader body text length before tap: 325
+[import-e2e 2026-09-05T18:44:57.664Z] tapped "chat" — gloss "cat" visible afterward: true
+[import-e2e 2026-09-05T18:44:57.684Z] screenshot saved: docs/screenshots/web/375-import-reader.png
+[import-e2e 2026-09-05T18:44:57.685Z] audio element/control present in the reader: true
+
+--- R3-X2 note (fix lane) ---
+Run against an isolated apps/server instance (port 8791, own process,
+not the shared dev server on 8790 other lanes were using concurrently —
+an earlier attempt against the shared instance hit ERR_CONNECTION_REFUSED
+mid-run when that instance was restarted by another lane) and the client
+web dev server on :8095 with EXPO_PUBLIC_SERVER_URL pointed at it, to
+confirm the sentence-splitting/import-cap/job-lifetime fixes (findings
+6 and 9) and the epub inflation guard (finding 7) did not regress the
+existing importer flow: pick -> preview -> progress -> reader, chapter 1
+tap-translate ("chat" -> "cat"), and the narration audio control all
+still work end to end.

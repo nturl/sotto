@@ -89,24 +89,53 @@ export function useNarrationPlayer(uri: string | undefined, rate: NarrationSpeed
   };
 }
 
+/** Padding around a tapped word's aligned span. Whisper spans are
+ * contiguous (a word's endMs is the next word's startMs — see the es-419
+ * packs), so padding must stay small or the slice bleeds into the
+ * neighbouring words; what it buys is a softer onset/offset than a hard
+ * cut exactly on the boundary. */
+export const WORD_SLICE_LEAD_MS = 40;
+export const WORD_SLICE_TAIL_MS = 80;
+/** Words are replayed a touch slower than the narration so a learner can
+ * hear the syllables; pitch-corrected so the voice doesn't drop. */
+export const WORD_SLICE_RATE = 0.85;
+
 /** Plays a single word's audio slice (startMs..endMs) from the chapter mp3,
  * for the reader's translation-sheet speaker button. Fire-and-forget: a new
- * short-lived player is created per tap and released when it stops. */
+ * short-lived player is created per tap and released when it stops.
+ *
+ * The stop timer is armed only once the seek has resolved and playback
+ * has started (the earlier timer was armed at load, so seek latency ate
+ * into the window and cut the word off); position updates on web arrive
+ * at ~250 ms `timeupdate` granularity, so they only serve as a backstop. */
 export function playAudioSlice(uri: string, startMs: number, endMs: number): void {
-  const player = createAudioPlayer({ uri });
-  const durationSeconds = Math.max(0.05, (endMs - startMs) / 1000);
+  const player = createAudioPlayer({ uri }, { updateInterval: 40 });
+  const startSeconds = Math.max(0, startMs - WORD_SLICE_LEAD_MS) / 1000;
+  const endSeconds = (Math.max(endMs, startMs + 250) + WORD_SLICE_TAIL_MS) / 1000;
+  let started = false;
   let stopped = false;
+  let fallback: ReturnType<typeof setTimeout> | undefined;
   const stop = () => {
     if (stopped) return;
     stopped = true;
+    if (fallback) clearTimeout(fallback);
+    sub.remove();
     player.pause();
     player.remove();
   };
   const sub = player.addListener('playbackStatusUpdate', (status: AudioStatus) => {
-    if (status.isLoaded && !stopped) {
-      void player.seekTo(startMs / 1000).then(() => player.play());
-      sub.remove();
-      setTimeout(stop, durationSeconds * 1000 + 60);
+    if (stopped || !status.isLoaded) return;
+    if (!started) {
+      started = true;
+      player.setPlaybackRate(WORD_SLICE_RATE, 'high');
+      void player.seekTo(startSeconds).then(() => {
+        if (stopped) return;
+        player.play();
+        const windowMs = ((endSeconds - startSeconds) / WORD_SLICE_RATE) * 1000;
+        fallback = setTimeout(stop, windowMs + 30);
+      });
+      return;
     }
+    if (status.didJustFinish || (status.playing && status.currentTime >= endSeconds)) stop();
   });
 }

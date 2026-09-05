@@ -11,7 +11,8 @@
     "ios": "expo run:ios --device \"iPhone 17 Pro\"",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "web:export": "node scripts/build-web.mjs"
   },
   "dependencies": {
     "@expo-google-fonts/fraunces": "^0.4.1",

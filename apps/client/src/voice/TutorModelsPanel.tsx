@@ -12,7 +12,7 @@
  * Shared by the voice screen and Settings > Tutor models so the two can
  * never disagree about what is installed.
  */
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import {
   downloadTutorModels,
@@ -21,17 +21,24 @@ import {
   type ModelProgress,
   type TutorModelSpec,
 } from '@sotto/voice';
-import { colors, radius, space } from '@sotto/core/theme';
+import { radius, space } from '@sotto/core/theme';
 import { useT } from '../i18n/useT';
 import { Button } from '../ui/Button';
 import { Text } from '../ui/Text';
+import { useTheme } from '../ui/theme';
 
 export type TutorModelsPanelState =
   | { kind: 'unsupported' }
   | { kind: 'needs-download'; models: TutorModelSpec[] }
   | { kind: 'ready' };
 
-function ProgressBar({ fraction }: { fraction: number | null }) {
+function ProgressBar({
+  fraction,
+  styles,
+}: {
+  fraction: number | null;
+  styles: ReturnType<typeof createStyles>;
+}) {
   return (
     <View style={styles.track}>
       <View
@@ -57,6 +64,8 @@ export function TutorModelsPanel({
   showRemove?: boolean;
 }) {
   const t = useT();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const [progress, setProgress] = useState<Record<string, ModelProgress>>({});
   const [busy, setBusy] = useState(false);
   const [failure, setFailure] = useState<string | null>(null);
@@ -150,7 +159,7 @@ export function TutorModelsPanel({
                   {t('tutor.browser.sizeMb', { size: m.sizeMb })}
                 </Text>
               </View>
-              {p ? <ProgressBar fraction={p.fraction} /> : null}
+              {p ? <ProgressBar fraction={p.fraction} styles={styles} /> : null}
             </View>
           );
         })}
@@ -183,43 +192,45 @@ export function TutorModelsPanel({
   );
 }
 
-const styles = StyleSheet.create({
-  panel: {
-    gap: space.md,
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.hairline,
-    padding: space.lg,
-    marginBottom: space.lg,
-  },
-  centered: {
-    textAlign: 'center',
-  },
-  list: {
-    gap: space.sm,
-  },
-  row: {
-    gap: space.xs,
-  },
-  rowHead: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: space.sm,
-  },
-  track: {
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: colors.surface2,
-    overflow: 'hidden',
-  },
-  fill: {
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: colors.accent,
-  },
-  fillIndeterminate: {
-    width: '15%',
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    panel: {
+      gap: space.md,
+      backgroundColor: colors.surface,
+      borderRadius: radius.md,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+      padding: space.lg,
+      marginBottom: space.lg,
+    },
+    centered: {
+      textAlign: 'center',
+    },
+    list: {
+      gap: space.sm,
+    },
+    row: {
+      gap: space.xs,
+    },
+    rowHead: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: space.sm,
+    },
+    track: {
+      height: 6,
+      borderRadius: 3,
+      backgroundColor: colors.surface2,
+      overflow: 'hidden',
+    },
+    fill: {
+      height: 6,
+      borderRadius: 3,
+      backgroundColor: colors.accent,
+    },
+    fillIndeterminate: {
+      width: '15%',
+    },
+  });
+}

@@ -1,0 +1,296 @@
+================================================================================
+Sotto — in-browser tutor, slice 5: turn-1 silence + tool round trip
+Run: 2026-09-05, macOS 15 / M-series, Chromium via Playwright, headless,
+     --enable-unsafe-webgpu --use-angle=metal. llama-server running
+     throughout (task brief's realistic-machine condition was not required
+     here since the whole point of this lane is the browser path, which
+     never talks to :8790 — health is deliberately blocked, see the e2e
+     script's own header).
+
+SCOPE. slice-4's open issues, in the order investigated:
+  (1) learner caption "cigarrera"/"cigarrara" vs the spoken "cigarra"
+  (2) turn 1 sometimes produces no visible tutor caption
+  (3) the second learner utterance was never heard
+  (4) therefore no tool round trip
+
+--------------------------------------------------------------------------------
+BUG 1 — VAD frame-size mismatch (root cause of (3), and of most of (2))
+--------------------------------------------------------------------------------
+Instrumented handleFrame() with per-frame RMS + a periodic
+[count, maxRms, turnMode, vadSpeaking] report, plus a debug_vad metric on
+every EnergyVad speech_start/speech_end. First worker instance's first
+utterance was always detected correctly (speech_start -> speech_end matching
+the ~2.7s clip); every later loop repeat of the SAME fake-mic wav — same
+bytes, same content, comfortably above-threshold peak RMS the whole time
+(observed 0.15-0.24 against a 0.02 threshold) — never fired speech_start
+again, for the rest of that worker's life.
+
+Traced to packages/voice/src/transports/web-audio.ts's AudioWorkletProcessor:
+it posts one message per audio render quantum, ~2.7ms of PCM16 at 16kHz
+(confirmed via the frame-count telemetry: ~752 chunks per 2000ms window).
+packages/voice/src/browser-cascade/vad.ts's EnergyVad — and its own unit
+tests, and the server's equivalent apps/server/src/voice/vad.ts — were all
+written and verified assuming ~20ms frames (test file hard-codes
+FRAME_SAMPLES = SAMPLE_RATE/50). Feeding it 2.7ms micro-frames makes the
+hard "any below-threshold frame zeroes the accumulator" logic dramatically
+more fragile: ordinary voiced speech has brief near-zero-crossing dips
+several times a second, and at 2.7ms granularity those dips reset `aboveMs`
+before it reaches minSpeechMs (300ms) almost every time. Only an unusually
+loud, not-yet-gain-settled first capture happened to survive 300ms
+uninterrupted; nothing after it ever did.
+
+  Experiment: disabled autoGainControl in getUserMedia (WebAudioAdapter).
+  Result: WORSE — even the first utterance stopped triggering (raw fake-mic
+  level without AGC's initial boost never spiked as high). Reverted.
+
+  Experiment: disabled noiseSuppression instead. Result: no change (still
+  only the first utterance ever detected). Reverted (both back to true).
+
+  Fix: EnergyVad.process() now internally re-chunks whatever it's given
+  into fixed ~20ms evaluation windows before running the existing threshold
+  logic (packages/voice/src/browser-cascade/vad.ts). SpeechBuffer, which
+  still receives full-resolution frames for STT accuracy, is untouched.
+  Existing unit tests (which already pass exactly-20ms frames) needed no
+  changes and still pass unmodified — they exercise the re-chunker at a
+  1:1 ratio.
+  Verified: post-fix, speech_start/speech_end fire on every loop iteration
+  of the fake-mic wav, and the second utterance is heard.
+
+--------------------------------------------------------------------------------
+BUG 2 — turn-1 LLM/STT-readiness race (root cause of (2))
+--------------------------------------------------------------------------------
+Once the VAD fix let turns complete quickly, a NEW failure surfaced: turn 1
+sometimes still produced no tutor caption, with state going straight
+thinking -> listening. Instrumented runTutorTurn/WebLlmEngine.chat.
+
+worker.ts's `case 'init':` handler assigns `session = s` synchronously,
+before `await`ing loadStt() then loadLlm() — so audio capture and VAD start
+immediately, well before either model is ready. runTutorTurn's guard used to
+read:
+    if (!llmEngine) { setState('listening'); return; }
+On a run where STT finished loading and transcribing FASTER than the LLM
+(observed: stt_ms completing at ~53.9s while llm_load_ms didn't post until
+54.3s — a ~0.4s gap, but transcribeSegment -> runTutorTurn ran inside that
+window), the turn was silently dropped: no caption, no error, no retry, and
+the caption for the learner's OWN utterance still displayed normally
+(caption is posted before the runTutorTurn check), making the drop
+invisible in the UI. This is very plausibly the same shape reported in
+slice 2/3 and slice 4's own logs.
+
+Fix (packages/voice/src/browser-cascade/worker.ts):
+  - loadLlm() is now started before loadStt() is awaited (previously
+    sequential: `await loadStt(); await loadLlm();`, which needlessly
+    widened the race by delaying when LLM loading even begins), and its
+    promise is tracked in module-level `llmLoadPromise`.
+  - `runTutorTurnBody` (see BUG 3) now waits on `llmLoadPromise` (bounded to
+    15s) if `llmEngine` is still null when a turn arrives, instead of
+    immediately giving up. Only after that wait, if still null, does it
+    degrade to the caption-only path.
+Verified: `llm_wait_for_load` fired and the turn correctly proceeded once
+loadLlm() resolved, instead of silently dropping.
+
+--------------------------------------------------------------------------------
+BUG 3 — tool-fence leaking into captions, and a WebLLM engine hang under
+        barge-in (found while fixing (4))
+--------------------------------------------------------------------------------
+With BUG 1 fixed, the second utterance's speech_start correctly fires the
+server-parity barge-in this worker had never actually had:
+apps/server/src/voice/session.ts's onSpeechStart() calls bargeIn(); worker.ts's
+handleFrame had no equivalent call at all. Wiring `interruptSession(session)`
+into the speech_start branch (matching the server) surfaced two further,
+previously-unreachable bugs:
+
+  3a. The JSON-tool fallback protocol (for Qwen3-1.7B, which rejects native
+  `tools`) asks the model for a fenced ```tool ... ``` block. That block was
+  only ever stripped from the FINAL aggregated text inside
+  WebLlmEngine.chat's return value — too late, because llm-turn.ts's
+  onTextDelta handler had already streamed the raw content out as captions
+  sentence-by-sentence. Once the model actually attempted a tool call for
+  the first time, the caption read literally "```tool" (or, after a first
+  attempted fix, the whole fence text unstripped) instead of anything
+  learner-facing.
+    Fix #1: markers.ts's stripMarkers/safeReleaseIndex now treat an open
+    ```tool fence the same way an open <think> block already was —
+    stripped when complete, held back mid-stream when not yet closed.
+    Fix #2 (needed after fix #1's own unit test caught it): the initial
+    hold-back check only recognized the FULL literal "```tool" once it was
+    already sitting in the buffer, so a stream that delivered "```" and
+    "tool" as separate deltas released the first chunk before the second
+    arrived — the same leak, differently shaped. safeReleaseIndex now also
+    holds back any trailing fragment that could still grow into the 7-char
+    marker. That in turn falsely flagged a block's own freshly-arrived
+    CLOSING fence as a hypothetical new opening (both are "```"), splitting
+    the release right before the closing fence and defeating stripMarkers's
+    all-in-one-string regex again. Final fix: the ```tool check now scans
+    only the portion of the buffer AFTER the last already-COMPLETE match
+    (lastCompleteToolBlockEnd), so a just-closed fence is never re-examined
+    as a potential new opening. Covered by a new unit test that replays the
+    exact live-observed delta split ("Listo. ", "``", "`", "to",
+    "ol\n{...}\n", "```", " Hecho.") and asserts the fence never reaches the
+    caption text.
+
+  3b. Barge-in itself then hung the session: `interruptSession` flips the
+  AbortController's signal, but engine.interruptGenerate() (the WebLLM API
+  called on abort) only sets an internal flag — it doesn't wait for the
+  interrupted generation to actually unwind and release whatever
+  request-serialization lock WebLLM holds. Starting a SECOND
+  engine.chat.completions.create() for the next turn immediately after
+  (once STT finished on the newly-captured, barge-in utterance) hung
+  indefinitely: no error, no further worker output, session sat in
+  `thinking` until the 90s idle timeout. Reproduced twice with identical
+  symptoms before diagnosing.
+    Fix: SessionState now tracks `currentTurnPromise`. runTutorTurn awaits
+    any previous turn's promise (which settles quickly once genuinely
+    aborted) before starting a new engine call, serializing access to the
+    shared MLCEngine instead of letting two calls race it.
+    This did NOT fully eliminate every timing sensitivity on its own — see
+    the e2e fixture note below — but with it in place, no run since has
+    hung; every run reaches the session's own 90s idle end cleanly instead.
+
+Separately, the e2e fixture's own INTER_UTTERANCE_SILENCE_MS (2.5s) was too
+tight once turn 1 could legitimately take longer (waiting out the LLM per
+BUG 2's fix): the fixed-schedule fake-mic wav played utterance 2 while
+turn 1 was still replying, exercising the now-correct-but-slower barge-in
+path on every run instead of the intended "two sequential turns" shape.
+Raised to 15s (apps/client/e2e/browser-tutor.mjs) so turn 1 finishes before
+utterance 2 plays, matching how an actual learner would pace themselves.
+TRAILING_SILENCE_MS was separately raised from 1.5s to 180s so the wav's own
+loop point is never reached again within one session's lifetime.
+
+Also fixed in the e2e harness: KEEP_PROFILE=1 reuses the profile's service
+worker and shell cache (dist/sw.js is cache-first for any same-origin GET
+outside /content/packs/**, and /tutor/tutor-worker.js falls into that
+catch-all), so a rebuilt worker with new code silently kept serving the
+PREVIOUS build's cached copy — several diagnostic iterations produced no
+change in behavior until this was found. The script now unregisters any
+service worker and drops the shell cache (not the model/content caches,
+which is the entire point of KEEP_PROFILE) on the very first navigation of
+each run. Also: KEEP_PROFILE=1 was preserving the PREVIOUS run's saved
+vocabulary in IndexedDB, so "tool round trip: cigarra saved" passed on runs
+where the save had actually failed, reading a stale leftover entry instead
+of proof. seedProfile() now clears the sotto.vocabulary key every run.
+
+--------------------------------------------------------------------------------
+FIX #4 — tool-calling reliability (attempted, partially effective)
+--------------------------------------------------------------------------------
+Even with the pipeline mechanically correct, Qwen3-1.7B (the in-browser
+model; the server's much larger Qwen3.6-35B has never needed this JSON
+fallback at all) is unreliable at actually calling save_vocabulary for a
+"guarda la palabra X" command:
+  - sometimes narrates the action in prose without ever emitting the fenced
+    block ("...y la guardo" with no ```tool block at all)
+  - sometimes calls the WRONG tool (show_explanation instead of
+    save_vocabulary) for the same request
+  - sometimes calls save_vocabulary correctly, with the correct tokenId
+    resolved from the passage and the CORRECT word ("cigarra", even when
+    STT itself misheard the spoken word as "sigurra" — the model recovered
+    the right word from the passage context)
+
+Strengthened withJsonToolInstruction's prompt (worker.ts) with an explicit
+"do not just describe the action, emit the block" instruction and one
+worked save_vocabulary example. This measurably helped (a save was observed
+succeeding, with the correct word, in earlier diagnostic runs) but did not
+make it reliable: the two final clean verification runs below both show the
+model explaining the word again rather than saving it, on the third+ tool
+attempt of the session. This is model capability, not a code defect in this
+lane's plumbing — the tool call, when made, round-trips correctly end to
+end (worker -> tool_call -> requestTool -> main thread's executeTool ->
+respondTool -> tool_result -> continuation turn), proven live earlier in
+this same diagnostic session (a save with tokenId "t6", word "cigarra",
+landed in the IndexedDB vocabulary store with the correct SavedWord shape).
+
+--------------------------------------------------------------------------------
+WHISPER MISTRANSCRIPTION (item 1) — accepted as fuzzy-match, per the brief
+--------------------------------------------------------------------------------
+whisper-base continues to mishear both fixture phrases slightly
+("cigarra" -> "cigarrera"/"cigarrara"/"cigarras"; "guarda" -> "cuarda" in
+one run, correct in others) — consistent with the pre-existing, previously
+documented imprecision (slice-1's own log shows the same mishearing before
+any of this task's changes). Per the brief's own instruction NOT to weaken
+the check to "any caption", apps/client/e2e/browser-tutor.mjs now does a
+Levenshtein-distance (<=2) fuzzy match against the target word, tokenized
+from the caption text with accents stripped, instead of a literal substring
+check. Also reworded the fake-mic's second utterance from "Guarda la
+palabra cigarra." to "Por favor, guarda la palabra cigarra." — the added
+lead-in measurably fixed the "guarda"->"cuarda" confusion across every run
+after that change (it recurs on "cigarra" itself, which the fuzzy match
+absorbs).
+
+================================================================================
+TWO CLEAN FULL E2E RUNS (final verification, after every fix above)
+================================================================================
+Command each time:
+  PROFILE_NAME=browser-tutor-profile-final KEEP_PROFILE=1 \
+    node apps/client/e2e/browser-tutor.mjs
+(same warm profile — models already cached — but each run's own app state,
+including the vocabulary store, is now cleared at the start per the
+seedProfile fix above, so neither run's "tool round trip" result can be a
+carried-over false positive from the other.)
+
+RUN A (full console log: /tmp/e2e-final1.log during this session)
+  states: connecting -> thinking -> listening -> thinking -> listening -> ended
+  You: "¿Qué significa la palabra cigarrara?"
+  Tutor: "¿Qué significa la palabra cigarrara?" / "La palabra \"cigarrara\"
+    es una forma incorrecta de decir \"cigarra\"."
+  You: "Por favor, guarda la palabra sigurra."
+  Tutor: "Por favor, guarda la palabra sigurra." / "La palabra \"cigarra\"
+    se usa en el texto para referirse a una **cigarra** (un tipo de
+    insecto)."
+  vocabulary store: [] (no save attempted this turn — the model explained
+    the word instead of calling save_vocabulary)
+  [PASS] static host: /health unreachable
+  [PASS] download panel offered the models with a size, never automatically
+  [PASS] models downloaded on the explicit tap
+  [PASS] learner caption contains "cigarra" (fuzzy match)
+  [PASS] state cycled listening -> thinking
+  [PASS] tutor caption (final) within the reply budget
+  [PASS] no false "speaking" state for es-419
+  [PASS] "Guarda la palabra cigarra" heard as a learner caption (fuzzy match)
+  [FAIL] tool round trip: cigarra actually saved to the vocabulary store
+
+RUN B (full console log: /tmp/e2e-final2.log during this session)
+  Same shape: both turns complete cleanly, no hang, no truncated caption, no
+  interrupt getting stuck. Turn 2's model output again explains the word
+  ("La palabra \"cigarra\" se usa en el texto...", then a second aside about
+  "cigarrara" being a valid Latin American spelling) rather than calling
+  save_vocabulary.
+  vocabulary store: []
+  Same 7/8 result as run A: everything through "tutor caption (final) within
+  the reply budget" and "second utterance heard" PASS; only the tool-save
+  itself does not complete this run.
+
+REQUIRED PASS SET, final status:
+  [PASS] learner caption matches target word (fuzzy, Levenshtein<=2)
+  [PASS] tutor caption (final) within 60s
+  [PASS] state returns to listening
+  [PASS] second utterance heard
+  [FAIL] save_vocabulary round trip stores the word — reproduced as a
+    genuine model-reliability gap (not a hang, not a pipeline bug: the
+    mechanism works when the model actually emits the tool call, verified
+    earlier in this same session) across two clean, back-to-back runs.
+  [PASS] no false speaking state for es
+
+No hang in either run (contrast with three earlier runs this session that
+hung until the 90s idle timeout before the barge-in serialization fix
+landed).
+
+================================================================================
+FILES CHANGED (this slice)
+================================================================================
+  packages/voice/src/browser-cascade/vad.ts — EnergyVad frame re-chunking
+  packages/voice/test/browser-cascade-vad.test.ts — unchanged, still passes
+  packages/voice/src/browser-cascade/markers.ts — ```tool fence stripping +
+    the safeReleaseIndex prefix/last-complete-match fix
+  packages/voice/test/browser-cascade-markers.test.ts — new coverage for
+    the above, including the incremental-delta regression test
+  packages/voice/src/browser-cascade/worker.ts — concurrent STT/LLM load +
+    llmLoadPromise wait, speech_start barge-in wired in, currentTurnPromise
+    serialization, strengthened JSON-tool-fallback prompt
+  apps/client/e2e/browser-tutor.mjs — SW-cache reset on a reused profile,
+    per-run vocabulary clear, fuzzy word matching, TOOL_UTTERANCE reworded,
+    TRAILING_SILENCE_MS and INTER_UTTERANCE_SILENCE_MS widened
+
+llama-server confirmed running at the end of this session:
+  curl -s http://127.0.0.1:8790/health -> {"ok":true,"stt":true,"llm":true,
+  "tts":true,"vad":"energy"}
+================================================================================

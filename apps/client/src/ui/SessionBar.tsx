@@ -6,10 +6,10 @@
  * /voice/[bookId]; the session itself lives in sessionManager and keeps
  * running whether or not this bar (or the voice screen) is mounted.
  */
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { useRouter } from 'expo-router';
-import { colors, space } from '@sotto/core/theme';
+import { space } from '@sotto/core/theme';
 import { useT } from '../i18n/useT';
 import { setMuted } from '../voice/sessionManager';
 import { Cover } from './Cover';
@@ -18,11 +18,14 @@ import { MicGlyph, MuteGlyph } from './Glyphs';
 import { IconButton } from './IconButton';
 import { useSottoStore } from '../state/store';
 import { Text } from './Text';
+import { useTheme } from './theme';
 import { webCursor } from './tokens';
 
 export function SessionBar() {
   const t = useT();
   const router = useRouter();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const library = useLibrary();
   const sessionRecord = useSottoStore((s) => s.sessionRecord);
   const voiceState = useSottoStore((s) => s.voiceState);
@@ -86,26 +89,28 @@ export function SessionBar() {
   );
 }
 
-const styles = StyleSheet.create({
-  bar: {
-    height: 56,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.md,
-    paddingHorizontal: space.md,
-    backgroundColor: colors.surface,
-    borderTopWidth: 1,
-    borderTopColor: colors.hairline,
-  },
-  tapArea: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.md,
-    minWidth: 0,
-  },
-  text: {
-    flex: 1,
-    minWidth: 0,
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    bar: {
+      height: 56,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space.md,
+      paddingHorizontal: space.md,
+      backgroundColor: colors.surface,
+      borderTopWidth: 1,
+      borderTopColor: colors.hairline,
+    },
+    tapArea: {
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space.md,
+      minWidth: 0,
+    },
+    text: {
+      flex: 1,
+      minWidth: 0,
+    },
+  });
+}

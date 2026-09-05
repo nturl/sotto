@@ -210,10 +210,26 @@ function withJsonToolInstruction(messages: ChatMessage[]): ChatMessage[] {
   const toolsList = TOOL_DEFINITIONS.map(
     (t) => `- ${t.function.name}: ${t.function.description}`,
   ).join('\n');
+  // Found live while diagnosing slice 5 (docs/evidence/
+  // browser-tutor-slice5-2026-09-05.log): Qwen3-1.7B (the in-browser model —
+  // the server's much larger Qwen3.6-35B does not need this fallback path
+  // at all) reliably NARRATES an action ("La palabra es... y la guardo")
+  // without ever emitting the fenced block, i.e. it says it will call the
+  // tool but doesn't. A worked example for the exact tool this session
+  // exercises most (saving a word) plus an explicit "do not just describe
+  // it in prose" line measurably changes that — a weak model imitates a
+  // concrete shown shape far more reliably than a prose description of one.
   const instruction =
-    'This model build does not support native tool calling. To call a tool, emit a ' +
-    'fenced block exactly like:\n```tool\n{"name": "<tool name>", "arguments": {...}}\n```\n' +
-    `At most one such block per reply, nothing else inside it. Available tools:\n${toolsList}`;
+    'This model build does not support native tool calling. When the learner ' +
+    'asks you to do one of the actions below, you must actually emit the fenced ' +
+    'block below — do not just describe the action in your reply text (for ' +
+    'example, do not say "I will save it" without the block). You may still ' +
+    'write normal reply text before or after the block.\n' +
+    'Format:\n```tool\n{"name": "<tool name>", "arguments": {...}}\n```\n' +
+    'Example — the learner says "guarda la palabra cigarra" and the current ' +
+    'passage has a token with id "t42" and text "cigarra":\n' +
+    '```tool\n{"name": "save_vocabulary", "arguments": {"tokenId": "t42", "word": "cigarra"}}\n```\n' +
+    `At most one such block per reply. Available tools:\n${toolsList}`;
   if (messages[0]?.role !== 'system') return messages;
   return [
     { ...messages[0], content: `${messages[0].content}\n\n${instruction}` },
@@ -349,6 +365,22 @@ class WebLlmEngine implements LlmEngine {
 
 let mlcEngine: MLCEngine | null = null;
 let llmEngine: WebLlmEngine | null = null;
+/**
+ * Root cause of "turn 1 sometimes produces no visible reply"
+ * (docs/evidence/browser-tutor-slice2-3-2026-09-05.log,
+ * browser-tutor-slice4-2026-09-05.log, and confirmed live while diagnosing
+ * slice 5, docs/evidence/browser-tutor-slice5-2026-09-05.log): `session` is
+ * assigned synchronously at the top of the `init` handler, before `loadStt`/
+ * `loadLlm` are awaited, so audio capture and VAD start immediately — a
+ * learner who speaks quickly enough can have STT finish (sttPipeline ready)
+ * while `loadLlm()` is still in flight. `runTutorTurn` used to see
+ * `llmEngine === null` at that instant and silently drop the turn
+ * (`setState('listening'); return;`) — no caption, no error, no retry, and
+ * the session then never re-tries because that's a legitimate degrade path
+ * for "the LLM failed to load at all". This promise lets `runTutorTurn`
+ * distinguish "still loading, wait for it" from "genuinely unavailable".
+ */
+let llmLoadPromise: Promise<void> | null = null;
 
 async function loadLlm(): Promise<void> {
   if (mlcEngine) return;
@@ -436,6 +468,21 @@ interface SessionState {
     string,
     { resolve: (r: ToolCallResult) => void; timer: ReturnType<typeof setTimeout> }
   >;
+  /**
+   * The in-flight (or just-settled) `s.turnRunner.run()` call, if any. A
+   * barge-in (`interruptSession`, called on speech_start) only flips the
+   * abort signal — it does not wait for the interrupted call to actually
+   * unwind inside WebLLM. Found live (docs/evidence/
+   * browser-tutor-slice5-2026-09-05.log): starting a SECOND
+   * `engine.chat.completions.create()` on the same shared MLCEngine before
+   * the first one had finished reacting to its abort hung indefinitely (no
+   * error, no further worker output — the session sat in `thinking` until
+   * the 90s idle timeout), presumably a lock WebLLM holds per in-flight
+   * generation that a merely-signalled-but-not-yet-unwound call hasn't
+   * released yet. `runTutorTurn` awaits this before issuing a new call so
+   * the two never race the engine.
+   */
+  currentTurnPromise: Promise<void> | null;
 }
 
 let session: SessionState | null = null;
@@ -558,10 +605,39 @@ function makeTurnRunner(s: SessionState): TutorTurnRunner {
 async function runTutorTurn(learnerText: string): Promise<void> {
   if (!session) return;
   const s = session;
+  // See the comment on SessionState.currentTurnPromise: a barge-in only
+  // flips the abort flag, it doesn't wait for WebLLM to actually unwind the
+  // interrupted call. Waiting here (briefly — the aborted call settles fast
+  // once its stream loop next checks the signal) keeps this turn's own
+  // engine.chat() call from racing that cleanup.
+  if (s.currentTurnPromise) await s.currentTurnPromise.catch(() => undefined);
+  if (session !== s) return; // session was torn down/replaced while we waited
+  const runPromise = runTutorTurnBody(s, learnerText);
+  s.currentTurnPromise = runPromise;
+  try {
+    await runPromise;
+  } finally {
+    if (s.currentTurnPromise === runPromise) s.currentTurnPromise = null;
+  }
+}
+
+async function runTutorTurnBody(s: SessionState, learnerText: string): Promise<void> {
+  if (!llmEngine && llmLoadPromise) {
+    // The race documented on `llmLoadPromise`'s declaration: STT finished
+    // (this function was reached at all) but the LLM is still loading.
+    // Wait for it rather than silently dropping the turn — bounded so a
+    // genuinely stuck load still degrades to caption-only instead of
+    // hanging the session forever.
+    post({ t: 'metric', name: 'llm_wait_for_load', ms: 0, detail: learnerText.slice(0, 40) });
+    await Promise.race([
+      llmLoadPromise,
+      new Promise((resolve) => setTimeout(resolve, 15_000)),
+    ]).catch(() => undefined);
+  }
   if (!llmEngine) {
-    // LLM never loaded (e.g. a download-only session, or load failed
-    // earlier): acknowledge the turn as a caption-only round trip rather
-    // than hanging silently.
+    // Still not loaded after waiting (failed, or a download-only session):
+    // acknowledge the turn as a caption-only round trip rather than
+    // hanging silently.
     setState('listening');
     return;
   }
@@ -682,6 +758,17 @@ function handleFrame(pcm: ArrayBuffer): void {
 
   for (const ev of session.vad.process(frame)) {
     if (ev.type === 'speech_start') {
+      // Mirrors the server's onSpeechStart() calling bargeIn() (session.ts):
+      // new speech interrupts whatever turn is in flight rather than racing
+      // it. Missing here until slice 5 (docs/evidence/
+      // browser-tutor-slice5-2026-09-05.log) — while the VAD itself was
+      // barely firing at all (a separate bug, fixed in vad.ts), the gap was
+      // invisible; once VAD correctly re-fires on every loop iteration, a
+      // second speech segment arriving mid-turn triggered a SECOND
+      // concurrent runTutorTurn() on the same WebLLM engine while the first
+      // was still streaming, truncating it mid-reply. A no-op when nothing
+      // is in flight.
+      interruptSession(session);
       session.buffer.start();
     } else if (ev.type === 'speech_end') {
       const segment = session.buffer.end();
@@ -755,30 +842,38 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
           currentUtteranceChunks: [],
           lastUtterance: null,
           pendingToolResults: new Map(),
+          currentTurnPromise: null,
         };
         session = s;
         try {
-          await loadStt(msg.payload.stt, msg.payload.debug?.forceSttDevice);
+          // Started before STT is awaited (rather than after, as this used
+          // to do) so the two loads run concurrently — this used to await
+          // loadStt() first and only then start loadLlm(), which needlessly
+          // widened the race described on `llmLoadPromise`'s declaration:
+          // every extra millisecond STT finishes before LLM starts loading
+          // is a millisecond a fast learner's first utterance can slip
+          // through with the LLM still not even started.
           if (msg.payload.debug?.skipLlm) {
             // Diagnostic-only: isolate STT timing from LLM/WebGPU
             // contention (docs/evidence/browser-tutor-stt-regression-
             // 2026-09-05.log, experiment (a)). Never set by a real session.
             post({ t: 'metric', name: 'llm_load_skipped', ms: 0, detail: 'debug.skipLlm' });
+            llmLoadPromise = null;
           } else {
-            try {
-              await loadLlm();
-            } catch (err) {
+            llmLoadPromise = loadLlm().catch((err) => {
               // LLM failing to load is not fatal to the session: STT still
               // works, and runTutorTurn() degrades to caption-only when
-              // `llmEngine` is null rather than hanging.
+              // `llmEngine` is still null once this promise has settled.
               post({
                 t: 'metric',
                 name: 'llm_load_failed',
                 ms: 0,
                 detail: err instanceof Error ? err.message : String(err),
               });
-            }
+            });
           }
+          await loadStt(msg.payload.stt, msg.payload.debug?.forceSttDevice);
+          if (llmLoadPromise) await llmLoadPromise;
           s.turnRunner = makeTurnRunner(s);
           post({ t: 'ready', stages: { stt: true, llm: !!llmEngine, tts: false } });
           setState('listening');

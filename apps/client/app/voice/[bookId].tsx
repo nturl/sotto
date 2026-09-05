@@ -6,13 +6,14 @@ import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getLanguage, type TutorMode } from '@sotto/core';
-import { colors, radius, space } from '@sotto/core/theme';
+import { radius, space } from '@sotto/core/theme';
 import { useT } from '../../src/i18n/useT';
 import { Button } from '../../src/ui/Button';
 import { CloseGlyph, MicGlyph, MuteGlyph, ReplayGlyph, StopGlyph } from '../../src/ui/Glyphs';
 import { IconButton } from '../../src/ui/IconButton';
 import { SpeechFillText, type SpeechSentence } from '../../src/ui/SpeechFillText';
 import { Text } from '../../src/ui/Text';
+import { useTheme } from '../../src/ui/theme';
 import { webCursor } from '../../src/ui/tokens';
 import { useSottoStore } from '../../src/state/store';
 import { buildPassageWindow } from '../../src/voice/passage';
@@ -29,7 +30,7 @@ const MODES: TutorMode[] = ['read_to_me', 'read_with_me', 'pronunciation', 'disc
 // window after the last one, or until the voice state changes).
 const READING_ACTIVE_WINDOW_MS = 6000;
 
-function stateColor(state: string): string {
+function stateColor(state: string, colors: ReturnType<typeof useTheme>['colors']): string {
   if (state === 'listening') return colors.accent;
   if (state === 'speaking' || state === 'thinking') return colors.ink;
   return colors.ink3;
@@ -39,6 +40,8 @@ export default function VoiceScreen() {
   const t = useT();
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const {
     bookId,
     mode: modeParam,
@@ -161,7 +164,7 @@ export default function VoiceScreen() {
     <View style={[styles.root, { paddingBottom: space.xl + insets.bottom }]}>
       <View style={styles.header}>
         <View style={styles.stateRow}>
-          <View style={[styles.dot, { backgroundColor: stateColor(session.voiceState) }]} />
+          <View style={[styles.dot, { backgroundColor: stateColor(session.voiceState, colors) }]} />
           <Text role="mono" color="ink2">
             {t(`voice.state.${session.voiceState}` as const)}
           </Text>
@@ -345,115 +348,117 @@ export default function VoiceScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: colors.canvas,
-    paddingHorizontal: space.gutter.phone,
-    paddingTop: space.xl,
-    paddingBottom: space.xl,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: space.xl,
-  },
-  stateRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.sm,
-  },
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-  },
-  // ADVERSARIAL-REVIEW.md §1.9/§3 row 28: the passage used to be a plain
-  // View with no scroll, so a chapter's-worth of text pushed the mode
-  // chips/captions/controls/PTT ring below the viewport with nothing able
-  // to reclaim the space — clipping the ring at narrow widths (375/430).
-  // `flex: 1` + `minHeight: 0` lets this ScrollView shrink and scroll
-  // instead, so everything below it stays pinned and on screen.
-  passageScroll: {
-    flex: 1,
-    minHeight: 0,
-  },
-  passage: {
-    paddingBottom: space.lg,
-  },
-  explanationCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.hairline,
-    padding: space.lg,
-    marginBottom: space.lg,
-    gap: space.xs,
-  },
-  modeRow: {
-    flexDirection: 'row',
-    gap: space.sm,
-    marginBottom: space.md,
-  },
-  modeChip: {
-    flex: 1,
-    backgroundColor: colors.surface2,
-    borderRadius: radius.md,
-    paddingVertical: space.sm,
-    alignItems: 'center',
-  },
-  modeChipActive: {
-    backgroundColor: colors.ink,
-  },
-  captionsToggle: {
-    marginBottom: space.sm,
-  },
-  captionsStrip: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: space.md,
-    gap: space.xs,
-    marginBottom: space.lg,
-  },
-  captionLine: {
-    lineHeight: 18,
-  },
-  controls: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: space.xl,
-    marginBottom: space.xl,
-  },
-  recovery: {
-    alignItems: 'center',
-    gap: space.md,
-    marginBottom: space.xl,
-  },
-  recoveryText: {
-    textAlign: 'center',
-  },
-  pttWrap: {
-    alignItems: 'center',
-    gap: space.sm,
-  },
-  pttRing: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    borderWidth: 2,
-    borderColor: colors.accent,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  pttRingActive: {
-    backgroundColor: colors.accent,
-  },
-  pttDisabled: {
-    borderColor: colors.ink3,
-    opacity: 0.6,
-  },
-  pttCaption: {
-    textAlign: 'center',
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    root: {
+      flex: 1,
+      backgroundColor: colors.canvas,
+      paddingHorizontal: space.gutter.phone,
+      paddingTop: space.xl,
+      paddingBottom: space.xl,
+    },
+    header: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: space.xl,
+    },
+    stateRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space.sm,
+    },
+    dot: {
+      width: 8,
+      height: 8,
+      borderRadius: 4,
+    },
+    // ADVERSARIAL-REVIEW.md §1.9/§3 row 28: the passage used to be a plain
+    // View with no scroll, so a chapter's-worth of text pushed the mode
+    // chips/captions/controls/PTT ring below the viewport with nothing able
+    // to reclaim the space — clipping the ring at narrow widths (375/430).
+    // `flex: 1` + `minHeight: 0` lets this ScrollView shrink and scroll
+    // instead, so everything below it stays pinned and on screen.
+    passageScroll: {
+      flex: 1,
+      minHeight: 0,
+    },
+    passage: {
+      paddingBottom: space.lg,
+    },
+    explanationCard: {
+      backgroundColor: colors.surface,
+      borderRadius: radius.md,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+      padding: space.lg,
+      marginBottom: space.lg,
+      gap: space.xs,
+    },
+    modeRow: {
+      flexDirection: 'row',
+      gap: space.sm,
+      marginBottom: space.md,
+    },
+    modeChip: {
+      flex: 1,
+      backgroundColor: colors.surface2,
+      borderRadius: radius.md,
+      paddingVertical: space.sm,
+      alignItems: 'center',
+    },
+    modeChipActive: {
+      backgroundColor: colors.ink,
+    },
+    captionsToggle: {
+      marginBottom: space.sm,
+    },
+    captionsStrip: {
+      backgroundColor: colors.surface,
+      borderRadius: radius.md,
+      padding: space.md,
+      gap: space.xs,
+      marginBottom: space.lg,
+    },
+    captionLine: {
+      lineHeight: 18,
+    },
+    controls: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      gap: space.xl,
+      marginBottom: space.xl,
+    },
+    recovery: {
+      alignItems: 'center',
+      gap: space.md,
+      marginBottom: space.xl,
+    },
+    recoveryText: {
+      textAlign: 'center',
+    },
+    pttWrap: {
+      alignItems: 'center',
+      gap: space.sm,
+    },
+    pttRing: {
+      width: 64,
+      height: 64,
+      borderRadius: 32,
+      borderWidth: 2,
+      borderColor: colors.accent,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    pttRingActive: {
+      backgroundColor: colors.accent,
+    },
+    pttDisabled: {
+      borderColor: colors.ink3,
+      opacity: 0.6,
+    },
+    pttCaption: {
+      textAlign: 'center',
+    },
+  });
+}

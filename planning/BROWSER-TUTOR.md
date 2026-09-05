@@ -299,7 +299,54 @@ bug) are in `docs/evidence/browser-tutor-stt-regression-2026-09-05.log`; the
 post-fix full e2e re-run is `docs/evidence/browser-tutor-slice4-2026-09-05.log`,
 which also surfaced a separate, pre-existing, unrelated issue (the tutor's
 first LLM turn sometimes produces no visible reply) — present in the
-original slice-2/3 log too, so out of scope here and not yet root-caused.
+original slice-2/3 log too, out of scope for this fix and not yet
+root-caused at the time. Root-caused and fixed in slice 5 below.
+
+## Slice 5 status (2026-09-05) — turn-1 silence, second utterance, tool round trip
+
+Root-caused two real bugs and fixed both, plus a third found only once the
+first was fixed. Full write-up, experiments, and two clean final e2e runs:
+`docs/evidence/browser-tutor-slice5-2026-09-05.log`.
+
+1. **VAD frame-size mismatch** (this is why the second learner utterance was
+   never heard, and the likely cause of most "no visible reply" cases):
+   `EnergyVad` (`vad.ts`) was written and tested assuming ~20ms audio
+   frames, but `WebAudioAdapter`'s `AudioWorkletProcessor` posts one message
+   per render quantum, ~2.7ms — about 8x finer. At that granularity,
+   ordinary voiced speech's natural zero-crossing dips reset the
+   `minSpeechMs` accumulator before it ever completes, so only an unusually
+   loud first capture ever triggered `speech_start`; every later utterance
+   in the same session went undetected. Fixed by having `EnergyVad`
+   internally re-chunk into ~20ms evaluation windows before applying its
+   (otherwise unchanged) threshold logic.
+2. **STT/LLM readiness race**: `session` is assigned synchronously at
+   `init`, before `loadStt`/`loadLlm` are awaited, so a learner who speaks
+   fast enough could have STT finish while the LLM was still loading —
+   `runTutorTurn` used to see `llmEngine === null` and silently drop the
+   turn with no caption, no error, no retry. Fixed by starting both loads
+   concurrently and having `runTutorTurn` wait on the LLM's load promise
+   (bounded to 15s) instead of giving up immediately.
+3. Fixing (1) meant `speech_start` correctly re-fires now, which exposed a
+   missing piece of server parity: `worker.ts`'s `handleFrame` never called
+   `interruptSession` on `speech_start` the way the server's
+   `onSpeechStart()` calls `bargeIn()`. Wiring it in surfaced two more bugs
+   only reachable once barge-in actually happened: the JSON-tool-fallback's
+   fenced `` ```tool `` block could leak into captions mid-stream (fixed in
+   `markers.ts`, alongside `<think>`), and starting a new WebLLM
+   `chat.completions.create()` immediately after interrupting a previous
+   one could hang indefinitely (fixed by serializing turns through a
+   tracked `currentTurnPromise`).
+
+**Still open, not a code defect**: Qwen3-1.7B (the in-browser model) is
+unreliable at actually calling `save_vocabulary` for a "save this word"
+request — it sometimes narrates the action without emitting the tool call,
+or calls the wrong tool. The mechanism itself is correct end to end (proven
+live: a save completed with the right word, correctly resolved from the
+passage, even when STT itself had misheard the spoken word) but it is not
+reliable enough to claim as a shipped capability. `tutor.browser.sliceNote`
+(all locales) and `docs/browser-tutor.md` now say the tutor listens and
+replies, and that saving a word by voice is still being finished, rather
+than claiming it works.
 
 ## Slice 2 (LLM + tools) — checklist
 

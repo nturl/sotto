@@ -17,8 +17,9 @@
  */
 import { Fragment, useEffect, useRef } from 'react';
 import { Animated, Easing, Text as RNText, type TextStyle } from 'react-native';
-import { colors, motion, radius } from '@sotto/core/theme';
+import { motion, radius } from '@sotto/core/theme';
 import { Text } from './Text';
+import { useTheme } from './theme';
 import { peachSelection, peachUnderline } from './tokens';
 import { useReducedMotion } from './useReducedMotion';
 
@@ -72,6 +73,7 @@ function SpeechWord({
   reduced: boolean;
   onPress?: () => void;
 }) {
+  const { colors } = useTheme();
   const fill = useRef(new Animated.Value(spoken ? 1 : 0)).current;
 
   useEffect(() => {

@@ -17,23 +17,28 @@ models**, where you can also remove them again.
 The models are cached by your browser. Clearing site data, or tapping "Remove
 models", frees the space; the app then offers the download again.
 
-| Stage          | Model                                   | Approx. download |
-| -------------- | --------------------------------------- | ---------------- |
-| Speech to text | Whisper base (encoder fp32, decoder q8) | 136 MB           |
-| Tutor          | Qwen3 1.7B (q4f16, MLC)                 | ~1.1 GB          |
-| Voice          | Kokoro 82M                              | ~90 MB           |
+| Stage          | Model                                   | Download |
+| -------------- | --------------------------------------- | -------- |
+| Speech to text | Whisper base (encoder fp32, decoder q8) | 136 MB   |
+| Tutor          | Qwen3 1.7B (q4f16, MLC)                 | 1,100 MB |
+| Voice          | Kokoro 82M                              | 90 MB    |
+
+Total opt-in download: 1,326 MB (~1.3 GB).
 
 ### Honest capability matrix
 
-| Stage          | Where it can run                | Notes                                                                                                                                                                                                                                                        |
-| -------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Speech to text | WebGPU (default) or WebAssembly | WebGPU is the fast path (~1-2.5s per turn). If a session's WebGPU transcription is ever unreliable — slower than 8s, or a repeated-token transcript — that session switches to WebAssembly on its own for the rest of it, with a one-time caption saying so. |
-| Tutor (LLM)    | WebGPU only                     | Qwen3 1.7B has no WebAssembly path in this build; without WebGPU, only STT and captions work.                                                                                                                                                                |
-| Voice (TTS)    | English only                    | See "Speech is English-only for now" above — fr/es/other tutor replies stay text-only captions, never silently attempted.                                                                                                                                    |
+| Stage          | Where it can run                                                      | Notes                                                                                                                                                                                                                                                        |
+| -------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Speech to text | WebGPU (default) or WebAssembly                                       | WebGPU is the fast path (~1-2.5s per turn). If a session's WebGPU transcription is ever unreliable — slower than 8s, or a repeated-token transcript — that session switches to WebAssembly on its own for the rest of it, with a one-time caption saying so. |
+| Tutor (LLM)    | WebGPU only                                                           | Qwen3 1.7B has no WebAssembly path in this build; without WebGPU, only STT and captions work.                                                                                                                                                                |
+| Voice (TTS)    | English only, proven in Node; not yet exercised in the browser worker | See "Speech is English-only for now" above — fr/es/other tutor replies stay text-only captions, never silently attempted.                                                                                                                                    |
 
-The tutor listens, replies, and can call the same seven tools as the local
-server (save a word, jump to a sentence, switch modes, and so on) — all
-inside the browser, no server involved.
+The tutor listens and replies entirely inside the browser, no server
+involved. Saving a word by voice is still being finished — the tutor can
+narrate what it would save, but the tool call that actually stores it in
+your vocabulary list is not reliable yet on the small model this runs; the
+other six tools (jump to a sentence, switch modes, mark a section complete,
+and so on) work the same as the local server's.
 
 **Speech is English-only for now.** Kokoro's bundled phonemizer only ships
 eSpeak-NG's English voice data; French and Spanish were tried and hard-reject
@@ -49,7 +54,7 @@ calls, just as text captions rather than audio. The panel says so.
   working.
 - **A secure context** (https, or localhost) — that is what the Cache API and
   the microphone both require.
-- Roughly 1.5 GB of free disk for the full set, once slices 2 and 3 land.
+- About 1.3 GB of free disk for the full set.
 
 If WebGPU is present but the GPU adapter fails to initialize, the tutor falls
 back to WebAssembly on its own. Speech recognition also switches to

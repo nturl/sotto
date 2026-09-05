@@ -94,9 +94,51 @@ const PORT = Number(process.env.PORT ?? 8091);
 const BASE_URL = `http://localhost:${PORT}`;
 const TTS_URL = process.env.SOTTO_TTS_URL ?? 'http://127.0.0.1:8880/v1';
 const BOOK_ID = 'es-fabulas-samaniego';
+/**
+ * Levenshtein edit distance, for fuzzy-matching whisper-base's transcript
+ * against the target words rather than requiring an exact substring. Added
+ * while diagnosing slice 5 (docs/evidence/browser-tutor-slice5-2026-09-05.log):
+ * whisper-base's own known imprecision on this fixture already mishears
+ * "cigarra" as "cigarrara"/"cigarrera"/"cigarras" (see planning/
+ * BROWSER-TUTOR.md and the slice-1/slice-4 logs) and, once the VAD fix let a
+ * second utterance actually reach STT, it likewise misheard "Guarda" (save)
+ * as "Cuarda" — a single-character confusion, not a different word. Per the
+ * task brief: accept a fuzzy match on the target word rather than weakening
+ * the assertion to "any caption", and do not touch the STT model itself.
+ */
+function levenshtein(a, b) {
+  const m = a.length;
+  const n = b.length;
+  const dp = Array.from({ length: m + 1 }, (_, i) => [i, ...Array(n).fill(0)]);
+  for (let j = 0; j <= n; j++) dp[0][j] = j;
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      dp[i][j] =
+        a[i - 1] === b[j - 1]
+          ? dp[i - 1][j - 1]
+          : 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+    }
+  }
+  return dp[m][n];
+}
+
+/** True if some word-like token in `text` is within `maxDist` edits of
+ * `target` (case-insensitive, accents stripped so "cigarra"/"cigarrera"/
+ * "cigarras" and "guarda"/"cuarda" all compare on the same footing). */
+function fuzzyIncludesWord(text, target, maxDist = 2) {
+  const fold = (s) =>
+    s
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+  const targetFolded = fold(target);
+  const tokens = fold(text).match(/[a-z]+/g) ?? [];
+  return tokens.some((tok) => levenshtein(tok, targetFolded) <= maxDist);
+}
+
 const TARGET_WORD = 'cigarra';
 const UTTERANCE = '¿Qué significa la palabra cigarra?';
-const TOOL_UTTERANCE = 'Guarda la palabra cigarra.';
+const TOOL_UTTERANCE = 'Por favor, guarda la palabra cigarra.';
 const DOWNLOAD_TIMEOUT_MS = 300_000;
 // Two learner turns, each waiting on a full LLM (and, for English, TTS)
 // round trip on Qwen3 1.7B — generous budgets rather than tight ones, since
@@ -105,8 +147,31 @@ const DOWNLOAD_TIMEOUT_MS = 300_000;
 const TUTOR_REPLY_TIMEOUT_MS = 60_000;
 const TOOL_ROUND_TRIP_TIMEOUT_MS = 60_000;
 const SESSION_TIMEOUT_MS = TUTOR_REPLY_TIMEOUT_MS + TOOL_ROUND_TRIP_TIMEOUT_MS + 30_000;
-const TRAILING_SILENCE_MS = 1500;
-const INTER_UTTERANCE_SILENCE_MS = 2500;
+// Long enough that the fake-mic wav's own loop point never falls inside a
+// real turn's processing window for the length of this test's session.
+// Found live (docs/evidence/browser-tutor-slice5-2026-09-05.log): with a
+// short trailing silence, the wav (~8-9s total) loops back to utterance 1
+// while turn 2's tool-calling reply is still streaming, and the newly-added
+// speech_start barge-in (mirroring the server's onSpeechStart -> bargeIn())
+// correctly, but unhelpfully for this fixture, interrupts the in-flight
+// turn to (re-)process the looped-back audio — truncating the very reply
+// this test is waiting on. A real learner never repeats their question
+// every 8 seconds, so the fix stays; the fixture's silence just needs to
+// outlast SESSION_TIMEOUT_MS so the loop point is never reached again.
+const TRAILING_SILENCE_MS = 180_000;
+// Wide enough that turn 1 has finished replying before utterance 2 plays,
+// even on the slow path this task's own fixes made correct rather than
+// fast: waiting out a still-loading LLM (`llmLoadPromise` in worker.ts,
+// observed taking up to ~4s on a warm-but-reused profile) plus the reply
+// itself. A short gap here doesn't test "the learner interrupts mid-reply"
+// (a real, separate scenario) — it just makes THIS fixture's fixed-schedule
+// second utterance race worker.ts's now-correct barge-in handling, which
+// hung the session waiting on a WebLLM engine call queued immediately
+// behind an interrupted one (docs/evidence/
+// browser-tutor-slice5-2026-09-05.log). 2.5s was fine before the LLM-load
+// race was fixed (turn 1 used to fail fast instead of waiting); now that it
+// waits properly, it needs more room to finish first.
+const INTER_UTTERANCE_SILENCE_MS = 15_000;
 
 mkdirSync(CACHE_DIR, { recursive: true });
 
@@ -252,6 +317,17 @@ async function seedProfile(page) {
     const db = req.result;
     const tx = db.transaction('keyval', 'readwrite');
     tx.objectStore('keyval').put(JSON.stringify(preferences), 'sotto.preferences');
+    // KEEP_PROFILE=1 reuses the profile so the model downloads don't have to
+    // repeat, but it also keeps whatever the LAST run's session saved to
+    // IndexedDB (apps/client/src/state/createStore.ts, KEYS.vocabulary).
+    // Found live (docs/evidence/browser-tutor-slice5-2026-09-05.log): the
+    // "tool round trip: cigarra saved" assertion kept passing on runs where
+    // the actual save had failed, because it was reading a PREVIOUS run's
+    // leftover "cigarra" entry, not proof this run's tool call worked.
+    // Clearing it here keeps KEEP_PROFILE's whole point (warm model
+    // caches, which live under different IndexedDB/Cache Storage entries)
+    // while giving every run's own vocabulary check an honest, empty start.
+    tx.objectStore('keyval').delete('sotto.vocabulary');
     await new Promise((resolve, reject) => {
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
@@ -329,6 +405,31 @@ async function main() {
       }
     });
 
+    await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
+
+    // A reused profile (KEEP_PROFILE=1) keeps its service worker and shell
+    // cache from whatever build last ran against it. The SW's fetch handler
+    // (dist/sw.js) is cache-first for every same-origin GET that isn't
+    // /content/packs/**, and /tutor/tutor-worker.js falls into that
+    // catch-all — so once cached, edits to worker.ts never reach a warm
+    // profile's session, silently making a real fix look like a no-op.
+    // Found live while diagnosing slice 5 (docs/evidence/
+    // browser-tutor-slice5-2026-09-05.log): a rebuilt worker with new debug
+    // output kept producing the previous build's output on a warm profile.
+    // Unregistering the worker and dropping only the shell cache (not the
+    // model/content caches, which is the entire point of KEEP_PROFILE)
+    // forces a fresh fetch of the app shell and the tutor worker on the
+    // next navigation while leaving the expensive downloads alone.
+    await page.evaluate(async () => {
+      try {
+        const regs = (await navigator.serviceWorker?.getRegistrations?.()) ?? [];
+        for (const r of regs) await r.unregister();
+        const names = await caches.keys();
+        for (const n of names) if (n.startsWith('sotto-shell-')) await caches.delete(n);
+      } catch {
+        // best-effort: a private window or blocked site data has neither
+      }
+    });
     await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
     await seedProfile(page);
 
@@ -481,10 +582,11 @@ async function main() {
         }
       }
       sawLearnerCaption ||= timeline.some(
-        (l) => /^You:/.test(l) && l.toLowerCase().includes(TARGET_WORD),
+        (l) => /^You:/.test(l) && fuzzyIncludesWord(l, TARGET_WORD),
       );
       sawToolLearnerCaption ||= timeline.some(
-        (l) => /^You:/.test(l) && l.toLowerCase().includes('guarda'),
+        (l) =>
+          /^You:/.test(l) && fuzzyIncludesWord(l, 'guarda') && fuzzyIncludesWord(l, TARGET_WORD),
       );
       // Phase A done, tutor answered (turn 1), the save command was heard,
       // and the tool round trip's turn (2) has also completed.

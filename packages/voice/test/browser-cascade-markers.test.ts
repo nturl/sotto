@@ -5,7 +5,12 @@
  * that server test file doesn't cover on its own.
  */
 import { describe, expect, it } from 'vitest';
-import { safeReleaseIndex, stripMarkers, stripThinking } from '../src/browser-cascade/markers.ts';
+import {
+  safeReleaseIndex,
+  stripMarkers,
+  stripThinking,
+  stripToolBlock,
+} from '../src/browser-cascade/markers.ts';
 
 describe('stripMarkers', () => {
   it('strips a reading marker and extracts the token ids', () => {
@@ -45,6 +50,13 @@ describe('stripMarkers', () => {
     const result = stripMarkers('<think>\nOkay, let me think about this.\n</think>Bonjour.');
     expect(result.text).toBe('Bonjour.');
   });
+
+  it('strips a fenced ```tool block from the JSON-tool fallback protocol', () => {
+    const result = stripMarkers(
+      'La palabra es "cigarra".\n```tool\n{"name": "save_vocabulary", "arguments": {}}\n```\n¿Quieres que te lo repita?',
+    );
+    expect(result.text).toBe('La palabra es "cigarra".\n¿Quieres que te lo repita?');
+  });
 });
 
 describe('stripThinking', () => {
@@ -54,6 +66,18 @@ describe('stripThinking', () => {
 
   it('leaves text with no think block untouched', () => {
     expect(stripThinking('Hola, ¿cómo estás?')).toBe('Hola, ¿cómo estás?');
+  });
+});
+
+describe('stripToolBlock', () => {
+  it('removes a complete fenced tool block', () => {
+    expect(stripToolBlock('Antes.\n```tool\n{"name": "x"}\n```\nDespués.')).toBe(
+      'Antes.\nDespués.',
+    );
+  });
+
+  it('leaves text with no tool block untouched', () => {
+    expect(stripToolBlock('Hola, ¿cómo estás?')).toBe('Hola, ¿cómo estás?');
   });
 });
 
@@ -80,5 +104,44 @@ describe('safeReleaseIndex', () => {
   it('releases everything once the <think> block is closed', () => {
     const buf = '<think>done</think>Hola.';
     expect(safeReleaseIndex(buf)).toBe(buf.length);
+  });
+
+  it('holds back an unterminated fenced tool block', () => {
+    const buf = 'La palabra es "cigarra".\n```tool\n{"name": "save_vocabulary"';
+    expect(safeReleaseIndex(buf)).toBe(buf.indexOf('```tool'));
+  });
+
+  it('releases everything once the fenced tool block is closed', () => {
+    const buf = '```tool\n{"name": "save_vocabulary"}\n```Listo.';
+    expect(safeReleaseIndex(buf)).toBe(buf.length);
+  });
+
+  it('holds back a bare trailing "```" that might grow into the tool fence', () => {
+    // The exact split observed live: "```" and "tool" arrive as separate
+    // stream deltas (docs/evidence/browser-tutor-slice5-2026-09-05.log).
+    const buf = 'La palabra es "cigarra". ```';
+    expect(safeReleaseIndex(buf)).toBe(buf.indexOf('```'));
+  });
+
+  it('never leaks the tool fence to captions one delta at a time', () => {
+    // Simulates llm-turn.ts's actual per-delta pipeline (TutorTurnRunner.run):
+    // each delta is appended to the raw buffer, the safe prefix is sliced
+    // out, and THAT release is what gets stripMarkers'd and shown as a
+    // caption — the rest stays in the buffer for the next delta. The exact
+    // split observed live: "```" and "tool" arriving as separate stream
+    // deltas (docs/evidence/browser-tutor-slice5-2026-09-05.log).
+    const deltas = ['Listo. ', '``', '`', 'to', 'ol\n{"name": "x"}\n', '```', ' Hecho.'];
+    let buffer = '';
+    let shownToLearner = '';
+    for (const delta of deltas) {
+      buffer += delta;
+      const idx = safeReleaseIndex(buffer);
+      const release = buffer.slice(0, idx);
+      buffer = buffer.slice(idx);
+      shownToLearner += stripMarkers(release).text;
+    }
+    shownToLearner += stripMarkers(buffer).text; // stream ended: flush the rest
+    expect(shownToLearner).not.toContain('```tool');
+    expect(shownToLearner).toBe('Listo.  Hecho.');
   });
 });

@@ -1,4 +1,4 @@
-/* global self, caches, fetch, URL */
+/* global self, caches, fetch, URL, Response, Headers */
 /**
  * Hand-rolled service worker (A3, OVERNIGHT-2.md Lane A). No workbox, no
  * bundler — plain JS so it can sit in public/ untouched by the Expo web
@@ -127,6 +127,37 @@ self.addEventListener('message', (event) => {
   );
 });
 
+// Answer a Range request from a cached full response (206 with
+// Content-Range), or fall through to the network when the file is not cached.
+async function rangeFromCache(request, cacheName) {
+  const cache = await caches.open(cacheName);
+  const cached = await cache.match(request.url, { ignoreSearch: false });
+  if (!cached || cached.status !== 200) return fetch(request);
+  const match = /^bytes=(\d*)-(\d*)$/.exec(request.headers.get('range') || '');
+  if (!match) return fetch(request);
+  const buffer = await cached.arrayBuffer();
+  const total = buffer.byteLength;
+  let start = match[1] === '' ? 0 : Number(match[1]);
+  let end = match[2] === '' ? total - 1 : Number(match[2]);
+  if (match[1] === '' && match[2] !== '') {
+    start = Math.max(0, total - Number(match[2]));
+    end = total - 1;
+  }
+  if (start >= total || end < start) {
+    return new Response(null, { status: 416, headers: { 'Content-Range': `bytes */${total}` } });
+  }
+  end = Math.min(end, total - 1);
+  const headers = new Headers(cached.headers);
+  headers.set('Content-Range', `bytes ${start}-${end}/${total}`);
+  headers.set('Content-Length', String(end - start + 1));
+  headers.set('Accept-Ranges', 'bytes');
+  return new Response(buffer.slice(start, end + 1), {
+    status: 206,
+    statusText: 'Partial Content',
+    headers,
+  });
+}
+
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return; // pass through, untouched
@@ -142,6 +173,17 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (url.pathname.startsWith('/content/packs/')) {
+    // Media elements fetch audio with a Range header and reject a full 200
+    // body in reply (net::ERR_FAILED). Serve ranges from the cached full
+    // file as a 206 when we have it; otherwise let the network answer.
+    if (event.request.headers.has('range')) {
+      event.respondWith(
+        getManifest().then((manifest) =>
+          rangeFromCache(event.request, CONTENT_CACHE_PREFIX + (manifest?.version ?? 'dev')),
+        ),
+      );
+      return;
+    }
     event.respondWith(
       getManifest().then((manifest) =>
         cacheFirst(event.request, CONTENT_CACHE_PREFIX + (manifest?.version ?? 'dev')),

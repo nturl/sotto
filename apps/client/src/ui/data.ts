@@ -132,7 +132,10 @@ export function toLibraryBook(
     id: summary.bookId,
     contentLocale: summary.contentLocale,
     reviewStatus: summary.reviewStatus,
-    title: summary.title,
+    title:
+      summary.localizedTitles[preferences.interfaceLocale] ??
+      summary.localizedTitles.en ??
+      summary.title,
     author: summary.author,
     shortAuthor: shortAuthorName(summary.author),
     level: summary.level,

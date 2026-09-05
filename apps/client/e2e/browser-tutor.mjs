@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 /**
- * In-browser tutor e2e (O2-B slice 1). Proves the thing the whole lane is
- * for: on the STATIC export — no apps/server, no local models, nothing
- * listening on :8790 — a browser can opt into downloading the tutor model
- * and then have the tutor actually hear the learner.
+ * In-browser tutor e2e (O2-B, slices 1-3). Proves the thing the whole lane
+ * is for: on the STATIC export — no apps/server, no local models, nothing
+ * listening on :8790 — a browser can opt into downloading the tutor models
+ * and then have a full four-mode tutor turn, tool calls included, entirely
+ * client-side.
  *
  * Modelled on voice-live.mjs, with three differences:
  *  - it serves `apps/client/dist` (the static export) instead of the dev
@@ -11,8 +12,8 @@
  *    choose the browser path on its own;
  *  - Chromium is launched with `--enable-unsafe-webgpu --use-angle=metal`
  *    alongside the fake-mic flags. If WebGPU does not come up, the worker
- *    falls back to wasm by itself and this script says so in the log header
- *    rather than pretending;
+ *    falls back to wasm by itself (STT only — WebLLM has no wasm path) and
+ *    this script says so in the log header rather than pretending;
  *  - it drives the download panel (a real tap on "Download tutor models")
  *    before opening the session, because models are NEVER fetched
  *    automatically.
@@ -34,8 +35,19 @@
  * still come over :8790, where on Vercel they come from the page's own
  * origin; same files either way, and no part of the tutor touches them.
  *
- * Slice 1 asserts a LEARNER caption only. There is no tutor reply yet: the
- * LLM and TTS stages land in slices 2 and 3.
+ * Slice 1 asserted a learner caption only. Slices 2-3 add: a tutor caption
+ * (the LLM turn, sentence-chunked and posted back), and a tool round trip —
+ * the fake mic says a SECOND utterance asking the tutor to save "cigarra",
+ * and the test reads the app's own IndexedDB vocabulary store afterwards to
+ * confirm the tool actually ran (not just that a caption mentioned it).
+ *
+ * TTS is asserted honestly, not optimistically: es-419 (this fixture's
+ * learning locale) has no synthesized voice in this build — see the "HONEST
+ * LABEL" note above `loadTts` in packages/voice/src/browser-cascade/
+ * worker.ts and planning/BROWSER-TUTOR.md's Slice 2+3 status note — so this
+ * script expects `state: speaking` to NEVER fire and fails loudly if it
+ * does (that would mean the worker silently started claiming audio it
+ * cannot produce for this locale, which is worse than not producing audio).
  *
  * Usage: node apps/client/e2e/browser-tutor.mjs
  *   PORT=8091          port for `npx serve dist -s`
@@ -61,9 +73,17 @@ const TTS_URL = process.env.SOTTO_TTS_URL ?? 'http://127.0.0.1:8880/v1';
 const BOOK_ID = 'es-fabulas-samaniego';
 const TARGET_WORD = 'cigarra';
 const UTTERANCE = '¿Qué significa la palabra cigarra?';
+const TOOL_UTTERANCE = 'Guarda la palabra cigarra.';
 const DOWNLOAD_TIMEOUT_MS = 300_000;
-const SESSION_TIMEOUT_MS = 90_000;
+// Two learner turns, each waiting on a full LLM (and, for English, TTS)
+// round trip on Qwen3 1.7B — generous budgets rather than tight ones, since
+// the point of this script is to prove the pipeline works, not to be a
+// latency benchmark (the `metric` lines in the log carry the real numbers).
+const TUTOR_REPLY_TIMEOUT_MS = 60_000;
+const TOOL_ROUND_TRIP_TIMEOUT_MS = 60_000;
+const SESSION_TIMEOUT_MS = TUTOR_REPLY_TIMEOUT_MS + TOOL_ROUND_TRIP_TIMEOUT_MS + 30_000;
 const TRAILING_SILENCE_MS = 1500;
+const INTER_UTTERANCE_SILENCE_MS = 2500;
 
 mkdirSync(CACHE_DIR, { recursive: true });
 
@@ -77,43 +97,82 @@ function log(...args) {
 
 // ---- Fake-mic wav (same Kokoro + ffmpeg recipe as voice-live.mjs) ----
 
-async function buildUtteranceWav(text, name) {
-  const raw = path.join(CACHE_DIR, `${name}-raw.wav`);
-  const fmt = path.join(CACHE_DIR, `${name}-fmt.wav`);
-  const silence = path.join(CACHE_DIR, `${name}-silence.wav`);
-  const combined = path.join(CACHE_DIR, `${name}.wav`);
+/**
+ * Chromium's fake audio device takes exactly one file at launch and loops
+ * it, so both learner turns (the question, then the save-vocabulary
+ * command) have to live in a single wav: synthesize each with Kokoro,
+ * reformat to the fake device's expected PCM, and concatenate with silence
+ * gaps long enough for the energy VAD's speech_end to fire between them.
+ */
+async function buildFakeMicWav(utterances, name) {
+  const parts = [];
+  for (const [i, text] of utterances.entries()) {
+    const raw = path.join(CACHE_DIR, `${name}-${i}-raw.wav`);
+    const fmt = path.join(CACHE_DIR, `${name}-${i}-fmt.wav`);
+    const res = await fetch(`${TTS_URL.replace(/\/$/, '')}/audio/speech`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'kokoro',
+        input: text,
+        voice: 'ef_dora',
+        lang_code: 'e',
+        response_format: 'wav',
+      }),
+    });
+    if (!res.ok) throw new Error(`Kokoro TTS failed (${res.status}): ${await res.text()}`);
+    writeFileSync(raw, Buffer.from(await res.arrayBuffer()));
+    await run('ffmpeg', ['-y', '-i', raw, '-ar', '48000', '-ac', '1', '-sample_fmt', 's16', fmt]);
+    parts.push(fmt);
+
+    const gapMs = i === utterances.length - 1 ? TRAILING_SILENCE_MS : INTER_UTTERANCE_SILENCE_MS;
+    const silence = path.join(CACHE_DIR, `${name}-${i}-silence.wav`);
+    await run('ffmpeg', [
+      '-y',
+      '-f',
+      'lavfi',
+      '-i',
+      'anullsrc=r=48000:cl=mono',
+      '-t',
+      String(gapMs / 1000),
+      '-sample_fmt',
+      's16',
+      silence,
+    ]);
+    parts.push(silence);
+  }
+
   const listFile = path.join(CACHE_DIR, `${name}-concat.txt`);
-
-  const res = await fetch(`${TTS_URL.replace(/\/$/, '')}/audio/speech`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: 'kokoro',
-      input: text,
-      voice: 'ef_dora',
-      lang_code: 'e',
-      response_format: 'wav',
-    }),
-  });
-  if (!res.ok) throw new Error(`Kokoro TTS failed (${res.status}): ${await res.text()}`);
-  writeFileSync(raw, Buffer.from(await res.arrayBuffer()));
-
-  await run('ffmpeg', ['-y', '-i', raw, '-ar', '48000', '-ac', '1', '-sample_fmt', 's16', fmt]);
-  await run('ffmpeg', [
-    '-y',
-    '-f',
-    'lavfi',
-    '-i',
-    'anullsrc=r=48000:cl=mono',
-    '-t',
-    String(TRAILING_SILENCE_MS / 1000),
-    '-sample_fmt',
-    's16',
-    silence,
-  ]);
-  writeFileSync(listFile, [fmt, silence].map((f) => `file '${f}'`).join('\n'));
+  const combined = path.join(CACHE_DIR, `${name}.wav`);
+  writeFileSync(listFile, parts.map((f) => `file '${f}'`).join('\n'));
   await run('ffmpeg', ['-y', '-f', 'concat', '-safe', '0', '-i', listFile, '-c', 'copy', combined]);
   return combined;
+}
+
+/** Reads the app's own persisted vocabulary (apps/client/src/state/
+ * createStore.ts, KEYS.vocabulary = 'sotto.vocabulary') straight out of
+ * IndexedDB — the only way to prove the save_vocabulary tool actually ran,
+ * as opposed to the tutor merely saying it would. */
+async function readVocabulary(page) {
+  return page.evaluate(async () => {
+    const req = indexedDB.open('keyval-store', 1);
+    const db = await new Promise((resolve, reject) => {
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+    const tx = db.transaction('keyval', 'readonly');
+    const raw = await new Promise((resolve, reject) => {
+      const getReq = tx.objectStore('keyval').get('sotto.vocabulary');
+      getReq.onsuccess = () => resolve(getReq.result);
+      getReq.onerror = () => reject(getReq.error);
+    });
+    db.close();
+    try {
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  });
 }
 
 // ---- Static host ----
@@ -184,8 +243,8 @@ async function main() {
   }
   if (!process.env.KEEP_PROFILE) rmSync(PROFILE_DIR, { recursive: true, force: true });
 
-  log(`Synthesizing fake-mic wav: "${UTTERANCE}"`);
-  const wav = await buildUtteranceWav(UTTERANCE, 'browser-tutor');
+  log(`Synthesizing fake-mic wav: "${UTTERANCE}" then "${TOOL_UTTERANCE}"`);
+  const wav = await buildFakeMicWav([UTTERANCE, TOOL_UTTERANCE], 'browser-tutor');
 
   log(`Serving ${path.relative(clientDir, DIST)} on ${BASE_URL}`);
   const server = serveDist();
@@ -334,7 +393,14 @@ async function main() {
     let lastState = '';
     let lastCaptions = '';
     const deadline = Date.now() + SESSION_TIMEOUT_MS;
-    let sawLearnerCaption = false;
+    let sawLearnerCaption = false; // phase A: "¿Qué significa la palabra cigarra?"
+    let sawToolLearnerCaption = false; // phase C: "Guarda la palabra cigarra."
+    // A "turn" completes when the worker returns to `listening` after having
+    // been `thinking` — the same signal `TutorTurnRunner.run()` ends on
+    // (llm-turn.ts). Turn 1 = the question answered; turn 2 = the save
+    // command relayed through the tool round trip and acknowledged.
+    let turnsCompleted = 0;
+    let sawThinkingThisTurn = false;
 
     while (Date.now() < deadline) {
       const snapshot = await page.evaluate(() => {
@@ -355,6 +421,12 @@ async function main() {
         lastState = snapshot.stateLine;
         statesSeen.push(lastState);
         log(`state -> ${lastState}`);
+        if (lastState === 'thinking') sawThinkingThisTurn = true;
+        if (lastState === 'listening' && sawThinkingThisTurn) {
+          sawThinkingThisTurn = false;
+          turnsCompleted += 1;
+          log(`turn ${turnsCompleted} complete (state returned to listening)`);
+        }
       }
       const key = snapshot.captionLines.join('|');
       if (key && key !== lastCaptions) {
@@ -366,12 +438,40 @@ async function main() {
           }
         }
       }
-      sawLearnerCaption = timeline.some(
+      sawLearnerCaption ||= timeline.some(
         (l) => /^You:/.test(l) && l.toLowerCase().includes(TARGET_WORD),
       );
-      if (sawLearnerCaption) break;
+      sawToolLearnerCaption ||= timeline.some(
+        (l) => /^You:/.test(l) && l.toLowerCase().includes('guarda'),
+      );
+      // Phase A done, tutor answered (turn 1), the save command was heard,
+      // and the tool round trip's turn (2) has also completed.
+      if (sawLearnerCaption && sawToolLearnerCaption && turnsCompleted >= 2) break;
       await page.waitForTimeout(400);
     }
+
+    const sawTutorCaption = timeline.some((l) => /^Tutor:/.test(l));
+    const sawSpeakingState = statesSeen.includes('speaking');
+    const vocabulary = await readVocabulary(page).catch((err) => {
+      log(`readVocabulary failed: ${err.message}`);
+      return [];
+    });
+    // SavedWord shape: packages/core/src/models.ts — `sourceWord`/
+    // `normalizedWord`, not `word`.
+    const savedCigarra = Array.isArray(vocabulary)
+      ? vocabulary.some(
+          (w) =>
+            typeof w === 'object' &&
+            w &&
+            (String(w.sourceWord ?? '')
+              .toLowerCase()
+              .includes(TARGET_WORD) ||
+              String(w.normalizedWord ?? '')
+                .toLowerCase()
+                .includes(TARGET_WORD)),
+        )
+      : false;
+    log(`vocabulary store: ${JSON.stringify(vocabulary)}`);
 
     mkdirSync(path.resolve(clientDir, '../../docs/screenshots/web'), { recursive: true });
     await page.screenshot({
@@ -381,7 +481,7 @@ async function main() {
     await context.close();
 
     console.log('\n===== Worker/console lines of interest =====');
-    for (const l of workerLog.slice(0, 40)) console.log('  ' + l);
+    for (const l of workerLog.slice(0, 80)) console.log('  ' + l);
 
     console.log('\n===== States observed =====');
     console.log('  ' + statesSeen.join(' -> '));
@@ -395,6 +495,17 @@ async function main() {
       'state cycled listening -> thinking': ['listening', 'thinking'].every((s) =>
         statesSeen.includes(s),
       ),
+      'tutor caption (final) within the reply budget': sawTutorCaption && turnsCompleted >= 1,
+      // Honest, not optimistic: es-419 has no synthesized voice in this
+      // build (verified — see planning/BROWSER-TUTOR.md's Slice 2+3 status
+      // note and worker.ts's HONEST LABEL comment above `loadTts`), so
+      // `speaking` must NEVER fire for this fixture. If it does, the worker
+      // is claiming audio it cannot produce for es-419, which is worse than
+      // the current text-only fallback.
+      'no false "speaking" state for es-419 (TTS is English-only; verified, not unattempted)':
+        !sawSpeakingState,
+      '"Guarda la palabra cigarra" heard as a learner caption': sawToolLearnerCaption,
+      'tool round trip: cigarra actually saved to the vocabulary store': savedCigarra,
     };
     let allPass = true;
     for (const [name, ok] of Object.entries(results)) {

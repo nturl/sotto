@@ -57,7 +57,12 @@ export type MainToWorker =
   | { t: 'text'; text: string }
   | { t: 'tool_result'; callId: string; ok: boolean; result?: unknown; error?: string }
   | { t: 'passage'; passage: TutorPassageContext }
-  | { t: 'end' };
+  | { t: 'end' }
+  /** One-shot pronunciation sample (onboarding's "listen to a sample" row,
+   * the reader's word/translation-panel speaker button): synthesize `text`
+   * and reply with `sample_result` or `error`. No session, no VAD, no LLM —
+   * a short-lived worker started just for this, same shape as `download`. */
+  | { t: 'sample'; text: string; locale: string };
 
 // ---- worker -> main ----
 
@@ -85,7 +90,11 @@ export type WorkerToMain =
   | { t: 'audio_end'; utteranceId: string; cancelled?: boolean }
   | { t: 'error'; code: string; message: string; recoverable: boolean }
   /** Timing instrumentation the e2e log prints; never shown in the UI. */
-  | { t: 'metric'; name: string; ms: number; detail?: string };
+  | { t: 'metric'; name: string; ms: number; detail?: string }
+  /** Reply to `sample`: raw Float32 PCM (not Int16 — there is no session
+   * audio pipeline to match here, so the extra round-trip conversion buys
+   * nothing) at Kokoro's native rate. */
+  | { t: 'sample_result'; pcm: ArrayBuffer; sampleRate: number };
 
 /** Where build-tutor-worker.mjs writes the bundle, and what the provider spawns. */
 export const DEFAULT_WORKER_URL = '/tutor/tutor-worker.js';

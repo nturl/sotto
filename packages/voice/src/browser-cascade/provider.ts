@@ -23,7 +23,7 @@ import {
   type WorkerInitPayload,
   type WorkerToMain,
 } from './protocol.ts';
-import { markModelCached, SLICE_1_MODELS, STT_MODEL } from './models.ts';
+import { markModelCached, TUTOR_MODELS, STT_MODEL } from './models.ts';
 
 /** The slice of the DOM `Worker` surface this provider uses — so unit tests
  * can hand in a shim without a real worker or real models. */
@@ -328,7 +328,7 @@ export function downloadTutorModels(opts: {
     const msg = ev.data;
     if (msg.t === 'progress') opts.onProgress?.(msg.progress);
     else if (msg.t === 'ready') {
-      void Promise.all(SLICE_1_MODELS.map((m) => markModelCached(m.id))).then(() => {
+      void Promise.all(TUTOR_MODELS.map((m) => markModelCached(m.id))).then(() => {
         worker.terminate();
         settle.resolve();
       });

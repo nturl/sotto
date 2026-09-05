@@ -51,3 +51,6 @@ export * from './browser-cascade/protocol.ts';
 export * from './browser-cascade/models.ts';
 export { EnergyVad, SpeechBuffer, computeRms, PRE_BUFFER_MS } from './browser-cascade/vad.ts';
 export type { EnergyVadOptions, VadEvent, VadEventType } from './browser-cascade/vad.ts';
+// Slice 3: one-shot pronunciation sample for onboarding + the reader's
+// translation panel (English only, cached-models only — see sample.ts).
+export { synthesizeSample, playSample, type SynthesizedSample } from './browser-cascade/sample.ts';

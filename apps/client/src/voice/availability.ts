@@ -11,7 +11,7 @@
  * `needs-download` with sizes so the screen can offer the opt-in; when there
  * is no WebGPU either, `unavailable/no-webgpu`.
  */
-import { cachedModelIds, hasWebGpu, SLICE_1_MODELS, type TutorModelSpec } from '@sotto/voice';
+import { cachedModelIds, hasWebGpu, TUTOR_MODELS, type TutorModelSpec } from '@sotto/voice';
 import type { Health } from '../state/contentApi';
 
 export type VoiceService = 'stt' | 'llm' | 'tts';
@@ -38,7 +38,7 @@ export function availabilityFromHealth(health: Health | null): VoiceAvailability
 
 /** The in-browser verdict on its own. Async: reading the model cache is. */
 export async function browserAvailability(
-  models: TutorModelSpec[] = SLICE_1_MODELS,
+  models: TutorModelSpec[] = TUTOR_MODELS,
 ): Promise<VoiceAvailability> {
   if (!hasWebGpu()) return { status: 'unavailable', reason: 'no-webgpu', missing: [] };
   const cached = new Set(await cachedModelIds());

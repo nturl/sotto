@@ -233,6 +233,52 @@ tsconfig needed `allowImportingTsExtensions`, because it now resolves core's
   but costs the secure context that WebGPU and the Cache API both require;
   `--unsafely-treat-insecure-origin-as-secure` was tried and did not restore it.
 
+## Slice 2 + 3 status (2026-09-05)
+
+Both shipped, with one deviation from the Slice 3 plan below: **TTS is
+English-only.** The documented workaround — phonemize fr/es with the
+`phonemizer` package's eSpeak-NG build, then `generate_from_ids` — was tried
+and disproven, not left unattempted. `phonemizer` 1.2.1's bundled eSpeak-NG
+wasm hard-rejects every non-English language identifier
+(`list_voices()`/`phonemize(text, lang)` both throw "Invalid language
+identifier" for `fr-fr`, `es`, and everything else that isn't an English
+variant), independent of which Kokoro voice is requested — confirmed with a
+standalone Node script before `worker.ts` was touched, printing the model's
+own `list_voices()` output. This is a data limitation of the npm package's
+wasm build, not a parameter or version issue, so per this document's own
+escalation rule it ships as: English TTS for English books, and full text
+replies + tool calls (no audio) for every other language, labelled as such
+in `worker.ts` (search "HONEST LABEL"), the panel copy
+(`tutor.browser.sliceNote`, all locales), and docs/browser-tutor.md.
+
+Everything else in the Slice 2 checklist shipped as written: `chunker.ts` and
+`markers.ts` (with `safeReleaseIndex`) ported verbatim into
+`packages/voice/src/browser-cascade/`; the tool-call loop lives in the new
+`llm-turn.ts` (`TutorTurnRunner`), decoupled from WebLLM so it has its own
+fake-engine unit tests; `worker.ts`'s `WebLlmEngine` tries native OpenAI-shaped
+`tools` first and falls back to a fenced ` ```tool ` JSON block if the loaded
+build rejects that request shape — confirmed needed live:
+`Qwen3-1.7B-q4f16_1-MLC is not supported for ChatCompletionRequest.tools`, the
+fallback engaged, and the turn completed anyway. Qwen3 also needed
+`extra_body: { enable_thinking: false }` in the WebLLM request (the local
+server's equivalent is `chat_template_kwargs.enable_thinking`) — caught live
+when a `<think>...</think>` reasoning block streamed straight through as
+tutor captions before that field was added; `stripThinking`/`safeReleaseIndex`
+in `markers.ts` now also strip/hold back `<think>` blocks as defense in depth.
+
+**Open issue, not yet root-caused: STT latency/quality regresses hard once the
+LLM is also loaded.** whisper transcription of the same 2.7s clip that took
+1.05s and was correct in the slice-1 e2e took ~21s and produced garbage
+repeated tokens ("de de de de...") in two separate slice-2/3 e2e runs, both
+with the 1.1GB WebLLM model also resident on the same WebGPU device. STT
+alone (slice 1, no LLM loaded) was never slow or wrong. Leading hypothesis:
+WebGPU resource contention between the two simultaneously-resident models;
+unproven — the next diagnostic step is a controlled run that loads STT,
+transcribes, THEN loads the LLM, to see whether the slowdown is about order,
+simultaneity, or something else. This exceeds this document's own "> 20s
+per-turn" escalation threshold and is flagged rather than silently shipped;
+see `docs/evidence/browser-tutor-slice2-3-2026-09-05.log` for the two runs.
+
 ## Slice 2 (LLM + tools) — checklist
 
 1. `worker.ts`: load `@mlc-ai/web-llm` `CreateMLCEngine` with

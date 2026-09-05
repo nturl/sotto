@@ -1,0 +1,87 @@
+===== HEADER (added by Lane B, not by the script) =====
+Run: node apps/client/e2e/browser-tutor.mjs (KEEP_PROFILE=1, second attempt of two)
+Fixture: es-fabulas-samaniego, es-419, Chromium --enable-unsafe-webgpu --use-angle=metal,
+on an M-series Mac. navigator.gpu adapter: present (see t+4.4s line below).
+
+What ran on WebGPU vs wasm:
+  - STT (whisper-base, encoder fp16 + decoder q8): WebGPU  (stt_load_ms=2023ms; see t+76.3s)
+  - LLM (Qwen3-1.7B-q4f16_1-MLC via @mlc-ai/web-llm): WebGPU only, no wasm path exists for
+    WebLLM (llm_load_ms=2707ms; see t+79.0s)
+  - TTS (Kokoro 82M): not exercised in this run — the fixture's learning locale is es-419,
+    which has no synthesized voice in this build (verified, not unattempted — see
+    planning/BROWSER-TUTOR.md's Slice 2+3 status note and worker.ts's HONEST LABEL comment
+    above loadTts). English TTS was separately proven end-to-end with a standalone Node
+    script (kokoro-js generate(), af_heart voice): 2.975s of audio, RMS 0.067, non-silent,
+    saved to a wav file — see the Lane B report for that script's output.
+
+Per-stage latencies observed (this run):
+  - Model download (STT 95MB + LLM 1.1GB + TTS 90MB = 1285MB total): 69.3s
+  - STT pipeline load: 2023ms
+  - LLM engine load: 2707ms
+  - STT transcription of a 2.7s clip: 21152ms  <-- see ESCALATION below
+  - LLM turn (first token through full reply, tool-call fallback triggered): well under 5s
+    once STT handed it text at all
+
+ESCALATION (per this lane's own stop-and-report rule: "per-turn latency > 20s on the path
+that works"): STT transcription latency regressed from 1.05s/2.7s-clip in the slice-1
+evidence log to ~21s/2.7s-clip here, TWICE, reproducibly (21768ms on the first full run,
+21152ms on this one), and the transcribed text became garbage repeated-token output
+("de de de de de de...") instead of the correct Spanish sentence. STT alone worked
+correctly and fast in slice 1 with no LLM loaded. The only pipeline change between "STT
+alone, fast, correct" and "STT + LLM both resident, slow, garbage" is that a 1.1GB WebGPU
+LLM model is now also resident in the same GPU context during transcription — the leading
+hypothesis (not yet proven with a controlled STT-only-after-LLM-load repro, which this
+report flags as the next diagnostic step) is WebGPU resource contention/memory pressure
+between the two models degrading whisper's numerics. This did not block the pipeline
+end-to-end — the LLM still received *some* text and replied coherently in Spanish — but it
+is a real, reproducible quality/latency regression that should be root-caused before this
+ships as anything but experimental. Everything else observed in this run (download,
+model loads, tool-calling-unsupported fallback, <think> suppression via
+extra_body.enable_thinking, sentence-chunked captions, state transitions) worked as
+designed.
+
+Also of note: the `[browser-tutor] FAILED: page.waitForTimeout: ...` at the end of this log
+is this session's own deliberate `kill` of the script once the evidence above was captured,
+not a pipeline failure — the fake-mic file's second utterance ("Guarda la palabra
+cigarra.") and its tool round trip were not reached in this run because STT was still
+producing garbage for the first utterance. A first attempt (before the WebLLM tool-calling
+enable_thinking fix and an esbuild bundling fix — see the Lane B report) failed earlier,
+during model download, with "worker_error: unknown" — root-caused to kokoro-js's
+`dist/kokoro.js` statically importing Node's `path`/`fs/promises`, which esbuild does not
+substitute via kokoro-js's own package.json `"browser"` field once a package also declares
+an `"exports"` map, so both imports survived into the bundle as literal unresolvable ESM
+specifiers and the `type: "module"` Worker failed to load at all. Fixed via an esbuild
+`alias` in apps/client/scripts/build-tutor-worker.mjs pointing both specifiers at a tiny
+local empty-module shim (apps/client/scripts/tutor-worker-node-shim.mjs).
+===== END HEADER — raw script output follows =====
+
+[t+0.0s] Synthesizing fake-mic wav: "¿Qué significa la palabra cigarra?" then "Guarda la palabra cigarra."
+[t+3.8s] Serving dist on http://localhost:8091
+[t+4.4s] WebGPU: navigator.gpu=true adapter=true
+[t+4.5s] app's /health probe -> 0 (0 = unreachable, as on the static host)
+[t+4.5s] Opening /voice/es-fabulas-samaniego
+[t+4.7s] Download panel is showing; tapping "Download tutor models"
+[t+4.7s] Panel states the download size: 1285 MB
+[t+4.8s]   …downloading; caches={"sotto-shell-1788580818173.4204":0}
+[t+19.8s]   …downloading; caches={"sotto-shell-1788580818173.4204":63,"transformers-cache":7,"webllm/config":1,"webllm/wasm":1,"webllm/model":2}
+[t+34.9s]   …downloading; caches={"sotto-shell-1788580818173.4204":63,"transformers-cache":7,"webllm/config":1,"webllm/wasm":1,"webllm/model":10}
+[t+49.9s]   …downloading; caches={"sotto-shell-1788580818173.4204":63,"transformers-cache":7,"webllm/config":1,"webllm/wasm":1,"webllm/model":20}
+[t+65.0s]   …downloading; caches={"sotto-shell-1788580818173.4204":63,"transformers-cache":7,"webllm/config":1,"webllm/wasm":1,"webllm/model":31}
+[t+74.0s] Model download finished after 69.3s
+[t+74.5s] state -> connecting
+[t+76.3s] [sotto-tutor] stt_load_ms=2023ms webgpu
+[t+77.3s] state -> thinking
+[t+79.0s] [sotto-tutor] llm_load_ms=2707ms
+[t+79.3s] state -> listening
+[t+79.3s] turn 1 complete (state returned to listening)
+[t+98.2s] [sotto-tutor] stt_ms=21152ms webgpu 2.7s
+[t+98.2s] [sotto-tutor] llm_tools_unsupported=0ms Qwen3-1.7B-q4f16_1-MLC is not supported for ChatCompletionRequest.tools. Currently, models that support function calling are: Hermes-2-Pro-Llama-3-8B-q4f16_1-MLC, Hermes-2-Pro-Llama-3-8B-q4f32_1-MLC, Hermes-2-Pro-Mistral-7B-q4f16_1-MLC, Hermes-3-Llama-3.1-8B-q4f32_1-MLC, Hermes-3-Llama-3.1-8B-q4f16_1-MLC
+[t+98.2s] state -> thinking
+[t+98.2s] caption: You: de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de de
+[t+101.5s] state -> listening
+[t+101.5s] turn 2 complete (state returned to listening)
+[t+101.5s] caption: Tutor: ¿Qué palabra es la que significa "hacer trabajo"?
+[browser-tutor] FAILED: page.waitForTimeout: Target page, context or browser has been closed
+    at main (/Users/noelturlington/Claude/sotto/apps/client/e2e/browser-tutor.mjs:489:18) {
+  log: []
+}

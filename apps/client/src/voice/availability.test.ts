@@ -4,7 +4,7 @@
  * (WebGPU + cached models, planning/BROWSER-TUTOR.md).
  */
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { STT_MODEL } from '@sotto/voice';
+import { LLM_MODEL, STT_MODEL, TTS_MODEL, TUTOR_MODELS } from '@sotto/voice';
 import type { Health } from '../state/contentApi';
 import { availabilityFromHealth, browserAvailability, resolveAvailability } from './availability';
 
@@ -75,13 +75,23 @@ describe('browserAvailability', () => {
     const result = await browserAvailability();
     expect(result.status).toBe('needs-download');
     if (result.status !== 'needs-download') throw new Error('unreachable');
-    expect(result.models.map((m) => m.id)).toEqual([STT_MODEL.id]);
+    // Slice 2/3: TUTOR_MODELS covers all three stages now, not STT alone.
+    expect(result.models.map((m) => m.id)).toEqual([STT_MODEL.id, LLM_MODEL.id, TTS_MODEL.id]);
     expect(result.models[0]?.sizeMb).toBeGreaterThan(0);
+  });
+
+  it('asks for a download naming only the stages still missing', async () => {
+    vi.stubGlobal('navigator', { gpu: {} });
+    stubCaches([STT_MODEL.id]);
+    const result = await browserAvailability();
+    expect(result.status).toBe('needs-download');
+    if (result.status !== 'needs-download') throw new Error('unreachable');
+    expect(result.models.map((m) => m.id)).toEqual([LLM_MODEL.id, TTS_MODEL.id]);
   });
 
   it('is ready on the browser path once every model is cached', async () => {
     vi.stubGlobal('navigator', { gpu: {} });
-    stubCaches([STT_MODEL.id]);
+    stubCaches(TUTOR_MODELS.map((m) => m.id));
     expect(await browserAvailability()).toEqual({ status: 'ready', path: 'browser' });
   });
 });
@@ -95,7 +105,7 @@ describe('resolveAvailability', () => {
 
   it('falls through to the browser path on a static host (no /health)', async () => {
     vi.stubGlobal('navigator', { gpu: {} });
-    stubCaches([STT_MODEL.id]);
+    stubCaches(TUTOR_MODELS.map((m) => m.id));
     expect(await resolveAvailability(null)).toEqual({ status: 'ready', path: 'browser' });
   });
 
@@ -127,7 +137,7 @@ describe('resolveAvailability', () => {
 
   it('a half-configured server does not strand a capable browser', async () => {
     vi.stubGlobal('navigator', { gpu: {} });
-    stubCaches([STT_MODEL.id]);
+    stubCaches(TUTOR_MODELS.map((m) => m.id));
     expect(await resolveAvailability(health({ llm: false }))).toEqual({
       status: 'ready',
       path: 'browser',

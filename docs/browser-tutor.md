@@ -20,11 +20,19 @@ models", frees the space; the app then offers the download again.
 | Stage          | Model                                   | Approx. download |
 | -------------- | --------------------------------------- | ---------------- |
 | Speech to text | Whisper base (encoder fp16, decoder q8) | 95 MB            |
-| Tutor          | Qwen3 1.7B _(not shipped yet)_          | ~1.1 GB          |
-| Voice          | Kokoro 82M _(not shipped yet)_          | ~90 MB           |
+| Tutor          | Qwen3 1.7B (q4f16, MLC)                 | ~1.1 GB          |
+| Voice          | Kokoro 82M                              | ~90 MB           |
 
-Today only the speech-to-text stage runs in the browser: the tutor hears you
-and shows a caption, but does not answer yet. The panel says so.
+The tutor listens, replies, and can call the same seven tools as the local
+server (save a word, jump to a sentence, switch modes, and so on) — all
+inside the browser, no server involved.
+
+**Speech is English-only for now.** Kokoro's bundled phonemizer only ships
+eSpeak-NG's English voice data; French and Spanish were tried and hard-reject
+with "Invalid language identifier" regardless of the language code passed —
+this was verified directly, not left unattempted. So English books get a
+spoken tutor voice; every other language still gets full replies and tool
+calls, just as text captions rather than audio. The panel says so.
 
 ## What it needs
 

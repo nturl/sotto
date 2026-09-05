@@ -50,7 +50,19 @@ const result = await esbuild.build({
   // transformers.js branches on these at load time; pinning them lets
   // esbuild drop the Node-only halves (fs, sharp, onnxruntime-node).
   define: { 'process.env.NODE_ENV': '"production"' },
-  external: ['node:*', 'fs', 'path', 'fs/promises', 'sharp', 'onnxruntime-node'],
+  external: ['node:*', 'fs', 'sharp', 'onnxruntime-node'],
+  // kokoro-js's Node-only path (dead code in a browser worker — see the
+  // shim file's own comment) statically imports `path` and `fs/promises`.
+  // Its package.json's `"browser"` field maps both to `false`, but esbuild
+  // does not honor that once a package also has an `"exports"` map, so
+  // without this alias both survive into the bundle as literal,
+  // unresolvable ESM imports and the worker fails to load at all
+  // ("An unknown error occurred when fetching the script" — a type:'module'
+  // Worker's imports are real browser module resolution, not bundled).
+  alias: {
+    path: path.join(clientDir, 'scripts/tutor-worker-node-shim.mjs'),
+    'fs/promises': path.join(clientDir, 'scripts/tutor-worker-node-shim.mjs'),
+  },
   logOverride: { 'ignored-bare-import': 'silent' },
 });
 

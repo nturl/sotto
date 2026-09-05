@@ -41,9 +41,12 @@ export interface TutorModelSpec {
  * budget. On the wasm fallback fp16 is not supported and transformers.js
  * upcasts, which costs memory but not accuracy.
  *
- * LLM and TTS entries are declared here (so the panel can show the real
- * eventual total once slices 2/3 land) but are NOT part of
- * `SLICE_1_MODELS`, which is what the download button actually fetches.
+ * LLM and TTS now load too (slices 2/3), so `TUTOR_MODELS` — what the
+ * download button actually fetches — covers all three. `TTS_MODEL` still
+ * downloads even though the worker only ever calls it for English books
+ * (see worker.ts's honest label above `loadTts`): fr/es prompts still need
+ * the STT+LLM stages, and the panel would otherwise have to explain a
+ * locale-conditional download list before any book is chosen.
  */
 export const STT_MODEL: TutorModelSpec = {
   id: 'onnx-community/whisper-base',
@@ -67,11 +70,15 @@ export const TTS_MODEL: TutorModelSpec = {
   stage: 'tts',
 };
 
-/** What "Download tutor models" fetches today. Slices 2/3 append. */
-export const SLICE_1_MODELS: TutorModelSpec[] = [STT_MODEL];
+/** What "Download tutor models" fetches: every stage, slices 1-3. */
+export const TUTOR_MODELS: TutorModelSpec[] = [STT_MODEL, LLM_MODEL, TTS_MODEL];
 
-/** Every model the browser tutor will eventually need, for the docs/panel. */
-export const ALL_TUTOR_MODELS: TutorModelSpec[] = [STT_MODEL, LLM_MODEL, TTS_MODEL];
+/** Every model the browser tutor will eventually need, for the docs/panel.
+ * Same list as `TUTOR_MODELS` now that all three stages ship; kept as a
+ * separate export so callers that mean "the complete catalog" (docs, the
+ * Settings row) don't depend on `TUTOR_MODELS` also being "what's
+ * downloaded today", which was the slice-1 distinction this name preserves. */
+export const ALL_TUTOR_MODELS: TutorModelSpec[] = TUTOR_MODELS;
 
 export function totalSizeMb(models: TutorModelSpec[]): number {
   return models.reduce((sum, m) => sum + m.sizeMb, 0);

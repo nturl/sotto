@@ -116,7 +116,11 @@ function walk(dir, base = dir) {
   return files;
 }
 const shellFiles = walk(dist).filter(
-  (f) => !f.startsWith('/content/packs/') && f !== '/sw.js' && f !== '/sw-manifest.json',
+  (f) =>
+    !f.startsWith('/content/packs/') &&
+    !f.startsWith('/tutor/') &&
+    f !== '/sw.js' &&
+    f !== '/sw-manifest.json',
 );
 // Version the shell/content caches by the newest mtime among the exported
 // files — stable across re-running this script on the same export, but

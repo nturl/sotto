@@ -11,7 +11,7 @@
  *                                                   # https://sotto-steel.vercel.app
  *   BASE_URL=http://localhost:8090 node apps/client/e2e/hosted.mjs
  *
- * Local static export: `npx serve apps/client/dist -l 8090 -s`, then run
+ * Local static export: `node apps/client/scripts/serve-static.mjs 8090` (mirrors the vercel.json rewrites), then run
  * this against BASE_URL=http://localhost:8090.
  *
  * KNOWN LOCAL-ONLY GAP: apps/client/src/state/contentApi.ts resolves the

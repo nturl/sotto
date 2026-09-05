@@ -14,7 +14,8 @@
     "test": "vitest run",
     "web:export": "node scripts/build-web.mjs",
     "deploy:web": "pnpm web:export && vercel build --prod --yes --scope nturls-projects && vercel deploy --prebuilt --prod --yes --scope nturls-projects",
-    "build:tutor-worker": "node scripts/build-tutor-worker.mjs"
+    "build:tutor-worker": "node scripts/build-tutor-worker.mjs",
+    "serve:web": "node scripts/serve-static.mjs 8090"
   },
   "dependencies": {
     "@expo-google-fonts/fraunces": "^0.4.1",

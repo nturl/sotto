@@ -1,3 +1,4 @@
+/* global self, caches, fetch, URL */
 /**
  * Hand-rolled service worker (A3, OVERNIGHT-2.md Lane A). No workbox, no
  * bundler — plain JS so it can sit in public/ untouched by the Expo web

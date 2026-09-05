@@ -1,0 +1,339 @@
+$ pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm content:validate
+$ prettier --check .
+Checking formatting...
+All matched files use Prettier code style!
+$ eslint .
+
+/Users/noelturlington/Claude/sotto/apps/client/src/state/vocabulary.test.ts
+  95:17  warning  '_a' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  96:17  warning  '_b' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/noelturlington/Claude/sotto/apps/client/src/ui/languages.ts
+  107:47  warning  'catalog' is assigned a value but never used. Allowed unused args must match /^_/u  @typescript-eslint/no-unused-vars
+
+/Users/noelturlington/Claude/sotto/apps/client/src/voice/toolContext.test.ts
+  191:11  warning  '_id1' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  192:16  warning  '_savedAt1' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  193:15  warning  '_review1' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  194:16  warning  '_t1' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  195:19  warning  '_s1' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  196:19  warning  '_w1' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  197:23  warning  '_n1' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  198:20  warning  '_tr1' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  199:24  warning  '_c1' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  203:11  warning  '_id2' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  204:16  warning  '_savedAt2' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  205:15  warning  '_review2' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  206:16  warning  '_t2' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  207:19  warning  '_s2' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  208:19  warning  '_w2' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  209:23  warning  '_n2' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  210:20  warning  '_tr2' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  211:24  warning  '_c2' is assigned a value but never used        @typescript-eslint/no-unused-vars
+
+/Users/noelturlington/Claude/sotto/packages/content/scripts/fill-locales.mjs
+  164:16  warning  'chatCompleteRetrying' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 22 problems (0 errors, 22 warnings)
+
+$ pnpm -r --if-present run typecheck
+Scope: 5 of 6 workspace projects
+packages/core typecheck$ tsc --noEmit
+packages/core typecheck: Done
+packages/voice typecheck$ tsc --noEmit
+packages/content typecheck$ tsc --noEmit
+packages/content typecheck: Done
+apps/server typecheck$ tsc --noEmit
+packages/voice typecheck: Done
+apps/client typecheck$ tsc --noEmit
+apps/server typecheck: Done
+apps/client typecheck: Done
+$ vitest run
+
+ RUN  v3.2.7 /Users/noelturlington/Claude/sotto
+
+ ✓ packages/core/src/tokenize.test.ts (10 tests) 6ms
+ ✓ apps/client/src/cloud/http.test.ts (6 tests) 151ms
+ ✓ apps/client/src/state/importExport.test.ts (3 tests) 6ms
+ ✓ packages/content/test/validate.test.ts (3 tests) 58ms
+ ✓ apps/server/src/voice/session.test.ts (7 tests) 21ms
+ ✓ apps/client/src/voice/controller.test.ts (3 tests) 8ms
+ ✓ apps/client/src/state/selectors.test.ts (11 tests) 15ms
+ ✓ apps/client/src/voice/sessionManager.test.ts (2 tests) 241ms
+ ✓ packages/voice/test/browser-cascade-stt-fallback.test.ts (13 tests) 2ms
+ ✓ packages/content/test/import/text.test.ts (6 tests) 4ms
+ ✓ apps/client/src/voice/toolContext.test.ts (10 tests) 11ms
+ ✓ packages/content/test/import/epub.test.ts (7 tests) 22ms
+ ✓ packages/voice/test/openai-realtime.test.ts (22 tests) 12ms
+ ✓ apps/client/src/voice/availability.test.ts (23 tests) 7ms
+ ✓ packages/core/src/export.test.ts (4 tests) 7ms
+ ✓ packages/content/test/import/pipeline.test.ts (2 tests) 16ms
+ ✓ apps/client/src/state/createStore.test.ts (10 tests) 9ms
+ ✓ apps/client/src/ui/reader/selection.test.ts (22 tests) 4ms
+{"level":30,"time":1788630050686,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"POST","url":"/import","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050700,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"POST","url":"/import","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050696,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":202},"responseTime":8.308958999999959,"msg":"request completed"}
+{"level":30,"time":1788630050702,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":202},"responseTime":1.2412919999999303,"msg":"request completed"}
+{"level":30,"time":1788630050705,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"GET","url":"/import/does-not-exist/result","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050711,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"POST","url":"/import","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050702,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","req":{"method":"POST","url":"/import","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050702,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","res":{"statusCode":429},"responseTime":0.15758299999993142,"msg":"request completed"}
+{"level":30,"time":1788630050705,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":404},"responseTime":0.1686659999998028,"msg":"request completed"}
+{"level":30,"time":1788630050712,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":202},"responseTime":0.8383330000001479,"msg":"request completed"}
+{"level":30,"time":1788630050715,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"GET","url":"/health","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+ ✓ packages/content/test/gloss-cross-locale-leak-heuristic.test.ts (8 tests) 4ms
+{"level":30,"time":1788630050747,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":200},"responseTime":31.589040999999952,"msg":"request completed"}
+{"level":30,"time":1788630050760,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"GET","url":"/health","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050767,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":200},"responseTime":6.342999999999847,"msg":"request completed"}
+{"level":30,"time":1788630050770,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"GET","url":"/health","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050786,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"GET","url":"/health","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":50,"time":1788630050770,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"GET","url":"/health","host":"localhost:80","remoteAddress":"127.0.0.1"},"res":{"statusCode":500},"err":{"type":"Error","message":"origin not allowed","stack":"Error: origin not allowed\n    at Object.origin (/Users/noelturlington/Claude/sotto/apps/server/src/app.ts:58:10)\n    at /Users/noelturlington/Claude/sotto/node_modules/.pnpm/@fastify+cors@10.1.0/node_modules/@fastify/cors/index.js:264:27\n    at addCorsHeadersHandler (/Users/noelturlington/Claude/sotto/node_modules/.pnpm/@fastify+cors@10.1.0/node_modules/@fastify/cors/index.js:164:3)\n    at Object.handleCors (/Users/noelturlington/Claude/sotto/node_modules/.pnpm/@fastify+cors@10.1.0/node_modules/@fastify/cors/index.js:64:9)\n    at hookIterator (/Users/noelturlington/Claude/sotto/node_modules/.pnpm/fastify@5.12.1/node_modules/fastify/lib/hooks.js:412:10)\n    at next (/Users/noelturlington/Claude/sotto/node_modules/.pnpm/fastify@5.12.1/node_modules/fastify/lib/hooks.js:242:18)\n    at hookRunner (/Users/noelturlington/Claude/sotto/node_modules/.pnpm/fastify@5.12.1/node_modules/fastify/lib/hooks.js:264:5)\n    at Object.routeHandler [as handler] (/Users/noelturlington/Claude/sotto/node_modules/.pnpm/fastify@5.12.1/node_modules/fastify/lib/route.js:562:7)\n    at Router.callHandler (/Users/noelturlington/Claude/sotto/node_modules/.pnpm/find-my-way@9.9.0/node_modules/find-my-way/index.js:571:14)\n    at Router.lookup (/Users/noelturlington/Claude/sotto/node_modules/.pnpm/find-my-way@9.9.0/node_modules/find-my-way/index.js:549:17)"},"msg":"origin not allowed"}
+{"level":30,"time":1788630050774,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":500},"responseTime":3.6189580000000205,"msg":"request completed"}
+{"level":30,"time":1788630050805,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":200},"responseTime":18.967374999999947,"msg":"request completed"}
+{"level":30,"time":1788630050808,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050811,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":200},"responseTime":2.3271249999997963,"msg":"request completed"}
+{"level":30,"time":1788630050811,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050814,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","res":{"statusCode":200},"responseTime":3.28449999999998,"msg":"request completed"}
+{"level":30,"time":1788630050815,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-3","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050819,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788630050816,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-3","res":{"statusCode":429},"responseTime":1.1316249999999854,"msg":"request completed"}
+{"level":30,"time":1788630050820,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":200},"responseTime":0.37916699999982484,"msg":"request completed"}
+{"level":30,"time":1788630050820,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788630050820,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","res":{"statusCode":200},"responseTime":0.21787499999982174,"msg":"request completed"}
+{"level":30,"time":1788630050820,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-3","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788630050821,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-3","res":{"statusCode":200},"responseTime":0.23849999999993088,"msg":"request completed"}
+{"level":30,"time":1788630050821,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-4","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788630050821,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-4","res":{"statusCode":200},"responseTime":0.1888330000001588,"msg":"request completed"}
+{"level":30,"time":1788630050822,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-5","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788630050838,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-5","res":{"statusCode":200},"responseTime":15.73912499999983,"msg":"request completed"}
+{"level":30,"time":1788630050838,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-6","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788630050838,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-6","res":{"statusCode":200},"responseTime":0.2725000000000364,"msg":"request completed"}
+{"level":30,"time":1788630050838,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-7","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788630050839,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-7","res":{"statusCode":200},"responseTime":0.2399169999998776,"msg":"request completed"}
+{"level":30,"time":1788630050839,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-8","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788630050839,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-8","res":{"statusCode":200},"responseTime":0.1529169999998885,"msg":"request completed"}
+{"level":30,"time":1788630050839,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-9","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788630050839,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-9","res":{"statusCode":200},"responseTime":0.1376669999999649,"msg":"request completed"}
+{"level":30,"time":1788630050839,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-a","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788630050839,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-a","res":{"statusCode":200},"responseTime":0.11999999999989086,"msg":"request completed"}
+{"level":30,"time":1788630050839,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-b","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788630050852,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050840,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-b","res":{"statusCode":429},"responseTime":0.11495800000011513,"msg":"request completed"}
+{"level":30,"time":1788630050852,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":200},"responseTime":0.38858299999992596,"msg":"request completed"}
+{"level":30,"time":1788630050852,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050863,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","req":{"method":"GET","url":"/import/fd7d4c77-b90c-4f91-9eb7-979d4ae6e1bd/result","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050852,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","res":{"statusCode":200},"responseTime":0.1429169999998976,"msg":"request completed"}
+{"level":30,"time":1788630050853,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-3","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050855,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-3","res":{"statusCode":200},"responseTime":2.460750000000189,"msg":"request completed"}
+{"level":30,"time":1788630050861,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-4","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050865,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-4","res":{"statusCode":200},"responseTime":1.6209590000000844,"msg":"request completed"}
+{"level":30,"time":1788630050866,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-5","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+ ✓ apps/client/src/state/contentApi.test.ts (9 tests) 6ms
+ ✓ packages/content/test/wav.test.ts (6 tests) 3ms
+{"level":30,"time":1788630050874,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-5","res":{"statusCode":200},"responseTime":6.984541999999919,"msg":"request completed"}
+{"level":30,"time":1788630050874,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-6","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050874,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-6","res":{"statusCode":200},"responseTime":0.34570800000005875,"msg":"request completed"}
+{"level":30,"time":1788630050874,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-7","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050874,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-7","res":{"statusCode":200},"responseTime":0.14158299999985502,"msg":"request completed"}
+{"level":30,"time":1788630050874,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-8","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050874,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"POST","url":"/import","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050863,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","res":{"statusCode":200},"responseTime":0.18116600000007566,"msg":"request completed"}
+{"level":30,"time":1788630050875,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-8","res":{"statusCode":200},"responseTime":0.1164169999999558,"msg":"request completed"}
+{"level":30,"time":1788630050875,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-9","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050875,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-9","res":{"statusCode":200},"responseTime":0.7545000000000073,"msg":"request completed"}
+{"level":30,"time":1788630050875,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-a","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788630050876,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-a","res":{"statusCode":200},"responseTime":0.16237499999988358,"msg":"request completed"}
+{"level":30,"time":1788630050876,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-b","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"2.2.2.2"},"msg":"incoming request"}
+{"level":30,"time":1788630050876,"pid":46550,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-b","res":{"statusCode":200},"responseTime":0.24537499999996726,"msg":"request completed"}
+ ✓ apps/server/src/app.test.ts (7 tests) 353ms
+{"level":30,"time":1788630050879,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":202},"responseTime":4.30533400000013,"msg":"request completed"}
+ ✓ packages/content/test/translate-sentences.test.ts (12 tests) 13ms
+ ✓ packages/core/src/tools.test.ts (10 tests) 7ms
+ ✓ apps/server/src/config.test.ts (3 tests) 5ms
+{"level":30,"time":1788630051031,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","req":{"method":"GET","url":"/import/2c496ed4-29ff-4c7d-90b5-273532253279/audio/01.mp3","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788630051035,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"POST","url":"/import","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788630051031,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","res":{"statusCode":200},"responseTime":0.24166700000000674,"msg":"request completed"}
+{"level":30,"time":1788630051036,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":202},"responseTime":0.6023750000001655,"msg":"request completed"}
+{"level":30,"time":1788630051036,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","req":{"method":"GET","url":"/import/d46f6a96-fffd-4c7b-b994-e733a89ebaf4/events","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+ ✓ apps/client/src/paywall/nagOnce.test.ts (2 tests) 33ms
+ ✓ packages/voice/test/local-cascade.test.ts (9 tests) 48ms
+ ✓ packages/voice/test/browser-cascade-vad.test.ts (9 tests) 4ms
+ ✓ apps/server/src/voice/vad.test.ts (8 tests) 3ms
+stdout | packages/voice/test/browser-cascade.test.ts > BrowserCascadeProvider event translation > does not leak progress/metric/audio plumbing into VoiceEvents
+[sotto-tutor] stt_ms=900ms
+
+ ✓ packages/voice/test/browser-cascade.test.ts (13 tests) 7ms
+ ✓ packages/voice/test/fake.test.ts (9 tests) 6ms
+ ✓ packages/content/test/scaffold.test.ts (7 tests) 6ms
+ ✓ packages/voice/test/browser-cascade-sample.test.ts (4 tests) 8ms
+ ✓ packages/content/test/gloss-fill.test.ts (5 tests) 5ms
+ ✓ apps/client/src/platform/persistence.test.ts (4 tests) 2ms
+ ✓ packages/content/test/align.test.ts (20 tests) 4ms
+ ✓ apps/server/src/voice/wav.test.ts (4 tests) 3ms
+{"level":30,"time":1788630051537,"pid":46548,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","res":{"statusCode":200},"responseTime":500.6375830000002,"msg":"request completed"}
+ ✓ apps/server/src/import/routes.test.ts (6 tests) 974ms
+   ✓ GET /import/:jobId/events > echoes an allowed Origin back on the raw SSE response (EventSource needs this — see routes.ts)  505ms
+ ✓ apps/client/src/cloud/fake.test.ts (8 tests) 9ms
+ ✓ packages/content/test/types.test.ts (6 tests) 3ms
+ ✓ packages/voice/test/browser-cascade-chunker.test.ts (6 tests) 2ms
+ ✓ apps/server/src/voice/chunker.test.ts (6 tests) 2ms
+ ✓ packages/content/test/import/detect.test.ts (4 tests) 2ms
+ ✓ packages/voice/test/browser-cascade-llm-turn.test.ts (5 tests) 4ms
+ ✓ packages/core/src/review.test.ts (8 tests) 5ms
+ ✓ packages/core/src/theme.test.ts (3 tests) 3ms
+ ✓ packages/core/src/prompt.test.ts (8 tests) 6ms
+ ✓ packages/content/test/import/markdown.test.ts (3 tests) 5ms
+ ✓ packages/content/test/covers.test.ts (5 tests) 3ms
+ ✓ apps/server/src/security.test.ts (10 tests) 3ms
+ ✓ packages/voice/test/browser-cascade-markers.test.ts (20 tests) 4ms
+ ✓ apps/server/src/voice/markers.test.ts (5 tests) 2ms
+ ✓ apps/client/src/state/vocabulary.test.ts (4 tests) 2ms
+ ✓ apps/server/src/voice/prompt.test.ts (5 tests) 2ms
+
+ Test Files  54 passed (54)
+      Tests  425 passed (425)
+   Start at  13:40:49
+   Duration  3.12s (transform 2.26s, setup 0ms, collect 7.04s, tests 2.15s, environment 12ms, prepare 4.31s)
+
+$ pnpm --filter @sotto/content validate
+$ node src/cli.ts validate
+
+sotto-content validate:
+  es-419/es-fabulas-samaniego/chapters/01.json:
+    [warning] [gloss-not-identity] word token "b1.s1.t8" ("bajo") has a non-identity "es" gloss ("debajo de") — the book's content language is "es", so this is normally the token's own form ("bajo"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b5.s4.t1" ("Moraleja") has a non-identity "es" gloss ("enseñanza") — the book's content language is "es", so this is normally the token's own form ("moraleja"); flagging in case this is unintentional
+  es-419/es-fabulas-samaniego/chapters/02.json:
+    [warning] [gloss-not-identity] word token "b4.s3.t1" ("Moraleja") has a non-identity "es" gloss ("enseñanza") — the book's content language is "es", so this is normally the token's own form ("moraleja"); flagging in case this is unintentional
+  es-419/es-fabulas-samaniego/chapters/03.json:
+    [warning] [gloss-not-identity] word token "b4.s2.t8" ("pierde") has a non-identity "es" gloss ("se pierde") — the book's content language is "es", so this is normally the token's own form ("pierde"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b5.s4.t1" ("Moraleja") has a non-identity "es" gloss ("enseñanza") — the book's content language is "es", so this is normally the token's own form ("moraleja"); flagging in case this is unintentional
+  es-419/es-lazarillo/chapters/01.json:
+    [warning] [gloss-cross-locale-leak] word token "b11.s2.t3" ("momento") has the identical gloss ("moment") across 4 locales (en, fr, ro, ca), including "en" — that both differs from the token's own form ("momento") — possible copy/paste across locales
+  es-419/es-lazarillo/chapters/03.json:
+    [warning] [gloss-cross-locale-leak] word token "b6.s3.t8" ("momento") has the identical gloss ("moment") across 4 locales (en, fr, ro, ca), including "en" — that both differs from the token's own form ("momento") — possible copy/paste across locales
+  es-419/es-licenciado-vidriera/chapters/02.json:
+    [warning] [gloss-cross-locale-leak] word token "b1.s1.t6" ("secreto") has the identical gloss ("secret") across 4 locales (en, fr, ro, ca), including "en" — that both differs from the token's own form ("secreto") — possible copy/paste across locales
+  es-419/es-monte-de-las-animas/chapters/01.json:
+    [warning] [gloss-cross-locale-leak] word token "b1.s9.t7" ("que") has identical "en" and "zh-Hans" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b1.s9.t7" ("que") has identical "en" and "zh-Hant" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b1.s16.t4" ("secreto") has the identical gloss ("secret") across 4 locales (en, fr, ro, ca), including "en" — that both differs from the token's own form ("secreto") — possible copy/paste across locales
+    [warning] [gloss-not-identity] word token "b1.s18.t3" ("e") has a non-identity "es" gloss ("y") — the book's content language is "es", so this is normally the token's own form ("e"); flagging in case this is unintentional
+  es-419/es-monte-de-las-animas/chapters/02.json:
+    [warning] [gloss-cross-locale-leak] word token "b1.s2.t2" ("que") has identical "en" and "zh-Hans" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b1.s2.t2" ("que") has identical "en" and "zh-Hant" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b1.s7.t6" ("que") has identical "en" and "zh-Hans" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b1.s7.t6" ("que") has identical "en" and "zh-Hant" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b1.s7.t10" ("que") has identical "en" and "zh-Hans" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b1.s7.t10" ("que") has identical "en" and "zh-Hant" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b1.s9.t6" ("que") has identical "en" and "zh-Hans" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b1.s9.t6" ("que") has identical "en" and "zh-Hant" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b1.s11.t9" ("que") has identical "en" and "zh-Hans" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b1.s11.t9" ("que") has identical "en" and "zh-Hant" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b1.s16.t3" ("momento") has the identical gloss ("moment") across 4 locales (en, fr, ro, ca), including "en" — that both differs from the token's own form ("momento") — possible copy/paste across locales
+  es-419/es-monte-de-las-animas/chapters/03.json:
+    [warning] [gloss-cross-locale-leak] word token "b1.s2.t11" ("que") has identical "en" and "zh-Hans" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b1.s2.t11" ("que") has identical "en" and "zh-Hant" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-not-identity] word token "b1.s7.t8" ("e") has a non-identity "es" gloss ("y") — the book's content language is "es", so this is normally the token's own form ("e"); flagging in case this is unintentional
+    [warning] [gloss-cross-locale-leak] word token "b1.s10.t4" ("que") has identical "en" and "zh-Hans" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b1.s10.t4" ("que") has identical "en" and "zh-Hant" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+  es-419/es-quijote-molinos/chapters/01.json:
+    [warning] [gloss-cross-locale-leak] word token "b3.s4.t9" ("importante") has the identical gloss ("important") across 4 locales (en, fr, ro, ca), including "en" — that both differs from the token's own form ("importante") — possible copy/paste across locales
+  es-419/es-quijote-molinos/chapters/02.json:
+    [warning] [gloss-cross-locale-leak] word token "b8.s1.t3" ("momento") has the identical gloss ("moment") across 4 locales (en, fr, ro, ca), including "en" — that both differs from the token's own form ("momento") — possible copy/paste across locales
+  fr-FR/fr-cendrillon/chapters/01.json:
+    [warning] [gloss-not-identity] word token "b1.s7.t10" ("assoit") has a non-identity "fr" gloss ("s'assoit") — the book's content language is "fr", so this is normally the token's own form ("assoit"); flagging in case this is unintentional
+  fr-FR/fr-chat-botte/chapters/01.json:
+    [warning] [gloss-cross-locale-leak] word token "b1.s2.t9" ("que") has identical "en" and "zh-Hans" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b1.s2.t9" ("que") has identical "en" and "zh-Hant" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b2.s5.t6" ("que") has identical "en" and "zh-Hans" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b2.s5.t6" ("que") has identical "en" and "zh-Hant" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b3.s1.t5" ("idée") has the identical gloss ("idea") across 4 locales (en, es, it, ca), including "en" — that both differs from the token's own form ("idée") — possible copy/paste across locales
+  fr-FR/fr-chat-botte/chapters/02.json:
+    [warning] [gloss-cross-locale-leak] word token "b2.s4.t4" ("que") has identical "en" and "zh-Hans" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b2.s4.t4" ("que") has identical "en" and "zh-Hant" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b4.s5.t3" ("que") has identical "en" and "zh-Hans" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b4.s5.t3" ("que") has identical "en" and "zh-Hant" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b5.s5.t3" ("que") has identical "en" and "zh-Hans" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b5.s5.t3" ("que") has identical "en" and "zh-Hant" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b7.s1.t3" ("que") has identical "en" and "zh-Hans" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b7.s1.t3" ("que") has identical "en" and "zh-Hant" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+  fr-FR/fr-chat-botte/chapters/03.json:
+    [warning] [gloss-cross-locale-leak] word token "b1.s4.t4" ("que") has identical "en" and "zh-Hans" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+    [warning] [gloss-cross-locale-leak] word token "b1.s4.t4" ("que") has identical "en" and "zh-Hant" glosses ("that") that both differ from the token's own form ("que") — possible copy/paste from one locale into the other
+  fr-FR/fr-chevre-de-m-seguin/chapters/01.json:
+    [warning] [gloss-not-identity] word token "b1.s1.t1" ("M") has a non-identity "fr" gloss ("M.") — the book's content language is "fr", so this is normally the token's own form ("m"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b1.s2.t1" ("M") has a non-identity "fr" gloss ("M.") — the book's content language is "fr", so this is normally the token's own form ("m"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b1.s6.t1" ("M") has a non-identity "fr" gloss ("M.") — the book's content language is "fr", so this is normally the token's own form ("m"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b1.s11.t16" ("M") has a non-identity "fr" gloss ("M.") — the book's content language is "fr", so this is normally the token's own form ("m"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b1.s13.t1" ("M") has a non-identity "fr" gloss ("M.") — the book's content language is "fr", so this is normally the token's own form ("m"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b1.s16.t1" ("M") has a non-identity "fr" gloss ("M.") — the book's content language is "fr", so this is normally the token's own form ("m"); flagging in case this is unintentional
+  fr-FR/fr-chevre-de-m-seguin/chapters/02.json:
+    [warning] [gloss-not-identity] word token "b1.s8.t17" ("M") has a non-identity "fr" gloss ("M.") — the book's content language is "fr", so this is normally the token's own form ("m"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b1.s11.t11" ("M") has a non-identity "fr" gloss ("M.") — the book's content language is "fr", so this is normally the token's own form ("m"); flagging in case this is unintentional
+  fr-FR/fr-chevre-de-m-seguin/chapters/03.json:
+    [warning] [gloss-not-identity] word token "b1.s11.t13" ("M") has a non-identity "fr" gloss ("M.") — the book's content language is "fr", so this is normally the token's own form ("m"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b1.s16.t1" ("M") has a non-identity "fr" gloss ("M.") — the book's content language is "fr", so this is normally the token's own form ("m"); flagging in case this is unintentional
+    [warning] [gloss-cross-locale-leak] word token "b1.s17.t13" ("familier") has the identical gloss ("familiar") across 5 locales (en, es, pt, ro, ca), including "en" — that both differs from the token's own form ("familier") — possible copy/paste across locales
+  fr-FR/fr-fables-la-fontaine/chapters/03.json:
+    [warning] [gloss-cross-locale-leak] word token "b3.s2.t8" ("idée") has the identical gloss ("idea") across 4 locales (en, es, it, ca), including "en" — that both differs from the token's own form ("idée") — possible copy/paste across locales
+  fr-FR/fr-petit-chaperon-rouge/chapters/01.json:
+    [warning] [gloss-not-identity] word token "b1.s1.t5" ("vit") has a non-identity "fr" gloss ("habite") — the book's content language is "fr", so this is normally the token's own form ("vit"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b1.s4.t2" ("vieille") has a non-identity "fr" gloss ("âgée") — the book's content language is "fr", so this is normally the token's own form ("vieille"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b1.s4.t7" ("chaperon") has a non-identity "fr" gloss ("capuchon") — the book's content language is "fr", so this is normally the token's own form ("chaperon"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b1.s6.t8" ("Chaperon") has a non-identity "fr" gloss ("capuchon") — the book's content language is "fr", so this is normally the token's own form ("chaperon"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b2.s3.t3" ("place") has a non-identity "fr" gloss ("met") — the book's content language is "fr", so this is normally the token's own form ("place"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b3.s2.t2" ("fillette") has a non-identity "fr" gloss ("petite fille") — the book's content language is "fr", so this is normally the token's own form ("fillette"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b3.s2.t3" ("ignore") has a non-identity "fr" gloss ("ne sait pas") — the book's content language is "fr", so this is normally the token's own form ("ignore"); flagging in case this is unintentional
+  fr-FR/fr-petit-chaperon-rouge/chapters/02.json:
+    [warning] [gloss-not-identity] word token "b1.s4.t8" ("fillette") has a non-identity "fr" gloss ("petite fille") — the book's content language is "fr", so this is normally the token's own form ("fillette"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b1.s11.t4" ("couche") has a non-identity "fr" gloss ("se couche") — the book's content language is "fr", so this is normally the token's own form ("couche"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b2.s1.t5" ("fillette") has a non-identity "fr" gloss ("petite fille") — the book's content language is "fr", so this is normally the token's own form ("fillette"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b2.s6.t2" ("fillette") has a non-identity "fr" gloss ("petite fille") — the book's content language is "fr", so this is normally the token's own form ("fillette"); flagging in case this is unintentional
+    [warning] [gloss-not-identity] word token "b4.s2.t6" ("Chaperon") has a non-identity "fr" gloss ("capuchon") — the book's content language is "fr", so this is normally the token's own form ("chaperon"); flagging in case this is unintentional
+  it-IT/it-pinocchio-inizio/chapters/01.json:
+    [warning] [gloss-cross-locale-leak] word token "b3.s1.t3" ("momento") has the identical gloss ("moment") across 4 locales (en, fr, ro, ca), including "en" — that both differs from the token's own form ("momento") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b3.s5.t11" ("attore") has the identical gloss ("actor") across 4 locales (en, es, ro, ca), including "en" — that both differs from the token's own form ("attore") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b3.s6.t9" ("favore") has the identical gloss ("favor") across 4 locales (en, es, pt, ca), including "en" — that both differs from the token's own form ("favore") — possible copy/paste across locales
+  it-IT/it-pinocchio-inizio/chapters/03.json:
+    [warning] [gloss-cross-locale-leak] word token "b3.s9.t5" ("importante") has the identical gloss ("important") across 4 locales (en, fr, ro, ca), including "en" — that both differs from the token's own form ("importante") — possible copy/paste across locales
+  pt-BR/pt-jabuti-onca/chapters/01.json:
+    [warning] [gloss-cross-locale-leak] word token "b2.s1.t2" ("onça") has the identical gloss ("jaguar") across 5 locales (en, fr, es, ro, ca), including "en" — that both differs from the token's own form ("onça") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b2.s3.t2" ("onça") has the identical gloss ("jaguar") across 5 locales (en, fr, es, ro, ca), including "en" — that both differs from the token's own form ("onça") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b5.s1.t9" ("ideia") has the identical gloss ("idea") across 4 locales (en, es, it, ca), including "en" — that both differs from the token's own form ("ideia") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b6.s2.t4" ("instrumento") has the identical gloss ("instrument") across 4 locales (en, fr, ro, ca), including "en" — that both differs from the token's own form ("instrumento") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b7.s1.t2" ("onça") has the identical gloss ("jaguar") across 5 locales (en, fr, es, ro, ca), including "en" — that both differs from the token's own form ("onça") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b7.s3.t2" ("onça") has the identical gloss ("jaguar") across 5 locales (en, fr, es, ro, ca), including "en" — that both differs from the token's own form ("onça") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b7.s3.t8" ("instrumento") has the identical gloss ("instrument") across 4 locales (en, fr, ro, ca), including "en" — that both differs from the token's own form ("instrumento") — possible copy/paste across locales
+  pt-BR/pt-jabuti-onca/chapters/02.json:
+    [warning] [gloss-cross-locale-leak] word token "b1.s1.t2" ("onça") has the identical gloss ("jaguar") across 5 locales (en, fr, es, ro, ca), including "en" — that both differs from the token's own form ("onça") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b1.s3.t2" ("onça") has the identical gloss ("jaguar") across 5 locales (en, fr, es, ro, ca), including "en" — that both differs from the token's own form ("onça") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b1.s4.t6" ("onça") has the identical gloss ("jaguar") across 5 locales (en, fr, es, ro, ca), including "en" — that both differs from the token's own form ("onça") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b3.s1.t2" ("onça") has the identical gloss ("jaguar") across 5 locales (en, fr, es, ro, ca), including "en" — that both differs from the token's own form ("onça") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b3.s4.t2" ("onça") has the identical gloss ("jaguar") across 5 locales (en, fr, es, ro, ca), including "en" — that both differs from the token's own form ("onça") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b4.s1.t4" ("onça") has the identical gloss ("jaguar") across 5 locales (en, fr, es, ro, ca), including "en" — that both differs from the token's own form ("onça") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b4.s3.t2" ("onça") has the identical gloss ("jaguar") across 5 locales (en, fr, es, ro, ca), including "en" — that both differs from the token's own form ("onça") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b5.s4.t2" ("onça") has the identical gloss ("jaguar") across 5 locales (en, fr, es, ro, ca), including "en" — that both differs from the token's own form ("onça") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b6.s1.t2" ("onça") has the identical gloss ("jaguar") across 5 locales (en, fr, es, ro, ca), including "en" — that both differs from the token's own form ("onça") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b6.s4.t2" ("onça") has the identical gloss ("jaguar") across 5 locales (en, fr, es, ro, ca), including "en" — that both differs from the token's own form ("onça") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b7.s1.t2" ("onça") has the identical gloss ("jaguar") across 5 locales (en, fr, es, ro, ca), including "en" — that both differs from the token's own form ("onça") — possible copy/paste across locales
+  zh-CN/zh-chengyu-stories/chapters/03.json:
+    [warning] [gloss-cross-locale-leak] word token "b1.s2.t1" ("动物") has the identical gloss ("animal") across 6 locales (en, fr, es, pt, ro, ca), including "en" — that both differs from the token's own form ("动物") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b2.s3.t5" ("动物") has the identical gloss ("animal") across 6 locales (en, fr, es, pt, ro, ca), including "en" — that both differs from the token's own form ("动物") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b3.s3.t4" ("动物") has the identical gloss ("animal") across 6 locales (en, fr, es, pt, ro, ca), including "en" — that both differs from the token's own form ("动物") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b3.s4.t1" ("动物") has the identical gloss ("animal") across 6 locales (en, fr, es, pt, ro, ca), including "en" — that both differs from the token's own form ("动物") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b4.s2.t3" ("动物") has the identical gloss ("animal") across 6 locales (en, fr, es, pt, ro, ca), including "en" — that both differs from the token's own form ("动物") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b4.s3.t3" ("动物") has the identical gloss ("animal") across 6 locales (en, fr, es, pt, ro, ca), including "en" — that both differs from the token's own form ("动物") — possible copy/paste across locales
+  zh-TW/zh-chengyu-stories-hant/chapters/01.json:
+    [warning] [gloss-not-identity] word token "b4.s4.t10" ("只") has a non-identity "zh-Hant" gloss ("隻") — the book's content language is "zh-Hant", so this is normally the token's own form ("只"); flagging in case this is unintentional
+  zh-TW/zh-chengyu-stories-hant/chapters/02.json:
+    [warning] [gloss-not-identity] word token "b1.s4.t1" ("只") has a non-identity "zh-Hant" gloss ("隻") — the book's content language is "zh-Hant", so this is normally the token's own form ("只"); flagging in case this is unintentional
+  zh-TW/zh-chengyu-stories-hant/chapters/03.json:
+    [warning] [gloss-cross-locale-leak] word token "b1.s2.t1" ("動物") has the identical gloss ("animal") across 6 locales (en, fr, es, pt, ro, ca), including "en" — that both differs from the token's own form ("動物") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b2.s3.t5" ("動物") has the identical gloss ("animal") across 6 locales (en, fr, es, pt, ro, ca), including "en" — that both differs from the token's own form ("動物") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b3.s3.t4" ("動物") has the identical gloss ("animal") across 6 locales (en, fr, es, pt, ro, ca), including "en" — that both differs from the token's own form ("動物") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b3.s4.t1" ("動物") has the identical gloss ("animal") across 6 locales (en, fr, es, pt, ro, ca), including "en" — that both differs from the token's own form ("動物") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b4.s2.t3" ("動物") has the identical gloss ("animal") across 6 locales (en, fr, es, pt, ro, ca), including "en" — that both differs from the token's own form ("動物") — possible copy/paste across locales
+    [warning] [gloss-cross-locale-leak] word token "b4.s3.t3" ("動物") has the identical gloss ("animal") across 6 locales (en, fr, es, pt, ro, ca), including "en" — that both differs from the token's own form ("動物") — possible copy/paste across locales
+
+0 errors, 106 warnings across /Users/noelturlington/Claude/sotto/packages/content/packs
+EXIT=0

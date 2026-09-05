@@ -33,3 +33,6 @@ planning/research/
 
 # downloaded voice models (fetched via `pnpm --filter @sotto/server models:fetch`)
 apps/server/models/*.onnx
+
+# Verification evidence logs are deliberately tracked
+!docs/evidence/*.log

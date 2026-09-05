@@ -1,0 +1,26 @@
+[
+  {
+    "id": "lane1-data",
+    "worker": "codex",
+    "prompt_file": "brief-1-data.md",
+    "out": "out-1-data.md"
+  },
+  {
+    "id": "lane2-voice",
+    "worker": "codex",
+    "prompt_file": "brief-2-voice.md",
+    "out": "out-2-voice.md"
+  },
+  {
+    "id": "lane3-content",
+    "worker": "codex",
+    "prompt_file": "brief-3-content.md",
+    "out": "out-3-content.md"
+  },
+  {
+    "id": "lane4-structure",
+    "worker": "codex",
+    "prompt_file": "brief-4-structure.md",
+    "out": "out-4-structure.md"
+  }
+]

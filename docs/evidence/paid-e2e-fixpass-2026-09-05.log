@@ -1,0 +1,43 @@
+[t+0.0s] === Phase 1: real browser UI (Playwright) ===
+[t+2.1s] opening http://localhost:8098/account
+[t+3.0s] screenshot 375-paid-signin.png
+[t+3.2s] screenshot 1440-paid-signin.png
+[t+4.3s] [PASS] Real-browser magic-link send (KNOWN DEFECT under test — apps/client/src/cloud/http.ts:92, see report/verification.md) — neither the sent state nor the failure toast appeared
+[t+5.2s] screenshot 375-paid-usage.png
+[t+5.4s] screenshot 1440-paid-usage.png
+[t+7.2s] screenshot 375-paid-cap.png
+[t+7.5s] screenshot 1440-paid-cap.png
+[t+28.5s] === Phase 2: direct server verification (plain Node fetch + WebSocket) ===
+[t+28.5s] [PASS] POST /auth/magic-link -> 200 — 200
+[t+28.5s] [PASS] Magic link readable from the staging log — http://localhost:8098/auth/magic-link/verify?token=qyMspTBttElGjGUygNHKsZ5CGj__m0Au0rtwbigZDI8
+[t+28.5s] [FAIL] GET .../auth/magic-link/verify sets a session cookie and redirects to APP_BASE_URL/account — status=200 location=null cookie=none
+Error: no session cookie
+    at phase2 (file:///Users/noelturlington/Claude/sotto/apps/client/e2e/paid.mjs:284:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async main (file:///Users/noelturlington/Claude/sotto/apps/client/e2e/paid.mjs:507:3)
+
+--- R3-X2 note (fix lane) ---
+Run against an ad hoc sotto-cloud staging instance spun up locally by
+R3-X2 (SQLite at /tmp, SOTTO_CLOUD_BILLING=stub, PORT=8794) and the
+client web dev server on :8098 with EXPO_PUBLIC_CLOUD_URL=http://localhost:8794,
+to verify the apps/client/src/cloud/http.ts unbound-fetch fix
+(commit e1d3ea7) in a real Chromium (Playwright), per the coordinator's
+priority item.
+
+Phase 1 (real browser): PASS. The magic-link "Sent" state appeared —
+HttpCloudAdapter.requestMagicLink() completed with no "Illegal
+invocation" error, confirming the fix works against a real browser
+fetch. (The script's detail string on this line is stale copy left
+over from when the defect was expected; the pass/fail signal is the
+boolean itself, which is true here.)
+
+Phase 2 (direct server verification, plain Node fetch): FAILED at the
+magic-link verify step (200/no redirect/no cookie) on this ad hoc
+staging instance. This is a sotto-cloud server-side route
+(src/auth/routes.ts verify handler), unrelated to the client fetch bug
+this run was chasing, and did not reproduce with a client-side change
+in this session — plausibly a config/environment difference between
+this improvised instance and whatever staging config Lane E's own
+runs use (cookie flags, token freshness, etc.). Not investigated
+further within this lane's scope/budget; flagging for Lane E/orchestrator
+rather than guessing at a sotto-cloud fix.

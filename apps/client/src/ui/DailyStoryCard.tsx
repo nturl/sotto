@@ -7,9 +7,10 @@
  * The teal/sage values are theme tokens (`colors.dailyTeal` /
  * `colors.dailySage`) — the only permitted gradient in v1.
  */
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Animated, Pressable, StyleSheet, useWindowDimensions, View } from 'react-native';
-import { colors, radius, shadow, space } from '@sotto/core/theme';
+import { radius, shadow, space } from '@sotto/core/theme';
+import { useTheme } from './theme';
 import { useT } from '../i18n/useT';
 import { usePressAnimation } from './Button';
 import { Cover } from './Cover';
@@ -47,6 +48,8 @@ function useMidnightCountdown(): string {
 
 export function DailyStoryCard({ book, onPress }: { book: LibraryBook; onPress: () => void }) {
   const t = useT();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const countdown = useMidnightCountdown();
   const [pressed, setPressed] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -136,38 +139,40 @@ export function DailyStoryCard({ book, onPress }: { book: LibraryBook; onPress: 
   );
 }
 
-const styles = StyleSheet.create({
-  cutout: {
-    borderRadius: radius.md,
-    backgroundColor: colors.peach,
-  },
-  card: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.hairline,
-    flexDirection: 'row',
-  },
-  panel: {
-    width: '34%',
-    borderTopLeftRadius: radius.md,
-    borderBottomLeftRadius: radius.md,
-    overflow: 'hidden',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: space.lg,
-  },
-  // DESKTOP.md §2: fixed 320px at >= 900 (both tiers), not a width
-  // fraction — keeps the panel from ballooning as content maxWidth grows
-  // from 760 to 1040.
-  panelDesktop: {
-    width: 320,
-  },
-  body: {
-    flex: 1,
-    minWidth: 0,
-    paddingVertical: space.lg,
-    paddingHorizontal: 14,
-    gap: 6,
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    cutout: {
+      borderRadius: radius.md,
+      backgroundColor: colors.peach,
+    },
+    card: {
+      backgroundColor: colors.surface,
+      borderRadius: radius.md,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+      flexDirection: 'row',
+    },
+    panel: {
+      width: '34%',
+      borderTopLeftRadius: radius.md,
+      borderBottomLeftRadius: radius.md,
+      overflow: 'hidden',
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: space.lg,
+    },
+    // DESKTOP.md §2: fixed 320px at >= 900 (both tiers), not a width
+    // fraction — keeps the panel from ballooning as content maxWidth grows
+    // from 760 to 1040.
+    panelDesktop: {
+      width: 320,
+    },
+    body: {
+      flex: 1,
+      minWidth: 0,
+      paddingVertical: space.lg,
+      paddingHorizontal: 14,
+      gap: 6,
+    },
+  });
+}

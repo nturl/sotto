@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 import { useRouter } from 'expo-router';
-import { colors, radius, space } from '@sotto/core/theme';
+import { radius, space } from '@sotto/core/theme';
 import { useT } from '../../src/i18n/useT';
 import { BackLink } from '../../src/ui/BackLink';
 import { BookTile } from '../../src/ui/BookTile';
@@ -12,9 +12,12 @@ import { SearchGlyph } from '../../src/ui/Glyphs';
 import { useBookGridTier } from '../../src/ui/Rail';
 import { Shell, useLayoutMetrics } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
+import { useTheme } from '../../src/ui/theme';
 import { webCursor } from '../../src/ui/tokens';
 
 function ResultRow({ book, onPress }: { book: LibraryBook; onPress: () => void }) {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   return (
     <Pressable
       onPress={onPress}
@@ -54,6 +57,8 @@ export default function LibrarySearchScreen() {
   const grid = useBookGridTier();
   const [query, setQuery] = useState('');
   const results = library.search(query);
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
 
   const openBook = (book: LibraryBook) => router.push(`/book/${book.id}`);
 
@@ -102,55 +107,57 @@ export default function LibrarySearchScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  inputRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.sm,
-    backgroundColor: colors.surface2,
-    borderRadius: radius.md,
-    paddingVertical: 10,
-    paddingHorizontal: 14,
-    marginTop: space.lg,
-    marginBottom: space.xl,
-    minHeight: space.tapTarget,
-  },
-  // DESKTOP.md §3: 480px wide, left-aligned under the title (not stretched
-  // to the content region's full width).
-  inputRowDesktop: {
-    width: 480,
-    alignSelf: 'flex-start',
-  },
-  input: {
-    flex: 1,
-    fontFamily: fonts.interRegular,
-    fontSize: 15,
-    color: colors.ink,
-    padding: 0,
-  },
-  resultRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.md,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.hairline,
-    minHeight: space.tapTarget,
-  },
-  resultText: {
-    flex: 1,
-    minWidth: 0,
-    gap: 2,
-  },
-  resultTitle: {
-    fontFamily: fonts.interMedium,
-  },
-  grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  empty: {
-    textAlign: 'center',
-    marginTop: space.xxxl,
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    inputRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space.sm,
+      backgroundColor: colors.surface2,
+      borderRadius: radius.md,
+      paddingVertical: 10,
+      paddingHorizontal: 14,
+      marginTop: space.lg,
+      marginBottom: space.xl,
+      minHeight: space.tapTarget,
+    },
+    // DESKTOP.md §3: 480px wide, left-aligned under the title (not stretched
+    // to the content region's full width).
+    inputRowDesktop: {
+      width: 480,
+      alignSelf: 'flex-start',
+    },
+    input: {
+      flex: 1,
+      fontFamily: fonts.interRegular,
+      fontSize: 15,
+      color: colors.ink,
+      padding: 0,
+    },
+    resultRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space.md,
+      paddingVertical: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.hairline,
+      minHeight: space.tapTarget,
+    },
+    resultText: {
+      flex: 1,
+      minWidth: 0,
+      gap: 2,
+    },
+    resultTitle: {
+      fontFamily: fonts.interMedium,
+    },
+    grid: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+    },
+    empty: {
+      textAlign: 'center',
+      marginTop: space.xxxl,
+    },
+  });
+}

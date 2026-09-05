@@ -2,8 +2,10 @@
  * LanguageListScreen — shared body for the three settings language pickers:
  * back link, display title, surface OptionRows (selected = accent left bar).
  */
+import { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { colors, space } from '@sotto/core/theme';
+import { space } from '@sotto/core/theme';
+import { useTheme } from './theme';
 import { useT, type MessageKey } from '../i18n/useT';
 import { BackLink } from './BackLink';
 import { localizedName, type LanguageOption } from './languages';
@@ -25,6 +27,8 @@ export function LanguageListScreen({
   onSelect,
 }: LanguageListScreenProps) {
   const t = useT();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   return (
     <Shell>
       <BackLink />
@@ -46,13 +50,15 @@ export function LanguageListScreen({
   );
 }
 
-const styles = StyleSheet.create({
-  title: {
-    marginTop: space.sm,
-    marginBottom: space.xl,
-  },
-  list: {
-    borderTopWidth: 1,
-    borderTopColor: colors.hairline,
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    title: {
+      marginTop: space.sm,
+      marginBottom: space.xl,
+    },
+    list: {
+      borderTopWidth: 1,
+      borderTopColor: colors.hairline,
+    },
+  });
+}

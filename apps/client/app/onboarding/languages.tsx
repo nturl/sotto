@@ -1,8 +1,9 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Redirect, useRouter } from 'expo-router';
 import { getLanguage } from '@sotto/core';
-import { colors, space } from '@sotto/core/theme';
+import { space } from '@sotto/core/theme';
+import { playSample, synthesizeSample } from '@sotto/voice';
 import { playAudioSlice } from '../../src/platform/audio';
 import { assetUrl, fetchBook, fetchChapter } from '../../src/state/contentApi';
 import { selectPackForLocale } from '../../src/state/selectors';
@@ -24,9 +25,10 @@ import { OptionRow } from '../../src/ui/OptionRow';
 import { SectionEyebrow } from '../../src/ui/SectionEyebrow';
 import { Shell, useLayoutMetrics } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
+import { useTheme } from '../../src/ui/theme';
 import { setUiCatalog } from '../../src/i18n/useT';
 
-type VoiceSample = { uri: string; startMs: number; endMs: number };
+type VoiceSample = { uri: string; startMs: number; endMs: number; text: string };
 
 /** Loads the first sentence's audio slice of the first book in `locale`'s
  * pack, once packs are loaded — for onboarding's "listen to a sample" row.
@@ -62,7 +64,8 @@ function useVoiceSample(locale: string): VoiceSample | null | undefined {
           return;
         }
         const chapter = await fetchChapter(locale, summary.bookId, chapterSummary.file);
-        const tokens = chapter.blocks[0]?.sentences[0]?.tokens ?? [];
+        const firstSentence = chapter.blocks[0]?.sentences[0];
+        const tokens = firstSentence?.tokens ?? [];
         const first = tokens[0];
         const last = tokens[tokens.length - 1];
         if (first?.startMs === undefined || last?.endMs === undefined) {
@@ -74,6 +77,7 @@ function useVoiceSample(locale: string): VoiceSample | null | undefined {
             uri: assetUrl(locale, summary.bookId, chapterSummary.audio),
             startMs: first.startMs,
             endMs: last.endMs,
+            text: firstSentence?.text ?? '',
           });
         }
       } catch {
@@ -102,6 +106,8 @@ export default function OnboardingLanguagesScreen() {
   const router = useRouter();
   const preferences = usePreferences();
   const { gutter } = useLayoutMetrics();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const [step, setStep] = useState<Step>(0);
   const [appLanguage, setAppLanguage] = useState('fr');
   const [explanation, setExplanation] = useState('en');
@@ -179,7 +185,18 @@ export default function OnboardingLanguagesScreen() {
                 icon={<SpeakerGlyph size={16} color={colors.accent} />}
                 accessibilityLabel={t('onboarding.a11y.playSample')}
                 onPress={() => {
-                  if (sample) playAudioSlice(sample.uri, sample.startMs, sample.endMs);
+                  if (!sample) return;
+                  // Slice 3 (planning/BROWSER-TUTOR.md): use the in-browser
+                  // tutor's voice when it's already downloaded — it's the
+                  // same voice the tutor speaks with, and doesn't need this
+                  // book to ship recorded narration at all. Falls back to
+                  // the existing narration slice unchanged whenever the
+                  // model isn't cached or the locale isn't English (see
+                  // synthesizeSample's own doc comment).
+                  void synthesizeSample(sample.text, activeLocale).then((synthesized) => {
+                    if (synthesized) playSample(synthesized);
+                    else playAudioSlice(sample.uri, sample.startMs, sample.endMs);
+                  });
                 }}
                 style={sample ? undefined : styles.voiceButtonDisabled}
               />
@@ -198,33 +215,35 @@ export default function OnboardingLanguagesScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  title: {
-    marginBottom: space.xl,
-  },
-  list: {
-    borderTopWidth: 1,
-    borderTopColor: colors.hairline,
-  },
-  scriptSection: {
-    marginTop: space.xl,
-    gap: space.md,
-  },
-  voiceRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.md,
-    marginTop: 18,
-  },
-  voiceButtonDisabled: {
-    opacity: 0.4,
-  },
-  footer: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    paddingTop: space.md,
-    backgroundColor: colors.canvas,
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    title: {
+      marginBottom: space.xl,
+    },
+    list: {
+      borderTopWidth: 1,
+      borderTopColor: colors.hairline,
+    },
+    scriptSection: {
+      marginTop: space.xl,
+      gap: space.md,
+    },
+    voiceRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space.md,
+      marginTop: 18,
+    },
+    voiceButtonDisabled: {
+      opacity: 0.4,
+    },
+    footer: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      bottom: 0,
+      paddingTop: space.md,
+      backgroundColor: colors.canvas,
+    },
+  });
+}

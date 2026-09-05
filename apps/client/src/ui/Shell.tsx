@@ -7,10 +7,12 @@
  * reused for a second breakpoint tier):
  *   900-1199: max-width 760, 32px gutters, 32px top padding
  *   >= 1200:  max-width 1040, 48px gutters, 48px top padding
- * Also injects the web-only :focus-visible outline (2px ink) once per
- * session.
+ * Also injects the web-only :focus-visible outline (2px ink, follows the
+ * active scheme) and keeps the web <body> background in sync with the
+ * active scheme's canvas color (so overscroll/rubber-band never flashes a
+ * static light background) once per session.
  */
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import {
   Platform,
   ScrollView,
@@ -20,7 +22,8 @@ import {
   type ViewStyle,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { colors, space } from '@sotto/core/theme';
+import { space } from '@sotto/core/theme';
+import { useTheme } from './theme';
 import { Sidebar } from './Sidebar';
 
 export const DESKTOP_BREAKPOINT = 900;
@@ -28,25 +31,32 @@ export const DESKTOP_BREAKPOINT = 900;
  * 1040 and gutters/top padding step from 32 to 48 above this width. */
 export const DESKTOP_WIDE_BREAKPOINT = 1200;
 
-/** Web-only: 2px ink focus-visible outline, injected once into <head>. */
+/** Web-only: 2px focus-visible outline + <body> background, kept in sync
+ * with the active scheme. Injected/updated (not just created once) so a
+ * live Appearance change repaints both immediately. */
 type WebDocument = {
-  getElementById(id: string): unknown;
+  getElementById(id: string): { textContent: string } | null;
   createElement(tag: string): { id: string; textContent: string };
   head: { appendChild(node: unknown): void };
+  body: { style: { backgroundColor: string } };
 };
 
-function FocusOutlineStyle() {
+function FocusOutlineStyle({ colors }: { colors: ReturnType<typeof useTheme>['colors'] }) {
   useEffect(() => {
     if (Platform.OS !== 'web') return;
     const doc = (globalThis as { document?: WebDocument }).document;
     if (!doc) return;
     const id = 'sotto-focus-outline';
-    if (doc.getElementById(id)) return;
-    const element = doc.createElement('style');
-    element.id = id;
+    let element = doc.getElementById(id);
+    if (!element) {
+      const created = doc.createElement('style');
+      created.id = id;
+      doc.head.appendChild(created);
+      element = created;
+    }
     element.textContent = `*:focus-visible{outline:2px solid ${colors.ink};outline-offset:2px;}`;
-    doc.head.appendChild(element);
-  }, []);
+    doc.body.style.backgroundColor = colors.canvas;
+  }, [colors]);
   return null;
 }
 
@@ -89,6 +99,8 @@ export function Shell({
 }: ShellProps) {
   const insets = useSafeAreaInsets();
   const { isDesktop, isWideDesktop, gutter } = useLayoutMetrics();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
 
   // DESKTOP.md §8: onboarding (sidebar=false) is a centered 560px column at
   // >= 900, vertically centered — never the app shell's 760/1040 tiers.
@@ -121,7 +133,7 @@ export function Shell({
 
   return (
     <View style={[styles.root, { paddingTop: isDesktop ? 0 : insets.top }]}>
-      <FocusOutlineStyle />
+      <FocusOutlineStyle colors={colors} />
       <View style={styles.row}>
         {isDesktop && sidebar ? <Sidebar /> : null}
         {scroll ? (
@@ -140,33 +152,35 @@ export function Shell({
   );
 }
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: colors.canvas,
-  },
-  row: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  flex: {
-    flex: 1,
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  // DESKTOP.md §8: onboarding is vertically centered at >= 900, not
-  // top-anchored like the app shell's other screens.
-  centerGrow: {
-    flexGrow: 1,
-    justifyContent: 'center',
-  },
-  content: {
-    flexGrow: 1,
-    width: '100%',
-    alignSelf: 'center',
-  },
-  contentAuto: {
-    flexGrow: 0,
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    root: {
+      flex: 1,
+      backgroundColor: colors.canvas,
+    },
+    row: {
+      flex: 1,
+      flexDirection: 'row',
+    },
+    flex: {
+      flex: 1,
+    },
+    grow: {
+      flexGrow: 1,
+    },
+    // DESKTOP.md §8: onboarding is vertically centered at >= 900, not
+    // top-anchored like the app shell's other screens.
+    centerGrow: {
+      flexGrow: 1,
+      justifyContent: 'center',
+    },
+    content: {
+      flexGrow: 1,
+      width: '100%',
+      alignSelf: 'center',
+    },
+    contentAuto: {
+      flexGrow: 0,
+    },
+  });
+}

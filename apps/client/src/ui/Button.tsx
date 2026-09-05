@@ -9,7 +9,8 @@
  */
 import { useEffect, useRef, useState } from 'react';
 import { Animated, Easing, Pressable, StyleSheet, View, type ViewStyle } from 'react-native';
-import { colors, motion, radius, shadow, space } from '@sotto/core/theme';
+import { motion, radius, shadow, space } from '@sotto/core/theme';
+import { themeColors as colors } from './theme';
 import { Text } from './Text';
 import { webCursor } from './tokens';
 import { useReducedMotion } from './useReducedMotion';

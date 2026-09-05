@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Linking, Pressable, StyleSheet, View } from 'react-native';
-import { colors, space } from '@sotto/core/theme';
+import { space } from '@sotto/core/theme';
 import { fetchAttribution, type Attribution } from '../../src/state/contentApi';
 import { useT } from '../../src/i18n/useT';
 type T = ReturnType<typeof useT>;
@@ -10,9 +10,12 @@ import { useLibrary, type LibraryBook } from '../../src/ui/data';
 import { SectionEyebrow } from '../../src/ui/SectionEyebrow';
 import { Shell } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
+import { useTheme } from '../../src/ui/theme';
 import { webCursor } from '../../src/ui/tokens';
 
 function LicenseRow({ label, value, last }: { label: string; value: string; last?: boolean }) {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   return (
     <View style={[styles.row, !last && styles.rowDivider]}>
       <Text role="ui" size={15} style={styles.rowLabel}>
@@ -26,6 +29,8 @@ function LicenseRow({ label, value, last }: { label: string; value: string; last
 }
 
 function LinkRow({ label, url, last }: { label: string; url: string; last?: boolean }) {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   return (
     <Pressable
       onPress={() => void Linking.openURL(url).catch(() => {})}
@@ -73,6 +78,8 @@ function BookLicenseCard({
   attribution: AttributionState | undefined;
   t: T;
 }) {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   return (
     <Card padding={0} style={styles.bookCard}>
       <View style={[styles.row, styles.rowDivider, styles.bookHeaderRow]}>
@@ -137,6 +144,8 @@ export default function LicensesScreen() {
   // rendering `library.books` alone already covers it — no dedup needed.
   const books = library.books;
   const attributions = useAttributions(books);
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
 
   return (
     <Shell>
@@ -165,48 +174,50 @@ export default function LicensesScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  title: {
-    marginTop: space.sm,
-    marginBottom: space.lg,
-  },
-  intro: {
-    marginBottom: space.xl,
-  },
-  card: {
-    marginBottom: space.xl,
-  },
-  booksEyebrow: {
-    marginBottom: 10,
-    marginLeft: space.xs,
-  },
-  books: {
-    gap: space.md,
-  },
-  bookCard: {
-    marginBottom: 0,
-  },
-  bookHeaderRow: {
-    flexWrap: 'wrap',
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: space.md,
-    paddingVertical: 14,
-    paddingHorizontal: space.lg,
-    minHeight: space.tapTarget,
-  },
-  rowDivider: {
-    borderBottomWidth: 1,
-    borderBottomColor: colors.hairline,
-  },
-  rowLabel: {
-    flex: 1,
-  },
-  rowValue: {
-    textAlign: 'right',
-    flexShrink: 1,
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    title: {
+      marginTop: space.sm,
+      marginBottom: space.lg,
+    },
+    intro: {
+      marginBottom: space.xl,
+    },
+    card: {
+      marginBottom: space.xl,
+    },
+    booksEyebrow: {
+      marginBottom: 10,
+      marginLeft: space.xs,
+    },
+    books: {
+      gap: space.md,
+    },
+    bookCard: {
+      marginBottom: 0,
+    },
+    bookHeaderRow: {
+      flexWrap: 'wrap',
+    },
+    row: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: space.md,
+      paddingVertical: 14,
+      paddingHorizontal: space.lg,
+      minHeight: space.tapTarget,
+    },
+    rowDivider: {
+      borderBottomWidth: 1,
+      borderBottomColor: colors.hairline,
+    },
+    rowLabel: {
+      flex: 1,
+    },
+    rowValue: {
+      textAlign: 'right',
+      flexShrink: 1,
+    },
+  });
+}

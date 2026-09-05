@@ -12,7 +12,8 @@
  */
 import { useState } from 'react';
 import { Animated, Pressable, ScrollView, StyleSheet, View } from 'react-native';
-import { colors, radius, space } from '@sotto/core/theme';
+import { radius, space } from '@sotto/core/theme';
+import { themeColors as colors } from './theme';
 import { useT } from '../i18n/useT';
 import { usePressAnimation } from './Button';
 import { BookTile } from './BookTile';

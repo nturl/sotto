@@ -3,9 +3,10 @@
  * top, 36x4 ink-3 drag handle. Slides up over 240ms
  * cubic-bezier(.2,.8,.2,1); resolves instantly under reduced motion.
  */
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { Animated, Easing, StyleSheet, View, type ViewStyle } from 'react-native';
-import { colors, motion, radius, space } from '@sotto/core/theme';
+import { motion, radius, space } from '@sotto/core/theme';
+import { useTheme } from './theme';
 import { useReducedMotion } from './useReducedMotion';
 
 const SLIDE_EASING = Easing.bezier(0.2, 0.8, 0.2, 1);
@@ -33,6 +34,8 @@ export type SheetProps = {
 };
 
 export function Sheet({ visible, children, style, bottomOffset = 0, onHeightChange }: SheetProps) {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const animation = useRef(new Animated.Value(visible ? 1 : 0)).current;
   const reduced = useReducedMotion();
 
@@ -66,26 +69,28 @@ export function Sheet({ visible, children, style, bottomOffset = 0, onHeightChan
   );
 }
 
-const styles = StyleSheet.create({
-  sheet: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    backgroundColor: colors.surface,
-    borderTopWidth: 1,
-    borderTopColor: colors.hairline,
-    borderTopLeftRadius: radius.md,
-    borderTopRightRadius: radius.md,
-    paddingHorizontal: space.gutter.phone,
-    paddingTop: space.md,
-    paddingBottom: space.lg,
-  },
-  handle: {
-    width: 36,
-    height: 4,
-    borderRadius: radius.full,
-    backgroundColor: colors.ink3,
-    alignSelf: 'center',
-    marginBottom: space.xs,
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    sheet: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      backgroundColor: colors.surface,
+      borderTopWidth: 1,
+      borderTopColor: colors.hairline,
+      borderTopLeftRadius: radius.md,
+      borderTopRightRadius: radius.md,
+      paddingHorizontal: space.gutter.phone,
+      paddingTop: space.md,
+      paddingBottom: space.lg,
+    },
+    handle: {
+      width: 36,
+      height: 4,
+      borderRadius: radius.full,
+      backgroundColor: colors.ink3,
+      alignSelf: 'center',
+      marginBottom: space.xs,
+    },
+  });
+}

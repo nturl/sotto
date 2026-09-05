@@ -4,9 +4,10 @@
  *  - ring: the speaker button — accent as a 2px OUTLINE only, radius full
  *    (the accent fill is reserved for the CTA and the active tab).
  */
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Animated, Pressable, StyleSheet, type ViewStyle } from 'react-native';
-import { colors, radius, space } from '@sotto/core/theme';
+import { radius, space } from '@sotto/core/theme';
+import { useTheme } from './theme';
 import { usePressAnimation } from './Button';
 import { webCursor } from './tokens';
 
@@ -27,6 +28,8 @@ export function IconButton({
   size = space.tapTarget,
   style,
 }: IconButtonProps) {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const [pressed, setPressed] = useState(false);
   const [hovered, setHovered] = useState(false);
   const animation = usePressAnimation(pressed || hovered);
@@ -56,16 +59,18 @@ export function IconButton({
   );
 }
 
-const styles = StyleSheet.create({
-  base: {
-    minWidth: space.tapTarget,
-    minHeight: space.tapTarget,
-    borderRadius: radius.full,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  ring: {
-    borderWidth: 2,
-    borderColor: colors.accent,
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    base: {
+      minWidth: space.tapTarget,
+      minHeight: space.tapTarget,
+      borderRadius: radius.full,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    ring: {
+      borderWidth: 2,
+      borderColor: colors.accent,
+    },
+  });
+}

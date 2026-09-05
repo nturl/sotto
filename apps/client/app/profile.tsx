@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { useRouter, type Href } from 'expo-router';
 import { buildExport, parseImport, type TutorMode, type UserPreferences } from '@sotto/core';
-import { colors, radius, space } from '@sotto/core/theme';
+import { radius, space } from '@sotto/core/theme';
 import { exportJson, importJson } from '../src/platform/importExport';
 import { useT } from '../src/i18n/useT';
 import { BackLink } from '../src/ui/BackLink';
@@ -14,6 +14,7 @@ import { SectionEyebrow } from '../src/ui/SectionEyebrow';
 import { Shell } from '../src/ui/Shell';
 import { Text } from '../src/ui/Text';
 import { Toast } from '../src/ui/Toast';
+import { useTheme } from '../src/ui/theme';
 import { webCursor, withAlpha } from '../src/ui/tokens';
 import { useSottoStore } from '../src/state/store';
 
@@ -35,6 +36,8 @@ type RowSpec = {
 };
 
 function Row({ spec, last }: { spec: RowSpec; last: boolean }) {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const content = (
     <>
       <Text role="ui" size={15}>
@@ -67,6 +70,8 @@ function Row({ spec, last }: { spec: RowSpec; last: boolean }) {
 }
 
 function Group({ eyebrow, rows }: { eyebrow: string; rows: RowSpec[] }) {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   return (
     <View style={styles.group}>
       <SectionEyebrow style={styles.eyebrow}>{eyebrow}</SectionEyebrow>
@@ -83,6 +88,8 @@ export default function ProfileScreen() {
   const t = useT();
   const router = useRouter();
   const preferences = usePreferences();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const [toast, setToast] = useState<string | null>(null);
   const [confirmReset, setConfirmReset] = useState(false);
 
@@ -278,69 +285,71 @@ export default function ProfileScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  groups: {
-    marginTop: space.lg,
-    gap: space.gutter.phone,
-  },
-  group: {
-    gap: 10,
-  },
-  eyebrow: {
-    marginLeft: space.xs,
-  },
-  groupCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.hairline,
-    overflow: 'hidden',
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 14,
-    paddingHorizontal: space.lg,
-    minHeight: space.tapTarget,
-  },
-  rowDivider: {
-    borderBottomWidth: 1,
-    borderBottomColor: colors.hairline,
-  },
-  rowValue: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.xs,
-  },
-  modalBackdrop: {
-    ...StyleSheet.absoluteFill,
-    backgroundColor: withAlpha(colors.ink, 0.32),
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: space.xl,
-    zIndex: 20,
-  },
-  modalCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.hairline,
-    padding: space.xl,
-    width: '100%',
-    maxWidth: 340,
-  },
-  modalTitle: {
-    marginBottom: space.sm,
-  },
-  modalBody: {
-    marginBottom: space.xl,
-  },
-  modalActions: {
-    flexDirection: 'row',
-    gap: 10,
-  },
-  modalButton: {
-    flex: 1,
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    groups: {
+      marginTop: space.lg,
+      gap: space.gutter.phone,
+    },
+    group: {
+      gap: 10,
+    },
+    eyebrow: {
+      marginLeft: space.xs,
+    },
+    groupCard: {
+      backgroundColor: colors.surface,
+      borderRadius: radius.md,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+      overflow: 'hidden',
+    },
+    row: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingVertical: 14,
+      paddingHorizontal: space.lg,
+      minHeight: space.tapTarget,
+    },
+    rowDivider: {
+      borderBottomWidth: 1,
+      borderBottomColor: colors.hairline,
+    },
+    rowValue: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space.xs,
+    },
+    modalBackdrop: {
+      ...StyleSheet.absoluteFill,
+      backgroundColor: withAlpha(colors.ink, 0.32),
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: space.xl,
+      zIndex: 20,
+    },
+    modalCard: {
+      backgroundColor: colors.surface,
+      borderRadius: radius.md,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+      padding: space.xl,
+      width: '100%',
+      maxWidth: 340,
+    },
+    modalTitle: {
+      marginBottom: space.sm,
+    },
+    modalBody: {
+      marginBottom: space.xl,
+    },
+    modalActions: {
+      flexDirection: 'row',
+      gap: 10,
+    },
+    modalButton: {
+      flex: 1,
+    },
+  });
+}

@@ -3,7 +3,7 @@
  * Icon strokes use the ink token by default; the speaker/ring usages pass
  * the accent token explicitly (accent as 2px outline only, per DESIGN.md).
  */
-import { colors } from '@sotto/core/theme';
+import { themeColors as colors } from './theme';
 import { Circle, Line, Path, Polygon, Rect, Svg } from './svg';
 
 export type GlyphProps = {

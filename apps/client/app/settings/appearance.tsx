@@ -1,20 +1,10 @@
 /**
  * Settings > Appearance — System / Light / Dark (DESIGN.md dark-mode task).
  * Mirrors OptionRow's visual language (surface row, hairline divider,
- * accent left bar on the selected row) but reads colors through
- * useTheme() instead of the static `colors` import — OptionRow itself is
- * outside this dispatch's ownership ceiling and stays statically light, so
- * a straight reuse would render a light row on this screen even in dark
- * mode.
- *
- * The screen title below deliberately stays the plain (static-light) Text,
- * not ThemedText: it sits directly on Shell's own canvas, and Shell.tsx is
- * outside this dispatch's ownership ceiling (explicitly: "Do NOT edit ...
- * Shell.tsx layout logic") so that canvas never actually turns dark — a
- * ThemedText title there would render near-white on a still-light
- * background instead. Only the option-row card below gets a real
- * theme-aware background (via inline styles), so only its own text uses
- * ThemedText.
+ * accent left bar on the selected row); now that OptionRow itself follows
+ * `useTheme()` this screen could reuse it directly, but it keeps its own
+ * inline row markup (predates OptionRow's migration) rather than a
+ * behavior-risking swap.
  */
 import { Pressable, StyleSheet, View } from 'react-native';
 import { space } from '@sotto/core/theme';
@@ -23,7 +13,7 @@ import { useT } from '../../src/i18n/useT';
 import { BackLink } from '../../src/ui/BackLink';
 import { setPreference, usePreferences } from '../../src/ui/data';
 import { Text } from '../../src/ui/Text';
-import { ThemedText, useTheme } from '../../src/ui/theme';
+import { useTheme } from '../../src/ui/theme';
 import { webCursor } from '../../src/ui/tokens';
 import { Shell } from '../../src/ui/Shell';
 
@@ -66,9 +56,9 @@ export default function AppearanceScreen() {
                 webCursor,
               ]}
             >
-              <ThemedText role="reading" size={17}>
+              <Text role="reading" size={17}>
                 {t(`settings.scheme.${scheme}` as const)}
-              </ThemedText>
+              </Text>
             </Pressable>
           );
         })}

@@ -8,9 +8,11 @@
  * Props are typed structurally so we don't import @react-navigation types
  * (not a declared dependency of @sotto/client); the Tabs layout casts.
  */
+import { useMemo } from 'react';
 import { Pressable, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { colors, space } from '@sotto/core/theme';
+import { space } from '@sotto/core/theme';
+import { useTheme } from './theme';
 import { useT, type MessageKey } from '../i18n/useT';
 import { fonts } from './fonts';
 import { CapGlyph, OpenBookGlyph, StarGlyph } from './Glyphs';
@@ -37,6 +39,8 @@ export function TabBar({ state, navigation }: TabBarProps) {
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const t = useT();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
 
   if (width >= 900) return null;
 
@@ -76,20 +80,22 @@ export function TabBar({ state, navigation }: TabBarProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  bar: {
-    flexDirection: 'row',
-    backgroundColor: colors.surface,
-    borderTopWidth: 1,
-    borderTopColor: colors.hairline,
-  },
-  tab: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: space.xs,
-    paddingTop: 10,
-    paddingBottom: space.sm,
-    minHeight: space.tapTarget,
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    bar: {
+      flexDirection: 'row',
+      backgroundColor: colors.surface,
+      borderTopWidth: 1,
+      borderTopColor: colors.hairline,
+    },
+    tab: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: space.xs,
+      paddingTop: 10,
+      paddingBottom: space.sm,
+      minHeight: space.tapTarget,
+    },
+  });
+}

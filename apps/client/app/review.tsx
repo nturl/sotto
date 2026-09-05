@@ -5,13 +5,14 @@ import { useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import type { ReviewRating } from '@sotto/core';
-import { colors, radius, space } from '@sotto/core/theme';
+import { radius, space } from '@sotto/core/theme';
 import { useT } from '../src/i18n/useT';
 import { Button } from '../src/ui/Button';
 import { IconButton } from '../src/ui/IconButton';
 import { CloseGlyph, SpeakerGlyph } from '../src/ui/Glyphs';
 import { Shell, useLayoutMetrics } from '../src/ui/Shell';
 import { Text } from '../src/ui/Text';
+import { useTheme } from '../src/ui/theme';
 import { webCursor } from '../src/ui/tokens';
 import { playAudioSlice } from '../src/platform/audio';
 import { bookAssetUrl } from '../src/ui/data';
@@ -34,6 +35,8 @@ export default function ReviewScreen() {
   const books = useSottoStore((s) => s.books);
   const chapters = useSottoStore((s) => s.chapters);
   const { isDesktop } = useLayoutMetrics();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
 
   const scoped = bookId ? selectVocabularyForBook(savedWords, bookId) : savedWords;
   const [sessionKey, setSessionKey] = useState(0);
@@ -244,74 +247,76 @@ export default function ReviewScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  headerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: space.xl,
-  },
-  centerText: {
-    textAlign: 'center',
-    marginTop: space.xxxl,
-  },
-  card: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.hairline,
-    padding: space.xxl,
-    alignItems: 'center',
-    gap: space.md,
-  },
-  wordRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.md,
-  },
-  reveal: {
-    marginTop: space.sm,
-  },
-  translation: {
-    marginTop: space.sm,
-    textAlign: 'center',
-  },
-  ratings: {
-    flexDirection: 'row',
-    gap: space.sm,
-    marginTop: space.xl,
-  },
-  ratingButton: {
-    flex: 1,
-    textAlign: 'center',
-    backgroundColor: colors.surface2,
-    borderRadius: radius.md,
-    paddingVertical: space.md,
-  },
-  discussButton: {
-    marginTop: space.xl,
-  },
-  summaryCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.hairline,
-    padding: space.xxl,
-    gap: space.lg,
-    marginTop: space.xxxl,
-  },
-  desktopCloseRow: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginBottom: space.xl,
-  },
-  desktopCenter: {
-    alignSelf: 'center',
-    width: '100%',
-    maxWidth: 480,
-  },
-  desktopProgress: {
-    textAlign: 'center',
-    marginBottom: space.md,
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    headerRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: space.xl,
+    },
+    centerText: {
+      textAlign: 'center',
+      marginTop: space.xxxl,
+    },
+    card: {
+      backgroundColor: colors.surface,
+      borderRadius: radius.md,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+      padding: space.xxl,
+      alignItems: 'center',
+      gap: space.md,
+    },
+    wordRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space.md,
+    },
+    reveal: {
+      marginTop: space.sm,
+    },
+    translation: {
+      marginTop: space.sm,
+      textAlign: 'center',
+    },
+    ratings: {
+      flexDirection: 'row',
+      gap: space.sm,
+      marginTop: space.xl,
+    },
+    ratingButton: {
+      flex: 1,
+      textAlign: 'center',
+      backgroundColor: colors.surface2,
+      borderRadius: radius.md,
+      paddingVertical: space.md,
+    },
+    discussButton: {
+      marginTop: space.xl,
+    },
+    summaryCard: {
+      backgroundColor: colors.surface,
+      borderRadius: radius.md,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+      padding: space.xxl,
+      gap: space.lg,
+      marginTop: space.xxxl,
+    },
+    desktopCloseRow: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      marginBottom: space.xl,
+    },
+    desktopCenter: {
+      alignSelf: 'center',
+      width: '100%',
+      maxWidth: 480,
+    },
+    desktopProgress: {
+      textAlign: 'center',
+      marginBottom: space.md,
+    },
+  });
+}

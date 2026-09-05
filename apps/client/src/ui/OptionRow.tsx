@@ -4,8 +4,10 @@
  * the 3px accent left bar (one of the two places accent is allowed beyond
  * CTA/active-tab, per DESIGN.md onboarding spec).
  */
+import { useMemo } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { colors, space } from '@sotto/core/theme';
+import { space } from '@sotto/core/theme';
+import { useTheme } from './theme';
 import { Text } from './Text';
 import { webCursor } from './tokens';
 
@@ -17,6 +19,8 @@ export type OptionRowProps = {
 };
 
 export function OptionRow({ nativeName, localizedName, selected, onPress }: OptionRowProps) {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   return (
     <Pressable
       onPress={onPress}
@@ -38,22 +42,24 @@ export function OptionRow({ nativeName, localizedName, selected, onPress }: Opti
   );
 }
 
-const styles = StyleSheet.create({
-  row: {
-    backgroundColor: colors.surface,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.hairline,
-    paddingVertical: space.lg,
-    paddingHorizontal: 14,
-    minHeight: space.tapTarget,
-    justifyContent: 'center',
-  },
-  selected: {
-    borderLeftWidth: 3,
-    borderLeftColor: colors.accent,
-    paddingLeft: 11,
-  },
-  localized: {
-    marginTop: 2,
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    row: {
+      backgroundColor: colors.surface,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.hairline,
+      paddingVertical: space.lg,
+      paddingHorizontal: 14,
+      minHeight: space.tapTarget,
+      justifyContent: 'center',
+    },
+    selected: {
+      borderLeftWidth: 3,
+      borderLeftColor: colors.accent,
+      paddingLeft: 11,
+    },
+    localized: {
+      marginTop: 2,
+    },
+  });
+}

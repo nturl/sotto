@@ -4,7 +4,8 @@
  */
 import { Pressable, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
-import { colors, space } from '@sotto/core/theme';
+import { space } from '@sotto/core/theme';
+import { themeColors as colors } from './theme';
 import { useT } from '../i18n/useT';
 import { BackGlyph } from './Glyphs';
 import { Text } from './Text';

@@ -88,6 +88,26 @@ export function selectVocabularyForBook(savedWords: SavedWord[], bookId: string)
   return savedWords.filter((w) => w.bookId === bookId);
 }
 
+/**
+ * Saved words restricted to books that belong to `locale`'s pack.
+ *
+ * Bug fix (verification row 24): `selectBooksWithVocabulary`/
+ * `selectVocabularyForBook` alone resolve across every loaded pack, so
+ * words saved while learning one locale kept showing in Vocabulary after
+ * switching `preferences.learningLocale` to another. This only changes
+ * what's displayed — saved words for the other locale stay in the store
+ * untouched, and reappear if the learner switches back.
+ */
+export function selectSavedWordsForLocale(
+  savedWords: SavedWord[],
+  packs: Pack[],
+  locale: string,
+): SavedWord[] {
+  const pack = selectPackForLocale(packs, locale);
+  const bookIds = new Set((pack?.books ?? []).map((b) => b.bookId));
+  return savedWords.filter((w) => bookIds.has(w.bookId));
+}
+
 /** Books that have at least one saved word, most-recently-saved first. */
 export function selectBooksWithVocabulary(savedWords: SavedWord[]): string[] {
   const byBook = new Map<string, string>();

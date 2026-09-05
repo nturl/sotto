@@ -10,9 +10,10 @@
  * handling): cutout grows 6 -> 8px, title darkens ink-2 -> ink. Phone stays
  * exactly as it was (cutout 6, title ink) since it has no hover.
  */
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { colors, radius } from '@sotto/core/theme';
+import { radius } from '@sotto/core/theme';
+import { useTheme } from './theme';
 import { Cover } from './Cover';
 import type { LibraryBook } from './data';
 import { fonts } from './fonts';
@@ -28,6 +29,8 @@ export type BookTileProps = {
 };
 
 export function BookTile({ book, onPress, coverWidth = 110, coverHeight = 165 }: BookTileProps) {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const { isDesktop } = useLayoutMetrics();
   const [hovered, setHovered] = useState(false);
   const hoverActive = isDesktop && hovered;
@@ -68,24 +71,26 @@ export function BookTile({ book, onPress, coverWidth = 110, coverHeight = 165 }:
   );
 }
 
-const styles = StyleSheet.create({
-  tile: {
-    gap: 8,
-  },
-  title: {
-    fontFamily: fonts.frauncesRegular,
-    marginTop: 4,
-  },
-  track: {
-    width: '100%',
-    height: 3,
-    borderRadius: radius.full,
-    backgroundColor: colors.surface2,
-    overflow: 'hidden',
-  },
-  fill: {
-    height: '100%',
-    backgroundColor: colors.accent,
-    borderRadius: radius.full,
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    tile: {
+      gap: 8,
+    },
+    title: {
+      fontFamily: fonts.frauncesRegular,
+      marginTop: 4,
+    },
+    track: {
+      width: '100%',
+      height: 3,
+      borderRadius: radius.full,
+      backgroundColor: colors.surface2,
+      overflow: 'hidden',
+    },
+    fill: {
+      height: '100%',
+      backgroundColor: colors.accent,
+      borderRadius: radius.full,
+    },
+  });
+}

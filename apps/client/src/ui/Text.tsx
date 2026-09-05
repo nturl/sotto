@@ -4,10 +4,17 @@
  * solely for the rare spots where DESIGN.md names a size outside the role
  * scale (e.g. book-detail title 30, wordmark 22) — pass token-adjacent
  * values only.
+ *
+ * Theme-reactive: reads the active scheme via `useTheme()` so every screen
+ * that renders `Text` follows Appearance without opting into a separate
+ * `ThemedText` component. `ui/theme/ThemedText.tsx` is now a thin alias
+ * kept only so already-migrated call sites (the reader, settings/appearance)
+ * don't need touching.
  */
 import { Text as RNText, type TextProps as RNTextProps, type TextStyle } from 'react-native';
-import { colors, type as typeScale, type ColorToken } from '@sotto/core/theme';
+import { type as typeScale, type ColorToken } from '@sotto/core/theme';
 import { fonts } from './fonts';
+import { useTheme } from './theme/ThemeProvider';
 
 export type TextRole = 'display' | 'heading' | 'reading' | 'ui' | 'uiButton' | 'caption' | 'mono';
 
@@ -51,6 +58,7 @@ export type TextProps = Omit<RNTextProps, 'role'> & {
 };
 
 export function Text({ role = 'ui', color, size, style, ...rest }: TextProps) {
+  const { colors } = useTheme();
   const token = ROLE_TOKEN[role];
   const fontSize = size ?? token.size;
   const base: TextStyle = {

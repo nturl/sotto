@@ -13,9 +13,9 @@
 import { useEffect } from 'react';
 import { View } from 'react-native';
 import { Redirect, useLocalSearchParams } from 'expo-router';
-import { colors } from '@sotto/core/theme';
 import { setUiCatalog } from '../../src/i18n/useT';
 import { setPreference, usePreferences } from '../../src/ui/data';
+import { useTheme } from '../../src/ui/theme';
 import { useSottoStore } from '../../src/state/store';
 import { detectBrowserLanguage, fastPathDefaultsFor } from '../../src/onboarding/fastPathDefaults';
 
@@ -26,6 +26,7 @@ export default function ReadDeepLinkScreen() {
   const packsStatus = useSottoStore((s) => s.packsStatus);
   const loadPacks = useSottoStore((s) => s.loadPacks);
   const bookLocale = useSottoStore((s) => s.bookLocale);
+  const { colors } = useTheme();
 
   useEffect(() => {
     if (!preferences.onboarded && packsStatus === 'idle') void loadPacks();

@@ -2,9 +2,10 @@
  * Toast — ink surface, surface text, auto-dismisses after 4s (DESIGN.md
  * vocabulary undo toast). Position it by rendering inside a relative parent.
  */
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { Animated, Easing, StyleSheet } from 'react-native';
-import { colors, motion, radius, space } from '@sotto/core/theme';
+import { motion, radius, space } from '@sotto/core/theme';
+import { useTheme } from './theme';
 import { Text } from './Text';
 import { useReducedMotion } from './useReducedMotion';
 
@@ -15,6 +16,8 @@ export type ToastProps = {
 };
 
 export function Toast({ message, onHide, durationMs = 4000 }: ToastProps) {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const opacity = useRef(new Animated.Value(0)).current;
   const reduced = useReducedMotion();
 
@@ -61,15 +64,17 @@ export function Toast({ message, onHide, durationMs = 4000 }: ToastProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  toast: {
-    position: 'absolute',
-    bottom: space.xl,
-    alignSelf: 'center',
-    backgroundColor: colors.ink,
-    borderRadius: radius.md,
-    paddingVertical: space.md,
-    paddingHorizontal: space.lg,
-    zIndex: 10,
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    toast: {
+      position: 'absolute',
+      bottom: space.xl,
+      alignSelf: 'center',
+      backgroundColor: colors.ink,
+      borderRadius: radius.md,
+      paddingVertical: space.md,
+      paddingHorizontal: space.lg,
+      zIndex: 10,
+    },
+  });
+}

@@ -11,7 +11,8 @@
  */
 import { useEffect, useRef, useState } from 'react';
 import { Animated, Easing, Platform, StyleSheet, View } from 'react-native';
-import { colors, motion } from '@sotto/core/theme';
+import { motion } from '@sotto/core/theme';
+import { themeColors as colors } from './theme';
 import { MarkerStrokeShape } from './Glyphs';
 import { useReducedMotion } from './useReducedMotion';
 

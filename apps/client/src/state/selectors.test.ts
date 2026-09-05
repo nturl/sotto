@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import type { BookSummary, ReadingProgress, SavedWord } from '@sotto/core';
+import { getLanguage } from '@sotto/core';
+import type { BookSummary, Pack, ReadingProgress, SavedWord } from '@sotto/core';
 import {
   filterByCategory,
   filterByLevel,
@@ -10,6 +11,7 @@ import {
   selectNewBooks,
   selectProgressPercent,
   selectRecommendedBooks,
+  selectSavedWordsForLocale,
   selectVocabularyForBook,
 } from './selectors';
 
@@ -123,5 +125,44 @@ describe('vocabulary selectors', () => {
     });
     const due = selectDueWords([...words, notDue], new Date('2026-09-04T00:00:00.000Z'));
     expect(due.map((w) => w.id).sort()).toEqual(['1', '2', '3']);
+  });
+});
+
+function pack(partial: Partial<Pack> & { locale: string; books: BookSummary[] }): Pack {
+  return {
+    schemaVersion: 1,
+    language: getLanguage(partial.locale),
+    generatedAt: '2026-09-01T00:00:00.000Z',
+    ...partial,
+  };
+}
+
+describe('selectSavedWordsForLocale (verification row 24)', () => {
+  const frPack = pack({ locale: 'fr-FR', books: [book({ bookId: 'a' }), book({ bookId: 'b' })] });
+  const esPack = pack({ locale: 'es-ES', books: [book({ bookId: 'z' })] });
+  const packs = [frPack, esPack];
+
+  const words = [
+    word({ id: '1', bookId: 'a', savedAt: '2026-09-01T00:00:00.000Z' }),
+    word({ id: '2', bookId: 'z', savedAt: '2026-09-02T00:00:00.000Z' }),
+  ];
+
+  it('keeps only words whose book belongs to the given locale pack', () => {
+    expect(selectSavedWordsForLocale(words, packs, 'fr-FR').map((w) => w.id)).toEqual(['1']);
+    expect(selectSavedWordsForLocale(words, packs, 'es-ES').map((w) => w.id)).toEqual(['2']);
+  });
+
+  it("switching locale back restores the other locale's words untouched", () => {
+    const frWords = selectSavedWordsForLocale(words, packs, 'fr-FR');
+    const esWords = selectSavedWordsForLocale(words, packs, 'es-ES');
+    // Neither call mutates the shared `words` array — both locales' words
+    // are still there in the underlying store data.
+    expect(words.map((w) => w.id)).toEqual(['1', '2']);
+    expect(frWords).not.toContain(words[1]);
+    expect(esWords).not.toContain(words[0]);
+  });
+
+  it('an unknown locale (no matching pack) yields no words', () => {
+    expect(selectSavedWordsForLocale(words, packs, 'de-DE')).toEqual([]);
   });
 });

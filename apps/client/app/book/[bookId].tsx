@@ -1,6 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { colors, space } from '@sotto/core/theme';
+import { space } from '@sotto/core/theme';
+import { themeColors as colors } from '../../src/ui/theme';
 import { useT } from '../../src/i18n/useT';
 import { BackLink } from '../../src/ui/BackLink';
 import { Button } from '../../src/ui/Button';

@@ -10,12 +10,13 @@
 import { useEffect, useMemo } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { Redirect, useRouter } from 'expo-router';
-import { colors, space } from '@sotto/core/theme';
+import { space } from '@sotto/core/theme';
 import { setUiCatalog, useT } from '../../src/i18n/useT';
 import { Button } from '../../src/ui/Button';
 import { setPreference, usePreferences } from '../../src/ui/data';
 import { Shell, useLayoutMetrics } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
+import { useTheme } from '../../src/ui/theme';
 import { webCursor } from '../../src/ui/tokens';
 import { selectPackForLocale } from '../../src/state/selectors';
 import { useSottoStore } from '../../src/state/store';
@@ -26,6 +27,8 @@ export default function OnboardingFastPathScreen() {
   const router = useRouter();
   const preferences = usePreferences();
   const { gutter, isDesktop } = useLayoutMetrics();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const packs = useSottoStore((s) => s.packs);
   const packsStatus = useSottoStore((s) => s.packsStatus);
   const loadPacks = useSottoStore((s) => s.loadPacks);
@@ -102,29 +105,31 @@ export default function OnboardingFastPathScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  title: {
-    marginBottom: space.md,
-  },
-  subtitle: {
-    marginBottom: space.xl,
-  },
-  footerPhone: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    paddingTop: space.md,
-    backgroundColor: colors.canvas,
-    gap: space.md,
-  },
-  footerDesktop: {
-    marginTop: space.xxl,
-    gap: space.md,
-  },
-  secondary: {
-    alignSelf: 'center',
-    minHeight: space.tapTarget,
-    justifyContent: 'center',
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    title: {
+      marginBottom: space.md,
+    },
+    subtitle: {
+      marginBottom: space.xl,
+    },
+    footerPhone: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      bottom: 0,
+      paddingTop: space.md,
+      backgroundColor: colors.canvas,
+      gap: space.md,
+    },
+    footerDesktop: {
+      marginTop: space.xxl,
+      gap: space.md,
+    },
+    secondary: {
+      alignSelf: 'center',
+      minHeight: space.tapTarget,
+      justifyContent: 'center',
+    },
+  });
+}

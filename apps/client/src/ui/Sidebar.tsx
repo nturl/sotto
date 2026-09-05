@@ -3,9 +3,11 @@
  * hairline right edge, "Sotto" wordmark in Fraunces 300, three nav rows
  * (active = surface-2 fill, ink 500 label; inactive ink-2).
  */
+import { useMemo } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { usePathname, useRouter } from 'expo-router';
-import { colors, space } from '@sotto/core/theme';
+import { space } from '@sotto/core/theme';
+import { useTheme } from './theme';
 import { useT, type MessageKey } from '../i18n/useT';
 import { fonts } from './fonts';
 import { Text } from './Text';
@@ -25,6 +27,8 @@ export function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const t = useT();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
 
   return (
     <View style={styles.sidebar}>
@@ -56,30 +60,32 @@ export function Sidebar() {
   );
 }
 
-const styles = StyleSheet.create({
-  sidebar: {
-    width: 220,
-    backgroundColor: colors.surface,
-    borderRightWidth: 1,
-    borderRightColor: colors.hairline,
-    paddingHorizontal: space.gutter.phone,
-    paddingVertical: space.xl,
-  },
-  wordmark: {
-    marginBottom: 28,
-  },
-  row: {
-    paddingVertical: 10,
-    paddingHorizontal: space.sm,
-    borderRadius: space.sm,
-    marginBottom: space.xs,
-    minHeight: space.tapTarget,
-    justifyContent: 'center',
-  },
-  rowActive: {
-    backgroundColor: colors.surface2,
-  },
-  labelActive: {
-    fontFamily: fonts.interMedium,
-  },
-});
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    sidebar: {
+      width: 220,
+      backgroundColor: colors.surface,
+      borderRightWidth: 1,
+      borderRightColor: colors.hairline,
+      paddingHorizontal: space.gutter.phone,
+      paddingVertical: space.xl,
+    },
+    wordmark: {
+      marginBottom: 28,
+    },
+    row: {
+      paddingVertical: 10,
+      paddingHorizontal: space.sm,
+      borderRadius: space.sm,
+      marginBottom: space.xs,
+      minHeight: space.tapTarget,
+      justifyContent: 'center',
+    },
+    rowActive: {
+      backgroundColor: colors.surface2,
+    },
+    labelActive: {
+      fontFamily: fonts.interMedium,
+    },
+  });
+}

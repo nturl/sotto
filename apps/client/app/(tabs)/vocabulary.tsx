@@ -5,11 +5,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { Pressable, StyleSheet, View, type LayoutChangeEvent } from 'react-native';
 import { useRouter } from 'expo-router';
 import type { SavedWord } from '@sotto/core';
-import { colors, radius, space } from '@sotto/core/theme';
+import { radius, space } from '@sotto/core/theme';
 import { useT } from '../../src/i18n/useT';
 import { Button } from '../../src/ui/Button';
 import { Cover } from '../../src/ui/Cover';
-import { useLibrary } from '../../src/ui/data';
+import { useLibrary, usePreferences } from '../../src/ui/data';
 import { ChevronRightGlyph, SpeakerGlyph, TrashGlyph } from '../../src/ui/Glyphs';
 import { IconButton } from '../../src/ui/IconButton';
 import { MarkerStroke } from '../../src/ui/MarkerStroke';
@@ -17,12 +17,14 @@ import { useBookGridTier } from '../../src/ui/Rail';
 import { Sheet } from '../../src/ui/Sheet';
 import { Shell, useLayoutMetrics } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
+import { useTheme } from '../../src/ui/theme';
 import { webCursor } from '../../src/ui/tokens';
 import { playAudioSlice } from '../../src/platform/audio';
 import { bookAssetUrl } from '../../src/ui/data';
 import {
   selectBooksWithVocabulary,
   selectDueWords,
+  selectSavedWordsForLocale,
   selectVocabularyForBook,
 } from '../../src/state/selectors';
 import { useSottoStore } from '../../src/state/store';
@@ -38,6 +40,8 @@ function WordCard({
   onPlay: () => void;
   onDelete: () => void;
 }) {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   return (
     <View style={styles.wordCard}>
       {hasAudio ? (
@@ -89,7 +93,7 @@ function WordGrid({
   const onLayout = (e: LayoutChangeEvent) => setWidth(e.nativeEvent.layout.width);
 
   if (!grid) {
-    return <View style={styles.list}>{words.map((word) => renderWord(word))}</View>;
+    return <View style={staticStyles.list}>{words.map((word) => renderWord(word))}</View>;
   }
 
   const itemWidth =
@@ -98,7 +102,7 @@ function WordGrid({
   return (
     <View
       onLayout={onLayout}
-      style={[styles.grid, { columnGap: grid.columnGap, rowGap: grid.rowGap }]}
+      style={[staticStyles.grid, { columnGap: grid.columnGap, rowGap: grid.rowGap }]}
     >
       {itemWidth
         ? words.map((word) => (
@@ -115,7 +119,16 @@ export default function VocabularyScreen() {
   const t = useT();
   const router = useRouter();
   const library = useLibrary();
-  const savedWords = useSottoStore((s) => s.savedWords);
+  const preferences = usePreferences();
+  const allSavedWords = useSottoStore((s) => s.savedWords);
+  const packs = useSottoStore((s) => s.packs);
+  // CONTRACTS verification row 24: only show words for books in the
+  // currently-selected learning locale (see selectSavedWordsForLocale) —
+  // words saved under another locale stay stored, just hidden here.
+  const savedWords = useMemo(
+    () => selectSavedWordsForLocale(allSavedWords, packs, preferences.learningLocale),
+    [allSavedWords, packs, preferences.learningLocale],
+  );
   const removeWord = useSottoStore((s) => s.removeWord);
   const saveWord = useSottoStore((s) => s.saveWord);
   const books = useSottoStore((s) => s.books);
@@ -124,6 +137,8 @@ export default function VocabularyScreen() {
   const loadChapter = useSottoStore((s) => s.loadChapter);
   const chapters = useSottoStore((s) => s.chapters);
   const { isDesktop } = useLayoutMetrics();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
 
   const bookIds = useMemo(() => selectBooksWithVocabulary(savedWords), [savedWords]);
   const [selectedBookId, setSelectedBookId] = useState<string | undefined>(bookIds[0]);
@@ -297,29 +312,8 @@ export default function VocabularyScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  title: {
-    marginBottom: space.lg,
-  },
-  bookCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.md,
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.hairline,
-    padding: space.md,
-    marginBottom: space.xl,
-  },
-  bookCardText: {
-    flex: 1,
-    gap: 2,
-  },
-  empty: {
-    marginTop: space.xxxl,
-    textAlign: 'center',
-  },
+// No color tokens — safe to share across schemes without re-invoking.
+const staticStyles = StyleSheet.create({
   list: {
     gap: space.sm,
   },
@@ -327,61 +321,88 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
-  wordCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.md,
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.hairline,
-    borderRadius: radius.md,
-    padding: space.md,
-  },
-  wordText: {
-    flex: 1,
-    gap: 4,
-  },
-  wordWrap: {
-    alignSelf: 'flex-start',
-    position: 'relative',
-  },
-  ctaWrap: {
-    marginTop: space.xl,
-    gap: space.sm,
-  },
-  // DESKTOP.md §7: the CTA hugs the text-column measure it follows (max
-  // 400), not the full grid width.
-  ctaWrapDesktop: {
-    maxWidth: 400,
-  },
-  ctaCaption: {
-    textAlign: 'center',
-  },
-  pickerList: {
-    gap: space.sm,
-  },
-  pickerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.md,
-    paddingVertical: space.sm,
-  },
-  pickerClose: {
-    textAlign: 'center',
-    paddingVertical: space.md,
-  },
-  undoToast: {
-    position: 'absolute',
-    bottom: space.xl,
-    left: space.xl,
-    right: space.xl,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: colors.ink,
-    borderRadius: radius.md,
-    paddingVertical: space.md,
-    paddingHorizontal: space.lg,
-    zIndex: 11,
-  },
 });
+
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    title: {
+      marginBottom: space.lg,
+    },
+    bookCard: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space.md,
+      backgroundColor: colors.surface,
+      borderRadius: radius.md,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+      padding: space.md,
+      marginBottom: space.xl,
+    },
+    bookCardText: {
+      flex: 1,
+      gap: 2,
+    },
+    empty: {
+      marginTop: space.xxxl,
+      textAlign: 'center',
+    },
+    wordCard: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space.md,
+      backgroundColor: colors.surface,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+      borderRadius: radius.md,
+      padding: space.md,
+    },
+    wordText: {
+      flex: 1,
+      gap: 4,
+    },
+    wordWrap: {
+      alignSelf: 'flex-start',
+      position: 'relative',
+    },
+    ctaWrap: {
+      marginTop: space.xl,
+      gap: space.sm,
+    },
+    // DESKTOP.md §7: the CTA hugs the text-column measure it follows (max
+    // 400), not the full grid width.
+    ctaWrapDesktop: {
+      maxWidth: 400,
+    },
+    ctaCaption: {
+      textAlign: 'center',
+    },
+    pickerList: {
+      gap: space.sm,
+    },
+    pickerRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space.md,
+      paddingVertical: space.sm,
+    },
+    pickerClose: {
+      textAlign: 'center',
+      paddingVertical: space.md,
+    },
+    undoToast: {
+      position: 'absolute',
+      bottom: space.xl,
+      left: space.xl,
+      right: space.xl,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      backgroundColor: colors.ink,
+      borderRadius: radius.md,
+      paddingVertical: space.md,
+      paddingHorizontal: space.lg,
+      zIndex: 11,
+    },
+  });
+}

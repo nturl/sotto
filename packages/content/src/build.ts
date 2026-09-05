@@ -236,8 +236,12 @@ function mergeExistingChapterAssets(
     return chapterSummaries;
   }
   const prevById = new Map(previous.chapters.map((c) => [c.id, c]));
+  const prevByOrder = new Map(previous.chapters.map((c) => [c.order, c]));
   return chapterSummaries.map((summary) => {
-    const prev = prevById.get(summary.id);
+    // Fall back to matching by order: a chapter id embeds the bookId, so a
+    // bookId change (e.g. fixing a zh-TW edition's chapter ids to match its
+    // own bookId) must not look like every chapter losing its narration.
+    const prev = prevById.get(summary.id) ?? prevByOrder.get(summary.order);
     if (prev?.audio && prev.wordCount === summary.wordCount) {
       return {
         ...summary,
@@ -274,10 +278,13 @@ function convertChaptersToHant(
   chapters: Chapter[],
   chapterSummaries: ChapterSummary[],
   overrides: Record<string, string>,
+  hantBookId: string,
 ): { chapters: Chapter[]; chapterSummaries: ChapterSummary[]; replacedCount: number } {
   let replacedCount = 0;
   const hantChapters = chapters.map((chapter) => ({
     ...chapter,
+    id: chapter.id.replace(chapter.bookId, hantBookId),
+    bookId: hantBookId,
     title: convertChapterTitle(chapter.title),
     blocks: chapter.blocks.map((block) => ({
       ...block,
@@ -301,6 +308,7 @@ function convertChaptersToHant(
 
   const hantSummaries = chapterSummaries.map((s, i) => ({
     ...s,
+    id: hantChapters[i]?.id ?? s.id,
     title: hantChapters[i]?.title ?? s.title,
   }));
   return { chapters: hantChapters, chapterSummaries: hantSummaries, replacedCount };
@@ -519,7 +527,7 @@ async function buildOneBundle(
         chapters: hantChapters,
         chapterSummaries: hantSummaries,
         replacedCount,
-      } = convertChaptersToHant(chapters, chapterSummaries, bundle.hantOverrides);
+      } = convertChaptersToHant(chapters, chapterSummaries, bundle.hantOverrides, hantBookId);
       const hantDir = bookDir('zh-TW', hantBookId);
       mkdirSync(hantDir, { recursive: true });
       const mergedHantChapters = hantChapters.map((c) => mergeExistingChapterTimings(hantDir, c));

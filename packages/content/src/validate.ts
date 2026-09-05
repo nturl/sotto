@@ -270,6 +270,16 @@ function validateBook(localeDir: string, bookId: string): ValidationIssue[] {
     }
     issues.push(...validateChapter(`${scope}/${chapterSummary.file}`, chapter, needsPinyin));
 
+    if (chapter.bookId !== book.bookId) {
+      issues.push(
+        issue(
+          scope,
+          'chapter-bookid-mismatch',
+          `${chapterSummary.file} bookId "${chapter.bookId}" does not match book.json bookId "${book.bookId}"`,
+        ),
+      );
+    }
+
     if (simplifiedChars.size > 0) {
       const chapterScope = `${scope}/${chapterSummary.file}`;
       chapter.blocks.forEach((block) => {

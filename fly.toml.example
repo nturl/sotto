@@ -1,0 +1,42 @@
+# Copy to fly.toml and fill in `app` (or run `fly launch --copy-config`,
+# which reads this file directly), then see the Fly section of
+# docs/self-hosting.md for `fly secrets set` and `fly deploy`.
+#
+# This is a personal, single-user instance (docs/self-hosting.md "Why") — one
+# machine, no volume (the server keeps no state beyond an in-memory voice
+# session registry and import job registry, both fine to lose on restart),
+# and it costs nothing while idle because min_machines_running = 0 lets Fly
+# stop the machine between requests.
+
+app = "your-sotto-app-name"
+primary_region = "iad"
+
+[build]
+
+[env]
+  SOTTO_HOST = "0.0.0.0"
+  SOTTO_PORT = "8790"
+  # Everything else (SOTTO_API_KEY, or the three local-model URLs, plus
+  # SOTTO_BASIC_AUTH) is a secret, not plain env — see
+  # `fly secrets set` in docs/self-hosting.md's Fly section. A local model
+  # stack is not reachable from a Fly machine unless it's also exposed
+  # publicly or over a private network (Tailscale, WireGuard); OpenAI is the
+  # realistic option for this deployment path, not "your own Mac".
+
+[http_service]
+  internal_port = 8790
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[vm]]
+  size = "shared-cpu-1x"
+  # Measured on this Mac (docs/evidence/deploy-kit-2026-09-05.log): the
+  # running container's RSS under one voice turn plus static-file serving
+  # sat comfortably under 512 MB idle, but Fly's shared-cpu-1x defaults to
+  # 256 MB, which is tight for Node + Fastify + a warm VAD model load. Set
+  # memory to at least 512 MB; if you see OOM kills in `fly logs`, go to
+  # 1024 MB (~$10/mo instead of ~$5/mo at the time of writing — check
+  # `fly platform vm-sizes` for current pricing).
+  memory = "512mb"

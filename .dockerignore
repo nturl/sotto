@@ -1,0 +1,38 @@
+# Host artifacts never needed inside the build context — the container
+# runs its own `pnpm install` and build, and none of the rest of this is
+# runtime data (see Dockerfile's comments on what the runtime stage needs).
+node_modules
+**/node_modules
+.git
+**/dist
+apps/client/.expo
+**/.expo
+
+# Native iOS/Android projects (Xcode Pods, DerivedData-adjacent files) —
+# only `expo export --platform web` runs in this image, never `expo
+# run:ios`/`run:android`. This alone was 4GB of the build context.
+apps/client/ios
+apps/client/android
+
+# Docs, planning, and evidence are large (screenshots, logs) and are never
+# read by the running server or the client build.
+docs/screenshots
+docs/evidence
+docs/media
+planning
+
+# Drafts and local scratch content some lanes leave in packages/content —
+# not part of the shipped packs.
+packages/content/drafts
+packages/content/source
+
+# Local env/model files — never ship secrets or host-specific model
+# binaries into the image.
+.env
+**/.env
+apps/server/models
+apps/server/.cache
+**/e2e/.cache
+
+# Editor/OS noise.
+.DS_Store

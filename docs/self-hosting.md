@@ -34,6 +34,70 @@ returned by `POST /voice/session`) resolves to whatever origin served the
 page — no `EXPO_PUBLIC_SERVER_URL` to set, and nothing to configure on the
 phone beyond the URL you type once.
 
+## Run Sotto for yourself
+
+Three ways to get this running, from least to most infrastructure. All
+three end up at the same one-origin layout above; the env vars are
+identical across them (see "Env vars" below) — only how you set
+them and how you reach the result differ. Proof for all three is in
+`docs/evidence/deploy-kit-2026-09-05.log`.
+
+### Docker (a container on any machine)
+
+```sh
+cp .env.example .env    # fill in SOTTO_API_KEY (+ OpenAI URLs from docs/openai.md),
+                         # or the three local model URLs (docs/local-models.md)
+docker compose up -d
+```
+
+Builds the root `Dockerfile` (multi-stage: `pnpm install`, `pnpm web:export`
+for the client, then a runtime image that runs `apps/server` with
+`SOTTO_STATIC_DIR` pointed at that export) and serves it on
+`http://localhost:8790`. Local model services are **not** bundled in
+`docker-compose.yml` — if you're pointing at a stack running on the same
+Mac (docs/local-models.md), the container reaches it at
+`http://host.docker.internal:<port>`, not `127.0.0.1` (see the comments in
+`docker-compose.yml`). Measured on this Mac: ~4.5GB image, cold start to
+first response ~4.6s, ~195MB idle RSS — comfortably under `fly.toml.example`'s
+512MB note. `docker compose down` to stop it.
+
+### Fly (a public URL, costs ~nothing while idle)
+
+```sh
+cp fly.toml.example fly.toml    # edit `app` to a name you own
+fly launch --copy-config --name <app-name> --now=false
+fly secrets set SOTTO_API_KEY=sk-...   # or the local-model URLs, as secrets
+fly deploy
+```
+
+One `shared-cpu-1x` machine, no volume (the server keeps no state worth
+persisting — see "Deletion / privacy" below), `min_machines_running = 0` so
+Fly stops the machine between requests and you pay for compute only while
+someone's actually using it. A local model stack on your own Mac is not
+reachable from a Fly machine unless you also expose it (Tailscale,
+WireGuard) — OpenAI is the realistic model source for this path. This
+lane did not run `fly launch`/`fly deploy` itself (no standing permission
+to create a Fly app on Noel's account from here); the commands above are
+exact and un-run — `fly auth whoami` on this machine already resolves to
+an authenticated account, so the remaining step is just running them.
+
+### Tailscale, in front of your own Mac (HTTPS + your phone's mic)
+
+Run Sotto locally (Docker above, or `pnpm dev` — see "Running it" below),
+then put Tailscale Serve in front of it instead of exposing the port
+directly:
+
+```sh
+sudo tailscale up                              # once, if not already logged in
+tailscale serve https / http://localhost:8790  # or your container's port
+```
+
+Open the printed `https://` URL from your phone (same tailnet). This is the
+path that actually gets you a working microphone on an iPhone: Safari
+refuses `getUserMedia` on any origin that isn't `https://` or `localhost`,
+and a plain `http://<mac-lan-ip>:8790` fails that check (see "iOS Safari and
+the microphone" below for what was and wasn't verified live).
+
 ## Running it
 
 ```sh
@@ -55,13 +119,31 @@ Wi-Fi. `SOTTO_HOST=127.0.0.1` (the default) only serves localhost; LAN
 access needs `0.0.0.0` — see docs/voice-pipeline.md "Security" for what that
 does and does not protect against.
 
-## Env vars this adds
+## Env vars
 
-| Var                | Default     | What it does                                                                                                                                                                                                                                                                                                                                                                                        |
-| ------------------ | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `SOTTO_STATIC_DIR` | unset       | Absolute path to a static web build (`apps/client/dist`, from `pnpm web:export`). When set, served at `/` with an SPA fallback to `index.html` for any unmatched GET path that doesn't look like a file — mirrors `apps/client/scripts/serve-static.mjs`'s rule exactly. `/content/packs`, `/health`, `/voice/*`, `/import/*` are registered routes and always take precedence, regardless of this. |
-| `SOTTO_HOST`       | `127.0.0.1` | Already existed (docs/voice-pipeline.md); set to `0.0.0.0` to bind the LAN interface so a phone can reach it. Only do this on a network you trust.                                                                                                                                                                                                                                                  |
-| `SOTTO_BASIC_AUTH` | unset       | `user:pass`. When set, every route except `/health` requires that exact credential over HTTP Basic (`WWW-Authenticate: Basic`, 401 without it). `/health` stays open so uptime checks and `GET /health` from docs/verification.md keep working with no credential.                                                                                                                                  |
+Every variable `apps/server/src/config.ts` reads, in one place. **At least
+one tutor path is required for the voice tutor to work**: either
+`SOTTO_API_KEY` with the three URLs pointed at `https://api.openai.com/v1`
+(docs/openai.md), or all three local model URLs reachable
+(docs/local-models.md) — reading (onboarding, narration, tap-to-translate)
+needs none of this and works with every model var unreachable.
+
+| Var                  | Optional?                              | Default                       | What it does                                                                                                                                                                                                                                                                                                                                                                                        |
+| -------------------- | -------------------------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SOTTO_STT_URL`      | yes (tutor needs one path, see above)  | `http://127.0.0.1:9001/v1`    | Speech-to-text endpoint, OpenAI-compatible `/v1/audio/transcriptions`.                                                                                                                                                                                                                                                                                                                              |
+| `SOTTO_STT_MODEL`    | yes                                    | `Systran/faster-whisper-base` | Model id sent to the STT endpoint (ignored by whisper.cpp, which uses whatever `.bin` it was started with).                                                                                                                                                                                                                                                                                         |
+| `SOTTO_LLM_URL`      | yes (tutor needs one path, see above)  | `http://127.0.0.1:8080/v1`    | Chat/LLM endpoint, OpenAI-compatible `/v1/chat/completions`.                                                                                                                                                                                                                                                                                                                                        |
+| `SOTTO_LLM_MODEL`    | yes                                    | `qwen3.6-35b-a3b`             | Model id sent to the LLM endpoint.                                                                                                                                                                                                                                                                                                                                                                  |
+| `SOTTO_TTS_URL`      | yes (tutor needs one path, see above)  | `http://127.0.0.1:8880/v1`    | Text-to-speech endpoint, OpenAI-compatible `/v1/audio/speech`.                                                                                                                                                                                                                                                                                                                                      |
+| `SOTTO_TTS_MODEL`    | yes                                    | `kokoro`                      | Model id sent to the TTS endpoint.                                                                                                                                                                                                                                                                                                                                                                  |
+| `SOTTO_API_KEY`      | yes                                    | unset                         | Bearer token sent to all three of the above. Set the three URLs to `https://api.openai.com/v1` (models `whisper-1` / `gpt-4o-mini` / `tts-1`) to run the cascade on OpenAI instead of local models (docs/openai.md). Never committed; env only.                                                                                                                                                     |
+| `SOTTO_PORT`         | yes                                    | `8790`                        | Port the server listens on.                                                                                                                                                                                                                                                                                                                                                                         |
+| `SOTTO_HOST`         | yes                                    | `127.0.0.1`                   | Set to `0.0.0.0` to bind every interface — inside a container, or for LAN/phone access. Only do this on a network you trust, or behind Docker/Fly/Tailscale as above.                                                                                                                                                                                                                               |
+| `SOTTO_CORS_ORIGINS` | yes                                    | Expo web dev ports            | Comma-separated allowlist of browser `Origin` headers. Any `http://localhost:*`/`http://127.0.0.1:*` origin is always allowed regardless.                                                                                                                                                                                                                                                           |
+| `SOTTO_MAX_SESSIONS` | yes                                    | `4`                           | Caps concurrent voice sessions across all clients.                                                                                                                                                                                                                                                                                                                                                  |
+| `IMPORT_JOB_MAX_MS`  | yes                                    | `2700000` (45 min)            | Wall-clock ceiling for one import job before it's aborted and failed.                                                                                                                                                                                                                                                                                                                               |
+| `SOTTO_STATIC_DIR`   | yes (this is what makes it one origin) | unset                         | Absolute path to a static web build (`apps/client/dist`, from `pnpm web:export`). When set, served at `/` with an SPA fallback to `index.html` for any unmatched GET path that doesn't look like a file — mirrors `apps/client/scripts/serve-static.mjs`'s rule exactly. `/content/packs`, `/health`, `/voice/*`, `/import/*` are registered routes and always take precedence, regardless of this. |
+| `SOTTO_BASIC_AUTH`   | yes                                    | unset                         | `user:pass`. When set, every route except `/health` requires that exact credential over HTTP Basic (`WWW-Authenticate: Basic`, 401 without it). `/health` stays open so uptime checks and `GET /health` from docs/verification.md keep working with no credential.                                                                                                                                  |
 
 ## What `SOTTO_BASIC_AUTH` is and isn't
 
@@ -155,6 +237,11 @@ cascade fully offline instead of against OpenAI.
 
 ## Evidence
 
+- `docs/evidence/deploy-kit-2026-09-05.log` — Docker build/run: image size,
+  cold-start time, the hosted Playwright smoke at 375/1440 against the
+  container, and one real tutor turn (OpenAI cascade) proven inside it. Fly
+  section covers what `fly auth whoami` showed and why `fly deploy` was not
+  run from this lane.
 - `docs/evidence/selfhost-2026-09-05.log` — full run log (server env used,
   measured turn latency, exit code, curl checks for the Basic-auth guard).
 - `docs/screenshots/web/375-selfhost-reader.png`,

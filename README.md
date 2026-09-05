@@ -40,6 +40,17 @@ spoken replies in French or Spanish are still being finished
 that stands before anything downloads. What is verified and what is not is
 tracked in [docs/verification.md](docs/verification.md).
 
+## Where to run Sotto
+
+- **Hosted PWA** — [sotto-steel.vercel.app](https://sotto-steel.vercel.app),
+  free, no account, reading works fully with no setup.
+- **Bring your own key** — talk to the voice tutor on the hosted PWA using
+  your own OpenAI key, nothing installed. Coming in this run; see
+  [docs/byok.md](docs/byok.md).
+- **Your own server** — `docker compose up`, Fly, or your own Mac over
+  Tailscale: one origin, your own key or local models, no accounts. See
+  [docs/self-hosting.md](docs/self-hosting.md).
+
 ## Quickstart
 
 ```sh

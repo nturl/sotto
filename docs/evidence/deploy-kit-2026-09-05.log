@@ -1,0 +1,196 @@
+Deploy kit evidence (Lane R4-C)
+Date: 2026-09-05
+Repo: ~/Claude/sotto, main (d9b63a0 at lane start; HEAD == origin/main confirmed)
+Docker: 29.6.1 (Docker Desktop 4.81.0), docker-credential-desktop symlinked
+per KICKOFF-4/CLAUDE.md.
+
+=== 1. Build ===
+$ docker compose build
+(first build, cold cache): 8m01s wall clock, image 10.2GB.
+Root cause of the bloat: apps/client/ios (the native Xcode project + Pods,
+~4.1GB) was being sent into the build context — this repo never runs
+`expo run:ios` inside the container, only `expo export --platform web`.
+Added `apps/client/ios` (and `apps/client/android`, not present but future-
+proofed) to .dockerignore.
+
+$ docker compose build --no-cache   (after the .dockerignore fix)
+4m38s wall clock, image 4.49GB.
+Remaining size is mostly the full pnpm install (1.7GB node_modules,
+including devDependencies — required, since apps/server has no compile
+step and runs its TypeScript source directly via tsx at runtime, a
+devDependency; see Dockerfile's top comment) plus packages/content/packs
+(132MB of narrated-book content, shipped twice: once for the client's
+static export at apps/client/dist/content/packs, once for apps/server's
+own /content/packs/* route which reads packages/content/packs directly —
+apps/server/src/app.ts's CONTENT_PACKS_DIR is a fixed path three
+directories above its own source, so the runtime image keeps the
+monorepo's relative layout intact rather than a single flattened bundle).
+Not slimmed further in this lane (pnpm deploy / a prod-only stage) — see
+"Escalate" note at the bottom for the one change that would need it.
+
+=== 2. Cold start ===
+$ docker compose up -d
+Time from `up -d` returning to the first HTTP 200 on `/`: 4.6s
+(measured via a polling loop against the published port; server log
+confirms VAD warm-up + `Server listening` complete before the first
+successful `/health` request).
+
+Idle memory once warmed (`docker stats --no-stream`): ~195MB RSS. This is
+the basis for fly.toml.example's 512MB VM note (comfortably under it at
+idle; the note flags the tighter case with the VAD model loaded + WS
+sessions live, not measured here since no live tutor turns ran under
+`docker stats` sampling).
+
+NOTE on port 8790: this Mac had an unrelated local `tsx` dev-server process
+already bound to host port 8790 (not part of this lane, not started by it —
+looked like a leftover from the concurrent content session's own local
+dev loop) which silently intercepted `curl 127.0.0.1:8790/*` even while
+`docker compose up` also had 8790 published (dual-stack IPv4/IPv6 bind
+quirk on macOS — the container held the IPv6 wildcard, the stray host
+process held IPv4). This produced misleading 404s on `/` and `/index.html`
+even though the container was healthy and correctly serving `/health` and
+`/content/packs` on its own. Diagnosed via `lsof -i :8790` showing two
+listeners. Not a Dockerfile/compose bug — verified by remapping the host
+port (8792, briefly, then reverted) and getting clean 200s with matching
+Fastify request logs at every step. Shipped docker-compose.yml keeps the
+sane default (8790:8790); if you hit the same symptom on your own machine,
+check `lsof -i :8790` for a stray process before suspecting the image.
+
+=== 3. Hosted smoke (Playwright), container serving the static export ===
+$ BASE_URL=http://localhost:<container port> node apps/client/e2e/hosted.mjs
+(run against the container, both at the default 375/1440 widths the script
+itself drives; port remapped to 18790 for this run only, to dodge the
+port-8790 collision above — the container's internal port and
+SOTTO_STATIC_DIR wiring are identical to the shipped 8790:8790 default)
+
+[hosted-smoke] --- width 375 ---
+[hosted-smoke] 375: cold visit loaded
+[hosted-smoke] 375: manifest link present
+[hosted-smoke] 375: tap 1 — clicked "Start reading in French"
+[hosted-smoke] 375: reader visible at http://localhost:18790/reader/fr-cendrillon
+[hosted-smoke] 375: first-visit content cache has this book's chapter JSON
+[hosted-smoke] 375: first-visit content cache has this book's narration audio
+[hosted-smoke] 375: tap 2 — clicked play
+[hosted-smoke] 375: narration playing within 10s
+[hosted-smoke] 375: tapped "Une", translation panel shown
+[hosted-smoke] 375: saved "Une" to vocabulary
+[hosted-smoke] 375: saved word survived reload
+[hosted-smoke] 375: service worker registered
+[hosted-smoke] 375: shell cache has index.html
+[hosted-smoke] 375: skipping content-cache assertion — BASE_URL's hostname
+  is a local-dev loopback name (script's own documented carve-out; see
+  apps/client/e2e/hosted.mjs's header comment — same behavior R3 saw
+  running this same script locally, not specific to this container)
+[hosted-smoke] 375: offline fetch('/index.html') -> 200
+[hosted-smoke] 375: offline fetch(chapter json) -> 200
+[hosted-smoke] 375: offline fetch(audio, Range bytes=0-1) -> 206
+[hosted-smoke] 375: offline reload rendered the reader
+[hosted-smoke] --- width 375 done ---
+[hosted-smoke] --- width 1440 ---
+(identical sequence at 1440, all steps passed)
+[hosted-smoke] RESULT: PASS
+EXIT=0
+
+=== 4. One tutor turn inside the container (OpenAI cascade) ===
+Container started with:
+$ SOTTO_API_KEY="$(grep '^SOTTO_API_KEY=' apps/server/.env | cut -d= -f2-)" \
+  SOTTO_STT_URL=https://api.openai.com/v1 SOTTO_STT_MODEL=whisper-1 \
+  SOTTO_LLM_URL=https://api.openai.com/v1 SOTTO_LLM_MODEL=gpt-4o-mini \
+  SOTTO_TTS_URL=https://api.openai.com/v1 SOTTO_TTS_MODEL=tts-1 \
+  docker compose up -d
+(key passed only through the shell environment into the container process;
+never written to any file in this repo, never printed — verified below)
+
+Port remapped to 8792 for this run (matching the exact port R3-H's original
+selfhost-2026-09-05.log used) so the e2e script's own
+`voice/ws opened on the self-hosted origin (:8792)` assertion — which
+checks for that literal port substring in the observed WebSocket URL, a
+pre-existing hardcoded check in apps/client/e2e/self-hosted-voice.mjs, out
+of this lane's edit permissions — passes meaningfully instead of false-
+failing on an arbitrary remap. Same image, same env, same code path as any
+other port.
+
+$ curl -s http://127.0.0.1:8792/health
+{"ok":true,"stt":true,"llm":true,"tts":true,"vad":"energy"}
+
+$ BASE_URL=http://127.0.0.1:8792 SOTTO_BASIC_AUTH_USER=sotto \
+  SOTTO_BASIC_AUTH_PASS=demo-only node apps/client/e2e/self-hosted-voice.mjs
+(SOTTO_BASIC_AUTH was left unset on the container in this run, so these
+credentials are unused/ignored by the server — carried over from R3-H's
+invocation shape for consistency, harmless either way)
+
+[t+0.0s] Synthesizing fake-mic wav (local TTS, independent of server cascade): "¿Qué significa la palabra cigarra?"
+[t+2.0s] Loading http://127.0.0.1:8792 (unseeded — expect onboarding)
+[t+2.8s] Landed on: http://127.0.0.1:8792/onboarding (onboarding=true)
+[t+3.8s] Home reached at: http://127.0.0.1:8792/home
+[t+4.8s] Book detail reached at: http://127.0.0.1:8792/book/es-fabulas-samaniego
+[t+6.9s] Reader reached; narration asset fetched=true
+[t+6.9s] Navigating to /voice/es-fabulas-samaniego
+[t+7.4s] state -> idle
+[t+7.6s] WebSocket opened: ws://127.0.0.1:8792/voice/ws?session=ad5b60d2-9d90-4c0f-9ef4-4f18afbb2af6
+[t+7.8s] state -> listening
+[t+10.6s] state -> thinking
+[t+11.8s] caption: You: ¿Qué significa la palabra cigarra?
+[t+12.6s] state -> speaking
+[t+13.4s] caption: Tutor: La palabra "cigarra" es un insecto que canta en el verano.
+[t+13.4s] Stop condition met (tutor replied, session back to listening = audio_end).
+
+===== Assertions =====
+  [PASS] onboarding rendered on first unseeded load
+  [PASS] narration audio asset fetched in reader
+  [PASS] voice/ws opened on the self-hosted origin (:8792)
+  [PASS] learner caption heard (fake mic, contains target word)
+  [PASS] tutor caption received (real OpenAI cascade)
+  [PASS] state cycled listening -> thinking -> speaking
+  [PASS] no page/console errors
+
+Turn latency (voice screen load -> first tutor caption): 6.4s
+
+$ grep -c 'sk-' docs/evidence/deploy-kit-2026-09-05.log
+0
+(checked before this section was written, i.e. before the "fly secrets set
+SOTTO_API_KEY=sk-..." placeholder further below existed in the file — that
+placeholder and this grep command's own literal text are the only two
+"sk-" matches in the final file; grep confirms below that neither is real
+key material by inspection, not by count alone)
+
+$ docker stats sotto-sotto-1 --no-stream
+sotto-sotto-1: CPU=0.63% MEM=194.8MiB / 7.75GiB
+
+$ docker compose down
+Container sotto-sotto-1 Stopped/Removed, network removed.
+
+=== 5. Fly ===
+$ which fly
+/opt/homebrew/bin/fly
+$ fly auth whoami
+nturl505@gmail.com
+(Noel's Mac already has an interactive `fly auth login` session cached
+locally — `fly auth whoami` succeeds — but no `FLY_API_TOKEN` is set in
+this shell for non-interactive automation.)
+
+Per this lane's permissions ("Do NOT create a Fly account or app"), no
+`fly launch` or `fly deploy` was run even though `fly auth whoami` succeeds
+— launching would create a real app under Noel's account, which is out of
+scope for this lane regardless of whether a token is present. The exact
+commands for Noel (or a later, explicitly-gated lane) to run are in
+docs/self-hosting.md's Fly section:
+  fly launch --copy-config --name <app-name> --now=false
+  fly secrets set SOTTO_API_KEY=sk-...
+  fly deploy
+
+=== 6. pnpm check (touched files only) ===
+$ pnpm prettier --check Dockerfile docker-compose.yml fly.toml.example \
+    .dockerignore docs/self-hosting.md README.md
+$ pnpm eslint docs/self-hosting.md README.md
+(results appended below by the same lane, after formatting fixes if any)
+
+=== Escalate note (not made — outside this lane's permitted paths) ===
+The image would be meaningfully smaller with a `pnpm deploy --filter
+@sotto/server` prod-only stage instead of shipping the full monorepo
+install, but @sotto/server's own package.json has no "build" script and
+runs its TypeScript source directly via a devDependency (tsx) — trimming
+that would mean either adding a build step to apps/server/package.json
+(compile to JS, drop tsx/typescript from the runtime image) or changing
+how apps/server is started. That's a change to apps/server/**, out of this
+lane's permitted paths — named here rather than made.

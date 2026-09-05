@@ -12,6 +12,7 @@ import { create, type StoreApi, type UseBoundStore } from 'zustand';
 import {
   scheduleReview,
   type Book,
+  type BookSummary,
   type Chapter,
   type Pack,
   type ReadingProgress,
@@ -23,6 +24,7 @@ import {
 import type { Persistence } from '../platform/persistence.types';
 import { warmBookCache } from '../platform/swCache';
 import { assetUrl, fetchBook, fetchChapter, fetchPacks } from './contentApi';
+import { PRIVATE_INDEX_KEY, privateBookKey, privateChapterKey } from '../import/privateKeys';
 import {
   type CaptionEntry,
   type LoadStatus,
@@ -56,6 +58,7 @@ const KEYS = {
   progress: 'sotto.progress',
   vocabulary: 'sotto.vocabulary',
   session: 'sotto.session',
+  privateIndex: PRIVATE_INDEX_KEY,
 } as const;
 
 export interface SottoState {
@@ -73,6 +76,23 @@ export interface SottoState {
   loadBook(bookId: string): Promise<Book | undefined>;
   loadChapter(bookId: string, chapterId: string, file: string): Promise<Chapter | undefined>;
   bookLocale(bookId: string): string | undefined;
+
+  // ---- private (imported) books (R3-I) ----
+  /** Index of every private book on this device (BookSummary, private:
+   * true). Book/chapter JSON itself lives under `sotto.private.book.<id>`/
+   * `sotto.private.chapter.<id>.<chapterId>` via the same Persistence
+   * adapter — never fetched from a server, never in packages/content/packs. */
+  privateBooks: BookSummary[];
+  /** Persists a freshly-imported (or newly-narrated) book + its chapters
+   * and adds/updates it in the private index. Audio bytes are stored
+   * separately by the caller via import/privateAudio.{web,native}.ts —
+   * this only handles the Persistence-adapter (string) side. */
+  addPrivateBook(book: Book, chapters: Chapter[]): Promise<void>;
+  /** Deletes every `sotto.private.*` key for one book (book, all chapters,
+   * index entry). Does not touch audio — the caller deletes that first via
+   * import/privateAudio.{web,native}.ts's `deleteAudioAssets`, which needs
+   * the book's own chapter/audio file list before it's gone. */
+  removePrivateBook(bookId: string): Promise<void>;
 
   // ---- progress ----
   progress: Record<string, ReadingProgress>;
@@ -99,7 +119,12 @@ export interface SottoState {
   readingTokenIds: string[];
   explanation: { tokenId?: string; title: string; body: string; kind: string } | null;
   voiceError: { code?: string; message: string; recoverable: boolean } | null;
-  limitReason: 'max_duration' | 'idle' | null;
+  // 'cap' (R3-S): the cloud voice path's minute cap ran out mid-session
+  // (CLOUD-API.md `{t:'limit', reason:'cap'}`).
+  limitReason: 'max_duration' | 'idle' | 'cap' | null;
+  /** R3-S: cloud-path minutes-remaining, from `{t:'usage'}` messages. Null
+   * on every non-cloud path (nothing ever sets it). */
+  remainingSeconds: number | null;
   setSessionRecord(record: VoiceSessionRecord | null): void;
   patchSessionRecord(patch: Partial<VoiceSessionRecord>): void;
   setVoiceState(state: VoiceState): void;
@@ -109,6 +134,7 @@ export interface SottoState {
   setExplanation(payload: SottoState['explanation']): void;
   setVoiceError(err: SottoState['voiceError']): void;
   setLimitReason(reason: SottoState['limitReason']): void;
+  setRemainingSeconds(seconds: number | null): void;
   clearSessionEphemeral(): void;
 
   // ---- ui ----
@@ -168,7 +194,9 @@ export function createSottoStore(persistence: Persistence): {
     packsStatus: 'idle',
     books: {},
     chapters: {},
+    privateBooks: [],
     bookLocale: (bookId) =>
+      get().privateBooks.find((b) => b.bookId === bookId)?.contentLocale ??
       get().packs.find((p) => p.books.some((b) => b.bookId === bookId))?.locale,
     loadPacks: async () => {
       if (get().packsStatus === 'loading' || get().packsStatus === 'ready') return;
@@ -183,6 +211,13 @@ export function createSottoStore(persistence: Persistence): {
     loadBook: async (bookId) => {
       const existing = get().books[bookId];
       if (existing) return existing;
+      // Private books never live on a server — check on-device storage
+      // first (and only), by convention (bookId prefix from pipeline.ts).
+      if (bookId.startsWith('private-')) {
+        const stored = safeParse<Book>(await persistence.getItem(privateBookKey(bookId)));
+        if (stored) set((s) => ({ books: { ...s.books, [bookId]: stored } }));
+        return stored;
+      }
       const cacheKey = `sotto.content.book.${bookId}`;
       const cached = safeParse<Book>(await persistence.getItem(cacheKey));
       if (cached) {
@@ -207,6 +242,13 @@ export function createSottoStore(persistence: Persistence): {
       const cacheStateKey = `${bookId}:${chapterId}`;
       const existing = get().chapters[cacheStateKey];
       if (existing) return existing;
+      if (bookId.startsWith('private-')) {
+        const stored = safeParse<Chapter>(
+          await persistence.getItem(privateChapterKey(bookId, chapterId)),
+        );
+        if (stored) set((s) => ({ chapters: { ...s.chapters, [cacheStateKey]: stored } }));
+        return stored;
+      }
       const cacheKey = `sotto.content.chapter.${bookId}.${chapterId}`;
       const cached = safeParse<Chapter>(await persistence.getItem(cacheKey));
       if (cached) {
@@ -223,6 +265,56 @@ export function createSottoStore(persistence: Persistence): {
       } catch {
         return undefined;
       }
+    },
+
+    addPrivateBook: async (book, chapters) => {
+      const summary: BookSummary = {
+        bookId: book.bookId,
+        contentLocale: book.contentLocale,
+        edition: book.edition,
+        title: book.title,
+        author: book.author,
+        level: book.level,
+        categories: book.categories,
+        estimatedMinutes: book.estimatedMinutes,
+        localizedTitles: book.localizedTitles,
+        premise: book.premise,
+        reviewStatus: book.reviewStatus,
+        cover: book.cover,
+        chapterCount: book.chapters.length,
+        private: true,
+      };
+      await persistence.setItem(privateBookKey(book.bookId), JSON.stringify(book));
+      await Promise.all(
+        chapters.map((chapter) =>
+          persistence.setItem(privateChapterKey(book.bookId, chapter.id), JSON.stringify(chapter)),
+        ),
+      );
+      set((s) => ({
+        privateBooks: [...s.privateBooks.filter((b) => b.bookId !== summary.bookId), summary],
+        books: { ...s.books, [book.bookId]: book },
+        chapters: chapters.reduce(
+          (acc, chapter) => ({ ...acc, [`${book.bookId}:${chapter.id}`]: chapter }),
+          s.chapters,
+        ),
+      }));
+    },
+    removePrivateBook: async (bookId) => {
+      const bookRaw = await persistence.getItem(privateBookKey(bookId));
+      const book = safeParse<Book>(bookRaw);
+      await persistence.removeItem(privateBookKey(bookId));
+      if (book) {
+        await Promise.all(
+          book.chapters.map((c) => persistence.removeItem(privateChapterKey(bookId, c.id))),
+        );
+      }
+      set((s) => ({
+        privateBooks: s.privateBooks.filter((b) => b.bookId !== bookId),
+        books: Object.fromEntries(Object.entries(s.books).filter(([id]) => id !== bookId)),
+        chapters: Object.fromEntries(
+          Object.entries(s.chapters).filter(([key]) => !key.startsWith(`${bookId}:`)),
+        ),
+      }));
     },
 
     progress: {},
@@ -270,6 +362,7 @@ export function createSottoStore(persistence: Persistence): {
     explanation: null,
     voiceError: null,
     limitReason: null,
+    remainingSeconds: null,
     setSessionRecord: (record) => set({ sessionRecord: record }),
     patchSessionRecord: (patch) =>
       set((s) => ({
@@ -313,6 +406,7 @@ export function createSottoStore(persistence: Persistence): {
     setExplanation: (payload) => set({ explanation: payload }),
     setVoiceError: (err) => set({ voiceError: err }),
     setLimitReason: (reason) => set({ limitReason: reason }),
+    setRemainingSeconds: (seconds) => set({ remainingSeconds: seconds }),
     clearSessionEphemeral: () =>
       set({
         captions: [],
@@ -322,6 +416,7 @@ export function createSottoStore(persistence: Persistence): {
         explanation: null,
         voiceError: null,
         limitReason: null,
+        remainingSeconds: null,
       }),
 
     toasts: [],
@@ -346,6 +441,7 @@ export function createSottoStore(persistence: Persistence): {
         explanation: null,
         voiceError: null,
         limitReason: null,
+        remainingSeconds: null,
       }),
     replaceUserData: (data) =>
       set({
@@ -358,11 +454,12 @@ export function createSottoStore(persistence: Persistence): {
 
   // ---- persistence: hydrate once, then auto-persist slices on change ----
   async function hydrate(): Promise<void> {
-    const [prefsRaw, progressRaw, vocabRaw, sessionRaw] = await Promise.all([
+    const [prefsRaw, progressRaw, vocabRaw, sessionRaw, privateIndexRaw] = await Promise.all([
       persistence.getItem(KEYS.preferences),
       persistence.getItem(KEYS.progress),
       persistence.getItem(KEYS.vocabulary),
       persistence.getItem(KEYS.session),
+      persistence.getItem(KEYS.privateIndex),
     ]);
     const preferences = safeParse<UserPreferences>(prefsRaw);
     const progressData = safeParse<{ progress: ReadingProgress[]; completedBooks: string[] }>(
@@ -370,6 +467,7 @@ export function createSottoStore(persistence: Persistence): {
     );
     const savedWords = safeParse<SavedWord[]>(vocabRaw);
     const sessionRecord = safeParse<VoiceSessionRecord>(sessionRaw);
+    const privateBooks = safeParse<BookSummary[]>(privateIndexRaw);
 
     useStore.setState({
       preferences: preferences
@@ -381,6 +479,7 @@ export function createSottoStore(persistence: Persistence): {
       completedBooks: progressData?.completedBooks ?? [],
       savedWords: savedWords ?? [],
       sessionRecord: sessionRecord ?? null,
+      privateBooks: privateBooks ?? [],
     });
 
     let prev = useStore.getState();
@@ -406,6 +505,9 @@ export function createSottoStore(persistence: Persistence): {
         } else {
           void persistence.removeItem(KEYS.session);
         }
+      }
+      if (state.privateBooks !== prev.privateBooks) {
+        void persistence.setItem(KEYS.privateIndex, JSON.stringify(state.privateBooks));
       }
       prev = state;
     });

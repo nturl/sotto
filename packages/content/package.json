@@ -7,6 +7,10 @@
   "bin": {
     "sotto-content": "./src/cli.ts"
   },
+  "exports": {
+    "./import": "./src/import/index.ts",
+    "./import/parse": "./src/import/parse/index.ts"
+  },
   "scripts": {
     "typecheck": "tsc --noEmit",
     "import": "node src/cli.ts import",

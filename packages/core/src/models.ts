@@ -80,6 +80,27 @@ export interface Book {
   license: License;
   cover: string;
   chapters: ChapterSummary[];
+  /**
+   * Set by `sotto-content word-audio` (R3-W): a sprite of every unique
+   * word token synthesized alone with Kokoro, for the reader's speaker
+   * button to play a clean isolated pronunciation instead of a slice cut
+   * out of the chapter narration. Absent until that command has run for
+   * this book.
+   */
+  wordAudio?: {
+    file: 'audio/words.mp3' | 'audio/words.wav';
+    index: 'audio/words.json';
+    count: number;
+  };
+  /**
+   * R3-I importer: set on a book produced by `importBook` (packages/content/
+   * src/import/pipeline.ts) from a reader-supplied file. Private books live
+   * only in the client's on-device storage (never under packages/content/
+   * packs), are never shared or deduplicated across readers, and are
+   * deleted with the rest of the reader's data. Absent (not `false`) on
+   * every seeded/community book.
+   */
+  private?: boolean;
 }
 
 /** The condensed form of a Book listed in `pack.json`. */
@@ -97,6 +118,8 @@ export interface BookSummary {
   reviewStatus: ReviewStatus;
   cover: string;
   chapterCount: number;
+  /** See `Book.private`. */
+  private?: boolean;
 }
 
 /** `pack.json` */

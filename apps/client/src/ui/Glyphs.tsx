@@ -59,6 +59,15 @@ export function SearchGlyph(props: GlyphProps) {
   );
 }
 
+export function PlusGlyph(props: GlyphProps) {
+  return (
+    <GlyphShell strokeWidth={1.8} {...props}>
+      <Line x1={12} y1={5} x2={12} y2={19} />
+      <Line x1={5} y1={12} x2={19} y2={12} />
+    </GlyphShell>
+  );
+}
+
 export function ChevronRightGlyph(props: GlyphProps) {
   return (
     <GlyphShell strokeWidth={2} {...props}>

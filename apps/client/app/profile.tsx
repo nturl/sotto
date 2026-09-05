@@ -3,20 +3,24 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { useRouter, type Href } from 'expo-router';
 import { buildExport, parseImport, type TutorMode, type UserPreferences } from '@sotto/core';
 import { radius, space } from '@sotto/core/theme';
+import { useCloud } from '../src/cloud/provider';
+import { useMe } from '../src/cloud/useMe';
 import { exportJson, importJson } from '../src/platform/importExport';
 import { useT } from '../src/i18n/useT';
 import { BackLink } from '../src/ui/BackLink';
 import { Button } from '../src/ui/Button';
 import { resetAll, setPreference, usePreferences } from '../src/ui/data';
-import { ChevronRightGlyph } from '../src/ui/Glyphs';
+import { Group } from '../src/ui/GroupList';
+import { TrashGlyph } from '../src/ui/Glyphs';
 import { languageNameFor } from '../src/ui/languages';
-import { SectionEyebrow } from '../src/ui/SectionEyebrow';
+import { Sheet } from '../src/ui/Sheet';
 import { Shell } from '../src/ui/Shell';
 import { Text } from '../src/ui/Text';
 import { Toast } from '../src/ui/Toast';
 import { useTheme } from '../src/ui/theme';
 import { webCursor, withAlpha } from '../src/ui/tokens';
 import { useSottoStore } from '../src/state/store';
+import { deleteAudioAssets } from '../src/import/privateAudio';
 
 const NARRATION_SPEEDS: UserPreferences['narrationSpeed'][] = [0.75, 1, 1.25];
 const CORRECTION_FREQUENCIES: UserPreferences['correctionFrequency'][] = ['low', 'normal', 'high'];
@@ -28,62 +32,6 @@ function cycle<T>(values: readonly T[], current: T): T {
   return values[(idx + 1) % values.length]!;
 }
 
-type RowSpec = {
-  label: string;
-  value?: string;
-  destructive?: boolean;
-  onPress?: () => void;
-};
-
-function Row({ spec, last }: { spec: RowSpec; last: boolean }) {
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
-  const content = (
-    <>
-      <Text role="ui" size={15}>
-        {spec.label}
-      </Text>
-      <View style={styles.rowValue}>
-        {spec.value ? (
-          <Text role="caption" size={14} color={spec.destructive ? 'warn' : 'ink2'}>
-            {spec.value}
-          </Text>
-        ) : null}
-        {spec.onPress && !spec.destructive ? (
-          <ChevronRightGlyph size={12} color={colors.ink2} />
-        ) : null}
-      </View>
-    </>
-  );
-  const rowStyle = [styles.row, !last && styles.rowDivider];
-  if (!spec.onPress) return <View style={rowStyle}>{content}</View>;
-  return (
-    <Pressable
-      onPress={spec.onPress}
-      accessibilityRole="button"
-      accessibilityLabel={spec.label}
-      style={[rowStyle, webCursor]}
-    >
-      {content}
-    </Pressable>
-  );
-}
-
-function Group({ eyebrow, rows }: { eyebrow: string; rows: RowSpec[] }) {
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
-  return (
-    <View style={styles.group}>
-      <SectionEyebrow style={styles.eyebrow}>{eyebrow}</SectionEyebrow>
-      <View style={styles.groupCard}>
-        {rows.map((row, index) => (
-          <Row key={row.label} spec={row} last={index === rows.length - 1} />
-        ))}
-      </View>
-    </View>
-  );
-}
-
 export default function ProfileScreen() {
   const t = useT();
   const router = useRouter();
@@ -93,8 +41,31 @@ export default function ProfileScreen() {
   const [toast, setToast] = useState<string | null>(null);
   const [confirmReset, setConfirmReset] = useState(false);
 
+  // ACCOUNT.md §0: the account-status row only renders when a CloudAdapter
+  // is present — absent (not disabled, not hidden-but-present) in the
+  // OSS/NullCloud build.
+  const cloud = useCloud();
+  const me = useMe();
+  const privateBooks = useSottoStore((s) => s.privateBooks);
+  const [manageImportsOpen, setManageImportsOpen] = useState(false);
+
   const soon = () => setToast(t('settings.comingSoon'));
   const go = (href: Href) => () => router.push(href);
+
+  const deletePrivateBook = async (bookId: string) => {
+    const book = await useSottoStore.getState().loadBook(bookId);
+    const audioFiles = (book?.chapters ?? [])
+      .filter((c) => c.audio)
+      .map((c) => (c.audio as string).replace('audio/', ''));
+    if (audioFiles.length > 0) {
+      try {
+        await deleteAudioAssets(bookId, audioFiles);
+      } catch {
+        // Best-effort — the book/chapter records are removed regardless.
+      }
+    }
+    await useSottoStore.getState().removePrivateBook(bookId);
+  };
 
   const confirmResetNow = () => {
     setConfirmReset(false);
@@ -150,6 +121,26 @@ export default function ProfileScreen() {
       <BackLink />
 
       <View style={styles.groups}>
+        {cloud.enabled ? (
+          <Group
+            eyebrow={t('settings.group.account')}
+            rows={[
+              me.status === 'signed-in'
+                ? {
+                    label: me.me.user.email,
+                    value:
+                      me.me.entitlement.plan === 'free'
+                        ? undefined
+                        : t(`account.plan.${me.me.entitlement.plan}` as const),
+                    onPress: go('/account'),
+                  }
+                : { label: t('account.signIn'), onPress: go('/account') },
+              ...(me.status === 'signed-in'
+                ? [{ label: t('account.usageRow'), onPress: go('/usage') }]
+                : []),
+            ]}
+          />
+        ) : null}
         <Group
           eyebrow={t('settings.group.languages')}
           rows={[
@@ -233,11 +224,15 @@ export default function ProfileScreen() {
         <Group
           eyebrow={t('settings.group.data')}
           rows={[
+            {
+              label: t('import.profile.row'),
+              value: String(privateBooks.length),
+              onPress: () => setManageImportsOpen(true),
+            },
             { label: t('settings.export'), onPress: () => void exportNow() },
             { label: t('settings.import'), onPress: () => void importNow() },
             {
               label: t('settings.reset'),
-              value: t('settings.reset'),
               destructive: true,
               onPress: () => setConfirmReset(true),
             },
@@ -280,6 +275,43 @@ export default function ProfileScreen() {
         </View>
       ) : null}
 
+      <Sheet visible={manageImportsOpen}>
+        <View style={styles.importsSheet}>
+          <Text role="heading" size={18} style={styles.importsSheetTitle}>
+            {t('import.profile.row')}
+          </Text>
+          {privateBooks.length === 0 ? (
+            <Text role="caption" color="ink2">
+              {t('import.profile.empty')}
+            </Text>
+          ) : (
+            privateBooks.map((book) => (
+              <View key={book.bookId} style={styles.importRow}>
+                <Text role="ui" size={15} numberOfLines={1} style={styles.importRowTitle}>
+                  {book.title}
+                </Text>
+                <Pressable
+                  onPress={() => void deletePrivateBook(book.bookId)}
+                  accessibilityRole="button"
+                  accessibilityLabel={t('import.failure.chooseAnother')}
+                  style={webCursor}
+                >
+                  <TrashGlyph size={18} color={colors.ink2} />
+                </Pressable>
+              </View>
+            ))
+          )}
+          <Button
+            variant="secondary"
+            title={t('import.library.button')}
+            onPress={() => {
+              setManageImportsOpen(false);
+              router.push('/import');
+            }}
+          />
+        </View>
+      </Sheet>
+
       <Toast message={toast} onHide={() => setToast(null)} />
     </Shell>
   );
@@ -290,36 +322,6 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     groups: {
       marginTop: space.lg,
       gap: space.gutter.phone,
-    },
-    group: {
-      gap: 10,
-    },
-    eyebrow: {
-      marginLeft: space.xs,
-    },
-    groupCard: {
-      backgroundColor: colors.surface,
-      borderRadius: radius.md,
-      borderWidth: 1,
-      borderColor: colors.hairline,
-      overflow: 'hidden',
-    },
-    row: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      paddingVertical: 14,
-      paddingHorizontal: space.lg,
-      minHeight: space.tapTarget,
-    },
-    rowDivider: {
-      borderBottomWidth: 1,
-      borderBottomColor: colors.hairline,
-    },
-    rowValue: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: space.xs,
     },
     modalBackdrop: {
       ...StyleSheet.absoluteFill,
@@ -350,6 +352,25 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     },
     modalButton: {
       flex: 1,
+    },
+    importsSheet: {
+      gap: space.md,
+      paddingBottom: space.xl,
+    },
+    importsSheetTitle: {
+      marginBottom: space.xs,
+    },
+    importRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingVertical: space.sm,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.hairline,
+    },
+    importRowTitle: {
+      flex: 1,
+      marginRight: space.md,
     },
   });
 }

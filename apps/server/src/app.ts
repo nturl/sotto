@@ -12,6 +12,7 @@ import { activeVadBackend, createVad } from './voice/vad.js';
 import { clientMessageSchema, sessionOptionsSchema, type ServerMessage } from './voice/types.js';
 import { SessionRegistry } from './voice/registry.js';
 import { VoiceSession } from './voice/session.js';
+import { importRoutes } from './import/routes.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONTENT_PACKS_DIR = path.resolve(__dirname, '../../../packages/content/packs');
@@ -58,6 +59,7 @@ export async function buildApp(config: Config): Promise<FastifyInstance> {
     },
   });
   await app.register(fastifyWebsocket);
+  await app.register(importRoutes, config);
 
   // Serves /content/packs/:locale/* as static files from the matching pack
   // directory (e.g. /content/packs/fr-FR/books/x/cover.svg). The exact-path

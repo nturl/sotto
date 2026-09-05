@@ -187,3 +187,87 @@ describe('createSottoStore pushCaption', () => {
     ]);
   });
 });
+
+describe('private (imported) books', () => {
+  const PRIVATE_BOOK = {
+    schemaVersion: 1 as const,
+    bookId: 'private-abcdef01',
+    contentLocale: 'fr-FR',
+    title: 'Mon livre',
+    author: 'Anonymous',
+    sourceEdition: 'Imported from "mon-livre.txt"',
+    sourceUrl: '',
+    sourceJurisdiction: 'Unknown',
+    adaptationEditor: 'Imported by the reader (no editor)',
+    reviewStatus: 'draft' as const,
+    level: 'A1' as const,
+    categories: ['daily' as const],
+    estimatedMinutes: 3,
+    localizedTitles: {},
+    premise: {},
+    summary: {},
+    contentWarning: null,
+    tutorNotes: { pronunciation: '', grammar: '', culture: '', commonErrors: '' },
+    vocabulary: [],
+    comprehension: [],
+    license: { spdx: 'private', attribution: 'Uploaded by the reader for private use' },
+    cover: 'cover.svg',
+    chapters: [
+      {
+        id: 'private-abcdef01-01',
+        title: 'Chapitre 1',
+        order: 1,
+        file: 'chapters/01.json',
+        wordCount: 3,
+      },
+    ],
+    private: true,
+  };
+  const PRIVATE_CHAPTER = {
+    id: 'private-abcdef01-01',
+    bookId: 'private-abcdef01',
+    title: 'Chapitre 1',
+    order: 1,
+    blocks: [],
+  };
+
+  it('addPrivateBook adds it to the index and loadBook/loadChapter read it back without a server', async () => {
+    const persistence = createFakePersistence();
+    const { useStore, hydrate } = createSottoStore(persistence);
+    await hydrate();
+
+    await useStore.getState().addPrivateBook(PRIVATE_BOOK, [PRIVATE_CHAPTER]);
+
+    expect(useStore.getState().privateBooks.map((b) => b.bookId)).toEqual(['private-abcdef01']);
+    expect(useStore.getState().bookLocale('private-abcdef01')).toBe('fr-FR');
+
+    // Fresh store over the same persistence — simulates a reload.
+    const reopened = createSottoStore(persistence);
+    await reopened.hydrate();
+    expect(reopened.useStore.getState().privateBooks.map((b) => b.bookId)).toEqual([
+      'private-abcdef01',
+    ]);
+    const book = await reopened.useStore.getState().loadBook('private-abcdef01');
+    expect(book?.title).toBe('Mon livre');
+    const chapter = await reopened.useStore
+      .getState()
+      .loadChapter('private-abcdef01', 'private-abcdef01-01', 'chapters/01.json');
+    expect(chapter?.id).toBe('private-abcdef01-01');
+  });
+
+  it('removePrivateBook deletes the index entry, book, and every chapter key', async () => {
+    const persistence = createFakePersistence();
+    const { useStore, hydrate } = createSottoStore(persistence);
+    await hydrate();
+    await useStore.getState().addPrivateBook(PRIVATE_BOOK, [PRIVATE_CHAPTER]);
+
+    await useStore.getState().removePrivateBook('private-abcdef01');
+
+    expect(useStore.getState().privateBooks).toEqual([]);
+    expect(await persistence.getItem('sotto.private.book.private-abcdef01')).toBeNull();
+    expect(
+      await persistence.getItem('sotto.private.chapter.private-abcdef01.private-abcdef01-01'),
+    ).toBeNull();
+    expect(await useStore.getState().loadBook('private-abcdef01')).toBeUndefined();
+  });
+});

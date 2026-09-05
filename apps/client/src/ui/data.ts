@@ -53,6 +53,11 @@ export type LibraryBook = {
   progress: number;
   isNew: boolean;
   synopsis: string;
+  /** R3-I: set for a book imported by the reader (private:true, see
+   * @sotto/core's Book/BookSummary). Not yet consumed by BookTile — see
+   * the importer report for why the "Votre livre" caption (IMPORT.md §6)
+   * wasn't added in this lane. */
+  private?: boolean;
 };
 
 export type Library = {
@@ -61,6 +66,10 @@ export type Library = {
   continueReading: LibraryBook[];
   recommended: LibraryBook[];
   newReleases: LibraryBook[];
+  /** R3-I: private (imported) books for the current learning locale, most
+   * recently added first — a new rail on Home/Library, per
+   * planning/design/IMPORT.md. */
+  yourBooks: LibraryBook[];
   byId: (id: string) => LibraryBook | undefined;
   byCategory: (category: BookCategory) => LibraryBook[];
   byLevel: (level: BookLevel) => LibraryBook[];
@@ -130,10 +139,16 @@ export function toLibraryBook(
     minutes: summary.estimatedMinutes,
     categories: mapCategories(summary.categories),
     cover: hashCover(summary.bookId),
-    svgUrl: assetUrl(summary.contentLocale, summary.bookId, summary.cover || 'cover.svg'),
+    // Private (imported) books have no server-hosted cover asset — an
+    // empty svgUrl makes Cover.tsx fall back to its own flat illustration
+    // (picked deterministically from the bookId via `cover` above).
+    svgUrl: summary.private
+      ? ''
+      : assetUrl(summary.contentLocale, summary.bookId, summary.cover || 'cover.svg'),
     progress,
     isNew: progress === 0,
     synopsis,
+    private: summary.private,
   };
 }
 
@@ -144,6 +159,7 @@ export function useLibrary(): Library {
   const preferences = useSottoStore((s) => s.preferences);
   const progress = useSottoStore((s) => s.progress);
   const completedBooks = useSottoStore((s) => s.completedBooks);
+  const privateBooks = useSottoStore((s) => s.privateBooks);
 
   useEffect(() => {
     if (packsStatus === 'idle') void loadPacks();
@@ -152,21 +168,37 @@ export function useLibrary(): Library {
   return useMemo<Library>(() => {
     const pack = selectPackForLocale(packs, preferences.learningLocale);
     const summaries = pack?.books ?? [];
-    const allSummaries = packs.flatMap((p) => p.books);
+    const allSummaries = [...packs.flatMap((p) => p.books), ...privateBooks];
 
     const toView = (s: BookSummary) =>
       toLibraryBook(s, preferences, selectProgressPercent(progress, s.bookId));
 
-    const books = summaries.map(toView);
+    const seededBooks = summaries.map(toView);
     const continueReading = selectContinueBooks(summaries, progress, completedBooks).map(toView);
     const recommended = selectRecommendedBooks(summaries, progress, preferences.level).map(toView);
     const continueIds = new Set(continueReading.map((b) => b.id));
     const recommendedIds = new Set(recommended.map((b) => b.id));
-    const newReleases = books.filter((b) => !continueIds.has(b.id) && !recommendedIds.has(b.id));
+    const newReleases = seededBooks.filter(
+      (b) => !continueIds.has(b.id) && !recommendedIds.has(b.id),
+    );
+
+    // R3-I: private books scoped to the current learning locale, most
+    // recently added first — `privateBooks` is stored append-order, so
+    // reversing gives newest-first without needing a savedAt field.
+    const yourBooks = privateBooks
+      .filter((b) => b.contentLocale === preferences.learningLocale)
+      .slice()
+      .reverse()
+      .map(toView);
+
+    // The flat `books` list feeds search/byId/etc across the whole learning
+    // locale, seeded content plus private imports (LEDGER: "includes
+    // private books in books").
+    const books = [...seededBooks, ...yourBooks];
 
     const daily =
-      books.length > 0
-        ? books[dayOfYear(new Date()) % books.length]!
+      seededBooks.length > 0
+        ? seededBooks[dayOfYear(new Date()) % seededBooks.length]!
         : ({
             id: '',
             contentLocale: '',
@@ -184,12 +216,17 @@ export function useLibrary(): Library {
             synopsis: '',
           } satisfies LibraryBook);
 
+    const privateSummariesForLocale = privateBooks.filter(
+      (b) => b.contentLocale === preferences.learningLocale,
+    );
+
     return {
       books,
       daily,
       continueReading,
       recommended,
       newReleases,
+      yourBooks,
       byId: (id) => {
         const summary = allSummaries.find((b) => b.bookId === id);
         return summary ? toView(summary) : undefined;
@@ -197,9 +234,12 @@ export function useLibrary(): Library {
       byCategory: (category) =>
         filterByCategory(summaries, mapFixtureCategoryToCore(category)).map(toView),
       byLevel: (level) => filterByLevel(summaries, level).map(toView),
-      search: (query) => searchBooks(summaries, query).map(toView),
+      search: (query) =>
+        [...searchBooks(summaries, query), ...searchBooks(privateSummariesForLocale, query)].map(
+          toView,
+        ),
     };
-  }, [packs, preferences, progress, completedBooks]);
+  }, [packs, preferences, progress, completedBooks, privateBooks]);
 }
 
 /** Inverse of `mapCategories`: the library screen's chips only offer

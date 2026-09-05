@@ -1,0 +1,101 @@
+R4-A README walk — 2026-09-05
+
+Lane: R4-A (README + domain). Proof requirement: a fresh clone of the
+public repo, followed literally by a Sonnet subagent with no other repo
+context, reaches a readable book via the local `pnpm dev` path (not the
+hosted site) in under 30 minutes.
+
+## Walk 1 (before fix)
+
+- Clone: `git clone https://github.com/nturl/sotto.git` into
+  scratchpad/readme-walk at commit 256d2b0 (README rewrite already
+  pushed).
+- Dispatch (Sonnet subagent, general-purpose, given only the cloned
+  README.md as instructions): started 16:25:51 EDT, reached readable
+  book text on screen 16:28:26 EDT, screenshot saved 16:28:42 EDT.
+- Elapsed: ~2.5 minutes. PASS, well under 30 minutes.
+- Commands run: `node -v`, `pnpm -v`, `pnpm install`, `pnpm dev`
+  (backgrounded), then Browser-pane navigation through onboarding into a
+  French graded reader ("Une vie difficile"), narration + tap-to-translate
+  visible.
+- Guesses / gaps found:
+  1. **Local URL/port not stated in the README.** The walker had to read
+     `pnpm dev`'s own console output to discover the web client at
+     `http://localhost:8081` and the server at `http://localhost:8790` —
+     neither is printed in the doc. FIXED: added an explicit line to the
+     Quickstart section naming both URLs (commit 01c74c7).
+  2. Onboarding is a single combined card ("pick a language, start
+     reading") rather than three literal separate taps as the README's
+     "Read a book in 30 seconds" describes; this was discoverable by
+     clicking and did not block the walk, so no README change was made
+     for it — it is a close paraphrase, not a wrong instruction.
+- Safety note (not a README defect): the subagent's own screenshot
+  attempt made a wrong call and used macOS `screencapture`, which — since
+  the Browser pane renders in a separate context, not a real on-screen
+  window — instead captured Noel's actual Dia browser tab, which happened
+  to be showing a Stripe dashboard. The subagent recognized this was the
+  wrong target, deleted the file immediately, and used the repo's own
+  Playwright dependency to take the intended screenshot instead. No copy
+  of that file was found afterward (checked `/private/tmp` for stray
+  Stripe-named files; none from this walk). The second walk's dispatch
+  prompt explicitly forbade `screencapture`/real-desktop capture tools to
+  prevent a repeat.
+
+## Fix applied between walks
+
+Commit 01c74c7: README Quickstart now states `pnpm dev` prints
+`http://localhost:8081` (web) and `http://localhost:8790` (server), and
+tells the reader to open the web URL.
+
+## Walk 2 (after fix, confirmation)
+
+- Fresh clone into scratchpad/readme-walk-2 at commit 01c74c7.
+- Dispatch (fresh Sonnet subagent, no memory of walk 1): started
+  16:30:01 EDT, reached readable book text on screen 16:31:02 EDT.
+- Elapsed: ~1 minute. PASS.
+- One incidental issue: the first walk's backgrounded `pnpm dev` was
+  still running on 8081/8790 from this same Mac, so the second walker's
+  own `pnpm dev` hit `EADDRINUSE`; it investigated with `lsof`/`curl`,
+  found the ports already serving, and reused them rather than treating
+  it as a README defect. This is an artifact of running two walks
+  back-to-back on one machine, not something a real first-time clone
+  would hit, so no README change was made for it. (Leftover dev
+  processes killed after the walk; ports 8081/8790 confirmed clear.)
+- No new guesses attributable to the README text itself. Interface
+  language defaulting to the browser's locale (Romanian, independent of
+  the Spanish book content) was noted as a minor UX surprise, not a
+  README gap — the README makes no claim about interface-language
+  behavior.
+
+## Result
+
+Both walks reached a readable book well under the 30-minute cap (2.5 min,
+then 1 min after the fix). One README gap (undocumented local ports) found
+and fixed; commit 01c74c7. `pnpm prettier --check README.md` is clean.
+
+## `sotto-steel.vercel.app` occurrences remaining outside this lane's paths
+
+Not touched — out of scope (see LEDGER "R4-A" card: docs/*.md other than
+an index page, and packages/**, apps/**, planning/** belong to other
+sessions or are historical records):
+
+- `planning/BROWSER-TUTOR.md:9`
+- `planning/STRATEGY.md:110`
+- `planning/KICKOFF-3.md:1`
+- `planning/ADVERSARIAL-REVIEW-2.md:173`
+- `planning/KICKOFF-2.md:1`
+- `planning/OVERNIGHT-2.md:8,151`
+- `planning/ADVERSARIAL-REVIEW-3.md:168`
+- `planning/LEDGER.md:135,241,242,244,253,384,404,421,441,444` (run
+  history; the R4-A card itself at :444 quotes the old domain as context)
+- `docs/evidence/f2-voice-language-2026-09-05.md:7,19,26`
+- `apps/client/src/state/contentApi.test.ts:101,102,106,112,113,117`
+  (test fixture hostname, not a live link)
+- `apps/client/src/import/canImportLocally.ts:4` (a comment example)
+- `apps/client/src/import/canImportLocally.test.ts:12,34` (test fixture)
+
+No `docs/README.md` or `docs/index.md` exists in this repo, so there was
+no docs index page to update. `apps/client/app.config.ts`'s `web` block
+carries no `name`/`description`/`url` field to update (the top-level
+`name: 'Sotto'` is already correct); left unchanged per the task's scope
+("manifest/web fields only").

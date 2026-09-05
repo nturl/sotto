@@ -1,0 +1,55 @@
+{
+  "id": "fx-book-01",
+  "bookId": "fx-book",
+  "title": "Chapitre 1",
+  "order": 1,
+  "blocks": [
+    {
+      "id": "b1",
+      "sentences": [
+        {
+          "id": "b1.s1",
+          "text": "Le chat.",
+          "translations": {
+            "en": "The cat.",
+            "fr": "Le chat.",
+            "es": "El gato."
+          },
+          "tokens": [
+            {
+              "id": "b1.s1.t1",
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the",
+                "fr": "le",
+                "es": "el"
+              }
+            },
+            {
+              "id": "b1.s1.t2",
+              "text": "chat",
+              "normalized": "chat",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cat",
+                "fr": "gato",
+                "es": "gato"
+              }
+            },
+            {
+              "id": "b1.s1.t3",
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

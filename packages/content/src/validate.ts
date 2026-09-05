@@ -45,10 +45,106 @@ function readJson<T>(filePath: string): T | undefined {
   }
 }
 
+/**
+ * F2.3: a book's own content language is also one of the 9 gloss/explanation
+ * locales (GLOSS_LOCALES) — a Spanish book's "es" gloss is shown to a Spanish
+ * learner and should just be the word itself. That invariant is enforced by
+ * code (a no-LLM identity map, docs/content-qa.md) for pt-BR/it-IT/ro-RO/
+ * ca-ES/zh-CN, and holds there with 0 exceptions (✓ verified: 442/442,
+ * 1021/1021, 307/307, 424/424 tokens) — but fr-FR/es-419/en-US/zh-TW own-
+ * language glosses are genuine LLM output and legitimately sometimes clarify
+ * rather than repeat the word (contractions "l'" -> "la / le", function-word
+ * distinctions "e" -> "y", synonyms "moraleja" -> "enseñanza"; ✓ verified
+ * against the built packs, dozens of pre-existing, unrelated instances).
+ * A blanket identity-or-error rule would flag all of those as errors and
+ * break `content:validate` for every book in the corpus, not just the one
+ * this task fixed.
+ *
+ * So this reports an ERROR only when the mismatch is corroborated by the
+ * same signature as the actual `es-licenciado-vidriera` bug (`niño`/`a`
+ * carrying their French gloss verbatim into the `es` field): the own-locale
+ * gloss is byte-identical to a *different* locale's gloss for the same
+ * token — unambiguous copy/paste, not a plausible paraphrase. An
+ * uncorroborated non-identity own-locale gloss is still surfaced, but only
+ * as a warning, since it may be exactly this kind of legitimate LLM
+ * clarification.
+ */
+function glossIdentityIssue(
+  scopePrefix: string,
+  token: Token,
+  ownGlossLocale: string | undefined,
+): ValidationIssue | undefined {
+  if (!ownGlossLocale || !token.glosses) return undefined;
+  const ownGloss = token.glosses[ownGlossLocale];
+  // Case-insensitive: `token.normalized` is always lowercased (tokenize.ts),
+  // but a proper noun's identity gloss legitimately keeps its original case
+  // ("Tomás" glossing normalized "tomás").
+  // Elided forms ("l'", "c'", "s'", "d'", "t'", "n'", ...) are legitimately
+  // glossed as their expansion ("le/la", "ce", "se", "de", "te", "ne"), and
+  // that expansion is a real, short function word that can coincide byte-
+  // for-byte with a cognate in another Latin gloss locale (fr "se" / es
+  // "se") — a coincidence, not a leak. Skip identity checking for them.
+  if (/['’]$/.test(token.normalized)) return undefined;
+  if (ownGloss === undefined || ownGloss.toLowerCase() === token.normalized) return undefined;
+  const leakedFromLocale = GLOSS_LOCALES.find(
+    (locale) => locale !== ownGlossLocale && token.glosses?.[locale] === ownGloss,
+  );
+  const message = leakedFromLocale
+    ? `word token "${token.id}" ("${token.text}") has a non-identity "${ownGlossLocale}" gloss ` +
+      `("${ownGloss}") byte-identical to its "${leakedFromLocale}" gloss — the book's content ` +
+      `language is "${ownGlossLocale}", so this looks like a copy/paste leak, not a real gloss ` +
+      `(should be the token's own form, "${token.normalized}")`
+    : `word token "${token.id}" ("${token.text}") has a non-identity "${ownGlossLocale}" gloss ` +
+      `("${ownGloss}") — the book's content language is "${ownGlossLocale}", so this is normally ` +
+      `the token's own form ("${token.normalized}"); flagging in case this is unintentional`;
+  return issue(scopePrefix, 'gloss-not-identity', message, leakedFromLocale ? 'error' : 'warning');
+}
+
+/**
+ * F2.3 heuristic: a gloss copy/paste across locales (the same bug in a more
+ * general form — any two gloss locales carrying the exact same string while
+ * the surface word differs from both) is suspicious even when neither locale
+ * is the book's own. This over-fires on genuine cognates (`animal`, `jaguar`,
+ * Catalan `ball`, ...), so it's a warning, never an error.
+ */
+function glossCrossLocaleLeakIssues(scopePrefix: string, token: Token): ValidationIssue[] {
+  if (!token.glosses) return [];
+  const issues: ValidationIssue[] = [];
+  const locales = GLOSS_LOCALES;
+  for (let i = 0; i < locales.length; i++) {
+    for (let j = i + 1; j < locales.length; j++) {
+      const localeA = locales[i];
+      const localeB = locales[j];
+      if (!localeA || !localeB) continue;
+      const glossA = token.glosses[localeA];
+      const glossB = token.glosses[localeB];
+      if (
+        glossA !== undefined &&
+        glossB !== undefined &&
+        glossA === glossB &&
+        glossA !== token.normalized
+      ) {
+        issues.push(
+          issue(
+            scopePrefix,
+            'gloss-cross-locale-leak',
+            `word token "${token.id}" ("${token.text}") has identical "${localeA}" and "${localeB}" ` +
+              `glosses ("${glossA}") that both differ from the token's own form ("${token.normalized}") — ` +
+              'possible copy/paste from one locale into the other',
+            'warning',
+          ),
+        );
+      }
+    }
+  }
+  return issues;
+}
+
 function validateChapter(
   scopePrefix: string,
   chapter: Chapter,
   needsPinyin: boolean,
+  ownGlossLocale: string | undefined,
 ): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
   const seenIds = new Set<string>();
@@ -114,6 +210,10 @@ function validateChapter(
               `word token "${token.id}" ("${token.text}") has no glosses`,
             ),
           );
+        } else if (token.isWord && token.glosses) {
+          const identityIssue = glossIdentityIssue(scopePrefix, token, ownGlossLocale);
+          if (identityIssue) issues.push(identityIssue);
+          issues.push(...glossCrossLocaleLeakIssues(scopePrefix, token));
         }
         if (needsPinyin && token.isWord && !token.pinyin) {
           issues.push(
@@ -268,7 +368,14 @@ function validateBook(localeDir: string, bookId: string): ValidationIssue[] {
       issues.push(issue(scope, 'missing-asset', `${chapterSummary.file} is not valid JSON`));
       continue;
     }
-    issues.push(...validateChapter(`${scope}/${chapterSummary.file}`, chapter, needsPinyin));
+    issues.push(
+      ...validateChapter(
+        `${scope}/${chapterSummary.file}`,
+        chapter,
+        needsPinyin,
+        language?.catalog,
+      ),
+    );
 
     if (chapter.bookId !== book.bookId) {
       issues.push(

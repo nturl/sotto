@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Redirect, useRouter } from 'expo-router';
 import { getLanguage } from '@sotto/core';
@@ -112,6 +112,16 @@ export default function OnboardingLanguagesScreen() {
   const hasNarrationVoice = getLanguage(activeLocale).ttsVoice !== null;
   const sample = useVoiceSample(activeLocale);
 
+  // A4 fix: the picked interface language used to only take effect once the
+  // wizard finished (setUiCatalog was called in `advance()` on the last
+  // step), so the "Explain in" and "I'm learning" steps still rendered in
+  // whatever catalog was active before onboarding started. Sync it on every
+  // change instead, so each step re-renders in the picked language
+  // immediately (before paint, to avoid a flash of the old language).
+  useLayoutEffect(() => {
+    setUiCatalog(appLanguage);
+  }, [appLanguage]);
+
   // Same gate as app/index.tsx: an already-onboarded user (deep link, back
   // navigation) skips straight to home instead of redoing setup.
   if (preferences.onboarded) return <Redirect href="/(tabs)/home" />;
@@ -124,7 +134,6 @@ export default function OnboardingLanguagesScreen() {
     setPreference('interfaceLocale', appLanguage);
     setPreference('explanationLocale', explanation);
     setPreference('learningLocale', learning === 'zh' ? script : learning);
-    setUiCatalog(appLanguage);
     router.push('/onboarding/level');
   };
 

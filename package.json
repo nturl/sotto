@@ -22,8 +22,12 @@
     "content:validate": "pnpm --filter @sotto/content validate",
     "content:narrate": "pnpm --filter @sotto/content narrate",
     "content:covers": "pnpm --filter @sotto/content covers",
+    "content:align": "pnpm --filter @sotto/content align",
+    "content:translate-sentences": "pnpm --filter @sotto/content translate-sentences",
     "e2e:screenshots": "node apps/client/e2e/screenshots.mjs",
-    "e2e:voice": "node apps/client/e2e/voice-live.mjs"
+    "e2e:voice": "node apps/client/e2e/voice-live.mjs",
+    "e2e:hosted": "node apps/client/e2e/hosted.mjs",
+    "deploy:web": "pnpm --filter @sotto/client deploy:web"
   },
   "devDependencies": {
     "@eslint/js": "^9.38.0",

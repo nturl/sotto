@@ -1,0 +1,32 @@
+[hosted-smoke 2026-09-05T03:03:06.232Z] BASE_URL=http://localhost:8090
+[hosted-smoke 2026-09-05T03:03:06.234Z] --- width 375 ---
+[hosted-smoke 2026-09-05T03:03:06.804Z] 375: cold visit loaded
+[hosted-smoke 2026-09-05T03:03:06.831Z] 375: manifest link present
+[hosted-smoke 2026-09-05T03:03:07.059Z] 375: tap 1 — clicked "Start reading in French"
+[hosted-smoke 2026-09-05T03:03:07.060Z] 375: reader visible at http://localhost:8090/reader/fr-chat-botte
+[hosted-smoke 2026-09-05T03:03:07.265Z] 375: tap 2 — clicked play
+[hosted-smoke 2026-09-05T03:03:08.284Z] 375: narration playing within 10s
+[hosted-smoke 2026-09-05T03:03:08.400Z] 375: tapped "Dans", translation panel shown
+[hosted-smoke 2026-09-05T03:03:09.021Z] 375: saved "Dans" to vocabulary
+[hosted-smoke 2026-09-05T03:03:09.596Z] 375: saved word survived reload
+[hosted-smoke 2026-09-05T03:03:09.598Z] 375: service worker registered
+[hosted-smoke 2026-09-05T03:03:11.113Z] 375: shell cache (sotto-shell-1788577358247.5178) has index.html
+[hosted-smoke 2026-09-05T03:03:11.114Z] 375: skipping content-cache assertion — BASE_URL's hostname is a local-dev loopback name, so contentApi.ts resolves packs cross-origin (see file header note)
+[hosted-smoke 2026-09-05T03:03:11.157Z] 375: WARN — real offline navigation hit the known Playwright/Chromium CDP limitation (network emulation preempts the Service Worker fetch handler for navigations); relying on the cache-inspection checks above instead.
+[hosted-smoke 2026-09-05T03:03:41.244Z] --- width 375 done ---
+[hosted-smoke 2026-09-05T03:03:41.244Z] --- width 1440 ---
+[hosted-smoke 2026-09-05T03:03:41.675Z] 1440: cold visit loaded
+[hosted-smoke 2026-09-05T03:03:41.700Z] 1440: manifest link present
+[hosted-smoke 2026-09-05T03:03:41.895Z] 1440: tap 1 — clicked "Start reading in French"
+[hosted-smoke 2026-09-05T03:03:41.899Z] 1440: reader visible at http://localhost:8090/reader/fr-chat-botte
+[hosted-smoke 2026-09-05T03:03:42.089Z] 1440: tap 2 — clicked play
+[hosted-smoke 2026-09-05T03:03:43.367Z] 1440: narration playing within 10s
+[hosted-smoke 2026-09-05T03:03:43.432Z] 1440: tapped "Dans", translation panel shown
+[hosted-smoke 2026-09-05T03:03:43.805Z] 1440: saved "Dans" to vocabulary
+[hosted-smoke 2026-09-05T03:03:44.366Z] 1440: saved word survived reload
+[hosted-smoke 2026-09-05T03:03:44.368Z] 1440: service worker registered
+[hosted-smoke 2026-09-05T03:03:45.871Z] 1440: shell cache (sotto-shell-1788577358247.5178) has index.html
+[hosted-smoke 2026-09-05T03:03:45.872Z] 1440: skipping content-cache assertion — BASE_URL's hostname is a local-dev loopback name, so contentApi.ts resolves packs cross-origin (see file header note)
+[hosted-smoke 2026-09-05T03:03:45.880Z] 1440: WARN — real offline navigation hit the known Playwright/Chromium CDP limitation (network emulation preempts the Service Worker fetch handler for navigations); relying on the cache-inspection checks above instead.
+[hosted-smoke 2026-09-05T03:04:15.978Z] --- width 1440 done ---
+[hosted-smoke 2026-09-05T03:04:15.979Z] RESULT: PASS

@@ -12,6 +12,7 @@ import { useMe } from '../../src/cloud/useMe';
 import type { Entitlement } from '../../src/cloud/types';
 import { useT } from '../../src/i18n/useT';
 import { BackLink } from '../../src/ui/BackLink';
+import { Button } from '../../src/ui/Button';
 import { Card } from '../../src/ui/Card';
 import { formatDate } from '../../src/ui/formatDate';
 import { Shell, useLayoutMetrics } from '../../src/ui/Shell';
@@ -86,10 +87,49 @@ export default function UsageScreen() {
   const me = useMe();
   const { isDesktop } = useLayoutMetrics();
 
-  if (!cloud.enabled || me.status !== 'signed-in') {
+  // No CloudAdapter at all: this screen has no live entry point in that
+  // build (ACCOUNT.md/PAYWALL.md §4/§6), but show the same short
+  // "not available" line the paywall shows rather than an empty canvas, in
+  // case it's ever reached directly (a stale link, a deep link, etc.).
+  if (!cloud.enabled || me.status === 'no-cloud') {
     return (
       <Shell>
         <BackLink />
+        <Text role="ui" size={15} color="ink2" style={styles.notAvailable}>
+          {t('paywall.notAvailable')}
+        </Text>
+      </Shell>
+    );
+  }
+
+  // Still resolving `cloud.me()` — a brief BackLink-only canvas here is
+  // fine (it resolves in one round trip and every screen this app has
+  // already does the same during its own initial data fetch); the bug this
+  // fixes is the *signed-out* case never leaving this shape at all.
+  if (me.status === 'loading') {
+    return (
+      <Shell>
+        <BackLink />
+      </Shell>
+    );
+  }
+
+  // Signed out: Usage has no stats to show yet — a dedicated state per
+  // ACCOUNT.md's pattern (title + one caption + a primary CTA to Account),
+  // not the blank canvas this used to fall through to.
+  if (me.status === 'signed-out') {
+    return (
+      <Shell>
+        <BackLink />
+        <View style={[styles.measure, isDesktop && styles.measureDesktop]}>
+          <Text role="display" size={28} style={styles.title}>
+            {t('usage.title')}
+          </Text>
+          <Text role="ui" size={16} color="ink2" style={styles.signedOutCaption}>
+            {t('usage.signedOut.caption')}
+          </Text>
+          <Button title={t('account.signIn')} onPress={() => router.push('/account')} />
+        </View>
       </Shell>
     );
   }
@@ -152,6 +192,12 @@ export default function UsageScreen() {
 }
 
 const styles = StyleSheet.create({
+  notAvailable: {
+    marginTop: space.xl,
+  },
+  signedOutCaption: {
+    marginBottom: space.xl,
+  },
   measure: {
     marginTop: space.lg,
   },

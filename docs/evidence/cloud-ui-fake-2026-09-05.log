@@ -21,3 +21,43 @@
 [t+33.0s] screenshot 1440-usage.png
 [t+33.0s] [PASS] No uncaught page errors / console errors during the run
 [t+64.6s] ALL PASS
+
+---
+Re-run 2026-09-05 (coordinator fix request: /usage signed-out state)
+
+[t+0.9s] opening http://localhost:8097/(tabs)/home
+[t+2.9s] [PASS] Profile shows the Compte group (fake cloud enabled)
+[t+3.2s] [PASS] Navigated to /account (signed out)
+[t+3.4s] screenshot 375-account.png
+[t+3.6s] screenshot 1440-account.png
+[t+4.5s] [PASS] Usage (signed out) shows the title, the signed-out caption, and no stats — 
+    
+    
+      You need to enable JavaScript to run this app.
+    
+    
+    RetourUtilisationConnectez-vous pour voir votre utilisation.Se connecter
+  
+
+
+[t+4.5s] [PASS] Usage (signed out) shows the "Se connecter" CTA
+[t+4.7s] screenshot 375-usage-signed-out.png
+[t+4.9s] screenshot 1440-usage-signed-out.png
+[t+5.3s] [PASS] Home shows the quiet nag row ("Voir")
+[t+5.9s] [PASS] Paywall title renders
+[t+6.0s] screenshot 375-paywall.png
+[t+6.2s] screenshot 1440-paywall.png
+[t+6.3s] [PASS] "Subscribe (test)" action is visible in fake mode
+[t+7.6s] [PASS] Profile's Compte row now shows the signed-in email
+[t+8.2s] [PASS] Usage shows "0 / 200" tutor minutes after stubSubscribe(standard) — 
+    
+    
+      You need to enable JavaScript to run this app.
+    
+    
+    Pour toiHistoire du jourTrois fables de La Fontaine10 min · A110:21:30La voix OpenAI et l'import sur iPhone sont disponibles avec un forfait.VoirRecommandéCendrillonC. PerraultLe Chat bottéC. PerraultTrois fables de La Fon
+[t+8.2s] [PASS] Usage shows the Standard plan's "0 / 5" imports
+[t+8.3s] screenshot 375-usage.png
+[t+8.5s] screenshot 1440-usage.png
+[t+8.5s] [PASS] No uncaught page errors / console errors during the run
+[t+38.6s] ALL PASS

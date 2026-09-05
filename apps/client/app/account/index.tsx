@@ -125,10 +125,17 @@ export default function AccountScreen() {
     }
   };
 
+  // Same treatment as the paywall/usage screens: no CloudAdapter means no
+  // live entry point to this screen at all (ACCOUNT.md §0/PAYWALL.md §4),
+  // but show the short "not available" line rather than an empty canvas in
+  // case it's ever reached directly.
   if (!cloud.enabled || me.status === 'no-cloud') {
     return (
       <Shell>
         <BackLink />
+        <Text role="ui" size={15} color="ink2" style={styles.notAvailable}>
+          {t('paywall.notAvailable')}
+        </Text>
       </Shell>
     );
   }
@@ -323,6 +330,9 @@ export default function AccountScreen() {
 
 function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
   return StyleSheet.create({
+    notAvailable: {
+      marginTop: space.xl,
+    },
     title: {
       marginTop: space.lg,
     },

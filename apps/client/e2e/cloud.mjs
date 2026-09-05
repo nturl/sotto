@@ -121,6 +121,34 @@ async function main() {
   await shoot(page, 1440, 'account');
   await page.setViewportSize({ width: 375, height: 852 });
 
+  // ---- Usage, reached directly while signed out (coordinator fix
+  //      request 2026-09-05): a fresh tab so this doesn't disturb the main
+  //      flow's click-based back-navigation, which relies on real browser
+  //      history from this point on. Must show a dedicated signed-out
+  //      state (title + caption + "Se connecter" CTA), not a blank canvas. ----
+  const signedOutUsagePage = await context.newPage();
+  await signedOutUsagePage.goto(`${BASE_URL}/usage`, { waitUntil: 'domcontentloaded' });
+  await signedOutUsagePage.waitForTimeout(500);
+  const usageSignedOutBody = (await signedOutUsagePage.textContent('body')) ?? '';
+  record(
+    'Usage (signed out) shows the title, the signed-out caption, and no stats',
+    usageSignedOutBody.includes('Utilisation') &&
+      usageSignedOutBody.includes('Connectez-vous pour voir votre utilisation.') &&
+      !usageSignedOutBody.includes('Minutes de tuteur'),
+    usageSignedOutBody.slice(0, 300),
+  );
+  const signInCta = signedOutUsagePage.getByRole('button', { name: 'Se connecter', exact: true });
+  record('Usage (signed out) shows the "Se connecter" CTA', await signInCta.isVisible());
+  await signedOutUsagePage.setViewportSize({ width: 375, height: 852 });
+  await signedOutUsagePage.waitForTimeout(150);
+  await signedOutUsagePage.screenshot({ path: path.join(SCREENSHOT_DIR, '375-usage-signed-out.png') });
+  log('screenshot 375-usage-signed-out.png');
+  await signedOutUsagePage.setViewportSize({ width: 1440, height: 900 });
+  await signedOutUsagePage.waitForTimeout(150);
+  await signedOutUsagePage.screenshot({ path: path.join(SCREENSHOT_DIR, '1440-usage-signed-out.png') });
+  log('screenshot 1440-usage-signed-out.png');
+  await signedOutUsagePage.close();
+
   // ---- Back to Profile, back to Home ----
   await page.getByRole('button', { name: 'Retour', exact: true }).click();
   await page.waitForURL(/\/profile/);

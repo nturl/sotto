@@ -227,3 +227,28 @@ describe('GET /import/:jobId/result', () => {
     expect(res.headers['content-type']).toBe('audio/mpeg');
   });
 });
+
+describe('GET /import/:jobId/events', () => {
+  it('echoes an allowed Origin back on the raw SSE response (EventSource needs this — see routes.ts)', async () => {
+    app = await buildApp(testConfig());
+    const { body: payload, headers } = buildMultipart(
+      { locale: 'fr-FR', narrate: 'none' },
+      {
+        fieldname: 'file',
+        filename: 'test.txt',
+        contentType: 'text/plain',
+        content: Buffer.from('Bonjour le monde.'),
+      },
+    );
+    const created = await app.inject({ method: 'POST', url: '/import', payload, headers });
+    const { jobId } = created.json();
+
+    const res = await app.inject({
+      method: 'GET',
+      url: `/import/${jobId}/events`,
+      headers: { origin: 'http://localhost:8081' },
+    });
+    expect(res.headers['access-control-allow-origin']).toBe('http://localhost:8081');
+    expect(res.headers['content-type']).toBe('text/event-stream');
+  });
+});

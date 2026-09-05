@@ -9,10 +9,17 @@ import multipart from '@fastify/multipart';
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import type { Config } from '../config.js';
+import { isOriginAllowed, parseAllowedOrigins } from '../security.js';
 import { ImportError, narrateChapter, type NarrationMode } from '@sotto/content/import';
 import { ImportJobRegistry } from './jobs.js';
 
 const MAX_UPLOAD_BYTES = 25 * 1024 * 1024;
+
+// Mirrors app.ts's DEFAULT_CORS_ORIGINS (not exported from there) — this
+// route writes straight to the raw response for its SSE stream, which
+// skips @fastify/cors's normal onSend-hook header injection, so it needs
+// its own Access-Control-Allow-Origin check.
+const DEFAULT_CORS_ORIGINS = 'http://localhost:8081,http://127.0.0.1:8081,http://localhost:8082';
 
 const importFieldsSchema = z.object({
   locale: z.string().min(2),
@@ -35,6 +42,7 @@ export async function importRoutes(app: FastifyInstance, config: Config): Promis
   };
   const tts = { baseUrl: config.SOTTO_TTS_URL, apiKey: config.SOTTO_API_KEY };
   const stt = { baseUrl: config.SOTTO_STT_URL, apiKey: config.SOTTO_API_KEY };
+  const allowedOrigins = parseAllowedOrigins(config.SOTTO_CORS_ORIGINS, DEFAULT_CORS_ORIGINS);
 
   app.post('/import', async (request, reply) => {
     if (registry.isBusy()) {
@@ -104,11 +112,20 @@ export async function importRoutes(app: FastifyInstance, config: Config): Promis
       return;
     }
 
-    reply.raw.writeHead(200, {
+    const origin = request.headers.origin;
+    const headers: Record<string, string> = {
       'content-type': 'text/event-stream',
       'cache-control': 'no-cache',
       connection: 'keep-alive',
-    });
+    };
+    // EventSource issues a plain cross-origin GET (no preflight) — the
+    // browser still requires Access-Control-Allow-Origin on the response,
+    // which @fastify/cors' onSend hook never runs for a raw-written
+    // response like this SSE stream, so it's set by hand here.
+    if (isOriginAllowed(origin, allowedOrigins) && origin) {
+      headers['access-control-allow-origin'] = origin;
+    }
+    reply.raw.writeHead(200, headers);
 
     const send = (payload: unknown): void => {
       reply.raw.write(`data: ${JSON.stringify(payload)}\n\n`);

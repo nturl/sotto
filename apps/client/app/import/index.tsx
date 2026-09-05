@@ -7,7 +7,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { useRouter } from 'expo-router';
-import { space } from '@sotto/core/theme';
+import { radius, space } from '@sotto/core/theme';
 import { useT } from '../../src/i18n/useT';
 import { BackLink } from '../../src/ui/BackLink';
 import { Button } from '../../src/ui/Button';
@@ -15,11 +15,10 @@ import { Card } from '../../src/ui/Card';
 import { ChevronRightGlyph } from '../../src/ui/Glyphs';
 import { LEARNING_LANGUAGES, localizedName } from '../../src/ui/languages';
 import { OptionRow } from '../../src/ui/OptionRow';
-import { Sheet } from '../../src/ui/Sheet';
 import { Shell } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
 import { useTheme } from '../../src/ui/theme';
-import { webCursor } from '../../src/ui/tokens';
+import { webCursor, withAlpha } from '../../src/ui/tokens';
 import { fetchHealth, type Health } from '../../src/state/contentApi';
 import { usePreferences } from '../../src/ui/data';
 import { startImportJob } from '../../src/import/api';
@@ -221,22 +220,31 @@ export default function ImportEntryScreen() {
           />
         </View>
 
-        <Sheet visible={localeSheetOpen}>
-          <View style={styles.sheetList}>
-            {LEARNING_LANGUAGES.map((option) => (
-              <OptionRow
-                key={option.code}
-                nativeName={option.nativeName}
-                localizedName={localizedName(option)}
-                selected={option.code === locale}
-                onPress={() => {
-                  setLocale(option.code);
-                  setLocaleSheetOpen(false);
-                }}
-              />
-            ))}
-          </View>
-        </Sheet>
+        {localeSheetOpen ? (
+          <Pressable
+            style={styles.modalBackdrop}
+            onPress={() => setLocaleSheetOpen(false)}
+            accessibilityRole="button"
+            accessibilityLabel={t('common.cancel')}
+          >
+            <Pressable style={styles.modalCard} onPress={(e) => e.stopPropagation()}>
+              <View style={styles.sheetList}>
+                {LEARNING_LANGUAGES.map((option) => (
+                  <OptionRow
+                    key={option.code}
+                    nativeName={option.nativeName}
+                    localizedName={localizedName(option)}
+                    selected={option.code === locale}
+                    onPress={() => {
+                      setLocale(option.code);
+                      setLocaleSheetOpen(false);
+                    }}
+                  />
+                ))}
+              </View>
+            </Pressable>
+          </Pressable>
+        ) : null}
       </Shell>
     );
   }
@@ -354,6 +362,24 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     sheetList: {
       borderTopWidth: 1,
       borderTopColor: colors.hairline,
+      maxHeight: 420,
+    },
+    modalBackdrop: {
+      ...StyleSheet.absoluteFill,
+      backgroundColor: withAlpha(colors.ink, 0.32),
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: space.xl,
+      zIndex: 20,
+    },
+    modalCard: {
+      backgroundColor: colors.surface,
+      borderRadius: radius.md,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+      padding: space.lg,
+      width: '100%',
+      maxWidth: 400,
     },
     failureWrap: {
       flex: 1,

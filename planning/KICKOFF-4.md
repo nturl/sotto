@@ -55,8 +55,10 @@ Four routes, in sequence, each with its own gate:
 
 ### Noel's steps (list these in the first report; proceed on defaults where marked)
 
-1. Buy the domain and say which. Default until told: DONE 2026-09-05: **readsotto.app** bought on Vercel (team nturls-projects, auto-renew OFF, expires 2027-09). Point
-   `app.readsotto.app` at the Fly app when it exists; the free PWA keeps its Vercel URL.
+1. Domain: DONE 2026-09-05. **readsotto.app** is registered on Vercel (team nturls-projects,
+   auto-renew OFF, expires 2027-09-05, renewal would be $15). Apex points at the free PWA
+   project `sotto`; `app.readsotto.app` points at the Fly app once it exists. Resend DNS
+   records for magic-link mail go on this domain.
 2. Fly: create the account or confirm one exists, give the session a `FLY_API_TOKEN` in
    the shell only, never in a file. Without it, everything up to `fly deploy` proceeds
    and the deploy is a one-line Noel step.
@@ -84,9 +86,8 @@ If run 3 did not do it, R4-D1 does, first.
 
 ### Known unknowns carried into this run (from the 2026-09-05 planning session)
 
-Browser CORS at api.openai.com (B1 decides). Resend needs a verified domain, so
-production magic links block on Noel's domain purchase. Stripe live activation status
-unknown. Fly machine may need 1 GB RAM (~$10/mo, not $5). Sales-tax registration is
+Browser CORS at api.openai.com (B1 decides). Domain and Stripe live activation are both
+DONE (2026-09-05), so Resend verification and live Checkout are no longer blocked on Noel. Fly machine may need 1 GB RAM (~$10/mo, not $5). Sales-tax registration is
 Noel's, not Stripe Tax's. Copyrighted-upload posture is unreviewed by counsel. Pending
 "S SOTTO" mark. iOS standalone-PWA mic and lock-screen audio untested. Legal pages are
 read by Noel before going live. Sunset stop needs the Mac awake on the 1st.

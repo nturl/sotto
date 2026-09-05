@@ -323,3 +323,10 @@ Decisions for this run (rationale in each lane's report and sotto-cloud/DECISION
 - Task: importer e2e log; paid e2e log against staging; screenshots; `pnpm check` tails for both repos; boundary check (OSS repo has no auth/payments/analytics and runs with no cloud); Tier 4 hosted section in docs/verification.md.
 
 ### R3-R Adversarial review (Opus, read-only): what leaks, what costs, what is fake. Then a fix lane.
+
+### R3-F Run 2 follow-ups folded into run 3 (Sonnet; added at Noel's request 2026-09-05)
+- F1 Validator: tune the `gloss-cross-locale-leak` warning (fires 19,684x) so it flags real leaks (a gloss in the wrong language) and not cognates/proper nouns/identity glosses; fixture stays; report before/after counts per locale.
+- F2 /voice deep link: confirm or refute that opening /voice/<bookId> cold on the live host switches the interface language to the book's language; fix if real, e2e row in apps/client/e2e/rows.mjs.
+- F3 Public flip prep: list every commit and path where the reference app's name/vendor/price appears in history (4a3e586, df242b2, 1464906, 3d67d24 are known), write the exact `git filter-repo` or fresh-history commands to docs/evidence/public-flip-plan-2026-09-05.md, run NOTHING that rewrites history. Noel decides.
+- F4 Human review of FR/ES drafts (docs/content-qa.md flags 9 books a level high): Noel's step; not in this run.
+- Permissions: packages/content/src/validate.ts (+ tests), apps/client/app/voice/[bookId].tsx + src/voice/** (F2 fix only), apps/client/e2e/rows.mjs, docs/evidence/**. Path-scoped commits.

@@ -362,17 +362,27 @@ Named upfront, not silently skipped:
   before/after screenshots.
 - **Human content review** (criterion 27) — every book is AI-drafted,
   `reviewStatus: "draft"`.
-- **OpenAI Realtime WebRTC provider and WebRTC transport** —
-  `packages/voice/src/transports/webrtc.ts` and `openai-realtime.ts` are
-  interface stubs only (`NotImplemented`), per the documented v1 transport
-  decision.
+- **OpenAI Realtime WebRTC provider** — `packages/voice/src/transports/
+webrtc.ts` is an interface stub only (`NotImplemented`), per the
+  documented v1 transport decision. `packages/voice/src/transports/
+openai-realtime.ts` (as of `eb37c7e`) is a **complete WebRTC
+  implementation** (peer setup, the Realtime event map, tool calls) —
+  correcting an earlier version of this line that called it a stub too —
+  but it is **not wired into the client**: `apps/client/src/voice/
+sessionManager.ts:57-77` never constructs it, so nothing in the app
+  reaches this code today. sotto-cloud's own live Realtime session
+  (2026-09-05) used the **WebSocket** transport instead, not WebRTC — see
+  Tier 4 below.
 - **Silero VAD** — falls back to the energy VAD on this machine's
   onnxruntime-node build (near-zero speech probability on real audio);
   `apps/server` reports `vad: "energy"` in `/health`. See
   `docs/local-models.md`.
 - **Dark mode** — stale: a prior version of this note said "not in v1 (no toggle, no dark tokens)"; that's no longer true. `apps/client/src/ui/theme/ThemeProvider.tsx` resolves `preferences.colorScheme` ('system'/'light'/'dark') via a `matchMedia('(prefers-color-scheme: dark)')` listener, and `docs/screenshots/web/dark/*` (22 files, home/book/library/onboarding/profile/reader/review/vocabulary/appearance-setting at 375 and 1440, both light and dark for several) shows it rendering. Dark mode is not one of the 35 BRIEF criteria, so it has no row of its own above; ADVERSARIAL-REVIEW-2.md #6 found five light-only islands (`SessionBar`, the voice screen, `SpeechFillText`, `TutorModelsPanel`, `PlaceholderScreen`) that don't react to the scheme — not fixed by this task (out of ownership).
-- **User-uploaded books** — not a feature in this build; the library is
-  the bundled seed packs only, no way for a learner to add their own text.
+- **User-uploaded books** — correcting an earlier version of this line:
+  this shipped in R3-I. EPUB (DRM-free)/TXT/Markdown import into a
+  private, on-device pack is a real feature — `docs/importing-books.md`,
+  `docs/evidence/import-e2e-2026-09-05.log`, and the Tier 4 Importer rows
+  below.
 
 ## iOS session note (updated 2026-09-05)
 
@@ -413,3 +423,87 @@ query-param equivalent — reaching them needs either the blocked simulator-
 control tool or OS-level UI scripting (also not attempted, for the
 permission reasons above). Kill-and-relaunch persistence and iOS voice
 remain unexercised as well.
+
+## Tier 4: hosted (paid) — 2026-09-05
+
+R3-E's verification pass against a real `sotto-cloud` staging server (not
+`FakeCloudAdapter`), staged on this Mac: `apps/server` on :8790 (local
+stack — whisper :9001, llama :8080, Kokoro :8880), `sotto-cloud` in
+staging mode on :8794 with `SOTTO_CLOUD_PLAN_STANDARD_PROVIDER=cascade-open`
+pointed at that same local stack (the OpenAI account has no credit — see
+Realtime row below for the live-measured numbers from a separate, earlier,
+credited run), stub billing, magic links read from the staging log.
+
+**Baseline: `planning/ADVERSARIAL-REVIEW-3.md` §5** names the status each
+row's existing evidence supports; rows below are upgraded only where this
+pass produced new evidence (cited), otherwise the §5 status stands.
+
+### The headline finding: the real web client cannot reach any of this
+
+Every call `HttpCloudAdapter` makes from a real browser — sign-in, plans,
+subscribe, usage, voice session, everything — throws before any network
+I/O reaches the wire:
+
+```
+TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation
+```
+
+Root cause, found by direct investigation (`docs/evidence/paid-e2e-2026-09-05.log`
+Phase 1): `apps/client/src/cloud/http.ts:92` —
+`this.fetchImpl = opts.fetch ?? fetch;` — captures the bare `fetch`
+function reference instead of binding it to `window`/`globalThis`. Real
+browsers enforce the Fetch spec's "receiver must be a Window or
+WorkerGlobalScope" brand check; calling a detached reference like
+`this.fetchImpl(url, opts)` fails that check. Every unit test in
+`apps/client/src/cloud/http.test.ts` injects `opts.fetch` (a `vi.fn()`),
+which bypasses the bug entirely, so it is invisible to `pnpm check` and
+only shows up against a real browser. `account/index.tsx`'s `catch {}`
+swallows the error silently (no console log in production), so a learner
+just sees "Couldn't send the link. Try again." with no way to know why.
+Downstream: `useMe()`'s `catch` treats it the same as "signed out" (so
+`/account`/`/usage` still render, just perpetually signed-out —
+`apps/client/src/cloud/useMe.ts:36`), but `/paywall`'s `cloud.plans().then(...)`
+has no `.catch` at all (`apps/client/app/paywall/index.tsx:52`), so that
+screen is stuck on "Loading…" forever. **This affects only the real web
+build with a live `EXPO_PUBLIC_CLOUD_URL`** — `NullCloud` (no cloud env)
+and `FakeCloudAdapter` (`EXPO_PUBLIC_CLOUD=fake`, what `e2e/cloud.mjs` and
+the boundary check exercise) never call `HttpCloudAdapter` and are
+unaffected; native (non-web) is very likely unaffected too, since
+React Native's `fetch` polyfill is a plain function with no receiver
+brand check — not verified on-device this pass.
+
+Because of this, Phase 2 of `docs/evidence/paid-e2e-2026-09-05.log`
+verifies the **server side** directly with plain Node `fetch`/`WebSocket`
+(Node's fetch has no such brand check), to separate "is sotto-cloud sound"
+from "is the web client broken" — it is the second, not the first.
+
+| Row | Status | Evidence |
+| --- | --- | --- |
+| **Web client (`HttpCloudAdapter`) reachable from a real browser** | **FAIL** — new finding this pass | `apps/client/src/cloud/http.ts:92`; `docs/evidence/paid-e2e-2026-09-05.log` Phase 1 |
+| Sign-in: Apple identity token | NOT VERIFIED (fixtures only) — unchanged from §5 | No Apple Developer Program |
+| Sign-in: magic link (server side) | PASS (bypassing the broken client, via direct `fetch`) | `docs/evidence/paid-e2e-2026-09-05.log` Phase 2: `POST /auth/magic-link` → log → `GET .../verify` sets a session cookie → `GET /me` |
+| Sign-in: magic link (real browser UI) | **FAIL** — blocked by the client defect above | same log, Phase 1 |
+| Entitlement read (`GET /me`) | PASS | same log: free → after stub-subscribe, Standard 0/200 |
+| Billing: stub checkout end to end | PASS | `POST /billing/stub/subscribe(standard)` → 200, entitlement updated; also `sotto-cloud/docs/evidence/billing-stub-staging-2026-09-05.log` |
+| Billing: Stripe webhooks | PASS (fixtures only) — unchanged from §5 | No Stripe keys, no real event replayed |
+| Billing: Apple StoreKit JWS + notifications V2 | PASS (self-signed chain) — unchanged from §5 | `SOTTO_CLOUD_APPLE_ROOT_CA_TEST_PEM`; refused in production |
+| Hosted cascade tutor session (server side) | PASS | `POST /voice/session` → 200, `wsUrl` on :8794; WS turn: `listening → thinking → caption → tool_call → speaking → audio_start` and a `usage` tick — `docs/evidence/paid-e2e-2026-09-05.log` Phase 2. Tutor **binary audio frame** was not captured by this run's WS client (recorded as its own FAIL line in the log) — `audio_start` fired, so the server attempted to send it; not conclusively proven end to end |
+| Hosted cascade tutor session (real browser UI) | **FAIL** — blocked by the client defect (cloud path never becomes usable: `cloudPathUsable()` requires a signed-in `Me`, which the browser can never obtain) | same log, Phase 1 screenshots `375/1440-paid-cap.png` show the actual (non-cloud) voice-screen state, not a reachable cap panel |
+| Cap enforcement + refusal message | PASS | Cap dropped to 5s remaining via `sqlite3` on `entitlements.tutor_minutes_cap`/`tutor_seconds_used`; `POST /voice/session` still succeeds (200, `limits.maxMs` clamped to 5000 — remaining seconds isn't 0 yet, so the cutoff is mid-session, not at request time); the session then received `{t:'limit',reason:'cap'}` then `{t:'error',code:'cap_exhausted',message:"You have used all your tutor minutes for this period. They reset on October 5, 2026."}` — `docs/evidence/paid-e2e-2026-09-05.log` Phase 2 |
+| Hosted Realtime tutor | **UPGRADED from §5's "FAIL / not shipped"**: a live session against `api.openai.com` (funded account, separate run, not reproduced by this pass) is real and measured — `sotto-cloud/docs/evidence/voice-broker-staging-2026-09-05.log` "LIVE MEASUREMENT": one live `gpt-realtime-mini` WebSocket session, 2.27s learner audio in, 15.80s tutor audio out, full turn priced from `response.done`'s real token usage against OpenAI's published rate card. **Measured**: cascade-openai **$0.0124/min**, realtime-mini **$0.0242/min**; realtime **~$0.0875/min** (derived, same token shape at gpt-realtime's rate card — the live session was on the mini). A real bug was found and fixed by that same run: audio-out billed at 20 tokens/s, not the assumed 10 (`src/voice/providers.ts` corrected). Still true from §5 and unaffected by the cost measurement: the client never calls it — `apps/client/src/voice/sessionManager.ts:57-77` never constructs `OpenAIRealtimeProvider` — so it remains **not reachable from the app** despite being real, measured, and working server-side |
+| Daily spend ceiling | PARTIAL — unchanged from §5 | Enforced only against closed-session spend; no concurrency limit (review finding 1); a cost row a client can zero (finding 4) |
+| Kill switch `SOTTO_CLOUD_TUTOR_DISABLED` | PASS — unchanged from §5 | `metering.ts:80-87` |
+| Account deletion cascade | PASS — unchanged from §5, not re-run this pass | `users.ts:117-146` |
+| Client cloud boundary (no `EXPO_PUBLIC_CLOUD_URL`) | **UPGRADED from §5's PARTIAL to PASS for the no-external-request half** — this pass's boundary check drove a real static export (`pnpm web:export` with no cloud env, served on `sotto.localhost`) through onboarding → home → book → reader → vocabulary and recorded every network request the whole run made: all same-origin, and no account/paywall/usage UI text anywhere | `docs/evidence/boundary-2026-09-05.log`, ALL PASS. §5's named gap (finding 5, `/import` not covered) still stands — hosted import isn't in this build (see below) so there is no `/import` cloud call to check yet |
+| Importer: TXT / Markdown | PASS, re-confirmed this pass at current HEAD | `docs/evidence/import-e2e-rerun-2026-09-05.log`, exit 0: upload → progress → private reader with gloss + audio control present |
+| Importer: EPUB | UNPROVEN by e2e — unchanged from §5 | Unit fixtures exist; the e2e run (this pass and R3-I's) used a `.txt` file |
+| Importer: DRM refusal | PARTIAL — unchanged from §5 | Filename-based refusal for three named schemes; gaps named there |
+| Word pronunciation sprites | PARTIAL — unchanged from §5 | 2 of 17 narrated books committed |
+| Hosted import (C4) | **NOT AVAILABLE** — confirmed still not committed in `sotto-cloud` as of this pass (`git log` at `c23e272`, no `import` route module); the paid.mjs task step for a hosted-import leg was skipped for this reason, as instructed | — |
+| App Store readiness | PARTIAL — unchanged from §5 | Privacy manifest + review notes written; Terms/Privacy links 404; `production` EAS profile ships with no cloud URL |
+| App Store build (hand-off) | Not run this pass (no Expo account in this environment) — the exact command from `docs/app-store.md`: | `npx eas build --platform ios --profile preview` |
+
+Screenshots: `docs/screenshots/web/{375,1440}-paid-{signin,usage,cap}.png`
+(the actual current — broken — UI state at each step, not a staged mock of
+the designed flow, since the client defect above blocks the designed flow
+from being reached through the UI).

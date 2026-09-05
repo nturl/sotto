@@ -1,0 +1,13 @@
+$ pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm content:validate
+$ prettier --check .
+Checking formatting...
+[warn] apps/client/app/paywall/index.tsx
+[warn] apps/client/src/ui/BookTile.tsx
+[warn] apps/server/src/config.ts
+[warn] apps/server/src/import/jobs.test.ts
+[warn] packages/content/src/import/limits.ts
+[warn] packages/content/src/import/parse/epub.ts
+[warn] packages/content/test/import/limits.test.ts
+[warn] Code style issues found in 7 files. Run Prettier with --write to fix.
+[ELIFECYCLE] Command failed with exit code 1.
+[ELIFECYCLE] Command failed with exit code 1.

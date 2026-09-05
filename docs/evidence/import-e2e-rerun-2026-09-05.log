@@ -1,0 +1,21 @@
+[import-e2e 2026-09-05T18:09:38.797Z] opening http://localhost:8081/import
+[import-e2e 2026-09-05T18:09:40.448Z] pick-a-file screen rendered
+[import-e2e 2026-09-05T18:09:40.473Z] screenshot saved: docs/screenshots/web/375-import-preview.png
+[import-e2e 2026-09-05T18:09:40.557Z] file selected: /private/tmp/claude-502/-Users-noelturlington-Claude/0d7d9e7e-61af-4c14-b366-9a4a37dbe35c/scratchpad/petit.txt
+[import-e2e 2026-09-05T18:09:40.600Z] preview screen rendered
+[import-e2e 2026-09-05T18:09:40.630Z] screenshot saved: docs/screenshots/web/375-import-preview.png
+[import-e2e 2026-09-05T18:09:40.672Z] screenshot saved: docs/screenshots/web/1440-import-preview.png
+[import-e2e 2026-09-05T18:09:40.770Z] tapped the Importer CTA
+[import-e2e 2026-09-05T18:09:40.771Z] progress screen: http://localhost:8081/import/7d86453b-bde2-458b-be1f-86e294e626b2
+[import-e2e 2026-09-05T18:09:40.797Z] screenshot saved: docs/screenshots/web/375-import-progress.png
+[import-e2e 2026-09-05T18:09:40.837Z] screenshot saved: docs/screenshots/web/1440-import-progress.png
+[import-e2e 2026-09-05T18:15:52.510Z] import finished
+[import-e2e 2026-09-05T18:15:52.644Z] screenshot saved: docs/screenshots/web/375-import-progress.png
+[import-e2e 2026-09-05T18:15:52.736Z] book detail: http://localhost:8081/book/private-24984275
+[import-e2e 2026-09-05T18:15:52.858Z] reader: http://localhost:8081/reader/private-24984275
+[import-e2e 2026-09-05T18:15:54.955Z] screenshot saved: docs/screenshots/web/375-import-reader.png
+[import-e2e 2026-09-05T18:15:55.092Z] screenshot saved: docs/screenshots/web/1440-import-reader.png
+[import-e2e 2026-09-05T18:15:55.142Z] reader body text length before tap: 325
+[import-e2e 2026-09-05T18:15:55.878Z] tapped "chat" — gloss "cat" visible afterward: true
+[import-e2e 2026-09-05T18:15:55.930Z] screenshot saved: docs/screenshots/web/375-import-reader.png
+[import-e2e 2026-09-05T18:15:55.931Z] audio element/control present in the reader: true

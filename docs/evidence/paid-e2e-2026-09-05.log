@@ -1,0 +1,47 @@
+[t+0.0s] === Phase 1: real browser UI (Playwright) ===
+[t+3.6s] opening http://localhost:8098/account
+[t+4.9s] screenshot 375-paid-signin.png
+[t+5.4s] screenshot 1440-paid-signin.png
+[t+7.6s] [FAIL] Real-browser magic-link send (KNOWN DEFECT under test — apps/client/src/cloud/http.ts:92, see report/verification.md) — blocked: "Couldn't send the link" toast shown. account/index.tsx's catch {} swallows the underlying error silently — confirmed by direct investigation (a temporary console.error, reverted before this commit) to be `TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation` from HttpCloudAdapter.request()
+[t+12.4s] screenshot 375-paid-usage.png
+[t+13.0s] screenshot 1440-paid-usage.png
+[t+17.1s] screenshot 375-paid-cap.png
+[t+17.4s] screenshot 1440-paid-cap.png
+[t+19.3s] === Phase 2: direct server verification (plain Node fetch + WebSocket) ===
+[t+21.2s] [PASS] POST /auth/magic-link -> 200 — 200
+[t+21.2s] [PASS] Magic link readable from the staging log — http://localhost:8794/auth/magic-link/verify?token=wDL2gGfstltT9vt4cuGxcLdGU8j-b0PmIlsBqXDQkUA
+[t+21.5s] [PASS] GET .../auth/magic-link/verify sets a session cookie and redirects to APP_BASE_URL/account — status=302 location=http://localhost:8098/account cookie=sotto_session=k0wGjdPalWKTNpGOJAMeDfhbMlybJTS3KKhTlSa7mQk
+[t+21.5s] [PASS] GET /me shows the signed-in user, plan free — {"user":{"id":"2c06c3a6-94f6-4401-83dd-7be7730f4e89","email":"e2e-run3@example.test"},"entitlement":{"plan":"free","tutorMinutesCap":0,"tutorMinutesUsed":0,"tutorMinutesRemaining":0,"importBooksCap":0,"importsUsed":0,"renewsAt":null,"provider":"none"}}
+[t+21.5s] [PASS] POST /billing/stub/subscribe(standard) -> 200 — {"entitlement":{"plan":"standard","tutorMinutesCap":200,"tutorMinutesUsed":0,"tutorMinutesRemaining":200,"importBooksCap":5,"importsUsed":0,"renewsAt":"2026-10-05T18:14:58.824Z","provider":"cascade-open"}}
+[t+21.6s] [PASS] GET /me now shows Standard, 0/200 tutor minutes, provider cascade-open — {"user":{"id":"2c06c3a6-94f6-4401-83dd-7be7730f4e89","email":"e2e-run3@example.test"},"entitlement":{"plan":"standard","tutorMinutesCap":200,"tutorMinutesUsed":0,"tutorMinutesRemaining":200,"importBooksCap":5,"importsUsed":0,"renewsAt":"2026-10-05T18:14:58.824Z","provider":"cascade-open"}}
+[t+21.6s] [PASS] POST /voice/session -> 200, wsUrl on the :8794 host — {"sessionId":"25d88ac8-eaf1-427f-9873-b5eb31d4ddc8","wsUrl":"ws://localhost:8794/voice/ws?session=79xA6kADl2zipAxz4-3-7Zsgb6c_mPMH40oi9jOzJTg","sampleRate":16000,"limits":{"maxMs":1200000,"idleMs":90000},"provider":"cascade-open","remainingSeconds":12000}
+[t+21.6s] building 16kHz PCM16 fake-mic clip via Kokoro
+[t+71.1s] connecting WS: ws://localhost:8794/voice/ws?session=79xA6kADl2zipAxz4-3-7Zsgb6c_mPMH40oi9jOzJTg
+[t+71.8s] WS open — streaming PCM16 frames (30ms each)
+[t+71.9s] WS <- {"t":"state","state":"listening"}
+[t+74.6s] WS <- {"t":"state","state":"thinking"}
+[t+78.7s] WS <- {"t":"caption","speaker":"learner","text":"significa la palabra cigarra.","final":true}
+[t+91.3s] WS <- {"t":"tool_call","callId":"LZlArVy1oo7xbSPkUgPP5o9Rboi60zjK","name":"show_explanation","args":{"tokenId":"b1.s1.t6","title":"cigarra","body":"Cigarra significa 
+[t+101.7s] WS <- {"t":"usage","secondsUsed":3,"remainingSeconds":11997}
+[t+125.7s] WS <- {"t":"state","state":"speaking"}
+[t+125.7s] WS <- {"t":"audio_start","utteranceId":"c7b0e878-b6b5-40e1-bbd1-8ffd4dd186c8"}
+[t+126.3s] WS <- {"t":"state","state":"ended"}
+[t+126.4s] [PASS] WS session: at least one caption event received — {"t":"state","state":"speaking"} | {"t":"audio_start","utteranceId":"c7b0e878-b6b5-40e1-bbd1-8ffd4dd186c8"} | {"t":"state","state":"ended"}
+[t+126.4s] [PASS] WS session: a `usage` tick reached the client
+[t+126.4s] [FAIL] WS session: tutor audio (binary frame) received
+[t+126.4s] setting the cap to 5 seconds via sqlite3
+[t+136.2s] [PASS] POST /voice/session with 5s remaining -> 200, limits.maxMs clamped to 5000 — {"sessionId":"c93da542-8158-4c72-8ffa-bf335bfef91a","wsUrl":"ws://localhost:8794/voice/ws?session=cGDNEBJbh6ksFSv8gtahfFOCrfdmZb_3Uy_PATFfqUk","sampleRate":16000,"limits":{"maxMs":5000,"idleMs":90000},"provider":"cascade-open","remainingSeconds":5}
+[t+136.2s] WS(cap) <- {"t":"state","state":"listening"}
+[t+138.5s] WS(cap) <- {"t":"state","state":"thinking"}
+[t+139.1s] WS(cap) <- {"t":"caption","speaker":"learner","text":"significa la palabra cigarra.","final":true}
+[t+140.7s] WS(cap) <- {"t":"state","state":"listening"}
+[t+141.2s] WS(cap) <- {"t":"limit","reason":"max_duration"}
+[t+141.2s] WS(cap) <- {"t":"state","state":"ended"}
+[t+141.2s] WS(cap) <- {"t":"usage","secondsUsed":5,"remainingSeconds":0}
+[t+141.2s] WS(cap) <- {"t":"limit","reason":"cap"}
+[t+141.3s] WS(cap) <- {"t":"error","code":"cap_exhausted","message":"You have used all your tutor minutes for this period. They reset on October 5, 2026.","recoverable":false}
+[t+141.3s] [PASS] WS(cap): `{t:"limit",reason:"cap"}` sent before close
+[t+141.3s] [PASS] WS(cap): `{t:"error",code:"cap_exhausted"}` with a clear reset-date message — You have used all your tutor minutes for this period. They reset on October 5, 2026.
+[t+141.3s] 2 ISSUE(S)
+[t+141.3s] ISSUE: Real-browser magic-link send (KNOWN DEFECT under test — apps/client/src/cloud/http.ts:92, see report/verification.md) — blocked: "Couldn't send the link" toast shown. account/index.tsx's catch {} swallows the underlying error silently — confirmed by direct investigation (a temporary console.error, reverted before this commit) to be `TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation` from HttpCloudAdapter.request()
+[t+141.3s] ISSUE: WS session: tutor audio (binary frame) received

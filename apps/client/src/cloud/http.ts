@@ -23,6 +23,7 @@
  */
 import type { SessionOptions } from '@sotto/voice';
 import type {
+  BillingInterval,
   CloudAdapter,
   Entitlement,
   ImportHandle,
@@ -189,11 +190,12 @@ export class HttpCloudAdapter implements CloudAdapter {
     return this.request<PlansResponse>('/billing/plans');
   }
 
-  async checkout(plan: string): Promise<{ url: string }> {
+  async checkout(plan: string, interval?: BillingInterval): Promise<{ url: string }> {
     return this.request('/billing/checkout', {
       method: 'POST',
       body: JSON.stringify({
         plan,
+        interval,
         successUrl: `${this.baseUrl}/billing/success`,
         cancelUrl: `${this.baseUrl}/billing/cancel`,
       }),

@@ -27,6 +27,10 @@ export interface Entitlement {
   tutorMinutesRemaining: number;
   importBooksCap: number;
   importsUsed: number;
+  /** Optional: sotto-cloud R4-D1 serves this from the plan table (not yet
+   * metered per-user, DECISIONS.md #31). Absent on older servers — Usage
+   * only renders the narrated block when this is a positive number. */
+  narratedMinutesCap?: number;
   renewsAt: string | null;
   provider: CloudProviderId;
 }
@@ -40,12 +44,19 @@ export interface PlanOffer {
   id: string;
   name: string;
   priceUsd: number;
+  /** sotto-cloud R4-D1: the annual price (billing/plans always sends this,
+   * 0 on the free plan). */
+  yearlyPriceUsd: number;
   tutorMinutesCap: number;
   importBooksCap: number;
+  narratedMinutesCap?: number;
   provider: CloudProviderId;
   appleProductId: string;
   stripePriceId: string;
+  stripeYearlyPriceId?: string;
 }
+
+export type BillingInterval = 'month' | 'year';
 
 export interface PlansResponse {
   plans: PlanOffer[];
@@ -115,7 +126,7 @@ export interface CloudAdapter {
   signOut(): Promise<void>;
   deleteAccount(): Promise<void>;
   plans(): Promise<PlansResponse>;
-  checkout(plan: string): Promise<{ url: string }>;
+  checkout(plan: string, interval?: BillingInterval): Promise<{ url: string }>;
   portal(): Promise<{ url: string }>;
   submitAppleTransaction(jws: string): Promise<Entitlement>;
   /** Staging only; NullCloud/production HTTP throws `no_cloud`/404. */

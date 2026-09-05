@@ -11,7 +11,7 @@ import { useRouter } from 'expo-router';
 import { space } from '@sotto/core/theme';
 import { purchaseWithAppleIap, restoreApplePurchases } from '../../src/cloud/iap';
 import { useCloud } from '../../src/cloud/provider';
-import type { PlanOffer } from '../../src/cloud/types';
+import type { BillingInterval, PlanOffer } from '../../src/cloud/types';
 import { CloudError } from '../../src/cloud/types';
 import { useMe } from '../../src/cloud/useMe';
 import { getUiCatalog, useT, type MessageKey, type MessageValues } from '../../src/i18n/useT';
@@ -23,26 +23,36 @@ import { Shell, useLayoutMetrics } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
 import { useTheme } from '../../src/ui/theme';
 
-const TERMS_URL = 'https://github.com/nturl/sotto/blob/main/docs/terms.md';
-const PRIVACY_URL = 'https://github.com/nturl/sotto/blob/main/docs/privacy.md';
+// R4-D2: the paid client is served from the cloud origin itself, so Terms/
+// Privacy point at that origin's own server-rendered pages (sotto-cloud R4-D1,
+// GET /terms and /privacy) rather than docs/*.md, which exist nowhere as a
+// hosted page. Same env var provider.tsx uses to pick HttpCloudAdapter.
+const CLOUD_ORIGIN = (process.env.EXPO_PUBLIC_CLOUD_URL ?? 'https://app.readsotto.app').replace(
+  /\/$/,
+  '',
+);
+const TERMS_URL = `${CLOUD_ORIGIN}/terms`;
+const PRIVACY_URL = `${CLOUD_ORIGIN}/privacy`;
 
 const isTestBuild =
   process.env.EXPO_PUBLIC_CLOUD === 'fake' || process.env.EXPO_PUBLIC_CLOUD_STAGING === '1';
 
-/** Formats a plan's monthly USD price for the current interface locale
- * (adversarial review 3 coordinator note: this used to hardcode the
- * French "/mois" suffix regardless of the interface language). The
- * amount itself is locale-formatted via Intl.NumberFormat; the "/mo"
- * suffix comes from the `paywall.perMonth` catalog key. */
+/** Formats a plan's price for the current interface locale and billing
+ * interval (adversarial review 3 coordinator note: this used to hardcode the
+ * French "/mois" suffix regardless of the interface language). The amount
+ * itself is locale-formatted via Intl.NumberFormat; the "/mo" / "/yr" suffix
+ * comes from the `paywall.perMonth` / `paywall.perYear` catalog keys. */
 function priceLabel(
   plan: PlanOffer,
+  interval: BillingInterval,
   t: (key: MessageKey, values?: MessageValues) => string,
 ): string {
+  const value = interval === 'year' ? plan.yearlyPriceUsd : plan.priceUsd;
   const amount = new Intl.NumberFormat(getUiCatalog(), {
     style: 'currency',
     currency: 'USD',
-  }).format(plan.priceUsd);
-  return `${amount}${t('paywall.perMonth')}`;
+  }).format(value);
+  return `${amount}${t(interval === 'year' ? 'paywall.perYear' : 'paywall.perMonth')}`;
 }
 
 export default function PaywallScreen() {
@@ -55,7 +65,7 @@ export default function PaywallScreen() {
   const styles = useMemo(() => createStyles(), []);
 
   const [plans, setPlans] = useState<PlanOffer[] | null>(null);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [interval, setInterval] = useState<BillingInterval>('month');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -66,8 +76,10 @@ export default function PaywallScreen() {
       .plans()
       .then((res) => {
         if (cancelled) return;
-        setPlans(res.plans);
-        setSelectedId((prev) => prev ?? res.plans[0]?.id ?? null);
+        // PAYWALL.md's card-pair layout predates D1's plan trim (free +
+        // standard only, no more Plus): one plan card, not a card per row.
+        // Free never renders as a purchasable card here.
+        setPlans(res.plans.filter((p) => p.priceUsd > 0));
       })
       .catch(() => {
         // A thrown error here (network failure, or the http.ts unbound-
@@ -91,7 +103,9 @@ export default function PaywallScreen() {
     );
   }
 
-  const selected = plans?.find((p) => p.id === selectedId) ?? plans?.[0] ?? null;
+  // PAYWALL.md's card-pair spec predates the trim to one paid plan
+  // (sotto-cloud R4-D1: free + standard); one card, month/year toggle.
+  const selected = plans?.[0] ?? null;
 
   const afterEntitlement = () => {
     me.refresh();
@@ -107,7 +121,7 @@ export default function PaywallScreen() {
         await purchaseWithAppleIap(cloud, selected.appleProductId);
         afterEntitlement();
       } else {
-        const { url } = await cloud.checkout(selected.id);
+        const { url } = await cloud.checkout(selected.id, interval);
         await Linking.openURL(url);
       }
     } catch (err) {
@@ -170,51 +184,65 @@ export default function PaywallScreen() {
         ) : (
           <>
             <View style={[styles.cards, isDesktop && styles.cardsDesktop]}>
-              {plans.map((plan) => {
-                const isSelected = plan.id === selectedId;
-                return (
-                  <Pressable
-                    key={plan.id}
-                    onPress={() => setSelectedId(plan.id)}
-                    disabled={busy}
-                    accessibilityRole="radio"
-                    accessibilityState={{ selected: isSelected, disabled: busy }}
-                    accessibilityLabel={`${plan.name} — ${priceLabel(plan, t)}`}
-                    style={isDesktop ? styles.cardWrapDesktop : undefined}
+              {selected ? (
+                <Card padding={space.lg} style={styles.planCard}>
+                  <SectionEyebrow>{selected.name.toUpperCase()}</SectionEyebrow>
+                  <Text role="heading" size={22} style={styles.planPrice}>
+                    {priceLabel(selected, interval, t)}
+                  </Text>
+
+                  <View
+                    style={styles.intervalToggle}
+                    accessibilityRole="radiogroup"
+                    accessibilityLabel={t('paywall.interval.label')}
                   >
-                    <Card
-                      padding={space.lg}
-                      style={{
-                        borderWidth: isSelected ? 1.5 : 1,
-                        borderColor: isSelected ? colors.ink : colors.hairline,
-                      }}
-                    >
-                      <SectionEyebrow>{plan.name.toUpperCase()}</SectionEyebrow>
-                      <Text role="heading" size={22} style={styles.planPrice}>
-                        {priceLabel(plan, t)}
-                      </Text>
-                      <View style={styles.planBullets}>
-                        <Text role="caption" color="ink2">
-                          — {t('paywall.plan.minutes', { count: plan.tutorMinutesCap })}
-                        </Text>
-                        <Text role="caption" color="ink2">
-                          — {t('paywall.plan.imports', { count: plan.importBooksCap })}
-                        </Text>
-                        <Text role="caption" color="ink2">
-                          — {t(`paywall.plan.voice.${plan.id}` as MessageKey)}
-                        </Text>
-                      </View>
-                    </Card>
-                  </Pressable>
-                );
-              })}
+                    {(['month', 'year'] as const).map((iv) => {
+                      const isSelected = interval === iv;
+                      return (
+                        <Pressable
+                          key={iv}
+                          onPress={() => setInterval(iv)}
+                          disabled={busy}
+                          accessibilityRole="radio"
+                          accessibilityState={{ selected: isSelected, disabled: busy }}
+                          style={[
+                            styles.intervalOption,
+                            {
+                              borderColor: isSelected ? colors.ink : colors.hairline,
+                              borderWidth: isSelected ? 1.5 : 1,
+                            },
+                          ]}
+                        >
+                          <Text role="ui" size={14} color={isSelected ? 'ink' : 'ink2'}>
+                            {t(iv === 'month' ? 'paywall.interval.month' : 'paywall.interval.year')}
+                          </Text>
+                        </Pressable>
+                      );
+                    })}
+                  </View>
+
+                  <View style={styles.planBullets}>
+                    <Text role="caption" color="ink2">
+                      — {t('paywall.plan.minutes', { count: selected.tutorMinutesCap })}
+                    </Text>
+                    <Text role="caption" color="ink2">
+                      — {t('paywall.plan.imports', { count: selected.importBooksCap })}
+                    </Text>
+                    <Text role="caption" color="ink2">
+                      — {t('paywall.plan.voice.standard')}
+                    </Text>
+                  </View>
+                </Card>
+              ) : null}
             </View>
 
             <Button
               title={
                 busy
                   ? '···'
-                  : t('paywall.subscribe', { price: selected ? priceLabel(selected, t) : '' })
+                  : t('paywall.subscribe', {
+                      price: selected ? priceLabel(selected, interval, t) : '',
+                    })
               }
               disabled={busy || !selected}
               onPress={() => void subscribe()}
@@ -223,7 +251,7 @@ export default function PaywallScreen() {
 
             {Platform.OS === 'ios' && selected ? (
               <Text role="caption" color="ink3" style={styles.webPriceCaption}>
-                {t('paywall.webPrice.prefix', { price: priceLabel(selected, t) })}
+                {t('paywall.webPrice.prefix', { price: priceLabel(selected, interval, t) })}
                 <Text role="caption" color="accent" onPress={openWeb}>
                   {t('paywall.webPrice.link')}
                 </Text>
@@ -313,9 +341,23 @@ function createStyles() {
     cardWrapDesktop: {
       flex: 1,
     },
+    planCard: {
+      width: '100%',
+    },
     planPrice: {
       marginTop: space.xs,
       marginBottom: space.md,
+    },
+    intervalToggle: {
+      flexDirection: 'row',
+      gap: space.sm,
+      marginBottom: space.md,
+    },
+    intervalOption: {
+      flex: 1,
+      alignItems: 'center',
+      paddingVertical: space.sm,
+      borderRadius: 10,
     },
     planBullets: {
       gap: 4,

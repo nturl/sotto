@@ -166,6 +166,22 @@ export default function UsageScreen() {
             unit={t('usage.imports.unit')}
             resetLabel={resetLabel}
           />
+          {/* Narration isn't metered yet (sotto-cloud DECISIONS.md #31): the
+              cap comes straight from the plan table with no usage counter to
+              pair it with, so this block only ever shows "0 / cap" until a
+              later lane wires a writer. Older servers omit the field
+              entirely — that build shows no narrated block at all rather
+              than a misleading zero. */}
+          {typeof entitlement.narratedMinutesCap === 'number' &&
+          entitlement.narratedMinutesCap > 0 ? (
+            <StatBlock
+              label={t('usage.narrated.label')}
+              used={0}
+              cap={entitlement.narratedMinutesCap}
+              unit={t('usage.narrated.unit')}
+              resetLabel={resetLabel}
+            />
+          ) : null}
         </View>
 
         <Text role="heading" size={20} style={styles.sessionsHeading}>

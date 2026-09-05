@@ -8,6 +8,7 @@
  */
 import type { SessionOptions } from '@sotto/voice';
 import type {
+  BillingInterval,
   CloudAdapter,
   Entitlement,
   ImportHandle,
@@ -22,26 +23,21 @@ import type {
 } from './types';
 import { CloudError } from './types';
 
+// Matches sotto-cloud R4-D1's trimmed shipped table (free + standard only;
+// plus/realtime parked in code, not shipped — DECISIONS.md #30).
 const PLANS: PlanOffer[] = [
   {
     id: 'standard',
     name: 'Standard',
     priceUsd: 9.99,
-    tutorMinutesCap: 200,
-    importBooksCap: 5,
-    provider: 'cascade-open',
-    appleProductId: 'sotto.standard.monthly',
-    stripePriceId: 'price_fake_standard',
-  },
-  {
-    id: 'plus',
-    name: 'Plus',
-    priceUsd: 19.99,
-    tutorMinutesCap: 600,
-    importBooksCap: 20,
+    yearlyPriceUsd: 79,
+    tutorMinutesCap: 250,
+    importBooksCap: 2,
+    narratedMinutesCap: 120,
     provider: 'cascade-openai',
-    appleProductId: 'sotto.plus.monthly',
-    stripePriceId: 'price_fake_plus',
+    appleProductId: 'sotto.standard.monthly',
+    stripePriceId: 'price_fake_standard_month',
+    stripeYearlyPriceId: 'price_fake_standard_year',
   },
 ];
 
@@ -66,6 +62,7 @@ function entitlementFor(plan: PlanOffer): Entitlement {
     tutorMinutesRemaining: plan.tutorMinutesCap,
     importBooksCap: plan.importBooksCap,
     importsUsed: 0,
+    narratedMinutesCap: plan.narratedMinutesCap,
     renewsAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
     provider: plan.provider,
   };
@@ -121,8 +118,10 @@ export class FakeCloudAdapter implements CloudAdapter {
     return { plans: PLANS, billing: 'stub' };
   }
 
-  async checkout(plan: string): Promise<{ url: string }> {
-    return { url: `https://checkout.fake.sotto.dev/session?plan=${encodeURIComponent(plan)}` };
+  async checkout(plan: string, interval?: BillingInterval): Promise<{ url: string }> {
+    return {
+      url: `https://checkout.fake.sotto.dev/session?plan=${encodeURIComponent(plan)}&interval=${interval ?? 'month'}`,
+    };
   }
 
   async portal(): Promise<{ url: string }> {

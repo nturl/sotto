@@ -24,11 +24,11 @@ describe('FakeCloudAdapter', () => {
     expect(await cloud.me()).toBeNull();
   });
 
-  it('lists the standard/plus plans', async () => {
+  it('lists the standard plan (sotto-cloud R4-D1 trimmed table)', async () => {
     const cloud = new FakeCloudAdapter();
     const { plans, billing } = await cloud.plans();
     expect(billing).toBe('stub');
-    expect(plans.map((p) => p.id)).toEqual(['standard', 'plus']);
+    expect(plans.map((p) => p.id)).toEqual(['standard']);
   });
 
   it('stubSubscribe upgrades the entitlement', async () => {
@@ -36,7 +36,7 @@ describe('FakeCloudAdapter', () => {
     await cloud.signInWithApple('token', 'web');
     const entitlement = await cloud.stubSubscribe('standard');
     expect(entitlement.plan).toBe('standard');
-    expect(entitlement.tutorMinutesCap).toBe(200);
+    expect(entitlement.tutorMinutesCap).toBe(250);
     expect((await cloud.me())?.entitlement.plan).toBe('standard');
   });
 

@@ -51,6 +51,10 @@ pnpm install
 pnpm dev       # starts apps/server (voice + content API) and the Expo web client together
 ```
 
+`pnpm dev` prints two URLs once ready: the web client on
+`http://localhost:8081` and the API server on `http://localhost:8790`.
+Open the web client URL in your browser — that's the book.
+
 `pnpm dev` needs no model servers to **read** a book — narration,
 tap-to-translate, and saving words all work with every voice model
 unreachable. The voice tutor needs one of: your own OpenAI key

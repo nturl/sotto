@@ -89,4 +89,4 @@ Rate-limit stalls: if the all-models window trips, shift the waiting work to /fa
 
 - Stop when the task card's proof is produced, not when the code compiles.
 - Escalate (back to Fable) when: a dependency is missing from the pinned set, a spec ambiguity changes data models, a native build fails twice, the local model endpoints are unreachable, or work would require touching another WS's paths.
-- Never: commit secrets, copy the reference app strings/assets, label unreviewed content stable, add auth/payments/analytics, install a dependency without stating why in the ledger.
+- Never: commit secrets, copy the reference app's strings/assets, label unreviewed content stable, add auth/payments/analytics, install a dependency without stating why in the ledger.

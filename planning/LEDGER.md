@@ -66,7 +66,7 @@ Columns: id | status | owner route | depends on | verification command / proof |
 
 (Append: timestamp, decision, why.)
 
-- 2026-09-04 15:30 Planning docs moved to planning/; planning/research/ gitignored (the reference app screenshots are copyrighted reference material, not for a public repo).
+- 2026-09-04 15:30 Planning docs moved to planning/; planning/research/ gitignored (reference-app screenshots are copyrighted material, not for a public repo).
 - 2026-09-04 15:32 Voice transport v1 = WebSocket + PCM16 (see CONTRACTS §5b), WebRTC left as an interface stub. Why: werift ships no Opus codec so RTP audio would need a native opus addon on both ends; Pipecat would add a Python runtime to an open-source TS repo. WS gives the same event vocabulary and works on web + RN dev builds tonight. Revisit when a contributor wants NAT traversal.
 - 2026-09-04 15:32 Narration timings come from whisper word-level alignment of Kokoro audio; Kokoro's captioned_speech returns empty timestamps for non-English voices (verified).
 - 2026-09-04 15:33 Gloss locales shipped tonight: en, fr, es. Other explanation locales fall back to en with a visible caption. Why: 14 books x 9 gloss languages is not a tonight-sized job; the schema supports adding more.

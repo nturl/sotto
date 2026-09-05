@@ -99,7 +99,7 @@ from that paid competitor (`planning/DECISIONS.md:35`,
 Noel's private model-routing/orchestration workflow including which subagent
 was blocked by a content filter and that a `gh repo create --public` was
 refused twice (`planning/LEDGER.md:76,82-83`, `planning/KICKOFF-PROMPT.md`);
-and `~/Claude`, `~/ods`, `~/Downloads/ScreenRecording_…mp4` paths.
+and `~/Claude`, `~/ods`, `~/Downloads/<screen recording>.mp4` paths.
 
 Currently latent: `gh repo view nturl/sotto` returns `isPrivate: true`
 (VERIFIED). This becomes live the moment visibility is flipped, and the

@@ -1,4 +1,4 @@
-/fable Build Sotto tonight: an open-source, free, voice-first graded-reader language-learning app (reference-app-style reading + audiobook narration + tap-to-translate + vocabulary + review, extended with a live AI tutor running on local models). All planning is done. Your job is to execute it as orchestrator and finish with evidence.
+/fable Build Sotto tonight: an open-source, free, voice-first graded-reader language-learning app (graded-reader-style reading + audiobook narration + tap-to-translate + vocabulary + review, extended with a live AI tutor running on local models). All planning is done. Your job is to execute it as orchestrator and finish with evidence.
 
 Read, in this order, before doing anything else:
 1. ~/Claude/sotto/DECISIONS.md (supersedes the brief where they conflict)
@@ -13,7 +13,7 @@ Operating rules for this run:
 - Pre-flight first: start the ODS stack (Docker Desktop is off by default; ~/ods/installers/macos/ods-macos.sh start), confirm whisper :9000, Kokoro :8880, and the LLM endpoint answer. Use the already-downloaded Qwen3.6-35B-A3B GGUF in ~/ods/data/models. Then scaffold.
 - Repo: ~/Claude/sotto (this folder becomes the repo root; keep BRIEF/DECISIONS/PLAN/LEDGER/research/design in docs/ or a planning/ folder, your call). Public GitHub repo named sotto under Noel's account, Apache-2.0 code, CC BY-SA 4.0 content. Commit and push at every gate; stage only files this run created.
 - Verify before declaring anything done: launch the flow in the Browser pane and on the iPhone 17 Pro simulator (iOS 26.5 runtime is installed), read console/logs, take screenshots. A worker's "done" is a claim until you have looked.
-- Never: commit secrets, copy the reference app strings/covers/logo, label unreviewed content stable, add auth/payments/analytics, use Expo Go for voice claims, ask me routine questions. Ask only if the central journey is blocked.
+- Never: commit secrets, copy the reference app's strings/covers/logo, label unreviewed content stable, add auth/payments/analytics, use Expo Go for voice claims, ask me routine questions. Ask only if the central journey is blocked.
 - Local-first voice: reference provider is the local cascade (Silero VAD -> whisper -> Qwen3 -> Kokoro) over WebRTC; a user may set SOTTO_API_KEY plus OpenAI base URLs to run the same cascade on OpenAI. OpenAI Realtime WebRTC provider is an interface stub only. Fake transport drives all tests.
 - Product priority (Noel): reading, narration, tap-translate, and vocabulary are the front door; voice mode is the SECOND action on book detail, and the voice screen stays calm (see DESIGN.md). Do not let the tutor dominate onboarding or home.
 - Content: public-domain abridgments only, per the brief's source slate. FR/ES/EN get 3 short readers each, other locales one piece each, all labeled draft until a human reviews. Every asset carries license metadata. Narration for every book is Kokoro-generated with word timings.

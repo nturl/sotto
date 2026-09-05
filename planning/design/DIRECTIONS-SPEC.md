@@ -1,6 +1,6 @@
 # Sotto — design directions spec (Cleo, 2026-09-04)
 
-Product: open-source graded-reader app (books, audiobook narration with word sync, tap-to-translate, saved vocabulary, review) with a live voice tutor. Targets iPhone + responsive web. Reference product: the reference app (warm cream, coral accent, serif reading text, peach offset cover shadows). We keep the concept and rebuild the expression.
+Product: open-source graded-reader app (books, audiobook narration with word sync, tap-to-translate, saved vocabulary, review) with a live voice tutor. Targets iPhone + responsive web. Reference product: a commercial graded reader (warm cream, coral accent, serif reading text, peach offset cover shadows). We keep the concept and rebuild the expression.
 
 Fit read: reader's job is absorbing text for 5 to 15 minutes at a time, then occasionally acting (save word, answer tutor). Temperature: warm, low-stakes, daily habit. Venue: phone in hand, sometimes a laptop. Lives for years, opened daily, so quiet-every-time beats spectacular-once, and the fun must come from one device, not from chrome.
 
@@ -16,7 +16,7 @@ Shared, non-negotiable across all three (the fundamentals):
 - Motion: 120 to 150ms on hover/press; 180 to 400ms named cubic-bezier for the one celebratory moment. Frozen under prefers-reduced-motion.
 - Tap targets 44pt. Word tokens in the reader get a dotted 1px underline in the accent at 35% alpha; selected word gets a translucent accent fill at 18%.
 
-Ban list (all directions): no glass/blur cards, no gradient washes on surfaces (one gradient allowed only on the primary CTA in B), no mascot or parrot, no pill-chip rows as the main navigation, no 3-up card grid on the sheet, no the reference app strings/covers/logo, no em dashes anywhere in copy.
+Ban list (all directions): no glass/blur cards, no gradient washes on surfaces (one gradient allowed only on the primary CTA in B), no mascot or parrot, no pill-chip rows as the main navigation, no 3-up card grid on the sheet, no reference-app strings/covers/logo, no em dashes anywhere in copy.
 
 ## Direction A: "Paper" (delight in the object)
 Thesis: a book is a thing you hold. Every cover is a paper cutout sitting on the page; the app is the desk.
@@ -36,7 +36,7 @@ Canvas #FFF6E8 (warm cream). Ink #1F1A17. Secondary #7A6E64. Accent: #FF5A3C cor
 Type: display = system rounded (ui-rounded / SF Rounded fallback to Nunito-like stack) 700 as the ONE heavy face, 30 to 40px, normal tracking; reading serif 19px/1.55; UI sans 400/500; mono 11px.
 Radii: {12, 9999}. 12 on cards and sticker buttons (2px border #1F1A17 at 12% alpha on secondary, solid ink on primary outline), 9999 on chips and the play control.
 Signature device: THE HIGHLIGHTER SWEEP. During narration the highlight is a marker stroke drawn left to right across the current word (a skewed rectangle with slightly rough ends, animated width over 180ms with cubic-bezier(.2,.8,.2,1)), leaving a paler stroke behind on read text. Saving a word "caps" it with the ink outline. Same stroke appears behind the "For you" heading as a static mark.
-Hero fragment to render: the reader at phone scale (390px frame): 5 lines of Spanish A1 prose (write original text about a fox and a crow, public-domain fable retelling, 40 to 60 words, no the reference app text), narration mid-sentence with the sweep frozen mid-word on one word and paler strokes on the words before it, one word tapped and outlined; below, a docked translation panel (12px radius, hairline top, no shadow) with the word in serif 24px, the French gloss 15px, a coral circular speaker button, and a sticker "Save" button with the 2px border. Then the transport row: prev / -10 / play (56px ring in coral) / +10 / next, and a segmented progress bar with elapsed, "1.0x", remaining in mono. Add a JS toggle that replays the sweep animation on click.
+Hero fragment to render: the reader at phone scale (390px frame): 5 lines of Spanish A1 prose (write original text about a fox and a crow, public-domain fable retelling, 40 to 60 words, no text from the reference app), narration mid-sentence with the sweep frozen mid-word on one word and paler strokes on the words before it, one word tapped and outlined; below, a docked translation panel (12px radius, hairline top, no shadow) with the word in serif 24px, the French gloss 15px, a coral circular speaker button, and a sticker "Save" button with the 2px border. Then the transport row: prev / -10 / play (56px ring in coral) / +10 / next, and a segmented progress bar with elapsed, "1.0x", remaining in mono. Add a JS toggle that replays the sweep animation on click.
 Commits to: fun, energy, instant legibility of state (narration progress is visible as marks). Trades away: calm; risks reading young, and heavy rounded type will fight the serif if used beyond headings. Right when: Noel wants the app to feel like a game you play with a pen, and daily-return energy matters more than gravitas.
 Taken all the way: every screen has one marker stroke and nothing else colored; the sweep is the brand.
 

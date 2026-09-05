@@ -8,12 +8,13 @@
  * `colors.dailySage`) — the only permitted gradient in v1.
  */
 import { useEffect, useState } from 'react';
-import { Animated, Pressable, StyleSheet, View } from 'react-native';
+import { Animated, Pressable, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { colors, radius, shadow, space } from '@sotto/core/theme';
 import { useT } from '../i18n/useT';
 import { usePressAnimation } from './Button';
 import { Cover } from './Cover';
 import type { LibraryBook } from './data';
+import { DESKTOP_BREAKPOINT } from './Shell';
 import { Defs, LinearGradient, Rect, Stop, Svg } from './svg';
 import { SectionEyebrow } from './SectionEyebrow';
 import { Text } from './Text';
@@ -50,6 +51,11 @@ export function DailyStoryCard({ book, onPress }: { book: LibraryBook; onPress: 
   const [pressed, setPressed] = useState(false);
   const [hovered, setHovered] = useState(false);
   const animation = usePressAnimation(pressed || hovered);
+  const { width } = useWindowDimensions();
+  const isDesktop = width >= DESKTOP_BREAKPOINT;
+  const panelMinHeight = isDesktop ? 200 : 180;
+  const coverWidth = isDesktop ? 110 : 84;
+  const coverHeight = isDesktop ? 165 : 126;
 
   const faceTranslate = animation.interpolate({
     inputRange: [0, 1],
@@ -86,8 +92,14 @@ export function DailyStoryCard({ book, onPress }: { book: LibraryBook; onPress: 
             { transform: [{ translateX: faceTranslate }, { translateY: faceTranslate }] },
           ]}
         >
-          <View style={styles.panel}>
-            <Svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <View style={[styles.panel, { minHeight: panelMinHeight }]}>
+            <Svg
+              style={StyleSheet.absoluteFill}
+              width="100%"
+              height="100%"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+            >
               <Defs>
                 <LinearGradient id="daily-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                   <Stop offset="0%" stopColor={colors.dailyTeal} />
@@ -98,8 +110,8 @@ export function DailyStoryCard({ book, onPress }: { book: LibraryBook; onPress: 
             </Svg>
             <Cover
               art={book.cover}
-              width={72}
-              height={108}
+              width={coverWidth}
+              height={coverHeight}
               cutout
               cutoutSize={4}
               svgUrl={book.svgUrl}

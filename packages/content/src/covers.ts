@@ -124,7 +124,7 @@ function drawShape(kind: ShapeKind, color: string, groundColor: string, rng: () 
   }
 }
 
-function wrapTitle(title: string, maxCharsPerLine = 16): string[] {
+function wrapTitle(title: string, maxCharsPerLine = 16, maxLines = 3): string[] {
   if (title.length <= maxCharsPerLine) return [title];
   const words = title.split(' ');
   const lines: string[] = [];
@@ -139,7 +139,45 @@ function wrapTitle(title: string, maxCharsPerLine = 16): string[] {
     }
   }
   if (current) lines.push(current);
-  return lines.slice(0, 2);
+  if (lines.length <= maxLines) return lines;
+  // Rare: still too long at 3 lines — merge the overflow into the last line
+  // and truncate with an ellipsis rather than silently dropping words.
+  const kept = lines.slice(0, maxLines - 1);
+  const rest = lines.slice(maxLines - 1).join(' ');
+  const truncated =
+    rest.length > maxCharsPerLine ? `${rest.slice(0, maxCharsPerLine - 1).trimEnd()}…` : rest;
+  kept.push(truncated);
+  return kept;
+}
+
+/** Relative luminance (WCAG) of a #RRGGBB color. */
+function relativeLuminance(hex: string): number {
+  const c = hex.replace('#', '');
+  const channel = (v: number) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
+  const r = channel(parseInt(c.slice(0, 2), 16) / 255);
+  const g = channel(parseInt(c.slice(2, 4), 16) / 255);
+  const b = channel(parseInt(c.slice(4, 6), 16) / 255);
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+/** WCAG contrast ratio between two #RRGGBB colors. */
+function contrastRatio(hexA: string, hexB: string): number {
+  const a = relativeLuminance(hexA);
+  const b = relativeLuminance(hexB);
+  const lighter = Math.max(a, b);
+  const darker = Math.min(a, b);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
+// The only colors title/author text is ever painted in: ink for light
+// bands, sand/peach for dark ones (DESIGN.md palette). Picked per-cover by
+// whichever contrasts best against the actual band the text sits on.
+const TITLE_COLOR_CANDIDATES = ['#221E1B', '#E8D6B8', '#F2C8B4'] as const;
+
+function pickTitleColor(bandColor: string): string {
+  return TITLE_COLOR_CANDIDATES.reduce((best, candidate) =>
+    contrastRatio(candidate, bandColor) > contrastRatio(best, bandColor) ? candidate : best,
+  );
 }
 
 export interface CoverInput {
@@ -158,21 +196,32 @@ export function generateCoverSvg(input: CoverInput): string {
     .map((kind, i) => drawShape(kind, palette.shapes[i % 2] as string, palette.ground, rng))
     .join('\n  ');
 
+  // The title sits at the bottom of the cover. `wave` is the only shape
+  // that paints a full band under it (baseY down through H) — if one was
+  // drawn, that's the color the text actually sits on; otherwise it's the
+  // bare ground.
+  const waveIndex = kinds.indexOf('wave');
+  const bandColor = waveIndex !== -1 ? (palette.shapes[waveIndex % 2] as string) : palette.ground;
+  const titleColor = pickTitleColor(bandColor);
+
   const titleLines = wrapTitle(input.title);
-  const titleStartY = titleLines.length > 1 ? 246 : 258;
+  const threeLines = titleLines.length >= 3;
+  const titleFontSize = threeLines ? 15 : 18;
+  const titleLineHeight = threeLines ? 19 : 22;
+  const titleStartY = titleLines.length === 1 ? 258 : threeLines ? 228 : 246;
   const titleTextSvg = titleLines
     .map(
       (line, i) =>
-        `<text x="${W / 2}" y="${titleStartY + i * 22}" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="300" font-size="18" fill="${palette.shapes[1]}">${escapeXml(line)}</text>`,
+        `<text x="${W / 2}" y="${titleStartY + i * titleLineHeight}" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="300" font-size="${titleFontSize}" fill="${titleColor}">${escapeXml(line)}</text>`,
     )
     .join('\n  ');
-  const authorY = titleStartY + titleLines.length * 22 + 4;
+  const authorY = titleStartY + titleLines.length * titleLineHeight + 4;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${escapeXml(input.title)}">
   <rect width="${W}" height="${H}" fill="${palette.ground}" />
   ${shapesSvg}
   ${titleTextSvg}
-  <text x="${W / 2}" y="${authorY}" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="400" font-size="9" letter-spacing="2" fill="${palette.shapes[1]}">${escapeXml(input.author.toUpperCase())}</text>
+  <text x="${W / 2}" y="${authorY}" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="400" font-size="9" letter-spacing="2" fill="${titleColor}">${escapeXml(input.author.toUpperCase())}</text>
 </svg>
 `;
 }

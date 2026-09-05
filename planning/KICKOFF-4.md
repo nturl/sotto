@@ -186,7 +186,35 @@ Permissions: fly.toml, Fly secrets by name only, docs/evidence/**. Stop when: th
 round trip is proven. Escalate when: the webhook does not arrive within five minutes;
 do not retry the charge, investigate the endpoint.
 
-**Gate 2.** Live paid round trip proven and refunded. `pnpm check` green in both repos.
+**R4-S Sunset switch (Sonnet, after D3; the Stripe read is a restricted read-only key,
+so Sonnet is fine).** Task: a scheduled checker that ends the paid experiment on its own
+if nobody pays. Script `ops/sunset-check.mjs` in sotto-cloud: reads the count of active
+subscriptions from Stripe with a restricted read-only key (Noel creates it; env only),
+excludes Noel's own customer id, appends `{date, activeSubs, spendMonthUsd, action}` to
+`ops/sunset-ledger.csv`, and texts Noel via the existing iMessage path. Clock starts on
+the date the R4-A README walk passes, written into `ops/sunset.json` as `startedAt`.
+Rules: month 2 with zero subs = text only ("soft check, one month left"); month 3 with
+zero subs = `fly machine stop` on the sotto-cloud machine (compute stops billing, the volume
+keeps the database), then text what it did; any month with subs > 0 = do nothing and
+say so; any month with zero subs and OpenAI spend over $5 = stop early and text, since
+that is a bug or an abuser. Destroying the app, volume, or Stripe products is never
+automated; the text names the manual commands. Schedule: LaunchAgent on Noel's Mac
+monthly on the 1st (mirror in a GitHub Action with `workflow_dispatch` so it can run
+with the laptop closed; the Action only texts, it never stops the machine, since it
+has no Fly token). Inputs: the Stripe restricted key and `FLY_API_TOKEN` as env from
+Fly secrets or the Mac keychain, never in a file; ~/Claude/loops/ conventions for
+specs; the iMessage send path used by other loops. Output: ops/sunset-check.mjs,
+ops/sunset.json, ops/README-sunset.md, the LaunchAgent plist under
+~/Library/LaunchAgents with the loop spec in ~/Claude/loops/. Proof: a dry run with
+`--dry-run` against Stripe test mode producing the ledger row and the text, at each
+of the three branches (forced by a `--pretend-month` flag), with the `fly machine
+stop` call logged but not executed; one real run in month 0 that reports and does
+nothing. Permissions: sotto-cloud/ops/**, ~/Claude/loops/sotto-sunset.md, the plist.
+Stop when: three dry-run branches and one real month-0 run are logged. Escalate when:
+the Stripe restricted key cannot list subscriptions without write scopes; then use the
+webhook-fed entitlement table in SQLite over the Fly API instead, and say so.
+
+**Gate 2.** Live paid round trip proven and refunded. Sunset switch dry-run logged. `pnpm check` green in both repos.
 docs/verification.md gains Tier 4 "hosted" and Tier 5 "BYOK" rows with honest
 PASS/PARTIAL status.
 
@@ -227,3 +255,6 @@ headroom before dispatching parallel Opus lanes.
 5. Realtime parked behind a 503 (yes).
 6. Stripe Tax on (yes).
 7. BYOK import in-browser only if the pipeline runs in a worker unchanged (yes).
+8. Sunset switch: paid experiment runs 3 months from the README walk passing; zero
+   subscribers at month 3 stops the Fly machine automatically, month 2 is a warning
+   text, destroy stays manual (Noel, 2026-09-05).

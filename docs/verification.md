@@ -507,3 +507,51 @@ Screenshots: `docs/screenshots/web/{375,1440}-paid-{signin,usage,cap}.png`
 (the actual current — broken — UI state at each step, not a staged mock of
 the designed flow, since the client defect above blocks the designed flow
 from being reached through the UI).
+
+### Tier 4 fix pass (orchestrator, 2026-09-05, after adversarial review 3)
+
+Recorded after the two fix lanes landed; each row above keeps the status the
+verification lane could prove at the time, and this addendum says what changed
+since:
+
+- **Web client reachable from a real browser**: FAIL -> **PASS**. The unbound
+  `fetch` in `apps/client/src/cloud/http.ts` is bound to `globalThis`
+  (`e1d3ea7`, regression test with a receiver-checking stub);
+  `docs/evidence/paid-e2e-fixpass-2026-09-05.log` shows Phase 1 (sign-in,
+  subscribe, usage) passing in a real Chromium.
+- **Hosted Realtime tutor**: the client now constructs `OpenAIRealtimeProvider`
+  for `realtime`/`realtime-mini` plans on web (`98a6a1b`, provider-selection
+  tests), so "not reachable from the app" no longer holds on web; native keeps
+  the cascade. The server keeps `SOTTO_CLOUD_REALTIME_ENABLED` default off
+  and serves the cascade instead, so Realtime stays **NOT SOLD** by decision
+  (`planning/STRATEGY.md` §2), not by defect.
+- **Daily spend ceiling**: PARTIAL -> **PASS on staging**. One open session per
+  user, a 60 s non-refundable prebook at Realtime mint, open exposure counted
+  against the ceiling, and the cost row priced from wall clock with client
+  seconds kept only as a cross-check (sotto-cloud `a7e16a0`, `625c5ae`; FIX
+  PASS section of `sotto-cloud/docs/evidence/voice-broker-staging-2026-09-05.log`,
+  6/6).
+- **Magic-link host injection** (review finding 2): fixed, links built from
+  `PUBLIC_ORIGIN`/`APP_BASE_URL` only (sotto-cloud `619806a`, tests with a
+  forged `X-Forwarded-Host`).
+- **Hosted import**: not available -> **PASS on staging** with a real OpenAI
+  run, $0.0143 measured for a 1,687-character text with chapter-1 narration,
+  second-user isolation and deletion covered
+  (`sotto-cloud/docs/evidence/import-hosted-staging-2026-09-05.log`).
+- **Client boundary, `/import` half** (review finding 5): local import is
+  refused off-loopback unless `EXPO_PUBLIC_SERVER_URL` is explicit, with an
+  honest card (`7346533`, `canImportLocally` unit tests). Importer hardening
+  (linear sentence splitter, size caps, filtered EPUB inflation with DRM
+  detection before inflating, job ceilings): `18ba81f`, `952f507`, `d0d4ba4`,
+  `b9b366a`.
+- **Self-hosted personal tutor (free tier, one origin, own OpenAI key)**: new
+  row, **PASS** with one live OpenAI turn at 7.8 s
+  (`docs/evidence/selfhost-2026-09-05.log`,
+  `docs/screenshots/web/375-selfhost-voice.png`, `docs/self-hosting.md`). This
+  run also found that the documented OpenAI Tier 2 of `apps/server` had been
+  silently broken by llama-server-only request parameters and a Kokoro voice
+  name; fixed in `14c66e2` and `744b744` with unit tests.
+- **Still NOT VERIFIED**, now by decision rather than by gap: real Apple
+  identity tokens, StoreKit sandbox, real Stripe events, TestFlight upload, Fly
+  deploy. `planning/STRATEGY.md` parks the paid tier; the hand-off commands live
+  in `docs/app-store.md`.

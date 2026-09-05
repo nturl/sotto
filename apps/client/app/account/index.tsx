@@ -60,7 +60,10 @@ export default function AccountScreen() {
     try {
       await cloud.requestMagicLink(email.trim(), Platform.OS === 'web' ? 'web' : 'native');
       setSent(true);
-    } catch {
+    } catch (err) {
+      // Dev-only: the toast hides the real cause (e.g. a fetch TypeError),
+      // which made the unbound-fetch bug invisible in production.
+      if (process.env.NODE_ENV !== 'production') console.warn('requestMagicLink failed', err);
       setToast(t('account.magicLink.failed'));
     } finally {
       setBusy(false);

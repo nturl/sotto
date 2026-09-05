@@ -47,6 +47,9 @@ pnpm install
 pnpm dev       # starts apps/server (voice + content API) and the Expo web client together
 pnpm ios       # runs the iOS app in the Simulator (expo run:ios)
 pnpm check     # format:check + lint + typecheck + test + content:validate
+pnpm content:new         # scaffold a new book bundle (see docs/adding-a-book.md)
+pnpm content:import      # import a DRM-free EPUB/TXT/Markdown file from the CLI
+pnpm content:word-audio  # render per-word pronunciation sprites for a narrated book
 ```
 
 Optional e2e scripts (need the local model stack up — see below; not run in
@@ -65,7 +68,7 @@ and `pnpm dev:web` run each half individually.
 | Tier                      | What works                                                                                                                                                                                                  | What you need                                                                                               | Status                                                                                                                          |
 | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | 1. No models              | Reading end to end: onboarding, home, book detail, reader with narration and word-sync speech fill, tap-to-translate, save word, vocabulary. Voice tutor is unavailable but offers a "Read alone" fallback. | `pnpm install && pnpm dev`                                                                                  | Verified 2026-09-04                                                                                                             |
-| 2. OpenAI                 | Full voice tutor (STT, LLM, TTS) via OpenAI's API instead of local models                                                                                                                                   | `SOTTO_API_KEY` plus the OpenAI URLs/models below, in `apps/server/.env` or the shell                       | Code path exists and is unit-tested at the transport level, but not verified live against OpenAI in this pass (no key was used) |
+| 2. OpenAI                 | Full voice tutor (STT, LLM, TTS) via OpenAI's API instead of local models                                                                                                                                   | `SOTTO_API_KEY` plus the OpenAI URLs/models below, in `apps/server/.env` or the shell                       | The OpenAI cascade path was verified live 2026-09-05 (evidence: `sotto-cloud/docs/evidence/voice-broker-staging-2026-09-05.log`, private repo) |
 | 3. Local models (default) | Full voice tutor, fully offline                                                                                                                                                                             | whisper.cpp, llama-server, Kokoro-FastAPI running locally, see [docs/local-models.md](docs/local-models.md) | Verified live 2026-09-04                                                                                                        |
 
 **Tier 1, no models.** Run `pnpm install && pnpm dev` and stop there. The
@@ -95,6 +98,10 @@ The client still needs the server for content today (packs are served from
 `packages/content/packs` by `apps/server`); a static build that bundles
 packs so the web app runs with no server at all is a planned follow-up, not
 available yet.
+
+**Run it for yourself on your phone.** Serve the static web client and the
+API from the same `apps/server` process (your own OpenAI key, no accounts,
+no cloud) — see [docs/self-hosting.md](docs/self-hosting.md).
 
 ## Monorepo layout
 

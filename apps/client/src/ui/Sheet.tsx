@@ -3,22 +3,37 @@
  * top, 36x4 ink-3 drag handle. Slides up over 240ms
  * cubic-bezier(.2,.8,.2,1); resolves instantly under reduced motion.
  */
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Animated, Easing, StyleSheet, View, type ViewStyle } from 'react-native';
 import { colors, motion, radius, space } from '@sotto/core/theme';
 import { useReducedMotion } from './useReducedMotion';
 
 const SLIDE_EASING = Easing.bezier(0.2, 0.8, 0.2, 1);
 
+/** How far below the screen the sheet starts before sliding in. A fixed
+ * constant (comfortably taller than the sheet's own 60% maxHeight on any
+ * phone viewport) rather than the sheet's own measured layout height: the
+ * panel's content height changes (empty state -> a full translation panel),
+ * and animating relative to a value that can change mid-flight left the
+ * slide-in stuck partway on web instead of settling flush at the bottom. */
+const OFFSCREEN_OFFSET = 600;
+
 export type SheetProps = {
   visible: boolean;
   children: React.ReactNode;
   style?: ViewStyle;
+  /** Distance from the screen bottom to dock at (default 0). Lets a sibling
+   * docked bar — e.g. the reader's narration transport — sit below the
+   * sheet instead of the two overlapping (DESIGN.md: "Narration transport
+   * below the panel"). */
+  bottomOffset?: number;
+  /** Reports the sheet's own (untransformed) layout height, e.g. so a
+   * caller can reserve scroll content padding for the full docked stack. */
+  onHeightChange?: (height: number) => void;
 };
 
-export function Sheet({ visible, children, style }: SheetProps) {
-  const [height, setHeight] = useState(0);
-  const animation = useRef(new Animated.Value(0)).current;
+export function Sheet({ visible, children, style, bottomOffset = 0, onHeightChange }: SheetProps) {
+  const animation = useRef(new Animated.Value(visible ? 1 : 0)).current;
   const reduced = useReducedMotion();
 
   useEffect(() => {
@@ -30,20 +45,20 @@ export function Sheet({ visible, children, style }: SheetProps) {
       toValue: visible ? 1 : 0,
       duration: motion.sheet.durationMs,
       easing: SLIDE_EASING,
-      useNativeDriver: true,
+      useNativeDriver: false,
     }).start();
   }, [visible, reduced, animation]);
 
   const translateY = animation.interpolate({
     inputRange: [0, 1],
-    outputRange: [height || 600, 0],
+    outputRange: [OFFSCREEN_OFFSET, 0],
   });
 
   return (
     <Animated.View
       pointerEvents={visible ? 'auto' : 'none'}
-      onLayout={(event) => setHeight(event.nativeEvent.layout.height)}
-      style={[styles.sheet, style, { transform: [{ translateY }] }]}
+      onLayout={(event) => onHeightChange?.(event.nativeEvent.layout.height)}
+      style={[styles.sheet, { bottom: bottomOffset }, style, { transform: [{ translateY }] }]}
     >
       <View style={styles.handle} />
       {children}
@@ -56,7 +71,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: 0,
     backgroundColor: colors.surface,
     borderTopWidth: 1,
     borderTopColor: colors.hairline,

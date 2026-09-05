@@ -7,17 +7,17 @@
     {
       "kind": "event",
       "delayMs": 100,
-      "event": { "type": "reading", "tokenIds": ["b1.s1.t1", "b1.s1.t2", "b1.s1.t3"] }
+      "event": { "type": "reading", "sentence": 0 }
     },
     {
       "kind": "event",
       "delayMs": 400,
-      "event": { "type": "reading", "tokenIds": ["b1.s2.t1", "b1.s2.t2"] }
+      "event": { "type": "reading", "sentence": 1 }
     },
     {
       "kind": "event",
       "delayMs": 400,
-      "event": { "type": "reading", "tokenIds": ["b1.s3.t1", "b1.s3.t2", "b1.s3.t3"] }
+      "event": { "type": "reading", "sentence": 2 }
     },
     {
       "kind": "event",

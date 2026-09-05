@@ -17,8 +17,15 @@ interface ToolResultBranches {
   onError?: ScriptStep[];
 }
 
+/** A fixture "reading" step references a sentence by its index into
+ * `SessionOptions.passage.sentences` rather than hardcoding tokenIds:
+ * placeholder ids (e.g. "b1.s1.t1") never match a real chapter's tokens, so
+ * the speech fill never advanced. Resolved to the real tokenIds at emit
+ * time (see `resolveEvent`). */
+type ReadingStepEvent = { type: 'reading'; sentence: number };
+
 type ScriptStep =
-  | { kind: 'event'; delayMs: number; event: VoiceEvent }
+  | { kind: 'event'; delayMs: number; event: VoiceEvent | ReadingStepEvent }
   | {
       kind: 'toolCall';
       delayMs: number;
@@ -164,7 +171,8 @@ export class FakeVoiceProvider implements VoiceProvider {
 
     if (step.kind === 'event') {
       this.schedule(step.delayMs, epoch, () => {
-        this.emit(step.event);
+        const resolved = this.resolveEvent(step.event);
+        if (resolved) this.emit(resolved);
         this.runSequence(steps, index + 1, epoch);
       });
     } else if (step.kind === 'toolCall') {
@@ -176,6 +184,21 @@ export class FakeVoiceProvider implements VoiceProvider {
     } else {
       this.textWaiters.push({ epoch, next: step.next });
     }
+  }
+
+  /** Expands a fixture "reading" step (sentence index) to a real `reading`
+   * VoiceEvent using the passage handed to `connect()`; every other event
+   * passes through unchanged. Falls back to a no-op (returns undefined,
+   * skipping emission) when there's no passage to resolve against — e.g. a
+   * test connects without a real passage — rather than emitting bogus or
+   * empty tokenIds. */
+  private resolveEvent(event: VoiceEvent | ReadingStepEvent): VoiceEvent | undefined {
+    if (event.type === 'reading' && 'sentence' in event) {
+      const sentence = this.opts?.passage.sentences[event.sentence];
+      if (!sentence) return undefined;
+      return { type: 'reading', tokenIds: sentence.tokenIds };
+    }
+    return event;
   }
 
   private schedule(delayMs: number, epoch: number, fn: () => void): void {

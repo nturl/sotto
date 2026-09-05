@@ -39,7 +39,18 @@ const SESSION: SessionOptions = {
   chapterId: 'fr-petit-chaperon-rouge-01',
   mode: 'read_to_me',
   learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en' },
-  passage: { chapterTitle: 'Chapitre 1', sentences: [], positionTokenId: null },
+  // read_to_me's fixture references sentences by index (WS-? fix: placeholder
+  // tokenIds never matched a real chapter) — carry enough real sentences
+  // here for its 3 "reading" steps to resolve against.
+  passage: {
+    chapterTitle: 'Chapitre 1',
+    sentences: [
+      { id: 'b1.s1', text: '', tokenIds: ['b1.s1.t1', 'b1.s1.t2', 'b1.s1.t3'], words: [] },
+      { id: 'b1.s2', text: '', tokenIds: ['b1.s2.t1', 'b1.s2.t2'], words: [] },
+      { id: 'b1.s3', text: '', tokenIds: ['b1.s3.t1', 'b1.s3.t2', 'b1.s3.t3'], words: [] },
+    ],
+    positionTokenId: null,
+  },
   savedWords: [],
 };
 

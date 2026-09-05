@@ -31,8 +31,9 @@ import {
 } from '../../src/ui/Glyphs';
 import { IconButton } from '../../src/ui/IconButton';
 import { Sheet } from '../../src/ui/Sheet';
+import { SpeechFillText, type SpeechSentence } from '../../src/ui/SpeechFillText';
 import { Text } from '../../src/ui/Text';
-import { peachSelection, peachUnderline, webCursor } from '../../src/ui/tokens';
+import { webCursor } from '../../src/ui/tokens';
 import { playAudioSlice, useNarrationPlayer, type NarrationSpeed } from '../../src/platform/audio';
 import { useSottoStore } from '../../src/state/store';
 import { buildSavedWord } from '../../src/state/vocabulary';
@@ -85,6 +86,13 @@ export default function ReaderScreen() {
   const [showSentenceDetail, setShowSentenceDetail] = useState(false);
   const [width, setWidth] = useState(390);
   const [showCompletion, setShowCompletion] = useState(false);
+  // Both dock at the bottom, sheet above the transport (DESIGN.md: "Narration
+  // transport below the panel") — measured so the sheet can sit flush above
+  // the transport instead of the two overlapping, and so the reading area
+  // can reserve exactly enough bottom padding to keep its last lines
+  // reachable above the docked stack.
+  const [transportHeight, setTransportHeight] = useState(0);
+  const [sheetHeight, setSheetHeight] = useState(0);
   const scrollThrottle = useRef(0);
 
   useEffect(() => {
@@ -400,7 +408,10 @@ export default function ReaderScreen() {
           style={styles.flex}
           contentContainerStyle={[
             styles.scrollContent,
-            { paddingHorizontal: space.gutter.phone, paddingBottom: audioUri ? 220 : 32 },
+            {
+              paddingHorizontal: space.gutter.phone,
+              paddingBottom: transportHeight + (isDesktop ? 0 : sheetHeight) + space.xxl,
+            },
           ]}
           onScroll={onScroll}
           scrollEventThrottle={64}
@@ -423,17 +434,22 @@ export default function ReaderScreen() {
           ))}
         </ScrollView>
 
-        {isDesktop ? (
-          <View style={styles.desktopPanel}>{translationPanel}</View>
-        ) : (
-          <Sheet visible={!!selectedToken} style={styles.mobileSheet}>
-            {translationPanel}
-          </Sheet>
-        )}
+        {isDesktop ? <View style={styles.desktopPanel}>{translationPanel}</View> : null}
       </View>
 
+      {!isDesktop ? (
+        <Sheet
+          visible={!!selectedToken}
+          style={styles.mobileSheet}
+          bottomOffset={transportHeight}
+          onHeightChange={setSheetHeight}
+        >
+          {translationPanel}
+        </Sheet>
+      ) : null}
+
       {audioUri ? (
-        <View style={styles.transport}>
+        <View style={styles.transport} onLayout={(e) => setTransportHeight(e.nativeEvent.layout.height)}>
           <View style={styles.progressTrack}>
             {chapter?.blocks.map((block) => {
               const tokens = block.sentences.flatMap((s) => s.tokens);
@@ -518,6 +534,11 @@ export default function ReaderScreen() {
   );
 }
 
+/** Builds the SpeechFillText input for one paragraph (block): every token's
+ * `spoken` flag is resolved against the chapter-wide flatTokens/narratingIndex
+ * (a block only holds a subset of sentences, so each token's position within
+ * `flatTokens` — not its position within the block — is what "spoken"
+ * narration progress compares against). */
 function ReaderBlock({
   block,
   cjk,
@@ -537,76 +558,38 @@ function ReaderBlock({
   onSelect: (token: Token, sentence: Sentence) => void;
   onLongPressSentence: (sentence: Sentence) => void;
 }) {
+  const sentences: SpeechSentence[] = block.sentences.map((sentence) => ({
+    id: sentence.id,
+    tokens: sentence.tokens.map((token) => {
+      const globalIndex = flatTokens.indexOf(token);
+      return {
+        id: token.id,
+        text: token.text,
+        spaceBefore: token.spaceBefore,
+        isWord: token.isWord,
+        spoken: narratingIndex < 0 ? true : globalIndex <= narratingIndex,
+        saved: savedTokenIds.has(token.id),
+      };
+    }),
+  }));
+
   return (
     <View style={styles.block}>
-      {block.sentences.map((sentence) => (
-        <Pressable
-          key={sentence.id}
-          onLongPress={() => onLongPressSentence(sentence)}
-          style={styles.sentenceRow}
-        >
-          {sentence.tokens.map((token, i) => {
-            const globalIndex = flatTokens.indexOf(token);
-            const spoken = narratingIndex < 0 ? true : globalIndex <= narratingIndex;
-            return (
-              <ReaderWord
-                key={token.id}
-                token={token}
-                cjk={cjk}
-                first={i === 0}
-                spoken={spoken}
-                saved={savedTokenIds.has(token.id)}
-                selected={token.id === selectedTokenId}
-                onPress={() => (token.isWord ? onSelect(token, sentence) : undefined)}
-              />
-            );
-          })}
-        </Pressable>
-      ))}
-    </View>
-  );
-}
-
-function ReaderWord({
-  token,
-  cjk,
-  first,
-  spoken,
-  saved,
-  selected,
-  onPress,
-}: {
-  token: Token;
-  cjk: boolean;
-  first: boolean;
-  spoken: boolean;
-  saved: boolean;
-  selected: boolean;
-  onPress: () => void;
-}) {
-  const spacer = !cjk && !first && token.spaceBefore;
-  return (
-    <View style={styles.wordWrap}>
-      {spacer ? <Text role="reading"> </Text> : null}
-      <Pressable
-        onPress={token.isWord ? onPress : undefined}
-        disabled={!token.isWord}
-        style={webCursor}
-      >
-        <Text
-          role="reading"
-          size={cjk ? 22 : undefined}
-          style={[
-            cjk && styles.cjkText,
-            { color: spoken ? colors.ink : colors.quiet },
-            selected && styles.wordSelected,
-            token.isWord && !saved && styles.wordUnderline,
-          ]}
-        >
-          {token.text}
-        </Text>
-        {saved ? <View style={styles.markerStroke} /> : null}
-      </Pressable>
+      <SpeechFillText
+        sentences={sentences}
+        selectedId={selectedTokenId}
+        cjk={cjk}
+        underline
+        onPressToken={(speechToken, speechSentence) => {
+          const sentence = block.sentences.find((s) => s.id === speechSentence.id);
+          const token = sentence?.tokens.find((tk) => tk.id === speechToken.id);
+          if (sentence && token) onSelect(token, sentence);
+        }}
+        onLongPressSentence={(speechSentence) => {
+          const sentence = block.sentences.find((s) => s.id === speechSentence.id);
+          if (sentence) onLongPressSentence(sentence);
+        }}
+      />
     </View>
   );
 }
@@ -685,36 +668,6 @@ const styles = StyleSheet.create({
   },
   block: {
     marginBottom: space.lg,
-  },
-  sentenceRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-end',
-  },
-  wordWrap: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-  },
-  wordSelected: {
-    backgroundColor: peachSelection,
-    borderRadius: radius.sm,
-  },
-  wordUnderline: {
-    borderBottomWidth: 1,
-    borderBottomColor: peachUnderline,
-    borderStyle: 'dotted',
-  },
-  cjkText: {
-    lineHeight: 40,
-  },
-  markerStroke: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: -2,
-    height: 6,
-    backgroundColor: colors.mark,
-    transform: [{ skewX: '-10deg' }],
   },
   desktopPanel: {
     width: 360,

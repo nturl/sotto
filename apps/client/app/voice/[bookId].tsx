@@ -10,7 +10,7 @@ import { useT } from '../../src/i18n/useT';
 import { Button } from '../../src/ui/Button';
 import { CloseGlyph, MicGlyph, MuteGlyph, ReplayGlyph, StopGlyph } from '../../src/ui/Glyphs';
 import { IconButton } from '../../src/ui/IconButton';
-import { SpeechFillText } from '../../src/ui/SpeechFillText';
+import { SpeechFillText, type SpeechSentence } from '../../src/ui/SpeechFillText';
 import { Text } from '../../src/ui/Text';
 import { webCursor } from '../../src/ui/tokens';
 import { useSottoStore } from '../../src/state/store';
@@ -72,17 +72,26 @@ export default function VoiceScreen() {
     return idx;
   }, [flatTokens, session.readingTokenIds]);
 
-  const passageTokens = passage
-    ? passage.sentences.flatMap((s) =>
-        s.tokenIds
+  // Grouped by sentence (not a single flattened token array) so
+  // SpeechFillText — the same flowing-paragraph renderer the reader uses —
+  // can join sentences inline with its own single inter-sentence space,
+  // rather than this screen faking one via a forced spaceBefore.
+  const passageSentences: SpeechSentence[] = passage
+    ? passage.sentences.map((s) => ({
+        id: s.id,
+        tokens: s.tokenIds
           .map((id) => flatTokens.find((tk) => tk.id === id))
           .filter((tk): tk is NonNullable<typeof tk> => !!tk)
-          // Force a space before each sentence's first token — spaceBefore
-          // reflects spacing *within* the sentence it was tokenized from,
-          // not between two different sentences flattened together here.
-          .map((tk, i) => (i === 0 ? { ...tk, spaceBefore: true } : tk)),
-      )
+          .map((tk) => ({
+            id: tk.id,
+            text: tk.text,
+            spaceBefore: tk.spaceBefore,
+            isWord: tk.isWord,
+            spoken: currentIndex >= 0 && flatTokens.indexOf(tk) <= currentIndex,
+          })),
+      }))
     : [];
+  const hasPassage = passageSentences.some((s) => s.tokens.length > 0);
 
   const readSeulPath = `/reader/${bookId}` as const;
   const isBroken =
@@ -109,14 +118,9 @@ export default function VoiceScreen() {
       </View>
 
       <View style={styles.passage}>
-        {passageTokens.length > 0 ? (
+        {hasPassage ? (
           <SpeechFillText
-            tokens={passageTokens.map((tk) => ({
-              id: tk.id,
-              text: tk.text,
-              spaceBefore: tk.spaceBefore,
-            }))}
-            currentIndex={currentIndex}
+            sentences={passageSentences}
             selectedId={session.explanation?.tokenId}
             cjk={cjk}
           />

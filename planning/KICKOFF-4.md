@@ -73,12 +73,19 @@ Four routes, in sequence, each with its own gate:
 
 ### Gate 0, before any dispatch
 
-Run 3 must be closed. Check all of: planning/LEDGER.md has a "Run 3" finish-line
-section after the R3-X fix-lane entries; `git status --short` is empty in both repos
-(untracked evidence files may be committed as glue, nothing else); `HEAD == origin/main`
-in both; `pnpm check` exits 0 in both. If any check fails, do not touch the tree. Use a
-Monitor on the LEDGER file and wait, then re-check. Two orchestrators in one index
-swept each other's work in run 2; this gate exists so it cannot happen again.
+Run 3 is closed (LEDGER "Finish line — run 3", OSS 366c5d3+, sotto-cloud 73ad92a;
+vendor/sotto re-pinned to public history, verified 2026-09-05 evening). Still check:
+`HEAD == origin/main` in both repos and `pnpm check` exits 0 on the committed tree.
+
+The OSS working tree is NOT clean and will not be: Noel's parallel content session is
+editing packages/content/**, packages/core/src/**, docs/screenshots/web/**, docs/*.md and
+planning/*.md (about 36 files on 2026-09-05). Rules: never stage, stash, checkout, or
+format those files; `git add <explicit paths>` and `git commit -- <paths>` only, for
+files this run created or was permitted to edit; if `pnpm check` is red only because of
+those in-flight files, run the check on the committed tree in isolation (git worktree of
+HEAD in the scratchpad) and say so in the ledger. If a lane needs a file the content
+session is touching, stop and report; do not edit it. Two orchestrators in one index
+swept each other's work in run 2; these rules exist so it cannot happen again.
 
 Also confirm before dispatch: the sotto-cloud `vendor/sotto` pin is re-pinned to a SHA
 reachable from the public OSS `main` (it pointed at pre-rewrite history on 2026-09-05).

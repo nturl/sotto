@@ -1,0 +1,336 @@
+================================================================================
+R4-B2  BRING-YOUR-OWN-KEY TUTOR — build + live proof
+Date: 2026-09-05        Repo: sotto (OSS)        Lane: R4-B2
+================================================================================
+
+WHAT SHIPPED
+------------
+1. packages/voice/src/openai-direct/{api,provider}.ts
+   `OpenAIDirectProvider` implements VoiceProvider (CONTRACTS §5a) on the main
+   thread, reusing the browser-cascade seams rather than forking them:
+   `TutorTurnRunner`/`LlmEngine` (browser-cascade/llm-turn.ts) with a new
+   fetch-backed streaming chat.completions engine, `EnergyVad`/`SpeechBuffer`
+   (browser-cascade/vad.ts) for end-of-utterance, `SentenceChunker` + the
+   [[reading]]/[[pace]] markers (inside the turn runner), and the AudioAdapter
+   for capture and playback.
+     STT  POST /v1/audio/transcriptions, gpt-4o-mini-transcribe, multipart WAV
+          built from the 16 kHz PCM16 frames, `language` = ISO-639-1 of the
+          learner's learningLocale.
+     LLM  POST /v1/chat/completions, gpt-4o-mini, stream:true, tools =
+          @sotto/core TOOL_DEFINITIONS, temperature 0.4, max_tokens 200.
+          SSE parser ignores the `obfuscation` padding field.
+     TTS  POST /v1/audio/speech, gpt-4o-mini-tts, response_format 'pcm',
+          played with audio.playPcm(buf, 24000) — the rate is hardcoded
+          because the pcm response carries no rate metadata at all (R4-B1
+          phase 2). One voice per language, documented in api.ts's TTS_VOICES.
+     Prompt: the same `buildSystemInstruction` the server uses.
+     Tools:  the same client-side seven, over the existing `tool_call`
+             VoiceEvent + `respondTool`.
+     Limits: maxMs 1_200_000 / idleMs 90_000, as CONTRACTS §5b.
+     Errors: 401/403 -> {code:'byok_invalid_key', recoverable:false};
+             429 -> {code:'byok_rate_limited', recoverable:true};
+             network/opaque -> {code:'byok_network_failed', recoverable:true}.
+     Key validation: `validateOpenAIKey(key, fetch)` uses GET /v1/models,
+             the only endpoint whose 401 a browser page can read.
+   Realtime is NOT used (STRATEGY.md keeps the cascade); the GA-handshake
+   finding from R4-B1 is noted in the provider header for a later lane.
+
+2. apps/client/src/voice/byokKey.ts
+   Web: localStorage under `sotto.byok.openaiKey`. Native: expo-secure-store,
+   lazily imported. Never in the Zustand persisted store (which Profile >
+   Export writes to a file), never logged, never in a URL. Exports
+   get/set/remove/hasByokKey plus a sync `cachedByokKey()` for pickProvider,
+   and `maskKey`, which returns `sk-••••••••` with NO key-derived characters
+   (deliberately not even a tail — see the note in that file).
+
+3. apps/client/src/voice/{availability,sessionManager}.ts
+   VoicePath gains 'byok'. Ranking: phone -> cloud > byok > browser/download;
+   desktop -> local > browser > byok, with byok added to `alternatives`
+   wherever a chip row makes sense. `pickProvider('byok')` builds
+   OpenAIDirectProvider from the stored key, falling back to the local
+   provider if the key vanished between the gate and the call.
+
+4. Settings: Profile's existing `settings.group.tutor` group gains a
+   `byok.row` row (value byok.on/byok.off) -> new screen
+   apps/client/app/settings/openai-key.tsx (masked input, Save with
+   GET /v1/models validation, Remove, `byok.caption`, link to docs/byok.md).
+   The voice screen's path chip renders `byok.pathLabel`.
+   17 new keys in ALL NINE catalogs (en, fr, es, it, pt, ro, ca, zh-Hans,
+   zh-Hant) with real translations; every catalog is 334 keys.
+
+5. docs/byok.md (what it is, how to get a key, cost, what leaves the device,
+   how to remove, known limits) and the README "Bring your own key" line,
+   which was a forward pointer and is now the real one.
+
+HONEST DEVIATIONS FROM THE CARD
+-------------------------------
+- `settings.group.tutor` already existed ("Tutor preferences") in all nine
+  catalogs, so the row was added to that group rather than creating a second
+  one with the same eyebrow.
+- `pnpm --filter @sotto/voice test` does not exist (packages/voice has no
+  `test` script; the root `vitest run` covers it). The equivalent scoped runs
+  used below are `npx vitest run packages/voice` and `npx vitest run
+  apps/client`.
+- No i18n completeness test exists in the repo; catalog parity was checked by
+  key count (all nine at 334) instead.
+- The live mic turn ran on Chromium, not WebKit: WebKit has no equivalent of
+  `--use-file-for-fake-audio-capture`, so a fake microphone cannot be fed to
+  it. The settings half of the proof DID run on WebKit with the
+  devices['iPhone 15'] descriptor, and a desktop 1440 pass was added, per the
+  card's fallback clause.
+- `byok.pathLabel` is used by the voice screen's chip instead of adding a
+  `voice.path.byok` key, so the copy lives with the rest of the BYOK strings.
+
+================================================================================
+UNIT TESTS
+================================================================================
+$ npx vitest run packages/voice
+ ✓ packages/voice/test/browser-cascade-stt-fallback.test.ts (13 tests) 5ms
+ ✓ packages/voice/test/openai-direct.test.ts (8 tests) 211ms
+
+ Test Files  11 passed (11)
+      Tests  118 passed (118)
+   Start at  16:17:55
+   Duration  2.36s (transform 1.15s, setup 0ms, collect 1.91s, tests 355ms, environment 3ms, prepare 1.62s)
+
+
+$ npx vitest run apps/client
+
+ Test Files  17 passed (17)
+      Tests  145 passed (145)
+   Start at  16:17:58
+   Duration  3.46s (transform 1.67s, setup 0ms, collect 3.97s, tests 820ms, environment 2ms, prepare 2.40s)
+
+
+New test files:
+  packages/voice/test/openai-direct.test.ts        8 tests
+    - WAV header written correctly for the multipart STT upload
+    - 401/403 -> byok_invalid_key (not recoverable), 429 -> byok_rate_limited
+      (recoverable), opaque fetch rejection -> byok_network_failed (recoverable)
+    - one voice per language, alloy fallback
+    - validateOpenAIKey hits GET /v1/models and reads its 200/401/429
+    - ONE FULL TURN with a mocked fetch: push-to-talk PCM -> STT ->
+      streamed chat with a tool call -> respondTool -> continuation request
+      carrying the tool result -> TTS -> playPcm at 24000 -> audio_end,
+      asserting every request host is api.openai.com
+    - interrupt() aborts the in-flight chat fetch and stops playback, and
+      emits no error event
+    - 401 mid-session ends in state 'error'; 429 stays 'listening'
+  apps/client/src/voice/byokKey.test.ts            7 tests
+    (round trip, trim, removal clearing the sync cache, empty = removal,
+     cache warmed on read, masking leaks nothing, blocked storage degrades)
+Extended (nothing deleted):
+  apps/client/src/voice/availability.test.ts      +8 tests (23 -> 31)
+  apps/client/src/voice/providerSelection.test.ts +2 tests (4 -> 6)
+
+================================================================================
+LIVE PROOF — static export served locally, driven with Playwright
+================================================================================
+Build:  pnpm --filter @sotto/client web:export   (exit 0, 9 packs copied)
+Serve:  node apps/client/scripts/serve-static.mjs 8095   -> http://localhost:8095
+Key:    read at run time with
+          export SOTTO_BYOK_SPIKE_KEY="$(security find-generic-password -s sotto-byok-spike -w)"
+        and handed to the page only as a page.fill value (phase A) or an
+        addInitScript argument (phases B/C). Never written to a file, a URL,
+        or a log line. 164 characters. Harness lives in the session
+        scratchpad, not the repo, and scrubs its own output before writing.
+Fake mic: the learner utterance "¿Qué significa la palabra cigarra?" was
+        synthesized locally with macOS `say -v Paulina` + ffmpeg (48 kHz mono
+        s16 plus 45 s of trailing silence) — no API call, and long enough that
+        Chromium's looping fake-audio file cannot barge in on the reply.
+        45 s of tail was necessary: at 2 s the loop restarted mid-turn and the
+        provider correctly cancelled its own utterance (barge-in working).
+
+[t+0.0s] Base URL: http://localhost:8095
+[t+0.0s] Key: 164 chars, read from the macOS keychain into the environment only.
+[t+0.0s] PHASE A: WebKit iPhone 15 (375) — Settings > Your OpenAI key
+[t+4.1s]   Profile row "Use your own OpenAI key" visible: true
+[t+4.1s]   Row value before saving: Off
+[t+4.8s]   Navigated to: /settings/openai-key
+[t+4.9s]   Key typed into the UI: 164 chars, input type=password: true
+[t+5.7s]   byok.saved toast seen: true
+[t+5.7s]   localStorage["sotto.byok.openaiKey"] length: 164
+[t+5.7s]   other localStorage keys: []
+[t+5.7s]   masked display on screen: 11 chars, key-derived characters after the "sk-" prefix: false
+[t+7.5s]   Row value after saving: On
+[t+8.8s]   byok.invalid shown for a bad key: true ("That key wasn't accepted. Check it and try again.")
+[t+8.8s]   good key still stored after the rejected save: true
+[t+8.8s]   expected 401 console lines (the deliberate bad-key save): 1
+[t+8.8s]   other page/console errors: none
+[t+8.9s] 
+[t+8.9s] Synthesizing the fake-mic utterance locally with macOS `say` (no API call).
+[t+11.2s]   wav: byok-turn.wav
+[t+11.2s] 
+[t+11.2s] PHASE B: Chromium fake-mic (375 viewport) — one live tutor turn on the byok path
+[t+13.0s]   state -> listening
+[t+15.9s]   state -> thinking
+[t+16.7s]   caption: You: ¿Qué significa la palabra cigarra?
+[t+18.3s]   state -> speaking
+[t+19.9s]   caption: Tutor: La palabra "cigarra" es un insecto conocido por su canto.
+[t+21.1s]   state -> listening
+[t+21.1s]   caption: Tutor: La palabra "cigarra" es un insecto conocido por su canto. En fábulas, representa a alguien despreocupado.
+[t+21.1s]   stop condition met: tutor replied and [sotto-byok] audio_end (not cancelled)
+[t+21.3s] 
+[t+21.3s] PHASE C: Chromium desktop 1440 — settings screen
+[t+25.0s]   1440: stored-key line rendered: true
+
+===== Phase B request hosts =====
+  localhost:8095               requests= 17  withAuthorizationHeader=0
+  api.openai.com               requests=  5  withAuthorizationHeader=5
+
+===== Phase B [sotto-byok] diagnostics =====
+  [sotto-byok] stt_ms 720
+  [sotto-byok] audio_start 11762cd0-463c-4b7a-9aa3-72a3141c46fc
+  [sotto-byok] audio_end 11762cd0-463c-4b7a-9aa3-72a3141c46fc
+
+===== Phase B timeline =====
+  [t+13.0s] state: listening
+  [t+15.9s] state: thinking
+  [t+16.7s] caption: You: ¿Qué significa la palabra cigarra?
+  [t+18.3s] state: speaking
+  [t+19.9s] caption: Tutor: La palabra "cigarra" es un insecto conocido por su canto.
+  [t+21.1s] state: listening
+  [t+21.1s] caption: Tutor: La palabra "cigarra" es un insecto conocido por su canto. En fábulas, representa a alguien despreocupado.
+
+===== Assertions =====
+  [PASS] A: Profile row "Use your own OpenAI key" rendered (WebKit 375)
+  [PASS] A: row read Off before a key was saved
+  [PASS] A: key typed through the UI, byok.saved shown
+  [PASS] A: key stored in localStorage on this device
+  [PASS] A: row read On after saving
+  [PASS] A: a bad key shows byok.invalid and does not overwrite the good one
+  [PASS] A: no unexpected page/console errors on WebKit
+  [PASS] B: learner caption from the fake mic (contains the target word)
+  [PASS] B: tutor caption returned
+  [PASS] B: [sotto-byok] audio_end observed, not cancelled (turn completed)
+  [PASS] B: ONLY api.openai.com received an Authorization header
+  [PASS] B: no WebSocket opened (no server of ours in the path)
+  [PASS] C: settings screen renders at 1440 with a stored key
+
+Turn latency (voice screen load -> first tutor caption): 7.3s
+
+(key scrub: nothing to replace)
+
+SCREENSHOTS (docs/evidence/)
+----------------------------
+  byok-settings-375-empty.png   WebKit iPhone 15, no key stored yet
+  byok-settings-375.png         WebKit iPhone 15, key saved, "Key saved." toast
+  byok-voice-375.png            Chromium 375, voice screen after the live turn
+  byok-settings-1440.png        Chromium desktop 1440, key stored
+  byok-profile-1440.png         Chromium desktop 1440, Profile with the row On
+None contains key material: the on-screen mask is `sk-••••••••`, with no
+characters derived from the key.
+
+WHAT THE REQUEST-HOST TABLE PROVES
+----------------------------------
+Two hosts were contacted during the live tutor turn. localhost:8095 is the
+static export itself (HTML, JS, fonts, content packs) and received ZERO
+Authorization headers. api.openai.com received every one of them. No
+WebSocket was opened at all, so no server of ours — and no relay — is in the
+path. This is the escalation condition from the card, checked and NOT met.
+
+SPEND
+-----
+One live turn (1 transcription of ~3 s, 2 chat completions, 2 speech calls)
+plus 2 GET /v1/models validations across the run. Under $0.01.
+
+REMINDER
+--------
+The throwaway spike key in the macOS keychain item `sotto-byok-spike` can be
+revoked now: R4-B1 and R4-B2 are both done with it.
+
+================================================================================
+`pnpm check` — SCOPED HONESTLY
+================================================================================
+Full `pnpm check` on the shared working tree EXITS 1, at the first step
+(`prettier --check .`), on 15 files this lane did not create and may not
+touch — all of them untracked in-flight work of the parallel content session:
+
+  packages/content/drafts/en-doyle-red-headed-league.draft.json
+  packages/content/drafts/en-london-build-a-fire.draft.json
+  packages/content/drafts/en-poe-tell-tale-heart.draft.json
+  packages/content/drafts/es-becquer-maese-perez.draft.json
+  packages/content/drafts/es-clarin-adios-cordera.draft.json
+  packages/content/drafts/es-dario-rey-burgues.draft.json
+  packages/content/drafts/es-larra-vuelva-usted.draft.json
+  packages/content/drafts/es-palma-tradiciones.draft.json
+  packages/content/drafts/fr-daudet-derniere-classe.draft.json
+  packages/content/drafts/fr-daudet-les-etoiles.draft.json
+  packages/content/drafts/fr-flaubert-coeur-simple.draft.json
+  packages/content/drafts/fr-maupassant-le-horla.draft.json
+  packages/content/drafts/fr-merimee-mateo-falcone.draft.json
+  packages/content/drafts/fr-voltaire-candide.draft.json
+  packages/content/drafts/zh-luxun-kong-yiji.draft.json
+
+No file in this lane's permission list appears in that list, and no other
+step was reached. Scoped run over exactly this lane's paths:
+
+  $ npx prettier --check packages/voice apps/client/src/voice \
+      apps/client/app/settings/openai-key.tsx apps/client/app/profile.tsx \
+      "apps/client/app/voice/[bookId].tsx" apps/client/src/i18n \
+      docs/byok.md README.md
+  All matched files use Prettier code style!
+
+  $ npx eslint packages/voice apps/client/src/voice apps/client/app --quiet
+  (no output — 0 errors)
+
+  $ cd packages/voice && npx tsc --noEmit      -> clean
+  $ cd apps/client   && npx tsc --noEmit       -> clean
+
+The isolated-worktree run of the full `pnpm check` against this lane's
+commits is recorded below.
+
+EXPORT-BUNDLE SCAN
+------------------
+  $ grep -r "<first 20 chars of the key>" apps/client/dist   -> no match
+The only BYOK string in the bundle is the storage key name
+`sotto.byok.openaiKey` (in entry-*.js), which is what it is supposed to be.
+The key itself exists only in the browser's localStorage at run time.
+
+LOG KEY SCAN
+------------
+  full key present in this log:                 no
+  any 16-character fragment of the key:         no (all 19 sliding windows)
+  same scan across docs/, apps/client/src,
+    apps/client/app, packages/voice, README.md: no
+  `sk-` occurrences in this log:                3, all of them the literal
+    mask `sk-••••••••` or prose about it — no key-derived characters.
+  strings(1) over the five committed PNGs for the key prefix: 0 matches.
+
+ISOLATED-WORKTREE RUN (the honest green)
+----------------------------------------
+  $ git worktree add --detach <scratchpad>/wt 2134b23      # this lane's commit
+  $ cd <scratchpad>/wt && pnpm install --frozen-lockfile   # exit 0
+  $ pnpm check                                             # EXIT 0
+
+    format:check     clean
+    lint             clean
+    typecheck        clean
+    test             Test Files  63 passed (63)
+                     Tests      498 passed (498)
+    content:validate 0 errors, 106 warnings
+                     (the same 106 gloss warnings as the run 3 close-out —
+                      unchanged by this lane, which touched no content)
+
+So the lane's own tree is green on the full check; the shared working tree's
+red is entirely the content session's 15 unformatted draft JSON files.
+
+================================================================================
+VERDICT
+================================================================================
+DONE. Browser-direct BYOK works end to end from the shipped static export:
+key entered through the UI on iPhone-shaped WebKit, stored on the device,
+and one full tutor turn — mic in, Spanish transcription, streamed reply,
+spoken back at 24 kHz — with the key reaching api.openai.com and nothing
+else. 13 of 13 live assertions PASS, 15 new unit tests, 10 extended, full
+`pnpm check` green in isolation.
+
+Not covered (stated, not hidden):
+  - Safari installed to the Home Screen (standalone PWA) microphone capture:
+    UNTESTED, and documented as such in docs/byok.md.
+  - The native (expo-secure-store) storage branch: unit-tested only through
+    its fallback; no iOS-simulator run in this lane.
+  - The live mic turn is Chromium-only, for the fake-audio-flag reason above.
+================================================================================
+END
+================================================================================

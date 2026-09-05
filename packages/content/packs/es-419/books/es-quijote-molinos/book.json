@@ -201,7 +201,12 @@
       "file": "chapters/01.json",
       "wordCount": 362,
       "audio": "audio/01.mp3",
-      "durationMs": 138691
+      "durationMs": 138691,
+      "alignment": {
+        "matched": 361,
+        "total": 362,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
     },
     {
       "id": "es-quijote-molinos-02",
@@ -210,7 +215,12 @@
       "file": "chapters/02.json",
       "wordCount": 368,
       "audio": "audio/02.mp3",
-      "durationMs": 147848
+      "durationMs": 147848,
+      "alignment": {
+        "matched": 365,
+        "total": 368,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
     },
     {
       "id": "es-quijote-molinos-03",
@@ -219,7 +229,12 @@
       "file": "chapters/03.json",
       "wordCount": 365,
       "audio": "audio/03.mp3",
-      "durationMs": 145869
+      "durationMs": 145869,
+      "alignment": {
+        "matched": 365,
+        "total": 365,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
     }
   ]
 }

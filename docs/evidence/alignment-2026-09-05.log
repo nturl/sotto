@@ -1,0 +1,69 @@
+| Book | Chapter | Before (exact-match only) | After (merge+clitic-split+fuzzy) |
+|---|---|---|---|
+| fr-chat-botte | fr-chat-botte-01 | 227/322 (70.5%) | 321/322 (99.7%) |
+| fr-chat-botte | fr-chat-botte-02 | 225/340 (66.2%) | 333/340 (97.9%) |
+| fr-chat-botte | fr-chat-botte-03 | 288/401 (71.8%) | 394/401 (98.3%) |
+| fr-fables-la-fontaine | fr-fables-la-fontaine-01 | 211/317 (66.6%) | 317/317 (100.0%) |
+| fr-fables-la-fontaine | fr-fables-la-fontaine-02 | 239/350 (68.3%) | 348/350 (99.4%) |
+| fr-fables-la-fontaine | fr-fables-la-fontaine-03 | 268/397 (67.5%) | 394/397 (99.2%) |
+| fr-petit-chaperon-rouge | fr-petit-chaperon-rouge-01 | 176/222 (79.3%) | 218/222 (98.2%) |
+| fr-petit-chaperon-rouge | fr-petit-chaperon-rouge-02 | 199/271 (73.4%) | 267/271 (98.5%) |
+| es-fabulas-samaniego | es-fabulas-samaniego-01 | 91/150 (60.7%) | 150/150 (100.0%) |
+| es-fabulas-samaniego | es-fabulas-samaniego-02 | 70/114 (61.4%) | 114/114 (100.0%) |
+| es-fabulas-samaniego | es-fabulas-samaniego-03 | 84/141 (59.6%) | 141/141 (100.0%) |
+| es-lazarillo | es-lazarillo-01 | 217/327 (66.4%) | 327/327 (100.0%) |
+| es-lazarillo | es-lazarillo-02 | 196/324 (60.5%) | 324/324 (100.0%) |
+| es-lazarillo | es-lazarillo-03 | 216/344 (62.8%) | 344/344 (100.0%) |
+| es-quijote-molinos | es-quijote-molinos-01 | 249/362 (68.8%) | 361/362 (99.7%) |
+| es-quijote-molinos | es-quijote-molinos-02 | 225/368 (61.1%) | 365/368 (99.2%) |
+| es-quijote-molinos | es-quijote-molinos-03 | 230/365 (63.0%) | 365/365 (100.0%) |
+
+Overall before: 3411/5115 = 66.7%
+Overall after:  5083/5115 = 99.4%
+=== content:align --locale fr-FR ===
+sotto-content align: fr-FR/fr-chat-botte — Chapitre 1 — Un étrange héritage...
+sotto-content align: fr-FR/fr-chat-botte — Chapitre 2 — Le marquis de Carabas...
+sotto-content align: fr-FR/fr-chat-botte — Chapitre 3 — Le château de l'ogre...
+sotto-content align: fr-FR/fr-fables-la-fontaine — Le Corbeau et le Renard...
+sotto-content align: fr-FR/fr-fables-la-fontaine — La Cigale et la Fourmi...
+sotto-content align: fr-FR/fr-fables-la-fontaine — Le Lièvre et la Tortue...
+sotto-content align: fr-FR/fr-petit-chaperon-rouge — Chapitre 1 — Deux chemins...
+sotto-content align: fr-FR/fr-petit-chaperon-rouge — Chapitre 2 — La maison...
+
+sotto-content align summary:
+bookId  |  chapter  |  before  |  after  |  skipped
+fr-chat-botte  |  fr-chat-botte-01  |  n/a  |  99.7%  |  0
+fr-chat-botte  |  fr-chat-botte-02  |  n/a  |  97.9%  |  0
+fr-chat-botte  |  fr-chat-botte-03  |  n/a  |  98.3%  |  0
+fr-fables-la-fontaine  |  fr-fables-la-fontaine-01  |  n/a  |  100.0%  |  0
+fr-fables-la-fontaine  |  fr-fables-la-fontaine-02  |  n/a  |  99.4%  |  0
+fr-fables-la-fontaine  |  fr-fables-la-fontaine-03  |  n/a  |  99.2%  |  0
+fr-petit-chaperon-rouge  |  fr-petit-chaperon-rouge-01  |  n/a  |  98.2%  |  0
+fr-petit-chaperon-rouge  |  fr-petit-chaperon-rouge-02  |  n/a  |  98.5%  |  0
+
+=== content:align --locale es-419 ===
+sotto-content align: es-419/es-fabulas-samaniego — La cigarra y la hormiga...
+sotto-content align: es-419/es-fabulas-samaniego — El cuervo y el zorro...
+sotto-content align: es-419/es-fabulas-samaniego — La lechera...
+sotto-content align: es-419/es-lazarillo — Capítulo 1: La primera lección...
+sotto-content align: es-419/es-lazarillo — Capítulo 2: El vino y las uvas...
+sotto-content align: es-419/es-lazarillo — Capítulo 3: La despedida...
+sotto-content align: es-419/es-quijote-molinos — Capítulo 1: El caballero y su escudero...
+sotto-content align: es-419/es-quijote-molinos — Capítulo 2: Los gigantes del campo...
+sotto-content align: es-419/es-quijote-molinos — Capítulo 3: La magia y el camino...
+
+sotto-content align summary:
+bookId  |  chapter  |  before  |  after  |  skipped
+es-fabulas-samaniego  |  es-fabulas-samaniego-01  |  n/a  |  100.0%  |  0
+es-fabulas-samaniego  |  es-fabulas-samaniego-02  |  n/a  |  100.0%  |  0
+es-fabulas-samaniego  |  es-fabulas-samaniego-03  |  n/a  |  100.0%  |  0
+es-lazarillo  |  es-lazarillo-01  |  n/a  |  100.0%  |  0
+es-lazarillo  |  es-lazarillo-02  |  n/a  |  100.0%  |  0
+es-lazarillo  |  es-lazarillo-03  |  n/a  |  100.0%  |  0
+es-quijote-molinos  |  es-quijote-molinos-01  |  n/a  |  99.7%  |  0
+es-quijote-molinos  |  es-quijote-molinos-02  |  n/a  |  99.2%  |  0
+es-quijote-molinos  |  es-quijote-molinos-03  |  n/a  |  100.0%  |  0
+
+=== EN regression check (en-aesop-fables ch 1) ===
+EN before: 102/109 (93.6%)
+EN after:  108/109 (99.1%)

@@ -201,7 +201,12 @@
       "file": "chapters/01.json",
       "wordCount": 322,
       "audio": "audio/01.mp3",
-      "durationMs": 121955
+      "durationMs": 121955,
+      "alignment": {
+        "matched": 321,
+        "total": 322,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
     },
     {
       "id": "fr-chat-botte-02",
@@ -210,7 +215,12 @@
       "file": "chapters/02.json",
       "wordCount": 340,
       "audio": "audio/02.mp3",
-      "durationMs": 131831
+      "durationMs": 131831,
+      "alignment": {
+        "matched": 333,
+        "total": 340,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
     },
     {
       "id": "fr-chat-botte-03",
@@ -219,7 +229,12 @@
       "file": "chapters/03.json",
       "wordCount": 401,
       "audio": "audio/03.mp3",
-      "durationMs": 156846
+      "durationMs": 156846,
+      "alignment": {
+        "matched": 394,
+        "total": 401,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
     }
   ]
 }

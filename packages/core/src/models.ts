@@ -42,6 +42,12 @@ export interface ChapterSummary {
   audio?: string;
   durationMs?: number;
   wordCount: number;
+  /**
+   * STT/token alignment quality for this chapter's narration (set by
+   * `sotto-content narrate` / `sotto-content align`). Absent when the
+   * chapter hasn't been narrated yet.
+   */
+  alignment?: { matched: number; total: number; method: string };
 }
 
 /** `books/<bookId>/book.json` — bundle metadata minus chapters/glossary, plus generated fields. */

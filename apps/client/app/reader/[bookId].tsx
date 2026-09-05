@@ -33,7 +33,18 @@ import {
 } from '../../src/ui/Glyphs';
 import { IconButton } from '../../src/ui/IconButton';
 import { Sheet } from '../../src/ui/Sheet';
-import { SpeechFillText, type SpeechSentence } from '../../src/ui/SpeechFillText';
+import type { SpeechSentence } from '../../src/ui/SpeechFillText';
+import { SelectableSpeechText } from '../../src/ui/reader/SelectableSpeechText';
+import {
+  composedGlossLine,
+  composedGlossUsedFallback,
+  computeSpan,
+  flattenBlockTokens,
+  isSingleSentenceSpan,
+  isWholeSentenceSpan,
+  spanText,
+  type FlatBlockToken,
+} from '../../src/ui/reader/selection';
 import { Text } from '../../src/ui/Text';
 import { webCursor } from '../../src/ui/tokens';
 import { playAudioSlice, useNarrationPlayer, type NarrationSpeed } from '../../src/platform/audio';
@@ -82,9 +93,21 @@ export default function ReaderScreen() {
   const existingProgress = progressByBook[bookId ?? ''];
 
   const [chapterId, setChapterId] = useState<string | undefined>(existingProgress?.chapterId);
-  const [selectedToken, setSelectedToken] = useState<{ token: Token; sentence: Sentence } | null>(
-    null,
-  );
+  // A "selection" is one or more tokens in reading order within a single
+  // block: a single tap keeps producing a 1-token selection (today's
+  // behaviour, unchanged); a click-drag (mouse) or long-press-drag (touch)
+  // can produce a multi-token span (O2-C task C1). `sentence` is the
+  // selection's own sentence for a single-sentence span, or the *first*
+  // sentence touched when a span crosses a sentence boundary within the
+  // block (only used as a fallback; span rendering below never reads its
+  // `.translations` when the span isn't a whole single sentence).
+  const [selectedToken, setSelectedToken] = useState<{
+    token: Token;
+    sentence: Sentence;
+    spanTokens?: Token[];
+    /** Set only when spanTokens exactly covers one whole sentence. */
+    wholeSentence?: Sentence;
+  } | null>(null);
   const [showSentenceDetail, setShowSentenceDetail] = useState(false);
   const [width, setWidth] = useState(390);
   const [showCompletion, setShowCompletion] = useState(false);
@@ -159,6 +182,13 @@ export default function ReaderScreen() {
     () => new Set(savedWords.filter((w) => w.bookId === bookId).map((w) => w.tokenId)),
     [savedWords, bookId],
   );
+
+  // Every token id that should render the peach selection fill: just the
+  // tapped word for a single-tap selection, or every token in a drag span.
+  const selectedSpanTokenIds = useMemo(() => {
+    if (!selectedToken) return undefined;
+    return new Set((selectedToken.spanTokens ?? [selectedToken.token]).map((tk) => tk.id));
+  }, [selectedToken]);
 
   const chapterIndex = book?.chapters.findIndex((c) => c.id === chapterId) ?? -1;
   const isLastChapter = book ? chapterIndex === book.chapters.length - 1 : false;
@@ -364,7 +394,100 @@ export default function ReaderScreen() {
     '';
   const isSaved = selectedToken ? savedTokenIds.has(selectedToken.token.id) : false;
 
-  const translationPanel = selectedToken ? (
+  // O2-C task C1: a drag span (more than one token) gets its own panel —
+  // the pre-built sentence translation when the span covers a whole
+  // sentence, otherwise a composed gloss line for just the span. Single
+  // taps (spanTokens undefined, or length 1) keep the panel above
+  // unchanged.
+  const spanTokens = selectedToken?.spanTokens;
+  const isSpanSelection = !!spanTokens && spanTokens.length > 1;
+  const wholeSentence = selectedToken?.wholeSentence;
+  const spanFlat: FlatBlockToken[] =
+    spanTokens && selectedToken
+      ? spanTokens.map((token, index) => ({ token, sentence: selectedToken.sentence, index }))
+      : [];
+  const spanGlossLine = composedGlossLine(spanFlat, explanationLocale);
+  const spanGlossFallback = composedGlossUsedFallback(spanFlat, explanationLocale);
+  const spanDisplayText = spanText(spanFlat);
+  const wholeSentenceTranslation = wholeSentence
+    ? (wholeSentence.translations[explanationLocale] ?? wholeSentence.translations.en ?? '')
+    : '';
+  const wholeSentenceUsedFallback =
+    !!wholeSentence &&
+    !wholeSentence.translations[explanationLocale] &&
+    !!wholeSentence.translations.en;
+  const spanFirst = spanTokens?.[0];
+  const spanLast = spanTokens?.at(-1);
+  const playSpanAudio = () => {
+    if (!audioUri || spanFirst?.startMs === undefined) return;
+    playAudioSlice(audioUri, spanFirst.startMs, spanLast?.endMs ?? spanFirst.startMs + 600);
+  };
+
+  const translationPanel = !selectedToken ? (
+    <Text role="caption" color="ink3" style={styles.emptyState}>
+      {t('reader.emptyState')}
+    </Text>
+  ) : isSpanSelection && wholeSentence ? (
+    <View style={styles.panelInner}>
+      <View style={styles.panelHeaderRow}>
+        <Text role="reading" style={styles.flexShrink}>
+          {wholeSentence.text}
+        </Text>
+        {spanFirst?.startMs !== undefined && audioUri ? (
+          <IconButton
+            variant="ring"
+            size={44}
+            icon={<SpeakerGlyph size={18} color={colors.accent} />}
+            accessibilityLabel={t('book.a11y.playNarration')}
+            onPress={playSpanAudio}
+          />
+        ) : null}
+      </View>
+      <Text role="ui">{wholeSentenceTranslation}</Text>
+      {wholeSentenceUsedFallback ? (
+        <Text role="caption" color="ink3">
+          {t('reader.translatedToEnglish')}
+        </Text>
+      ) : null}
+      <View style={styles.panelActions}>
+        <Pressable onPress={report} style={webCursor}>
+          <Text role="caption" color="ink2">
+            {t('reader.report')}
+          </Text>
+        </Pressable>
+      </View>
+    </View>
+  ) : isSpanSelection ? (
+    <View style={styles.panelInner}>
+      <View style={styles.panelHeaderRow}>
+        <Text role="heading" size={24} style={styles.flexShrink}>
+          {spanDisplayText}
+        </Text>
+        {spanFirst?.startMs !== undefined && audioUri ? (
+          <IconButton
+            variant="ring"
+            size={44}
+            icon={<SpeakerGlyph size={18} color={colors.accent} />}
+            accessibilityLabel={t('book.a11y.playNarration')}
+            onPress={playSpanAudio}
+          />
+        ) : null}
+      </View>
+      <Text role="ui">{spanGlossLine ?? ''}</Text>
+      {spanGlossFallback ? (
+        <Text role="caption" color="ink3">
+          {t('reader.translatedToEnglish')}
+        </Text>
+      ) : null}
+      <View style={styles.panelActions}>
+        <Pressable onPress={report} style={webCursor}>
+          <Text role="caption" color="ink2">
+            {t('reader.report')}
+          </Text>
+        </Pressable>
+      </View>
+    </View>
+  ) : (
     <View style={styles.panelInner}>
       <View style={styles.panelHeaderRow}>
         <Text role="heading" size={24}>
@@ -428,10 +551,6 @@ export default function ReaderScreen() {
         </Text>
       ) : null}
     </View>
-  ) : (
-    <Text role="caption" color="ink3" style={styles.emptyState}>
-      {t('reader.emptyState')}
-    </Text>
   );
 
   return (
@@ -466,10 +585,33 @@ export default function ReaderScreen() {
               block={block}
               cjk={!!cjk}
               savedTokenIds={savedTokenIds}
-              selectedTokenId={selectedToken?.token.id}
+              selectedTokenIds={selectedSpanTokenIds}
               narratingIndex={narratingIndex}
               tokenIndexById={tokenIndexById}
-              onSelect={(token, sentence) => setSelectedToken({ token, sentence })}
+              onSelect={(token, sentence) => {
+                setShowSentenceDetail(false);
+                setSelectedToken({ token, sentence });
+              }}
+              onSpanSelect={(span) => {
+                if (span.length === 0) return;
+                const tokens = span.map((f) => f.token);
+                const firstToken = span[0] as FlatBlockToken;
+                const wholeSentence =
+                  isSingleSentenceSpan(span) &&
+                  isWholeSentenceSpan(
+                    firstToken.sentence,
+                    tokens.map((tk) => tk.id),
+                  )
+                    ? firstToken.sentence
+                    : undefined;
+                setShowSentenceDetail(false);
+                setSelectedToken({
+                  token: firstToken.token,
+                  sentence: firstToken.sentence,
+                  spanTokens: tokens,
+                  wholeSentence,
+                });
+              }}
               onLongPressSentence={(sentence) => {
                 setSelectedToken({ token: sentence.tokens[0]!, sentence });
                 setShowSentenceDetail(true);
@@ -600,20 +742,22 @@ function ReaderBlock({
   block,
   cjk,
   savedTokenIds,
-  selectedTokenId,
+  selectedTokenIds,
   narratingIndex,
   tokenIndexById,
   onSelect,
+  onSpanSelect,
   onLongPressSentence,
   onLayout,
 }: {
   block: Block;
   cjk: boolean;
   savedTokenIds: Set<string>;
-  selectedTokenId: string | undefined;
+  selectedTokenIds: Set<string> | undefined;
   narratingIndex: number;
   tokenIndexById: Map<string, number>;
   onSelect: (token: Token, sentence: Sentence) => void;
+  onSpanSelect: (span: FlatBlockToken[]) => void;
   onLongPressSentence: (sentence: Sentence) => void;
   onLayout?: (event: LayoutChangeEvent) => void;
 }) {
@@ -632,17 +776,24 @@ function ReaderBlock({
     }),
   }));
 
+  // Recomputed once per render (block sentences rarely change): the flat
+  // reading-order token list this block's drag-selection resolves against.
+  const flatBlockTokens = flattenBlockTokens(block);
+
   return (
     <View style={styles.block} onLayout={onLayout}>
-      <SpeechFillText
+      <SelectableSpeechText
         sentences={sentences}
-        selectedId={selectedTokenId}
+        selectedSpanTokenIds={selectedTokenIds}
         cjk={cjk}
         underline
-        onPressToken={(speechToken, speechSentence) => {
+        onTap={(speechToken, speechSentence) => {
           const sentence = block.sentences.find((s) => s.id === speechSentence.id);
           const token = sentence?.tokens.find((tk) => tk.id === speechToken.id);
           if (sentence && token) onSelect(token, sentence);
+        }}
+        onSpanSelect={(anchorTokenId, focusTokenId) => {
+          onSpanSelect(computeSpan(flatBlockTokens, anchorTokenId, focusTokenId));
         }}
         onLongPressSentence={(speechSentence) => {
           const sentence = block.sentences.find((s) => s.id === speechSentence.id);
@@ -772,6 +923,9 @@ const styles = StyleSheet.create({
   emptyState: {
     padding: space.lg,
     textAlign: 'center',
+  },
+  flexShrink: {
+    flexShrink: 1,
   },
   transport: {
     borderTopWidth: 1,

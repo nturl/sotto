@@ -174,3 +174,52 @@ Pre-flight 2026-09-04 ~23:30: stack already up (Docker, ods-tts restarted itself
 - Proof: e2e log with exit 0; screenshots on disk; orchestrator spot-checks two rows.
 - Permissions: apps/client/e2e/**, docs/verification.md, docs/screenshots/**, docs/evidence/**, root package.json scripts. Read-only elsewhere; bugs found go into the report, not fixed in place.
 - Stop when: proofs exist and a commit exists. Escalate when: the iOS build fails twice; an e2e reveals a defect in another lane's file (report it).
+
+- 2026-09-04 ~23:50 Pre-flight done: `pnpm check` green after the one prettier fix (docs/evidence/checks-preflight-2026-09-05.log); wip commit fbe602b; task cards committed ef4fc18; pushed. Fanout preflight: codex/grok/agy/kimi/deepseek OK, meta no key (not needed). Wave 1 dispatched: Cleo desktop spec (Sonnet), Lane A (Sonnet), Lane B slice 1 (Opus), Lane C C1+C2 (Sonnet), Lane D D1+D2 (Sonnet driving Codex + local Qwen).
+- 2026-09-04 ~23:52 DESKTOP.md landed (112 lines): content max-width 760/1040, rails -> 3/4-col grid of 150x225 / 160x240 tiles, book detail 280px cover column + ~65ch text, reader passage 620 + sticky 360 panel, onboarding centered 560 outside the tabs shell, review card 480. Lane A picks it up.
+
+## O2-C alignment before/after
+
+Root cause (docs/evidence/alignment-2026-09-05.log has the full run): whisper.cpp's
+`verbose_json` "words" are BPE sub-word fragments, not whole words — a leading space marks
+a new word, a fragment with none continues the previous one (e.g. "vieux" comes back as
+" vie" + "ux"). The old exact-match LCS compared those fragments directly against whole
+pack tokens, so most multi-syllable words never matched at all. Fix in `align.ts`:
+`mergeSubwordFragments` recombines the BPE pieces, `splitClitics` re-splits elisions
+("l'oiseau" -> "l'" + "oiseau") to match the pack tokenizer's own clitic boundaries
+(straight/curly apostrophes unified first), then exact LCS runs, then a fuzzy pass
+(normalized Levenshtein <= 0.34) closes genuine ASR substitutions ("ces" heard as "ses").
+`language` was already being forced on the STT call in narrate.ts — that wasn't the gap.
+
+Before numbers below replay each sentence's cached whisper transcript (same STT call,
+untouched) through the OLD exact-match-only `alignWordsLcs`; after numbers are the real
+`pnpm content:align --locale fr-FR` / `--locale es-419` run against packs/. Audio was not
+touched (no Kokoro calls) — only startMs/endMs and each ChapterSummary's new `alignment`
+field were rewritten.
+
+| Book | Chapter | Before (exact-match only) | After (merge+clitic-split+fuzzy) |
+|---|---|---|---|
+| fr-chat-botte | fr-chat-botte-01 | 227/322 (70.5%) | 321/322 (99.7%) |
+| fr-chat-botte | fr-chat-botte-02 | 225/340 (66.2%) | 333/340 (97.9%) |
+| fr-chat-botte | fr-chat-botte-03 | 288/401 (71.8%) | 394/401 (98.3%) |
+| fr-fables-la-fontaine | fr-fables-la-fontaine-01 | 211/317 (66.6%) | 317/317 (100.0%) |
+| fr-fables-la-fontaine | fr-fables-la-fontaine-02 | 239/350 (68.3%) | 348/350 (99.4%) |
+| fr-fables-la-fontaine | fr-fables-la-fontaine-03 | 268/397 (67.5%) | 394/397 (99.2%) |
+| fr-petit-chaperon-rouge | fr-petit-chaperon-rouge-01 | 176/222 (79.3%) | 218/222 (98.2%) |
+| fr-petit-chaperon-rouge | fr-petit-chaperon-rouge-02 | 199/271 (73.4%) | 267/271 (98.5%) |
+| es-fabulas-samaniego | es-fabulas-samaniego-01 | 91/150 (60.7%) | 150/150 (100.0%) |
+| es-fabulas-samaniego | es-fabulas-samaniego-02 | 70/114 (61.4%) | 114/114 (100.0%) |
+| es-fabulas-samaniego | es-fabulas-samaniego-03 | 84/141 (59.6%) | 141/141 (100.0%) |
+| es-lazarillo | es-lazarillo-01 | 217/327 (66.4%) | 327/327 (100.0%) |
+| es-lazarillo | es-lazarillo-02 | 196/324 (60.5%) | 324/324 (100.0%) |
+| es-lazarillo | es-lazarillo-03 | 216/344 (62.8%) | 344/344 (100.0%) |
+| es-quijote-molinos | es-quijote-molinos-01 | 249/362 (68.8%) | 361/362 (99.7%) |
+| es-quijote-molinos | es-quijote-molinos-02 | 225/368 (61.1%) | 365/368 (99.2%) |
+| es-quijote-molinos | es-quijote-molinos-03 | 230/365 (63.0%) | 365/365 (100.0%) |
+
+**Overall FR+ES: 3411/5115 (66.7%) -> 5083/5115 (99.4%).** Target was 90+; cleared on the
+first algorithm attempt, no second iteration needed. EN regression check (en-aesop-fables
+ch. 1, same before/after method): 102/109 (93.6%) -> 108/109 (99.1%) — no regression,
+slight improvement from the fuzzy pass. Evidence: docs/evidence/alignment-2026-09-05.log
+(full per-chapter replay + the two live `content:align` runs + the EN check).
+- 2026-09-05 ~00:40 Lane A report (commit fafaa03, 28 files): fast path onboarding/index.tsx + fastPathDefaults.ts, deep link app/read/[bookId].tsx, onboarding language fix (useLayoutEffect -> setUiCatalog), PWA (public/sw.js, icons, manifest + index.html patch in build-web.mjs, SW registered prod-only), deploy:web + e2e:hosted + e2e/hosted.mjs; local smoke PASS at 375/1440 with zero console errors (docs/evidence/hosted-smoke-local-2026-09-05.log). Only DESKTOP.md §1 done; §2-4/7 re-dispatched as Lane A2 (Sonnet). Two facts recorded by the worker: contentApi.ts special-cases loopback hosts to :8790 so the SW content cache is only exercised on a real hostname; Playwright's setOffline blocks navigations before the SW fetch handler, so hosted.mjs asserts cache contents instead. Orchestrator verifies both at Gate 1/2.

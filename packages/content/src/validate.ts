@@ -13,16 +13,29 @@ import {
   type Token,
 } from '@sotto/core';
 import { CLIENT_I18N_DIR, PACKS_DIR, SOURCE_DIR, TEST_FIXTURES_DIR } from './paths.ts';
+import { GLOSS_LOCALES } from './gloss-fill.ts';
+
+export type IssueSeverity = 'error' | 'warning';
 
 export interface ValidationIssue {
   scope: string;
   rule: string;
   message: string;
+  /** Defaults to 'error'. A 'warning' is reported but doesn't fail the run. */
+  severity?: IssueSeverity;
 }
 
-function issue(scope: string, rule: string, message: string): ValidationIssue {
-  return { scope, rule, message };
+function issue(
+  scope: string,
+  rule: string,
+  message: string,
+  severity: IssueSeverity = 'error',
+): ValidationIssue {
+  return { scope, rule, message, severity };
 }
+
+/** The threshold below which a chapter's alignment match rate warns (not errors). */
+const ALIGNMENT_WARN_THRESHOLD = 0.8;
 
 function readJson<T>(filePath: string): T | undefined {
   try {
@@ -69,6 +82,17 @@ function validateChapter(
             `sentence id "${sentence.id}" should be "${expectedSentenceId}"`,
           ),
         );
+      }
+      for (const locale of GLOSS_LOCALES) {
+        if (!sentence.translations[locale]) {
+          issues.push(
+            issue(
+              scopePrefix,
+              'missing-sentence-translation',
+              `sentence "${sentence.id}" has no translation for "${locale}"`,
+            ),
+          );
+        }
       }
       sentence.tokens.forEach((token: Token, tokenIndex) => {
         const expectedTokenId = `${sentence.id}.t${tokenIndex + 1}`;
@@ -226,6 +250,19 @@ function validateBook(localeDir: string, bookId: string): ValidationIssue[] {
         );
       }
     }
+    if (chapterSummary.alignment && chapterSummary.alignment.total > 0) {
+      const rate = chapterSummary.alignment.matched / chapterSummary.alignment.total;
+      if (rate < ALIGNMENT_WARN_THRESHOLD) {
+        issues.push(
+          issue(
+            scope,
+            'low-alignment-match-rate',
+            `${chapterSummary.file} matched ${chapterSummary.alignment.matched}/${chapterSummary.alignment.total} (${(rate * 100).toFixed(1)}%) of tokens — below the ${ALIGNMENT_WARN_THRESHOLD * 100}% warning threshold`,
+            'warning',
+          ),
+        );
+      }
+    }
     const chapter = readJson<Chapter>(chapterPath);
     if (!chapter) {
       issues.push(issue(scope, 'missing-asset', `${chapterSummary.file} is not valid JSON`));
@@ -346,7 +383,7 @@ function printReport(title: string, issuesByScope: Map<string, ValidationIssue[]
   for (const [scope, issues] of issuesByScope) {
     console.log(`  ${scope}:`);
     for (const iss of issues) {
-      console.log(`    [${iss.rule}] ${iss.message}`);
+      console.log(`    [${iss.severity ?? 'error'}] [${iss.rule}] ${iss.message}`);
     }
   }
 }
@@ -381,8 +418,12 @@ export function runValidateCommand(): void {
   }
   const issues = validateAllPacks();
   printReport('sotto-content validate:', groupByScope(issues));
-  console.log(`\n${issues.length} error${issues.length === 1 ? '' : 's'} across ${PACKS_DIR}`);
-  if (issues.length > 0) process.exitCode = 1;
+  const errors = issues.filter((i) => (i.severity ?? 'error') === 'error');
+  const warnings = issues.filter((i) => i.severity === 'warning');
+  console.log(
+    `\n${errors.length} error${errors.length === 1 ? '' : 's'}, ${warnings.length} warning${warnings.length === 1 ? '' : 's'} across ${PACKS_DIR}`,
+  );
+  if (errors.length > 0) process.exitCode = 1;
 }
 
 // ---- --fixtures self-test --------------------------------------------------
@@ -412,12 +453,15 @@ export function runValidateFixturesCommand(): void {
 
   if (existsSync(PACKS_DIR) && readdirSync(PACKS_DIR).length > 0) {
     const goodIssues = validateAllPacks();
-    const good = goodIssues.length === 0;
+    const goodErrors = goodIssues.filter((i) => (i.severity ?? 'error') === 'error');
+    const good = goodErrors.length === 0;
     console.log(
-      `\n  ${good ? 'PASS' : 'FAIL'}  real packs/ (${goodIssues.length} issue${goodIssues.length === 1 ? '' : 's'})`,
+      `\n  ${good ? 'PASS' : 'FAIL'}  real packs/ (${goodErrors.length} error${goodErrors.length === 1 ? '' : 's'}, ${goodIssues.length - goodErrors.length} warning${goodIssues.length - goodErrors.length === 1 ? '' : 's'})`,
     );
     for (const iss of goodIssues)
-      console.log(`        [${iss.scope}] [${iss.rule}] ${iss.message}`);
+      console.log(
+        `        [${iss.severity ?? 'error'}] [${iss.scope}] [${iss.rule}] ${iss.message}`,
+      );
     if (!good) ok = false;
   } else {
     console.log('\n  SKIP  real packs/ (not built yet — run `pnpm content:build` first)');

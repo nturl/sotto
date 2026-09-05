@@ -12,7 +12,9 @@
     "build": "node src/cli.ts build",
     "validate": "node src/cli.ts validate",
     "narrate": "node src/cli.ts narrate",
-    "covers": "node src/cli.ts covers"
+    "covers": "node src/cli.ts covers",
+    "align": "node src/cli.ts align",
+    "translate-sentences": "node src/cli.ts translate-sentences"
   },
   "dependencies": {
     "@sotto/core": "workspace:*",

@@ -8,6 +8,14 @@ import { z } from 'zod';
 export const DEFAULT_LLM_URL = 'http://127.0.0.1:8080/v1';
 export const DEFAULT_LLM_MODEL = 'qwen3.6-35b-a3b';
 
+/**
+ * The gloss/explanation locales every pack declares today (the fields the
+ * glossary and gloss-fill LLM prompt produce). Also the set of locales
+ * `Sentence.translations` must cover — see validate.ts's
+ * sentence-translation-coverage rule and translate-sentences.ts.
+ */
+export const GLOSS_LOCALES = ['en', 'fr', 'es'] as const;
+
 export async function isLlmReachable(baseUrl: string, timeoutMs = 1500): Promise<boolean> {
   try {
     const controller = new AbortController();
@@ -51,7 +59,7 @@ export async function fillGlossesBatch(
     );
   }
 
-  const fields = opts.needsPinyin ? ['pinyin', 'en', 'fr', 'es'] : ['en', 'fr', 'es'];
+  const fields = opts.needsPinyin ? ['pinyin', ...GLOSS_LOCALES] : [...GLOSS_LOCALES];
   const wordList = words
     .map((w) => `- "${w.word}" (in context: "${w.contextSentence}")`)
     .join('\n');

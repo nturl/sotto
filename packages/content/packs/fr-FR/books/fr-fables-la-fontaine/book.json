@@ -208,7 +208,12 @@
       "file": "chapters/01.json",
       "wordCount": 317,
       "audio": "audio/01.mp3",
-      "durationMs": 125766
+      "durationMs": 125766,
+      "alignment": {
+        "matched": 317,
+        "total": 317,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
     },
     {
       "id": "fr-fables-la-fontaine-02",
@@ -217,7 +222,12 @@
       "file": "chapters/02.json",
       "wordCount": 350,
       "audio": "audio/02.mp3",
-      "durationMs": 141655
+      "durationMs": 141655,
+      "alignment": {
+        "matched": 348,
+        "total": 350,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
     },
     {
       "id": "fr-fables-la-fontaine-03",
@@ -226,7 +236,12 @@
       "file": "chapters/03.json",
       "wordCount": 397,
       "audio": "audio/03.mp3",
-      "durationMs": 161122
+      "durationMs": 161122,
+      "alignment": {
+        "matched": 394,
+        "total": 397,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
     }
   ]
 }

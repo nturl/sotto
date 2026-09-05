@@ -201,7 +201,12 @@
       "file": "chapters/01.json",
       "wordCount": 222,
       "audio": "audio/01.mp3",
-      "durationMs": 85101
+      "durationMs": 85101,
+      "alignment": {
+        "matched": 218,
+        "total": 222,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
     },
     {
       "id": "fr-petit-chaperon-rouge-02",
@@ -210,7 +215,12 @@
       "file": "chapters/02.json",
       "wordCount": 271,
       "audio": "audio/02.mp3",
-      "durationMs": 110975
+      "durationMs": 110975,
+      "alignment": {
+        "matched": 267,
+        "total": 271,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
     }
   ]
 }

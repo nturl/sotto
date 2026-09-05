@@ -208,7 +208,12 @@
       "file": "chapters/01.json",
       "wordCount": 327,
       "audio": "audio/01.mp3",
-      "durationMs": 135416
+      "durationMs": 135416,
+      "alignment": {
+        "matched": 327,
+        "total": 327,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
     },
     {
       "id": "es-lazarillo-02",
@@ -217,7 +222,12 @@
       "file": "chapters/02.json",
       "wordCount": 324,
       "audio": "audio/02.mp3",
-      "durationMs": 138849
+      "durationMs": 138849,
+      "alignment": {
+        "matched": 324,
+        "total": 324,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
     },
     {
       "id": "es-lazarillo-03",
@@ -226,7 +236,12 @@
       "file": "chapters/03.json",
       "wordCount": 344,
       "audio": "audio/03.mp3",
-      "durationMs": 146865
+      "durationMs": 146865,
+      "alignment": {
+        "matched": 344,
+        "total": 344,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
     }
   ]
 }

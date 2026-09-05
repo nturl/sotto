@@ -201,7 +201,12 @@
       "file": "chapters/01.json",
       "wordCount": 150,
       "audio": "audio/01.mp3",
-      "durationMs": 65928
+      "durationMs": 65928,
+      "alignment": {
+        "matched": 150,
+        "total": 150,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
     },
     {
       "id": "es-fabulas-samaniego-02",
@@ -210,7 +215,12 @@
       "file": "chapters/02.json",
       "wordCount": 114,
       "audio": "audio/02.mp3",
-      "durationMs": 47531
+      "durationMs": 47531,
+      "alignment": {
+        "matched": 114,
+        "total": 114,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
     },
     {
       "id": "es-fabulas-samaniego-03",
@@ -219,7 +229,12 @@
       "file": "chapters/03.json",
       "wordCount": 141,
       "audio": "audio/03.mp3",
-      "durationMs": 61051
+      "durationMs": 61051,
+      "alignment": {
+        "matched": 141,
+        "total": 141,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
     }
   ]
 }

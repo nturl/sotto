@@ -26,6 +26,19 @@ export * from './fake.ts';
 // here: the concrete provider and its options. See the WS-1 report.
 export { LocalCascadeProvider, type LocalCascadeOptions } from './local-cascade.ts';
 export * from './transports/webrtc.ts';
+// R3-C3: the real OpenAI Realtime provider (web WebRTC). `export *` would
+// re-export its narrowed browser-API interfaces (DataChannelLike etc.),
+// which are implementation detail for the fake in its unit test, so only
+// the provider, its options, and the two types an app actually handles are
+// named here. Native throws NotSupportedError — see the file header.
+export {
+  OpenAIRealtimeProvider,
+  NotSupportedError,
+  REALTIME_CALLS_URL,
+  type OpenAIRealtimeOptions,
+  type MintedRealtimeSecret,
+  type RealtimeCallReport,
+} from './transports/openai-realtime.ts';
 // WS-4 addition: the client's web AudioAdapter (LocalCascadeProvider's mic
 // capture/tutor playback transport) needs the concrete WebAudioAdapter and
 // the AudioAdapter interface it implements; neither was re-exported from

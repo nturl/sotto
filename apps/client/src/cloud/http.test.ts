@@ -77,4 +77,30 @@ describe('HttpCloudAdapter', () => {
     const [, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
     expect(init.credentials).toBe('include');
   });
+
+  it('does not call the default fetch unbound (regression: "Illegal invocation")', async () => {
+    // A real browser's `fetch` is a method that requires `this` to be the
+    // Window (or another Fetch-spec global) it was retrieved from — Chrome
+    // throws "TypeError: Illegal invocation" if it's called with any other
+    // receiver. `HttpCloudAdapter` used to do `this.fetchImpl = opts.fetch
+    // ?? fetch` and then call it as `this.fetchImpl(...)`, which is exactly
+    // that failure mode. Simulate it with a fetch that only works when
+    // called with `this === globalThis`, and construct the adapter with NO
+    // injected `fetch` (the real production path) so it falls back to
+    // whatever this getter/binding does.
+    const realFetch = globalThis.fetch;
+    const strictFetch = function (this: unknown, ...args: unknown[]) {
+      if (this !== globalThis) {
+        throw new TypeError('Illegal invocation');
+      }
+      return Promise.resolve(jsonResponse(200, { plans: [], billing: 'stub' }));
+    };
+    (globalThis as { fetch: unknown }).fetch = strictFetch;
+    try {
+      const cloud = new HttpCloudAdapter('https://cloud.sotto.dev');
+      await expect(cloud.plans()).resolves.toEqual({ plans: [], billing: 'stub' });
+    } finally {
+      (globalThis as { fetch: unknown }).fetch = realFetch;
+    }
+  });
 });

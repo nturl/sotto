@@ -89,7 +89,10 @@ export class HttpCloudAdapter implements CloudAdapter {
 
   constructor(baseUrl: string, opts: HttpCloudAdapterOptions = {}) {
     this.baseUrl = baseUrl.replace(/\/$/, '');
-    this.fetchImpl = opts.fetch ?? fetch;
+    // Bind the default: browsers enforce the Fetch spec's receiver check, so a
+    // detached `fetch` reference throws "Illegal invocation" when called as
+    // `this.fetchImpl(...)`. Same pattern as packages/voice local-cascade.ts.
+    this.fetchImpl = opts.fetch ?? fetch.bind(globalThis);
     this.platform = opts.platform ?? 'web';
     this.tokenStore = opts.tokenStore ?? defaultNativeTokenStore();
   }

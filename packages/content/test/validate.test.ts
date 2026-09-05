@@ -28,12 +28,16 @@ describe('gloss-not-identity', () => {
 });
 
 describe('gloss-cross-locale-leak', () => {
-  it('warns when two non-own locales share a byte-identical gloss that differs from the surface form', () => {
+  it('warns when a Latin-script locale and a CJK locale share a byte-identical gloss (a script-family boundary crossing, not a plausible cognate)', () => {
     const issues = validatePackDir(path.join(fixturesDir, 'gloss-cross-locale-leak'));
     const leaks = issues.filter((i) => i.rule === 'gloss-cross-locale-leak');
     expect(leaks).toHaveLength(1);
     expect(leaks[0]?.severity).toBe('warning');
-    expect(leaks[0]?.message).toContain('"es" and "pt"');
+    expect(leaks[0]?.message).toContain('"en" and "zh-Hans"');
+    // The fixture also carries an "es"/"pt" gato/gato pair (a genuine
+    // Romance cognate) — R3-F1's retune must NOT flag that one; only the
+    // count assertion above covers this, so it's asserted explicitly too.
+    expect(leaks.some((i) => i.message.includes('"es" and "pt"'))).toBe(false);
     // The book's own "fr" gloss is correct identity here, so this fixture
     // must not also trip the (error-severity) identity rule.
     expect(issues.some((i) => i.rule === 'gloss-not-identity')).toBe(false);

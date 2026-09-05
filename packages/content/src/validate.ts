@@ -106,30 +106,122 @@ function glossIdentityIssue(
  * the surface word differs from both) is suspicious even when neither locale
  * is the book's own. This over-fires on genuine cognates (`animal`, `jaguar`,
  * Catalan `ball`, ...), so it's a warning, never an error.
+ *
+ * 2026-09-05 (R3-F1) retune: the pairwise-identity signature above over-
+ * fired 19,684x, almost entirely on legitimate shared Romance vocabulary
+ * (`persona`/`tigre`/`ser` identical across es/pt/ca/it, `zh-Hans`/
+ * `zh-Hant` sharing thousands of characters that don't differ between
+ * Simplified and Traditional) and proper nouns/numbers. GLOSS_LOCALES'
+ * nine locales fall into three families — the six Romance locales (fr/es/
+ * pt/it/ro/ca, which genuinely share cognates), `CJK_LOCALES` (zh-Hans/
+ * zh-Hant, which genuinely share characters), and `en` on its own — and an
+ * identical gloss within one family is expected, not a leak. What's
+ * actually implausible, and cheap to test for, is a shared gloss that
+ * crosses those family boundaries: a literal string can't simultaneously
+ * be a real word in two different scripts/languages unless it's a
+ * deliberate loanword or a proper noun, so `isProperNounOrNumericToken`
+ * exempts those from the boundary-crossing tests below (kept for the
+ * "4+ locales including en" test instead, since a genuinely widely-shared
+ * word is far less suspicious than a narrow pairwise match).
  */
+const CJK_LOCALES = new Set(['zh-Hans', 'zh-Hant']);
+/** Any character outside the ASCII range — real English words are ASCII;
+ * an accented gloss shared with `en` is a different language's word. */
+const NON_ASCII_RE = /[\u0080-\uffff]/;
+/** Diacritics/letters used in Romanian but not in the other five Romance
+ * gloss locales (ă â î ș ț, plus the older cedilla spellings ş ţ). */
+const ROMANIAN_ONLY_RE = /[ăâîșțşţ]/i;
+/** The geminate-l interpunct is exclusive to Catalan among GLOSS_LOCALES. */
+const CATALAN_INTERPUNCT_RE = /·/;
+
+/**
+ * Proper nouns (capitalized surface form) and numerals are routinely
+ * identical across many/all locales (character names, numbers) without
+ * being a copy/paste leak — exempt them from the family-boundary tests,
+ * which assume an ordinary word can't plausibly cross a script/language
+ * boundary.
+ */
+export function isProperNounOrNumericToken(token: Token): boolean {
+  if (/^[\d.,]+$/.test(token.normalized)) return true;
+  const first = token.text.charAt(0);
+  return first !== '' && first === first.toUpperCase() && first !== first.toLowerCase();
+}
+
+/**
+ * Cheap plausibility test for a *pair* of locales sharing an identical
+ * gloss (see the block comment above `glossCrossLocaleLeakIssues`).
+ * Returns true when the pairing is implausible enough to warrant a
+ * warning — i.e. probably a copy/paste leak rather than a real cognate.
+ */
+export function isImplausibleGlossPair(localeA: string, localeB: string, gloss: string): boolean {
+  const aIsCjk = CJK_LOCALES.has(localeA);
+  const bIsCjk = CJK_LOCALES.has(localeB);
+  // Crossing the CJK/non-CJK script boundary: a literal string can't be a
+  // real word in both a Han-script locale and a Latin-script one.
+  if (aIsCjk !== bIsCjk) return true;
+  // Both CJK (zh-Hans/zh-Hant): thousands of characters are identical
+  // between Simplified and Traditional — never a leak signal on its own.
+  if (aIsCjk && bIsCjk) return false;
+  // Both non-CJK: en paired with a Romance locale sharing an accented
+  // string is implausible for plain-ASCII English.
+  const enInvolved = localeA === 'en' || localeB === 'en';
+  if (enInvolved && NON_ASCII_RE.test(gloss)) return true;
+  // A Romanian-only or Catalan-only character/diacritic in a gloss shared
+  // with a locale that isn't ro/ca respectively.
+  if (ROMANIAN_ONLY_RE.test(gloss) && localeA !== 'ro' && localeB !== 'ro') return true;
+  if (CATALAN_INTERPUNCT_RE.test(gloss) && localeA !== 'ca' && localeB !== 'ca') return true;
+  return false;
+}
+
+/** Minimum number of GLOSS_LOCALES sharing one gloss, including `en`, that's
+ * suspicious even without a family-boundary signal (widescale copy/paste). */
+const WIDE_SHARE_MIN_LOCALES = 4;
+
 function glossCrossLocaleLeakIssues(scopePrefix: string, token: Token): ValidationIssue[] {
   if (!token.glosses) return [];
+  const glosses = token.glosses;
   const issues: ValidationIssue[] = [];
-  const locales = GLOSS_LOCALES;
-  for (let i = 0; i < locales.length; i++) {
-    for (let j = i + 1; j < locales.length; j++) {
-      const localeA = locales[i];
-      const localeB = locales[j];
-      if (!localeA || !localeB) continue;
-      const glossA = token.glosses[localeA];
-      const glossB = token.glosses[localeB];
-      if (
-        glossA !== undefined &&
-        glossB !== undefined &&
-        glossA === glossB &&
-        glossA !== token.normalized
-      ) {
+  const exempt = isProperNounOrNumericToken(token);
+
+  // Group locales by identical, non-identity gloss value.
+  const groups = new Map<string, string[]>();
+  for (const locale of GLOSS_LOCALES) {
+    const gloss = glosses[locale];
+    if (gloss === undefined || gloss === token.normalized) continue;
+    const group = groups.get(gloss);
+    if (group) group.push(locale);
+    else groups.set(gloss, [locale]);
+  }
+
+  for (const [gloss, sharedLocales] of groups) {
+    if (sharedLocales.length < 2) continue;
+    if (!exempt && sharedLocales.length >= WIDE_SHARE_MIN_LOCALES && sharedLocales.includes('en')) {
+      issues.push(
+        issue(
+          scopePrefix,
+          'gloss-cross-locale-leak',
+          `word token "${token.id}" ("${token.text}") has the identical gloss ("${gloss}") across ` +
+            `${sharedLocales.length} locales (${sharedLocales.join(', ')}), including "en" — that ` +
+            `both differs from the token's own form ("${token.normalized}") — possible copy/paste ` +
+            'across locales',
+          'warning',
+        ),
+      );
+      continue;
+    }
+    if (exempt) continue;
+    for (let i = 0; i < sharedLocales.length; i++) {
+      for (let j = i + 1; j < sharedLocales.length; j++) {
+        const localeA = sharedLocales[i];
+        const localeB = sharedLocales[j];
+        if (!localeA || !localeB) continue;
+        if (!isImplausibleGlossPair(localeA, localeB, gloss)) continue;
         issues.push(
           issue(
             scopePrefix,
             'gloss-cross-locale-leak',
             `word token "${token.id}" ("${token.text}") has identical "${localeA}" and "${localeB}" ` +
-              `glosses ("${glossA}") that both differ from the token's own form ("${token.normalized}") — ` +
+              `glosses ("${gloss}") that both differ from the token's own form ("${token.normalized}") — ` +
               'possible copy/paste from one locale into the other',
             'warning',
           ),
@@ -334,6 +426,8 @@ function validateBook(localeDir: string, bookId: string): ValidationIssue[] {
     }
   }
 
+  const allWordTokens = new Set<string>();
+
   for (const chapterSummary of book.chapters ?? []) {
     const chapterPath = path.join(dir, chapterSummary.file);
     if (!existsSync(chapterPath)) {
@@ -405,6 +499,47 @@ function validateBook(localeDir: string, bookId: string): ValidationIssue[] {
           });
         });
       });
+    }
+
+    if (book.wordAudio) {
+      chapter.blocks.forEach((block) => {
+        block.sentences.forEach((sentence) => {
+          sentence.tokens.forEach((token) => {
+            if (token.isWord && token.normalized) allWordTokens.add(token.normalized);
+          });
+        });
+      });
+    }
+  }
+
+  if (book.wordAudio) {
+    const wordAudioFilePath = path.join(dir, book.wordAudio.file);
+    if (!existsSync(wordAudioFilePath)) {
+      issues.push(
+        issue(scope, 'missing-asset', `missing referenced asset: ${book.wordAudio.file}`),
+      );
+    }
+    const wordAudioIndexPath = path.join(dir, book.wordAudio.index);
+    if (!existsSync(wordAudioIndexPath)) {
+      issues.push(
+        issue(scope, 'missing-asset', `missing referenced asset: ${book.wordAudio.index}`),
+      );
+    } else {
+      const wordAudioIndex = readJson<{ words?: Record<string, [number, number]> }>(
+        wordAudioIndexPath,
+      );
+      const indexed = new Set(Object.keys(wordAudioIndex?.words ?? {}));
+      const missing = [...allWordTokens].filter((normalized) => !indexed.has(normalized));
+      for (const normalized of missing) {
+        issues.push(
+          issue(
+            scope,
+            'word-audio-coverage',
+            `word token "${normalized}" has no entry in ${book.wordAudio.index}`,
+            'warning',
+          ),
+        );
+      }
     }
   }
 

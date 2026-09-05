@@ -3,6 +3,7 @@
  * roughly 1,500 words (no headings to key off in a .txt file).
  */
 import { ImportError, type ParsedChapter, type ParsedDocument } from '../types.ts';
+import { hardSplitParagraphs } from '../limits.ts';
 
 const TARGET_WORDS_PER_CHAPTER = 1500;
 
@@ -13,10 +14,11 @@ function wordCount(text: string): number {
 
 /** Splits raw text into paragraphs on one-or-more blank lines. */
 export function splitParagraphs(text: string): string[] {
-  return text
+  const paragraphs = text
     .split(/\r?\n\s*\r?\n+/)
     .map((p) => p.replace(/\s+/g, ' ').trim())
     .filter((p) => p.length > 0);
+  return hardSplitParagraphs(paragraphs);
 }
 
 /**

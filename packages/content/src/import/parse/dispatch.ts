@@ -10,6 +10,7 @@
  * client's preview step share one implementation.
  */
 import { ImportError, type ParsedDocument } from '../types.ts';
+import { MAX_CHAPTERS, MAX_IMPORT_CHARS } from '../limits.ts';
 import { parseEpub } from './epub.ts';
 import { parseMarkdown } from './markdown.ts';
 import { parseText } from './text.ts';
@@ -27,7 +28,28 @@ export function detectFormat(filename: string): 'epub' | 'txt' | 'md' {
 
 export function parseSource(bytes: Uint8Array, filename: string): ParsedDocument {
   const format = detectFormat(filename);
-  if (format === 'epub') return parseEpub(bytes);
-  const text = new TextDecoder('utf-8').decode(bytes);
-  return format === 'md' ? parseMarkdown(text) : parseText(text);
+  const parsed =
+    format === 'epub'
+      ? parseEpub(bytes)
+      : format === 'md'
+        ? parseMarkdown(new TextDecoder('utf-8').decode(bytes))
+        : parseText(new TextDecoder('utf-8').decode(bytes));
+
+  if (parsed.chapters.length > MAX_CHAPTERS) {
+    throw new ImportError(
+      'unsupported',
+      `this book has ${parsed.chapters.length} chapters, more than the ${MAX_CHAPTERS} supported`,
+    );
+  }
+  const totalChars = parsed.chapters.reduce(
+    (sum, c) => sum + c.paragraphs.reduce((s, p) => s + p.length, 0),
+    0,
+  );
+  if (totalChars > MAX_IMPORT_CHARS) {
+    throw new ImportError(
+      'unsupported',
+      `this book is ${totalChars.toLocaleString()} characters, more than the ${MAX_IMPORT_CHARS.toLocaleString()} supported`,
+    );
+  }
+  return parsed;
 }

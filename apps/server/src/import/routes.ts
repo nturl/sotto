@@ -14,6 +14,11 @@ import { ImportError, narrateChapter, type NarrationMode } from '@sotto/content/
 import { ImportJobRegistry } from './jobs.js';
 
 const MAX_UPLOAD_BYTES = 25 * 1024 * 1024;
+// Finding 9 (adversarial review 3): an unbounded number of SSE clients per
+// job, with no max stream duration, is an easy resource leak against an
+// unauthenticated route. Bound both.
+const MAX_SSE_CLIENTS_PER_JOB = 4;
+const MAX_SSE_STREAM_MS = 60 * 60_000;
 
 // Mirrors app.ts's DEFAULT_CORS_ORIGINS (not exported from there) — this
 // route writes straight to the raw response for its SSE stream, which
@@ -111,6 +116,11 @@ export async function importRoutes(app: FastifyInstance, config: Config): Promis
       void reply.send({ error: 'not_found' });
       return;
     }
+    if (job.listeners.size >= MAX_SSE_CLIENTS_PER_JOB) {
+      reply.code(429);
+      void reply.send({ error: 'too_many_streams' });
+      return;
+    }
 
     const origin = request.headers.origin;
     const headers: Record<string, string> = {
@@ -141,19 +151,29 @@ export async function importRoutes(app: FastifyInstance, config: Config): Promis
     const listener = (event: unknown): void => send(event);
     job.listeners.add(listener);
 
+    const cleanup = (): void => {
+      clearInterval(finishCheck);
+      clearTimeout(maxDuration);
+      job.listeners.delete(listener);
+    };
+
     const finishCheck = setInterval(() => {
       if (job.status !== 'running') {
         send({ stage: 'done', status: job.status, error: job.error });
-        clearInterval(finishCheck);
-        job.listeners.delete(listener);
+        cleanup();
         reply.raw.end();
       }
     }, 500);
 
-    request.raw.on('close', () => {
-      clearInterval(finishCheck);
-      job.listeners.delete(listener);
-    });
+    // A stream that outlives MAX_SSE_STREAM_MS is closed regardless of job
+    // status — a client that never disconnects otherwise holds this
+    // listener (and the interval) open indefinitely.
+    const maxDuration = setTimeout(() => {
+      cleanup();
+      reply.raw.end();
+    }, MAX_SSE_STREAM_MS);
+
+    request.raw.on('close', cleanup);
   });
 
   app.get('/import/:jobId/result', async (request, reply) => {

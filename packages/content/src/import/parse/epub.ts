@@ -12,6 +12,7 @@
 import { unzipSync } from 'fflate';
 import { XMLParser } from 'fast-xml-parser';
 import { ImportError, type ParsedChapter, type ParsedDocument } from '../types.ts';
+import { hardSplitParagraphs, MAX_CHAPTERS } from '../limits.ts';
 
 const xmlParser = new XMLParser({
   ignoreAttributes: false,
@@ -145,10 +146,12 @@ function xhtmlToParagraphs(xhtml: string): { paragraphs: string[]; headings: str
   body = body.replace(/<\/\s*(p|div|li|blockquote)\s*>/gi, '\n\n');
 
   const text = decodeEntities(stripTags(body));
-  const paragraphs = text
-    .split(/\n\s*\n+/)
-    .map((p) => p.replace(/\s+/g, ' ').trim())
-    .filter((p) => p.length > 0);
+  const paragraphs = hardSplitParagraphs(
+    text
+      .split(/\n\s*\n+/)
+      .map((p) => p.replace(/\s+/g, ' ').trim())
+      .filter((p) => p.length > 0),
+  );
 
   return { paragraphs, headings };
 }

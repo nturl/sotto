@@ -20,7 +20,15 @@ function ResultRow({ book, onPress }: { book: LibraryBook; onPress: () => void }
       accessibilityLabel={`${book.title}, ${book.author}`}
       style={[styles.resultRow, webCursor]}
     >
-      <Cover art={book.cover} width={56} height={84} cutout cutoutSize={3} accessibilityLabel={book.title} />
+      <Cover
+        art={book.cover}
+        width={56}
+        height={84}
+        cutout
+        cutoutSize={3}
+        svgUrl={book.svgUrl}
+        accessibilityLabel={book.title}
+      />
       <View style={styles.resultText}>
         <Text role="ui" size={15} style={styles.resultTitle} numberOfLines={1}>
           {book.title}

@@ -7,7 +7,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const CONTENT_ROOT = path.join(__dirname, '..');
 export const SOURCE_DIR = path.join(CONTENT_ROOT, 'source');
 export const PACKS_DIR = path.join(CONTENT_ROOT, 'packs');
-export const MESSAGES_DIR = path.join(CONTENT_ROOT, 'messages');
+/** apps/client/src/i18n/*.json — the client's UI message catalogs
+ * (CONTRACTS §1: en, es, fr, pt, it, zh-Hans, zh-Hant, ro, ca), validated
+ * for key completeness against en.json. */
+export const CLIENT_I18N_DIR = path.join(CONTENT_ROOT, '..', '..', 'apps', 'client', 'src', 'i18n');
 export const CACHE_DIR = path.join(CONTENT_ROOT, '.cache');
 export const TEST_FIXTURES_DIR = path.join(CONTENT_ROOT, 'test', 'fixtures');
 

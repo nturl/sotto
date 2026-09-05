@@ -67,7 +67,15 @@ export class LocalCascadeProvider implements VoiceProvider {
   constructor(opts: LocalCascadeOptions) {
     this.serverUrl = opts.serverUrl.replace(/\/$/, '');
     this.audio = opts.audio;
-    this.fetchImpl = opts.fetch ?? fetch;
+    // Storing the bare global `fetch` reference and calling it later as
+    // `this.fetchImpl(...)` throws "Illegal invocation" in real browsers —
+    // fetch's spec implementation checks its receiver is a Window/Worker
+    // global, and detaching it from `this` (which reassigning to a class
+    // field does) breaks that check. Only surfaced once something actually
+    // drove LocalCascadeProvider end-to-end in a browser (WS-6 live-voice
+    // e2e); FakeVoiceProvider and the Node-side voice-smoke script never
+    // exercised this path. `.bind(globalThis)` restores the receiver.
+    this.fetchImpl = opts.fetch ?? fetch.bind(globalThis);
     this.WebSocketImpl = opts.WebSocket ?? (globalThis.WebSocket as typeof WebSocket);
   }
 
@@ -96,7 +104,12 @@ export class LocalCascadeProvider implements VoiceProvider {
       body: JSON.stringify(opts),
     });
     if (!res.ok) {
-      this.emit({ type: 'error', code: 'session_create_failed', message: `${res.status}`, recoverable: false });
+      this.emit({
+        type: 'error',
+        code: 'session_create_failed',
+        message: `${res.status}`,
+        recoverable: false,
+      });
       this.emit({ type: 'state', state: 'error' });
       return;
     }
@@ -171,7 +184,12 @@ export class LocalCascadeProvider implements VoiceProvider {
         this.emit({ type: 'limit', reason: msg.reason });
         break;
       case 'error':
-        this.emit({ type: 'error', code: msg.code, message: msg.message, recoverable: msg.recoverable });
+        this.emit({
+          type: 'error',
+          code: msg.code,
+          message: msg.message,
+          recoverable: msg.recoverable,
+        });
         break;
       case 'audio_start':
         this.currentUtteranceId = msg.utteranceId;

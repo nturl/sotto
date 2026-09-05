@@ -1,9 +1,11 @@
 # Architecture
 
-This is a draft overview assembled from [planning/CONTRACTS.md](../planning/CONTRACTS.md)
-(also copied verbatim to [docs/contracts.md](contracts.md)) while the workspace comes
-online. Treat CONTRACTS.md as the source of truth for exact shapes; this file
-explains how the pieces fit together.
+Refreshed against what actually shipped (WS-6, 2026-09-04) — see
+[planning/CONTRACTS.md](../planning/CONTRACTS.md) for exact wire/data shapes
+and [planning/LEDGER.md](../planning/LEDGER.md) for what each workstream
+built and any deviations. `docs/contracts.md` is a stale verbatim copy of an
+early CONTRACTS.md draft from before content-authoring wrapped up — the
+`planning/` copy is the one that stayed current.
 
 ## Monorepo
 
@@ -76,4 +78,23 @@ for the full pipeline and its caching/fallback rules.
 narration audio + timings, attribution). `pnpm content:validate` enforces the
 pack contract (CONTRACTS §2b). `apps/server` serves built packs at
 `GET /content/packs` (summaries) and `GET /content/packs/:locale/*` (static
-files).
+files). Every book's real `cover.svg` is fetched from that route and passed
+as `Cover`'s `svgUrl` prop (`apps/client/src/ui/data.ts`'s `toLibraryBook`) —
+it renders via `<Image>` on web and `SvgUri` on native, overriding the flat
+placeholder illustration `Cover` also knows how to draw from a fixed art set
+(used only where no `svgUrl` is available, e.g. dev fixtures).
+
+## UI message catalogs
+
+Two catalog locations exist in the tree; only one is live. The UI actually
+reads `apps/client/src/i18n/*.json` (`useT()`, one file per catalog —
+CONTRACTS §1's 9 codes), loaded via Metro's `require.context` so a catalog
+file that doesn't exist yet at bundle time is simply absent from the map
+rather than breaking the build (relevant while catalogs are still being
+drafted) and any lookup falls back to `en`. The active catalog is driven by
+`preferences.interfaceLocale` (resolved through `@sotto/core`'s
+`catalogFor`, which also accepts a bare catalog code). `pnpm content:validate`
+checks every file in that directory for key parity against `en.json`.
+(An earlier `packages/content/messages/` stub from WS-1 scaffolding was
+never read by the app and has been removed; the client directory is the
+only catalog location.)

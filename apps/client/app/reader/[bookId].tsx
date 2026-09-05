@@ -63,6 +63,7 @@ export default function ReaderScreen() {
   const loadBook = useSottoStore((s) => s.loadBook);
   const loadChapter = useSottoStore((s) => s.loadChapter);
   const bookLocale = useSottoStore((s) => s.bookLocale);
+  const packsStatus = useSottoStore((s) => s.packsStatus);
   const books = useSottoStore((s) => s.books);
   const chapters = useSottoStore((s) => s.chapters);
   const progressByBook = useSottoStore((s) => s.progress);
@@ -87,8 +88,13 @@ export default function ReaderScreen() {
   const scrollThrottle = useRef(0);
 
   useEffect(() => {
+    // Deep-linking straight to /reader/[bookId] (a full page load, or this
+    // e2e script) mounts before `packs` has loaded, so `bookLocale(bookId)`
+    // resolves to undefined and loadBook's own locale lookup silently bails
+    // — retry once packsStatus reaches 'ready' (WS-6 fix: was `[bookId,
+    // loadBook]` only, so a book opened this way never loaded).
     if (bookId) void loadBook(bookId);
-  }, [bookId, loadBook]);
+  }, [bookId, loadBook, packsStatus]);
 
   useEffect(() => {
     if (book && !chapterId) setChapterId(book.chapters[0]?.id);
@@ -627,7 +633,14 @@ function CompletionView({
         />
       </View>
       {book ? (
-        <Cover art={book.cover} width={140} height={210} cutout accessibilityLabel={book.title} />
+        <Cover
+          art={book.cover}
+          width={140}
+          height={210}
+          cutout
+          svgUrl={book.svgUrl}
+          accessibilityLabel={book.title}
+        />
       ) : null}
       <Text role="display" size={24} style={styles.completionArrow}>
         ↓

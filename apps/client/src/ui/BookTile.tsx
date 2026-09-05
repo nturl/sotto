@@ -24,7 +24,14 @@ export function BookTile({ book, onPress }: BookTileProps) {
       accessibilityLabel={`${book.title}, ${book.author}`}
       style={[styles.tile, webCursor]}
     >
-      <Cover art={book.cover} width={110} height={165} cutout accessibilityLabel={book.title} />
+      <Cover
+        art={book.cover}
+        width={110}
+        height={165}
+        cutout
+        svgUrl={book.svgUrl}
+        accessibilityLabel={book.title}
+      />
       <Text role="caption" color="ink" style={styles.title} numberOfLines={1}>
         {book.title}
       </Text>

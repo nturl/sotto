@@ -34,7 +34,14 @@ export default function BookDetailScreen() {
       <BackLink />
 
       <View style={styles.coverWrap}>
-        <Cover art={book.cover} width={180} height={270} cutout accessibilityLabel={book.title} />
+        <Cover
+          art={book.cover}
+          width={180}
+          height={270}
+          cutout
+          svgUrl={book.svgUrl}
+          accessibilityLabel={book.title}
+        />
       </View>
 
       <Text role="display" size={30} style={styles.title}>

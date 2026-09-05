@@ -49,6 +49,7 @@ export function SessionBar() {
           height={48}
           cutout
           cutoutSize={2}
+          svgUrl={book.svgUrl}
           accessibilityLabel={book.title}
         />
         <View style={styles.text}>

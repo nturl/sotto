@@ -26,6 +26,8 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
   const loadBook = useSottoStore((s) => s.loadBook);
   const loadChapter = useSottoStore((s) => s.loadChapter);
   const bookLocale = useSottoStore((s) => s.bookLocale);
+  const packsStatus = useSottoStore((s) => s.packsStatus);
+  const loadPacks = useSottoStore((s) => s.loadPacks);
 
   const sessionRecord = useSottoStore((s) => s.sessionRecord);
   const voiceState = useSottoStore((s) => s.voiceState);
@@ -44,8 +46,20 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
   const mode = sessionRecord?.mode ?? modeParam ?? preferences.defaultTutorMode;
 
   useEffect(() => {
+    // Unlike the reader/library/home screens, the voice screen never calls
+    // useLibrary(), so nothing else triggers loadPacks() on a direct deep
+    // link to /voice/[bookId] — packsStatus would stay 'idle' forever and
+    // bookLocale(bookId) would never resolve. (WS-6 fix.)
+    if (packsStatus === 'idle') void loadPacks();
+  }, [packsStatus, loadPacks]);
+
+  useEffect(() => {
+    // Same fix as the reader screen: deep-linking straight to /voice/[bookId]
+    // (a full page load) mounts before `packs` has loaded, so
+    // bookLocale(bookId) resolves undefined and loadBook's locale lookup
+    // silently bails — retry once packsStatus reaches 'ready'.
     void loadBook(bookId);
-  }, [bookId, loadBook]);
+  }, [bookId, loadBook, packsStatus]);
 
   useEffect(() => {
     if (bookId && chapterId && chapterSummary)

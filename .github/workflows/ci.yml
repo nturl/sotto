@@ -29,3 +29,14 @@ jobs:
 
       - name: Check
         run: pnpm check
+
+      - name: Test
+        # Redundant with `pnpm check` above (which already runs the suite) —
+        # kept as its own explicit, non-continuable gate per WS-6 so a test
+        # regression fails CI clearly even if `check`'s chain is ever
+        # reordered. e2e:* scripts are intentionally NOT run here: they need
+        # the local model stack (whisper/llama-server/Kokoro) that CI doesn't
+        # have.
+        if: always()
+        continue-on-error: false
+        run: pnpm test

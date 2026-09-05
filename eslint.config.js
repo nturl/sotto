@@ -41,4 +41,21 @@ export default tseslint.config(
       '@typescript-eslint/no-require-imports': 'off',
     },
   },
+  {
+    // Playwright e2e scripts: plain Node ESM (not type-checked, so no-undef
+    // stays active unlike .ts files) that also pass closures into
+    // `page.evaluate(...)` — those run inside the browser page, not Node,
+    // so both sets of globals are needed in the same file.
+    files: ['apps/client/e2e/**/*.mjs'],
+    languageOptions: {
+      globals: {
+        process: 'readonly',
+        console: 'readonly',
+        fetch: 'readonly',
+        Buffer: 'readonly',
+        indexedDB: 'readonly',
+        document: 'readonly',
+      },
+    },
+  },
 );

@@ -22,4 +22,10 @@ config.resolver.nodeModulesPaths = [
 config.resolver.disableHierarchicalLookup = false;
 config.resolver.unstable_enablePackageExports = true;
 
+// Enables require.context (webpack-style) so src/i18n/useT.ts can load
+// whichever of the nine UI catalogs (CONTRACTS §1) actually exist on disk
+// at bundle time, instead of a fixed list of static imports that would
+// fail to resolve while a catalog file is still being drafted.
+config.transformer.unstable_allowRequireContext = true;
+
 module.exports = config;

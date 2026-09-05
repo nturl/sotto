@@ -81,7 +81,10 @@ export function DailyStoryCard({ book, onPress }: { book: LibraryBook; onPress: 
           ]}
         />
         <Animated.View
-          style={[styles.card, { transform: [{ translateX: faceTranslate }, { translateY: faceTranslate }] }]}
+          style={[
+            styles.card,
+            { transform: [{ translateX: faceTranslate }, { translateY: faceTranslate }] },
+          ]}
         >
           <View style={styles.panel}>
             <Svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -93,7 +96,15 @@ export function DailyStoryCard({ book, onPress }: { book: LibraryBook; onPress: 
               </Defs>
               <Rect x={0} y={0} width={100} height={100} fill="url(#daily-gradient)" />
             </Svg>
-            <Cover art={book.cover} width={72} height={108} cutout cutoutSize={4} accessibilityLabel={book.title} />
+            <Cover
+              art={book.cover}
+              width={72}
+              height={108}
+              cutout
+              cutoutSize={4}
+              svgUrl={book.svgUrl}
+              accessibilityLabel={book.title}
+            />
           </View>
           <View style={styles.body}>
             <SectionEyebrow>{t('home.dailyEyebrow')}</SectionEyebrow>

@@ -20,13 +20,16 @@
     "content:build": "pnpm --filter @sotto/content build",
     "content:validate": "pnpm --filter @sotto/content validate",
     "content:narrate": "pnpm --filter @sotto/content narrate",
-    "content:covers": "pnpm --filter @sotto/content covers"
+    "content:covers": "pnpm --filter @sotto/content covers",
+    "e2e:screenshots": "node apps/client/e2e/screenshots.mjs",
+    "e2e:voice": "node apps/client/e2e/voice-live.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.38.0",
     "concurrently": "^9.2.1",
     "eslint": "^9.38.0",
     "eslint-plugin-react-hooks": "^7.0.1",
+    "playwright": "^1.62.1",
     "prettier": "^3.6.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.2",

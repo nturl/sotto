@@ -37,6 +37,10 @@ export type LibraryBook = {
   minutes: number;
   categories: BookCategory[];
   cover: CoverArt;
+  /** Real pack cover (CONTRACTS §2b `books/<bookId>/cover.svg`), resolved
+   * against the server. Passed to `Cover`'s `svgUrl` prop, which renders it
+   * in place of the flat fixture illustration in `cover`. */
+  svgUrl: string;
   progress: number;
   isNew: boolean;
   synopsis: string;
@@ -115,6 +119,7 @@ export function toLibraryBook(
     minutes: summary.estimatedMinutes,
     categories: mapCategories(summary.categories),
     cover: hashCover(summary.bookId),
+    svgUrl: assetUrl(summary.contentLocale, summary.bookId, summary.cover || 'cover.svg'),
     progress,
     isNew: progress === 0,
     synopsis,
@@ -160,6 +165,7 @@ export function useLibrary(): Library {
             minutes: 0,
             categories: ['contes'],
             cover: 'market',
+            svgUrl: '',
             progress: 0,
             isNew: false,
             synopsis: '',

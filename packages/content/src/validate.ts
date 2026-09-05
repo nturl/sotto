@@ -12,7 +12,7 @@ import {
   type Pack,
   type Token,
 } from '@sotto/core';
-import { MESSAGES_DIR, PACKS_DIR, TEST_FIXTURES_DIR } from './paths.ts';
+import { CLIENT_I18N_DIR, PACKS_DIR, TEST_FIXTURES_DIR } from './paths.ts';
 
 export interface ValidationIssue {
   scope: string;
@@ -233,21 +233,24 @@ function flattenMessageKeys(obj: Record<string, unknown>): string[] {
   return Object.keys(obj);
 }
 
-export function validateMessageCatalogs(): ValidationIssue[] {
+/** Checks every `<dir>/*.json` catalog (except en.json) for key parity
+ * against `<dir>/en.json`, reporting each missing key as an
+ * `incomplete-catalog` error scoped as `<scopePrefix>/<file>`. Used for
+ * `apps/client/src/i18n/` (client UI catalogs, CONTRACTS §1/§6). */
+function validateMessageDir(dir: string, scopePrefix: string): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
-  const enPath = path.join(MESSAGES_DIR, 'en.json');
+  const enPath = path.join(dir, 'en.json');
   if (!existsSync(enPath)) return issues; // nothing to compare against yet
 
   const en = readJson<Record<string, unknown>>(enPath);
   if (!en) return issues;
   const enKeys = new Set(flattenMessageKeys(en));
 
-  if (!existsSync(MESSAGES_DIR)) return issues;
-  for (const file of readdirSync(MESSAGES_DIR)) {
+  for (const file of readdirSync(dir)) {
     if (!file.endsWith('.json') || file === 'en.json') continue;
-    const catalog = readJson<Record<string, unknown>>(path.join(MESSAGES_DIR, file));
+    const catalog = readJson<Record<string, unknown>>(path.join(dir, file));
     if (!catalog) {
-      issues.push(issue(`messages/${file}`, 'missing-asset', `${file} is not valid JSON`));
+      issues.push(issue(`${scopePrefix}/${file}`, 'missing-asset', `${file} is not valid JSON`));
       continue;
     }
     const catalogKeys = new Set(flattenMessageKeys(catalog));
@@ -255,7 +258,7 @@ export function validateMessageCatalogs(): ValidationIssue[] {
     for (const key of missing) {
       issues.push(
         issue(
-          `messages/${file}`,
+          `${scopePrefix}/${file}`,
           'incomplete-catalog',
           `missing key "${key}" (present in en.json)`,
         ),
@@ -263,6 +266,11 @@ export function validateMessageCatalogs(): ValidationIssue[] {
     }
   }
   return issues;
+}
+
+export function validateMessageCatalogs(): ValidationIssue[] {
+  if (!existsSync(CLIENT_I18N_DIR)) return [];
+  return validateMessageDir(CLIENT_I18N_DIR, 'client/i18n');
 }
 
 function printReport(title: string, issuesByScope: Map<string, ValidationIssue[]>): void {

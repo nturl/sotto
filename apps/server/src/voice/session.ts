@@ -46,8 +46,22 @@ export type AudioSender = (chunk: Uint8Array) => void;
 
 const MAX_HISTORY_MESSAGES = 24; // ~12 user+assistant turns
 const TOOL_RESULT_TIMEOUT_MS = 30_000;
-const PRE_BUFFER_FRAMES = 20; // ~ a few hundred ms of pre-roll, kept regardless of frame size
+// Pre-roll kept before speech_start fires, so the very start of an
+// utterance isn't lost while the VAD's minSpeechMs onset delay ramps up.
+// Duration-based (not a frame count): a real browser AudioWorklet posts one
+// frame per ~2.7ms render quantum (WS-6 fix — the old `PRE_BUFFER_FRAMES =
+// 20` claimed "regardless of frame size" but was ~53ms of real pre-roll at
+// that cadence vs. ~400ms with the 20ms frames voice-smoke.ts sends
+// manually, so short real-mic utterances like "Guarda la palabra cigarra."
+// were losing their first word or two to STT before speech_start caught up).
+const PRE_BUFFER_MS = 1200;
 const MAX_TOOL_ITERATIONS = 4;
+
+const AUDIO_SAMPLE_RATE = 16000; // CONTRACTS §5b: PCM16 mono 16kHz in from the client
+
+function frameDurationMs(frame: Uint8Array): number {
+  return (frame.byteLength / 2 / AUDIO_SAMPLE_RATE) * 1000;
+}
 
 function toInt16(bytes: Uint8Array): Int16Array {
   const out = new Int16Array(Math.floor(bytes.byteLength / 2));
@@ -81,6 +95,7 @@ export class VoiceSession {
   private capturingSpeech = false;
   private speechFrames: Uint8Array[] = [];
   private preBuffer: Uint8Array[] = [];
+  private preBufferMs = 0;
 
   private currentAbort: AbortController | null = null;
   private currentUtteranceId: string | null = null;
@@ -196,7 +211,10 @@ export class VoiceSession {
       this.speechFrames.push(frame);
     } else {
       this.preBuffer.push(frame);
-      if (this.preBuffer.length > PRE_BUFFER_FRAMES) this.preBuffer.shift();
+      this.preBufferMs += frameDurationMs(frame);
+      while (this.preBufferMs > PRE_BUFFER_MS && this.preBuffer.length > 0) {
+        this.preBufferMs -= frameDurationMs(this.preBuffer.shift()!);
+      }
     }
   }
 
@@ -213,7 +231,10 @@ export class VoiceSession {
     const segment = concatPcm16(this.speechFrames);
     this.speechFrames = [];
     this.preBuffer = [];
-    this.handleLearnerSegment(segment).catch((err) => this.emitError('unexpected_pipeline_error', err));
+    this.preBufferMs = 0;
+    this.handleLearnerSegment(segment).catch((err) =>
+      this.emitError('unexpected_pipeline_error', err),
+    );
   }
 
   // ---- Inbound JSON messages ----
@@ -229,6 +250,7 @@ export class VoiceSession {
           this.capturingSpeech = false;
           this.speechFrames = [];
           this.preBuffer = [];
+          this.preBufferMs = 0;
           this.setState('muted');
         } else if (this.state === 'muted') {
           this.setState('listening');
@@ -272,7 +294,9 @@ export class VoiceSession {
       if (this.speechFrames.length > 0) {
         const segment = concatPcm16(this.speechFrames);
         this.speechFrames = [];
-        this.handleLearnerSegment(segment).catch((err) => this.emitError('unexpected_pipeline_error', err));
+        this.handleLearnerSegment(segment).catch((err) =>
+          this.emitError('unexpected_pipeline_error', err),
+        );
       }
     }
   }
@@ -329,7 +353,10 @@ export class VoiceSession {
         this.learner.explanationLocale,
         this.config.stt,
       );
-      this.logger.info({ sessionId: this.id, stt_ms: Date.now() - sttStart, captionLength: text.length }, 'stt complete');
+      this.logger.info(
+        { sessionId: this.id, stt_ms: Date.now() - sttStart, captionLength: text.length },
+        'stt complete',
+      );
       if (!text) {
         if (this.state !== 'ended') this.setState('listening');
         return;
@@ -349,7 +376,10 @@ export class VoiceSession {
     }
   }
 
-  private async relayToolCall(tc: StreamedToolCall, signal: AbortSignal): Promise<{ callId: string; name: ToolName; result: ToolResult }> {
+  private async relayToolCall(
+    tc: StreamedToolCall,
+    signal: AbortSignal,
+  ): Promise<{ callId: string; name: ToolName; result: ToolResult }> {
     let args: unknown = {};
     try {
       args = tc.arguments.trim() ? JSON.parse(tc.arguments) : {};
@@ -358,7 +388,11 @@ export class VoiceSession {
     }
 
     if (!isToolName(tc.name)) {
-      return { callId: tc.id, name: tc.name as ToolName, result: { ok: false, error: `unknown tool ${tc.name}` } };
+      return {
+        callId: tc.id,
+        name: tc.name as ToolName,
+        result: { ok: false, error: `unknown tool ${tc.name}` },
+      };
     }
     const name = tc.name;
 
@@ -409,7 +443,10 @@ export class VoiceSession {
       (chunk) => {
         if (abort.signal.aborted) return;
         if (first) {
-          this.logger.info({ sessionId: this.id, tts_first_audio_ms: Date.now() - ttsStart }, 'tts first audio');
+          this.logger.info(
+            { sessionId: this.id, tts_first_audio_ms: Date.now() - ttsStart },
+            'tts first audio',
+          );
           first = false;
         }
         if (this.currentUtteranceId === utteranceId) this.currentUtteranceChunks.push(chunk);
@@ -450,7 +487,10 @@ export class VoiceSession {
             onTextDelta: async (delta) => {
               if (firstTokenAt === null) {
                 firstTokenAt = Date.now();
-                this.logger.info({ sessionId: this.id, llm_first_token_ms: firstTokenAt - llmStart }, 'llm first token');
+                this.logger.info(
+                  { sessionId: this.id, llm_first_token_ms: firstTokenAt - llmStart },
+                  'llm first token',
+                );
               }
               rawBuffer += delta;
               const safeIdx = safeReleaseIndex(rawBuffer);
@@ -459,7 +499,8 @@ export class VoiceSession {
               if (!release) return;
 
               const { text: clean, readingTokenIds, pace } = stripMarkers(release);
-              if (readingTokenIds.length > 0) this.send({ t: 'reading', tokenIds: readingTokenIds });
+              if (readingTokenIds.length > 0)
+                this.send({ t: 'reading', tokenIds: readingTokenIds });
               if (pace) this.pace = pace;
               turnText += clean;
 
@@ -498,13 +539,20 @@ export class VoiceSession {
           {
             role: 'assistant',
             content: rawText,
-            tool_calls: toolCalls.map((tc) => ({ id: tc.id, type: 'function' as const, function: { name: tc.name, arguments: tc.arguments } })),
+            tool_calls: toolCalls.map((tc) => ({
+              id: tc.id,
+              type: 'function' as const,
+              function: { name: tc.name, arguments: tc.arguments },
+            })),
           },
         ];
         this.setState('thinking');
         for (const tc of toolCalls) {
           const { callId, name, result } = await this.relayToolCall(tc, abort.signal);
-          messages = [...messages, { role: 'tool', tool_call_id: callId, name, content: JSON.stringify(result) }];
+          messages = [
+            ...messages,
+            { role: 'tool', tool_call_id: callId, name, content: JSON.stringify(result) },
+          ];
         }
       }
     } catch (err) {
@@ -530,7 +578,12 @@ export class VoiceSession {
     this.setState('thinking');
     try {
       const instruction = buildModeChangeInstruction(mode, this.learner.explanationLocale);
-      const { text } = await streamChatCompletion([{ role: 'system', content: instruction }], this.config.llm, {}, abort.signal);
+      const { text } = await streamChatCompletion(
+        [{ role: 'system', content: instruction }],
+        this.config.llm,
+        {},
+        abort.signal,
+      );
       const { text: clean } = stripMarkers(text);
       const sentence = clean.trim();
       if (sentence && !abort.signal.aborted) {

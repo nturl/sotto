@@ -55,6 +55,13 @@ export async function streamChatCompletion(
       temperature: 0.4,
       max_tokens: 200,
       chat_template_kwargs: { enable_thinking: false },
+      // llama-server extension: reuse the KV cache across requests that
+      // share a prompt prefix (the stable tutor system instruction + tools
+      // stay first — see prompt.ts). Without it every turn re-evaluates the
+      // whole prompt from scratch; a WS-3-documented pending fix (LEDGER
+      // 2026-09-04 18:05), applied here because it was measured directly
+      // blocking the WS-6 live-voice e2e (15s to first token on this run).
+      cache_prompt: true,
     }),
   });
 
@@ -89,7 +96,8 @@ export async function streamChatCompletion(
         } catch {
           continue;
         }
-        const delta = (event as { choices?: Array<{ delta?: Record<string, unknown> }> }).choices?.[0]?.delta;
+        const delta = (event as { choices?: Array<{ delta?: Record<string, unknown> }> })
+          .choices?.[0]?.delta;
         if (!delta) continue;
 
         if (typeof delta.content === 'string' && delta.content.length > 0) {
@@ -100,10 +108,17 @@ export async function streamChatCompletion(
         const rawToolCalls = delta.tool_calls as RawStreamToolCall[] | undefined;
         if (Array.isArray(rawToolCalls)) {
           for (const tc of rawToolCalls) {
-            const existing = toolCallsByIndex.get(tc.index) ?? { index: tc.index, id: '', function: { name: '', arguments: '' } };
+            const existing = toolCallsByIndex.get(tc.index) ?? {
+              index: tc.index,
+              id: '',
+              function: { name: '', arguments: '' },
+            };
             if (tc.id) existing.id = tc.id;
-            if (tc.function?.name) existing.function!.name = (existing.function!.name ?? '') + tc.function.name;
-            if (tc.function?.arguments) existing.function!.arguments = (existing.function!.arguments ?? '') + tc.function.arguments;
+            if (tc.function?.name)
+              existing.function!.name = (existing.function!.name ?? '') + tc.function.name;
+            if (tc.function?.arguments)
+              existing.function!.arguments =
+                (existing.function!.arguments ?? '') + tc.function.arguments;
             toolCallsByIndex.set(tc.index, existing);
           }
         }
@@ -115,7 +130,11 @@ export async function streamChatCompletion(
 
   const toolCalls: StreamedToolCall[] = [...toolCallsByIndex.values()]
     .sort((a, b) => a.index - b.index)
-    .map((tc) => ({ id: tc.id || `call_${tc.index}`, name: tc.function?.name ?? '', arguments: tc.function?.arguments ?? '' }));
+    .map((tc) => ({
+      id: tc.id || `call_${tc.index}`,
+      name: tc.function?.name ?? '',
+      arguments: tc.function?.arguments ?? '',
+    }));
 
   if (toolCalls.length > 0) handlers.onToolCalls?.(toolCalls);
 

@@ -7,10 +7,13 @@ import { parseArgs } from 'node:util';
 import { runBuildCommand } from './build.ts';
 import { runValidateCommand, runValidateFixturesCommand } from './validate.ts';
 import { runNarrateCommand } from './narrate.ts';
+import { runWordAudioCommand } from './word-audio.ts';
 import { runCoversCommand } from './covers.ts';
 import { runAlignCommand } from './align-command.ts';
 import { runTranslateSentencesCommand } from './translate-sentences.ts';
 import { withBuildLock } from './build-lock.ts';
+import { runNewCommand } from './scaffold.ts';
+import { runImportCommand } from './import/cli-command.ts';
 
 async function main(): Promise<void> {
   const { positionals, values } = parseArgs({
@@ -23,11 +26,35 @@ async function main(): Promise<void> {
       locale: { type: 'string' },
       book: { type: 'string' },
       'dry-run': { type: 'boolean', default: false },
+      title: { type: 'string' },
+      author: { type: 'string' },
+      from: { type: 'string' },
+      level: { type: 'string' },
+      out: { type: 'string' },
+      narrate: { type: 'string' },
     },
   });
   const [command, bookId] = positionals;
 
   switch (command) {
+    case 'import':
+      await runImportCommand({
+        file: bookId,
+        locale: values.locale,
+        out: values.out,
+        narrate: values.narrate,
+      });
+      break;
+    case 'new':
+      runNewCommand({
+        bookId,
+        locale: values.locale,
+        title: values.title,
+        author: values.author,
+        from: values.from,
+        level: values.level,
+      });
+      break;
     case 'build':
       await runBuildCommand({ fill: values.fill, only: bookId });
       break;
@@ -40,6 +67,9 @@ async function main(): Promise<void> {
       break;
     case 'narrate':
       await runNarrateCommand({ bookId, force: values.force });
+      break;
+    case 'word-audio':
+      await withBuildLock(() => runWordAudioCommand({ bookId, force: values.force }));
       break;
     case 'covers':
       runCoversCommand();
@@ -58,7 +88,7 @@ async function main(): Promise<void> {
       break;
     default:
       console.error(
-        'usage: sotto-content <build|validate|narrate|covers|align|translate-sentences> [bookId] [--fill] [--force] [--fixtures] [--locale xx] [--book id] [--dry-run]',
+        'usage: sotto-content <import|new|build|validate|narrate|word-audio|covers|align|translate-sentences> [bookId] [--fill] [--force] [--fixtures] [--locale xx] [--book id] [--dry-run] [--title ...] [--author ...] [--from file] [--level A0|A1|A2] [--out dir] [--narrate none|first|all]',
       );
       process.exitCode = 1;
   }

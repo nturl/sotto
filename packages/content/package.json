@@ -9,15 +9,20 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
+    "import": "node src/cli.ts import",
+    "new": "node src/cli.ts new",
     "build": "node src/cli.ts build",
     "validate": "node src/cli.ts validate",
     "narrate": "node src/cli.ts narrate",
+    "word-audio": "node src/cli.ts word-audio",
     "covers": "node src/cli.ts covers",
     "align": "node src/cli.ts align",
     "translate-sentences": "node src/cli.ts translate-sentences"
   },
   "dependencies": {
     "@sotto/core": "workspace:*",
+    "fast-xml-parser": "^4.5.1",
+    "fflate": "^0.8.2",
     "zod": "^3.24.1"
   },
   "devDependencies": {

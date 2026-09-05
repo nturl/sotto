@@ -16,10 +16,13 @@ export default function HomeScreen() {
   const t = useT();
   const router = useRouter();
   const library = useLibrary();
-  const { sectionGap } = useLayoutMetrics();
+  const { sectionGap, isDesktop } = useLayoutMetrics();
   const [toast, setToast] = useState<string | null>(null);
 
   const openBook = (book: LibraryBook) => router.push(`/book/${book.id}`);
+  // DESKTOP.md §2: "Voir tout" is a desktop-only addition to Home's
+  // rails (DESIGN.md phone spec has none); it opens the Library tab.
+  const seeAll = isDesktop ? () => router.push('/library') : undefined;
 
   return (
     <Shell>
@@ -48,13 +51,20 @@ export default function HomeScreen() {
           title={t('home.rail.continue')}
           books={library.continueReading}
           onPressBook={openBook}
+          onSeeAll={seeAll}
         />
         <Rail
           title={t('home.rail.recommended')}
           books={library.recommended}
           onPressBook={openBook}
+          onSeeAll={seeAll}
         />
-        <Rail title={t('home.rail.new')} books={library.newReleases} onPressBook={openBook} />
+        <Rail
+          title={t('home.rail.new')}
+          books={library.newReleases}
+          onPressBook={openBook}
+          onSeeAll={seeAll}
+        />
       </View>
 
       <Toast message={toast} onHide={() => setToast(null)} />

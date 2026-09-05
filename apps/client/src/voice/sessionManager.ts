@@ -13,6 +13,7 @@
  */
 import type { TutorMode } from '@sotto/core';
 import {
+  BrowserCascadeProvider,
   FakeVoiceProvider,
   LocalCascadeProvider,
   systemClock,
@@ -24,11 +25,24 @@ import { createAudioAdapter } from '../platform/audio-adapter';
 import { serverUrl } from '../state/contentApi';
 import { genId } from '../state/types';
 import { useSottoStore } from '../state/store';
+import type { VoicePath } from './availability';
 import { createVoiceController } from './controller';
 import { createToolContext } from './toolContext';
 
-function pickProvider(): VoiceProvider {
+/**
+ * Which provider runs this session (planning/BROWSER-TUTOR.md).
+ *
+ * `EXPO_PUBLIC_VOICE=fake` always wins (screenshot e2e, unit tests). After
+ * that the capability gate has already decided — `availability.path` is
+ * 'local' when apps/server answered /health healthy, and 'browser' on the
+ * static host with WebGPU and the models cached — so this only has to build
+ * the matching provider. Both implement the same VoiceProvider interface and
+ * emit the same VoiceEvents, so nothing downstream of here can tell them
+ * apart.
+ */
+function pickProvider(path: VoicePath): VoiceProvider {
   if (process.env.EXPO_PUBLIC_VOICE === 'fake') return new FakeVoiceProvider(systemClock);
+  if (path === 'browser') return new BrowserCascadeProvider({ audio: createAudioAdapter() });
   return new LocalCascadeProvider({ serverUrl: serverUrl(), audio: createAudioAdapter() });
 }
 
@@ -57,11 +71,13 @@ export function startSession(params: {
   learner: SessionOptions['learner'];
   passage: PassageContext;
   savedWords: string[];
+  /** Which tutor the capability gate picked. Defaults to the local server. */
+  path?: VoicePath;
 }): void {
   if (active) endSession();
 
   const { bookId, chapterId, mode, learner, passage, savedWords } = params;
-  const provider = pickProvider();
+  const provider = pickProvider(params.path ?? 'local');
   const ctx = createToolContext(
     useSottoStore,
     bookId,

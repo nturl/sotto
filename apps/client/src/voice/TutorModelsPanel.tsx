@@ -1,0 +1,225 @@
+/**
+ * The in-browser tutor's three-state panel (planning/BROWSER-TUTOR.md):
+ *
+ *   unsupported     no WebGPU — the clear "unavailable" message the voice
+ *                   screen has always shown, now naming the actual reason.
+ *   needs-download  WebGPU, no models: every model listed by name and size,
+ *                   a primary cutout CTA, and per-model progress once it
+ *                   starts. Never automatic — a download only ever begins
+ *                   on this tap.
+ *   ready           models are cached; "Remove models" frees them again.
+ *
+ * Shared by the voice screen and Settings > Tutor models so the two can
+ * never disagree about what is installed.
+ */
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import {
+  downloadTutorModels,
+  removeModels,
+  totalSizeMb,
+  type ModelProgress,
+  type TutorModelSpec,
+} from '@sotto/voice';
+import { colors, radius, space } from '@sotto/core/theme';
+import { useT } from '../i18n/useT';
+import { Button } from '../ui/Button';
+import { Text } from '../ui/Text';
+
+export type TutorModelsPanelState =
+  | { kind: 'unsupported' }
+  | { kind: 'needs-download'; models: TutorModelSpec[] }
+  | { kind: 'ready' };
+
+function ProgressBar({ fraction }: { fraction: number | null }) {
+  return (
+    <View style={styles.track}>
+      <View
+        style={[
+          styles.fill,
+          fraction === null
+            ? styles.fillIndeterminate
+            : { width: `${Math.round(fraction * 100)}%` },
+        ]}
+      />
+    </View>
+  );
+}
+
+export function TutorModelsPanel({
+  state,
+  onChanged,
+  showRemove = true,
+}: {
+  state: TutorModelsPanelState;
+  /** Called after models are installed or removed, so the gate re-runs. */
+  onChanged: () => void;
+  showRemove?: boolean;
+}) {
+  const t = useT();
+  const [progress, setProgress] = useState<Record<string, ModelProgress>>({});
+  const [busy, setBusy] = useState(false);
+  const [failure, setFailure] = useState<string | null>(null);
+  const mounted = useRef(true);
+
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+
+  const start = useCallback(() => {
+    setFailure(null);
+    setBusy(true);
+    setProgress({});
+    const handle = downloadTutorModels({
+      onProgress: (p) => {
+        if (mounted.current) setProgress((prev) => ({ ...prev, [p.modelId]: p }));
+      },
+    });
+    handle.done
+      .then(() => {
+        if (!mounted.current) return;
+        setBusy(false);
+        onChanged();
+      })
+      .catch((err: unknown) => {
+        if (!mounted.current) return;
+        setBusy(false);
+        setFailure(err instanceof Error ? err.message : String(err));
+      });
+  }, [onChanged]);
+
+  const remove = useCallback(() => {
+    void removeModels().then(() => {
+      setProgress({});
+      onChanged();
+    });
+  }, [onChanged]);
+
+  if (state.kind === 'unsupported') {
+    return (
+      <View style={styles.panel}>
+        <Text role="caption" color="warn" style={styles.centered}>
+          {t('tutor.browser.unsupported')}
+        </Text>
+        <Text role="caption" color="ink3" style={styles.centered}>
+          {t('tutor.browser.unsupportedHint')}
+        </Text>
+      </View>
+    );
+  }
+
+  if (state.kind === 'ready') {
+    return (
+      <View style={styles.panel}>
+        <Text role="caption" color="ink2" style={styles.centered}>
+          {t('tutor.browser.ready')}
+        </Text>
+        <Text role="caption" color="ink3" style={styles.centered}>
+          {t('tutor.browser.sliceNote')}
+        </Text>
+        {showRemove ? (
+          <Button title={t('tutor.browser.remove')} variant="secondary" onPress={remove} />
+        ) : null}
+      </View>
+    );
+  }
+
+  const total = totalSizeMb(state.models);
+  return (
+    <View style={styles.panel}>
+      <Text role="heading" size={16} style={styles.centered}>
+        {t('tutor.browser.title')}
+      </Text>
+      <Text role="caption" color="ink2" style={styles.centered}>
+        {t('tutor.browser.needsDownload', { size: total })}
+      </Text>
+
+      <View style={styles.list}>
+        {state.models.map((m) => {
+          const p = progress[m.id];
+          return (
+            <View key={m.id} style={styles.row}>
+              <View style={styles.rowHead}>
+                <Text role="ui" size={14}>
+                  {m.name}
+                </Text>
+                <Text role="caption" color="ink3">
+                  {t('tutor.browser.sizeMb', { size: m.sizeMb })}
+                </Text>
+              </View>
+              {p ? <ProgressBar fraction={p.fraction} /> : null}
+            </View>
+          );
+        })}
+      </View>
+
+      <Text role="caption" color="ink3" style={styles.centered}>
+        {t('tutor.browser.privacy')}
+      </Text>
+
+      {failure ? (
+        <>
+          <Text role="caption" color="warn" style={styles.centered}>
+            {t('tutor.browser.failed')}
+          </Text>
+          {/* The library's own error, untranslated on purpose: it names the
+              file or device that failed, which is the only thing that makes
+              a download failure diagnosable from a bug report. */}
+          <Text role="mono" size={11} color="ink3" style={styles.centered}>
+            {failure}
+          </Text>
+        </>
+      ) : null}
+
+      <Button
+        title={busy ? t('tutor.browser.downloading') : t('tutor.browser.download')}
+        onPress={start}
+        disabled={busy}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  panel: {
+    gap: space.md,
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.hairline,
+    padding: space.lg,
+    marginBottom: space.lg,
+  },
+  centered: {
+    textAlign: 'center',
+  },
+  list: {
+    gap: space.sm,
+  },
+  row: {
+    gap: space.xs,
+  },
+  rowHead: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: space.sm,
+  },
+  track: {
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: colors.surface2,
+    overflow: 'hidden',
+  },
+  fill: {
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: colors.accent,
+  },
+  fillIndeterminate: {
+    width: '15%',
+  },
+});

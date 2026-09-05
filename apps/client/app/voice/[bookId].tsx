@@ -16,6 +16,7 @@ import { Text } from '../../src/ui/Text';
 import { webCursor } from '../../src/ui/tokens';
 import { useSottoStore } from '../../src/state/store';
 import { buildPassageWindow } from '../../src/voice/passage';
+import { TutorModelsPanel, type TutorModelsPanelState } from '../../src/voice/TutorModelsPanel';
 import { useVoiceSession } from '../../src/voice/useVoiceSession';
 
 const MODES: TutorMode[] = ['read_to_me', 'read_with_me', 'pronunciation', 'discuss'];
@@ -130,15 +131,29 @@ export default function VoiceScreen() {
     !!session.limitReason;
   const availability = session.availability;
   const isChecking = availability.status === 'checking';
-  const isUnavailable = availability.status === 'unavailable';
+  // O2-B: the old two-state gate (checking / unavailable) is now three-state.
+  // `needs-download` and `no-webgpu` are the in-browser tutor's own states
+  // (planning/BROWSER-TUTOR.md) and get the download panel instead of the
+  // server message; a real server problem keeps the message it always had.
+  const panelState: TutorModelsPanelState | null =
+    availability.status === 'needs-download'
+      ? { kind: 'needs-download', models: availability.models }
+      : availability.status === 'unavailable' && availability.reason === 'no-webgpu'
+        ? { kind: 'unsupported' }
+        : null;
+  const isServerUnavailable =
+    availability.status === 'unavailable' && availability.reason !== 'no-webgpu';
+  // Everything that used to be hidden behind "unavailable" stays hidden for
+  // both flavours: no mode chips, captions or PTT ring until a tutor can run.
+  const isUnavailable = isServerUnavailable || panelState !== null;
   const unavailableMessage =
-    availability.status === 'unavailable'
-      ? availability.reason === 'server'
-        ? t('voice.unavailableServer')
-        : t('voice.unavailableServices', {
+    availability.status === 'unavailable' && availability.reason === 'server'
+      ? t('voice.unavailableServer')
+      : availability.status === 'unavailable' && availability.reason === 'services'
+        ? t('voice.unavailableServices', {
             services: availability.missing.map((s) => t(`voice.service.${s}`)).join(', '),
           })
-      : '';
+        : '';
 
   const recentCaptions = session.captions.slice(-6);
 
@@ -224,7 +239,20 @@ export default function VoiceScreen() {
         </>
       ) : null}
 
-      {isUnavailable ? (
+      {panelState ? (
+        <View style={styles.recovery}>
+          <TutorModelsPanel
+            state={panelState}
+            onChanged={session.recheckAvailability}
+            showRemove={false}
+          />
+          <Button
+            title={t('voice.readAlone')}
+            variant="secondary"
+            onPress={() => router.replace(readSeulPath)}
+          />
+        </View>
+      ) : isServerUnavailable ? (
         <View style={styles.recovery}>
           <Text role="caption" color="warn" style={styles.recoveryText}>
             {unavailableMessage}

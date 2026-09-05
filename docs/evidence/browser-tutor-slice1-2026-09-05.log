@@ -1,0 +1,74 @@
+================================================================================
+Sotto — in-browser tutor (O2-B slice 1) evidence
+Run: 2026-09-05 (local time 2026-09-04 evening), macOS 15 / M-series, Chromium
+     via Playwright 1.62, headless, --enable-unsafe-webgpu --use-angle=metal.
+
+WHAT RAN WHERE
+  STT ran on **WebGPU**, not the wasm fallback. The worker tries webgpu first
+  and reports which one won; both lines below say `webgpu`. No second attempt
+  was needed, so the wasm path is NOT exercised by this log.
+
+  Model: onnx-community/whisper-base, encoder fp16 + decoder_model_merged q8,
+  ~95 MB, downloaded from the Hugging Face hub on an explicit tap.
+
+MEASURED
+  stt_load_ms = 3884 ms   (cold pipeline construction, weights already cached)
+  stt_ms      = 1049 ms   for a 2.7 s speech segment, on WebGPU
+  download    = 29.3 s    for the 95 MB model over this connection
+
+SCOPE
+  Slice 1 is the STT stage only. There is no tutor reply yet: the LLM (slice 2)
+  and TTS (slice 3) stages are stubbed behind the worker protocol. The run
+  therefore asserts a LEARNER caption, state transitions, and the opt-in
+  download flow — nothing about a tutor answer.
+
+  Transcript was "¿Qué significa la palabra cigarrara?" for a spoken
+  "¿Qué significa la palabra cigarra?" — whisper-base's ending, not a bug in
+  the pipeline. whisper-small would fix it but its q8 export is ~249 MB.
+
+COMMAND
+  pnpm --filter @sotto/client web:export && node apps/client/e2e/browser-tutor.mjs
+================================================================================
+
+[t+0.0s] Synthesizing fake-mic wav: "¿Qué significa la palabra cigarra?"
+[t+3.4s] Serving dist on http://localhost:8091
+[t+4.9s] WebGPU: navigator.gpu=true adapter=true
+[t+4.9s] app's /health probe -> 0 (0 = unreachable, as on the static host)
+[t+4.9s] Opening /voice/es-fabulas-samaniego
+[t+5.2s] Download panel is showing; tapping "Download tutor models"
+[t+5.2s] Panel states the download size: 95 MB
+[t+5.2s]   …downloading; caches={"sotto-shell-dev":7}
+[t+20.3s]   …downloading; caches={"sotto-shell-dev":9,"transformers-cache":6}
+[t+34.5s] Model download finished after 29.3s
+[t+35.0s] state -> connecting
+[t+38.7s] [sotto-tutor] stt_load_ms=3884ms webgpu
+[t+38.7s] state -> thinking
+[t+39.7s] [sotto-tutor] stt_ms=1049ms webgpu 2.7s
+[t+40.0s] state -> listening
+[t+40.0s] caption: You: ¿Qué significa la palabra cigarrara?
+
+===== Worker/console lines of interest =====
+  worker spawned: http://localhost:8091/tutor/tutor-worker.js
+  worker closed: http://localhost:8091/tutor/tutor-worker.js
+  worker spawned: http://localhost:8091/tutor/tutor-worker.js
+  worker closed: http://localhost:8091/tutor/tutor-worker.js
+  worker spawned: http://localhost:8091/tutor/tutor-worker.js
+  [sotto-tutor] stt_load_ms=3884ms webgpu
+  [sotto-tutor] stt_ms=1049ms webgpu 2.7s
+  worker closed: http://localhost:8091/tutor/tutor-worker.js
+
+===== States observed =====
+  connecting -> thinking -> listening
+
+===== Assertions =====
+  [PASS] static host: /health unreachable (no server anywhere)
+  [PASS] download panel offered the models with a size, never automatically
+  [PASS] models downloaded on the explicit tap
+  [PASS] learner caption contains "cigarra"
+  [PASS] state cycled listening -> thinking
+
+  Page/console errors:
+    - console.error: Failed to load resource: net::ERR_FAILED
+    - console.error: Failed to load resource: net::ERR_FAILED
+    - console.error: Failed to load resource: net::ERR_FAILED
+    - console.error: Failed to load resource: net::ERR_FAILED

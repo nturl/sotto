@@ -1,38 +1,61 @@
 /**
- * BookTile — cover 110x165 with the peach cutout, Fraunces title, caption
- * author, and a 3px progress track in surface-2 with an accent fill when
- * the book is in progress (DESIGN.md Home/Library rails).
+ * BookTile — cover with the peach cutout, Fraunces title, caption author,
+ * and a 3px progress track in surface-2 with an accent fill when the book
+ * is in progress (DESIGN.md Home/Library rails).
+ *
+ * Phone: fixed 110x165 cover (unchanged). Desktop grids (DESKTOP.md §2/§3)
+ * pass a larger `coverWidth`/`coverHeight` (150x225 at 900-1199, 160x240 at
+ * >= 1200) so the same component drives both the scroll rail and the grid.
+ * Desktop-only hover (120ms via usePressAnimation's reduced-motion
+ * handling): cutout grows 6 -> 8px, title darkens ink-2 -> ink. Phone stays
+ * exactly as it was (cutout 6, title ink) since it has no hover.
  */
+import { useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { colors, radius } from '@sotto/core/theme';
 import { Cover } from './Cover';
 import type { LibraryBook } from './data';
 import { fonts } from './fonts';
+import { useLayoutMetrics } from './Shell';
 import { Text } from './Text';
 import { webCursor } from './tokens';
 
 export type BookTileProps = {
   book: LibraryBook;
   onPress: (book: LibraryBook) => void;
+  coverWidth?: number;
+  coverHeight?: number;
 };
 
-export function BookTile({ book, onPress }: BookTileProps) {
+export function BookTile({ book, onPress, coverWidth = 110, coverHeight = 165 }: BookTileProps) {
+  const { isDesktop } = useLayoutMetrics();
+  const [hovered, setHovered] = useState(false);
+  const hoverActive = isDesktop && hovered;
+
   return (
     <Pressable
       onPress={() => onPress(book)}
       accessibilityRole="button"
       accessibilityLabel={`${book.title}, ${book.author}`}
-      style={[styles.tile, webCursor]}
+      onHoverIn={() => setHovered(true)}
+      onHoverOut={() => setHovered(false)}
+      style={[styles.tile, { width: coverWidth }, webCursor]}
     >
       <Cover
         art={book.cover}
-        width={110}
-        height={165}
+        width={coverWidth}
+        height={coverHeight}
         cutout
+        cutoutSize={hoverActive ? 8 : 6}
         svgUrl={book.svgUrl}
         accessibilityLabel={book.title}
       />
-      <Text role="caption" color="ink" style={styles.title} numberOfLines={1}>
+      <Text
+        role="caption"
+        color={isDesktop ? (hoverActive ? 'ink' : 'ink2') : 'ink'}
+        style={styles.title}
+        numberOfLines={1}
+      >
         {book.title}
       </Text>
       <Text role="caption" size={12} numberOfLines={1}>
@@ -47,7 +70,6 @@ export function BookTile({ book, onPress }: BookTileProps) {
 
 const styles = StyleSheet.create({
   tile: {
-    width: 110,
     gap: 8,
   },
   title: {

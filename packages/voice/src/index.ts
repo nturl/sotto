@@ -33,3 +33,21 @@ export * from './transports/webrtc.ts';
 // WS-4 report.
 export { WebAudioAdapter } from './transports/web-audio.ts';
 export type { AudioAdapter } from './transports/audio-adapter.ts';
+// O2-B: in-browser tutor (planning/BROWSER-TUTOR.md). Deliberately does NOT
+// export ./browser-cascade/worker.ts — that module imports
+// @huggingface/transformers and is bundled separately by esbuild into
+// apps/client/public/tutor/tutor-worker.js. Exporting it here would pull the
+// ML libraries into the Metro app bundle, which is the one thing this design
+// must not do.
+export {
+  BrowserCascadeProvider,
+  downloadTutorModels,
+  type BrowserCascadeOptions,
+  type DownloadHandle,
+  type WorkerFactory,
+  type WorkerLike,
+} from './browser-cascade/provider.ts';
+export * from './browser-cascade/protocol.ts';
+export * from './browser-cascade/models.ts';
+export { EnergyVad, SpeechBuffer, computeRms, PRE_BUFFER_MS } from './browser-cascade/vad.ts';
+export type { EnergyVadOptions, VadEvent, VadEventType } from './browser-cascade/vad.ts';

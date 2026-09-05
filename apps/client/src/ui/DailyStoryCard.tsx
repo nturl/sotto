@@ -92,7 +92,9 @@ export function DailyStoryCard({ book, onPress }: { book: LibraryBook; onPress: 
             { transform: [{ translateX: faceTranslate }, { translateY: faceTranslate }] },
           ]}
         >
-          <View style={[styles.panel, { minHeight: panelMinHeight }]}>
+          <View
+            style={[styles.panel, { minHeight: panelMinHeight }, isDesktop && styles.panelDesktop]}
+          >
             <Svg
               style={StyleSheet.absoluteFill}
               width="100%"
@@ -154,6 +156,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: space.lg,
+  },
+  // DESKTOP.md §2: fixed 320px at >= 900 (both tiers), not a width
+  // fraction — keeps the panel from ballooning as content maxWidth grows
+  // from 760 to 1040.
+  panelDesktop: {
+    width: 320,
   },
   body: {
     flex: 1,

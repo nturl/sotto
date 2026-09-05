@@ -1,0 +1,6 @@
+# Build output of `pnpm --filter @sotto/client build:tutor-worker`
+# (apps/client/scripts/build-tutor-worker.mjs). Regenerated on every web
+# build; ~40 MB of onnxruntime wasm has no business in git history.
+tutor-worker.js
+tutor-worker.js.map
+ort/

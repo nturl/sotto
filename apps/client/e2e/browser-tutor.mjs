@@ -1,0 +1,421 @@
+#!/usr/bin/env node
+/**
+ * In-browser tutor e2e (O2-B slice 1). Proves the thing the whole lane is
+ * for: on the STATIC export — no apps/server, no local models, nothing
+ * listening on :8790 — a browser can opt into downloading the tutor model
+ * and then have the tutor actually hear the learner.
+ *
+ * Modelled on voice-live.mjs, with three differences:
+ *  - it serves `apps/client/dist` (the static export) instead of the dev
+ *    server, so `/health` genuinely 404s and the capability gate has to
+ *    choose the browser path on its own;
+ *  - Chromium is launched with `--enable-unsafe-webgpu --use-angle=metal`
+ *    alongside the fake-mic flags. If WebGPU does not come up, the worker
+ *    falls back to wasm by itself and this script says so in the log header
+ *    rather than pretending;
+ *  - it drives the download panel (a real tap on "Download tutor models")
+ *    before opening the session, because models are NEVER fetched
+ *    automatically.
+ *
+ * One deliberate piece of stagecraft. `contentApi.serverUrl()` treats any
+ * localhost origin as "dev" and points BOTH content and /health at
+ * http://localhost:8790 — and this machine really is running apps/server
+ * there (the overnight stack), so a plain localhost run would quietly
+ * re-test the LocalCascadeProvider path this lane exists to make
+ * unnecessary. The obvious fix, reaching the static host under a non-
+ * localhost name, costs the secure context that WebGPU and the Cache API
+ * both require (`--unsafely-treat-insecure-origin-as-secure` was tried and
+ * did not restore it: isSecureContext stayed false, navigator.gpu vanished).
+ *
+ * So the run stays on localhost and blocks exactly one route at the browser
+ * level: `:8790/health`. That is the only signal the capability gate reads
+ * from the server, and blocking it reproduces the deployed host precisely —
+ * the probe fails, the gate falls through to the browser path. Content packs
+ * still come over :8790, where on Vercel they come from the page's own
+ * origin; same files either way, and no part of the tutor touches them.
+ *
+ * Slice 1 asserts a LEARNER caption only. There is no tutor reply yet: the
+ * LLM and TTS stages land in slices 2 and 3.
+ *
+ * Usage: node apps/client/e2e/browser-tutor.mjs
+ *   PORT=8091          port for `npx serve dist -s`
+ *   KEEP_PROFILE=1     reuse the cached models from a previous run
+ */
+import { execFile, spawn } from 'node:child_process';
+import { existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { promisify } from 'node:util';
+import { chromium } from 'playwright';
+
+const run = promisify(execFile);
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const clientDir = path.resolve(__dirname, '..');
+const CACHE_DIR = path.join(__dirname, '.cache');
+const PROFILE_DIR = path.join(CACHE_DIR, 'browser-tutor-profile');
+const DIST = path.join(clientDir, 'dist');
+const PORT = Number(process.env.PORT ?? 8091);
+const BASE_URL = `http://localhost:${PORT}`;
+const TTS_URL = process.env.SOTTO_TTS_URL ?? 'http://127.0.0.1:8880/v1';
+const BOOK_ID = 'es-fabulas-samaniego';
+const TARGET_WORD = 'cigarra';
+const UTTERANCE = '¿Qué significa la palabra cigarra?';
+const DOWNLOAD_TIMEOUT_MS = 300_000;
+const SESSION_TIMEOUT_MS = 90_000;
+const TRAILING_SILENCE_MS = 1500;
+
+mkdirSync(CACHE_DIR, { recursive: true });
+
+const t0 = Date.now();
+const lines = [];
+function log(...args) {
+  const line = `[t+${((Date.now() - t0) / 1000).toFixed(1)}s] ${args.join(' ')}`;
+  lines.push(line);
+  console.log(line);
+}
+
+// ---- Fake-mic wav (same Kokoro + ffmpeg recipe as voice-live.mjs) ----
+
+async function buildUtteranceWav(text, name) {
+  const raw = path.join(CACHE_DIR, `${name}-raw.wav`);
+  const fmt = path.join(CACHE_DIR, `${name}-fmt.wav`);
+  const silence = path.join(CACHE_DIR, `${name}-silence.wav`);
+  const combined = path.join(CACHE_DIR, `${name}.wav`);
+  const listFile = path.join(CACHE_DIR, `${name}-concat.txt`);
+
+  const res = await fetch(`${TTS_URL.replace(/\/$/, '')}/audio/speech`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'kokoro',
+      input: text,
+      voice: 'ef_dora',
+      lang_code: 'e',
+      response_format: 'wav',
+    }),
+  });
+  if (!res.ok) throw new Error(`Kokoro TTS failed (${res.status}): ${await res.text()}`);
+  writeFileSync(raw, Buffer.from(await res.arrayBuffer()));
+
+  await run('ffmpeg', ['-y', '-i', raw, '-ar', '48000', '-ac', '1', '-sample_fmt', 's16', fmt]);
+  await run('ffmpeg', [
+    '-y',
+    '-f',
+    'lavfi',
+    '-i',
+    'anullsrc=r=48000:cl=mono',
+    '-t',
+    String(TRAILING_SILENCE_MS / 1000),
+    '-sample_fmt',
+    's16',
+    silence,
+  ]);
+  writeFileSync(listFile, [fmt, silence].map((f) => `file '${f}'`).join('\n'));
+  await run('ffmpeg', ['-y', '-f', 'concat', '-safe', '0', '-i', listFile, '-c', 'copy', combined]);
+  return combined;
+}
+
+// ---- Static host ----
+
+function serveDist() {
+  const child = spawn('npx', ['serve', DIST, '-l', String(PORT), '-s'], {
+    cwd: clientDir,
+    stdio: 'ignore',
+  });
+  return child;
+}
+
+async function waitForServer(url, timeoutMs = 60_000) {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    try {
+      const res = await fetch(url);
+      if (res.ok) return true;
+    } catch {
+      // not up yet
+    }
+    await new Promise((r) => setTimeout(r, 500));
+  }
+  return false;
+}
+
+// ---- Preferences seed (learning es-419, explaining en) ----
+
+const PREFERENCES = {
+  interfaceLocale: 'en',
+  explanationLocale: 'en',
+  learningLocale: 'es-419',
+  level: 'A1',
+  immersionMode: false,
+  defaultTutorMode: 'discuss',
+  captionsEnabled: true,
+  turnDetection: 'auto',
+  correctionFrequency: 'normal',
+  speakingPace: 'normal',
+  narrationSpeed: 1,
+  onboarded: true,
+};
+
+async function seedProfile(page) {
+  await page.evaluate(async (preferences) => {
+    const req = indexedDB.open('keyval-store', 1);
+    await new Promise((resolve, reject) => {
+      req.onupgradeneeded = () => {
+        if (!req.result.objectStoreNames.contains('keyval')) req.result.createObjectStore('keyval');
+      };
+      req.onsuccess = () => resolve();
+      req.onerror = () => reject(req.error);
+    });
+    const db = req.result;
+    const tx = db.transaction('keyval', 'readwrite');
+    tx.objectStore('keyval').put(JSON.stringify(preferences), 'sotto.preferences');
+    await new Promise((resolve, reject) => {
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+    db.close();
+  }, PREFERENCES);
+}
+
+async function main() {
+  if (!existsSync(DIST)) {
+    throw new Error(`No static export at ${DIST}. Run: pnpm --filter @sotto/client web:export`);
+  }
+  if (!process.env.KEEP_PROFILE) rmSync(PROFILE_DIR, { recursive: true, force: true });
+
+  log(`Synthesizing fake-mic wav: "${UTTERANCE}"`);
+  const wav = await buildUtteranceWav(UTTERANCE, 'browser-tutor');
+
+  log(`Serving ${path.relative(clientDir, DIST)} on ${BASE_URL}`);
+  const server = serveDist();
+  try {
+    if (!(await waitForServer(`http://localhost:${PORT}`)))
+      throw new Error('static host never came up');
+
+    const context = await chromium.launchPersistentContext(PROFILE_DIR, {
+      viewport: { width: 430, height: 852 },
+      permissions: ['microphone'],
+      args: [
+        '--enable-unsafe-webgpu',
+        '--use-angle=metal',
+        '--use-fake-device-for-media-stream',
+        '--use-fake-ui-for-media-stream',
+        `--use-file-for-fake-audio-capture=${wav}`,
+      ],
+    });
+    // "There is no server": the one probe the capability gate makes.
+    await context.route('**/health', (route) =>
+      route.request().url().includes(':8790') ? route.abort() : route.continue(),
+    );
+
+    const page = context.pages()[0] ?? (await context.newPage());
+    const pageErrors = [];
+    const workerLog = [];
+    page.on('pageerror', (err) => pageErrors.push(err.message));
+    page.on('requestfailed', (req) => {
+      const url = req.url();
+      if (url.includes(':8790')) return; // no local server in this scenario
+      pageErrors.push(`requestfailed: ${url} (${req.failure()?.errorText})`);
+    });
+    // Worker console/errors do not bubble to the page in Chromium.
+    page.on('worker', (w) => {
+      workerLog.push(`worker spawned: ${w.url()}`);
+      w.on('close', () => workerLog.push(`worker closed: ${w.url()}`));
+    });
+    page.on('console', (msg) => {
+      const text = msg.text();
+      if (msg.type() === 'error') pageErrors.push(`console.error: ${text}`);
+      if (/\[sotto-tutor\]/.test(text)) {
+        workerLog.push(text);
+        log(text);
+      }
+    });
+
+    await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
+    await seedProfile(page);
+
+    const gpu = await page.evaluate(async () => {
+      if (!('gpu' in navigator)) return { present: false, adapter: false };
+      try {
+        const adapter = await navigator.gpu.requestAdapter();
+        return { present: true, adapter: !!adapter };
+      } catch (err) {
+        return { present: true, adapter: false, error: String(err) };
+      }
+    });
+    log(`WebGPU: navigator.gpu=${gpu.present} adapter=${gpu.adapter}`);
+
+    // The exact probe the capability gate makes (contentApi.fetchHealth).
+    const healthStatus = await page.evaluate(async () => {
+      try {
+        const res = await fetch('http://localhost:8790/health');
+        return res.status;
+      } catch {
+        return 0;
+      }
+    });
+    log(`app's /health probe -> ${healthStatus} (0 = unreachable, as on the static host)`);
+
+    log(`Opening /voice/${BOOK_ID}`);
+    await page.goto(`${BASE_URL}/voice/${BOOK_ID}`, { waitUntil: 'domcontentloaded' });
+
+    // ---- The opt-in. Nothing downloads until this tap. ----
+    const cta = page.getByText('Download tutor models', { exact: false }).first();
+    let alreadyInstalled = false;
+    try {
+      await cta.waitFor({ timeout: 45_000 });
+    } catch (err) {
+      if (process.env.KEEP_PROFILE) {
+        // Re-run against a warm profile: the models are already cached, so
+        // the gate goes straight to `ready` and there is no panel to tap.
+        alreadyInstalled = true;
+        log('Models already installed from a previous run (KEEP_PROFILE=1)');
+      } else {
+        const diag = await page.evaluate(async () => ({
+          gpu: 'gpu' in navigator,
+          cachesType: typeof caches,
+          cacheNames: typeof caches === 'undefined' ? null : await caches.keys(),
+          health: await fetch('http://localhost:8790/health')
+            .then((r) => r.status)
+            .catch(() => 0),
+          secure: globalThis.isSecureContext,
+        }));
+        log('diag: ' + JSON.stringify(diag));
+        log('Download CTA never appeared. Screen text was:');
+        log((await page.evaluate(() => document.body.innerText)).replace(/\n/g, ' | '));
+        throw err;
+      }
+    }
+    if (!alreadyInstalled) log('Download panel is showing; tapping "Download tutor models"');
+    const bodyBefore = await page.evaluate(() => document.body.innerText);
+    const sizeMatch = alreadyInstalled ? ['', 'cached'] : /about (\d+) MB/.exec(bodyBefore);
+    if (!alreadyInstalled) {
+      log(`Panel states the download size: ${sizeMatch ? `${sizeMatch[1]} MB` : 'NOT SHOWN'}`);
+      await cta.click();
+    }
+
+    const downloadStart = Date.now();
+    let downloaded = alreadyInstalled;
+    let lastReport = 0;
+    while (!downloaded && Date.now() - downloadStart < DOWNLOAD_TIMEOUT_MS) {
+      const body = await page.evaluate(() => document.body.innerText);
+      if (!/Download tutor models|Downloading/.test(body)) {
+        downloaded = true;
+        break;
+      }
+      if (Date.now() - lastReport > 15_000) {
+        lastReport = Date.now();
+        const cacheState = await page.evaluate(async () => {
+          const names = await caches.keys();
+          const out = {};
+          for (const n of names) out[n] = (await (await caches.open(n)).keys()).length;
+          return out;
+        });
+        log(`  …downloading; caches=${JSON.stringify(cacheState)}`);
+        if (/did not finish/i.test(body)) {
+          log('  panel reported a failure:');
+          log('  ' + body.split('\n').slice(-4).join(' | '));
+          break;
+        }
+      }
+      await page.waitForTimeout(1000);
+    }
+    log(
+      `Model download ${downloaded ? 'finished' : 'DID NOT FINISH'} after ` +
+        `${((Date.now() - downloadStart) / 1000).toFixed(1)}s`,
+    );
+
+    // ---- The session. Reload so the gate re-runs cleanly from cache. ----
+    await page.goto(`${BASE_URL}/voice/${BOOK_ID}`, { waitUntil: 'domcontentloaded' });
+
+    const timeline = [];
+    const statesSeen = [];
+    let lastState = '';
+    let lastCaptions = '';
+    const deadline = Date.now() + SESSION_TIMEOUT_MS;
+    let sawLearnerCaption = false;
+
+    while (Date.now() < deadline) {
+      const snapshot = await page.evaluate(() => {
+        const body = document.body.innerText;
+        const stateRe =
+          /^(idle|connecting|listening|thinking|speaking|paused|muted|reconnecting|ended|error)$/im;
+        const rows = body
+          .split('\n')
+          .map((l) => l.trim())
+          .filter(Boolean);
+        return {
+          stateLine: rows.find((l) => stateRe.test(l)) ?? '',
+          captionLines: rows.filter((l) => /^(You|Tutor):/.test(l)),
+        };
+      });
+
+      if (snapshot.stateLine && snapshot.stateLine !== lastState) {
+        lastState = snapshot.stateLine;
+        statesSeen.push(lastState);
+        log(`state -> ${lastState}`);
+      }
+      const key = snapshot.captionLines.join('|');
+      if (key && key !== lastCaptions) {
+        lastCaptions = key;
+        for (const line of snapshot.captionLines) {
+          if (!timeline.includes(line)) {
+            timeline.push(line);
+            log(`caption: ${line}`);
+          }
+        }
+      }
+      sawLearnerCaption = timeline.some(
+        (l) => /^You:/.test(l) && l.toLowerCase().includes(TARGET_WORD),
+      );
+      if (sawLearnerCaption) break;
+      await page.waitForTimeout(400);
+    }
+
+    mkdirSync(path.resolve(clientDir, '../../docs/screenshots/web'), { recursive: true });
+    await page.screenshot({
+      path: path.resolve(clientDir, '../../docs/screenshots/web/browser-tutor-final.png'),
+    });
+
+    await context.close();
+
+    console.log('\n===== Worker/console lines of interest =====');
+    for (const l of workerLog.slice(0, 40)) console.log('  ' + l);
+
+    console.log('\n===== States observed =====');
+    console.log('  ' + statesSeen.join(' -> '));
+
+    console.log('\n===== Assertions =====');
+    const results = {
+      'static host: /health unreachable (no server anywhere)': healthStatus !== 200,
+      'download panel offered the models with a size, never automatically': !!sizeMatch,
+      'models downloaded on the explicit tap': downloaded,
+      [`learner caption contains "${TARGET_WORD}"`]: sawLearnerCaption,
+      'state cycled listening -> thinking': ['listening', 'thinking'].every((s) =>
+        statesSeen.includes(s),
+      ),
+    };
+    let allPass = true;
+    for (const [name, ok] of Object.entries(results)) {
+      console.log(`  [${ok ? 'PASS' : 'FAIL'}] ${name}`);
+      if (!ok) allPass = false;
+    }
+    if (pageErrors.length) {
+      console.log('\n  Page/console errors:');
+      console.log(
+        '  (the "Failed to load resource: net::ERR_FAILED" lines are the' +
+          ' deliberately blocked :8790/health probes — see the header)',
+      );
+      for (const e of pageErrors.slice(0, 20)) console.log('    -', e);
+    }
+    if (!allPass) process.exitCode = 1;
+  } finally {
+    server.kill();
+  }
+}
+
+main().catch((err) => {
+  console.error('[browser-tutor] FAILED:', err);
+  process.exit(1);
+});

@@ -1,58 +1,111 @@
 import { describe, expect, it } from 'vitest';
-import { buildTutorInstruction, type TutorPromptContext } from './prompt.ts';
+import {
+  buildModeChangeInstruction,
+  buildSystemInstruction,
+  type PromptContext,
+  type TutorPassageSentence,
+} from './prompt.ts';
 
-function makePassage(n: number) {
-  return Array.from({ length: n }, (_, i) => ({
-    id: `b1.s${i + 1}`,
-    text: `Sentence number ${i + 1}.`,
-  }));
-}
+// The sentence from the live-voice e2e that mis-saved "verano" for
+// "cigarra": 11 tokens (two punctuation), 9 words.
+const SAMANIEGO_S1: TutorPassageSentence = {
+  id: 'b1.s1',
+  text: 'Durante el verano, una cigarra canta bajo el sol.',
+  tokenIds: Array.from({ length: 11 }, (_, i) => `b1.s1.t${i + 1}`),
+  words: [
+    { id: 'b1.s1.t1', text: 'Durante' },
+    { id: 'b1.s1.t2', text: 'el' },
+    { id: 'b1.s1.t3', text: 'verano' },
+    { id: 'b1.s1.t5', text: 'una' },
+    { id: 'b1.s1.t6', text: 'cigarra' },
+    { id: 'b1.s1.t7', text: 'canta' },
+    { id: 'b1.s1.t8', text: 'bajo' },
+    { id: 'b1.s1.t9', text: 'el' },
+    { id: 'b1.s1.t10', text: 'sol' },
+  ],
+};
 
-function baseCtx(overrides: Partial<TutorPromptContext> = {}): TutorPromptContext {
+function ctx(sentences: TutorPassageSentence[]): PromptContext {
   return {
-    mode: 'read_to_me',
-    level: 'A1',
-    interfaceLocale: 'en',
-    explanationLocale: 'en',
-    learningLocale: 'fr-FR',
-    bookTitle: 'Le Petit Chaperon rouge',
-    chapterTitle: 'Chapitre 1',
-    passage: makePassage(12),
+    mode: 'discuss',
+    learner: { level: 'A1', learningLocale: 'es-419', explanationLocale: 'en' },
+    bookTitle: 'es-fabulas-samaniego',
+    passage: { chapterTitle: 'La cigarra y la hormiga', sentences, positionTokenId: 'b1.s1.t1' },
     savedWords: [],
-    ...overrides,
   };
 }
 
-describe('buildTutorInstruction', () => {
-  it('includes the mode and every passage sentence id', () => {
-    const ctx = baseCtx();
-    const instruction = buildTutorInstruction(ctx);
-    expect(instruction).toContain('Mode: read_to_me');
-    for (const sentence of ctx.passage) {
-      expect(instruction).toContain(sentence.id);
-    }
-  });
-
-  it('includes per-mode guidance text that differs by mode', () => {
-    const readToMe = buildTutorInstruction(baseCtx({ mode: 'read_to_me' }));
-    const discuss = buildTutorInstruction(baseCtx({ mode: 'discuss' }));
-    expect(readToMe).not.toBe(discuss);
-    expect(discuss).toContain('conversation');
-  });
-
-  it('includes saved words when present, and a placeholder when empty', () => {
-    const empty = buildTutorInstruction(baseCtx());
-    expect(empty).toContain('Saved words: none yet');
-
-    const withSaved = buildTutorInstruction(
-      baseCtx({ savedWords: [{ word: 'renard', translation: 'fox' }] }),
+describe('buildSystemInstruction passage rendering', () => {
+  it('renders each sentence as clean text plus a word=tokenId-suffix map (punctuation omitted)', () => {
+    const out = buildSystemInstruction(ctx([SAMANIEGO_S1]));
+    expect(out).toContain('  - b1.s1: Durante el verano, una cigarra canta bajo el sol.\n');
+    expect(out).toContain(
+      '    Durante=t1 el=t2 verano=t3 una=t5 cigarra=t6 canta=t7 bajo=t8 el=t9 sol=t10',
     );
-    expect(withSaved).toContain('renard = fox');
+    // The old bare id list is gone: the model no longer has to align ids to words by counting.
+    expect(out).not.toContain('[b1.s1.t1,');
   });
 
-  it('stays compact for a 12-sentence passage (rough token budget check)', () => {
-    const instruction = buildTutorInstruction(baseCtx());
-    // Rough heuristic: ~4 chars/token: 900 tokens ~= 3600 chars.
-    expect(instruction.length).toBeLessThan(3600);
+  it('tells the model how to assemble a full tokenId and never to count words', () => {
+    const out = buildSystemInstruction(ctx([SAMANIEGO_S1]));
+    expect(out).toContain('sentence id + "." + suffix');
+    expect(out).toContain('Never derive a tokenId by counting words');
+  });
+
+  it('falls back to the bare tokenId list for a sentence with no word map (older callers)', () => {
+    const legacy = { id: 'b1.s2', text: 'Hola.', tokenIds: ['b1.s2.t1', 'b1.s2.t2'], words: [] };
+    const out = buildSystemInstruction(ctx([legacy]));
+    expect(out).toContain('  - b1.s2 [b1.s2.t1,b1.s2.t2]: Hola.');
+  });
+
+  it('keeps a word id that does not share the sentence-id prefix intact', () => {
+    const odd = { ...SAMANIEGO_S1, words: [{ id: 'x9.y9.t1', text: 'Durante' }] };
+    const out = buildSystemInstruction(ctx([odd]));
+    expect(out).toContain('    Durante=x9.y9.t1');
+  });
+
+  it('is cheaper than the old bare id list for a full 12-sentence window', () => {
+    const sentences = Array.from({ length: 12 }, (_, i) => ({
+      ...SAMANIEGO_S1,
+      id: `b1.s${i + 1}`,
+      tokenIds: SAMANIEGO_S1.tokenIds.map((id) => id.replace('b1.s1', `b1.s${i + 1}`)),
+      words: SAMANIEGO_S1.words.map((w) => ({ ...w, id: w.id.replace('b1.s1', `b1.s${i + 1}`) })),
+    }));
+    const out = buildSystemInstruction(ctx(sentences));
+    const oldStyle = sentences
+      .map((s) => `  - ${s.id} [${s.tokenIds.join(',')}]: ${s.text}`)
+      .join('\n');
+    const newStyle = sentences
+      .map(
+        (s) =>
+          `  - ${s.id}: ${s.text}\n    ${s.words.map((w) => `${w.text}=${w.id.slice(s.id.length + 1)}`).join(' ')}`,
+      )
+      .join('\n');
+    expect(out).toContain(newStyle);
+    expect(newStyle.length).toBeLessThan(oldStyle.length);
+    // Whole instruction stays well inside the ~900-token budget (~4 chars/token).
+    expect(out.length).toBeLessThan(3600);
+  });
+});
+
+describe('buildSystemInstruction shared by both providers', () => {
+  it('accepts a null positionTokenId (the @sotto/core PassageContextResult shape)', () => {
+    const out = buildSystemInstruction({
+      ...ctx([SAMANIEGO_S1]),
+      passage: { chapterTitle: 'c', sentences: [SAMANIEGO_S1], positionTokenId: null },
+    });
+    expect(out).toContain('Current reading position (token id): start of chapter');
+  });
+
+  it('varies the per-mode guidance block', () => {
+    const discuss = buildSystemInstruction(ctx([SAMANIEGO_S1]));
+    const readToMe = buildSystemInstruction({ ...ctx([SAMANIEGO_S1]), mode: 'read_to_me' });
+    expect(discuss).toContain('Mode: discuss.');
+    expect(readToMe).toContain('[[reading: id1 id2]]');
+    expect(discuss).not.toBe(readToMe);
+  });
+
+  it('builds a short mode-change acknowledgement instruction', () => {
+    expect(buildModeChangeInstruction('pronunciation', 'en')).toContain('"pronunciation"');
   });
 });

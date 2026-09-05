@@ -10,7 +10,7 @@ import { useT } from '../src/i18n/useT';
 import { Button } from '../src/ui/Button';
 import { IconButton } from '../src/ui/IconButton';
 import { CloseGlyph, SpeakerGlyph } from '../src/ui/Glyphs';
-import { Shell } from '../src/ui/Shell';
+import { Shell, useLayoutMetrics } from '../src/ui/Shell';
 import { Text } from '../src/ui/Text';
 import { webCursor } from '../src/ui/tokens';
 import { playAudioSlice } from '../src/platform/audio';
@@ -33,6 +33,7 @@ export default function ReviewScreen() {
   const bookLocale = useSottoStore((s) => s.bookLocale);
   const books = useSottoStore((s) => s.books);
   const chapters = useSottoStore((s) => s.chapters);
+  const { isDesktop } = useLayoutMetrics();
 
   const scoped = bookId ? selectVocabularyForBook(savedWords, bookId) : savedWords;
   const [sessionKey, setSessionKey] = useState(0);
@@ -101,46 +102,53 @@ export default function ReviewScreen() {
   }
 
   if (done) {
+    const summary = (
+      <View style={styles.summaryCard}>
+        <Text role="heading" style={styles.centerText}>
+          {t('review.summaryTitle')}
+        </Text>
+        <Text role="ui" style={styles.centerText}>
+          {t('review.summaryCounts', {
+            again: counts.again,
+            hard: counts.hard,
+            easy: counts.easy,
+          })}
+        </Text>
+        <Button title={t('review.restart')} onPress={restart} />
+      </View>
+    );
     return (
       <Shell>
-        <View style={styles.headerRow}>
-          <View />
-          <IconButton
-            icon={<CloseGlyph size={20} />}
-            accessibilityLabel={t('common.close')}
-            onPress={() => router.back()}
-          />
-        </View>
-        <View style={styles.summaryCard}>
-          <Text role="heading" style={styles.centerText}>
-            {t('review.summaryTitle')}
-          </Text>
-          <Text role="ui" style={styles.centerText}>
-            {t('review.summaryCounts', {
-              again: counts.again,
-              hard: counts.hard,
-              easy: counts.easy,
-            })}
-          </Text>
-          <Button title={t('review.restart')} onPress={restart} />
-        </View>
+        {isDesktop ? (
+          <>
+            <View style={styles.desktopCloseRow}>
+              <IconButton
+                icon={<CloseGlyph size={20} />}
+                accessibilityLabel={t('common.close')}
+                onPress={() => router.back()}
+              />
+            </View>
+            <View style={styles.desktopCenter}>{summary}</View>
+          </>
+        ) : (
+          <>
+            <View style={styles.headerRow}>
+              <View />
+              <IconButton
+                icon={<CloseGlyph size={20} />}
+                accessibilityLabel={t('common.close')}
+                onPress={() => router.back()}
+              />
+            </View>
+            {summary}
+          </>
+        )}
       </Shell>
     );
   }
 
-  return (
-    <Shell>
-      <View style={styles.headerRow}>
-        <Text role="mono" color="ink2">
-          {t('review.progress', { index: index + 1, total: queue.length })}
-        </Text>
-        <IconButton
-          icon={<CloseGlyph size={20} />}
-          accessibilityLabel={t('common.close')}
-          onPress={() => router.back()}
-        />
-      </View>
-
+  const body = (
+    <>
       <View style={styles.card}>
         <View style={styles.wordRow}>
           <Text role="display" size={30}>
@@ -191,6 +199,47 @@ export default function ReviewScreen() {
           style={styles.discussButton}
         />
       ) : null}
+    </>
+  );
+
+  // DESKTOP.md §7: a single card centered in the content region, max 480px
+  // — never stretched to the 760/1040 content width. The close X stays
+  // top-right of the full content region; the progress label centers to
+  // the same 480px measure as the card.
+  if (isDesktop) {
+    return (
+      <Shell>
+        <View style={styles.desktopCloseRow}>
+          <IconButton
+            icon={<CloseGlyph size={20} />}
+            accessibilityLabel={t('common.close')}
+            onPress={() => router.back()}
+          />
+        </View>
+        <View style={styles.desktopCenter}>
+          <Text role="mono" color="ink2" style={styles.desktopProgress}>
+            {t('review.progress', { index: index + 1, total: queue.length })}
+          </Text>
+          {body}
+        </View>
+      </Shell>
+    );
+  }
+
+  return (
+    <Shell>
+      <View style={styles.headerRow}>
+        <Text role="mono" color="ink2">
+          {t('review.progress', { index: index + 1, total: queue.length })}
+        </Text>
+        <IconButton
+          icon={<CloseGlyph size={20} />}
+          accessibilityLabel={t('common.close')}
+          onPress={() => router.back()}
+        />
+      </View>
+
+      {body}
     </Shell>
   );
 }
@@ -250,5 +299,19 @@ const styles = StyleSheet.create({
     padding: space.xxl,
     gap: space.lg,
     marginTop: space.xxxl,
+  },
+  desktopCloseRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginBottom: space.xl,
+  },
+  desktopCenter: {
+    alignSelf: 'center',
+    width: '100%',
+    maxWidth: 480,
+  },
+  desktopProgress: {
+    textAlign: 'center',
+    marginBottom: space.md,
   },
 });

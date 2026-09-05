@@ -2,7 +2,7 @@
  * Vocabulary — DESIGN.md "Vocabulary". CONTRACTS §6 route: /(tabs)/vocabulary.
  */
 import { useEffect, useMemo, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View, type LayoutChangeEvent } from 'react-native';
 import { useRouter } from 'expo-router';
 import type { SavedWord } from '@sotto/core';
 import { colors, radius, space } from '@sotto/core/theme';
@@ -13,8 +13,9 @@ import { useLibrary } from '../../src/ui/data';
 import { ChevronRightGlyph, SpeakerGlyph, TrashGlyph } from '../../src/ui/Glyphs';
 import { IconButton } from '../../src/ui/IconButton';
 import { MarkerStroke } from '../../src/ui/MarkerStroke';
+import { useBookGridTier } from '../../src/ui/Rail';
 import { Sheet } from '../../src/ui/Sheet';
-import { Shell } from '../../src/ui/Shell';
+import { Shell, useLayoutMetrics } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
 import { webCursor } from '../../src/ui/tokens';
 import { playAudioSlice } from '../../src/platform/audio';
@@ -70,6 +71,46 @@ function WordCard({
   );
 }
 
+/**
+ * DESKTOP.md §7: word cards in a grid, same column counts as Home/Library
+ * (3 at 900-1199, 4 at >= 1200); card width flexes to the column (unlike
+ * BookTile's fixed cover sizes) so the column width is measured rather than
+ * a fixed token.
+ */
+function WordGrid({
+  words,
+  renderWord,
+}: {
+  words: SavedWord[];
+  renderWord: (word: SavedWord) => React.ReactNode;
+}) {
+  const grid = useBookGridTier();
+  const [width, setWidth] = useState(0);
+  const onLayout = (e: LayoutChangeEvent) => setWidth(e.nativeEvent.layout.width);
+
+  if (!grid) {
+    return <View style={styles.list}>{words.map((word) => renderWord(word))}</View>;
+  }
+
+  const itemWidth =
+    width > 0 ? (width - grid.columnGap * (grid.columns - 1)) / grid.columns : undefined;
+
+  return (
+    <View
+      onLayout={onLayout}
+      style={[styles.grid, { columnGap: grid.columnGap, rowGap: grid.rowGap }]}
+    >
+      {itemWidth
+        ? words.map((word) => (
+            <View key={word.id} style={{ width: itemWidth }}>
+              {renderWord(word)}
+            </View>
+          ))
+        : null}
+    </View>
+  );
+}
+
 export default function VocabularyScreen() {
   const t = useT();
   const router = useRouter();
@@ -82,6 +123,7 @@ export default function VocabularyScreen() {
   const bookLocale = useSottoStore((s) => s.bookLocale);
   const loadChapter = useSottoStore((s) => s.loadChapter);
   const chapters = useSottoStore((s) => s.chapters);
+  const { isDesktop } = useLayoutMetrics();
 
   const bookIds = useMemo(() => selectBooksWithVocabulary(savedWords), [savedWords]);
   const [selectedBookId, setSelectedBookId] = useState<string | undefined>(bookIds[0]);
@@ -177,8 +219,9 @@ export default function VocabularyScreen() {
         </Text>
       )}
 
-      <View style={styles.list}>
-        {words.map((word) => (
+      <WordGrid
+        words={words}
+        renderWord={(word) => (
           <WordCard
             key={word.id}
             word={word}
@@ -186,11 +229,11 @@ export default function VocabularyScreen() {
             onPlay={() => playWord(word)}
             onDelete={() => deleteWord(word)}
           />
-        ))}
-      </View>
+        )}
+      />
 
       {selectedBookId && words.length > 0 ? (
-        <View style={styles.ctaWrap}>
+        <View style={[styles.ctaWrap, isDesktop && styles.ctaWrapDesktop]}>
           {dueWords.length === 0 ? (
             <Text role="caption" color="ink3" style={styles.ctaCaption}>
               {t('vocabulary.noneDue')}
@@ -280,6 +323,10 @@ const styles = StyleSheet.create({
   list: {
     gap: space.sm,
   },
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
   wordCard: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -301,6 +348,11 @@ const styles = StyleSheet.create({
   ctaWrap: {
     marginTop: space.xl,
     gap: space.sm,
+  },
+  // DESKTOP.md §7: the CTA hugs the text-column measure it follows (max
+  // 400), not the full grid width.
+  ctaWrapDesktop: {
+    maxWidth: 400,
   },
   ctaCaption: {
     textAlign: 'center',

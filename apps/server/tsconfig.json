@@ -2,6 +2,13 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": ".",
+    // apps/server now imports the shared tutor-prompt builder from
+    // @sotto/core (src/voice/prompt.ts is a re-export shim), and every
+    // workspace package's source uses explicit `.ts` specifiers — the
+    // convention @sotto/core and @sotto/voice already follow, and the one
+    // Metro needs. apps/client's tsconfig has had this flag from the start;
+    // apps/server needed it the moment it started resolving core's source.
+    "allowImportingTsExtensions": true,
     "outDir": "dist",
     "types": ["node"]
   },

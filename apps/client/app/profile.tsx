@@ -212,6 +212,10 @@ export default function ProfileScreen() {
               onPress: () =>
                 setPreference('defaultTutorMode', cycle(TUTOR_MODES, preferences.defaultTutorMode)),
             },
+            {
+              label: t('tutor.browser.settingsRow'),
+              onPress: go('/settings/models'),
+            },
           ]}
         />
         <Group

@@ -19,7 +19,7 @@ export default function LibraryScreen() {
   const t = useT();
   const router = useRouter();
   const library = useLibrary();
-  const { sectionGap } = useLayoutMetrics();
+  const { sectionGap, isDesktop } = useLayoutMetrics();
   const [filter, setFilter] = useState<Filter>('all');
 
   const openBook = (book: LibraryBook) => router.push(`/book/${book.id}`);
@@ -57,21 +57,36 @@ export default function LibraryScreen() {
         />
       </View>
 
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.chips}
-        contentContainerStyle={styles.chipsContent}
-      >
-        {filters.map((item) => (
-          <Chip
-            key={item.value}
-            label={item.label}
-            selected={filter === item.value}
-            onPress={() => setFilter(item.value)}
-          />
-        ))}
-      </ScrollView>
+      {isDesktop ? (
+        // DESKTOP.md §3: chips never scroll horizontally on desktop — wrap
+        // to a second line instead.
+        <View style={[styles.chips, styles.chipsWrap]}>
+          {filters.map((item) => (
+            <Chip
+              key={item.value}
+              label={item.label}
+              selected={filter === item.value}
+              onPress={() => setFilter(item.value)}
+            />
+          ))}
+        </View>
+      ) : (
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.chips}
+          contentContainerStyle={styles.chipsContent}
+        >
+          {filters.map((item) => (
+            <Chip
+              key={item.value}
+              label={item.label}
+              selected={filter === item.value}
+              onPress={() => setFilter(item.value)}
+            />
+          ))}
+        </ScrollView>
+      )}
 
       <View style={{ gap: sectionGap }}>
         {rails.map((rail) => (
@@ -101,5 +116,10 @@ const styles = StyleSheet.create({
   chipsContent: {
     gap: space.sm,
     paddingRight: space.gutter.phone,
+  },
+  chipsWrap: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: space.sm,
   },
 });

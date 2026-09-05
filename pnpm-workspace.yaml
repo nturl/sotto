@@ -4,6 +4,11 @@ packages:
 allowBuilds:
   esbuild: true
   onnxruntime-node: true
+  # Neither postinstall is needed here: sharp is transformers.js's Node-only
+  # image backend (the tutor runs in a browser worker) and protobufjs's script
+  # only regenerates typings. Declined so `pnpm install` stays non-interactive.
+  protobufjs: false
+  sharp: false
 minimumReleaseAgeExclude:
   - '@expo/cli@57.0.22'
   - expo-modules-core@57.0.16

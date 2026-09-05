@@ -9,7 +9,7 @@ import type { TutorMode } from '@sotto/core';
 import { useSottoStore } from '../state/store';
 import { selectDueWords, selectVocabularyForBook } from '../state/selectors';
 import { fetchHealth } from '../state/contentApi';
-import { availabilityFromHealth, type VoiceAvailability } from './availability';
+import { resolveAvailability, type VoiceAvailability } from './availability';
 import { buildPassageWindow } from './passage';
 import * as sessionManager from './sessionManager';
 
@@ -74,20 +74,26 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
   // session against a tutor that can't run just fails silently later.
   const isFakeProvider = process.env.EXPO_PUBLIC_VOICE === 'fake';
   const [availability, setAvailability] = useState<VoiceAvailability>(
-    isFakeProvider ? { status: 'ready' } : { status: 'checking' },
+    isFakeProvider ? { status: 'ready', path: 'local' } : { status: 'checking' },
   );
+  // Bumped by the download panel so the gate re-runs after models land.
+  const [gateNonce, setGateNonce] = useState(0);
 
   useEffect(() => {
     if (isFakeProvider) return undefined;
     let cancelled = false;
     setAvailability({ status: 'checking' });
-    void fetchHealth().then((health) => {
-      if (!cancelled) setAvailability(availabilityFromHealth(health));
-    });
+    // The probe answers "is there a server?"; resolveAvailability then falls
+    // through to the in-browser tutor when there isn't one (the static host).
+    void fetchHealth()
+      .then((health) => resolveAvailability(health))
+      .then((next) => {
+        if (!cancelled) setAvailability(next);
+      });
     return () => {
       cancelled = true;
     };
-  }, [bookId, isFakeProvider]);
+  }, [bookId, isFakeProvider, gateNonce]);
 
   const bookWords = useMemo(
     () => selectVocabularyForBook(savedWords, bookId),
@@ -105,6 +111,7 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
       sessionManager.resumeSessionUI();
     } else if (availability.status === 'ready') {
       sessionManager.startSession({
+        path: availability.path,
         bookId,
         chapterId,
         mode,
@@ -130,6 +137,8 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
 
   return {
     availability,
+    /** Called by the download panel once models are installed/removed. */
+    recheckAvailability: () => setGateNonce((n) => n + 1),
     voiceState,
     captions,
     mode,

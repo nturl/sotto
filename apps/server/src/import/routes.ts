@@ -39,7 +39,7 @@ function audioContentType(file: string): string {
 export async function importRoutes(app: FastifyInstance, config: Config): Promise<void> {
   await app.register(multipart, { limits: { fileSize: MAX_UPLOAD_BYTES } });
 
-  const registry = new ImportJobRegistry();
+  const registry = new ImportJobRegistry({ jobMaxMs: config.IMPORT_JOB_MAX_MS });
   const llm = {
     baseUrl: config.SOTTO_LLM_URL,
     model: config.SOTTO_LLM_MODEL,

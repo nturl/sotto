@@ -35,6 +35,10 @@ const envSchema = z.object({
   SOTTO_CORS_ORIGINS: z.string().optional(),
   // Caps concurrent voice sessions (pending + connected) across all clients.
   SOTTO_MAX_SESSIONS: z.coerce.number().int().positive().default(4),
+  // Wall-clock ceiling for one import job (adversarial review 3, finding
+  // 9) — a hung/adversarially slow import is aborted and failed once it
+  // passes this, instead of leaving the importer permanently busy.
+  IMPORT_JOB_MAX_MS: z.coerce.number().int().positive().default(45 * 60_000),
 });
 
 export type Config = z.infer<typeof envSchema>;

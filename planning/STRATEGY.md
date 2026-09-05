@@ -9,6 +9,13 @@ docs/evidence/voice-broker-staging-2026-09-05.log + DECISIONS.md. Evidence tags:
 MEASURED (a number from a log), VERIFIED (read in the tree), INFERRED (pattern or
 outside knowledge, not checked here), ASSUMED (nobody has checked).
 
+> **Noel's decision, 2026-09-05 evening (supersedes the parking below on sequence):**
+> do A (free self-host + domain), B (bring your own key), C (deploy kit), D (paid hosted,
+> Stripe web-only) in that order. E (App Store) is out until the web page has paying
+> customers. Fixed cost with zero users is held to one Fly machine plus the domain by
+> serving the paid client from Fly and keeping Vercel on Hobby for the free PWA. The run
+> prompt is planning/KICKOFF-4.md; the route map is planning/design/strategy-map.html.
+
 ## The short version
 
 Sotto is **the free open-source app plus the hosted PWA**. That is the whole product

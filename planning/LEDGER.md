@@ -13,7 +13,7 @@ Columns: id | status | owner route | depends on | verification command / proof |
 | WS-4 reader + vocab + review + persistence | done (orchestrator verification next) | Kimi K3 /fanout + Sonnet | WS-1, WS-2 | vertical slice in browser + simulator, reload persists | |
 | WS-5 content packs FR/ES/EN + minis + narration | done: 14/14 drafted (all draft-labeled), built, validated; 12 narrated (ro/ca no voice) | Codex/Gemini /fanout + Sonnet | WS-1 | validator green, audio+timings present, licenses | |
 | WS-6 verification + docs + report | done (commit 80aa57c) | Sonnet (atlas) | all | criteria report, screenshots, e2e green | |
-| F-2 Fable adversarial review + final report | running (Opus reviewer + Sonnet fixer) | Fable | WS-6 | report in docs/verification.md | |
+| F-2 Fable adversarial review + final report | done (planning/ADVERSARIAL-REVIEW.md; lanes A+B fixed; docs/verification.md rewritten) | Fable | WS-6 | report in docs/verification.md | |
 
 ## Task cards
 
@@ -101,3 +101,17 @@ Columns: id | status | owner route | depends on | verification command / proof |
 - 2026-09-04 21:25 Orchestrator pass on the reader (Browser pane + WS-6 PNGs) found two design defects the workers had not flagged: sentences render as blocks instead of flowing paragraphs, and the narration transport overlaps the translation sheet (Save button clipped). Also the fake provider's reading events use placeholder ids so speech fill never advances in fake mode. Fixer dispatched (Sonnet). Adversarial review dispatched (Opus) in parallel.
 - 2026-09-04 21:50 Adversarial review (Opus) in planning/ADVERSARIAL-REVIEW.md: 10 ranked findings + ~25 minor. Triage: fix lanes A (server hygiene, settings, licences, onboarding sample, screenshot script) and B (voice captions/contrast/PTT, mode chips, reader marker, completion arrow, perf, verification.md rewrite) dispatched; planning/ stays tracked because Noel asked for it in the repo, flagged in the final report as his call before the public flip; server stays account-less per the product rule, hardened with localhost binding, CORS allowlist, and session caps.
 - 2026-09-04 22:15 Foreign commits noticed on main (9f73e56, 02ec17f: planning/astra audit kit, authored from another of Noel's sessions). Left untouched; not part of this run.
+
+## Finish line (PLAN.md, nine items) — evidence, 2026-09-05 01:00
+
+1. `pnpm dev` starts server + web; onboarding -> home -> book -> reader (tap, translate, save) -> vocabulary -> review -> settings with state surviving reload: DONE. Evidence: WS-4 walkthrough, apps/client/e2e/screenshots.mjs run (docs/screenshots/web/*, 68 PNGs), store tests (apps/client/src/state/*.test.ts), docs/evidence/checks-2026-09-04.log.
+2. Narration for every seeded book with word-level sync: DONE for the 12 books with a Kokoro voice (fr/es/en/pt/it/zh-CN/zh-TW); ro-RO and ca-ES have no voice (deferred). Evidence: packages/content/packs/**/audio/*.mp3 + startMs/endMs in chapters; alignment table in the WS-1 report; reader speech fill verified live.
+3. Live tutor in the browser against the local stack, four modes, barge-in, captions, mute, push-to-talk, seven tools: DONE in substance, PARTIAL on breadth. Evidence: docs/evidence/voice-live-2026-09-04.log (explain + save round trips, exit 0), docs/evidence/voice-smoke-2026-09-04.log (barge-in cancelled:true, get_current_passage + save_vocabulary relay), unit tests for all seven tools. Not exercised live: read_with_me/pronunciation modes with real learner speech, push-to-talk with a real mic (setting exists, e2e uses auto VAD).
+4. Same journey on the iPhone 17 Pro simulator: PARTIAL. Dev build with the native audio deps succeeds and boots; onboarding + seeded home screenshots (docs/screenshots/ios/). Interactive taps were impossible (simulator MCP needs `sudo xcode-select`), so reader/vocabulary/voice on iOS are unverified.
+5. Fake transport drives the tests; `pnpm check` green; CI committed: DONE. 180/180 tests, .github/workflows/ci.yml (no secrets).
+6. Seed content: FR/ES/EN x3, one each pt-BR, it, zh-CN (+zh-TW), ro, ca, all draft, all with license metadata: DONE (14 bundles, 15 built books, attribution.json per book).
+7. UI messages for 9 locales: DONE (128+29 keys each, validator-checked).
+8. Public GitHub repo + OSS baseline + docs: DONE except visibility: https://github.com/nturl/sotto is PRIVATE because the auto-mode classifier refuses the public flip; Noel flips it. LICENSE, NOTICE, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, .env.example, issue/PR templates, docs/{architecture,local-models,openai,adding-a-language,supported-languages,attribution,voice-pipeline,verification}.md.
+9. Screenshots at 375/393/430/768/1024/1440 + verification report mapped to the 35 criteria: DONE (docs/screenshots/web, docs/verification.md: 9 PASS / 18 PARTIAL / 4 DEFERRED / 4 NOT VERIFIED / 0 FAIL).
+
+Budget: Codex 5/5, agy 15/15 (8 of them wasted on a permission bug + 2 hung), Kimi 6/10 (~$3 of Moonshot credit), Sonnet subagents x9, Opus reviewer x1. Fable turns kept to planning, gate reviews, glue, and this close-out.

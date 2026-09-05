@@ -259,3 +259,67 @@ Per lane: A fast path + deep links + PWA + onboarding language fix + deploy/smok
 Deferred, on purpose or by evidence: voice word-saving on the 1.7B in-browser model (unreliable, labeled); fr/es in-browser TTS (kokoro-js phonemizer is English-only); iOS touch interactions (no touch injection path); physical iPhone; human content review (all 19 books draft; 9 read a level above their label per docs/content-qa.md); public repo flip (reference-app name still in pushed history, needs a rewrite — Noel's call); validator cross-locale warning too noisy (19,684); Browser pane sometimes hangs on the splash on a cold load (pane-specific, Playwright never does); SessionBar resume mode label (row 15); voice-screen deep link appears to set the interface language to the book's language (seen on the live host: French chrome for an English-interface visitor) — to confirm.
 
 Spend: DeepSeek ~1.18 M prompt + 0.51 M completion tokens (~USD 0.6); Codex rate-limited both attempts (0 useful calls); Kimi/agy/grok not used; Sonnet lanes x14, Opus x2 (B design/slice 1, review). Fable turns: pre-flight, Gate 1, Gate 2, glue fixes, close-out.
+
+## Run 3 — free local tier + paid hosted tier (2026-09-05, Opus orchestrating)
+
+Gate 0 met at 8a141ff: run 2 finish line at L249, HEAD == origin/main, tree clean except five untracked run-2 evidence files (committed here with the run 3 planning files). Plan: planning/PAID-TIER-PLAN.md; prompt: planning/KICKOFF-3.md. Noel raised one reader defect at kickoff (word speaker plays a clipped narration slice); absorbed as Lane W.
+
+Plan adjustments after reading run 2's close-out: (1) `packages/voice/src/openai-realtime/**` in the plan is really `packages/voice/src/transports/openai-realtime.ts` (stub); (2) client has `app.json`, no `app.config.ts`/`eas.json` yet; (3) run 2 shipped the in-browser WebGPU tutor, PWA, dark mode (`darkColors` + ThemeProvider), span translation, `/read/<bookId>`; paywall copy must say the free tier already has a no-server tutor on capable desktops and paid = OpenAI voices on any device, phone, uploads, hosted processing; (4) voice availability paths are `local | browser`; Lane S adds `cloud`.
+
+Decisions for this run (rationale in each lane's report and sotto-cloud/DECISIONS.md): sotto-cloud vendors the OSS repo as a git submodule + pnpm workspace globs (private repo, Fly builds from local context, no registry); broker reuses apps/server's VoiceSession for the cascade path; tutor provider is per-plan config {cascade-openai, cascade-open, realtime-mini, realtime} (Noel asked for a cheaper option: hosted open-model cascade is ~10x cheaper than the OpenAI cascade); IAP via expo-iap (StoreKit 2, actively maintained in the OpenIAP monorepo; not RevenueCat: entitlement table is our truth, no vendor SDK in the shared OSS build, no revenue cut); Sign in with Apple + magic link, opaque server sessions; SQLite on a Fly volume; stub billing mode for e2e without keys.
+
+### R3-I Importer (Sonnet)
+- Task: EPUB (DRM-free; detect DRM and refuse) / TXT / Markdown -> private pack through the existing pipeline exposed as a library (`importBook` with progress events), lazy narration (chapter 1 first, the rest on demand), private packs stored on-device only; `/import` UI with detected language, chapter and word counts, honest time estimate, and the plain statement that the learner layer is generated and private; free tier runs against local apps/server + local models.
+- Inputs: packages/content/src/{build,gloss-fill,translate-sentences,narrate,align,types,paths}.ts; packages/core tokenize/languages; apps/client/src/state/createStore.ts; src/platform/importExport.*; DESIGN.md, DESKTOP.md, planning/design/IMPORT.md (design lane writes it first; build against DESIGN.md if it is late).
+- Output: packages/content/src/import/**, `sotto-content import` subcommand, apps/server/src/import/** + route registration, apps/client/app/import/**, apps/client/src/import/**, private-pack storage in the store, `import.*` i18n keys x9, docs/importing-books.md, unit tests.
+- Proof: unit tests (EPUB fixture, TXT, MD, DRM refusal); docs/evidence/import-e2e-2026-09-05.log (Gutenberg EPUB imported via the UI on the local stack, chapter 1 narrated and tap-translatable); orchestrator reads a private book in the Browser pane at 375 and 1440.
+- Permissions: the output paths above; createStore.ts/selectors.ts private-pack additions only; one "Import a book" entry in app/(tabs)/library.tsx and one row in app/profile.tsx; cli.ts: add the `import` case only (re-read before editing; Lanes P and W add their own cases). New deps: a zip reader and an XML parser, justified in the report. Never write under packages/content/packs; no PDF; no voice/onboarding/Shell edits.
+- Stop when: proofs pass, `pnpm check` green, path-scoped commit exists.
+- Escalate when: importBook cannot reuse build.ts without forking it; EPUB needs a native module; chapter-1 narration exceeds 10 min for a 3k-word chapter.
+
+### R3-P Community path (Sonnet, low effort)
+- Task: docs/adding-a-book.md (Gutenberg text -> `sotto-content new` scaffold -> fill -> validate -> PR), PR template checklist (license, no copyrighted source), CONTRIBUTING.md review rule; CI already validates.
+- Inputs: docs/adding-a-language.md, CONTRIBUTING.md, .github/**, cli.ts, validate.ts.
+- Output: docs/adding-a-book.md, .github/PULL_REQUEST_TEMPLATE.md, CONTRIBUTING.md section, `new` subcommand + packages/content/src/scaffold.ts + one test.
+- Proof: `pnpm --filter @sotto/content exec node src/cli.ts new fr-test-book` yields a bundle that fails validation only on placeholder content; the doc walked once end to end with a real Gutenberg text, transcript in the report.
+- Permissions: those paths; cli.ts `new` case only. No importer internals.
+- Stop when: proofs + commit. Escalate when: the scaffold needs a schema change.
+
+### R3-W Word pronunciation (Sonnet)
+- Task: the reader's speaker button plays an isolated, clear pronunciation of the highlighted word in the book's language. `pnpm content:word-audio` renders each book's unique word tokens with Kokoro (isolated, speed 0.9, silence-padded) into `audio/words.mp3` + `audio/words.json` (normalized word -> [startMs, endMs]); client prefers the sprite and falls back to the narration slice padded 80/150 ms with a short fade; span (multi-word) selections keep the padded slice.
+- Inputs: packages/content/src/narrate.ts (Kokoro call + cache), wav.ts, apps/client/src/platform/audio.ts:118, apps/client/app/reader/[bookId].tsx:444,524, contentApi.ts assetUrl, sw.js runtime cache (words.mp3 must be cacheable like chapter mp3s).
+- Output: packages/content/src/word-audio.ts + cli case + root script; regenerated packs (audio/words.* for every narrated book, book.json `wordAudio` field); client change; validator rule for words.json coverage (warning); docs/verification.md row note.
+- Proof: words.json coverage 100 % of word tokens per narrated book; Browser pane at 375: tap an FR and an ES word, hear the full word (orchestrator listens via a recorded wav slice check: sprite span duration >= 250 ms and non-silent); `pnpm check` green.
+- Permissions: those paths; packages/content/packs/** (words.* and book.json wordAudio only; take `mkdir packages/content/.build.lock`); cli.ts `word-audio` case only. No other reader changes.
+- Stop when: proofs + commit. Escalate when: Kokoro fails on single-word input for a locale (then pad with a carrier phrase and slice).
+
+### R3-D Design specs (Sonnet, Cleo brief; before I and S screens)
+- Task: planning/design/IMPORT.md, PAYWALL.md, ACCOUNT.md (account + usage) in the Paper system, phone 375 + desktop 1440, with copy that states the generated-and-private nature of uploads and never interrupts a session; free tier nagged at most once per session.
+- Proof: specs name every token used and pass the DESIGN.md "Don't" list; orchestrator reads them before dispatching S.
+- Permissions: planning/design/{IMPORT,PAYWALL,ACCOUNT}.md only.
+
+### R3-C1 Cloud repo, accounts, entitlements (Opus)
+- Task: sotto-cloud service (Fastify, Node 26, TS): Sign in with Apple (identity token vs Apple JWKS) + email magic link (Resend if key present, else staging log/usage page), opaque session tokens, account deletion cascading to imports and usage, entitlement table as single truth + GET /me, plan table as config, SQLite migrations, admin usage page (SOTTO_CLOUD_ADMIN_EMAILS), Dockerfile + fly.toml, .env.example without values.
+- Inputs: this section's decisions; apps/server/src/{app,config,security}.ts patterns; PAID-TIER-PLAN.md Lane C; known unknowns 2, 3, 11.
+- Output: ~/Claude/sotto-cloud/{src,migrations,test,README.md,DECISIONS.md}.
+- Proof: `pnpm check` green in sotto-cloud; tests for Apple verification (JWKS mocked), magic link, entitlement math, deletion; curl transcript against local staging (magic link -> session -> /me) in the report.
+- Permissions: everything under ~/Claude/sotto-cloud except vendor/sotto. No secrets committed, no analytics, nothing in the OSS repo.
+- Stop when: proofs + commit + push. Escalate when: Apple verification needs a Services ID that does not exist (document the portal steps, test against a fixture).
+
+### R3-C2 Billing (Opus, after C1)
+- Task: Stripe Checkout + customer portal + webhooks -> entitlements; App Store Server Notifications V2 + JWS verification + App Store Server API transaction check; idempotent; `SOTTO_CLOUD_BILLING=stub` deterministic test checkout for e2e without keys (disabled in production).
+- Proof: fixture-driven tests for both webhooks; stub e2e transcript; real Stripe test-mode transcript if keys are present.
+
+### R3-C3 Voice broker (Opus, after C1)
+- Task: POST /voice/session behind auth + entitlement gate + per-plan provider; cascade path proxies the reused VoiceSession over WS with OpenAI URLs and meters audio seconds, stopping at the cap with `{t:'limit', reason:'cap'}` and a clear message; Realtime path mints an ephemeral client secret with max duration = remaining seconds and records the session; daily spend ceiling; kill switch; per-session cost rows feeding the usage page. OSS side: real `OpenAIRealtimeProvider` (web first).
+- Proof: unit tests for metering, cap, ceiling, kill switch; staging transcript of a refused session at cap; one live Realtime session with measured cost.
+- Permissions: sotto-cloud/src/voice/**; OSS packages/voice/src/transports/openai-realtime.ts + index export. CONTRACTS §5b stays; `limit.reason` gains `cap` additively.
+
+### R3-S Store, paywall, CloudAdapter (Sonnet, after C1 + D)
+- Task: CloudAdapter interface + NullCloud + HttpCloudAdapter; account, paywall, usage screens per the design specs; `cloud` voice path; free-tier nag once per session, never mid-session; expo-iap + Stripe Checkout redirect; eas.json + app.config.ts (privacy manifest, purpose strings); docs/app-store.md (privacy labels, review notes, demo account); TestFlight build up to the upload step.
+- Proof: OSS build with no `EXPO_PUBLIC_CLOUD_URL` renders no account/paywall UI; with staging: sign in -> paywall -> stub subscribe -> usage shows the plan; screenshots 375/1440; EAS build output or the exact upload command.
+
+### R3-E Verification (Sonnet, high effort, after I, W, C, S)
+- Task: importer e2e log; paid e2e log against staging; screenshots; `pnpm check` tails for both repos; boundary check (OSS repo has no auth/payments/analytics and runs with no cloud); Tier 4 hosted section in docs/verification.md.
+
+### R3-R Adversarial review (Opus, read-only): what leaks, what costs, what is fake. Then a fix lane.

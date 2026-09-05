@@ -1,0 +1,33 @@
+[hosted-smoke 2026-09-05T03:37:47.528Z] BASE_URL=http://sotto.localhost:8090
+[hosted-smoke 2026-09-05T03:37:47.529Z] --- width 375 ---
+[hosted-smoke 2026-09-05T03:37:48.511Z] 375: cold visit loaded
+[hosted-smoke 2026-09-05T03:37:48.552Z] 375: manifest link present
+[hosted-smoke 2026-09-05T03:37:48.776Z] 375: tap 1 — clicked "Start reading in French"
+[hosted-smoke 2026-09-05T03:37:48.779Z] 375: reader visible at http://sotto.localhost:8090/reader/fr-chat-botte
+[hosted-smoke 2026-09-05T03:37:49.008Z] 375: tap 2 — clicked play
+[hosted-smoke 2026-09-05T03:37:50.554Z] 375: narration playing within 10s
+[hosted-smoke 2026-09-05T03:37:50.681Z] 375: tapped "Dans", translation panel shown
+[hosted-smoke 2026-09-05T03:37:51.286Z] 375: saved "Dans" to vocabulary
+[hosted-smoke 2026-09-05T03:37:51.889Z] 375: saved word survived reload
+[hosted-smoke 2026-09-05T03:37:51.891Z] 375: service worker registered
+[hosted-smoke 2026-09-05T03:37:53.404Z] 375: shell cache (sotto-shell-1788579103122.9626) has index.html
+[hosted-smoke 2026-09-05T03:37:53.405Z] 375: content cache (sotto-content-1788579103122.9626) has 1 file(s) for this book
+[hosted-smoke 2026-09-05T03:37:53.417Z] 375: WARN — real offline navigation hit the known Playwright/Chromium CDP limitation (network emulation preempts the Service Worker fetch handler for navigations); relying on the cache-inspection checks above instead.
+[hosted-smoke 2026-09-05T03:37:53.572Z] --- width 375 done ---
+[hosted-smoke 2026-09-05T03:37:53.572Z] --- width 1440 ---
+[hosted-smoke 2026-09-05T03:37:53.847Z] 1440: cold visit loaded
+[hosted-smoke 2026-09-05T03:37:53.870Z] 1440: manifest link present
+[hosted-smoke 2026-09-05T03:37:54.013Z] 1440: tap 1 — clicked "Start reading in French"
+[hosted-smoke 2026-09-05T03:37:54.014Z] 1440: reader visible at http://sotto.localhost:8090/reader/fr-chat-botte
+[hosted-smoke 2026-09-05T03:37:54.211Z] 1440: tap 2 — clicked play
+[hosted-smoke 2026-09-05T03:37:55.276Z] 1440: narration playing within 10s
+[hosted-smoke 2026-09-05T03:37:55.372Z] 1440: tapped "Dans", translation panel shown
+[hosted-smoke 2026-09-05T03:37:55.740Z] 1440: saved "Dans" to vocabulary
+[hosted-smoke 2026-09-05T03:37:56.310Z] 1440: saved word survived reload
+[hosted-smoke 2026-09-05T03:37:56.311Z] 1440: service worker registered
+[hosted-smoke 2026-09-05T03:37:57.817Z] 1440: shell cache (sotto-shell-1788579103122.9626) has index.html
+[hosted-smoke 2026-09-05T03:37:57.817Z] 1440: content cache (sotto-content-1788579103122.9626) has 1 file(s) for this book
+[hosted-smoke 2026-09-05T03:37:57.831Z] 1440: WARN — real offline navigation hit the known Playwright/Chromium CDP limitation (network emulation preempts the Service Worker fetch handler for navigations); relying on the cache-inspection checks above instead.
+[hosted-smoke 2026-09-05T03:37:57.943Z] --- width 1440 done ---
+[hosted-smoke 2026-09-05T03:37:57.943Z] RESULT: PASS
+EXIT 0

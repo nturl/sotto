@@ -96,7 +96,7 @@ export interface SottoState {
    * never persisted. */
   readingTokenIds: string[];
   explanation: { tokenId?: string; title: string; body: string; kind: string } | null;
-  voiceError: { message: string; recoverable: boolean } | null;
+  voiceError: { code?: string; message: string; recoverable: boolean } | null;
   limitReason: 'max_duration' | 'idle' | null;
   setSessionRecord(record: VoiceSessionRecord | null): void;
   patchSessionRecord(patch: Partial<VoiceSessionRecord>): void;

@@ -81,9 +81,11 @@ export function startSession(params: {
     onReading: (tokenIds) => useSottoStore.getState().setReadingTokenIds(tokenIds),
     onLimit: (reason) => useSottoStore.getState().setLimitReason(reason),
     onError: (entry) =>
-      useSottoStore
-        .getState()
-        .setVoiceError({ message: entry.message, recoverable: entry.recoverable }),
+      useSottoStore.getState().setVoiceError({
+        code: entry.code,
+        message: entry.message,
+        recoverable: entry.recoverable,
+      }),
     onToolEvent: (entry) => useSottoStore.getState().pushToolEvent(entry),
   });
 

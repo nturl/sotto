@@ -52,6 +52,7 @@ export class WebAudioAdapter implements AudioAdapter {
   private sourceNode: MediaStreamAudioSourceNode | null = null;
   private stream: MediaStream | null = null;
   private workletUrl: string | null = null;
+  private sinkNode: GainNode | null = null;
 
   private playbackContext: AudioContext | null = null;
   private playbackQueueEndAt = 0;
@@ -62,8 +63,14 @@ export class WebAudioAdapter implements AudioAdapter {
       throw new Error('WebAudioAdapter.startCapture requires a browser environment');
     }
 
-    this.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    this.stream = await navigator.mediaDevices.getUserMedia({
+      audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
+    });
     this.context = new AudioContext();
+    // Browsers create the context suspended when no user gesture is on
+    // record (the session starts on screen mount, not on a tap); a suspended
+    // context never runs the worklet, so the tutor "listens" to nothing.
+    if (this.context.state === 'suspended') await this.context.resume();
 
     const blob = new Blob([WORKLET_SOURCE], { type: 'application/javascript' });
     this.workletUrl = URL.createObjectURL(blob);
@@ -73,11 +80,25 @@ export class WebAudioAdapter implements AudioAdapter {
     this.workletNode = new AudioWorkletNode(this.context, 'capture-processor');
     this.workletNode.port.onmessage = (ev: MessageEvent<ArrayBuffer>) => onPcm16(ev.data);
     this.sourceNode.connect(this.workletNode);
+    // The render graph is only pulled from the destination: a worklet with
+    // no path to it is not guaranteed to process. Sink it through a muted
+    // gain so capture runs without the mic being audible.
+    this.sinkNode = this.context.createGain();
+    this.sinkNode.gain.value = 0;
+    this.workletNode.connect(this.sinkNode);
+    this.sinkNode.connect(this.context.destination);
+  }
+
+  /** True once the capture graph is running (for diagnostics/tests). */
+  get capturing(): boolean {
+    return this.context?.state === 'running' && this.workletNode !== null;
   }
 
   stopCapture(): void {
     this.workletNode?.disconnect();
     this.sourceNode?.disconnect();
+    this.sinkNode?.disconnect();
+    this.sinkNode = null;
     this.stream?.getTracks().forEach((t) => t.stop());
     if (this.workletUrl) URL.revokeObjectURL(this.workletUrl);
     this.workletNode = null;

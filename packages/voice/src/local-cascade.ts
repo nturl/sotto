@@ -121,9 +121,22 @@ export class LocalCascadeProvider implements VoiceProvider {
 
     ws.addEventListener('open', () => {
       this.reconnectAttempted = false;
-      void this.audio.startCapture((buf) => {
-        if (ws.readyState === ws.OPEN) ws.send(buf);
-      });
+      // A capture failure (mic permission denied, no input device, a
+      // suspended AudioContext) used to be swallowed here, leaving the
+      // session in 'listening' while no audio ever reached the server.
+      this.audio
+        .startCapture((buf) => {
+          if (ws.readyState === ws.OPEN) ws.send(buf);
+        })
+        .catch((err: unknown) => {
+          this.emit({
+            type: 'error',
+            code: 'mic_unavailable',
+            message: err instanceof Error ? `${err.name}: ${err.message}` : String(err),
+            recoverable: false,
+          });
+          this.emit({ type: 'state', state: 'error' });
+        });
     });
 
     ws.addEventListener('message', (ev: MessageEvent) => {

@@ -96,6 +96,7 @@
   "voice.learnerLabel": "Tú",
   "voice.limitReached": "Esta sesión ha terminado.",
   "voice.connectionIssue": "Conexión perdida.",
+  "voice.micUnavailable": "Micrófono no disponible. Permite el acceso al micrófono para este sitio y vuelve a abrir el tutor.",
   "voice.unavailableServer": "El tutor de voz necesita el servidor de Sotto y no respondió. La lectura, la narración y traducir tocando siguen funcionando.",
   "voice.unavailableServices": "El tutor de voz está desactivado porque estos servicios no están en ejecución: {services}. La lectura, la narración y traducir tocando siguen funcionando.",
   "voice.unavailableHint": "Para activarlo, inicia los modelos locales (docs/local-models.md) o configura el servidor con OpenAI (docs/openai.md).",

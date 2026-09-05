@@ -241,7 +241,11 @@ export default function VoiceScreen() {
       ) : isBroken ? (
         <View style={styles.recovery}>
           <Text role="caption" color="warn" style={styles.recoveryText}>
-            {session.limitReason ? t('voice.limitReached') : t('voice.connectionIssue')}
+            {session.limitReason
+              ? t('voice.limitReached')
+              : session.error?.code === 'mic_unavailable'
+                ? t('voice.micUnavailable')
+                : t('voice.connectionIssue')}
           </Text>
           <Button
             title={t('voice.readAlone')}

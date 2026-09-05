@@ -1,41 +1,41 @@
-[t+0.5s] --- Row 15: SessionBar ---
-[t+2.8s]   [PASS] row 15: SessionBar visible on home
-[t+2.8s]   [PASS] row 15: shows book title text
-[t+2.8s]   [PASS] row 15: shows mode label text
-[t+2.9s]   [PASS] row 15: SessionBar does not overlap tab bar — sessionBar y=739-787, tab y=791-852
-[t+2.9s]   [PASS] row 15: SessionBar sits above tab bar (lower y) — sessionBar.y=739 tab.y=791
-[t+2.9s]   screenshot: rows/15-sessionbar-home.png
-[t+3.0s]   [PASS] row 15: tap navigates to /voice/<bookId> — http://localhost:8087/voice/es-fabulas-samaniego
-[t+10.5s]   [FAIL] row 15: mode chip for "discuss" still active on voice screen — rgb(110, 100, 89)
-[t+10.6s]   screenshot: rows/15-sessionbar-tapped.png
-[t+10.6s] --- Row 16: reader completion ---
-[t+12.8s]   [PASS] row 16: transport bar with "Next chapter" control is visible
-[t+16.1s]   [PASS] row 16: last block scrolled into view, or already fit on screen without overflow — no scrollable container found (content fit at this viewport)
-[t+16.1s]   [PASS] row 16: CompletionView appears ("Choose your next book")
-[t+16.2s]   screenshot: rows/16-completion.png
-[t+16.2s]   [PASS] row 16: sotto.progress record has non-null completedAt — {"bookId":"fr-petit-chaperon-rouge","chapterId":"fr-petit-chaperon-rouge-02","audioPositionMs":0,"percentComplete":1,"updatedAt":"2026-09-05T03:56:35.631Z","completedAt":"2026-09-05T03:56:35.631Z"}
-[t+16.2s] --- Row 24: language-pair isolation ---
-[t+18.1s]   [PASS] row 24: fr-FR home shows the seeded fr book
-[t+18.1s]   [PASS] row 24: fr-FR home does not show the es-419 book
-[t+18.1s]   screenshot: rows/24-fr.png
-[t+19.4s]   [PASS] row 24: vocabulary shows the fr word
-[t+20.5s]   [PASS] row 24: es-419 option present in learning-language settings
-[t+22.4s]   [PASS] row 24: es-419 home shows the es-419 book after switching
-[t+22.4s]   [PASS] row 24: es-419 home hides the fr book after switching
-[t+22.5s]   screenshot: rows/24-es.png
-[t+23.9s]   [FAIL] row 24: vocabulary hides the fr word once on the es-419 pair
-[t+25.6s]   [PASS] row 24: fr progress record unchanged after switching away and back
-[t+25.6s]   [PASS] row 24: fr saved word unchanged after switching away and back
-[t+25.6s] --- Row 6: mode chips ---
-[t+26.8s]   [PASS] row 6: mode chips render on voice screen
-[t+27.3s]   [PASS] row 6: chip "Read to me" becomes active on tap — rgb(251, 246, 236)
-[t+27.4s]   screenshot: rows/6-mode-read_to_me.png
-[t+27.8s]   [PASS] row 6: chip "Read with me" becomes active on tap — rgb(251, 246, 236)
-[t+27.9s]   screenshot: rows/6-mode-read_with_me.png
-[t+28.3s]   [PASS] row 6: chip "Pronunciation" becomes active on tap — rgb(251, 246, 236)
-[t+28.4s]   screenshot: rows/6-mode-pronunciation.png
-[t+28.9s]   [PASS] row 6: chip "Discuss" becomes active on tap — rgb(251, 246, 236)
-[t+28.9s]   screenshot: rows/6-mode-discuss.png
+[t+0.1s] --- Row 15: SessionBar ---
+[t+1.8s]   [PASS] row 15: SessionBar visible on home
+[t+1.8s]   [PASS] row 15: shows book title text
+[t+1.8s]   [PASS] row 15: shows mode label text
+[t+1.8s]   [PASS] row 15: SessionBar does not overlap tab bar — sessionBar y=739-787, tab y=791-852
+[t+1.8s]   [PASS] row 15: SessionBar sits above tab bar (lower y) — sessionBar.y=739 tab.y=791
+[t+1.8s]   screenshot: rows/15-sessionbar-home.png
+[t+1.9s]   [PASS] row 15: tap navigates to /voice/<bookId> — http://localhost:8087/voice/es-fabulas-samaniego
+[t+6.9s]   [PASS] row 15: mode chip for "discuss" still active on voice screen — rgb(251, 246, 236)
+[t+6.9s]   screenshot: rows/15-sessionbar-tapped.png
+[t+6.9s] --- Row 16: reader completion ---
+[t+8.8s]   [PASS] row 16: transport bar with "Next chapter" control is visible
+[t+12.1s]   [PASS] row 16: last block scrolled into view, or already fit on screen without overflow — no scrollable container found (content fit at this viewport)
+[t+12.1s]   [PASS] row 16: CompletionView appears ("Choose your next book")
+[t+12.1s]   screenshot: rows/16-completion.png
+[t+12.1s]   [PASS] row 16: sotto.progress record has non-null completedAt — {"bookId":"fr-petit-chaperon-rouge","chapterId":"fr-petit-chaperon-rouge-02","audioPositionMs":0,"percentComplete":1,"updatedAt":"2026-09-05T04:01:47.966Z","completedAt":"2026-09-05T04:01:47.966Z"}
+[t+12.1s] --- Row 24: language-pair isolation ---
+[t+13.8s]   [PASS] row 24: fr-FR home shows the seeded fr book
+[t+13.8s]   [PASS] row 24: fr-FR home does not show the es-419 book
+[t+13.8s]   screenshot: rows/24-fr.png
+[t+15.1s]   [PASS] row 24: vocabulary shows the fr word
+[t+16.1s]   [PASS] row 24: es-419 option present in learning-language settings
+[t+18.0s]   [PASS] row 24: es-419 home shows the es-419 book after switching
+[t+18.0s]   [PASS] row 24: es-419 home hides the fr book after switching
+[t+18.0s]   screenshot: rows/24-es.png
+[t+19.3s]   [FAIL] row 24: vocabulary hides the fr word once on the es-419 pair
+[t+20.9s]   [PASS] row 24: fr progress record unchanged after switching away and back
+[t+20.9s]   [PASS] row 24: fr saved word unchanged after switching away and back
+[t+20.9s] --- Row 6: mode chips ---
+[t+22.0s]   [PASS] row 6: mode chips render on voice screen
+[t+22.5s]   [PASS] row 6: chip "Read to me" becomes active on tap — rgb(251, 246, 236)
+[t+22.5s]   screenshot: rows/6-mode-read_to_me.png
+[t+23.0s]   [PASS] row 6: chip "Read with me" becomes active on tap — rgb(251, 246, 236)
+[t+23.0s]   screenshot: rows/6-mode-read_with_me.png
+[t+23.5s]   [PASS] row 6: chip "Pronunciation" becomes active on tap — rgb(251, 246, 236)
+[t+23.5s]   screenshot: rows/6-mode-pronunciation.png
+[t+23.9s]   [PASS] row 6: chip "Discuss" becomes active on tap — rgb(251, 246, 236)
+[t+24.0s]   screenshot: rows/6-mode-discuss.png
 
 ===== Summary =====
 Row 6: 5/5 assertions passed
@@ -44,19 +44,19 @@ Row 6: 5/5 assertions passed
   [PASS] chip "Read with me" becomes active on tap — rgb(251, 246, 236)
   [PASS] chip "Pronunciation" becomes active on tap — rgb(251, 246, 236)
   [PASS] chip "Discuss" becomes active on tap — rgb(251, 246, 236)
-Row 15: 6/7 assertions passed
+Row 15: 7/7 assertions passed
   [PASS] SessionBar visible on home
   [PASS] shows book title text
   [PASS] shows mode label text
   [PASS] SessionBar does not overlap tab bar — sessionBar y=739-787, tab y=791-852
   [PASS] SessionBar sits above tab bar (lower y) — sessionBar.y=739 tab.y=791
   [PASS] tap navigates to /voice/<bookId> — http://localhost:8087/voice/es-fabulas-samaniego
-  [FAIL] mode chip for "discuss" still active on voice screen — rgb(110, 100, 89)
+  [PASS] mode chip for "discuss" still active on voice screen — rgb(251, 246, 236)
 Row 16: 4/4 assertions passed
   [PASS] transport bar with "Next chapter" control is visible
   [PASS] last block scrolled into view, or already fit on screen without overflow — no scrollable container found (content fit at this viewport)
   [PASS] CompletionView appears ("Choose your next book")
-  [PASS] sotto.progress record has non-null completedAt — {"bookId":"fr-petit-chaperon-rouge","chapterId":"fr-petit-chaperon-rouge-02","audioPositionMs":0,"percentComplete":1,"updatedAt":"2026-09-05T03:56:35.631Z","completedAt":"2026-09-05T03:56:35.631Z"}
+  [PASS] sotto.progress record has non-null completedAt — {"bookId":"fr-petit-chaperon-rouge","chapterId":"fr-petit-chaperon-rouge-02","audioPositionMs":0,"percentComplete":1,"updatedAt":"2026-09-05T04:01:47.966Z","completedAt":"2026-09-05T04:01:47.966Z"}
 Row 24: 8/9 assertions passed
   [PASS] fr-FR home shows the seeded fr book
   [PASS] fr-FR home does not show the es-419 book
@@ -69,6 +69,5 @@ Row 24: 8/9 assertions passed
   [PASS] fr saved word unchanged after switching away and back
 
 [rows] issues observed during the run:
-  - row 15: mode chip for "discuss" still active on voice screen — rgb(110, 100, 89)
   - row 24: vocabulary hides the fr word once on the es-419 pair
   - row 24 SUSPECTED APP BUG: apps/client/app/(tabs)/vocabulary.tsx line 128 (`selectBooksWithVocabulary(savedWords)`) and apps/client/src/ui/data.ts around line 193 (`byId` resolves against `allSummaries`, every pack, not the current pack's `summaries`) never filter by `preferences.learningLocale` — the vocabulary tab shows saved words from every language pair regardless of which one is currently selected, unlike home/library (data.ts ~line 153, `selectPackForLocale`). Repro: seed a saved word for a fr-FR book while learningLocale is fr-FR, switch learningLocale to es-419 via /settings/learning-language, open /(tabs)/vocabulary — the fr-FR word is still shown.

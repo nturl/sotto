@@ -118,6 +118,21 @@ function basePreferences(overrides) {
   };
 }
 
+/** getByText(...).first() can pick up an invisible leftover DOM node from
+ * the previous screen right after an SPA (client-side router) navigation —
+ * confirmed by dumping the DOM after clicking SessionBar: a detached
+ * zero-size node with stale styling sits ahead of the real, visible,
+ * correctly-styled one in document order. Filter to the first genuinely
+ * visible match instead of trusting `.first()` alone. */
+async function firstVisible(locator) {
+  const count = await locator.count();
+  for (let i = 0; i < count; i += 1) {
+    const candidate = locator.nth(i);
+    if (await candidate.isVisible().catch(() => false)) return candidate;
+  }
+  return locator.first();
+}
+
 function boxesOverlap(a, b) {
   return a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y;
 }
@@ -203,10 +218,14 @@ async function testRow15(browser) {
     // Give RN Web's post-navigation render a moment to settle before
     // reading computed style — the mode row can briefly paint with
     // pre-hydration styling right after the route transition.
-    const discussChip = page.getByText('Discuss', { exact: true }).first();
-    await discussChip.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {});
+    await page
+      .getByText('Discuss', { exact: true })
+      .first()
+      .waitFor({ state: 'visible', timeout: 5000 })
+      .catch(() => {});
     let chipColor = null;
     for (let i = 0; i < 8; i += 1) {
+      const discussChip = await firstVisible(page.getByText('Discuss', { exact: true }));
       chipColor = await discussChip.evaluate((el) => getComputedStyle(el).color).catch(() => null);
       if (chipColor === 'rgb(251, 246, 236)') break;
       await page.waitForTimeout(300);
@@ -490,10 +509,11 @@ async function testRow6(browser) {
   // recolored to the 'surface' token per modeChipActive) is the on-screen
   // reflection of the mode.
   for (const mode of modes) {
-    const chip = page.getByText(mode.label, { exact: true }).first();
+    const chip = await firstVisible(page.getByText(mode.label, { exact: true }));
     await chip.click();
     await page.waitForTimeout(400);
-    const color = await chip.evaluate((el) => getComputedStyle(el).color).catch(() => null);
+    const settledChip = await firstVisible(page.getByText(mode.label, { exact: true }));
+    const color = await settledChip.evaluate((el) => getComputedStyle(el).color).catch(() => null);
     // active chip text is colored 'surface' (#FBF6EC -> rgb(251, 246, 236));
     // see apps/client/app/voice/[bookId].tsx MODES / modeChipActive.
     const active = color === 'rgb(251, 246, 236)';

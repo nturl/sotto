@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import { getLanguage } from '@sotto/core';
 import { colors, space } from '@sotto/core/theme';
 import { playAudioSlice } from '../../src/platform/audio';
@@ -9,7 +9,7 @@ import { selectPackForLocale } from '../../src/state/selectors';
 import { useSottoStore } from '../../src/state/store';
 import { useT } from '../../src/i18n/useT';
 import { Button } from '../../src/ui/Button';
-import { setPreference } from '../../src/ui/data';
+import { setPreference, usePreferences } from '../../src/ui/data';
 import { SpeakerGlyph } from '../../src/ui/Glyphs';
 import { IconButton } from '../../src/ui/IconButton';
 import {
@@ -100,6 +100,7 @@ const STEP_TITLES = [
 export default function OnboardingLanguagesScreen() {
   const t = useT();
   const router = useRouter();
+  const preferences = usePreferences();
   const { gutter } = useLayoutMetrics();
   const [step, setStep] = useState<Step>(0);
   const [appLanguage, setAppLanguage] = useState('fr');
@@ -110,6 +111,10 @@ export default function OnboardingLanguagesScreen() {
   const activeLocale = learning === 'zh' ? script : learning;
   const hasNarrationVoice = getLanguage(activeLocale).ttsVoice !== null;
   const sample = useVoiceSample(activeLocale);
+
+  // Same gate as app/index.tsx: an already-onboarded user (deep link, back
+  // navigation) skips straight to home instead of redoing setup.
+  if (preferences.onboarded) return <Redirect href="/(tabs)/home" />;
 
   const advance = () => {
     if (step < 2) {

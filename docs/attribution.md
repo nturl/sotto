@@ -2,7 +2,12 @@
 
 Machine-readable provenance for every asset ships alongside it — this page
 just explains where to find it and how it's structured. It does not
-reproduce individual attributions (14 books' worth); read the files.
+reproduce individual attributions (15 built books' worth); read the files.
+
+There are **14 source bundles** (`packages/content/source/*.bundle.json`)
+but **15 built books** — `zh-CN`'s bundle also emits a `zh-TW` edition (a
+Traditional-Chinese conversion of the same source), so one source bundle
+builds two `book.json`s.
 
 ## Per-book manifest
 
@@ -36,7 +41,8 @@ and `text.license.attribution` on every book (CONTRACTS §2b) and errors if
 
 ## What's actually in every book tonight
 
-Every one of the 14 seeded books, without exception:
+Every one of the 15 built books (from 14 source bundles — see above),
+without exception:
 
 - Is an **AI-drafted abridgment** (`adaptationEditor: "Sotto contributors (AI
 first draft, unreviewed)"`, `reviewStatus: "draft"` in `book.json`) of a

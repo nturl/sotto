@@ -14,6 +14,10 @@ needed. `GET /health` on the server probes each endpoint's `/models` route
 (2s timeout) and reports which of `stt` / `llm` / `tts` are reachable, plus
 which VAD backend is active (`silero` or the `energy` fallback).
 
+The server binds `127.0.0.1` by default and has no accounts/auth (see
+docs/voice-pipeline.md "Security"). Set `SOTTO_HOST=0.0.0.0` only to test
+from a phone on the same LAN, and only on a trusted network.
+
 ## Getting a local stack running
 
 Any server that speaks the OpenAI `/v1/audio/transcriptions`,

@@ -1,7 +1,20 @@
 /**
- * Builds the tutor's system instruction (planning/CONTRACTS.md §5c context).
- * Stable rules + a compact dynamic block + per-mode guidance. Kept compact
- * on purpose: target < 900 tokens for a 12-sentence passage.
+ * Reference/portable tutor-instruction builder (planning/CONTRACTS.md §5c
+ * context). Stable rules + a compact dynamic block + per-mode guidance, kept
+ * compact on purpose: target < 900 tokens for a 12-sentence passage.
+ *
+ * This is NOT the live server prompt — `apps/server` never imports it.
+ * `buildTutorInstruction` below is exercised only by `prompt.test.ts` (and,
+ * outside this package, is available to `@sotto/voice`'s fake/scripted
+ * provider for tests that want a portable, dependency-free instruction
+ * string without a running server). The prompt actually sent to the LLM at
+ * runtime is built by `apps/server/src/voice/prompt.ts`, which additionally
+ * renders the passage's word -> tokenId map (`renderSentence`) so tools like
+ * `save_vocabulary`/`set_reading_position` can target the right token — a
+ * capability `TutorPassageSentence` here (`{id, text}` only) doesn't carry.
+ * Verified 2026-09-04 (planning/ADVERSARIAL-REVIEW.md finding 5): earlier
+ * revisions of this comment described this function as the live prompt,
+ * which was never true and pointed debugging at the wrong file.
  */
 import { getLanguage } from './languages.ts';
 import type { TutorMode } from './models.ts';

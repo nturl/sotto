@@ -115,9 +115,13 @@ async function main() {
   await page.waitForTimeout(500);
   await shootAllWidths(page, 'onboarding-languages');
 
-  // ---- Seed a fully onboarded profile, reload past it ----
+  // ---- Seed a fully onboarded profile, then navigate to home explicitly.
+  //      reload() re-requests the *current* URL — which by this point is
+  //      wherever the unauthenticated redirect landed (/onboarding/languages)
+  //      — so it re-renders onboarding instead of home. goto(BASE_URL) always
+  //      lands wherever an onboarded profile actually routes to. ----
   await seed(page, { preferences: DEFAULT_PREFERENCES });
-  await page.reload({ waitUntil: 'networkidle' });
+  await page.goto(BASE_URL, { waitUntil: 'networkidle' });
   await page.waitForTimeout(600);
 
   // ---- 2. Home ----
@@ -219,6 +223,7 @@ async function main() {
   if (issues.length) {
     console.log('\n[screenshots] issues observed during the run:');
     for (const issue of issues) console.log('  -', issue);
+    process.exitCode = 1;
   } else {
     console.log('\n[screenshots] no console errors / page errors observed.');
   }

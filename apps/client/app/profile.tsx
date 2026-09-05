@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { useRouter, type Href } from 'expo-router';
-import { buildExport, parseImport } from '@sotto/core';
+import { buildExport, parseImport, type TutorMode, type UserPreferences } from '@sotto/core';
 import { colors, radius, space } from '@sotto/core/theme';
 import { exportJson, importJson } from '../src/platform/importExport';
 import { useT } from '../src/i18n/useT';
 import { BackLink } from '../src/ui/BackLink';
 import { Button } from '../src/ui/Button';
-import { resetAll, usePreferences } from '../src/ui/data';
+import { resetAll, setPreference, usePreferences } from '../src/ui/data';
 import { ChevronRightGlyph } from '../src/ui/Glyphs';
 import { languageNameFor } from '../src/ui/languages';
 import { SectionEyebrow } from '../src/ui/SectionEyebrow';
@@ -16,6 +16,16 @@ import { Text } from '../src/ui/Text';
 import { Toast } from '../src/ui/Toast';
 import { webCursor, withAlpha } from '../src/ui/tokens';
 import { useSottoStore } from '../src/state/store';
+
+const NARRATION_SPEEDS: UserPreferences['narrationSpeed'][] = [0.75, 1, 1.25];
+const CORRECTION_FREQUENCIES: UserPreferences['correctionFrequency'][] = ['low', 'normal', 'high'];
+const SPEAKING_PACES: UserPreferences['speakingPace'][] = ['slow', 'normal'];
+const TUTOR_MODES: TutorMode[] = ['read_to_me', 'read_with_me', 'pronunciation', 'discuss'];
+
+function cycle<T>(values: readonly T[], current: T): T {
+  const idx = values.indexOf(current);
+  return values[(idx + 1) % values.length]!;
+}
 
 type RowSpec = {
   label: string;
@@ -158,10 +168,50 @@ export default function ProfileScreen() {
           rows={[
             {
               label: t('settings.narrationSpeed'),
-              value: t('settings.speed.normal'),
-              onPress: soon,
+              value: `${preferences.narrationSpeed}x`,
+              onPress: () =>
+                setPreference(
+                  'narrationSpeed',
+                  cycle(NARRATION_SPEEDS, preferences.narrationSpeed),
+                ),
             },
-            { label: t('settings.captions'), value: t('settings.captions.on'), onPress: soon },
+            {
+              label: t('settings.captions'),
+              value: preferences.captionsEnabled
+                ? t('settings.captions.on')
+                : t('settings.captions.off'),
+              onPress: () => setPreference('captionsEnabled', !preferences.captionsEnabled),
+            },
+            {
+              label: t('settings.turnDetection'),
+              value: t(`settings.turnDetection.${preferences.turnDetection}` as const),
+              onPress: () =>
+                setPreference(
+                  'turnDetection',
+                  preferences.turnDetection === 'auto' ? 'push' : 'auto',
+                ),
+            },
+            {
+              label: t('settings.correctionFrequency'),
+              value: t(`settings.correctionFrequency.${preferences.correctionFrequency}` as const),
+              onPress: () =>
+                setPreference(
+                  'correctionFrequency',
+                  cycle(CORRECTION_FREQUENCIES, preferences.correctionFrequency),
+                ),
+            },
+            {
+              label: t('settings.speakingPace'),
+              value: t(`settings.speakingPace.${preferences.speakingPace}` as const),
+              onPress: () =>
+                setPreference('speakingPace', cycle(SPEAKING_PACES, preferences.speakingPace)),
+            },
+            {
+              label: t('settings.defaultTutorMode'),
+              value: t(`voice.mode.${preferences.defaultTutorMode}` as const),
+              onPress: () =>
+                setPreference('defaultTutorMode', cycle(TUTOR_MODES, preferences.defaultTutorMode)),
+            },
           ]}
         />
         <Group

@@ -6,6 +6,7 @@
  * /voice/[bookId]; the session itself lives in sessionManager and keeps
  * running whether or not this bar (or the voice screen) is mounted.
  */
+import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { colors, space } from '@sotto/core/theme';
@@ -13,7 +14,7 @@ import { useT } from '../i18n/useT';
 import { setMuted } from '../voice/sessionManager';
 import { Cover } from './Cover';
 import { useLibrary } from './data';
-import { MuteGlyph } from './Glyphs';
+import { MicGlyph, MuteGlyph } from './Glyphs';
 import { IconButton } from './IconButton';
 import { useSottoStore } from '../state/store';
 import { Text } from './Text';
@@ -25,6 +26,14 @@ export function SessionBar() {
   const library = useLibrary();
   const sessionRecord = useSottoStore((s) => s.sessionRecord);
   const voiceState = useSottoStore((s) => s.voiceState);
+  // VoiceSessionRecord carries no `muted` field (mute is a live provider
+  // command, not persisted session state), so this bar tracks it locally —
+  // reset whenever the underlying session changes.
+  const [muted, setMutedLocal] = useState(false);
+
+  useEffect(() => {
+    setMutedLocal(false);
+  }, [sessionRecord?.bookId, sessionRecord?.startedAt]);
 
   if (!sessionRecord || (sessionRecord.status !== 'active' && sessionRecord.status !== 'paused'))
     return null;
@@ -65,9 +74,13 @@ export function SessionBar() {
         </Text>
       </Pressable>
       <IconButton
-        icon={<MuteGlyph size={18} />}
-        accessibilityLabel={t('voice.mute')}
-        onPress={() => setMuted(true)}
+        icon={muted ? <MicGlyph size={18} /> : <MuteGlyph size={18} />}
+        accessibilityLabel={t(muted ? 'voice.unmute' : 'voice.mute')}
+        onPress={() => {
+          const next = !muted;
+          setMutedLocal(next);
+          setMuted(next);
+        }}
       />
     </View>
   );

@@ -29,6 +29,12 @@ export class SessionRegistry {
     return entry.options;
   }
 
+  /** Count of pending (created but not yet connected) sessions, for the concurrent-session cap. */
+  size(): number {
+    this.sweep();
+    return this.pending.size;
+  }
+
   private sweep(): void {
     const now = Date.now();
     for (const [id, entry] of this.pending) {

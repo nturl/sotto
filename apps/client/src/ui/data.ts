@@ -13,7 +13,12 @@
  * see the WS-4 report. `dev/fixtures.ts` stays for tests only.
  */
 import { useEffect, useMemo } from 'react';
-import type { BookCategory as CoreBookCategory, BookSummary, UserPreferences } from '@sotto/core';
+import type {
+  BookCategory as CoreBookCategory,
+  BookSummary,
+  ReviewStatus,
+  UserPreferences,
+} from '@sotto/core';
 import type { CoverArt } from './Cover';
 import type { BookCategory, BookLevel } from './dev/fixtures';
 import { assetUrl } from '../state/contentApi';
@@ -30,6 +35,10 @@ import { useSottoStore } from '../state/store';
 
 export type LibraryBook = {
   id: string;
+  /** Pack locale this book was loaded from (CONTRACTS §2b `contentLocale`) —
+   * needed to resolve per-book server assets (attribution.json, audio). */
+  contentLocale: string;
+  reviewStatus: ReviewStatus;
   title: string;
   author: string;
   shortAuthor: string;
@@ -112,6 +121,8 @@ export function toLibraryBook(
     '';
   return {
     id: summary.bookId,
+    contentLocale: summary.contentLocale,
+    reviewStatus: summary.reviewStatus,
     title: summary.title,
     author: summary.author,
     shortAuthor: shortAuthorName(summary.author),
@@ -158,6 +169,8 @@ export function useLibrary(): Library {
         ? books[dayOfYear(new Date()) % books.length]!
         : ({
             id: '',
+            contentLocale: '',
+            reviewStatus: 'draft',
             title: '',
             author: '',
             shortAuthor: '',

@@ -1,7 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useRouter } from 'expo-router';
+import { getLanguage } from '@sotto/core';
 import { colors, space } from '@sotto/core/theme';
+import { playAudioSlice } from '../../src/platform/audio';
+import { assetUrl, fetchBook, fetchChapter } from '../../src/state/contentApi';
+import { selectPackForLocale } from '../../src/state/selectors';
+import { useSottoStore } from '../../src/state/store';
 import { useT } from '../../src/i18n/useT';
 import { Button } from '../../src/ui/Button';
 import { setPreference } from '../../src/ui/data';
@@ -21,6 +26,69 @@ import { Shell, useLayoutMetrics } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
 import { setUiCatalog } from '../../src/i18n/useT';
 
+type VoiceSample = { uri: string; startMs: number; endMs: number };
+
+/** Loads the first sentence's audio slice of the first book in `locale`'s
+ * pack, once packs are loaded — for onboarding's "listen to a sample" row.
+ * Returns `undefined` while still resolving, `null` once resolution finished
+ * with nothing playable (no pack/chapter/timings for this locale). */
+function useVoiceSample(locale: string): VoiceSample | null | undefined {
+  const packs = useSottoStore((s) => s.packs);
+  const packsStatus = useSottoStore((s) => s.packsStatus);
+  const loadPacks = useSottoStore((s) => s.loadPacks);
+  const [sample, setSample] = useState<VoiceSample | null | undefined>(undefined);
+
+  useEffect(() => {
+    if (packsStatus === 'idle') void loadPacks();
+  }, [packsStatus, loadPacks]);
+
+  useEffect(() => {
+    let cancelled = false;
+    setSample(undefined);
+
+    if (packsStatus !== 'ready') return undefined;
+    const summary = selectPackForLocale(packs, locale)?.books[0];
+    if (!summary) {
+      setSample(null);
+      return undefined;
+    }
+
+    void (async () => {
+      try {
+        const book = await fetchBook(locale, summary.bookId);
+        const chapterSummary = book.chapters[0];
+        if (!chapterSummary?.audio) {
+          if (!cancelled) setSample(null);
+          return;
+        }
+        const chapter = await fetchChapter(locale, summary.bookId, chapterSummary.file);
+        const tokens = chapter.blocks[0]?.sentences[0]?.tokens ?? [];
+        const first = tokens[0];
+        const last = tokens[tokens.length - 1];
+        if (first?.startMs === undefined || last?.endMs === undefined) {
+          if (!cancelled) setSample(null);
+          return;
+        }
+        if (!cancelled) {
+          setSample({
+            uri: assetUrl(locale, summary.bookId, chapterSummary.audio),
+            startMs: first.startMs,
+            endMs: last.endMs,
+          });
+        }
+      } catch {
+        if (!cancelled) setSample(null);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [locale, packs, packsStatus]);
+
+  return sample;
+}
+
 type Step = 0 | 1 | 2;
 
 const STEP_TITLES = [
@@ -38,6 +106,10 @@ export default function OnboardingLanguagesScreen() {
   const [explanation, setExplanation] = useState('en');
   const [learning, setLearning] = useState('fr-FR');
   const [script, setScript] = useState('zh-CN');
+
+  const activeLocale = learning === 'zh' ? script : learning;
+  const hasNarrationVoice = getLanguage(activeLocale).ttsVoice !== null;
+  const sample = useVoiceSample(activeLocale);
 
   const advance = () => {
     if (step < 2) {
@@ -86,18 +158,22 @@ export default function OnboardingLanguagesScreen() {
               {renderOptions(SCRIPT_OPTIONS, script, setScript)}
             </View>
           ) : null}
-          <View style={styles.voiceRow}>
-            <IconButton
-              variant="ring"
-              icon={<SpeakerGlyph size={16} color={colors.accent} />}
-              accessibilityLabel={t('onboarding.a11y.playSample')}
-              // Stub: the voice sample arrives with the audio pipeline (WS-4/5).
-              onPress={() => undefined}
-            />
-            <Text role="ui" size={13} color="ink2">
-              {t('onboarding.voiceSample')}
-            </Text>
-          </View>
+          {hasNarrationVoice ? (
+            <View style={styles.voiceRow}>
+              <IconButton
+                variant="ring"
+                icon={<SpeakerGlyph size={16} color={colors.accent} />}
+                accessibilityLabel={t('onboarding.a11y.playSample')}
+                onPress={() => {
+                  if (sample) playAudioSlice(sample.uri, sample.startMs, sample.endMs);
+                }}
+                style={sample ? undefined : styles.voiceButtonDisabled}
+              />
+              <Text role="ui" size={13} color="ink2">
+                {sample ? t('onboarding.voiceSample') : t('onboarding.voiceSample.unavailable')}
+              </Text>
+            </View>
+          ) : null}
         </>
       ) : null}
 
@@ -125,6 +201,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: space.md,
     marginTop: 18,
+  },
+  voiceButtonDisabled: {
+    opacity: 0.4,
   },
   footer: {
     position: 'absolute',

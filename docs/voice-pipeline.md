@@ -112,11 +112,47 @@ continues (up to 4 tool-call round trips per turn, to bound runaway loops).
 resets every time the learner speaks or sends `text`/`ptt`. Either firing
 sends `{ t: 'limit', reason }` then ends the session.
 
+## Security
+
+This server has **no accounts, no auth, and no per-user identity** — that is
+a deliberate product decision (Sotto is a local-first, single-user app), not
+an oversight. What's in place instead, purely to stop stray traffic:
+
+- **Bind address**: `SOTTO_HOST` defaults to `127.0.0.1` (localhost-only).
+  Set it to `0.0.0.0` to test from a phone on the same LAN — only do this on
+  a trusted network, since anything else on that network can then reach the
+  server too.
+- **CORS allowlist**: `SOTTO_CORS_ORIGINS` (comma-separated, default
+  `http://localhost:8081,http://127.0.0.1:8081,http://localhost:8082`) plus
+  any `http://localhost:*` / `http://127.0.0.1:*` origin unconditionally
+  (`src/security.ts`). This replaces reflecting `origin: true` for every
+  caller. A request with no `Origin` header (native clients — Expo Go,
+  iOS/Android builds) is always allowed; only browser callers are checked.
+- **WebSocket origin check**: the `/voice/ws` upgrade applies the same
+  allowlist to the `Origin` header before accepting the connection, so an
+  arbitrary web page can't open a session even if it guesses a valid
+  `sessionId`.
+- **Concurrent session cap**: `SOTTO_MAX_SESSIONS` (default 4) bounds
+  pending + connected voice sessions; `POST /voice/session` beyond the cap
+  returns `429 { error: 'too_many_sessions' }`.
+- **Per-IP rate limit**: `POST /voice/session` allows at most 10 calls per
+  minute per client IP (in-memory, `RateLimiter` in `src/security.ts`),
+  returning `429 { error: 'rate_limited' }` past that.
+
+**What this does not do**: there is no key, token, or login of any kind.
+Anyone who can reach the bound host and port — a browser tab left open, or
+any device on an exposed network — can open a tutor session and drive
+whichever local models (or real provider key, if `SOTTO_API_KEY` points at
+one) the server is configured with. The mitigations above raise the bar for
+accidental/drive-by exposure; they are not an authentication boundary. Keep
+`SOTTO_HOST` on `127.0.0.1`, or a private LAN you trust, always.
+
 ## Env vars
 
 See `.env.example` (root) — `SOTTO_STT_URL`, `SOTTO_STT_MODEL`,
 `SOTTO_LLM_URL`, `SOTTO_LLM_MODEL`, `SOTTO_TTS_URL`, `SOTTO_TTS_MODEL`,
-`SOTTO_API_KEY`, `SOTTO_PORT` (8790), `SOTTO_HOST`. All three upstream URLs
+`SOTTO_API_KEY`, `SOTTO_PORT` (8790), `SOTTO_HOST` (127.0.0.1),
+`SOTTO_CORS_ORIGINS`, `SOTTO_MAX_SESSIONS` (4). All three upstream URLs
 accept an optional Bearer token (`SOTTO_API_KEY`). To run the same cascade on
 OpenAI instead of local models, set:
 

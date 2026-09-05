@@ -9,7 +9,16 @@ const envSchema = z.object({
   SOTTO_TTS_MODEL: z.string().default('kokoro'),
   SOTTO_API_KEY: z.string().optional(),
   SOTTO_PORT: z.coerce.number().int().positive().default(8790),
-  SOTTO_HOST: z.string().default('0.0.0.0'),
+  // Localhost by default — this server has no auth (see docs/voice-pipeline.md
+  // "Security"). Set SOTTO_HOST=0.0.0.0 to bind all interfaces for phone-on-LAN
+  // testing, on a trusted network only.
+  SOTTO_HOST: z.string().default('127.0.0.1'),
+  // Comma-separated CORS allowlist for browser origins. Defaults cover the
+  // Expo web dev server; any http://localhost:* / http://127.0.0.1:* origin
+  // is also allowed regardless of this value (see src/security.ts).
+  SOTTO_CORS_ORIGINS: z.string().optional(),
+  // Caps concurrent voice sessions (pending + connected) across all clients.
+  SOTTO_MAX_SESSIONS: z.coerce.number().int().positive().default(4),
 });
 
 export type Config = z.infer<typeof envSchema>;

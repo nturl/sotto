@@ -104,6 +104,13 @@ export const WORD_SLICE_RATE = 0.85;
  * for the reader's translation-sheet speaker button. Fire-and-forget: a new
  * short-lived player is created per tap and released when it stops.
  *
+ * Must be called synchronously from the tap handler. iOS WebKit only lets a
+ * fresh media element start inside a user gesture, and the old flow called
+ * play() after load + seek had resolved, long after the tap: silent on
+ * iPhone Safari/PWA. So the element is started muted right inside the tap
+ * (which unlocks it), then once loaded it is paused, seeked to the word,
+ * unmuted and resumed; an unlocked element may be resumed outside a gesture.
+ *
  * The stop timer is armed only once the seek has resolved and playback
  * has started (the earlier timer was armed at load, so seek latency ate
  * into the window and cut the word off); position updates on web arrive
@@ -127,9 +134,11 @@ export function playAudioSlice(uri: string, startMs: number, endMs: number): voi
     if (stopped || !status.isLoaded) return;
     if (!started) {
       started = true;
+      player.pause();
       player.setPlaybackRate(WORD_SLICE_RATE, 'high');
       void player.seekTo(startSeconds).then(() => {
         if (stopped) return;
+        player.muted = false;
         player.play();
         const windowMs = ((endSeconds - startSeconds) / WORD_SLICE_RATE) * 1000;
         fallback = setTimeout(stop, windowMs + 30);
@@ -138,4 +147,8 @@ export function playAudioSlice(uri: string, startMs: number, endMs: number): voi
     }
     if (status.didJustFinish || (status.playing && status.currentTime >= endSeconds)) stop();
   });
+  // Muted pre-roll from 0 inside the gesture: unlocks the element on iOS
+  // without an audible blip of the chapter opening.
+  player.muted = true;
+  player.play();
 }

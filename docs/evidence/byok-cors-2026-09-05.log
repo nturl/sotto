@@ -1,0 +1,436 @@
+================================================================================
+R4-B1 -- api.openai.com browser-origin CORS spike
+Date:    2026-09-05 (probes run 19:25-19:35 UTC)
+Lane:    R4-B1 (planning/LEDGER.md), PHASE 1 ONLY (no API key available)
+Author:  Opus subagent, Sotto run 4
+================================================================================
+
+METHOD
+------
+Playwright 1.62.1 (repo root, apps/client/e2e install; nothing new installed).
+  Browser A: Chromium 151.0.7922.34, desktop context (1280x800).
+             CDP Network domain enabled to capture the OPTIONS preflight and
+             the exact CORS failure reason -- fetch() alone reports only an
+             opaque "Failed to fetch".
+  Browser B: WebKit 26.5, Playwright devices['iPhone 15'] descriptor
+             (iPhone-shaped Safari). WebKit exposes no CDP, so its verdict is
+             read from fetch() success/failure; it matches Chromium in every
+             case, and Chromium's CDP trace supplies the mechanism.
+
+Origins tested, both browsers:
+  (i)  https://sotto-steel.vercel.app  -- the real hosted PWA origin,
+       navigated read-only; probe injected with page.addScriptTag +
+       page.evaluate. Nothing on the deployment was modified.
+  (ii) file:///.../scratchpad/b1/page.html -- Origin: null.
+
+Key used for every REST call: the deliberately invalid literal
+sk-invalid-spike-key. No real key exists in the shell env
+(SOTTO_BYOK_SPIKE_KEY unset) or the macOS keychain (item sotto-byok-spike
+absent), both checked at 19:24 UTC. WebSocket subprotocol values are printed
+masked as openai-insecure-api-key.sk-**** .
+
+Spike page and scripts live only in the session scratchpad at
+/private/tmp/claude-502/-Users-noelturlington-Claude/3d9a30ec-.../scratchpad/b1/
+(page.html, probe2.js, run2.mjs, results2.json). Nothing was added to the repo
+outside this log.
+
+================================================================================
+HEADLINE RESULT
+================================================================================
+The preflight is NOT the problem. All three REST preflights succeed and return
+a correct Access-Control-Allow-Origin.
+
+The ACTUAL response is the problem. When an Authorization header is present,
+the real POST response from api.openai.com carries NO Access-Control-Allow-Origin
+header at all, so the browser discards it before page JS can see it. Chromium
+names the failure exactly: corsError = MissingAllowOriginHeader.
+
+The same POST WITHOUT an Authorization header returns
+Access-Control-Allow-Origin: * and is fully readable. So the stripping is tied
+to the authenticated request path, which is precisely the BYOK path.
+
+================================================================================
+PER-ENDPOINT RESULTS
+================================================================================
+
+--------------------------------------------------------------------------------
+1. POST https://api.openai.com/v1/audio/transcriptions   (multipart/form-data)
+--------------------------------------------------------------------------------
+Request from page JS: FormData(file=Blob 44 bytes audio/wav, model=gpt-4o-mini-transcribe),
+header Authorization: Bearer sk-invalid-spike-key. Browser sets the multipart
+Content-Type itself, so Access-Control-Request-Headers is "authorization" only.
+
+PREFLIGHT (Chromium CDP, origin https://sotto-steel.vercel.app):
+  OPTIONS -> HTTP 200
+    Access-Control-Allow-Origin:    https://sotto-steel.vercel.app
+    Access-Control-Allow-Headers:   authorization
+    Access-Control-Allow-Methods:   GET, OPTIONS, POST
+    Access-Control-Max-Age:         86400
+    Access-Control-Expose-Headers:  CF-Ray
+    Access-Control-Allow-Credentials: (absent)
+  PREFLIGHT VERDICT: PASS
+
+PREFLIGHT (Chromium CDP, origin null / file://):
+  OPTIONS -> HTTP 200
+    Access-Control-Allow-Origin:    null
+    Access-Control-Allow-Headers:   authorization
+    Access-Control-Allow-Methods:   GET, OPTIONS, POST
+    Access-Control-Max-Age:         86400
+    Access-Control-Expose-Headers:  CF-Ray
+  PREFLIGHT VERDICT: PASS (server reflects the literal "null" origin)
+
+ACTUAL POST (with Authorization):
+  Chromium CDP: Network.loadingFailed
+      errorText = net::ERR_FAILED
+      corsErrorStatus.corsError = MissingAllowOriginHeader
+  chromium-desktop / hosted-https : fetch THREW "Failed to fetch"  -- NOT readable
+  chromium-desktop / file-url     : fetch THREW "Failed to fetch"  -- NOT readable
+  webkit-iphone15  / hosted-https : fetch THREW "Load failed"      -- NOT readable
+  webkit-iphone15  / file-url     : fetch THREW "Load failed"      -- NOT readable
+  Page JS could NOT read the status and could NOT read the JSON body.
+
+CONTROL, same POST WITHOUT Authorization (all 4 browser x origin combos):
+  status 401, READABLE.
+  Response CORS headers (Chromium CDP):
+    Access-Control-Allow-Origin:   *
+    Access-Control-Expose-Headers: CF-Ray
+  Readable header names from JS: cf-ray, content-length, content-type
+  Body shape (keys only): { error: { message: string, type: string,
+                                     param: null, code: null } }
+  error.type = invalid_request_error
+
+  ENDPOINT VERDICT: REFUSED for browser-direct BYOK.
+
+--------------------------------------------------------------------------------
+2. POST https://api.openai.com/v1/chat/completions   (application/json)
+--------------------------------------------------------------------------------
+Request from page JS: {"model":"gpt-4o-mini","max_tokens":5,
+"messages":[{"role":"user","content":"hi"}]}, headers Authorization +
+Content-Type: application/json. Access-Control-Request-Headers is
+"authorization,content-type".
+
+PREFLIGHT (Chromium CDP, origin https://sotto-steel.vercel.app):
+  OPTIONS -> HTTP 200
+    Access-Control-Allow-Origin:    https://sotto-steel.vercel.app
+    Access-Control-Allow-Headers:   authorization,content-type
+    Access-Control-Allow-Methods:   GET, OPTIONS, POST
+    Access-Control-Max-Age:         86400
+    Access-Control-Expose-Headers:  CF-Ray, CF-Ray   (sent twice by the edge)
+    Access-Control-Allow-Credentials: (absent)
+  PREFLIGHT VERDICT: PASS
+
+PREFLIGHT (Chromium CDP, origin null / file://):
+  OPTIONS -> HTTP 200
+    Access-Control-Allow-Origin:    null
+    Access-Control-Allow-Headers:   authorization,content-type
+    Access-Control-Allow-Methods:   GET, OPTIONS, POST
+    Access-Control-Max-Age:         86400
+    Access-Control-Expose-Headers:  CF-Ray, CF-Ray
+  PREFLIGHT VERDICT: PASS
+
+ACTUAL POST (with Authorization):
+  Chromium CDP: Network.loadingFailed
+      errorText = net::ERR_FAILED
+      corsErrorStatus.corsError = MissingAllowOriginHeader
+  chromium-desktop / hosted-https : fetch THREW "Failed to fetch"  -- NOT readable
+  chromium-desktop / file-url     : fetch THREW "Failed to fetch"  -- NOT readable
+  webkit-iphone15  / hosted-https : fetch THREW "Load failed"      -- NOT readable
+  webkit-iphone15  / file-url     : fetch THREW "Load failed"      -- NOT readable
+
+CONTROL, same POST WITHOUT Authorization (all 4 combos):
+  status 401, READABLE.
+    Access-Control-Allow-Origin:   *
+    Access-Control-Expose-Headers: CF-Ray, CF-Ray
+  Readable header names from JS: cf-ray, content-length, content-type
+  Body shape (keys only): { error: { message: string, type: string,
+                                     param: null, code: null } }
+  error.type = invalid_request_error
+
+  ENDPOINT VERDICT: REFUSED for browser-direct BYOK.
+
+--------------------------------------------------------------------------------
+3. POST https://api.openai.com/v1/audio/speech   (application/json)
+--------------------------------------------------------------------------------
+Request from page JS: {"model":"gpt-4o-mini-tts","voice":"alloy","input":"bonjour"},
+headers Authorization + Content-Type: application/json.
+
+PREFLIGHT (Chromium CDP, origin https://sotto-steel.vercel.app):
+  OPTIONS -> HTTP 200
+    Access-Control-Allow-Origin:    https://sotto-steel.vercel.app
+    Access-Control-Allow-Headers:   authorization,content-type
+    Access-Control-Allow-Methods:   GET, OPTIONS, POST
+    Access-Control-Max-Age:         86400
+    Access-Control-Expose-Headers:  CF-Ray
+    Access-Control-Allow-Credentials: (absent)
+  PREFLIGHT VERDICT: PASS
+
+PREFLIGHT (Chromium CDP, origin null / file://):
+  OPTIONS -> HTTP 200
+    Access-Control-Allow-Origin:    null
+    Access-Control-Allow-Headers:   authorization,content-type
+    Access-Control-Allow-Methods:   GET, OPTIONS, POST
+    Access-Control-Max-Age:         86400
+    Access-Control-Expose-Headers:  CF-Ray
+  PREFLIGHT VERDICT: PASS
+
+ACTUAL POST (with Authorization):
+  Chromium CDP: Network.loadingFailed
+      errorText = net::ERR_FAILED
+      corsErrorStatus.corsError = MissingAllowOriginHeader
+  chromium-desktop / hosted-https : fetch THREW "Failed to fetch"  -- NOT readable
+  chromium-desktop / file-url     : fetch THREW "Failed to fetch"  -- NOT readable
+  webkit-iphone15  / hosted-https : fetch THREW "Load failed"      -- NOT readable
+  webkit-iphone15  / file-url     : fetch THREW "Load failed"      -- NOT readable
+
+CONTROL, same POST WITHOUT Authorization (all 4 combos):
+  status 401, READABLE.
+    Access-Control-Allow-Origin:   *
+    Access-Control-Expose-Headers: CF-Ray
+  Readable header names from JS: cf-ray, content-length, content-type
+  Body shape (keys only): { error: { message: string, type: string,
+                                     param: null, code: null } }
+
+  ENDPOINT VERDICT: REFUSED for browser-direct BYOK.
+
+--------------------------------------------------------------------------------
+3b. REFERENCE CONTROL -- GET https://api.openai.com/v1/models + Authorization
+--------------------------------------------------------------------------------
+Included to prove the block is not "any authenticated call" and not "any 401".
+GET with an Authorization header is also preflighted (Authorization is not a
+CORS-safelisted request header), and here BOTH legs carry ACAO.
+
+  OPTIONS -> HTTP 200
+    Access-Control-Allow-Origin:    *
+    Access-Control-Allow-Headers:   authorization
+    Access-Control-Allow-Methods:   DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT
+    Access-Control-Max-Age:         600
+    Access-Control-Expose-Headers:  X-Request-ID, CF-Ray
+  GET     -> HTTP 401
+    Access-Control-Allow-Origin:    *
+    Access-Control-Expose-Headers:  X-Request-ID, CF-Ray
+
+  READABLE in all 4 browser x origin combos. status 401.
+  Readable header names from JS: cf-ray, content-length, content-type, x-request-id
+  Body shape (keys only): { error: { message: string, type: string,
+                                     param: null, code: string } }
+  error.code = invalid_api_key, error.type = invalid_request_error
+
+  So a 401 produced by an invalid key is perfectly readable on /v1/models.
+  The three inference POST endpoints behave differently.
+
+--------------------------------------------------------------------------------
+4. WSS wss://api.openai.com/v1/realtime?model=gpt-realtime-mini
+--------------------------------------------------------------------------------
+WebSocket handshakes are not subject to CORS, so this leg is expected to behave
+differently from fetch -- and it does.
+
+4a. Documented BETA browser subprotocol form
+    subprotocols: ["realtime", "openai-insecure-api-key.sk-****",
+                   "openai-beta.realtime-v1"]
+  All 4 combos (chromium/webkit x hosted/file), identical:
+    handshake ACCEPTED (onopen fired), negotiated subprotocol = "realtime"
+    first server frame:
+      {"type":"error","event_id":"event_...","error":{
+        "type":"invalid_request_error",
+        "code":"beta_api_shape_disabled",
+        "message":"The Realtime Beta API is no longer supported. Please use
+                   /v1/realtime for the GA API.",
+        "param":null,"event_id":null}}
+    close code 4000, reason "invalid_request_error.beta_api_shape_disabled",
+    wasClean true
+  This is an API-SHAPE refusal, not CORS and not auth. The beta subprotocol
+  form documented for browsers is dead.
+
+4b. GA form (same URL, openai-beta subprotocol dropped)
+    subprotocols: ["realtime", "openai-insecure-api-key.sk-****"]
+  All 4 combos, identical:
+    handshake ACCEPTED (onopen fired), negotiated subprotocol = "realtime"
+    first server frame:
+      {"type":"error","event_id":"event_...","error":{
+        "type":"invalid_request_error",
+        "code":"invalid_api_key",
+        "message":"Incorrect API key provided: sk-**** ... ",
+           (server echoes its own mask of the invalid key; re-masked here)
+        "param":null,"event_id":null}}
+    close code 3000, reason "invalid_request_error.invalid_api_key",
+    wasClean true
+
+  HANDSHAKE VERDICT: NOT a CORS-shaped refusal. The socket opens from a browser
+  page on both origins, the server speaks the Realtime event protocol, and the
+  only thing it objects to is the deliberately invalid key. With the GA
+  subprotocol form the failure is a clean AUTH refusal (code invalid_api_key,
+  close 3000). That is the strongest possible phase-1 signal short of a real
+  key: browser-direct Realtime over WSS is reachable and auth-gated, not
+  origin-gated.
+
+  ENDPOINT VERDICT: NOT refused. Use the GA subprotocol form
+  ["realtime", "openai-insecure-api-key.<key>"] -- drop "openai-beta.realtime-v1".
+
+================================================================================
+CURL CROSS-CHECK (no browser, raw headers)
+================================================================================
+Preflight, run for each of the three REST endpoints:
+
+  curl -s -i -X OPTIONS https://api.openai.com/v1/<endpoint> \
+    -H "Origin: https://sotto-steel.vercel.app" \
+    -H "Access-Control-Request-Method: POST" \
+    -H "Access-Control-Request-Headers: authorization,content-type"
+
+  /v1/audio/transcriptions -> HTTP/2 200
+      access-control-allow-headers: authorization,content-type
+      access-control-allow-methods: GET, OPTIONS, POST
+      access-control-allow-origin:  https://sotto-steel.vercel.app
+      access-control-max-age:       86400
+      access-control-expose-headers: CF-Ray
+  /v1/chat/completions     -> HTTP/2 200   (identical values;
+                                            expose-headers sent twice: CF-Ray)
+  /v1/audio/speech         -> HTTP/2 200   (identical values)
+
+  Same three with -H "Origin: null" -> HTTP/2 200,
+      access-control-allow-origin: null   (server reflects it), rest identical.
+
+  No access-control-allow-credentials on any preflight. Expose-headers is only
+  CF-Ray (plus X-Request-ID on /v1/models), so x-ratelimit-* and x-request-id
+  are NOT readable from page JS on the three inference endpoints even when a
+  response is readable.
+
+Actual POST, the decisive cross-check:
+
+  WITH Authorization + Origin:
+    curl -s -i -X POST https://api.openai.com/v1/chat/completions \
+      -H "Origin: https://sotto-steel.vercel.app" \
+      -H "Authorization: Bearer sk-invalid-spike-key" \
+      -H "Content-Type: application/json" -d '{}'
+    -> HTTP/2 401
+       access-control-expose-headers: CF-Ray
+       access-control-expose-headers: CF-Ray
+       *** NO access-control-allow-origin ***
+    Identical result for /v1/audio/speech and /v1/audio/transcriptions.
+
+  WITHOUT Authorization, same Origin:
+    -> HTTP/2 401
+       access-control-allow-origin: *
+       access-control-expose-headers: CF-Ray
+    Identical for all three endpoints.
+
+  Reference: GET /v1/models WITH Authorization + Origin
+    -> HTTP/2 401
+       access-control-allow-origin: *
+       access-control-expose-headers: X-Request-ID, CF-Ray
+
+The curl trace reproduces the browser result exactly and off the browser stack:
+Access-Control-Allow-Origin is present on the preflight and on unauthenticated
+POST responses, and absent on authenticated POST responses to the three
+inference endpoints.
+
+================================================================================
+VERDICT
+================================================================================
+Browser-direct BYOK is REFUSED for all three REST endpoints --
+POST /v1/audio/transcriptions, POST /v1/chat/completions and
+POST /v1/audio/speech -- in both iPhone-shaped WebKit 26.5 and desktop
+Chromium 151, from both the hosted https://sotto-steel.vercel.app origin and a
+file:// (Origin: null) page. The refusal is not a preflight refusal: every
+OPTIONS returns 200 with a correct Access-Control-Allow-Origin (the exact
+origin, or the literal "null" for file://), Access-Control-Allow-Headers
+covering authorization and content-type, Allow-Methods "GET, OPTIONS, POST" and
+Max-Age 86400. The refusal happens on the real response: as soon as an
+Authorization header is on the request, api.openai.com returns the response
+with no Access-Control-Allow-Origin at all, and the browser drops it before page
+JS sees it -- Chromium reports corsError MissingAllowOriginHeader, WebKit
+reports the opaque "Load failed", and page JS can read neither the status nor
+the JSON body. The identical request with the Authorization header removed
+returns Access-Control-Allow-Origin: * and is fully readable, and preflighted
+GET /v1/models with the same invalid key is fully readable, so this is neither a
+generic 401 path nor a network artifact -- it is specific to authenticated calls
+to the inference POST endpoints, which is exactly the BYOK shape. The Realtime
+WebSocket is the one exception and it is NOT refused: with the GA subprotocol
+form ["realtime", "openai-insecure-api-key.<key>"] the handshake is accepted
+from a browser page on both origins in both browsers, the server negotiates the
+"realtime" subprotocol and speaks its event protocol, and the only objection is
+the deliberately invalid key (error.code invalid_api_key, close 3000) -- a clean
+auth refusal, not a CORS-shaped one. Note separately that the documented BETA
+browser form (adding "openai-beta.realtime-v1") is now dead: the server accepts
+the socket and immediately errors beta_api_shape_disabled with close 4000, so
+any Realtime client must drop that subprotocol.
+
+CONSEQUENCE FOR ROUTE B: escalation condition met for the REST leg. Route B
+cannot be "the PWA calls api.openai.com directly with the user's key" for
+transcription, chat or speech; those must go through a relay (route B via C's
+server, or any origin the user controls). The Realtime WSS leg does NOT need a
+relay and can stay browser-direct.
+
+HONEST LIMIT ON THIS CONCLUSION: every REST observation above is on the
+invalid-key 401 path, because no key exists yet. It is possible, though not
+supported by any evidence here, that a 200 response on the same endpoints carries
+Access-Control-Allow-Origin when the 401 does not. Phase 2 settles it in one
+run. The evidence against that possibility is that GET /v1/models returns ACAO
+on its 401, so a 401 as such does not strip the header.
+
+================================================================================
+PHASE 2 -- PENDING: waiting on throwaway key
+================================================================================
+STATUS: NOT RUN. No key was available at spike time. Checked at 2026-09-05
+19:24 UTC:
+  - shell env SOTTO_BYOK_SPIKE_KEY : UNSET
+  - macOS keychain item sotto-byok-spike : ABSENT
+    (security find-generic-password -s sotto-byok-spike -w -> exit 44)
+
+Phase 2 is now the decisive test for route B, not a formality: it must
+determine whether a 200 response to an authenticated POST carries
+Access-Control-Allow-Origin. If it does not, the phase 1 verdict stands
+unchanged and REST BYOK is definitively relay-only.
+
+Exact procedure that will run once a key is provisioned (key read from the
+environment or keychain at run time; never written to a file, never logged,
+never echoed -- the probe prints subprotocols masked as sk-**** and never
+prints request headers):
+
+  1. Synthesise a 1-second 16kHz mono silent WAV in the scratchpad:
+       node -e 'const fs=require("fs"),n=16000,b=Buffer.alloc(44+n*2);
+       b.write("RIFF",0);b.writeUInt32LE(36+n*2,4);b.write("WAVE",8);
+       b.write("fmt ",12);b.writeUInt32LE(16,16);b.writeUInt16LE(1,20);
+       b.writeUInt16LE(1,22);b.writeUInt32LE(16000,24);
+       b.writeUInt32LE(32000,28);b.writeUInt16LE(2,32);b.writeUInt16LE(16,34);
+       b.write("data",36);b.writeUInt32LE(n*2,40);
+       fs.writeFileSync("scratchpad/b1/one-second.wav",b)'
+
+  2. KEY="${SOTTO_BYOK_SPIKE_KEY:-$(security find-generic-password \
+       -s sotto-byok-spike -w)}"
+     Pass it into the page with page.evaluate(fn, key) -- never via addScriptTag
+     content, never via a URL, never into results.json.
+
+  3. Re-run scratchpad/b1/run2.mjs with probe2.js's KEY bound to the real key,
+     for the same matrix (chromium-desktop + webkit devices['iPhone 15'])
+     x (hosted-https + file-url), asserting for each:
+       a. POST /v1/audio/transcriptions, multipart FormData with
+          one-second.wav and model=gpt-4o-mini-transcribe
+          -> expect 200, record whether the response carries
+             Access-Control-Allow-Origin, and whether res.json() is readable
+             from page JS. Log body keys only.
+       b. POST /v1/chat/completions, {"model":"gpt-4o-mini","max_tokens":5,
+          "messages":[{"role":"user","content":"hi"}]}
+          -> expect 200, same three recordings.
+       c. POST /v1/audio/speech, {"model":"gpt-4o-mini-tts","voice":"alloy",
+          "input":"bonjour"}
+          -> expect 200 audio/mpeg, record ACAO, and record
+             (await res.blob()).size to prove the bytes reached page JS.
+       d. new WebSocket("wss://api.openai.com/v1/realtime?model=gpt-realtime-mini",
+          ["realtime","openai-insecure-api-key."+KEY])   <-- GA form, no
+          openai-beta subprotocol
+          -> wait for a frame with type "session.created", record the event
+             keys only (no session id echoed), then close(1000).
+
+  4. Capture the Chromium CDP Network.responseReceived headers for each 200 and
+     append the access-control-* set verbatim, then append the phase 2 rows to
+     this log under a "PHASE 2 RESULTS" heading and revise the VERDICT if the
+     200 path differs from the 401 path.
+
+  5. Before committing: run  grep -c 'sk[-]' on this log and confirm every
+     hit is either the masked form sk-**** or the literal sk-invalid-spike-key.
+
+  6. Ask Noel to revoke the throwaway key immediately after the run.
+
+================================================================================
+END
+================================================================================

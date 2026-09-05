@@ -1,0 +1,171 @@
+$ pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm content:validate
+$ prettier --check .
+Checking formatting...
+All matched files use Prettier code style!
+$ eslint .
+
+/Users/noelturlington/Claude/sotto/apps/client/src/state/vocabulary.test.ts
+  95:17  warning  '_a' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  96:17  warning  '_b' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/noelturlington/Claude/sotto/apps/client/src/ui/languages.ts
+  107:47  warning  'catalog' is assigned a value but never used. Allowed unused args must match /^_/u  @typescript-eslint/no-unused-vars
+
+/Users/noelturlington/Claude/sotto/apps/client/src/voice/toolContext.test.ts
+  191:11  warning  '_id1' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  192:16  warning  '_savedAt1' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  193:15  warning  '_review1' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  194:16  warning  '_t1' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  195:19  warning  '_s1' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  196:19  warning  '_w1' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  197:23  warning  '_n1' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  198:20  warning  '_tr1' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  199:24  warning  '_c1' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  203:11  warning  '_id2' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  204:16  warning  '_savedAt2' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  205:15  warning  '_review2' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  206:16  warning  '_t2' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  207:19  warning  '_s2' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  208:19  warning  '_w2' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  209:23  warning  '_n2' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  210:20  warning  '_tr2' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  211:24  warning  '_c2' is assigned a value but never used        @typescript-eslint/no-unused-vars
+
+/Users/noelturlington/Claude/sotto/packages/content/scripts/fill-locales.mjs
+  164:16  warning  'chatCompleteRetrying' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 22 problems (0 errors, 22 warnings)
+
+$ pnpm -r --if-present run typecheck
+Scope: 5 of 6 workspace projects
+packages/core typecheck$ tsc --noEmit
+packages/core typecheck: Done
+packages/content typecheck$ tsc --noEmit
+apps/server typecheck$ tsc --noEmit
+packages/voice typecheck$ tsc --noEmit
+packages/content typecheck: Done
+packages/voice typecheck: Done
+apps/client typecheck$ tsc --noEmit
+apps/server typecheck: Done
+apps/client typecheck: Done
+$ vitest run
+
+ RUN  v3.2.7 /Users/noelturlington/Claude/sotto
+
+ ✓ apps/server/src/voice/chunker.test.ts (6 tests) 3ms
+ ✓ packages/voice/test/browser-cascade-vad.test.ts (9 tests) 3ms
+stdout | packages/voice/test/browser-cascade.test.ts > BrowserCascadeProvider event translation > does not leak progress/metric/audio plumbing into VoiceEvents
+[sotto-tutor] stt_ms=900ms
+
+ ✓ packages/voice/test/browser-cascade.test.ts (13 tests) 7ms
+ ✓ apps/client/src/state/selectors.test.ts (11 tests) 15ms
+ ✓ apps/server/src/voice/session.test.ts (7 tests) 15ms
+ ✓ apps/client/src/voice/controller.test.ts (3 tests) 7ms
+ ✓ apps/client/src/voice/toolContext.test.ts (10 tests) 9ms
+ ✓ apps/client/src/voice/sessionManager.test.ts (2 tests) 38ms
+{"level":30,"time":1788586019735,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"GET","url":"/health","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+ ✓ apps/client/src/ui/reader/selection.test.ts (22 tests) 3ms
+{"level":30,"time":1788586019804,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":200},"responseTime":68.54929099999993,"msg":"request completed"}
+{"level":30,"time":1788586019808,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"GET","url":"/health","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+ ✓ packages/core/src/tools.test.ts (10 tests) 25ms
+{"level":30,"time":1788586019819,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":200},"responseTime":11.222250000000031,"msg":"request completed"}
+{"level":30,"time":1788586019822,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"GET","url":"/health","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788586019843,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"GET","url":"/health","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":50,"time":1788586019822,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"GET","url":"/health","host":"localhost:80","remoteAddress":"127.0.0.1"},"res":{"statusCode":500},"err":{"type":"Error","message":"origin not allowed","stack":"Error: origin not allowed\n    at Object.origin (/Users/noelturlington/Claude/sotto/apps/server/src/app.ts:57:10)\n    at /Users/noelturlington/Claude/sotto/node_modules/.pnpm/@fastify+cors@10.1.0/node_modules/@fastify/cors/index.js:264:27\n    at addCorsHeadersHandler (/Users/noelturlington/Claude/sotto/node_modules/.pnpm/@fastify+cors@10.1.0/node_modules/@fastify/cors/index.js:164:3)\n    at Object.handleCors (/Users/noelturlington/Claude/sotto/node_modules/.pnpm/@fastify+cors@10.1.0/node_modules/@fastify/cors/index.js:64:9)\n    at hookIterator (/Users/noelturlington/Claude/sotto/node_modules/.pnpm/fastify@5.12.1/node_modules/fastify/lib/hooks.js:412:10)\n    at next (/Users/noelturlington/Claude/sotto/node_modules/.pnpm/fastify@5.12.1/node_modules/fastify/lib/hooks.js:242:18)\n    at hookRunner (/Users/noelturlington/Claude/sotto/node_modules/.pnpm/fastify@5.12.1/node_modules/fastify/lib/hooks.js:264:5)\n    at Object.routeHandler [as handler] (/Users/noelturlington/Claude/sotto/node_modules/.pnpm/fastify@5.12.1/node_modules/fastify/lib/route.js:562:7)\n    at Router.callHandler (/Users/noelturlington/Claude/sotto/node_modules/.pnpm/find-my-way@9.9.0/node_modules/find-my-way/index.js:571:14)\n    at Router.lookup (/Users/noelturlington/Claude/sotto/node_modules/.pnpm/find-my-way@9.9.0/node_modules/find-my-way/index.js:549:17)"},"msg":"origin not allowed"}
+{"level":30,"time":1788586019839,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":500},"responseTime":16.83212500000002,"msg":"request completed"}
+{"level":30,"time":1788586019852,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":200},"responseTime":9.211166000000048,"msg":"request completed"}
+{"level":30,"time":1788586019859,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788586019862,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":200},"responseTime":2.977457999999956,"msg":"request completed"}
+{"level":30,"time":1788586019862,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788586019863,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","res":{"statusCode":200},"responseTime":0.8232080000000224,"msg":"request completed"}
+{"level":30,"time":1788586019863,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-3","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"127.0.0.1"},"msg":"incoming request"}
+{"level":30,"time":1788586019866,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788586019863,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-3","res":{"statusCode":429},"responseTime":0.2733329999999796,"msg":"request completed"}
+{"level":30,"time":1788586019866,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":200},"responseTime":0.34474999999997635,"msg":"request completed"}
+{"level":30,"time":1788586019867,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788586019867,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","res":{"statusCode":200},"responseTime":0.20924999999999727,"msg":"request completed"}
+{"level":30,"time":1788586019867,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-3","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788586019868,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-3","res":{"statusCode":200},"responseTime":1.441000000000031,"msg":"request completed"}
+{"level":30,"time":1788586019869,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-4","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788586019869,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-4","res":{"statusCode":200},"responseTime":0.267832999999996,"msg":"request completed"}
+{"level":30,"time":1788586019869,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-5","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788586019869,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-5","res":{"statusCode":200},"responseTime":0.16245900000001257,"msg":"request completed"}
+{"level":30,"time":1788586019869,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-6","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788586019869,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-6","res":{"statusCode":200},"responseTime":0.16470800000001873,"msg":"request completed"}
+{"level":30,"time":1788586019869,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-7","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788586019870,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-7","res":{"statusCode":200},"responseTime":0.16733299999998508,"msg":"request completed"}
+{"level":30,"time":1788586019870,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-8","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788586019870,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-8","res":{"statusCode":200},"responseTime":0.14387499999998,"msg":"request completed"}
+{"level":30,"time":1788586019870,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-9","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788586019870,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-9","res":{"statusCode":200},"responseTime":0.11458299999992505,"msg":"request completed"}
+{"level":30,"time":1788586019870,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-a","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788586019870,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-a","res":{"statusCode":200},"responseTime":0.13745799999992414,"msg":"request completed"}
+{"level":30,"time":1788586019870,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-b","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"9.9.9.9"},"msg":"incoming request"}
+{"level":30,"time":1788586019873,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788586019870,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-b","res":{"statusCode":429},"responseTime":0.10000000000002274,"msg":"request completed"}
+{"level":30,"time":1788586019873,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-1","res":{"statusCode":200},"responseTime":0.2606660000000147,"msg":"request completed"}
+{"level":30,"time":1788586019873,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788586019873,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-2","res":{"statusCode":200},"responseTime":0.20916700000009314,"msg":"request completed"}
+{"level":30,"time":1788586019873,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-3","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788586019878,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-3","res":{"statusCode":200},"responseTime":4.888208999999961,"msg":"request completed"}
+{"level":30,"time":1788586019878,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-4","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788586019878,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-4","res":{"statusCode":200},"responseTime":0.1711249999999609,"msg":"request completed"}
+{"level":30,"time":1788586019878,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-5","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788586019879,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-5","res":{"statusCode":200},"responseTime":0.109375,"msg":"request completed"}
+{"level":30,"time":1788586019879,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-6","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788586019879,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-6","res":{"statusCode":200},"responseTime":0.12516600000003564,"msg":"request completed"}
+{"level":30,"time":1788586019879,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-7","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788586019879,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-7","res":{"statusCode":200},"responseTime":0.10095800000010513,"msg":"request completed"}
+{"level":30,"time":1788586019879,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-8","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788586019879,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-8","res":{"statusCode":200},"responseTime":0.09237499999994725,"msg":"request completed"}
+{"level":30,"time":1788586019879,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-9","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788586019880,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-9","res":{"statusCode":200},"responseTime":0.1964580000000069,"msg":"request completed"}
+{"level":30,"time":1788586019880,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-a","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"1.1.1.1"},"msg":"incoming request"}
+{"level":30,"time":1788586019880,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-a","res":{"statusCode":200},"responseTime":0.27062499999999545,"msg":"request completed"}
+{"level":30,"time":1788586019880,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-b","req":{"method":"POST","url":"/voice/session","host":"localhost:80","remoteAddress":"2.2.2.2"},"msg":"incoming request"}
+{"level":30,"time":1788586019880,"pid":53718,"hostname":"Noels-MacBook-Pro-186.local","reqId":"req-b","res":{"statusCode":200},"responseTime":0.12425000000007458,"msg":"request completed"}
+ ✓ apps/server/src/app.test.ts (7 tests) 234ms
+ ✓ packages/content/test/gloss-fill.test.ts (5 tests) 14ms
+ ✓ apps/client/src/state/contentApi.test.ts (4 tests) 5ms
+ ✓ packages/content/test/translate-sentences.test.ts (12 tests) 11ms
+ ✓ apps/server/src/voice/vad.test.ts (8 tests) 3ms
+ ✓ packages/voice/test/browser-cascade-stt-fallback.test.ts (13 tests) 3ms
+ ✓ apps/server/src/config.test.ts (3 tests) 3ms
+ ✓ packages/voice/test/local-cascade.test.ts (9 tests) 16ms
+ ✓ packages/voice/test/browser-cascade-sample.test.ts (4 tests) 8ms
+ ✓ apps/client/src/state/createStore.test.ts (8 tests) 9ms
+ ✓ packages/core/src/tokenize.test.ts (10 tests) 6ms
+ ✓ packages/content/test/align.test.ts (20 tests) 5ms
+ ✓ apps/client/src/state/importExport.test.ts (3 tests) 15ms
+ ✓ apps/server/src/voice/prompt.test.ts (5 tests) 2ms
+ ✓ apps/client/src/voice/availability.test.ts (14 tests) 8ms
+ ✓ packages/voice/test/browser-cascade-llm-turn.test.ts (5 tests) 18ms
+ ✓ packages/voice/test/browser-cascade-markers.test.ts (13 tests) 3ms
+ ✓ packages/core/src/export.test.ts (4 tests) 4ms
+ ✓ packages/voice/test/fake.test.ts (9 tests) 5ms
+ ✓ packages/content/test/wav.test.ts (6 tests) 3ms
+ ✓ apps/client/src/state/vocabulary.test.ts (4 tests) 2ms
+ ✓ apps/server/src/security.test.ts (10 tests) 3ms
+ ✓ packages/core/src/review.test.ts (8 tests) 11ms
+ ✓ packages/content/test/types.test.ts (6 tests) 11ms
+ ✓ packages/core/src/prompt.test.ts (8 tests) 12ms
+ ✓ packages/core/src/theme.test.ts (3 tests) 2ms
+ ✓ apps/server/src/voice/wav.test.ts (4 tests) 2ms
+ ✓ packages/voice/test/browser-cascade-chunker.test.ts (6 tests) 10ms
+ ✓ packages/content/test/covers.test.ts (5 tests) 3ms
+ ✓ apps/server/src/voice/markers.test.ts (5 tests) 3ms
+ ✓ apps/client/src/platform/persistence.test.ts (4 tests) 2ms
+
+ Test Files  41 passed (41)
+      Tests  318 passed (318)
+   Start at  01:26:58
+   Duration  2.86s (transform 1.02s, setup 0ms, collect 2.68s, tests 564ms, environment 5ms, prepare 3.24s)
+
+$ pnpm --filter @sotto/content validate
+$ node src/cli.ts validate
+
+sotto-content validate:
+  (no errors)
+
+0 errors, 0 warnings across /Users/noelturlington/Claude/sotto/packages/content/packs
+EXIT 0

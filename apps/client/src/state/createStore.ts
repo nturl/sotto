@@ -35,7 +35,7 @@ import {
 } from './types';
 
 export const DEFAULT_PREFERENCES: UserPreferences = {
-  interfaceLocale: 'fr',
+  interfaceLocale: 'en',
   explanationLocale: 'en',
   learningLocale: 'fr-FR',
   level: 'A1',

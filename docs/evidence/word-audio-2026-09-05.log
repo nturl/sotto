@@ -1,0 +1,45 @@
+=== R3-W word-audio evidence — 2026-09-05 ===
+
+--- content:word-audio generation (fr-petit-chaperon-rouge) ---
+sotto-content word-audio: ffmpeg found on PATH — sprites will be mp3
+sotto-content word-audio: fr-FR/fr-petit-chaperon-rouge — 222 unique word tokens...
+sotto-content word-audio: fr-petit-chaperon-rouge — 50/222 words
+sotto-content word-audio: fr-petit-chaperon-rouge — 100/222 words
+sotto-content word-audio: fr-petit-chaperon-rouge — 150/222 words
+sotto-content word-audio: fr-petit-chaperon-rouge — 200/222 words
+sotto-content word-audio: fr-petit-chaperon-rouge — 222/222 words
+
+sotto-content word-audio summary:
+bookId  |  locale  |  words  |  fallback  |  format  |  bytes  |  lowBitrate
+fr-petit-chaperon-rouge  |  fr-FR  |  222  |  0  |  mp3  |  2234349  |  no
+
+--- content:word-audio generation (es-fabulas-samaniego) ---
+sotto-content word-audio: ffmpeg found on PATH — sprites will be mp3
+sotto-content word-audio: es-419/es-fabulas-samaniego — 211 unique word tokens...
+sotto-content word-audio: es-fabulas-samaniego — 50/211 words
+sotto-content word-audio: es-fabulas-samaniego — 100/211 words
+sotto-content word-audio: es-fabulas-samaniego — 150/211 words
+sotto-content word-audio: es-fabulas-samaniego — 200/211 words
+sotto-content word-audio: es-fabulas-samaniego — 211/211 words
+
+sotto-content word-audio summary:
+bookId  |  locale  |  words  |  fallback  |  format  |  bytes  |  lowBitrate
+es-fabulas-samaniego  |  es-419  |  211  |  0  |  mp3  |  2248173  |  no
+
+--- check-word-audio.mjs (span duration + non-silence proof) ---
+
+fr-FR/books/fr-petit-chaperon-rouge: decoding audio/words.mp3 (222 words)...
+  PASS 222 words — min span 545ms (>= 250ms required), min RMS 1494.8 (>= 500 required), 0 short, 0 silent
+
+es-419/books/es-fabulas-samaniego: decoding audio/words.mp3 (211 words)...
+  PASS 211 words — min span 530ms (>= 250ms required), min RMS 1095.6 (>= 500 required), 0 short, 0 silent
+
+PASS — check-word-audio
+
+--- Playwright e2e (apps/client/e2e/word-audio.mjs) ---
+[word-audio e2e] PASS (375px): sprite request seen, 0 console error(s)
+[word-audio e2e] wrote 375-reader-word-audio.png
+[word-audio e2e] PASS (1440px): sprite request seen, 0 console error(s)
+[word-audio e2e] wrote 1440-reader-word-audio.png
+
+PASS — word-audio e2e

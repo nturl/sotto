@@ -1,0 +1,61 @@
+{
+  "id": "fx-book-01",
+  "bookId": "fx-book",
+  "title": "Chapitre 1",
+  "order": 1,
+  "blocks": [
+    {
+      "id": "b1",
+      "sentences": [
+        {
+          "id": "b1.s1",
+          "text": "Le chat noir.",
+          "translations": {
+            "en": "The black cat.",
+            "fr": "Le chat noir.",
+            "es": "El gato negro."
+          },
+          "tokens": [
+            {
+              "id": "b1.s1.t1",
+              "text": "Le",
+              "normalized": "le",
+              "isWord": true,
+              "spaceBefore": false,
+              "glosses": {
+                "en": "the"
+              }
+            },
+            {
+              "id": "b1.s1.t2",
+              "text": "chat",
+              "normalized": "chat",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "cat"
+              }
+            },
+            {
+              "id": "b1.s1.t3",
+              "text": "noir",
+              "normalized": "noir",
+              "isWord": true,
+              "spaceBefore": true,
+              "glosses": {
+                "en": "black"
+              }
+            },
+            {
+              "id": "b1.s1.t4",
+              "text": ".",
+              "normalized": ".",
+              "isWord": false,
+              "spaceBefore": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

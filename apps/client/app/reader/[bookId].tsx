@@ -48,7 +48,12 @@ import {
   type FlatBlockToken,
 } from '../../src/ui/reader/selection';
 import { webCursor } from '../../src/ui/tokens';
-import { playAudioSlice, useNarrationPlayer, type NarrationSpeed } from '../../src/platform/audio';
+import {
+  playAudioSlice,
+  playWordAudio,
+  useNarrationPlayer,
+  type NarrationSpeed,
+} from '../../src/platform/audio';
 import { useSottoStore } from '../../src/state/store';
 import { buildSavedWord } from '../../src/state/vocabulary';
 // ThemedText resolves color against the active scheme (unlike the plain
@@ -84,6 +89,43 @@ function formatClock(ms: number): string {
  * for the simple scroll-based progress fraction. */
 function flattenTokens(chapter: Chapter): Token[] {
   return chapter.blocks.flatMap((b) => b.sentences.flatMap((s) => s.tokens));
+}
+
+type WordAudioIndex = Record<string, [number, number]>;
+
+/** Module-level cache for `audio/words.json` (R3-W): loaded once per book
+ * and kept for the app's lifetime — it's small (one entry per unique word
+ * token) and never changes for a given pack build. `null` means "loaded,
+ * but the book has no usable index" (fetch failed or no wordAudio yet). */
+const wordAudioIndexCache = new Map<string, WordAudioIndex | null>();
+
+function useWordAudioIndex(
+  bookId: string | undefined,
+  locale: string | undefined,
+  indexPath: string | undefined,
+): WordAudioIndex | undefined {
+  const [, forceRender] = useState(0);
+  useEffect(() => {
+    if (!bookId || !locale || !indexPath) return;
+    if (wordAudioIndexCache.has(bookId)) return;
+    let cancelled = false;
+    fetch(bookAssetUrl(bookId, indexPath, locale))
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
+      .then((json: { words?: WordAudioIndex }) => {
+        if (cancelled) return;
+        wordAudioIndexCache.set(bookId, json.words ?? {});
+        forceRender((n) => n + 1);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        wordAudioIndexCache.set(bookId, null);
+        forceRender((n) => n + 1);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [bookId, locale, indexPath]);
+  return bookId ? (wordAudioIndexCache.get(bookId) ?? undefined) : undefined;
 }
 
 export default function ReaderScreen() {
@@ -182,6 +224,16 @@ export default function ReaderScreen() {
       ? bookAssetUrl(bookId ?? '', chapterSummary.audio, locale)
       : undefined;
   const narration = useNarrationPlayer(audioUri, preferences.narrationSpeed as NarrationSpeed);
+
+  // R3-W: the speaker button prefers a clean, standalone word-pronunciation
+  // sprite over a slice of the chapter narration. `words.json` is loaded
+  // once per book and kept in a small module-level cache (below) so
+  // switching chapters within the same book doesn't refetch it.
+  const wordAudioUri =
+    book?.wordAudio && bookId && locale
+      ? bookAssetUrl(bookId, book.wordAudio.file, locale)
+      : undefined;
+  const wordAudioIndex = useWordAudioIndex(bookId, locale, book?.wordAudio?.index);
 
   // ?mode=narration (CONTRACTS §6 route) starts narration automatically.
   useEffect(() => {
@@ -521,11 +573,16 @@ export default function ReaderScreen() {
             icon={<SpeakerGlyph size={18} color={colors.accent} />}
             accessibilityLabel={t('book.a11y.playNarration')}
             onPress={() =>
-              playAudioSlice(
-                audioUri,
-                selectedToken.token.startMs!,
-                selectedToken.token.endMs ?? selectedToken.token.startMs! + 600,
-              )
+              playWordAudio({
+                spriteUri: wordAudioUri,
+                index: wordAudioIndex,
+                normalized: selectedToken.token.normalized,
+                fallback: {
+                  uri: audioUri,
+                  startMs: selectedToken.token.startMs!,
+                  endMs: selectedToken.token.endMs ?? selectedToken.token.startMs! + 600,
+                },
+              })
             }
           />
         ) : null}

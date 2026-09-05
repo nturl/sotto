@@ -1,0 +1,43 @@
+[hosted-smoke 2026-09-05T19:13:30.481Z] BASE_URL=https://sotto-steel.vercel.app
+[hosted-smoke 2026-09-05T19:13:30.482Z] --- width 375 ---
+[hosted-smoke 2026-09-05T19:13:31.694Z] 375: cold visit loaded
+[hosted-smoke 2026-09-05T19:13:31.721Z] 375: manifest link present
+[hosted-smoke 2026-09-05T19:13:32.140Z] 375: tap 1 — clicked "Start reading in French"
+[hosted-smoke 2026-09-05T19:13:32.140Z] 375: reader visible at https://sotto-steel.vercel.app/reader/fr-cendrillon
+[hosted-smoke 2026-09-05T19:13:33.159Z] 375: first-visit content cache has this book's chapter JSON
+[hosted-smoke 2026-09-05T19:13:33.160Z] 375: first-visit content cache has this book's narration audio
+[hosted-smoke 2026-09-05T19:13:33.200Z] 375: tap 2 — clicked play
+[hosted-smoke 2026-09-05T19:13:33.963Z] 375: narration playing within 10s
+[hosted-smoke 2026-09-05T19:13:34.012Z] 375: tapped "Une", translation panel shown
+[hosted-smoke 2026-09-05T19:13:34.638Z] 375: saved "Une" to vocabulary
+[hosted-smoke 2026-09-05T19:13:35.255Z] 375: saved word survived reload
+[hosted-smoke 2026-09-05T19:13:35.256Z] 375: service worker registered
+[hosted-smoke 2026-09-05T19:13:36.760Z] 375: shell cache (sotto-shell-1788635556140.8162) has index.html
+[hosted-smoke 2026-09-05T19:13:36.760Z] 375: content cache (sotto-content-1788635556140.8162) has 9 file(s) for this book
+[hosted-smoke 2026-09-05T19:13:36.767Z] 375: offline fetch('/index.html') -> 200
+[hosted-smoke 2026-09-05T19:13:36.767Z] 375: offline fetch(chapter json) -> 200
+[hosted-smoke 2026-09-05T19:13:36.767Z] 375: offline fetch(audio, Range bytes=0-1) -> 206
+[hosted-smoke 2026-09-05T19:13:36.869Z] 375: offline reload rendered the reader (network-level offline honored by the SW)
+[hosted-smoke 2026-09-05T19:13:37.591Z] --- width 375 done ---
+[hosted-smoke 2026-09-05T19:13:37.591Z] --- width 1440 ---
+[hosted-smoke 2026-09-05T19:13:38.105Z] 1440: cold visit loaded
+[hosted-smoke 2026-09-05T19:13:38.127Z] 1440: manifest link present
+[hosted-smoke 2026-09-05T19:13:38.294Z] 1440: tap 1 — clicked "Start reading in French"
+[hosted-smoke 2026-09-05T19:13:38.295Z] 1440: reader visible at https://sotto-steel.vercel.app/reader/fr-cendrillon
+[hosted-smoke 2026-09-05T19:13:39.258Z] 1440: first-visit content cache has this book's chapter JSON
+[hosted-smoke 2026-09-05T19:13:39.258Z] 1440: first-visit content cache has this book's narration audio
+[hosted-smoke 2026-09-05T19:13:39.278Z] 1440: tap 2 — clicked play
+[hosted-smoke 2026-09-05T19:13:40.034Z] 1440: narration playing within 10s
+[hosted-smoke 2026-09-05T19:13:40.065Z] 1440: tapped "Une", translation panel shown
+[hosted-smoke 2026-09-05T19:13:40.407Z] 1440: saved "Une" to vocabulary
+[hosted-smoke 2026-09-05T19:13:41.045Z] 1440: saved word survived reload
+[hosted-smoke 2026-09-05T19:13:41.049Z] 1440: service worker registered
+[hosted-smoke 2026-09-05T19:13:42.564Z] 1440: shell cache (sotto-shell-1788635556140.8162) has index.html
+[hosted-smoke 2026-09-05T19:13:42.564Z] 1440: content cache (sotto-content-1788635556140.8162) has 9 file(s) for this book
+[hosted-smoke 2026-09-05T19:13:42.570Z] 1440: offline fetch('/index.html') -> 200
+[hosted-smoke 2026-09-05T19:13:42.570Z] 1440: offline fetch(chapter json) -> 200
+[hosted-smoke 2026-09-05T19:13:42.570Z] 1440: offline fetch(audio, Range bytes=0-1) -> 206
+[hosted-smoke 2026-09-05T19:13:42.680Z] 1440: offline reload rendered the reader (network-level offline honored by the SW)
+[hosted-smoke 2026-09-05T19:13:47.141Z] --- width 1440 done ---
+[hosted-smoke 2026-09-05T19:13:47.141Z] RESULT: PASS
+EXIT=0

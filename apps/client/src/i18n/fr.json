@@ -306,5 +306,11 @@
   "voice.remainingMinutes": "{minutes} min restantes",
   "voice.seePlans": "Voir les forfaits",
   "import.profile.empty": "Aucun livre importé pour l'instant.",
-  "usage.signedOut.caption": "Connectez-vous pour voir votre utilisation."
+  "usage.signedOut.caption": "Connectez-vous pour voir votre utilisation.",
+  "import.failure.localOnly.heading": "L'import nécessite le serveur local",
+  "import.failure.localOnly.warn": "Cette version ne peut pas joindre de serveur Sotto local depuis cet appareil.",
+  "import.failure.localOnly.hint": "Lancez la pile de modèles locale sur cet appareil, ou utilisez l'import hébergé si votre offre l'inclut.",
+  "import.hosted.offer": "Importer avec mon offre",
+  "import.hosted.queued.heading": "Import envoyé",
+  "import.hosted.queued.body": "Votre livre est en cours de traitement sur nos serveurs. Revenez dans votre bibliothèque dans quelques minutes."
 }

@@ -306,5 +306,11 @@
   "voice.remainingMinutes": "{minutes} min rimasti",
   "voice.seePlans": "Vedi i piani",
   "import.profile.empty": "Nessun libro importato per ora.",
-  "usage.signedOut.caption": "Accedi per vedere il tuo utilizzo."
+  "usage.signedOut.caption": "Accedi per vedere il tuo utilizzo.",
+  "import.failure.localOnly.heading": "L'importazione richiede il server locale",
+  "import.failure.localOnly.warn": "Questa build non riesce a raggiungere un server Sotto locale da qui.",
+  "import.failure.localOnly.hint": "Avvia lo stack di modelli locale su questo dispositivo, oppure usa l'importazione ospitata se il tuo piano la include.",
+  "import.hosted.offer": "Importa con il mio piano",
+  "import.hosted.queued.heading": "Importazione inviata",
+  "import.hosted.queued.body": "Il tuo libro è in elaborazione sui nostri server. Torna nella tua libreria tra qualche minuto."
 }

@@ -306,5 +306,11 @@
   "voice.remainingMinutes": "{minutes} min left",
   "voice.seePlans": "See plans",
   "import.profile.empty": "No imported books yet.",
-  "usage.signedOut.caption": "Sign in to see your usage."
+  "usage.signedOut.caption": "Sign in to see your usage.",
+  "import.failure.localOnly.heading": "Import needs the local server",
+  "import.failure.localOnly.warn": "This build can't reach a local Sotto server from here.",
+  "import.failure.localOnly.hint": "Run the local model stack on this device, or use hosted import if your plan includes it.",
+  "import.hosted.offer": "Import with my plan instead",
+  "import.hosted.queued.heading": "Import submitted",
+  "import.hosted.queued.body": "Your book is processing on our servers. Check back in your library in a few minutes."
 }

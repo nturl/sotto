@@ -306,5 +306,11 @@
   "voice.remainingMinutes": "{minutes} min restantes",
   "voice.seePlans": "Ver planos",
   "import.profile.empty": "Ainda não há livros importados.",
-  "usage.signedOut.caption": "Entre para ver seu uso."
+  "usage.signedOut.caption": "Entre para ver seu uso.",
+  "import.failure.localOnly.heading": "A importação precisa do servidor local",
+  "import.failure.localOnly.warn": "Esta versão não consegue alcançar um servidor Sotto local a partir daqui.",
+  "import.failure.localOnly.hint": "Execute a pilha de modelos local neste dispositivo, ou use a importação hospedada se o seu plano incluir.",
+  "import.hosted.offer": "Importar com o meu plano",
+  "import.hosted.queued.heading": "Importação enviada",
+  "import.hosted.queued.body": "O seu livro está a ser processado nos nossos servidores. Volte à sua biblioteca daqui a alguns minutos."
 }

@@ -306,5 +306,11 @@
   "voice.remainingMinutes": "{minutes} min restants",
   "voice.seePlans": "Veure els plans",
   "import.profile.empty": "Encara no has importat cap llibre.",
-  "usage.signedOut.caption": "Inicia sessió per veure el teu ús."
+  "usage.signedOut.caption": "Inicia sessió per veure el teu ús.",
+  "import.failure.localOnly.heading": "La importació necessita el servidor local",
+  "import.failure.localOnly.warn": "Aquesta versió no pot connectar amb un servidor Sotto local des d'aquí.",
+  "import.failure.localOnly.hint": "Executa la pila de models local en aquest dispositiu, o utilitza la importació allotjada si el teu pla la inclou.",
+  "import.hosted.offer": "Importa amb el meu pla",
+  "import.hosted.queued.heading": "Importació enviada",
+  "import.hosted.queued.body": "El teu llibre s'està processant als nostres servidors. Torna a la teva biblioteca d'aquí uns minuts."
 }

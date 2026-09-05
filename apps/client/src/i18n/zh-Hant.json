@@ -306,5 +306,11 @@
   "voice.remainingMinutes": "剩餘 {minutes} 分鐘",
   "voice.seePlans": "查看方案",
   "import.profile.empty": "還沒有匯入任何書籍。",
-  "usage.signedOut.caption": "登入以查看您的用量。"
+  "usage.signedOut.caption": "登入以查看您的用量。",
+  "import.failure.localOnly.heading": "匯入需要本機伺服器",
+  "import.failure.localOnly.warn": "此版本無法從這裡連線到本機 Sotto 伺服器。",
+  "import.failure.localOnly.hint": "在此裝置上執行本機模型服務，或者如果您的方案支援，請使用託管匯入。",
+  "import.hosted.offer": "改用我的方案匯入",
+  "import.hosted.queued.heading": "匯入已送出",
+  "import.hosted.queued.body": "您的書籍正在我們的伺服器上處理。幾分鐘後回到您的書庫查看。"
 }

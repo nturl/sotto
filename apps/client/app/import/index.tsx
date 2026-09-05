@@ -19,21 +19,37 @@ import { Shell } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
 import { useTheme } from '../../src/ui/theme';
 import { webCursor, withAlpha } from '../../src/ui/tokens';
-import { fetchHealth, type Health } from '../../src/state/contentApi';
+import { fetchHealth, serverUrl, type Health } from '../../src/state/contentApi';
 import { usePreferences } from '../../src/ui/data';
 import { startImportJob } from '../../src/import/api';
+import { canImportLocally } from '../../src/import/canImportLocally';
 import { pickImportFile, type PickedFile } from '../../src/import/pickFile';
 import { buildPreview, ImportError, type ImportPreview } from '../../src/import/preview';
+import { useCloud } from '../../src/cloud/provider';
+import { useMe } from '../../src/cloud/useMe';
 
-type Step = 'pick' | 'preview' | 'failure';
-type FailureKind = 'drm' | 'unsupported' | 'modelsDown';
+type Step = 'pick' | 'preview' | 'failure' | 'hostedQueued';
+type FailureKind = 'drm' | 'unsupported' | 'modelsDown' | 'localOnly';
 
 export default function ImportEntryScreen() {
   const t = useT();
   const router = useRouter();
   const preferences = usePreferences();
+  const cloud = useCloud();
+  const me = useMe();
   const { colors } = useTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
+
+  // Finding 5 (adversarial review 3): serverUrl() silently resolves to the
+  // page's own origin on a static web deploy, which would upload the
+  // learner's file off-device to a host that never processes it. Only
+  // start a *local* import when that URL is genuinely loopback, or the
+  // caller explicitly configured a non-default server (EXPO_PUBLIC_SERVER_URL).
+  const localImportAllowed = canImportLocally(serverUrl(), Boolean(process.env.EXPO_PUBLIC_SERVER_URL));
+  const hostedAvailable =
+    cloud.enabled &&
+    me.status === 'signed-in' &&
+    me.me.entitlement.importBooksCap - me.me.entitlement.importsUsed > 0;
 
   const [step, setStep] = useState<Step>('pick');
   const [file, setFile] = useState<PickedFile | null>(null);
@@ -67,8 +83,32 @@ export default function ImportEntryScreen() {
     }
   };
 
+  const startHostedImport = async (): Promise<void> => {
+    if (!file) return;
+    setSubmitting(true);
+    try {
+      const blob = new Blob([file.bytes as unknown as BlobPart]);
+      await cloud.importBook(blob, { bookTitle: file.filename, sourceLocale: locale });
+      setStep('hostedQueued');
+    } catch {
+      setFailure({ kind: 'unsupported' });
+      setStep('failure');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   const startImport = async (): Promise<void> => {
     if (!file) return;
+    if (!localImportAllowed) {
+      if (hostedAvailable) {
+        await startHostedImport();
+      } else {
+        setFailure({ kind: 'localOnly' });
+        setStep('failure');
+      }
+      return;
+    }
     const missing = health ? (['stt', 'llm', 'tts'] as const).find((k) => !health[k]) : 'server';
     if (!health || missing) {
       setFailure({ kind: 'modelsDown', service: typeof missing === 'string' ? missing : 'server' });
@@ -103,6 +143,28 @@ export default function ImportEntryScreen() {
     setPreview(null);
     setStep('pick');
   };
+
+  if (step === 'hostedQueued') {
+    return (
+      <Shell>
+        <View style={styles.failureWrap}>
+          <Card style={styles.failureCard}>
+            <Text role="heading" size={20} style={styles.center}>
+              {t('import.hosted.queued.heading')}
+            </Text>
+            <Text role="caption" color="ink2" style={styles.center}>
+              {t('import.hosted.queued.body')}
+            </Text>
+            <Button
+              variant="secondary"
+              title={t('common.continue')}
+              onPress={() => router.replace('/(tabs)/library')}
+            />
+          </Card>
+        </View>
+      </Shell>
+    );
+  }
 
   if (step === 'failure' && failure) {
     return (

@@ -306,5 +306,11 @@
   "voice.remainingMinutes": "剩余 {minutes} 分钟",
   "voice.seePlans": "查看套餐",
   "import.profile.empty": "还没有导入任何书籍。",
-  "usage.signedOut.caption": "登录以查看您的用量。"
+  "usage.signedOut.caption": "登录以查看您的用量。",
+  "import.failure.localOnly.heading": "导入需要本地服务器",
+  "import.failure.localOnly.warn": "此版本无法从这里连接到本地 Sotto 服务器。",
+  "import.failure.localOnly.hint": "在此设备上运行本地模型服务，或者如果你的套餐支持，请使用托管导入。",
+  "import.hosted.offer": "改用我的套餐导入",
+  "import.hosted.queued.heading": "导入已提交",
+  "import.hosted.queued.body": "你的图书正在我们的服务器上处理。几分钟后回到你的书库查看。"
 }

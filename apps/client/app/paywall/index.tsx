@@ -59,11 +59,19 @@ export default function PaywallScreen() {
   useEffect(() => {
     if (!cloud.enabled) return;
     let cancelled = false;
-    void cloud.plans().then((res) => {
-      if (cancelled) return;
-      setPlans(res.plans);
-      setSelectedId((prev) => prev ?? res.plans[0]?.id ?? null);
-    });
+    void cloud
+      .plans()
+      .then((res) => {
+        if (cancelled) return;
+        setPlans(res.plans);
+        setSelectedId((prev) => prev ?? res.plans[0]?.id ?? null);
+      })
+      .catch(() => {
+        // A thrown error here (network failure, or the http.ts unbound-
+        // fetch bug this was chasing) used to leave the screen stuck on
+        // "Loading…" forever with no feedback — surface it instead.
+        if (!cancelled) setError(t('paywall.purchaseFailed'));
+      });
     return () => {
       cancelled = true;
     };

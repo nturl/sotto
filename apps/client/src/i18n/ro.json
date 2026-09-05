@@ -306,5 +306,11 @@
   "voice.remainingMinutes": "{minutes} min rămase",
   "voice.seePlans": "Vezi planurile",
   "import.profile.empty": "Nicio carte importată încă.",
-  "usage.signedOut.caption": "Conectează-te pentru a-ți vedea utilizarea."
+  "usage.signedOut.caption": "Conectează-te pentru a-ți vedea utilizarea.",
+  "import.failure.localOnly.heading": "Importul are nevoie de serverul local",
+  "import.failure.localOnly.warn": "Această versiune nu poate contacta un server Sotto local de aici.",
+  "import.failure.localOnly.hint": "Rulează stiva de modele locală pe acest dispozitiv sau folosește importul găzduit dacă planul tău îl include.",
+  "import.hosted.offer": "Importă cu planul meu",
+  "import.hosted.queued.heading": "Import trimis",
+  "import.hosted.queued.body": "Cartea ta este procesată pe serverele noastre. Revino în biblioteca ta în câteva minute."
 }

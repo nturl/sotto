@@ -11,9 +11,10 @@ import { useEffect, useMemo } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { Redirect, useRouter } from 'expo-router';
 import { space } from '@sotto/core/theme';
-import { setUiCatalog, useT } from '../../src/i18n/useT';
+import { setUiCatalog, useT, type MessageKey } from '../../src/i18n/useT';
 import { Button } from '../../src/ui/Button';
 import { setPreference, usePreferences } from '../../src/ui/data';
+import { APP_LANGUAGES, LEARNING_LANGUAGES, localizedName } from '../../src/ui/languages';
 import { Shell, useLayoutMetrics } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
 import { useTheme } from '../../src/ui/theme';
@@ -21,6 +22,12 @@ import { webCursor } from '../../src/ui/tokens';
 import { selectPackForLocale } from '../../src/state/selectors';
 import { useSottoStore } from '../../src/state/store';
 import { detectBrowserLanguage, fastPathDefaultsFor } from '../../src/onboarding/fastPathDefaults';
+
+const LEVEL_DESC_KEYS: Record<string, MessageKey> = {
+  A0: 'onboarding.level.a0.desc',
+  A1: 'onboarding.level.a1.desc',
+  A2: 'onboarding.level.a2.desc',
+};
 
 export default function OnboardingFastPathScreen() {
   const t = useT();
@@ -66,6 +73,33 @@ export default function OnboardingFastPathScreen() {
   const ctaKey =
     defaults.learningLocale === 'fr-FR' ? 'onboarding.fast.cta.fr' : 'onboarding.fast.cta.es';
 
+  // Proposed-defaults summary (F1.3): fills the empty middle of the phone
+  // layout between the subtitle and the bottom-anchored CTA with the three
+  // choices the fast path is silently making, so a stranger sees what
+  // "Start reading" is about to set up rather than a blank stretch of
+  // canvas. Quiet rows only — not interactive; "Choose languages" below
+  // remains the one way to change any of this.
+  const learningName = localizedName(
+    LEARNING_LANGUAGES.find((o) => o.code === defaults.learningLocale) ?? LEARNING_LANGUAGES[0]!,
+    defaults.interfaceLocale,
+  );
+  const explanationName = localizedName(
+    APP_LANGUAGES.find((o) => o.code === defaults.explanationLocale) ?? APP_LANGUAGES[0]!,
+    defaults.interfaceLocale,
+  );
+  const levelDescKey = LEVEL_DESC_KEYS[defaults.level] ?? 'onboarding.level.a1.desc';
+  const summaryRows = (
+    <View style={styles.summary}>
+      <SummaryRow label={t('onboarding.step.learning')} value={learningName} colors={colors} />
+      <SummaryRow label={t('onboarding.step.explainIn')} value={explanationName} colors={colors} />
+      <SummaryRow
+        label={t('onboarding.step.level')}
+        value={`${defaults.level} — ${t(levelDescKey)}`}
+        colors={colors}
+      />
+    </View>
+  );
+
   // DESKTOP.md §8: at >= 900 the whole screen (title -> CTA -> link) is one
   // vertically centered stack (Shell centers the content box itself), so
   // the footer sits in normal flow. Phone keeps it pinned above the home
@@ -100,9 +134,52 @@ export default function OnboardingFastPathScreen() {
       <Text role="ui" size={15} color="ink2" style={styles.subtitle}>
         {t('onboarding.fast.subtitle')}
       </Text>
+      {summaryRows}
       {footer}
     </Shell>
   );
+}
+
+/** A quiet, non-interactive row matching OptionRow's visual language
+ * (surface background, hairline divider, Fraunces label + caption) without
+ * its Pressable/selected affordances — this is a summary, not a choice. */
+function SummaryRow({
+  label,
+  value,
+  colors,
+}: {
+  label: string;
+  value: string;
+  colors: ReturnType<typeof useTheme>['colors'];
+}) {
+  const styles = useMemo(() => createSummaryRowStyles(colors), [colors]);
+  return (
+    <View style={styles.row}>
+      <Text role="reading" size={17}>
+        {value}
+      </Text>
+      <Text role="caption" style={styles.label}>
+        {label}
+      </Text>
+    </View>
+  );
+}
+
+function createSummaryRowStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    row: {
+      backgroundColor: colors.surface,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.hairline,
+      paddingVertical: space.lg,
+      paddingHorizontal: 14,
+      minHeight: space.tapTarget,
+      justifyContent: 'center',
+    },
+    label: {
+      marginTop: 2,
+    },
+  });
 }
 
 function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
@@ -111,6 +188,11 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
       marginBottom: space.md,
     },
     subtitle: {
+      marginBottom: space.xl,
+    },
+    summary: {
+      borderTopWidth: 1,
+      borderTopColor: colors.hairline,
       marginBottom: space.xl,
     },
     footerPhone: {

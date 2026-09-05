@@ -19,7 +19,7 @@ import { Text } from '../../src/ui/Text';
 import { webCursor } from '../../src/ui/tokens';
 import { selectPackForLocale } from '../../src/state/selectors';
 import { useSottoStore } from '../../src/state/store';
-import { detectBrowserLanguage, fastPathDefaultsFor } from './fastPathDefaults';
+import { detectBrowserLanguage, fastPathDefaultsFor } from '../../src/onboarding/fastPathDefaults';
 
 export default function OnboardingFastPathScreen() {
   const t = useT();

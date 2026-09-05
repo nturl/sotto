@@ -17,7 +17,7 @@ import { colors } from '@sotto/core/theme';
 import { setUiCatalog } from '../../src/i18n/useT';
 import { setPreference, usePreferences } from '../../src/ui/data';
 import { useSottoStore } from '../../src/state/store';
-import { detectBrowserLanguage, fastPathDefaultsFor } from '../onboarding/fastPathDefaults';
+import { detectBrowserLanguage, fastPathDefaultsFor } from '../../src/onboarding/fastPathDefaults';
 
 export default function ReadDeepLinkScreen() {
   const { bookId } = useLocalSearchParams<{ bookId: string }>();

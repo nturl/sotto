@@ -25,7 +25,14 @@ export interface Attribution {
 }
 
 export function serverUrl(): string {
-  return process.env.EXPO_PUBLIC_SERVER_URL ?? 'http://localhost:8790';
+  const configured = process.env.EXPO_PUBLIC_SERVER_URL;
+  if (configured) return configured;
+  // Static web hosting (scripts/build-web.mjs -> Vercel): the packs are
+  // served from the page's own origin. Expo drops an *empty* EXPO_PUBLIC_*
+  // value at export time, so this cannot be expressed via the env var.
+  const loc = (globalThis as { location?: { hostname: string; origin: string } }).location;
+  if (loc && !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(loc.hostname)) return loc.origin;
+  return 'http://localhost:8790';
 }
 
 async function fetchJson<T>(path: string): Promise<T> {

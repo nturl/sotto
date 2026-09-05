@@ -21,7 +21,8 @@ import {
   type VoiceSessionRecord,
 } from '@sotto/core';
 import type { Persistence } from '../platform/persistence.types';
-import { fetchBook, fetchChapter, fetchPacks } from './contentApi';
+import { warmBookCache } from '../platform/swCache';
+import { assetUrl, fetchBook, fetchChapter, fetchPacks } from './contentApi';
 import {
   type CaptionEntry,
   type LoadStatus,
@@ -136,6 +137,23 @@ function safeParse<T>(raw: string | null): T | undefined {
   }
 }
 
+/** Every URL a just-opened book needs for offline reading (F1.2): its
+ * book.json, every chapter file, the cover, and each chapter's narration
+ * audio (absent for locales with no narration yet). Handed to the service
+ * worker's `cache-book` message so a stranger's first opened book doesn't
+ * need a second load before it's offline-ready. */
+function bookCacheUrls(locale: string, book: Book): string[] {
+  const urls = [
+    assetUrl(locale, book.bookId, 'book.json'),
+    assetUrl(locale, book.bookId, book.cover),
+  ];
+  for (const chapter of book.chapters) {
+    urls.push(assetUrl(locale, book.bookId, chapter.file));
+    if (chapter.audio) urls.push(assetUrl(locale, book.bookId, chapter.audio));
+  }
+  return urls;
+}
+
 export function createSottoStore(persistence: Persistence): {
   useStore: SottoStore;
   hydrate(): Promise<void>;
@@ -169,6 +187,8 @@ export function createSottoStore(persistence: Persistence): {
       const cached = safeParse<Book>(await persistence.getItem(cacheKey));
       if (cached) {
         set((s) => ({ books: { ...s.books, [bookId]: cached } }));
+        const cachedLocale = get().bookLocale(bookId);
+        if (cachedLocale) void warmBookCache(bookCacheUrls(cachedLocale, cached));
         return cached;
       }
       const locale = get().bookLocale(bookId);
@@ -177,6 +197,7 @@ export function createSottoStore(persistence: Persistence): {
         const book = await fetchBook(locale, bookId);
         set((s) => ({ books: { ...s.books, [bookId]: book } }));
         void persistence.setItem(cacheKey, JSON.stringify(book));
+        void warmBookCache(bookCacheUrls(locale, book));
         return book;
       } catch {
         return undefined;

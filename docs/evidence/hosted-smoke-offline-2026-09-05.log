@@ -1,0 +1,36 @@
+[hosted-smoke 2026-09-05T05:08:25.757Z] BASE_URL=http://sotto.localhost:8093
+[hosted-smoke 2026-09-05T05:08:25.758Z] --- width 375 ---
+[hosted-smoke 2026-09-05T05:08:26.025Z] 375: cold visit loaded
+[hosted-smoke 2026-09-05T05:08:26.046Z] 375: manifest link present
+[hosted-smoke 2026-09-05T05:08:26.159Z] 375: tap 1 — clicked "Start reading in French"
+[hosted-smoke 2026-09-05T05:08:26.159Z] 375: reader visible at http://sotto.localhost:8093/reader/fr-cendrillon
+[hosted-smoke 2026-09-05T05:08:26.238Z] 375: first-visit content cache has this book's chapter JSON
+[hosted-smoke 2026-09-05T05:08:26.238Z] 375: first-visit content cache has this book's narration audio
+[hosted-smoke 2026-09-05T05:08:26.275Z] 375: tap 2 — clicked play
+[hosted-smoke 2026-09-05T05:08:27.282Z] 375: narration playing within 10s
+[hosted-smoke 2026-09-05T05:08:27.330Z] 375: tapped "Une", translation panel shown
+[hosted-smoke 2026-09-05T05:08:27.978Z] 375: saved "Une" to vocabulary
+[hosted-smoke 2026-09-05T05:08:28.534Z] 375: saved word survived reload
+[hosted-smoke 2026-09-05T05:08:28.536Z] 375: service worker registered
+[hosted-smoke 2026-09-05T05:08:30.040Z] 375: shell cache (sotto-shell-1788584891113.9678) has index.html
+[hosted-smoke 2026-09-05T05:08:30.040Z] 375: content cache (sotto-content-1788584891113.9678) has 8 file(s) for this book
+[hosted-smoke 2026-09-05T05:08:30.046Z] 375: WARN — real offline navigation hit the known Playwright/Chromium CDP limitation (network emulation preempts the Service Worker fetch handler for navigations); relying on the cache-inspection checks above instead.
+[hosted-smoke 2026-09-05T05:08:30.121Z] --- width 375 done ---
+[hosted-smoke 2026-09-05T05:08:30.121Z] --- width 1440 ---
+[hosted-smoke 2026-09-05T05:08:30.370Z] 1440: cold visit loaded
+[hosted-smoke 2026-09-05T05:08:30.388Z] 1440: manifest link present
+[hosted-smoke 2026-09-05T05:08:30.500Z] 1440: tap 1 — clicked "Start reading in French"
+[hosted-smoke 2026-09-05T05:08:30.501Z] 1440: reader visible at http://sotto.localhost:8093/reader/fr-cendrillon
+[hosted-smoke 2026-09-05T05:08:30.594Z] 1440: first-visit content cache has this book's chapter JSON
+[hosted-smoke 2026-09-05T05:08:30.595Z] 1440: first-visit content cache has this book's narration audio
+[hosted-smoke 2026-09-05T05:08:30.631Z] 1440: tap 2 — clicked play
+[hosted-smoke 2026-09-05T05:08:31.641Z] 1440: narration playing within 10s
+[hosted-smoke 2026-09-05T05:08:31.673Z] 1440: tapped "Une", translation panel shown
+[hosted-smoke 2026-09-05T05:08:32.009Z] 1440: saved "Une" to vocabulary
+[hosted-smoke 2026-09-05T05:08:32.554Z] 1440: saved word survived reload
+[hosted-smoke 2026-09-05T05:08:32.555Z] 1440: service worker registered
+[hosted-smoke 2026-09-05T05:08:34.058Z] 1440: shell cache (sotto-shell-1788584891113.9678) has index.html
+[hosted-smoke 2026-09-05T05:08:34.058Z] 1440: content cache (sotto-content-1788584891113.9678) has 8 file(s) for this book
+[hosted-smoke 2026-09-05T05:08:34.064Z] 1440: WARN — real offline navigation hit the known Playwright/Chromium CDP limitation (network emulation preempts the Service Worker fetch handler for navigations); relying on the cache-inspection checks above instead.
+[hosted-smoke 2026-09-05T05:08:34.133Z] --- width 1440 done ---
+[hosted-smoke 2026-09-05T05:08:34.133Z] RESULT: PASS

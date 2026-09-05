@@ -138,6 +138,41 @@ async function runAtWidth({ width, height, label }) {
   }
   log(`${label}: reader visible at ${page.url()}`);
 
+  // First-visit offline readiness (F1.2): the book opened above is this
+  // page's very first load — the service worker only just started
+  // controlling it (`skipWaiting()`/`clients.claim()`), so without the
+  // `cache-book` message from `state/createStore.ts`'s `loadBook`, none of
+  // this book's content would be cached yet (the runtime fetch-handler
+  // cache only sees requests issued *after* the SW controls the page, and
+  // this is the same load that just did). Wait for the SW to actually be
+  // ready, then assert its content cache already has this book's chapter
+  // JSON and at least one narration audio file — proving the book is
+  // offline-ready without a second load.
+  const bookIdMatch = page.url().match(/\/reader\/([^/?#]+)/);
+  const bookId = bookIdMatch ? bookIdMatch[1] : null;
+  if (!bookId) {
+    fail(`${label}: could not extract bookId from reader URL ${page.url()}`);
+  } else {
+    await page.evaluate(() => navigator.serviceWorker.ready);
+    const firstVisitCache = await page.evaluate(async (id) => {
+      const names = await caches.keys();
+      const contentName = names.find((n) => n.startsWith('sotto-content-'));
+      if (!contentName) return { hasChapterJson: false, hasAudio: false };
+      const keys = await (await caches.open(contentName)).keys();
+      const bookUrls = keys.map((r) => r.url).filter((u) => u.includes(`/books/${id}/`));
+      return {
+        hasChapterJson: bookUrls.some((u) => /\/chapters\/\d+\.json$/.test(u)),
+        hasAudio: bookUrls.some((u) => u.endsWith('.mp3')),
+      };
+    }, bookId);
+    if (firstVisitCache.hasChapterJson)
+      log(`${label}: first-visit content cache has this book's chapter JSON`);
+    else fail(`${label}: first-visit content cache is missing a chapter JSON for "${bookId}"`);
+    if (firstVisitCache.hasAudio)
+      log(`${label}: first-visit content cache has this book's narration audio`);
+    else fail(`${label}: first-visit content cache is missing narration audio for "${bookId}"`);
+  }
+
   // Tap 2: play.
   const playButton = page.getByRole('button', { name: /^(Play|Pause)$/ });
   try {

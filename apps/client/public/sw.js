@@ -33,6 +33,11 @@ async function getManifest() {
 self.addEventListener('install', (event) => {
   event.waitUntil(
     (async () => {
+      // Always take over on the very next activate, even with no manifest
+      // to precache — a stranger's first visit must not need a *second*
+      // load before this worker starts controlling the page (see the
+      // `clients.claim()` below and the `cache-book` message handler).
+      self.skipWaiting();
       const manifest = await getManifest();
       if (!manifest) {
         // No manifest (e.g. dev server, or a build that skipped
@@ -42,7 +47,6 @@ self.addEventListener('install', (event) => {
       }
       const cache = await caches.open(SHELL_CACHE_PREFIX + manifest.version);
       await cache.addAll(manifest.files);
-      await self.skipWaiting();
     })(),
   );
 });
@@ -89,6 +93,39 @@ async function networkFirst(request, cacheName) {
     throw err;
   }
 }
+
+// A stranger's first opened book must be offline-ready after that *same*
+// load, not only after a second one — the fetch handler below only ever
+// sees requests issued once this worker already controls the page. The
+// client posts every URL a just-opened book needs (book.json, each
+// chapter file, cover.svg, chapter audio) here as soon as it's ready, and
+// this fetches+caches each one directly instead of waiting for the page to
+// (re)request it.
+self.addEventListener('message', (event) => {
+  const data = event.data;
+  if (!data || data.type !== 'cache-book' || !Array.isArray(data.urls)) return;
+  event.waitUntil(
+    (async () => {
+      const manifest = await getManifest();
+      const cache = await caches.open(CONTENT_CACHE_PREFIX + (manifest?.version ?? 'dev'));
+      await Promise.all(
+        data.urls.map(async (url) => {
+          try {
+            const existing = await cache.match(url);
+            if (existing) return;
+            const response = await fetch(url);
+            const contentType = response.headers.get('content-type') || '';
+            if (!response.ok || contentType.includes('text/html')) return;
+            await cache.put(url, response);
+          } catch {
+            // Best-effort, per-URL: one failed asset must never abort the
+            // rest of the book's caching.
+          }
+        }),
+      );
+    })(),
+  );
+});
 
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);

@@ -154,16 +154,29 @@ async function runAtWidth({ width, height, label }) {
     fail(`${label}: could not extract bookId from reader URL ${page.url()}`);
   } else {
     await page.evaluate(() => navigator.serviceWorker.ready);
+    // The cache-book message handler fetches+caches every URL
+    // asynchronously (event.waitUntil, not something this test's message
+    // post waits on) — poll briefly rather than checking once immediately
+    // after `ready`, which raced the audio file (larger than the chapter
+    // JSON) on a slow run.
     const firstVisitCache = await page.evaluate(async (id) => {
-      const names = await caches.keys();
-      const contentName = names.find((n) => n.startsWith('sotto-content-'));
-      if (!contentName) return { hasChapterJson: false, hasAudio: false };
-      const keys = await (await caches.open(contentName)).keys();
-      const bookUrls = keys.map((r) => r.url).filter((u) => u.includes(`/books/${id}/`));
-      return {
-        hasChapterJson: bookUrls.some((u) => /\/chapters\/\d+\.json$/.test(u)),
-        hasAudio: bookUrls.some((u) => u.endsWith('.mp3')),
-      };
+      const deadline = Date.now() + 8000;
+      let result = { hasChapterJson: false, hasAudio: false };
+      while (Date.now() < deadline) {
+        const names = await caches.keys();
+        const contentName = names.find((n) => n.startsWith('sotto-content-'));
+        if (contentName) {
+          const keys = await (await caches.open(contentName)).keys();
+          const bookUrls = keys.map((r) => r.url).filter((u) => u.includes(`/books/${id}/`));
+          result = {
+            hasChapterJson: bookUrls.some((u) => /\/chapters\/\d+\.json$/.test(u)),
+            hasAudio: bookUrls.some((u) => u.endsWith('.mp3')),
+          };
+          if (result.hasChapterJson && result.hasAudio) return result;
+        }
+        await new Promise((r) => setTimeout(r, 250));
+      }
+      return result;
     }, bookId);
     if (firstVisitCache.hasChapterJson)
       log(`${label}: first-visit content cache has this book's chapter JSON`);

@@ -60,6 +60,10 @@ correspondingly slow; the import screen's time estimate is honest about
 being specific to your machine ("Estimation pour ce Mac"), not a fixed
 number.
 
+## Importing on the hosted PWA
+
+Import runs on a machine that can execute the pipeline, not in the browser. `importBook` in `@sotto/content` reads and writes temporary files and uses Node's `fs`, `os`, `crypto` and `path` modules, so it cannot run inside a web worker, even with your own OpenAI key entered in Settings. On the hosted PWA (the Vercel build) the import screen therefore needs one of two things: the local stack (`pnpm dev` on your Mac with the local model servers, see [Local models](local-models.md)) or your own server from [Self-hosting](self-hosting.md), which runs the same pipeline against your key. A bring-your-own-key tutor session does not change this; it covers speaking with the tutor about books that are already in the library or already imported.
+
 ## Where private books live
 
 An imported book is marked `private: true` and never written under

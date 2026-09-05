@@ -433,3 +433,8 @@ Routing per KICKOFF-4 §Routing: Opus lanes for anything touching a key, token, 
 - Permissions: packages/voice/src/** (new files + index export + pickProvider seam), apps/client/src/voice/**, apps/client/app/profile.tsx, apps/client/app/settings/openai-key.tsx (new), apps/client/src/i18n/*.json (additive keys only), docs/byok.md, docs/evidence/byok-live-2026-09-05.log, README "Three ways to run it" BYOK line. NOT: apps/server/**, packages/content/**, packages/core/src/** (content session), sotto-cloud. Path-scoped commits.
 - Stop when: proofs pass and the check is green.
 - Escalate when: the key must transit anything but the device and api.openai.com; then stop, do not proxy it through our server. Also escalate if `expo-secure-store` or localStorage cannot hold the key without it entering the persisted store.
+
+### R4-B3 BYOK import (decided by inspection, orchestrator, 2026-09-05 16:45; no lane dispatched)
+- Task per KICKOFF-4: wire hosted-PWA import to run on-device only if `importBook` runs in a browser worker unchanged; otherwise one paragraph in docs/importing-books.md and stop. Escalation rule: the library needs `fs` or a native module -> do not fork.
+- Finding: packages/content/src/import/pipeline.ts imports node:crypto, node:fs, node:os, node:path; gloss-fill.ts imports node:fs and node:os. The escalation condition holds; no worker path without a fork.
+- Output: "Importing on the hosted PWA" section in docs/importing-books.md (this commit). Permissions used: that file only (clean in the working tree at the time; not on the content session's dirty list).

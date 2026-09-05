@@ -33,6 +33,7 @@ export function buildPassageWindow(
       id: s.id,
       text: s.text,
       tokenIds: s.tokens.map((tk) => tk.id),
+      words: s.tokens.filter((tk) => tk.isWord).map((tk) => ({ id: tk.id, text: tk.text })),
     })),
     positionTokenId: positionTokenId ?? windowed[0]?.tokens[0]?.id ?? null,
   };

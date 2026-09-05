@@ -130,9 +130,9 @@ Providers: `FakeVoiceProvider` (scripted from `packages/voice/fixtures/<mode>.js
 - WebRTC: NOT in v1 transport. `packages/voice/src/transports/webrtc.ts` exports an interface stub only. (Decision 2026-09-04: werift has no Opus codec; Pipecat adds a Python runtime. WS + PCM is the reference; documented in docs/architecture.md and verification.md.)
 
 ### 5c. Tools (packages/core/src/tools.ts, zod)
-`get_current_passage {}` -> `{ chapterTitle, sentences: [{id, text, tokenIds}], positionTokenId }`
+`get_current_passage {}` -> `{ chapterTitle, sentences: [{id, text, tokenIds, words: [{id, text}]}], positionTokenId }` (`words` = the sentence's word tokens in order, punctuation excluded: the word->tokenId map the tutor prompt renders so the model never has to derive an id by counting)
 `set_reading_position { tokenId | sentenceId }` -> `{ ok }`
-`save_vocabulary { tokenId, translation?: string }` -> `{ ok, savedWordId }` (tokenId must exist in the current chapter; translation defaults to the pack gloss)
+`save_vocabulary { tokenId, translation?: string, word?: string }` -> `{ ok, savedWordId }` (tokenId must exist in the current chapter; translation defaults to the pack gloss; when `word` is given and tokenId's text differs, the client re-resolves to the nearest token with that text or fails — never a silent save of a different word)
 `remove_vocabulary { savedWordId | tokenId }` -> `{ ok }`
 `show_explanation { tokenId?, title, body, kind: 'translation'|'grammar'|'pronunciation' }` -> `{ ok }`
 `set_session_mode { mode: TutorMode }` -> `{ ok }`

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import type { Chapter } from '@sotto/core';
+import { executeTool, type Chapter } from '@sotto/core';
 import { createSottoStore } from '../state/createStore';
 import type { Persistence } from '../platform/persistence.types';
 import { buildSavedWord } from '../state/vocabulary';
@@ -52,6 +52,59 @@ const CHAPTER: Chapter = {
   ],
 };
 
+// The sentence from the live-voice e2e (apps/client/e2e/voice-live.mjs) that
+// twice saved "verano" when the learner asked for "cigarra": 11 tokens, two
+// of them punctuation, so counting words lands on the wrong id.
+function esWord(id: string, text: string, spaceBefore = true) {
+  return { id, text, normalized: text.toLowerCase(), isWord: true, spaceBefore };
+}
+function esPunct(id: string, text: string) {
+  return { id, text, normalized: text, isWord: false, spaceBefore: false };
+}
+const SAMANIEGO: Chapter = {
+  id: 'es-fabulas-samaniego-01',
+  bookId: 'es-fabulas-samaniego',
+  title: 'La cigarra y la hormiga',
+  order: 1,
+  blocks: [
+    {
+      id: 'b1',
+      sentences: [
+        {
+          id: 'b1.s1',
+          text: 'Durante el verano, una cigarra canta bajo el sol.',
+          translations: { en: 'During the summer, a cicada sings under the sun.' },
+          tokens: [
+            esWord('b1.s1.t1', 'Durante', false),
+            esWord('b1.s1.t2', 'el'),
+            { ...esWord('b1.s1.t3', 'verano'), glosses: { en: 'summer' } },
+            esPunct('b1.s1.t4', ','),
+            esWord('b1.s1.t5', 'una'),
+            { ...esWord('b1.s1.t6', 'cigarra'), glosses: { en: 'cicada' } },
+            esWord('b1.s1.t7', 'canta'),
+            esWord('b1.s1.t8', 'bajo'),
+            esWord('b1.s1.t9', 'el'),
+            esWord('b1.s1.t10', 'sol'),
+            esPunct('b1.s1.t11', '.'),
+          ],
+        },
+        {
+          id: 'b1.s2',
+          text: 'La cigarra no trabaja.',
+          translations: { en: 'The cicada does not work.' },
+          tokens: [
+            esWord('b1.s2.t1', 'La', false),
+            { ...esWord('b1.s2.t2', 'cigarra'), glosses: { en: 'cicada' } },
+            esWord('b1.s2.t3', 'no'),
+            esWord('b1.s2.t4', 'trabaja'),
+            esPunct('b1.s2.t5', '.'),
+          ],
+        },
+      ],
+    },
+  ],
+};
+
 describe('createToolContext (the tutor tool path, CONTRACTS §5c)', () => {
   let useStore: ReturnType<typeof createSottoStore>['useStore'];
 
@@ -96,7 +149,11 @@ describe('createToolContext (the tutor tool path, CONTRACTS §5c)', () => {
           ],
         },
       },
-      chapters: { ...s.chapters, 'fr-chat-botte:fr-chat-botte-01': CHAPTER },
+      chapters: {
+        ...s.chapters,
+        'fr-chat-botte:fr-chat-botte-01': CHAPTER,
+        'es-fabulas-samaniego:es-fabulas-samaniego-01': SAMANIEGO,
+      },
     }));
   });
 
@@ -179,6 +236,77 @@ describe('createToolContext (the tutor tool path, CONTRACTS §5c)', () => {
 
     const badResult = await ctx.setPosition('nope');
     expect(badResult).toEqual({ ok: false, error: expect.any(String) });
+  });
+
+  describe('save_vocabulary word cross-check (the "cigarra" -> "verano" mis-save)', () => {
+    const esCtx = () =>
+      createToolContext(
+        useStore,
+        'es-fabulas-samaniego',
+        'es-fabulas-samaniego-01',
+        'es-419',
+        'en',
+      );
+
+    it('reproduces the bug: a miscounted tokenId with no word hint silently saves the wrong word', async () => {
+      // The live model counted "cigarra" as the 3rd/5th word and sent an id
+      // that is a real token — so the exact-id lookup happily saved it.
+      const result = await executeTool('save_vocabulary', { tokenId: 'b1.s1.t3' }, esCtx());
+      expect(result).toMatchObject({ ok: true });
+      expect(useStore.getState().savedWords.map((w) => w.sourceWord)).toEqual(['verano']);
+    });
+
+    it('with the word hint, a wrong tokenId resolves to the word the tutor actually meant', async () => {
+      const result = await executeTool(
+        'save_vocabulary',
+        { tokenId: 'b1.s1.t3', word: 'cigarra' },
+        esCtx(),
+      );
+      expect(result).toMatchObject({ ok: true });
+      const [saved] = useStore.getState().savedWords;
+      expect(saved).toMatchObject({
+        sourceWord: 'cigarra',
+        tokenId: 'b1.s1.t6', // the nearest "cigarra" to the id it gave, not b1.s2.t2
+        sentenceId: 'b1.s1',
+        translation: 'cicada',
+      });
+    });
+
+    it('matches the hint case- and punctuation-insensitively, and a correct id is untouched', async () => {
+      const ctx = esCtx();
+      expect(await ctx.saveWord('b1.s1.t6', undefined, 'Cigarra,')).toMatchObject({ ok: true });
+      expect(useStore.getState().savedWords.map((w) => w.tokenId)).toEqual(['b1.s1.t6']);
+    });
+
+    it('fails instead of saving anything when the hinted word is not in the chapter', async () => {
+      const result = await esCtx().saveWord('b1.s1.t3', undefined, 'hormiga');
+      expect(result).toEqual({
+        ok: false,
+        error: 'word "hormiga" not found in chapter (tokenId b1.s1.t3 is "verano")',
+      });
+      expect(useStore.getState().savedWords).toHaveLength(0);
+    });
+
+    it('an unknown tokenId plus a real word still resolves by the word', async () => {
+      const result = await esCtx().saveWord('b9.s9.t9', undefined, 'trabaja');
+      expect(result).toMatchObject({ ok: true });
+      expect(useStore.getState().savedWords[0]).toMatchObject({ tokenId: 'b1.s2.t4' });
+    });
+
+    it('get_current_passage exposes the word->tokenId map the prompt renders (punctuation excluded)', async () => {
+      const passage = await esCtx().getPassage();
+      expect(passage.sentences[0]?.words).toEqual([
+        { id: 'b1.s1.t1', text: 'Durante' },
+        { id: 'b1.s1.t2', text: 'el' },
+        { id: 'b1.s1.t3', text: 'verano' },
+        { id: 'b1.s1.t5', text: 'una' },
+        { id: 'b1.s1.t6', text: 'cigarra' },
+        { id: 'b1.s1.t7', text: 'canta' },
+        { id: 'b1.s1.t8', text: 'bajo' },
+        { id: 'b1.s1.t9', text: 'el' },
+        { id: 'b1.s1.t10', text: 'sol' },
+      ]);
+    });
   });
 
   it('mark_section_complete marks the book completed', async () => {

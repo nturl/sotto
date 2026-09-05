@@ -20,6 +20,16 @@ export interface StoreAccessor {
   getState: () => SottoState;
 }
 
+/** Case-, apostrophe- and edge-punctuation-insensitive word key, so a model
+ * passing "Cigarra," still matches the token "cigarra". */
+function normalizeWord(text: string): string {
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/’/g, "'")
+    .replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, '');
+}
+
 export function createToolContext(
   store: StoreAccessor,
   bookId: string,
@@ -30,16 +40,51 @@ export function createToolContext(
   const getChapter = () => store.getState().chapters[`${bookId}:${chapterId}`];
   const getPositionTokenId = () => store.getState().progress[bookId]?.tokenId;
 
-  const findTokenAndSentence = (tokenId: string) => {
+  const flatTokens = () => {
     const chapter = getChapter();
-    if (!chapter) return undefined;
-    for (const block of chapter.blocks) {
-      for (const sentence of block.sentences) {
-        const token = sentence.tokens.find((tk) => tk.id === tokenId);
-        if (token) return { token, sentence };
-      }
+    if (!chapter) return [];
+    return chapter.blocks.flatMap((b) =>
+      b.sentences.flatMap((sentence) => sentence.tokens.map((token) => ({ token, sentence }))),
+    );
+  };
+
+  const findTokenAndSentence = (tokenId: string) =>
+    flatTokens().find((entry) => entry.token.id === tokenId);
+
+  /**
+   * Resolves the token to save. The model is reliable about the *word* and
+   * unreliable about the *id* (ids get guessed by counting words, and
+   * punctuation tokens throw the count off — the live "save cigarra" run
+   * saved the adjacent "verano"). So when it names the word, the id is
+   * checked against it: on a mismatch we re-resolve to the nearest token in
+   * the chapter with that text, and if there is none we fail rather than
+   * silently save a different word.
+   */
+  const resolveWordToken = (tokenId: string, word?: string) => {
+    const found = findTokenAndSentence(tokenId);
+    if (word === undefined) {
+      return found ?? { error: `unknown tokenId: ${tokenId}` };
     }
-    return undefined;
+    const wanted = normalizeWord(word);
+    if (found && normalizeWord(found.token.text) === wanted) return found;
+
+    const all = flatTokens();
+    const anchorId = found?.token.id ?? getPositionTokenId();
+    const anchor = anchorId ? all.findIndex((e) => e.token.id === anchorId) : -1;
+    const candidates = all
+      .map((entry, index) => ({ entry, index }))
+      .filter(({ entry }) => entry.token.isWord && normalizeWord(entry.token.text) === wanted);
+    if (candidates.length === 0) {
+      const actual = found ? `"${found.token.text}"` : 'unknown';
+      return { error: `word "${word}" not found in chapter (tokenId ${tokenId} is ${actual})` };
+    }
+    const nearest =
+      anchor < 0
+        ? candidates[0]!
+        : candidates.reduce((best, c) =>
+            Math.abs(c.index - anchor) < Math.abs(best.index - anchor) ? c : best,
+          );
+    return nearest.entry;
   };
 
   return {
@@ -65,9 +110,9 @@ export function createToolContext(
       return { ok: true };
     },
 
-    saveWord: (tokenId, translation) => {
-      const found = findTokenAndSentence(tokenId);
-      if (!found) return { ok: false, error: `unknown tokenId: ${tokenId}` };
+    saveWord: (tokenId, translation, wordHint) => {
+      const found = resolveWordToken(tokenId, wordHint);
+      if ('error' in found) return { ok: false, error: found.error };
       const word = buildSavedWord({
         bookId,
         chapterId,

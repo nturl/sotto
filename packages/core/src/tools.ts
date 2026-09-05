@@ -37,6 +37,10 @@ export const SaveVocabularyArgs = z
   .object({
     tokenId: z.string().min(1),
     translation: z.string().min(1).optional(),
+    /** The word as written in the passage. Lets the executor verify tokenId
+     * actually points at it — models are reliable about the word and
+     * unreliable about the id (see PassageSentenceView.words). */
+    word: z.string().min(1).optional(),
   })
   .strict();
 
@@ -97,7 +101,11 @@ export const TOOL_DEFINITIONS = [
       parameters: {
         type: 'object',
         properties: {
-          tokenId: { type: 'string', description: 'Id of a token, e.g. "b1.s2.t3".' },
+          tokenId: {
+            type: 'string',
+            description:
+              'Id of a token, e.g. "b1.s2.t3". Take it from the passage word list (sentence id + "." + the suffix shown after "="); never derive it by counting words.',
+          },
           sentenceId: { type: 'string', description: 'Id of a sentence, e.g. "b1.s2".' },
         },
         additionalProperties: false,
@@ -109,11 +117,19 @@ export const TOOL_DEFINITIONS = [
     function: {
       name: 'save_vocabulary',
       description:
-        "Save a word the learner wants to remember, by the id of one of its tokens in the current passage. Omit translation to use the pack's own gloss for that word; pass translation only when you are giving a different explanation than the pack default.",
+        "Save a word the learner wants to remember, by the id of one of its tokens in the current passage. Always pass word too, so the id is checked against it. Omit translation to use the pack's own gloss for that word; pass translation only when you are giving a different explanation than the pack default.",
       parameters: {
         type: 'object',
         properties: {
-          tokenId: { type: 'string', description: 'Id of the token to save, e.g. "b1.s2.t3".' },
+          tokenId: {
+            type: 'string',
+            description:
+              'Id of the token to save, e.g. "b1.s2.t3". Take it from the passage word list (sentence id + "." + the suffix shown after "="); never derive it by counting words.',
+          },
+          word: {
+            type: 'string',
+            description: 'The word exactly as written in the passage, e.g. "cigarra".',
+          },
           translation: {
             type: 'string',
             description: 'Optional translation to store instead of the pack gloss.',
@@ -195,10 +211,25 @@ export const TOOL_DEFINITIONS = [
   },
 ] as const;
 
+/** One word token of a passage sentence: the text the model reads paired
+ * with the id the tools need. Punctuation tokens are omitted. */
+export interface PassageWordView {
+  id: string;
+  text: string;
+}
+
 export interface PassageSentenceView {
   id: string;
   text: string;
   tokenIds: string[];
+  /**
+   * Word-level id map, in order. This is what the tutor prompt renders so
+   * the model has ground truth for which tokenId is which word — `tokenIds`
+   * alone can't be aligned to `text` without counting, and punctuation
+   * tokens throw the count off (a live run asked to save "cigarra" saved
+   * the adjacent "verano").
+   */
+  words: PassageWordView[];
 }
 
 export interface PassageContextResult {
@@ -240,7 +271,13 @@ type MaybePromise<T> = T | Promise<T>;
 export interface ToolExecutionContext {
   getPassage(): MaybePromise<PassageContextResult>;
   setPosition(id: string): MaybePromise<OkResult | ToolFailure>;
-  saveWord(tokenId: string, translation?: string): MaybePromise<SaveVocabularyResult | ToolFailure>;
+  /** `word`, when given, is the word the model meant; implementations should
+   * refuse or re-resolve rather than save a token whose text differs. */
+  saveWord(
+    tokenId: string,
+    translation?: string,
+    word?: string,
+  ): MaybePromise<SaveVocabularyResult | ToolFailure>;
   removeWord(ref: { savedWordId?: string; tokenId?: string }): MaybePromise<OkResult | ToolFailure>;
   showExplanation(payload: {
     tokenId?: string;
@@ -285,7 +322,7 @@ export async function executeTool(
       }
       case 'save_vocabulary': {
         const data = parsed.data as z.infer<typeof SaveVocabularyArgs>;
-        return await ctx.saveWord(data.tokenId, data.translation);
+        return await ctx.saveWord(data.tokenId, data.translation, data.word);
       }
       case 'remove_vocabulary': {
         const data = parsed.data as z.infer<typeof RemoveVocabularyArgs>;

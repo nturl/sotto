@@ -54,7 +54,10 @@ function pcmStream(byteLength: number): ReadableStream<Uint8Array> {
 /** A PCM stream whose controller stays open until the caller closes it, or
  * errors itself when the given AbortSignal fires — for barge-in tests that
  * need to catch TTS mid-flight. */
-function controllablePcmStream(signal?: AbortSignal): { stream: ReadableStream<Uint8Array>; close: () => void } {
+function controllablePcmStream(signal?: AbortSignal): {
+  stream: ReadableStream<Uint8Array>;
+  close: () => void;
+} {
   let ctrl!: ReadableStreamDefaultController<Uint8Array>;
   const stream = new ReadableStream<Uint8Array>({
     start(c) {
@@ -100,7 +103,14 @@ const SESSION_OPTIONS: SessionOptions = {
   learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en' },
   passage: {
     chapterTitle: 'Chapitre 1',
-    sentences: [{ id: 'b1.s1', text: 'Bonjour.', tokenIds: ['b1.s1.t1'] }],
+    sentences: [
+      {
+        id: 'b1.s1',
+        text: 'Bonjour.',
+        tokenIds: ['b1.s1.t1'],
+        words: [{ id: 'b1.s1.t1', text: 'Bonjour' }],
+      },
+    ],
     positionTokenId: 'b1.s1.t1',
   },
   savedWords: [],
@@ -173,10 +183,13 @@ describe('VoiceSession', () => {
     vad.push([{ type: 'speech_end' }]);
     vad.push([{ type: 'speech_start' }]); // the interrupting utterance
 
-    const ttsCtrlBox: { current: { stream: ReadableStream<Uint8Array>; close: () => void } | null } = { current: null };
+    const ttsCtrlBox: {
+      current: { stream: ReadableStream<Uint8Array>; close: () => void } | null;
+    } = { current: null };
     const fetchImpl = makeFetch({
       stt: () => new Response(JSON.stringify({ text: 'Lis-moi une phrase' }), { status: 200 }),
-      llm: () => new Response(sseStream([textDelta('Une longue phrase de lecture.')]), { status: 200 }),
+      llm: () =>
+        new Response(sseStream([textDelta('Une longue phrase de lecture.')]), { status: 200 }),
       tts: (init) => {
         ttsCtrlBox.current = controllablePcmStream(init?.signal ?? undefined);
         return new Response(ttsCtrlBox.current.stream, { status: 200 });
@@ -222,12 +235,26 @@ describe('VoiceSession', () => {
             sseStream([
               {
                 choices: [
-                  { delta: { tool_calls: [{ index: 0, id: 'call_1', function: { name: 'save_vocabulary', arguments: '' } }] } },
+                  {
+                    delta: {
+                      tool_calls: [
+                        {
+                          index: 0,
+                          id: 'call_1',
+                          function: { name: 'save_vocabulary', arguments: '' },
+                        },
+                      ],
+                    },
+                  },
                 ],
               },
               {
                 choices: [
-                  { delta: { tool_calls: [{ index: 0, function: { arguments: '{"tokenId":"b1.s1.t1"}' } }] } },
+                  {
+                    delta: {
+                      tool_calls: [{ index: 0, function: { arguments: '{"tokenId":"b1.s1.t1"}' } }],
+                    },
+                  },
                 ],
               },
             ]),
@@ -247,7 +274,9 @@ describe('VoiceSession', () => {
     for (let i = 0; i < 50 && !sent.some((m) => m.t === 'tool_call'); i++) {
       await flushMicrotasks(1);
     }
-    const toolCallMsg = sent.find((m): m is Extract<ServerMessage, { t: 'tool_call' }> => m.t === 'tool_call');
+    const toolCallMsg = sent.find(
+      (m): m is Extract<ServerMessage, { t: 'tool_call' }> => m.t === 'tool_call',
+    );
     expect(toolCallMsg).toBeDefined();
     expect(toolCallMsg!.name).toBe('save_vocabulary');
     expect(toolCallMsg!.args).toEqual({ tokenId: 'b1.s1.t1' });
@@ -256,17 +285,31 @@ describe('VoiceSession', () => {
     // have happened yet — it is blocked waiting on tool_result.
     expect(llmCallCount).toBe(1);
 
-    await session.receiveMessage({ t: 'tool_result', callId: toolCallMsg!.callId, ok: true, result: { savedWordId: 'sw1' } });
+    await session.receiveMessage({
+      t: 'tool_result',
+      callId: toolCallMsg!.callId,
+      ok: true,
+      result: { savedWordId: 'sw1' },
+    });
 
     for (let i = 0; i < 50 && llmCallCount < 2; i++) {
       await flushMicrotasks(1);
     }
     expect(llmCallCount).toBe(2);
 
-    for (let i = 0; i < 50 && !sent.some((m) => m.t === 'caption' && m.speaker === 'tutor' && m.final); i++) {
+    for (
+      let i = 0;
+      i < 50 && !sent.some((m) => m.t === 'caption' && m.speaker === 'tutor' && m.final);
+      i++
+    ) {
       await flushMicrotasks(1);
     }
-    expect(sent).toContainEqual({ t: 'caption', speaker: 'tutor', text: "C'est fait !", final: true });
+    expect(sent).toContainEqual({
+      t: 'caption',
+      speaker: 'tutor',
+      text: "C'est fait !",
+      final: true,
+    });
     expect(session.getState()).toBe('listening');
   });
 
@@ -317,7 +360,12 @@ describe('VoiceSession', () => {
     await session.receiveMessage({ t: 'text', text: 'Traduis cette phrase' });
     await flushMicrotasks();
 
-    expect(sent).toContainEqual({ t: 'caption', speaker: 'learner', text: 'Traduis cette phrase', final: true });
+    expect(sent).toContainEqual({
+      t: 'caption',
+      speaker: 'learner',
+      text: 'Traduis cette phrase',
+      final: true,
+    });
     expect(sent).toContainEqual({ t: 'caption', speaker: 'tutor', text: 'Bien sûr.', final: true });
   });
 });

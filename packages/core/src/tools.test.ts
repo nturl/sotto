@@ -15,7 +15,14 @@ function makeCtx(overrides: Partial<ToolExecutionContext> = {}): ToolExecutionCo
   return {
     getPassage: vi.fn().mockResolvedValue({
       chapterTitle: 'Chapitre 1',
-      sentences: [{ id: 'b1.s1', text: 'Bonjour.', tokenIds: ['b1.s1.t1', 'b1.s1.t2'] }],
+      sentences: [
+        {
+          id: 'b1.s1',
+          text: 'Bonjour.',
+          tokenIds: ['b1.s1.t1', 'b1.s1.t2'],
+          words: [{ id: 'b1.s1.t1', text: 'Bonjour' }],
+        },
+      ],
       positionTokenId: 'b1.s1.t1',
     }),
     setPosition: vi.fn().mockResolvedValue({ ok: true }),
@@ -68,8 +75,18 @@ describe('executeTool', () => {
   it('passes valid args through to the matching ctx method', async () => {
     const ctx = makeCtx();
     const result = await executeTool('save_vocabulary', { tokenId: 'b1.s1.t1' }, ctx);
-    expect(ctx.saveWord).toHaveBeenCalledWith('b1.s1.t1', undefined);
+    expect(ctx.saveWord).toHaveBeenCalledWith('b1.s1.t1', undefined, undefined);
     expect(result).toEqual({ ok: true, savedWordId: 'w1' });
+  });
+
+  it('save_vocabulary forwards the optional word hint so the executor can check the id against it', async () => {
+    const ctx = makeCtx();
+    await executeTool(
+      'save_vocabulary',
+      { tokenId: 'b1.s1.t1', word: 'Bonjour', translation: 'hello' },
+      ctx,
+    );
+    expect(ctx.saveWord).toHaveBeenCalledWith('b1.s1.t1', 'hello', 'Bonjour');
   });
 
   it('propagates a ctx-reported failure for an unknown id without throwing', async () => {
@@ -123,7 +140,14 @@ describe('executeTool', () => {
     const result = await executeTool('get_current_passage', {}, ctx);
     expect(result).toEqual({
       chapterTitle: 'Chapitre 1',
-      sentences: [{ id: 'b1.s1', text: 'Bonjour.', tokenIds: ['b1.s1.t1', 'b1.s1.t2'] }],
+      sentences: [
+        {
+          id: 'b1.s1',
+          text: 'Bonjour.',
+          tokenIds: ['b1.s1.t1', 'b1.s1.t2'],
+          words: [{ id: 'b1.s1.t1', text: 'Bonjour' }],
+        },
+      ],
       positionTokenId: 'b1.s1.t1',
     });
   });

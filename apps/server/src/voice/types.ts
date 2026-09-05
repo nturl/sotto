@@ -22,10 +22,20 @@ export const voiceStateSchema = z.enum([
 ]);
 export type VoiceState = z.infer<typeof voiceStateSchema>;
 
+export const passageWordSchema = z.object({
+  id: z.string(),
+  text: z.string(),
+});
+export type PassageWord = z.infer<typeof passageWordSchema>;
+
 export const passageSentenceSchema = z.object({
   id: z.string(),
   text: z.string(),
   tokenIds: z.array(z.string()),
+  /** Word tokens only (no punctuation), in order — the word->tokenId map the
+   * prompt renders. Defaults to [] so older callers (scripts/voice-smoke.ts)
+   * still connect; the prompt then falls back to the bare tokenId list. */
+  words: z.array(passageWordSchema).default([]),
 });
 
 export const passageContextSchema = z.object({
@@ -121,5 +131,9 @@ export interface ChatMessage {
   content: string;
   tool_call_id?: string;
   name?: string;
-  tool_calls?: Array<{ id: string; type: 'function'; function: { name: string; arguments: string } }>;
+  tool_calls?: Array<{
+    id: string;
+    type: 'function';
+    function: { name: string; arguments: string };
+  }>;
 }

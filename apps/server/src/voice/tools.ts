@@ -14,7 +14,11 @@ export const toolArgSchemas = {
   set_reading_position: z
     .object({ tokenId: z.string().optional(), sentenceId: z.string().optional() })
     .refine((v) => !!v.tokenId || !!v.sentenceId, 'tokenId or sentenceId required'),
-  save_vocabulary: z.object({ tokenId: z.string(), translation: z.string().optional() }),
+  save_vocabulary: z.object({
+    tokenId: z.string(),
+    translation: z.string().optional(),
+    word: z.string().optional(),
+  }),
   remove_vocabulary: z
     .object({ savedWordId: z.string().optional(), tokenId: z.string().optional() })
     .refine((v) => !!v.savedWordId || !!v.tokenId, 'savedWordId or tokenId required'),
@@ -34,7 +38,8 @@ export const openAiTools = [
     type: 'function',
     function: {
       name: 'get_current_passage',
-      description: 'Returns the bounded visible passage, chapter title, token IDs, and current reading position.',
+      description:
+        'Returns the bounded visible passage, chapter title, token IDs, and current reading position.',
       parameters: { type: 'object', properties: {}, additionalProperties: false },
     },
   },
@@ -42,12 +47,20 @@ export const openAiTools = [
     type: 'function',
     function: {
       name: 'set_reading_position',
-      description: 'Moves the visible reading position to a validated sentence or token in the current chapter.',
+      description:
+        'Moves the visible reading position to a validated sentence or token in the current chapter.',
       parameters: {
         type: 'object',
         properties: {
-          tokenId: { type: 'string' },
-          sentenceId: { type: 'string' },
+          tokenId: {
+            type: 'string',
+            description:
+              'Full token id from the passage word list: sentence id + "." + the suffix after "=", e.g. "b1.s1.t6". Never count words to derive it.',
+          },
+          sentenceId: {
+            type: 'string',
+            description: 'A sentence id from the passage, e.g. "b1.s1".',
+          },
         },
         additionalProperties: false,
       },
@@ -57,11 +70,17 @@ export const openAiTools = [
     type: 'function',
     function: {
       name: 'save_vocabulary',
-      description: 'Saves a specific word or phrase (by token id) with an optional translation override.',
+      description:
+        'Saves a specific word (by token id) with an optional translation override. Always pass word too; the app checks the id against it and refuses a mismatch.',
       parameters: {
         type: 'object',
         properties: {
-          tokenId: { type: 'string' },
+          tokenId: {
+            type: 'string',
+            description:
+              'Full token id from the passage word list: sentence id + "." + the suffix after "=", e.g. "b1.s1.t6". Never count words to derive it.',
+          },
+          word: { type: 'string', description: 'The word exactly as written in the passage.' },
           translation: { type: 'string' },
         },
         required: ['tokenId'],
@@ -73,7 +92,8 @@ export const openAiTools = [
     type: 'function',
     function: {
       name: 'remove_vocabulary',
-      description: 'Removes a saved vocabulary item, resolved by its stable saved-word id or source token id.',
+      description:
+        'Removes a saved vocabulary item, resolved by its stable saved-word id or source token id.',
       parameters: {
         type: 'object',
         properties: {
@@ -88,7 +108,8 @@ export const openAiTools = [
     type: 'function',
     function: {
       name: 'show_explanation',
-      description: 'Displays a structured translation, grammar note, or pronunciation tip in the app.',
+      description:
+        'Displays a structured translation, grammar note, or pronunciation tip in the app.',
       parameters: {
         type: 'object',
         properties: {
@@ -106,11 +127,15 @@ export const openAiTools = [
     type: 'function',
     function: {
       name: 'set_session_mode',
-      description: 'Changes the tutor session mode among narration, read-along, pronunciation, and discussion.',
+      description:
+        'Changes the tutor session mode among narration, read-along, pronunciation, and discussion.',
       parameters: {
         type: 'object',
         properties: {
-          mode: { type: 'string', enum: ['read_to_me', 'read_with_me', 'pronunciation', 'discuss'] },
+          mode: {
+            type: 'string',
+            enum: ['read_to_me', 'read_with_me', 'pronunciation', 'discuss'],
+          },
         },
         required: ['mode'],
         additionalProperties: false,
@@ -132,7 +157,10 @@ export function isToolName(name: string): name is ToolName {
 }
 
 /** Parses raw JSON-string tool-call arguments against the matching schema. */
-export function parseToolArgs(name: ToolName, rawArgs: string): { ok: true; args: unknown } | { ok: false; error: string } {
+export function parseToolArgs(
+  name: ToolName,
+  rawArgs: string,
+): { ok: true; args: unknown } | { ok: false; error: string } {
   let parsed: unknown;
   try {
     parsed = rawArgs.trim() === '' ? {} : JSON.parse(rawArgs);

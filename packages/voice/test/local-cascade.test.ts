@@ -109,7 +109,14 @@ const SESSION_OPTIONS: SessionOptions = {
   learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en' },
   passage: {
     chapterTitle: 'Chapitre 1',
-    sentences: [{ id: 'b1.s1', text: 'Bonjour.', tokenIds: ['b1.s1.t1'] }],
+    sentences: [
+      {
+        id: 'b1.s1',
+        text: 'Bonjour.',
+        tokenIds: ['b1.s1.t1'],
+        words: [{ id: 'b1.s1.t1', text: 'Bonjour' }],
+      },
+    ],
     positionTokenId: null,
   },
   savedWords: [],

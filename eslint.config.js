@@ -8,6 +8,7 @@ export default tseslint.config(
     ignores: [
       '**/node_modules/**',
       '**/dist/**',
+      '**/.vercel/**',
       '**/.expo/**',
       '**/web-build/**',
       '**/ios/**',
@@ -46,7 +47,7 @@ export default tseslint.config(
     // stays active unlike .ts files) that also pass closures into
     // `page.evaluate(...)` — those run inside the browser page, not Node,
     // so both sets of globals are needed in the same file.
-    files: ['apps/client/e2e/**/*.mjs'],
+    files: ['apps/client/e2e/**/*.mjs', 'apps/client/scripts/**/*.mjs'],
     languageOptions: {
       globals: {
         process: 'readonly',

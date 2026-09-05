@@ -1,0 +1,37 @@
+[hosted-smoke 2026-09-05T05:28:22.637Z] BASE_URL=https://sotto-steel.vercel.app
+[hosted-smoke 2026-09-05T05:28:22.638Z] --- width 375 ---
+[hosted-smoke 2026-09-05T05:28:23.483Z] 375: cold visit loaded
+[hosted-smoke 2026-09-05T05:28:23.510Z] 375: manifest link present
+[hosted-smoke 2026-09-05T05:28:23.784Z] 375: tap 1 — clicked "Start reading in French"
+[hosted-smoke 2026-09-05T05:28:23.785Z] 375: reader visible at https://sotto-steel.vercel.app/reader/fr-cendrillon
+[hosted-smoke 2026-09-05T05:28:25.670Z] 375: first-visit content cache has this book's chapter JSON
+[hosted-smoke 2026-09-05T05:28:25.671Z] 375: first-visit content cache has this book's narration audio
+[hosted-smoke 2026-09-05T05:28:25.695Z] 375: tap 2 — clicked play
+[hosted-smoke 2026-09-05T05:28:26.461Z] 375: narration playing within 10s
+[hosted-smoke 2026-09-05T05:28:26.510Z] 375: tapped "Une", translation panel shown
+[hosted-smoke 2026-09-05T05:28:27.143Z] 375: saved "Une" to vocabulary
+[hosted-smoke 2026-09-05T05:28:27.836Z] 375: saved word survived reload
+[hosted-smoke 2026-09-05T05:28:27.837Z] 375: service worker registered
+[hosted-smoke 2026-09-05T05:28:29.343Z] 375: shell cache (sotto-shell-1788586054921.0251) has index.html
+[hosted-smoke 2026-09-05T05:28:29.343Z] 375: content cache (sotto-content-1788586054921.0251) has 8 file(s) for this book
+[hosted-smoke 2026-09-05T05:28:29.352Z] 375: WARN — real offline navigation hit the known Playwright/Chromium CDP limitation (network emulation preempts the Service Worker fetch handler for navigations); relying on the cache-inspection checks above instead.
+[hosted-smoke 2026-09-05T05:28:29.418Z] --- width 375 done ---
+[hosted-smoke 2026-09-05T05:28:29.418Z] --- width 1440 ---
+[hosted-smoke 2026-09-05T05:28:29.935Z] 1440: cold visit loaded
+[hosted-smoke 2026-09-05T05:28:29.954Z] 1440: manifest link present
+[hosted-smoke 2026-09-05T05:28:30.113Z] 1440: tap 1 — clicked "Start reading in French"
+[hosted-smoke 2026-09-05T05:28:30.113Z] 1440: reader visible at https://sotto-steel.vercel.app/reader/fr-cendrillon
+[hosted-smoke 2026-09-05T05:28:32.085Z] 1440: first-visit content cache has this book's chapter JSON
+[hosted-smoke 2026-09-05T05:28:32.085Z] 1440: first-visit content cache has this book's narration audio
+[hosted-smoke 2026-09-05T05:28:32.108Z] 1440: tap 2 — clicked play
+[hosted-smoke 2026-09-05T05:28:32.864Z] 1440: narration playing within 10s
+[hosted-smoke 2026-09-05T05:28:32.911Z] 1440: tapped "Une", translation panel shown
+[hosted-smoke 2026-09-05T05:28:33.245Z] 1440: saved "Une" to vocabulary
+[hosted-smoke 2026-09-05T05:28:33.935Z] 1440: saved word survived reload
+[hosted-smoke 2026-09-05T05:28:33.936Z] 1440: service worker registered
+[hosted-smoke 2026-09-05T05:28:35.440Z] 1440: shell cache (sotto-shell-1788586054921.0251) has index.html
+[hosted-smoke 2026-09-05T05:28:35.441Z] 1440: content cache (sotto-content-1788586054921.0251) has 8 file(s) for this book
+[hosted-smoke 2026-09-05T05:28:35.447Z] 1440: WARN — real offline navigation hit the known Playwright/Chromium CDP limitation (network emulation preempts the Service Worker fetch handler for navigations); relying on the cache-inspection checks above instead.
+[hosted-smoke 2026-09-05T05:28:35.514Z] --- width 1440 done ---
+[hosted-smoke 2026-09-05T05:28:35.514Z] RESULT: PASS
+EXIT 0

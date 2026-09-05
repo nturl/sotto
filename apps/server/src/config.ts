@@ -1,5 +1,21 @@
 import { z } from 'zod';
 
+/**
+ * Loads a .env file into `process.env` via Node's built-in `loadEnvFile`
+ * (no dotenv dependency). Existing environment variables are left alone —
+ * `loadEnvFile` never overwrites a variable that's already set, so shell
+ * exports win over the file. Missing file is not an error; anything else is.
+ */
+export function loadDotEnv(filePath: string): void {
+  try {
+    process.loadEnvFile(filePath);
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException)?.code !== 'ENOENT') {
+      throw err;
+    }
+  }
+}
+
 const envSchema = z.object({
   SOTTO_STT_URL: z.string().url().default('http://127.0.0.1:9001/v1'),
   SOTTO_STT_MODEL: z.string().default('Systran/faster-whisper-base'),

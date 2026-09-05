@@ -1,6 +1,14 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { buildApp } from './app.js';
-import { loadConfig } from './config.js';
+import { loadConfig, loadDotEnv } from './config.js';
 import { createVad } from './voice/vad.js';
+
+// Load apps/server/.env before reading config, if present. Resolved relative
+// to this module so it works whether started via `pnpm dev` from the repo
+// root or from apps/server directly.
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+loadDotEnv(path.resolve(__dirname, '../.env'));
 
 const config = loadConfig();
 const app = await buildApp(config);

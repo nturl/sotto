@@ -1,0 +1,65 @@
+Scope: all 6 workspace projects
+✓ Lockfile passes supply-chain policies (verified 3h ago)
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+Done in 761ms using pnpm v11.25.0
+$ node apps/client/e2e/voice-live.mjs
+[t+0.0s] Synthesizing phase A wav (explain): "¿Qué significa la palabra cigarra?"
+[t+2.7s] Synthesizing phase B wav (save): "Guarda la palabra cigarra."
+[t+4.9s] --- Phase A-explain: launching Chromium (fake mic = phase-a.wav) ---
+[t+5.5s] Phase A-explain: navigating to /voice/es-fabulas-samaniego
+[t+6.1s] [A-explain] state -> listening
+[t+8.9s] [A-explain] state -> thinking
+[t+10.1s] [A-explain] caption: You: ¿Qué significa la palabra cigarra?
+[t+32.3s] [A-explain] state -> speaking
+[t+46.3s] [A-explain] caption: Tutor: En español, "cigarra" se refiere a un insecto que produce un sonido característico durante el verano.
+[t+47.1s] [A-explain] caption: Tutor: En esta fábula, la **cigarra** es un insecto que canta y no guarda comida.
+[t+49.1s] [A-explain] state -> listening
+[t+49.1s] [A-explain] caption: Tutor: En esta fábula, la **cigarra** es un insecto que canta y no guarda comida. En español, "cigarra" se refiere a un insecto que produce un sonido característico durante el verano.
+[t+49.1s] Phase A-explain: stop condition met.
+[t+49.2s] --- Phase B-save: launching Chromium (fake mic = phase-b.wav) ---
+[t+49.7s] Phase B-save: navigating to /voice/es-fabulas-samaniego
+[t+50.4s] [B-save] state -> listening
+[t+52.8s] [B-save] state -> thinking
+[t+53.2s] [B-save] caption: You: Guarda la palabra cigarra.
+[t+60.5s] [B-save] state -> speaking
+[t+66.6s] [B-save] state -> listening
+[t+66.6s] [B-save] caption: Tutor: La palabra “cigarra” ya está guardada. ¿Quieres guardar otra palabra?
+[t+66.6s] [B-save] caption: Tutor: La palabra “cigarra” ya está guardada.
+[t+66.6s] Phase B-save: stop condition met.
+
+===== Full timeline (both phases) =====
+  [t+6.1s] state: listening
+  [t+8.9s] state: thinking
+  [t+10.1s] caption: You: ¿Qué significa la palabra cigarra?
+  [t+32.3s] state: speaking
+  [t+46.3s] caption: Tutor: En español, "cigarra" se refiere a un insecto que produce un sonido característico durante el verano.
+  [t+47.1s] caption: Tutor: En esta fábula, la **cigarra** es un insecto que canta y no guarda comida.
+  [t+49.1s] state: listening
+  [t+49.1s] caption: Tutor: En esta fábula, la **cigarra** es un insecto que canta y no guarda comida. En español, "cigarra" se refiere a un insecto que produce un sonido característico durante el verano.
+  [t+50.4s] state: listening
+  [t+52.8s] state: thinking
+  [t+53.2s] caption: You: Guarda la palabra cigarra.
+  [t+60.5s] state: speaking
+  [t+66.6s] state: listening
+  [t+66.6s] caption: Tutor: La palabra “cigarra” ya está guardada. ¿Quieres guardar otra palabra?
+  [t+66.6s] caption: Tutor: La palabra “cigarra” ya está guardada.
+
+===== States observed =====
+  Phase A: listening -> thinking -> speaking -> listening
+  Phase B: listening -> thinking -> speaking -> listening
+
+===== Vocabulary store after phase B =====
+  ["verano","cigarra"]
+
+===== Assertions =====
+  [PASS] phase A: learner caption contains "cigarra"
+  [PASS] phase A: tutor caption present (word explained)
+  [PASS] phase A: state cycled listening -> thinking -> speaking
+  [PASS] phase B: learner caption contains "cigarra" (save request heard)
+  [PASS] phase B: saved word "cigarra" in vocabulary store
+  [PASS] no page/console errors in either phase
+
+Final screenshots: /Users/noelturlington/Claude/sotto/docs/screenshots/web/voice-live-A-explain-final.png, /Users/noelturlington/Claude/sotto/docs/screenshots/web/voice-live-B-save-final.png
+exit=0

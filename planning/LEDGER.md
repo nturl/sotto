@@ -115,3 +115,14 @@ Columns: id | status | owner route | depends on | verification command / proof |
 9. Screenshots at 375/393/430/768/1024/1440 + verification report mapped to the 35 criteria: DONE (docs/screenshots/web, docs/verification.md: 9 PASS / 18 PARTIAL / 4 DEFERRED / 4 NOT VERIFIED / 0 FAIL).
 
 Budget: Codex 5/5, agy 15/15 (8 of them wasted on a permission bug + 2 hung), Kimi 6/10 (~$3 of Moonshot credit), Sonnet subagents x9, Opus reviewer x1. Fable turns kept to planning, gate reviews, glue, and this close-out.
+
+## Post-build session (2026-09-04 late, Fable orchestrating Sonnet lanes)
+
+- Scrubbed the reference app's name, vendor, pricing, trial dates, and recording-derived notes from planning/ and .gitignore (commit 3d67d24). `git grep -i` for the name is empty. Public flip is now Noel's call.
+- Found: apps/server never loaded apps/server/.env (no dotenv, no --env-file, no loadEnvFile), so the documented OpenAI path was inert. Fixed with process.loadEnvFile in index.ts (shell vars still win), unit-tested.
+- Voice screen now probes GET /health before connecting; unavailable panel names the missing stt/llm/tts services and offers Read alone. Fake provider skips the probe. Verified in the Browser pane against a server started with unreachable model URLs (port 8791 + web on 8083, alongside another session's 8790/8081): no session request made, panel shown, Read alone lands in the reader. Ready path re-verified by `pnpm e2e:voice` against the full stack (docs/evidence/voice-live-2026-09-05.log, 6/6 PASS).
+- Run tiers documented in README "Three ways to run it". Tier 1 (no models) verified end to end in the browser: onboarding, home, book, reader, narration mp3 streaming, speech fill, tap-translate, word replay (mp3 slice, no TTS), save, vocabulary after reload, zero console errors. Tier 2 (OpenAI) NOT verified live, no key used. Tier 3 = existing evidence.
+- Decision: bundling packs into a static web build (no server at all) is a follow-up, not done now. It needs a static packs index (the /content/packs listing is computed server-side) and a same-origin asset base; roughly 51 MB of packs.
+- Observed, not fixed: onboarding keeps the previous interface language on the "Explain in" and "I'm learning" steps after picking a new one; it switches on the level step. The other session's Vercel build output under apps/client breaks `pnpm check` (format + lint) at the moment; typecheck, test, content:validate are green.
+- Stale facts in planning/astra/RUN-ASTRA.md, not edited yet (handoff says fix the pip path first): Codex CLI is 0.153.4 not 0.144.0; the tree was clean at HEAD 22f4d55 (no dirty files from another session); config still defaults model = gpt-6-astra, effort medium.
+

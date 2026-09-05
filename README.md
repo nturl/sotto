@@ -33,6 +33,42 @@ pnpm e2e:voice         # Playwright + a fake Chromium mic fed real Kokoro audio:
 Requires Node 26 and pnpm 11 (see `.nvmrc` / `packageManager`). `pnpm dev:server`
 and `pnpm dev:web` run each half individually.
 
+## Three ways to run it
+
+| Tier                      | What works                                                                                                                                                                                                  | What you need                                                                                               | Status                                                                                                                          |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| 1. No models              | Reading end to end: onboarding, home, book detail, reader with narration and word-sync speech fill, tap-to-translate, save word, vocabulary. Voice tutor is unavailable but offers a "Read alone" fallback. | `pnpm install && pnpm dev`                                                                                  | Verified 2026-09-04                                                                                                             |
+| 2. OpenAI                 | Full voice tutor (STT, LLM, TTS) via OpenAI's API instead of local models                                                                                                                                   | `SOTTO_API_KEY` plus the OpenAI URLs/models below, in `apps/server/.env` or the shell                       | Code path exists and is unit-tested at the transport level, but not verified live against OpenAI in this pass (no key was used) |
+| 3. Local models (default) | Full voice tutor, fully offline                                                                                                                                                                             | whisper.cpp, llama-server, Kokoro-FastAPI running locally, see [docs/local-models.md](docs/local-models.md) | Verified live 2026-09-04                                                                                                        |
+
+**Tier 1, no models.** Run `pnpm install && pnpm dev` and stop there. The
+server starts with every model URL unreachable, and `GET /health` reports
+`{"ok":true,"stt":false,"llm":false,"tts":false,"vad":"energy"}`. Reading
+works fully: the pre-recorded per-chapter narration in each pack streams
+from the server's static route, word-sync speech fill and tap-to-translate
+work, and the translation panel's speaker button replays the tapped word's
+slice of that same chapter narration, so it needs no TTS. The onboarding
+"play a voice sample" button shows "Sample unavailable" (it needs TTS), and
+the voice tutor screen shows an unavailability notice naming which of
+stt/llm/tts is down, with a "Read alone" option.
+
+**Tier 2, OpenAI instead of local models.** Set `SOTTO_STT_URL` /
+`SOTTO_LLM_URL` / `SOTTO_TTS_URL` to `https://api.openai.com/v1` with
+`SOTTO_STT_MODEL=whisper-1`, `SOTTO_LLM_MODEL=gpt-4o-mini`,
+`SOTTO_TTS_MODEL=tts-1`, and `SOTTO_API_KEY`, in `apps/server/.env` (read at
+startup, see "Server env vars" below) or the shell. `/health` sends the
+bearer token when probing. See [docs/openai.md](docs/openai.md).
+
+**Tier 3, local models.** whisper.cpp on 9001, llama-server on 8080, and
+Kokoro-FastAPI on 8880 give you the full voice tutor offline; see
+[docs/local-models.md](docs/local-models.md). This is the default the
+server's env vars point at.
+
+The client still needs the server for content today (packs are served from
+`packages/content/packs` by `apps/server`); a static build that bundles
+packs so the web app runs with no server at all is a planned follow-up, not
+available yet.
+
 ## Monorepo layout
 
 ```
@@ -64,8 +100,10 @@ whisper-server -m "$SOTTO_WHISPER_MODEL" --host 127.0.0.1 --port 9001 \
 
 ### Server env vars
 
-The server has no accounts/auth — anything that can reach it can drive your
-local models, so these matter even on a laptop:
+The server reads `apps/server/.env` at startup, if present; shell variables
+already set in your environment override values from that file. The server
+has no accounts/auth — anything that can reach it can drive your local
+models, so these matter even on a laptop:
 
 | Var                  | Default                             | Meaning                                                                                                                                                                              |
 | -------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

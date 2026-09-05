@@ -128,6 +128,17 @@ export default function VoiceScreen() {
     session.voiceState === 'error' ||
     session.voiceState === 'reconnecting' ||
     !!session.limitReason;
+  const availability = session.availability;
+  const isChecking = availability.status === 'checking';
+  const isUnavailable = availability.status === 'unavailable';
+  const unavailableMessage =
+    availability.status === 'unavailable'
+      ? availability.reason === 'server'
+        ? t('voice.unavailableServer')
+        : t('voice.unavailableServices', {
+            services: availability.missing.map((s) => t(`voice.service.${s}`)).join(', '),
+          })
+      : '';
 
   const recentCaptions = session.captions.slice(-6);
 
@@ -148,7 +159,7 @@ export default function VoiceScreen() {
       </View>
 
       <ScrollView style={styles.passageScroll} contentContainerStyle={styles.passage}>
-        {hasPassage ? (
+        {!isChecking && hasPassage ? (
           <SpeechFillText
             sentences={passageSentences}
             selectedId={session.explanation?.tokenId}
@@ -172,41 +183,62 @@ export default function VoiceScreen() {
         </View>
       ) : null}
 
-      <View style={styles.modeRow}>
-        {MODES.map((m) => (
-          <Pressable
-            key={m}
-            onPress={() => session.setMode(m)}
-            style={[styles.modeChip, session.mode === m && styles.modeChipActive, webCursor]}
-          >
-            <Text role="caption" color={session.mode === m ? 'surface' : 'ink'}>
-              {t(`voice.mode.${m}` as const)}
-            </Text>
-          </Pressable>
-        ))}
-      </View>
-
-      <Pressable onPress={() => setCaptionsOpen((v) => !v)} style={webCursor}>
-        <Text role="caption" color="ink2" style={styles.captionsToggle}>
-          {t('voice.captionsToggle')}
-        </Text>
-      </Pressable>
-      {captionsOpen ? (
-        <View style={styles.captionsStrip}>
-          {recentCaptions.map((c) => (
-            <Text
-              key={c.id}
-              role="caption"
-              color={c.speaker === 'tutor' ? 'ink' : 'ink2'}
-              style={styles.captionLine}
+      {!isChecking && !isUnavailable ? (
+        <View style={styles.modeRow}>
+          {MODES.map((m) => (
+            <Pressable
+              key={m}
+              onPress={() => session.setMode(m)}
+              style={[styles.modeChip, session.mode === m && styles.modeChipActive, webCursor]}
             >
-              {c.speaker === 'tutor' ? t('voice.tutorLabel') : t('voice.learnerLabel')}: {c.text}
-            </Text>
+              <Text role="caption" color={session.mode === m ? 'surface' : 'ink'}>
+                {t(`voice.mode.${m}` as const)}
+              </Text>
+            </Pressable>
           ))}
         </View>
       ) : null}
 
-      {isBroken ? (
+      {!isUnavailable ? (
+        <>
+          <Pressable onPress={() => setCaptionsOpen((v) => !v)} style={webCursor}>
+            <Text role="caption" color="ink2" style={styles.captionsToggle}>
+              {t('voice.captionsToggle')}
+            </Text>
+          </Pressable>
+          {captionsOpen ? (
+            <View style={styles.captionsStrip}>
+              {recentCaptions.map((c) => (
+                <Text
+                  key={c.id}
+                  role="caption"
+                  color={c.speaker === 'tutor' ? 'ink' : 'ink2'}
+                  style={styles.captionLine}
+                >
+                  {c.speaker === 'tutor' ? t('voice.tutorLabel') : t('voice.learnerLabel')}:{' '}
+                  {c.text}
+                </Text>
+              ))}
+            </View>
+          ) : null}
+        </>
+      ) : null}
+
+      {isUnavailable ? (
+        <View style={styles.recovery}>
+          <Text role="caption" color="warn" style={styles.recoveryText}>
+            {unavailableMessage}
+          </Text>
+          <Text role="caption" color="ink3" style={styles.recoveryText}>
+            {t('voice.unavailableHint')}
+          </Text>
+          <Button
+            title={t('voice.readAlone')}
+            variant="secondary"
+            onPress={() => router.replace(readSeulPath)}
+          />
+        </View>
+      ) : isBroken ? (
         <View style={styles.recovery}>
           <Text role="caption" color="warn" style={styles.recoveryText}>
             {session.limitReason ? t('voice.limitReached') : t('voice.connectionIssue')}
@@ -249,32 +281,34 @@ export default function VoiceScreen() {
         </View>
       )}
 
-      <View style={styles.pttWrap}>
-        {preferences.turnDetection === 'push' ? (
-          <Pressable
-            onPressIn={() => {
-              setPttHeld(true);
-              session.pushToTalk(true);
-            }}
-            onPressOut={() => {
-              setPttHeld(false);
-              session.pushToTalk(false);
-            }}
-            style={[styles.pttRing, pttHeld && styles.pttRingActive, webCursor]}
-          >
-            <MicGlyph size={26} color={pttHeld ? colors.surface : colors.accent} />
-          </Pressable>
-        ) : (
-          <>
-            <View style={[styles.pttRing, styles.pttDisabled]}>
-              <MicGlyph size={26} color={colors.ink3} />
-            </View>
-            <Text role="caption" color="ink3" style={styles.pttCaption}>
-              {t('voice.pttDisabled')}
-            </Text>
-          </>
-        )}
-      </View>
+      {!isChecking && !isUnavailable ? (
+        <View style={styles.pttWrap}>
+          {preferences.turnDetection === 'push' ? (
+            <Pressable
+              onPressIn={() => {
+                setPttHeld(true);
+                session.pushToTalk(true);
+              }}
+              onPressOut={() => {
+                setPttHeld(false);
+                session.pushToTalk(false);
+              }}
+              style={[styles.pttRing, pttHeld && styles.pttRingActive, webCursor]}
+            >
+              <MicGlyph size={26} color={pttHeld ? colors.surface : colors.accent} />
+            </Pressable>
+          ) : (
+            <>
+              <View style={[styles.pttRing, styles.pttDisabled]}>
+                <MicGlyph size={26} color={colors.ink3} />
+              </View>
+              <Text role="caption" color="ink3" style={styles.pttCaption}>
+                {t('voice.pttDisabled')}
+              </Text>
+            </>
+          )}
+        </View>
+      ) : null}
     </View>
   );
 }

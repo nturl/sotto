@@ -55,3 +55,33 @@ export function fetchAttribution(locale: string, bookId: string): Promise<Attrib
 export function assetUrl(locale: string, bookId: string, relativePath: string): string {
   return `${serverUrl()}/content/packs/${locale}/books/${bookId}/${relativePath}`;
 }
+
+/** Mirrors the server's `GET /health` response (apps/server/src/app.ts):
+ * `ok` is always true when the request succeeds, `stt`/`llm`/`tts` are
+ * per-service reachability booleans (each probed with a 2s timeout
+ * server-side), and `vad` names the active VAD backend. */
+export interface Health {
+  ok: boolean;
+  stt: boolean;
+  llm: boolean;
+  tts: boolean;
+  vad: string;
+}
+
+/** Probes the server's `/health` endpoint so the voice screen can decide
+ * whether to start a tutor session at all, rather than attempting one that
+ * silently fails. Never throws — any network error, timeout, non-2xx
+ * status, or unparsable body resolves to `null`. */
+export async function fetchHealth(timeoutMs = 4000): Promise<Health | null> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(`${serverUrl()}/health`, { signal: controller.signal });
+    if (!res.ok) return null;
+    return (await res.json()) as Health;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timeout);
+  }
+}

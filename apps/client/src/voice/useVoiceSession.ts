@@ -4,10 +4,12 @@
  * screen unmounting) that resolves book/chapter data, starts or resumes the
  * session, and reads all live state from the store.
  */
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { TutorMode } from '@sotto/core';
 import { useSottoStore } from '../state/store';
 import { selectDueWords, selectVocabularyForBook } from '../state/selectors';
+import { fetchHealth } from '../state/contentApi';
+import { availabilityFromHealth, type VoiceAvailability } from './availability';
 import { buildPassageWindow } from './passage';
 import * as sessionManager from './sessionManager';
 
@@ -66,6 +68,27 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
       void loadChapter(bookId, chapterId, chapterSummary.file);
   }, [bookId, chapterId, chapterSummary, loadChapter]);
 
+  // The fake provider (screenshot e2e, unit tests) needs no server at all,
+  // so skip the probe entirely and treat availability as ready. Otherwise
+  // probe once per bookId before ever attempting a connection — starting a
+  // session against a tutor that can't run just fails silently later.
+  const isFakeProvider = process.env.EXPO_PUBLIC_VOICE === 'fake';
+  const [availability, setAvailability] = useState<VoiceAvailability>(
+    isFakeProvider ? { status: 'ready' } : { status: 'checking' },
+  );
+
+  useEffect(() => {
+    if (isFakeProvider) return undefined;
+    let cancelled = false;
+    setAvailability({ status: 'checking' });
+    void fetchHealth().then((health) => {
+      if (!cancelled) setAvailability(availabilityFromHealth(health));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [bookId, isFakeProvider]);
+
   const bookWords = useMemo(
     () => selectVocabularyForBook(savedWords, bookId),
     [savedWords, bookId],
@@ -80,7 +103,7 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
 
     if (sessionManager.isSessionActiveFor(bookId)) {
       sessionManager.resumeSessionUI();
-    } else {
+    } else if (availability.status === 'ready') {
       sessionManager.startSession({
         bookId,
         chapterId,
@@ -98,12 +121,15 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
     return () => {
       if (sessionManager.isSessionActiveFor(bookId)) sessionManager.pauseSession();
     };
-    // Only (re)connect on book/chapter identity changes — not on every
-    // store update (savedWordList/progress churn while the session runs).
+    // Only (re)connect on book/chapter identity changes, plus availability
+    // flipping to 'ready' (so the gated startSession above actually fires
+    // once the health probe resolves) — not on every store update
+    // (savedWordList/progress churn while the session runs).
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookId, chapterId, !!chapter]);
+  }, [bookId, chapterId, !!chapter, availability.status]);
 
   return {
+    availability,
     voiceState,
     captions,
     mode,

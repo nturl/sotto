@@ -1,5 +1,13 @@
 # Local models
 
+## You do not need any of this to read
+
+Reading (onboarding through vocabulary review, narration, tap-to-translate)
+works with `pnpm install && pnpm dev` and nothing else: the server starts
+with every model URL unreachable and reading still works end to end. Local
+models are only needed for the voice tutor. See "Three ways to run it" in
+the [README](../README.md) for all three tiers.
+
 `apps/server` talks to three OpenAI-compatible HTTP endpoints — no API key
 required by default (defaults verified against `apps/server/src/config.ts`):
 

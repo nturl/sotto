@@ -23,6 +23,7 @@ import {
   type WorkerInitPayload,
 } from '@sotto/voice';
 import { createAudioAdapter } from '../platform/audio-adapter';
+import { getCloudAdapter } from '../cloud/provider';
 import { serverUrl } from '../state/contentApi';
 import { genId } from '../state/types';
 import { useSottoStore } from '../state/store';
@@ -57,6 +58,20 @@ function pickProvider(path: VoicePath): VoiceProvider {
   if (process.env.EXPO_PUBLIC_VOICE === 'fake') return new FakeVoiceProvider(systemClock);
   if (path === 'browser') {
     return new BrowserCascadeProvider({ audio: createAudioAdapter(), debug: debugOverride() });
+  }
+  if (path === 'cloud') {
+    // R3-S: reuses LocalCascadeProvider's WS protocol handling (the cloud
+    // broker speaks the same wire protocol per CLOUD-API.md's "Voice broker
+    // (C3)") rather than a second provider class — `createSession` swaps
+    // out only how the session is created, since the cloud broker's
+    // `POST /voice/session` already needs cookie/bearer auth this class
+    // doesn't otherwise send, and returns a pre-signed `wsUrl` directly.
+    const cloud = getCloudAdapter();
+    return new LocalCascadeProvider({
+      serverUrl: serverUrl(),
+      audio: createAudioAdapter(),
+      createSession: (opts) => cloud.voiceSession(opts),
+    });
   }
   return new LocalCascadeProvider({ serverUrl: serverUrl(), audio: createAudioAdapter() });
 }
@@ -118,6 +133,7 @@ export function startSession(params: {
         recoverable: entry.recoverable,
       }),
     onToolEvent: (entry) => useSottoStore.getState().pushToolEvent(entry),
+    onUsage: (entry) => useSottoStore.getState().setRemainingSeconds(entry.remainingSeconds),
   });
 
   active = { bookId, chapterId, provider, unsubscribe };

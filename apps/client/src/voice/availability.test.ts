@@ -6,7 +6,12 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { LLM_MODEL, STT_MODEL, TTS_MODEL, TUTOR_MODELS } from '@sotto/voice';
 import type { Health } from '../state/contentApi';
-import { availabilityFromHealth, browserAvailability, resolveAvailability } from './availability';
+import {
+  availabilityFromHealth,
+  browserAvailability,
+  cloudPathUsable,
+  resolveAvailability,
+} from './availability';
 
 function health(overrides: Partial<Health> = {}): Health {
   return { ok: true, stt: true, llm: true, tts: true, vad: 'silero', ...overrides };
@@ -142,5 +147,80 @@ describe('resolveAvailability', () => {
       status: 'ready',
       path: 'browser',
     });
+  });
+});
+
+describe('cloudPathUsable', () => {
+  it('is false with no cloud, while loading, and signed out', () => {
+    expect(cloudPathUsable({ status: 'no-cloud' })).toBe(false);
+    expect(cloudPathUsable({ status: 'loading' })).toBe(false);
+    expect(cloudPathUsable({ status: 'signed-out' })).toBe(false);
+  });
+
+  it('is false on the free plan even when signed in', () => {
+    expect(
+      cloudPathUsable({
+        status: 'signed-in',
+        me: { entitlement: { plan: 'free', tutorMinutesRemaining: 0 } },
+      }),
+    ).toBe(false);
+  });
+
+  it('is false on a paid plan with no minutes left', () => {
+    expect(
+      cloudPathUsable({
+        status: 'signed-in',
+        me: { entitlement: { plan: 'standard', tutorMinutesRemaining: 0 } },
+      }),
+    ).toBe(false);
+  });
+
+  it('is true on a paid plan with minutes remaining', () => {
+    expect(
+      cloudPathUsable({
+        status: 'signed-in',
+        me: { entitlement: { plan: 'standard', tutorMinutesRemaining: 42 } },
+      }),
+    ).toBe(true);
+  });
+});
+
+describe('resolveAvailability — R3-S cloud gate', () => {
+  it('prefers a usable cloud path outright on phone, even over a ready local server', async () => {
+    expect(await resolveAvailability(health(), { cloudUsable: true, isDesktop: false })).toEqual({
+      status: 'ready',
+      path: 'cloud',
+    });
+  });
+
+  it('on desktop, keeps local as the chosen path but offers cloud as an alternative', async () => {
+    expect(await resolveAvailability(health(), { cloudUsable: true, isDesktop: true })).toEqual({
+      status: 'ready',
+      path: 'local',
+      alternatives: ['local', 'cloud'],
+    });
+  });
+
+  it('on desktop with no local server, offers browser+cloud when the browser tutor is ready', async () => {
+    vi.stubGlobal('navigator', { gpu: {} });
+    stubCaches(TUTOR_MODELS.map((m) => m.id));
+    expect(await resolveAvailability(null, { cloudUsable: true, isDesktop: true })).toEqual({
+      status: 'ready',
+      path: 'browser',
+      alternatives: ['browser', 'cloud'],
+    });
+  });
+
+  it('falls back to cloud alone when neither local nor browser is available', async () => {
+    vi.stubGlobal('navigator', {});
+    stubCaches([]);
+    expect(await resolveAvailability(null, { cloudUsable: true, isDesktop: true })).toEqual({
+      status: 'ready',
+      path: 'cloud',
+    });
+  });
+
+  it('is unchanged from the pre-R3-S default when cloudUsable is omitted', async () => {
+    expect(await resolveAvailability(health())).toEqual({ status: 'ready', path: 'local' });
   });
 });

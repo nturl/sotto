@@ -7,6 +7,7 @@ import { DailyStoryCard } from '../../src/ui/DailyStoryCard';
 import { useLibrary, type LibraryBook } from '../../src/ui/data';
 import { GiftGlyph, SettingsGlyph } from '../../src/ui/Glyphs';
 import { IconButton } from '../../src/ui/IconButton';
+import { PaywallNagRow } from '../../src/ui/PaywallNagRow';
 import { Rail } from '../../src/ui/Rail';
 import { Shell, useLayoutMetrics } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
@@ -45,6 +46,8 @@ export default function HomeScreen() {
       <View style={{ marginBottom: sectionGap }}>
         <DailyStoryCard book={library.daily} onPress={() => openBook(library.daily)} />
       </View>
+
+      <PaywallNagRow spacingBelow={sectionGap} />
 
       <View style={{ gap: sectionGap }}>
         <Rail

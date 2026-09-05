@@ -11,9 +11,13 @@ export interface VoiceControllerCallbacks {
   onState(state: VoiceState): void;
   onCaption(entry: { speaker: 'learner' | 'tutor'; text: string; final: boolean }): void;
   onReading(tokenIds: string[]): void;
-  onLimit(reason: 'max_duration' | 'idle'): void;
+  onLimit(reason: 'max_duration' | 'idle' | 'cap'): void;
   onError(entry: { code: string; message: string; recoverable: boolean }): void;
   onToolEvent(entry: { name: string; args: unknown; result: ToolResult }): void;
+  /** R3-S: cloud-path minutes-remaining ticker (CLOUD-API.md `{t:'usage'}`).
+   * Optional — every other provider never emits `usage`, so callers that
+   * don't care about it can omit this. */
+  onUsage?(entry: { secondsUsed: number; remainingSeconds: number }): void;
 }
 
 export function createVoiceController(
@@ -46,6 +50,12 @@ export function createVoiceController(
         void executeTool(event.name, event.args, ctx).then((result) => {
           provider.respondTool(event.callId, result);
           callbacks.onToolEvent({ name: event.name, args: event.args, result });
+        });
+        break;
+      case 'usage':
+        callbacks.onUsage?.({
+          secondsUsed: event.secondsUsed,
+          remainingSeconds: event.remainingSeconds,
         });
         break;
     }

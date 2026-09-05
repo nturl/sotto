@@ -1,0 +1,23 @@
+[t+3.1s] opening http://localhost:8097/(tabs)/home
+[t+25.6s] [PASS] Profile shows the Compte group (fake cloud enabled)
+[t+26.1s] [PASS] Navigated to /account (signed out)
+[t+26.4s] screenshot 375-account.png
+[t+26.7s] screenshot 1440-account.png
+[t+27.2s] [PASS] Home shows the quiet nag row ("Voir")
+[t+27.9s] [PASS] Paywall title renders
+[t+28.7s] screenshot 375-paywall.png
+[t+29.0s] screenshot 1440-paywall.png
+[t+29.0s] [PASS] "Subscribe (test)" action is visible in fake mode
+[t+30.8s] [PASS] Profile's Compte row now shows the signed-in email
+[t+31.8s] [PASS] Usage shows "0 / 200" tutor minutes after stubSubscribe(standard) — 
+    
+    
+      You need to enable JavaScript to run this app.
+    
+    
+    Pour toiHistoire du jourTrois fables de La Fontaine10 min · A110:33:46La voix OpenAI et l'import sur iPhone sont disponibles avec un forfait.VoirRecommandéCendrillonC. PerraultLe Chat bottéC. PerraultTrois fables de La Fon
+[t+31.8s] [PASS] Usage shows the Standard plan's "0 / 5" imports
+[t+32.4s] screenshot 375-usage.png
+[t+33.0s] screenshot 1440-usage.png
+[t+33.0s] [PASS] No uncaught page errors / console errors during the run
+[t+64.6s] ALL PASS

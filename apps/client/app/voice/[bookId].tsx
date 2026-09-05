@@ -168,6 +168,15 @@ export default function VoiceScreen() {
           <Text role="mono" color="ink2">
             {t(`voice.state.${session.voiceState}` as const)}
           </Text>
+          {/* R3-S: cloud-path minutes-remaining ticker, from {t:'usage'}
+              messages — absent (null) on every other path. */}
+          {session.remainingSeconds != null ? (
+            <Text role="mono" color="ink3">
+              {t('voice.remainingMinutes', {
+                minutes: Math.max(0, Math.round(session.remainingSeconds / 60)),
+              })}
+            </Text>
+          ) : null}
         </View>
         <IconButton
           icon={<CloseGlyph size={20} />}
@@ -211,6 +220,33 @@ export default function VoiceScreen() {
             >
               <Text role="caption" color={session.mode === m ? 'surface' : 'ink'}>
                 {t(`voice.mode.${m}` as const)}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+      ) : null}
+
+      {/* R3-S: desktop-only chip row offering a choice between the local/
+          browser tutor and the hosted cloud one, when both are usable
+          (availability.ts's resolveAvailability only fills `alternatives`
+          past one entry on desktop). Phones never see this — cloud wins
+          outright there when usable. */}
+      {!isChecking &&
+      availability.status === 'ready' &&
+      (availability.alternatives?.length ?? 0) > 1 ? (
+        <View style={styles.modeRow}>
+          {availability.alternatives!.map((p) => (
+            <Pressable
+              key={p}
+              onPress={() => session.switchPath(p)}
+              style={[
+                styles.modeChip,
+                session.activePath === p && styles.modeChipActive,
+                webCursor,
+              ]}
+            >
+              <Text role="caption" color={session.activePath === p ? 'surface' : 'ink'}>
+                {t(`voice.path.${p}` as const)}
               </Text>
             </Pressable>
           ))}
@@ -270,19 +306,40 @@ export default function VoiceScreen() {
           />
         </View>
       ) : isBroken ? (
+        // R3-S: cap_exhausted/plan_required (a CloudError surfaced through
+        // the provider's 'error' event, or `{t:'limit', reason:'cap'}` mid-
+        // session) show the server's own message plus a "See plans" button
+        // next to "Read alone" — every other broken state keeps its plain
+        // generic message and single button.
         <View style={styles.recovery}>
           <Text role="caption" color="warn" style={styles.recoveryText}>
-            {session.limitReason
-              ? t('voice.limitReached')
-              : session.error?.code === 'mic_unavailable'
-                ? t('voice.micUnavailable')
-                : t('voice.connectionIssue')}
+            {session.limitReason === 'cap'
+              ? (session.error?.message ?? t('voice.limitReached'))
+              : session.limitReason
+                ? t('voice.limitReached')
+                : session.error?.code === 'cap_exhausted' || session.error?.code === 'plan_required'
+                  ? session.error.message
+                  : session.error?.code === 'mic_unavailable'
+                    ? t('voice.micUnavailable')
+                    : t('voice.connectionIssue')}
           </Text>
-          <Button
-            title={t('voice.readAlone')}
-            variant="secondary"
-            onPress={() => router.replace(readSeulPath)}
-          />
+          <View style={styles.recoveryButtons}>
+            {session.limitReason === 'cap' ||
+            session.error?.code === 'cap_exhausted' ||
+            session.error?.code === 'plan_required' ? (
+              <Button
+                title={t('voice.seePlans')}
+                onPress={() => router.push('/paywall')}
+                style={styles.recoveryButton}
+              />
+            ) : null}
+            <Button
+              title={t('voice.readAlone')}
+              variant="secondary"
+              onPress={() => router.replace(readSeulPath)}
+              style={styles.recoveryButton}
+            />
+          </View>
         </View>
       ) : (
         <View style={styles.controls}>
@@ -436,6 +493,13 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     },
     recoveryText: {
       textAlign: 'center',
+    },
+    recoveryButtons: {
+      flexDirection: 'row',
+      gap: space.sm,
+    },
+    recoveryButton: {
+      minWidth: 140,
     },
     pttWrap: {
       alignItems: 'center',

@@ -1,0 +1,20 @@
+[t+0.8s] opening http://localhost:8096/profile
+[t+3.7s] [PASS] Profile has no "Compte" group heading
+[t+3.7s] [PASS] Profile has no "Se connecter" row
+[t+3.7s] opening http://localhost:8096/paywall
+[t+6.0s] [PASS] Paywall shows no plan cards ("STANDARD"/"PLUS" absent)
+[t+6.0s] [PASS] Paywall shows no "S'abonner" CTA
+[t+6.0s] [PASS] Paywall shows the "not available" line — 
+    
+    
+      You need to enable JavaScript to run this app.
+    
+    
+    RetourCette fonctionnalité n'est pas disponible dans cette version.
+  
+
+
+[t+6.0s] opening http://localhost:8096/usage
+[t+7.0s] [PASS] Usage screen renders no stats (no "Minutes de tuteur" block)
+[t+7.0s] [PASS] No request went to any external/cloud host
+[t+37.0s] ALL PASS

@@ -7,6 +7,7 @@ import { colors } from '@sotto/core/theme';
 import { Platform, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { storeReady } from '../src/state/store';
+import { CloudProvider } from '../src/cloud/provider';
 import { ThemeProvider, useTheme } from '../src/ui/theme';
 
 /** A3 (PWA, OVERNIGHT-2.md Lane A): registers public/sw.js on web, in
@@ -55,15 +56,17 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <ThemeProvider>
-        <ThemedStatusBar />
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: colors.canvas },
-          }}
-        />
-      </ThemeProvider>
+      <CloudProvider>
+        <ThemeProvider>
+          <ThemedStatusBar />
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              contentStyle: { backgroundColor: colors.canvas },
+            }}
+          />
+        </ThemeProvider>
+      </CloudProvider>
     </SafeAreaProvider>
   );
 }

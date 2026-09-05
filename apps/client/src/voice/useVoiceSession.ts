@@ -5,11 +5,19 @@
  * session, and reads all live state from the store.
  */
 import { useEffect, useMemo, useState } from 'react';
+import { useWindowDimensions } from 'react-native';
 import type { TutorMode } from '@sotto/core';
+import { useMe } from '../cloud/useMe';
 import { useSottoStore } from '../state/store';
 import { selectDueWords, selectVocabularyForBook } from '../state/selectors';
 import { fetchHealth } from '../state/contentApi';
-import { resolveAvailability, type VoiceAvailability } from './availability';
+import { DESKTOP_BREAKPOINT } from '../ui/Shell';
+import {
+  cloudPathUsable,
+  resolveAvailability,
+  type VoiceAvailability,
+  type VoicePath,
+} from './availability';
 import { buildPassageWindow } from './passage';
 import * as sessionManager from './sessionManager';
 
@@ -38,7 +46,17 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
   const explanation = useSottoStore((s) => s.explanation);
   const voiceError = useSottoStore((s) => s.voiceError);
   const limitReason = useSottoStore((s) => s.limitReason);
+  const remainingSeconds = useSottoStore((s) => s.remainingSeconds);
   const setExplanation = useSottoStore((s) => s.setExplanation);
+
+  // R3-S cloud gate: signed-in + a paid plan with minutes left. `useMe()`
+  // is a no-op ('no-cloud') when there's no CloudAdapter, so this adds
+  // nothing to the OSS/NullCloud build's behavior.
+  const me = useMe();
+  const cloudUsable = cloudPathUsable(me);
+  const { width } = useWindowDimensions();
+  const isDesktop = width >= DESKTOP_BREAKPOINT;
+  const [pathChoice, setPathChoice] = useState<VoicePath | null>(null);
 
   const book = books[bookId];
   const chapterId = progress[bookId]?.chapterId ?? book?.chapters[0]?.id;
@@ -84,16 +102,26 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
     let cancelled = false;
     setAvailability({ status: 'checking' });
     // The probe answers "is there a server?"; resolveAvailability then falls
-    // through to the in-browser tutor when there isn't one (the static host).
+    // through to the in-browser tutor when there isn't one (the static host),
+    // and now also to the cloud path when it's usable (see availability.ts).
     void fetchHealth()
-      .then((health) => resolveAvailability(health))
+      .then((health) => resolveAvailability(health, { cloudUsable, isDesktop }))
       .then((next) => {
         if (!cancelled) setAvailability(next);
       });
     return () => {
       cancelled = true;
     };
-  }, [bookId, isFakeProvider, gateNonce]);
+  }, [bookId, isFakeProvider, gateNonce, cloudUsable, isDesktop]);
+
+  // Reset a desktop chip choice whenever the underlying gate re-runs with a
+  // different verdict, so a stale choice from a previous book doesn't leak.
+  useEffect(() => {
+    setPathChoice(null);
+  }, [availability.status, bookId]);
+
+  const activePath: VoicePath | undefined =
+    availability.status === 'ready' ? (pathChoice ?? availability.path) : undefined;
 
   const bookWords = useMemo(
     () => selectVocabularyForBook(savedWords, bookId),
@@ -107,11 +135,11 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
   useEffect(() => {
     if (!chapter || !chapterId) return undefined;
 
-    if (sessionManager.isSessionActiveFor(bookId)) {
+    if (sessionManager.isSessionActiveFor(bookId) && !pathChoice) {
       sessionManager.resumeSessionUI();
-    } else if (availability.status === 'ready') {
+    } else if (activePath) {
       sessionManager.startSession({
-        path: availability.path,
+        path: activePath,
         bookId,
         chapterId,
         mode,
@@ -128,15 +156,21 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
     return () => {
       if (sessionManager.isSessionActiveFor(bookId)) sessionManager.pauseSession();
     };
-    // Only (re)connect on book/chapter identity changes, plus availability
+    // Only (re)connect on book/chapter identity changes, availability
     // flipping to 'ready' (so the gated startSession above actually fires
-    // once the health probe resolves) — not on every store update
-    // (savedWordList/progress churn while the session runs).
+    // once the health probe resolves), and a deliberate desktop chip choice
+    // (`pathChoice`) — not on every store update (savedWordList/progress
+    // churn while the session runs).
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookId, chapterId, !!chapter, availability.status]);
+  }, [bookId, chapterId, !!chapter, availability.status, activePath]);
 
   return {
     availability,
+    /** R3-S: the path actually driving the live session right now (a
+     * chip-row choice, when one was made, otherwise whatever the gate
+     * picked) — distinct from `availability.path`, which is just the
+     * gate's default recommendation. */
+    activePath,
     /** Called by the download panel once models are installed/removed. */
     recheckAvailability: () => setGateNonce((n) => n + 1),
     voiceState,
@@ -148,6 +182,12 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
     dismissExplanation: () => setExplanation(null),
     error: voiceError,
     limitReason,
+    /** R3-S: cloud-path minutes-remaining ticker, null on every other path. */
+    remainingSeconds,
+    /** R3-S: the voice screen's chip row calls this to switch between an
+     * offered `availability.alternatives` entry (desktop only — phones
+     * never get more than one path to choose from). */
+    switchPath: (path: VoicePath) => setPathChoice(path),
     chapter,
     chapterTitle: chapterSummary?.title,
     setMuted: (muted: boolean) => sessionManager.setMuted(muted),

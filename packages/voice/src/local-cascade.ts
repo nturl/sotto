@@ -22,7 +22,12 @@ type ServerMessage =
   | { t: 'caption'; speaker: 'learner' | 'tutor'; text: string; final: boolean }
   | { t: 'tool_call'; callId: string; name: ToolName; args: unknown }
   | { t: 'reading'; tokenIds: string[] }
-  | { t: 'limit'; reason: 'max_duration' | 'idle' }
+  // R3-S: the cloud voice path's server sends `reason: 'cap'` before
+  // closing on minute-cap exhaustion (CLOUD-API.md), additive to the local
+  // server's own 'max_duration'/'idle'.
+  | { t: 'limit'; reason: 'max_duration' | 'idle' | 'cap' }
+  // R3-S: cloud-only, every 30s (CLOUD-API.md's wire-protocol addendum).
+  | { t: 'usage'; secondsUsed: number; remainingSeconds: number }
   | { t: 'error'; code: string; message: string; recoverable: boolean }
   | { t: 'audio_start'; utteranceId: string }
   | { t: 'audio_end'; utteranceId: string; cancelled?: boolean };
@@ -46,6 +51,17 @@ export interface LocalCascadeOptions {
   audio: AudioAdapter;
   fetch?: typeof fetch;
   WebSocket?: typeof WebSocket;
+  /**
+   * R3-S additive hook: overrides how a session is created, skipping the
+   * default `POST ${serverUrl}/voice/session`. The cloud voice path
+   * (apps/client/src/voice/sessionManager.ts) already has a signed
+   * `wsUrl` from `cloud.voiceSession()` (CLOUD-API.md's `/voice/session`
+   * broker) and no local `apps/server` to POST to — reusing
+   * LocalCascadeProvider's WS protocol handling for that path (rather than
+   * a second parallel provider class) meant this needed to be pluggable.
+   * Default behavior (every existing caller) is unchanged when omitted.
+   */
+  createSession?: (opts: SessionOptions) => Promise<SessionCreateResponse>;
 }
 
 export class LocalCascadeProvider implements VoiceProvider {
@@ -53,6 +69,7 @@ export class LocalCascadeProvider implements VoiceProvider {
   private readonly audio: AudioAdapter;
   private readonly fetchImpl: typeof fetch;
   private readonly WebSocketImpl: typeof WebSocket;
+  private readonly createSessionImpl?: (opts: SessionOptions) => Promise<SessionCreateResponse>;
 
   private ws: WebSocket | null = null;
   private listeners = new Set<(e: VoiceEvent) => void>();
@@ -77,6 +94,7 @@ export class LocalCascadeProvider implements VoiceProvider {
     // exercised this path. `.bind(globalThis)` restores the receiver.
     this.fetchImpl = opts.fetch ?? fetch.bind(globalThis);
     this.WebSocketImpl = opts.WebSocket ?? (globalThis.WebSocket as typeof WebSocket);
+    this.createSessionImpl = opts.createSession;
   }
 
   on(listener: (e: VoiceEvent) => void): () => void {
@@ -98,22 +116,43 @@ export class LocalCascadeProvider implements VoiceProvider {
   private async openConnection(opts: SessionOptions): Promise<void> {
     this.emit({ type: 'state', state: 'connecting' });
 
-    const res = await this.fetchImpl(`${this.serverUrl}/voice/session`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(opts),
-    });
-    if (!res.ok) {
-      this.emit({
-        type: 'error',
-        code: 'session_create_failed',
-        message: `${res.status}`,
-        recoverable: false,
+    let session: SessionCreateResponse;
+    if (this.createSessionImpl) {
+      // R3-S cloud path: `createSession` throws (typically a `CloudError`
+      // with a `code`/`message`, e.g. 'cap_exhausted'/'plan_required') on
+      // failure rather than returning a Response — propagate its code and
+      // learner-facing message as-is instead of the generic HTTP-status
+      // message below, so the voice screen can show the server's own text.
+      try {
+        session = await this.createSessionImpl(opts);
+      } catch (err) {
+        const code =
+          typeof err === 'object' && err !== null && 'code' in err
+            ? String((err as { code: unknown }).code)
+            : 'session_create_failed';
+        const message = err instanceof Error ? err.message : String(err);
+        this.emit({ type: 'error', code, message, recoverable: false });
+        this.emit({ type: 'state', state: 'error' });
+        return;
+      }
+    } else {
+      const res = await this.fetchImpl(`${this.serverUrl}/voice/session`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(opts),
       });
-      this.emit({ type: 'state', state: 'error' });
-      return;
+      if (!res.ok) {
+        this.emit({
+          type: 'error',
+          code: 'session_create_failed',
+          message: `${res.status}`,
+          recoverable: false,
+        });
+        this.emit({ type: 'state', state: 'error' });
+        return;
+      }
+      session = (await res.json()) as SessionCreateResponse;
     }
-    const session = (await res.json()) as SessionCreateResponse;
 
     const ws = new this.WebSocketImpl(session.wsUrl);
     ws.binaryType = 'arraybuffer';
@@ -195,6 +234,13 @@ export class LocalCascadeProvider implements VoiceProvider {
         break;
       case 'limit':
         this.emit({ type: 'limit', reason: msg.reason });
+        break;
+      case 'usage':
+        this.emit({
+          type: 'usage',
+          secondsUsed: msg.secondsUsed,
+          remainingSeconds: msg.remainingSeconds,
+        });
         break;
       case 'error':
         this.emit({

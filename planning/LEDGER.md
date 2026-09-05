@@ -461,3 +461,4 @@ B2 live on readsotto.app with the spike key entered through the UI (local export
 - Permissions: everything in sotto-cloud except vendor/sotto's contents (pin bump only). Nothing in the OSS repo.
 - Stop when: proofs pass.
 - Escalate when: a finding cannot be closed without a schema change; then write the migration plan and stop.
+- 2026-09-05 17:55 Gate 1 PASSED: isolated `pnpm check` on origin/main da0e4e1 exit 0 (63 files / 498 tests, validate 0 errors / 106 warnings; docs/evidence/checks-gate1-oss-run4-2026-09-05.log). Report sent to Noel by iMessage. R4-D1 dispatched (Opus) with the Checkout leg conditional on the sandbox key.

@@ -13,7 +13,13 @@
           "translations": {
             "en": "In a small village, an old miller lives with his three sons.",
             "fr": "Dans un petit village, un vieux meunier vit avec ses trois fils.",
-            "es": "En un pequeño pueblo, un viejo molinero vive con sus tres hijos."
+            "es": "En un pequeño pueblo, un viejo molinero vive con sus tres hijos.",
+            "pt": "Em uma pequena aldeia, um velho moleiro vive com seus três filhos.",
+            "it": "In un piccolo villaggio, un vecchio mugnaio vive con i suoi tre figli.",
+            "zh-Hans": "在一个小村庄里，一位老磨坊主和他的三个儿子住在一起。",
+            "zh-Hant": "在一個小村莊裡，一位老磨坊主和他的三個兒子住在一起。",
+            "ro": "Într-un sat mic, un bătrân morar trăiește cu cei trei fii ai săi.",
+            "ca": "En un petit poble, un vell moliner viu amb els seus tres fills."
           },
           "tokens": [
             {
@@ -24,7 +30,13 @@
               "glosses": {
                 "en": "in",
                 "fr": "dans",
-                "es": "en"
+                "es": "en",
+                "pt": "em",
+                "it": "in",
+                "zh-Hans": "在……里",
+                "zh-Hant": "在...裡",
+                "ro": "în",
+                "ca": "en"
               },
               "id": "b1.s1.t1",
               "startMs": 50,
@@ -38,7 +50,13 @@
               "glosses": {
                 "en": "a",
                 "fr": "un",
-                "es": "un"
+                "es": "un",
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一个",
+                "zh-Hant": "一個",
+                "ro": "un",
+                "ca": "un"
               },
               "id": "b1.s1.t2",
               "startMs": 250,
@@ -52,7 +70,13 @@
               "glosses": {
                 "en": "small",
                 "fr": "petit",
-                "es": "pequeño"
+                "es": "pequeño",
+                "pt": "pequeno",
+                "it": "piccolo",
+                "zh-Hans": "小的",
+                "zh-Hant": "小的",
+                "ro": "mic",
+                "ca": "petit"
               },
               "id": "b1.s1.t3",
               "startMs": 370,
@@ -66,7 +90,13 @@
               "glosses": {
                 "en": "village",
                 "fr": "village",
-                "es": "pueblo"
+                "es": "pueblo",
+                "pt": "vila",
+                "it": "villaggio",
+                "zh-Hans": "村庄",
+                "zh-Hant": "村莊",
+                "ro": "sat",
+                "ca": "poble"
               },
               "id": "b1.s1.t4",
               "startMs": 680,
@@ -87,7 +117,13 @@
               "glosses": {
                 "en": "a",
                 "fr": "un",
-                "es": "un"
+                "es": "un",
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一个",
+                "zh-Hant": "一個",
+                "ro": "un",
+                "ca": "un"
               },
               "id": "b1.s1.t6",
               "startMs": 1260,
@@ -101,7 +137,13 @@
               "glosses": {
                 "en": "old",
                 "fr": "vieux",
-                "es": "viejo"
+                "es": "viejo",
+                "pt": "velho",
+                "it": "vecchio",
+                "zh-Hans": "年老的",
+                "zh-Hant": "年老的",
+                "ro": "bătrân",
+                "ca": "vell"
               },
               "id": "b1.s1.t7",
               "startMs": 1560,
@@ -115,7 +157,13 @@
               "glosses": {
                 "en": "miller",
                 "fr": "meunier",
-                "es": "molinero"
+                "es": "molinero",
+                "pt": "moleiro",
+                "it": "mugnaio",
+                "zh-Hans": "磨坊主",
+                "zh-Hant": "磨坊主",
+                "ro": "morar",
+                "ca": "moliner"
               },
               "id": "b1.s1.t8",
               "startMs": 1680,
@@ -129,7 +177,13 @@
               "glosses": {
                 "en": "lives",
                 "fr": "vit",
-                "es": "vive"
+                "es": "vive",
+                "pt": "vive",
+                "it": "vive",
+                "zh-Hans": "生活",
+                "zh-Hant": "居住",
+                "ro": "trăiește",
+                "ca": "viu"
               },
               "id": "b1.s1.t9",
               "startMs": 2100,
@@ -143,7 +197,13 @@
               "glosses": {
                 "en": "with",
                 "fr": "avec",
-                "es": "con"
+                "es": "con",
+                "pt": "com",
+                "it": "con",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "cu",
+                "ca": "amb"
               },
               "id": "b1.s1.t10",
               "startMs": 2280,
@@ -157,7 +217,13 @@
               "glosses": {
                 "en": "his",
                 "fr": "ses",
-                "es": "sus"
+                "es": "sus",
+                "pt": "seus",
+                "it": "suoi",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "săi",
+                "ca": "seus"
               },
               "id": "b1.s1.t11",
               "startMs": 2520,
@@ -171,7 +237,13 @@
               "glosses": {
                 "en": "three",
                 "fr": "trois",
-                "es": "tres"
+                "es": "tres",
+                "pt": "três",
+                "it": "tre",
+                "zh-Hans": "三",
+                "zh-Hant": "三",
+                "ro": "trei",
+                "ca": "tres"
               },
               "id": "b1.s1.t12",
               "startMs": 2690,
@@ -185,7 +257,13 @@
               "glosses": {
                 "en": "son",
                 "fr": "fils",
-                "es": "hijo"
+                "es": "hijo",
+                "pt": "filhos",
+                "it": "figli",
+                "zh-Hans": "儿子",
+                "zh-Hant": "兒子",
+                "ro": "fii",
+                "ca": "fills"
               },
               "id": "b1.s1.t13",
               "startMs": 3000,
@@ -206,7 +284,13 @@
           "translations": {
             "en": "One day, he falls ill and understands that his death is near.",
             "fr": "Un jour, il tombe malade et comprend que sa mort approche.",
-            "es": "Un día, cae enfermo y comprende que su muerte se acerca."
+            "es": "Un día, cae enfermo y comprende que su muerte se acerca.",
+            "pt": "Um dia, ele fica doente e entende que sua morte se aproxima.",
+            "it": "Un giorno si ammala e capisce che la sua morte si avvicina.",
+            "zh-Hans": "有一天，他生病了，明白自己快死了。",
+            "zh-Hant": "有一天，他生病了，明白自己快要死了。",
+            "ro": "Într-o zi, se îmbolnăvește și înțelege că moartea lui se apropie.",
+            "ca": "Un dia, emmalalteix i comprèn que la seva mort s'acosta."
           },
           "tokens": [
             {
@@ -217,7 +301,13 @@
               "glosses": {
                 "en": "a",
                 "fr": "un",
-                "es": "un"
+                "es": "un",
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一个",
+                "zh-Hant": "一個",
+                "ro": "un",
+                "ca": "un"
               },
               "id": "b1.s2.t1",
               "startMs": 4354,
@@ -231,7 +321,13 @@
               "glosses": {
                 "en": "day",
                 "fr": "jour",
-                "es": "día"
+                "es": "día",
+                "pt": "dia",
+                "it": "giorno",
+                "zh-Hans": "天",
+                "zh-Hant": "天",
+                "ro": "zi",
+                "ca": "dia"
               },
               "id": "b1.s2.t2",
               "startMs": 4454,
@@ -252,7 +348,13 @@
               "glosses": {
                 "en": "he",
                 "fr": "il",
-                "es": "él"
+                "es": "él",
+                "pt": "ele",
+                "it": "egli",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b1.s2.t4",
               "startMs": 5084,
@@ -266,7 +368,13 @@
               "glosses": {
                 "en": "falls",
                 "fr": "tombe",
-                "es": "cae"
+                "es": "cae",
+                "pt": "cai",
+                "it": "si ammala",
+                "zh-Hans": "生病",
+                "zh-Hant": "生病",
+                "ro": "cade",
+                "ca": "cau"
               },
               "id": "b1.s2.t5",
               "startMs": 5094,
@@ -280,7 +388,13 @@
               "glosses": {
                 "en": "ill",
                 "fr": "malade",
-                "es": "enfermo"
+                "es": "enfermo",
+                "pt": "doente",
+                "it": "malato",
+                "zh-Hans": "生病",
+                "zh-Hant": "生病的",
+                "ro": "bolnav",
+                "ca": "malalt"
               },
               "id": "b1.s2.t6",
               "startMs": 5474,
@@ -294,7 +408,13 @@
               "glosses": {
                 "en": "and",
                 "fr": "et",
-                "es": "y"
+                "es": "y",
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b1.s2.t7",
               "startMs": 5974,
@@ -308,7 +428,13 @@
               "glosses": {
                 "en": "understands",
                 "fr": "comprend",
-                "es": "comprende"
+                "es": "comprende",
+                "pt": "entende",
+                "it": "capisce",
+                "zh-Hans": "理解",
+                "zh-Hant": "理解",
+                "ro": "înțelege",
+                "ca": "comprèn"
               },
               "id": "b1.s2.t8",
               "startMs": 6144,
@@ -322,7 +448,13 @@
               "glosses": {
                 "en": "that",
                 "fr": "que",
-                "es": "que"
+                "es": "que",
+                "pt": "que",
+                "it": "che",
+                "zh-Hans": "that",
+                "zh-Hant": "that",
+                "ro": "că",
+                "ca": "que"
               },
               "id": "b1.s2.t9",
               "startMs": 6524,
@@ -336,7 +468,13 @@
               "glosses": {
                 "en": "his",
                 "fr": "sa",
-                "es": "su"
+                "es": "su",
+                "pt": "sua",
+                "it": "sua",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "sa",
+                "ca": "seva"
               },
               "id": "b1.s2.t10",
               "startMs": 6684,
@@ -350,7 +488,13 @@
               "glosses": {
                 "en": "death",
                 "fr": "mort",
-                "es": "muerte"
+                "es": "muerte",
+                "pt": "morte",
+                "it": "morte",
+                "zh-Hans": "死亡",
+                "zh-Hant": "死亡",
+                "ro": "moarte",
+                "ca": "mort"
               },
               "id": "b1.s2.t11",
               "startMs": 6794,
@@ -364,7 +508,13 @@
               "glosses": {
                 "en": "approaches",
                 "fr": "approche",
-                "es": "se acerca"
+                "es": "se acerca",
+                "pt": "aproxima",
+                "it": "si avvicina",
+                "zh-Hans": "接近",
+                "zh-Hant": "接近",
+                "ro": "se apropie",
+                "ca": "s'acosta"
               },
               "id": "b1.s2.t12",
               "startMs": 7014,
@@ -385,7 +535,13 @@
           "translations": {
             "en": "He gives his mill to the eldest son and his donkey to the second.",
             "fr": "Il donne son moulin au fils aîné et son âne au second.",
-            "es": "Da su molino al hijo mayor y su burro al segundo."
+            "es": "Da su molino al hijo mayor y su burro al segundo.",
+            "pt": "Ele dá seu moinho ao filho mais velho e seu burro ao segundo.",
+            "it": "Dà il suo mulino al figlio maggiore e il suo asino al secondo.",
+            "zh-Hans": "他把磨坊给了大儿子，把驴给了二儿子。",
+            "zh-Hant": "他把磨坊給了長子，驢子給了次子。",
+            "ro": "Îi dă moara fiului cel mare și măgarul celui de-al doilea.",
+            "ca": "Dona el seu molí al fill gran i el seu ase al segon."
           },
           "tokens": [
             {
@@ -396,7 +552,13 @@
               "glosses": {
                 "en": "he",
                 "fr": "il",
-                "es": "él"
+                "es": "él",
+                "pt": "ele",
+                "it": "egli",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b1.s3.t1",
               "startMs": 8522,
@@ -410,7 +572,13 @@
               "glosses": {
                 "en": "gives",
                 "fr": "donne",
-                "es": "da"
+                "es": "da",
+                "pt": "dá",
+                "it": "dà",
+                "zh-Hans": "给",
+                "zh-Hant": "給",
+                "ro": "dă",
+                "ca": "dóna"
               },
               "id": "b1.s3.t2",
               "startMs": 8592,
@@ -424,7 +592,13 @@
               "glosses": {
                 "en": "his",
                 "fr": "son",
-                "es": "su"
+                "es": "su",
+                "pt": "seu",
+                "it": "suo",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "său",
+                "ca": "seu"
               },
               "id": "b1.s3.t3",
               "startMs": 8902,
@@ -438,7 +612,13 @@
               "glosses": {
                 "en": "mill",
                 "fr": "moulin",
-                "es": "molino"
+                "es": "molino",
+                "pt": "moinho",
+                "it": "mulino",
+                "zh-Hans": "磨坊",
+                "zh-Hant": "磨坊",
+                "ro": "moară",
+                "ca": "molí"
               },
               "id": "b1.s3.t4",
               "startMs": 9092,
@@ -452,7 +632,13 @@
               "glosses": {
                 "en": "to the",
                 "fr": "au",
-                "es": "al"
+                "es": "al",
+                "pt": "ao",
+                "it": "al",
+                "zh-Hans": "给",
+                "zh-Hant": "給",
+                "ro": "la",
+                "ca": "al"
               },
               "id": "b1.s3.t5",
               "startMs": 9582,
@@ -466,7 +652,13 @@
               "glosses": {
                 "en": "son",
                 "fr": "fils",
-                "es": "hijo"
+                "es": "hijo",
+                "pt": "filhos",
+                "it": "figli",
+                "zh-Hans": "儿子",
+                "zh-Hant": "兒子",
+                "ro": "fii",
+                "ca": "fills"
               },
               "id": "b1.s3.t6",
               "startMs": 9592,
@@ -480,7 +672,13 @@
               "glosses": {
                 "en": "eldest",
                 "fr": "aîné",
-                "es": "mayor"
+                "es": "mayor",
+                "pt": "mais velho",
+                "it": "maggiore",
+                "zh-Hans": "年长的",
+                "zh-Hant": "年長的",
+                "ro": "cel mai mare",
+                "ca": "gran"
               },
               "id": "b1.s3.t7",
               "startMs": 9832,
@@ -494,7 +692,13 @@
               "glosses": {
                 "en": "and",
                 "fr": "et",
-                "es": "y"
+                "es": "y",
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b1.s3.t8",
               "startMs": 10252,
@@ -508,7 +712,13 @@
               "glosses": {
                 "en": "his",
                 "fr": "son",
-                "es": "su"
+                "es": "su",
+                "pt": "seu",
+                "it": "suo",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "său",
+                "ca": "seu"
               },
               "id": "b1.s3.t9",
               "startMs": 10342,
@@ -522,7 +732,13 @@
               "glosses": {
                 "en": "donkey",
                 "fr": "âne",
-                "es": "burro"
+                "es": "burro",
+                "pt": "burro",
+                "it": "asino",
+                "zh-Hans": "驴",
+                "zh-Hant": "驢子",
+                "ro": "măgar",
+                "ca": "ase"
               },
               "id": "b1.s3.t10",
               "startMs": 10482,
@@ -536,7 +752,13 @@
               "glosses": {
                 "en": "to the",
                 "fr": "au",
-                "es": "al"
+                "es": "al",
+                "pt": "ao",
+                "it": "al",
+                "zh-Hans": "给",
+                "zh-Hant": "給",
+                "ro": "la",
+                "ca": "al"
               },
               "id": "b1.s3.t11",
               "startMs": 10662,
@@ -550,7 +772,13 @@
               "glosses": {
                 "en": "second",
                 "fr": "second",
-                "es": "segundo"
+                "es": "segundo",
+                "pt": "segundo",
+                "it": "secondo",
+                "zh-Hans": "第二",
+                "zh-Hant": "第二",
+                "ro": "al doilea",
+                "ca": "segon"
               },
               "id": "b1.s3.t12",
               "startMs": 10752,
@@ -571,7 +799,13 @@
           "translations": {
             "en": "To the youngest, he leaves only a gray cat.",
             "fr": "Au plus jeune, il laisse seulement un chat gris.",
-            "es": "Al menor, le deja solamente un gato gris."
+            "es": "Al menor, le deja solamente un gato gris.",
+            "pt": "Ao mais novo, ele deixa apenas um gato cinza.",
+            "it": "Al più giovane lascia solo un gatto grigio.",
+            "zh-Hans": "对于最小的儿子，他只留下一只灰猫。",
+            "zh-Hant": "留給最小的，只有一隻灰色的貓。",
+            "ro": "Celui mai tânăr, îi lasă doar o pisică gri.",
+            "ca": "Al més jove, només li deixa un gat gris."
           },
           "tokens": [
             {
@@ -582,7 +816,13 @@
               "glosses": {
                 "en": "to the",
                 "fr": "au",
-                "es": "al"
+                "es": "al",
+                "pt": "ao",
+                "it": "al",
+                "zh-Hans": "给",
+                "zh-Hant": "給",
+                "ro": "la",
+                "ca": "al"
               },
               "id": "b1.s4.t1",
               "startMs": 12114,
@@ -596,7 +836,13 @@
               "glosses": {
                 "en": "more",
                 "fr": "plus",
-                "es": "más"
+                "es": "más",
+                "pt": "mais",
+                "it": "più",
+                "zh-Hans": "更",
+                "zh-Hant": "更",
+                "ro": "mai",
+                "ca": "més"
               },
               "id": "b1.s4.t2",
               "startMs": 12164,
@@ -610,7 +856,13 @@
               "glosses": {
                 "en": "young",
                 "fr": "jeune",
-                "es": "joven"
+                "es": "joven",
+                "pt": "jovem",
+                "it": "giovane",
+                "zh-Hans": "年轻的",
+                "zh-Hant": "年輕的",
+                "ro": "tânăr",
+                "ca": "jove"
               },
               "id": "b1.s4.t3",
               "startMs": 12364,
@@ -631,7 +883,13 @@
               "glosses": {
                 "en": "he",
                 "fr": "il",
-                "es": "él"
+                "es": "él",
+                "pt": "ele",
+                "it": "egli",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b1.s4.t5",
               "startMs": 12724,
@@ -645,7 +903,13 @@
               "glosses": {
                 "en": "leaves",
                 "fr": "laisse",
-                "es": "deja"
+                "es": "deja",
+                "pt": "deixa",
+                "it": "lascia",
+                "zh-Hans": "留下",
+                "zh-Hant": "留下",
+                "ro": "lasă",
+                "ca": "deixa"
               },
               "id": "b1.s4.t6",
               "startMs": 12824,
@@ -659,7 +923,13 @@
               "glosses": {
                 "en": "only",
                 "fr": "seulement",
-                "es": "solamente"
+                "es": "solamente",
+                "pt": "somente",
+                "it": "solo",
+                "zh-Hans": "只",
+                "zh-Hant": "只",
+                "ro": "numai",
+                "ca": "només"
               },
               "id": "b1.s4.t7",
               "startMs": 13134,
@@ -673,7 +943,13 @@
               "glosses": {
                 "en": "a",
                 "fr": "un",
-                "es": "un"
+                "es": "un",
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一个",
+                "zh-Hant": "一個",
+                "ro": "un",
+                "ca": "un"
               },
               "id": "b1.s4.t8",
               "startMs": 13594,
@@ -687,7 +963,13 @@
               "glosses": {
                 "en": "cat",
                 "fr": "chat",
-                "es": "gato"
+                "es": "gato",
+                "pt": "gato",
+                "it": "gatto",
+                "zh-Hans": "猫",
+                "zh-Hant": "貓",
+                "ro": "pisică",
+                "ca": "gat"
               },
               "id": "b1.s4.t9",
               "startMs": 13694,
@@ -701,7 +983,13 @@
               "glosses": {
                 "en": "gray",
                 "fr": "gris",
-                "es": "gris"
+                "es": "gris",
+                "pt": "cinza",
+                "it": "grigio",
+                "zh-Hans": "灰色的",
+                "zh-Hant": "灰色的",
+                "ro": "gri",
+                "ca": "gris"
               },
               "id": "b1.s4.t10",
               "startMs": 13884,
@@ -722,7 +1010,13 @@
           "translations": {
             "en": "The poor boy looks at the cat and begins to cry.",
             "fr": "Le pauvre garçon regarde le chat et commence à pleurer.",
-            "es": "El pobre muchacho mira al gato y empieza a llorar."
+            "es": "El pobre muchacho mira al gato y empieza a llorar.",
+            "pt": "O pobre rapaz olha para o gato e começa a chorar.",
+            "it": "Il povero ragazzo guarda il gatto e comincia a piangere.",
+            "zh-Hans": "可怜的小伙子看着猫，开始哭起来。",
+            "zh-Hant": "可憐的男孩看著貓，開始哭了起來。",
+            "ro": "Săracul băiat se uită la pisică și începe să plângă.",
+            "ca": "El pobre noi mira el gat i comença a plorar."
           },
           "tokens": [
             {
@@ -733,7 +1027,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b1.s5.t1",
               "startMs": 15128,
@@ -747,7 +1047,13 @@
               "glosses": {
                 "en": "poor",
                 "fr": "pauvre",
-                "es": "pobre"
+                "es": "pobre",
+                "pt": "pobre",
+                "it": "povero",
+                "zh-Hans": "可怜的",
+                "zh-Hant": "可憐的",
+                "ro": "sărac",
+                "ca": "pobre"
               },
               "id": "b1.s5.t2",
               "startMs": 15198,
@@ -761,7 +1067,13 @@
               "glosses": {
                 "en": "boy",
                 "fr": "garçon",
-                "es": "muchacho"
+                "es": "muchacho",
+                "pt": "garoto",
+                "it": "ragazzo",
+                "zh-Hans": "男孩",
+                "zh-Hant": "男孩",
+                "ro": "băiat",
+                "ca": "noi"
               },
               "id": "b1.s5.t3",
               "startMs": 15578,
@@ -775,7 +1087,13 @@
               "glosses": {
                 "en": "looks at",
                 "fr": "regarde",
-                "es": "mira"
+                "es": "mira",
+                "pt": "olha",
+                "it": "guarda",
+                "zh-Hans": "看",
+                "zh-Hant": "看",
+                "ro": "privește",
+                "ca": "mira"
               },
               "id": "b1.s5.t4",
               "startMs": 16028,
@@ -789,7 +1107,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b1.s5.t5",
               "startMs": 16478,
@@ -803,7 +1127,13 @@
               "glosses": {
                 "en": "cat",
                 "fr": "chat",
-                "es": "gato"
+                "es": "gato",
+                "pt": "gato",
+                "it": "gatto",
+                "zh-Hans": "猫",
+                "zh-Hant": "貓",
+                "ro": "pisică",
+                "ca": "gat"
               },
               "id": "b1.s5.t6",
               "startMs": 16608,
@@ -817,7 +1147,13 @@
               "glosses": {
                 "en": "and",
                 "fr": "et",
-                "es": "y"
+                "es": "y",
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b1.s5.t7",
               "startMs": 16908,
@@ -831,7 +1167,13 @@
               "glosses": {
                 "en": "begins",
                 "fr": "commence",
-                "es": "empieza"
+                "es": "empieza",
+                "pt": "começa",
+                "it": "comincia",
+                "zh-Hans": "开始",
+                "zh-Hant": "開始",
+                "ro": "începe",
+                "ca": "comença"
               },
               "id": "b1.s5.t8",
               "startMs": 17088,
@@ -845,7 +1187,13 @@
               "glosses": {
                 "en": "to",
                 "fr": "à",
-                "es": "a"
+                "es": "a",
+                "pt": "a",
+                "it": "a",
+                "zh-Hans": "向",
+                "zh-Hant": "向",
+                "ro": "la",
+                "ca": "a"
               },
               "id": "b1.s5.t9",
               "startMs": 17428,
@@ -859,7 +1207,13 @@
               "glosses": {
                 "en": "to cry",
                 "fr": "pleurer",
-                "es": "llorar"
+                "es": "llorar",
+                "pt": "chorar",
+                "it": "piangere",
+                "zh-Hans": "哭",
+                "zh-Hant": "哭泣",
+                "ro": "plângă",
+                "ca": "plorar"
               },
               "id": "b1.s5.t10",
               "startMs": 17518,
@@ -885,7 +1239,13 @@
           "translations": {
             "en": "“My brothers can work, but I own nothing,” he says.",
             "fr": "« Mes frères peuvent travailler, mais moi, je ne possède rien », dit-il.",
-            "es": "«Mis hermanos pueden trabajar, pero yo no poseo nada», dice."
+            "es": "«Mis hermanos pueden trabajar, pero yo no poseo nada», dice.",
+            "pt": "«Meus irmãos podem trabalhar, mas eu não possuo nada», diz ele.",
+            "it": "«I miei fratelli possono lavorare, ma io non possiedo nulla», dice.",
+            "zh-Hans": "“我的兄弟们可以工作，但我什么都没有，”他说。",
+            "zh-Hant": "「我的兄弟們可以工作，但我什麼都沒有，」他說。",
+            "ro": "„Frații mei pot munci, dar eu nu posed nimic”, spune el.",
+            "ca": "«Els meus germans poden treballar, però jo no posseeixo res», diu."
           },
           "tokens": [
             {
@@ -903,7 +1263,13 @@
               "glosses": {
                 "en": "my",
                 "fr": "mes",
-                "es": "mis"
+                "es": "mis",
+                "pt": "meus",
+                "it": "miei",
+                "zh-Hans": "我的",
+                "zh-Hant": "我的",
+                "ro": "mei",
+                "ca": "meus"
               },
               "id": "b2.s1.t2",
               "startMs": 19326,
@@ -917,7 +1283,13 @@
               "glosses": {
                 "en": "brothers",
                 "fr": "frères",
-                "es": "hermanos"
+                "es": "hermanos",
+                "pt": "irmãos",
+                "it": "fratelli",
+                "zh-Hans": "兄弟",
+                "zh-Hant": "兄弟",
+                "ro": "frați",
+                "ca": "germans"
               },
               "id": "b2.s1.t3",
               "startMs": 19456,
@@ -931,7 +1303,13 @@
               "glosses": {
                 "en": "can",
                 "fr": "peuvent",
-                "es": "pueden"
+                "es": "pueden",
+                "pt": "podem",
+                "it": "possono",
+                "zh-Hans": "能",
+                "zh-Hant": "可以",
+                "ro": "pot",
+                "ca": "poden"
               },
               "id": "b2.s1.t4",
               "startMs": 19746,
@@ -945,7 +1323,13 @@
               "glosses": {
                 "en": "to work",
                 "fr": "travailler",
-                "es": "trabajar"
+                "es": "trabajar",
+                "pt": "trabalhar",
+                "it": "lavorare",
+                "zh-Hans": "工作",
+                "zh-Hant": "工作",
+                "ro": "a munci",
+                "ca": "treballar"
               },
               "id": "b2.s1.t5",
               "startMs": 20046,
@@ -966,7 +1350,13 @@
               "glosses": {
                 "en": "but",
                 "fr": "mais",
-                "es": "pero"
+                "es": "pero",
+                "pt": "mas",
+                "it": "ma",
+                "zh-Hans": "但是",
+                "zh-Hant": "但是",
+                "ro": "dar",
+                "ca": "però"
               },
               "id": "b2.s1.t7",
               "startMs": 20606,
@@ -980,7 +1370,13 @@
               "glosses": {
                 "en": "me",
                 "fr": "moi",
-                "es": "mí"
+                "es": "mí",
+                "pt": "mim",
+                "it": "io",
+                "zh-Hans": "我",
+                "zh-Hant": "我",
+                "ro": "eu",
+                "ca": "jo"
               },
               "id": "b2.s1.t8",
               "startMs": 20856,
@@ -1001,7 +1397,13 @@
               "glosses": {
                 "en": "I",
                 "fr": "je",
-                "es": "yo"
+                "es": "yo",
+                "pt": "eu",
+                "it": "io",
+                "zh-Hans": "我",
+                "zh-Hant": "我",
+                "ro": "eu",
+                "ca": "jo"
               },
               "id": "b2.s1.t10",
               "startMs": 21286,
@@ -1015,7 +1417,13 @@
               "glosses": {
                 "en": "not",
                 "fr": "ne",
-                "es": "no"
+                "es": "no",
+                "pt": "não",
+                "it": "non",
+                "zh-Hans": "不",
+                "zh-Hant": "不",
+                "ro": "nu",
+                "ca": "no"
               },
               "id": "b2.s1.t11",
               "startMs": 21386,
@@ -1029,7 +1437,13 @@
               "glosses": {
                 "en": "owns",
                 "fr": "possède",
-                "es": "posee"
+                "es": "posee",
+                "pt": "possui",
+                "it": "possiede",
+                "zh-Hans": "拥有",
+                "zh-Hant": "擁有",
+                "ro": "posedă",
+                "ca": "posseeix"
               },
               "id": "b2.s1.t12",
               "startMs": 21406,
@@ -1043,7 +1457,13 @@
               "glosses": {
                 "en": "nothing",
                 "fr": "rien",
-                "es": "nada"
+                "es": "nada",
+                "pt": "nada",
+                "it": "niente",
+                "zh-Hans": "什么也没有",
+                "zh-Hant": "什麼都沒有",
+                "ro": "nimic",
+                "ca": "res"
               },
               "id": "b2.s1.t13",
               "startMs": 21896,
@@ -1071,7 +1491,13 @@
               "glosses": {
                 "en": "he says",
                 "fr": "dit-il",
-                "es": "dice él"
+                "es": "dice él",
+                "pt": "disse ele",
+                "it": "disse",
+                "zh-Hans": "他说",
+                "zh-Hant": "他說",
+                "ro": "spune el",
+                "ca": "diu ell"
               },
               "id": "b2.s1.t16",
               "startMs": 22266,
@@ -1092,7 +1518,13 @@
           "translations": {
             "en": "The cat hears these words and gently jumps onto a chair.",
             "fr": "Le chat entend ces mots et saute doucement sur une chaise.",
-            "es": "El gato oye estas palabras y salta suavemente sobre una silla."
+            "es": "El gato oye estas palabras y salta suavemente sobre una silla.",
+            "pt": "O gato ouve essas palavras e salta suavemente para uma cadeira.",
+            "it": "Il gatto sente queste parole e salta dolcemente su una sedia.",
+            "zh-Hans": "猫听到这些话，轻轻地跳到椅子上。",
+            "zh-Hant": "貓聽到這些話，輕輕地跳到椅子上。",
+            "ro": "Pisica aude aceste cuvinte și sare ușor pe un scaun.",
+            "ca": "El gat sent aquestes paraules i salta suaument sobre una cadira."
           },
           "tokens": [
             {
@@ -1103,7 +1535,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b2.s2.t1",
               "startMs": 23818,
@@ -1117,7 +1555,13 @@
               "glosses": {
                 "en": "cat",
                 "fr": "chat",
-                "es": "gato"
+                "es": "gato",
+                "pt": "gato",
+                "it": "gatto",
+                "zh-Hans": "猫",
+                "zh-Hant": "貓",
+                "ro": "pisică",
+                "ca": "gat"
               },
               "id": "b2.s2.t2",
               "startMs": 23888,
@@ -1131,7 +1575,13 @@
               "glosses": {
                 "en": "hears",
                 "fr": "entend",
-                "es": "oye"
+                "es": "oye",
+                "pt": "ouve",
+                "it": "sente",
+                "zh-Hans": "听到",
+                "zh-Hant": "聽到",
+                "ro": "aude",
+                "ca": "sent"
               },
               "id": "b2.s2.t3",
               "startMs": 24148,
@@ -1145,7 +1595,13 @@
               "glosses": {
                 "en": "these",
                 "fr": "ces",
-                "es": "estos"
+                "es": "estos",
+                "pt": "estes",
+                "it": "questi",
+                "zh-Hans": "这些",
+                "zh-Hant": "這些",
+                "ro": "acești",
+                "ca": "aquests"
               },
               "id": "b2.s2.t4",
               "startMs": 24538,
@@ -1159,7 +1615,13 @@
               "glosses": {
                 "en": "words",
                 "fr": "mots",
-                "es": "palabras"
+                "es": "palabras",
+                "pt": "palavras",
+                "it": "parole",
+                "zh-Hans": "话",
+                "zh-Hant": "話",
+                "ro": "cuvinte",
+                "ca": "paraules"
               },
               "id": "b2.s2.t5",
               "startMs": 24728,
@@ -1173,7 +1635,13 @@
               "glosses": {
                 "en": "and",
                 "fr": "et",
-                "es": "y"
+                "es": "y",
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b2.s2.t6",
               "startMs": 24998,
@@ -1187,7 +1655,13 @@
               "glosses": {
                 "en": "jumps",
                 "fr": "saute",
-                "es": "salta"
+                "es": "salta",
+                "pt": "pula",
+                "it": "salta",
+                "zh-Hans": "跳",
+                "zh-Hant": "跳",
+                "ro": "sare",
+                "ca": "salta"
               },
               "id": "b2.s2.t7",
               "startMs": 25198,
@@ -1201,7 +1675,13 @@
               "glosses": {
                 "en": "gently",
                 "fr": "doucement",
-                "es": "suavemente"
+                "es": "suavemente",
+                "pt": "suavemente",
+                "it": "dolcemente",
+                "zh-Hans": "轻轻地",
+                "zh-Hant": "輕輕地",
+                "ro": "încet",
+                "ca": "suaument"
               },
               "id": "b2.s2.t8",
               "startMs": 25398,
@@ -1215,7 +1695,13 @@
               "glosses": {
                 "en": "on",
                 "fr": "sur",
-                "es": "sobre"
+                "es": "sobre",
+                "pt": "sobre",
+                "it": "su",
+                "zh-Hans": "在……上面",
+                "zh-Hant": "在……上面",
+                "ro": "pe",
+                "ca": "sobre"
               },
               "id": "b2.s2.t9",
               "startMs": 25848,
@@ -1229,7 +1715,13 @@
               "glosses": {
                 "en": "a",
                 "fr": "une",
-                "es": "una"
+                "es": "una",
+                "pt": "uma",
+                "it": "una",
+                "zh-Hans": "一个",
+                "zh-Hant": "一個",
+                "ro": "o",
+                "ca": "una"
               },
               "id": "b2.s2.t10",
               "startMs": 26038,
@@ -1243,7 +1735,13 @@
               "glosses": {
                 "en": "chair",
                 "fr": "chaise",
-                "es": "silla"
+                "es": "silla",
+                "pt": "cadeira",
+                "it": "sedia",
+                "zh-Hans": "椅子",
+                "zh-Hant": "椅子",
+                "ro": "scaun",
+                "ca": "cadira"
               },
               "id": "b2.s2.t11",
               "startMs": 26168,
@@ -1264,7 +1762,13 @@
           "translations": {
             "en": "“Do not be sad, my master,” he answers calmly.",
             "fr": "« Ne soyez pas triste, mon maître », répond-il avec calme.",
-            "es": "«No esté triste, amo mío», responde con calma."
+            "es": "«No esté triste, amo mío», responde con calma.",
+            "pt": "«Não fique triste, meu senhor», responde ele com calma.",
+            "it": "«Non essere triste, mio padrone», risponde con calma.",
+            "zh-Hans": "“不要难过，我的主人，”它平静地回答。",
+            "zh-Hant": "「別難過，我的主人，」牠平靜地回答。",
+            "ro": "„Nu fi trist, stăpâne”, răspunde ea cu calm.",
+            "ca": "«No estiguis trist, el meu amo», respon amb calma."
           },
           "tokens": [
             {
@@ -1282,7 +1786,13 @@
               "glosses": {
                 "en": "not",
                 "fr": "ne",
-                "es": "no"
+                "es": "no",
+                "pt": "não",
+                "it": "non",
+                "zh-Hans": "不",
+                "zh-Hant": "不",
+                "ro": "nu",
+                "ca": "no"
               },
               "id": "b2.s3.t2",
               "startMs": 27667,
@@ -1296,7 +1806,13 @@
               "glosses": {
                 "en": "be",
                 "fr": "soyez",
-                "es": "esté"
+                "es": "esté",
+                "pt": "seja",
+                "it": "siate",
+                "zh-Hans": "是",
+                "zh-Hant": "是",
+                "ro": "fiți",
+                "ca": "sigueu"
               },
               "id": "b2.s3.t3",
               "startMs": 27787,
@@ -1310,7 +1826,13 @@
               "glosses": {
                 "en": "not",
                 "fr": "pas",
-                "es": "no"
+                "es": "no",
+                "pt": "passo",
+                "it": "non",
+                "zh-Hans": "不",
+                "zh-Hant": "不",
+                "ro": "nu",
+                "ca": "no"
               },
               "id": "b2.s3.t4",
               "startMs": 28097,
@@ -1324,7 +1846,13 @@
               "glosses": {
                 "en": "sad",
                 "fr": "triste",
-                "es": "triste"
+                "es": "triste",
+                "pt": "triste",
+                "it": "triste",
+                "zh-Hans": "悲伤的",
+                "zh-Hant": "悲傷的",
+                "ro": "trist",
+                "ca": "trist"
               },
               "id": "b2.s3.t5",
               "startMs": 28327,
@@ -1345,7 +1873,13 @@
               "glosses": {
                 "en": "my",
                 "fr": "mon",
-                "es": "mi"
+                "es": "mi",
+                "pt": "meu",
+                "it": "mio",
+                "zh-Hans": "我的",
+                "zh-Hant": "我的",
+                "ro": "meu",
+                "ca": "meu"
               },
               "id": "b2.s3.t7",
               "startMs": 28917,
@@ -1359,7 +1893,13 @@
               "glosses": {
                 "en": "master",
                 "fr": "maître",
-                "es": "amo"
+                "es": "amo",
+                "pt": "mestre",
+                "it": "padrone",
+                "zh-Hans": "主人",
+                "zh-Hant": "主人",
+                "ro": "stăpân",
+                "ca": "amo"
               },
               "id": "b2.s3.t8",
               "startMs": 28977,
@@ -1387,7 +1927,13 @@
               "glosses": {
                 "en": "he replies",
                 "fr": "répond-il",
-                "es": "responde él"
+                "es": "responde él",
+                "pt": "responde ele",
+                "it": "rispose",
+                "zh-Hans": "他回答",
+                "zh-Hant": "他回答",
+                "ro": "răspunde el",
+                "ca": "respon ell"
               },
               "id": "b2.s3.t11",
               "startMs": 29727,
@@ -1401,7 +1947,13 @@
               "glosses": {
                 "en": "with",
                 "fr": "avec",
-                "es": "con"
+                "es": "con",
+                "pt": "com",
+                "it": "con",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "cu",
+                "ca": "amb"
               },
               "id": "b2.s3.t12",
               "startMs": 30217,
@@ -1415,7 +1967,13 @@
               "glosses": {
                 "en": "calm",
                 "fr": "calme",
-                "es": "calma"
+                "es": "calma",
+                "pt": "calma",
+                "it": "calma",
+                "zh-Hans": "平静",
+                "zh-Hant": "平靜",
+                "ro": "calm",
+                "ca": "calma"
               },
               "id": "b2.s3.t13",
               "startMs": 30497,
@@ -1436,7 +1994,13 @@
           "translations": {
             "en": "“Give me a strong bag and a pair of boots.”",
             "fr": "« Donnez un sac solide et une paire de bottes. »",
-            "es": "«Déme un saco resistente y un par de botas»."
+            "es": "«Déme un saco resistente y un par de botas».",
+            "pt": "«Dê-me um saco resistente e um par de botas.»",
+            "it": "«Dammi un sacco robusto e un paio di stivali.»",
+            "zh-Hans": "“给我一个结实的袋子和一双靴子。”",
+            "zh-Hant": "「給我一個結實的袋子和一雙靴子。」",
+            "ro": "„Dă-mi un sac solid și o pereche de cizme.”",
+            "ca": "«Dona'm un sac sòlid i un parell de botes.»"
           },
           "tokens": [
             {
@@ -1454,7 +2018,13 @@
               "glosses": {
                 "en": "give",
                 "fr": "donnez",
-                "es": "dé"
+                "es": "dé",
+                "pt": "dai",
+                "it": "date",
+                "zh-Hans": "给",
+                "zh-Hant": "給",
+                "ro": "dați",
+                "ca": "doneu"
               },
               "id": "b2.s4.t2",
               "startMs": 31897,
@@ -1468,7 +2038,13 @@
               "glosses": {
                 "en": "a",
                 "fr": "un",
-                "es": "un"
+                "es": "un",
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一个",
+                "zh-Hant": "一個",
+                "ro": "un",
+                "ca": "un"
               },
               "id": "b2.s4.t3",
               "startMs": 32257,
@@ -1482,7 +2058,13 @@
               "glosses": {
                 "en": "bag",
                 "fr": "sac",
-                "es": "saco"
+                "es": "saco",
+                "pt": "saco",
+                "it": "sacco",
+                "zh-Hans": "袋子",
+                "zh-Hant": "袋子",
+                "ro": "sac",
+                "ca": "sac"
               },
               "id": "b2.s4.t4",
               "startMs": 32377,
@@ -1496,7 +2078,13 @@
               "glosses": {
                 "en": "strong",
                 "fr": "solide",
-                "es": "resistente"
+                "es": "resistente",
+                "pt": "sólido",
+                "it": "robusto",
+                "zh-Hans": "坚固的",
+                "zh-Hant": "堅固的",
+                "ro": "rezistent",
+                "ca": "sòlid"
               },
               "id": "b2.s4.t5",
               "startMs": 32627,
@@ -1510,7 +2098,13 @@
               "glosses": {
                 "en": "and",
                 "fr": "et",
-                "es": "y"
+                "es": "y",
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b2.s4.t6",
               "startMs": 32917,
@@ -1524,7 +2118,13 @@
               "glosses": {
                 "en": "a",
                 "fr": "une",
-                "es": "una"
+                "es": "una",
+                "pt": "uma",
+                "it": "una",
+                "zh-Hans": "一个",
+                "zh-Hant": "一個",
+                "ro": "o",
+                "ca": "una"
               },
               "id": "b2.s4.t7",
               "startMs": 33177,
@@ -1538,7 +2138,13 @@
               "glosses": {
                 "en": "pair",
                 "fr": "paire",
-                "es": "par"
+                "es": "par",
+                "pt": "par",
+                "it": "paio",
+                "zh-Hans": "双",
+                "zh-Hant": "雙",
+                "ro": "pereche",
+                "ca": "parell"
               },
               "id": "b2.s4.t8",
               "startMs": 33217,
@@ -1552,7 +2158,13 @@
               "glosses": {
                 "en": "of",
                 "fr": "de",
-                "es": "de"
+                "es": "de",
+                "pt": "de",
+                "it": "di",
+                "zh-Hans": "的",
+                "zh-Hant": "的",
+                "ro": "de",
+                "ca": "de"
               },
               "id": "b2.s4.t9",
               "startMs": 33517,
@@ -1566,7 +2178,13 @@
               "glosses": {
                 "en": "boots",
                 "fr": "bottes",
-                "es": "botas"
+                "es": "botas",
+                "pt": "botas",
+                "it": "stivali",
+                "zh-Hans": "靴子",
+                "zh-Hant": "靴子",
+                "ro": "cizme",
+                "ca": "botes"
               },
               "id": "b2.s4.t10",
               "startMs": 33637,
@@ -1594,7 +2212,13 @@
           "translations": {
             "en": "“Then you will see that your inheritance is worth something.”",
             "fr": "« Ensuite, vous verrez que votre héritage vaut quelque chose. »",
-            "es": "«Después verá que su herencia vale algo»."
+            "es": "«Después verá que su herencia vale algo».",
+            "pt": "«Depois, você verá que sua herança vale alguma coisa.»",
+            "it": "«Poi vedrai che la tua eredità vale qualcosa.»",
+            "zh-Hans": "“然后，您会看到您的遗产是值得的。”",
+            "zh-Hant": "「然後您會看到您的遺產是有價值的。」",
+            "ro": "„Apoi vei vedea că moștenirea ta valorează ceva.”",
+            "ca": "«Després, veuràs que la teva herència val alguna cosa.»"
           },
           "tokens": [
             {
@@ -1612,7 +2236,13 @@
               "glosses": {
                 "en": "then",
                 "fr": "ensuite",
-                "es": "después"
+                "es": "después",
+                "pt": "em seguida",
+                "it": "poi",
+                "zh-Hans": "然后",
+                "zh-Hant": "然後",
+                "ro": "apoi",
+                "ca": "després"
               },
               "id": "b2.s5.t2",
               "startMs": 35012,
@@ -1633,7 +2263,13 @@
               "glosses": {
                 "en": "you",
                 "fr": "vous",
-                "es": "usted"
+                "es": "usted",
+                "pt": "você",
+                "it": "voi",
+                "zh-Hans": "您",
+                "zh-Hant": "你們",
+                "ro": "voi",
+                "ca": "vosaltres"
               },
               "id": "b2.s5.t4",
               "startMs": 35472,
@@ -1647,7 +2283,13 @@
               "glosses": {
                 "en": "will see",
                 "fr": "verrez",
-                "es": "verá"
+                "es": "verá",
+                "pt": "verão",
+                "it": "vedrete",
+                "zh-Hans": "将会看到",
+                "zh-Hant": "將看到",
+                "ro": "veți vedea",
+                "ca": "veureu"
               },
               "id": "b2.s5.t5",
               "startMs": 35842,
@@ -1661,7 +2303,13 @@
               "glosses": {
                 "en": "that",
                 "fr": "que",
-                "es": "que"
+                "es": "que",
+                "pt": "que",
+                "it": "che",
+                "zh-Hans": "that",
+                "zh-Hant": "that",
+                "ro": "că",
+                "ca": "que"
               },
               "id": "b2.s5.t6",
               "startMs": 36042,
@@ -1675,7 +2323,13 @@
               "glosses": {
                 "en": "your",
                 "fr": "votre",
-                "es": "su"
+                "es": "su",
+                "pt": "seu",
+                "it": "vostro",
+                "zh-Hans": "您的",
+                "zh-Hant": "你們的",
+                "ro": "vostru",
+                "ca": "vostre"
               },
               "id": "b2.s5.t7",
               "startMs": 36212,
@@ -1689,7 +2343,13 @@
               "glosses": {
                 "en": "inheritance",
                 "fr": "héritage",
-                "es": "herencia"
+                "es": "herencia",
+                "pt": "herança",
+                "it": "eredità",
+                "zh-Hans": "遗产",
+                "zh-Hant": "遺產",
+                "ro": "moștenire",
+                "ca": "herència"
               },
               "id": "b2.s5.t8",
               "startMs": 36502,
@@ -1703,7 +2363,13 @@
               "glosses": {
                 "en": "is worth",
                 "fr": "vaut",
-                "es": "vale"
+                "es": "vale",
+                "pt": "vale",
+                "it": "vale",
+                "zh-Hans": "值得",
+                "zh-Hant": "值得",
+                "ro": "valorează",
+                "ca": "val"
               },
               "id": "b2.s5.t9",
               "startMs": 37032,
@@ -1717,7 +2383,13 @@
               "glosses": {
                 "en": "some",
                 "fr": "quelque",
-                "es": "alguna"
+                "es": "alguna",
+                "pt": "alguma",
+                "it": "qualcosa",
+                "zh-Hans": "一些",
+                "zh-Hant": "一些",
+                "ro": "ceva",
+                "ca": "alguna"
               },
               "id": "b2.s5.t10",
               "startMs": 37232,
@@ -1731,7 +2403,13 @@
               "glosses": {
                 "en": "thing",
                 "fr": "chose",
-                "es": "cosa"
+                "es": "cosa",
+                "pt": "coisa",
+                "it": "cosa",
+                "zh-Hans": "东西",
+                "zh-Hant": "事情",
+                "ro": "lucru",
+                "ca": "cosa"
               },
               "id": "b2.s5.t11",
               "startMs": 37672,
@@ -1764,7 +2442,13 @@
           "translations": {
             "en": "The boy finds this idea strange, because cats rarely wear boots.",
             "fr": "Le garçon trouve cette idée étrange, car les chats portent rarement des bottes.",
-            "es": "Al muchacho le parece extraña la idea, porque los gatos rara vez usan botas."
+            "es": "Al muchacho le parece extraña la idea, porque los gatos rara vez usan botas.",
+            "pt": "O rapaz acha essa ideia estranha, pois os gatos raramente usam botas.",
+            "it": "Il ragazzo trova questa idea strana, perché i gatti raramente portano stivali.",
+            "zh-Hans": "小伙子觉得这个主意很奇怪，因为猫很少穿靴子。",
+            "zh-Hant": "男孩覺得這個主意很奇怪，因為貓很少穿靴子。",
+            "ro": "Băiatul găsește această idee ciudată, pentru că pisicile poartă rareori cizme.",
+            "ca": "El noi troba aquesta idea estranya, perquè els gats rarament porten botes."
           },
           "tokens": [
             {
@@ -1775,7 +2459,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b3.s1.t1",
               "startMs": 39434,
@@ -1789,7 +2479,13 @@
               "glosses": {
                 "en": "boy",
                 "fr": "garçon",
-                "es": "muchacho"
+                "es": "muchacho",
+                "pt": "garoto",
+                "it": "ragazzo",
+                "zh-Hans": "男孩",
+                "zh-Hant": "男孩",
+                "ro": "băiat",
+                "ca": "noi"
               },
               "id": "b3.s1.t2",
               "startMs": 39504,
@@ -1803,7 +2499,13 @@
               "glosses": {
                 "en": "finds",
                 "fr": "trouve",
-                "es": "considera"
+                "es": "considera",
+                "pt": "acha",
+                "it": "trova",
+                "zh-Hans": "觉得",
+                "zh-Hant": "覺得",
+                "ro": "găsește",
+                "ca": "troba"
               },
               "id": "b3.s1.t3",
               "startMs": 39954,
@@ -1817,7 +2519,13 @@
               "glosses": {
                 "en": "this",
                 "fr": "cette",
-                "es": "esta"
+                "es": "esta",
+                "pt": "esta",
+                "it": "questa",
+                "zh-Hans": "这个",
+                "zh-Hant": "這個",
+                "ro": "această",
+                "ca": "aquesta"
               },
               "id": "b3.s1.t4",
               "startMs": 40324,
@@ -1831,7 +2539,13 @@
               "glosses": {
                 "en": "idea",
                 "fr": "idée",
-                "es": "idea"
+                "es": "idea",
+                "pt": "ideia",
+                "it": "idea",
+                "zh-Hans": "主意",
+                "zh-Hant": "主意",
+                "ro": "idee",
+                "ca": "idea"
               },
               "id": "b3.s1.t5",
               "startMs": 40684,
@@ -1845,7 +2559,13 @@
               "glosses": {
                 "en": "strange",
                 "fr": "étrange",
-                "es": "extraña"
+                "es": "extraña",
+                "pt": "estranho",
+                "it": "strano",
+                "zh-Hans": "奇怪的",
+                "zh-Hant": "奇怪的",
+                "ro": "ciudat",
+                "ca": "estrany"
               },
               "id": "b3.s1.t6",
               "startMs": 40964,
@@ -1866,7 +2586,13 @@
               "glosses": {
                 "en": "because",
                 "fr": "car",
-                "es": "porque"
+                "es": "porque",
+                "pt": "pois",
+                "it": "perché",
+                "zh-Hans": "因为",
+                "zh-Hant": "因為",
+                "ro": "căci",
+                "ca": "perquè"
               },
               "id": "b3.s1.t8",
               "startMs": 41504,
@@ -1880,7 +2606,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "les",
-                "es": "los"
+                "es": "los",
+                "pt": "os",
+                "it": "i",
+                "zh-Hans": "这些",
+                "zh-Hant": "這些",
+                "ro": "îi",
+                "ca": "els"
               },
               "id": "b3.s1.t9",
               "startMs": 41864,
@@ -1894,7 +2626,13 @@
               "glosses": {
                 "en": "cats",
                 "fr": "chats",
-                "es": "gatos"
+                "es": "gatos",
+                "pt": "gatos",
+                "it": "gatti",
+                "zh-Hans": "猫",
+                "zh-Hant": "貓",
+                "ro": "pisici",
+                "ca": "gats"
               },
               "id": "b3.s1.t10",
               "startMs": 41884,
@@ -1908,7 +2646,13 @@
               "glosses": {
                 "en": "wear",
                 "fr": "portent",
-                "es": "llevan"
+                "es": "llevan",
+                "pt": "usam",
+                "it": "portano",
+                "zh-Hans": "穿",
+                "zh-Hant": "穿",
+                "ro": "poartă",
+                "ca": "porten"
               },
               "id": "b3.s1.t11",
               "startMs": 42174,
@@ -1922,7 +2666,13 @@
               "glosses": {
                 "en": "rarely",
                 "fr": "rarement",
-                "es": "rara vez"
+                "es": "rara vez",
+                "pt": "raramente",
+                "it": "raramente",
+                "zh-Hans": "很少",
+                "zh-Hant": "很少",
+                "ro": "rar",
+                "ca": "rarament"
               },
               "id": "b3.s1.t12",
               "startMs": 42664,
@@ -1936,7 +2686,13 @@
               "glosses": {
                 "en": "some",
                 "fr": "des",
-                "es": "unos"
+                "es": "unos",
+                "pt": "uns",
+                "it": "dei",
+                "zh-Hans": "一些",
+                "zh-Hant": "一些",
+                "ro": "niște",
+                "ca": "uns"
               },
               "id": "b3.s1.t13",
               "startMs": 43074,
@@ -1950,7 +2706,13 @@
               "glosses": {
                 "en": "boots",
                 "fr": "bottes",
-                "es": "botas"
+                "es": "botas",
+                "pt": "botas",
+                "it": "stivali",
+                "zh-Hans": "靴子",
+                "zh-Hant": "靴子",
+                "ro": "cizme",
+                "ca": "botes"
               },
               "id": "b3.s1.t14",
               "startMs": 43254,
@@ -1971,7 +2733,13 @@
           "translations": {
             "en": "However, his companion seems intelligent and speaks with great confidence.",
             "fr": "Pourtant, son compagnon semble intelligent et parle avec une grande confiance.",
-            "es": "Sin embargo, su compañero parece inteligente y habla con mucha confianza."
+            "es": "Sin embargo, su compañero parece inteligente y habla con mucha confianza.",
+            "pt": "No entanto, seu companheiro parece inteligente e fala com grande confiança.",
+            "it": "Tuttavia, il suo compagno sembra intelligente e parla con grande fiducia.",
+            "zh-Hans": "然而，他的同伴看起来很聪明，说话时充满自信。",
+            "zh-Hant": "然而，他的夥伴看起來很聰明，說話充滿自信。",
+            "ro": "Totuși, companionul său pare inteligent și vorbește cu mare încredere.",
+            "ca": "No obstant això, el seu company sembla intel·ligent i parla amb una gran confiança."
           },
           "tokens": [
             {
@@ -1982,7 +2750,13 @@
               "glosses": {
                 "en": "however",
                 "fr": "pourtant",
-                "es": "sin embargo"
+                "es": "sin embargo",
+                "pt": "no entanto",
+                "it": "tuttavia",
+                "zh-Hans": "然而",
+                "zh-Hant": "然而",
+                "ro": "totuși",
+                "ca": "però"
               },
               "id": "b3.s2.t1",
               "startMs": 44376,
@@ -2003,7 +2777,13 @@
               "glosses": {
                 "en": "his",
                 "fr": "son",
-                "es": "su"
+                "es": "su",
+                "pt": "seu",
+                "it": "suo",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "său",
+                "ca": "seu"
               },
               "id": "b3.s2.t3",
               "startMs": 44926,
@@ -2017,7 +2797,13 @@
               "glosses": {
                 "en": "companion",
                 "fr": "compagnon",
-                "es": "compañero"
+                "es": "compañero",
+                "pt": "companheiro",
+                "it": "compagno",
+                "zh-Hans": "伙伴",
+                "zh-Hant": "夥伴",
+                "ro": "tovarăș",
+                "ca": "company"
               },
               "id": "b3.s2.t4",
               "startMs": 45166,
@@ -2031,7 +2817,13 @@
               "glosses": {
                 "en": "seems",
                 "fr": "semble",
-                "es": "parece"
+                "es": "parece",
+                "pt": "parece",
+                "it": "sembra",
+                "zh-Hans": "似乎",
+                "zh-Hant": "似乎",
+                "ro": "pare",
+                "ca": "sembla"
               },
               "id": "b3.s2.t5",
               "startMs": 45676,
@@ -2045,7 +2837,13 @@
               "glosses": {
                 "en": "intelligent",
                 "fr": "intelligent",
-                "es": "inteligente"
+                "es": "inteligente",
+                "pt": "inteligente",
+                "it": "intelligente",
+                "zh-Hans": "聪明的",
+                "zh-Hant": "聰明的",
+                "ro": "inteligent",
+                "ca": "intel·ligent"
               },
               "id": "b3.s2.t6",
               "startMs": 46096,
@@ -2059,7 +2857,13 @@
               "glosses": {
                 "en": "and",
                 "fr": "et",
-                "es": "y"
+                "es": "y",
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b3.s2.t7",
               "startMs": 46866,
@@ -2073,7 +2877,13 @@
               "glosses": {
                 "en": "speaks",
                 "fr": "parle",
-                "es": "habla"
+                "es": "habla",
+                "pt": "fala",
+                "it": "parla",
+                "zh-Hans": "说话",
+                "zh-Hant": "說話",
+                "ro": "vorbește",
+                "ca": "parla"
               },
               "id": "b3.s2.t8",
               "startMs": 47136,
@@ -2087,7 +2897,13 @@
               "glosses": {
                 "en": "with",
                 "fr": "avec",
-                "es": "con"
+                "es": "con",
+                "pt": "com",
+                "it": "con",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "cu",
+                "ca": "amb"
               },
               "id": "b3.s2.t9",
               "startMs": 47356,
@@ -2101,7 +2917,13 @@
               "glosses": {
                 "en": "a",
                 "fr": "une",
-                "es": "una"
+                "es": "una",
+                "pt": "uma",
+                "it": "una",
+                "zh-Hans": "一个",
+                "zh-Hant": "一個",
+                "ro": "o",
+                "ca": "una"
               },
               "id": "b3.s2.t10",
               "startMs": 47586,
@@ -2115,7 +2937,13 @@
               "glosses": {
                 "en": "great",
                 "fr": "grande",
-                "es": "gran"
+                "es": "gran",
+                "pt": "grande",
+                "it": "grande",
+                "zh-Hans": "大的",
+                "zh-Hant": "大的",
+                "ro": "mare",
+                "ca": "gran"
               },
               "id": "b3.s2.t11",
               "startMs": 47786,
@@ -2129,7 +2957,13 @@
               "glosses": {
                 "en": "trust",
                 "fr": "confiance",
-                "es": "confianza"
+                "es": "confianza",
+                "pt": "confiança",
+                "it": "fiducia",
+                "zh-Hans": "信心",
+                "zh-Hant": "信心",
+                "ro": "încredere",
+                "ca": "confiança"
               },
               "id": "b3.s2.t12",
               "startMs": 48186,
@@ -2150,7 +2984,13 @@
           "translations": {
             "en": "He spends his last coins at the village shoemaker's shop.",
             "fr": "Il dépense ses dernières pièces chez le cordonnier du village.",
-            "es": "Gasta sus últimas monedas en la tienda del zapatero del pueblo."
+            "es": "Gasta sus últimas monedas en la tienda del zapatero del pueblo.",
+            "pt": "Ele gasta suas últimas moedas no sapateiro da aldeia.",
+            "it": "Spende le sue ultime monete dal calzolaio del villaggio.",
+            "zh-Hans": "他花光了最后的钱在村里的鞋匠那里。",
+            "zh-Hant": "他花了最後的錢在村裡的鞋匠那裡。",
+            "ro": "Își cheltuie ultimii bănuți la cizmarul din sat.",
+            "ca": "Gasta les seves últimes monedes al sabater del poble."
           },
           "tokens": [
             {
@@ -2161,7 +3001,13 @@
               "glosses": {
                 "en": "he",
                 "fr": "il",
-                "es": "él"
+                "es": "él",
+                "pt": "ele",
+                "it": "egli",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b3.s3.t1",
               "startMs": 49949,
@@ -2175,7 +3021,13 @@
               "glosses": {
                 "en": "spends",
                 "fr": "dépense",
-                "es": "gasta"
+                "es": "gasta",
+                "pt": "gasta",
+                "it": "spende",
+                "zh-Hans": "花费",
+                "zh-Hant": "花費",
+                "ro": "cheltuiește",
+                "ca": "gasta"
               },
               "id": "b3.s3.t2",
               "startMs": 50019,
@@ -2189,7 +3041,13 @@
               "glosses": {
                 "en": "his",
                 "fr": "ses",
-                "es": "sus"
+                "es": "sus",
+                "pt": "seus",
+                "it": "suoi",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "săi",
+                "ca": "seus"
               },
               "id": "b3.s3.t3",
               "startMs": 50499,
@@ -2203,7 +3061,13 @@
               "glosses": {
                 "en": "last",
                 "fr": "dernières",
-                "es": "últimas"
+                "es": "últimas",
+                "pt": "últimas",
+                "it": "ultime",
+                "zh-Hans": "最后的",
+                "zh-Hant": "最後的",
+                "ro": "ultimele",
+                "ca": "últimes"
               },
               "id": "b3.s3.t4",
               "startMs": 50779,
@@ -2217,7 +3081,13 @@
               "glosses": {
                 "en": "coins",
                 "fr": "pièces",
-                "es": "monedas"
+                "es": "monedas",
+                "pt": "moedas",
+                "it": "monete",
+                "zh-Hans": "硬币",
+                "zh-Hant": "硬幣",
+                "ro": "monede",
+                "ca": "monedes"
               },
               "id": "b3.s3.t5",
               "startMs": 51289,
@@ -2231,7 +3101,13 @@
               "glosses": {
                 "en": "at",
                 "fr": "chez",
-                "es": "en casa de"
+                "es": "en casa de",
+                "pt": "na casa de",
+                "it": "da",
+                "zh-Hans": "在...家",
+                "zh-Hant": "在...家",
+                "ro": "la",
+                "ca": "a casa de"
               },
               "id": "b3.s3.t6",
               "startMs": 51759,
@@ -2245,7 +3121,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b3.s3.t7",
               "startMs": 51939,
@@ -2259,7 +3141,13 @@
               "glosses": {
                 "en": "shoemaker",
                 "fr": "cordonnier",
-                "es": "zapatero"
+                "es": "zapatero",
+                "pt": "sapateiro",
+                "it": "calzolaio",
+                "zh-Hans": "鞋匠",
+                "zh-Hant": "鞋匠",
+                "ro": "cizmar",
+                "ca": "sabater"
               },
               "id": "b3.s3.t8",
               "startMs": 52079,
@@ -2273,7 +3161,13 @@
               "glosses": {
                 "en": "of the",
                 "fr": "du",
-                "es": "del"
+                "es": "del",
+                "pt": "do",
+                "it": "del",
+                "zh-Hans": "的",
+                "zh-Hant": "的",
+                "ro": "al",
+                "ca": "del"
               },
               "id": "b3.s3.t9",
               "startMs": 52479,
@@ -2287,7 +3181,13 @@
               "glosses": {
                 "en": "village",
                 "fr": "village",
-                "es": "pueblo"
+                "es": "pueblo",
+                "pt": "vila",
+                "it": "villaggio",
+                "zh-Hans": "村庄",
+                "zh-Hant": "村莊",
+                "ro": "sat",
+                "ca": "poble"
               },
               "id": "b3.s3.t10",
               "startMs": 52569,
@@ -2308,7 +3208,13 @@
           "translations": {
             "en": "Soon, the cat puts on his boots and takes the bag.",
             "fr": "Bientôt, le chat met ses bottes et prend le sac.",
-            "es": "Pronto, el gato se pone las botas y toma el saco."
+            "es": "Pronto, el gato se pone las botas y toma el saco.",
+            "pt": "Logo, o gato calça suas botas e pega o saco.",
+            "it": "Presto, il gatto indossa i suoi stivali e prende il sacco.",
+            "zh-Hans": "很快，猫穿上靴子，拿起袋子。",
+            "zh-Hant": "很快，貓穿上靴子，拿起袋子。",
+            "ro": "Curând, pisica își pune cizmele și ia sacul.",
+            "ca": "Aviat, el gat es posa les botes i agafa el sac."
           },
           "tokens": [
             {
@@ -2319,7 +3225,13 @@
               "glosses": {
                 "en": "soon",
                 "fr": "bientôt",
-                "es": "pronto"
+                "es": "pronto",
+                "pt": "em breve",
+                "it": "presto",
+                "zh-Hans": "很快",
+                "zh-Hant": "不久",
+                "ro": "curând",
+                "ca": "aviat"
               },
               "id": "b3.s4.t1",
               "startMs": 53963,
@@ -2340,7 +3252,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b3.s4.t3",
               "startMs": 54613,
@@ -2354,7 +3272,13 @@
               "glosses": {
                 "en": "cat",
                 "fr": "chat",
-                "es": "gato"
+                "es": "gato",
+                "pt": "gato",
+                "it": "gatto",
+                "zh-Hans": "猫",
+                "zh-Hant": "貓",
+                "ro": "pisică",
+                "ca": "gat"
               },
               "id": "b3.s4.t4",
               "startMs": 54633,
@@ -2368,7 +3292,13 @@
               "glosses": {
                 "en": "puts on",
                 "fr": "met",
-                "es": "se pone"
+                "es": "se pone",
+                "pt": "coloca",
+                "it": "mette",
+                "zh-Hans": "穿上",
+                "zh-Hant": "穿上",
+                "ro": "își pune",
+                "ca": "posa"
               },
               "id": "b3.s4.t5",
               "startMs": 54873,
@@ -2382,7 +3312,13 @@
               "glosses": {
                 "en": "his",
                 "fr": "ses",
-                "es": "sus"
+                "es": "sus",
+                "pt": "seus",
+                "it": "suoi",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "săi",
+                "ca": "seus"
               },
               "id": "b3.s4.t6",
               "startMs": 55053,
@@ -2396,7 +3332,13 @@
               "glosses": {
                 "en": "boots",
                 "fr": "bottes",
-                "es": "botas"
+                "es": "botas",
+                "pt": "botas",
+                "it": "stivali",
+                "zh-Hans": "靴子",
+                "zh-Hant": "靴子",
+                "ro": "cizme",
+                "ca": "botes"
               },
               "id": "b3.s4.t7",
               "startMs": 55233,
@@ -2410,7 +3352,13 @@
               "glosses": {
                 "en": "and",
                 "fr": "et",
-                "es": "y"
+                "es": "y",
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b3.s4.t8",
               "startMs": 55593,
@@ -2424,7 +3372,13 @@
               "glosses": {
                 "en": "takes",
                 "fr": "prend",
-                "es": "toma"
+                "es": "toma",
+                "pt": "toma",
+                "it": "prende",
+                "zh-Hans": "拿",
+                "zh-Hant": "拿",
+                "ro": "ia",
+                "ca": "pren"
               },
               "id": "b3.s4.t9",
               "startMs": 55753,
@@ -2438,7 +3392,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b3.s4.t10",
               "startMs": 56103,
@@ -2452,7 +3412,13 @@
               "glosses": {
                 "en": "bag",
                 "fr": "sac",
-                "es": "saco"
+                "es": "saco",
+                "pt": "saco",
+                "it": "sacco",
+                "zh-Hans": "袋子",
+                "zh-Hant": "袋子",
+                "ro": "sac",
+                "ca": "sac"
               },
               "id": "b3.s4.t11",
               "startMs": 56133,
@@ -2473,7 +3439,13 @@
           "translations": {
             "en": "He then walks toward a field where many rabbits live.",
             "fr": "Il marche alors vers un champ où vivent beaucoup de lapins.",
-            "es": "Luego camina hacia un campo donde viven muchos conejos."
+            "es": "Luego camina hacia un campo donde viven muchos conejos.",
+            "pt": "Ele então caminha em direção a um campo onde vivem muitos coelhos.",
+            "it": "Poi cammina verso un campo dove vivono molti conigli.",
+            "zh-Hans": "然后它走向一个有很多兔子生活的田野。",
+            "zh-Hant": "然後牠走向一個有許多兔子的田野。",
+            "ro": "Apoi merge spre un câmp unde trăiesc mulți iepuri.",
+            "ca": "Aleshores camina cap a un camp on viuen molts conills."
           },
           "tokens": [
             {
@@ -2484,7 +3456,13 @@
               "glosses": {
                 "en": "he",
                 "fr": "il",
-                "es": "él"
+                "es": "él",
+                "pt": "ele",
+                "it": "egli",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b3.s5.t1",
               "startMs": 57260,
@@ -2498,7 +3476,13 @@
               "glosses": {
                 "en": "walks",
                 "fr": "marche",
-                "es": "camina"
+                "es": "camina",
+                "pt": "caminha",
+                "it": "cammina",
+                "zh-Hans": "走",
+                "zh-Hant": "走",
+                "ro": "merge",
+                "ca": "camina"
               },
               "id": "b3.s5.t2",
               "startMs": 57370,
@@ -2512,7 +3496,13 @@
               "glosses": {
                 "en": "then",
                 "fr": "alors",
-                "es": "entonces"
+                "es": "entonces",
+                "pt": "então",
+                "it": "allora",
+                "zh-Hans": "于是",
+                "zh-Hant": "於是",
+                "ro": "atunci",
+                "ca": "llavors"
               },
               "id": "b3.s5.t3",
               "startMs": 57810,
@@ -2526,7 +3516,13 @@
               "glosses": {
                 "en": "toward",
                 "fr": "vers",
-                "es": "hacia"
+                "es": "hacia",
+                "pt": "para",
+                "it": "verso",
+                "zh-Hans": "朝",
+                "zh-Hant": "朝向",
+                "ro": "spre",
+                "ca": "cap a"
               },
               "id": "b3.s5.t4",
               "startMs": 58070,
@@ -2540,7 +3536,13 @@
               "glosses": {
                 "en": "a",
                 "fr": "un",
-                "es": "un"
+                "es": "un",
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一个",
+                "zh-Hant": "一個",
+                "ro": "un",
+                "ca": "un"
               },
               "id": "b3.s5.t5",
               "startMs": 58280,
@@ -2554,7 +3556,13 @@
               "glosses": {
                 "en": "field",
                 "fr": "champ",
-                "es": "campo"
+                "es": "campo",
+                "pt": "campo",
+                "it": "campo",
+                "zh-Hans": "田野",
+                "zh-Hant": "田野",
+                "ro": "câmp",
+                "ca": "camp"
               },
               "id": "b3.s5.t6",
               "startMs": 58380,
@@ -2568,7 +3576,13 @@
               "glosses": {
                 "en": "where",
                 "fr": "où",
-                "es": "donde"
+                "es": "donde",
+                "pt": "onde",
+                "it": "dove",
+                "zh-Hans": "哪里",
+                "zh-Hant": "哪裡",
+                "ro": "unde",
+                "ca": "on"
               },
               "id": "b3.s5.t7",
               "startMs": 58690,
@@ -2582,7 +3596,13 @@
               "glosses": {
                 "en": "live",
                 "fr": "vivent",
-                "es": "viven"
+                "es": "viven",
+                "pt": "vivem",
+                "it": "vivono",
+                "zh-Hans": "生活",
+                "zh-Hant": "居住",
+                "ro": "trăiesc",
+                "ca": "viuen"
               },
               "id": "b3.s5.t8",
               "startMs": 58890,
@@ -2596,7 +3616,13 @@
               "glosses": {
                 "en": "many",
                 "fr": "beaucoup",
-                "es": "muchos"
+                "es": "muchos",
+                "pt": "muito",
+                "it": "molto",
+                "zh-Hans": "很多",
+                "zh-Hant": "很多",
+                "ro": "mult",
+                "ca": "molts"
               },
               "id": "b3.s5.t9",
               "startMs": 59080,
@@ -2610,7 +3636,13 @@
               "glosses": {
                 "en": "of",
                 "fr": "de",
-                "es": "de"
+                "es": "de",
+                "pt": "de",
+                "it": "di",
+                "zh-Hans": "的",
+                "zh-Hant": "的",
+                "ro": "de",
+                "ca": "de"
               },
               "id": "b3.s5.t10",
               "startMs": 59440,
@@ -2624,7 +3656,13 @@
               "glosses": {
                 "en": "rabbits",
                 "fr": "lapins",
-                "es": "conejos"
+                "es": "conejos",
+                "pt": "coelhos",
+                "it": "conigli",
+                "zh-Hans": "兔子",
+                "zh-Hant": "兔子",
+                "ro": "iepuri",
+                "ca": "conills"
               },
               "id": "b3.s5.t11",
               "startMs": 59520,
@@ -2650,7 +3688,13 @@
           "translations": {
             "en": "In the bag, he puts bran and some fresh leaves.",
             "fr": "Dans le sac, il place du son et quelques feuilles fraîches.",
-            "es": "En el saco pone salvado y algunas hojas frescas."
+            "es": "En el saco pone salvado y algunas hojas frescas.",
+            "pt": "No saco, ele coloca farelo e algumas folhas frescas.",
+            "it": "Nel sacco mette crusca e qualche foglia fresca.",
+            "zh-Hans": "在袋子里，它放了糠和一些新鲜的叶子。",
+            "zh-Hant": "牠在袋子裡放了穀糠和一些新鮮的葉子。",
+            "ro": "În sac, pune tărâțe și câteva frunze proaspete.",
+            "ca": "Al sac, hi posa segó i algunes fulles fresques."
           },
           "tokens": [
             {
@@ -2661,7 +3705,13 @@
               "glosses": {
                 "en": "in",
                 "fr": "dans",
-                "es": "en"
+                "es": "en",
+                "pt": "em",
+                "it": "in",
+                "zh-Hans": "在……里",
+                "zh-Hant": "在...裡",
+                "ro": "în",
+                "ca": "en"
               },
               "id": "b4.s1.t1",
               "startMs": 61166,
@@ -2675,7 +3725,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b4.s1.t2",
               "startMs": 61326,
@@ -2689,7 +3745,13 @@
               "glosses": {
                 "en": "bag",
                 "fr": "sac",
-                "es": "saco"
+                "es": "saco",
+                "pt": "saco",
+                "it": "sacco",
+                "zh-Hans": "袋子",
+                "zh-Hant": "袋子",
+                "ro": "sac",
+                "ca": "sac"
               },
               "id": "b4.s1.t3",
               "startMs": 61436,
@@ -2710,7 +3772,13 @@
               "glosses": {
                 "en": "he",
                 "fr": "il",
-                "es": "él"
+                "es": "él",
+                "pt": "ele",
+                "it": "egli",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b4.s1.t5",
               "startMs": 61706,
@@ -2724,7 +3792,13 @@
               "glosses": {
                 "en": "puts",
                 "fr": "place",
-                "es": "pone"
+                "es": "pone",
+                "pt": "coloca",
+                "it": "mette",
+                "zh-Hans": "放置",
+                "zh-Hant": "放置",
+                "ro": "pune",
+                "ca": "posa"
               },
               "id": "b4.s1.t6",
               "startMs": 62036,
@@ -2738,7 +3812,13 @@
               "glosses": {
                 "en": "of the",
                 "fr": "du",
-                "es": "del"
+                "es": "del",
+                "pt": "do",
+                "it": "del",
+                "zh-Hans": "的",
+                "zh-Hant": "的",
+                "ro": "al",
+                "ca": "del"
               },
               "id": "b4.s1.t7",
               "startMs": 62096,
@@ -2752,7 +3832,13 @@
               "glosses": {
                 "en": "his",
                 "fr": "son",
-                "es": "su"
+                "es": "su",
+                "pt": "seu",
+                "it": "suo",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "său",
+                "ca": "seu"
               },
               "id": "b4.s1.t8",
               "startMs": 62246,
@@ -2766,7 +3852,13 @@
               "glosses": {
                 "en": "and",
                 "fr": "et",
-                "es": "y"
+                "es": "y",
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b4.s1.t9",
               "startMs": 62366,
@@ -2780,7 +3872,13 @@
               "glosses": {
                 "en": "some",
                 "fr": "quelques",
-                "es": "algunos"
+                "es": "algunos",
+                "pt": "algumas",
+                "it": "alcune",
+                "zh-Hans": "几个",
+                "zh-Hant": "幾個",
+                "ro": "câteva",
+                "ca": "algunes"
               },
               "id": "b4.s1.t10",
               "startMs": 62476,
@@ -2794,7 +3892,13 @@
               "glosses": {
                 "en": "leaves",
                 "fr": "feuilles",
-                "es": "hojas"
+                "es": "hojas",
+                "pt": "folhas",
+                "it": "foglie",
+                "zh-Hans": "叶子",
+                "zh-Hant": "葉子",
+                "ro": "frunze",
+                "ca": "fulles"
               },
               "id": "b4.s1.t11",
               "startMs": 62956,
@@ -2808,7 +3912,13 @@
               "glosses": {
                 "en": "fresh",
                 "fr": "fraîches",
-                "es": "frescas"
+                "es": "frescas",
+                "pt": "frescas",
+                "it": "fresche",
+                "zh-Hans": "新鲜的",
+                "zh-Hant": "新鮮的",
+                "ro": "proaspete",
+                "ca": "fresques"
               },
               "id": "b4.s1.t12",
               "startMs": 63356,
@@ -2829,7 +3939,13 @@
           "translations": {
             "en": "Then he lies near the path and waits without moving.",
             "fr": "Puis il se couche près du chemin et attend sans bouger.",
-            "es": "Después se acuesta cerca del camino y espera sin moverse."
+            "es": "Después se acuesta cerca del camino y espera sin moverse.",
+            "pt": "Depois, ele se deita perto do caminho e espera sem se mover.",
+            "it": "Poi si sdraia vicino al sentiero e aspetta senza muoversi.",
+            "zh-Hans": "然后它躺在路边，一动不动地等着。",
+            "zh-Hant": "然後牠躺在路邊，一動也不動地等著。",
+            "ro": "Apoi se culcă lângă drum și așteaptă fără să se miște.",
+            "ca": "Després s'estira prop del camí i espera sense moure's."
           },
           "tokens": [
             {
@@ -2840,7 +3956,13 @@
               "glosses": {
                 "en": "then",
                 "fr": "puis",
-                "es": "después"
+                "es": "después",
+                "pt": "depois",
+                "it": "poi",
+                "zh-Hans": "然后",
+                "zh-Hant": "然後",
+                "ro": "apoi",
+                "ca": "després"
               },
               "id": "b4.s2.t1",
               "startMs": 64990,
@@ -2854,7 +3976,13 @@
               "glosses": {
                 "en": "he",
                 "fr": "il",
-                "es": "él"
+                "es": "él",
+                "pt": "ele",
+                "it": "egli",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b4.s2.t2",
               "startMs": 65110,
@@ -2868,7 +3996,13 @@
               "glosses": {
                 "en": "himself",
                 "fr": "se",
-                "es": "se"
+                "es": "se",
+                "pt": "se",
+                "it": "si",
+                "zh-Hans": "自己",
+                "zh-Hant": "自己",
+                "ro": "se",
+                "ca": "es"
               },
               "id": "b4.s2.t3",
               "startMs": 65220,
@@ -2882,7 +4016,13 @@
               "glosses": {
                 "en": "lies down",
                 "fr": "couche",
-                "es": "se acuesta"
+                "es": "se acuesta",
+                "pt": "deita-se",
+                "it": "si corica",
+                "zh-Hans": "躺下",
+                "zh-Hant": "躺下",
+                "ro": "se culcă",
+                "ca": "jeu"
               },
               "id": "b4.s2.t4",
               "startMs": 65330,
@@ -2896,7 +4036,13 @@
               "glosses": {
                 "en": "near",
                 "fr": "près",
-                "es": "cerca"
+                "es": "cerca",
+                "pt": "perto",
+                "it": "vicino",
+                "zh-Hans": "靠近",
+                "zh-Hant": "靠近",
+                "ro": "aproape",
+                "ca": "prop"
               },
               "id": "b4.s2.t5",
               "startMs": 65670,
@@ -2910,7 +4056,13 @@
               "glosses": {
                 "en": "of the",
                 "fr": "du",
-                "es": "del"
+                "es": "del",
+                "pt": "do",
+                "it": "del",
+                "zh-Hans": "的",
+                "zh-Hant": "的",
+                "ro": "al",
+                "ca": "del"
               },
               "id": "b4.s2.t6",
               "startMs": 65950,
@@ -2924,7 +4076,13 @@
               "glosses": {
                 "en": "path",
                 "fr": "chemin",
-                "es": "camino"
+                "es": "camino",
+                "pt": "caminho",
+                "it": "cammino",
+                "zh-Hans": "路",
+                "zh-Hant": "道路",
+                "ro": "drum",
+                "ca": "camí"
               },
               "id": "b4.s2.t7",
               "startMs": 66060,
@@ -2938,7 +4096,13 @@
               "glosses": {
                 "en": "and",
                 "fr": "et",
-                "es": "y"
+                "es": "y",
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b4.s2.t8",
               "startMs": 66440,
@@ -2952,7 +4116,13 @@
               "glosses": {
                 "en": "waits",
                 "fr": "attend",
-                "es": "espera"
+                "es": "espera",
+                "pt": "espera",
+                "it": "aspetta",
+                "zh-Hans": "等待",
+                "zh-Hant": "等待",
+                "ro": "așteaptă",
+                "ca": "espera"
               },
               "id": "b4.s2.t9",
               "startMs": 66650,
@@ -2966,7 +4136,13 @@
               "glosses": {
                 "en": "without",
                 "fr": "sans",
-                "es": "sin"
+                "es": "sin",
+                "pt": "sem",
+                "it": "senza",
+                "zh-Hans": "没有",
+                "zh-Hant": "沒有",
+                "ro": "fără",
+                "ca": "sense"
               },
               "id": "b4.s2.t10",
               "startMs": 66910,
@@ -2980,7 +4156,13 @@
               "glosses": {
                 "en": "to move",
                 "fr": "bouger",
-                "es": "moverse"
+                "es": "moverse",
+                "pt": "mexer",
+                "it": "muovere",
+                "zh-Hans": "动",
+                "zh-Hant": "移動",
+                "ro": "a se mișca",
+                "ca": "moure's"
               },
               "id": "b4.s2.t11",
               "startMs": 67100,
@@ -3001,7 +4183,13 @@
           "translations": {
             "en": "A young rabbit soon enters the bag to eat.",
             "fr": "Un jeune lapin entre bientôt dans le sac pour manger.",
-            "es": "Un conejo joven pronto entra en el saco para comer."
+            "es": "Un conejo joven pronto entra en el saco para comer.",
+            "pt": "Um jovem coelho logo entra no saco para comer.",
+            "it": "Un giovane coniglio entra presto nel sacco per mangiare.",
+            "zh-Hans": "一只小兔子很快进入袋子吃东西。",
+            "zh-Hant": "一隻小兔子很快走進袋子裡吃東西。",
+            "ro": "Un iepure tânăr intră curând în sac ca să mănânce.",
+            "ca": "Un conill jove entra aviat al sac per menjar."
           },
           "tokens": [
             {
@@ -3012,7 +4200,13 @@
               "glosses": {
                 "en": "a",
                 "fr": "un",
-                "es": "un"
+                "es": "un",
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一个",
+                "zh-Hant": "一個",
+                "ro": "un",
+                "ca": "un"
               },
               "id": "b4.s3.t1",
               "startMs": 68444,
@@ -3026,7 +4220,13 @@
               "glosses": {
                 "en": "young",
                 "fr": "jeune",
-                "es": "joven"
+                "es": "joven",
+                "pt": "jovem",
+                "it": "giovane",
+                "zh-Hans": "年轻的",
+                "zh-Hant": "年輕的",
+                "ro": "tânăr",
+                "ca": "jove"
               },
               "id": "b4.s3.t2",
               "startMs": 68504,
@@ -3040,7 +4240,13 @@
               "glosses": {
                 "en": "rabbit",
                 "fr": "lapin",
-                "es": "conejo"
+                "es": "conejo",
+                "pt": "coelho",
+                "it": "coniglio",
+                "zh-Hans": "兔子",
+                "zh-Hant": "兔子",
+                "ro": "iepure",
+                "ca": "conill"
               },
               "id": "b4.s3.t3",
               "startMs": 68794,
@@ -3054,7 +4260,13 @@
               "glosses": {
                 "en": "enters",
                 "fr": "entre",
-                "es": "entra"
+                "es": "entra",
+                "pt": "entra",
+                "it": "entra",
+                "zh-Hans": "进入",
+                "zh-Hant": "進入",
+                "ro": "intră",
+                "ca": "entra"
               },
               "id": "b4.s3.t4",
               "startMs": 69164,
@@ -3068,7 +4280,13 @@
               "glosses": {
                 "en": "soon",
                 "fr": "bientôt",
-                "es": "pronto"
+                "es": "pronto",
+                "pt": "em breve",
+                "it": "presto",
+                "zh-Hans": "很快",
+                "zh-Hant": "不久",
+                "ro": "curând",
+                "ca": "aviat"
               },
               "id": "b4.s3.t5",
               "startMs": 69454,
@@ -3082,7 +4300,13 @@
               "glosses": {
                 "en": "in",
                 "fr": "dans",
-                "es": "en"
+                "es": "en",
+                "pt": "em",
+                "it": "in",
+                "zh-Hans": "在……里",
+                "zh-Hant": "在...裡",
+                "ro": "în",
+                "ca": "en"
               },
               "id": "b4.s3.t6",
               "startMs": 69824,
@@ -3096,7 +4320,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b4.s3.t7",
               "startMs": 70054,
@@ -3110,7 +4340,13 @@
               "glosses": {
                 "en": "bag",
                 "fr": "sac",
-                "es": "saco"
+                "es": "saco",
+                "pt": "saco",
+                "it": "sacco",
+                "zh-Hans": "袋子",
+                "zh-Hant": "袋子",
+                "ro": "sac",
+                "ca": "sac"
               },
               "id": "b4.s3.t8",
               "startMs": 70164,
@@ -3124,7 +4360,13 @@
               "glosses": {
                 "en": "for",
                 "fr": "pour",
-                "es": "para"
+                "es": "para",
+                "pt": "para",
+                "it": "per",
+                "zh-Hans": "为了",
+                "zh-Hant": "為了",
+                "ro": "pentru",
+                "ca": "per"
               },
               "id": "b4.s3.t9",
               "startMs": 70334,
@@ -3138,7 +4380,13 @@
               "glosses": {
                 "en": "to eat",
                 "fr": "manger",
-                "es": "comer"
+                "es": "comer",
+                "pt": "comer",
+                "it": "mangiare",
+                "zh-Hans": "吃",
+                "zh-Hant": "吃",
+                "ro": "mânca",
+                "ca": "menjar"
               },
               "id": "b4.s3.t10",
               "startMs": 70684,
@@ -3159,7 +4407,13 @@
           "translations": {
             "en": "The cat quickly closes the bag and praises his own patience.",
             "fr": "Le chat ferme vite le sac et félicite sa propre patience.",
-            "es": "El gato cierra rápidamente el saco y felicita su propia paciencia."
+            "es": "El gato cierra rápidamente el saco y felicita su propia paciencia.",
+            "pt": "O gato fecha rapidamente o saco e elogia sua própria paciência.",
+            "it": "Il gatto chiude velocemente il sacco e loda la propria pazienza.",
+            "zh-Hans": "猫迅速关上袋子，并称赞自己的耐心。",
+            "zh-Hant": "貓迅速關上袋子，並稱讚自己的耐心。",
+            "ro": "Pisica închide repede sacul și își felicită propria răbdare.",
+            "ca": "El gat tanca ràpidament el sac i felicita la seva pròpia paciència."
           },
           "tokens": [
             {
@@ -3170,7 +4424,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b4.s4.t1",
               "startMs": 72059,
@@ -3184,7 +4444,13 @@
               "glosses": {
                 "en": "cat",
                 "fr": "chat",
-                "es": "gato"
+                "es": "gato",
+                "pt": "gato",
+                "it": "gatto",
+                "zh-Hans": "猫",
+                "zh-Hant": "貓",
+                "ro": "pisică",
+                "ca": "gat"
               },
               "id": "b4.s4.t2",
               "startMs": 72159,
@@ -3198,7 +4464,13 @@
               "glosses": {
                 "en": "closes",
                 "fr": "ferme",
-                "es": "cierra"
+                "es": "cierra",
+                "pt": "fecha",
+                "it": "chiude",
+                "zh-Hans": "关闭",
+                "zh-Hant": "關閉",
+                "ro": "închide",
+                "ca": "tanca"
               },
               "id": "b4.s4.t3",
               "startMs": 72589,
@@ -3212,7 +4484,13 @@
               "glosses": {
                 "en": "quickly",
                 "fr": "vite",
-                "es": "rápidamente"
+                "es": "rápidamente",
+                "pt": "rapidamente",
+                "it": "velocemente",
+                "zh-Hans": "快地",
+                "zh-Hant": "快速地",
+                "ro": "repede",
+                "ca": "ràpidament"
               },
               "id": "b4.s4.t4",
               "startMs": 72849,
@@ -3226,7 +4504,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b4.s4.t5",
               "startMs": 73159,
@@ -3240,7 +4524,13 @@
               "glosses": {
                 "en": "bag",
                 "fr": "sac",
-                "es": "saco"
+                "es": "saco",
+                "pt": "saco",
+                "it": "sacco",
+                "zh-Hans": "袋子",
+                "zh-Hant": "袋子",
+                "ro": "sac",
+                "ca": "sac"
               },
               "id": "b4.s4.t6",
               "startMs": 73389,
@@ -3254,7 +4544,13 @@
               "glosses": {
                 "en": "and",
                 "fr": "et",
-                "es": "y"
+                "es": "y",
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b4.s4.t7",
               "startMs": 73699,
@@ -3268,7 +4564,13 @@
               "glosses": {
                 "en": "praises",
                 "fr": "félicite",
-                "es": "felicita"
+                "es": "felicita",
+                "pt": "felicita",
+                "it": "congratula",
+                "zh-Hans": "祝贺",
+                "zh-Hant": "祝賀",
+                "ro": "felicită",
+                "ca": "felicita"
               },
               "id": "b4.s4.t8",
               "startMs": 73779,
@@ -3282,7 +4584,13 @@
               "glosses": {
                 "en": "his",
                 "fr": "sa",
-                "es": "su"
+                "es": "su",
+                "pt": "sua",
+                "it": "sua",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "sa",
+                "ca": "seva"
               },
               "id": "b4.s4.t9",
               "startMs": 74179,
@@ -3296,7 +4604,13 @@
               "glosses": {
                 "en": "own",
                 "fr": "propre",
-                "es": "propia"
+                "es": "propia",
+                "pt": "própria",
+                "it": "propria",
+                "zh-Hans": "自己的",
+                "zh-Hant": "自己的",
+                "ro": "proprie",
+                "ca": "pròpia"
               },
               "id": "b4.s4.t10",
               "startMs": 74259,
@@ -3310,7 +4624,13 @@
               "glosses": {
                 "en": "patience",
                 "fr": "patience",
-                "es": "paciencia"
+                "es": "paciencia",
+                "pt": "paciência",
+                "it": "pazienza",
+                "zh-Hans": "耐心",
+                "zh-Hant": "耐心",
+                "ro": "răbdare",
+                "ca": "paciència"
               },
               "id": "b4.s4.t11",
               "startMs": 74609,
@@ -3331,7 +4651,13 @@
           "translations": {
             "en": "After that, he leaves for the king's great palace.",
             "fr": "Après cela, il part vers le grand palais du roi.",
-            "es": "Después, parte hacia el gran palacio del rey."
+            "es": "Después, parte hacia el gran palacio del rey.",
+            "pt": "Depois disso, ele parte em direção ao grande palácio do rei.",
+            "it": "Dopo ciò, parte verso il grande palazzo del re.",
+            "zh-Hans": "之后，它前往国王的大宫殿。",
+            "zh-Hant": "之後，牠前往國王的大皇宮。",
+            "ro": "După aceea, pornește spre marele palat al regelui.",
+            "ca": "Després d'això, se'n va cap al gran palau del rei."
           },
           "tokens": [
             {
@@ -3342,7 +4668,13 @@
               "glosses": {
                 "en": "after",
                 "fr": "après",
-                "es": "después"
+                "es": "después",
+                "pt": "depois",
+                "it": "dopo",
+                "zh-Hans": "之后",
+                "zh-Hant": "之後",
+                "ro": "după",
+                "ca": "després"
               },
               "id": "b4.s5.t1",
               "startMs": 76319,
@@ -3356,7 +4688,13 @@
               "glosses": {
                 "en": "that",
                 "fr": "cela",
-                "es": "eso"
+                "es": "eso",
+                "pt": "isso",
+                "it": "ciò",
+                "zh-Hans": "那",
+                "zh-Hant": "那個",
+                "ro": "aceea",
+                "ca": "això"
               },
               "id": "b4.s5.t2",
               "startMs": 76649,
@@ -3377,7 +4715,13 @@
               "glosses": {
                 "en": "he",
                 "fr": "il",
-                "es": "él"
+                "es": "él",
+                "pt": "ele",
+                "it": "egli",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b4.s5.t4",
               "startMs": 77019,
@@ -3391,7 +4735,13 @@
               "glosses": {
                 "en": "leaves",
                 "fr": "part",
-                "es": "parte"
+                "es": "parte",
+                "pt": "parte",
+                "it": "parte",
+                "zh-Hans": "出发",
+                "zh-Hant": "出發",
+                "ro": "pleacă",
+                "ca": "parteix"
               },
               "id": "b4.s5.t5",
               "startMs": 77269,
@@ -3405,7 +4755,13 @@
               "glosses": {
                 "en": "toward",
                 "fr": "vers",
-                "es": "hacia"
+                "es": "hacia",
+                "pt": "para",
+                "it": "verso",
+                "zh-Hans": "朝",
+                "zh-Hant": "朝向",
+                "ro": "spre",
+                "ca": "cap a"
               },
               "id": "b4.s5.t6",
               "startMs": 77389,
@@ -3419,7 +4775,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b4.s5.t7",
               "startMs": 77639,
@@ -3433,7 +4795,13 @@
               "glosses": {
                 "en": "great",
                 "fr": "grand",
-                "es": "gran"
+                "es": "gran",
+                "pt": "grande",
+                "it": "grande",
+                "zh-Hans": "大的",
+                "zh-Hant": "大的",
+                "ro": "mare",
+                "ca": "gran"
               },
               "id": "b4.s5.t8",
               "startMs": 77759,
@@ -3447,7 +4815,13 @@
               "glosses": {
                 "en": "palace",
                 "fr": "palais",
-                "es": "palacio"
+                "es": "palacio",
+                "pt": "palácio",
+                "it": "palazzo",
+                "zh-Hans": "宫殿",
+                "zh-Hant": "宮殿",
+                "ro": "palat",
+                "ca": "palau"
               },
               "id": "b4.s5.t9",
               "startMs": 78079,
@@ -3461,7 +4835,13 @@
               "glosses": {
                 "en": "of the",
                 "fr": "du",
-                "es": "del"
+                "es": "del",
+                "pt": "do",
+                "it": "del",
+                "zh-Hans": "的",
+                "zh-Hant": "的",
+                "ro": "al",
+                "ca": "del"
               },
               "id": "b4.s5.t10",
               "startMs": 78459,
@@ -3475,7 +4855,13 @@
               "glosses": {
                 "en": "king",
                 "fr": "roi",
-                "es": "rey"
+                "es": "rey",
+                "pt": "rei",
+                "it": "re",
+                "zh-Hans": "国王",
+                "zh-Hant": "國王",
+                "ro": "rege",
+                "ca": "rei"
               },
               "id": "b4.s5.t11",
               "startMs": 78579,
@@ -3501,7 +4887,13 @@
           "translations": {
             "en": "Before the king, the cat makes a deep bow.",
             "fr": "Devant le roi, le chat fait une profonde révérence.",
-            "es": "Ante el rey, el gato hace una profunda reverencia."
+            "es": "Ante el rey, el gato hace una profunda reverencia.",
+            "pt": "Diante do rei, o gato faz uma profunda reverência.",
+            "it": "Davanti al re, il gatto fa un profondo inchino.",
+            "zh-Hans": "在国王面前，猫深深地鞠了一躬。",
+            "zh-Hant": "在國王面前，貓深深地鞠了一躬。",
+            "ro": "În fața regelui, pisica face o plecăciune adâncă.",
+            "ca": "Davant el rei, el gat fa una profunda reverència."
           },
           "tokens": [
             {
@@ -3512,7 +4904,13 @@
               "glosses": {
                 "en": "before",
                 "fr": "devant",
-                "es": "delante de"
+                "es": "delante de",
+                "pt": "diante",
+                "it": "davanti",
+                "zh-Hans": "在……前面",
+                "zh-Hant": "在...前面",
+                "ro": "în fața",
+                "ca": "davant"
               },
               "id": "b5.s1.t1",
               "startMs": 80046,
@@ -3526,7 +4924,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b5.s1.t2",
               "startMs": 80346,
@@ -3540,7 +4944,13 @@
               "glosses": {
                 "en": "king",
                 "fr": "roi",
-                "es": "rey"
+                "es": "rey",
+                "pt": "rei",
+                "it": "re",
+                "zh-Hans": "国王",
+                "zh-Hant": "國王",
+                "ro": "rege",
+                "ca": "rei"
               },
               "id": "b5.s1.t3",
               "startMs": 80466,
@@ -3561,7 +4971,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b5.s1.t5",
               "startMs": 80746,
@@ -3575,7 +4991,13 @@
               "glosses": {
                 "en": "cat",
                 "fr": "chat",
-                "es": "gato"
+                "es": "gato",
+                "pt": "gato",
+                "it": "gatto",
+                "zh-Hans": "猫",
+                "zh-Hant": "貓",
+                "ro": "pisică",
+                "ca": "gat"
               },
               "id": "b5.s1.t6",
               "startMs": 81046,
@@ -3589,7 +5011,13 @@
               "glosses": {
                 "en": "makes",
                 "fr": "fait",
-                "es": "hace"
+                "es": "hace",
+                "pt": "faz",
+                "it": "fa",
+                "zh-Hans": "做",
+                "zh-Hant": "做",
+                "ro": "face",
+                "ca": "fa"
               },
               "id": "b5.s1.t7",
               "startMs": 81106,
@@ -3603,7 +5031,13 @@
               "glosses": {
                 "en": "a",
                 "fr": "une",
-                "es": "una"
+                "es": "una",
+                "pt": "uma",
+                "it": "una",
+                "zh-Hans": "一个",
+                "zh-Hant": "一個",
+                "ro": "o",
+                "ca": "una"
               },
               "id": "b5.s1.t8",
               "startMs": 81346,
@@ -3617,7 +5051,13 @@
               "glosses": {
                 "en": "deep",
                 "fr": "profonde",
-                "es": "profunda"
+                "es": "profunda",
+                "pt": "profunda",
+                "it": "profonda",
+                "zh-Hans": "深深的",
+                "zh-Hant": "深深的",
+                "ro": "adâncă",
+                "ca": "profunda"
               },
               "id": "b5.s1.t9",
               "startMs": 81526,
@@ -3631,7 +5071,13 @@
               "glosses": {
                 "en": "bow",
                 "fr": "révérence",
-                "es": "reverencia"
+                "es": "reverencia",
+                "pt": "reverência",
+                "it": "riverenza",
+                "zh-Hans": "鞠躬",
+                "zh-Hant": "鞠躬",
+                "ro": "plecăciune",
+                "ca": "reverència"
               },
               "id": "b5.s1.t10",
               "startMs": 82046,
@@ -3652,7 +5098,13 @@
           "translations": {
             "en": "“Sire, here is a rabbit offered by the Marquis of Carabas.”",
             "fr": "« Sire, voici un lapin offert par monsieur le marquis de Carabas. »",
-            "es": "«Señor, aquí tiene un conejo ofrecido por el marqués de Carabás»."
+            "es": "«Señor, aquí tiene un conejo ofrecido por el marqués de Carabás».",
+            "pt": "“Senhor, aqui está um coelho oferecido pelo senhor marquês de Carabás.”",
+            "it": "«Sire, ecco un coniglio offerto dal signor marchese di Carabas.»",
+            "zh-Hans": "“陛下，这是卡拉巴斯侯爵先生献给您的一只兔子。”",
+            "zh-Hant": "「陛下，這是卡拉巴侯爵先生獻上的一隻兔子。」",
+            "ro": "« Sire, iată un iepure oferit de domnul marchiz de Carabas. »",
+            "ca": "«Senyor, aquí teniu un conill ofert pel senyor marquès de Carabàs.»"
           },
           "tokens": [
             {
@@ -3670,7 +5122,13 @@
               "glosses": {
                 "en": "sire",
                 "fr": "sire",
-                "es": "señor"
+                "es": "señor",
+                "pt": "senhor",
+                "it": "sire",
+                "zh-Hans": "陛下",
+                "zh-Hant": "陛下",
+                "ro": "sire",
+                "ca": "senyor"
               },
               "id": "b5.s2.t2",
               "startMs": 83766,
@@ -3691,7 +5149,13 @@
               "glosses": {
                 "en": "here is",
                 "fr": "voici",
-                "es": "aquí está"
+                "es": "aquí está",
+                "pt": "aqui está",
+                "it": "ecco",
+                "zh-Hans": "这是",
+                "zh-Hant": "這是",
+                "ro": "iată",
+                "ca": "aquí teniu"
               },
               "id": "b5.s2.t4",
               "startMs": 84166,
@@ -3705,7 +5169,13 @@
               "glosses": {
                 "en": "a",
                 "fr": "un",
-                "es": "un"
+                "es": "un",
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一个",
+                "zh-Hant": "一個",
+                "ro": "un",
+                "ca": "un"
               },
               "id": "b5.s2.t5",
               "startMs": 84546,
@@ -3719,7 +5189,13 @@
               "glosses": {
                 "en": "rabbit",
                 "fr": "lapin",
-                "es": "conejo"
+                "es": "conejo",
+                "pt": "coelho",
+                "it": "coniglio",
+                "zh-Hans": "兔子",
+                "zh-Hant": "兔子",
+                "ro": "iepure",
+                "ca": "conill"
               },
               "id": "b5.s2.t6",
               "startMs": 84716,
@@ -3733,7 +5209,13 @@
               "glosses": {
                 "en": "offered",
                 "fr": "offert",
-                "es": "ofrecido"
+                "es": "ofrecido",
+                "pt": "oferecido",
+                "it": "offerto",
+                "zh-Hans": "赠送",
+                "zh-Hant": "贈送的",
+                "ro": "oferit",
+                "ca": "ofert"
               },
               "id": "b5.s2.t7",
               "startMs": 85256,
@@ -3747,7 +5229,13 @@
               "glosses": {
                 "en": "by",
                 "fr": "par",
-                "es": "por"
+                "es": "por",
+                "pt": "por",
+                "it": "da",
+                "zh-Hans": "通过",
+                "zh-Hant": "被",
+                "ro": "de",
+                "ca": "per"
               },
               "id": "b5.s2.t8",
               "startMs": 85646,
@@ -3761,7 +5249,13 @@
               "glosses": {
                 "en": "mister",
                 "fr": "monsieur",
-                "es": "señor"
+                "es": "señor",
+                "pt": "senhor",
+                "it": "signore",
+                "zh-Hans": "先生",
+                "zh-Hant": "先生",
+                "ro": "domnul",
+                "ca": "senyor"
               },
               "id": "b5.s2.t9",
               "startMs": 85776,
@@ -3775,7 +5269,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b5.s2.t10",
               "startMs": 86076,
@@ -3789,7 +5289,13 @@
               "glosses": {
                 "en": "marquis",
                 "fr": "marquis",
-                "es": "marqués"
+                "es": "marqués",
+                "pt": "marquês",
+                "it": "marchese",
+                "zh-Hans": "侯爵",
+                "zh-Hant": "侯爵",
+                "ro": "marchiz",
+                "ca": "marquès"
               },
               "id": "b5.s2.t11",
               "startMs": 86246,
@@ -3803,7 +5309,13 @@
               "glosses": {
                 "en": "of",
                 "fr": "de",
-                "es": "de"
+                "es": "de",
+                "pt": "de",
+                "it": "di",
+                "zh-Hans": "的",
+                "zh-Hant": "的",
+                "ro": "de",
+                "ca": "de"
               },
               "id": "b5.s2.t12",
               "startMs": 86656,
@@ -3817,7 +5329,13 @@
               "glosses": {
                 "en": "Carabas",
                 "fr": "Carabas",
-                "es": "Carabás"
+                "es": "Carabás",
+                "pt": "Carabás",
+                "it": "Carabas",
+                "zh-Hans": "卡拉巴斯",
+                "zh-Hant": "卡拉巴斯",
+                "ro": "Carabas",
+                "ca": "Carabas"
               },
               "id": "b5.s2.t13",
               "startMs": 86786,
@@ -3845,7 +5363,13 @@
           "translations": {
             "en": "This noble name is invented, but the king does not know it.",
             "fr": "Ce nom noble est inventé, mais le roi ne le sait pas.",
-            "es": "Este nombre noble es inventado, pero el rey no lo sabe."
+            "es": "Este nombre noble es inventado, pero el rey no lo sabe.",
+            "pt": "Esse nome nobre é inventado, mas o rei não sabe disso.",
+            "it": "Questo nobile nome è inventato, ma il re non lo sa.",
+            "zh-Hans": "这个高贵的名字是编造的，但国王并不知道。",
+            "zh-Hant": "這個高貴的名字是虛構的，但國王並不知道。",
+            "ro": "Acest nume nobil este inventat, dar regele nu știe acest lucru.",
+            "ca": "Aquest nom noble és inventat, però el rei no ho sap."
           },
           "tokens": [
             {
@@ -3856,7 +5380,13 @@
               "glosses": {
                 "en": "this",
                 "fr": "ce",
-                "es": "este"
+                "es": "este",
+                "pt": "este",
+                "it": "questo",
+                "zh-Hans": "这个",
+                "zh-Hant": "這",
+                "ro": "acest",
+                "ca": "aquest"
               },
               "id": "b5.s3.t1",
               "startMs": 88116,
@@ -3870,7 +5400,13 @@
               "glosses": {
                 "en": "name",
                 "fr": "nom",
-                "es": "nombre"
+                "es": "nombre",
+                "pt": "nome",
+                "it": "nome",
+                "zh-Hans": "名字",
+                "zh-Hant": "名字",
+                "ro": "nume",
+                "ca": "nom"
               },
               "id": "b5.s3.t2",
               "startMs": 88236,
@@ -3884,7 +5420,13 @@
               "glosses": {
                 "en": "noble",
                 "fr": "noble",
-                "es": "noble"
+                "es": "noble",
+                "pt": "nobre",
+                "it": "nobile",
+                "zh-Hans": "高贵的",
+                "zh-Hant": "高貴的",
+                "ro": "nobil",
+                "ca": "noble"
               },
               "id": "b5.s3.t3",
               "startMs": 88426,
@@ -3898,7 +5440,13 @@
               "glosses": {
                 "en": "is",
                 "fr": "est",
-                "es": "es"
+                "es": "es",
+                "pt": "é",
+                "it": "è",
+                "zh-Hans": "是",
+                "zh-Hant": "是",
+                "ro": "este",
+                "ca": "és"
               },
               "id": "b5.s3.t4",
               "startMs": 88796,
@@ -3912,7 +5460,13 @@
               "glosses": {
                 "en": "invented",
                 "fr": "inventé",
-                "es": "inventado"
+                "es": "inventado",
+                "pt": "inventado",
+                "it": "inventato",
+                "zh-Hans": "虚构的",
+                "zh-Hant": "虛構的",
+                "ro": "inventat",
+                "ca": "inventat"
               },
               "id": "b5.s3.t5",
               "startMs": 89056,
@@ -3933,7 +5487,13 @@
               "glosses": {
                 "en": "but",
                 "fr": "mais",
-                "es": "pero"
+                "es": "pero",
+                "pt": "mas",
+                "it": "ma",
+                "zh-Hans": "但是",
+                "zh-Hant": "但是",
+                "ro": "dar",
+                "ca": "però"
               },
               "id": "b5.s3.t7",
               "startMs": 89866,
@@ -3947,7 +5507,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b5.s3.t8",
               "startMs": 90056,
@@ -3961,7 +5527,13 @@
               "glosses": {
                 "en": "king",
                 "fr": "roi",
-                "es": "rey"
+                "es": "rey",
+                "pt": "rei",
+                "it": "re",
+                "zh-Hans": "国王",
+                "zh-Hant": "國王",
+                "ro": "rege",
+                "ca": "rei"
               },
               "id": "b5.s3.t9",
               "startMs": 90266,
@@ -3975,7 +5547,13 @@
               "glosses": {
                 "en": "not",
                 "fr": "ne",
-                "es": "no"
+                "es": "no",
+                "pt": "não",
+                "it": "non",
+                "zh-Hans": "不",
+                "zh-Hant": "不",
+                "ro": "nu",
+                "ca": "no"
               },
               "id": "b5.s3.t10",
               "startMs": 90406,
@@ -3989,7 +5567,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b5.s3.t11",
               "startMs": 90546,
@@ -4003,7 +5587,13 @@
               "glosses": {
                 "en": "knows",
                 "fr": "sait",
-                "es": "sabe"
+                "es": "sabe",
+                "pt": "sabe",
+                "it": "sa",
+                "zh-Hans": "知道",
+                "zh-Hant": "知道",
+                "ro": "știe",
+                "ca": "sap"
               },
               "id": "b5.s3.t12",
               "startMs": 90686,
@@ -4017,7 +5607,13 @@
               "glosses": {
                 "en": "not",
                 "fr": "pas",
-                "es": "no"
+                "es": "no",
+                "pt": "passo",
+                "it": "non",
+                "zh-Hans": "不",
+                "zh-Hant": "不",
+                "ro": "nu",
+                "ca": "no"
               },
               "id": "b5.s3.t13",
               "startMs": 90976,
@@ -4038,7 +5634,13 @@
           "translations": {
             "en": "The king accepts the gift and thanks this mysterious marquis.",
             "fr": "Le roi accepte le cadeau et remercie ce mystérieux marquis.",
-            "es": "El rey acepta el regalo y da las gracias a este misterioso marqués."
+            "es": "El rey acepta el regalo y da las gracias a este misterioso marqués.",
+            "pt": "O rei aceita o presente e agradece a esse misterioso marquês.",
+            "it": "Il re accetta il regalo e ringrazia questo misterioso marchese.",
+            "zh-Hans": "国王接受了礼物，并感谢这位神秘的侯爵。",
+            "zh-Hant": "國王接受了禮物，並感謝這位神祕的侯爵。",
+            "ro": "Regele acceptă cadoul și îi mulțumește acestui misterios marchiz.",
+            "ca": "El rei accepta el regal i dona les gràcies a aquest misteriós marquès."
           },
           "tokens": [
             {
@@ -4049,7 +5651,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b5.s4.t1",
               "startMs": 91888,
@@ -4063,7 +5671,13 @@
               "glosses": {
                 "en": "king",
                 "fr": "roi",
-                "es": "rey"
+                "es": "rey",
+                "pt": "rei",
+                "it": "re",
+                "zh-Hans": "国王",
+                "zh-Hant": "國王",
+                "ro": "rege",
+                "ca": "rei"
               },
               "id": "b5.s4.t2",
               "startMs": 91978,
@@ -4077,7 +5691,13 @@
               "glosses": {
                 "en": "accepts",
                 "fr": "accepte",
-                "es": "acepta"
+                "es": "acepta",
+                "pt": "aceita",
+                "it": "accetta",
+                "zh-Hans": "接受",
+                "zh-Hant": "接受",
+                "ro": "acceptă",
+                "ca": "accepta"
               },
               "id": "b5.s4.t3",
               "startMs": 92198,
@@ -4091,7 +5711,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b5.s4.t4",
               "startMs": 92748,
@@ -4105,7 +5731,13 @@
               "glosses": {
                 "en": "gift",
                 "fr": "cadeau",
-                "es": "regalo"
+                "es": "regalo",
+                "pt": "presente",
+                "it": "regalo",
+                "zh-Hans": "礼物",
+                "zh-Hant": "禮物",
+                "ro": "cadou",
+                "ca": "regal"
               },
               "id": "b5.s4.t5",
               "startMs": 92868,
@@ -4119,7 +5751,13 @@
               "glosses": {
                 "en": "and",
                 "fr": "et",
-                "es": "y"
+                "es": "y",
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b5.s4.t6",
               "startMs": 93458,
@@ -4133,7 +5771,13 @@
               "glosses": {
                 "en": "thanks",
                 "fr": "remercie",
-                "es": "agradece"
+                "es": "agradece",
+                "pt": "agradece",
+                "it": "ringrazia",
+                "zh-Hans": "感谢",
+                "zh-Hant": "感謝",
+                "ro": "mulțumește",
+                "ca": "agraeix"
               },
               "id": "b5.s4.t7",
               "startMs": 93548,
@@ -4147,7 +5791,13 @@
               "glosses": {
                 "en": "this",
                 "fr": "ce",
-                "es": "este"
+                "es": "este",
+                "pt": "este",
+                "it": "questo",
+                "zh-Hans": "这个",
+                "zh-Hant": "這",
+                "ro": "acest",
+                "ca": "aquest"
               },
               "id": "b5.s4.t8",
               "startMs": 93888,
@@ -4161,7 +5811,13 @@
               "glosses": {
                 "en": "mysterious",
                 "fr": "mystérieux",
-                "es": "misterioso"
+                "es": "misterioso",
+                "pt": "misterioso",
+                "it": "misterioso",
+                "zh-Hans": "神秘的",
+                "zh-Hant": "神秘的",
+                "ro": "misterios",
+                "ca": "misteriós"
               },
               "id": "b5.s4.t9",
               "startMs": 94028,
@@ -4175,7 +5831,13 @@
               "glosses": {
                 "en": "marquis",
                 "fr": "marquis",
-                "es": "marqués"
+                "es": "marqués",
+                "pt": "marquês",
+                "it": "marchese",
+                "zh-Hans": "侯爵",
+                "zh-Hant": "侯爵",
+                "ro": "marchiz",
+                "ca": "marquès"
               },
               "id": "b5.s4.t10",
               "startMs": 94598,
@@ -4196,7 +5858,13 @@
           "translations": {
             "en": "The cat returns in the evening and tells the boy about his success.",
             "fr": "Le chat rentre le soir et raconte son succès au garçon.",
-            "es": "El gato regresa por la noche y cuenta su éxito al muchacho."
+            "es": "El gato regresa por la noche y cuenta su éxito al muchacho.",
+            "pt": "O gato volta à noite e conta seu sucesso ao rapaz.",
+            "it": "Il gatto torna la sera e racconta il suo successo al ragazzo.",
+            "zh-Hans": "猫晚上回来，向男孩讲述了他的成功。",
+            "zh-Hant": "貓晚上回家，把成功告訴了男孩。",
+            "ro": "Pisica se întoarce seara și îi povestește succesul băiatului.",
+            "ca": "El gat torna al vespre i explica el seu èxit al noi."
           },
           "tokens": [
             {
@@ -4207,7 +5875,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b5.s5.t1",
               "startMs": 96045,
@@ -4221,7 +5895,13 @@
               "glosses": {
                 "en": "cat",
                 "fr": "chat",
-                "es": "gato"
+                "es": "gato",
+                "pt": "gato",
+                "it": "gatto",
+                "zh-Hans": "猫",
+                "zh-Hant": "貓",
+                "ro": "pisică",
+                "ca": "gat"
               },
               "id": "b5.s5.t2",
               "startMs": 96145,
@@ -4235,7 +5915,13 @@
               "glosses": {
                 "en": "returns",
                 "fr": "rentre",
-                "es": "regresa"
+                "es": "regresa",
+                "pt": "volta",
+                "it": "torna",
+                "zh-Hans": "回家",
+                "zh-Hant": "回家",
+                "ro": "se întoarce",
+                "ca": "torna"
               },
               "id": "b5.s5.t3",
               "startMs": 96445,
@@ -4249,7 +5935,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b5.s5.t4",
               "startMs": 96895,
@@ -4263,7 +5955,13 @@
               "glosses": {
                 "en": "evening",
                 "fr": "soir",
-                "es": "noche"
+                "es": "noche",
+                "pt": "noite",
+                "it": "sera",
+                "zh-Hans": "晚上",
+                "zh-Hant": "晚上",
+                "ro": "seară",
+                "ca": "vespre"
               },
               "id": "b5.s5.t5",
               "startMs": 97085,
@@ -4277,7 +5975,13 @@
               "glosses": {
                 "en": "and",
                 "fr": "et",
-                "es": "y"
+                "es": "y",
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b5.s5.t6",
               "startMs": 97365,
@@ -4291,7 +5995,13 @@
               "glosses": {
                 "en": "tells",
                 "fr": "raconte",
-                "es": "cuenta"
+                "es": "cuenta",
+                "pt": "conta",
+                "it": "racconta",
+                "zh-Hans": "讲述",
+                "zh-Hant": "講述",
+                "ro": "povestește",
+                "ca": "explica"
               },
               "id": "b5.s5.t7",
               "startMs": 97615,
@@ -4305,7 +6015,13 @@
               "glosses": {
                 "en": "his",
                 "fr": "son",
-                "es": "su"
+                "es": "su",
+                "pt": "seu",
+                "it": "suo",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "său",
+                "ca": "seu"
               },
               "id": "b5.s5.t8",
               "startMs": 97965,
@@ -4319,7 +6035,13 @@
               "glosses": {
                 "en": "success",
                 "fr": "succès",
-                "es": "éxito"
+                "es": "éxito",
+                "pt": "sucesso",
+                "it": "successo",
+                "zh-Hans": "成功",
+                "zh-Hant": "成功",
+                "ro": "succes",
+                "ca": "èxit"
               },
               "id": "b5.s5.t9",
               "startMs": 98045,
@@ -4333,7 +6055,13 @@
               "glosses": {
                 "en": "to the",
                 "fr": "au",
-                "es": "al"
+                "es": "al",
+                "pt": "ao",
+                "it": "al",
+                "zh-Hans": "给",
+                "zh-Hant": "給",
+                "ro": "la",
+                "ca": "al"
               },
               "id": "b5.s5.t10",
               "startMs": 98445,
@@ -4347,7 +6075,13 @@
               "glosses": {
                 "en": "boy",
                 "fr": "garçon",
-                "es": "muchacho"
+                "es": "muchacho",
+                "pt": "garoto",
+                "it": "ragazzo",
+                "zh-Hans": "男孩",
+                "zh-Hant": "男孩",
+                "ro": "băiat",
+                "ca": "noi"
               },
               "id": "b5.s5.t11",
               "startMs": 98625,
@@ -4373,7 +6107,13 @@
           "translations": {
             "en": "For several weeks, he brings more rabbits and partridges.",
             "fr": "Pendant plusieurs semaines, il apporte encore des lapins et des perdrix.",
-            "es": "Durante varias semanas, lleva más conejos y perdices."
+            "es": "Durante varias semanas, lleva más conejos y perdices.",
+            "pt": "Durante várias semanas, ele ainda traz coelhos e perdizes.",
+            "it": "Per diverse settimane, porta ancora conigli e pernici.",
+            "zh-Hans": "几个星期里，他又送来了兔子和鹧鸪。",
+            "zh-Hant": "連續幾個星期，他又帶來了兔子和鷓鴣。",
+            "ro": "Timp de mai multe săptămâni, el mai aduce iepuri și potârnichi.",
+            "ca": "Durant diverses setmanes, porta encara conills i perdius."
           },
           "tokens": [
             {
@@ -4384,7 +6124,13 @@
               "glosses": {
                 "en": "during",
                 "fr": "pendant",
-                "es": "durante"
+                "es": "durante",
+                "pt": "durante",
+                "it": "durante",
+                "zh-Hans": "在……期间",
+                "zh-Hant": "在...期間",
+                "ro": "timp de",
+                "ca": "durant"
               },
               "id": "b6.s1.t1",
               "startMs": 100563,
@@ -4398,7 +6144,13 @@
               "glosses": {
                 "en": "several",
                 "fr": "plusieurs",
-                "es": "varias"
+                "es": "varias",
+                "pt": "vários",
+                "it": "diversi",
+                "zh-Hans": "几个",
+                "zh-Hant": "幾個",
+                "ro": "mai multe",
+                "ca": "diversos"
               },
               "id": "b6.s1.t2",
               "startMs": 100823,
@@ -4412,7 +6164,13 @@
               "glosses": {
                 "en": "weeks",
                 "fr": "semaines",
-                "es": "semanas"
+                "es": "semanas",
+                "pt": "semanas",
+                "it": "settimane",
+                "zh-Hans": "星期",
+                "zh-Hant": "星期",
+                "ro": "săptămâni",
+                "ca": "setmanes"
               },
               "id": "b6.s1.t3",
               "startMs": 101333,
@@ -4433,7 +6191,13 @@
               "glosses": {
                 "en": "he",
                 "fr": "il",
-                "es": "él"
+                "es": "él",
+                "pt": "ele",
+                "it": "egli",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b6.s1.t5",
               "startMs": 101853,
@@ -4447,7 +6211,13 @@
               "glosses": {
                 "en": "brings",
                 "fr": "apporte",
-                "es": "lleva"
+                "es": "lleva",
+                "pt": "traz",
+                "it": "porta",
+                "zh-Hans": "带来",
+                "zh-Hant": "帶來",
+                "ro": "aduce",
+                "ca": "porta"
               },
               "id": "b6.s1.t6",
               "startMs": 102183,
@@ -4461,7 +6231,13 @@
               "glosses": {
                 "en": "more",
                 "fr": "encore",
-                "es": "más"
+                "es": "más",
+                "pt": "ainda",
+                "it": "ancora",
+                "zh-Hans": "仍然",
+                "zh-Hant": "仍然",
+                "ro": "încă",
+                "ca": "encara"
               },
               "id": "b6.s1.t7",
               "startMs": 102503,
@@ -4475,7 +6251,13 @@
               "glosses": {
                 "en": "some",
                 "fr": "des",
-                "es": "unos"
+                "es": "unos",
+                "pt": "uns",
+                "it": "dei",
+                "zh-Hans": "一些",
+                "zh-Hant": "一些",
+                "ro": "niște",
+                "ca": "uns"
               },
               "id": "b6.s1.t8",
               "startMs": 102923,
@@ -4489,7 +6271,13 @@
               "glosses": {
                 "en": "rabbits",
                 "fr": "lapins",
-                "es": "conejos"
+                "es": "conejos",
+                "pt": "coelhos",
+                "it": "conigli",
+                "zh-Hans": "兔子",
+                "zh-Hant": "兔子",
+                "ro": "iepuri",
+                "ca": "conills"
               },
               "id": "b6.s1.t9",
               "startMs": 103043,
@@ -4503,7 +6291,13 @@
               "glosses": {
                 "en": "and",
                 "fr": "et",
-                "es": "y"
+                "es": "y",
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b6.s1.t10",
               "startMs": 103443,
@@ -4517,7 +6311,13 @@
               "glosses": {
                 "en": "some",
                 "fr": "des",
-                "es": "unos"
+                "es": "unos",
+                "pt": "uns",
+                "it": "dei",
+                "zh-Hans": "一些",
+                "zh-Hant": "一些",
+                "ro": "niște",
+                "ca": "uns"
               },
               "id": "b6.s1.t11",
               "startMs": 103573,
@@ -4531,7 +6331,13 @@
               "glosses": {
                 "en": "partridges",
                 "fr": "perdrix",
-                "es": "perdices"
+                "es": "perdices",
+                "pt": "perdizes",
+                "it": "pernici",
+                "zh-Hans": "鹧鸪",
+                "zh-Hant": "鷓鴣",
+                "ro": "potârnichi",
+                "ca": "perdiu"
               },
               "id": "b6.s1.t12",
               "startMs": 103773,
@@ -4552,7 +6358,13 @@
           "translations": {
             "en": "Each time, he announces a present from the Marquis of Carabas.",
             "fr": "Chaque fois, il annonce un présent du marquis de Carabas.",
-            "es": "Cada vez, anuncia un presente del marqués de Carabás."
+            "es": "Cada vez, anuncia un presente del marqués de Carabás.",
+            "pt": "Toda vez, ele anuncia um presente do marquês de Carabás.",
+            "it": "Ogni volta, annuncia un regalo del marchese di Carabas.",
+            "zh-Hans": "每次，他都宣布这是卡拉巴斯侯爵的礼物。",
+            "zh-Hant": "每次，他都宣布卡拉巴侯爵的禮物。",
+            "ro": "De fiecare dată, el anunță un dar de la marchizul de Carabas.",
+            "ca": "Cada vegada, anuncia un present del marquès de Carabàs."
           },
           "tokens": [
             {
@@ -4563,7 +6375,13 @@
               "glosses": {
                 "en": "each",
                 "fr": "chaque",
-                "es": "cada"
+                "es": "cada",
+                "pt": "cada",
+                "it": "ogni",
+                "zh-Hans": "每个",
+                "zh-Hant": "每個",
+                "ro": "fiecare",
+                "ca": "cada"
               },
               "id": "b6.s2.t1",
               "startMs": 105197,
@@ -4577,7 +6395,13 @@
               "glosses": {
                 "en": "time",
                 "fr": "fois",
-                "es": "vez"
+                "es": "vez",
+                "pt": "vez",
+                "it": "volta",
+                "zh-Hans": "次",
+                "zh-Hant": "次",
+                "ro": "dată",
+                "ca": "vegada"
               },
               "id": "b6.s2.t2",
               "startMs": 105627,
@@ -4598,7 +6422,13 @@
               "glosses": {
                 "en": "he",
                 "fr": "il",
-                "es": "él"
+                "es": "él",
+                "pt": "ele",
+                "it": "egli",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b6.s2.t4",
               "startMs": 105907,
@@ -4612,7 +6442,13 @@
               "glosses": {
                 "en": "announces",
                 "fr": "annonce",
-                "es": "anuncia"
+                "es": "anuncia",
+                "pt": "anuncia",
+                "it": "annuncia",
+                "zh-Hans": "宣布",
+                "zh-Hant": "宣布",
+                "ro": "anunță",
+                "ca": "anuncia"
               },
               "id": "b6.s2.t5",
               "startMs": 105937,
@@ -4626,7 +6462,13 @@
               "glosses": {
                 "en": "a",
                 "fr": "un",
-                "es": "un"
+                "es": "un",
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一个",
+                "zh-Hant": "一個",
+                "ro": "un",
+                "ca": "un"
               },
               "id": "b6.s2.t6",
               "startMs": 106287,
@@ -4640,7 +6482,13 @@
               "glosses": {
                 "en": "present",
                 "fr": "présent",
-                "es": "presente"
+                "es": "presente",
+                "pt": "presente",
+                "it": "dono",
+                "zh-Hans": "礼物",
+                "zh-Hant": "禮物",
+                "ro": "cadou",
+                "ca": "present"
               },
               "id": "b6.s2.t7",
               "startMs": 106527,
@@ -4654,7 +6502,13 @@
               "glosses": {
                 "en": "of the",
                 "fr": "du",
-                "es": "del"
+                "es": "del",
+                "pt": "do",
+                "it": "del",
+                "zh-Hans": "的",
+                "zh-Hant": "的",
+                "ro": "al",
+                "ca": "del"
               },
               "id": "b6.s2.t8",
               "startMs": 106837,
@@ -4668,7 +6522,13 @@
               "glosses": {
                 "en": "marquis",
                 "fr": "marquis",
-                "es": "marqués"
+                "es": "marqués",
+                "pt": "marquês",
+                "it": "marchese",
+                "zh-Hans": "侯爵",
+                "zh-Hant": "侯爵",
+                "ro": "marchiz",
+                "ca": "marquès"
               },
               "id": "b6.s2.t9",
               "startMs": 106947,
@@ -4682,7 +6542,13 @@
               "glosses": {
                 "en": "of",
                 "fr": "de",
-                "es": "de"
+                "es": "de",
+                "pt": "de",
+                "it": "di",
+                "zh-Hans": "的",
+                "zh-Hant": "的",
+                "ro": "de",
+                "ca": "de"
               },
               "id": "b6.s2.t10",
               "startMs": 107397,
@@ -4696,7 +6562,13 @@
               "glosses": {
                 "en": "Carabas",
                 "fr": "Carabas",
-                "es": "Carabás"
+                "es": "Carabás",
+                "pt": "Carabás",
+                "it": "Carabas",
+                "zh-Hans": "卡拉巴斯",
+                "zh-Hant": "卡拉巴斯",
+                "ro": "Carabas",
+                "ca": "Carabas"
               },
               "id": "b6.s2.t11",
               "startMs": 107437,
@@ -4717,7 +6589,13 @@
           "translations": {
             "en": "The king becomes curious, and the young man regains some courage.",
             "fr": "Le roi devient curieux, et le jeune homme retrouve un peu de courage.",
-            "es": "El rey siente curiosidad y el joven recupera un poco de valor."
+            "es": "El rey siente curiosidad y el joven recupera un poco de valor.",
+            "pt": "O rei fica curioso, e o jovem recupera um pouco de coragem.",
+            "it": "Il re diventa curioso, e il giovane ritrova un po' di coraggio.",
+            "zh-Hans": "国王变得好奇，年轻人也重新有了一些勇气。",
+            "zh-Hant": "國王變得好奇，年輕人重新找回了一些勇氣。",
+            "ro": "Regele devine curios, iar tânărul își recapătă puțin curaj.",
+            "ca": "El rei es torna curiós, i el jove recupera una mica de coratge."
           },
           "tokens": [
             {
@@ -4728,7 +6606,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b6.s3.t1",
               "startMs": 108920,
@@ -4742,7 +6626,13 @@
               "glosses": {
                 "en": "king",
                 "fr": "roi",
-                "es": "rey"
+                "es": "rey",
+                "pt": "rei",
+                "it": "re",
+                "zh-Hans": "国王",
+                "zh-Hant": "國王",
+                "ro": "rege",
+                "ca": "rei"
               },
               "id": "b6.s3.t2",
               "startMs": 108990,
@@ -4756,7 +6646,13 @@
               "glosses": {
                 "en": "becomes",
                 "fr": "devient",
-                "es": "se convierte"
+                "es": "se convierte",
+                "pt": "torna-se",
+                "it": "diventa",
+                "zh-Hans": "变得",
+                "zh-Hant": "變成",
+                "ro": "devine",
+                "ca": "esdevé"
               },
               "id": "b6.s3.t3",
               "startMs": 109210,
@@ -4770,7 +6666,13 @@
               "glosses": {
                 "en": "curious",
                 "fr": "curieux",
-                "es": "curioso"
+                "es": "curioso",
+                "pt": "curioso",
+                "it": "curioso",
+                "zh-Hans": "好奇的",
+                "zh-Hant": "好奇的",
+                "ro": "curios",
+                "ca": "curiós"
               },
               "id": "b6.s3.t4",
               "startMs": 109650,
@@ -4791,7 +6693,13 @@
               "glosses": {
                 "en": "and",
                 "fr": "et",
-                "es": "y"
+                "es": "y",
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b6.s3.t6",
               "startMs": 110140,
@@ -4805,7 +6713,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b6.s3.t7",
               "startMs": 110380,
@@ -4819,7 +6733,13 @@
               "glosses": {
                 "en": "young",
                 "fr": "jeune",
-                "es": "joven"
+                "es": "joven",
+                "pt": "jovem",
+                "it": "giovane",
+                "zh-Hans": "年轻的",
+                "zh-Hant": "年輕的",
+                "ro": "tânăr",
+                "ca": "jove"
               },
               "id": "b6.s3.t8",
               "startMs": 110480,
@@ -4833,7 +6753,13 @@
               "glosses": {
                 "en": "man",
                 "fr": "homme",
-                "es": "hombre"
+                "es": "hombre",
+                "pt": "homem",
+                "it": "uomo",
+                "zh-Hans": "男人",
+                "zh-Hant": "男人",
+                "ro": "om",
+                "ca": "home"
               },
               "id": "b6.s3.t9",
               "startMs": 110680,
@@ -4847,7 +6773,13 @@
               "glosses": {
                 "en": "regains",
                 "fr": "retrouve",
-                "es": "recupera"
+                "es": "recupera",
+                "pt": "recupera",
+                "it": "ritrova",
+                "zh-Hans": "重新获得",
+                "zh-Hant": "重新獲得",
+                "ro": "regăsește",
+                "ca": "retroba"
               },
               "id": "b6.s3.t10",
               "startMs": 111020,
@@ -4861,7 +6793,13 @@
               "glosses": {
                 "en": "a",
                 "fr": "un",
-                "es": "un"
+                "es": "un",
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一个",
+                "zh-Hant": "一個",
+                "ro": "un",
+                "ca": "un"
               },
               "id": "b6.s3.t11",
               "startMs": 111460,
@@ -4875,7 +6813,13 @@
               "glosses": {
                 "en": "a little",
                 "fr": "peu",
-                "es": "un poco"
+                "es": "un poco",
+                "pt": "pouco",
+                "it": "poco",
+                "zh-Hans": "少",
+                "zh-Hant": "少",
+                "ro": "puțin",
+                "ca": "poc"
               },
               "id": "b6.s3.t12",
               "startMs": 111580,
@@ -4889,7 +6833,13 @@
               "glosses": {
                 "en": "of",
                 "fr": "de",
-                "es": "de"
+                "es": "de",
+                "pt": "de",
+                "it": "di",
+                "zh-Hans": "的",
+                "zh-Hant": "的",
+                "ro": "de",
+                "ca": "de"
               },
               "id": "b6.s3.t13",
               "startMs": 111830,
@@ -4903,7 +6853,13 @@
               "glosses": {
                 "en": "courage",
                 "fr": "courage",
-                "es": "valor"
+                "es": "valor",
+                "pt": "coragem",
+                "it": "coraggio",
+                "zh-Hans": "勇气",
+                "zh-Hant": "勇氣",
+                "ro": "curaj",
+                "ca": "coratge"
               },
               "id": "b6.s3.t14",
               "startMs": 111880,
@@ -4924,7 +6880,13 @@
           "translations": {
             "en": "The cat now prepares a bolder stage of his plan.",
             "fr": "Le chat prépare maintenant une étape plus audacieuse de son plan.",
-            "es": "El gato prepara ahora una etapa más audaz de su plan."
+            "es": "El gato prepara ahora una etapa más audaz de su plan.",
+            "pt": "O gato prepara agora uma etapa mais audaciosa do seu plano.",
+            "it": "Il gatto ora prepara una fase più audace del suo piano.",
+            "zh-Hans": "猫现在准备了他计划中更大胆的一步。",
+            "zh-Hant": "貓現在準備了他計畫中更大膽的一步。",
+            "ro": "Pisica pregătește acum o etapă mai îndrăzneață a planului său.",
+            "ca": "El gat prepara ara una etapa més agosarada del seu pla."
           },
           "tokens": [
             {
@@ -4935,7 +6897,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b6.s4.t1",
               "startMs": 113425,
@@ -4949,7 +6917,13 @@
               "glosses": {
                 "en": "cat",
                 "fr": "chat",
-                "es": "gato"
+                "es": "gato",
+                "pt": "gato",
+                "it": "gatto",
+                "zh-Hans": "猫",
+                "zh-Hant": "貓",
+                "ro": "pisică",
+                "ca": "gat"
               },
               "id": "b6.s4.t2",
               "startMs": 113485,
@@ -4963,7 +6937,13 @@
               "glosses": {
                 "en": "prepares",
                 "fr": "prépare",
-                "es": "prepara"
+                "es": "prepara",
+                "pt": "prepara",
+                "it": "prepara",
+                "zh-Hans": "准备",
+                "zh-Hant": "準備",
+                "ro": "pregătește",
+                "ca": "prepara"
               },
               "id": "b6.s4.t3",
               "startMs": 113715,
@@ -4977,7 +6957,13 @@
               "glosses": {
                 "en": "now",
                 "fr": "maintenant",
-                "es": "ahora"
+                "es": "ahora",
+                "pt": "agora",
+                "it": "ora",
+                "zh-Hans": "现在",
+                "zh-Hant": "現在",
+                "ro": "acum",
+                "ca": "ara"
               },
               "id": "b6.s4.t4",
               "startMs": 114165,
@@ -4991,7 +6977,13 @@
               "glosses": {
                 "en": "a",
                 "fr": "une",
-                "es": "una"
+                "es": "una",
+                "pt": "uma",
+                "it": "una",
+                "zh-Hans": "一个",
+                "zh-Hant": "一個",
+                "ro": "o",
+                "ca": "una"
               },
               "id": "b6.s4.t5",
               "startMs": 114755,
@@ -5005,7 +6997,13 @@
               "glosses": {
                 "en": "stage",
                 "fr": "étape",
-                "es": "etapa"
+                "es": "etapa",
+                "pt": "etapa",
+                "it": "tappa",
+                "zh-Hans": "步骤",
+                "zh-Hant": "階段",
+                "ro": "etapă",
+                "ca": "etapa"
               },
               "id": "b6.s4.t6",
               "startMs": 115075,
@@ -5019,7 +7017,13 @@
               "glosses": {
                 "en": "more",
                 "fr": "plus",
-                "es": "más"
+                "es": "más",
+                "pt": "mais",
+                "it": "più",
+                "zh-Hans": "更",
+                "zh-Hant": "更",
+                "ro": "mai",
+                "ca": "més"
               },
               "id": "b6.s4.t7",
               "startMs": 115265,
@@ -5033,7 +7037,13 @@
               "glosses": {
                 "en": "bold",
                 "fr": "audacieuse",
-                "es": "audaz"
+                "es": "audaz",
+                "pt": "audaciosa",
+                "it": "audace",
+                "zh-Hans": "大胆的",
+                "zh-Hant": "大膽的",
+                "ro": "îndrăzneață",
+                "ca": "agosarada"
               },
               "id": "b6.s4.t8",
               "startMs": 115645,
@@ -5047,7 +7057,13 @@
               "glosses": {
                 "en": "of",
                 "fr": "de",
-                "es": "de"
+                "es": "de",
+                "pt": "de",
+                "it": "di",
+                "zh-Hans": "的",
+                "zh-Hant": "的",
+                "ro": "de",
+                "ca": "de"
               },
               "id": "b6.s4.t9",
               "startMs": 116135,
@@ -5061,7 +7077,13 @@
               "glosses": {
                 "en": "his",
                 "fr": "son",
-                "es": "su"
+                "es": "su",
+                "pt": "seu",
+                "it": "suo",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "său",
+                "ca": "seu"
               },
               "id": "b6.s4.t10",
               "startMs": 116175,
@@ -5075,7 +7097,13 @@
               "glosses": {
                 "en": "plan",
                 "fr": "plan",
-                "es": "plan"
+                "es": "plan",
+                "pt": "plano",
+                "it": "piano",
+                "zh-Hans": "计划",
+                "zh-Hant": "計劃",
+                "ro": "plan",
+                "ca": "pla"
               },
               "id": "b6.s4.t11",
               "startMs": 116345,
@@ -5096,7 +7124,13 @@
           "translations": {
             "en": "“Tomorrow, go into the river and trust me,” says the cat.",
             "fr": "« Demain, allez dans la rivière et gardez confiance en moi », dit le chat.",
-            "es": "«Mañana, entre en el río y confíe en mí», dice el gato."
+            "es": "«Mañana, entre en el río y confíe en mí», dice el gato.",
+            "pt": "“Amanhã, vá ao rio e confie em mim”, diz o gato.",
+            "it": "«Domani, andate nel fiume e abbiate fiducia in me», dice il gatto.",
+            "zh-Hans": "“明天，去河里，并相信我。”猫说。",
+            "zh-Hant": "「明天，到河裡去，並相信我。」貓說。",
+            "ro": "« Mâine, mergeți în râu și aveți încredere în mine », spune pisica.",
+            "ca": "«Demà, aneu al riu i tingueu confiança en mi», diu el gat."
           },
           "tokens": [
             {
@@ -5114,7 +7148,13 @@
               "glosses": {
                 "en": "tomorrow",
                 "fr": "demain",
-                "es": "mañana"
+                "es": "mañana",
+                "pt": "amanhã",
+                "it": "domani",
+                "zh-Hans": "明天",
+                "zh-Hant": "明天",
+                "ro": "mâine",
+                "ca": "demà"
               },
               "id": "b6.s5.t2",
               "startMs": 117825,
@@ -5135,7 +7175,13 @@
               "glosses": {
                 "en": "go",
                 "fr": "allez",
-                "es": "vaya"
+                "es": "vaya",
+                "pt": "vão",
+                "it": "andate",
+                "zh-Hans": "去",
+                "zh-Hant": "去",
+                "ro": "mergeți",
+                "ca": "aneu"
               },
               "id": "b6.s5.t4",
               "startMs": 118425,
@@ -5149,7 +7195,13 @@
               "glosses": {
                 "en": "in",
                 "fr": "dans",
-                "es": "en"
+                "es": "en",
+                "pt": "em",
+                "it": "in",
+                "zh-Hans": "在……里",
+                "zh-Hant": "在...裡",
+                "ro": "în",
+                "ca": "en"
               },
               "id": "b6.s5.t5",
               "startMs": 118565,
@@ -5163,7 +7215,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "la",
-                "es": "la"
+                "es": "la",
+                "pt": "a",
+                "it": "la",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "o",
+                "ca": "la"
               },
               "id": "b6.s5.t6",
               "startMs": 118775,
@@ -5177,7 +7235,13 @@
               "glosses": {
                 "en": "river",
                 "fr": "rivière",
-                "es": "río"
+                "es": "río",
+                "pt": "rio",
+                "it": "fiume",
+                "zh-Hans": "河",
+                "zh-Hant": "河流",
+                "ro": "râu",
+                "ca": "riu"
               },
               "id": "b6.s5.t7",
               "startMs": 118875,
@@ -5191,7 +7255,13 @@
               "glosses": {
                 "en": "and",
                 "fr": "et",
-                "es": "y"
+                "es": "y",
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b6.s5.t8",
               "startMs": 119345,
@@ -5205,7 +7275,13 @@
               "glosses": {
                 "en": "keep",
                 "fr": "gardez",
-                "es": "mantenga"
+                "es": "mantenga",
+                "pt": "tenham",
+                "it": "abbiate",
+                "zh-Hans": "保持",
+                "zh-Hant": "保持",
+                "ro": "păstrați",
+                "ca": "guardeu"
               },
               "id": "b6.s5.t9",
               "startMs": 119465,
@@ -5219,7 +7295,13 @@
               "glosses": {
                 "en": "trust",
                 "fr": "confiance",
-                "es": "confianza"
+                "es": "confianza",
+                "pt": "confiança",
+                "it": "fiducia",
+                "zh-Hans": "信心",
+                "zh-Hant": "信心",
+                "ro": "încredere",
+                "ca": "confiança"
               },
               "id": "b6.s5.t10",
               "startMs": 119835,
@@ -5233,7 +7315,13 @@
               "glosses": {
                 "en": "in",
                 "fr": "en",
-                "es": "en"
+                "es": "en",
+                "pt": "em",
+                "it": "in",
+                "zh-Hans": "在",
+                "zh-Hant": "在",
+                "ro": "în",
+                "ca": "en"
               },
               "id": "b6.s5.t11",
               "startMs": 120405,
@@ -5247,7 +7335,13 @@
               "glosses": {
                 "en": "me",
                 "fr": "moi",
-                "es": "mí"
+                "es": "mí",
+                "pt": "mim",
+                "it": "io",
+                "zh-Hans": "我",
+                "zh-Hant": "我",
+                "ro": "eu",
+                "ca": "jo"
               },
               "id": "b6.s5.t12",
               "startMs": 120525,
@@ -5275,7 +7369,13 @@
               "glosses": {
                 "en": "says",
                 "fr": "dit",
-                "es": "dice"
+                "es": "dice",
+                "pt": "diz",
+                "it": "dice",
+                "zh-Hans": "说",
+                "zh-Hant": "說",
+                "ro": "spune",
+                "ca": "diu"
               },
               "id": "b6.s5.t15",
               "startMs": 121005,
@@ -5289,7 +7389,13 @@
               "glosses": {
                 "en": "the",
                 "fr": "le",
-                "es": "el"
+                "es": "el",
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "îl",
+                "ca": "el"
               },
               "id": "b6.s5.t16",
               "startMs": 121125,
@@ -5303,7 +7409,13 @@
               "glosses": {
                 "en": "cat",
                 "fr": "chat",
-                "es": "gato"
+                "es": "gato",
+                "pt": "gato",
+                "it": "gatto",
+                "zh-Hans": "猫",
+                "zh-Hant": "貓",
+                "ro": "pisică",
+                "ca": "gat"
               },
               "id": "b6.s5.t17",
               "startMs": 121205,

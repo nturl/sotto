@@ -13,7 +13,13 @@
           "translations": {
             "en": "A hungry fox walks through a sunny garden.",
             "fr": "Un renard affamé marche dans un jardin ensoleillé.",
-            "es": "Un zorro hambriento camina por un jardín soleado."
+            "es": "Un zorro hambriento camina por un jardín soleado.",
+            "pt": "Uma raposa faminta caminha por um jardim ensolarado.",
+            "it": "Una volpe affamata cammina attraverso un giardino soleggiato.",
+            "zh-Hans": "一只饥饿的狐狸走过一个阳光明媚的花园。",
+            "zh-Hant": "一隻飢餓的狐狸走過一個陽光明媚的花園。",
+            "ro": "O vulpe flămândă merge printr-o grădină însorită.",
+            "ca": "Una guineu afamada camina per un jardí assolellat."
           },
           "tokens": [
             {
@@ -25,7 +31,12 @@
                 "en": "a",
                 "fr": "un",
                 "es": "un",
-                "pt": "um"
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一只",
+                "zh-Hant": "一隻",
+                "ro": "un/o",
+                "ca": "un"
               },
               "id": "b1.s1.t1",
               "startMs": 50,
@@ -40,7 +51,12 @@
                 "en": "hungry",
                 "fr": "affamé",
                 "es": "hambriento",
-                "pt": "faminto"
+                "pt": "faminto",
+                "it": "affamata",
+                "zh-Hans": "饥饿的",
+                "zh-Hant": "飢餓的",
+                "ro": "flămând",
+                "ca": "famolenc"
               },
               "id": "b1.s1.t2",
               "startMs": 70,
@@ -55,7 +71,12 @@
                 "en": "fox",
                 "fr": "renard",
                 "es": "zorro",
-                "pt": "raposa"
+                "pt": "raposa",
+                "it": "volpe",
+                "zh-Hans": "狐狸",
+                "zh-Hant": "狐狸",
+                "ro": "vulpe",
+                "ca": "guineu"
               },
               "id": "b1.s1.t3",
               "startMs": 590,
@@ -70,7 +91,12 @@
                 "en": "walks",
                 "fr": "marche",
                 "es": "camina",
-                "pt": "caminha"
+                "pt": "caminha",
+                "it": "cammina",
+                "zh-Hans": "走路",
+                "zh-Hant": "走路",
+                "ro": "merge",
+                "ca": "camina"
               },
               "id": "b1.s1.t4",
               "startMs": 700,
@@ -85,7 +111,12 @@
                 "en": "through",
                 "fr": "à travers",
                 "es": "a través de",
-                "pt": "através"
+                "pt": "através",
+                "it": "attraverso",
+                "zh-Hans": "穿过",
+                "zh-Hant": "穿過",
+                "ro": "prin",
+                "ca": "a través de"
               },
               "id": "b1.s1.t5",
               "startMs": 1050,
@@ -100,7 +131,12 @@
                 "en": "a",
                 "fr": "un",
                 "es": "un",
-                "pt": "um"
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一只",
+                "zh-Hant": "一隻",
+                "ro": "un/o",
+                "ca": "un"
               },
               "id": "b1.s1.t6",
               "startMs": 1600,
@@ -115,7 +151,12 @@
                 "en": "sunny",
                 "fr": "ensoleillé",
                 "es": "soleado",
-                "pt": "ensolarado"
+                "pt": "ensolarado",
+                "it": "soleggiata",
+                "zh-Hans": "阳光明媚的",
+                "zh-Hant": "晴朗的",
+                "ro": "însorit",
+                "ca": "assolellat"
               },
               "id": "b1.s1.t7",
               "startMs": 1610,
@@ -130,7 +171,12 @@
                 "en": "garden",
                 "fr": "jardin",
                 "es": "jardín",
-                "pt": "jardim"
+                "pt": "jardim",
+                "it": "giardino",
+                "zh-Hans": "花园",
+                "zh-Hant": "花園",
+                "ro": "grădină",
+                "ca": "jardí"
               },
               "id": "b1.s1.t8",
               "startMs": 1960,
@@ -151,7 +197,13 @@
           "translations": {
             "en": "His stomach is completely empty.",
             "fr": "Son estomac est complètement vide.",
-            "es": "Su estómago está completamente vacío."
+            "es": "Su estómago está completamente vacío.",
+            "pt": "Seu estômago está completamente vazio.",
+            "it": "Il suo stomaco è completamente vuoto.",
+            "zh-Hans": "他的胃完全空了。",
+            "zh-Hant": "他的肚子完全空空的。",
+            "ro": "Stomacul ei este complet gol.",
+            "ca": "El seu estómac està completament buit."
           },
           "tokens": [
             {
@@ -163,7 +215,12 @@
                 "en": "his",
                 "fr": "son",
                 "es": "su",
-                "pt": "dele"
+                "pt": "dele",
+                "it": "sua",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "lui",
+                "ca": "seva"
               },
               "id": "b1.s2.t1",
               "startMs": 3068,
@@ -178,7 +235,12 @@
                 "en": "stomach",
                 "fr": "estomac",
                 "es": "estómago",
-                "pt": "estômago"
+                "pt": "estômago",
+                "it": "stomaco",
+                "zh-Hans": "胃",
+                "zh-Hant": "胃",
+                "ro": "stomac",
+                "ca": "estómac"
               },
               "id": "b1.s2.t2",
               "startMs": 3238,
@@ -193,7 +255,12 @@
                 "en": "is",
                 "fr": "est",
                 "es": "es",
-                "pt": "é"
+                "pt": "é",
+                "it": "è",
+                "zh-Hans": "是",
+                "zh-Hant": "是",
+                "ro": "este",
+                "ca": "és"
               },
               "id": "b1.s2.t3",
               "startMs": 3768,
@@ -208,7 +275,12 @@
                 "en": "completely",
                 "fr": "complètement",
                 "es": "completamente",
-                "pt": "completamente"
+                "pt": "completamente",
+                "it": "completamente",
+                "zh-Hans": "完全地",
+                "zh-Hant": "完全地",
+                "ro": "complet",
+                "ca": "completament"
               },
               "id": "b1.s2.t4",
               "startMs": 3878,
@@ -223,7 +295,12 @@
                 "en": "empty",
                 "fr": "vide",
                 "es": "vacío",
-                "pt": "vazio"
+                "pt": "vazio",
+                "it": "vuoto",
+                "zh-Hans": "空的",
+                "zh-Hant": "空的",
+                "ro": "gol",
+                "ca": "buit"
               },
               "id": "b1.s2.t5",
               "startMs": 4618,
@@ -244,7 +321,13 @@
           "translations": {
             "en": "He looks everywhere for food to eat.",
             "fr": "Il cherche partout de la nourriture à manger.",
-            "es": "Busca comida por todas partes para comer."
+            "es": "Busca comida por todas partes para comer.",
+            "pt": "Ela procura comida em todos os lugares.",
+            "it": "Cerca cibo da mangiare ovunque.",
+            "zh-Hans": "他到处找食物吃。",
+            "zh-Hant": "他到處找食物吃。",
+            "ro": "Caută peste tot mâncare de mâncat.",
+            "ca": "Ella busca menjar per tot arreu."
           },
           "tokens": [
             {
@@ -256,7 +339,12 @@
                 "en": "he",
                 "fr": "il",
                 "es": "él",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "lui",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b1.s3.t1",
               "startMs": 5706,
@@ -271,7 +359,12 @@
                 "en": "looks",
                 "fr": "regarde",
                 "es": "mira",
-                "pt": "olha"
+                "pt": "olha",
+                "it": "cerca",
+                "zh-Hans": "看",
+                "zh-Hant": "看",
+                "ro": "caută",
+                "ca": "mira"
               },
               "id": "b1.s3.t2",
               "startMs": 5736,
@@ -286,7 +379,12 @@
                 "en": "everywhere",
                 "fr": "partout",
                 "es": "por todas partes",
-                "pt": "em todo lugar"
+                "pt": "em todo lugar",
+                "it": "ovunque",
+                "zh-Hans": "到处",
+                "zh-Hant": "到處",
+                "ro": "pretutindeni",
+                "ca": "a tot arreu"
               },
               "id": "b1.s3.t3",
               "startMs": 6086,
@@ -301,7 +399,12 @@
                 "en": "for",
                 "fr": "pour",
                 "es": "para",
-                "pt": "por"
+                "pt": "por",
+                "it": "per",
+                "zh-Hans": "为了",
+                "zh-Hant": "為了",
+                "ro": "pentru",
+                "ca": "per"
               },
               "id": "b1.s3.t4",
               "startMs": 6666,
@@ -316,7 +419,12 @@
                 "en": "food",
                 "fr": "nourriture",
                 "es": "comida",
-                "pt": "comida"
+                "pt": "comida",
+                "it": "cibo",
+                "zh-Hans": "食物",
+                "zh-Hant": "食物",
+                "ro": "mâncare",
+                "ca": "menjar"
               },
               "id": "b1.s3.t5",
               "startMs": 6846,
@@ -331,7 +439,12 @@
                 "en": "to",
                 "fr": "à",
                 "es": "a",
-                "pt": "para"
+                "pt": "para",
+                "it": "a",
+                "zh-Hans": "到",
+                "zh-Hant": "向",
+                "ro": "la",
+                "ca": "a"
               },
               "id": "b1.s3.t6",
               "startMs": 7116,
@@ -346,7 +459,12 @@
                 "en": "eat",
                 "fr": "manger",
                 "es": "comer",
-                "pt": "comer"
+                "pt": "comer",
+                "it": "mangiare",
+                "zh-Hans": "吃",
+                "zh-Hant": "吃",
+                "ro": "mânca",
+                "ca": "menjar"
               },
               "id": "b1.s3.t7",
               "startMs": 7216,
@@ -367,7 +485,13 @@
           "translations": {
             "en": "Then he looks up at a tall wooden vine.",
             "fr": "Puis il lève les yeux vers une haute vigne en bois.",
-            "es": "Luego mira hacia arriba a una alta parra de madera."
+            "es": "Luego mira hacia arriba a una alta parra de madera.",
+            "pt": "Então ela olha para cima, para uma videira alta.",
+            "it": "Poi guarda in alto verso un'alta vite di legno.",
+            "zh-Hans": "然后他抬头看一根高高的木藤。",
+            "zh-Hant": "然後他抬頭看一根高高的木藤。",
+            "ro": "Apoi se uită în sus la o viță înaltă de lemn.",
+            "ca": "Després mira cap amunt a una parra alta."
           },
           "tokens": [
             {
@@ -379,7 +503,12 @@
                 "en": "then",
                 "fr": "ensuite",
                 "es": "luego",
-                "pt": "então"
+                "pt": "então",
+                "it": "poi",
+                "zh-Hans": "然后",
+                "zh-Hant": "然後",
+                "ro": "apoi",
+                "ca": "després"
               },
               "id": "b1.s4.t1",
               "startMs": 8267,
@@ -394,7 +523,12 @@
                 "en": "he",
                 "fr": "il",
                 "es": "él",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "lui",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b1.s4.t2",
               "startMs": 8497,
@@ -409,7 +543,12 @@
                 "en": "looks",
                 "fr": "regarde",
                 "es": "mira",
-                "pt": "olha"
+                "pt": "olha",
+                "it": "cerca",
+                "zh-Hans": "看",
+                "zh-Hant": "看",
+                "ro": "caută",
+                "ca": "mira"
               },
               "id": "b1.s4.t3",
               "startMs": 8637,
@@ -424,7 +563,12 @@
                 "en": "up",
                 "fr": "en haut",
                 "es": "arriba",
-                "pt": "acima"
+                "pt": "acima",
+                "it": "su",
+                "zh-Hans": "向上",
+                "zh-Hant": "向上",
+                "ro": "sus",
+                "ca": "amunt"
               },
               "id": "b1.s4.t4",
               "startMs": 8997,
@@ -439,7 +583,12 @@
                 "en": "at",
                 "fr": "à",
                 "es": "a",
-                "pt": "em"
+                "pt": "em",
+                "it": "a",
+                "zh-Hans": "在",
+                "zh-Hant": "在",
+                "ro": "la",
+                "ca": "a"
               },
               "id": "b1.s4.t5",
               "startMs": 9137,
@@ -454,7 +603,12 @@
                 "en": "a",
                 "fr": "un",
                 "es": "un",
-                "pt": "um"
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一只",
+                "zh-Hant": "一隻",
+                "ro": "un/o",
+                "ca": "un"
               },
               "id": "b1.s4.t6",
               "startMs": 9277,
@@ -469,7 +623,12 @@
                 "en": "tall",
                 "fr": "haut",
                 "es": "alto",
-                "pt": "alto"
+                "pt": "alto",
+                "it": "alto",
+                "zh-Hans": "高的",
+                "zh-Hant": "高的",
+                "ro": "înalt",
+                "ca": "alt"
               },
               "id": "b1.s4.t7",
               "startMs": 9347,
@@ -484,7 +643,12 @@
                 "en": "wooden",
                 "fr": "en bois",
                 "es": "de madera",
-                "pt": "de madeira"
+                "pt": "de madeira",
+                "it": "di legno",
+                "zh-Hans": "木制的",
+                "zh-Hant": "木製的",
+                "ro": "de lemn",
+                "ca": "de fusta"
               },
               "id": "b1.s4.t8",
               "startMs": 9627,
@@ -499,7 +663,12 @@
                 "en": "vine",
                 "fr": "vigne",
                 "es": "parra",
-                "pt": "videira"
+                "pt": "videira",
+                "it": "vite",
+                "zh-Hans": "藤蔓",
+                "zh-Hant": "藤蔓",
+                "ro": "viță",
+                "ca": "vinya"
               },
               "id": "b1.s4.t9",
               "startMs": 10067,
@@ -525,7 +694,13 @@
           "translations": {
             "en": "He sees many sweet purple grapes hanging high.",
             "fr": "Il voit beaucoup de raisins violets sucrés suspendus haut.",
-            "es": "Ve muchas uvas moradas dulces colgando en lo alto."
+            "es": "Ve muchas uvas moradas dulces colgando en lo alto.",
+            "pt": "Ela vê muitas uvas roxas doces penduradas no alto.",
+            "it": "Vede molti grappoli d'uva dolce e viola appesi in alto.",
+            "zh-Hans": "他看到许多甜甜的紫色葡萄高高挂着。",
+            "zh-Hant": "他看到許多甜美的紫色葡萄高高掛著。",
+            "ro": "Vede multe struguri dulci și mov atârnând sus.",
+            "ca": "Veu molts raïms dolços de color porpra penjant alts."
           },
           "tokens": [
             {
@@ -537,7 +712,12 @@
                 "en": "he",
                 "fr": "il",
                 "es": "él",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "lui",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b2.s1.t1",
               "startMs": 11424,
@@ -552,7 +732,12 @@
                 "en": "sees",
                 "fr": "voit",
                 "es": "ve",
-                "pt": "vê"
+                "pt": "vê",
+                "it": "vede",
+                "zh-Hans": "看到",
+                "zh-Hant": "看到",
+                "ro": "vede",
+                "ca": "veu"
               },
               "id": "b2.s1.t2",
               "startMs": 11474,
@@ -567,7 +752,12 @@
                 "en": "many",
                 "fr": "beaucoup",
                 "es": "muchos",
-                "pt": "muitos"
+                "pt": "muitos",
+                "it": "molti",
+                "zh-Hans": "许多",
+                "zh-Hant": "許多",
+                "ro": "multe",
+                "ca": "molts"
               },
               "id": "b2.s1.t3",
               "startMs": 11794,
@@ -582,7 +772,12 @@
                 "en": "sweet",
                 "fr": "doux",
                 "es": "dulce",
-                "pt": "doce"
+                "pt": "doce",
+                "it": "dolci",
+                "zh-Hans": "甜的",
+                "zh-Hant": "甜的",
+                "ro": "dulce",
+                "ca": "dolços"
               },
               "id": "b2.s1.t4",
               "startMs": 12014,
@@ -597,7 +792,12 @@
                 "en": "purple",
                 "fr": "violet",
                 "es": "morado",
-                "pt": "roxo"
+                "pt": "roxo",
+                "it": "viola",
+                "zh-Hans": "紫色的",
+                "zh-Hant": "紫色的",
+                "ro": "mov",
+                "ca": "porpra"
               },
               "id": "b2.s1.t5",
               "startMs": 12354,
@@ -612,7 +812,12 @@
                 "en": "grapes",
                 "fr": "raisins",
                 "es": "uvas",
-                "pt": "uvas"
+                "pt": "uvas",
+                "it": "uva",
+                "zh-Hans": "葡萄",
+                "zh-Hant": "葡萄",
+                "ro": "struguri",
+                "ca": "raïms"
               },
               "id": "b2.s1.t6",
               "startMs": 12764,
@@ -627,7 +832,12 @@
                 "en": "hanging",
                 "fr": "suspendu",
                 "es": "colgando",
-                "pt": "pendurado"
+                "pt": "pendurado",
+                "it": "appesi",
+                "zh-Hans": "悬挂",
+                "zh-Hant": "懸掛",
+                "ro": "atârnând",
+                "ca": "penjant"
               },
               "id": "b2.s1.t7",
               "startMs": 13174,
@@ -642,7 +852,12 @@
                 "en": "high",
                 "fr": "haut",
                 "es": "alto",
-                "pt": "alto"
+                "pt": "alto",
+                "it": "in alto",
+                "zh-Hans": "高的",
+                "zh-Hant": "高的",
+                "ro": "sus",
+                "ca": "alt"
               },
               "id": "b2.s1.t8",
               "startMs": 13654,
@@ -663,7 +878,13 @@
           "translations": {
             "en": "The ripe grapes look very juicy and fresh.",
             "fr": "Les raisins mûrs ont l'air très juteux et frais.",
-            "es": "Las uvas maduras se ven muy jugosas y frescas."
+            "es": "Las uvas maduras se ven muy jugosas y frescas.",
+            "pt": "As uvas maduras parecem muito suculentas e frescas.",
+            "it": "L'uva matura sembra molto succosa e fresca.",
+            "zh-Hans": "成熟的葡萄看起来非常多汁和新鲜。",
+            "zh-Hant": "成熟的葡萄看起來非常多汁新鮮。",
+            "ro": "Strugurii copți arată foarte zemoși și proaspeți.",
+            "ca": "Els raïms madurs semblen molt sucosos i frescos."
           },
           "tokens": [
             {
@@ -675,7 +896,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b2.s2.t1",
               "startMs": 14640,
@@ -690,7 +916,12 @@
                 "en": "ripe",
                 "fr": "mûr",
                 "es": "maduro",
-                "pt": "maduro"
+                "pt": "maduro",
+                "it": "maturo",
+                "zh-Hans": "成熟的",
+                "zh-Hant": "成熟的",
+                "ro": "copt",
+                "ca": "madur"
               },
               "id": "b2.s2.t2",
               "startMs": 14750,
@@ -705,7 +936,12 @@
                 "en": "grapes",
                 "fr": "raisins",
                 "es": "uvas",
-                "pt": "uvas"
+                "pt": "uvas",
+                "it": "uva",
+                "zh-Hans": "葡萄",
+                "zh-Hant": "葡萄",
+                "ro": "struguri",
+                "ca": "raïms"
               },
               "id": "b2.s2.t3",
               "startMs": 14970,
@@ -720,7 +956,12 @@
                 "en": "look",
                 "fr": "ont l'air",
                 "es": "se ven",
-                "pt": "olhar"
+                "pt": "olhar",
+                "it": "cercare",
+                "zh-Hans": "看",
+                "zh-Hant": "看",
+                "ro": "caută",
+                "ca": "mira"
               },
               "id": "b2.s2.t4",
               "startMs": 15310,
@@ -735,7 +976,12 @@
                 "en": "very",
                 "fr": "très",
                 "es": "muy",
-                "pt": "muito"
+                "pt": "muito",
+                "it": "molto",
+                "zh-Hans": "非常",
+                "zh-Hant": "非常",
+                "ro": "foarte",
+                "ca": "molt"
               },
               "id": "b2.s2.t5",
               "startMs": 15530,
@@ -750,7 +996,12 @@
                 "en": "juicy",
                 "fr": "juteux",
                 "es": "jugoso",
-                "pt": "suculento"
+                "pt": "suculento",
+                "it": "succose",
+                "zh-Hans": "多汁的",
+                "zh-Hant": "多汁的",
+                "ro": "zemos",
+                "ca": "sucoses"
               },
               "id": "b2.s2.t6",
               "startMs": 15750,
@@ -765,7 +1016,12 @@
                 "en": "and",
                 "fr": "et",
                 "es": "y",
-                "pt": "e"
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b2.s2.t7",
               "startMs": 16030,
@@ -780,7 +1036,12 @@
                 "en": "fresh",
                 "fr": "frais",
                 "es": "fresco",
-                "pt": "fresco"
+                "pt": "fresco",
+                "it": "fresco",
+                "zh-Hans": "新鲜的",
+                "zh-Hant": "新鮮的",
+                "ro": "proaspăt",
+                "ca": "fresc"
               },
               "id": "b2.s2.t8",
               "startMs": 16200,
@@ -801,7 +1062,13 @@
           "translations": {
             "en": "The fox wants the grapes very much.",
             "fr": "Le renard veut beaucoup les raisins.",
-            "es": "El zorro desea mucho las uvas."
+            "es": "El zorro desea mucho las uvas.",
+            "pt": "A raposa quer muito as uvas.",
+            "it": "La volpe desidera molto l'uva.",
+            "zh-Hans": "狐狸非常想要那些葡萄。",
+            "zh-Hant": "狐狸非常想要那些葡萄。",
+            "ro": "Vulpea își dorește foarte mult strugurii.",
+            "ca": "La guineu vol molt els raïms."
           },
           "tokens": [
             {
@@ -813,7 +1080,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b2.s3.t1",
               "startMs": 17607,
@@ -828,7 +1100,12 @@
                 "en": "fox",
                 "fr": "renard",
                 "es": "zorro",
-                "pt": "raposa"
+                "pt": "raposa",
+                "it": "volpe",
+                "zh-Hans": "狐狸",
+                "zh-Hant": "狐狸",
+                "ro": "vulpe",
+                "ca": "guineu"
               },
               "id": "b2.s3.t2",
               "startMs": 17777,
@@ -843,7 +1120,12 @@
                 "en": "wants",
                 "fr": "veut",
                 "es": "quiere",
-                "pt": "quer"
+                "pt": "quer",
+                "it": "vuole",
+                "zh-Hans": "想要",
+                "zh-Hant": "想要",
+                "ro": "vrea",
+                "ca": "vol"
               },
               "id": "b2.s3.t3",
               "startMs": 17897,
@@ -858,7 +1140,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b2.s3.t4",
               "startMs": 18187,
@@ -873,7 +1160,12 @@
                 "en": "grapes",
                 "fr": "raisins",
                 "es": "uvas",
-                "pt": "uvas"
+                "pt": "uvas",
+                "it": "uva",
+                "zh-Hans": "葡萄",
+                "zh-Hant": "葡萄",
+                "ro": "struguri",
+                "ca": "raïms"
               },
               "id": "b2.s3.t5",
               "startMs": 18357,
@@ -888,7 +1180,12 @@
                 "en": "very",
                 "fr": "très",
                 "es": "muy",
-                "pt": "muito"
+                "pt": "muito",
+                "it": "molto",
+                "zh-Hans": "非常",
+                "zh-Hant": "非常",
+                "ro": "foarte",
+                "ca": "molt"
               },
               "id": "b2.s3.t6",
               "startMs": 18717,
@@ -903,7 +1200,12 @@
                 "en": "much",
                 "fr": "beaucoup",
                 "es": "mucho",
-                "pt": "muito"
+                "pt": "muito",
+                "it": "molto",
+                "zh-Hans": "非常",
+                "zh-Hant": "非常",
+                "ro": "mult",
+                "ca": "molt"
               },
               "id": "b2.s3.t7",
               "startMs": 18927,
@@ -924,7 +1226,13 @@
           "translations": {
             "en": "His mouth waters with desire.",
             "fr": "L'eau lui vient à la bouche avec envie.",
-            "es": "Se le hace la boca agua de deseo."
+            "es": "Se le hace la boca agua de deseo.",
+            "pt": "Sua boca fica cheia de água de desejo.",
+            "it": "La sua bocca si riempie d'acqua per il desiderio.",
+            "zh-Hans": "他的嘴因渴望而流口水。",
+            "zh-Hant": "他的嘴因渴望而流口水。",
+            "ro": "Gura ei se udă de dorință.",
+            "ca": "La seva boca s'omple d'aigua amb desig."
           },
           "tokens": [
             {
@@ -936,7 +1244,12 @@
                 "en": "his",
                 "fr": "son",
                 "es": "su",
-                "pt": "dele"
+                "pt": "dele",
+                "it": "sua",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "lui",
+                "ca": "seva"
               },
               "id": "b2.s4.t1",
               "startMs": 20288,
@@ -951,7 +1264,12 @@
                 "en": "mouth",
                 "fr": "bouche",
                 "es": "boca",
-                "pt": "boca"
+                "pt": "boca",
+                "it": "bocca",
+                "zh-Hans": "嘴",
+                "zh-Hant": "嘴巴",
+                "ro": "gură",
+                "ca": "boca"
               },
               "id": "b2.s4.t2",
               "startMs": 20438,
@@ -966,7 +1284,12 @@
                 "en": "waters",
                 "fr": "salive",
                 "es": "agua",
-                "pt": "saliva"
+                "pt": "saliva",
+                "it": "si riempie d'acqua",
+                "zh-Hans": "流口水",
+                "zh-Hant": "流口水",
+                "ro": "i se face apă",
+                "ca": "reguen"
               },
               "id": "b2.s4.t3",
               "startMs": 20848,
@@ -981,7 +1304,12 @@
                 "en": "with",
                 "fr": "avec",
                 "es": "con",
-                "pt": "com"
+                "pt": "com",
+                "it": "con",
+                "zh-Hans": "用",
+                "zh-Hant": "用",
+                "ro": "cu",
+                "ca": "amb"
               },
               "id": "b2.s4.t4",
               "startMs": 21318,
@@ -996,7 +1324,12 @@
                 "en": "desire",
                 "fr": "envie",
                 "es": "deseo",
-                "pt": "desejo"
+                "pt": "desejo",
+                "it": "desiderio",
+                "zh-Hans": "渴望",
+                "zh-Hant": "渴望",
+                "ro": "dorință",
+                "ca": "desig"
               },
               "id": "b2.s4.t5",
               "startMs": 21638,
@@ -1022,7 +1355,13 @@
           "translations": {
             "en": "The fox takes a step back.",
             "fr": "Le renard fait un pas en arrière.",
-            "es": "El zorro da un paso atrás."
+            "es": "El zorro da un paso atrás.",
+            "pt": "A raposa dá um passo para trás.",
+            "it": "La volpe fa un passo indietro.",
+            "zh-Hans": "狐狸后退了一步。",
+            "zh-Hant": "狐狸向後退了一步。",
+            "ro": "Vulpea face un pas înapoi.",
+            "ca": "La guineu fa un pas enrere."
           },
           "tokens": [
             {
@@ -1034,7 +1373,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b3.s1.t1",
               "startMs": 23183,
@@ -1049,7 +1393,12 @@
                 "en": "fox",
                 "fr": "renard",
                 "es": "zorro",
-                "pt": "raposa"
+                "pt": "raposa",
+                "it": "volpe",
+                "zh-Hans": "狐狸",
+                "zh-Hant": "狐狸",
+                "ro": "vulpe",
+                "ca": "guineu"
               },
               "id": "b3.s1.t2",
               "startMs": 23373,
@@ -1064,7 +1413,12 @@
                 "en": "takes",
                 "fr": "prend",
                 "es": "toma",
-                "pt": "dá"
+                "pt": "dá",
+                "it": "fa",
+                "zh-Hans": "拿",
+                "zh-Hant": "採取",
+                "ro": "face",
+                "ca": "fa"
               },
               "id": "b3.s1.t3",
               "startMs": 23613,
@@ -1079,7 +1433,12 @@
                 "en": "a",
                 "fr": "un",
                 "es": "un",
-                "pt": "um"
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一只",
+                "zh-Hant": "一隻",
+                "ro": "un/o",
+                "ca": "un"
               },
               "id": "b3.s1.t4",
               "startMs": 24013,
@@ -1094,7 +1453,12 @@
                 "en": "step",
                 "fr": "pas",
                 "es": "paso",
-                "pt": "passo"
+                "pt": "passo",
+                "it": "passo",
+                "zh-Hans": "步",
+                "zh-Hant": "步",
+                "ro": "pas",
+                "ca": "pas"
               },
               "id": "b3.s1.t5",
               "startMs": 24093,
@@ -1109,7 +1473,12 @@
                 "en": "back",
                 "fr": "en arrière",
                 "es": "atrás",
-                "pt": "para trás"
+                "pt": "para trás",
+                "it": "indietro",
+                "zh-Hans": "后退",
+                "zh-Hant": "後退",
+                "ro": "înapoi",
+                "ca": "enrere"
               },
               "id": "b3.s1.t6",
               "startMs": 24413,
@@ -1130,7 +1499,13 @@
           "translations": {
             "en": "He jumps high into the air.",
             "fr": "Il saute haut dans les airs.",
-            "es": "Salta alto en el aire."
+            "es": "Salta alto en el aire.",
+            "pt": "Ele salta alto no ar.",
+            "it": "Salta in alto nell'aria.",
+            "zh-Hans": "他高高跳起。",
+            "zh-Hant": "他高高跳起，跳到空中。",
+            "ro": "El sare sus în aer.",
+            "ca": "Salta ben amunt en l'aire."
           },
           "tokens": [
             {
@@ -1142,7 +1517,12 @@
                 "en": "he",
                 "fr": "il",
                 "es": "él",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "lui",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b3.s2.t1",
               "startMs": 25493,
@@ -1157,7 +1537,12 @@
                 "en": "jumps",
                 "fr": "saute",
                 "es": "salta",
-                "pt": "pula"
+                "pt": "pula",
+                "it": "salta",
+                "zh-Hans": "跳",
+                "zh-Hant": "跳",
+                "ro": "sare",
+                "ca": "salta"
               },
               "id": "b3.s2.t2",
               "startMs": 25553,
@@ -1172,7 +1557,12 @@
                 "en": "high",
                 "fr": "haut",
                 "es": "alto",
-                "pt": "alto"
+                "pt": "alto",
+                "it": "in alto",
+                "zh-Hans": "高的",
+                "zh-Hant": "高的",
+                "ro": "sus",
+                "ca": "alt"
               },
               "id": "b3.s2.t3",
               "startMs": 25963,
@@ -1187,7 +1577,12 @@
                 "en": "into",
                 "fr": "dans",
                 "es": "en",
-                "pt": "para dentro"
+                "pt": "para dentro",
+                "it": "in",
+                "zh-Hans": "到……里",
+                "zh-Hant": "進入",
+                "ro": "în",
+                "ca": "a"
               },
               "id": "b3.s2.t4",
               "startMs": 26253,
@@ -1202,7 +1597,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b3.s2.t5",
               "startMs": 26563,
@@ -1217,7 +1617,12 @@
                 "en": "air",
                 "fr": "air",
                 "es": "aire",
-                "pt": "ar"
+                "pt": "ar",
+                "it": "aria",
+                "zh-Hans": "空中",
+                "zh-Hant": "空中",
+                "ro": "aer",
+                "ca": "aire"
               },
               "id": "b3.s2.t6",
               "startMs": 26793,
@@ -1238,7 +1643,13 @@
           "translations": {
             "en": "But he misses the sweet purple fruit.",
             "fr": "Mais il manque le fruit doux et violet.",
-            "es": "Pero falla el dulce fruto morado."
+            "es": "Pero falla el dulce fruto morado.",
+            "pt": "Mas ele não alcança a fruta roxa doce.",
+            "it": "Ma non raggiunge il dolce frutto viola.",
+            "zh-Hans": "但他没有够到那甜美的紫色果实。",
+            "zh-Hant": "但他沒能碰到那甜美的紫色果實。",
+            "ro": "Dar ratează fructul dulce și violet.",
+            "ca": "Però no arriba al dolç fruit morat."
           },
           "tokens": [
             {
@@ -1250,7 +1661,12 @@
                 "en": "but",
                 "fr": "mais",
                 "es": "pero",
-                "pt": "mas"
+                "pt": "mas",
+                "it": "ma",
+                "zh-Hans": "但是",
+                "zh-Hant": "但是",
+                "ro": "dar",
+                "ca": "però"
               },
               "id": "b3.s3.t1",
               "startMs": 27745,
@@ -1265,7 +1681,12 @@
                 "en": "he",
                 "fr": "il",
                 "es": "él",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "lui",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b3.s3.t2",
               "startMs": 27905,
@@ -1280,7 +1701,12 @@
                 "en": "misses",
                 "fr": "manque",
                 "es": "falla",
-                "pt": "sente falta"
+                "pt": "sente falta",
+                "it": "manca",
+                "zh-Hans": "想念",
+                "zh-Hant": "想念",
+                "ro": "lipsește",
+                "ca": "troba a faltar"
               },
               "id": "b3.s3.t3",
               "startMs": 28045,
@@ -1295,7 +1721,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b3.s3.t4",
               "startMs": 28455,
@@ -1310,7 +1741,12 @@
                 "en": "sweet",
                 "fr": "doux",
                 "es": "dulce",
-                "pt": "doce"
+                "pt": "doce",
+                "it": "dolci",
+                "zh-Hans": "甜的",
+                "zh-Hant": "甜的",
+                "ro": "dulce",
+                "ca": "dolços"
               },
               "id": "b3.s3.t5",
               "startMs": 28675,
@@ -1325,7 +1761,12 @@
                 "en": "purple",
                 "fr": "violet",
                 "es": "morado",
-                "pt": "roxo"
+                "pt": "roxo",
+                "it": "viola",
+                "zh-Hans": "紫色的",
+                "zh-Hant": "紫色的",
+                "ro": "mov",
+                "ca": "porpra"
               },
               "id": "b3.s3.t6",
               "startMs": 29025,
@@ -1340,7 +1781,12 @@
                 "en": "fruit",
                 "fr": "fruit",
                 "es": "fruta",
-                "pt": "fruta"
+                "pt": "fruta",
+                "it": "frutta",
+                "zh-Hans": "水果",
+                "zh-Hant": "水果",
+                "ro": "fruct",
+                "ca": "fruita"
               },
               "id": "b3.s3.t7",
               "startMs": 29445,
@@ -1361,7 +1807,13 @@
           "translations": {
             "en": "He tries again and jumps higher.",
             "fr": "Il réessaie et saute plus haut.",
-            "es": "Intenta de nuevo y salta más alto."
+            "es": "Intenta de nuevo y salta más alto.",
+            "pt": "Ele tenta de novo e salta mais alto.",
+            "it": "Riprova e salta più in alto.",
+            "zh-Hans": "他又试了一次，跳得更高。",
+            "zh-Hant": "他再試一次，跳得更高。",
+            "ro": "Încearcă din nou și sare mai sus.",
+            "ca": "Ho torna a provar i salta més amunt."
           },
           "tokens": [
             {
@@ -1373,7 +1825,12 @@
                 "en": "he",
                 "fr": "il",
                 "es": "él",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "lui",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b3.s4.t1",
               "startMs": 30504,
@@ -1388,7 +1845,12 @@
                 "en": "tries",
                 "fr": "essaie",
                 "es": "intenta",
-                "pt": "tenta"
+                "pt": "tenta",
+                "it": "prova",
+                "zh-Hans": "尝试",
+                "zh-Hant": "嘗試",
+                "ro": "încearcă",
+                "ca": "intenta"
               },
               "id": "b3.s4.t2",
               "startMs": 30554,
@@ -1403,7 +1865,12 @@
                 "en": "again",
                 "fr": "encore",
                 "es": "otra vez",
-                "pt": "de novo"
+                "pt": "de novo",
+                "it": "di nuovo",
+                "zh-Hans": "再次",
+                "zh-Hant": "再次",
+                "ro": "din nou",
+                "ca": "una altra vegada"
               },
               "id": "b3.s4.t3",
               "startMs": 30914,
@@ -1418,7 +1885,12 @@
                 "en": "and",
                 "fr": "et",
                 "es": "y",
-                "pt": "e"
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b3.s4.t4",
               "startMs": 31334,
@@ -1433,7 +1905,12 @@
                 "en": "jumps",
                 "fr": "saute",
                 "es": "salta",
-                "pt": "pula"
+                "pt": "pula",
+                "it": "salta",
+                "zh-Hans": "跳",
+                "zh-Hant": "跳",
+                "ro": "sare",
+                "ca": "salta"
               },
               "id": "b3.s4.t5",
               "startMs": 31484,
@@ -1448,7 +1925,12 @@
                 "en": "higher",
                 "fr": "plus haut",
                 "es": "más alto",
-                "pt": "mais alto"
+                "pt": "mais alto",
+                "it": "più in alto",
+                "zh-Hans": "更高",
+                "zh-Hant": "更高",
+                "ro": "mai sus",
+                "ca": "més alt"
               },
               "id": "b3.s4.t6",
               "startMs": 31844,
@@ -1469,7 +1951,13 @@
           "translations": {
             "en": "Still he cannot touch the grapes.",
             "fr": "Pourtant, il ne peut toujours pas toucher les raisins.",
-            "es": "Aún no puede tocar las uvas."
+            "es": "Aún no puede tocar las uvas.",
+            "pt": "Ainda assim, ele não consegue tocar as uvas.",
+            "it": "Ancora non può toccare l'uva.",
+            "zh-Hans": "他还是够不到葡萄。",
+            "zh-Hant": "他仍然碰不到葡萄。",
+            "ro": "Tot nu poate atinge strugurii.",
+            "ca": "Encara no pot tocar els raïms."
           },
           "tokens": [
             {
@@ -1481,7 +1969,12 @@
                 "en": "still",
                 "fr": "encore",
                 "es": "todavía",
-                "pt": "ainda"
+                "pt": "ainda",
+                "it": "ancora",
+                "zh-Hans": "仍然",
+                "zh-Hant": "仍然",
+                "ro": "totuși",
+                "ca": "encara"
               },
               "id": "b3.s5.t1",
               "startMs": 33095,
@@ -1496,7 +1989,12 @@
                 "en": "he",
                 "fr": "il",
                 "es": "él",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "lui",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b3.s5.t2",
               "startMs": 33255,
@@ -1511,7 +2009,12 @@
                 "en": "cannot",
                 "fr": "ne peut pas",
                 "es": "no puede",
-                "pt": "não pode"
+                "pt": "não pode",
+                "it": "non può",
+                "zh-Hans": "不能",
+                "zh-Hant": "不能",
+                "ro": "nu poate",
+                "ca": "no pot"
               },
               "id": "b3.s5.t3",
               "startMs": 33385,
@@ -1526,7 +2029,12 @@
                 "en": "touch",
                 "fr": "toucher",
                 "es": "tocar",
-                "pt": "tocar"
+                "pt": "tocar",
+                "it": "toccare",
+                "zh-Hans": "触摸",
+                "zh-Hant": "觸摸",
+                "ro": "atinge",
+                "ca": "tocar"
               },
               "id": "b3.s5.t4",
               "startMs": 33805,
@@ -1541,7 +2049,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b3.s5.t5",
               "startMs": 34125,
@@ -1556,7 +2069,12 @@
                 "en": "grapes",
                 "fr": "raisins",
                 "es": "uvas",
-                "pt": "uvas"
+                "pt": "uvas",
+                "it": "uva",
+                "zh-Hans": "葡萄",
+                "zh-Hant": "葡萄",
+                "ro": "struguri",
+                "ca": "raïms"
               },
               "id": "b3.s5.t6",
               "startMs": 34325,
@@ -1582,7 +2100,13 @@
           "translations": {
             "en": "The tired fox gives up at last.",
             "fr": "Le renard fatigué abandonne enfin.",
-            "es": "El zorro cansado se rinde por fin."
+            "es": "El zorro cansado se rinde por fin.",
+            "pt": "A raposa cansada desiste finalmente.",
+            "it": "La volpe stanca alla fine si arrende.",
+            "zh-Hans": "疲惫的狐狸最后放弃了。",
+            "zh-Hant": "疲憊的狐狸最後放棄了。",
+            "ro": "Vulpea obosită renunță în cele din urmă.",
+            "ca": "La guineu cansada finalment es rendeix."
           },
           "tokens": [
             {
@@ -1594,7 +2118,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b4.s1.t1",
               "startMs": 35785,
@@ -1609,7 +2138,12 @@
                 "en": "tired",
                 "fr": "fatigué",
                 "es": "cansado",
-                "pt": "cansado"
+                "pt": "cansado",
+                "it": "stanco",
+                "zh-Hans": "疲倦的",
+                "zh-Hant": "疲倦的",
+                "ro": "obosit",
+                "ca": "cansat"
               },
               "id": "b4.s1.t2",
               "startMs": 35985,
@@ -1624,7 +2158,12 @@
                 "en": "fox",
                 "fr": "renard",
                 "es": "zorro",
-                "pt": "raposa"
+                "pt": "raposa",
+                "it": "volpe",
+                "zh-Hans": "狐狸",
+                "zh-Hant": "狐狸",
+                "ro": "vulpe",
+                "ca": "guineu"
               },
               "id": "b4.s1.t3",
               "startMs": 36435,
@@ -1639,7 +2178,12 @@
                 "en": "gives",
                 "fr": "donne",
                 "es": "da",
-                "pt": "desiste"
+                "pt": "desiste",
+                "it": "dà",
+                "zh-Hans": "放弃",
+                "zh-Hant": "放棄",
+                "ro": "dă",
+                "ca": "dóna"
               },
               "id": "b4.s1.t4",
               "startMs": 36715,
@@ -1654,7 +2198,12 @@
                 "en": "up",
                 "fr": "en haut",
                 "es": "arriba",
-                "pt": "acima"
+                "pt": "acima",
+                "it": "su",
+                "zh-Hans": "向上",
+                "zh-Hant": "向上",
+                "ro": "sus",
+                "ca": "amunt"
               },
               "id": "b4.s1.t5",
               "startMs": 37075,
@@ -1669,7 +2218,12 @@
                 "en": "at",
                 "fr": "à",
                 "es": "a",
-                "pt": "em"
+                "pt": "em",
+                "it": "a",
+                "zh-Hans": "在",
+                "zh-Hant": "在",
+                "ro": "la",
+                "ca": "a"
               },
               "id": "b4.s1.t6",
               "startMs": 37245,
@@ -1684,7 +2238,12 @@
                 "en": "last",
                 "fr": "dernier",
                 "es": "último",
-                "pt": "finalmente"
+                "pt": "finalmente",
+                "it": "fine",
+                "zh-Hans": "最后",
+                "zh-Hant": "最後",
+                "ro": "în cele din urmă",
+                "ca": "final"
               },
               "id": "b4.s1.t7",
               "startMs": 37415,
@@ -1705,7 +2264,13 @@
           "translations": {
             "en": "He turns his head and walks away.",
             "fr": "Il tourne la tête et s'en va.",
-            "es": "Gira la cabeza y se aleja caminando."
+            "es": "Gira la cabeza y se aleja caminando.",
+            "pt": "Ele vira a cabeça e vai embora.",
+            "it": "Gira la testa e se ne va.",
+            "zh-Hans": "他转过头，走开了。",
+            "zh-Hant": "他轉過頭，走開了。",
+            "ro": "Își întoarce capul și pleacă.",
+            "ca": "Gira el cap i se'n va caminant."
           },
           "tokens": [
             {
@@ -1717,7 +2282,12 @@
                 "en": "he",
                 "fr": "il",
                 "es": "él",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "lui",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b4.s2.t1",
               "startMs": 38498,
@@ -1732,7 +2302,12 @@
                 "en": "turns",
                 "fr": "tourne",
                 "es": "gira",
-                "pt": "vira"
+                "pt": "vira",
+                "it": "gira",
+                "zh-Hans": "转动",
+                "zh-Hant": "轉動",
+                "ro": "întoarce",
+                "ca": "gira"
               },
               "id": "b4.s2.t2",
               "startMs": 38538,
@@ -1747,7 +2322,12 @@
                 "en": "his",
                 "fr": "son",
                 "es": "su",
-                "pt": "dele"
+                "pt": "dele",
+                "it": "sua",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "lui",
+                "ca": "seva"
               },
               "id": "b4.s2.t3",
               "startMs": 38878,
@@ -1762,7 +2342,12 @@
                 "en": "head",
                 "fr": "tête",
                 "es": "cabeza",
-                "pt": "cabeça"
+                "pt": "cabeça",
+                "it": "testa",
+                "zh-Hans": "头",
+                "zh-Hant": "頭",
+                "ro": "cap",
+                "ca": "cap"
               },
               "id": "b4.s2.t4",
               "startMs": 39078,
@@ -1777,7 +2362,12 @@
                 "en": "and",
                 "fr": "et",
                 "es": "y",
-                "pt": "e"
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b4.s2.t5",
               "startMs": 39328,
@@ -1792,7 +2382,12 @@
                 "en": "walks",
                 "fr": "marche",
                 "es": "camina",
-                "pt": "caminha"
+                "pt": "caminha",
+                "it": "cammina",
+                "zh-Hans": "走路",
+                "zh-Hant": "走路",
+                "ro": "merge",
+                "ca": "camina"
               },
               "id": "b4.s2.t6",
               "startMs": 39528,
@@ -1807,7 +2402,12 @@
                 "en": "away",
                 "fr": "au loin",
                 "es": "lejos",
-                "pt": "embora"
+                "pt": "embora",
+                "it": "via",
+                "zh-Hans": "离开",
+                "zh-Hant": "離開",
+                "ro": "departe",
+                "ca": "lluny"
               },
               "id": "b4.s2.t7",
               "startMs": 39858,
@@ -1828,7 +2428,13 @@
           "translations": {
             "en": "He says that the grapes are sour anyway.",
             "fr": "Il dit que les raisins sont verts de toute façon.",
-            "es": "Dice que las uvas están agrias de todos modos."
+            "es": "Dice que las uvas están agrias de todos modos.",
+            "pt": "Ele diz que as uvas estão azedas de qualquer forma.",
+            "it": "Dice che l'uva è comunque aspra.",
+            "zh-Hans": "他说葡萄反正也是酸的。",
+            "zh-Hant": "他說葡萄反正也是酸的。",
+            "ro": "El spune că strugurii sunt acri oricum.",
+            "ca": "Diu que els raïms són agres de totes maneres."
           },
           "tokens": [
             {
@@ -1840,7 +2446,12 @@
                 "en": "he",
                 "fr": "il",
                 "es": "él",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "lui",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b4.s3.t1",
               "startMs": 41023,
@@ -1855,7 +2466,12 @@
                 "en": "says",
                 "fr": "dit",
                 "es": "dice",
-                "pt": "diz"
+                "pt": "diz",
+                "it": "dice",
+                "zh-Hans": "说",
+                "zh-Hant": "說",
+                "ro": "spune",
+                "ca": "diu"
               },
               "id": "b4.s3.t2",
               "startMs": 41043,
@@ -1870,7 +2486,12 @@
                 "en": "that",
                 "fr": "que",
                 "es": "que",
-                "pt": "que"
+                "pt": "que",
+                "it": "che",
+                "zh-Hans": "那个",
+                "zh-Hant": "那個",
+                "ro": "că",
+                "ca": "que"
               },
               "id": "b4.s3.t3",
               "startMs": 41293,
@@ -1885,7 +2506,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b4.s3.t4",
               "startMs": 41593,
@@ -1900,7 +2526,12 @@
                 "en": "grapes",
                 "fr": "raisins",
                 "es": "uvas",
-                "pt": "uvas"
+                "pt": "uvas",
+                "it": "uva",
+                "zh-Hans": "葡萄",
+                "zh-Hant": "葡萄",
+                "ro": "struguri",
+                "ca": "raïms"
               },
               "id": "b4.s3.t5",
               "startMs": 41733,
@@ -1915,7 +2546,12 @@
                 "en": "are",
                 "fr": "sont",
                 "es": "son",
-                "pt": "são"
+                "pt": "são",
+                "it": "sono",
+                "zh-Hans": "是",
+                "zh-Hant": "是",
+                "ro": "sunt",
+                "ca": "són"
               },
               "id": "b4.s3.t6",
               "startMs": 42113,
@@ -1930,7 +2566,12 @@
                 "en": "sour",
                 "fr": "acide",
                 "es": "agrio",
-                "pt": "azedo"
+                "pt": "azedo",
+                "it": "aspri",
+                "zh-Hans": "酸的",
+                "zh-Hant": "酸的",
+                "ro": "acru",
+                "ca": "agres"
               },
               "id": "b4.s3.t7",
               "startMs": 42303,
@@ -1945,7 +2586,12 @@
                 "en": "anyway",
                 "fr": "de toute façon",
                 "es": "de todos modos",
-                "pt": "de qualquer forma"
+                "pt": "de qualquer forma",
+                "it": "comunque",
+                "zh-Hans": "无论如何",
+                "zh-Hant": "無論如何",
+                "ro": "oricum",
+                "ca": "de totes maneres"
               },
               "id": "b4.s3.t8",
               "startMs": 42553,
@@ -1966,7 +2612,13 @@
           "translations": {
             "en": "It is easy to dislike what you cannot have.",
             "fr": "Il est facile de mépriser ce que l'on ne peut pas avoir.",
-            "es": "Es fácil despreciar lo que no se puede tener."
+            "es": "Es fácil despreciar lo que no se puede tener.",
+            "pt": "É fácil não gostar do que você não pode ter.",
+            "it": "È facile non amare ciò che non puoi avere.",
+            "zh-Hans": "讨厌得不到的东西是很容易的。",
+            "zh-Hant": "得不到的東西，很容易讓人不喜歡。",
+            "ro": "Este ușor să nu-ți placă ceea ce nu poți avea.",
+            "ca": "És fàcil menysprear allò que no pots tenir."
           },
           "tokens": [
             {
@@ -1978,7 +2630,12 @@
                 "en": "it",
                 "fr": "il",
                 "es": "ello",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "esso",
+                "zh-Hans": "它",
+                "zh-Hant": "它",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b4.s4.t1",
               "startMs": 43783,
@@ -1993,7 +2650,12 @@
                 "en": "is",
                 "fr": "est",
                 "es": "es",
-                "pt": "é"
+                "pt": "é",
+                "it": "è",
+                "zh-Hans": "是",
+                "zh-Hant": "是",
+                "ro": "este",
+                "ca": "és"
               },
               "id": "b4.s4.t2",
               "startMs": 43863,
@@ -2008,7 +2670,12 @@
                 "en": "easy",
                 "fr": "facile",
                 "es": "fácil",
-                "pt": "fácil"
+                "pt": "fácil",
+                "it": "facile",
+                "zh-Hans": "容易的",
+                "zh-Hant": "容易的",
+                "ro": "ușor",
+                "ca": "fàcil"
               },
               "id": "b4.s4.t3",
               "startMs": 44093,
@@ -2023,7 +2690,12 @@
                 "en": "to",
                 "fr": "à",
                 "es": "a",
-                "pt": "para"
+                "pt": "para",
+                "it": "a",
+                "zh-Hans": "到",
+                "zh-Hant": "向",
+                "ro": "la",
+                "ca": "a"
               },
               "id": "b4.s4.t4",
               "startMs": 44253,
@@ -2038,7 +2710,12 @@
                 "en": "dislike",
                 "fr": "détester",
                 "es": "disgustar",
-                "pt": "desprezar"
+                "pt": "desprezar",
+                "it": "disprezzare",
+                "zh-Hans": "不喜欢",
+                "zh-Hant": "討厭",
+                "ro": "a displăcea",
+                "ca": "desagradar"
               },
               "id": "b4.s4.t5",
               "startMs": 44383,
@@ -2053,7 +2730,12 @@
                 "en": "what",
                 "fr": "ce que",
                 "es": "lo que",
-                "pt": "o que"
+                "pt": "o que",
+                "it": "ciò che",
+                "zh-Hans": "什么",
+                "zh-Hant": "什麼",
+                "ro": "ce",
+                "ca": "què"
               },
               "id": "b4.s4.t6",
               "startMs": 44843,
@@ -2068,7 +2750,12 @@
                 "en": "you",
                 "fr": "vous",
                 "es": "tú",
-                "pt": "você"
+                "pt": "você",
+                "it": "tu",
+                "zh-Hans": "你",
+                "zh-Hant": "你",
+                "ro": "tu",
+                "ca": "tu"
               },
               "id": "b4.s4.t7",
               "startMs": 45103,
@@ -2083,7 +2770,12 @@
                 "en": "cannot",
                 "fr": "ne peut pas",
                 "es": "no puede",
-                "pt": "não pode"
+                "pt": "não pode",
+                "it": "non può",
+                "zh-Hans": "不能",
+                "zh-Hant": "不能",
+                "ro": "nu poate",
+                "ca": "no pot"
               },
               "id": "b4.s4.t8",
               "startMs": 45293,
@@ -2098,7 +2790,12 @@
                 "en": "have",
                 "fr": "avoir",
                 "es": "tener",
-                "pt": "ter"
+                "pt": "ter",
+                "it": "avere",
+                "zh-Hans": "拥有",
+                "zh-Hant": "擁有",
+                "ro": "avea",
+                "ca": "tenir"
               },
               "id": "b4.s4.t9",
               "startMs": 45683,

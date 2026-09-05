@@ -13,7 +13,13 @@
           "translations": {
             "en": "A big lion sleeps in the warm sun.",
             "fr": "Un grand lion dort sous le chaud soleil.",
-            "es": "Un gran león duerme bajo el cálido sol."
+            "es": "Un gran león duerme bajo el cálido sol.",
+            "pt": "Um leão grande dorme ao sol quente.",
+            "it": "Un grande leone dorme al caldo sole.",
+            "zh-Hans": "一只大狮子在温暖的阳光下睡觉。",
+            "zh-Hant": "一隻大獅子在溫暖的陽光下睡覺。",
+            "ro": "Un leu mare doarme în soarele cald.",
+            "ca": "Un lleó gran dorm al sol càlid."
           },
           "tokens": [
             {
@@ -25,7 +31,12 @@
                 "en": "a",
                 "fr": "un",
                 "es": "un",
-                "pt": "um"
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一只",
+                "zh-Hant": "一隻",
+                "ro": "un/o",
+                "ca": "un"
               },
               "id": "b1.s1.t1",
               "startMs": 50,
@@ -40,7 +51,12 @@
                 "en": "big",
                 "fr": "grand",
                 "es": "grande",
-                "pt": "grande"
+                "pt": "grande",
+                "it": "grande",
+                "zh-Hans": "大的",
+                "zh-Hant": "大的",
+                "ro": "mare",
+                "ca": "gran"
               },
               "id": "b1.s1.t2",
               "startMs": 80,
@@ -55,7 +71,12 @@
                 "en": "lion",
                 "fr": "lion",
                 "es": "león",
-                "pt": "leão"
+                "pt": "leão",
+                "it": "leone",
+                "zh-Hans": "狮子",
+                "zh-Hant": "獅子",
+                "ro": "leu",
+                "ca": "lleó"
               },
               "id": "b1.s1.t3",
               "startMs": 360,
@@ -70,7 +91,12 @@
                 "en": "sleeps",
                 "fr": "dort",
                 "es": "duerme",
-                "pt": "dorme"
+                "pt": "dorme",
+                "it": "dorme",
+                "zh-Hans": "睡觉",
+                "zh-Hant": "睡覺",
+                "ro": "doarme",
+                "ca": "dorm"
               },
               "id": "b1.s1.t4",
               "startMs": 630,
@@ -85,7 +111,12 @@
                 "en": "in",
                 "fr": "dans",
                 "es": "en",
-                "pt": "em"
+                "pt": "em",
+                "it": "in",
+                "zh-Hans": "在……里",
+                "zh-Hant": "在...裡",
+                "ro": "în",
+                "ca": "en"
               },
               "id": "b1.s1.t5",
               "startMs": 1100,
@@ -100,7 +131,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b1.s1.t6",
               "startMs": 1260,
@@ -115,7 +151,12 @@
                 "en": "warm",
                 "fr": "chaud",
                 "es": "cálido",
-                "pt": "quente"
+                "pt": "quente",
+                "it": "caldo",
+                "zh-Hans": "温暖的",
+                "zh-Hant": "溫暖的",
+                "ro": "cald",
+                "ca": "càlid"
               },
               "id": "b1.s1.t7",
               "startMs": 1500,
@@ -130,7 +171,12 @@
                 "en": "sun",
                 "fr": "soleil",
                 "es": "sol",
-                "pt": "sol"
+                "pt": "sol",
+                "it": "sole",
+                "zh-Hans": "太阳",
+                "zh-Hant": "太陽",
+                "ro": "soare",
+                "ca": "sol"
               },
               "id": "b1.s1.t8",
               "startMs": 1800,
@@ -151,7 +197,13 @@
           "translations": {
             "en": "A little mouse runs across his nose.",
             "fr": "Une petite souris court sur son nez.",
-            "es": "Un pequeño ratón corre sobre su nariz."
+            "es": "Un pequeño ratón corre sobre su nariz.",
+            "pt": "Um ratinho corre pelo nariz dele.",
+            "it": "Un piccolo topo corre sul suo naso.",
+            "zh-Hans": "一只小老鼠跑过他的鼻子。",
+            "zh-Hant": "一隻小老鼠跑過他的鼻子。",
+            "ro": "Un șoarece mic aleargă peste nasul lui.",
+            "ca": "Un ratolí petit corre pel seu nas."
           },
           "tokens": [
             {
@@ -163,7 +215,12 @@
                 "en": "a",
                 "fr": "un",
                 "es": "un",
-                "pt": "um"
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一只",
+                "zh-Hant": "一隻",
+                "ro": "un/o",
+                "ca": "un"
               },
               "id": "b1.s2.t1",
               "startMs": 2733,
@@ -178,7 +235,12 @@
                 "en": "little",
                 "fr": "petit",
                 "es": "pequeño",
-                "pt": "pequeno"
+                "pt": "pequeno",
+                "it": "piccolo",
+                "zh-Hans": "小的",
+                "zh-Hant": "小的",
+                "ro": "mic",
+                "ca": "petit"
               },
               "id": "b1.s2.t2",
               "startMs": 2763,
@@ -193,7 +255,12 @@
                 "en": "mouse",
                 "fr": "souris",
                 "es": "ratón",
-                "pt": "rato"
+                "pt": "rato",
+                "it": "topo",
+                "zh-Hans": "老鼠",
+                "zh-Hant": "老鼠",
+                "ro": "șoarece",
+                "ca": "ratolí"
               },
               "id": "b1.s2.t3",
               "startMs": 3233,
@@ -208,7 +275,12 @@
                 "en": "runs",
                 "fr": "court",
                 "es": "corre",
-                "pt": "corre"
+                "pt": "corre",
+                "it": "corre",
+                "zh-Hans": "跑",
+                "zh-Hant": "跑",
+                "ro": "aleargă",
+                "ca": "corre"
               },
               "id": "b1.s2.t4",
               "startMs": 3643,
@@ -223,7 +295,12 @@
                 "en": "across",
                 "fr": "à travers",
                 "es": "a través de",
-                "pt": "através"
+                "pt": "através",
+                "it": "attraverso",
+                "zh-Hans": "穿过",
+                "zh-Hant": "穿過",
+                "ro": "peste",
+                "ca": "a través de"
               },
               "id": "b1.s2.t5",
               "startMs": 3963,
@@ -238,7 +315,12 @@
                 "en": "his",
                 "fr": "son",
                 "es": "su",
-                "pt": "dele"
+                "pt": "dele",
+                "it": "sua",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "lui",
+                "ca": "seva"
               },
               "id": "b1.s2.t6",
               "startMs": 4443,
@@ -253,7 +335,12 @@
                 "en": "nose",
                 "fr": "nez",
                 "es": "nariz",
-                "pt": "nariz"
+                "pt": "nariz",
+                "it": "naso",
+                "zh-Hans": "鼻子",
+                "zh-Hant": "鼻子",
+                "ro": "nas",
+                "ca": "nas"
               },
               "id": "b1.s2.t7",
               "startMs": 4673,
@@ -274,7 +361,13 @@
           "translations": {
             "en": "The lion wakes up and catches the mouse.",
             "fr": "Le lion se réveille et attrape la souris.",
-            "es": "El león se despierta y atrapa al ratón."
+            "es": "El león se despierta y atrapa al ratón.",
+            "pt": "O leão acorda e pega o rato.",
+            "it": "Il leone si sveglia e cattura il topo.",
+            "zh-Hans": "狮子醒来，抓住了老鼠。",
+            "zh-Hant": "獅子醒來，抓住了老鼠。",
+            "ro": "Leul se trezește și prinde șoarecele.",
+            "ca": "El lleó es desperta i agafa el ratolí."
           },
           "tokens": [
             {
@@ -286,7 +379,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b1.s3.t1",
               "startMs": 5707,
@@ -301,7 +399,12 @@
                 "en": "lion",
                 "fr": "lion",
                 "es": "león",
-                "pt": "leão"
+                "pt": "leão",
+                "it": "leone",
+                "zh-Hans": "狮子",
+                "zh-Hant": "獅子",
+                "ro": "leu",
+                "ca": "lleó"
               },
               "id": "b1.s3.t2",
               "startMs": 5847,
@@ -316,7 +419,12 @@
                 "en": "wakes",
                 "fr": "se réveille",
                 "es": "se despierta",
-                "pt": "acorda"
+                "pt": "acorda",
+                "it": "si sveglia",
+                "zh-Hans": "醒来",
+                "zh-Hant": "醒來",
+                "ro": "se trezește",
+                "ca": "desperta"
               },
               "id": "b1.s3.t3",
               "startMs": 6107,
@@ -331,7 +439,12 @@
                 "en": "up",
                 "fr": "en haut",
                 "es": "arriba",
-                "pt": "acima"
+                "pt": "acima",
+                "it": "su",
+                "zh-Hans": "向上",
+                "zh-Hant": "向上",
+                "ro": "sus",
+                "ca": "amunt"
               },
               "id": "b1.s3.t4",
               "startMs": 6437,
@@ -346,7 +459,12 @@
                 "en": "and",
                 "fr": "et",
                 "es": "y",
-                "pt": "e"
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b1.s3.t5",
               "startMs": 6677,
@@ -361,7 +479,12 @@
                 "en": "catches",
                 "fr": "attrape",
                 "es": "atrapa",
-                "pt": "agarra"
+                "pt": "agarra",
+                "it": "cattura",
+                "zh-Hans": "抓住",
+                "zh-Hant": "抓住",
+                "ro": "prinde",
+                "ca": "captura"
               },
               "id": "b1.s3.t6",
               "startMs": 6767,
@@ -376,7 +499,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b1.s3.t7",
               "startMs": 7227,
@@ -391,7 +519,12 @@
                 "en": "mouse",
                 "fr": "souris",
                 "es": "ratón",
-                "pt": "rato"
+                "pt": "rato",
+                "it": "topo",
+                "zh-Hans": "老鼠",
+                "zh-Hant": "老鼠",
+                "ro": "șoarece",
+                "ca": "ratolí"
               },
               "id": "b1.s3.t8",
               "startMs": 7437,
@@ -412,7 +545,13 @@
           "translations": {
             "en": "He opens his mouth to eat her.",
             "fr": "Il ouvre la gueule pour la manger.",
-            "es": "Abre la boca para comérselo."
+            "es": "Abre la boca para comérselo.",
+            "pt": "Ele abre a boca para comê-la.",
+            "it": "Apre la bocca per mangiarla.",
+            "zh-Hans": "他张开嘴要吃她。",
+            "zh-Hant": "他張開嘴要吃她。",
+            "ro": "El deschide gura ca s-o mănânce.",
+            "ca": "Obre la boca per menjar-se-la."
           },
           "tokens": [
             {
@@ -424,7 +563,12 @@
                 "en": "he",
                 "fr": "il",
                 "es": "él",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "lui",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b1.s4.t1",
               "startMs": 8540,
@@ -439,7 +583,12 @@
                 "en": "opens",
                 "fr": "ouvre",
                 "es": "abre",
-                "pt": "abre"
+                "pt": "abre",
+                "it": "apre",
+                "zh-Hans": "张开",
+                "zh-Hant": "張開",
+                "ro": "deschide",
+                "ca": "obre"
               },
               "id": "b1.s4.t2",
               "startMs": 8560,
@@ -454,7 +603,12 @@
                 "en": "his",
                 "fr": "son",
                 "es": "su",
-                "pt": "dele"
+                "pt": "dele",
+                "it": "sua",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "lui",
+                "ca": "seva"
               },
               "id": "b1.s4.t3",
               "startMs": 8910,
@@ -469,7 +623,12 @@
                 "en": "mouth",
                 "fr": "bouche",
                 "es": "boca",
-                "pt": "boca"
+                "pt": "boca",
+                "it": "bocca",
+                "zh-Hans": "嘴",
+                "zh-Hant": "嘴巴",
+                "ro": "gură",
+                "ca": "boca"
               },
               "id": "b1.s4.t4",
               "startMs": 9120,
@@ -484,7 +643,12 @@
                 "en": "to",
                 "fr": "à",
                 "es": "a",
-                "pt": "para"
+                "pt": "para",
+                "it": "a",
+                "zh-Hans": "到",
+                "zh-Hant": "向",
+                "ro": "la",
+                "ca": "a"
               },
               "id": "b1.s4.t5",
               "startMs": 9520,
@@ -499,7 +663,12 @@
                 "en": "eat",
                 "fr": "manger",
                 "es": "comer",
-                "pt": "comer"
+                "pt": "comer",
+                "it": "mangiare",
+                "zh-Hans": "吃",
+                "zh-Hant": "吃",
+                "ro": "mânca",
+                "ca": "menjar"
               },
               "id": "b1.s4.t6",
               "startMs": 9610,
@@ -514,7 +683,12 @@
                 "en": "her",
                 "fr": "sa",
                 "es": "su",
-                "pt": "ela"
+                "pt": "ela",
+                "it": "lei",
+                "zh-Hans": "她",
+                "zh-Hant": "她",
+                "ro": "ea",
+                "ca": "ella"
               },
               "id": "b1.s4.t7",
               "startMs": 9820,
@@ -535,7 +709,13 @@
           "translations": {
             "en": "The little mouse begs for her life.",
             "fr": "La petite souris supplie pour sa vie.",
-            "es": "El pequeño ratón suplica por su vida."
+            "es": "El pequeño ratón suplica por su vida.",
+            "pt": "O ratinho implora por sua vida.",
+            "it": "Il topolino implora per la sua vita.",
+            "zh-Hans": "小老鼠求她饶命。",
+            "zh-Hant": "小老鼠求她饒命。",
+            "ro": "Șoricelul o roagă să-i cruțe viața.",
+            "ca": "El ratolí petit suplica per la seva vida."
           },
           "tokens": [
             {
@@ -547,7 +727,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b1.s5.t1",
               "startMs": 10930,
@@ -562,7 +747,12 @@
                 "en": "little",
                 "fr": "petit",
                 "es": "pequeño",
-                "pt": "pequeno"
+                "pt": "pequeno",
+                "it": "piccolo",
+                "zh-Hans": "小的",
+                "zh-Hant": "小的",
+                "ro": "mic",
+                "ca": "petit"
               },
               "id": "b1.s5.t2",
               "startMs": 11060,
@@ -577,7 +767,12 @@
                 "en": "mouse",
                 "fr": "souris",
                 "es": "ratón",
-                "pt": "rato"
+                "pt": "rato",
+                "it": "topo",
+                "zh-Hans": "老鼠",
+                "zh-Hant": "老鼠",
+                "ro": "șoarece",
+                "ca": "ratolí"
               },
               "id": "b1.s5.t3",
               "startMs": 11440,
@@ -592,7 +787,12 @@
                 "en": "begs",
                 "fr": "supplie",
                 "es": "suplica",
-                "pt": "implora"
+                "pt": "implora",
+                "it": "implora",
+                "zh-Hans": "乞求",
+                "zh-Hant": "乞求",
+                "ro": "imploră",
+                "ca": "suplica"
               },
               "id": "b1.s5.t4",
               "startMs": 11740,
@@ -607,7 +807,12 @@
                 "en": "for",
                 "fr": "pour",
                 "es": "para",
-                "pt": "por"
+                "pt": "por",
+                "it": "per",
+                "zh-Hans": "为了",
+                "zh-Hant": "為了",
+                "ro": "pentru",
+                "ca": "per"
               },
               "id": "b1.s5.t5",
               "startMs": 12000,
@@ -622,7 +827,12 @@
                 "en": "her",
                 "fr": "sa",
                 "es": "su",
-                "pt": "ela"
+                "pt": "ela",
+                "it": "lei",
+                "zh-Hans": "她",
+                "zh-Hant": "她",
+                "ro": "ea",
+                "ca": "ella"
               },
               "id": "b1.s5.t6",
               "startMs": 12190,
@@ -637,7 +847,12 @@
                 "en": "life",
                 "fr": "vie",
                 "es": "vida",
-                "pt": "vida"
+                "pt": "vida",
+                "it": "vita",
+                "zh-Hans": "生命",
+                "zh-Hant": "生命",
+                "ro": "viață",
+                "ca": "vida"
               },
               "id": "b1.s5.t7",
               "startMs": 12350,
@@ -663,7 +878,13 @@
           "translations": {
             "en": "She says that she can help him one day.",
             "fr": "Elle dit qu'elle peut l'aider un jour.",
-            "es": "Dice que puede ayudarlo algún día."
+            "es": "Dice que puede ayudarlo algún día.",
+            "pt": "Ela diz que pode ajudá-lo um dia.",
+            "it": "Dice che un giorno può aiutarlo.",
+            "zh-Hans": "她说她有一天能帮助他。",
+            "zh-Hant": "她說有一天她能幫助他。",
+            "ro": "Ea spune că îl poate ajuta într-o zi.",
+            "ca": "Ella diu que el pot ajudar un dia."
           },
           "tokens": [
             {
@@ -675,7 +896,12 @@
                 "en": "she",
                 "fr": "elle",
                 "es": "ella",
-                "pt": "ela"
+                "pt": "ela",
+                "it": "lei",
+                "zh-Hans": "她",
+                "zh-Hant": "她",
+                "ro": "ea",
+                "ca": "ella"
               },
               "id": "b2.s1.t1",
               "startMs": 13692,
@@ -690,7 +916,12 @@
                 "en": "says",
                 "fr": "dit",
                 "es": "dice",
-                "pt": "diz"
+                "pt": "diz",
+                "it": "dice",
+                "zh-Hans": "说",
+                "zh-Hant": "說",
+                "ro": "spune",
+                "ca": "diu"
               },
               "id": "b2.s1.t2",
               "startMs": 13812,
@@ -705,7 +936,12 @@
                 "en": "that",
                 "fr": "que",
                 "es": "que",
-                "pt": "que"
+                "pt": "que",
+                "it": "che",
+                "zh-Hans": "那个",
+                "zh-Hant": "那個",
+                "ro": "că",
+                "ca": "que"
               },
               "id": "b2.s1.t3",
               "startMs": 14062,
@@ -720,7 +956,12 @@
                 "en": "she",
                 "fr": "elle",
                 "es": "ella",
-                "pt": "ela"
+                "pt": "ela",
+                "it": "lei",
+                "zh-Hans": "她",
+                "zh-Hant": "她",
+                "ro": "ea",
+                "ca": "ella"
               },
               "id": "b2.s1.t4",
               "startMs": 14322,
@@ -735,7 +976,12 @@
                 "en": "can",
                 "fr": "peut",
                 "es": "puede",
-                "pt": "pode"
+                "pt": "pode",
+                "it": "può",
+                "zh-Hans": "能",
+                "zh-Hant": "能",
+                "ro": "poate",
+                "ca": "pot"
               },
               "id": "b2.s1.t5",
               "startMs": 14532,
@@ -750,7 +996,12 @@
                 "en": "help",
                 "fr": "aider",
                 "es": "ayudar",
-                "pt": "ajuda"
+                "pt": "ajuda",
+                "it": "aiutare",
+                "zh-Hans": "帮助",
+                "zh-Hant": "幫助",
+                "ro": "ajuta",
+                "ca": "ajudar"
               },
               "id": "b2.s1.t6",
               "startMs": 14682,
@@ -765,7 +1016,12 @@
                 "en": "him",
                 "fr": "lui",
                 "es": "él",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "lui",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b2.s1.t7",
               "startMs": 14922,
@@ -780,7 +1036,12 @@
                 "en": "one",
                 "fr": "un",
                 "es": "un",
-                "pt": "um"
+                "pt": "um",
+                "it": "uno",
+                "zh-Hans": "一天",
+                "zh-Hant": "有一天",
+                "ro": "un",
+                "ca": "un"
               },
               "id": "b2.s1.t8",
               "startMs": 15102,
@@ -795,7 +1056,12 @@
                 "en": "day",
                 "fr": "jour",
                 "es": "día",
-                "pt": "dia"
+                "pt": "dia",
+                "it": "giorno",
+                "zh-Hans": "天",
+                "zh-Hant": "天",
+                "ro": "zi",
+                "ca": "dia"
               },
               "id": "b2.s1.t9",
               "startMs": 15282,
@@ -816,7 +1082,13 @@
           "translations": {
             "en": "The lion laughs at her funny words.",
             "fr": "Le lion rit de ses paroles amusantes.",
-            "es": "El león se ríe de sus divertidas palabras."
+            "es": "El león se ríe de sus divertidas palabras.",
+            "pt": "O leão ri de suas palavras engraçadas.",
+            "it": "Il leone ride delle sue parole buffe.",
+            "zh-Hans": "狮子嘲笑她可笑的话。",
+            "zh-Hant": "獅子嘲笑她的可笑話語。",
+            "ro": "Leul râde de cuvintele ei amuzante.",
+            "ca": "El lleó riu de les seves paraules divertides."
           },
           "tokens": [
             {
@@ -828,7 +1100,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b2.s2.t1",
               "startMs": 16374,
@@ -843,7 +1120,12 @@
                 "en": "lion",
                 "fr": "lion",
                 "es": "león",
-                "pt": "leão"
+                "pt": "leão",
+                "it": "leone",
+                "zh-Hans": "狮子",
+                "zh-Hant": "獅子",
+                "ro": "leu",
+                "ca": "lleó"
               },
               "id": "b2.s2.t2",
               "startMs": 16534,
@@ -858,7 +1140,12 @@
                 "en": "laughs",
                 "fr": "rit",
                 "es": "se ríe",
-                "pt": "ri"
+                "pt": "ri",
+                "it": "ride",
+                "zh-Hans": "笑",
+                "zh-Hant": "笑",
+                "ro": "râde",
+                "ca": "riu"
               },
               "id": "b2.s2.t3",
               "startMs": 16834,
@@ -873,7 +1160,12 @@
                 "en": "at",
                 "fr": "à",
                 "es": "a",
-                "pt": "em"
+                "pt": "em",
+                "it": "a",
+                "zh-Hans": "在",
+                "zh-Hant": "在",
+                "ro": "la",
+                "ca": "a"
               },
               "id": "b2.s2.t4",
               "startMs": 17274,
@@ -888,7 +1180,12 @@
                 "en": "her",
                 "fr": "sa",
                 "es": "su",
-                "pt": "ela"
+                "pt": "ela",
+                "it": "lei",
+                "zh-Hans": "她",
+                "zh-Hant": "她",
+                "ro": "ea",
+                "ca": "ella"
               },
               "id": "b2.s2.t5",
               "startMs": 17554,
@@ -903,7 +1200,12 @@
                 "en": "funny",
                 "fr": "drôle",
                 "es": "divertido",
-                "pt": "engraçado"
+                "pt": "engraçado",
+                "it": "divertente",
+                "zh-Hans": "有趣的",
+                "zh-Hant": "有趣的",
+                "ro": "amuzant",
+                "ca": "divertit"
               },
               "id": "b2.s2.t6",
               "startMs": 17644,
@@ -918,7 +1220,12 @@
                 "en": "words",
                 "fr": "mots",
                 "es": "palabras",
-                "pt": "palavras"
+                "pt": "palavras",
+                "it": "parole",
+                "zh-Hans": "话语",
+                "zh-Hant": "話",
+                "ro": "cuvinte",
+                "ca": "paraules"
               },
               "id": "b2.s2.t7",
               "startMs": 18004,
@@ -939,7 +1246,13 @@
           "translations": {
             "en": "But the kind lion lets her go free.",
             "fr": "Mais le gentil lion la laisse partir libre.",
-            "es": "Pero el amable león lo deja ir libre."
+            "es": "Pero el amable león lo deja ir libre.",
+            "pt": "Mas o leão bondoso a deixa ir livre.",
+            "it": "Ma il leone gentile la lascia andare libera.",
+            "zh-Hans": "但是善良的狮子让她自由离开。",
+            "zh-Hant": "但仁慈的獅子放她自由。",
+            "ro": "Dar leul cel bun o lasă să plece liberă.",
+            "ca": "Però el lleó amable la deixa anar lliure."
           },
           "tokens": [
             {
@@ -951,7 +1264,12 @@
                 "en": "but",
                 "fr": "mais",
                 "es": "pero",
-                "pt": "mas"
+                "pt": "mas",
+                "it": "ma",
+                "zh-Hans": "但是",
+                "zh-Hant": "但是",
+                "ro": "dar",
+                "ca": "però"
               },
               "id": "b2.s3.t1",
               "startMs": 19073,
@@ -966,7 +1284,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b2.s3.t2",
               "startMs": 19293,
@@ -981,7 +1304,12 @@
                 "en": "kind",
                 "fr": "gentil",
                 "es": "amable",
-                "pt": "gentil"
+                "pt": "gentil",
+                "it": "gentile",
+                "zh-Hans": "仁慈的",
+                "zh-Hant": "仁慈的",
+                "ro": "bun",
+                "ca": "bondós"
               },
               "id": "b2.s3.t3",
               "startMs": 19463,
@@ -996,7 +1324,12 @@
                 "en": "lion",
                 "fr": "lion",
                 "es": "león",
-                "pt": "leão"
+                "pt": "leão",
+                "it": "leone",
+                "zh-Hans": "狮子",
+                "zh-Hant": "獅子",
+                "ro": "leu",
+                "ca": "lleó"
               },
               "id": "b2.s3.t4",
               "startMs": 19763,
@@ -1011,7 +1344,12 @@
                 "en": "lets",
                 "fr": "laisse",
                 "es": "deja",
-                "pt": "deixa"
+                "pt": "deixa",
+                "it": "lascia",
+                "zh-Hans": "让",
+                "zh-Hant": "讓",
+                "ro": "lasă",
+                "ca": "deixa"
               },
               "id": "b2.s3.t5",
               "startMs": 20063,
@@ -1026,7 +1364,12 @@
                 "en": "her",
                 "fr": "sa",
                 "es": "su",
-                "pt": "ela"
+                "pt": "ela",
+                "it": "lei",
+                "zh-Hans": "她",
+                "zh-Hant": "她",
+                "ro": "ea",
+                "ca": "ella"
               },
               "id": "b2.s3.t6",
               "startMs": 20363,
@@ -1041,7 +1384,12 @@
                 "en": "go",
                 "fr": "aller",
                 "es": "ir",
-                "pt": "ir"
+                "pt": "ir",
+                "it": "andare",
+                "zh-Hans": "走",
+                "zh-Hant": "去",
+                "ro": "merge",
+                "ca": "anar"
               },
               "id": "b2.s3.t7",
               "startMs": 20653,
@@ -1056,7 +1404,12 @@
                 "en": "free",
                 "fr": "libre",
                 "es": "libre",
-                "pt": "livre"
+                "pt": "livre",
+                "it": "libero",
+                "zh-Hans": "自由的",
+                "zh-Hant": "自由的",
+                "ro": "liber",
+                "ca": "lliure"
               },
               "id": "b2.s3.t8",
               "startMs": 20733,
@@ -1082,7 +1435,13 @@
           "translations": {
             "en": "One week later, hunters catch the big lion.",
             "fr": "Une semaine plus tard, des chasseurs attrapent le grand lion.",
-            "es": "Una semana después, unos cazadores atrapan al gran león."
+            "es": "Una semana después, unos cazadores atrapan al gran león.",
+            "pt": "Uma semana depois, caçadores capturam o grande leão.",
+            "it": "Una settimana dopo, i cacciatori catturano il grande leone.",
+            "zh-Hans": "一周后，猎人抓住了大狮子。",
+            "zh-Hant": "一週後，獵人抓住了大獅子。",
+            "ro": "O săptămână mai târziu, vânătorii prind leul cel mare.",
+            "ca": "Una setmana més tard, els caçadors capturen el gran lleó."
           },
           "tokens": [
             {
@@ -1094,7 +1453,12 @@
                 "en": "one",
                 "fr": "un",
                 "es": "un",
-                "pt": "um"
+                "pt": "um",
+                "it": "uno",
+                "zh-Hans": "一天",
+                "zh-Hant": "有一天",
+                "ro": "un",
+                "ca": "un"
               },
               "id": "b3.s1.t1",
               "startMs": 22071,
@@ -1109,7 +1473,12 @@
                 "en": "week",
                 "fr": "semaine",
                 "es": "semana",
-                "pt": "semana"
+                "pt": "semana",
+                "it": "settimana",
+                "zh-Hans": "星期",
+                "zh-Hant": "星期",
+                "ro": "săptămână",
+                "ca": "setmana"
               },
               "id": "b3.s1.t2",
               "startMs": 22261,
@@ -1124,7 +1493,12 @@
                 "en": "later",
                 "fr": "plus tard",
                 "es": "más tarde",
-                "pt": "mais tarde"
+                "pt": "mais tarde",
+                "it": "dopo",
+                "zh-Hans": "后来",
+                "zh-Hant": "後來",
+                "ro": "mai târziu",
+                "ca": "després"
               },
               "id": "b3.s1.t3",
               "startMs": 22581,
@@ -1146,7 +1520,12 @@
                 "en": "hunters",
                 "fr": "chasseurs",
                 "es": "cazadores",
-                "pt": "caçadores"
+                "pt": "caçadores",
+                "it": "cacciatori",
+                "zh-Hans": "猎人",
+                "zh-Hant": "獵人",
+                "ro": "vânători",
+                "ca": "caçadors"
               },
               "id": "b3.s1.t5",
               "startMs": 23231,
@@ -1161,7 +1540,12 @@
                 "en": "catch",
                 "fr": "attrapent",
                 "es": "atrapan",
-                "pt": "pegar"
+                "pt": "pegar",
+                "it": "catturare",
+                "zh-Hans": "抓住",
+                "zh-Hant": "抓住",
+                "ro": "prinde",
+                "ca": "capturar"
               },
               "id": "b3.s1.t6",
               "startMs": 23651,
@@ -1176,7 +1560,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b3.s1.t7",
               "startMs": 24011,
@@ -1191,7 +1580,12 @@
                 "en": "big",
                 "fr": "grand",
                 "es": "grande",
-                "pt": "grande"
+                "pt": "grande",
+                "it": "grande",
+                "zh-Hans": "大的",
+                "zh-Hant": "大的",
+                "ro": "mare",
+                "ca": "gran"
               },
               "id": "b3.s1.t8",
               "startMs": 24231,
@@ -1206,7 +1600,12 @@
                 "en": "lion",
                 "fr": "lion",
                 "es": "león",
-                "pt": "leão"
+                "pt": "leão",
+                "it": "leone",
+                "zh-Hans": "狮子",
+                "zh-Hant": "獅子",
+                "ro": "leu",
+                "ca": "lleó"
               },
               "id": "b3.s1.t9",
               "startMs": 24441,
@@ -1227,7 +1626,13 @@
           "translations": {
             "en": "They tie him to a tree with heavy ropes.",
             "fr": "Ils l'attachent à un arbre avec de lourdes cordes.",
-            "es": "Lo atan a un árbol con cuerdas pesadas."
+            "es": "Lo atan a un árbol con cuerdas pesadas.",
+            "pt": "Eles o amarram a uma árvore com cordas pesadas.",
+            "it": "Lo legano a un albero con corde pesanti.",
+            "zh-Hans": "他们用粗绳子把他绑在树上。",
+            "zh-Hant": "他們用粗繩子把他綁在樹上。",
+            "ro": "Îl leagă de un copac cu frânghii grele.",
+            "ca": "El lliguen a un arbre amb cordes pesades."
           },
           "tokens": [
             {
@@ -1239,7 +1644,12 @@
                 "en": "they",
                 "fr": "ils",
                 "es": "ellos",
-                "pt": "eles"
+                "pt": "eles",
+                "it": "loro",
+                "zh-Hans": "他们",
+                "zh-Hant": "他們",
+                "ro": "ei",
+                "ca": "ells"
               },
               "id": "b3.s2.t1",
               "startMs": 25440,
@@ -1254,7 +1664,12 @@
                 "en": "tie",
                 "fr": "attachent",
                 "es": "atan",
-                "pt": "amarra"
+                "pt": "amarra",
+                "it": "legano",
+                "zh-Hans": "绑",
+                "zh-Hant": "綁",
+                "ro": "lega",
+                "ca": "lliguen"
               },
               "id": "b3.s2.t2",
               "startMs": 25620,
@@ -1269,7 +1684,12 @@
                 "en": "him",
                 "fr": "lui",
                 "es": "él",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "lui",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b3.s2.t3",
               "startMs": 25790,
@@ -1284,7 +1704,12 @@
                 "en": "to",
                 "fr": "à",
                 "es": "a",
-                "pt": "para"
+                "pt": "para",
+                "it": "a",
+                "zh-Hans": "到",
+                "zh-Hant": "向",
+                "ro": "la",
+                "ca": "a"
               },
               "id": "b3.s2.t4",
               "startMs": 25960,
@@ -1299,7 +1724,12 @@
                 "en": "a",
                 "fr": "un",
                 "es": "un",
-                "pt": "um"
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一只",
+                "zh-Hant": "一隻",
+                "ro": "un/o",
+                "ca": "un"
               },
               "id": "b3.s2.t5",
               "startMs": 26070,
@@ -1314,7 +1744,12 @@
                 "en": "tree",
                 "fr": "arbre",
                 "es": "árbol",
-                "pt": "árvore"
+                "pt": "árvore",
+                "it": "albero",
+                "zh-Hans": "树",
+                "zh-Hant": "樹",
+                "ro": "copac",
+                "ca": "arbre"
               },
               "id": "b3.s2.t6",
               "startMs": 26120,
@@ -1329,7 +1764,12 @@
                 "en": "with",
                 "fr": "avec",
                 "es": "con",
-                "pt": "com"
+                "pt": "com",
+                "it": "con",
+                "zh-Hans": "用",
+                "zh-Hant": "用",
+                "ro": "cu",
+                "ca": "amb"
               },
               "id": "b3.s2.t7",
               "startMs": 26350,
@@ -1344,7 +1784,12 @@
                 "en": "heavy",
                 "fr": "lourd",
                 "es": "pesado",
-                "pt": "pesado"
+                "pt": "pesado",
+                "it": "pesanti",
+                "zh-Hans": "重的",
+                "zh-Hant": "重的",
+                "ro": "grele",
+                "ca": "pesades"
               },
               "id": "b3.s2.t8",
               "startMs": 26640,
@@ -1359,7 +1804,12 @@
                 "en": "ropes",
                 "fr": "cordes",
                 "es": "cuerdas",
-                "pt": "cordas"
+                "pt": "cordas",
+                "it": "corde",
+                "zh-Hans": "绳子",
+                "zh-Hant": "繩子",
+                "ro": "frânghii",
+                "ca": "cordes"
               },
               "id": "b3.s2.t9",
               "startMs": 26860,
@@ -1380,7 +1830,13 @@
           "translations": {
             "en": "The lion roars loudly in pain.",
             "fr": "Le lion rugit fort de douleur.",
-            "es": "El león ruge fuertemente de dolor."
+            "es": "El león ruge fuertemente de dolor.",
+            "pt": "O leão ruge alto de dor.",
+            "it": "Il leone ruggisce forte per il dolore.",
+            "zh-Hans": "狮子痛苦地大声吼叫。",
+            "zh-Hant": "獅子痛苦地大聲吼叫。",
+            "ro": "Leul răcnește tare de durere.",
+            "ca": "El lleó rugeix fortament amb dolor."
           },
           "tokens": [
             {
@@ -1392,7 +1848,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b3.s3.t1",
               "startMs": 28292,
@@ -1407,7 +1868,12 @@
                 "en": "lion",
                 "fr": "lion",
                 "es": "león",
-                "pt": "leão"
+                "pt": "leão",
+                "it": "leone",
+                "zh-Hans": "狮子",
+                "zh-Hant": "獅子",
+                "ro": "leu",
+                "ca": "lleó"
               },
               "id": "b3.s3.t2",
               "startMs": 28472,
@@ -1422,7 +1888,12 @@
                 "en": "roars",
                 "fr": "rugit",
                 "es": "ruge",
-                "pt": "ruge"
+                "pt": "ruge",
+                "it": "ruggisce",
+                "zh-Hans": "吼叫",
+                "zh-Hant": "吼叫",
+                "ro": "răcnește",
+                "ca": "rugeix"
               },
               "id": "b3.s3.t3",
               "startMs": 28782,
@@ -1437,7 +1908,12 @@
                 "en": "loudly",
                 "fr": "bruyamment",
                 "es": "ruidosamente",
-                "pt": "altamente"
+                "pt": "altamente",
+                "it": "forte",
+                "zh-Hans": "大声地",
+                "zh-Hant": "大聲地",
+                "ro": "tare",
+                "ca": "fortament"
               },
               "id": "b3.s3.t4",
               "startMs": 29192,
@@ -1452,7 +1928,12 @@
                 "en": "in",
                 "fr": "dans",
                 "es": "en",
-                "pt": "em"
+                "pt": "em",
+                "it": "in",
+                "zh-Hans": "在……里",
+                "zh-Hant": "在...裡",
+                "ro": "în",
+                "ca": "en"
               },
               "id": "b3.s3.t5",
               "startMs": 29662,
@@ -1467,7 +1948,12 @@
                 "en": "pain",
                 "fr": "douleur",
                 "es": "dolor",
-                "pt": "dor"
+                "pt": "dor",
+                "it": "dolore",
+                "zh-Hans": "疼痛",
+                "zh-Hant": "痛苦",
+                "ro": "durere",
+                "ca": "dolor"
               },
               "id": "b3.s3.t6",
               "startMs": 29832,
@@ -1488,7 +1974,13 @@
           "translations": {
             "en": "The little mouse hears his loud roar.",
             "fr": "La petite souris entend son fort rugissement.",
-            "es": "El pequeño ratón escucha su fuerte rugido."
+            "es": "El pequeño ratón escucha su fuerte rugido.",
+            "pt": "O ratinho ouve seu rugido alto.",
+            "it": "Il topolino sente il suo forte ruggito.",
+            "zh-Hans": "小老鼠听到了他的大声吼叫。",
+            "zh-Hant": "小老鼠聽到了他的大聲吼叫。",
+            "ro": "Șoricelul aude răcnetul lui puternic.",
+            "ca": "El ratolí petit sent el seu fort rugit."
           },
           "tokens": [
             {
@@ -1500,7 +1992,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b3.s4.t1",
               "startMs": 30876,
@@ -1515,7 +2012,12 @@
                 "en": "little",
                 "fr": "petit",
                 "es": "pequeño",
-                "pt": "pequeno"
+                "pt": "pequeno",
+                "it": "piccolo",
+                "zh-Hans": "小的",
+                "zh-Hant": "小的",
+                "ro": "mic",
+                "ca": "petit"
               },
               "id": "b3.s4.t2",
               "startMs": 31006,
@@ -1530,7 +2032,12 @@
                 "en": "mouse",
                 "fr": "souris",
                 "es": "ratón",
-                "pt": "rato"
+                "pt": "rato",
+                "it": "topo",
+                "zh-Hans": "老鼠",
+                "zh-Hant": "老鼠",
+                "ro": "șoarece",
+                "ca": "ratolí"
               },
               "id": "b3.s4.t3",
               "startMs": 31386,
@@ -1545,7 +2052,12 @@
                 "en": "hears",
                 "fr": "entend",
                 "es": "escucha",
-                "pt": "ouve"
+                "pt": "ouve",
+                "it": "sente",
+                "zh-Hans": "听见",
+                "zh-Hant": "聽到",
+                "ro": "aude",
+                "ca": "sent"
               },
               "id": "b3.s4.t4",
               "startMs": 31716,
@@ -1560,7 +2072,12 @@
                 "en": "his",
                 "fr": "son",
                 "es": "su",
-                "pt": "dele"
+                "pt": "dele",
+                "it": "sua",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "lui",
+                "ca": "seva"
               },
               "id": "b3.s4.t5",
               "startMs": 32036,
@@ -1575,7 +2092,12 @@
                 "en": "loud",
                 "fr": "fort",
                 "es": "fuerte",
-                "pt": "alto"
+                "pt": "alto",
+                "it": "forte",
+                "zh-Hans": "大声的",
+                "zh-Hant": "大聲的",
+                "ro": "tare",
+                "ca": "fort"
               },
               "id": "b3.s4.t6",
               "startMs": 32226,
@@ -1590,7 +2112,12 @@
                 "en": "roar",
                 "fr": "rugissement",
                 "es": "rugido",
-                "pt": "rugir"
+                "pt": "rugir",
+                "it": "ruggito",
+                "zh-Hans": "吼叫",
+                "zh-Hant": "吼叫",
+                "ro": "răcnet",
+                "ca": "rugir"
               },
               "id": "b3.s4.t7",
               "startMs": 32486,
@@ -1616,7 +2143,13 @@
           "translations": {
             "en": "She runs to the lion and bites the ropes.",
             "fr": "Elle court vers le lion et mord les cordes.",
-            "es": "Corre hacia el león y muerde las cuerdas."
+            "es": "Corre hacia el león y muerde las cuerdas.",
+            "pt": "Ela corre até o leão e morde as cordas.",
+            "it": "Corre dal leone e morde le corde.",
+            "zh-Hans": "她跑到狮子那里，咬绳子。",
+            "zh-Hant": "她跑到獅子那裡，咬斷繩子。",
+            "ro": "Ea aleargă la leu și roade frânghiile.",
+            "ca": "Ella corre cap al lleó i mossega les cordes."
           },
           "tokens": [
             {
@@ -1628,7 +2161,12 @@
                 "en": "she",
                 "fr": "elle",
                 "es": "ella",
-                "pt": "ela"
+                "pt": "ela",
+                "it": "lei",
+                "zh-Hans": "她",
+                "zh-Hant": "她",
+                "ro": "ea",
+                "ca": "ella"
               },
               "id": "b4.s1.t1",
               "startMs": 33823,
@@ -1643,7 +2181,12 @@
                 "en": "runs",
                 "fr": "court",
                 "es": "corre",
-                "pt": "corre"
+                "pt": "corre",
+                "it": "corre",
+                "zh-Hans": "跑",
+                "zh-Hant": "跑",
+                "ro": "aleargă",
+                "ca": "corre"
               },
               "id": "b4.s1.t2",
               "startMs": 33963,
@@ -1658,7 +2201,12 @@
                 "en": "to",
                 "fr": "à",
                 "es": "a",
-                "pt": "para"
+                "pt": "para",
+                "it": "a",
+                "zh-Hans": "到",
+                "zh-Hant": "向",
+                "ro": "la",
+                "ca": "a"
               },
               "id": "b4.s1.t3",
               "startMs": 34313,
@@ -1673,7 +2221,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b4.s1.t4",
               "startMs": 34383,
@@ -1688,7 +2241,12 @@
                 "en": "lion",
                 "fr": "lion",
                 "es": "león",
-                "pt": "leão"
+                "pt": "leão",
+                "it": "leone",
+                "zh-Hans": "狮子",
+                "zh-Hant": "獅子",
+                "ro": "leu",
+                "ca": "lleó"
               },
               "id": "b4.s1.t5",
               "startMs": 34593,
@@ -1703,7 +2261,12 @@
                 "en": "and",
                 "fr": "et",
                 "es": "y",
-                "pt": "e"
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b4.s1.t6",
               "startMs": 34873,
@@ -1718,7 +2281,12 @@
                 "en": "bites",
                 "fr": "mord",
                 "es": "muerde",
-                "pt": "morde"
+                "pt": "morde",
+                "it": "morde",
+                "zh-Hans": "咬",
+                "zh-Hant": "咬",
+                "ro": "mușcă",
+                "ca": "mossega"
               },
               "id": "b4.s1.t7",
               "startMs": 35103,
@@ -1733,7 +2301,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b4.s1.t8",
               "startMs": 35443,
@@ -1748,7 +2321,12 @@
                 "en": "ropes",
                 "fr": "cordes",
                 "es": "cuerdas",
-                "pt": "cordas"
+                "pt": "cordas",
+                "it": "corde",
+                "zh-Hans": "绳子",
+                "zh-Hant": "繩子",
+                "ro": "frânghii",
+                "ca": "cordes"
               },
               "id": "b4.s1.t9",
               "startMs": 35653,
@@ -1769,7 +2347,13 @@
           "translations": {
             "en": "Her sharp teeth cut through the net.",
             "fr": "Ses dents pointues coupent le filet.",
-            "es": "Sus dientes afilados cortan la red."
+            "es": "Sus dientes afilados cortan la red.",
+            "pt": "Seus dentes afiados cortam a rede.",
+            "it": "I suoi denti affilati tagliano la rete.",
+            "zh-Hans": "她锋利的牙齿咬断了网。",
+            "zh-Hant": "她鋒利的牙齒咬穿了網。",
+            "ro": "Dinții ei ascuțiți taie plasa.",
+            "ca": "Les seves dents esmolades tallen la xarxa."
           },
           "tokens": [
             {
@@ -1781,7 +2365,12 @@
                 "en": "her",
                 "fr": "sa",
                 "es": "su",
-                "pt": "ela"
+                "pt": "ela",
+                "it": "lei",
+                "zh-Hans": "她",
+                "zh-Hant": "她",
+                "ro": "ea",
+                "ca": "ella"
               },
               "id": "b4.s2.t1",
               "startMs": 36784,
@@ -1796,7 +2385,12 @@
                 "en": "sharp",
                 "fr": "pointu",
                 "es": "afilado",
-                "pt": "afiado"
+                "pt": "afiado",
+                "it": "affilati",
+                "zh-Hans": "锋利的",
+                "zh-Hant": "鋒利的",
+                "ro": "ascuțit",
+                "ca": "esmolades"
               },
               "id": "b4.s2.t2",
               "startMs": 36884,
@@ -1811,7 +2405,12 @@
                 "en": "teeth",
                 "fr": "dents",
                 "es": "dientes",
-                "pt": "dentes"
+                "pt": "dentes",
+                "it": "denti",
+                "zh-Hans": "牙齿",
+                "zh-Hant": "牙齒",
+                "ro": "dinți",
+                "ca": "dents"
               },
               "id": "b4.s2.t3",
               "startMs": 37264,
@@ -1826,7 +2425,12 @@
                 "en": "cut",
                 "fr": "coupent",
                 "es": "cortan",
-                "pt": "corta"
+                "pt": "corta",
+                "it": "taglia",
+                "zh-Hans": "割",
+                "zh-Hant": "割",
+                "ro": "tăiat",
+                "ca": "tallar"
               },
               "id": "b4.s2.t4",
               "startMs": 37514,
@@ -1841,7 +2445,12 @@
                 "en": "through",
                 "fr": "à travers",
                 "es": "a través de",
-                "pt": "através"
+                "pt": "através",
+                "it": "attraverso",
+                "zh-Hans": "穿过",
+                "zh-Hant": "穿過",
+                "ro": "prin",
+                "ca": "a través de"
               },
               "id": "b4.s2.t5",
               "startMs": 37714,
@@ -1856,7 +2465,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b4.s2.t6",
               "startMs": 38154,
@@ -1871,7 +2485,12 @@
                 "en": "net",
                 "fr": "filet",
                 "es": "red",
-                "pt": "rede"
+                "pt": "rede",
+                "it": "rete",
+                "zh-Hans": "网",
+                "zh-Hant": "網",
+                "ro": "plasă",
+                "ca": "xarxa"
               },
               "id": "b4.s2.t7",
               "startMs": 38344,
@@ -1892,7 +2511,13 @@
           "translations": {
             "en": "The lion is free once more.",
             "fr": "Le lion est de nouveau libre.",
-            "es": "El león está libre otra vez."
+            "es": "El león está libre otra vez.",
+            "pt": "O leão está livre mais uma vez.",
+            "it": "Il leone è di nuovo libero.",
+            "zh-Hans": "狮子再次自由了。",
+            "zh-Hant": "獅子再次自由了。",
+            "ro": "Leul este liber din nou.",
+            "ca": "El lleó és lliure una altra vegada."
           },
           "tokens": [
             {
@@ -1904,7 +2529,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b4.s3.t1",
               "startMs": 39231,
@@ -1919,7 +2549,12 @@
                 "en": "lion",
                 "fr": "lion",
                 "es": "león",
-                "pt": "leão"
+                "pt": "leão",
+                "it": "leone",
+                "zh-Hans": "狮子",
+                "zh-Hant": "獅子",
+                "ro": "leu",
+                "ca": "lleó"
               },
               "id": "b4.s3.t2",
               "startMs": 39361,
@@ -1934,7 +2569,12 @@
                 "en": "is",
                 "fr": "est",
                 "es": "es",
-                "pt": "é"
+                "pt": "é",
+                "it": "è",
+                "zh-Hans": "是",
+                "zh-Hant": "是",
+                "ro": "este",
+                "ca": "és"
               },
               "id": "b4.s3.t3",
               "startMs": 39631,
@@ -1949,7 +2589,12 @@
                 "en": "free",
                 "fr": "libre",
                 "es": "libre",
-                "pt": "livre"
+                "pt": "livre",
+                "it": "libero",
+                "zh-Hans": "自由的",
+                "zh-Hant": "自由的",
+                "ro": "liber",
+                "ca": "lliure"
               },
               "id": "b4.s3.t4",
               "startMs": 39761,
@@ -1964,7 +2609,12 @@
                 "en": "once",
                 "fr": "une fois",
                 "es": "una vez",
-                "pt": "uma vez"
+                "pt": "uma vez",
+                "it": "una volta",
+                "zh-Hans": "再一次",
+                "zh-Hant": "再一次",
+                "ro": "odată",
+                "ca": "una vegada"
               },
               "id": "b4.s3.t5",
               "startMs": 40031,
@@ -1979,7 +2629,12 @@
                 "en": "more",
                 "fr": "plus",
                 "es": "más",
-                "pt": "mais"
+                "pt": "mais",
+                "it": "più",
+                "zh-Hans": "更",
+                "zh-Hant": "更",
+                "ro": "mai",
+                "ca": "més"
               },
               "id": "b4.s3.t6",
               "startMs": 40291,
@@ -2000,7 +2655,13 @@
           "translations": {
             "en": "Little friends can show great kindness.",
             "fr": "Les petits amis peuvent faire preuve d'une grande bonté.",
-            "es": "Los pequeños amigos pueden mostrar una gran bondad."
+            "es": "Los pequeños amigos pueden mostrar una gran bondad.",
+            "pt": "Pequenos amigos podem mostrar grande bondade.",
+            "it": "I piccoli amici possono mostrare grande gentilezza.",
+            "zh-Hans": "小朋友也能表现出巨大的善意。",
+            "zh-Hant": "小夥伴也能展現大仁慈。",
+            "ro": "Prietenii mici pot arăta o mare bunătate.",
+            "ca": "Els amics petits poden mostrar gran amabilitat."
           },
           "tokens": [
             {
@@ -2012,7 +2673,12 @@
                 "en": "little",
                 "fr": "petit",
                 "es": "pequeño",
-                "pt": "pequeno"
+                "pt": "pequeno",
+                "it": "piccolo",
+                "zh-Hans": "小的",
+                "zh-Hant": "小的",
+                "ro": "mic",
+                "ca": "petit"
               },
               "id": "b4.s4.t1",
               "startMs": 41480,
@@ -2027,7 +2693,12 @@
                 "en": "friends",
                 "fr": "amis",
                 "es": "amigos",
-                "pt": "amigos"
+                "pt": "amigos",
+                "it": "amici",
+                "zh-Hans": "朋友",
+                "zh-Hant": "朋友",
+                "ro": "prieteni",
+                "ca": "amics"
               },
               "id": "b4.s4.t2",
               "startMs": 41800,
@@ -2042,7 +2713,12 @@
                 "en": "can",
                 "fr": "peut",
                 "es": "puede",
-                "pt": "pode"
+                "pt": "pode",
+                "it": "può",
+                "zh-Hans": "能",
+                "zh-Hant": "能",
+                "ro": "poate",
+                "ca": "pot"
               },
               "id": "b4.s4.t3",
               "startMs": 42330,
@@ -2057,7 +2733,12 @@
                 "en": "show",
                 "fr": "montrer",
                 "es": "mostrar",
-                "pt": "mostrar"
+                "pt": "mostrar",
+                "it": "mostrare",
+                "zh-Hans": "展现",
+                "zh-Hant": "展現",
+                "ro": "arăta",
+                "ca": "mostrar"
               },
               "id": "b4.s4.t4",
               "startMs": 42390,
@@ -2072,7 +2753,12 @@
                 "en": "great",
                 "fr": "grand",
                 "es": "gran",
-                "pt": "grande"
+                "pt": "grande",
+                "it": "grande",
+                "zh-Hans": "伟大的",
+                "zh-Hant": "偉大的",
+                "ro": "mare",
+                "ca": "gran"
               },
               "id": "b4.s4.t5",
               "startMs": 42630,
@@ -2087,7 +2773,12 @@
                 "en": "kindness",
                 "fr": "bonté",
                 "es": "bondad",
-                "pt": "bondade"
+                "pt": "bondade",
+                "it": "gentilezza",
+                "zh-Hans": "善良",
+                "zh-Hant": "仁慈",
+                "ro": "bunătate",
+                "ca": "bondat"
               },
               "id": "b4.s4.t6",
               "startMs": 42920,

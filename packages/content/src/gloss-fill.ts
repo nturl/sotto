@@ -14,7 +14,17 @@ export const DEFAULT_LLM_MODEL = 'qwen3.6-35b-a3b';
  * `Sentence.translations` must cover — see validate.ts's
  * sentence-translation-coverage rule and translate-sentences.ts.
  */
-export const GLOSS_LOCALES = ['en', 'fr', 'es'] as const;
+export const GLOSS_LOCALES = [
+  'en',
+  'fr',
+  'es',
+  'pt',
+  'it',
+  'zh-Hans',
+  'zh-Hant',
+  'ro',
+  'ca',
+] as const;
 
 export async function isLlmReachable(baseUrl: string, timeoutMs = 1500): Promise<boolean> {
   try {
@@ -27,6 +37,19 @@ export async function isLlmReachable(baseUrl: string, timeoutMs = 1500): Promise
     return false;
   }
 }
+
+/** English names for GLOSS_LOCALES, used to build the fill-batch system prompt. */
+const LOCALE_NAMES: Record<(typeof GLOSS_LOCALES)[number], string> = {
+  en: 'English',
+  fr: 'French',
+  es: 'Spanish',
+  pt: 'Portuguese',
+  it: 'Italian',
+  'zh-Hans': 'Chinese (Simplified)',
+  'zh-Hant': 'Chinese (Traditional)',
+  ro: 'Romanian',
+  ca: 'Catalan',
+};
 
 export interface GlossFillWord {
   word: string;
@@ -63,11 +86,14 @@ export async function fillGlossesBatch(
   const wordList = words
     .map((w) => `- "${w.word}" (in context: "${w.contextSentence}")`)
     .join('\n');
+  const localeNames = GLOSS_LOCALES.map((locale) => `${LOCALE_NAMES[locale]} (${locale})`).join(
+    ', ',
+  );
   const system = [
     `You are a lexicographer building a glossary for learners of ${opts.contentLanguageName}.`,
-    `For each word below, using its sentence context to pick the right sense, give its translation into English (en), French (fr), and Spanish (es)${
+    `For each word below, using its sentence context to pick the right sense, give its translation into ${localeNames}${
       opts.needsPinyin ? ', plus Mandarin pinyin with tone marks (pinyin)' : ''
-    }.`,
+    }. For "zh-Hant" use Traditional Chinese characters only (never Simplified).`,
     `Reply with ONLY a JSON object mapping each word EXACTLY as given (same spelling and case) to an object with keys ${fields.join(', ')}. No prose, no markdown code fences.`,
   ].join(' ');
 

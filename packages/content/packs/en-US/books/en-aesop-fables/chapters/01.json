@@ -13,7 +13,13 @@
           "translations": {
             "en": "A hare meets a tortoise on a sunny road.",
             "fr": "Un lièvre rencontre une tortue sur une route ensoleillée.",
-            "es": "Una liebre se encuentra con una tortuga en un camino soleado."
+            "es": "Una liebre se encuentra con una tortuga en un camino soleado.",
+            "pt": "Uma lebre encontra uma tartaruga numa estrada ensolarada.",
+            "it": "Una lepre incontra una tartaruga su una strada soleggiata.",
+            "zh-Hans": "一只兔子在阳光明媚的路上遇到一只乌龟。",
+            "zh-Hant": "一隻兔子在陽光明媚的路上遇到一隻烏龜。",
+            "ro": "Un iepure întâlnește o broască țestoasă pe un drum însorit.",
+            "ca": "Una llebre troba una tortuga en un camí assolellat."
           },
           "tokens": [
             {
@@ -25,7 +31,12 @@
                 "en": "a",
                 "fr": "un",
                 "es": "un",
-                "pt": "um"
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一只",
+                "zh-Hant": "一隻",
+                "ro": "un/o",
+                "ca": "un"
               },
               "id": "b1.s1.t1",
               "startMs": 50,
@@ -40,7 +51,12 @@
                 "en": "hare",
                 "fr": "lièvre",
                 "es": "liebre",
-                "pt": "lebre"
+                "pt": "lebre",
+                "it": "lepre",
+                "zh-Hans": "野兔",
+                "zh-Hant": "野兔",
+                "ro": "iepure",
+                "ca": "llebre"
               },
               "id": "b1.s1.t2",
               "startMs": 70,
@@ -55,7 +71,12 @@
                 "en": "meets",
                 "fr": "rencontre",
                 "es": "encuentra",
-                "pt": "encontra"
+                "pt": "encontra",
+                "it": "incontra",
+                "zh-Hans": "遇见",
+                "zh-Hant": "遇見",
+                "ro": "întâlnește",
+                "ca": "troba"
               },
               "id": "b1.s1.t3",
               "startMs": 360,
@@ -70,7 +91,12 @@
                 "en": "a",
                 "fr": "un",
                 "es": "un",
-                "pt": "um"
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一只",
+                "zh-Hant": "一隻",
+                "ro": "un/o",
+                "ca": "un"
               },
               "id": "b1.s1.t4",
               "startMs": 730,
@@ -85,7 +111,12 @@
                 "en": "tortoise",
                 "fr": "tortue",
                 "es": "tortuga",
-                "pt": "tartaruga"
+                "pt": "tartaruga",
+                "it": "tartaruga",
+                "zh-Hans": "乌龟",
+                "zh-Hant": "烏龜",
+                "ro": "broască țestoasă",
+                "ca": "tortuga"
               },
               "id": "b1.s1.t5",
               "startMs": 770,
@@ -100,7 +131,12 @@
                 "en": "on",
                 "fr": "sur",
                 "es": "en",
-                "pt": "em"
+                "pt": "em",
+                "it": "su",
+                "zh-Hans": "在……上",
+                "zh-Hant": "在",
+                "ro": "pe",
+                "ca": "en"
               },
               "id": "b1.s1.t6",
               "startMs": 1390,
@@ -115,7 +151,12 @@
                 "en": "a",
                 "fr": "un",
                 "es": "un",
-                "pt": "um"
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一只",
+                "zh-Hant": "一隻",
+                "ro": "un/o",
+                "ca": "un"
               },
               "id": "b1.s1.t7",
               "startMs": 1560,
@@ -130,7 +171,12 @@
                 "en": "sunny",
                 "fr": "ensoleillé",
                 "es": "soleado",
-                "pt": "ensolarado"
+                "pt": "ensolarado",
+                "it": "soleggiata",
+                "zh-Hans": "阳光明媚的",
+                "zh-Hant": "晴朗的",
+                "ro": "însorit",
+                "ca": "assolellat"
               },
               "id": "b1.s1.t8",
               "startMs": 1600,
@@ -145,7 +191,12 @@
                 "en": "road",
                 "fr": "route",
                 "es": "camino",
-                "pt": "estrada"
+                "pt": "estrada",
+                "it": "strada",
+                "zh-Hans": "路",
+                "zh-Hant": "路",
+                "ro": "drum",
+                "ca": "carretera"
               },
               "id": "b1.s1.t9",
               "startMs": 1950,
@@ -166,7 +217,13 @@
           "translations": {
             "en": "The hare is very proud of his speed.",
             "fr": "Le lièvre est très fier de sa vitesse.",
-            "es": "La liebre está muy orgullosa de su velocidad."
+            "es": "La liebre está muy orgullosa de su velocidad.",
+            "pt": "A lebre está muito orgulhosa da sua velocidade.",
+            "it": "La lepre è molto orgogliosa della sua velocità.",
+            "zh-Hans": "兔子对自己的速度非常自豪。",
+            "zh-Hant": "兔子對自己的速度感到非常自豪。",
+            "ro": "Iepurele este foarte mândru de viteza lui.",
+            "ca": "La llebre està molt orgullosa de la seva velocitat."
           },
           "tokens": [
             {
@@ -178,7 +235,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b1.s2.t1",
               "startMs": 2970,
@@ -193,7 +255,12 @@
                 "en": "hare",
                 "fr": "lièvre",
                 "es": "liebre",
-                "pt": "lebre"
+                "pt": "lebre",
+                "it": "lepre",
+                "zh-Hans": "野兔",
+                "zh-Hant": "野兔",
+                "ro": "iepure",
+                "ca": "llebre"
               },
               "id": "b1.s2.t2",
               "startMs": 3120,
@@ -208,7 +275,12 @@
                 "en": "is",
                 "fr": "est",
                 "es": "es",
-                "pt": "é"
+                "pt": "é",
+                "it": "è",
+                "zh-Hans": "是",
+                "zh-Hant": "是",
+                "ro": "este",
+                "ca": "és"
               },
               "id": "b1.s2.t3",
               "startMs": 3390,
@@ -223,7 +295,12 @@
                 "en": "very",
                 "fr": "très",
                 "es": "muy",
-                "pt": "muito"
+                "pt": "muito",
+                "it": "molto",
+                "zh-Hans": "非常",
+                "zh-Hant": "非常",
+                "ro": "foarte",
+                "ca": "molt"
               },
               "id": "b1.s2.t4",
               "startMs": 3550,
@@ -238,7 +315,12 @@
                 "en": "proud",
                 "fr": "fier",
                 "es": "orgulloso",
-                "pt": "orgulhoso"
+                "pt": "orgulhoso",
+                "it": "orgoglioso",
+                "zh-Hans": "骄傲",
+                "zh-Hant": "驕傲",
+                "ro": "mândru",
+                "ca": "orgullós"
               },
               "id": "b1.s2.t5",
               "startMs": 3850,
@@ -253,7 +335,12 @@
                 "en": "of",
                 "fr": "de",
                 "es": "de",
-                "pt": "de"
+                "pt": "de",
+                "it": "di",
+                "zh-Hans": "的",
+                "zh-Hant": "的",
+                "ro": "al",
+                "ca": "de"
               },
               "id": "b1.s2.t6",
               "startMs": 4130,
@@ -268,7 +355,12 @@
                 "en": "his",
                 "fr": "son",
                 "es": "su",
-                "pt": "dele"
+                "pt": "dele",
+                "it": "sua",
+                "zh-Hans": "他的",
+                "zh-Hant": "他的",
+                "ro": "lui",
+                "ca": "seva"
               },
               "id": "b1.s2.t7",
               "startMs": 4310,
@@ -283,7 +375,12 @@
                 "en": "speed",
                 "fr": "vitesse",
                 "es": "velocidad",
-                "pt": "velocidade"
+                "pt": "velocidade",
+                "it": "velocità",
+                "zh-Hans": "速度",
+                "zh-Hant": "速度",
+                "ro": "viteză",
+                "ca": "velocitat"
               },
               "id": "b1.s2.t8",
               "startMs": 4490,
@@ -304,7 +401,13 @@
           "translations": {
             "en": "He laughs at the slow tortoise.",
             "fr": "Il se moque de la lente tortue.",
-            "es": "Él se ríe de la tortuga lenta."
+            "es": "Él se ríe de la tortuga lenta.",
+            "pt": "Ela ri da tartaruga lenta.",
+            "it": "Ride della tartaruga lenta.",
+            "zh-Hans": "他嘲笑慢吞吞的乌龟。",
+            "zh-Hant": "他嘲笑慢吞吞的烏龜。",
+            "ro": "El râde de broasca țestoasă lentă.",
+            "ca": "Es riu de la tortuga lenta."
           },
           "tokens": [
             {
@@ -316,7 +419,12 @@
                 "en": "he",
                 "fr": "il",
                 "es": "él",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "lui",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b1.s3.t1",
               "startMs": 5548,
@@ -331,7 +439,12 @@
                 "en": "laughs",
                 "fr": "rit",
                 "es": "se ríe",
-                "pt": "ri"
+                "pt": "ri",
+                "it": "ride",
+                "zh-Hans": "笑",
+                "zh-Hant": "笑",
+                "ro": "râde",
+                "ca": "riu"
               },
               "id": "b1.s3.t2",
               "startMs": 5588,
@@ -346,7 +459,12 @@
                 "en": "at",
                 "fr": "à",
                 "es": "a",
-                "pt": "em"
+                "pt": "em",
+                "it": "a",
+                "zh-Hans": "在",
+                "zh-Hant": "在",
+                "ro": "la",
+                "ca": "a"
               },
               "id": "b1.s3.t3",
               "startMs": 5988,
@@ -361,7 +479,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b1.s3.t4",
               "startMs": 6118,
@@ -376,7 +499,12 @@
                 "en": "slow",
                 "fr": "lent",
                 "es": "lento",
-                "pt": "lento"
+                "pt": "lento",
+                "it": "lenta",
+                "zh-Hans": "慢的",
+                "zh-Hant": "慢的",
+                "ro": "încet",
+                "ca": "lent"
               },
               "id": "b1.s3.t5",
               "startMs": 6318,
@@ -391,7 +519,12 @@
                 "en": "tortoise",
                 "fr": "tortue",
                 "es": "tortuga",
-                "pt": "tartaruga"
+                "pt": "tartaruga",
+                "it": "tartaruga",
+                "zh-Hans": "乌龟",
+                "zh-Hant": "烏龜",
+                "ro": "broască țestoasă",
+                "ca": "tortuga"
               },
               "id": "b1.s3.t6",
               "startMs": 6518,
@@ -412,7 +545,13 @@
           "translations": {
             "en": "The tortoise smiles and asks for a race.",
             "fr": "La tortue sourit et demande une course.",
-            "es": "La tortuga sonríe y pide una carrera."
+            "es": "La tortuga sonríe y pide una carrera.",
+            "pt": "A tartaruga sorri e pede uma corrida.",
+            "it": "La tartaruga sorride e chiede una gara.",
+            "zh-Hans": "乌龟微笑着要求比赛。",
+            "zh-Hant": "烏龜微笑著要求比賽。",
+            "ro": "Broasca țestoasă zâmbește și cere o cursă.",
+            "ca": "La tortuga somriu i demana una cursa."
           },
           "tokens": [
             {
@@ -424,7 +563,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b1.s4.t1",
               "startMs": 7828,
@@ -439,7 +583,12 @@
                 "en": "tortoise",
                 "fr": "tortue",
                 "es": "tortuga",
-                "pt": "tartaruga"
+                "pt": "tartaruga",
+                "it": "tartaruga",
+                "zh-Hans": "乌龟",
+                "zh-Hant": "烏龜",
+                "ro": "broască țestoasă",
+                "ca": "tortuga"
               },
               "id": "b1.s4.t2",
               "startMs": 7948,
@@ -454,7 +603,12 @@
                 "en": "smiles",
                 "fr": "sourit",
                 "es": "sonríe",
-                "pt": "sorriso"
+                "pt": "sorriso",
+                "it": "sorride",
+                "zh-Hans": "微笑",
+                "zh-Hant": "微笑",
+                "ro": "zâmbește",
+                "ca": "somriu"
               },
               "id": "b1.s4.t3",
               "startMs": 8548,
@@ -469,7 +623,12 @@
                 "en": "and",
                 "fr": "et",
                 "es": "y",
-                "pt": "e"
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b1.s4.t4",
               "startMs": 8978,
@@ -484,7 +643,12 @@
                 "en": "asks",
                 "fr": "demande",
                 "es": "pide",
-                "pt": "pergunta"
+                "pt": "pergunta",
+                "it": "chiede",
+                "zh-Hans": "要求",
+                "zh-Hant": "要求",
+                "ro": "întreabă",
+                "ca": "demana"
               },
               "id": "b1.s4.t5",
               "startMs": 9188,
@@ -499,7 +663,12 @@
                 "en": "for",
                 "fr": "pour",
                 "es": "para",
-                "pt": "por"
+                "pt": "por",
+                "it": "per",
+                "zh-Hans": "为了",
+                "zh-Hant": "為了",
+                "ro": "pentru",
+                "ca": "per"
               },
               "id": "b1.s4.t6",
               "startMs": 9478,
@@ -514,7 +683,12 @@
                 "en": "a",
                 "fr": "un",
                 "es": "un",
-                "pt": "um"
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一只",
+                "zh-Hant": "一隻",
+                "ro": "un/o",
+                "ca": "un"
               },
               "id": "b1.s4.t7",
               "startMs": 9688,
@@ -529,7 +703,12 @@
                 "en": "race",
                 "fr": "course",
                 "es": "carrera",
-                "pt": "corrida"
+                "pt": "corrida",
+                "it": "gara",
+                "zh-Hans": "比赛",
+                "zh-Hant": "賽跑",
+                "ro": "cursă",
+                "ca": "cursa"
               },
               "id": "b1.s4.t8",
               "startMs": 9758,
@@ -550,7 +729,13 @@
           "translations": {
             "en": "The hare agrees and laughs again.",
             "fr": "Le lièvre accepte et rit encore.",
-            "es": "La liebre acepta y vuelve a reír."
+            "es": "La liebre acepta y vuelve a reír.",
+            "pt": "A lebre concorda e ri novamente.",
+            "it": "La lepre accetta e ride di nuovo.",
+            "zh-Hans": "兔子同意了，又笑了。",
+            "zh-Hant": "兔子同意了，又笑了。",
+            "ro": "Iepurele este de acord și râde din nou.",
+            "ca": "La llebre accepta i es torna a riure."
           },
           "tokens": [
             {
@@ -562,7 +747,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b1.s5.t1",
               "startMs": 10771,
@@ -577,7 +767,12 @@
                 "en": "hare",
                 "fr": "lièvre",
                 "es": "liebre",
-                "pt": "lebre"
+                "pt": "lebre",
+                "it": "lepre",
+                "zh-Hans": "野兔",
+                "zh-Hant": "野兔",
+                "ro": "iepure",
+                "ca": "llebre"
               },
               "id": "b1.s5.t2",
               "startMs": 10911,
@@ -592,7 +787,12 @@
                 "en": "agrees",
                 "fr": "accepte",
                 "es": "acepta",
-                "pt": "concorda"
+                "pt": "concorda",
+                "it": "accetta",
+                "zh-Hans": "同意",
+                "zh-Hant": "同意",
+                "ro": "este de acord",
+                "ca": "està d'acord"
               },
               "id": "b1.s5.t3",
               "startMs": 11111,
@@ -607,7 +807,12 @@
                 "en": "and",
                 "fr": "et",
                 "es": "y",
-                "pt": "e"
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b1.s5.t4",
               "startMs": 11461,
@@ -622,7 +827,12 @@
                 "en": "laughs",
                 "fr": "rit",
                 "es": "se ríe",
-                "pt": "ri"
+                "pt": "ri",
+                "it": "ride",
+                "zh-Hans": "笑",
+                "zh-Hant": "笑",
+                "ro": "râde",
+                "ca": "riu"
               },
               "id": "b1.s5.t5",
               "startMs": 11631,
@@ -637,7 +847,12 @@
                 "en": "again",
                 "fr": "encore",
                 "es": "otra vez",
-                "pt": "de novo"
+                "pt": "de novo",
+                "it": "di nuovo",
+                "zh-Hans": "再次",
+                "zh-Hant": "再次",
+                "ro": "din nou",
+                "ca": "una altra vegada"
               },
               "id": "b1.s5.t6",
               "startMs": 11981,
@@ -663,7 +878,13 @@
           "translations": {
             "en": "The race begins in the green forest.",
             "fr": "La course commence dans la forêt verte.",
-            "es": "La carrera empieza en el bosque verde."
+            "es": "La carrera empieza en el bosque verde.",
+            "pt": "A corrida começa na floresta verde.",
+            "it": "La gara inizia nella foresta verde.",
+            "zh-Hans": "比赛在绿色的森林里开始。",
+            "zh-Hant": "比賽在綠色的森林裡開始。",
+            "ro": "Cursa începe în pădurea verde.",
+            "ca": "La cursa comença al bosc verd."
           },
           "tokens": [
             {
@@ -675,7 +896,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b2.s1.t1",
               "startMs": 13510,
@@ -690,7 +916,12 @@
                 "en": "race",
                 "fr": "course",
                 "es": "carrera",
-                "pt": "corrida"
+                "pt": "corrida",
+                "it": "gara",
+                "zh-Hans": "比赛",
+                "zh-Hant": "賽跑",
+                "ro": "cursă",
+                "ca": "cursa"
               },
               "id": "b2.s1.t2",
               "startMs": 13670,
@@ -705,7 +936,12 @@
                 "en": "begins",
                 "fr": "commence",
                 "es": "empieza",
-                "pt": "começa"
+                "pt": "começa",
+                "it": "inizia",
+                "zh-Hans": "开始",
+                "zh-Hant": "開始",
+                "ro": "începe",
+                "ca": "comença"
               },
               "id": "b2.s1.t3",
               "startMs": 13960,
@@ -720,7 +956,12 @@
                 "en": "in",
                 "fr": "dans",
                 "es": "en",
-                "pt": "em"
+                "pt": "em",
+                "it": "in",
+                "zh-Hans": "在……里",
+                "zh-Hant": "在...裡",
+                "ro": "în",
+                "ca": "en"
               },
               "id": "b2.s1.t4",
               "startMs": 14400,
@@ -735,7 +976,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b2.s1.t5",
               "startMs": 14570,
@@ -750,7 +996,12 @@
                 "en": "green",
                 "fr": "vert",
                 "es": "verde",
-                "pt": "verde"
+                "pt": "verde",
+                "it": "verde",
+                "zh-Hans": "绿色的",
+                "zh-Hant": "綠色的",
+                "ro": "verde",
+                "ca": "verd"
               },
               "id": "b2.s1.t6",
               "startMs": 14760,
@@ -765,7 +1016,12 @@
                 "en": "forest",
                 "fr": "forêt",
                 "es": "bosque",
-                "pt": "floresta"
+                "pt": "floresta",
+                "it": "foresta",
+                "zh-Hans": "森林",
+                "zh-Hant": "森林",
+                "ro": "pădure",
+                "ca": "bosc"
               },
               "id": "b2.s1.t7",
               "startMs": 15120,
@@ -786,7 +1042,13 @@
           "translations": {
             "en": "The hare runs ahead very fast.",
             "fr": "Le lièvre court devant très vite.",
-            "es": "La liebre corre adelante muy rápido."
+            "es": "La liebre corre adelante muy rápido.",
+            "pt": "A lebre corre na frente muito rápido.",
+            "it": "La lepre corre avanti molto veloce.",
+            "zh-Hans": "兔子飞快地跑在前面。",
+            "zh-Hant": "兔子跑得很快，領先在前。",
+            "ro": "Iepurele aleargă înainte foarte repede.",
+            "ca": "La llebre corre endavant molt de pressa."
           },
           "tokens": [
             {
@@ -798,7 +1060,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b2.s2.t1",
               "startMs": 16269,
@@ -813,7 +1080,12 @@
                 "en": "hare",
                 "fr": "lièvre",
                 "es": "liebre",
-                "pt": "lebre"
+                "pt": "lebre",
+                "it": "lepre",
+                "zh-Hans": "野兔",
+                "zh-Hant": "野兔",
+                "ro": "iepure",
+                "ca": "llebre"
               },
               "id": "b2.s2.t2",
               "startMs": 16449,
@@ -828,7 +1100,12 @@
                 "en": "runs",
                 "fr": "court",
                 "es": "corre",
-                "pt": "corre"
+                "pt": "corre",
+                "it": "corre",
+                "zh-Hans": "跑",
+                "zh-Hant": "跑",
+                "ro": "aleargă",
+                "ca": "corre"
               },
               "id": "b2.s2.t3",
               "startMs": 16769,
@@ -843,7 +1120,12 @@
                 "en": "ahead",
                 "fr": "devant",
                 "es": "adelante",
-                "pt": "à frente"
+                "pt": "à frente",
+                "it": "avanti",
+                "zh-Hans": "前面",
+                "zh-Hant": "前面",
+                "ro": "înainte",
+                "ca": "endavant"
               },
               "id": "b2.s2.t4",
               "startMs": 17089,
@@ -858,7 +1140,12 @@
                 "en": "very",
                 "fr": "très",
                 "es": "muy",
-                "pt": "muito"
+                "pt": "muito",
+                "it": "molto",
+                "zh-Hans": "非常",
+                "zh-Hant": "非常",
+                "ro": "foarte",
+                "ca": "molt"
               },
               "id": "b2.s2.t5",
               "startMs": 17569,
@@ -873,7 +1160,12 @@
                 "en": "fast",
                 "fr": "vite",
                 "es": "rápido",
-                "pt": "rápido"
+                "pt": "rápido",
+                "it": "veloce",
+                "zh-Hans": "快地",
+                "zh-Hant": "快地",
+                "ro": "repede",
+                "ca": "ràpid"
               },
               "id": "b2.s2.t6",
               "startMs": 17769,
@@ -894,7 +1186,13 @@
           "translations": {
             "en": "He sees that the tortoise is far behind.",
             "fr": "Il voit que la tortue est loin derrière.",
-            "es": "Él ve que la tortuga está muy atrás."
+            "es": "Él ve que la tortuga está muy atrás.",
+            "pt": "Ela vê que a tartaruga está muito atrás.",
+            "it": "Vede che la tartaruga è molto indietro.",
+            "zh-Hans": "他看到乌龟远远落在后面。",
+            "zh-Hant": "他看到烏龜遠遠落後。",
+            "ro": "El vede că broasca țestoasă este departe în urmă.",
+            "ca": "Veu que la tortuga és molt enrere."
           },
           "tokens": [
             {
@@ -906,7 +1204,12 @@
                 "en": "he",
                 "fr": "il",
                 "es": "él",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "lui",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b2.s3.t1",
               "startMs": 18848,
@@ -921,7 +1224,12 @@
                 "en": "sees",
                 "fr": "voit",
                 "es": "ve",
-                "pt": "vê"
+                "pt": "vê",
+                "it": "vede",
+                "zh-Hans": "看到",
+                "zh-Hant": "看到",
+                "ro": "vede",
+                "ca": "veu"
               },
               "id": "b2.s3.t2",
               "startMs": 18898,
@@ -936,7 +1244,12 @@
                 "en": "that",
                 "fr": "que",
                 "es": "que",
-                "pt": "que"
+                "pt": "que",
+                "it": "che",
+                "zh-Hans": "那个",
+                "zh-Hant": "那個",
+                "ro": "că",
+                "ca": "que"
               },
               "id": "b2.s3.t3",
               "startMs": 19188,
@@ -951,7 +1264,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b2.s3.t4",
               "startMs": 19478,
@@ -966,7 +1284,12 @@
                 "en": "tortoise",
                 "fr": "tortue",
                 "es": "tortuga",
-                "pt": "tartaruga"
+                "pt": "tartaruga",
+                "it": "tartaruga",
+                "zh-Hans": "乌龟",
+                "zh-Hant": "烏龜",
+                "ro": "broască țestoasă",
+                "ca": "tortuga"
               },
               "id": "b2.s3.t5",
               "startMs": 19688,
@@ -981,7 +1304,12 @@
                 "en": "is",
                 "fr": "est",
                 "es": "es",
-                "pt": "é"
+                "pt": "é",
+                "it": "è",
+                "zh-Hans": "是",
+                "zh-Hant": "是",
+                "ro": "este",
+                "ca": "és"
               },
               "id": "b2.s3.t6",
               "startMs": 20258,
@@ -996,7 +1324,12 @@
                 "en": "far",
                 "fr": "loin",
                 "es": "lejos",
-                "pt": "longe"
+                "pt": "longe",
+                "it": "lontano",
+                "zh-Hans": "远",
+                "zh-Hant": "遠",
+                "ro": "departe",
+                "ca": "lluny"
               },
               "id": "b2.s3.t7",
               "startMs": 20408,
@@ -1011,7 +1344,12 @@
                 "en": "behind",
                 "fr": "derrière",
                 "es": "detrás",
-                "pt": "atrás"
+                "pt": "atrás",
+                "it": "dietro",
+                "zh-Hans": "在后面",
+                "zh-Hant": "在後面",
+                "ro": "în spate",
+                "ca": "darrere"
               },
               "id": "b2.s3.t8",
               "startMs": 20608,
@@ -1032,7 +1370,13 @@
           "translations": {
             "en": "The hare sits under a big tree.",
             "fr": "Le lièvre s'assoit sous un grand arbre.",
-            "es": "La liebre se sienta debajo de un gran árbol."
+            "es": "La liebre se sienta debajo de un gran árbol.",
+            "pt": "A lebre senta debaixo de uma árvore grande.",
+            "it": "La lepre si siede sotto un grande albero.",
+            "zh-Hans": "兔子坐在一棵大树下。",
+            "zh-Hant": "兔子坐在一棵大樹下。",
+            "ro": "Iepurele se așază sub un copac mare.",
+            "ca": "La llebre s'asseu sota un arbre gran."
           },
           "tokens": [
             {
@@ -1044,7 +1388,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b2.s4.t1",
               "startMs": 21714,
@@ -1059,7 +1408,12 @@
                 "en": "hare",
                 "fr": "lièvre",
                 "es": "liebre",
-                "pt": "lebre"
+                "pt": "lebre",
+                "it": "lepre",
+                "zh-Hans": "野兔",
+                "zh-Hant": "野兔",
+                "ro": "iepure",
+                "ca": "llebre"
               },
               "id": "b2.s4.t2",
               "startMs": 21924,
@@ -1074,7 +1428,12 @@
                 "en": "sits",
                 "fr": "s'assoit",
                 "es": "se sienta",
-                "pt": "senta"
+                "pt": "senta",
+                "it": "si siede",
+                "zh-Hans": "坐",
+                "zh-Hant": "坐",
+                "ro": "stă",
+                "ca": "s'asseu"
               },
               "id": "b2.s4.t3",
               "startMs": 22194,
@@ -1089,7 +1448,12 @@
                 "en": "under",
                 "fr": "sous",
                 "es": "debajo de",
-                "pt": "sob"
+                "pt": "sob",
+                "it": "sotto",
+                "zh-Hans": "在……下面",
+                "zh-Hant": "在...下面",
+                "ro": "sub",
+                "ca": "sota"
               },
               "id": "b2.s4.t4",
               "startMs": 22514,
@@ -1104,7 +1468,12 @@
                 "en": "a",
                 "fr": "un",
                 "es": "un",
-                "pt": "um"
+                "pt": "um",
+                "it": "un",
+                "zh-Hans": "一只",
+                "zh-Hant": "一隻",
+                "ro": "un/o",
+                "ca": "un"
               },
               "id": "b2.s4.t5",
               "startMs": 22894,
@@ -1119,7 +1488,12 @@
                 "en": "big",
                 "fr": "grand",
                 "es": "grande",
-                "pt": "grande"
+                "pt": "grande",
+                "it": "grande",
+                "zh-Hans": "大的",
+                "zh-Hant": "大的",
+                "ro": "mare",
+                "ca": "gran"
               },
               "id": "b2.s4.t6",
               "startMs": 22984,
@@ -1134,7 +1508,12 @@
                 "en": "tree",
                 "fr": "arbre",
                 "es": "árbol",
-                "pt": "árvore"
+                "pt": "árvore",
+                "it": "albero",
+                "zh-Hans": "树",
+                "zh-Hant": "樹",
+                "ro": "copac",
+                "ca": "arbre"
               },
               "id": "b2.s4.t7",
               "startMs": 23204,
@@ -1155,7 +1534,13 @@
           "translations": {
             "en": "Soon he falls fast asleep.",
             "fr": "Bientôt, il s'endort profondément.",
-            "es": "Pronto se queda profundamente dormido."
+            "es": "Pronto se queda profundamente dormido.",
+            "pt": "Logo ela adormece profundamente.",
+            "it": "Presto si addormenta profondamente.",
+            "zh-Hans": "很快他就睡着了。",
+            "zh-Hant": "很快他就睡著了。",
+            "ro": "Curând el adoarme adânc.",
+            "ca": "Aviat s'adorm profundament."
           },
           "tokens": [
             {
@@ -1167,7 +1552,12 @@
                 "en": "soon",
                 "fr": "bientôt",
                 "es": "pronto",
-                "pt": "logo"
+                "pt": "logo",
+                "it": "presto",
+                "zh-Hans": "很快",
+                "zh-Hant": "很快",
+                "ro": "curând",
+                "ca": "aviat"
               },
               "id": "b2.s5.t1",
               "startMs": 24309,
@@ -1182,7 +1572,12 @@
                 "en": "he",
                 "fr": "il",
                 "es": "él",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "lui",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b2.s5.t2",
               "startMs": 24459,
@@ -1197,7 +1592,12 @@
                 "en": "falls",
                 "fr": "tombe",
                 "es": "cae",
-                "pt": "cai"
+                "pt": "cai",
+                "it": "cade",
+                "zh-Hans": "落下",
+                "zh-Hant": "落下",
+                "ro": "cade",
+                "ca": "cau"
               },
               "id": "b2.s5.t3",
               "startMs": 24629,
@@ -1212,7 +1612,12 @@
                 "en": "fast",
                 "fr": "vite",
                 "es": "rápido",
-                "pt": "rápido"
+                "pt": "rápido",
+                "it": "veloce",
+                "zh-Hans": "快地",
+                "zh-Hant": "快地",
+                "ro": "repede",
+                "ca": "ràpid"
               },
               "id": "b2.s5.t4",
               "startMs": 25009,
@@ -1227,7 +1632,12 @@
                 "en": "asleep",
                 "fr": "endormi",
                 "es": "dormido",
-                "pt": "adormecido"
+                "pt": "adormecido",
+                "it": "addormentato",
+                "zh-Hans": "睡着的",
+                "zh-Hant": "睡著",
+                "ro": "adormit",
+                "ca": "adormit"
               },
               "id": "b2.s5.t5",
               "startMs": 25309,
@@ -1253,7 +1663,13 @@
           "translations": {
             "en": "The slow tortoise walks and walks.",
             "fr": "La lente tortue marche et marche.",
-            "es": "La tortuga lenta camina y camina."
+            "es": "La tortuga lenta camina y camina.",
+            "pt": "A tartaruga lenta anda e anda.",
+            "it": "La tartaruga lenta cammina e cammina.",
+            "zh-Hans": "慢吞吞的乌龟走啊走。",
+            "zh-Hant": "慢吞吞的烏龜走啊走。",
+            "ro": "Broasca țestoasă lentă merge și merge.",
+            "ca": "La tortuga lenta camina i camina."
           },
           "tokens": [
             {
@@ -1265,7 +1681,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b3.s1.t1",
               "startMs": 26853,
@@ -1280,7 +1701,12 @@
                 "en": "slow",
                 "fr": "lent",
                 "es": "lento",
-                "pt": "lento"
+                "pt": "lento",
+                "it": "lenta",
+                "zh-Hans": "慢的",
+                "zh-Hant": "慢的",
+                "ro": "încet",
+                "ca": "lent"
               },
               "id": "b3.s1.t2",
               "startMs": 27053,
@@ -1295,7 +1721,12 @@
                 "en": "tortoise",
                 "fr": "tortue",
                 "es": "tortuga",
-                "pt": "tartaruga"
+                "pt": "tartaruga",
+                "it": "tartaruga",
+                "zh-Hans": "乌龟",
+                "zh-Hant": "烏龜",
+                "ro": "broască țestoasă",
+                "ca": "tortuga"
               },
               "id": "b3.s1.t3",
               "startMs": 27283,
@@ -1310,7 +1741,12 @@
                 "en": "walks",
                 "fr": "marche",
                 "es": "camina",
-                "pt": "caminha"
+                "pt": "caminha",
+                "it": "cammina",
+                "zh-Hans": "走路",
+                "zh-Hant": "走路",
+                "ro": "merge",
+                "ca": "camina"
               },
               "id": "b3.s1.t4",
               "startMs": 27823,
@@ -1325,7 +1761,12 @@
                 "en": "and",
                 "fr": "et",
                 "es": "y",
-                "pt": "e"
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b3.s1.t5",
               "startMs": 28163,
@@ -1340,7 +1781,12 @@
                 "en": "walks",
                 "fr": "marche",
                 "es": "camina",
-                "pt": "caminha"
+                "pt": "caminha",
+                "it": "cammina",
+                "zh-Hans": "走路",
+                "zh-Hant": "走路",
+                "ro": "merge",
+                "ca": "camina"
               },
               "id": "b3.s1.t6",
               "startMs": 28373,
@@ -1361,7 +1807,13 @@
           "translations": {
             "en": "He does not stop to rest.",
             "fr": "Elle ne s'arrête pas pour se reposer.",
-            "es": "No se detiene a descansar."
+            "es": "No se detiene a descansar.",
+            "pt": "Ela não para para descansar.",
+            "it": "Non si ferma per riposare.",
+            "zh-Hans": "他没有停下来休息。",
+            "zh-Hant": "他沒有停下來休息。",
+            "ro": "El nu se oprește să se odihnească.",
+            "ca": "No s'atura per descansar."
           },
           "tokens": [
             {
@@ -1373,7 +1825,12 @@
                 "en": "he",
                 "fr": "il",
                 "es": "él",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "lui",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b3.s2.t1",
               "startMs": 29477,
@@ -1388,7 +1845,12 @@
                 "en": "does",
                 "fr": "fait",
                 "es": "hace",
-                "pt": "faz"
+                "pt": "faz",
+                "it": "fa",
+                "zh-Hans": "做",
+                "zh-Hant": "做",
+                "ro": "face",
+                "ca": "fa"
               },
               "id": "b3.s2.t2",
               "startMs": 29547,
@@ -1403,7 +1865,12 @@
                 "en": "not",
                 "fr": "pas",
                 "es": "no",
-                "pt": "não"
+                "pt": "não",
+                "it": "non",
+                "zh-Hans": "不",
+                "zh-Hant": "不",
+                "ro": "nu",
+                "ca": "no"
               },
               "id": "b3.s2.t3",
               "startMs": 29877,
@@ -1418,7 +1885,12 @@
                 "en": "stop",
                 "fr": "s'arrêter",
                 "es": "detenerse",
-                "pt": "parar"
+                "pt": "parar",
+                "it": "fermarsi",
+                "zh-Hans": "停止",
+                "zh-Hant": "停止",
+                "ro": "opri",
+                "ca": "aturar"
               },
               "id": "b3.s2.t4",
               "startMs": 30127,
@@ -1433,7 +1905,12 @@
                 "en": "to",
                 "fr": "à",
                 "es": "a",
-                "pt": "para"
+                "pt": "para",
+                "it": "a",
+                "zh-Hans": "到",
+                "zh-Hant": "向",
+                "ro": "la",
+                "ca": "a"
               },
               "id": "b3.s2.t5",
               "startMs": 30457,
@@ -1448,7 +1925,12 @@
                 "en": "rest",
                 "fr": "se reposer",
                 "es": "descansar",
-                "pt": "descanso"
+                "pt": "descanso",
+                "it": "riposo",
+                "zh-Hans": "休息",
+                "zh-Hant": "休息",
+                "ro": "odihnă",
+                "ca": "descansar"
               },
               "id": "b3.s2.t6",
               "startMs": 30617,
@@ -1469,7 +1951,13 @@
           "translations": {
             "en": "He passes the sleeping hare on the path.",
             "fr": "Elle dépasse le lièvre endormi sur le chemin.",
-            "es": "Pasa a la liebre dormida en el camino."
+            "es": "Pasa a la liebre dormida en el camino.",
+            "pt": "Ela passa pela lebre dormindo no caminho.",
+            "it": "Passa la lepre addormentata sul sentiero.",
+            "zh-Hans": "他在路上经过了睡着的兔子。",
+            "zh-Hant": "他在路上經過睡著的兔子。",
+            "ro": "El trece pe lângă iepurele adormit pe potecă.",
+            "ca": "Passa la llebre adormida al camí."
           },
           "tokens": [
             {
@@ -1481,7 +1969,12 @@
                 "en": "he",
                 "fr": "il",
                 "es": "él",
-                "pt": "ele"
+                "pt": "ele",
+                "it": "lui",
+                "zh-Hans": "他",
+                "zh-Hant": "他",
+                "ro": "el",
+                "ca": "ell"
               },
               "id": "b3.s3.t1",
               "startMs": 31688,
@@ -1496,7 +1989,12 @@
                 "en": "passes",
                 "fr": "dépasse",
                 "es": "pasa",
-                "pt": "passa"
+                "pt": "passa",
+                "it": "passa",
+                "zh-Hans": "经过",
+                "zh-Hant": "經過",
+                "ro": "trece",
+                "ca": "passa"
               },
               "id": "b3.s3.t2",
               "startMs": 31718,
@@ -1511,7 +2009,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b3.s3.t3",
               "startMs": 32108,
@@ -1526,7 +2029,12 @@
                 "en": "sleeping",
                 "fr": "endormi",
                 "es": "dormido",
-                "pt": "dormindo"
+                "pt": "dormindo",
+                "it": "addormentata",
+                "zh-Hans": "睡觉的",
+                "zh-Hant": "睡覺的",
+                "ro": "adormit",
+                "ca": "dormint"
               },
               "id": "b3.s3.t4",
               "startMs": 32248,
@@ -1541,7 +2049,12 @@
                 "en": "hare",
                 "fr": "lièvre",
                 "es": "liebre",
-                "pt": "lebre"
+                "pt": "lebre",
+                "it": "lepre",
+                "zh-Hans": "野兔",
+                "zh-Hant": "野兔",
+                "ro": "iepure",
+                "ca": "llebre"
               },
               "id": "b3.s3.t5",
               "startMs": 32738,
@@ -1556,7 +2069,12 @@
                 "en": "on",
                 "fr": "sur",
                 "es": "en",
-                "pt": "em"
+                "pt": "em",
+                "it": "su",
+                "zh-Hans": "在……上",
+                "zh-Hant": "在",
+                "ro": "pe",
+                "ca": "en"
               },
               "id": "b3.s3.t6",
               "startMs": 32958,
@@ -1571,7 +2089,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b3.s3.t7",
               "startMs": 33078,
@@ -1586,7 +2109,12 @@
                 "en": "path",
                 "fr": "chemin",
                 "es": "camino",
-                "pt": "caminho"
+                "pt": "caminho",
+                "it": "sentiero",
+                "zh-Hans": "小路",
+                "zh-Hant": "小徑",
+                "ro": "potecă",
+                "ca": "camí"
               },
               "id": "b3.s3.t8",
               "startMs": 33258,
@@ -1612,7 +2140,13 @@
           "translations": {
             "en": "The tortoise reaches the finish line first.",
             "fr": "La tortue franchit la ligne d'arrivée en premier.",
-            "es": "La tortuga llega a la meta en primer lugar."
+            "es": "La tortuga llega a la meta en primer lugar.",
+            "pt": "A tartaruga chega à linha de chegada primeiro.",
+            "it": "La tartaruga raggiunge il traguardo per prima.",
+            "zh-Hans": "乌龟第一个到达终点线。",
+            "zh-Hant": "烏龜首先到達終點線。",
+            "ro": "Broasca țestoasă ajunge prima la linia de sosire.",
+            "ca": "La tortuga arriba primer a la meta."
           },
           "tokens": [
             {
@@ -1624,7 +2158,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b4.s1.t1",
               "startMs": 34797,
@@ -1639,7 +2178,12 @@
                 "en": "tortoise",
                 "fr": "tortue",
                 "es": "tortuga",
-                "pt": "tartaruga"
+                "pt": "tartaruga",
+                "it": "tartaruga",
+                "zh-Hans": "乌龟",
+                "zh-Hant": "烏龜",
+                "ro": "broască țestoasă",
+                "ca": "tortuga"
               },
               "id": "b4.s1.t2",
               "startMs": 34877,
@@ -1654,7 +2198,12 @@
                 "en": "reaches",
                 "fr": "atteint",
                 "es": "alcanza",
-                "pt": "chega"
+                "pt": "chega",
+                "it": "raggiunge",
+                "zh-Hans": "到达",
+                "zh-Hant": "到達",
+                "ro": "ajunge",
+                "ca": "arriba a"
               },
               "id": "b4.s1.t3",
               "startMs": 35567,
@@ -1669,7 +2218,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b4.s1.t4",
               "startMs": 35787,
@@ -1684,7 +2238,12 @@
                 "en": "finish",
                 "fr": "arrivée",
                 "es": "meta",
-                "pt": "linha de chegada"
+                "pt": "linha de chegada",
+                "it": "traguardo",
+                "zh-Hans": "终点",
+                "zh-Hant": "終點",
+                "ro": "final",
+                "ca": "meta"
               },
               "id": "b4.s1.t5",
               "startMs": 35997,
@@ -1699,7 +2258,12 @@
                 "en": "line",
                 "fr": "ligne",
                 "es": "línea",
-                "pt": "linha"
+                "pt": "linha",
+                "it": "traguardo",
+                "zh-Hans": "线",
+                "zh-Hant": "線",
+                "ro": "linie",
+                "ca": "línia"
               },
               "id": "b4.s1.t6",
               "startMs": 36297,
@@ -1714,7 +2278,12 @@
                 "en": "first",
                 "fr": "premier",
                 "es": "primero",
-                "pt": "primeiro"
+                "pt": "primeiro",
+                "it": "primo",
+                "zh-Hans": "第一",
+                "zh-Hant": "第一",
+                "ro": "primul",
+                "ca": "primer"
               },
               "id": "b4.s1.t7",
               "startMs": 36527,
@@ -1735,7 +2304,13 @@
           "translations": {
             "en": "The hare wakes up and cries.",
             "fr": "Le lièvre se réveille et pleure.",
-            "es": "La liebre se despierta y llora."
+            "es": "La liebre se despierta y llora.",
+            "pt": "A lebre acorda e chora.",
+            "it": "La lepre si sveglia e piange.",
+            "zh-Hans": "兔子醒来，哭了。",
+            "zh-Hant": "兔子醒來，哭了。",
+            "ro": "Iepurele se trezește și plânge.",
+            "ca": "La llebre es desperta i plora."
           },
           "tokens": [
             {
@@ -1747,7 +2322,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b4.s2.t1",
               "startMs": 37934,
@@ -1762,7 +2342,12 @@
                 "en": "hare",
                 "fr": "lièvre",
                 "es": "liebre",
-                "pt": "lebre"
+                "pt": "lebre",
+                "it": "lepre",
+                "zh-Hans": "野兔",
+                "zh-Hant": "野兔",
+                "ro": "iepure",
+                "ca": "llebre"
               },
               "id": "b4.s2.t2",
               "startMs": 38074,
@@ -1777,7 +2362,12 @@
                 "en": "wakes",
                 "fr": "se réveille",
                 "es": "se despierta",
-                "pt": "acorda"
+                "pt": "acorda",
+                "it": "si sveglia",
+                "zh-Hans": "醒来",
+                "zh-Hant": "醒來",
+                "ro": "se trezește",
+                "ca": "desperta"
               },
               "id": "b4.s2.t3",
               "startMs": 38294,
@@ -1792,7 +2382,12 @@
                 "en": "up",
                 "fr": "en haut",
                 "es": "arriba",
-                "pt": "acima"
+                "pt": "acima",
+                "it": "su",
+                "zh-Hans": "向上",
+                "zh-Hant": "向上",
+                "ro": "sus",
+                "ca": "amunt"
               },
               "id": "b4.s2.t4",
               "startMs": 38664,
@@ -1807,7 +2402,12 @@
                 "en": "and",
                 "fr": "et",
                 "es": "y",
-                "pt": "e"
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b4.s2.t5",
               "startMs": 38724,
@@ -1822,7 +2422,12 @@
                 "en": "cries",
                 "fr": "pleure",
                 "es": "llora",
-                "pt": "chora"
+                "pt": "chora",
+                "it": "piange",
+                "zh-Hans": "哭",
+                "zh-Hant": "哭",
+                "ro": "strigă",
+                "ca": "crida"
               },
               "id": "b4.s2.t6",
               "startMs": 38904,
@@ -1843,7 +2448,13 @@
           "translations": {
             "en": "Slow and steady wins the race.",
             "fr": "Rien ne sert de courir, il faut partir à point.",
-            "es": "Lento pero seguro se gana la carrera."
+            "es": "Lento pero seguro se gana la carrera.",
+            "pt": "Devagar e sempre se vence a corrida.",
+            "it": "Lento e costante vince la gara.",
+            "zh-Hans": "慢而稳赢得比赛。",
+            "zh-Hant": "慢而穩贏得比賽。",
+            "ro": "Încet și sigur câștigă cursa.",
+            "ca": "A poc a poc i amb constància es guanya la cursa."
           },
           "tokens": [
             {
@@ -1855,7 +2466,12 @@
                 "en": "slow",
                 "fr": "lent",
                 "es": "lento",
-                "pt": "lento"
+                "pt": "lento",
+                "it": "lenta",
+                "zh-Hans": "慢的",
+                "zh-Hant": "慢的",
+                "ro": "încet",
+                "ca": "lent"
               },
               "id": "b4.s3.t1",
               "startMs": 40248,
@@ -1870,7 +2486,12 @@
                 "en": "and",
                 "fr": "et",
                 "es": "y",
-                "pt": "e"
+                "pt": "e",
+                "it": "e",
+                "zh-Hans": "和",
+                "zh-Hant": "和",
+                "ro": "și",
+                "ca": "i"
               },
               "id": "b4.s3.t2",
               "startMs": 40378,
@@ -1885,7 +2506,12 @@
                 "en": "steady",
                 "fr": "régulier",
                 "es": "constante",
-                "pt": "constante"
+                "pt": "constante",
+                "it": "costante",
+                "zh-Hans": "稳健的",
+                "zh-Hant": "穩定的",
+                "ro": "constant",
+                "ca": "constant"
               },
               "id": "b4.s3.t3",
               "startMs": 40608,
@@ -1900,7 +2526,12 @@
                 "en": "wins",
                 "fr": "gagne",
                 "es": "gana",
-                "pt": "vence"
+                "pt": "vence",
+                "it": "vince",
+                "zh-Hans": "赢得",
+                "zh-Hant": "贏得",
+                "ro": "câștigă",
+                "ca": "guanya"
               },
               "id": "b4.s3.t4",
               "startMs": 41058,
@@ -1915,7 +2546,12 @@
                 "en": "the",
                 "fr": "le",
                 "es": "el",
-                "pt": "o"
+                "pt": "o",
+                "it": "il",
+                "zh-Hans": "这",
+                "zh-Hant": "這",
+                "ro": "articol hotărât",
+                "ca": "el"
               },
               "id": "b4.s3.t5",
               "startMs": 41358,
@@ -1930,7 +2566,12 @@
                 "en": "race",
                 "fr": "course",
                 "es": "carrera",
-                "pt": "corrida"
+                "pt": "corrida",
+                "it": "gara",
+                "zh-Hans": "比赛",
+                "zh-Hant": "賽跑",
+                "ro": "cursă",
+                "ca": "cursa"
               },
               "id": "b4.s3.t6",
               "startMs": 41578,

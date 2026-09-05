@@ -239,7 +239,12 @@ function mergeExistingChapterAssets(
   return chapterSummaries.map((summary) => {
     const prev = prevById.get(summary.id);
     if (prev?.audio && prev.wordCount === summary.wordCount) {
-      return { ...summary, audio: prev.audio, durationMs: prev.durationMs };
+      return {
+        ...summary,
+        audio: prev.audio,
+        durationMs: prev.durationMs,
+        ...(prev.alignment ? { alignment: prev.alignment } : {}),
+      };
     }
     return summary;
   });

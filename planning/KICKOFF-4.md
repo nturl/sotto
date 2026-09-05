@@ -55,8 +55,8 @@ Four routes, in sequence, each with its own gate:
 
 ### Noel's steps (list these in the first report; proceed on defaults where marked)
 
-1. Buy the domain and say which. Default until told: `sotto.app`-style, CONFIRM. Point
-   `app.<domain>` at the Fly app when it exists; the free PWA keeps its Vercel URL.
+1. Buy the domain and say which. Default until told: DONE 2026-09-05: **readsotto.app** bought on Vercel (team nturls-projects, auto-renew OFF, expires 2027-09). Point
+   `app.readsotto.app` at the Fly app when it exists; the free PWA keeps its Vercel URL.
 2. Fly: create the account or confirm one exists, give the session a `FLY_API_TOKEN` in
    the shell only, never in a file. Without it, everything up to `fly deploy` proceeds
    and the deploy is a one-line Noel step.
@@ -185,7 +185,7 @@ the migration plan and stop.
 
 **R4-D2 Paid client served from Fly (Sonnet, after D1).** Task: sotto-cloud serves the
 static client export built with `EXPO_PUBLIC_CLOUD_URL` set to its own origin, so
-`app.<domain>` is the paid app and the Vercel URL stays the free one. Paywall copy per
+`app.readsotto.app` is the paid app and the Vercel URL stays the free one. Paywall copy per
 planning/design/PAYWALL.md, one plan card, English default, price suffix localized,
 "Subscribe" goes to Stripe Checkout, "Manage" to the Stripe portal, no App Store
 buttons or restore-purchases row rendered on web. Import screen on the paid origin
@@ -257,7 +257,7 @@ incurred.
   with no account and no server of ours. (B)
 - A stranger can run `docker compose up` and have Sotto with a tutor on their own key
   within one page of docs. (C)
-- A learner can pay $9.99 on `app.<domain>`, talk to the tutor within the cap, hit the
+- A learner can pay $9.99 on `app.readsotto.app`, talk to the tutor within the cap, hit the
   cap and read a clear message, delete their account, and Noel's fixed monthly cost
   for it is one Fly machine. (D)
 - Nothing App Store shaped is required for any of the above. (no E)
@@ -270,7 +270,7 @@ headroom before dispatching parallel Opus lanes.
 
 ### CONFIRM (defaults in parentheses; proceed on defaults, report in the first message)
 
-1. Domain (Noel's pick; run proceeds with placeholders until named).
+1. Domain: readsotto.app (bought 2026-09-05, auto-renew off). Apex -> free PWA on Vercel; app.readsotto.app -> Fly paid app.
 2. Plan numbers ($9.99/mo, $79/yr, 250 min, 2 imports, 2 h narrated audio).
 3. Free PWA stays on Vercel Hobby with no cloud UI; paid app served from Fly (yes).
 4. Sign in with Apple removed from the web surface (yes).

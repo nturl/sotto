@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { RateLimiter, isOriginAllowed, parseAllowedOrigins } from './security.js';
+import { RateLimiter, isBasicAuthValid, isOriginAllowed, parseAllowedOrigins } from './security.js';
 
 describe('parseAllowedOrigins', () => {
   it('splits a comma-separated env value into trimmed origins', () => {
@@ -67,5 +67,29 @@ describe('RateLimiter', () => {
     expect(limiter.allow('a')).toBe(false);
     now = 1001;
     expect(limiter.allow('a')).toBe(true);
+  });
+});
+
+describe('isBasicAuthValid', () => {
+  const encode = (creds: string) => `Basic ${Buffer.from(creds).toString('base64')}`;
+
+  it('accepts a matching Basic header', () => {
+    expect(isBasicAuthValid(encode('sotto:demo-only'), 'sotto:demo-only')).toBe(true);
+  });
+
+  it('rejects a mismatched credential', () => {
+    expect(isBasicAuthValid(encode('sotto:wrong'), 'sotto:demo-only')).toBe(false);
+  });
+
+  it('rejects a missing header', () => {
+    expect(isBasicAuthValid(undefined, 'sotto:demo-only')).toBe(false);
+  });
+
+  it('rejects a non-Basic scheme', () => {
+    expect(isBasicAuthValid('Bearer sometoken', 'sotto:demo-only')).toBe(false);
+  });
+
+  it('rejects malformed base64 without throwing', () => {
+    expect(isBasicAuthValid('Basic ***not-base64***', 'sotto:demo-only')).toBe(false);
   });
 });

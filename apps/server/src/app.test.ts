@@ -1,3 +1,6 @@
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
 import type { FastifyInstance } from 'fastify';
 import { buildApp } from './app.js';
@@ -16,6 +19,9 @@ function testConfig(overrides: Partial<Config> = {}): Config {
     SOTTO_HOST: '127.0.0.1',
     SOTTO_CORS_ORIGINS: undefined,
     SOTTO_MAX_SESSIONS: 4,
+    IMPORT_JOB_MAX_MS: 45 * 60_000,
+    SOTTO_STATIC_DIR: undefined,
+    SOTTO_BASIC_AUTH: undefined,
     ...overrides,
   };
 }
@@ -139,5 +145,117 @@ describe('POST /voice/session per-IP rate limit', () => {
       remoteAddress: '2.2.2.2',
     });
     expect(otherIp.statusCode).toBe(200);
+  });
+});
+
+describe('SOTTO_STATIC_DIR', () => {
+  let staticDir: string | undefined;
+
+  afterEach(() => {
+    if (staticDir) rmSync(staticDir, { recursive: true, force: true });
+    staticDir = undefined;
+  });
+
+  function makeStaticDir(): string {
+    const dir = mkdtempSync(path.join(tmpdir(), 'sotto-static-'));
+    writeFileSync(path.join(dir, 'index.html'), '<!doctype html><title>sotto</title>');
+    writeFileSync(path.join(dir, 'app.css'), 'body { color: red; }');
+    return dir;
+  }
+
+  it('serves index.html at /', async () => {
+    staticDir = makeStaticDir();
+    app = await buildApp(testConfig({ SOTTO_STATIC_DIR: staticDir }));
+
+    const res = await app.inject({ method: 'GET', url: '/' });
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toContain('<title>sotto</title>');
+  });
+
+  it('serves a real static file by path', async () => {
+    staticDir = makeStaticDir();
+    app = await buildApp(testConfig({ SOTTO_STATIC_DIR: staticDir }));
+
+    const res = await app.inject({ method: 'GET', url: '/app.css' });
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toContain('color: red');
+  });
+
+  it('falls back to index.html for an unknown extension-less path (SPA routing)', async () => {
+    staticDir = makeStaticDir();
+    app = await buildApp(testConfig({ SOTTO_STATIC_DIR: staticDir }));
+
+    const res = await app.inject({ method: 'GET', url: '/reader/some-book' });
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toContain('<title>sotto</title>');
+  });
+
+  it('404s a missing path that looks like a file, instead of falling back to the shell', async () => {
+    staticDir = makeStaticDir();
+    app = await buildApp(testConfig({ SOTTO_STATIC_DIR: staticDir }));
+
+    const res = await app.inject({ method: 'GET', url: '/missing-asset.js' });
+    expect(res.statusCode).toBe(404);
+  });
+
+  it('still serves /content/packs and /health ahead of the static catch-all', async () => {
+    staticDir = makeStaticDir();
+    app = await buildApp(testConfig({ SOTTO_STATIC_DIR: staticDir }));
+
+    const health = await app.inject({ method: 'GET', url: '/health' });
+    expect(health.statusCode).toBe(200);
+    expect(health.json()).toMatchObject({ ok: true });
+
+    const packs = await app.inject({ method: 'GET', url: '/content/packs' });
+    expect(packs.statusCode).toBe(200);
+  });
+
+  it('does nothing (no catch-all, existing 404 behavior) when unset', async () => {
+    app = await buildApp(testConfig());
+    const res = await app.inject({ method: 'GET', url: '/nope' });
+    expect(res.statusCode).toBe(404);
+  });
+});
+
+describe('SOTTO_BASIC_AUTH', () => {
+  it('allows every route with no credential configured (default, matches no-accounts design)', async () => {
+    app = await buildApp(testConfig());
+    const res = await app.inject({ method: 'GET', url: '/content/packs' });
+    expect(res.statusCode).toBe(200);
+  });
+
+  it('rejects a protected route with no Authorization header once configured', async () => {
+    app = await buildApp(testConfig({ SOTTO_BASIC_AUTH: 'sotto:demo-only' }));
+    const res = await app.inject({ method: 'GET', url: '/content/packs' });
+    expect(res.statusCode).toBe(401);
+    expect(res.headers['www-authenticate']).toContain('Basic');
+  });
+
+  it('rejects wrong credentials', async () => {
+    app = await buildApp(testConfig({ SOTTO_BASIC_AUTH: 'sotto:demo-only' }));
+    const wrong = Buffer.from('sotto:wrong-password').toString('base64');
+    const res = await app.inject({
+      method: 'GET',
+      url: '/content/packs',
+      headers: { authorization: `Basic ${wrong}` },
+    });
+    expect(res.statusCode).toBe(401);
+  });
+
+  it('accepts the correct credential', async () => {
+    app = await buildApp(testConfig({ SOTTO_BASIC_AUTH: 'sotto:demo-only' }));
+    const good = Buffer.from('sotto:demo-only').toString('base64');
+    const res = await app.inject({
+      method: 'GET',
+      url: '/content/packs',
+      headers: { authorization: `Basic ${good}` },
+    });
+    expect(res.statusCode).toBe(200);
+  });
+
+  it('leaves /health open even with a credential configured', async () => {
+    app = await buildApp(testConfig({ SOTTO_BASIC_AUTH: 'sotto:demo-only' }));
+    const res = await app.inject({ method: 'GET', url: '/health' });
+    expect(res.statusCode).toBe(200);
   });
 });

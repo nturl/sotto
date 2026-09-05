@@ -1,13 +1,16 @@
 /**
- * Origin allowlisting and per-IP session-creation throttling for the voice
- * server. Kept dependency-free and framework-free (no Fastify import) so it
- * is unit-testable without spinning up an HTTP server.
+ * Origin allowlisting, per-IP session-creation throttling, and an optional
+ * HTTP Basic auth check for the voice server. Kept dependency-free and
+ * framework-free (no Fastify import) so it is unit-testable without
+ * spinning up an HTTP server.
  *
  * This is deliberately not an auth system — the product has none. It exists
  * only to stop an arbitrary web page (or a stray device on an exposed host)
  * from silently driving a local voice session. See docs/voice-pipeline.md
  * "Security" for what this does and does not cover.
  */
+
+import { timingSafeEqual } from 'node:crypto';
 
 /** Parses SOTTO_CORS_ORIGINS (comma-separated) into a trimmed, non-empty list. */
 export function parseAllowedOrigins(value: string | undefined, fallback: string): string[] {
@@ -33,6 +36,32 @@ export function isOriginAllowed(
   if (!origin) return true;
   if (allowedOrigins.includes(origin)) return true;
   return LOCALHOST_ORIGIN_RE.test(origin);
+}
+
+/**
+ * Checks a request's `Authorization` header against `SOTTO_BASIC_AUTH`
+ * (a `user:pass` string, not base64-encoded — the header is). Used as a
+ * privacy fence for a self-hosted single-user instance (docs/self-hosting.md),
+ * not as multi-user auth. Constant-time comparison of equal-length buffers
+ * to avoid a timing side channel on the credential; different-length inputs
+ * short-circuit (safe, since length alone leaks far less than a byte-by-byte
+ * timing signal would).
+ */
+export function isBasicAuthValid(
+  authorizationHeader: string | undefined,
+  credentials: string,
+): boolean {
+  if (!authorizationHeader?.startsWith('Basic ')) return false;
+  let decoded: string;
+  try {
+    decoded = Buffer.from(authorizationHeader.slice('Basic '.length), 'base64').toString('utf-8');
+  } catch {
+    return false;
+  }
+  const given = Buffer.from(decoded, 'utf-8');
+  const expected = Buffer.from(credentials, 'utf-8');
+  if (given.length !== expected.length) return false;
+  return timingSafeEqual(given, expected);
 }
 
 /**

@@ -39,6 +39,18 @@ const envSchema = z.object({
   // 9) — a hung/adversarially slow import is aborted and failed once it
   // passes this, instead of leaving the importer permanently busy.
   IMPORT_JOB_MAX_MS: z.coerce.number().int().positive().default(45 * 60_000),
+  // Absolute path to a static web build (apps/client's `dist/`, from
+  // `pnpm web:export`) to serve at `/` with an SPA fallback to
+  // `index.html`. Unset by default — this server has no static assets to
+  // serve until you opt in. See docs/self-hosting.md.
+  SOTTO_STATIC_DIR: z.string().optional(),
+  // Optional `user:pass` shared credential, enforced via HTTP Basic auth on
+  // every route except `/health`. This is a privacy fence for a personal,
+  // single-user instance reached over a LAN or the open internet — not
+  // multi-user auth (see docs/voice-pipeline.md "Security" and
+  // docs/self-hosting.md). Unset by default (no auth, matching the rest of
+  // this server's no-accounts design).
+  SOTTO_BASIC_AUTH: z.string().optional(),
 });
 
 export type Config = z.infer<typeof envSchema>;

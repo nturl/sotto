@@ -7,7 +7,7 @@ import cors from '@fastify/cors';
 import fastifyStatic from '@fastify/static';
 import fastifyWebsocket from '@fastify/websocket';
 import type { Config } from './config.js';
-import { RateLimiter, isOriginAllowed, parseAllowedOrigins } from './security.js';
+import { RateLimiter, isBasicAuthValid, isOriginAllowed, parseAllowedOrigins } from './security.js';
 import { activeVadBackend, createVad } from './voice/vad.js';
 import { clientMessageSchema, sessionOptionsSchema, type ServerMessage } from './voice/types.js';
 import { SessionRegistry } from './voice/registry.js';
@@ -59,6 +59,23 @@ export async function buildApp(config: Config): Promise<FastifyInstance> {
     },
   });
   await app.register(fastifyWebsocket);
+
+  // Optional privacy fence for a self-hosted instance (docs/self-hosting.md):
+  // a single shared `user:pass` credential over HTTP Basic, required on
+  // every route except /health (so health checks/monitoring don't need the
+  // credential). Off by default, matching the rest of this server's
+  // no-accounts design (docs/voice-pipeline.md "Security").
+  if (config.SOTTO_BASIC_AUTH) {
+    const credentials = config.SOTTO_BASIC_AUTH;
+    app.addHook('onRequest', async (request, reply) => {
+      if (request.url === '/health' || request.url.startsWith('/health?')) return;
+      if (!isBasicAuthValid(request.headers.authorization, credentials)) {
+        reply.header('WWW-Authenticate', 'Basic realm="sotto"');
+        reply.code(401).send({ error: 'unauthorized' });
+      }
+    });
+  }
+
   await app.register(importRoutes, config);
 
   // Serves /content/packs/:locale/* as static files from the matching pack
@@ -279,6 +296,33 @@ export async function buildApp(config: Config): Promise<FastifyInstance> {
       })();
     });
   });
+
+  // Serves a static web build (apps/client's `dist/`, from `pnpm web:export`)
+  // at `/`, so the phone PWA can talk to this server as a single origin with
+  // no accounts (docs/self-hosting.md). Registered last so it never shadows
+  // the routes above: Fastify's router matches by path specificity, not
+  // registration order, but a missing file here falls through to the
+  // SPA-fallback 404 handler below, which must not swallow a genuinely
+  // missing /content/packs/... asset or a mistyped /voice//import path —
+  // it only serves index.html for extension-less paths, mirroring
+  // apps/client/scripts/serve-static.mjs's same rule.
+  if (config.SOTTO_STATIC_DIR) {
+    const staticDir = config.SOTTO_STATIC_DIR;
+    await app.register(fastifyStatic, {
+      root: staticDir,
+      prefix: '/',
+      wildcard: true,
+      decorateReply: false,
+    });
+
+    app.setNotFoundHandler((request, reply) => {
+      const pathname = request.url.split('?')[0] ?? request.url;
+      if (request.method === 'GET' && !path.extname(pathname)) {
+        return reply.sendFile('index.html', staticDir);
+      }
+      reply.code(404).send({ error: 'not_found' });
+    });
+  }
 
   return app;
 }

@@ -124,14 +124,33 @@ async function main() {
   await screenshot(page, 1440, 'reader');
   await page.setViewportSize({ width: 375, height: 812 });
 
-  // Tap a word token and check a translation/gloss panel appears.
-  const bodyText = await page.evaluate(() => document.body.innerText);
+  // Tap a word token (petit.txt's first sentence is "Le petit chat noir
+  // dormait...") and check its English gloss ("cat") shows up somewhere on
+  // screen — proof a word token actually has glosses attached.
+  const bodyTextBeforeTap = await page.evaluate(() => document.body.innerText);
+  log(`reader body text length before tap: ${bodyTextBeforeTap.length}`);
+  const wordToken = page.getByText('chat', { exact: true }).first();
+  let glossFound = false;
+  try {
+    await wordToken.waitFor({ state: 'visible', timeout: 10000 });
+    await wordToken.click();
+    await page.waitForTimeout(500);
+    const bodyTextAfterTap = await page.evaluate(() => document.body.innerText);
+    glossFound = /\bcat\b/i.test(bodyTextAfterTap);
+    log(`tapped "chat" — gloss "cat" visible afterward: ${glossFound}`);
+    await screenshot(page, 375, 'reader');
+  } catch (err) {
+    fail(`could not tap a word token in the reader: ${err.message}`);
+  }
+  if (!glossFound) fail('no gloss text found after tapping a word token');
+
   const hasAudio = await page.evaluate(
     () =>
       Array.from(document.querySelectorAll('audio')).length > 0 ||
       !!document.querySelector('[data-audio], [aria-label*="lecture" i], [aria-label*="play" i]'),
   );
-  log(`reader body text length: ${bodyText.length}, audio element/control present: ${hasAudio}`);
+  log(`audio element/control present in the reader: ${hasAudio}`);
+  if (!hasAudio) fail('no audio element/control found in the reader for chapter 1');
 
   await browser.close();
   process.exitCode = failed ? 1 : 0;

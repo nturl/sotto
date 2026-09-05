@@ -13,6 +13,33 @@ you can talk to about the passage you're reading.
 - No accounts, no payments, no analytics. Your data stays on your device
   (export/import as a single JSON file).
 
+## Try it
+
+**[sotto-steel.vercel.app](https://sotto-steel.vercel.app)** — a static build, no server, no account, nothing recorded.
+
+![Sotto demo: fast-path start, narrated reader, tap-to-translate, save](docs/media/demo.gif)
+
+Open the link and you are two taps from a narrated story: the first screen
+proposes a language from your browser settings and drops you into a reader,
+where one press starts the narration with the words filling in as they are
+spoken. Tap any word for a gloss in one of nine explanation languages, drag
+across a phrase or a sentence for a pre-built translation, save words, review
+them later. Nineteen short public-domain books across French, Spanish,
+English, Italian, Portuguese, Romanian, Catalan and Chinese, all narrated
+except Romanian and Catalan. Everything stays in your browser; the site
+installs as an app and a book you have opened keeps working offline. There is
+a dark mode.
+
+Two honest caveats. The books are machine-adapted drafts and their levels are
+estimates ([docs/content-qa.md](docs/content-qa.md)). On a desktop browser
+with WebGPU you can opt into downloading about 1.3 GB of models to run a voice
+tutor entirely in the page; today that gives you speech recognition and
+spoken-to-text replies about the passage, while saving words by voice and
+spoken replies in French or Spanish are still being finished
+([docs/browser-tutor.md](docs/browser-tutor.md)). The panel tells you where
+that stands before anything downloads. What is verified and what is not is
+tracked in [docs/verification.md](docs/verification.md).
+
 ## Quickstart
 
 ```sh

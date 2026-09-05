@@ -141,11 +141,15 @@ async function main() {
   record('Usage (signed out) shows the "Se connecter" CTA', await signInCta.isVisible());
   await signedOutUsagePage.setViewportSize({ width: 375, height: 852 });
   await signedOutUsagePage.waitForTimeout(150);
-  await signedOutUsagePage.screenshot({ path: path.join(SCREENSHOT_DIR, '375-usage-signed-out.png') });
+  await signedOutUsagePage.screenshot({
+    path: path.join(SCREENSHOT_DIR, '375-usage-signed-out.png'),
+  });
   log('screenshot 375-usage-signed-out.png');
   await signedOutUsagePage.setViewportSize({ width: 1440, height: 900 });
   await signedOutUsagePage.waitForTimeout(150);
-  await signedOutUsagePage.screenshot({ path: path.join(SCREENSHOT_DIR, '1440-usage-signed-out.png') });
+  await signedOutUsagePage.screenshot({
+    path: path.join(SCREENSHOT_DIR, '1440-usage-signed-out.png'),
+  });
   log('screenshot 1440-usage-signed-out.png');
   await signedOutUsagePage.close();
 

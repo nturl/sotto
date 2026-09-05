@@ -29,6 +29,14 @@ export function voiceForLocale(locale: string): { voice: string; langCode: strin
 
 export const TTS_CHUNK_BYTES = 4800; // ~100ms of PCM16 mono @ 24kHz
 
+// OpenAI's /v1/audio/speech takes a fixed voice enum (nova, shimmer, echo,
+// onyx, fable, alloy, ash, sage, coral) with no per-locale mapping — it
+// picks the language up from the input text itself — and rejects Kokoro's
+// `lang_code` extension outright. Verified live 2026-09-05 (self-hosting
+// proof, docs/evidence/selfhost-2026-09-05.log): sending Kokoro's
+// locale-mapped voice name ('ef_dora' etc.) 400s.
+const OPENAI_VOICE = 'alloy';
+
 export async function synthesizeSpeech(
   text: string,
   learningLocale: string,
@@ -40,6 +48,7 @@ export async function synthesizeSpeech(
   const doFetch = config.fetchImpl ?? fetch;
   const headers: Record<string, string> = { 'Content-Type': 'application/json' };
   if (config.apiKey) headers.Authorization = `Bearer ${config.apiKey}`;
+  const isOpenAi = /(^|\.)api\.openai\.com$/.test(new URL(config.url).hostname);
   const { voice, langCode } = voiceForLocale(learningLocale);
 
   const res = await doFetch(`${config.url.replace(/\/$/, '')}/audio/speech`, {
@@ -49,8 +58,8 @@ export async function synthesizeSpeech(
     body: JSON.stringify({
       model: config.model ?? 'kokoro',
       input: text,
-      voice,
-      lang_code: langCode,
+      voice: isOpenAi ? OPENAI_VOICE : voice,
+      ...(isOpenAi ? {} : { lang_code: langCode }),
       response_format: 'pcm',
       speed,
     }),

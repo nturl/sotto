@@ -110,7 +110,24 @@ export class HttpCloudAdapter implements CloudAdapter {
       const token = await this.tokenStore.get();
       if (token) headers.Authorization = `Bearer ${token}`;
     }
-    const res = await this.fetchImpl(`${this.baseUrl}${path}`, {
+    // R4-D2: on the paid origin the static export and this API share one
+    // origin, and the vendored PWA service worker (public/sw.js, outside
+    // this lane's paths — apps/client/src/cloud/**) treats every same-origin
+    // GET that isn't /content/packs/** as an app-shell asset and serves it
+    // cache-first. That's correct for the free client (no same-origin API
+    // ever existed there) but silently freezes /me, /billing/plans and
+    // /usage at whatever they returned the first time a service worker
+    // controlled the page — e.g. still "free" right after a real
+    // subscribe (docs/evidence/paid-web-2026-09-05.log's [375] usage FAILs).
+    // A cache-busting query param defeats the SW's URL-keyed cache.match
+    // without touching sw.js; the real fix belongs there (exempt API paths
+    // from the app-shell handler) and is out of this lane's permitted paths.
+    const isGet = !init?.method || init.method === 'GET';
+    const bustedPath =
+      isGet && this.platform === 'web'
+        ? `${path}${path.includes('?') ? '&' : '?'}_sw=${Date.now()}`
+        : path;
+    const res = await this.fetchImpl(`${this.baseUrl}${bustedPath}`, {
       ...init,
       headers,
       ...(this.platform === 'web' ? { credentials: 'include' as RequestCredentials } : {}),

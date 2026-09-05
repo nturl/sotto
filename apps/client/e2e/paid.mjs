@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* global WebSocket, clearTimeout */
 /**
  * R3-E proof: the paid (hosted) tier, against a real sotto-cloud staging
  * server — not the FakeCloudAdapter path that e2e/cloud.mjs covers.

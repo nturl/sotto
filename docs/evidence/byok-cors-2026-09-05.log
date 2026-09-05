@@ -35,7 +35,7 @@ Spike page and scripts live only in the session scratchpad at
 outside this log.
 
 ================================================================================
-HEADLINE RESULT
+HEADLINE RESULT  [PHASE 1 ONLY -- SUPERSEDED, see "PHASE 2 (with key)" below]
 ================================================================================
 The preflight is NOT the problem. All three REST preflights succeed and return
 a correct Access-Control-Allow-Origin.
@@ -324,7 +324,7 @@ POST responses, and absent on authenticated POST responses to the three
 inference endpoints.
 
 ================================================================================
-VERDICT
+VERDICT  [PHASE 1 ONLY -- WITHDRAWN by "PHASE 2 VERDICT" below]
 ================================================================================
 Browser-direct BYOK is REFUSED for all three REST endpoints --
 POST /v1/audio/transcriptions, POST /v1/chat/completions and
@@ -367,69 +367,324 @@ Access-Control-Allow-Origin when the 401 does not. Phase 2 settles it in one
 run. The evidence against that possibility is that GET /v1/models returns ACAO
 on its 401, so a 401 as such does not strip the header.
 
+
 ================================================================================
-PHASE 2 -- PENDING: waiting on throwaway key
+PHASE 2 (with key) -- RUN 2026-09-05, throwaway key present
 ================================================================================
-STATUS: NOT RUN. No key was available at spike time. Checked at 2026-09-05
-19:24 UTC:
-  - shell env SOTTO_BYOK_SPIKE_KEY : UNSET
-  - macOS keychain item sotto-byok-spike : ABSENT
-    (security find-generic-password -s sotto-byok-spike -w -> exit 44)
+STATUS: RUN AND COMPLETE. It overturns the phase 1 verdict for all three REST
+endpoints. Read this section, not the phase 1 VERDICT above, as the lane's
+answer.
 
-Phase 2 is now the decisive test for route B, not a formality: it must
-determine whether a 200 response to an authenticated POST carries
-Access-Control-Allow-Origin. If it does not, the phase 1 verdict stands
-unchanged and REST BYOK is definitively relay-only.
+METHOD DELTA FROM PHASE 1
+-------------------------
+Same matrix, same harness, same two browsers, same two origins:
+  Chromium 151.0.7922.34 desktop (1280x800), CDP Network domain enabled
+  WebKit 26.5, Playwright devices['iPhone 15']
+  x  https://sotto-steel.vercel.app (navigated read-only, nothing modified)
+  x  file://.../scratchpad/b1/page.html   (Origin: null)
 
-Exact procedure that will run once a key is provisioned (key read from the
-environment or keychain at run time; never written to a file, never logged,
-never echoed -- the probe prints subprotocols masked as sk-**** and never
-prints request headers):
+Scripts: scratchpad/b1/{page.html, probe3.js, run3.mjs, one-second.wav}.
+probe3.js is phase 1's probe2.js widened to the phase 2 assertions; unlike
+probe2.js it holds NO key literal. The key was read at run time with
+  export SOTTO_BYOK_SPIKE_KEY="$(security find-generic-password -s sotto-byok-spike -w)"
+into the process environment only, handed to the page as an argument of
+page.evaluate(fn, {key, wavB64}) -- never in addScriptTag content, never in a
+URL, never in a file, never echoed. run3.mjs scrubs the results JSON for the
+literal key and for any key-shaped token before writing it to disk;
+the scrub found nothing to replace except the already-masked WebSocket
+subprotocol. Key length was printed as a digit count only.
 
-  1. Synthesise a 1-second 16kHz mono silent WAV in the scratchpad:
-       node -e 'const fs=require("fs"),n=16000,b=Buffer.alloc(44+n*2);
-       b.write("RIFF",0);b.writeUInt32LE(36+n*2,4);b.write("WAVE",8);
-       b.write("fmt ",12);b.writeUInt32LE(16,16);b.writeUInt16LE(1,20);
-       b.writeUInt16LE(1,22);b.writeUInt32LE(16000,24);
-       b.writeUInt32LE(32000,28);b.writeUInt16LE(2,32);b.writeUInt16LE(16,34);
-       b.write("data",36);b.writeUInt32LE(n*2,40);
-       fs.writeFileSync("scratchpad/b1/one-second.wav",b)'
+Audio fixture: a 1-second 16 kHz mono 16-bit PCM WAV, 32044 bytes, containing a
+440 Hz sine at low amplitude, synthesised in the scratchpad and passed into the
+page base64-encoded (no fetch of a local file, so file:// behaves like https).
 
-  2. KEY="${SOTTO_BYOK_SPIKE_KEY:-$(security find-generic-password \
-       -s sotto-byok-spike -w)}"
-     Pass it into the page with page.evaluate(fn, key) -- never via addScriptTag
-     content, never via a URL, never into results.json.
+Realtime uses the GA subprotocol form only. Phase 1 proved
+"openai-beta.realtime-v1" is dead (beta_api_shape_disabled, close 4000); it was
+not re-tested.
 
-  3. Re-run scratchpad/b1/run2.mjs with probe2.js's KEY bound to the real key,
-     for the same matrix (chromium-desktop + webkit devices['iPhone 15'])
-     x (hosted-https + file-url), asserting for each:
-       a. POST /v1/audio/transcriptions, multipart FormData with
-          one-second.wav and model=gpt-4o-mini-transcribe
-          -> expect 200, record whether the response carries
-             Access-Control-Allow-Origin, and whether res.json() is readable
-             from page JS. Log body keys only.
-       b. POST /v1/chat/completions, {"model":"gpt-4o-mini","max_tokens":5,
-          "messages":[{"role":"user","content":"hi"}]}
-          -> expect 200, same three recordings.
-       c. POST /v1/audio/speech, {"model":"gpt-4o-mini-tts","voice":"alloy",
-          "input":"bonjour"}
-          -> expect 200 audio/mpeg, record ACAO, and record
-             (await res.blob()).size to prove the bytes reached page JS.
-       d. new WebSocket("wss://api.openai.com/v1/realtime?model=gpt-realtime-mini",
-          ["realtime","openai-insecure-api-key."+KEY])   <-- GA form, no
-          openai-beta subprotocol
-          -> wait for a frame with type "session.created", record the event
-             keys only (no session id echoed), then close(1000).
+--------------------------------------------------------------------------------
+RESULT TABLE -- every cell is (HTTP status / body readable from page JS /
+Access-Control-Allow-Origin on the ACTUAL response)
+--------------------------------------------------------------------------------
+ACAO values below are the raw header from Chromium CDP Network.responseReceived
+for the Chromium rows. WebKit exposes no CDP, so its ACAO column records what
+the page could see: the fetch resolved and the body was fully read, which the
+browser only permits when a valid ACAO was present.
 
-  4. Capture the Chromium CDP Network.responseReceived headers for each 200 and
-     append the access-control-* set verbatim, then append the phase 2 rows to
-     this log under a "PHASE 2 RESULTS" heading and revise the VERDICT if the
-     200 path differs from the 401 path.
+  endpoint                     browser            origin          status  readable  ACAO (actual response)
+  ---------------------------  -----------------  --------------  ------  --------  ----------------------
+  POST /v1/audio/transcriptions chromium-desktop  hosted-https    200     YES       *
+  POST /v1/audio/transcriptions chromium-desktop  file-url        200     YES       *
+  POST /v1/audio/transcriptions webkit-iphone15   hosted-https    200     YES       present (body read)
+  POST /v1/audio/transcriptions webkit-iphone15   file-url        200     YES       present (body read)
 
-  5. Before committing: run  grep -c 'sk[-]' on this log and confirm every
-     hit is either the masked form sk-**** or the literal sk-invalid-spike-key.
+  POST /v1/chat/completions     chromium-desktop  hosted-https    200     YES       *
+  POST /v1/chat/completions     chromium-desktop  file-url        200     YES       *
+  POST /v1/chat/completions     webkit-iphone15   hosted-https    200     YES       present (body read)
+  POST /v1/chat/completions     webkit-iphone15   file-url        200     YES       present (body read)
 
-  6. Ask Noel to revoke the throwaway key immediately after the run.
+  POST /v1/chat/completions     chromium-desktop  hosted-https    200     YES       *
+    stream:true                 chromium-desktop  file-url        200     YES       *
+                                webkit-iphone15   hosted-https    200     YES       present (stream read)
+                                webkit-iphone15   file-url        200     YES       present (stream read)
+
+  POST /v1/audio/speech  pcm    chromium-desktop  hosted-https    200     YES       *
+  POST /v1/audio/speech  pcm    chromium-desktop  file-url        200     YES       *
+  POST /v1/audio/speech  pcm    webkit-iphone15   hosted-https    200     YES       present (bytes read)
+  POST /v1/audio/speech  pcm    webkit-iphone15   file-url        200     YES       present (bytes read)
+
+  POST /v1/audio/speech  wav    chromium-desktop  hosted-https    200     YES       *
+  POST /v1/audio/speech  wav    chromium-desktop  file-url        200     YES       *
+  POST /v1/audio/speech  wav    webkit-iphone15   hosted-https    200     YES       present (bytes read)
+  POST /v1/audio/speech  wav    webkit-iphone15   file-url        200     YES       present (bytes read)
+
+  WSS  /v1/realtime            chromium-desktop  hosted-https    n/a     YES       n/a (CORS does not apply)
+  WSS  /v1/realtime            chromium-desktop  file-url        n/a     YES       n/a
+  WSS  /v1/realtime            webkit-iphone15   hosted-https    n/a     YES       n/a
+  WSS  /v1/realtime            webkit-iphone15   file-url        n/a     YES       n/a
+
+  20 of 20 REST cells: 200, readable, ACAO present. 0 blocked. 0 fetch throws.
+  4 of 4 WebSocket cells: session.created received, clean close 1000.
+
+--------------------------------------------------------------------------------
+EXACT CORS HEADERS ON THE 200 RESPONSES (Chromium CDP, verbatim)
+--------------------------------------------------------------------------------
+Preflights are unchanged from phase 1 (OPTIONS 200, ACAO reflecting the origin
+or the literal "null", allow-headers authorization[,content-type],
+allow-methods "GET, OPTIONS, POST", max-age 86400, expose-headers CF-Ray, no
+allow-credentials). What phase 1 could not observe is the ACTUAL response:
+
+  POST /v1/audio/transcriptions -> 200
+      access-control-allow-origin:    *
+      access-control-expose-headers:  X-Request-ID, CF-Ray
+      content-type:                   application/json
+
+  POST /v1/chat/completions (non-stream) -> 200
+      access-control-allow-origin:    *
+      access-control-expose-headers:  X-Request-ID, CF-Ray, CF-Ray
+      content-type:                   application/json
+
+  POST /v1/chat/completions (stream:true) -> 200
+      access-control-allow-origin:    *
+      access-control-expose-headers:  X-Request-ID, CF-Ray, CF-Ray
+      content-type:                   text/event-stream; charset=utf-8
+
+  POST /v1/audio/speech (response_format pcm) -> 200
+      access-control-allow-origin:    *
+      access-control-expose-headers:  X-Request-ID, CF-Ray
+      content-type:                   audio/pcm
+
+  POST /v1/audio/speech (response_format wav) -> 200
+      access-control-allow-origin:    *
+      access-control-expose-headers:  X-Request-ID, CF-Ray
+      content-type:                   audio/wav
+
+Identical header sets on the file:// (Origin: null) runs -- the 200 path answers
+"*", not a reflected origin, so a null origin is served the same way.
+
+Header names actually visible to page JS on every 200, both browsers, both
+origins:  cf-ray, content-type, x-request-id.
+So x-request-id IS readable on the 200 path (it is in expose-headers there,
+unlike on the preflight, where expose-headers was CF-Ray only). x-ratelimit-*
+remains NOT exposed and is not readable from page JS.
+
+--------------------------------------------------------------------------------
+PER-ENDPOINT DETAIL
+--------------------------------------------------------------------------------
+1. POST /v1/audio/transcriptions, model gpt-4o-mini-transcribe
+   multipart/form-data, file = one-second.wav (32044 bytes, audio/wav)
+   200 in all four cells; res.json() readable; body 149 bytes.
+   Body shape (keys only):
+     { text: string,
+       usage: { type: string, total_tokens: number, input_tokens: number,
+                input_token_details: { text_tokens: number,
+                                       audio_tokens: number },
+                output_tokens: number } }
+   TRANSCRIPT RETURNED: the empty string "" -- identical in all four cells.
+   The fixture is a pure 440 Hz sine with no speech, so an empty transcript is
+   the correct answer and confirms the audio was accepted and processed rather
+   than rejected. The CORS question is settled by the 200 and the readable JSON;
+   the transcript content is incidental.
+
+2a. POST /v1/chat/completions, model gpt-4o-mini, max_tokens 5,
+    messages [{role:user, content:"Say hi"}]
+   200 in all four cells; res.json() readable; body 820-824 bytes.
+   Body shape (keys only):
+     { id, object, created, model, choices[], usage{ prompt_tokens,
+       completion_tokens, total_tokens, prompt_tokens_details{...},
+       completion_tokens_details{...} }, service_tier, system_fingerprint }
+   usage: prompt 9, completion 5, total 14 -- identical in all four cells.
+   Assistant text came back as "Hi! How can I" / "Hi there! How can"
+   (truncated by max_tokens 5, as intended).
+
+2b. POST /v1/chat/completions with stream:true  -- THE TUTOR'S SHAPE
+   200 in all four cells. content-type text/event-stream; charset=utf-8.
+   res.body is a ReadableStream in BOTH Chromium and WebKit
+   (hasReadableStream true in 4/4), and it was actually drained from page JS:
+     chromium hosted : 4 chunks, 2221 bytes, [DONE] sentinel seen
+     chromium file   : 5 chunks, 2221 bytes, [DONE] sentinel seen
+     webkit   hosted : 5 chunks, 2221 bytes, [DONE] sentinel seen
+     webkit   file   : 5 chunks, 2221 bytes, [DONE] sentinel seen
+   SSE event shape (keys only):
+     { id, object, created, model, service_tier, system_fingerprint,
+       choices[], obfuscation }
+   Deltas reassembled in-page to the same short reply as 2a. So incremental
+   token-by-token rendering works browser-direct on iPhone-shaped WebKit, which
+   is the property the tutor needs.
+   (Note the `obfuscation` field now present on each SSE chunk; it is padding
+   and can be ignored by a consumer.)
+
+3a. POST /v1/audio/speech, model gpt-4o-mini-tts, input "Bonjour",
+    response_format "pcm"
+   200 in all four cells; bytes readable via res.arrayBuffer().
+   content-type: audio/pcm
+   byteLength: 69600 / 79200 / 48000 / 124800 across the four cells (the model
+   re-synthesises each call, so length varies per call, not per browser).
+   NO RIFF header -- first four bytes are non-ASCII sample data, looksLikeRiff
+   false. It is raw headerless PCM.
+   THE HEADERS SAY NOTHING ABOUT SAMPLE RATE. content-type is the bare
+   "audio/pcm" with no rate/channel/bit-depth parameters, and no other visible
+   header mentions rate, sample or Hz. A browser client must therefore know the
+   format out of band. All four byte counts are exact multiples of 2 and
+   consistent with 24000 Hz mono 16-bit (48000 bytes/s): 69600 = 1.45 s,
+   79200 = 1.65 s, 48000 = 1.00 s, 124800 = 2.60 s. That rate is confirmed
+   independently by 3b.
+
+3b. Same call with response_format "wav"
+   200 in all four cells; content-type audio/wav; byteLength 91244 / 84044 /
+   64844 / 69644. First four bytes "RIFF".
+   WAV header parsed in-page, IDENTICAL in all four cells:
+     audioFormat    1      (PCM)
+     channels       1      (mono)
+     sampleRateHz   24000
+     byteRate       48000
+     bitsPerSample  16
+   So the "pcm" response_format is 24 kHz mono 16-bit little-endian PCM, and
+   the only way to learn that from the wire is the wav variant's header -- the
+   pcm variant ships no header and no header metadata.
+
+4. WSS wss://api.openai.com/v1/realtime?model=gpt-realtime-mini
+   subprotocols ["realtime", "openai-insecure-api-key.sk-****"]  (GA form)
+   All four cells identical:
+     handshake ACCEPTED, negotiated subprotocol "realtime"
+     EVENT TYPE RECEIVED: session.created            <-- the phase 2 assertion
+     top-level keys of that event: event_id, session, type
+     session object keys: audio, expires_at, id, include, instructions,
+       max_output_tokens, model, object, output_modalities, prompt,
+       tool_choice, tools, tracing, truncation, type
+     then closed by the probe: close code 1000, reason "spike done",
+     wasClean true. No error frame, no server-initiated close.
+   (No session id, instructions or other values are recorded here, keys only.)
+
+--------------------------------------------------------------------------------
+CURL CROSS-CHECK -- IS PHASE 1's FINDING AN ERROR-PATH ARTEFACT?
+--------------------------------------------------------------------------------
+Run off the browser stack against the same origin, valid key read from the
+environment, three requests differing only in status class:
+
+  POST /v1/chat/completions, Origin set, VALID key, valid body
+    -> HTTP/2 200
+       access-control-allow-origin: *
+       access-control-expose-headers: X-Request-ID
+       access-control-expose-headers: CF-Ray
+       access-control-expose-headers: CF-Ray
+
+  POST /v1/chat/completions, Origin set, INVALID key (sk-invalid-spike-key)
+    -> HTTP/2 401
+       access-control-expose-headers: CF-Ray
+       access-control-expose-headers: CF-Ray
+       *** NO access-control-allow-origin ***      (phase 1 reproduced exactly)
+
+  POST /v1/chat/completions, Origin set, VALID key, EMPTY body {}
+    -> HTTP/2 400
+       access-control-allow-origin: *
+       access-control-expose-headers: CF-Ray
+       access-control-expose-headers: CF-Ray
+
+  POST /v1/audio/speech,          Origin set, VALID key -> 200, ACAO *
+  POST /v1/audio/transcriptions,  Origin set, VALID key -> 200, ACAO *
+
+The 400 is the decisive control. It is an authenticated request that fails, and
+it still carries ACAO. So the missing header is not a property of "any request
+carrying an Authorization header" (phase 1's hypothesis) and not a property of
+"any error response" -- it is a property of the AUTHENTICATION-FAILURE response
+specifically. The 401-with-a-bad-key path omits ACAO; every other path observed,
+success or failure, carries it.
+
+ANSWER: YES. Phase 1's finding was an error-path artefact. It was a correct
+observation of the invalid-key 401 and an incorrect generalisation from it.
+Phase 1 named this risk itself under "HONEST LIMIT ON THIS CONCLUSION"; phase 2
+confirms the limit was the whole of the effect. Everything in phase 1 above the
+VERDICT remains factually accurate as a description of the 401 path. The phase 1
+VERDICT and its "CONSEQUENCE FOR ROUTE B" are SUPERSEDED by this section.
+
+Practical consequence of the surviving artefact: a browser-direct BYOK client
+cannot read the body of a 401. When the user pastes a bad key, fetch() rejects
+with an opaque "Failed to fetch" / "Load failed" and the app cannot show
+OpenAI's own "Incorrect API key provided" message. Key validation must therefore
+be done against GET /v1/models, which DOES return ACAO on its 401 (phase 1,
+section 3b) and gives a readable error.code invalid_api_key. Treat an opaque
+network failure on the inference endpoints as "probably a bad key" and point the
+user at the validation result.
+
+--------------------------------------------------------------------------------
+SPEND
+--------------------------------------------------------------------------------
+Approximate, from observed usage:
+  chat/completions   11 calls (4 non-stream + 4 stream in-browser, 3 curl)
+                     at 9 prompt + 5 completion tokens on gpt-4o-mini   ~ $0.00002
+  transcriptions      5 calls x 1.0 s audio on gpt-4o-mini-transcribe   ~ $0.0003
+  audio/speech        9 calls x the 7-character input "Bonjour"
+                      on gpt-4o-mini-tts (~1-2.6 s audio each)          ~ $0.01
+  realtime            4 sessions opened and closed at session.created,
+                      no audio sent or received                         ~ $0
+  TOTAL                                                                 well under $0.02
+Ceiling of $0.05 was not approached.
+
+================================================================================
+PHASE 2 VERDICT
+================================================================================
+BROWSER-DIRECT BYOK IS POSSIBLE for all three REST endpoints -- POST
+/v1/audio/transcriptions, POST /v1/chat/completions (both non-streaming and
+stream:true), and POST /v1/audio/speech -- from a real browser page carrying the
+user's own key in an Authorization header, in desktop Chromium 151 and in
+iPhone-shaped WebKit 26.5, from both the hosted https://sotto-steel.vercel.app
+origin and a file:// page whose origin is the literal null. Twenty of twenty
+endpoint x browser x origin cells returned HTTP 200 with the response body fully
+readable from page JS, and every 200 carried Access-Control-Allow-Origin: * plus
+Access-Control-Expose-Headers: X-Request-ID, CF-Ray. No relay is required for
+any of them. The streaming case is proven end to end and not merely by status:
+res.body is a ReadableStream in both engines and was drained chunk by chunk from
+page JS to the [DONE] sentinel, so the tutor's incremental rendering works
+browser-direct on an iPhone. Speech returns 24 kHz mono 16-bit PCM; the "pcm"
+response_format ships raw headerless bytes and NO sample-rate information in any
+header (content-type is a bare audio/pcm), so a client must hardcode 24000 Hz --
+a fact only obtainable from the "wav" variant, whose RIFF header states
+sampleRate 24000, channels 1, bitsPerSample 16, audioFormat 1 (PCM).
+
+The Realtime WebSocket is likewise POSSIBLE and needs no relay: with the GA
+subprotocol form ["realtime", "openai-insecure-api-key.<key>"] the handshake was
+accepted in all four cells, the negotiated subprotocol was "realtime", and the
+first event received was session.created (keys event_id, session, type), after
+which the probe closed cleanly with code 1000. The beta subprotocol
+"openai-beta.realtime-v1" must NOT be sent; phase 1 showed it is disabled
+(beta_api_shape_disabled, close 4000).
+
+Phase 1's REFUSED verdict is WITHDRAWN. It was an error-path artefact: the
+absent Access-Control-Allow-Origin is specific to the 401 produced by an invalid
+key, and does not occur on 200 responses nor even on a 400 produced by a valid
+key with a bad body. The one operational residue is that a bad user key produces
+an unreadable opaque failure on the inference endpoints, so key validation
+should be performed against GET /v1/models, which returns a readable 401 with
+error.code invalid_api_key.
+
+CONSEQUENCE FOR ROUTE B: the escalation condition is NOT met. Route B can be
+"the PWA calls api.openai.com directly with the user's key" for transcription,
+chat (streaming included) and speech, as well as for Realtime over WSS. B2 is
+unblocked and does not need re-scoping around a relay.
+
+REMINDER: the throwaway key used for this run should be revoked now that the
+spike is complete.
 
 ================================================================================
 END

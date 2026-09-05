@@ -103,6 +103,20 @@ if (!html.includes('rel="manifest"')) {
   writeFileSync(indexPath, html);
 }
 
+// --- F2.2: static-export flag ------------------------------------------
+// contentApi.ts's serverUrl() needs to tell a static export (this build,
+// served by anything — Vercel, `npx serve dist`, serve-static.mjs) apart
+// from the Expo dev server. A hostname heuristic can't do that reliably
+// (serving `dist/` on localhost looks identical to the dev server), so
+// stamp an explicit flag into the exported HTML instead; the hostname
+// check remains only as a fallback for anyone loading the bundle without
+// this script (e.g. `expo start --web`, which never runs build-web.mjs).
+html = readFileSync(indexPath, 'utf-8');
+if (!html.includes('__SOTTO_STATIC__')) {
+  html = html.replace('</head>', '    <script>window.__SOTTO_STATIC__=true;</script>\n  </head>');
+  writeFileSync(indexPath, html);
+}
+
 // --- A3: service-worker precache manifest -----------------------------------
 // Every file the export produced outside of dist/content (the packs are
 // runtime-cached instead, see public/sw.js) plus index.html itself.

@@ -27,10 +27,19 @@ export interface Attribution {
 export function serverUrl(): string {
   const configured = process.env.EXPO_PUBLIC_SERVER_URL;
   if (configured) return configured;
-  // Static web hosting (scripts/build-web.mjs -> Vercel): the packs are
-  // served from the page's own origin. Expo drops an *empty* EXPO_PUBLIC_*
-  // value at export time, so this cannot be expressed via the env var.
   const loc = (globalThis as { location?: { hostname: string; origin: string } }).location;
+  // Static web hosting (scripts/build-web.mjs -> Vercel, or anything else
+  // serving dist/ as-is): build-web.mjs stamps this flag into dist/index.html,
+  // so any static export resolves to its own origin regardless of hostname —
+  // including `localhost`, which `npx serve dist`/`python -m http.server`
+  // happily use and which the old hostname-only check mistook for the dev
+  // server (docs/verification.md row 34's false "zero content cache" finding).
+  if ((globalThis as { window?: { __SOTTO_STATIC__?: boolean } }).window?.__SOTTO_STATIC__) {
+    if (loc) return loc.origin;
+  }
+  // Fallback for anyone loading the bundle without build-web.mjs (e.g.
+  // `expo start --web`, which never stamps the flag above): the packs are
+  // served from the page's own origin whenever the hostname isn't loopback.
   if (loc && !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(loc.hostname)) return loc.origin;
   return 'http://localhost:8790';
 }

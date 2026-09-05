@@ -11,7 +11,11 @@ import { fonts } from './fonts';
 import { Text } from './Text';
 import { webCursor } from './tokens';
 
-const NAV_ROWS: Array<{ segment: string; href: '/(tabs)/home' | '/(tabs)/library' | '/(tabs)/vocabulary'; labelKey: MessageKey }> = [
+const NAV_ROWS: Array<{
+  segment: string;
+  href: '/(tabs)/home' | '/(tabs)/library' | '/(tabs)/vocabulary';
+  labelKey: MessageKey;
+}> = [
   { segment: 'home', href: '/(tabs)/home', labelKey: 'tabs.home' },
   { segment: 'library', href: '/(tabs)/library', labelKey: 'tabs.library' },
   { segment: 'vocabulary', href: '/(tabs)/vocabulary', labelKey: 'tabs.vocabulary' },

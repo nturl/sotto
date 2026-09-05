@@ -25,14 +25,23 @@ export function Rail({ title, books, onPressBook, onSeeAll }: RailProps) {
       <View style={styles.header}>
         <Text role="heading">{title}</Text>
         {onSeeAll ? (
-          <Pressable onPress={onSeeAll} accessibilityRole="button" hitSlop={space.sm} style={webCursor}>
+          <Pressable
+            onPress={onSeeAll}
+            accessibilityRole="button"
+            hitSlop={space.sm}
+            style={webCursor}
+          >
             <Text role="uiButton" size={13} color="ink2">
               {t('common.seeAll')}
             </Text>
           </Pressable>
         ) : null}
       </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.row}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.row}
+      >
         {books.map((book) => (
           <BookTile key={book.id} book={book} onPress={onPressBook} />
         ))}

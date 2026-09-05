@@ -22,7 +22,8 @@ export interface WebRtcTransport {
   on(listener: (e: VoiceEvent) => void): () => void;
 }
 
-const NOT_IMPLEMENTED_MESSAGE = 'WebRTC transport is not implemented in v1; see docs/architecture.md';
+const NOT_IMPLEMENTED_MESSAGE =
+  'WebRTC transport is not implemented in v1; see docs/architecture.md';
 
 export class NotImplementedWebRtcTransport implements WebRtcTransport {
   connect(): Promise<void> {

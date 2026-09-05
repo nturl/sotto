@@ -27,7 +27,10 @@ const app = Fastify({ logger: true });
 // process on any unhandled rejection, which would take down every session,
 // not just the one that hit the race — log and keep serving instead.
 process.on('unhandledRejection', (reason) => {
-  app.log.error({ err: reason instanceof Error ? reason.message : String(reason) }, 'unhandled rejection (ignored, server continues)');
+  app.log.error(
+    { err: reason instanceof Error ? reason.message : String(reason) },
+    'unhandled rejection (ignored, server continues)',
+  );
 });
 const sessionRegistry = new SessionRegistry();
 const activeSessions = new Map<string, VoiceSession>();
@@ -120,7 +123,9 @@ app.post('/voice/session', async (request, reply) => {
   const sessionId = randomUUID();
   sessionRegistry.create(sessionId, parsed.data);
 
-  const host = request.headers.host ?? `${config.SOTTO_HOST === '0.0.0.0' ? 'localhost' : config.SOTTO_HOST}:${config.SOTTO_PORT}`;
+  const host =
+    request.headers.host ??
+    `${config.SOTTO_HOST === '0.0.0.0' ? 'localhost' : config.SOTTO_HOST}:${config.SOTTO_PORT}`;
   const proto = request.protocol === 'https' ? 'wss' : 'ws';
 
   return {
@@ -138,7 +143,14 @@ await app.register(async (instance) => {
     const options = sessionId ? sessionRegistry.take(sessionId) : null;
 
     if (!sessionId || !options) {
-      socket.send(JSON.stringify({ t: 'error', code: 'invalid_session', message: 'unknown or expired session id', recoverable: false } satisfies ServerMessage));
+      socket.send(
+        JSON.stringify({
+          t: 'error',
+          code: 'invalid_session',
+          message: 'unknown or expired session id',
+          recoverable: false,
+        } satisfies ServerMessage),
+      );
       socket.close();
       return;
     }
@@ -157,9 +169,21 @@ await app.register(async (instance) => {
         sessionId,
         options,
         {
-          stt: { url: config.SOTTO_STT_URL, model: config.SOTTO_STT_MODEL, apiKey: config.SOTTO_API_KEY },
-          llm: { url: config.SOTTO_LLM_URL, model: config.SOTTO_LLM_MODEL, apiKey: config.SOTTO_API_KEY },
-          tts: { url: config.SOTTO_TTS_URL, model: config.SOTTO_TTS_MODEL, apiKey: config.SOTTO_API_KEY },
+          stt: {
+            url: config.SOTTO_STT_URL,
+            model: config.SOTTO_STT_MODEL,
+            apiKey: config.SOTTO_API_KEY,
+          },
+          llm: {
+            url: config.SOTTO_LLM_URL,
+            model: config.SOTTO_LLM_MODEL,
+            apiKey: config.SOTTO_API_KEY,
+          },
+          tts: {
+            url: config.SOTTO_TTS_URL,
+            model: config.SOTTO_TTS_MODEL,
+            apiKey: config.SOTTO_API_KEY,
+          },
           limits: LIMITS,
         },
         vad,
@@ -175,12 +199,17 @@ await app.register(async (instance) => {
       activeSessions.set(sessionId, session);
 
       const onSessionError = (err: unknown, context: string) => {
-        app.log.error({ sessionId, context, err: err instanceof Error ? err.message : String(err) }, 'unhandled voice session error');
+        app.log.error(
+          { sessionId, context, err: err instanceof Error ? err.message : String(err) },
+          'unhandled voice session error',
+        );
       };
 
       socket.on('message', (data: Buffer, isBinary: boolean) => {
         if (isBinary) {
-          session.receiveAudioFrame(new Uint8Array(data.buffer, data.byteOffset, data.byteLength)).catch((err) => onSessionError(err, 'receiveAudioFrame'));
+          session
+            .receiveAudioFrame(new Uint8Array(data.buffer, data.byteOffset, data.byteLength))
+            .catch((err) => onSessionError(err, 'receiveAudioFrame'));
           return;
         }
         let parsed: unknown;
@@ -191,7 +220,12 @@ await app.register(async (instance) => {
         }
         const result = clientMessageSchema.safeParse(parsed);
         if (!result.success) {
-          send({ t: 'error', code: 'invalid_message', message: 'malformed client message', recoverable: true });
+          send({
+            t: 'error',
+            code: 'invalid_message',
+            message: 'malformed client message',
+            recoverable: true,
+          });
           return;
         }
         session.receiveMessage(result.data).catch((err) => onSessionError(err, 'receiveMessage'));

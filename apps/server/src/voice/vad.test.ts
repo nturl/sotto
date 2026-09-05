@@ -29,7 +29,12 @@ describe('computeRms', () => {
 
 describe('EnergyVad', () => {
   it('fires speech_start only after sustained energy above threshold for minSpeechMs', () => {
-    const vad = new EnergyVad({ sampleRate: SAMPLE_RATE, minSpeechMs: 300, silenceEndMs: 700, rmsThreshold: 0.02 });
+    const vad = new EnergyVad({
+      sampleRate: SAMPLE_RATE,
+      minSpeechMs: 300,
+      silenceEndMs: 700,
+      rmsThreshold: 0.02,
+    });
     const framesFor300ms = 300 / 20; // 15 frames of 20ms
 
     let sawStart = false;
@@ -43,14 +48,24 @@ describe('EnergyVad', () => {
   });
 
   it('does not fire speech_start on a brief blip shorter than minSpeechMs', () => {
-    const vad = new EnergyVad({ sampleRate: SAMPLE_RATE, minSpeechMs: 300, silenceEndMs: 700, rmsThreshold: 0.02 });
+    const vad = new EnergyVad({
+      sampleRate: SAMPLE_RATE,
+      minSpeechMs: 300,
+      silenceEndMs: 700,
+      rmsThreshold: 0.02,
+    });
     // Only 5 loud frames (100ms) then silence — well short of the 300ms minimum.
     for (let i = 0; i < 5; i++) expect(vad.process(toneFrame(5000))).toEqual([]);
     for (let i = 0; i < 5; i++) expect(vad.process(silenceFrame())).toEqual([]);
   });
 
   it('fires speech_end after sustained silence for silenceEndMs', () => {
-    const vad = new EnergyVad({ sampleRate: SAMPLE_RATE, minSpeechMs: 300, silenceEndMs: 700, rmsThreshold: 0.02 });
+    const vad = new EnergyVad({
+      sampleRate: SAMPLE_RATE,
+      minSpeechMs: 300,
+      silenceEndMs: 700,
+      rmsThreshold: 0.02,
+    });
     const framesFor300ms = 300 / 20;
     const framesFor700ms = 700 / 20;
 

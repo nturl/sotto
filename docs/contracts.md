@@ -74,7 +74,7 @@ Rules: sentences are one plain string each; the builder tokenizes. Chinese (`zh-
 - `books/<bookId>/cover.svg` (generated, deterministic seed = bookId, flat geometric, palette per category; Nightjar = deep teal #1F4F57 + peach, Saltpath = sand #E8D6B8 + ink are the two seed colorways).
 - `books/<bookId>/audio/<nn>.mp3` + timings written into chapter tokens (startMs/endMs) by `content:narrate`.
 - `books/<bookId>/attribution.json`: machine-readable provenance + licenses for text, glosses, cover, audio (audio: "Kokoro-82M, Apache-2.0 model; generated audio CC BY-SA 4.0").
-- `messages/<catalog>.json` lives in `packages/content/messages/` (not per pack): flat keys, ICU plural syntax `{count, plural, one {# mot} other {# mots}}`.
+- `<catalog>.json` lives in `apps/client/src/i18n/` (not per pack): flat keys, ICU plural syntax `{count, plural, one {# mot} other {# mots}}`.
 - Validator (`pnpm content:validate`) errors on: missing license, invalid locale, duplicate ids, token/sentence mismatch, missing gloss for a word token, missing asset file referenced, `reviewStatus: stable` without `reviewedBy`, incomplete catalogs vs `messages/en.json` keys, zh token lacking pinyin.
 
 ### 2c. Narration
@@ -130,9 +130,9 @@ Providers: `FakeVoiceProvider` (scripted from `packages/voice/fixtures/<mode>.js
 - WebRTC: NOT in v1 transport. `packages/voice/src/transports/webrtc.ts` exports an interface stub only. (Decision 2026-09-04: werift has no Opus codec; Pipecat adds a Python runtime. WS + PCM is the reference; documented in docs/architecture.md and verification.md.)
 
 ### 5c. Tools (packages/core/src/tools.ts, zod)
-`get_current_passage {}` -> `{ chapterTitle, sentences: [{id, text, tokenIds}], positionTokenId }`
+`get_current_passage {}` -> `{ chapterTitle, sentences: [{id, text, tokenIds, words: [{id, text}]}], positionTokenId }` (`words` = the sentence's word tokens in order, punctuation excluded: the word->tokenId map the tutor prompt renders so the model never has to derive an id by counting)
 `set_reading_position { tokenId | sentenceId }` -> `{ ok }`
-`save_vocabulary { tokenId, translation?: string }` -> `{ ok, savedWordId }` (tokenId must exist in the current chapter; translation defaults to the pack gloss)
+`save_vocabulary { tokenId, translation?: string, word?: string }` -> `{ ok, savedWordId }` (tokenId must exist in the current chapter; translation defaults to the pack gloss; when `word` is given and tokenId's text differs, the client re-resolves to the nearest token with that text or fails — never a silent save of a different word)
 `remove_vocabulary { savedWordId | tokenId }` -> `{ ok }`
 `show_explanation { tokenId?, title, body, kind: 'translation'|'grammar'|'pronunciation' }` -> `{ ok }`
 `set_session_mode { mode: TutorMode }` -> `{ ok }`

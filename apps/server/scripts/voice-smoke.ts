@@ -19,10 +19,61 @@ const TRAILING_SILENCE_MS = 900; // > energy VAD's default 700ms silenceEndMs
 const FIXTURE_PASSAGE = {
   chapterTitle: 'Le renard et sa tanière',
   sentences: [
-    { id: 'b1.s1', text: 'Il était une fois un petit renard.', tokenIds: ['b1.s1.t1', 'b1.s1.t2', 'b1.s1.t3', 'b1.s1.t4', 'b1.s1.t5', 'b1.s1.t6', 'b1.s1.t7'] },
-    { id: 'b1.s2', text: 'Il vivait seul dans sa tanière, au fond de la forêt.', tokenIds: ['b1.s2.t1', 'b1.s2.t2', 'b1.s2.t3', 'b1.s2.t4', 'b1.s2.t5', 'b1.s2.t6', 'b1.s2.t7', 'b1.s2.t8', 'b1.s2.t9', 'b1.s2.t10'] },
-    { id: 'b1.s3', text: 'Chaque matin, il sortait chercher de la nourriture.', tokenIds: ['b1.s3.t1', 'b1.s3.t2', 'b1.s3.t3', 'b1.s3.t4', 'b1.s3.t5', 'b1.s3.t6', 'b1.s3.t7'] },
-    { id: 'b1.s4', text: 'Un jour, il trouva un ami inattendu.', tokenIds: ['b1.s4.t1', 'b1.s4.t2', 'b1.s4.t3', 'b1.s4.t4', 'b1.s4.t5', 'b1.s4.t6', 'b1.s4.t7'] },
+    {
+      id: 'b1.s1',
+      text: 'Il était une fois un petit renard.',
+      tokenIds: [
+        'b1.s1.t1',
+        'b1.s1.t2',
+        'b1.s1.t3',
+        'b1.s1.t4',
+        'b1.s1.t5',
+        'b1.s1.t6',
+        'b1.s1.t7',
+      ],
+    },
+    {
+      id: 'b1.s2',
+      text: 'Il vivait seul dans sa tanière, au fond de la forêt.',
+      tokenIds: [
+        'b1.s2.t1',
+        'b1.s2.t2',
+        'b1.s2.t3',
+        'b1.s2.t4',
+        'b1.s2.t5',
+        'b1.s2.t6',
+        'b1.s2.t7',
+        'b1.s2.t8',
+        'b1.s2.t9',
+        'b1.s2.t10',
+      ],
+    },
+    {
+      id: 'b1.s3',
+      text: 'Chaque matin, il sortait chercher de la nourriture.',
+      tokenIds: [
+        'b1.s3.t1',
+        'b1.s3.t2',
+        'b1.s3.t3',
+        'b1.s3.t4',
+        'b1.s3.t5',
+        'b1.s3.t6',
+        'b1.s3.t7',
+      ],
+    },
+    {
+      id: 'b1.s4',
+      text: 'Un jour, il trouva un ami inattendu.',
+      tokenIds: [
+        'b1.s4.t1',
+        'b1.s4.t2',
+        'b1.s4.t3',
+        'b1.s4.t4',
+        'b1.s4.t5',
+        'b1.s4.t6',
+        'b1.s4.t7',
+      ],
+    },
   ],
   positionTokenId: 'b1.s1.t1',
 };
@@ -90,7 +141,14 @@ async function synthesizeLearnerSpeech(text: string): Promise<Int16Array> {
   const res = await fetch(`${TTS_URL.replace(/\/$/, '')}/audio/speech`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model: 'kokoro', input: text, voice: 'ff_siwis', lang_code: 'f', response_format: 'pcm', speed: 1.0 }),
+    body: JSON.stringify({
+      model: 'kokoro',
+      input: text,
+      voice: 'ff_siwis',
+      lang_code: 'f',
+      response_format: 'pcm',
+      speed: 1.0,
+    }),
   });
   if (!res.ok) throw new Error(`Kokoro TTS failed: ${res.status} ${await res.text()}`);
   const buf = Buffer.from(await res.arrayBuffer());
@@ -109,7 +167,9 @@ async function streamPcmFrames(ws: WebSocket, pcm: Int16Array, label: string): P
     ws.send(frame.buffer.slice(frame.byteOffset, frame.byteOffset + frame.byteLength));
     sent++;
   }
-  log(`${label}: sent ${sent} frames (${((pcm.length / SAMPLE_RATE) * 1000).toFixed(0)}ms of audio)`);
+  log(
+    `${label}: sent ${sent} frames (${((pcm.length / SAMPLE_RATE) * 1000).toFixed(0)}ms of audio)`,
+  );
 }
 
 async function main(): Promise<void> {
@@ -129,7 +189,9 @@ async function main(): Promise<void> {
     log('No wav file given — synthesizing learner speech with Kokoro (fr-FR).');
     utterance1 = await synthesizeLearnerSpeech('Que veut dire tanière ?');
     utterance2 = await synthesizeLearnerSpeech('Enregistre le mot tanière.');
-    log(`Synthesized utterance 1: ${((utterance1.length / SAMPLE_RATE) * 1000).toFixed(0)}ms, utterance 2: ${((utterance2.length / SAMPLE_RATE) * 1000).toFixed(0)}ms`);
+    log(
+      `Synthesized utterance 1: ${((utterance1.length / SAMPLE_RATE) * 1000).toFixed(0)}ms, utterance 2: ${((utterance2.length / SAMPLE_RATE) * 1000).toFixed(0)}ms`,
+    );
   }
 
   log(`Creating session at ${SERVER_URL}/voice/session`);
@@ -141,7 +203,12 @@ async function main(): Promise<void> {
   if (!sessionRes.ok) {
     throw new Error(`session create failed: ${sessionRes.status} ${await sessionRes.text()}`);
   }
-  const session = (await sessionRes.json()) as { sessionId: string; wsUrl: string; sampleRate: number; limits: unknown };
+  const session = (await sessionRes.json()) as {
+    sessionId: string;
+    wsUrl: string;
+    sampleRate: number;
+    limits: unknown;
+  };
   log('Session created:', session);
 
   const ws = new WebSocket(session.wsUrl);
@@ -185,10 +252,14 @@ async function main(): Promise<void> {
       }
       if (msg.t === 'tool_call') {
         const callId = msg.callId as string;
-        log(`-> responding to tool_call ${callId} with { ok: true, result: { savedWordId: 'sw1' } }`);
-        ws.send(JSON.stringify({ t: 'tool_result', callId, ok: true, result: { savedWordId: 'sw1' } }));
+        log(
+          `-> responding to tool_call ${callId} with { ok: true, result: { savedWordId: 'sw1' } }`,
+        );
+        ws.send(
+          JSON.stringify({ t: 'tool_result', callId, ok: true, result: { savedWordId: 'sw1' } }),
+        );
       }
-      if (msg.t === 'limit' || msg.t === 'state' && msg.state === 'ended') {
+      if (msg.t === 'limit' || (msg.t === 'state' && msg.state === 'ended')) {
         resolve();
       }
     });

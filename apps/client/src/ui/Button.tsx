@@ -44,7 +44,15 @@ export function usePressAnimation(engaged: boolean): Animated.Value {
   return value;
 }
 
-export function Button({ title, onPress, variant = 'primary', icon, disabled, style, accessibilityLabel }: ButtonProps) {
+export function Button({
+  title,
+  onPress,
+  variant = 'primary',
+  icon,
+  disabled,
+  style,
+  accessibilityLabel,
+}: ButtonProps) {
   const [pressed, setPressed] = useState(false);
   const [hovered, setHovered] = useState(false);
   const animation = usePressAnimation(!disabled && (pressed || hovered));

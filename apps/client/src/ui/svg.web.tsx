@@ -1,5 +1,5 @@
 /**
-* Cross-platform SVG layer (web copy, kept identical to svg.tsx so Metro platform resolution does not recurse).
+ * Cross-platform SVG layer (web copy, kept identical to svg.tsx so Metro platform resolution does not recurse).
  *
  * Keeping the indirection lets the rest of the UI import from `./svg` so
  * platform special-casing (if ever needed again) lives in one place.

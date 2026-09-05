@@ -12,14 +12,7 @@ import { fonts } from './fonts';
 import { Circle, Line, Path, Rect, Svg, SvgText } from './svg';
 
 export type CoverArt =
-  | 'fox'
-  | 'lantern'
-  | 'river'
-  | 'mountain'
-  | 'dune'
-  | 'night'
-  | 'market'
-  | 'sail';
+  'fox' | 'lantern' | 'river' | 'mountain' | 'dune' | 'night' | 'market' | 'sail';
 
 type CoverDefinition = {
   bg: string;
@@ -189,7 +182,12 @@ export function Cover({
 
   if (svgUrl) {
     return (
-      <View style={{ width, height }} accessible accessibilityRole="image" accessibilityLabel={label}>
+      <View
+        style={{ width, height }}
+        accessible
+        accessibilityRole="image"
+        accessibilityLabel={label}
+      >
         {shadow}
         <View style={styles.face}>
           {Platform.OS === 'web' ? (
@@ -209,7 +207,11 @@ export function Cover({
         <Svg width={width} height={height} viewBox="0 0 150 225">
           <Rect x={0} y={0} width={150} height={225} fill={definition.bg} />
           {definition.art}
-          <CoverTitle title={definition.title} color={definition.titleColor} size={definition.titleSize} />
+          <CoverTitle
+            title={definition.title}
+            color={definition.titleColor}
+            size={definition.titleSize}
+          />
         </Svg>
       </View>
     </View>

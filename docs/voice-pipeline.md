@@ -61,7 +61,7 @@ never has to infer state from side effects.
    question in their explanation language).
 3. **LLM** (`src/voice/llm.ts` + `src/voice/prompt.ts`) streams an
    OpenAI-shaped chat completion with `chat_template_kwargs: { enable_thinking:
-   false }` (required — otherwise the model reasons silently for ~15s first).
+false }` (required — otherwise the model reasons silently for ~15s first).
    Text deltas are fed through a streaming-safe marker stripper
    (`src/voice/markers.ts`) and a sentence chunker (`src/voice/chunker.ts`);
    each complete sentence is hand off to TTS immediately, so the first audio
@@ -103,7 +103,7 @@ the LLM response it sends `{ t: 'tool_call', callId, name, args }` and
 `await`s a matching `{ t: 'tool_result', callId, ok, result?, error? }` from
 the client, with a 30s timeout that resolves to `{ ok: false, error:
 'timeout' }` if the client never answers. The tool result is appended to the
-message history as a `role: 'tool'` message and the *same* LLM turn
+message history as a `role: 'tool'` message and the _same_ LLM turn
 continues (up to 4 tool-call round trips per turn, to bound runaway loops).
 
 ## Limits
@@ -166,7 +166,7 @@ the v5 combined-state tensor) using both `silero_vad.onnx` and
 integration code itself is correct. But on this machine's `onnxruntime-node`
 1.29.0 build, both model exports return near-zero speech probability (never
 crossing ~0.01, against the documented 0.5 decision threshold) on
-Kokoro-synthesized French speech *and* on the Silero repo's own
+Kokoro-synthesized French speech _and_ on the Silero repo's own
 `tests/data/test.wav` fixture — verified with a from-scratch harness, not
 just the app's own code. This looks like a model/opset snapshot issue
 upstream rather than a bug in this integration, but it means Silero should
@@ -178,13 +178,14 @@ falls back to it by default. Re-run `models:fetch` and re-verify with real
 mic audio before relying on Silero.
 
 ## Latencies measured (2026-09-04, local M-series Mac, `pnpm --filter
-@sotto/server smoke`, energy VAD, whisper.cpp `ggml-large-v3-turbo` on Metal,
-llama-server `qwen3.6-35b-a3b`, Kokoro)
 
-| Stage | Measured |
-|---|---|
-| `stt_ms` | 591ms, 616ms |
-| `llm_first_token_ms` | 5090ms, 5768ms |
+@sotto/server smoke`, energy VAD, whisper.cpp `ggml-large-v3-turbo`on Metal,
+llama-server`qwen3.6-35b-a3b`, Kokoro)
+
+| Stage                | Measured                 |
+| -------------------- | ------------------------ |
+| `stt_ms`             | 591ms, 616ms             |
+| `llm_first_token_ms` | 5090ms, 5768ms           |
 | `tts_first_audio_ms` | 7360ms, 11678ms, 12261ms |
 
 The LLM first-token latency is dominated by the 35B model's prefill + the

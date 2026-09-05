@@ -35,7 +35,10 @@ export function MarkerStroke({ active, height = 8 }: { active: boolean; height?:
     }).start();
   }, [active, reduced, animation]);
 
-  const clipWidth = animation.interpolate({ inputRange: [0, 1], outputRange: [0, Math.max(width, 1)] });
+  const clipWidth = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, Math.max(width, 1)],
+  });
 
   return (
     <View

@@ -19,7 +19,14 @@ export type IconButtonProps = {
   style?: ViewStyle;
 };
 
-export function IconButton({ icon, onPress, accessibilityLabel, variant = 'ghost', size = space.tapTarget, style }: IconButtonProps) {
+export function IconButton({
+  icon,
+  onPress,
+  accessibilityLabel,
+  variant = 'ghost',
+  size = space.tapTarget,
+  style,
+}: IconButtonProps) {
   const [pressed, setPressed] = useState(false);
   const [hovered, setHovered] = useState(false);
   const animation = usePressAnimation(pressed || hovered);

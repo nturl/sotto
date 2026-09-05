@@ -21,6 +21,6 @@ export const peachSelection = withAlpha(colors.peach, 0.18);
 export const peachUnderline = withAlpha(colors.peach, 0.35);
 
 /** react-native-web honors `cursor` in styles; native ignores the cast. */
-export const webCursor = (
-  Platform.OS === 'web' ? { cursor: 'pointer' } : {}
-) as unknown as ViewStyle;
+export const webCursor = (Platform.OS === 'web'
+  ? { cursor: 'pointer' }
+  : {}) as unknown as ViewStyle;

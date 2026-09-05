@@ -184,11 +184,19 @@ let cachedBackend: VadBackendName | null = null;
 // after the first reuses this same warmed-up InferenceSession (Silero's
 // per-utterance LSTM state lives on the SileroVad wrapper instance, not the
 // session, so sharing the session across concurrent sessions is safe).
-let sileroSessionPromise: Promise<{ session: SileroSession; ort: typeof import('onnxruntime-node') } | null> | null = null;
+let sileroSessionPromise: Promise<{
+  session: SileroSession;
+  ort: typeof import('onnxruntime-node');
+} | null> | null = null;
 
-type SimpleLogger = { info: (o: unknown, msg?: string) => void; warn: (o: unknown, msg?: string) => void };
+type SimpleLogger = {
+  info: (o: unknown, msg?: string) => void;
+  warn: (o: unknown, msg?: string) => void;
+};
 
-async function loadSileroSession(logger: SimpleLogger): Promise<{ session: SileroSession; ort: typeof import('onnxruntime-node') } | null> {
+async function loadSileroSession(
+  logger: SimpleLogger,
+): Promise<{ session: SileroSession; ort: typeof import('onnxruntime-node') } | null> {
   if (!existsSync(SILERO_MODEL_PATH)) {
     cachedBackend = 'energy';
     logger.warn({ path: SILERO_MODEL_PATH }, 'silero model not found, using energy VAD fallback');
@@ -202,7 +210,10 @@ async function loadSileroSession(logger: SimpleLogger): Promise<{ session: Siler
     return { session: session as unknown as SileroSession, ort };
   } catch (err) {
     cachedBackend = 'energy';
-    logger.warn({ err: (err as Error).message }, 'onnxruntime-node unavailable, using energy VAD fallback');
+    logger.warn(
+      { err: (err as Error).message },
+      'onnxruntime-node unavailable, using energy VAD fallback',
+    );
     return null;
   }
 }

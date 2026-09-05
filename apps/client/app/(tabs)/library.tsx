@@ -64,7 +64,12 @@ export default function LibraryScreen() {
         contentContainerStyle={styles.chipsContent}
       >
         {filters.map((item) => (
-          <Chip key={item.value} label={item.label} selected={filter === item.value} onPress={() => setFilter(item.value)} />
+          <Chip
+            key={item.value}
+            label={item.label}
+            selected={filter === item.value}
+            onPress={() => setFilter(item.value)}
+          />
         ))}
       </ScrollView>
 

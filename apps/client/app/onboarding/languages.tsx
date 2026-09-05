@@ -7,7 +7,14 @@ import { Button } from '../../src/ui/Button';
 import { setPreference } from '../../src/ui/data';
 import { SpeakerGlyph } from '../../src/ui/Glyphs';
 import { IconButton } from '../../src/ui/IconButton';
-import { APP_LANGUAGES, EXPLANATION_LANGUAGES, LEARNING_LANGUAGES, SCRIPT_OPTIONS, localizedName, type LanguageOption } from '../../src/ui/languages';
+import {
+  APP_LANGUAGES,
+  EXPLANATION_LANGUAGES,
+  LEARNING_LANGUAGES,
+  SCRIPT_OPTIONS,
+  localizedName,
+  type LanguageOption,
+} from '../../src/ui/languages';
 import { OptionRow } from '../../src/ui/OptionRow';
 import { SectionEyebrow } from '../../src/ui/SectionEyebrow';
 import { Shell, useLayoutMetrics } from '../../src/ui/Shell';
@@ -16,7 +23,11 @@ import { setUiCatalog } from '../../src/i18n/useT';
 
 type Step = 0 | 1 | 2;
 
-const STEP_TITLES = ['onboarding.step.appLanguage', 'onboarding.step.explainIn', 'onboarding.step.learning'] as const;
+const STEP_TITLES = [
+  'onboarding.step.appLanguage',
+  'onboarding.step.explainIn',
+  'onboarding.step.learning',
+] as const;
 
 export default function OnboardingLanguagesScreen() {
   const t = useT();
@@ -40,7 +51,11 @@ export default function OnboardingLanguagesScreen() {
     router.push('/onboarding/level');
   };
 
-  const renderOptions = (options: LanguageOption[], selected: string, onSelect: (code: string) => void) => (
+  const renderOptions = (
+    options: LanguageOption[],
+    selected: string,
+    onSelect: (code: string) => void,
+  ) => (
     <View style={styles.list}>
       {options.map((option) => (
         <OptionRow

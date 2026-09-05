@@ -44,8 +44,16 @@ export default function HomeScreen() {
       </View>
 
       <View style={{ gap: sectionGap }}>
-        <Rail title={t('home.rail.continue')} books={library.continueReading} onPressBook={openBook} />
-        <Rail title={t('home.rail.recommended')} books={library.recommended} onPressBook={openBook} />
+        <Rail
+          title={t('home.rail.continue')}
+          books={library.continueReading}
+          onPressBook={openBook}
+        />
+        <Rail
+          title={t('home.rail.recommended')}
+          books={library.recommended}
+          onPressBook={openBook}
+        />
         <Rail title={t('home.rail.new')} books={library.newReleases} onPressBook={openBook} />
       </View>
 

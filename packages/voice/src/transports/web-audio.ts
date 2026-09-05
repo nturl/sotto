@@ -99,7 +99,8 @@ export class WebAudioAdapter implements AudioAdapter {
     const int16 = new Int16Array(buf);
     const audioBuffer = ctx.createBuffer(1, int16.length, sampleRate);
     const channel = audioBuffer.getChannelData(0);
-    for (let i = 0; i < int16.length; i++) channel[i] = int16[i]! / (int16[i]! < 0 ? 0x8000 : 0x7fff);
+    for (let i = 0; i < int16.length; i++)
+      channel[i] = int16[i]! / (int16[i]! < 0 ? 0x8000 : 0x7fff);
 
     const source = ctx.createBufferSource();
     source.buffer = audioBuffer;

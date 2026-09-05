@@ -18,7 +18,8 @@ import type { ToolResult, TutorMode } from '@sotto/core';
 import type { VoiceEvent } from '../events.ts';
 import type { SessionOptions, VoiceProvider } from '../provider.ts';
 
-const NOT_IMPLEMENTED_MESSAGE = 'OpenAIRealtimeProvider is not implemented; interface stub only (planning/CONTRACTS.md §5a)';
+const NOT_IMPLEMENTED_MESSAGE =
+  'OpenAIRealtimeProvider is not implemented; interface stub only (planning/CONTRACTS.md §5a)';
 
 export class OpenAIRealtimeProvider implements VoiceProvider {
   connect(_opts: SessionOptions): Promise<void> {

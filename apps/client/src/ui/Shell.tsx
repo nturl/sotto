@@ -5,7 +5,14 @@
  * web-only :focus-visible outline (2px ink) once per session.
  */
 import { useEffect } from 'react';
-import { Platform, ScrollView, StyleSheet, useWindowDimensions, View, type ViewStyle } from 'react-native';
+import {
+  Platform,
+  ScrollView,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+  type ViewStyle,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, space } from '@sotto/core/theme';
 import { Sidebar } from './Sidebar';
@@ -46,12 +53,21 @@ export type ShellProps = {
 export function useLayoutMetrics() {
   const { width } = useWindowDimensions();
   const isDesktop = width >= DESKTOP_BREAKPOINT;
-  const gutter = isDesktop ? space.gutter.desktop : width >= 600 ? space.gutter.tablet : space.gutter.phone;
+  const gutter = isDesktop
+    ? space.gutter.desktop
+    : width >= 600
+      ? space.gutter.tablet
+      : space.gutter.phone;
   const sectionGap = isDesktop ? space.sectionRhythm.desktop : space.sectionRhythm.phone;
   return { width, isDesktop, gutter, sectionGap };
 }
 
-export function Shell({ children, scroll = true, contentStyle, contentBottomPadding = space.xl }: ShellProps) {
+export function Shell({
+  children,
+  scroll = true,
+  contentStyle,
+  contentBottomPadding = space.xl,
+}: ShellProps) {
   const insets = useSafeAreaInsets();
   const { isDesktop, gutter } = useLayoutMetrics();
 
@@ -78,7 +94,11 @@ export function Shell({ children, scroll = true, contentStyle, contentBottomPadd
       <View style={styles.row}>
         {isDesktop ? <Sidebar /> : null}
         {scroll ? (
-          <ScrollView style={styles.flex} contentContainerStyle={styles.grow} keyboardShouldPersistTaps="handled">
+          <ScrollView
+            style={styles.flex}
+            contentContainerStyle={styles.grow}
+            keyboardShouldPersistTaps="handled"
+          >
             {content}
           </ScrollView>
         ) : (

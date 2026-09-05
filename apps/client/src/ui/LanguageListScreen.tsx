@@ -18,7 +18,12 @@ export type LanguageListScreenProps = {
   onSelect: (code: string) => void;
 };
 
-export function LanguageListScreen({ titleKey, options, selectedCode, onSelect }: LanguageListScreenProps) {
+export function LanguageListScreen({
+  titleKey,
+  options,
+  selectedCode,
+  onSelect,
+}: LanguageListScreenProps) {
   const t = useT();
   return (
     <Shell>

@@ -20,7 +20,9 @@ import { webCursor } from './tokens';
 export type TabBarProps = {
   state: { index: number; routes: Array<{ key: string; name: string }> };
   navigation: {
-    emit: (event: { type: 'tabPress'; target?: string; canPreventDefault?: boolean }) => { defaultPrevented: boolean };
+    emit: (event: { type: 'tabPress'; target?: string; canPreventDefault?: boolean }) => {
+      defaultPrevented: boolean;
+    };
     navigate: (name: string) => void;
   };
 };
@@ -44,7 +46,11 @@ export function TabBar({ state, navigation }: TabBarProps) {
         const focused = state.index === index;
         const color = focused ? colors.accent : colors.ink2;
         const onPress = () => {
-          const event = navigation.emit({ type: 'tabPress', target: route.key, canPreventDefault: true });
+          const event = navigation.emit({
+            type: 'tabPress',
+            target: route.key,
+            canPreventDefault: true,
+          });
           if (!focused && !event.defaultPrevented) navigation.navigate(route.name);
         };
         return (

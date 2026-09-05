@@ -49,7 +49,11 @@ export function Toast({ message, onHide, durationMs = 4000 }: ToastProps) {
   if (!message) return null;
 
   return (
-    <Animated.View pointerEvents="none" style={[styles.toast, { opacity }]} accessibilityLiveRegion="polite">
+    <Animated.View
+      pointerEvents="none"
+      style={[styles.toast, { opacity }]}
+      accessibilityLiveRegion="polite"
+    >
       <Text role="ui" color="surface">
         {message}
       </Text>

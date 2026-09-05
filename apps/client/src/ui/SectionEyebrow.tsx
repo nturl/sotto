@@ -4,7 +4,13 @@
 import { StyleSheet, type StyleProp, type TextStyle } from 'react-native';
 import { Text } from './Text';
 
-export function SectionEyebrow({ children, style }: { children: string; style?: StyleProp<TextStyle> }) {
+export function SectionEyebrow({
+  children,
+  style,
+}: {
+  children: string;
+  style?: StyleProp<TextStyle>;
+}) {
   return (
     <Text role="mono" color="ink3" style={[styles.eyebrow, style]}>
       {children}

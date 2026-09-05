@@ -43,6 +43,13 @@ export async function streamChatCompletion(
   const headers: Record<string, string> = { 'Content-Type': 'application/json' };
   if (config.apiKey) headers.Authorization = `Bearer ${config.apiKey}`;
 
+  // chat_template_kwargs and cache_prompt are llama-server extensions
+  // (below) — OpenAI's real /v1/chat/completions rejects unrecognized
+  // request arguments with a 400 (verified live 2026-09-05, self-hosting
+  // proof: docs/evidence/selfhost-2026-09-05.log), so only send them to a
+  // non-OpenAI endpoint.
+  const isOpenAi = /(^|\.)api\.openai\.com$/.test(new URL(config.url).hostname);
+
   const res = await doFetch(`${config.url.replace(/\/$/, '')}/chat/completions`, {
     method: 'POST',
     headers,
@@ -54,14 +61,19 @@ export async function streamChatCompletion(
       stream: true,
       temperature: 0.4,
       max_tokens: 200,
-      chat_template_kwargs: { enable_thinking: false },
-      // llama-server extension: reuse the KV cache across requests that
-      // share a prompt prefix (the stable tutor system instruction + tools
-      // stay first — see prompt.ts). Without it every turn re-evaluates the
-      // whole prompt from scratch; a WS-3-documented pending fix (LEDGER
-      // 2026-09-04 18:05), applied here because it was measured directly
-      // blocking the WS-6 live-voice e2e (15s to first token on this run).
-      cache_prompt: true,
+      ...(isOpenAi
+        ? {}
+        : {
+            chat_template_kwargs: { enable_thinking: false },
+            // llama-server extension: reuse the KV cache across requests
+            // that share a prompt prefix (the stable tutor system
+            // instruction + tools stay first — see prompt.ts). Without it
+            // every turn re-evaluates the whole prompt from scratch; a
+            // WS-3-documented pending fix (LEDGER 2026-09-04 18:05),
+            // applied here because it was measured directly blocking the
+            // WS-6 live-voice e2e (15s to first token on this run).
+            cache_prompt: true,
+          }),
     }),
   });
 

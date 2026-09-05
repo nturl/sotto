@@ -69,6 +69,28 @@ Four routes, in sequence, each with its own gate:
    imports with lazy narration and a 2-hour narrated-audio budget per month. Default:
    proceed with these.
 
+### Gate 0, before any dispatch
+
+Run 3 must be closed. Check all of: planning/LEDGER.md has a "Run 3" finish-line
+section after the R3-X fix-lane entries; `git status --short` is empty in both repos
+(untracked evidence files may be committed as glue, nothing else); `HEAD == origin/main`
+in both; `pnpm check` exits 0 in both. If any check fails, do not touch the tree. Use a
+Monitor on the LEDGER file and wait, then re-check. Two orchestrators in one index
+swept each other's work in run 2; this gate exists so it cannot happen again.
+
+Also confirm before dispatch: the sotto-cloud `vendor/sotto` pin is re-pinned to a SHA
+reachable from the public OSS `main` (it pointed at pre-rewrite history on 2026-09-05).
+If run 3 did not do it, R4-D1 does, first.
+
+### Known unknowns carried into this run (from the 2026-09-05 planning session)
+
+Browser CORS at api.openai.com (B1 decides). Resend needs a verified domain, so
+production magic links block on Noel's domain purchase. Stripe live activation status
+unknown. Fly machine may need 1 GB RAM (~$10/mo, not $5). Sales-tax registration is
+Noel's, not Stripe Tax's. Copyrighted-upload posture is unreviewed by counsel. Pending
+"S SOTTO" mark. iOS standalone-PWA mic and lock-screen audio untested. Legal pages are
+read by Noel before going live. Sunset stop needs the Mac awake on the 1st.
+
 ### Lanes and task cards
 
 Every dispatch gets a seven-field card in LEDGER.md before it starts (Task, Inputs,

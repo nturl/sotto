@@ -1,0 +1,42 @@
+[hosted-smoke 2026-09-05T05:56:38.209Z] BASE_URL=http://sotto.localhost:8094
+[hosted-smoke 2026-09-05T05:56:38.210Z] --- width 375 ---
+[hosted-smoke 2026-09-05T05:56:38.628Z] 375: cold visit loaded
+[hosted-smoke 2026-09-05T05:56:38.655Z] 375: manifest link present
+[hosted-smoke 2026-09-05T05:56:38.809Z] 375: tap 1 — clicked "Start reading in French"
+[hosted-smoke 2026-09-05T05:56:38.811Z] 375: reader visible at http://sotto.localhost:8094/reader/fr-cendrillon
+[hosted-smoke 2026-09-05T05:56:38.908Z] 375: first-visit content cache has this book's chapter JSON
+[hosted-smoke 2026-09-05T05:56:38.908Z] 375: first-visit content cache has this book's narration audio
+[hosted-smoke 2026-09-05T05:56:38.960Z] 375: tap 2 — clicked play
+[hosted-smoke 2026-09-05T05:56:39.967Z] 375: narration playing within 10s
+[hosted-smoke 2026-09-05T05:56:40.031Z] 375: tapped "Une", translation panel shown
+[hosted-smoke 2026-09-05T05:56:40.673Z] 375: saved "Une" to vocabulary
+[hosted-smoke 2026-09-05T05:56:41.230Z] 375: saved word survived reload
+[hosted-smoke 2026-09-05T05:56:41.231Z] 375: service worker registered
+[hosted-smoke 2026-09-05T05:56:42.738Z] 375: shell cache (sotto-shell-1788587791453.109) has index.html
+[hosted-smoke 2026-09-05T05:56:42.738Z] 375: content cache (sotto-content-1788587791453.109) has 8 file(s) for this book
+[hosted-smoke 2026-09-05T05:56:42.744Z] 375: offline fetch('/index.html') -> 200
+[hosted-smoke 2026-09-05T05:56:42.744Z] 375: offline fetch(chapter json) -> 200
+[hosted-smoke 2026-09-05T05:56:42.744Z] 375: offline fetch(audio, Range bytes=0-1) -> 206
+[hosted-smoke 2026-09-05T05:56:42.865Z] 375: offline reload rendered the reader (network-level offline honored by the SW)
+[hosted-smoke 2026-09-05T05:56:42.917Z] --- width 375 done ---
+[hosted-smoke 2026-09-05T05:56:42.917Z] --- width 1440 ---
+[hosted-smoke 2026-09-05T05:56:43.233Z] 1440: cold visit loaded
+[hosted-smoke 2026-09-05T05:56:43.268Z] 1440: manifest link present
+[hosted-smoke 2026-09-05T05:56:43.405Z] 1440: tap 1 — clicked "Start reading in French"
+[hosted-smoke 2026-09-05T05:56:43.406Z] 1440: reader visible at http://sotto.localhost:8094/reader/fr-cendrillon
+[hosted-smoke 2026-09-05T05:56:43.503Z] 1440: first-visit content cache has this book's chapter JSON
+[hosted-smoke 2026-09-05T05:56:43.503Z] 1440: first-visit content cache has this book's narration audio
+[hosted-smoke 2026-09-05T05:56:43.550Z] 1440: tap 2 — clicked play
+[hosted-smoke 2026-09-05T05:56:44.558Z] 1440: narration playing within 10s
+[hosted-smoke 2026-09-05T05:56:44.605Z] 1440: tapped "Une", translation panel shown
+[hosted-smoke 2026-09-05T05:56:44.942Z] 1440: saved "Une" to vocabulary
+[hosted-smoke 2026-09-05T05:56:45.492Z] 1440: saved word survived reload
+[hosted-smoke 2026-09-05T05:56:45.494Z] 1440: service worker registered
+[hosted-smoke 2026-09-05T05:56:47.000Z] 1440: shell cache (sotto-shell-1788587791453.109) has index.html
+[hosted-smoke 2026-09-05T05:56:47.000Z] 1440: content cache (sotto-content-1788587791453.109) has 8 file(s) for this book
+[hosted-smoke 2026-09-05T05:56:47.017Z] 1440: offline fetch('/index.html') -> 200
+[hosted-smoke 2026-09-05T05:56:47.017Z] 1440: offline fetch(chapter json) -> 200
+[hosted-smoke 2026-09-05T05:56:47.017Z] 1440: offline fetch(audio, Range bytes=0-1) -> 206
+[hosted-smoke 2026-09-05T05:56:47.176Z] 1440: offline reload rendered the reader (network-level offline honored by the SW)
+[hosted-smoke 2026-09-05T05:56:47.231Z] --- width 1440 done ---
+[hosted-smoke 2026-09-05T05:56:47.231Z] RESULT: PASS

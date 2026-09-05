@@ -115,12 +115,29 @@ function walk(dir, base = dir) {
   }
   return files;
 }
+// The Expo web export bundles every weight (and italic) of a
+// @expo-google-fonts package as a static asset, but apps/client/app/_layout.tsx
+// only ever calls useFonts with these four (apps/client/src/ui/fonts.ts is
+// the source of truth) — precaching the other ~30 TTFs on first visit is
+// pure waste that will never be requested.
+const usedFontBasenames = new Set([
+  'Fraunces_300Light',
+  'Fraunces_400Regular',
+  'Inter_400Regular',
+  'Inter_500Medium',
+]);
+function isUnusedFont(f) {
+  if (!f.includes('@expo-google-fonts') || !f.endsWith('.ttf')) return false;
+  const basename = path.basename(f).split('.')[0];
+  return !usedFontBasenames.has(basename);
+}
 const shellFiles = walk(dist).filter(
   (f) =>
     !f.startsWith('/content/packs/') &&
     !f.startsWith('/tutor/') &&
     f !== '/sw.js' &&
-    f !== '/sw-manifest.json',
+    f !== '/sw-manifest.json' &&
+    !isUnusedFont(f),
 );
 // Version the shell/content caches by the newest mtime among the exported
 // files — stable across re-running this script on the same export, but

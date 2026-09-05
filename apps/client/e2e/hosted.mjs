@@ -150,6 +150,8 @@ async function runAtWidth({ width, height, label }) {
   // offline-ready without a second load.
   const bookIdMatch = page.url().match(/\/reader\/([^/?#]+)/);
   const bookId = bookIdMatch ? bookIdMatch[1] : null;
+  let warmedChapterUrl = null;
+  let warmedAudioUrl = null;
   if (!bookId) {
     fail(`${label}: could not extract bookId from reader URL ${page.url()}`);
   } else {
@@ -161,16 +163,20 @@ async function runAtWidth({ width, height, label }) {
     // JSON) on a slow run.
     const firstVisitCache = await page.evaluate(async (id) => {
       const deadline = Date.now() + 8000;
-      let result = { hasChapterJson: false, hasAudio: false };
+      let result = { hasChapterJson: false, hasAudio: false, chapterUrl: null, audioUrl: null };
       while (Date.now() < deadline) {
         const names = await caches.keys();
         const contentName = names.find((n) => n.startsWith('sotto-content-'));
         if (contentName) {
           const keys = await (await caches.open(contentName)).keys();
           const bookUrls = keys.map((r) => r.url).filter((u) => u.includes(`/books/${id}/`));
+          const chapterUrl = bookUrls.find((u) => /\/chapters\/\d+\.json$/.test(u)) ?? null;
+          const audioUrl = bookUrls.find((u) => u.endsWith('.mp3')) ?? null;
           result = {
-            hasChapterJson: bookUrls.some((u) => /\/chapters\/\d+\.json$/.test(u)),
-            hasAudio: bookUrls.some((u) => u.endsWith('.mp3')),
+            hasChapterJson: !!chapterUrl,
+            hasAudio: !!audioUrl,
+            chapterUrl,
+            audioUrl,
           };
           if (result.hasChapterJson && result.hasAudio) return result;
         }
@@ -184,6 +190,8 @@ async function runAtWidth({ width, height, label }) {
     if (firstVisitCache.hasAudio)
       log(`${label}: first-visit content cache has this book's narration audio`);
     else fail(`${label}: first-visit content cache is missing narration audio for "${bookId}"`);
+    warmedChapterUrl = firstVisitCache.chapterUrl;
+    warmedAudioUrl = firstVisitCache.audioUrl;
   }
 
   // Tap 2: play.
@@ -332,12 +340,65 @@ async function runAtWidth({ width, height, label }) {
     );
   }
 
+  // F2.1: hard offline-fetch proof. Playwright/Chromium's CDP-level offline
+  // emulation preempts *navigations* before the Service Worker's fetch
+  // handler ever runs (the known limitation the WARN below is about), but a
+  // page-initiated fetch() genuinely goes through the SW under the same
+  // emulation — so this is a real assertion, not a cache-inspection proxy.
+  // Requires sw.js to resolve cache names without a network round trip
+  // while offline (F2.1's manifest-in-memory/cached-copy fix); before that
+  // fix this always failed (getManifest() fell back to a nonexistent
+  // 'sotto-shell-dev'/'sotto-content-dev' cache).
+  if (!warmedChapterUrl || !warmedAudioUrl) {
+    fail(`${label}: no warmed chapter/audio URL to offline-fetch-test`);
+  } else {
+    await context.setOffline(true);
+    const offlineFetches = await page.evaluate(
+      async ({ chapterUrl, audioUrl }) => {
+        const statusOf = async (url, init) => {
+          try {
+            const res = await fetch(url, init);
+            return res.status;
+          } catch (err) {
+            return `throw: ${err.message}`;
+          }
+        };
+        return {
+          indexStatus: await statusOf('/index.html'),
+          chapterStatus: await statusOf(chapterUrl),
+          audioStatus: await statusOf(audioUrl, { headers: { range: 'bytes=0-1' } }),
+        };
+      },
+      { chapterUrl: warmedChapterUrl, audioUrl: warmedAudioUrl },
+    );
+    await context.setOffline(false);
+
+    if (offlineFetches.indexStatus === 200) log(`${label}: offline fetch('/index.html') -> 200`);
+    else fail(`${label}: offline fetch('/index.html') -> ${offlineFetches.indexStatus} (want 200)`);
+
+    if (offlineFetches.chapterStatus === 200) log(`${label}: offline fetch(chapter json) -> 200`);
+    else
+      fail(`${label}: offline fetch(chapter json) -> ${offlineFetches.chapterStatus} (want 200)`);
+
+    if (offlineFetches.audioStatus === 206)
+      log(`${label}: offline fetch(audio, Range bytes=0-1) -> 206`);
+    else
+      fail(
+        `${label}: offline fetch(audio, Range bytes=0-1) -> ${offlineFetches.audioStatus} (want 206)`,
+      );
+  }
+
   try {
     await context.setOffline(true);
     await page.goto(readerUrl, { waitUntil: 'load', timeout: 8000 });
+    // The button renders after a hydration tick — isVisible() alone races
+    // it (observed: bodyText/screenshot show the reader fully rendered a
+    // moment after goto() resolves, but an immediate isVisible() check
+    // still reads false).
     const readerRenders = await page
       .getByRole('button', { name: /^(Play|Pause)$/ })
-      .isVisible()
+      .waitFor({ state: 'visible', timeout: 5000 })
+      .then(() => true)
       .catch(() => false);
     if (readerRenders)
       log(`${label}: offline reload rendered the reader (network-level offline honored by the SW)`);

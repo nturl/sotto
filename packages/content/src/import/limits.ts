@@ -55,3 +55,11 @@ export function hardSplitParagraph(paragraph: string, maxChars = MAX_PARAGRAPH_C
 export function hardSplitParagraphs(paragraphs: string[], maxChars = MAX_PARAGRAPH_CHARS): string[] {
   return paragraphs.flatMap((p) => hardSplitParagraph(p, maxChars));
 }
+
+/** EPUB zip-bomb guards (adversarial review 3, finding 7): a 25MB archive
+ * at a 1000:1 compression ratio would otherwise attempt ~25GB of
+ * allocation, synchronously, before any content is even looked at. */
+export const EPUB_MAX_ENTRIES = 2_000;
+/** Cumulative decompressed bytes are refused once they exceed this many
+ * times the archive's own (compressed) byte size. */
+export const EPUB_INFLATION_RATIO = 10;

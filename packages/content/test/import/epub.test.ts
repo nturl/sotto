@@ -122,4 +122,51 @@ describe('parseEpub', () => {
   it('throws ImportError("parse") for a non-zip buffer', () => {
     expect(() => parseEpub(new Uint8Array([1, 2, 3, 4]))).toThrow(ImportError);
   });
+
+  it('refuses a synthetic high-ratio archive (zip bomb, finding 7) without hanging', () => {
+    // A highly repetitive payload compresses at an extreme ratio — this is
+    // the shape of a zip bomb (small on disk, huge once inflated).
+    const bomb = 'A'.repeat(50_000_000); // 50MB of one repeated char
+    const epub = buildEpub({
+      'META-INF/container.xml': CONTAINER_XML,
+      'OEBPS/content.opf': opfXml(['ch1.xhtml']),
+      'OEBPS/bomb.txt': bomb,
+      'OEBPS/ch1.xhtml': '<html><body><p>Decoy chapter.</p></body></html>',
+    });
+    // Confirms the fixture is actually a high-ratio archive, i.e. this
+    // test would time out / OOM on the old unfiltered unzipSync.
+    expect(epub.length).toBeLessThan(bomb.length / 100);
+
+    const start = performance.now();
+    let thrown: unknown;
+    try {
+      parseEpub(epub);
+    } catch (err) {
+      thrown = err;
+    }
+    const elapsedMs = performance.now() - start;
+
+    expect(thrown).toBeInstanceOf(ImportError);
+    expect((thrown as ImportError).code).toBe('parse');
+    expect(elapsedMs).toBeLessThan(2000);
+  });
+
+  it('refuses an archive with more than EPUB_MAX_ENTRIES entries', () => {
+    const files: Record<string, string> = {
+      'META-INF/container.xml': CONTAINER_XML,
+      'OEBPS/content.opf': opfXml(['ch1.xhtml']),
+      'OEBPS/ch1.xhtml': '<html><body><p>Real chapter.</p></body></html>',
+    };
+    for (let i = 0; i < 2100; i += 1) files[`OEBPS/junk${i}.txt`] = 'x';
+    const epub = buildEpub(files);
+
+    let thrown: unknown;
+    try {
+      parseEpub(epub);
+    } catch (err) {
+      thrown = err;
+    }
+    expect(thrown).toBeInstanceOf(ImportError);
+    expect((thrown as ImportError).code).toBe('parse');
+  });
 });

@@ -9,10 +9,10 @@
  * both are already-vetted, widely used, MIT-licensed packages with no
  * further transitive deps of their own).
  */
-import { unzipSync } from 'fflate';
+import { unzipSync, type UnzipFileInfo } from 'fflate';
 import { XMLParser } from 'fast-xml-parser';
 import { ImportError, type ParsedChapter, type ParsedDocument } from '../types.ts';
-import { hardSplitParagraphs, MAX_CHAPTERS } from '../limits.ts';
+import { EPUB_INFLATION_RATIO, EPUB_MAX_ENTRIES, hardSplitParagraphs, MAX_CHAPTERS } from '../limits.ts';
 
 const xmlParser = new XMLParser({
   ignoreAttributes: false,
@@ -46,6 +46,8 @@ function joinPath(base: string, relative: string): string {
   return out.join('/');
 }
 
+const ENCRYPTION_XML_NAME = 'META-INF/encryption.xml';
+
 /**
  * DRM detection (planning/LEDGER.md R3-I): Adobe ADEPT / any generic
  * container-level encryption declares `META-INF/encryption.xml` with an
@@ -53,21 +55,24 @@ function joinPath(base: string, relative: string): string {
  * `rights.xml`) signature file; Readium LCP ships `META-INF/license.lcpl`.
  * Any of the three means the book cannot be parsed — refuse cleanly rather
  * than producing garbage from still-encrypted XHTML bytes.
+ *
+ * Runs on entry NAMES only (finding 7, adversarial review 3) — the caller
+ * collects `names` from the zip's central directory without inflating any
+ * entry, so a DRM'd (or zip-bomb) archive is refused before any real
+ * decompression happens. The one exception is `encryption.xml` itself,
+ * whose content (not just its presence) decides the verdict; the caller
+ * inflates that single, bounded entry as part of the same name-collection
+ * pass, never the rest of the archive.
  */
-function detectDrm(files: Record<string, Uint8Array>): void {
-  const names = Object.keys(files);
+function detectDrm(names: string[], encryptionXmlContent: string | undefined): void {
   if (names.some((n) => /^META-INF\/license\.lcpl$/i.test(n))) {
     throw new ImportError('drm', 'this EPUB is protected by Readium LCP');
   }
   if (names.some((n) => /^META-INF\/(rights\.xml|.*sinf)$/i.test(n))) {
     throw new ImportError('drm', 'this EPUB is protected by Apple FairPlay');
   }
-  const encryptionXml = names.find((n) => /^META-INF\/encryption\.xml$/i.test(n));
-  if (encryptionXml) {
-    const content = decode(files[encryptionXml] as Uint8Array);
-    if (content.includes('EncryptedData')) {
-      throw new ImportError('drm', 'this EPUB is protected by DRM (encryption.xml)');
-    }
+  if (encryptionXmlContent?.includes('EncryptedData')) {
+    throw new ImportError('drm', 'this EPUB is protected by DRM (encryption.xml)');
   }
 }
 
@@ -173,17 +178,55 @@ function decodeEntities(text: string): string {
 }
 
 export function parseEpub(bytes: Uint8Array): ParsedDocument {
-  let files: Record<string, Uint8Array>;
+  // Pass 1: walk the central directory without inflating anything, except
+  // encryption.xml itself (small, bounded) whose content the DRM check
+  // needs. `filter` is called once per entry with metadata only; returning
+  // false means fflate never decompresses that entry.
+  const names: string[] = [];
+  let namePass: Record<string, Uint8Array>;
   try {
-    files = unzipSync(bytes);
+    namePass = unzipSync(bytes, {
+      filter: (info: UnzipFileInfo) => {
+        names.push(info.name);
+        return info.name === ENCRYPTION_XML_NAME;
+      },
+    });
   } catch (err) {
     throw new ImportError(
       'parse',
       `not a valid EPUB (zip read failed): ${err instanceof Error ? err.message : String(err)}`,
     );
   }
+  if (names.length > EPUB_MAX_ENTRIES) {
+    throw new ImportError('parse', `this EPUB has ${names.length} entries, more than supported`);
+  }
+  const encryptionXmlBytes = namePass[ENCRYPTION_XML_NAME];
+  detectDrm(names, encryptionXmlBytes ? decode(encryptionXmlBytes) : undefined);
 
-  detectDrm(files);
+  // Pass 2: the archive is DRM-free and entry-count-bounded — now inflate
+  // the rest, refusing once cumulative decompressed bytes pass a ceiling
+  // relative to the archive's own (compressed) size, guarding against a
+  // high-ratio zip bomb regardless of what any single entry declares.
+  const inflationCeiling = Math.max(bytes.length, 1) * EPUB_INFLATION_RATIO;
+  let cumulativeBytes = 0;
+  let files: Record<string, Uint8Array>;
+  try {
+    files = unzipSync(bytes, {
+      filter: (info: UnzipFileInfo) => {
+        cumulativeBytes += info.originalSize;
+        if (cumulativeBytes > inflationCeiling) {
+          throw new ImportError('parse', 'this EPUB decompresses far beyond its archive size');
+        }
+        return true;
+      },
+    });
+  } catch (err) {
+    if (err instanceof ImportError) throw err;
+    throw new ImportError(
+      'parse',
+      `not a valid EPUB (zip read failed): ${err instanceof Error ? err.message : String(err)}`,
+    );
+  }
 
   const opfPath = findOpfPath(files);
   const opfBytes = files[opfPath];

@@ -170,12 +170,21 @@ const WORD_FALLBACK_FADE_MS = 60;
  * plus an optional short volume-ramp fade-out near the end of the window
  * (web only — native audio players here don't expose a per-frame gain
  * ramp, so native just keeps the padded slice, per the R3-W ledger note). */
+/** The word clip currently in flight, if any — `playSlice` creates a new
+ * `expo-audio` player per call with no shared state, so a quick second tap
+ * (before the first clip's stop timer fires) used to overlap two players.
+ * Set to the new clip's own `stop` before it starts, and cleared by that
+ * same `stop` when it runs (naturally or on cancellation), so a stale
+ * reference is never stopped twice or clobbers a later clip's slot. */
+let currentWordClip: (() => void) | undefined;
+
 function playSlice(
   uri: string,
   startMs: number,
   endMs: number,
   opts: { leadMs: number; tailMs: number; minWindowMs: number; rate: number; fadeOutMs: number },
 ): void {
+  currentWordClip?.();
   const player = createAudioPlayer({ uri }, { updateInterval: 40 });
   const startSeconds = Math.max(0, startMs - opts.leadMs) / 1000;
   const endSeconds = (Math.max(endMs, startMs + opts.minWindowMs) + opts.tailMs) / 1000;
@@ -185,11 +194,13 @@ function playSlice(
   const stop = () => {
     if (stopped) return;
     stopped = true;
+    if (currentWordClip === stop) currentWordClip = undefined;
     timers.forEach(clearTimeout);
     sub.remove();
     player.pause();
     player.remove();
   };
+  currentWordClip = stop;
   const sub = player.addListener('playbackStatusUpdate', (status: AudioStatus) => {
     if (stopped || !status.isLoaded) return;
     if (!started) {

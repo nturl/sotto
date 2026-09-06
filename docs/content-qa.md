@@ -309,7 +309,7 @@ targeted patch. It's what was blowing up `gloss-fill.ts`'s batches (a single "wo
 is actually a full sentence needs a full sentence's worth of pinyin + 9 translations,
 easily exceeding any reasonable per-call token budget) — the `max_tokens`/batch-size
 fixes above are still correct and worth keeping for future books, they just couldn't fix
-*this* book's underlying content gap.
+_this_ book's underlying content gap.
 
 Source bundle moved (not deleted) to
 `packages/content/drafts/parked/zh-luxun-kong-yiji.bundle.json`; its partial built pack
@@ -335,29 +335,29 @@ genuine within-scale signal; every book claimed **B2 or C1** will mechanically s
 tool cannot output anything above B1. Treat the B2/C1 rows as unverified by this tool,
 not as evidence of over-claiming.
 
-| book                        | claimed | estimated | verdict   | sentences | mean len | max len | TTR   | distinct words |
-| ---------------------------- | ------- | --------- | --------- | --------- | -------- | ------- | ----- | -------------- |
-| en-doyle-red-headed-league   | B2      | B1        | one below* | 94        | 18.4     | 33      | 39.7% | 687            |
-| en-london-build-a-fire       | B1      | B1        | matches   | 103       | 14.3     | 27      | 34.6% | 510            |
-| en-poe-tell-tale-heart       | C1      | B1        | unknown*  | 108       | 18.5     | 34      | 32.8% | 656            |
-| es-becquer-maese-perez       | B2      | B1        | one below* | 89        | 18.1     | 26      | 37.4% | 602            |
-| es-clarin-adios-cordera      | B2      | B1        | one below* | 100       | 16.0     | 27      | 37.3% | 597            |
-| es-conde-lucanor             | B1      | A2        | one below | 116       | 12.5     | 16      | 35.8% | 521            |
-| es-dario-rey-burgues         | C1      | B1        | unknown*  | 94        | 22.3     | 36      | 41.4% | 868            |
-| es-larra-vuelva-usted        | C1      | B1        | unknown*  | 87        | 23.5     | 46      | 36.6% | 749            |
-| es-palma-tradiciones         | B1      | B1        | matches   | 88        | 14.0     | 25      | 40.4% | 499            |
-| es-quiroga-almohadon         | B2      | B1        | one below* | 92        | 17.9     | 24      | 40.9% | 673            |
-| es-quiroga-tortuga-gigante   | B1      | A2        | one below | 108       | 12.7     | 16      | 36.7% | 503            |
-| fr-daudet-derniere-classe    | B1      | B1        | matches   | 95        | 14.2     | 23      | 38.8% | 522            |
-| fr-daudet-les-etoiles        | B1      | A2        | one below | 87        | 15.5     | 24      | 36.7% | 495            |
-| fr-flaubert-coeur-simple     | C1      | B1        | unknown*  | 100       | 21.1     | 42      | 38.1% | 802            |
-| fr-maupassant-la-parure      | B2      | B1        | one below* | 110       | 17.1     | 27      | 40.2% | 758            |
-| fr-maupassant-le-horla       | C1      | B1        | unknown*  | 105       | 22.5     | 38      | 34.6% | 816            |
-| fr-merimee-mateo-falcone     | B2      | B1        | one below* | 122       | 18.6     | 27      | 34.2% | 777            |
-| fr-verne-tour-du-monde       | B1      | A2        | one below | 86        | 15.1     | 20      | 40.8% | 531            |
-| fr-voltaire-candide          | B2      | B1        | one below* | 120       | 18.6     | 30      | 38.3% | 853            |
-| it-de-amicis-scrivano        | B1      | A2        | one below | 104       | 12.3     | 16      | 36.6% | 469            |
-| pt-machado-cartomante        | B1      | B1        | matches   | 95        | 12.8     | 15      | 40.6% | 495            |
+| book                       | claimed | estimated | verdict    | sentences | mean len | max len | TTR   | distinct words |
+| -------------------------- | ------- | --------- | ---------- | --------- | -------- | ------- | ----- | -------------- |
+| en-doyle-red-headed-league | B2      | B1        | one below* | 94        | 18.4     | 33      | 39.7% | 687            |
+| en-london-build-a-fire     | B1      | B1        | matches    | 103       | 14.3     | 27      | 34.6% | 510            |
+| en-poe-tell-tale-heart     | C1      | B1        | unknown*   | 108       | 18.5     | 34      | 32.8% | 656            |
+| es-becquer-maese-perez     | B2      | B1        | one below* | 89        | 18.1     | 26      | 37.4% | 602            |
+| es-clarin-adios-cordera    | B2      | B1        | one below* | 100       | 16.0     | 27      | 37.3% | 597            |
+| es-conde-lucanor           | B1      | A2        | one below  | 116       | 12.5     | 16      | 35.8% | 521            |
+| es-dario-rey-burgues       | C1      | B1        | unknown*   | 94        | 22.3     | 36      | 41.4% | 868            |
+| es-larra-vuelva-usted      | C1      | B1        | unknown*   | 87        | 23.5     | 46      | 36.6% | 749            |
+| es-palma-tradiciones       | B1      | B1        | matches    | 88        | 14.0     | 25      | 40.4% | 499            |
+| es-quiroga-almohadon       | B2      | B1        | one below* | 92        | 17.9     | 24      | 40.9% | 673            |
+| es-quiroga-tortuga-gigante | B1      | A2        | one below  | 108       | 12.7     | 16      | 36.7% | 503            |
+| fr-daudet-derniere-classe  | B1      | B1        | matches    | 95        | 14.2     | 23      | 38.8% | 522            |
+| fr-daudet-les-etoiles      | B1      | A2        | one below  | 87        | 15.5     | 24      | 36.7% | 495            |
+| fr-flaubert-coeur-simple   | C1      | B1        | unknown*   | 100       | 21.1     | 42      | 38.1% | 802            |
+| fr-maupassant-la-parure    | B2      | B1        | one below* | 110       | 17.1     | 27      | 40.2% | 758            |
+| fr-maupassant-le-horla     | C1      | B1        | unknown*   | 105       | 22.5     | 38      | 34.6% | 816            |
+| fr-merimee-mateo-falcone   | B2      | B1        | one below* | 122       | 18.6     | 27      | 34.2% | 777            |
+| fr-verne-tour-du-monde     | B1      | A2        | one below  | 86        | 15.1     | 20      | 40.8% | 531            |
+| fr-voltaire-candide        | B2      | B1        | one below* | 120       | 18.6     | 30      | 38.3% | 853            |
+| it-de-amicis-scrivano      | B1      | A2        | one below  | 104       | 12.3     | 16      | 36.6% | 469            |
+| pt-machado-cartomante      | B1      | B1        | matches    | 95        | 12.8     | 15      | 40.6% | 495            |
 
 \* B2/C1 claim — verdict is a tool-ceiling artifact, not independently verified (see
 caveat above).

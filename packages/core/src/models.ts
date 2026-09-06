@@ -4,7 +4,8 @@
  */
 import type { LanguageDefinition } from './languages.ts';
 
-export type BookLevel = 'A0' | 'A1' | 'A2';
+export const BOOK_LEVELS = ['A0', 'A1', 'A2', 'B1', 'B2', 'C1'] as const;
+export type BookLevel = (typeof BOOK_LEVELS)[number];
 export type BookCategory =
   'tales' | 'fables' | 'adventure' | 'classics' | 'folk' | 'idioms' | 'daily';
 export type ReviewStatus = 'draft' | 'reviewed' | 'stable';

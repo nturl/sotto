@@ -5,7 +5,7 @@
  */
 import type { CoverArt } from '../Cover';
 
-export type BookLevel = 'A0' | 'A1' | 'A2';
+export type BookLevel = 'A0' | 'A1' | 'A2' | 'B1' | 'B2' | 'C1';
 export type BookCategory = 'fables' | 'voyage' | 'contes';
 
 export type FixtureBook = {

@@ -4,11 +4,12 @@
  */
 import { serverUrl } from '../state/contentApi';
 import type { PickedFile } from './pickFile';
+import type { BookLevel } from '../ui/dev/fixtures';
 
 export interface StartImportOptions {
   locale: string;
   narrate: 'none' | 'first' | 'all';
-  level?: 'A0' | 'A1' | 'A2';
+  level?: BookLevel;
 }
 
 export interface StartImportResult {

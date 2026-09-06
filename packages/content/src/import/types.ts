@@ -2,7 +2,7 @@
  * Book import library (planning/LEDGER.md "R3-I Importer", PAID-TIER-PLAN.md
  * Lane I): shared types for parse/*, detect.ts and pipeline.ts.
  */
-import type { Book, Chapter } from '@sotto/core';
+import type { Book, BookLevel, Chapter } from '@sotto/core';
 
 /** A parsed chapter before tokenization/glossing/translation — just plain
  * text paragraphs, one string per paragraph, in reading order. */
@@ -76,7 +76,7 @@ export interface ImportOptions {
    * the seeded-content pipeline). */
   explanationLocale?: string;
   glossLocales?: string[];
-  level?: 'A0' | 'A1' | 'A2';
+  level?: BookLevel;
   llm: ImportLlmOptions;
   tts?: ImportTtsOptions;
   stt?: ImportSttOptions;

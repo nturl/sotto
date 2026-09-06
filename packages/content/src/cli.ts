@@ -88,7 +88,7 @@ async function main(): Promise<void> {
       break;
     default:
       console.error(
-        'usage: sotto-content <import|new|build|validate|narrate|word-audio|covers|align|translate-sentences> [bookId] [--fill] [--force] [--fixtures] [--locale xx] [--book id] [--dry-run] [--title ...] [--author ...] [--from file] [--level A0|A1|A2] [--out dir] [--narrate none|first|all]',
+        'usage: sotto-content <import|new|build|validate|narrate|word-audio|covers|align|translate-sentences> [bookId] [--fill] [--force] [--fixtures] [--locale xx] [--book id] [--dry-run] [--title ...] [--author ...] [--from file] [--level A0|A1|A2|B1|B2|C1] [--out dir] [--narrate none|first|all]',
       );
       process.exitCode = 1;
   }

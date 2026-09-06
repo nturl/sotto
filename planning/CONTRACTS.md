@@ -41,7 +41,7 @@ Seed packs tonight: `fr-FR` (3 books), `es-419` (3), `en-US` (3), `pt-BR` (1), `
   "sourceJurisdiction": "Public domain worldwide (author died 1703)",
   "adaptationEditor": "Sotto contributors (AI first draft)",
   "reviewStatus": "draft",                    // draft | reviewed | stable. Tonight: ALWAYS "draft".
-  "level": "A1",                              // A0 | A1 | A2
+  "level": "A1",                              // A0 | A1 | A2 | B1 | B2 | C1
   "categories": ["tales"],                    // tales | fables | adventure | classics | folk | idioms | daily
   "estimatedMinutes": 6,
   "localizedTitles": { "en": "...", "fr": "...", "es": "..." },
@@ -84,7 +84,7 @@ Rules: sentences are one plain string each; the builder tokenizes. Chinese (`zh-
 `Book`, `Chapter`, `Token` as in 2b. Plus:
 - `ReadingProgress { bookId, chapterId, tokenId?, audioPositionMs, percentComplete, updatedAt, completedAt? }`
 - `SavedWord { id, bookId, chapterId, tokenId, sentenceId, sourceLocale, explanationLocale, sourceWord, normalizedWord, translation, pronunciationGuide?, contextSentence, savedAt, review: { ease: number, intervalDays: number, dueAt: string, reps: number, lapses: number, lastRating?: 'again'|'hard'|'easy' } }`
-- `UserPreferences { interfaceLocale, explanationLocale, learningLocale, level: 'A0'|'A1'|'A2', immersionMode: boolean, tutorVoice?: string, defaultTutorMode: TutorMode, captionsEnabled: boolean, turnDetection: 'auto'|'push', correctionFrequency: 'low'|'normal'|'high', speakingPace: 'slow'|'normal', narrationSpeed: 0.75|1|1.25, onboarded: boolean }`
+- `UserPreferences { interfaceLocale, explanationLocale, learningLocale, level: 'A0'|'A1'|'A2'|'B1'|'B2'|'C1', immersionMode: boolean, tutorVoice?: string, defaultTutorMode: TutorMode, captionsEnabled: boolean, turnDetection: 'auto'|'push', correctionFrequency: 'low'|'normal'|'high', speakingPace: 'slow'|'normal', narrationSpeed: 0.75|1|1.25, onboarded: boolean }`
 - `TutorMode = 'read_to_me' | 'read_with_me' | 'pronunciation' | 'discuss'`
 - `VoiceSessionRecord { id, bookId, chapterId, mode, status: 'active'|'paused'|'ended', startedAt, endedAt?, lastTokenId?, transcriptSummary?: string }`
 - `TutorEvent { id, sessionId, type: 'caption'|'tool_call'|'tool_result'|'state'|'error', speaker?: 'learner'|'tutor', text?: string, payload?: unknown, tokenIds?: string[], createdAt }` (captions are ephemeral; only summaries + saves persist)

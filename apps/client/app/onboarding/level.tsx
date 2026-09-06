@@ -15,6 +15,9 @@ const LEVELS: Array<{ value: BookLevel; descKey: MessageKey }> = [
   { value: 'A0', descKey: 'onboarding.level.a0.desc' },
   { value: 'A1', descKey: 'onboarding.level.a1.desc' },
   { value: 'A2', descKey: 'onboarding.level.a2.desc' },
+  { value: 'B1', descKey: 'onboarding.level.b1.desc' },
+  { value: 'B2', descKey: 'onboarding.level.b2.desc' },
+  { value: 'C1', descKey: 'onboarding.level.c1.desc' },
 ];
 
 export default function OnboardingLevelScreen() {

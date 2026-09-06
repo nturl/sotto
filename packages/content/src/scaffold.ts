@@ -7,6 +7,7 @@
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
+import { BOOK_LEVELS, type BookLevel } from '@sotto/core';
 import { SOURCE_DIR } from './paths.ts';
 import { SourceBundleSchema, type SourceBundle, type SourceChapterSchema } from './types.ts';
 import type { z } from 'zod';
@@ -18,7 +19,7 @@ export interface ScaffoldOptions {
   author: string;
   /** Path to a plain-text file to split into the book's one chapter. */
   fromFile?: string;
-  level?: 'A0' | 'A1' | 'A2';
+  level?: BookLevel;
 }
 
 type SourceChapter = z.infer<typeof SourceChapterSchema>;
@@ -176,8 +177,8 @@ export function runNewCommand(opts: {
   if (!opts.locale) throw new Error('sotto-content new: --locale is required (e.g. fr-FR)');
   if (!opts.title) throw new Error('sotto-content new: --title is required');
   if (!opts.author) throw new Error('sotto-content new: --author is required');
-  if (opts.level && !['A0', 'A1', 'A2'].includes(opts.level)) {
-    throw new Error('sotto-content new: --level must be one of A0, A1, A2');
+  if (opts.level && !BOOK_LEVELS.includes(opts.level as BookLevel)) {
+    throw new Error(`sotto-content new: --level must be one of ${BOOK_LEVELS.join(', ')}`);
   }
 
   const { filePath } = runScaffold({
@@ -186,7 +187,7 @@ export function runNewCommand(opts: {
     title: opts.title,
     author: opts.author,
     fromFile: opts.from,
-    level: opts.level as 'A0' | 'A1' | 'A2' | undefined,
+    level: opts.level as BookLevel | undefined,
   });
 
   console.log(`sotto-content new: wrote ${filePath}`);

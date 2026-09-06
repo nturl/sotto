@@ -17,7 +17,7 @@ const UserPreferencesSchema = z
     interfaceLocale: z.string(),
     explanationLocale: z.string(),
     learningLocale: z.string(),
-    level: z.enum(['A0', 'A1', 'A2']),
+    level: z.enum(['A0', 'A1', 'A2', 'B1', 'B2', 'C1']),
     immersionMode: z.boolean(),
     tutorVoice: z.string().optional(),
     defaultTutorMode: TutorModeSchema,

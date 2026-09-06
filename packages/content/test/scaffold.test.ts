@@ -92,7 +92,7 @@ describe('buildScaffoldBundle', () => {
       title: 'Le Test',
       author: 'A. Contributor',
     });
-    expect(['A0', 'A1', 'A2']).toContain(bundle.level);
+    expect(['A0', 'A1', 'A2', 'B1', 'B2', 'C1']).toContain(bundle.level);
   });
 });
 

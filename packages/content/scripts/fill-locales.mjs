@@ -1,11 +1,15 @@
 #!/usr/bin/env node
 /**
  * Lane D1 standalone gloss filler — widens glossary/vocabulary-gloss/
- * localizedTitles/premise/summary coverage to the six explanation locales
- * beyond en/fr/es (pt, it, zh-Hans, zh-Hant, ro, ca), reusing the same
+ * localizedTitles/premise/summary coverage across all nine explanation
+ * locales (en, fr, es, pt, it, zh-Hans, zh-Hant, ro, ca), reusing the same
  * batch-prompt shape as src/gloss-fill.ts's fillGlossesBatch (read-only for
  * this lane — see docs/content-qa.md for the exact diff that would let
- * build.ts's native --fill do this natively).
+ * build.ts's native --fill do this natively). en/fr/es were added for the
+ * library-expansion run (planning/LIBRARY-EXPANSION.md Lane P): a French
+ * book, for instance, is missing es/en premise/summary/localizedTitles/
+ * vocabulary.gloss just like it's missing pt/it/etc — only its own content
+ * locale (fr, via NATIVE_EXPLANATION_LOCALE) short-circuits to identity.
  *
  * Writes directly into packages/content/source/<bookId>.bundle.json.
  * Does NOT touch packs/ — run `pnpm content:build` (under the build lock)
@@ -38,6 +42,9 @@ const DEEPSEEK_CONCURRENCY = 8;
 const BATCH_SIZE = 40;
 
 const LOCALE_LANGUAGE_NAME = {
+  en: 'English',
+  fr: 'French',
+  es: 'Spanish',
   pt: 'Portuguese',
   it: 'Italian',
   'zh-Hans': 'Chinese (Simplified)',
@@ -57,7 +64,7 @@ const CONTENT_LANGUAGE_NAME = {
   'ca-ES': 'Catalan',
 };
 
-const DEFAULT_ORDER = ['pt', 'it', 'zh-Hans', 'zh-Hant', 'ro', 'ca'];
+const DEFAULT_ORDER = ['en', 'fr', 'es', 'pt', 'it', 'zh-Hans', 'zh-Hant', 'ro', 'ca'];
 
 /**
  * A book's own content language, mapped to the explanation-locale code that
@@ -72,6 +79,9 @@ const DEFAULT_ORDER = ['pt', 'it', 'zh-Hans', 'zh-Hant', 'ro', 'ca'];
  * translations of premise.en, not copies of any book text).
  */
 const NATIVE_EXPLANATION_LOCALE = {
+  'en-US': 'en',
+  'fr-FR': 'fr',
+  'es-419': 'es',
   'ro-RO': 'ro',
   'it-IT': 'it',
   'pt-BR': 'pt',

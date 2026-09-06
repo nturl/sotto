@@ -29,7 +29,7 @@ const DEFAULT_CORS_ORIGINS = 'http://localhost:8081,http://127.0.0.1:8081,http:/
 const importFieldsSchema = z.object({
   locale: z.string().min(2),
   narrate: z.enum(['none', 'first', 'all']).default('first'),
-  level: z.enum(['A0', 'A1', 'A2']).optional(),
+  level: z.enum(['A0', 'A1', 'A2', 'B1', 'B2', 'C1']).optional(),
 });
 
 function audioContentType(file: string): string {

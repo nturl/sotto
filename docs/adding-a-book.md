@@ -63,7 +63,10 @@ Sotto books are short, simplified retellings, not the raw source text
 verbatim — abridge the story down to the target CEFR level before running
 it through the scaffold. `docs/content-qa.md`'s level-sanity report (a
 DeepSeek-scored pass over all 18 shipped books) gives the empirical
-heuristics reviewers actually use, distilled here:
+heuristics reviewers actually use, distilled here; for B1-C1 targets
+(chapter count, word count, sentence length, tense/grammar inventory, and
+vocabulary register), see the level table in
+`planning/LIBRARY-EXPANSION.md` ("Level targets for authors").
 
 - **Tense inventory is the single strongest level signal.** A0 stays in
   present tense only, no past/future marking at all. A1 allows one simple

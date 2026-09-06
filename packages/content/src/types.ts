@@ -75,7 +75,7 @@ export const SourceBundleSchema = z
     adaptationEditor: z.string().min(1),
     reviewStatus: z.enum(['draft', 'reviewed', 'stable']),
     reviewedBy: z.string().optional(),
-    level: z.enum(['A0', 'A1', 'A2']),
+    level: z.enum(['A0', 'A1', 'A2', 'B1', 'B2', 'C1']),
     categories: z
       .array(z.enum(['tales', 'fables', 'adventure', 'classics', 'folk', 'idioms', 'daily']))
       .min(1),

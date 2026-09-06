@@ -46,7 +46,7 @@ export const passageContextSchema = z.object({
 export type PassageContext = z.infer<typeof passageContextSchema>;
 
 export const learnerContextSchema = z.object({
-  level: z.enum(['A0', 'A1', 'A2']),
+  level: z.enum(['A0', 'A1', 'A2', 'B1', 'B2', 'C1']),
   learningLocale: z.string(),
   explanationLocale: z.string(),
 });

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useRouter } from 'expo-router';
+import { BOOK_LEVELS } from '@sotto/core';
 import { space } from '@sotto/core/theme';
 import { useT } from '../../src/i18n/useT';
 import { Chip } from '../../src/ui/Chip';
@@ -14,7 +15,7 @@ import { Text } from '../../src/ui/Text';
 import { fetchHealth } from '../../src/state/contentApi';
 
 type Filter = 'all' | BookCategory | BookLevel;
-const LEVELS: BookLevel[] = ['A0', 'A1', 'A2'];
+const LEVELS: BookLevel[] = [...BOOK_LEVELS];
 
 export default function LibraryScreen() {
   const t = useT();

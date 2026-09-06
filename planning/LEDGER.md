@@ -718,3 +718,8 @@ CARRIED TO RUN 7
 - An end-to-end own-provider session on a device after Noel's checklist.
 - Option (b) from CONFIRM 10 (one origin) still costed and parked.
 - `sw.js`'s background fill could prefer the warm cache: the sprite is now in `bookCacheUrls`, so the pass-through fill only matters for taps that beat the warm.
+
+## Run 7 (2026-09-06, Fable orchestrator, spec planning/KICKOFF-7-FABLE.md)
+
+- 2026-09-06 ~17:30 Launched from Noel's session ("kick it off here"). Gate: walk-away and multi-file pass; the account/sign-in lane and the setting's storage/validation work are cordoned to separate headless Opus processes, not subagents of this session. Decision slots D-1..D-7 all blank: defaults taken (accounts on the paid origin with `free` entitlement; email magic link + Apple only, Google written up; free = read/listen/lookups/vocabulary/browser-model tutor, no quotas in copy; own-provider allowed without a plan; NO unattended Fly deploy; headline kept, passage labelled as a sample; desktop Chrome for tutor proof).
+- Three read-only Sonnet scouts dispatched (navigation/reader, tutor pipeline, landing/account/plan gating) -> `~/Claude/sotto-run7-recon/`.

@@ -7,6 +7,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getLanguage, type TutorMode } from '@sotto/core';
 import { radius, space } from '@sotto/core/theme';
+import { useCloud } from '../../src/cloud/provider';
 import { useT } from '../../src/i18n/useT';
 import { Button } from '../../src/ui/Button';
 import { CloseGlyph, MicGlyph, MuteGlyph, ReplayGlyph, StopGlyph } from '../../src/ui/Glyphs';
@@ -39,6 +40,7 @@ function stateColor(state: string, colors: ReturnType<typeof useTheme>['colors']
 export default function VoiceScreen() {
   const t = useT();
   const router = useRouter();
+  const cloud = useCloud();
   const insets = useSafeAreaInsets();
   const { colors } = useTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
@@ -288,11 +290,27 @@ export default function VoiceScreen() {
             onChanged={session.recheckAvailability}
             showRemove={false}
           />
-          <Button
-            title={t('voice.readAlone')}
-            variant="secondary"
-            onPress={() => router.replace(readSeulPath)}
-          />
+          <View style={styles.recoveryButtons}>
+            {cloud.enabled ? (
+              <Button
+                title={t('voice.subscribe')}
+                onPress={() => router.push('/paywall')}
+                style={styles.recoveryButton}
+              />
+            ) : null}
+            <Button
+              title={t('byok.row')}
+              variant="secondary"
+              onPress={() => router.push('/settings/openai-key')}
+              style={styles.recoveryButton}
+            />
+            <Button
+              title={t('voice.readAlone')}
+              variant="secondary"
+              onPress={() => router.replace(readSeulPath)}
+              style={styles.recoveryButton}
+            />
+          </View>
         </View>
       ) : isServerUnavailable ? (
         <View style={styles.recovery}>
@@ -302,11 +320,27 @@ export default function VoiceScreen() {
           <Text role="caption" color="ink3" style={styles.recoveryText}>
             {t('voice.unavailableHint')}
           </Text>
-          <Button
-            title={t('voice.readAlone')}
-            variant="secondary"
-            onPress={() => router.replace(readSeulPath)}
-          />
+          <View style={styles.recoveryButtons}>
+            {cloud.enabled ? (
+              <Button
+                title={t('voice.subscribe')}
+                onPress={() => router.push('/paywall')}
+                style={styles.recoveryButton}
+              />
+            ) : null}
+            <Button
+              title={t('byok.row')}
+              variant="secondary"
+              onPress={() => router.push('/settings/openai-key')}
+              style={styles.recoveryButton}
+            />
+            <Button
+              title={t('voice.readAlone')}
+              variant="secondary"
+              onPress={() => router.replace(readSeulPath)}
+              style={styles.recoveryButton}
+            />
+          </View>
         </View>
       ) : isBroken ? (
         // R3-S: cap_exhausted/plan_required (a CloudError surfaced through
@@ -499,6 +533,8 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     },
     recoveryButtons: {
       flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
       gap: space.sm,
     },
     recoveryButton: {

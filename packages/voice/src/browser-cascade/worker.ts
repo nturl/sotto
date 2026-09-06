@@ -673,7 +673,10 @@ async function transcribeSegment(segment: Int16Array): Promise<void> {
   try {
     const audio = pcm16ToFloat32(segment);
     const result = (await sttPipeline(audio, {
-      language: iso639(session.payload.learner.learningLocale),
+      // No `language`: forcing it to the learning locale made Whisper
+      // decode whatever it heard into that locale instead of transcribing
+      // it (BUGS-TUTOR-RUN5.md #1 — English speech during a Spanish book
+      // came back as a Spanish paraphrase). Leaving it unset auto-detects.
       task: 'transcribe',
       // Bounds the "de de de de..." decoder-collapse failure mode
       // (docs/evidence/browser-tutor-stt-regression-2026-09-05.log): with no

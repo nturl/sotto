@@ -42,13 +42,31 @@ describe('EnergyVad', () => {
   });
 
   it('fires speech_end only after silenceEndMs of sustained silence', () => {
-    const vad = new EnergyVad();
+    // Pinned explicitly (matches apps/server/src/voice/vad.test.ts's
+    // convention) so this test keeps exercising the *mechanism* regardless
+    // of what the default silenceEndMs happens to be tuned to.
+    const vad = new EnergyVad({ silenceEndMs: 700 });
     for (let i = 0; i < 20; i++) vad.process(LOUD);
     const during = [];
     for (let i = 0; i < 34; i++) during.push(...vad.process(SILENT));
     expect(during).toEqual([]); // 680 ms
     expect(vad.process(SILENT)).toEqual([{ type: 'speech_end' }]);
     expect(vad.isSpeaking).toBe(false);
+  });
+
+  // BUGS-TUTOR-RUN5.md #4: a learner recalling a word mid-sentence pauses
+  // longer than a fluent speaker; the old 700ms default cut the turn there,
+  // sending "No me parece que..." to STT as a complete (and meaningless)
+  // utterance. 1000ms gives more room for a thinking-pause without the
+  // hangover itself waiting through it (case default; see also
+  // apps/server/src/voice/vad.ts, which shares this tuning).
+  it('defaults silenceEndMs to 1000ms so a learner mid-sentence pause does not end the turn', () => {
+    const vad = new EnergyVad();
+    for (let i = 0; i < 20; i++) vad.process(LOUD);
+    const during = [];
+    for (let i = 0; i < 49; i++) during.push(...vad.process(SILENT));
+    expect(during).toEqual([]); // 980 ms — still mid-pause at the old 700ms default
+    expect(vad.process(SILENT)).toEqual([{ type: 'speech_end' }]); // 1000 ms
   });
 
   it('a short blip does not open a turn (the counter resets on silence)', () => {

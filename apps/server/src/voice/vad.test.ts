@@ -81,6 +81,24 @@ describe('EnergyVad', () => {
     expect(finalEvents).toEqual([{ type: 'speech_end' }]);
   });
 
+  // BUGS-TUTOR-RUN5.md #4: a learner recalling a word mid-sentence pauses
+  // longer than a fluent speaker; the old 700ms default cut the turn there.
+  // Mirrors packages/voice/src/browser-cascade/vad.ts's default, which this
+  // file is the verified reference for.
+  it('defaults silenceEndMs to 1000ms so a learner mid-sentence pause does not end the turn', () => {
+    const vad = new EnergyVad({ sampleRate: SAMPLE_RATE, minSpeechMs: 300, rmsThreshold: 0.02 });
+    for (let i = 0; i < 15; i++) vad.process(toneFrame(5000)); // 300ms, opens the turn
+
+    let sawEnd = false;
+    for (let i = 0; i < 49; i++) {
+      // 980 ms — still mid-pause at the old 700ms default
+      const events = vad.process(silenceFrame());
+      if (events.some((e) => e.type === 'speech_end')) sawEnd = true;
+    }
+    expect(sawEnd).toBe(false);
+    expect(vad.process(silenceFrame())).toEqual([{ type: 'speech_end' }]); // 1000 ms
+  });
+
   it('reset() clears accumulated state', () => {
     const vad = new EnergyVad({ sampleRate: SAMPLE_RATE, minSpeechMs: 300, rmsThreshold: 0.02 });
     for (let i = 0; i < 14; i++) vad.process(toneFrame(5000)); // just under the 15-frame threshold

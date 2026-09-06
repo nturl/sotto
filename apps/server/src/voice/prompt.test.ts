@@ -79,7 +79,11 @@ describe('buildSystemInstruction passage rendering', () => {
       .join('\n');
     expect(out).toContain(newStyle);
     expect(newStyle.length).toBeLessThan(oldStyle.length);
-    // Whole instruction stays well inside the ~900-token budget (~4 chars/token).
-    expect(out.length).toBeLessThan(3600);
+    // Whole instruction stays well inside the ~950-token budget (~4 chars/token).
+    // Budget raised from 3600 to fit the reply-in-kind rule added for
+    // BUGS-TUTOR-RUN5.md #2 (there were only 4 spare characters left at
+    // 3600; that rule needed ~111 to state clearly). Kept in sync with
+    // packages/core/src/prompt.test.ts, which exercises the same builder.
+    expect(out.length).toBeLessThan(3800);
   });
 });

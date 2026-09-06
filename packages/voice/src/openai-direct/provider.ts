@@ -24,7 +24,12 @@
  * used here: the GA WebSocket handshake works browser-direct too (same log),
  * but planning/STRATEGY.md keeps the measured cascade as the shipped path.
  */
-import { buildSystemInstruction, type ToolResult, type TutorMode } from '@sotto/core';
+import {
+  buildSystemInstruction,
+  sttLanguageHint,
+  type ToolResult,
+  type TutorMode,
+} from '@sotto/core';
 import type { VoiceEvent, VoiceState } from '../events.ts';
 import type { SessionOptions, VoiceProvider } from '../provider.ts';
 import type { AudioAdapter } from '../transports/audio-adapter.ts';
@@ -331,7 +336,7 @@ export class OpenAIDirectProvider implements VoiceProvider {
       const text = await transcribe({
         apiKey: this.apiKey,
         pcm: segment,
-        language: this.opts.learner.learningLocale,
+        prompt: sttLanguageHint(this.opts.learner),
         fetch: this.fetchImpl,
         ...(this.baseUrl ? { baseUrl: this.baseUrl } : {}),
         ...(this.models.stt ? { model: this.models.stt } : {}),

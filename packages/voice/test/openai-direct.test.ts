@@ -17,6 +17,7 @@ import {
   byokError,
   OpenAIHttpError,
   pcm16ToWav,
+  transcribe,
   validateOpenAIKey,
   voiceForLocale,
 } from '../src/openai-direct/api.ts';
@@ -131,6 +132,41 @@ describe('api helpers', () => {
     });
   });
 
+  // BUGS-TUTOR-RUN5.md #1: a forced `language` makes Whisper decode whatever
+  // it hears into that locale, so English speech during a Spanish book came
+  // back as a Spanish paraphrase, not English text. `language` must now be
+  // opt-in only; the default (BYOK) path leaves it unset.
+  it('transcribe() omits `language` by default and sends an optional prompt bias instead', async () => {
+    let seenForm: FormData | null = null;
+    const fakeFetch = vi.fn(async (_url: string, init?: RequestInit) => {
+      seenForm = init?.body as FormData;
+      return new Response(JSON.stringify({ text: 'hi' }), { status: 200 });
+    });
+    await transcribe({
+      apiKey: KEY,
+      pcm: new Int16Array(10),
+      prompt: 'The speaker may talk in es-419 or en.',
+      fetch: fakeFetch as unknown as typeof fetch,
+    });
+    expect(seenForm!.has('language')).toBe(false);
+    expect(seenForm!.get('prompt')).toBe('The speaker may talk in es-419 or en.');
+  });
+
+  it('transcribe() still forces `language` when a caller explicitly opts in', async () => {
+    let seenForm: FormData | null = null;
+    const fakeFetch = vi.fn(async (_url: string, init?: RequestInit) => {
+      seenForm = init?.body as FormData;
+      return new Response(JSON.stringify({ text: 'hi' }), { status: 200 });
+    });
+    await transcribe({
+      apiKey: KEY,
+      pcm: new Int16Array(10),
+      language: 'fr-FR',
+      fetch: fakeFetch as unknown as typeof fetch,
+    });
+    expect(seenForm!.get('language')).toBe('fr');
+  });
+
   it('picks one documented voice per language and falls back to alloy', () => {
     expect(voiceForLocale('es-419')).toBe('coral');
     expect(voiceForLocale('fr-FR')).toBe('ballad');
@@ -198,6 +234,15 @@ describe('OpenAIDirectProvider', () => {
       hosts.push(new URL(input).host);
       if (input.endsWith('/audio/transcriptions')) {
         expect((init?.headers as Record<string, string>).Authorization).toBe(`Bearer ${KEY}`);
+        // BUGS-TUTOR-RUN5.md #1: forcing `language` to the learning locale
+        // decodes any other spoken language as a paraphrase in that locale
+        // instead of transcribing it. Whisper must be left to auto-detect;
+        // the two locales in play go in `prompt` as a soft bias only.
+        const form = init?.body as FormData;
+        expect(form.has('language')).toBe(false);
+        const prompt = form.get('prompt');
+        expect(prompt).toContain(SESSION.learner.learningLocale);
+        expect(prompt).toContain(SESSION.learner.explanationLocale);
         return new Response(JSON.stringify({ text: '¿Qué significa cigarra?' }), { status: 200 });
       }
       if (input.endsWith('/chat/completions')) {

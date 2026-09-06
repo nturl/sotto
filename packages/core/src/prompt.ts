@@ -130,7 +130,9 @@ When a tool needs a tokenId, copy it from the passage's word list: each sentence
 words as word=suffix, and the full tokenId is the sentence id + "." + suffix (b1.s1 and
 cigarra=t6 give b1.s1.t6). Never derive a tokenId by counting words; punctuation also has
 ids, so counts are wrong. Pass the word itself as well whenever a tool accepts it.
-Keep ordinary spoken responses short and avoid unnecessary greetings or praise.
+Keep ordinary spoken responses short and avoid unnecessary greetings or praise. If the learner
+switches language, reply in the language the learner just used, then offer to return to
+${learner.learningLocale}.
 
 If the learner says "slower" or asks you to slow down, include the marker [[pace: slow]] at the
 start of your next reply; if they ask for normal speed again, include [[pace: normal]]. These
@@ -158,4 +160,21 @@ export function buildModeChangeInstruction(mode: TutorMode, explanationLocale: s
     `You just switched the tutor session to mode "${mode}". In ${explanationLocale}, say one short ` +
     'sentence acknowledging the new mode. No greeting, no markers, no tool calls.'
   );
+}
+
+/**
+ * A soft decoding bias for STT, naming both locales a learner might speak
+ * in this session. Every STT call site must let Whisper auto-detect the
+ * spoken language rather than forcing `language` to `learningLocale` — a
+ * forced language decodes whatever it hears into that locale instead of
+ * transcribing it (BUGS-TUTOR-RUN5.md #1: an English answer during a
+ * Spanish book came back as a Spanish paraphrase, never English). This
+ * hint is deliberately just a naming of the two locales, not an
+ * instruction — Whisper's `prompt` field biases vocabulary/spelling, it
+ * does not force a language the way `language` does.
+ */
+export function sttLanguageHint(
+  learner: Pick<TutorLearnerContext, 'learningLocale' | 'explanationLocale'>,
+): string {
+  return `The speaker may talk in ${learner.learningLocale} or ${learner.explanationLocale}.`;
 }

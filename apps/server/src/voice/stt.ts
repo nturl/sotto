@@ -1,11 +1,15 @@
 /**
  * STT client: POSTs a captured speech segment (wav) to the whisper-server /
  * speaches-compatible /v1/audio/transcriptions endpoint (planning/CONTRACTS.md
- * §5d). `language` is the learner's learning-locale ISO 639-1 code; if the
- * first transcript looks empty the caller retries once with the explanation
- * locale (learner may have spoken the explanation language, e.g. asking for
- * help in English while learning French).
+ * §5d). `language` is opt-in only: forcing it to the learner's learning
+ * locale made Whisper decode whatever it heard into that locale instead of
+ * transcribing it (BUGS-TUTOR-RUN5.md #1 — an English answer during a
+ * Spanish book came back as a Spanish paraphrase, never English). The live
+ * path (`transcribeWithFallback`) leaves `language` unset so Whisper
+ * auto-detects, and biases decoding with a `prompt` naming both the
+ * learning and explanation locale instead.
  */
+import { sttLanguageHint } from '@sotto/core';
 import { encodeWav } from './wav.js';
 
 export interface SttConfig {
@@ -26,8 +30,9 @@ function iso639(locale: string): string {
 export async function transcribe(
   pcm16: Uint8Array,
   sampleRate: number,
-  language: string,
+  language: string | undefined,
   config: SttConfig,
+  prompt?: string,
   signal?: AbortSignal,
 ): Promise<SttResult> {
   const doFetch = config.fetchImpl ?? fetch;
@@ -35,7 +40,8 @@ export async function transcribe(
 
   const form = new FormData();
   form.set('file', new Blob([new Uint8Array(wav)], { type: 'audio/wav' }), 'segment.wav');
-  form.set('language', iso639(language));
+  if (language) form.set('language', iso639(language));
+  if (prompt) form.set('prompt', prompt);
   form.set('response_format', 'json');
   if (config.model) form.set('model', config.model);
 
@@ -56,8 +62,10 @@ export async function transcribe(
 }
 
 /**
- * Transcribes with the learning locale first; if the result is empty, retries
- * once with the explanation locale (the learner may have switched languages).
+ * Transcribes once with no forced language (auto-detect) and a `prompt`
+ * naming both locales as a soft bias — see the file header for why a forced
+ * `language`, and the emptiness-gated retry this replaced, let a garbled
+ * but non-empty wrong-language transcript through uncaught.
  */
 export async function transcribeWithFallback(
   pcm16: Uint8Array,
@@ -67,8 +75,12 @@ export async function transcribeWithFallback(
   config: SttConfig,
   signal?: AbortSignal,
 ): Promise<SttResult> {
-  const first = await transcribe(pcm16, sampleRate, learningLocale, config, signal);
-  if (first.text.length > 0) return first;
-  if (iso639(learningLocale) === iso639(explanationLocale)) return first;
-  return transcribe(pcm16, sampleRate, explanationLocale, config, signal);
+  return transcribe(
+    pcm16,
+    sampleRate,
+    undefined,
+    config,
+    sttLanguageHint({ learningLocale, explanationLocale }),
+    signal,
+  );
 }

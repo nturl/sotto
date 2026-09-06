@@ -181,12 +181,26 @@ export function startSession(params: {
       },
       onReading: (tokenIds) => useSottoStore.getState().setReadingTokenIds(tokenIds),
       onLimit: (reason) => useSottoStore.getState().setLimitReason(reason),
-      onError: (entry) =>
+      onError: (entry) => {
         useSottoStore.getState().setVoiceError({
           code: entry.code,
           message: entry.message,
           recoverable: entry.recoverable,
-        }),
+        });
+        // BUGS-TUTOR-RUN5.md #3: a recoverable error (429, network blip)
+        // returns the session straight to `listening` with no `isBroken`
+        // panel — previously the learner just got silence with no
+        // indication anything happened. The non-recoverable case still
+        // gets its own dedicated panel (voice screen's `isBroken`), so it
+        // does not need a caption too.
+        if (entry.recoverable) {
+          useSottoStore.getState().pushCaption({
+            speaker: 'tutor',
+            text: 'Sorry, something went wrong there. Please try again.',
+            final: true,
+          });
+        }
+      },
       onToolEvent: (entry) => useSottoStore.getState().pushToolEvent(entry),
       onUsage: (entry) => useSottoStore.getState().setRemainingSeconds(entry.remainingSeconds),
     });

@@ -90,3 +90,70 @@ describe('sessionManager.setMode', () => {
     expect(testStore.useStore.getState().sessionRecord).toBeNull();
   });
 });
+
+// BUGS-TUTOR-RUN5.md #3, second candidate mechanism: `failTurn` sets
+// `voiceState` back to 'listening' for a recoverable error, so the voice
+// screen's `isBroken` panel (gated on voiceState === 'error') never shows —
+// a transient 429 or network blip during STT/LLM previously left the
+// learner with dead silence and zero indication anything happened, reading
+// as "the tutor ignored me". `onError` must surface a recoverable error
+// somewhere the learner can see it even when the session stays usable.
+describe('sessionManager onError', () => {
+  afterEach(async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.endSession();
+  });
+
+  it('surfaces a recoverable error as a caption instead of failing silently', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+
+    const provider = sessionManager.getProvider() as unknown as {
+      emit: (e: { type: 'error'; code: string; message: string; recoverable: boolean }) => void;
+    };
+    const captionsBefore = testStore.useStore.getState().captions.length;
+    provider.emit({
+      type: 'error',
+      code: 'stt_failed',
+      message: 'network blip',
+      recoverable: true,
+    });
+
+    const state = testStore.useStore.getState();
+    expect(state.voiceError).toMatchObject({ code: 'stt_failed', recoverable: true });
+    expect(state.captions.length).toBeGreaterThan(captionsBefore);
+    expect(state.captions.at(-1)).toMatchObject({ speaker: 'tutor' });
+  });
+
+  it('does not caption a non-recoverable error (the broken-session panel handles that)', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+
+    const provider = sessionManager.getProvider() as unknown as {
+      emit: (e: { type: 'error'; code: string; message: string; recoverable: boolean }) => void;
+    };
+    const captionsBefore = testStore.useStore.getState().captions.length;
+    provider.emit({
+      type: 'error',
+      code: 'byok_invalid_key',
+      message: 'bad key',
+      recoverable: false,
+    });
+
+    expect(testStore.useStore.getState().captions.length).toBe(captionsBefore);
+  });
+});

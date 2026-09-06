@@ -201,8 +201,18 @@ export function pcm16ToWav(pcm: Int16Array, sampleRate = CAPTURE_SAMPLE_RATE): A
 export interface TranscribeOptions {
   apiKey: string;
   pcm: Int16Array;
-  /** Learner's learningLocale; sent as ISO-639-1 so the model doesn't guess. */
-  language: string;
+  /**
+   * Optional ISO-639-1 override. Leave undefined (the default for every
+   * live call site) so Whisper auto-detects the spoken language instead of
+   * forcing every utterance into the learner's learning locale — a forced
+   * language decodes whatever it hears into that locale instead of
+   * transcribing it (BUGS-TUTOR-RUN5.md #1: an English answer during a
+   * Spanish book came back as a Spanish paraphrase, never English).
+   */
+  language?: string;
+  /** Soft decoding bias naming the locales in play, without forcing one
+   * (see @sotto/core's `sttLanguageHint`). */
+  prompt?: string;
   model?: string;
   fetch?: typeof fetch;
   baseUrl?: string;
@@ -217,7 +227,8 @@ export async function transcribe(opts: TranscribeOptions): Promise<string> {
   const form = new FormData();
   form.append('file', new Blob([wav], { type: 'audio/wav' }), 'utterance.wav');
   form.append('model', opts.model ?? DEFAULT_STT_MODEL);
-  form.append('language', iso639(opts.language));
+  if (opts.language) form.append('language', iso639(opts.language));
+  if (opts.prompt) form.append('prompt', opts.prompt);
   // No Content-Type header: the browser must set the multipart boundary
   // itself, which also keeps the preflight's Access-Control-Request-Headers
   // to `authorization` alone (byok-cors log, endpoint 1).

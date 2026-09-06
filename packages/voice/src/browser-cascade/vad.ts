@@ -86,7 +86,10 @@ export class EnergyVad {
   constructor(opts: EnergyVadOptions = {}) {
     this.rmsThreshold = opts.rmsThreshold ?? 0.02;
     this.minSpeechMs = opts.minSpeechMs ?? 300;
-    this.silenceEndMs = opts.silenceEndMs ?? 700;
+    // BUGS-TUTOR-RUN5.md #4: 700ms cut off a learner's mid-sentence
+    // thinking-pause and sent the fragment to STT as if it were a complete
+    // utterance. 1000ms (see apps/server/src/voice/vad.ts, same tuning).
+    this.silenceEndMs = opts.silenceEndMs ?? 1000;
     this.sampleRate = opts.sampleRate ?? SAMPLE_RATE;
     this.evalSamples = Math.max(1, Math.round((this.sampleRate * EVAL_WINDOW_MS) / 1000));
   }

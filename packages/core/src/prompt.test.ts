@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   buildModeChangeInstruction,
   buildSystemInstruction,
+  sttLanguageHint,
   type PromptContext,
   type TutorPassageSentence,
 } from './prompt.ts';
@@ -83,8 +84,11 @@ describe('buildSystemInstruction passage rendering', () => {
       .join('\n');
     expect(out).toContain(newStyle);
     expect(newStyle.length).toBeLessThan(oldStyle.length);
-    // Whole instruction stays well inside the ~900-token budget (~4 chars/token).
-    expect(out.length).toBeLessThan(3600);
+    // Whole instruction stays well inside the ~950-token budget (~4 chars/token).
+    // Budget raised from 3600 to fit the reply-in-kind rule added for
+    // BUGS-TUTOR-RUN5.md #2 (there were only 4 spare characters left at
+    // 3600; that rule needed ~111 to state clearly).
+    expect(out.length).toBeLessThan(3800);
   });
 });
 
@@ -107,5 +111,35 @@ describe('buildSystemInstruction shared by both providers', () => {
 
   it('builds a short mode-change acknowledgement instruction', () => {
     expect(buildModeChangeInstruction('pronunciation', 'en')).toContain('"pronunciation"');
+  });
+
+  // Reply-language rule (BUGS-TUTOR-RUN5.md #2): nothing previously told the
+  // tutor to answer in whatever language the learner just used for that
+  // turn, so a learner speaking their explanation language got an
+  // explanation-locale-only or learning-locale-only reply, never a reply in
+  // kind. This is a rule about matching the turn's language, distinct from
+  // the existing "use explanationLocale briefly" guidance.
+  it('tells the tutor to reply in the language the learner just used, then offer to return', () => {
+    const out = buildSystemInstruction(ctx([SAMANIEGO_S1]));
+    expect(out).toMatch(/reply in the language\s+the learner (just )?used/i);
+    expect(out).toMatch(/offer to (return|switch back) to/i);
+  });
+});
+
+// STT decoding bias (BUGS-TUTOR-RUN5.md #1): forcing Whisper's `language` to
+// the learning locale garbles any speech in the explanation locale into a
+// paraphrase in the wrong language. The fix is to stop forcing a language
+// and instead bias decoding with a soft prompt naming both locales in play.
+describe('sttLanguageHint', () => {
+  it('names both the learning and explanation locale', () => {
+    const hint = sttLanguageHint({ learningLocale: 'es-419', explanationLocale: 'en' });
+    expect(hint).toContain('es-419');
+    expect(hint).toContain('en');
+  });
+
+  it('is stable for the same input (callers may reuse it as a decoding bias, not a random prompt)', () => {
+    const a = sttLanguageHint({ learningLocale: 'fr-FR', explanationLocale: 'en' });
+    const b = sttLanguageHint({ learningLocale: 'fr-FR', explanationLocale: 'en' });
+    expect(a).toBe(b);
   });
 });

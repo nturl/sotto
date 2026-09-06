@@ -17,6 +17,7 @@ import { Text } from '../../src/ui/Text';
 import { useTheme } from '../../src/ui/theme';
 import { webCursor } from '../../src/ui/tokens';
 import { useSottoStore } from '../../src/state/store';
+import { micIndicator } from '../../src/voice/micIndicator';
 import { buildPassageWindow } from '../../src/voice/passage';
 import { TutorModelsPanel, type TutorModelsPanelState } from '../../src/voice/TutorModelsPanel';
 import { useVoiceSession } from '../../src/voice/useVoiceSession';
@@ -412,30 +413,51 @@ export default function VoiceScreen() {
 
       {!isChecking && !isUnavailable ? (
         <View style={styles.pttWrap}>
-          {preferences.turnDetection === 'push' ? (
-            <Pressable
-              onPressIn={() => {
-                setPttHeld(true);
-                session.pushToTalk(true);
-              }}
-              onPressOut={() => {
-                setPttHeld(false);
-                session.pushToTalk(false);
-              }}
-              style={[styles.pttRing, pttHeld && styles.pttRingActive, webCursor]}
-            >
-              <MicGlyph size={26} color={pttHeld ? colors.surface : colors.accent} />
-            </Pressable>
-          ) : (
-            <>
-              <View style={[styles.pttRing, styles.pttDisabled]}>
-                <MicGlyph size={26} color={colors.ink3} />
-              </View>
-              <Text role="caption" color="ink3" style={styles.pttCaption}>
-                {t('voice.pttDisabled')}
-              </Text>
-            </>
-          )}
+          {(() => {
+            const indicator = micIndicator(preferences.turnDetection, session.voiceState);
+            if (indicator.kind === 'push') {
+              return (
+                <Pressable
+                  onPressIn={() => {
+                    setPttHeld(true);
+                    session.pushToTalk(true);
+                  }}
+                  onPressOut={() => {
+                    setPttHeld(false);
+                    session.pushToTalk(false);
+                  }}
+                  style={[styles.pttRing, pttHeld && styles.pttRingActive, webCursor]}
+                >
+                  <MicGlyph size={26} color={pttHeld ? colors.surface : colors.accent} />
+                </Pressable>
+              );
+            }
+            if (indicator.kind === 'disabled') {
+              return (
+                <>
+                  <View style={[styles.pttRing, styles.pttDisabled]}>
+                    <MicGlyph size={26} color={colors.ink3} />
+                  </View>
+                  <Text role="caption" color="ink3" style={styles.pttCaption}>
+                    {t('voice.pttDisabled')}
+                  </Text>
+                </>
+              );
+            }
+            // Auto turn-detection, not muted: the mic is genuinely open and
+            // listening, so this shows the same live state as the header
+            // row instead of the always-on "push-to-talk disabled" hint.
+            return (
+              <>
+                <View style={styles.pttRing}>
+                  <MicGlyph size={26} color={stateColor(indicator.state, colors)} />
+                </View>
+                <Text role="caption" color="ink2" style={styles.pttCaption}>
+                  {t(`voice.state.${indicator.state}` as const)}
+                </Text>
+              </>
+            );
+          })()}
         </View>
       ) : null}
     </View>

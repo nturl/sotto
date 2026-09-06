@@ -150,6 +150,7 @@ to the repo, per COMMON.md's "throwaway scripts under `~/Claude/sotto-run7-recon
 
 - `73b9861` — `run7(E): ownProviderStatus store field + hook, early interface report`
   (the store field/setter, the hook module, this report's first draft).
-- Final commit (this pass): guided flow, hub move + regroup, TutorModelsPanel note,
-  docs/byok.md update, i18n — see `git log --oneline -1` after push for the SHA
-  (recorded in the final chat message).
+- `a1b59c1` — `run7(E): own-provider guided flow, Settings hub move, TutorModelsPanel note`
+  (the guided flow, the hub move + regroup, the panel note, docs/byok.md, i18n).
+
+Both pushed to `origin/main`.

@@ -198,6 +198,17 @@ try. Left as a process-hygiene note, not a code finding.
   from reading `packages/voice/src/openai-direct/api.ts` (not edited, not
   in scope) rather than from a live capture with a real unbilled key.
 
+Also untested: whether the tap's activation survives the session-creation
+round trip — `packages/voice/src/local-cascade.ts`'s `connect()` awaits
+`POST /voice/session` (`local-cascade.ts:139-153`), then the WebSocket
+`open` event (`local-cascade.ts:157`), then calls `startCapture`
+(`local-cascade.ts:166-168`) — before `getUserMedia` actually fires on a
+real iOS Safari. The fix was live-tested only on the local path; own-
+provider mode's path shares the gate by construction
+(`apps/client/src/voice/sessionManager.ts:221-225` wraps the audio adapter
+with `wrapAudioForGating` for every provider) but was not exercised end to
+end with the setting this run.
+
 ## The setting rejected vs. accepted-but-unbilled (read from api.ts, not edited)
 
 Two different moments, two different codepaths:

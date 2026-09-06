@@ -61,7 +61,7 @@ vi.mock('expo-router', () => ({
   useRouter: () => ({ push: vi.fn(), back: vi.fn(), replace: vi.fn() }),
   usePathname: () => '/',
 }));
-vi.mock('../../src/state/store', () => {
+vi.mock('../../state/store', () => {
   const state = { preferences: { interfaceLocale: 'en' } };
   const fn = () => state;
   fn.getState = () => state;
@@ -85,11 +85,11 @@ vi.mock('expo-audio', () => ({
     volume: 1,
   }),
 }));
-vi.mock('../../src/import/useLazyNarration', () => ({
+vi.mock('../../import/useLazyNarration', () => ({
   useLazyNarration: () => ({ narrating: false, narrateChapter: async () => false }),
 }));
 
-import { resolveWordPlayback } from './[bookId]';
+import { resolveWordPlayback } from '../../../app/reader/[bookId]';
 
 const FALLBACK = { uri: 'chapter.mp3', startMs: 1000, endMs: 1400 };
 

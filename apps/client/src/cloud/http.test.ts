@@ -89,7 +89,7 @@ describe('HttpCloudAdapter', () => {
     // injected `fetch` (the real production path) so it falls back to
     // whatever this getter/binding does.
     const realFetch = globalThis.fetch;
-    const strictFetch = function (this: unknown, ...args: unknown[]) {
+    const strictFetch = function (this: unknown, ..._args: unknown[]) {
       if (this !== globalThis) {
         throw new TypeError('Illegal invocation');
       }
@@ -102,5 +102,72 @@ describe('HttpCloudAdapter', () => {
     } finally {
       (globalThis as { fetch: unknown }).fetch = realFetch;
     }
+  });
+});
+
+/**
+ * Run 7 lane C. Two additions to the contract the account screen leans on:
+ * the sign-in link remembers where the learner was, and the screen asks the
+ * server which providers exist rather than drawing a button and hoping.
+ */
+describe('HttpCloudAdapter — sign-in surface', () => {
+  it('sends returnTo with the magic-link request when there is one', async () => {
+    const fetchMock = vi.fn(async () => jsonResponse(200, {}));
+    const cloud = new HttpCloudAdapter('https://cloud.sotto.dev', {
+      fetch: fetchMock as unknown as typeof fetch,
+    });
+    await cloud.requestMagicLink('reader@example.com', 'web', '/onboarding');
+    const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
+    expect(url).toBe('https://cloud.sotto.dev/auth/magic-link');
+    expect(JSON.parse(init.body as string)).toEqual({
+      email: 'reader@example.com',
+      kind: 'web',
+      returnTo: '/onboarding',
+    });
+  });
+
+  it('omits returnTo entirely rather than sending an empty one', async () => {
+    const fetchMock = vi.fn(async () => jsonResponse(200, {}));
+    const cloud = new HttpCloudAdapter('https://cloud.sotto.dev', {
+      fetch: fetchMock as unknown as typeof fetch,
+    });
+    await cloud.requestMagicLink('reader@example.com', 'web');
+    const [, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
+    expect(JSON.parse(init.body as string)).toEqual({
+      email: 'reader@example.com',
+      kind: 'web',
+    });
+  });
+
+  it('reads the advertised sign-in methods from /auth/config', async () => {
+    const fetchMock = vi.fn(async () =>
+      jsonResponse(200, { magicLink: true, apple: false, google: false }),
+    );
+    const cloud = new HttpCloudAdapter('https://cloud.sotto.dev', {
+      fetch: fetchMock as unknown as typeof fetch,
+    });
+    await expect(cloud.authConfig()).resolves.toEqual({
+      magicLink: true,
+      apple: false,
+      google: false,
+    });
+    expect((fetchMock.mock.calls[0] as unknown as [string])[0]).toContain('/auth/config');
+  });
+
+  /**
+   * An older deployment has no /auth/config. Falling back to "magic link
+   * only" keeps the screen usable and, crucially, still hides the providers
+   * — an unknown answer must never become a button.
+   */
+  it('falls back to magic-link-only when the server does not answer', async () => {
+    const fetchMock = vi.fn(async () => jsonResponse(404, { error: 'not_found' }));
+    const cloud = new HttpCloudAdapter('https://cloud.sotto.dev', {
+      fetch: fetchMock as unknown as typeof fetch,
+    });
+    await expect(cloud.authConfig()).resolves.toEqual({
+      magicLink: true,
+      apple: false,
+      google: false,
+    });
   });
 });

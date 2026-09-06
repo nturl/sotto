@@ -76,3 +76,24 @@ describe('FakeCloudAdapter', () => {
     await expect(cloud.deleteAccount()).rejects.toBeInstanceOf(CloudError);
   });
 });
+
+/**
+ * Run 7 lane C: the fake adapter backs the Playwright screenshot run, so it
+ * has to answer the same two new questions the real one does.
+ */
+describe('FakeCloudAdapter — sign-in surface', () => {
+  it('advertises magic link only, matching the shipped server', async () => {
+    await expect(new FakeCloudAdapter().authConfig()).resolves.toEqual({
+      magicLink: true,
+      apple: false,
+      google: false,
+    });
+  });
+
+  it('accepts a returnTo without complaint', async () => {
+    const cloud = new FakeCloudAdapter();
+    await expect(
+      cloud.requestMagicLink('reader@example.com', 'web', '/onboarding'),
+    ).resolves.toBeUndefined();
+  });
+});

@@ -6,8 +6,8 @@
  * that forgets to check gets a clear, typed rejection instead of a silent
  * network call.
  */
-import type { CloudAdapter } from './types';
-import { CloudError } from './types';
+import type { AuthConfig, CloudAdapter } from './types';
+import { CloudError, MAGIC_LINK_ONLY } from './types';
 
 function noCloud(): Promise<never> {
   return Promise.reject(new CloudError('no_cloud', 'No cloud service is configured.'));
@@ -21,6 +21,11 @@ export class NullCloud implements CloudAdapter {
   }
   signInWithApple() {
     return noCloud();
+  }
+  /** The one method that answers rather than rejecting: nothing here can sign
+   * anyone in, and "no providers" is the true answer, not an error. */
+  authConfig(): Promise<AuthConfig> {
+    return Promise.resolve({ ...MAGIC_LINK_ONLY, magicLink: false });
   }
   requestMagicLink() {
     return noCloud();

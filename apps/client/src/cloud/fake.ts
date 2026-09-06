@@ -8,6 +8,7 @@
  */
 import type { SessionOptions } from '@sotto/voice';
 import type {
+  AuthConfig,
   BillingInterval,
   CloudAdapter,
   Entitlement,
@@ -21,7 +22,7 @@ import type {
   RealtimeSecret,
   CloudVoiceSession,
 } from './types';
-import { CloudError } from './types';
+import { CloudError, MAGIC_LINK_ONLY } from './types';
 
 // Matches sotto-cloud R4-D1's trimmed shipped table (free + standard only;
 // plus/realtime parked in code, not shipped — DECISIONS.md #30).
@@ -92,7 +93,16 @@ export class FakeCloudAdapter implements CloudAdapter {
     return this.signIn('learner@example.com');
   }
 
-  async requestMagicLink(email: string, _kind: 'native' | 'web'): Promise<void> {
+  /** Matches the shipped server: magic link only, Apple and Google off. */
+  async authConfig(): Promise<AuthConfig> {
+    return MAGIC_LINK_ONLY;
+  }
+
+  async requestMagicLink(
+    email: string,
+    _kind: 'native' | 'web',
+    _returnTo?: string,
+  ): Promise<void> {
     this.sentMagicLinks.add(email);
   }
 

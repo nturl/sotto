@@ -40,6 +40,22 @@ export interface Me {
   entitlement: Entitlement;
 }
 
+/**
+ * Which sign-in methods the server actually has registered
+ * (`GET /auth/config`, sotto-cloud run 7 lane C). The signed-out screen draws
+ * a provider button only for what this advertises: before this run the client
+ * showed an Apple button on iOS that called `POST /auth/apple`, a route which
+ * 404s in production. An adapter that cannot ask must answer
+ * magic-link-only — an unknown must never become a button.
+ */
+export interface AuthConfig {
+  magicLink: boolean;
+  apple: boolean;
+  google: boolean;
+}
+
+export const MAGIC_LINK_ONLY: AuthConfig = { magicLink: true, apple: false, google: false };
+
 export interface PlanOffer {
   id: string;
   name: string;
@@ -121,7 +137,15 @@ export interface CloudAdapter {
   readonly enabled: boolean;
   me(): Promise<Me | null>;
   signInWithApple(identityToken: string, kind: 'native' | 'web'): Promise<Me>;
-  requestMagicLink(email: string, kind: 'native' | 'web'): Promise<void>;
+  /** Which sign-in methods to offer. Never rejects: an unreachable or older
+   * server answers `MAGIC_LINK_ONLY`. */
+  authConfig(): Promise<AuthConfig>;
+  /**
+   * `returnTo` is where the link should land the learner — a path on the
+   * app's own origin, validated by `src/cloud/returnTo.ts` before it is sent
+   * and again by the server on both legs of the link.
+   */
+  requestMagicLink(email: string, kind: 'native' | 'web', returnTo?: string): Promise<void>;
   completeNativeSession(token: string): Promise<Me>;
   signOut(): Promise<void>;
   deleteAccount(): Promise<void>;

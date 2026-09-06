@@ -23,6 +23,7 @@
  */
 import type { SessionOptions } from '@sotto/voice';
 import type {
+  AuthConfig,
   BillingInterval,
   CloudAdapter,
   Entitlement,
@@ -34,7 +35,7 @@ import type {
   RealtimeSecret,
   CloudVoiceSession,
 } from './types';
-import { CloudError } from './types';
+import { CloudError, MAGIC_LINK_ONLY } from './types';
 
 const SESSION_KEY = 'sotto.cloud.session';
 
@@ -159,10 +160,28 @@ export class HttpCloudAdapter implements CloudAdapter {
     return me;
   }
 
-  async requestMagicLink(email: string, kind: 'native' | 'web'): Promise<void> {
+  /**
+   * Never rejects: a deployment older than run 7 has no `/auth/config`, and a
+   * signed-out screen that cannot ask must still render. The fallback is
+   * magic-link-only, so an unanswered question never becomes a button.
+   */
+  async authConfig(): Promise<AuthConfig> {
+    try {
+      const config = await this.request<Partial<AuthConfig>>('/auth/config');
+      return {
+        magicLink: config?.magicLink !== false,
+        apple: config?.apple === true,
+        google: config?.google === true,
+      };
+    } catch {
+      return MAGIC_LINK_ONLY;
+    }
+  }
+
+  async requestMagicLink(email: string, kind: 'native' | 'web', returnTo?: string): Promise<void> {
     await this.request('/auth/magic-link', {
       method: 'POST',
-      body: JSON.stringify({ email, kind }),
+      body: JSON.stringify(returnTo ? { email, kind, returnTo } : { email, kind }),
     });
   }
 

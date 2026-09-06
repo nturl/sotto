@@ -84,6 +84,8 @@ describe('buildSystemInstruction passage rendering', () => {
     // BUGS-TUTOR-RUN5.md #2 (there were only 4 spare characters left at
     // 3600; that rule needed ~111 to state clearly). Kept in sync with
     // packages/core/src/prompt.test.ts, which exercises the same builder.
-    expect(out.length).toBeLessThan(3800);
+    // Run 7 raised both to 4600 for the spoken-turn rules (two sentences,
+    // one follow-up, proportionate correction, passage-only facts).
+    expect(out.length).toBeLessThan(4600);
   });
 });

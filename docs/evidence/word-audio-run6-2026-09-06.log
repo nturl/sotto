@@ -1,0 +1,12 @@
+sotto-content word-audio: ffmpeg found on PATH — sprites will be mp3
+sotto-content word-audio: fr-FR/fr-petit-chaperon-rouge — 222 unique word tokens...
+sotto-content word-audio: fr-petit-chaperon-rouge — 50/222 words
+sotto-content word-audio: fr-petit-chaperon-rouge — 100/222 words
+sotto-content word-audio: fr-petit-chaperon-rouge — 150/222 words
+sotto-content word-audio: fr-petit-chaperon-rouge — 200/222 words
+sotto-content word-audio: fr-petit-chaperon-rouge — 222/222 words
+
+sotto-content word-audio summary:
+bookId  |  locale  |  words  |  fallback  |  format  |  bytes  |  lowBitrate
+fr-petit-chaperon-rouge  |  fr-FR  |  222  |  0  |  mp3  |  2367981  |  no
+node src/cli.ts word-audio fr-petit-chaperon-rouge --force  1.28s user 0.27s system 1% cpu 2:19.28 total

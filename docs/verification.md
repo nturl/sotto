@@ -555,3 +555,89 @@ since:
   identity tokens, StoreKit sandbox, real Stripe events, TestFlight upload, Fly
   deploy. `planning/STRATEGY.md` parks the paid tier; the hand-off commands live
   in `docs/app-store.md`.
+
+## Tier 4 (hosted / paid) — run 4, LIVE — 2026-09-06
+
+Run 3 left this tier's last three rows "NOT VERIFIED by decision": real
+Stripe events, a real Fly deploy, and real magic-link mail. Run 4 closed all
+three against production, so the rows below **supersede** the Tier 4 table
+above wherever they overlap. The paid app is a separate origin from the free
+one: `https://app.readsotto.app` (Fly, `sotto-cloud`) serves both the API and
+the client's static export; `https://readsotto.app` (Vercel) stays the free
+PWA and carries no cloud URL.
+
+Deployment shape, measured: one `shared-cpu-1x` 512 MB machine in `ewr`
+(~337 MB available under load, no OOM), one 1 GB volume `sotto_cloud_data`,
+cold start 16.8 s. Evidence: `sotto-cloud/docs/evidence/d3-staging-2026-09-05.log`
+(stages 2-4) and `d3-live-2026-09-05.log` (stage 5).
+
+| Row                                                              | Status                                                                                                                                                           |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Fly deploy (machine, volume, health, TLS on `app.readsotto.app`) | **PASS** — `/health` reports `production` + billing `stripe`                                                                                                     |
+| Sign-in: magic link, real mail                                   | **PASS** — Resend from `hello@readsotto.app` (domain DKIM+SPF verified), delivered 23:52:17, clicked 23:52:32                                                    |
+| Sign-in: Apple identity token                                    | **REMOVED from the web surface** — `POST /auth/apple` unregistered in D1; the route 404s (CONFIRM 4). See defect 1 below: the _button_ is still rendered         |
+| Billing: live Stripe Checkout                                    | **PASS** — live product `prod_VCspKJ0jbyRkCV`, monthly `price_1UCT4GBB2DVFs93Sm7kXUmof` ($9.99), yearly `price_1UCT4HBB2DVFs93Sg7ThawNO` ($79)                   |
+| Billing: real charge → entitlement                               | **PASS** — $9.99 charged (`py_3UCTOgBB2DVFs93S0c2p3usE`), subscription `sub_1UCTOjBB2DVFs93S5labKlkR` active, entitlement flipped to `standard`, source `stripe` |
+| Billing: live webhooks                                           | **PASS** — endpoint `we_1UCT4UBB2DVFs93SVdaX6Omt`, six handled events; three arrived on the charge leg; unsigned body → 400                                      |
+| Billing: refund + cancel → downgrade                             | **PASS** — full refund and cancel; `customer.subscription.deleted` reached Fly at 00:00:33Z, entitlement reverted to `free` on the same `source_ref`             |
+| Billing: stub checkout absent in production                      | **PASS** — `POST /billing/stub/subscribe` → 404                                                                                                                  |
+| Plan table trimmed to one paid plan                              | **PASS** — `/billing/plans` lists free + standard only (250 cascade min, 2 imports, 120 narrated min)                                                            |
+| 3-day free trial, card required                                  | **PASS** — `SOTTO_CLOUD_TRIAL_DAYS=3` on Fly; sandbox Checkout screenshot shows "3 days free / $0.00 due today" (`d3-stripe-sandbox-checkout-trial.png`)         |
+| Automatic tax                                                    | **PASS (sandbox)** — `automatic_tax[enabled]=true` accepted, liability self. Live charge computed $0 tax (no NY registration)                                    |
+| Daily spend ceiling ($5)                                         | **PASS** — verified live, upgraded from run 3's PARTIAL                                                                                                          |
+| Kill switch `SOTTO_CLOUD_TUTOR_DISABLED`                         | **PASS** — verified live                                                                                                                                         |
+| Realtime mint with the flag off                                  | **PASS** — `/voice/realtime/secret` → 503 (`src/voice/realtime.ts:223`)                                                                                          |
+| Legal pages                                                      | **PASS** — `/terms` and `/privacy` 200 with the markdown rendered. Governing-law line is still a TODO in `legal/terms.md`                                        |
+| Account deletion from the web                                    | **PASS** — signs out; `/me` 401 afterwards                                                                                                                       |
+| `trustProxy` behind Fly                                          | **PASS** — client IPs resolve correctly through Fly's proxy                                                                                                      |
+| Hosted import (C4)                                               | **PASS (staging)** — `sotto-cloud/docs/evidence/import-hosted-staging-2026-09-05.log`; not re-run against production                                             |
+| App Store build                                                  | **DEFERRED** — unchanged; `docs/app-store.md` holds the hand-off commands                                                                                        |
+
+### Open defects on the paid surface (found during stage 5, not yet fixed)
+
+1. **HIGH — dead "Sign in with Apple" button.** The account screen on
+   `app.readsotto.app` still renders the Apple button and it fails on click
+   ("Sign-in with Apple failed") because D1 unregistered the route. The
+   subtitle still reads "iPhone access". CONFIRM 4 says Apple is off the web
+   surface, so the control should be hidden, not repaired.
+2. **MEDIUM — Checkout `success_url` points at `/billing/success`**, which no
+   route matches; it should return the learner to `/account`.
+3. **MEDIUM — BYOK is undiscoverable** (see Tier 5): the only entry point is
+   Profile → Tutor preferences, and nothing points at it.
+4. **MEDIUM — service worker caches API paths.** `apps/client/public/sw.js` is
+   cache-first over every path; the shipped mitigation is a cache-busting query
+   parameter added in `apps/client/src/cloud/http.ts`. The durable fix is to
+   exempt API paths in the service worker and drop the query parameter.
+
+## Tier 5: BYOK (bring your own OpenAI key) — 2026-09-06
+
+New in run 4. The free PWA at `https://readsotto.app` can run the full voice
+tutor with no server of ours in the path, using a key the learner stores on
+their own device. `OpenAIDirectProvider` (`packages/voice/src/openai-direct/`)
+sits on the existing browser-cascade seams with fetch-backed STT, streamed
+LLM, and TTS; key storage is `localStorage` on web and `expo-secure-store` on
+native. Docs: `docs/byok.md`.
+
+Evidence: `docs/evidence/byok-live-2026-09-05.log`,
+`docs/evidence/byok-cors-2026-09-05.log`, screenshots
+`docs/evidence/byok-{settings-375,settings-375-empty,settings-1440,profile-1440,voice-375}.png`.
+
+| Row                                                  | Status                                                                                                                                                   |
+| ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Key entered through the UI, stored on-device         | **PASS** — WebKit iPhone 15 at 375; row reads Off → On; mask shows no key-derived characters                                                             |
+| A bad key is rejected without overwriting a good one | **PASS**                                                                                                                                                 |
+| One full tutor turn on the BYOK path                 | **PASS** — Chromium fake mic, learner caption → tutor caption → `audio_end`, 7.3 s from voice-screen load to first tutor caption                         |
+| The key never reaches our origin                     | **PASS** — 17 same-origin requests carried 0 `Authorization` headers; 5 `api.openai.com` requests carried 5                                              |
+| No broker WebSocket on the BYOK path                 | **PASS** — none opened                                                                                                                                   |
+| Settings screen at 1440 with a stored key            | **PASS**                                                                                                                                                 |
+| Safari standalone-PWA microphone                     | **PARTIAL** — not tested. WebKit has no fake-capture flag, so the live turn ran on Chromium; standalone-PWA mic permission on iOS is assumed, not proven |
+| Native `expo-secure-store` branch                    | **PARTIAL** — code committed and unit-tested; not run on a simulator                                                                                     |
+| Discoverability                                      | **FAIL (UX)** — reachable only from Profile → Tutor preferences; nothing on the voice screen points at it. Defect 3 above                                |
+
+## Deploy kit (self-hosting) — run 4
+
+`docs/self-hosting.md` plus the Docker Compose kit were walked end to end in a
+container by lane C, and the README's quick start was walked cold: **first
+tutor turn in about one minute** (`docs/evidence/readme-walk-2026-09-05.log`).
+Known gap carried into the fix lane: the built image is 4.49 GB, dominated by a
+full non-production `node_modules` in the server build step.

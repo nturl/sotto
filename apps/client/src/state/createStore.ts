@@ -22,6 +22,7 @@ import {
   type VoiceSessionRecord,
 } from '@sotto/core';
 import type { Persistence } from '../platform/persistence.types';
+import type { OwnProviderStatus } from '../voice/ownProviderStatus';
 import { warmBookCache } from '../platform/swCache';
 import { assetUrl, fetchBook, fetchChapter, fetchPacks } from './contentApi';
 import { PRIVATE_INDEX_KEY, privateBookKey, privateChapterKey } from '../import/privateKeys';
@@ -136,6 +137,13 @@ export interface SottoState {
   setLimitReason(reason: SottoState['limitReason']): void;
   setRemainingSeconds(seconds: number | null): void;
   clearSessionEphemeral(): void;
+
+  // ---- own-provider mode (run 7, lane E: single source of truth for
+  // "is the setting connected", read by the settings hub row,
+  // TutorModelsPanel, and the voice screen; written only by the guided
+  // flow in app/settings/openai-key.tsx — see src/voice/ownProviderStatus.ts) ----
+  ownProviderStatus: OwnProviderStatus;
+  setOwnProviderStatus(status: OwnProviderStatus): void;
 
   // ---- ui ----
   toasts: ToastEntry[];
@@ -427,6 +435,9 @@ export function createSottoStore(persistence: Persistence): {
         limitReason: null,
         remainingSeconds: null,
       }),
+
+    ownProviderStatus: 'disconnected',
+    setOwnProviderStatus: (status) => set({ ownProviderStatus: status }),
 
     toasts: [],
     pushToast: (message) => {

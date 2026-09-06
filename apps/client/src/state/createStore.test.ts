@@ -272,6 +272,36 @@ describe('private (imported) books', () => {
   });
 });
 
+describe('createSottoStore ownProviderStatus (run7 lane E, the settings/hub stale-control fix)', () => {
+  it('defaults to disconnected, and one setter call is the single source every reader sees', async () => {
+    const { useStore } = createSottoStore(createFakePersistence());
+    expect(useStore.getState().ownProviderStatus).toBe('disconnected');
+
+    // The guided flow's "Connect and use this key" action: one call updates
+    // the field every screen (hub row, TutorModelsPanel, voice screen) reads
+    // — this is the fix for the P0 "saved but the toggle still reads off"
+    // defect (root cause: profile.tsx's own useState never re-ran).
+    useStore.getState().setOwnProviderStatus('connected');
+    expect(useStore.getState().ownProviderStatus).toBe('connected');
+  });
+
+  it('walks through every truthful state named in the run-7 card', async () => {
+    const { useStore } = createSottoStore(createFakePersistence());
+    const order: Array<ReturnType<typeof useStore.getState>['ownProviderStatus']> = [
+      'connecting',
+      'connected',
+      'active',
+      'invalid',
+      'unavailable',
+      'disconnected',
+    ];
+    for (const status of order) {
+      useStore.getState().setOwnProviderStatus(status);
+      expect(useStore.getState().ownProviderStatus).toBe(status);
+    }
+  });
+});
+
 describe('bookCacheUrls (R6-C2 commit 3)', () => {
   const BASE_BOOK: Book = {
     schemaVersion: 1,

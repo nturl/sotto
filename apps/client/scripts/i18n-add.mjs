@@ -40,4 +40,6 @@ for (const file of files) {
   }
   writeFileSync(path, JSON.stringify(catalog, null, 2) + '\n');
 }
-console.log(`i18n-add: ${Object.keys(input).length} key(s) across ${files.length} catalogs, ${added} write(s)`);
+console.log(
+  `i18n-add: ${Object.keys(input).length} key(s) across ${files.length} catalogs, ${added} write(s)`,
+);

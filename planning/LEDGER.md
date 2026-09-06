@@ -638,3 +638,5 @@ CARRIED TO RUN 6
 - Google sign-in, bare minimum (Opus, auth) — carried again from Run 4; still out of scope tonight per kickoff (needs Google Cloud Console OAuth credentials Noel hasn't provisioned).
 - Bug 3's speaker-echo VAD mechanism, once a live mic+speaker session is available to reproduce it.
 - The mixed-language test fixture (`packages/voice/test/fixtures/mixed-language/`) that would turn CONFIRM 13's guess into a measurement.
+
+RUN 6 INPUT (2026-09-06, same morning, Noel live with annotated screenshots): steer the landing page toward paying first (self-host as the named alternative, BYOK demoted to a lighter mention), condense the decision text Cleo built in Run 5 into something visual instead of another paragraph; plus two real reports — BYOK still doesn't work for Noel personally (leading hypothesis: the Safari standalone-PWA mic gap flagged as untested since Run 4), and word-tap audio is "clippy" on specific words (two books, ca-ES and ro-RO, confirmed missing their Kokoro word-audio sprite entirely; does not fully explain it, other candidates named). Full brief: `planning/KICKOFF-6.md`.

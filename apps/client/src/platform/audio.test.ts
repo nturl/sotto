@@ -96,3 +96,69 @@ describe('playWordAudio cancels the previous clip', () => {
     expect(players.length).toBe(2);
   });
 });
+
+describe('audio bus arbitration (run7 §5)', () => {
+  beforeEach(() => {
+    players.length = 0;
+  });
+
+  it('playWordAudio claims the bus as "word", and a later narration claim stops it', async () => {
+    const { playWordAudio } = await import('./audio.ts');
+    const { claimAudio, currentAudioOwner, __resetAudioBusForTests } =
+      await import('./audioBus.ts');
+    __resetAudioBusForTests();
+
+    playWordAudio({
+      spriteUri: 'sprite.mp3',
+      index: { hola: [0, 400] },
+      normalized: 'hola',
+      fallback: { uri: 'chapter.mp3', startMs: 0, endMs: 400 },
+    });
+    await Promise.resolve();
+    await Promise.resolve();
+
+    expect(currentAudioOwner()).toBe('word');
+    const wordPlayer = players[0];
+
+    // Simulate narration starting (useNarrationPlayer's `play()` claims
+    // 'narration' the same way) — this must stop the in-flight word clip.
+    claimAudio('narration', () => {});
+    expect(wordPlayer.pause).toHaveBeenCalled();
+    expect(wordPlayer.remove).toHaveBeenCalledTimes(1);
+    expect(currentAudioOwner()).toBe('narration');
+  });
+
+  it('playAudioSlice (span selection) also claims the bus as "word"', async () => {
+    const { playAudioSlice } = await import('./audio.ts');
+    const { currentAudioOwner, __resetAudioBusForTests } = await import('./audioBus.ts');
+    __resetAudioBusForTests();
+
+    playAudioSlice('chapter.mp3', 0, 400);
+    expect(currentAudioOwner()).toBe('word');
+  });
+
+  it('tutor speech claiming the bus stops an in-flight word clip', async () => {
+    const { playWordAudio } = await import('./audio.ts');
+    const { claimAudio, currentAudioOwner, __resetAudioBusForTests } =
+      await import('./audioBus.ts');
+    __resetAudioBusForTests();
+
+    playWordAudio({
+      spriteUri: 'sprite.mp3',
+      index: { hola: [0, 400] },
+      normalized: 'hola',
+      fallback: { uri: 'chapter.mp3', startMs: 0, endMs: 400 },
+    });
+    await Promise.resolve();
+    await Promise.resolve();
+    const wordPlayer = players[0];
+
+    // F1's tutor-speech playback would call claimAudio('tutor', ...) from
+    // packages/voice when it starts speaking (see audioBus.ts's doc
+    // comment) — simulated here since packages/voice is out of this
+    // lane's ownership.
+    claimAudio('tutor', () => {});
+    expect(wordPlayer.pause).toHaveBeenCalled();
+    expect(currentAudioOwner()).toBe('tutor');
+  });
+});

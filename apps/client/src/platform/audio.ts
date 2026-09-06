@@ -8,6 +8,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Platform } from 'react-native';
 import { createAudioPlayer, type AudioPlayer, type AudioStatus } from 'expo-audio';
+import { claimAudio, releaseAudio } from './audioBus';
 
 export type NarrationSpeed = 0.75 | 1 | 1.25;
 
@@ -79,8 +80,19 @@ export function useNarrationPlayer(uri: string | undefined, rate: NarrationSpeed
 
   return {
     ...state,
-    play: () => playerRef.current?.play(),
-    pause: () => playerRef.current?.pause(),
+    // Arbitration (run7 §5): starting narration claims the bus, stopping
+    // whichever word clip or tutor speech was sounding. `pause` both
+    // pauses this player and releases the bus so a later claim (e.g. a
+    // word tap) doesn't call this stop callback against a player the
+    // learner already paused themselves.
+    play: () => {
+      claimAudio('narration', () => playerRef.current?.pause());
+      playerRef.current?.play();
+    },
+    pause: () => {
+      releaseAudio('narration');
+      playerRef.current?.pause();
+    },
     seekTo: (seconds: number) => void playerRef.current?.seekTo(Math.max(0, seconds)),
     seekBy: (deltaSeconds: number) => {
       const player = playerRef.current;
@@ -126,11 +138,16 @@ export function playAudioSlice(uri: string, startMs: number, endMs: number): voi
   const stop = () => {
     if (stopped) return;
     stopped = true;
+    releaseAudio('word');
     if (fallback) clearTimeout(fallback);
     sub.remove();
     player.pause();
     player.remove();
   };
+  // Arbitration (run7 §5): a span-selection tap is "word audio" for bus
+  // purposes — starting it stops narration or tutor speech that was
+  // sounding, same as a single-word tap below.
+  claimAudio('word', stop);
   const sub = player.addListener('playbackStatusUpdate', (status: AudioStatus) => {
     if (stopped || !status.isLoaded) return;
     if (!started) {
@@ -195,12 +212,16 @@ function playSlice(
     if (stopped) return;
     stopped = true;
     if (currentWordClip === stop) currentWordClip = undefined;
+    releaseAudio('word');
     timers.forEach(clearTimeout);
     sub.remove();
     player.pause();
     player.remove();
   };
   currentWordClip = stop;
+  // Arbitration (run7 §5): a single-word tap (sprite or narration-slice
+  // fallback) stops narration or tutor speech that was sounding.
+  claimAudio('word', stop);
   const sub = player.addListener('playbackStatusUpdate', (status: AudioStatus) => {
     if (stopped || !status.isLoaded) return;
     if (!started) {

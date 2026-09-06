@@ -4,7 +4,7 @@
  * cubic-bezier(.2,.8,.2,1); resolves instantly under reduced motion.
  */
 import { useEffect, useMemo, useRef } from 'react';
-import { Animated, Easing, StyleSheet, View, type ViewStyle } from 'react-native';
+import { Animated, Easing, ScrollView, StyleSheet, View, type ViewStyle } from 'react-native';
 import { motion, radius, space } from '@sotto/core/theme';
 import { useTheme } from './theme';
 import { useReducedMotion } from './useReducedMotion';
@@ -64,7 +64,18 @@ export function Sheet({ visible, children, style, bottomOffset = 0, onHeightChan
       style={[styles.sheet, { bottom: bottomOffset }, style, { transform: [{ translateY }] }]}
     >
       <View style={styles.handle} />
-      {children}
+      {/* flexShrink lets the ScrollView give up height to the sheet's own
+       * maxHeight (set by callers, e.g. the reader's 60%-of-viewport mobile
+       * sheet) instead of forcing the sheet to grow to content size; once
+       * shrunk, content taller than the available space scrolls internally
+       * rather than clipping silently. */}
+      <ScrollView
+        style={styles.scrollBody}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {children}
+      </ScrollView>
     </Animated.View>
   );
 }
@@ -80,8 +91,15 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
       borderTopColor: colors.hairline,
       borderTopLeftRadius: radius.md,
       borderTopRightRadius: radius.md,
-      paddingHorizontal: space.gutter.phone,
       paddingTop: space.md,
+      overflow: 'hidden',
+    },
+    scrollBody: {
+      flexShrink: 1,
+      flexGrow: 0,
+    },
+    scrollContent: {
+      paddingHorizontal: space.gutter.phone,
       paddingBottom: space.lg,
     },
     handle: {

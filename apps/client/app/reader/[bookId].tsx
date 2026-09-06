@@ -27,14 +27,17 @@ import {
   BookmarkGlyph,
   CloseGlyph,
   HandDrawnArrowGlyph,
+  MicGlyph,
   PauseGlyph,
   PlayGlyph,
+  SettingsGlyph,
   SkipNextGlyph,
   SkipPrevGlyph,
   SpeakerGlyph,
 } from '../../src/ui/Glyphs';
 import { IconButton } from '../../src/ui/IconButton';
 import { Sheet } from '../../src/ui/Sheet';
+import { Toast } from '../../src/ui/Toast';
 import type { SpeechSentence } from '../../src/ui/SpeechFillText';
 import { SelectableSpeechText } from '../../src/ui/reader/SelectableSpeechText';
 import {
@@ -194,7 +197,13 @@ export default function ReaderScreen() {
   const removeWord = useSottoStore((s) => s.removeWord);
   const setProgress = useSottoStore((s) => s.setProgress);
   const markCompleted = useSottoStore((s) => s.markCompleted);
-  const pushToast = useSottoStore((s) => s.pushToast);
+  // Local toast state, matching the convention used elsewhere in the app
+  // (profile.tsx, home.tsx: a `useState<string | null>` rendered through
+  // `<Toast>`) rather than the store's `pushToast`/`toasts` array — nothing
+  // in the app renders `state.toasts` (verified: no other file reads it),
+  // so routing reader feedback through it would be silently invisible, the
+  // same as the pre-existing "report" failure toast was.
+  const [toast, setToast] = useState<string | null>(null);
 
   const book = books[bookId ?? ''];
   const locale = bookLocale(bookId ?? '') ?? preferences.learningLocale;
@@ -484,6 +493,7 @@ export default function ReaderScreen() {
     if (already) {
       const word = savedWords.find((w) => w.bookId === bookId && w.tokenId === token.id);
       if (word) removeWord({ savedWordId: word.id });
+      setToast(t('reader.removedToast'));
     } else {
       const word = buildSavedWord({
         bookId,
@@ -494,6 +504,7 @@ export default function ReaderScreen() {
         sentence,
       });
       saveWord(word);
+      setToast(t('reader.savedToast'));
     }
   };
 
@@ -503,9 +514,14 @@ export default function ReaderScreen() {
     // went nowhere. Opens the repo's bug-report issue template instead.
     void Linking.openURL('https://github.com/nturl/sotto/issues/new?template=bug_report.md').catch(
       () => {
-        pushToast(t('reader.reportFailed'));
+        setToast(t('reader.reportFailed'));
       },
     );
+  };
+
+  const talkAboutPassage = () => {
+    if (!bookId) return;
+    router.push(`/voice/${bookId}?mode=discuss`);
   };
 
   if (!bookId) return null;
@@ -835,11 +851,23 @@ export default function ReaderScreen() {
             <Text role="mono" numberOfLines={1} style={styles.chapterLabel}>
               {chapterSummary?.title ?? ''}
             </Text>
-            <IconButton
-              icon={<CloseGlyph size={20} color={colors.ink} />}
-              accessibilityLabel={t('common.close')}
-              onPress={() => router.back()}
-            />
+            <View style={styles.headerActions}>
+              <IconButton
+                icon={<MicGlyph size={18} color={colors.ink2} />}
+                accessibilityLabel={t('book.a11y.talkAboutPassage')}
+                onPress={talkAboutPassage}
+              />
+              <IconButton
+                icon={<SettingsGlyph size={18} color={colors.ink2} />}
+                accessibilityLabel={t('book.a11y.settings')}
+                onPress={() => router.push('/settings')}
+              />
+              <IconButton
+                icon={<CloseGlyph size={20} color={colors.ink} />}
+                accessibilityLabel={t('common.close')}
+                onPress={() => router.back()}
+              />
+            </View>
           </View>
 
           <ScrollView
@@ -906,7 +934,14 @@ export default function ReaderScreen() {
           {isDesktop ? (transportView ?? narratingOnDemandCaption) : null}
         </View>
 
-        {isDesktop ? <View style={styles.desktopPanel}>{translationPanel}</View> : null}
+        {isDesktop ? (
+          <ScrollView
+            style={styles.desktopPanel}
+            contentContainerStyle={styles.desktopPanelContent}
+          >
+            {translationPanel}
+          </ScrollView>
+        ) : null}
       </View>
 
       {!isDesktop ? (
@@ -921,6 +956,8 @@ export default function ReaderScreen() {
       ) : null}
 
       {!isDesktop ? (transportView ?? narratingOnDemandCaption) : null}
+
+      <Toast message={toast} onHide={() => setToast(null)} />
     </View>
   );
 }
@@ -1074,6 +1111,11 @@ function createStyles(colors: ThemeColors) {
       flex: 1,
       marginRight: space.md,
     },
+    headerActions: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space.xs,
+    },
     body: {
       flex: 1,
       flexDirection: 'row',
@@ -1096,11 +1138,16 @@ function createStyles(colors: ThemeColors) {
       borderLeftWidth: 1,
       borderLeftColor: colors.hairline,
       backgroundColor: colors.surface,
-      padding: space.xl,
       // DESKTOP.md §5: docked right, sticky to the viewport while the
-      // passage column scrolls past on the left.
-      ...(Platform.OS === 'web' ? { position: 'sticky', top: 0 } : null),
+      // passage column scrolls past on the left. A ScrollView (not a plain
+      // View) so a long gloss/span translation that exceeds the viewport
+      // height scrolls internally instead of bleeding past the panel's
+      // bottom edge (matches the mobile sheet's internal scroll).
+      ...(Platform.OS === 'web' ? { position: 'sticky', top: 0, maxHeight: '100vh' } : null),
     } as ViewStyle,
+    desktopPanelContent: {
+      padding: space.xl,
+    },
     mobileSheet: {
       maxHeight: '60%',
     },

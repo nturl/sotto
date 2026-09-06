@@ -35,8 +35,16 @@ const DEFAULT_TTS_URL = 'http://127.0.0.1:8880/v1';
 
 /** Padding baked into each word's clip in the sprite — enough that a tap
  * plays a clean onset/offset instead of a hard cut on the word itself. */
-const LEAD_PAD_MS = 120;
-const TAIL_PAD_MS = 250;
+export const LEAD_PAD_MS = 120;
+export const TAIL_PAD_MS = 250;
+
+/** R6-C1 measured a 6.97% hard-onset rate corpus-wide (RMS-threshold trim
+ * with no fade shears into audible attack, worst on vowel/nasal onsets;
+ * tails are clean). Fix (a) per that report's verdict: keep a fixed
+ * pre/post-roll of original audio around the trim points and fade it in
+ * (out), instead of retuning the RMS threshold. */
+export const TRIM_ROLL_MS = 25;
+export const TRIM_FADE_MS = 10;
 
 /** Below this, a synthesized word is treated as empty/failed and retried
  * inside a short carrier phrase (Kokoro occasionally returns near-silence
@@ -152,11 +160,45 @@ export function trimSilence(wav: WavAudio): WavAudio {
   const endFrame = Math.min(endBlock * blockFrames, frameCount);
   if (startFrame >= endFrame) return wav; // all-silence — keep original rather than emit nothing
 
+  // R6-C1: a hard RMS-threshold cut with no fade shears into audible
+  // attack/release on a non-trivial share of words. Keep a fixed pre/post
+  // roll of the ORIGINAL audio around the trim points (clamped to the
+  // clip's own bounds) and fade it in/out, so playback starts and ends
+  // smoothly instead of on a hard edge.
+  const rollFrames = Math.max(0, Math.round((TRIM_ROLL_MS / 1000) * sampleRate));
+  const fadeFrames = Math.max(0, Math.round((TRIM_FADE_MS / 1000) * sampleRate));
+  const keptStartFrame = Math.max(0, startFrame - rollFrames);
+  const keptEndFrame = Math.min(frameCount, endFrame + rollFrames);
+
+  const output = Buffer.from(
+    pcm.subarray(keptStartFrame * bytesPerFrame, keptEndFrame * bytesPerFrame),
+  );
+  const keptFrameCount = keptEndFrame - keptStartFrame;
+
+  const fadeInFrames = Math.min(fadeFrames, keptFrameCount);
+  for (let f = 0; f < fadeInFrames; f++) {
+    const gain = f / fadeInFrames;
+    for (let c = 0; c < numChannels; c++) {
+      const offset = f * bytesPerFrame + c * 2;
+      output.writeInt16LE(Math.round(output.readInt16LE(offset) * gain), offset);
+    }
+  }
+
+  const fadeOutFrames = Math.min(fadeFrames, keptFrameCount);
+  for (let f = 0; f < fadeOutFrames; f++) {
+    const gain = f / fadeOutFrames;
+    const frameIndex = keptFrameCount - 1 - f;
+    for (let c = 0; c < numChannels; c++) {
+      const offset = frameIndex * bytesPerFrame + c * 2;
+      output.writeInt16LE(Math.round(output.readInt16LE(offset) * gain), offset);
+    }
+  }
+
   return {
     sampleRate,
     numChannels,
     bitsPerSample,
-    pcm: Buffer.from(pcm.subarray(startFrame * bytesPerFrame, endFrame * bytesPerFrame)),
+    pcm: output,
   };
 }
 

@@ -191,10 +191,9 @@ async function waitForServer(url, timeoutMs = 20_000) {
     const NAV_PATH = '/account';
     await page.goto(`${BASE_URL}${NAV_PATH}`, { waitUntil: 'load' });
     const navCachedIn = await page.evaluate(async (navPath) => {
-      const target = new URL(navPath, self.location.origin).href;
       for (const name of await caches.keys()) {
         const cache = await caches.open(name);
-        if (await cache.match(target)) return name;
+        if (await cache.match(navPath, { ignoreSearch: false })) return name;
       }
       return null;
     }, NAV_PATH);

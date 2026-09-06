@@ -711,5 +711,10 @@ Evidence: `docs/evidence/byok-live-2026-09-05.log`,
 `docs/self-hosting.md` plus the Docker Compose kit were walked end to end in a
 container by lane C, and the README's quick start was walked cold: **first
 tutor turn in about one minute** (`docs/evidence/readme-walk-2026-09-05.log`).
-Known gap carried into the fix lane: the built image is 4.49 GB, dominated by a
-full non-production `node_modules` in the server build step.
+**FIXED, run 5.** Known gap carried into the fix lane: the built image is 4.49 GB, dominated by a
+full non-production `node_modules` in the server build step. Fixed by moving
+`tsx`/`typescript` into `apps/server`'s runtime dependencies and giving the
+Dockerfile a production-only, server-scoped install stage (commit `5d9c5f0`).
+Re-verified by direct `docker build`/`run`/`/health` against final HEAD:
+2.55GB, `docker inspect` reports `healthy`, `/health` and `/` both respond
+correctly. `docs/evidence/deploy-kit-2026-09-06.log`.

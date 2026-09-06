@@ -57,9 +57,12 @@ for the client, then a runtime image that runs `apps/server` with
 `docker-compose.yml` — if you're pointing at a stack running on the same
 Mac (docs/local-models.md), the container reaches it at
 `http://host.docker.internal:<port>`, not `127.0.0.1` (see the comments in
-`docker-compose.yml`). Measured on this Mac: ~4.5GB image, cold start to
-first response ~4.6s, ~195MB idle RSS — comfortably under `fly.toml.example`'s
-512MB note. `docker compose down` to stop it.
+`docker-compose.yml`). Measured on this Mac: ~2.6GB image (`docker images`;
+was ~4.5GB before run 5 moved `tsx`/`typescript` into `apps/server`'s runtime
+dependencies so the image could ship a production-only install instead of
+the full monorepo `node_modules`), cold start to first response ~4.6s,
+~195MB idle RSS — comfortably under `fly.toml.example`'s 512MB note.
+`docker compose down` to stop it.
 
 ### Fly (a public URL, costs ~nothing while idle)
 
@@ -259,6 +262,8 @@ cascade fully offline instead of against OpenAI.
   container, and one real tutor turn (OpenAI cascade) proven inside it. Fly
   section covers what `fly auth whoami` showed and why `fly deploy` was not
   run from this lane.
+- `docs/evidence/deploy-kit-2026-09-06.log` — run 5's image-size fix
+  (4.49GB → 2.55GB), rebuilt and re-verified against the final HEAD.
 - `docs/evidence/selfhost-2026-09-05.log` — full run log (server env used,
   measured turn latency, exit code, curl checks for the Basic-auth guard).
 - `docs/screenshots/web/375-selfhost-reader.png`,

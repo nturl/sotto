@@ -1,0 +1,46 @@
+Run 5 — deploy-kit image size fix, verified against final HEAD (25e4a2e)
+================================================================================
+Context: docs/evidence/deploy-kit-2026-09-05.log (run 4) measured 4.49GB and
+named the real fix as out of that lane's permitted paths: apps/server has no
+compile step and runs its TypeScript source directly via tsx, a
+devDependency, so the runtime image had to ship the full monorepo
+`pnpm install` (devDependencies included) rather than a prod-only one.
+
+FIX (commit 5d9c5f0): moved tsx/typescript from apps/server's devDependencies
+to dependencies; Dockerfile's runtime stage now installs via a new
+`prod-deps` stage (`pnpm install --prod --frozen-lockfile --filter
+"@sotto/server..."`, resolving to server + core + content, excluding the
+much larger apps/client and packages/voice trees) instead of copying the
+full monorepo install.
+
+VERIFICATION (this log): built from a clean `git archive HEAD` of the final
+run-5 commit (25e4a2e, after all four lanes and the i18n completeness fix
+landed), not the shared working tree, which carries unrelated in-flight
+content work.
+
+  docker build -t sotto-selfhost:run5-verify .        exit 0, 22.3s export step
+  docker images sotto-selfhost:run5-verify            SIZE: 2.55GB
+                                                       (was 4.49GB before this
+                                                       fix, ~43% smaller;
+                                                       10.2GB before run 4's
+                                                       .dockerignore fix)
+  docker run -d -p 18790:8790 ...                     started clean
+  curl /health                                        {"ok":true,"stt":false,
+                                                        "llm":false,"tts":false,
+                                                        "vad":"energy"}  PASS
+  curl /                                               200                 PASS
+  docker inspect --format '{{.State.Health.Status}}'   healthy             PASS
+  docker logs (tail 20)                                no errors; one expected
+                                                        info line ("silero
+                                                        model not found, using
+                                                        energy VAD fallback" —
+                                                        optional local model,
+                                                        not present in this
+                                                        image, falls back
+                                                        correctly)
+
+Not re-measured this pass (unchanged by this fix, see run 4's log): cold
+start time (~4.6s), idle RSS (~195MB), the hosted Playwright smoke, and the
+one real tutor turn proven inside the container.
+
+docs/self-hosting.md's "~4.5GB image" line updated to ~2.6GB.

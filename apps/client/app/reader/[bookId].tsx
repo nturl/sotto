@@ -53,6 +53,7 @@ import {
   playWordAudio,
   useNarrationPlayer,
   type NarrationSpeed,
+  type WordAudioOptions,
 } from '../../src/platform/audio';
 import { useSottoStore } from '../../src/state/store';
 import { buildSavedWord } from '../../src/state/vocabulary';
@@ -99,6 +100,39 @@ type WordAudioIndex = Record<string, [number, number]>;
  * token) and never changes for a given pack build. `null` means "loaded,
  * but the book has no usable index" (fetch failed or no wordAudio yet). */
 const wordAudioIndexCache = new Map<string, WordAudioIndex | null>();
+/** In-flight fetches, keyed by bookId, memoized so a tap that arrives
+ * while the index is still loading (see `resolveWordPlayback` below) can
+ * await the same request the hook's effect already kicked off, instead of
+ * firing a second one. */
+const wordAudioIndexPromises = new Map<string, Promise<WordAudioIndex | null>>();
+
+function loadWordAudioIndex(
+  bookId: string,
+  locale: string,
+  indexPath: string,
+): Promise<WordAudioIndex | null> {
+  if (wordAudioIndexCache.has(bookId)) {
+    return Promise.resolve(wordAudioIndexCache.get(bookId) ?? null);
+  }
+  const pending = wordAudioIndexPromises.get(bookId);
+  if (pending) return pending;
+  const promise = fetch(bookAssetUrl(bookId, indexPath, locale))
+    .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
+    .then((json: { words?: WordAudioIndex }) => {
+      const index = json.words ?? {};
+      wordAudioIndexCache.set(bookId, index);
+      return index;
+    })
+    .catch(() => {
+      wordAudioIndexCache.set(bookId, null);
+      return null;
+    })
+    .finally(() => {
+      wordAudioIndexPromises.delete(bookId);
+    });
+  wordAudioIndexPromises.set(bookId, promise);
+  return promise;
+}
 
 function useWordAudioIndex(
   bookId: string | undefined,
@@ -110,23 +144,35 @@ function useWordAudioIndex(
     if (!bookId || !locale || !indexPath) return;
     if (wordAudioIndexCache.has(bookId)) return;
     let cancelled = false;
-    fetch(bookAssetUrl(bookId, indexPath, locale))
-      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
-      .then((json: { words?: WordAudioIndex }) => {
-        if (cancelled) return;
-        wordAudioIndexCache.set(bookId, json.words ?? {});
-        forceRender((n) => n + 1);
-      })
-      .catch(() => {
-        if (cancelled) return;
-        wordAudioIndexCache.set(bookId, null);
-        forceRender((n) => n + 1);
-      });
+    void loadWordAudioIndex(bookId, locale, indexPath).then(() => {
+      if (!cancelled) forceRender((n) => n + 1);
+    });
     return () => {
       cancelled = true;
     };
   }, [bookId, locale, indexPath]);
   return bookId ? (wordAudioIndexCache.get(bookId) ?? undefined) : undefined;
+}
+
+export type WordPlaybackDecision =
+  | { kind: 'ready'; options: WordAudioOptions }
+  | { kind: 'wait' };
+
+/** Decides whether a single-word tap can play now or must wait on the
+ * word-audio index (TASK R6-C2 commit 2). `index` is `undefined` only
+ * while `words.json` is still loading (see the cache above) — `null`
+ * would mean "loaded, but unusable", which is a legitimate reason to fall
+ * back to the narration slice immediately, not to wait. Waiting only
+ * matters when the book actually has a sprite (`spriteUri` set); a book
+ * with no word-audio at all should never delay the fallback. */
+export function resolveWordPlayback(
+  spriteUri: string | undefined,
+  index: WordAudioIndex | null | undefined,
+  normalized: string,
+  fallback: WordAudioOptions['fallback'],
+): WordPlaybackDecision {
+  if (spriteUri && index === undefined) return { kind: 'wait' };
+  return { kind: 'ready', options: { spriteUri, index: index ?? undefined, normalized, fallback } };
 }
 
 export default function ReaderScreen() {
@@ -591,18 +637,28 @@ export default function ReaderScreen() {
             size={44}
             icon={<SpeakerGlyph size={18} color={colors.accent} />}
             accessibilityLabel={t('book.a11y.playNarration')}
-            onPress={() =>
-              playWordAudio({
-                spriteUri: wordAudioUri,
-                index: wordAudioIndex,
-                normalized: selectedToken.token.normalized,
-                fallback: {
-                  uri: audioUri,
-                  startMs: selectedToken.token.startMs!,
-                  endMs: selectedToken.token.endMs ?? selectedToken.token.startMs! + 600,
-                },
-              })
-            }
+            onPress={() => {
+              const normalized = selectedToken.token.normalized;
+              const fallback = {
+                uri: audioUri,
+                startMs: selectedToken.token.startMs!,
+                endMs: selectedToken.token.endMs ?? selectedToken.token.startMs! + 600,
+              };
+              const decision = resolveWordPlayback(wordAudioUri, wordAudioIndex, normalized, fallback);
+              if (decision.kind === 'wait') {
+                // Sprite exists but words.json hasn't resolved yet — wait
+                // for it instead of silently taking the narration
+                // fallback (the bug: the render gate only checks
+                // startMs/audioUri, not whether the index has loaded).
+                if (bookId && locale && book?.wordAudio) {
+                  void loadWordAudioIndex(bookId, locale, book.wordAudio.index).then((index) => {
+                    playWordAudio({ spriteUri: wordAudioUri, index: index ?? undefined, normalized, fallback });
+                  });
+                }
+                return;
+              }
+              playWordAudio(decision.options);
+            }}
           />
         ) : null}
       </View>

@@ -18,15 +18,24 @@ import { useT } from '../i18n/useT';
 import { usePressAnimation } from './Button';
 import { BookTile } from './BookTile';
 import type { LibraryBook } from './data';
+import { resolveRailView, type RailViewState } from './railView';
 import { useLayoutMetrics } from './Shell';
 import { Text } from './Text';
 import { webCursor } from './tokens';
+
+export { resolveRailView, type RailViewState };
 
 export type RailProps = {
   title: string;
   books: LibraryBook[];
   onPressBook: (book: LibraryBook) => void;
   onSeeAll?: () => void;
+  /** Run 7 card B, directive 4: when set, an empty `books` array renders a
+   * titled empty line (this label) instead of the rail vanishing (`null`).
+   * Omit to keep the old "hide when empty" behaviour — e.g. Home's
+   * "Resume" rail, which is normal (not an error) when nobody has started
+   * a book yet. */
+  emptyLabel?: string;
 };
 
 export type BookGridTier = {
@@ -72,12 +81,26 @@ function SeeAllLink({ label, onPress }: { label: string; onPress: () => void }) 
   );
 }
 
-export function Rail({ title, books, onPressBook, onSeeAll }: RailProps) {
+export function Rail({ title, books, onPressBook, onSeeAll, emptyLabel }: RailProps) {
   const t = useT();
   const grid = useBookGridTier();
-  if (books.length === 0) return null;
+  const view = resolveRailView(books, emptyLabel);
+  if (view.kind === 'hidden') return null;
 
-  const displayBooks = grid && onSeeAll ? books.slice(0, grid.columns) : books;
+  if (view.kind === 'empty') {
+    return (
+      <View style={styles.rail}>
+        <View style={styles.header}>
+          <Text role="heading">{title}</Text>
+        </View>
+        <Text role="caption" color="ink2">
+          {view.label}
+        </Text>
+      </View>
+    );
+  }
+
+  const displayBooks = grid && onSeeAll ? view.books.slice(0, grid.columns) : view.books;
 
   return (
     <View style={styles.rail}>
@@ -103,7 +126,7 @@ export function Rail({ title, books, onPressBook, onSeeAll }: RailProps) {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.row}
         >
-          {books.map((book) => (
+          {displayBooks.map((book) => (
             <BookTile key={book.id} book={book} onPress={onPressBook} />
           ))}
         </ScrollView>

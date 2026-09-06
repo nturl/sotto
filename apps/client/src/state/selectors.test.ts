@@ -4,6 +4,8 @@ import type { BookSummary, Pack, ReadingProgress, SavedWord } from '@sotto/core'
 import {
   filterByCategory,
   filterByLevel,
+  isFilterEmpty,
+  resolvePacksBanner,
   searchBooks,
   selectBooksWithVocabulary,
   selectContinueBooks,
@@ -164,5 +166,39 @@ describe('selectSavedWordsForLocale (verification row 24)', () => {
 
   it('an unknown locale (no matching pack) yields no words', () => {
     expect(selectSavedWordsForLocale(words, packs, 'de-DE')).toEqual([]);
+  });
+});
+
+describe('resolvePacksBanner (Home/Library loading/error/empty states)', () => {
+  it('idle and loading both read as "loading" (packs not resolved yet)', () => {
+    expect(resolvePacksBanner('idle', 0)).toEqual({ kind: 'loading' });
+    expect(resolvePacksBanner('loading', 0)).toEqual({ kind: 'loading' });
+  });
+
+  it('a failed fetch reads as "error", regardless of stale book count', () => {
+    expect(resolvePacksBanner('error', 0)).toEqual({ kind: 'error' });
+    expect(resolvePacksBanner('error', 5)).toEqual({ kind: 'error' });
+  });
+
+  it('ready with zero books for the locale+level reads as "emptyLevel"', () => {
+    expect(resolvePacksBanner('ready', 0)).toEqual({ kind: 'emptyLevel' });
+  });
+
+  it('ready with books reads as "none" — normal render', () => {
+    expect(resolvePacksBanner('ready', 3)).toEqual({ kind: 'none' });
+  });
+});
+
+describe('isFilterEmpty (Library filter-yields-nothing state)', () => {
+  it('is false when there are no rails to judge (nothing selected yet)', () => {
+    expect(isFilterEmpty([])).toBe(false);
+  });
+
+  it('is false when at least one rail has books', () => {
+    expect(isFilterEmpty([{ books: [] }, { books: [book({ bookId: 'a' })] }])).toBe(false);
+  });
+
+  it('is true when every rail is empty', () => {
+    expect(isFilterEmpty([{ books: [] }, { books: [] }])).toBe(true);
   });
 });

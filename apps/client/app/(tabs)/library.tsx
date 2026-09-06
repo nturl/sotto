@@ -1,14 +1,17 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { BOOK_LEVELS } from '@sotto/core';
 import { space } from '@sotto/core/theme';
+import { isFilterEmpty, resolvePacksBanner } from '../../src/state/selectors';
 import { useT } from '../../src/i18n/useT';
+import { Button } from '../../src/ui/Button';
 import { Chip } from '../../src/ui/Chip';
-import { useLibrary, type LibraryBook } from '../../src/ui/data';
+import { useLibrary, usePreferences, type LibraryBook } from '../../src/ui/data';
 import type { BookCategory, BookLevel } from '../../src/ui/dev/fixtures';
 import { PlusGlyph, SearchGlyph } from '../../src/ui/Glyphs';
 import { IconButton } from '../../src/ui/IconButton';
+import { languageNameFor } from '../../src/ui/languages';
 import { Rail } from '../../src/ui/Rail';
 import { Shell, useLayoutMetrics } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
@@ -16,13 +19,28 @@ import { fetchHealth } from '../../src/state/contentApi';
 
 type Filter = 'all' | BookCategory | BookLevel;
 const LEVELS: BookLevel[] = [...BOOK_LEVELS];
+const VALID_FILTERS = new Set<string>(['all', 'fables', 'voyage', ...LEVELS]);
+
+function isValidFilter(value: unknown): value is Filter {
+  return typeof value === 'string' && VALID_FILTERS.has(value);
+}
 
 export default function LibraryScreen() {
   const t = useT();
   const router = useRouter();
   const library = useLibrary();
+  const preferences = usePreferences();
   const { sectionGap, isDesktop } = useLayoutMetrics();
-  const [filter, setFilter] = useState<Filter>('all');
+  // Run 7 card B, directive 6: the recon found this filter chip reset to
+  // 'all' on every remount (a plain useState, nothing persisted it) — a
+  // refresh, back-navigation, or direct link all silently dropped the
+  // learner's chosen category/level. Reading/writing it as the `filter`
+  // URL param instead makes it survive all three the same way `bookId`
+  // already does on the reader/book-detail routes.
+  const { filter: filterParam } = useLocalSearchParams<{ filter?: string }>();
+  const filter: Filter = isValidFilter(filterParam) ? filterParam : 'all';
+  const setFilter = (next: Filter) =>
+    router.setParams({ filter: next === 'all' ? undefined : next });
   // R3-I: free-tier import needs apps/server reachable (local LLM/TTS/STT).
   // No CloudAdapter exists in this OSS-only build, so "no cloud adapter" is
   // always true here — the health check alone decides visibility.
@@ -65,6 +83,13 @@ export default function LibraryScreen() {
     { value: 'voyage', label: t('library.filter.voyage') },
     ...LEVELS.map((level) => ({ value: level as Filter, label: level })),
   ];
+
+  // Run 7 card B, directive 4: distinguish loading / error / "no books for
+  // this locale+level" (packs-wide) from "this filter chip has zero
+  // results" (filter-scoped) — previously both looked identical to a
+  // permanently blank rail set.
+  const banner = resolvePacksBanner(library.packsStatus, library.books.length);
+  const filterEmpty = banner.kind === 'none' && filter !== 'all' && isFilterEmpty(rails);
 
   return (
     <Shell>
@@ -122,17 +147,59 @@ export default function LibraryScreen() {
         </ScrollView>
       )}
 
-      <View style={{ gap: sectionGap }}>
-        {rails.map((rail) => (
-          <Rail
-            key={rail.title}
-            title={rail.title}
-            books={rail.books}
-            onPressBook={openBook}
-            onSeeAll={rail.seeAll ? () => setFilter(rail.seeAll ?? 'all') : undefined}
+      {banner.kind === 'loading' ? (
+        <Text role="caption" color="ink2">
+          {t('packs.status.loading')}
+        </Text>
+      ) : banner.kind === 'error' ? (
+        <View style={styles.banner}>
+          <Text role="caption" color="ink2">
+            {t('packs.status.error')}
+          </Text>
+          <Button
+            variant="secondary"
+            title={t('packs.status.retry')}
+            onPress={library.retryPacks}
           />
-        ))}
-      </View>
+        </View>
+      ) : banner.kind === 'emptyLevel' ? (
+        <View style={styles.banner}>
+          <Text role="caption" color="ink2">
+            {t('packs.status.emptyLevel', {
+              language: languageNameFor(preferences.learningLocale),
+              level: preferences.level,
+            })}
+          </Text>
+          <Button
+            variant="secondary"
+            title={t('packs.status.changeLevel')}
+            onPress={() => router.push('/settings/learning-language')}
+          />
+        </View>
+      ) : filterEmpty ? (
+        <View style={styles.banner}>
+          <Text role="caption" color="ink2">
+            {t('packs.status.emptyFilter')}
+          </Text>
+          <Button
+            variant="secondary"
+            title={t('packs.status.clearFilters')}
+            onPress={() => setFilter('all')}
+          />
+        </View>
+      ) : (
+        <View style={{ gap: sectionGap }}>
+          {rails.map((rail) => (
+            <Rail
+              key={rail.title}
+              title={rail.title}
+              books={rail.books}
+              onPressBook={openBook}
+              onSeeAll={rail.seeAll ? () => setFilter(rail.seeAll ?? 'all') : undefined}
+            />
+          ))}
+        </View>
+      )}
     </Shell>
   );
 }
@@ -164,5 +231,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: space.sm,
+  },
+  banner: {
+    gap: space.md,
+    alignItems: 'flex-start',
   },
 });

@@ -32,6 +32,7 @@ import {
   selectRecommendedBooks,
 } from '../state/selectors';
 import { useSottoStore } from '../state/store';
+import type { LoadStatus } from '../state/types';
 
 export type LibraryBook = {
   id: string;
@@ -74,6 +75,15 @@ export type Library = {
   byCategory: (category: BookCategory) => LibraryBook[];
   byLevel: (level: BookLevel) => LibraryBook[];
   search: (query: string) => LibraryBook[];
+  /** Run 7 card B, directive 4: lets Home/Library tell "still loading" and
+   * "the fetch failed" apart from "there just aren't any books" instead of
+   * all three rendering as the same blank rail set. Feed to
+   * `selectors.ts`'s `resolvePacksBanner` alongside `books.length`. */
+  packsStatus: LoadStatus;
+  /** Re-runs `loadPacks()` from an `'error'` state (the store's own guard
+   * only skips a call while `'loading'`/`'ready'`, so this is safe to call
+   * again after a failure) — wired to the error banner's Retry button. */
+  retryPacks: () => void;
 };
 
 const COVER_ARTS: CoverArt[] = [
@@ -241,8 +251,10 @@ export function useLibrary(): Library {
         [...searchBooks(summaries, query), ...searchBooks(privateSummariesForLocale, query)].map(
           toView,
         ),
+      packsStatus,
+      retryPacks: loadPacks,
     };
-  }, [packs, preferences, progress, completedBooks, privateBooks]);
+  }, [packs, packsStatus, loadPacks, preferences, progress, completedBooks, privateBooks]);
 }
 
 /** Inverse of `mapCategories`: the library screen's chips only offer

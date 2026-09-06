@@ -12,6 +12,7 @@ import type {
   ReadingProgress,
   SavedWord,
 } from '@sotto/core';
+import type { LoadStatus } from './types';
 
 export function selectPackForLocale(packs: Pack[], locale: string): Pack | undefined {
   return packs.find((p) => p.locale === locale);
@@ -127,4 +128,29 @@ export function selectProgressPercent(
   bookId: string,
 ): number {
   return progress[bookId]?.percentComplete ?? 0;
+}
+
+/**
+ * Run 7 card B, directive 4: Home and Library must show loading / error /
+ * "no books for this locale+level" distinctly instead of all three
+ * rendering as the same blank rail set. `bookCount` is the learner's
+ * current-locale book total (`Library.books.length`), taken independent of
+ * any Library filter chip — the filter-specific "no results" case is
+ * `isFilterEmpty` below.
+ */
+export type PacksBanner =
+  { kind: 'none' } | { kind: 'loading' } | { kind: 'error' } | { kind: 'emptyLevel' };
+
+export function resolvePacksBanner(packsStatus: LoadStatus, bookCount: number): PacksBanner {
+  if (packsStatus === 'idle' || packsStatus === 'loading') return { kind: 'loading' };
+  if (packsStatus === 'error') return { kind: 'error' };
+  if (bookCount === 0) return { kind: 'emptyLevel' };
+  return { kind: 'none' };
+}
+
+/** True once a Library filter chip is selected and every rail it produced
+ * came back empty — the "No books match this filter" state (card B,
+ * directive 4), distinct from `resolvePacksBanner`'s locale-wide states. */
+export function isFilterEmpty(rails: Array<{ books: unknown[] }>): boolean {
+  return rails.length > 0 && rails.every((r) => r.books.length === 0);
 }

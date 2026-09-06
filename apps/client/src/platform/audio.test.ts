@@ -7,7 +7,12 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
  * seek-then-play state machine (see audio.ts), so this fake fires that
  * status once synchronously on `play()` with `isLoaded: true` so the
  * seek promise resolves in the same microtask tick the test awaits. */
-type Listener = (status: { isLoaded: boolean; playing?: boolean; didJustFinish?: boolean; currentTime?: number }) => void;
+type Listener = (status: {
+  isLoaded: boolean;
+  playing?: boolean;
+  didJustFinish?: boolean;
+  currentTime?: number;
+}) => void;
 
 const players: Array<{
   uri: string;

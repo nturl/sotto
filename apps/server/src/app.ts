@@ -308,6 +308,11 @@ export async function buildApp(config: Config): Promise<FastifyInstance> {
   // apps/client/scripts/serve-static.mjs's same rule.
   if (config.SOTTO_STATIC_DIR) {
     const staticDir = config.SOTTO_STATIC_DIR;
+    // Newer exports (apps/client/scripts/build-web.mjs, since run 5) split the
+    // static landing page (index.html, owns "/") from the Expo app shell
+    // (app.html, everything else) — mirrors serve-static.mjs's same rule.
+    // Older exports only have index.html; fall back to it everywhere.
+    const hasAppShell = existsSync(path.join(staticDir, 'app.html'));
     await app.register(fastifyStatic, {
       root: staticDir,
       prefix: '/',
@@ -318,7 +323,8 @@ export async function buildApp(config: Config): Promise<FastifyInstance> {
     app.setNotFoundHandler((request, reply) => {
       const pathname = request.url.split('?')[0] ?? request.url;
       if (request.method === 'GET' && !path.extname(pathname)) {
-        return reply.sendFile('index.html', staticDir);
+        const shellFile = hasAppShell && pathname !== '/' ? 'app.html' : 'index.html';
+        return reply.sendFile(shellFile, staticDir);
       }
       reply.code(404).send({ error: 'not_found' });
     });

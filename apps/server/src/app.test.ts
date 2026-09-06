@@ -215,6 +215,52 @@ describe('SOTTO_STATIC_DIR', () => {
     const res = await app.inject({ method: 'GET', url: '/nope' });
     expect(res.statusCode).toBe(404);
   });
+
+  function makeSplitStaticDir(): string {
+    const dir = mkdtempSync(path.join(tmpdir(), 'sotto-static-split-'));
+    writeFileSync(path.join(dir, 'index.html'), '<!doctype html><title>landing</title>');
+    writeFileSync(path.join(dir, 'app.html'), '<!doctype html><title>app-shell</title>');
+    return dir;
+  }
+
+  it('serves index.html at / and app.html for other extension-less paths when both exist', async () => {
+    staticDir = makeSplitStaticDir();
+    app = await buildApp(testConfig({ SOTTO_STATIC_DIR: staticDir }));
+
+    const root = await app.inject({ method: 'GET', url: '/' });
+    expect(root.statusCode).toBe(200);
+    expect(root.body).toContain('<title>landing</title>');
+
+    const onboarding = await app.inject({ method: 'GET', url: '/onboarding' });
+    expect(onboarding.statusCode).toBe(200);
+    expect(onboarding.body).toContain('<title>app-shell</title>');
+
+    const reader = await app.inject({ method: 'GET', url: '/reader/abc' });
+    expect(reader.statusCode).toBe(200);
+    expect(reader.body).toContain('<title>app-shell</title>');
+  });
+
+  it('falls back to index.html everywhere when there is no app.html (older exports)', async () => {
+    staticDir = makeStaticDir();
+    app = await buildApp(testConfig({ SOTTO_STATIC_DIR: staticDir }));
+
+    const root = await app.inject({ method: 'GET', url: '/' });
+    expect(root.statusCode).toBe(200);
+    expect(root.body).toContain('<title>sotto</title>');
+
+    const onboarding = await app.inject({ method: 'GET', url: '/onboarding' });
+    expect(onboarding.statusCode).toBe(200);
+    expect(onboarding.body).toContain('<title>sotto</title>');
+  });
+
+  it('/health still wins over the static catch-all with a split app.html/index.html export', async () => {
+    staticDir = makeSplitStaticDir();
+    app = await buildApp(testConfig({ SOTTO_STATIC_DIR: staticDir }));
+
+    const health = await app.inject({ method: 'GET', url: '/health' });
+    expect(health.statusCode).toBe(200);
+    expect(health.json()).toMatchObject({ ok: true });
+  });
 });
 
 describe('SOTTO_BASIC_AUTH', () => {

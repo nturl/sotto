@@ -154,9 +154,7 @@ function useWordAudioIndex(
   return bookId ? (wordAudioIndexCache.get(bookId) ?? undefined) : undefined;
 }
 
-export type WordPlaybackDecision =
-  | { kind: 'ready'; options: WordAudioOptions }
-  | { kind: 'wait' };
+export type WordPlaybackDecision = { kind: 'ready'; options: WordAudioOptions } | { kind: 'wait' };
 
 /** Decides whether a single-word tap can play now or must wait on the
  * word-audio index (TASK R6-C2 commit 2). `index` is `undefined` only
@@ -644,7 +642,12 @@ export default function ReaderScreen() {
                 startMs: selectedToken.token.startMs!,
                 endMs: selectedToken.token.endMs ?? selectedToken.token.startMs! + 600,
               };
-              const decision = resolveWordPlayback(wordAudioUri, wordAudioIndex, normalized, fallback);
+              const decision = resolveWordPlayback(
+                wordAudioUri,
+                wordAudioIndex,
+                normalized,
+                fallback,
+              );
               if (decision.kind === 'wait') {
                 // Sprite exists but words.json hasn't resolved yet — wait
                 // for it instead of silently taking the narration
@@ -652,7 +655,12 @@ export default function ReaderScreen() {
                 // startMs/audioUri, not whether the index has loaded).
                 if (bookId && locale && book?.wordAudio) {
                   void loadWordAudioIndex(bookId, locale, book.wordAudio.index).then((index) => {
-                    playWordAudio({ spriteUri: wordAudioUri, index: index ?? undefined, normalized, fallback });
+                    playWordAudio({
+                      spriteUri: wordAudioUri,
+                      index: index ?? undefined,
+                      normalized,
+                      fallback,
+                    });
                   });
                 }
                 return;

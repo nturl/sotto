@@ -112,7 +112,12 @@ describe('resolveWordPlayback', () => {
     const decision = resolveWordPlayback('sprite.mp3', null, 'hola', FALLBACK);
     expect(decision).toEqual({
       kind: 'ready',
-      options: { spriteUri: 'sprite.mp3', index: undefined, normalized: 'hola', fallback: FALLBACK },
+      options: {
+        spriteUri: 'sprite.mp3',
+        index: undefined,
+        normalized: 'hola',
+        fallback: FALLBACK,
+      },
     });
   });
 

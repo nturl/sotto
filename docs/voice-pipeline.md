@@ -256,6 +256,30 @@ backend won at startup.
 
 ### Known issues
 
+**A dev server started with `EXPO_PUBLIC_VOICE=fake` looks like a dead capture
+pipeline in the browser e2e scripts (2026-09-06, run7/F1).** Expo inlines
+`EXPO_PUBLIC_*` at bundle time, so a `:8081` started for the screenshot /
+fixture-driven scripts serves the scripted `FakeVoiceProvider` at an
+identical URL. That provider reports `listening` and canned captions
+without ever calling `getUserMedia`, so a `--use-file-for-fake-audio-capture`
+wav is never captured, zero binary frames go over any socket, and a script
+sits at `listening` until its timeout — indistinguishable from an
+`AudioWorklet` that never runs. It is not: with the same Chromium flags the
+`capture-processor` worklet in `packages/voice/src/transports/web-audio.ts`
+emits non-silent 16 kHz frames in headless Chromium (Playwright 1.62,
+chromium-1234), and against a dev server started without the variable a
+full local-cascade turn completes end to end. `apps/client/e2e/voice-start.mjs`
+now guards for this (a live state with zero `getUserMedia` calls fails fast
+naming the cause) and holds the R6-B3 "Start" tap plus the run7/F2
+transcript scraper that `voice-live.mjs`, `self-hosted-voice.mjs` and
+`audible-probe.mjs` share. Two related gotchas for anyone writing a new
+script: since R6-B3 nothing starts without a tap on "Start" (the press
+handler is a no-op until the availability probe resolves, so tap until the
+button clears), and since run7/F2 the transcript renders the speaker label
+("TUTOR"/"YOU", uppercase via `textTransform`, which `innerText` reflects) on
+its own line above the text, so `^(You|Tutor):` and `=== 'listening'`
+matching never fire.
+
 **Silero VAD produced unreliable results in this environment (2026-09-04).**
 The `SileroVad` implementation in `src/voice/vad.ts` was checked byte-for-byte
 against the official Python `onnxruntime` reference (same WAV decode, same

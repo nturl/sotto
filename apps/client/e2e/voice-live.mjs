@@ -39,6 +39,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { chromium } from 'playwright';
+import { assertRealCapture, installMicProbe, readVoiceSnapshot, tapStart } from './voice-start.mjs';
 
 const run = promisify(execFile);
 
@@ -200,6 +201,7 @@ async function runPhase({ name, wavPath, seed, stopWhen, timeoutMs }) {
     ],
   });
   const page = context.pages()[0] ?? (await context.newPage());
+  await installMicProbe(page);
   const pageErrors = [];
   page.on('pageerror', (err) => pageErrors.push(err.message));
   page.on('console', (msg) => {
@@ -211,6 +213,9 @@ async function runPhase({ name, wavPath, seed, stopWhen, timeoutMs }) {
 
   log(`Phase ${name}: navigating to /voice/${BOOK_ID}`);
   await page.goto(`${BASE_URL}/voice/${BOOK_ID}`, { waitUntil: 'domcontentloaded' });
+  // R6-B3: the session starts from a tap, not on mount (see voice-start.mjs).
+  log(`Phase ${name}: tapping Start`);
+  await tapStart(page);
 
   const timeline = [];
   const statesSeen = [];
@@ -219,18 +224,7 @@ async function runPhase({ name, wavPath, seed, stopWhen, timeoutMs }) {
 
   const deadline = Date.now() + timeoutMs;
   while (Date.now() < deadline) {
-    const snapshot = await page.evaluate(() => {
-      const body = document.body.innerText;
-      const stateMatch =
-        /^(idle|connecting|listening|thinking|speaking|paused|muted|reconnecting|ended|error)$/im;
-      const lines = body
-        .split('\n')
-        .map((l) => l.trim())
-        .filter(Boolean);
-      const stateLine = lines.find((l) => stateMatch.test(l));
-      const captionLines = lines.filter((l) => /^(You|Tutor):/.test(l));
-      return { stateLine: stateLine ?? '', captionLines };
-    });
+    const snapshot = await readVoiceSnapshot(page);
 
     if (snapshot.stateLine && snapshot.stateLine !== lastState) {
       lastState = snapshot.stateLine;
@@ -258,6 +252,10 @@ async function runPhase({ name, wavPath, seed, stopWhen, timeoutMs }) {
 
     await page.waitForTimeout(400);
   }
+
+  // Fail with the real cause if this "listening" came from the fake provider
+  // (a dev server started with EXPO_PUBLIC_VOICE=fake) rather than a mic.
+  if (statesSeen.includes('listening')) await assertRealCapture(page, { baseUrl: BASE_URL });
 
   await page.screenshot({ path: path.join(OUT_DIR, `voice-live-${name}-final.png`) });
   const vocabAfter = await readVocabulary(page);

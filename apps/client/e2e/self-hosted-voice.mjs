@@ -25,6 +25,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { chromium } from 'playwright';
+import { assertRealCapture, installMicProbe, readVoiceSnapshot, tapStart } from './voice-start.mjs';
 
 const run = promisify(execFile);
 
@@ -32,6 +33,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CACHE_DIR = path.join(__dirname, '.cache');
 const OUT_DIR = path.resolve(__dirname, '../../../docs/screenshots/web');
 const BASE_URL = process.env.BASE_URL ?? 'http://127.0.0.1:8792';
+const BASE_HOST = new URL(BASE_URL).host;
 const TTS_URL = process.env.SOTTO_TTS_URL ?? 'http://127.0.0.1:8880/v1';
 const AUTH_USER = process.env.SOTTO_BASIC_AUTH_USER ?? 'sotto';
 const AUTH_PASS = process.env.SOTTO_BASIC_AUTH_PASS ?? 'demo-only';
@@ -169,6 +171,7 @@ async function main() {
     httpCredentials: { username: AUTH_USER, password: AUTH_PASS },
   });
   const page = await context.newPage();
+  await installMicProbe(page);
   page.on('pageerror', (err) => issues.push(`pageerror: ${err.message}`));
   page.on('console', (msg) => {
     if (msg.type() === 'error') issues.push(`console.error: ${msg.text()}`);
@@ -213,6 +216,9 @@ async function main() {
   // ---- 5. Voice: real turn against the server's configured cascade ----
   log(`Navigating to /voice/${BOOK_ID}`);
   await page.goto(`${BASE_URL}/voice/${BOOK_ID}`, { waitUntil: 'domcontentloaded' });
+  // R6-B3: the session starts from a tap, not on mount (see voice-start.mjs).
+  log('Tapping Start');
+  await tapStart(page);
 
   const timeline = [];
   const statesSeen = [];
@@ -223,18 +229,7 @@ async function main() {
 
   const deadline = Date.now() + TURN_TIMEOUT_MS;
   while (Date.now() < deadline) {
-    const snapshot = await page.evaluate(() => {
-      const body = document.body.innerText;
-      const stateMatch =
-        /^(idle|connecting|listening|thinking|speaking|paused|muted|reconnecting|ended|error)$/im;
-      const lines = body
-        .split('\n')
-        .map((l) => l.trim())
-        .filter(Boolean);
-      const stateLine = lines.find((l) => stateMatch.test(l));
-      const captionLines = lines.filter((l) => /^(You|Tutor):/.test(l));
-      return { stateLine: stateLine ?? '', captionLines };
-    });
+    const snapshot = await readVoiceSnapshot(page);
 
     if (snapshot.stateLine && snapshot.stateLine !== lastState) {
       lastState = snapshot.stateLine;
@@ -271,6 +266,9 @@ async function main() {
   }
 
   await page.screenshot({ path: path.join(OUT_DIR, '375-selfhost-voice.png') });
+  // Fail with the real cause if this "listening" came from the fake provider
+  // (a bundle exported with EXPO_PUBLIC_VOICE=fake) rather than a mic.
+  if (statesSeen.includes('listening')) await assertRealCapture(page, { baseUrl: BASE_URL });
   await browser.close();
 
   const sawLearnerCaption = timeline.some(
@@ -279,7 +277,7 @@ async function main() {
   );
   const sawTutorCaption = timeline.some((e) => e.kind === 'caption' && /^Tutor:/.test(e.value));
   const cycleSeen = ['listening', 'thinking', 'speaking'].every((s) => statesSeen.includes(s));
-  const wsOnServerOrigin = wsUrls.some((u) => u.includes(':8792'));
+  const wsOnServerOrigin = wsUrls.some((u) => new URL(u).host === BASE_HOST);
   const turnLatencyMs = firstTutorCaptionAt ? firstTutorCaptionAt - turnStart : null;
 
   console.log('\n===== Timeline =====');
@@ -290,7 +288,7 @@ async function main() {
   const results = {
     'onboarding rendered on first unseeded load': sawOnboarding,
     'narration audio asset fetched in reader': narrationAssetFetched,
-    'voice/ws opened on the self-hosted origin (:8792)': wsOnServerOrigin,
+    [`voice/ws opened on the self-hosted origin (${BASE_HOST})`]: wsOnServerOrigin,
     'learner caption heard (fake mic, contains target word)': sawLearnerCaption,
     'tutor caption received (real OpenAI cascade)': sawTutorCaption,
     'state cycled listening -> thinking -> speaking': cycleSeen,

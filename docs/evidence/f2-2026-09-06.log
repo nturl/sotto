@@ -1,0 +1,259 @@
+R4-F2 fix-lane evidence — Sotto OSS client, 2026-09-06
+Repo: /Users/noelturlington/Claude/sotto, branch main
+Started at HEAD d91a39d; planning/LEDGER.md-only commits (938f773, c9ae853)
+landed on the shared branch during this lane from another session — no
+overlap with the files below.
+
+=====================================================================
+FIX 1 — dead "Sign in with Apple" on the paid web account screen
+=====================================================================
+apps/client/app/account/index.tsx: the `Platform.OS === 'ios' ? <button/> :
+<Pressable/>` ternary (was lines 272-291) is now
+`Platform.OS === 'ios' ? (<><AppleAuthenticationButton/><dividerRow/></>) :
+null` — both the Apple button AND the "or" divider row are gone together on
+web, only the iOS branch renders. Removed now-dead `Pressable`/`webCursor`
+imports and the `appleButtonWeb`/`appleButtonWebLabel` styles.
+
+apps/client/src/i18n/en.json + 8 other locales (ca, es, fr, it, pt, ro,
+zh-Hans, zh-Hant) — the false "…and iPhone access." promise (there is no
+App Store distribution; STRATEGY.md: "no Apple, Fly or Vercel Pro spend...
+one web-only plan") removed from all three keys it appeared in:
+  account.signedOut.subhead, paywall.subhead, paywall.nag.copy
+English before/after:
+  "Sign in for OpenAI voices, hosted import, and iPhone access."
+  -> "Sign in for OpenAI voices and hosted import, or use your own OpenAI
+      key without an account."
+  "Reading, narration, translation and the local tutor stay free. A plan
+   adds OpenAI voices, hosted import, and iPhone access."
+  -> "...A plan adds OpenAI voices and hosted import."
+  "OpenAI voices and iPhone import are available with a plan."
+  -> "OpenAI voices and hosted import are available with a plan."
+Verified: grep -rn "iPhone" apps/client/src/i18n/*.json -> no matches.
+Verified: all 9 locale files have identical key sets, 342 keys each
+(340 baseline + voice.subscribe + account.paid.success, see fix 3 below).
+
+Browser check (static export, EXPO_PUBLIC_CLOUD=fake, served on
+http://localhost:8200):
+- 375px /account: no Apple button, no divider, updated subhead visible —
+  screenshot confirmed visually.
+- 1440px /account: same — no Apple button, no divider.
+
+=====================================================================
+FIX 2 — checkout success/cancel URLs pointed at routes that don't exist
+=====================================================================
+apps/client/src/cloud/http.ts checkout(): `/billing/success` and
+`/billing/cancel` (no apps/client/app/billing/ directory exists) replaced
+with `/account?paid=1` and `/account` — the exact successUrl shape
+sotto-cloud/src/billing/stub.test.ts:92 already exercises against the
+server side.
+
+apps/client/app/account/index.tsx: added a small effect reading `?paid=1`
+from useLocalSearchParams, calling `me.refresh()` once, showing a toast
+(new key account.paid.success = "Subscription active.", added to all 9
+locales), then `router.replace('/account')` to strip the query param so a
+reload doesn't re-fire it.
+
+Browser check: navigated to http://localhost:8200/account?paid=1 ->
+location.href settled at http://localhost:8200/account (query stripped),
+page text showed the normal signed-out Account screen (FakeCloudAdapter
+here has no route to actually flip entitlement, so the sign-in state
+itself doesn't change — the query-handling and toast/refresh wiring is
+what's under test here, not FakeCloudAdapter's own behavior).
+
+=====================================================================
+FIX 3 — BYOK undiscoverable from the voice screen
+=====================================================================
+apps/client/app/voice/[bookId].tsx: both recovery panels (`panelState` and
+`isServerUnavailable`) gained two new actions alongside the existing
+"Read alone":
+  - "Use your own OpenAI key" (reuses byok.row's existing translated
+    string) -> router.push('/settings/openai-key') — already the one real
+    entry point (profile.tsx:234), and that screen already links
+    docs/byok.md via DOCS_URL, so nothing there was touched or duplicated.
+  - "Subscribe" (new key voice.subscribe, all 9 locales, mirrors
+    paywall.subscribe's per-locale word minus the price) ->
+    router.push('/paywall'), rendered only when `useCloud().enabled`.
+Added `useCloud()` to the component. The `recoveryButtons` row style
+gained `flexWrap: 'wrap'` + `justifyContent: 'center'` — the 3-button case
+overflowed 375px width with the original single-row layout (found and
+fixed during the browser check below; shared with the existing isBroken
+block's 2-button case, unaffected at normal widths).
+
+Browser check (static export, EXPO_PUBLIC_CLOUD=fake,
+http://localhost:8200/voice/en-aesop-fables, which hits the
+`needs-download` panelState panel since no local server is running):
+- 375px: "Run the tutor in this browser" panel + Subscribe / Use your own
+  OpenAI key / Read alone, all three fully visible after the flexWrap fix
+  (screenshot confirmed before/after).
+- 1440px: same three actions in one row.
+- Clicked "Use your own OpenAI key" (via JS click, pane was backgrounded)
+  -> location.pathname === "/settings/openai-key"; page text confirmed
+  "Your OpenAI key" / "How this works" (the docs/byok.md link).
+  Clicked "Subscribe" -> location.pathname === "/paywall".
+
+account.signedOut.subhead (fix 1's key) already names the BYOK option in
+the same pass: "...or use your own OpenAI key without an account."
+
+=====================================================================
+FIX 4 — service worker cached API responses; cache-buster leaked
+=====================================================================
+apps/client/public/sw.js: added a module-level API_PATH_PREFIXES list
+(/account /admin /auth /billing /health /import /imports /me /voice
+/webhooks /terms /privacy, exactly the list handed down) and an early
+bare `return` in the fetch handler, placed after the two /content/packs
+blocks and before the app-shell cache-first block:
+  if (API_PATH_PREFIXES.some((p) => url.pathname === p ||
+      url.pathname.startsWith(p + '/'))) return;
+Exact-or-slash-prefixed match (not a bare startsWith) so e.g. "/media"
+never collides with "/me". /content/packs/**, the Range-request branch,
+and the `mode: 'navigate'` shell fallback were not touched.
+
+apps/client/src/cloud/http.ts: removed the `_sw=${Date.now()}`
+cache-busting query param, `isGet`/`bustedPath`, and the whole R4-D2
+comment block from request() — required per the brief, since it only
+worked together with the sw.js fix (the buster's unique-per-request URLs
+were all being retained forever by the old catch-all's cache.put, growing
+Cache Storage without bound after sign-out).
+
+New test: apps/client/e2e/sw-api-passthrough.mjs (Playwright, follows the
+existing hosted.mjs/browser-tutor.mjs e2e shape — no vitest unit tests for
+sw.js exist in this repo to extend). Serves apps/client/dist via
+serve-static.mjs, navigates to a real matched SPA route (not /app.html
+literally — expo-router's +not-found screen for an unmatched path never
+runs app/_layout.tsx's SW-registration effect, confirmed by instrumenting
+navigator.serviceWorker.register directly: 0 calls on /app.html, 1 call on
+a real route), waits for navigator.serviceWorker.ready + polls for
+.controller, then fetches each exempt path once (no cache-buster) and
+checks every open Cache Storage entry for a match. A control path outside
+the list is asserted to land in the shell cache, proving cache-first is
+still active in general.
+
+Verified the test actually catches the regression: reverted dist/sw.js to
+the pre-fix HEAD version and reran — all 12 exempt paths FAILed
+("served from the SW cache... exemption not working"), control path still
+PASSed. Restored the fixed sw.js and reran clean 3x in a row (see full
+PASS output below). Per the brief's own warning, this asserts on Cache
+Storage contents rather than offline navigation — Playwright's
+context.setOffline(true) blocks the request before the SW fetch handler
+ever runs for a navigation, which would have made an offline-reload check
+worthless here.
+
+--- final clean run (apps/client/e2e/sw-api-passthrough.mjs) ---
+[sw-api-passthrough] serving .../apps/client/dist on http://localhost:8095
+serve-static: .../apps/client/dist on http://localhost:8095
+[sw-api-passthrough] service worker is controlling the page
+[sw-api-passthrough] /account: not cached (network answered untouched) — PASS
+[sw-api-passthrough] /admin: not cached (network answered untouched) — PASS
+[sw-api-passthrough] /auth: not cached (network answered untouched) — PASS
+[sw-api-passthrough] /billing/plans: not cached (network answered untouched) — PASS
+[sw-api-passthrough] /health: not cached (network answered untouched) — PASS
+[sw-api-passthrough] /import: not cached (network answered untouched) — PASS
+[sw-api-passthrough] /imports: not cached (network answered untouched) — PASS
+[sw-api-passthrough] /me: not cached (network answered untouched) — PASS
+[sw-api-passthrough] /voice: not cached (network answered untouched) — PASS
+[sw-api-passthrough] /webhooks: not cached (network answered untouched) — PASS
+[sw-api-passthrough] /terms: not cached (network answered untouched) — PASS
+[sw-api-passthrough] /privacy: not cached (network answered untouched) — PASS
+[sw-api-passthrough] /sw-passthrough-control-check: cached in "sotto-shell-1788657950357.4148" — PASS (cache-first is still active for ordinary routes)
+[sw-api-passthrough] RESULT: PASS
+--- (repeated 3x total, all PASS; one earlier run before adding a poll for
+     `.controller` flaked on that one non-substantive check only — see the
+     code comment added in the script) ---
+
+=====================================================================
+FIX 5 — self-hosting Fly quickstart shipped with no auth gate
+=====================================================================
+docs/self-hosting.md: docs-only change, apps/server/src/app.ts NOT
+touched (in another session's dirty set, per the brief). The Fly section
+(was lines 66-71) gained:
+  - An explicit warning paragraph before the code block: a Fly deploy is
+    reachable by anyone (unlike Docker's default localhost-only bind),
+    SOTTO_BASIC_AUTH is off unless set (cites apps/server/src/app.ts),
+    and skipping it lets a stray scanner drive the tutor/import on the
+    operator's OpenAI key with nothing but the existing per-IP rate limit
+    (10 session-creates/min) and SOTTO_MAX_SESSIONS in the way.
+  - `fly secrets set` now includes `SOTTO_BASIC_AUTH=sotto:$SOTTO_PASS`,
+    generated via `openssl rand -hex 16` and echoed to the terminal first
+    (`fly secrets set` never prints a value back), with a follow-up note
+    on saving it since Fly cannot return it later.
+fly.toml.example already anticipated this (its [env] comment already named
+SOTTO_BASIC_AUTH as one of the secrets to set) — no change needed there.
+
+=====================================================================
+FIX 6 — deploy-kit image size (4.49 GB)
+=====================================================================
+NOT STARTED. Per the brief, fix 6 only proceeds once 1-5 are done, tested
+and committed. See PARTIAL note in the final chat report for the decision
+on whether it was attempted.
+
+=====================================================================
+pnpm check (repo root) — run per-step since prettier fails first on
+files outside this lane's scope (chained `&&` would stop before lint/
+typecheck/test/content:validate could run at all)
+=====================================================================
+
+$ pnpm format:check
+FAIL — but only these 15 files, all under packages/content/drafts/ (the
+other session's in-flight, untracked content work; not touched by this
+lane, explicitly out of scope per the brief):
+  packages/content/drafts/en-doyle-red-headed-league.draft.json
+  packages/content/drafts/en-london-build-a-fire.draft.json
+  packages/content/drafts/en-poe-tell-tale-heart.draft.json
+  packages/content/drafts/es-becquer-maese-perez.draft.json
+  packages/content/drafts/es-clarin-adios-cordera.draft.json
+  packages/content/drafts/es-dario-rey-burgues.draft.json
+  packages/content/drafts/es-larra-vuelva-usted.draft.json
+  packages/content/drafts/es-palma-tradiciones.draft.json
+  packages/content/drafts/fr-daudet-derniere-classe.draft.json
+  packages/content/drafts/fr-daudet-les-etoiles.draft.json
+  packages/content/drafts/fr-flaubert-coeur-simple.draft.json
+  packages/content/drafts/fr-maupassant-le-horla.draft.json
+  packages/content/drafts/fr-merimee-mateo-falcone.draft.json
+  packages/content/drafts/fr-voltaire-candide.draft.json
+  packages/content/drafts/zh-luxun-kong-yiji.draft.json
+None of this lane's 15 changed files appear in that list.
+
+$ pnpm lint
+PASS (0 errors). 24 pre-existing warnings, all in files this lane did not
+touch (apps/client/app/paywall/index.tsx, apps/client/src/cloud/
+http.test.ts, apps/client/src/state/vocabulary.test.ts,
+apps/client/src/ui/languages.ts, apps/client/src/voice/toolContext.
+test.ts, packages/content/scripts/fill-locales.mjs).
+
+$ pnpm typecheck
+PASS — all 5 workspace packages ("Done") clean, apps/client included.
+
+$ pnpm test
+PASS — 65 files, 508 tests, 0 failures. Baseline was 64 files / 500 tests;
+the +1 file / +8 tests is packages/content/test/assemble-draft.test.ts,
+which was already untracked in this repo before this lane started (the
+other session's content work) — this lane added zero vitest test files
+(the new e2e/sw-api-passthrough.mjs is a standalone Playwright script, not
+part of the vitest suite).
+
+$ pnpm content:validate
+FAIL — 997 errors / 223 warnings vs. the stated baseline of 0 errors / 106
+warnings, entirely inside packages/content/packs/** (gloss-cross-locale-
+leak and gloss-not-identity warnings/errors across many new book packs:
+en-doyle-red-headed-league, es-becquer-maese-perez, zh-chengyu-stories,
+pt-jabuti-onca, etc.). This lane made zero edits under packages/content/**
+— per the brief's own PROOF section ("if something fails in
+packages/content/** ... that you did not touch, report it rather than
+fixing it") and the ESCALATE list, this is reported, not fixed. It is the
+other session's in-flight library-expansion content (untracked new book
+directories, per planning/LIBRARY-EXPANSION.md) still mid-validation.
+
+SUMMARY: format:check and content:validate fail only in files this lane
+never touched (packages/content/drafts/**, packages/content/packs/**).
+lint, typecheck and test are clean/green for the full repo including every
+file this lane changed.
+
+=====================================================================
+Key scan (before commit)
+=====================================================================
+$ grep -rnE "sk-[A-Za-z0-9]|rk_[A-Za-z0-9]|whsec_[A-Za-z0-9]" \
+    apps/client/app/account/index.tsx apps/client/app/voice/[bookId].tsx \
+    apps/client/src/cloud/http.ts apps/client/public/sw.js \
+    apps/client/src/i18n/*.json apps/client/e2e/sw-api-passthrough.mjs \
+    docs/self-hosting.md docs/evidence/f2-2026-09-06.log
+(no matches — clean)

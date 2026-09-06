@@ -35,7 +35,7 @@ import type { VoicePath } from './availability';
 import { cachedByokKey } from './byokKey';
 import { createVoiceController } from './controller';
 import { createToolContext } from './toolContext';
-import { gateVoiceState } from './voiceStartGate';
+import { createListeningGate } from './voiceStartGate';
 
 /**
  * R6-B3: wraps the real `AudioAdapter` so `startSession` can tell whether
@@ -46,7 +46,10 @@ import { gateVoiceState } from './voiceStartGate';
  * one wrapped adapter per session so the gate reflects the one real
  * `getUserMedia` call this session makes.
  */
-function wrapAudioForGating(inner: AudioAdapter): {
+function wrapAudioForGating(
+  inner: AudioAdapter,
+  onCaptureReady: () => void,
+): {
   adapter: AudioAdapter;
   captureReady: () => boolean;
 } {
@@ -55,6 +58,7 @@ function wrapAudioForGating(inner: AudioAdapter): {
     startCapture: async (onPcm16) => {
       await inner.startCapture(onPcm16);
       ready = true;
+      onCaptureReady();
     },
     stopCapture: () => {
       ready = false;
@@ -206,15 +210,27 @@ export function startSession(params: {
   // this session might construct (the initial pick and, for a failed
   // Realtime attempt, its cascade fallback) — the Realtime provider itself
   // uses WebRTC directly and has no local capture to gate, so it always
-  // reports `captureReady`.
+  // reports `captureReady`. `listeningGate` also handles the local path's
+  // one-shot `listening` announcement (apps/server/src/voice/session.ts's
+  // constructor sends it once, at websocket-session creation, and never
+  // repeats it): a `listening` gated down to `connecting` is flushed back
+  // to `listening` the moment `startCapture` actually resolves, rather
+  // than leaving the screen stuck at `connecting` forever.
   const isFakeProvider = process.env.EXPO_PUBLIC_VOICE === 'fake';
-  const gatedAudio = isFakeProvider ? null : wrapAudioForGating(createAudioAdapter());
+  const listeningGate = createListeningGate(() => gatedAudio?.captureReady() ?? true);
+  const gatedAudio: ReturnType<typeof wrapAudioForGating> | null = isFakeProvider
+    ? null
+    : wrapAudioForGating(createAudioAdapter(), () => {
+        const flushed = listeningGate.onCaptureReady();
+        if (flushed) useSottoStore.getState().setVoiceState(flushed);
+      });
 
   const attach = (provider: VoiceProvider, isRealtimeAttempt: boolean): void => {
-    const captureReady = isRealtimeAttempt || !gatedAudio ? () => true : gatedAudio.captureReady;
     const { unsubscribe } = createVoiceController(provider, ctx, {
       onState: (state) =>
-        useSottoStore.getState().setVoiceState(gateVoiceState(state, captureReady())),
+        useSottoStore
+          .getState()
+          .setVoiceState(isRealtimeAttempt ? state : listeningGate.onProviderState(state)),
       onCaption: (entry) => {
         useSottoStore.getState().pushCaption(entry);
         if (entry.speaker === 'tutor' && entry.final) {

@@ -39,6 +39,37 @@ export function gateVoiceState(state: VoiceState, captureReady: boolean): VoiceS
 }
 
 /**
+ * `gateVoiceState` alone is not enough: the local path's server reports
+ * `listening` exactly once, at websocket-session creation
+ * (`apps/server/src/voice/session.ts`'s constructor) — it does not repeat
+ * itself once the client's capture transport catches up. A provider event
+ * gated to `connecting` would otherwise strand the screen there forever,
+ * since nothing re-announces `listening` afterwards. This tracks whether a
+ * `listening` report was suppressed and, once the capture transport
+ * actually becomes ready, tells the caller to flush that missed
+ * `listening` transition through.
+ */
+export function createListeningGate(captureReady: () => boolean) {
+  let pendingListening = false;
+  return {
+    /** Call for every provider state event; returns what to actually set. */
+    onProviderState(state: VoiceState): VoiceState {
+      const gated = gateVoiceState(state, captureReady());
+      if (gated === 'connecting' && state === 'listening') pendingListening = true;
+      return gated;
+    },
+    /** Call once the capture transport's `startCapture` resolves; returns
+     * `'listening'` if a report was suppressed waiting for exactly this,
+     * otherwise `null` (nothing to flush). */
+    onCaptureReady(): VoiceState | null {
+      if (!pendingListening) return null;
+      pendingListening = false;
+      return 'listening';
+    },
+  };
+}
+
+/**
  * R6-B3 (B1 candidate 3): the mid-session `isBroken` panel used to be a
  * dead end for `mic_unavailable` — a plain message and only "Read alone",
  * with no way to actually fix the mic and continue. This decides which of

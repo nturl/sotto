@@ -571,27 +571,27 @@ Deployment shape, measured: one `shared-cpu-1x` 512 MB machine in `ewr`
 cold start 16.8 s. Evidence: `sotto-cloud/docs/evidence/d3-staging-2026-09-05.log`
 (stages 2-4) and `d3-live-2026-09-05.log` (stage 5).
 
-| Row                                                              | Status                                                                                                                                                           |
-| ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Fly deploy (machine, volume, health, TLS on `app.readsotto.app`) | **PASS** — `/health` reports `production` + billing `stripe`                                                                                                     |
-| Sign-in: magic link, real mail                                   | **PASS** — Resend from `hello@readsotto.app` (domain DKIM+SPF verified), delivered 23:52:17, clicked 23:52:32                                                    |
-| Sign-in: Apple identity token                                    | **REMOVED from the web surface** — `POST /auth/apple` unregistered in D1; the route 404s (CONFIRM 4). See defect 1 below: the _button_ is still rendered         |
-| Billing: live Stripe Checkout                                    | **PASS** — live product `prod_VCspKJ0jbyRkCV`, monthly `price_1UCT4GBB2DVFs93Sm7kXUmof` ($9.99), yearly `price_1UCT4HBB2DVFs93Sg7ThawNO` ($79)                   |
-| Billing: real charge → entitlement                               | **PASS** — $9.99 charged (`py_3UCTOgBB2DVFs93S0c2p3usE`), subscription `sub_1UCTOjBB2DVFs93S5labKlkR` active, entitlement flipped to `standard`, source `stripe` |
-| Billing: live webhooks                                           | **PASS** — endpoint `we_1UCT4UBB2DVFs93SVdaX6Omt`, six handled events; three arrived on the charge leg; unsigned body → 400                                      |
-| Billing: refund + cancel → downgrade                             | **PASS** — full refund and cancel; `customer.subscription.deleted` reached Fly at 00:00:33Z, entitlement reverted to `free` on the same `source_ref`             |
-| Billing: stub checkout absent in production                      | **PASS** — `POST /billing/stub/subscribe` → 404                                                                                                                  |
-| Plan table trimmed to one paid plan                              | **PASS** — `/billing/plans` lists free + standard only (250 cascade min, 2 imports, 120 narrated min)                                                            |
-| 3-day free trial, card required                                  | **PASS** — `SOTTO_CLOUD_TRIAL_DAYS=3` on Fly; sandbox Checkout screenshot shows "3 days free / $0.00 due today" (`d3-stripe-sandbox-checkout-trial.png`)         |
-| Automatic tax                                                    | **PASS (sandbox)** — `automatic_tax[enabled]=true` accepted, liability self. Live charge computed $0 tax (no NY registration)                                    |
-| Daily spend ceiling ($5)                                         | **PASS** — verified live, upgraded from run 3's PARTIAL                                                                                                          |
-| Kill switch `SOTTO_CLOUD_TUTOR_DISABLED`                         | **PASS** — verified live                                                                                                                                         |
-| Realtime mint with the flag off                                  | **PASS** — `/voice/realtime/secret` → 503 (`src/voice/realtime.ts:223`)                                                                                          |
-| Legal pages                                                      | **PASS** — `/terms` and `/privacy` 200 with the markdown rendered. Governing-law line is still a TODO in `legal/terms.md`                                        |
-| Account deletion from the web                                    | **PASS** — signs out; `/me` 401 afterwards                                                                                                                       |
-| `trustProxy` behind Fly                                          | **PASS** — client IPs resolve correctly through Fly's proxy                                                                                                      |
-| Hosted import (C4)                                               | **PASS (staging)** — `sotto-cloud/docs/evidence/import-hosted-staging-2026-09-05.log`; not re-run against production                                             |
-| App Store build                                                  | **DEFERRED** — unchanged; `docs/app-store.md` holds the hand-off commands                                                                                        |
+| Row                                                              | Status                                                                                                                                                                                                                                                                                                                                                                                               |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Fly deploy (machine, volume, health, TLS on `app.readsotto.app`) | **PASS** — `/health` reports `production` + billing `stripe`                                                                                                                                                                                                                                                                                                                                         |
+| Sign-in: magic link, real mail                                   | **PASS** — Resend from `hello@readsotto.app` (domain DKIM+SPF verified), delivered 23:52:17, clicked 23:52:32                                                                                                                                                                                                                                                                                        |
+| Sign-in: Apple identity token                                    | **REMOVED from the web surface** — `POST /auth/apple` unregistered in D1; the route 404s (CONFIRM 4). See defect 1 below: the _button_ is still rendered                                                                                                                                                                                                                                             |
+| Billing: live Stripe Checkout                                    | **PASS** — live product `prod_VCspKJ0jbyRkCV`, monthly `price_1UCT4GBB2DVFs93Sm7kXUmof` ($9.99), yearly `price_1UCT4HBB2DVFs93Sg7ThawNO` ($79)                                                                                                                                                                                                                                                       |
+| Billing: real charge → entitlement                               | **PASS** — $9.99 charged (`py_3UCTOgBB2DVFs93S0c2p3usE`), subscription `sub_1UCTOjBB2DVFs93S5labKlkR` active, entitlement flipped to `standard`, source `stripe`                                                                                                                                                                                                                                     |
+| Billing: live webhooks                                           | **PASS** — endpoint `we_1UCT4UBB2DVFs93SVdaX6Omt`, six handled events; three arrived on the charge leg; unsigned body → 400                                                                                                                                                                                                                                                                          |
+| Billing: refund + cancel → downgrade                             | **PASS** — full refund and cancel; `customer.subscription.deleted` reached Fly at 00:00:33Z, entitlement reverted to `free` on the same `source_ref`                                                                                                                                                                                                                                                 |
+| Billing: stub checkout absent in production                      | **PASS** — `POST /billing/stub/subscribe` → 404                                                                                                                                                                                                                                                                                                                                                      |
+| Plan table trimmed to one paid plan                              | **PASS** — `/billing/plans` lists free + standard only (250 cascade min, 2 imports, 120 narrated min)                                                                                                                                                                                                                                                                                                |
+| 3-day free trial, card required                                  | **PASS** — `SOTTO_CLOUD_TRIAL_DAYS=3` on Fly; sandbox Checkout screenshot shows "3 days free / $0.00 due today" (`d3-stripe-sandbox-checkout-trial.png`)                                                                                                                                                                                                                                             |
+| Automatic tax                                                    | **PASS (sandbox)** — `automatic_tax[enabled]=true` accepted, liability self. Live charge computed $0 tax (no NY registration)                                                                                                                                                                                                                                                                        |
+| Daily spend ceiling ($5)                                         | **PASS (staging), configured live** — the ceiling logic is proven 6/6 in `sotto-cloud/docs/evidence/voice-broker-staging-2026-09-05.log` (FIX PASS section) and `SOTTO_CLOUD_DAILY_SPEND_CEILING_USD=5` is confirmed in the production machine env. It has never actually refused a session in production. Corrected down from "verified live": `d3-live-2026-09-05.log:133` still listed it as owed |
+| Kill switch `SOTTO_CLOUD_TUTOR_DISABLED`                         | **PASS (staging), configured live** — `POST /voice/session` and `/voice/realtime/secret` both 503 `tutor_disabled` (`voice-broker-staging-2026-09-05.log:71-78`). Production has the flag at 0 and it was never toggled there. Corrected down from "verified live"                                                                                                                                   |
+| Realtime mint with the flag off                                  | **PASS** — `/voice/realtime/secret` → 503 (`src/voice/realtime.ts:223`)                                                                                                                                                                                                                                                                                                                              |
+| Legal pages                                                      | **PASS** — `/terms` and `/privacy` 200 with the markdown rendered. Governing-law line is still a TODO in `legal/terms.md`                                                                                                                                                                                                                                                                            |
+| Account deletion from the web                                    | **PASS (staging)** — `DELETE /account` → 204, every per-user row gone, audit trail anonymized (`sotto-cloud/docs/evidence/accounts-staging-2026-09-05.log:191-255`). Live, only the sign-out half was observed (`/me` 401), which alone does not prove deletion. See defect 5                                                                                                                        |
+| `trustProxy` behind Fly                                          | **PASS** — client IPs resolve correctly through Fly's proxy                                                                                                                                                                                                                                                                                                                                          |
+| Hosted import (C4)                                               | **PASS (staging)** — `sotto-cloud/docs/evidence/import-hosted-staging-2026-09-05.log`; not re-run against production                                                                                                                                                                                                                                                                                 |
+| App Store build                                                  | **DEFERRED** — unchanged; `docs/app-store.md` holds the hand-off commands                                                                                                                                                                                                                                                                                                                            |
 
 ### Open defects on the paid surface (found during stage 5, not yet fixed)
 
@@ -608,6 +608,60 @@ cold start 16.8 s. Evidence: `sotto-cloud/docs/evidence/d3-staging-2026-09-05.lo
    cache-first over every path; the shipped mitigation is a cache-busting query
    parameter added in `apps/client/src/cloud/http.ts`. The durable fix is to
    exempt API paths in the service worker and drop the query parameter.
+
+5. **HIGH — deleting an account does not cancel its Stripe subscription.**
+   `sotto-cloud/src/auth/users.ts:117-146` never calls into `src/billing/`, and
+   the service has no `subscriptions.cancel` call anywhere. A paying learner who
+   deletes their account keeps being billed, and the `stripe_customers` row that
+   would let anyone reconcile it is cascaded away at the same moment. Nobody is
+   affected today (there are no live subscribers), but the app can take one at
+   any time.
+6. **HIGH — the sunset switch miscounts trialing subscribers.**
+   `sotto-cloud/ops/sunset-check.mjs:246` queries Stripe with `status=active`
+   only, while the service treats `['active','trialing']` as entitled
+   (`src/billing/stripe.ts:45`) and the live plan carries a 3-day trial. A
+   subscriber who signs up on Oct 30 reads as zero on Nov 1. The Stripe count
+   overwrites the entitlements fallback outright (`:682-690`), with no
+   `Math.max`. Latent only because the restricted key still 403s — and
+   `ops/README-sunset.md` tells Noel to enable it.
+7. **HIGH — `fly machine stop` does not stick.** `fly.toml:75-81` sets
+   `auto_start_machines = true` and `min_machines_running = 1` (the live machine
+   reports `autostart: true`), so Fly Proxy restarts the machine on the next
+   inbound request while the sunset ledger records "Executed" and nothing
+   rechecks for a month.
+8. **HIGH — the next vendor-pin bump replaces the paid app with the landing
+   page.** `apps/client/scripts/build-web.mjs:66` renames the exported shell to
+   `app.html` and gives `index.html` to the marketing page, but
+   `sotto-cloud/src/app.ts:206` still falls back to `index.html`. Not live yet:
+   the pinned `34201b2` predates the landing commit `18b0074`. It detonates on
+   the first pin bump, which is exactly what shipping any of defects 1-4
+   requires. `static.test.ts:22-27` hand-writes `index.html`, so no test sees it.
+9. **MEDIUM — unbounded service-worker cache holding signed-in data.**
+   `sw.js:175-182` `cache.put`s every ok response from the catch-all branch, and
+   the `_sw=${Date.now()}` buster makes every API GET a unique key. `activate`
+   prunes only by cache name and sign-out never clears Cache Storage, so `/me`
+   and `/usage` bodies persist on disk after sign-out and the cache grows without
+   bound. Fixing defect 4 properly (exempt API paths _and_ remove the buster)
+   closes this.
+10. **MEDIUM — the self-hosting Fly quickstart ships an unauthenticated
+    endpoint.** `docs/self-hosting.md:66-71` never sets `SOTTO_BASIC_AUTH`, and
+    `apps/server/src/app.ts:68` only applies auth when it is set — so following
+    the published steps puts a public URL holding the operator's OpenAI key on
+    the internet with no gate.
+
+**Reviewed and NOT a defect:** adversarial review 4 reported that review 3's
+finding 5 (an imported book leaving the device on a static web deploy) had
+reopened, citing `apps/client/src/import/api.ts:37`. It has not.
+`apps/client/app/import/index.tsx:106` returns before `postImport` is ever
+reached when `canImportLocally` is false, routing to hosted import or an honest
+failure card instead. The finding was a grep-level lead, not a traced call path.
+
+**Accepted, not fixed:** trials have no eligibility check
+(`src/billing/stripe.ts:111`), so subscribe → cancel → delete → re-signup mints
+a fresh customer and a fresh 3-day trial. Bounded by the $5/day ceiling and the
+kill switch, and the paid experiment is scheduled to end 2026-11-01; building
+trial-abuse infrastructure for an eight-week experiment is not worth the
+complexity.
 
 ## Tier 5: BYOK (bring your own OpenAI key) — 2026-09-06
 

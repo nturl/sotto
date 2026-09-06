@@ -33,12 +33,7 @@
 import { useSottoStore } from '../state/store';
 
 export type OwnProviderStatus =
-  | 'disconnected'
-  | 'connecting'
-  | 'connected'
-  | 'active'
-  | 'invalid'
-  | 'unavailable';
+  'disconnected' | 'connecting' | 'connected' | 'active' | 'invalid' | 'unavailable';
 
 /** Read the current status. Re-renders the caller whenever the flow (or the
  * tutor pipeline, for `active`) changes it — no focus/mount tricks needed. */

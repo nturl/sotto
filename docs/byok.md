@@ -36,9 +36,11 @@ tool schemas, `packages/voice`'s shared turn loop). Speech is played back at
    credit will return errors on the first request.
 3. Create a key under **API keys** → _Create new secret key_. Copy it; the
    page shows it once.
-4. In Sotto: **Profile → Tutor preferences → Use your own OpenAI key**,
-   paste it, and press **Save**. Sotto checks the key against
-   `GET /v1/models` before storing it, so a typo is caught immediately.
+4. In Sotto: **Settings → Tutor → Tutor voice**, paste it, and press
+   **Connect and use this key**. Sotto checks the key against
+   `GET /v1/models` before storing it, so a typo is caught immediately, and
+   connecting also selects own-provider mode in the same action — there is
+   no separate step to turn it on afterward.
 
 Consider setting a monthly budget limit on your OpenAI account first. It is
 the simplest protection against a surprise.
@@ -61,7 +63,7 @@ and the tutor's reply text for speech synthesis. Your key travels in the
 
 - The key is **never** sent to any Sotto server. There is no relay and no
   proxy: the browser talks to OpenAI directly.
-- The key is **never** written into the app's exportable data. Profile →
+- The key is **never** written into the app's exportable data. Settings →
   Export produces a file with your preferences, progress and saved words —
   no credential rides along.
 - The key is **never** logged, printed to the console, or put in a URL.
@@ -74,9 +76,9 @@ password saved there: don't.
 
 ## How to remove it
 
-**Profile → Tutor preferences → Use your own OpenAI key → Remove.** That
-deletes it from this device immediately. Clearing the site's data in your
-browser does the same thing.
+**Settings → Tutor → Tutor voice → Disconnect.** That deletes it from this
+device immediately and switches the tutor mode selector back to "Not
+connected". Clearing the site's data in your browser does the same thing.
 
 Removing it here does not revoke it at OpenAI. If a key may have been
 exposed, revoke it in the OpenAI dashboard as well — that is the only action

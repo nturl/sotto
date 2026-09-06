@@ -11,6 +11,13 @@
  *
  * Shared by the voice screen and Settings > Tutor models so the two can
  * never disagree about what is installed.
+ *
+ * `ownProviderStatus` (run 7, lane E, src/voice/ownProviderStatus.ts) is an
+ * optional, separate fact: whether own-provider mode is connected does not
+ * change what this panel reports about the browser models themselves — it
+ * only adds one extra line so "Browser models: not installed" is never read
+ * as "the tutor itself is unavailable" when a connected key already covers
+ * it.
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -26,6 +33,7 @@ import { useT } from '../i18n/useT';
 import { Button } from '../ui/Button';
 import { Text } from '../ui/Text';
 import { useTheme } from '../ui/theme';
+import type { OwnProviderStatus } from './ownProviderStatus';
 
 export type TutorModelsPanelState =
   | { kind: 'unsupported' }
@@ -57,11 +65,15 @@ export function TutorModelsPanel({
   state,
   onChanged,
   showRemove = true,
+  ownProviderStatus,
 }: {
   state: TutorModelsPanelState;
   /** Called after models are installed or removed, so the gate re-runs. */
   onChanged: () => void;
   showRemove?: boolean;
+  /** Optional: when own-provider mode is connected/active, an extra line
+   * makes clear the browser-model line isn't the whole readiness story. */
+  ownProviderStatus?: OwnProviderStatus;
 }) {
   const t = useT();
   const { colors } = useTheme();
@@ -70,6 +82,12 @@ export function TutorModelsPanel({
   const [busy, setBusy] = useState(false);
   const [failure, setFailure] = useState<string | null>(null);
   const mounted = useRef(true);
+  const ownProviderConnected = ownProviderStatus === 'connected' || ownProviderStatus === 'active';
+  const ownProviderNote = ownProviderConnected ? (
+    <Text role="caption" color="ink2" style={styles.centered}>
+      {t('tutor.browser.ownProviderNote')}
+    </Text>
+  ) : null;
 
   useEffect(() => {
     mounted.current = true;
@@ -116,6 +134,7 @@ export function TutorModelsPanel({
         <Text role="caption" color="ink3" style={styles.centered}>
           {t('tutor.browser.unsupportedHint')}
         </Text>
+        {ownProviderNote}
       </View>
     );
   }
@@ -132,6 +151,7 @@ export function TutorModelsPanel({
         {showRemove ? (
           <Button title={t('tutor.browser.remove')} variant="secondary" onPress={remove} />
         ) : null}
+        {ownProviderNote}
       </View>
     );
   }
@@ -188,6 +208,7 @@ export function TutorModelsPanel({
         onPress={start}
         disabled={busy}
       />
+      {ownProviderNote}
     </View>
   );
 }

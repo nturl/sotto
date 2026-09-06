@@ -13,6 +13,7 @@ import { SectionEyebrow } from '../../src/ui/SectionEyebrow';
 import { Shell } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
 import { browserAvailability } from '../../src/voice/availability';
+import { useOwnProviderStatus } from '../../src/voice/ownProviderStatus';
 import { TutorModelsPanel, type TutorModelsPanelState } from '../../src/voice/TutorModelsPanel';
 
 function toPanelState(
@@ -28,6 +29,7 @@ function toPanelState(
 export default function TutorModelsScreen() {
   const t = useT();
   const [state, setState] = useState<TutorModelsPanelState | null>(null);
+  const ownProviderStatus = useOwnProviderStatus();
 
   const recheck = useCallback(() => {
     void browserAvailability().then((a) => setState(toPanelState(a)));
@@ -40,7 +42,13 @@ export default function TutorModelsScreen() {
       <BackLink />
       <View style={styles.body}>
         <SectionEyebrow>{t('tutor.browser.settingsRow')}</SectionEyebrow>
-        {state ? <TutorModelsPanel state={state} onChanged={recheck} /> : null}
+        {state ? (
+          <TutorModelsPanel
+            state={state}
+            onChanged={recheck}
+            ownProviderStatus={ownProviderStatus}
+          />
+        ) : null}
         <Text role="caption" color="ink3">
           {t('tutor.browser.eventualTotal', { size: totalSizeMb(ALL_TUTOR_MODELS) })}
         </Text>

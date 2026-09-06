@@ -52,6 +52,10 @@ class FakeAudio implements AudioAdapter {
   played: Array<{ bytes: number; sampleRate: number }> = [];
   stopPlaybackCalls = 0;
   stopCaptureCalls = 0;
+  // run7/F1: optional on the real interface; left undefined unless a test
+  // installs one, same as a native AudioAdapter that doesn't implement them.
+  onPlaybackBlocked?: (cb: () => void) => void;
+  resumePlayback?: () => Promise<void>;
 
   async startCapture(onPcm16: (buf: ArrayBuffer) => void): Promise<void> {
     this.onPcm16 = onPcm16;
@@ -110,13 +114,13 @@ describe('api helpers', () => {
     expect(wav.byteLength).toBe(44 + 8);
   });
 
-  it('maps 401/403 to a non-recoverable byok_invalid_key and 429 to a recoverable one', () => {
+  it('maps 401/403 to a non-recoverable provider_rejected_setting and 429 to a recoverable one', () => {
     expect(byokError(new OpenAIHttpError(401, 'HTTP 401'))).toMatchObject({
-      code: 'byok_invalid_key',
+      code: 'provider_rejected_setting',
       recoverable: false,
     });
     expect(byokError(new OpenAIHttpError(403, 'HTTP 403'))).toMatchObject({
-      code: 'byok_invalid_key',
+      code: 'provider_rejected_setting',
       recoverable: false,
     });
     expect(byokError(new OpenAIHttpError(429, 'HTTP 429'))).toMatchObject({
@@ -128,6 +132,21 @@ describe('api helpers', () => {
     // recoverable rather than being guessed at.
     expect(byokError(new TypeError('Failed to fetch'))).toMatchObject({
       code: 'byok_network_failed',
+      recoverable: true,
+    });
+  });
+
+  // run7/F1 directive 3: a 429 during speech synthesis gets its own code so
+  // the caption's "not spoken" marker (provider.ts's speakSentence) pairs
+  // with a message the learner can tell apart from a generic rate limit.
+  it('maps a 429 during the speech stage to quota_exceeded', () => {
+    expect(byokError(new OpenAIHttpError(429, 'HTTP 429'), { stage: 'speech' })).toMatchObject({
+      code: 'quota_exceeded',
+      recoverable: true,
+    });
+    // Every other stage (STT, LLM) keeps the generic code.
+    expect(byokError(new OpenAIHttpError(429, 'HTTP 429'))).toMatchObject({
+      code: 'byok_rate_limited',
       recoverable: true,
     });
   });
@@ -360,7 +379,7 @@ describe('OpenAIDirectProvider', () => {
     await provider.disconnect();
   });
 
-  it('reports a 401 as byok_invalid_key and does not keep listening', async () => {
+  it('reports a 401 as provider_rejected_setting and does not keep listening', async () => {
     const fakeFetch = vi.fn(
       async () => new Response('{"error":{"message":"bad key"}}', { status: 401 }),
     );
@@ -377,9 +396,155 @@ describe('OpenAIDirectProvider', () => {
       expect(events.some((e) => e.type === 'error')).toBe(true);
     });
     const error = events.find((e) => e.type === 'error')!;
-    expect(error).toMatchObject({ code: 'byok_invalid_key', recoverable: false });
+    expect(error).toMatchObject({ code: 'provider_rejected_setting', recoverable: false });
     const states = events.filter((e) => e.type === 'state').map((e) => e.state);
     expect(states[states.length - 1]).toBe('error');
+
+    await provider.disconnect();
+  });
+
+  // run7/F1 directive 1 — the failing-test-first case this lane's recon
+  // named as the smoking gun (scout-T-tutor.md §2A): a transient TTS
+  // failure (a 429, a network blip, any non-401/403 status) used to be
+  // swallowed to a console-only diagnostic while the caption still fired
+  // unconditionally, so the learner saw the tutor's reply as text with no
+  // signal that nothing was spoken. Every speech failure must now emit an
+  // `error` VoiceEvent, and the paired caption must carry `notSpoken: true`.
+  it('a transient TTS failure emits an error event and marks the caption not-spoken', async () => {
+    const fakeFetch = vi.fn(async (input: string) => {
+      if (input.endsWith('/chat/completions')) {
+        return new Response(sse([textChunk('Buena pregunta.')]), {
+          status: 200,
+          headers: { 'content-type': 'text/event-stream' },
+        });
+      }
+      if (input.endsWith('/audio/speech')) {
+        // A transient failure: not 401/403, so previously swallowed.
+        return new Response('{"error":{"message":"server hiccup"}}', { status: 500 });
+      }
+      throw new Error(`unexpected request to ${input}`);
+    });
+
+    const provider = new OpenAIDirectProvider({
+      apiKey: KEY,
+      audio,
+      fetch: fakeFetch as unknown as typeof fetch,
+    });
+    collect(provider);
+    await provider.connect(SESSION);
+
+    provider.sendText('hola');
+    await vi.waitFor(() => {
+      expect(events.some((e) => e.type === 'caption' && e.speaker === 'tutor')).toBe(true);
+    });
+
+    const error = events.find((e) => e.type === 'error');
+    expect(error).toBeDefined();
+    expect(error).toMatchObject({ code: 'byok_request_failed', recoverable: true });
+
+    const tutorCaption = events.find((e) => e.type === 'caption' && e.speaker === 'tutor');
+    expect(tutorCaption).toMatchObject({ text: 'Buena pregunta.', notSpoken: true });
+
+    // Nothing was ever handed to the audio adapter for this sentence.
+    expect(audio.played).toHaveLength(0);
+    // The session stays alive — a failed sentence degrades to caption-only.
+    const states = events.filter((e) => e.type === 'state').map((e) => e.state);
+    expect(states[states.length - 1]).toBe('listening');
+
+    await provider.disconnect();
+  });
+
+  it('reports a 429 during speech synthesis as quota_exceeded, not byok_rate_limited', async () => {
+    const fakeFetch = vi.fn(async (input: string) => {
+      if (input.endsWith('/chat/completions')) {
+        return new Response(sse([textChunk('Hola.')]), {
+          status: 200,
+          headers: { 'content-type': 'text/event-stream' },
+        });
+      }
+      if (input.endsWith('/audio/speech')) return new Response('{"error":{}}', { status: 429 });
+      throw new Error(`unexpected request to ${input}`);
+    });
+    const provider = new OpenAIDirectProvider({
+      apiKey: KEY,
+      audio,
+      fetch: fakeFetch as unknown as typeof fetch,
+    });
+    collect(provider);
+    await provider.connect(SESSION);
+
+    provider.sendText('hola');
+    await vi.waitFor(() => expect(events.some((e) => e.type === 'error')).toBe(true));
+    expect(events.find((e) => e.type === 'error')).toMatchObject({
+      code: 'quota_exceeded',
+      recoverable: true,
+    });
+
+    await provider.disconnect();
+  });
+
+  // run7/F1 directive 5: mic permission denied vs. no microphone hardware
+  // at all now get distinct codes instead of the single mic_unavailable
+  // catch-all (packages/voice/src/mic-error.ts).
+  it('classifies a denied mic permission as mic_denied', async () => {
+    const denied = new FakeAudio();
+    denied.startCapture = async () => {
+      const err = new Error('denied');
+      err.name = 'NotAllowedError';
+      throw err;
+    };
+    const provider = new OpenAIDirectProvider({ apiKey: KEY, audio: denied });
+    collect(provider);
+    await provider.connect(SESSION);
+    expect(events.find((e) => e.type === 'error')).toMatchObject({
+      code: 'mic_denied',
+      recoverable: false,
+    });
+  });
+
+  it('classifies no microphone hardware as no_input_device', async () => {
+    const noDevice = new FakeAudio();
+    noDevice.startCapture = async () => {
+      const err = new Error('nothing found');
+      err.name = 'NotFoundError';
+      throw err;
+    };
+    const provider = new OpenAIDirectProvider({ apiKey: KEY, audio: noDevice });
+    collect(provider);
+    await provider.connect(SESSION);
+    expect(events.find((e) => e.type === 'error')).toMatchObject({
+      code: 'no_input_device',
+      recoverable: false,
+    });
+  });
+
+  // run7/F1 directive 2: a blocked playback context now surfaces as a
+  // recoverable `playback_blocked` error, and `resumePlayback()` is wired
+  // through to the adapter's own resume action.
+  it('surfaces a blocked AudioContext as playback_blocked and wires resumePlayback()', async () => {
+    let blockedCb: (() => void) | null = null;
+    let resumeCalls = 0;
+    const blockableAudio = new FakeAudio();
+    blockableAudio.onPlaybackBlocked = (cb: () => void) => {
+      blockedCb = cb;
+    };
+    blockableAudio.resumePlayback = async () => {
+      resumeCalls += 1;
+    };
+
+    const provider = new OpenAIDirectProvider({ apiKey: KEY, audio: blockableAudio });
+    collect(provider);
+    await provider.connect(SESSION);
+
+    expect(blockedCb).not.toBeNull();
+    blockedCb!();
+    expect(events.find((e) => e.type === 'error')).toMatchObject({
+      code: 'playback_blocked',
+      recoverable: true,
+    });
+
+    provider.resumePlayback!();
+    expect(resumeCalls).toBe(1);
 
     await provider.disconnect();
   });

@@ -7,6 +7,7 @@ import type { ToolName, ToolResult, TutorMode } from '@sotto/core';
 import type { VoiceEvent, VoiceState } from './events.ts';
 import type { PassageContext, SessionOptions, VoiceProvider } from './provider.ts';
 import type { AudioAdapter } from './transports/audio-adapter.js';
+import { micErrorCode } from './mic-error.ts';
 
 // ---- Wire protocol (§5b) ----
 
@@ -110,7 +111,23 @@ export class LocalCascadeProvider implements VoiceProvider {
   async connect(opts: SessionOptions): Promise<void> {
     this.lastOptions = opts;
     this.intentionalDisconnect = false;
+    // run7/F1 directive 2: same blocked-playback wiring as the byok
+    // provider; harmless to call more than once since a real
+    // WebAudioAdapter just adds another listener into its de-duped set.
+    this.audio.onPlaybackBlocked?.(() => {
+      this.emit({
+        type: 'error',
+        code: 'playback_blocked',
+        message: 'Playback is blocked; tap to resume.',
+        recoverable: true,
+      });
+    });
     await this.openConnection(opts);
+  }
+
+  /** run7/F1: the tap action for a `playback_blocked` error event. */
+  resumePlayback(): void {
+    void this.audio.resumePlayback?.();
   }
 
   private async openConnection(opts: SessionOptions): Promise<void> {
@@ -168,9 +185,12 @@ export class LocalCascadeProvider implements VoiceProvider {
           if (ws.readyState === ws.OPEN) ws.send(buf);
         })
         .catch((err: unknown) => {
+          // run7/F1 directive 5: distinguish a denied permission and a
+          // missing microphone from the generic catch-all, same as the
+          // byok provider (packages/voice/src/mic-error.ts).
           this.emit({
             type: 'error',
-            code: 'mic_unavailable',
+            code: micErrorCode(err),
             message: err instanceof Error ? `${err.name}: ${err.message}` : String(err),
             recoverable: false,
           });

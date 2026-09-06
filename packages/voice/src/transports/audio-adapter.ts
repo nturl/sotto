@@ -14,4 +14,17 @@ export interface AudioAdapter {
   playPcm(buf: ArrayBuffer, sampleRate: number): void;
   /** Stops/clears any queued or in-progress playback immediately (barge-in). */
   stopPlayback(): void;
+  /**
+   * run7/F1: registers a listener called whenever playback is blocked — a
+   * suspended `AudioContext` that a resume attempt could not clear, e.g. an
+   * autoplay policy edge case (no user gesture on record) or the tab having
+   * been backgrounded mid-turn (planning/run7/cards/F1-tutor-pipeline.md
+   * directive 2). Optional: only `WebAudioAdapter` implements this today: a
+   * native adapter has no autoplay policy to trip.
+   */
+  onPlaybackBlocked?(cb: () => void): void;
+  /** Attempts to resume blocked playback — the action the UI calls from a
+   * tap after a `playback_blocked` error event. Optional for the same
+   * reason as `onPlaybackBlocked`. */
+  resumePlayback?(): Promise<void>;
 }

@@ -17,7 +17,20 @@ export type VoiceState =
 
 export type VoiceEvent =
   | { type: 'state'; state: VoiceState }
-  | { type: 'caption'; speaker: 'learner' | 'tutor'; text: string; final: boolean }
+  | {
+      type: 'caption';
+      speaker: 'learner' | 'tutor';
+      text: string;
+      final: boolean;
+      /** True when this sentence's speech synthesis failed (run7/F1): the
+       * text is what the tutor "said" but no audio played. Paired with a
+       * same-turn `error` VoiceEvent (see `provider.ts`'s `speakSentence`);
+       * the UI can use it to offer a replay/retry affordance instead of
+       * showing the sentence as a normal spoken turn. Omitted (falsy) for
+       * every caption that was actually spoken, so no existing caller that
+       * destructures `{ speaker, text, final }` needs to change. */
+      notSpoken?: boolean;
+    }
   | { type: 'tool_call'; callId: string; name: ToolName; args: unknown }
   | { type: 'reading'; tokenIds: string[] }
   // 'cap' (R3-S, CLOUD-API.md's `{ t: 'limit', reason: 'cap' }`): the cloud

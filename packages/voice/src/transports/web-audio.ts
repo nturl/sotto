@@ -57,6 +57,8 @@ export class WebAudioAdapter implements AudioAdapter {
   private playbackContext: AudioContext | null = null;
   private playbackQueueEndAt = 0;
   private activeSources: AudioBufferSourceNode[] = [];
+  private blockedListeners = new Set<() => void>();
+  private reportedBlocked = false;
 
   async startCapture(onPcm16: (buf: ArrayBuffer) => void): Promise<void> {
     if (typeof window === 'undefined' || typeof navigator === 'undefined') {
@@ -109,6 +111,41 @@ export class WebAudioAdapter implements AudioAdapter {
     this.context = null;
   }
 
+  /**
+   * run7/F1: a suspended playback `AudioContext` never runs a scheduled
+   * `AudioBufferSourceNode` — `start()` just silently queues forever — and
+   * unlike `startCapture` (line ~73) nothing here used to check or recover
+   * from that. Called from `playPcm` whenever the context isn't `running`;
+   * a resume that fails (or a context that stays `suspended` right after
+   * resolving) reports "blocked" exactly once per episode so a caller
+   * doesn't get a flood of the same error on every queued sentence.
+   */
+  private tryResume(ctx: AudioContext): void {
+    ctx
+      .resume()
+      .then(() => {
+        if (ctx.state !== 'suspended') this.reportedBlocked = false;
+        else this.reportBlocked();
+      })
+      .catch(() => this.reportBlocked());
+  }
+
+  private reportBlocked(): void {
+    if (this.reportedBlocked) return;
+    this.reportedBlocked = true;
+    for (const cb of this.blockedListeners) cb();
+  }
+
+  onPlaybackBlocked(cb: () => void): void {
+    this.blockedListeners.add(cb);
+  }
+
+  async resumePlayback(): Promise<void> {
+    if (!this.playbackContext) return;
+    await this.playbackContext.resume();
+    if (this.playbackContext.state !== 'suspended') this.reportedBlocked = false;
+  }
+
   playPcm(buf: ArrayBuffer, sampleRate: number = PLAYBACK_SAMPLE_RATE): void {
     if (typeof window === 'undefined') return;
     if (!this.playbackContext) {
@@ -116,6 +153,7 @@ export class WebAudioAdapter implements AudioAdapter {
       this.playbackQueueEndAt = this.playbackContext.currentTime;
     }
     const ctx = this.playbackContext;
+    if (ctx.state === 'suspended') this.tryResume(ctx);
 
     const int16 = new Int16Array(buf);
     const audioBuffer = ctx.createBuffer(1, int16.length, sampleRate);

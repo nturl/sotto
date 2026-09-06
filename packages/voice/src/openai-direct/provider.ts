@@ -35,6 +35,7 @@ import type { SessionOptions, VoiceProvider } from '../provider.ts';
 import type { AudioAdapter } from '../transports/audio-adapter.ts';
 import { TutorTurnRunner, type ToolCallResult } from '../browser-cascade/llm-turn.ts';
 import { EnergyVad, SpeechBuffer } from '../browser-cascade/vad.ts';
+import { micErrorCode } from '../mic-error.ts';
 import {
   byokError,
   CAPTURE_SAMPLE_RATE,
@@ -140,6 +141,17 @@ export class OpenAIDirectProvider implements VoiceProvider {
     this.turnRunner = this.makeTurnRunner();
 
     this.armLimits();
+    // run7/F1 directive 2: a suspended/blocked playback AudioContext used to
+    // have no code path that would ever surface it. One listener per
+    // session; the adapter itself de-dupes repeated reports.
+    this.audio.onPlaybackBlocked?.(() => {
+      this.emit({
+        type: 'error',
+        code: 'playback_blocked',
+        message: 'Playback is blocked; tap to resume.',
+        recoverable: true,
+      });
+    });
 
     try {
       await this.audio.startCapture((buf) => this.handleFrame(buf));
@@ -147,7 +159,7 @@ export class OpenAIDirectProvider implements VoiceProvider {
     } catch (err) {
       this.emit({
         type: 'error',
-        code: 'mic_unavailable',
+        code: micErrorCode(err),
         message: err instanceof Error ? `${err.name}: ${err.message}` : String(err),
         recoverable: false,
       });
@@ -205,6 +217,11 @@ export class OpenAIDirectProvider implements VoiceProvider {
       this.audio.playPcm(chunk.slice(0) as ArrayBuffer, TUTOR_SAMPLE_RATE);
     }
     this.diagnostic('audio_end', `replay ${this.lastUtterance.id}`);
+  }
+
+  /** run7/F1: the tap action for a `playback_blocked` error event. */
+  resumePlayback(): void {
+    void this.audio.resumePlayback?.();
   }
 
   sendText(text: string): void {
@@ -406,6 +423,7 @@ export class OpenAIDirectProvider implements VoiceProvider {
       this.diagnostic('audio_start', this.currentUtteranceId);
     }
     const utteranceId = this.currentUtteranceId;
+    let notSpoken = false;
     try {
       const pcm = await speak({
         apiKey: this.apiKey,
@@ -422,15 +440,30 @@ export class OpenAIDirectProvider implements VoiceProvider {
       this.audio.playPcm(pcm, TUTOR_SAMPLE_RATE);
     } catch (err) {
       if (abort.signal.aborted) return;
-      // A failed sentence degrades to caption-only rather than killing the
-      // turn — the learner still gets the reply in text.
-      const mapped = byokError(err);
+      // run7/F1 directive 1: a failed sentence degrades to caption-only
+      // rather than killing the turn — the learner still gets the reply in
+      // text — but every speech failure now emits an `error` VoiceEvent
+      // (previously only the non-recoverable 401/403 case did; a 429 or any
+      // transient/network failure was swallowed to a console-only
+      // diagnostic while the caption fired as if the sentence had been
+      // spoken normally, the exact "reply appears as text, never spoken"
+      // defect from BUGS-TUTOR-RUN5.md and this lane's recon). The caption
+      // below carries `notSpoken: true` so the UI can tell this sentence
+      // apart from one that actually played.
+      const mapped = byokError(err, { stage: 'speech' });
       this.diagnostic('tts_failed', mapped.code);
-      if (!mapped.recoverable) this.emit({ type: 'error', ...mapped });
+      this.emit({ type: 'error', ...mapped });
+      notSpoken = true;
     }
 
     if (!abort.signal.aborted) {
-      this.emit({ type: 'caption', speaker: 'tutor', text: sentence, final: false });
+      this.emit({
+        type: 'caption',
+        speaker: 'tutor',
+        text: sentence,
+        final: false,
+        ...(notSpoken ? { notSpoken: true } : {}),
+      });
     }
   }
 

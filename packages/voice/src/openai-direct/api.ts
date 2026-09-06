@@ -97,19 +97,28 @@ export class OpenAIHttpError extends Error {
 /**
  * Maps any failure from the calls below onto the `error` VoiceEvent fields.
  *
- * 401/403 is a dead key — not recoverable, the learner has to fix it in
- * Settings. 429 is rate limiting or a spent quota, which retrying later
- * fixes. Anything else, including the opaque browser-CORS rejection that a
- * bad key produces on the inference endpoints (fact 1), is reported as
- * recoverable: the session stays alive and the learner can try again.
+ * 401/403 is the setting itself being wrong (a dead or revoked key) — not
+ * recoverable, the learner has to fix it in Settings, so it gets the
+ * specific `provider_rejected_setting` code rather than a generic
+ * connection error (run7/F1 directive 3; renamed from `byok_invalid_key`,
+ * which named the storage mechanism instead of the actual failure). 429 is
+ * rate limiting or a spent quota: during speech synthesis this is the
+ * `quota_exceeded` code the caption's "not spoken" marker pairs with
+ * (`provider.ts`'s `speakSentence`); at any other stage it stays the
+ * existing `byok_rate_limited`, since STT/LLM failures already always
+ * surface through `failTurn`'s caption. Anything else, including the
+ * opaque browser-CORS rejection that a bad key produces on the inference
+ * endpoints (fact 1), is reported as recoverable: the session stays alive
+ * and the learner can try again.
  */
-export function byokError(err: unknown): ByokErrorShape {
+export function byokError(err: unknown, opts?: { stage?: 'speech' }): ByokErrorShape {
   if (err instanceof OpenAIHttpError) {
     if (err.status === 401 || err.status === 403) {
-      return { code: 'byok_invalid_key', message: err.message, recoverable: false };
+      return { code: 'provider_rejected_setting', message: err.message, recoverable: false };
     }
     if (err.status === 429) {
-      return { code: 'byok_rate_limited', message: err.message, recoverable: true };
+      const code = opts?.stage === 'speech' ? 'quota_exceeded' : 'byok_rate_limited';
+      return { code, message: err.message, recoverable: true };
     }
     return { code: 'byok_request_failed', message: err.message, recoverable: true };
   }

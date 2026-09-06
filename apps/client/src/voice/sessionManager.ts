@@ -169,7 +169,26 @@ interface ActiveSession {
   unsubscribe: () => void;
 }
 
+type StartSessionParams = Parameters<typeof startSession>[0];
+
 let active: ActiveSession | null = null;
+// run7/F1 directive 4: remembered so `retry()` can re-enter the exact same
+// book/chapter/mode after a connection failure, without the caller (the
+// voice screen) having to reconstruct `SessionOptions` itself. Cleared by
+// `endSession()` (a deliberate end, not a failure) so a stale retry can
+// never fire after the learner has actually left.
+let lastStartParams: StartSessionParams | null = null;
+
+/** Tears down the live provider without touching the store's transcript or
+ * error state — `endSession()` layers that on top for a deliberate end;
+ * `retry()` skips it so `captions` (CaptionEntry[]) survives a reconnect. */
+function teardownActive(): void {
+  if (!active) return;
+  const { provider, unsubscribe } = active;
+  unsubscribe();
+  void provider.disconnect();
+  active = null;
+}
 
 export function activeBookId(): string | undefined {
   return active?.bookId;
@@ -194,8 +213,35 @@ export function startSession(params: {
    * broker for that path. */
   cloudProvider?: CloudProviderId;
 }): void {
+  lastStartParams = params;
   if (active) endSession();
+  beginSession(params);
+}
 
+/**
+ * run7/F1 directive 4: reconnects for the same book/chapter/mode after a
+ * connection failure or a `reconnecting` state, without wiping
+ * `useSottoStore`'s `captions`/`voiceError` — that's what makes this
+ * different from calling `startSession(lastStartParams)` again, which goes
+ * through `endSession()`'s `clearSessionEphemeral()` and would lose the
+ * transcript the learner was mid-conversation on. A no-op when nothing has
+ * ever been started (nothing to retry) or after a deliberate `endSession()`
+ * (which clears `lastStartParams` for exactly this reason).
+ */
+export function retry(): void {
+  if (!lastStartParams) return;
+  teardownActive();
+  useSottoStore.getState().setVoiceError(null);
+  useSottoStore.getState().setLimitReason(null);
+  beginSession(lastStartParams);
+}
+
+/** run7/F1: the tap action for a `playback_blocked` error event. */
+export function resumePlayback(): void {
+  active?.provider.resumePlayback?.();
+}
+
+function beginSession(params: StartSessionParams): void {
   const { bookId, chapterId, mode, learner, passage, savedWords } = params;
   const sessionOptions: SessionOptions = { bookId, chapterId, mode, learner, passage, savedWords };
   const ctx = createToolContext(
@@ -349,10 +395,8 @@ export function sendText(text: string): void {
 
 export function endSession(): void {
   if (!active) return;
-  const { provider, unsubscribe } = active;
-  unsubscribe();
-  void provider.disconnect();
-  active = null;
+  teardownActive();
+  lastStartParams = null;
   useSottoStore.getState().setSessionRecord(null);
   useSottoStore.getState().clearSessionEphemeral();
 }

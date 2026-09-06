@@ -75,6 +75,8 @@ class FakeAudioAdapter implements AudioAdapter {
   played: Array<{ buf: ArrayBuffer; sampleRate: number }> = [];
   stopCaptureCalls = 0;
   stopPlaybackCalls = 0;
+  onPlaybackBlocked?: (cb: () => void) => void;
+  resumePlayback?: () => Promise<void>;
 
   async startCapture(onPcm16: (buf: ArrayBuffer) => void): Promise<void> {
     this.onPcm16 = onPcm16;
@@ -273,5 +275,88 @@ describe('LocalCascadeProvider', () => {
     expect(ws.closeCalls).toBe(1);
     ws.simulateClose();
     expect(events.filter((e) => e.type === 'state' && e.state === 'reconnecting')).toHaveLength(0);
+  });
+
+  // run7/F1 directive 5: same mic-error classification as the byok provider
+  // (packages/voice/src/mic-error.ts) instead of the single mic_unavailable
+  // catch-all — "the local voice path" the card names explicitly.
+  it('classifies a denied mic permission as mic_denied, not the generic mic_unavailable', async () => {
+    const audio = new FakeAudioAdapter();
+    audio.startCapture = async () => {
+      const err = new Error('denied');
+      err.name = 'NotAllowedError';
+      throw err;
+    };
+    const events: VoiceEvent[] = [];
+    const provider = new LocalCascadeProvider({
+      serverUrl: 'http://localhost:8790',
+      audio,
+      fetch: fakeFetch(),
+      WebSocket: FakeWebSocket as unknown as typeof WebSocket,
+    });
+    provider.on((e) => events.push(e));
+    await provider.connect(SESSION_OPTIONS);
+    FakeWebSocket.instances.at(-1)!.simulateOpen();
+    await vi.waitFor(() => expect(events.some((e) => e.type === 'error')).toBe(true));
+    expect(events.find((e) => e.type === 'error')).toMatchObject({
+      code: 'mic_denied',
+      recoverable: false,
+    });
+  });
+
+  it('classifies no microphone hardware as no_input_device', async () => {
+    const audio = new FakeAudioAdapter();
+    audio.startCapture = async () => {
+      const err = new Error('nothing found');
+      err.name = 'NotFoundError';
+      throw err;
+    };
+    const events: VoiceEvent[] = [];
+    const provider = new LocalCascadeProvider({
+      serverUrl: 'http://localhost:8790',
+      audio,
+      fetch: fakeFetch(),
+      WebSocket: FakeWebSocket as unknown as typeof WebSocket,
+    });
+    provider.on((e) => events.push(e));
+    await provider.connect(SESSION_OPTIONS);
+    FakeWebSocket.instances.at(-1)!.simulateOpen();
+    await vi.waitFor(() => expect(events.some((e) => e.type === 'error')).toBe(true));
+    expect(events.find((e) => e.type === 'error')).toMatchObject({
+      code: 'no_input_device',
+      recoverable: false,
+    });
+  });
+
+  // run7/F1 directive 2: same blocked-playback wiring as the byok provider.
+  it('surfaces a blocked AudioContext as playback_blocked and wires resumePlayback()', async () => {
+    let blockedCb: (() => void) | null = null;
+    let resumeCalls = 0;
+    const audio = new FakeAudioAdapter();
+    audio.onPlaybackBlocked = (cb: () => void) => {
+      blockedCb = cb;
+    };
+    audio.resumePlayback = async () => {
+      resumeCalls += 1;
+    };
+    const events: VoiceEvent[] = [];
+    const provider = new LocalCascadeProvider({
+      serverUrl: 'http://localhost:8790',
+      audio,
+      fetch: fakeFetch(),
+      WebSocket: FakeWebSocket as unknown as typeof WebSocket,
+    });
+    provider.on((e) => events.push(e));
+    await provider.connect(SESSION_OPTIONS);
+
+    expect(blockedCb).not.toBeNull();
+    blockedCb!();
+    expect(events.find((e) => e.type === 'error')).toMatchObject({
+      code: 'playback_blocked',
+      recoverable: true,
+    });
+
+    provider.resumePlayback!();
+    expect(resumeCalls).toBe(1);
   });
 });

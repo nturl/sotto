@@ -96,6 +96,69 @@ utterance had started streaming, immediately sends
 actually unwind. `replayLast()` keeps the most recent utterance's PCM chunks
 (including a cancelled one) in memory so `{ t: 'replay' }` can resend it.
 
+## Client-side error codes and recovery (run7/F1)
+
+This section covers `packages/voice/src/**` client-side behavior — the
+own-provider (`openai-direct/`) and local (`local-cascade.ts`) cascade
+providers both run through `WebAudioAdapter`
+(`packages/voice/src/transports/web-audio.ts`) on the client, one layer
+above everything the rest of this doc describes server-side.
+
+Every `error` VoiceEvent (`packages/voice/src/events.ts`) that the client
+providers can emit:
+
+| Code                                          | Recoverable | Providers                                 | Meaning                                                                                                              |
+| --------------------------------------------- | ----------- | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `mic_denied`                                  | no          | own-provider, local                       | `getUserMedia` rejected with `NotAllowedError`/`PermissionDeniedError`/`SecurityError` — the permission was declined |
+| `no_input_device`                             | no          | own-provider, local                       | `getUserMedia` rejected with `NotFoundError`/`DevicesNotFoundError`/`OverconstrainedError` — no microphone hardware  |
+| `mic_unavailable`                             | no          | own-provider, local                       | any other `startCapture` failure (fallback)                                                                          |
+| `provider_rejected_setting`                   | no          | own-provider only                         | the stored OpenAI key was rejected (401/403) at any pipeline stage — a dead/revoked key                              |
+| `quota_exceeded`                              | yes         | own-provider only, speech-synthesis stage | a 429 from `/v1/audio/speech`; the sentence's caption carries `notSpoken: true`                                      |
+| `byok_rate_limited`                           | yes         | own-provider only, STT/LLM stages         | a 429 from transcription or chat completion                                                                          |
+| `byok_request_failed` / `byok_network_failed` | yes         | own-provider only                         | any other HTTP failure / a `fetch` rejection                                                                         |
+| `playback_blocked`                            | yes         | own-provider, local                       | the playback `AudioContext` is suspended and a `.resume()` attempt didn't clear it                                   |
+| `session_create_failed`, `ws_error`           | no / yes    | local only                                | server-side session/WS setup failures                                                                                |
+| `connection_lost`                             | —           | Realtime (cloud) only                     | the WebRTC session dropped                                                                                           |
+
+`mic-error.ts` (`packages/voice/src/mic-error.ts`) is the shared classifier
+behind the first three rows — both cascade providers call it from their
+`startCapture().catch()` instead of hardcoding `mic_unavailable`.
+
+**The "reply appears as text, never spoken" defect** (own-provider path,
+`openai-direct/provider.ts`'s `speakSentence`): a TTS failure used to only
+emit an `error` VoiceEvent when it was the non-recoverable 401/403 case —
+every other failure (429, network blip, any other status) was swallowed to
+a console-only diagnostic while the sentence's caption still fired as if it
+had been spoken normally. Every speech failure now emits an `error` event,
+and the caption for that sentence carries `notSpoken: true`
+(`VoiceEvent`'s `caption` variant) so the UI can tell a genuinely-spoken
+sentence apart from one that only ever existed as text.
+
+**Blocked playback**: `WebAudioAdapter.playPcm` checks the playback
+`AudioContext`'s state and attempts `.resume()`; if it stays `suspended`
+(an autoplay-policy edge case, or the tab having been backgrounded
+mid-turn), it reports through `onPlaybackBlocked` — wired by both cascade
+providers into a `playback_blocked` error event. `resumePlayback()` (on
+`VoiceProvider`, and re-exported from `apps/client/src/voice/
+sessionManager.ts`) is the tap action that resumes it.
+
+**Reconnecting without losing the transcript**: `sessionManager.ts`'s
+`retry()` re-enters the same book/chapter/mode as the last `startSession()`
+call — unlike calling `startSession()` again, it does not go through
+`endSession()`'s `clearSessionEphemeral()`, so `useSottoStore`'s `captions`
+survive the reconnect. No-op if nothing has ever been started, or after a
+deliberate `endSession()`.
+
+**Audible-output proof**: `apps/client/e2e/audible-probe.mjs` wraps
+`window.AudioContext` (via `page.addInitScript`, before the app's own code
+ever constructs one) to count `AudioBufferSourceNode.start()` calls and
+scheduled samples — the thing DOM-text caption scraping (every other e2e
+script in this directory) cannot prove, and the exact signal that would
+have caught the swallowed-TTS-error defect above. Needs `apps/server`
+healthy on `:8790` (checks `/health` itself and fails fast otherwise); does
+not fall back to a synthetic fake-PCM provider in this build (see
+`planning/run7/F1-report.md`, "Known gaps").
+
 ## Tool relay
 
 The server never executes tools or fabricates a result. On `tool_calls` in

@@ -149,11 +149,115 @@ describe('sessionManager onError', () => {
     const captionsBefore = testStore.useStore.getState().captions.length;
     provider.emit({
       type: 'error',
-      code: 'byok_invalid_key',
+      code: 'provider_rejected_setting',
       message: 'bad key',
       recoverable: false,
     });
 
     expect(testStore.useStore.getState().captions.length).toBe(captionsBefore);
+  });
+});
+
+// run7/F1 directive 4: `retry()` re-enters the same book/chapter after a
+// connection failure without wiping the transcript the way calling
+// `startSession()` again would (that goes through `endSession()`'s
+// `clearSessionEphemeral()`).
+describe('sessionManager.retry', () => {
+  afterEach(async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.endSession();
+  });
+
+  it('reconnects for the same book/chapter without wiping the transcript', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+    const firstProvider = sessionManager.getProvider();
+
+    testStore.useStore.getState().pushCaption({ speaker: 'tutor', text: 'Bonjour', final: true });
+    testStore.useStore
+      .getState()
+      .setVoiceError({ code: 'connection_lost', message: 'dropped', recoverable: true });
+    const captionsBefore = testStore.useStore.getState().captions.length;
+
+    sessionManager.retry();
+
+    const state = testStore.useStore.getState();
+    // The transcript survived — this is the whole point of retry() existing
+    // instead of just calling startSession(lastParams) again.
+    expect(state.captions.length).toBe(captionsBefore);
+    expect(state.captions.at(-1)).toMatchObject({ text: 'Bonjour' });
+    // The mid-session error panel's trigger is cleared so the reconnect
+    // doesn't immediately look broken again.
+    expect(state.voiceError).toBeNull();
+    expect(state.sessionRecord?.bookId).toBe('fr-chat-botte');
+    expect(state.sessionRecord?.chapterId).toBe('fr-chat-botte-01');
+    // A fresh provider/connection, not the same dead one.
+    expect(sessionManager.getProvider()).not.toBe(firstProvider);
+  });
+
+  it('is a no-op when nothing has ever been started', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.endSession();
+    expect(() => sessionManager.retry()).not.toThrow();
+    expect(testStore.useStore.getState().sessionRecord).toBeNull();
+  });
+
+  it('does nothing after a deliberate endSession (no stale retry)', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+    sessionManager.endSession();
+
+    sessionManager.retry();
+
+    expect(testStore.useStore.getState().sessionRecord).toBeNull();
+  });
+});
+
+// run7/F1 directive 2: the tap action for a `playback_blocked` error event.
+describe('sessionManager.resumePlayback', () => {
+  afterEach(async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.endSession();
+  });
+
+  it('delegates to the active provider', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+    const provider = sessionManager.getProvider() as unknown as { resumePlayback?: () => void };
+    let calls = 0;
+    provider.resumePlayback = () => {
+      calls += 1;
+    };
+
+    sessionManager.resumePlayback();
+
+    expect(calls).toBe(1);
+  });
+
+  it('does nothing when there is no active session', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.endSession();
+    expect(() => sessionManager.resumePlayback()).not.toThrow();
   });
 });

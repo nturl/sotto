@@ -9,20 +9,18 @@
  * ring itself (states: ready/connecting/listening/thinking/speaking/muted,
  * directive 3), and Replay / Stop / End.
  *
- * No speaker (tutor output) mute here — see F2-report.md's "not shipped"
- * section: no interface exists yet to mute tutor TTS playback specifically
- * (only capture-mute and barge-in/Stop, which are different actions), and
- * this lane doesn't own the files (`packages/voice`) that would need one.
- * Shipping a button that looks like a working mute but silently does
- * nothing would recreate the exact "nothing to press" complaint this
- * screen exists to fix.
+ * Speaker (tutor output) mute (run7/G directive 1(a), finishing what F2
+ * flagged as blocked on an interface it didn't own): a standing toggle that
+ * silences tutor TTS playback via `VoiceProvider.setOutputMuted` — distinct
+ * from capture-mute (the ring/toggle above) and from Stop (one-shot
+ * barge-in).
  */
 import { Pressable, StyleSheet, View } from 'react-native';
 import type { VoiceState } from '@sotto/voice';
 import { radius, space } from '@sotto/core/theme';
 import type { UserPreferences } from '@sotto/core';
 import { useT } from '../../i18n/useT';
-import { CloseGlyph, MicGlyph, ReplayGlyph, StopGlyph } from '../../ui/Glyphs';
+import { CloseGlyph, MicGlyph, ReplayGlyph, SpeakerGlyph, StopGlyph } from '../../ui/Glyphs';
 import { IconButton } from '../../ui/IconButton';
 import { Text } from '../../ui/Text';
 import { useTheme } from '../../ui/theme';
@@ -47,6 +45,10 @@ export interface ControlClusterProps {
   onReplay: () => void;
   onInterrupt: () => void;
   onEnd: () => void;
+  /** run7/G directive 1(a): whether tutor speech playback is currently
+   * silenced (capture keeps running either way). */
+  outputMuted: boolean;
+  onToggleOutputMuted: () => void;
 }
 
 export function ControlCluster({
@@ -59,6 +61,8 @@ export function ControlCluster({
   onReplay,
   onInterrupt,
   onEnd,
+  outputMuted,
+  onToggleOutputMuted,
 }: ControlClusterProps) {
   const t = useT();
   const { colors } = useTheme();
@@ -140,6 +144,12 @@ export function ControlCluster({
           icon={<StopGlyph size={20} />}
           accessibilityLabel={t('voice.interrupt')}
           onPress={onInterrupt}
+        />
+
+        <IconButton
+          icon={<SpeakerGlyph size={20} color={outputMuted ? colors.ink3 : colors.ink} />}
+          accessibilityLabel={outputMuted ? t('voice.unmuteSpeaker') : t('voice.muteSpeaker')}
+          onPress={onToggleOutputMuted}
         />
       </View>
 

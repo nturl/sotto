@@ -104,10 +104,22 @@ export class TutorTurnRunner {
     return [{ role: 'system', content: this.deps.buildSystemInstruction() }, ...this.history];
   }
 
-  /** Runs a full turn for one piece of learner text (from STT or `sendText`). */
-  async run(userText: string, signal: AbortSignal): Promise<void> {
-    this.history.push({ role: 'user', content: userText });
-    this.trimHistory();
+  /**
+   * Runs a full turn for one piece of learner text (from STT or
+   * `sendText`). `skipUserTurn` (run7/G directive 1(c)) runs the model
+   * against the system instruction alone, with no user message pushed into
+   * history — for the automatic opening turn, where there is no learner
+   * text yet and nothing should read back as "the learner said ''".
+   */
+  async run(
+    userText: string,
+    signal: AbortSignal,
+    opts?: { skipUserTurn?: boolean },
+  ): Promise<void> {
+    if (!opts?.skipUserTurn) {
+      this.history.push({ role: 'user', content: userText });
+      this.trimHistory();
+    }
 
     this.deps.onState('thinking');
     let messages = this.buildMessages();

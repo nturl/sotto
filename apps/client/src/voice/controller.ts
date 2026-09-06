@@ -9,7 +9,14 @@ import type { VoiceProvider, VoiceState } from '@sotto/voice';
 
 export interface VoiceControllerCallbacks {
   onState(state: VoiceState): void;
-  onCaption(entry: { speaker: 'learner' | 'tutor'; text: string; final: boolean }): void;
+  onCaption(entry: {
+    speaker: 'learner' | 'tutor';
+    text: string;
+    final: boolean;
+    /** run7/G directive 1(b): threaded from the VoiceEvent's `notSpoken`
+     * (a caption whose speech synthesis failed). */
+    notSpoken?: boolean;
+  }): void;
   onReading(tokenIds: string[]): void;
   onLimit(reason: 'max_duration' | 'idle' | 'cap'): void;
   onError(entry: { code: string; message: string; recoverable: boolean }): void;
@@ -31,7 +38,12 @@ export function createVoiceController(
         callbacks.onState(event.state);
         break;
       case 'caption':
-        callbacks.onCaption({ speaker: event.speaker, text: event.text, final: event.final });
+        callbacks.onCaption({
+          speaker: event.speaker,
+          text: event.text,
+          final: event.final,
+          ...(event.notSpoken ? { notSpoken: true } : {}),
+        });
         break;
       case 'reading':
         callbacks.onReading(event.tokenIds);

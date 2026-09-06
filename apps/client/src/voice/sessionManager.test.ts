@@ -11,6 +11,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createSottoStore } from '../state/createStore';
 import type { Persistence } from '../platform/persistence.types';
+import { __resetAudioBusForTests, currentAudioOwner } from '../platform/audioBus';
 
 function fakePersistence(): Persistence {
   const map = new Map<string, string>();
@@ -259,5 +260,162 @@ describe('sessionManager.resumePlayback', () => {
     const sessionManager = await import('./sessionManager');
     sessionManager.endSession();
     expect(() => sessionManager.resumePlayback()).not.toThrow();
+  });
+});
+
+// run7/G directive 1(a): the speaker/output toggle.
+describe('sessionManager.setOutputMuted', () => {
+  afterEach(async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.endSession();
+  });
+
+  it('delegates to the active provider', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+    const provider = sessionManager.getProvider() as unknown as {
+      setOutputMuted?: (muted: boolean) => void;
+    };
+    const calls: boolean[] = [];
+    provider.setOutputMuted = (muted) => calls.push(muted);
+
+    sessionManager.setOutputMuted(true);
+
+    expect(calls).toEqual([true]);
+  });
+
+  it('does nothing when there is no active session', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.endSession();
+    expect(() => sessionManager.setOutputMuted(true)).not.toThrow();
+  });
+});
+
+// run7/G directive 1(b): the Replay action on a `notSpoken` transcript turn.
+describe('sessionManager.replaySentence', () => {
+  afterEach(async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.endSession();
+  });
+
+  it('delegates the exact sentence text to the active provider', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+    const provider = sessionManager.getProvider() as unknown as {
+      replaySentence?: (text: string) => void;
+    };
+    const calls: string[] = [];
+    provider.replaySentence = (text) => calls.push(text);
+
+    sessionManager.replaySentence('Bonjour, comment ça va ?');
+
+    expect(calls).toEqual(['Bonjour, comment ça va ?']);
+  });
+
+  it('does nothing when there is no active session', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.endSession();
+    expect(() => sessionManager.replaySentence('hi')).not.toThrow();
+  });
+});
+
+// run7/G directive 2: tutor speech registers with lane D's audio-arbitration
+// bus (src/platform/audioBus.ts) so narration/word-tap audio and tutor
+// speech never sound at once.
+describe('sessionManager audio-arbitration wiring', () => {
+  beforeEach(() => {
+    __resetAudioBusForTests();
+  });
+
+  afterEach(async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.endSession();
+    __resetAudioBusForTests();
+  });
+
+  it("claims the bus as 'tutor' while the session is speaking, releases it otherwise", async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+    expect(currentAudioOwner()).not.toBe('tutor');
+
+    const provider = sessionManager.getProvider() as unknown as {
+      emit: (e: { type: 'state'; state: string }) => void;
+    };
+    provider.emit({ type: 'state', state: 'speaking' });
+    expect(currentAudioOwner()).toBe('tutor');
+
+    provider.emit({ type: 'state', state: 'listening' });
+    expect(currentAudioOwner()).not.toBe('tutor');
+  });
+
+  it('releases the bus on teardown even if the session was mid-speech', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+    const provider = sessionManager.getProvider() as unknown as {
+      emit: (e: { type: 'state'; state: string }) => void;
+    };
+    provider.emit({ type: 'state', state: 'speaking' });
+    expect(currentAudioOwner()).toBe('tutor');
+
+    sessionManager.endSession();
+    expect(currentAudioOwner()).toBeNull();
+  });
+
+  it("a different owner claiming the bus invokes the tutor's stop callback (provider.interrupt)", async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+    const provider = sessionManager.getProvider() as unknown as {
+      emit: (e: { type: 'state'; state: string }) => void;
+      interrupt: () => void;
+    };
+    let interrupted = 0;
+    const originalInterrupt = provider.interrupt.bind(provider);
+    provider.interrupt = () => {
+      interrupted += 1;
+      originalInterrupt();
+    };
+    provider.emit({ type: 'state', state: 'speaking' });
+    expect(currentAudioOwner()).toBe('tutor');
+
+    const { claimAudio } = await import('../platform/audioBus');
+    claimAudio('narration', () => {});
+
+    expect(interrupted).toBe(1);
+    expect(currentAudioOwner()).toBe('narration');
   });
 });

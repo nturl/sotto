@@ -56,6 +56,7 @@ class FakeAudio implements AudioAdapter {
   // installs one, same as a native AudioAdapter that doesn't implement them.
   onPlaybackBlocked?: (cb: () => void) => void;
   resumePlayback?: () => Promise<void>;
+  setOutputMuted?: (muted: boolean) => void;
 
   async startCapture(onPcm16: (buf: ArrayBuffer) => void): Promise<void> {
     this.onPcm16 = onPcm16;
@@ -268,6 +269,15 @@ describe('OpenAIDirectProvider', () => {
         chatCalls += 1;
         chatBodies.push(String(init?.body));
         if (chatCalls === 1) {
+          // run7/G directive 1(c): connect() fires one opening turn before
+          // the learner has said anything — an unremarkable reply so it
+          // doesn't interfere with the scripted STT round trip below.
+          return new Response(sse([textChunk('¡Bienvenido! ')]), {
+            status: 200,
+            headers: { 'content-type': 'text/event-stream' },
+          });
+        }
+        if (chatCalls === 2) {
           return new Response(
             sse([
               textChunk('Buena pregunta. '),
@@ -319,11 +329,12 @@ describe('OpenAIDirectProvider', () => {
     );
     expect(captions.some((c) => c.speaker === 'tutor' && c.text.includes('Lo guardé'))).toBe(true);
 
-    // The tool round trip actually reached the model: the second request
-    // carries the assistant tool_call and our tool result.
-    expect(chatCalls).toBe(2);
-    expect(chatBodies[1]).toContain('"role":"tool"');
-    expect(chatBodies[1]).toContain('savedWordId');
+    // The tool round trip actually reached the model: the third request
+    // (after the automatic opening turn) carries the assistant tool_call
+    // and our tool result.
+    expect(chatCalls).toBe(3);
+    expect(chatBodies[2]).toContain('"role":"tool"');
+    expect(chatBodies[2]).toContain('savedWordId');
     // The turn's own tool definitions went out on the first request.
     expect(chatBodies[0]).toContain('save_vocabulary');
 
@@ -569,6 +580,152 @@ describe('OpenAIDirectProvider', () => {
     });
     const states = events.filter((e) => e.type === 'state').map((e) => e.state);
     expect(states[states.length - 1]).toBe('listening');
+
+    await provider.disconnect();
+  });
+
+  // run7/G directive 1(c): one grounded invitation before the learner has
+  // said anything.
+  it('connect() runs an automatic opening turn with no learner caption', async () => {
+    let chatCalls = 0;
+    const fakeFetch = vi.fn(async (input: string) => {
+      if (input.endsWith('/chat/completions')) {
+        chatCalls += 1;
+        return new Response(sse([textChunk('¡Bienvenido a la fábula! ')]), {
+          status: 200,
+          headers: { 'content-type': 'text/event-stream' },
+        });
+      }
+      if (input.endsWith('/audio/speech')) return pcmResponse();
+      throw new Error(`unexpected request to ${input}`);
+    });
+
+    const provider = new OpenAIDirectProvider({
+      apiKey: KEY,
+      audio,
+      fetch: fakeFetch as unknown as typeof fetch,
+    });
+    collect(provider);
+    await provider.connect(SESSION);
+
+    await vi.waitFor(() => {
+      expect(events.some((e) => e.type === 'caption')).toBe(true);
+    });
+
+    expect(chatCalls).toBe(1);
+    const captions = events.filter((e) => e.type === 'caption');
+    expect(captions.length).toBeGreaterThan(0);
+    expect(captions.some((c) => c.text.includes('¡Bienvenido'))).toBe(true);
+    // No synthetic learner turn — the transcript's only entries are the
+    // tutor's (a per-sentence caption plus the aggregated final one, same
+    // as any other turn — see the "runs one full turn" test above).
+    expect(captions.every((c) => c.speaker === 'tutor')).toBe(true);
+    expect(audio.played.length).toBeGreaterThan(0);
+
+    await provider.disconnect();
+  });
+
+  // run7/G directive 1(d): the prompt's "Book:" line uses the real title
+  // when SessionOptions carries one, falling back to the id otherwise.
+  it('sends the real book title in the system instruction when present', async () => {
+    let systemContent = '';
+    const fakeFetch = vi.fn(async (input: string, init?: RequestInit) => {
+      if (input.endsWith('/chat/completions')) {
+        const body = JSON.parse(String(init?.body)) as {
+          messages: Array<{ role: string; content: string }>;
+        };
+        systemContent = body.messages.find((m) => m.role === 'system')?.content ?? '';
+        return new Response(sse([textChunk('Hola. ')]), {
+          status: 200,
+          headers: { 'content-type': 'text/event-stream' },
+        });
+      }
+      if (input.endsWith('/audio/speech')) return pcmResponse();
+      throw new Error(`unexpected request to ${input}`);
+    });
+
+    const provider = new OpenAIDirectProvider({
+      apiKey: KEY,
+      audio,
+      fetch: fakeFetch as unknown as typeof fetch,
+    });
+    collect(provider);
+    await provider.connect({ ...SESSION, bookTitle: 'La cigarra y la hormiga (fábula)' });
+
+    await vi.waitFor(() => {
+      expect(systemContent).toContain('Book:');
+    });
+    expect(systemContent).toContain('Book: La cigarra y la hormiga (fábula)');
+    expect(systemContent).not.toContain(`Book: ${SESSION.bookId}`);
+
+    await provider.disconnect();
+  });
+
+  // run7/G directive 1(a): the speaker/output toggle.
+  it('setOutputMuted delegates to the audio adapter', async () => {
+    const fakeFetch = vi.fn(async (input: string) => {
+      if (input.endsWith('/chat/completions')) {
+        return new Response(sse([textChunk('Hola. ')]), {
+          status: 200,
+          headers: { 'content-type': 'text/event-stream' },
+        });
+      }
+      if (input.endsWith('/audio/speech')) return pcmResponse();
+      throw new Error(`unexpected request to ${input}`);
+    });
+    const provider = new OpenAIDirectProvider({
+      apiKey: KEY,
+      audio,
+      fetch: fakeFetch as unknown as typeof fetch,
+    });
+    const calls: boolean[] = [];
+    audio.setOutputMuted = (muted: boolean) => calls.push(muted);
+    collect(provider);
+    await provider.connect(SESSION);
+
+    provider.setOutputMuted(true);
+    provider.setOutputMuted(false);
+
+    expect(calls).toEqual([true, false]);
+    await provider.disconnect();
+  });
+
+  // run7/G directive 1(b): the Replay action on a `notSpoken` transcript turn.
+  it('replaySentence() re-synthesizes and plays the given text without a new caption', async () => {
+    const speechRequests: string[] = [];
+    const fakeFetch = vi.fn(async (input: string, init?: RequestInit) => {
+      if (input.endsWith('/chat/completions')) {
+        return new Response(sse([textChunk('Hola. ')]), {
+          status: 200,
+          headers: { 'content-type': 'text/event-stream' },
+        });
+      }
+      if (input.endsWith('/audio/speech')) {
+        const body = JSON.parse(String(init?.body)) as { input: string };
+        speechRequests.push(body.input);
+        return pcmResponse();
+      }
+      throw new Error(`unexpected request to ${input}`);
+    });
+    const provider = new OpenAIDirectProvider({
+      apiKey: KEY,
+      audio,
+      fetch: fakeFetch as unknown as typeof fetch,
+    });
+    collect(provider);
+    await provider.connect(SESSION);
+    await vi.waitFor(() => expect(audio.played.length).toBeGreaterThan(0));
+    const captionsBefore = events.filter((e) => e.type === 'caption').length;
+    const playedBefore = audio.played.length;
+
+    provider.replaySentence('La cigarra cantó todo el verano.');
+
+    await vi.waitFor(() => {
+      expect(audio.played.length).toBeGreaterThan(playedBefore);
+    });
+    expect(speechRequests).toContain('La cigarra cantó todo el verano.');
+    // No caption re-emitted — the text is already in the transcript.
+    expect(events.filter((e) => e.type === 'caption').length).toBe(captionsBefore);
 
     await provider.disconnect();
   });

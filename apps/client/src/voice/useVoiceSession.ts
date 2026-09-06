@@ -161,6 +161,9 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
     sessionManager.startSession({
       path,
       bookId,
+      // run7/G directive 1(d): the real title (scout-T-tutor.md §4) —
+      // `book` is already in scope from `books[bookId]` above.
+      bookTitle: book?.title,
       chapterId,
       mode,
       learner: {
@@ -222,9 +225,15 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
     chapter,
     chapterTitle: chapterSummary?.title,
     setMuted: (muted: boolean) => sessionManager.setMuted(muted),
+    /** run7/G directive 1(a): the speaker/output toggle — silences tutor
+     * playback without ending capture. */
+    setOutputMuted: (muted: boolean) => sessionManager.setOutputMuted(muted),
     pushToTalk: (activeState: boolean) => sessionManager.pushToTalk(activeState),
     interrupt: () => sessionManager.interrupt(),
     replayLast: () => sessionManager.replayLast(),
+    /** run7/G directive 1(b): the Replay action on a `notSpoken` transcript
+     * turn — re-synthesizes and plays that exact sentence. */
+    replaySentence: (text: string) => sessionManager.replaySentence(text),
     sendText: (text: string) => sessionManager.sendText(text),
     /** run7/F1: re-enters the same book/chapter/mode after a connection
      * failure without clearing the transcript (unlike `start`, which goes

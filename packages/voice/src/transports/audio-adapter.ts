@@ -27,4 +27,14 @@ export interface AudioAdapter {
    * tap after a `playback_blocked` error event. Optional for the same
    * reason as `onPlaybackBlocked`. */
   resumePlayback?(): Promise<void>;
+  /**
+   * run7/G directive 1(a): silences (or restores) tutor speech playback
+   * without touching capture — a standing "speaker off" the learner can
+   * flip mid-session, distinct from `stopPlayback` (barge-in, one-shot) and
+   * from `setMuted` on the provider (which mutes the microphone). Optional:
+   * only `WebAudioAdapter` implements this today via a gain node on the
+   * playback graph; a native adapter without a persistent playback graph
+   * can add it the same way once it has one.
+   */
+  setOutputMuted?(muted: boolean): void;
 }

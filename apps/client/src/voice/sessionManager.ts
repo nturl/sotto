@@ -26,6 +26,7 @@ import {
   type WorkerInitPayload,
 } from '@sotto/voice';
 import { createAudioAdapter } from '../platform/audio-adapter';
+import { claimAudio, releaseAudio } from '../platform/audioBus';
 import { detectPlatform, getCloudAdapter } from '../cloud/provider';
 import type { CloudProviderId } from '../cloud/types';
 import { serverUrl } from '../state/contentApi';
@@ -188,6 +189,10 @@ function teardownActive(): void {
   unsubscribe();
   void provider.disconnect();
   active = null;
+  // run7/G directive 2: release the audio-arbitration bus if this session
+  // was still holding it (e.g. torn down mid-speech) — releaseAudio is a
+  // no-op if 'tutor' isn't the current owner, so this is safe unconditionally.
+  releaseAudio('tutor');
 }
 
 export function activeBookId(): string | undefined {
@@ -201,6 +206,10 @@ export function getProvider(): VoiceProvider | null {
 /** Starts a new session, ending any previous one first. */
 export function startSession(params: {
   bookId: string;
+  /** run7/G directive 1(d): the book's real title (scout-T-tutor.md §4's
+   * id-vs-title finding) — threaded into `SessionOptions.bookTitle` for the
+   * prompt's "Book:" line. Optional; providers fall back to `bookId`. */
+  bookTitle?: string;
   chapterId: string;
   mode: TutorMode;
   learner: SessionOptions['learner'];
@@ -242,8 +251,16 @@ export function resumePlayback(): void {
 }
 
 function beginSession(params: StartSessionParams): void {
-  const { bookId, chapterId, mode, learner, passage, savedWords } = params;
-  const sessionOptions: SessionOptions = { bookId, chapterId, mode, learner, passage, savedWords };
+  const { bookId, bookTitle, chapterId, mode, learner, passage, savedWords } = params;
+  const sessionOptions: SessionOptions = {
+    bookId,
+    bookTitle,
+    chapterId,
+    mode,
+    learner,
+    passage,
+    savedWords,
+  };
   const ctx = createToolContext(
     useSottoStore,
     bookId,
@@ -273,10 +290,23 @@ function beginSession(params: StartSessionParams): void {
 
   const attach = (provider: VoiceProvider, isRealtimeAttempt: boolean): void => {
     const { unsubscribe } = createVoiceController(provider, ctx, {
-      onState: (state) =>
-        useSottoStore
-          .getState()
-          .setVoiceState(isRealtimeAttempt ? state : listeningGate.onProviderState(state)),
+      onState: (state) => {
+        const mapped = isRealtimeAttempt ? state : listeningGate.onProviderState(state);
+        // run7/G directive 2: register tutor speech with lane D's
+        // audio-arbitration bus (src/platform/audioBus.ts) so it and
+        // narration/word-tap audio (src/platform/audio.ts, both already
+        // wired to the bus) never sound at once. Claiming 'tutor' while
+        // speaking lets a narration/word tap cut this session's TTS
+        // mid-sentence (their own claimAudio call invokes the `stop`
+        // callback below, i.e. `provider.interrupt()`); claiming again on
+        // every subsequent 'speaking' state cuts back into whatever
+        // narration/word audio started since the last time this session
+        // spoke. Any other state releases the bus (a no-op if this session
+        // wasn't the current owner).
+        if (mapped === 'speaking') claimAudio('tutor', () => provider.interrupt());
+        else releaseAudio('tutor');
+        useSottoStore.getState().setVoiceState(mapped);
+      },
       onCaption: (entry) => {
         useSottoStore.getState().pushCaption(entry);
         if (entry.speaker === 'tutor' && entry.final) {
@@ -377,6 +407,13 @@ export function setMuted(muted: boolean): void {
   active?.provider.setMuted(muted);
 }
 
+/** run7/G directive 1(a): the speaker/output toggle — mutes tutor playback
+ * without ending capture. No-op on a provider that doesn't implement it
+ * (Realtime's `<audio>` element, the fake provider). */
+export function setOutputMuted(muted: boolean): void {
+  active?.provider.setOutputMuted?.(muted);
+}
+
 export function pushToTalk(activeState: boolean): void {
   active?.provider.pushToTalk(activeState);
 }
@@ -387,6 +424,14 @@ export function interrupt(): void {
 
 export function replayLast(): void {
   active?.provider.replayLast();
+}
+
+/** run7/G directive 1(b): the Replay action on a `notSpoken` transcript
+ * turn — re-synthesizes and plays that exact sentence. No-op on a provider
+ * that never emits `notSpoken` in the first place (only `OpenAIDirectProvider`
+ * does today). */
+export function replaySentence(text: string): void {
+  active?.provider.replaySentence?.(text);
 }
 
 export function sendText(text: string): void {

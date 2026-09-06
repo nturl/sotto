@@ -130,6 +130,14 @@ export class LocalCascadeProvider implements VoiceProvider {
     void this.audio.resumePlayback?.();
   }
 
+  /** run7/G directive 1(a): the speaker/output toggle. Server-driven TTS
+   * still plays through this session's own `AudioAdapter` (`connect`'s
+   * `this.audio`), so muting here is the same gain-node toggle every other
+   * cascade uses — no server round-trip needed. */
+  setOutputMuted(muted: boolean): void {
+    this.audio.setOutputMuted?.(muted);
+  }
+
   private async openConnection(opts: SessionOptions): Promise<void> {
     this.emit({ type: 'state', state: 'connecting' });
 

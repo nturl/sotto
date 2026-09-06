@@ -70,7 +70,9 @@ function initPayload(
       explanationLocale: opts.learner.explanationLocale,
     },
     mode: opts.mode,
-    bookTitle: opts.bookId,
+    // run7/G directive 1(d): the real title, falling back to the id for
+    // older SessionOptions/fixtures that don't set it.
+    bookTitle: opts.bookTitle ?? opts.bookId,
     passage: opts.passage,
     savedWords: opts.savedWords,
     allowDownload,
@@ -191,6 +193,14 @@ export class BrowserCascadeProvider implements VoiceProvider {
 
   replayLast(): void {
     this.post({ t: 'replay' });
+  }
+
+  /** run7/G directive 1(a): the speaker/output toggle — the worker still
+   * hands PCM to this main-thread `AudioAdapter` (see `msg.t === 'audio'`
+   * below), so muting is the same gain-node toggle every other cascade
+   * uses. */
+  setOutputMuted(muted: boolean): void {
+    this.audio.setOutputMuted?.(muted);
   }
 
   sendText(text: string): void {

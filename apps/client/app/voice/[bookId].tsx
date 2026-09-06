@@ -69,6 +69,10 @@ export default function VoiceScreen() {
   });
 
   const [pttHeld, setPttHeld] = useState(false);
+  // run7/G directive 1(a): screen-local — the toggle only needs to persist
+  // for this mounted session, same lifetime as `pttHeld`; the provider
+  // itself is the source of truth for whether playback is actually muted.
+  const [outputMuted, setOutputMuted] = useState(false);
 
   const locale = bookId
     ? (bookLocale(bookId) ?? preferences.learningLocale)
@@ -247,7 +251,11 @@ export default function VoiceScreen() {
         </View>
       ) : null}
 
-      {!isUnavailable ? <Transcript captions={session.captions} /> : <View style={styles.spacer} />}
+      {!isUnavailable ? (
+        <Transcript captions={session.captions} onReplaySentence={session.replaySentence} />
+      ) : (
+        <View style={styles.spacer} />
+      )}
 
       {session.explanation ? (
         <View style={styles.explanationCard}>
@@ -350,6 +358,12 @@ export default function VoiceScreen() {
             onToggleMute={() => session.setMuted(session.voiceState !== 'muted')}
             onReplay={session.replayLast}
             onInterrupt={session.interrupt}
+            outputMuted={outputMuted}
+            onToggleOutputMuted={() => {
+              const next = !outputMuted;
+              setOutputMuted(next);
+              session.setOutputMuted(next);
+            }}
             onEnd={() => {
               session.end();
               router.back();

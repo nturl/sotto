@@ -59,6 +59,15 @@ export class WebAudioAdapter implements AudioAdapter {
   private activeSources: AudioBufferSourceNode[] = [];
   private blockedListeners = new Set<() => void>();
   private reportedBlocked = false;
+  // run7/G directive 1(a): a standing gain node every scheduled source
+  // routes through, so `setOutputMuted` can silence tutor speech without
+  // touching capture or the scheduling queue (`stopPlayback` still does a
+  // hard barge-in stop; this is a volume toggle, not a stop). Created once,
+  // lazily, alongside `playbackContext` — `outputMuted` is remembered
+  // separately so a mute called before the first `playPcm` (no context yet)
+  // still applies once one exists.
+  private playbackGain: GainNode | null = null;
+  private outputMuted = false;
 
   async startCapture(onPcm16: (buf: ArrayBuffer) => void): Promise<void> {
     if (typeof window === 'undefined' || typeof navigator === 'undefined') {
@@ -154,6 +163,11 @@ export class WebAudioAdapter implements AudioAdapter {
     }
     const ctx = this.playbackContext;
     if (ctx.state === 'suspended') this.tryResume(ctx);
+    if (!this.playbackGain) {
+      this.playbackGain = ctx.createGain();
+      this.playbackGain.gain.value = this.outputMuted ? 0 : 1;
+      this.playbackGain.connect(ctx.destination);
+    }
 
     const int16 = new Int16Array(buf);
     const audioBuffer = ctx.createBuffer(1, int16.length, sampleRate);
@@ -163,7 +177,7 @@ export class WebAudioAdapter implements AudioAdapter {
 
     const source = ctx.createBufferSource();
     source.buffer = audioBuffer;
-    source.connect(ctx.destination);
+    source.connect(this.playbackGain);
 
     const startAt = Math.max(ctx.currentTime, this.playbackQueueEndAt);
     source.start(startAt);
@@ -185,5 +199,10 @@ export class WebAudioAdapter implements AudioAdapter {
     }
     this.activeSources = [];
     if (this.playbackContext) this.playbackQueueEndAt = this.playbackContext.currentTime;
+  }
+
+  setOutputMuted(muted: boolean): void {
+    this.outputMuted = muted;
+    if (this.playbackGain) this.playbackGain.gain.value = muted ? 0 : 1;
   }
 }

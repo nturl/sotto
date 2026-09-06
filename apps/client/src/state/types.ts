@@ -13,6 +13,11 @@ export type CaptionEntry = {
   text: string;
   final: boolean;
   createdAt: number;
+  /** run7/G directive 1(b): true when this sentence's speech synthesis
+   * failed (`packages/voice`'s `VoiceEvent`'s `notSpoken`, F1's addition) —
+   * the text reached the transcript but no audio played. Omitted (falsy)
+   * for every caption that was actually spoken. */
+  notSpoken?: boolean;
 };
 
 export type ToolEventEntry = {

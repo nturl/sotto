@@ -169,6 +169,14 @@ export class OpenAIDirectProvider implements VoiceProvider {
     // Nothing to load: unlike the browser tutor there are no weights, so the
     // session is listening as soon as the microphone is open.
     this.emit({ type: 'state', state: 'listening' });
+
+    // run7/G directive 1(c): one grounded opening line before the learner
+    // has said anything (packages/core/src/prompt.ts's stableRules already
+    // instructs the model to do this). `skipUserTurn` keeps this out of the
+    // chat history as a user turn (there is nothing the learner said) and,
+    // because it bypasses `sendText`, no learner caption is emitted — the
+    // transcript's first entry is the tutor's own line.
+    void this.runTurn('', { skipUserTurn: true });
   }
 
   async disconnect(): Promise<void> {
@@ -222,6 +230,39 @@ export class OpenAIDirectProvider implements VoiceProvider {
   /** run7/F1: the tap action for a `playback_blocked` error event. */
   resumePlayback(): void {
     void this.audio.resumePlayback?.();
+  }
+
+  /** run7/G directive 1(a): the speaker/output toggle — silences tutor
+   * playback without touching capture (`setMuted` is capture-only). */
+  setOutputMuted(muted: boolean): void {
+    this.audio.setOutputMuted?.(muted);
+  }
+
+  /** run7/G directive 1(b): the Replay action for a `notSpoken` transcript
+   * turn — re-runs speech synthesis for that exact sentence and plays it,
+   * independent of the turn machinery (`currentAbort`/`currentUtteranceId`)
+   * so it can't collide with whatever turn is running by the time the
+   * learner taps Replay. No caption is (re-)emitted: the sentence's text is
+   * already in the transcript from when it first failed. */
+  replaySentence(text: string): void {
+    if (!this.opts) return;
+    const abort = new AbortController();
+    void speak({
+      apiKey: this.apiKey,
+      text,
+      voice: voiceForLocale(this.opts.learner.learningLocale),
+      speed: this.pace === 'slow' ? 0.85 : 1.0,
+      fetch: this.fetchImpl,
+      signal: abort.signal,
+      ...(this.baseUrl ? { baseUrl: this.baseUrl } : {}),
+      ...(this.models.tts ? { model: this.models.tts } : {}),
+    })
+      .then((pcm) => this.audio.playPcm(pcm, TUTOR_SAMPLE_RATE))
+      .catch((err) => {
+        const mapped = byokError(err, { stage: 'speech' });
+        this.diagnostic('tts_failed', `replay ${mapped.code}`);
+        this.emit({ type: 'error', ...mapped });
+      });
   }
 
   sendText(text: string): void {
@@ -380,7 +421,9 @@ export class OpenAIDirectProvider implements VoiceProvider {
         buildSystemInstruction({
           mode: this.opts!.mode,
           learner: this.opts!.learner,
-          bookTitle: this.opts!.bookId,
+          // run7/G directive 1(d): the real title, falling back to the id
+          // for older SessionOptions/fixtures that don't set it.
+          bookTitle: this.opts!.bookTitle ?? this.opts!.bookId,
           passage: this.opts!.passage,
           savedWords: this.opts!.savedWords,
         }),
@@ -467,13 +510,13 @@ export class OpenAIDirectProvider implements VoiceProvider {
     }
   }
 
-  private async runTurn(learnerText: string): Promise<void> {
+  private async runTurn(learnerText: string, opts?: { skipUserTurn?: boolean }): Promise<void> {
     // Serialize turns: a barge-in only flips the abort flag, so wait for the
     // previous run to unwind before starting another (the hazard
     // browser-cascade/worker.ts documents on `currentTurnPromise`).
     if (this.currentTurnPromise) await this.currentTurnPromise.catch(() => undefined);
     if (this.ended || !this.turnRunner) return;
-    const runPromise = this.runTurnBody(learnerText);
+    const runPromise = this.runTurnBody(learnerText, opts);
     this.currentTurnPromise = runPromise;
     try {
       await runPromise;
@@ -482,13 +525,13 @@ export class OpenAIDirectProvider implements VoiceProvider {
     }
   }
 
-  private async runTurnBody(learnerText: string): Promise<void> {
+  private async runTurnBody(learnerText: string, opts?: { skipUserTurn?: boolean }): Promise<void> {
     const abort = new AbortController();
     this.currentAbort = abort;
     this.currentUtteranceId = null;
     this.currentUtteranceChunks = [];
     try {
-      await this.turnRunner!.run(learnerText, abort.signal);
+      await this.turnRunner!.run(learnerText, abort.signal, opts);
     } catch (err) {
       if (!abort.signal.aborted) this.failTurn(err);
     }

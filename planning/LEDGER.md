@@ -553,3 +553,36 @@ B2 live on readsotto.app with the spike key entered through the UI (local export
 - 2026-09-06 21:55 ORCHESTRATOR CAUGHT A REGRESSION IN F2's sw.js fix (`b0270b3`). The API-path bypass was unconditional, but five of the twelve prefixes are ALSO client routes — `/account`, `/account/magic`, `/voice/<bookId>`, `/import`, `/import/<jobId>` — and public/sw.js ships to BOTH origins, including the free one where no API exists and `/voice/<bookId>` is the reading screen. An unconditional early return skips the app-shell branch, so those routes lost their `mode: 'navigate'` offline fallback: an API-caching bug traded for an offline-navigation bug on the free app's core route. Fix: the bypass now also requires `event.request.mode !== 'navigate'`; the app's own API calls go through fetch(), never a navigation. A navigation assertion was added to the e2e, and a negative control (guard removed from the served copy only) makes that assertion — and only that one — fail. `2c3acb0` then fixed the eslint error my own addition introduced (`self` is not a global in that file's Node scope; switched to the `cache.match(path)` pattern the block above already uses).
 - 2026-09-06 22:05 Vendor pin bumped 34201b2 -> f5bed4c and DEPLOYED (sotto-cloud f7887cb, deploy exit 0). This was the first pin carrying the landing-page export, the exact case defect 8 was fixed for. Live on app.readsotto.app: `/` and `/account` serve the app shell, `/index.html` serves the app shell too (so the marketing page has no reachable path on the paid origin), /health production+stripe, /auth/apple 404, /terms 200, sw.js carries the guard, the entry bundle has zero `_sw=`. Free origin redeployed from a clean `git archive` of f5bed4c (dpl_9TLM8ckGuYpe5SPMCgprQn8vpmw3, production, READY) so its users get the BYOK discoverability fix; the archive omits the gitignored apps/client/.vercel, so the project link had to be copied in — the only reason the first attempt failed. Evidence: sotto-cloud/docs/evidence/deploy-f-2026-09-06.log.
 - 2026-09-06 22:06 Noted for the record, same as the earlier D2 case: bumping the pin is `git checkout <sha>` inside vendor/sotto. There is no other mechanic for a submodule; the submodule was clean at a known pin and moved forward to a fetched commit, so nothing could be lost. The OSS working tree with the content session's edits was never touched.
+
+## Run 4 FINISH LINE (2026-09-06 22:15)
+Everything in KICKOFF-4 is done except what is listed as carried or accepted below. Final SHAs: OSS `f5bed4c` (+ this entry), sotto-cloud `7a59fa4`, vendor pin `f5bed4c`. Both repos pushed; `pnpm check` green in isolation on both (OSS 64 files / 500 tests, cloud 22 files / 358 tests).
+
+SHIPPED
+- A: README quick start walked cold, first tutor turn in about a minute.
+- B: BYOK tutor live on the free PWA — learner's own OpenAI key, on-device, no server of ours in the path. Now reachable from the voice screen, not just Profile.
+- C: Docker deploy kit and self-hosting doc, with `SOTTO_BASIC_AUTH` now required in the Fly quickstart.
+- D: paid tier LIVE on app.readsotto.app. One plan, $9.99/mo or $79/yr, 3-day trial, card required. Real money round trip proven and refunded.
+- Landing page at the apex; app shell at /app.html.
+- S: sunset switch, LaunchAgent monthly on the 1st. 2026-10-01 warns, 2026-11-01 cordons + stops on zero subs and texts the manual destroy commands. Never destroys anything itself.
+- R: adversarial review 4, then one fix pass across both repos (10 defects), then this deploy.
+
+MONTH-ONE COST
+Fly resources actually provisioned: one shared-cpu-1x / 1 vCPU / 512 MB machine running 24/7 (`min_machines_running = 1`), one 1 GB volume in ewr, shared IPv4 (free) and dedicated IPv6 (free). On Fly's published rates that is roughly $3.50/month, below the ~$5-7 estimated at kickoff; the authoritative figure is the Fly dashboard at the first invoice. OpenAI month-to-date spend is $0.00 (read from the service's own `spend_daily` rows during R4-S's real month-0 run), bounded by the $5/day ceiling and the kill switch. Domain readsotto.app $9.99/yr, auto-renew OFF.
+
+NEEDS NOEL (three items, none blocking)
+1. Enable "Subscriptions: Read" on the `sotto-stripe-sunset` restricted key. Until then the sunset switch counts from the entitlements table alone — which works, and now fails safe by taking the higher of the two sources, but runs on one source.
+2. A leftover `plan='standard', source='manual', source_ref='stub'` row in production entitlements grants one account standard access. The sunset script filters it out; deleting it is a DB write no lane has permission for.
+3. A Fly access token was printed into a worker's transcript on 2026-09-06. It never reached a file, a log, or a commit, and never left this machine. Rotating is Noel's call.
+
+PARTIAL / NOT VERIFIED (carried, honestly)
+- Safari standalone-PWA microphone on a real iPhone: never tested. WebKit has no fake-capture flag. The landing copy deliberately makes no voice claim because of this.
+- Native `expo-secure-store` BYOK branch: committed and unit-tested, never run on a simulator.
+- The Stripe "Manage" (billing portal) button: portal config exists, never clicked.
+- Daily spend ceiling and kill switch: proven on staging, only *configured* in production. Account deletion: proven on staging; live, only the sign-out half was observed.
+- Cordon defeating Fly Proxy autostart: INFERRED from flyctl's own description, never executed against production. The script reads machine state back after stopping and names the durable config fix if the stop did not hold.
+- Deploy-kit image still 4.49 GB. The real fix moves `tsx`/`typescript` into `apps/server` dependencies; correctly escalated rather than bodged.
+- ACCEPTED, not fixed: no trial-eligibility check (cancel + delete + re-signup mints a fresh trial). Bounded by the ceiling and the 2026-11-01 cutoff.
+
+CARRIED TO RUN 5
+- planning/BUGS-TUTOR-RUN5.md, P0: STT forces the learning locale in all three providers, so English speech decodes as Spanish.
+- Google sign-in, bare minimum (Opus, auth). Apple web sign-in stays parked; it needs the Apple Developer Program.

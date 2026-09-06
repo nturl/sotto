@@ -23,7 +23,9 @@ function book(partial: Partial<BookSummary> & { bookId: string }): BookSummary {
   };
 }
 
-function preferences(partial: Partial<UserPreferences> & { interfaceLocale: string }): UserPreferences {
+function preferences(
+  partial: Partial<UserPreferences> & { interfaceLocale: string },
+): UserPreferences {
   return {
     explanationLocale: 'en',
     learningLocale: 'es-419',
@@ -41,7 +43,7 @@ function preferences(partial: Partial<UserPreferences> & { interfaceLocale: stri
 }
 
 describe('toLibraryBook title localization', () => {
-  it('uses the localized title for the interface locale, not the book\'s native title', () => {
+  it("uses the localized title for the interface locale, not the book's native title", () => {
     const summary = book({ bookId: 'es-alice-rabbit-hole' });
     const prefs = preferences({ interfaceLocale: 'fr' });
 

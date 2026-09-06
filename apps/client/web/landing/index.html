@@ -273,11 +273,33 @@
         margin: 20px 0 0;
         max-width: var(--measure);
       }
-      .lead-note {
+      /* 4b The paths: two hairline rows under the CTA, the plan first and heaviest */
+      .paths {
+        margin-top: 32px;
+        border-top: 1px solid var(--hairline);
+      }
+      .path {
+        padding: 18px 0;
+        border-bottom: 1px solid var(--hairline);
+      }
+      .path .pw {
+        display: inline-block;
+        padding: 10px 0;
+        margin: -10px 0;
+        font: 500 1rem/1.55 var(--sans);
+        color: var(--ink);
+      }
+      .path.lead .pw {
+        font: 400 1.375rem/1.2 var(--serif);
+      }
+      .path .pd {
+        margin: 6px 0 0;
         color: var(--ink-2);
-        font-size: 0.9375rem;
-        margin: 0 0 24px;
-        max-width: var(--measure);
+      }
+      .path .pd.light {
+        margin-top: 8px;
+        font-size: 0.8125rem;
+        color: var(--ink-3);
       }
 
       /* 5 Four ways, 6 Phone steps: rows, never cards */
@@ -351,6 +373,33 @@
         color: var(--ink-3);
       }
 
+      /* 5b The reference view, folded */
+      .fold summary {
+        list-style: none;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 18px 0;
+        border-top: 1px solid var(--hairline);
+        border-bottom: 1px solid var(--hairline);
+        font: 300 1.75rem/1.15 var(--serif);
+        letter-spacing: -0.01em;
+      }
+      .fold summary::-webkit-details-marker {
+        display: none;
+      }
+      .fold summary::after {
+        content: '+';
+        color: var(--ink-3);
+      }
+      .fold[open] summary::after {
+        content: '\2212';
+      }
+      .fold .rows {
+        border-top: 0;
+      }
+
       /* 7 Footer */
       footer {
         padding: var(--section) 0 48px;
@@ -418,12 +467,34 @@
             <p class="cta-note">
               No account. Nothing leaves your device. A book you have opened keeps working offline.
             </p>
-            <p class="cta-note">
-              The voice tutor works either way: your own OpenAI key, about a cent a minute, or the
-              hosted plan at
-              <a class="tap-link" href="https://app.readsotto.app">app.readsotto.app</a>
-              ($9.99/mo, 3-day trial) — a separate sign-in from this page.
-            </p>
+            <div class="paths">
+              <div class="path lead">
+                <a class="pw" href="https://app.readsotto.app">Add the voice tutor</a>
+                <p class="pd">
+                  The plan: <span class="num">$9.99</span> a month after a 3-day trial, at
+                  app.readsotto.app, a separate sign-in from this page. Nothing to set up.
+                </p>
+                <p class="pd light">
+                  Or use your own key: paste it in Settings and OpenAI bills you, about a cent a
+                  minute.
+                  <a class="tap-link" href="https://github.com/nturl/sotto/blob/main/docs/byok.md"
+                    >How it works</a
+                  >
+                </p>
+              </div>
+              <div class="path">
+                <span class="pw">Run it yourself</span>
+                <p class="pd">
+                  Free on your own hardware, app and tutor from one origin, with local models or
+                  your own key.
+                  <a
+                    class="rowlink"
+                    href="https://github.com/nturl/sotto/blob/main/docs/self-hosting.md"
+                    >Self-hosting guide</a
+                  >
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -464,8 +535,8 @@
               <div data-gloss="plan">
                 <dt class="gw">plan</dt>
                 <dd class="gm">
-                  One hosted plan at app.readsotto.app, <span class="num">$9.99</span> a month with
-                  a 3-day trial, for people who would rather not manage a key.
+                  The hosted tutor, with nothing to set up: subscribe and it is on. The lighter path
+                  is your own key.
                 </dd>
               </div>
               <div data-gloss="selfhost">
@@ -482,47 +553,45 @@
 
       <section id="ways">
         <div class="col wide">
-          <h2>Compare all four ways</h2>
-          <p class="lead-note">
-            Already decided? Reading and the tutor are both covered above. Here's everything side by
-            side.
-          </p>
-          <div class="rows">
-            <div class="head">
-              <span class="meta">Way</span><span class="meta">What it costs</span
-              ><span class="meta">Where</span>
+          <details class="fold">
+            <summary>Compare all four ways</summary>
+            <div class="rows">
+              <div class="head">
+                <span class="meta">Way</span><span class="meta">What it costs</span
+                ><span class="meta">Where</span>
+              </div>
+              <div>
+                <span class="cell lead">Read</span
+                ><span class="cell" data-label="What it costs">Free</span
+                ><span class="cell" data-label="Where">readsotto.app — this page</span>
+              </div>
+              <div>
+                <span class="cell lead">Talk to the tutor with your own key</span
+                ><span class="cell" data-label="What it costs"
+                  >You pay OpenAI directly, about a cent a minute</span
+                ><span class="cell" data-label="Where">Settings in the app</span>
+              </div>
+              <div>
+                <span class="cell lead">Talk to the tutor on the plan</span
+                ><span class="cell num" data-label="What it costs">$9.99 a month, 3-day trial</span
+                ><span class="cell" data-label="Where"
+                  ><a class="rowlink" href="https://app.readsotto.app">app.readsotto.app</a> — sign
+                  in or subscribe</span
+                >
+              </div>
+              <div>
+                <span class="cell lead">Run it yourself</span
+                ><span class="cell" data-label="What it costs">Free, your hardware</span
+                ><span class="cell" data-label="Where"
+                  ><a
+                    class="rowlink"
+                    href="https://github.com/nturl/sotto/blob/main/docs/self-hosting.md"
+                    >Self-hosting guide</a
+                  ></span
+                >
+              </div>
             </div>
-            <div>
-              <span class="cell lead">Read</span
-              ><span class="cell" data-label="What it costs">Free</span
-              ><span class="cell" data-label="Where">readsotto.app — this page</span>
-            </div>
-            <div>
-              <span class="cell lead">Talk to the tutor with your own key</span
-              ><span class="cell" data-label="What it costs"
-                >You pay OpenAI directly, about a cent a minute</span
-              ><span class="cell" data-label="Where">Settings in the app</span>
-            </div>
-            <div>
-              <span class="cell lead">Talk to the tutor on the plan</span
-              ><span class="cell num" data-label="What it costs">$9.99 a month, 3-day trial</span
-              ><span class="cell" data-label="Where"
-                ><a class="rowlink" href="https://app.readsotto.app">app.readsotto.app</a> — sign in
-                or subscribe</span
-              >
-            </div>
-            <div>
-              <span class="cell lead">Run it yourself</span
-              ><span class="cell" data-label="What it costs">Free, your hardware</span
-              ><span class="cell" data-label="Where"
-                ><a
-                  class="rowlink"
-                  href="https://github.com/nturl/sotto/blob/main/docs/self-hosting.md"
-                  >Self-hosting guide</a
-                ></span
-              >
-            </div>
-          </div>
+          </details>
         </div>
       </section>
 

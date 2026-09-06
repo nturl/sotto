@@ -164,11 +164,16 @@ function safeParse<T>(raw: string | null): T | undefined {
 }
 
 /** Every URL a just-opened book needs for offline reading (F1.2): its
- * book.json, every chapter file, the cover, and each chapter's narration
- * audio (absent for locales with no narration yet). Handed to the service
- * worker's `cache-book` message so a stranger's first opened book doesn't
- * need a second load before it's offline-ready. */
-function bookCacheUrls(locale: string, book: Book): string[] {
+ * book.json, every chapter file, the cover, each chapter's narration audio
+ * (absent for locales with no narration yet), and — R6-C2 — the word-audio
+ * sprite + index (`book.wordAudio.file`/`.index`) when the book has one.
+ * Without these last two, the reader's speaker button worked offline for
+ * the narration-slice fallback but never for the sprite, since the sprite
+ * was only ever fetched lazily by the reader itself, past the service
+ * worker's eager per-book warm-up. Handed to the service worker's
+ * `cache-book` message so a stranger's first opened book doesn't need a
+ * second load before it's offline-ready. */
+export function bookCacheUrls(locale: string, book: Book): string[] {
   const urls = [
     assetUrl(locale, book.bookId, 'book.json'),
     assetUrl(locale, book.bookId, book.cover),
@@ -176,6 +181,10 @@ function bookCacheUrls(locale: string, book: Book): string[] {
   for (const chapter of book.chapters) {
     urls.push(assetUrl(locale, book.bookId, chapter.file));
     if (chapter.audio) urls.push(assetUrl(locale, book.bookId, chapter.audio));
+  }
+  if (book.wordAudio) {
+    urls.push(assetUrl(locale, book.bookId, book.wordAudio.file));
+    urls.push(assetUrl(locale, book.bookId, book.wordAudio.index));
   }
   return urls;
 }

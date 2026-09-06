@@ -246,12 +246,37 @@ self.addEventListener('message', (event) => {
   );
 });
 
+// Fetches `url` again WITHOUT a Range header and stores the resulting full
+// 200 in `cacheName`, so the *next* Range request (and any offline replay)
+// is served by `rangeFromCache` below instead of passing through again.
+// Best-effort: a failed background fill must not surface anywhere, since
+// the tap that triggered it already got its answer from the pass-through
+// fetch.
+async function fillCacheFromNetwork(url, cacheName) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok || response.status !== 200) return;
+    const cache = await caches.open(cacheName);
+    await cache.put(url, response);
+  } catch {
+    // Offline, or the server doesn't like a bare GET on this path — the
+    // next tap just passes through again.
+  }
+}
+
 // Answer a Range request from a cached full response (206 with
-// Content-Range), or fall through to the network when the file is not cached.
-async function rangeFromCache(request, cacheName) {
+// Content-Range), or fall through to the network when the file is not
+// cached. On that pass-through path, `event.waitUntil` (when a `fetch`
+// event is available) schedules a background fetch of the same URL without
+// a Range header so the file is cached for next time and for offline —
+// the pass-through response itself is returned immediately, unaffected.
+async function rangeFromCache(request, cacheName, event) {
   const cache = await caches.open(cacheName);
   const cached = await cache.match(request.url, { ignoreSearch: false });
-  if (!cached || cached.status !== 200) return fetch(request);
+  if (!cached || cached.status !== 200) {
+    if (event) event.waitUntil(fillCacheFromNetwork(request.url, cacheName));
+    return fetch(request);
+  }
   const match = /^bytes=(\d*)-(\d*)$/.exec(request.headers.get('range') || '');
   if (!match) return fetch(request);
   const buffer = await cached.arrayBuffer();
@@ -298,7 +323,7 @@ self.addEventListener('fetch', (event) => {
     if (event.request.headers.has('range')) {
       event.respondWith(
         resolveCacheName(CONTENT_CACHE_PREFIX).then((cacheName) =>
-          rangeFromCache(event.request, cacheName),
+          rangeFromCache(event.request, cacheName, event),
         ),
       );
       return;

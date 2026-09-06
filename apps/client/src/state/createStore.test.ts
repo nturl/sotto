@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import type { ReadingProgress, SavedWord, VoiceSessionRecord } from '@sotto/core';
+import type { Book, ReadingProgress, SavedWord, VoiceSessionRecord } from '@sotto/core';
 import type { Persistence } from '../platform/persistence.types';
-import { createSottoStore, DEFAULT_PREFERENCES } from './createStore';
+import { bookCacheUrls, createSottoStore, DEFAULT_PREFERENCES } from './createStore';
 
 function createFakePersistence(): Persistence {
   const map = new Map<string, string>();
@@ -269,5 +269,52 @@ describe('private (imported) books', () => {
       await persistence.getItem('sotto.private.chapter.private-abcdef01.private-abcdef01-01'),
     ).toBeNull();
     expect(await useStore.getState().loadBook('private-abcdef01')).toBeUndefined();
+  });
+});
+
+describe('bookCacheUrls (R6-C2 commit 3)', () => {
+  const BASE_BOOK: Book = {
+    schemaVersion: 1,
+    bookId: 'fr-chat-botte',
+    contentLocale: 'fr-FR',
+    title: 'Le Chat botté',
+    author: 'Charles Perrault',
+    sourceEdition: '',
+    sourceUrl: '',
+    sourceJurisdiction: 'public-domain',
+    adaptationEditor: '',
+    reviewStatus: 'stable',
+    level: 'A1',
+    categories: ['tales'],
+    estimatedMinutes: 10,
+    localizedTitles: {},
+    premise: {},
+    summary: {},
+    contentWarning: null,
+    tutorNotes: { pronunciation: '', grammar: '', culture: '', commonErrors: '' },
+    vocabulary: [],
+    comprehension: [],
+    license: { spdx: 'CC0-1.0', attribution: '' },
+    cover: 'cover.svg',
+    chapters: [{ id: 'c1', title: 'Chapitre 1', order: 1, file: 'chapters/01.json', wordCount: 3 }],
+  };
+
+  it('includes the word-audio sprite and index when the book has one', () => {
+    const book: Book = {
+      ...BASE_BOOK,
+      wordAudio: { file: 'audio/words.mp3', index: 'audio/words.json', count: 42 },
+    };
+    const urls = bookCacheUrls('fr-FR', book);
+    expect(urls).toContain(
+      'http://localhost:8790/content/packs/fr-FR/books/fr-chat-botte/audio/words.mp3',
+    );
+    expect(urls).toContain(
+      'http://localhost:8790/content/packs/fr-FR/books/fr-chat-botte/audio/words.json',
+    );
+  });
+
+  it('omits word-audio urls when the book has none', () => {
+    const urls = bookCacheUrls('fr-FR', BASE_BOOK);
+    expect(urls.some((u) => u.includes('words.mp3') || u.includes('words.json'))).toBe(false);
   });
 });

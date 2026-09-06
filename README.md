@@ -18,11 +18,11 @@ browser and a book you've opened keeps working offline.
 
 ## Three ways to run it
 
-| Way                     | What it costs                | How                                                                                         |
-| ----------------------- | ---------------------------- | ------------------------------------------------------------------------------------------- |
-| **Hosted PWA**          | Free, no account             | Open [readsotto.app](https://readsotto.app) — nothing leaves your device.                   |
-| **Your own OpenAI key** | You pay OpenAI directly      | Settings → **Use your own OpenAI key** on the hosted PWA. See [docs/byok.md](docs/byok.md). |
-| **Your own server**     | Free (your hardware/hosting) | `docker compose up`. See [docs/self-hosting.md](docs/self-hosting.md).                      |
+| Way                     | What it costs                | How                                                                                                                                                        |
+| ----------------------- | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Hosted PWA**          | Free, no account             | Open [readsotto.app](https://readsotto.app) — nothing leaves your device.                                                                                  |
+| **Your own OpenAI key** | You pay OpenAI directly      | Profile → Tutor preferences → **Use your own OpenAI key**, or straight from the voice screen when no tutor is available. See [docs/byok.md](docs/byok.md). |
+| **Your own server**     | Free (your hardware/hosting) | `docker compose up`. See [docs/self-hosting.md](docs/self-hosting.md).                                                                                     |
 
 ## Add a book
 

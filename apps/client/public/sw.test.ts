@@ -21,7 +21,11 @@ type FakeResponse = {
   arrayBuffer(): Promise<ArrayBuffer>;
 };
 
-function fakeResponse(status: number, body: string, headers: Record<string, string> = {}): FakeResponse {
+function fakeResponse(
+  status: number,
+  body: string,
+  headers: Record<string, string> = {},
+): FakeResponse {
   const buf = new TextEncoder().encode(body).buffer;
   return {
     status,
@@ -57,7 +61,9 @@ function createSandbox() {
   // own `new Request(url)` behaviour omits any Range header), while the
   // original pass-through calls `fetch(request)` with the Range-bearing
   // Request-like object — real fetch() accepts both forms.
-  const fakeFetch = async (input: string | { url: string; headers: { get: (k: string) => string | null } }) => {
+  const fakeFetch = async (
+    input: string | { url: string; headers: { get: (k: string) => string | null } },
+  ) => {
     const url = typeof input === 'string' ? input : input.url;
     const range = typeof input === 'string' ? null : input.headers.get('range');
     fetchCalls.push({ url, range });
@@ -87,7 +93,10 @@ function createSandbox() {
     headers: FakeHeaders;
     ok: boolean;
     private body: ArrayBuffer | null;
-    constructor(body: ArrayBuffer | null, init: { status: number; statusText?: string; headers?: FakeHeaders }) {
+    constructor(
+      body: ArrayBuffer | null,
+      init: { status: number; statusText?: string; headers?: FakeHeaders },
+    ) {
       this.body = body;
       this.status = init.status;
       this.statusText = init.statusText;
@@ -176,7 +185,9 @@ describe('rangeFromCache pass-through fill (R6-C2 commit 3)', () => {
 
     fetchCalls.length = 0; // reset call log — the second tap must not hit the network at all
     const secondRequest = { url, headers: new FakeHeaders({ range: 'bytes=0-4' }) };
-    const response = await rangeFromCache(secondRequest, 'sotto-content-v1', { waitUntil: () => {} });
+    const response = await rangeFromCache(secondRequest, 'sotto-content-v1', {
+      waitUntil: () => {},
+    });
 
     expect(response.status).toBe(206);
     expect(response.headers.get('Content-Range')).toBe(`bytes 0-4/${FULL_BODY.length}`);

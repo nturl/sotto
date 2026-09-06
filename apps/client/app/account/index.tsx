@@ -6,7 +6,7 @@
  * it's ever reached with no adapter (there is no route to it in that build).
  */
 import { useEffect, useMemo, useState } from 'react';
-import { Linking, Platform, Pressable, StyleSheet, TextInput, View } from 'react-native';
+import { Linking, Platform, StyleSheet, TextInput, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { radius, space } from '@sotto/core/theme';
@@ -24,7 +24,6 @@ import { Text } from '../../src/ui/Text';
 import { Shell } from '../../src/ui/Shell';
 import { Toast } from '../../src/ui/Toast';
 import { useTheme } from '../../src/ui/theme';
-import { webCursor } from '../../src/ui/tokens';
 
 type DeleteStep = 0 | 1 | 2;
 
@@ -270,33 +269,24 @@ export default function AccountScreen() {
       </Text>
 
       {Platform.OS === 'ios' ? (
-        <AppleAuthentication.AppleAuthenticationButton
-          buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-          buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
-          cornerRadius={radius.md}
-          style={styles.appleButtonNative}
-          onPress={() => void signInApple()}
-        />
-      ) : (
-        <Pressable
-          onPress={() => void signInApple()}
-          accessibilityRole="button"
-          accessibilityLabel={t('account.appleSignIn.web')}
-          style={[styles.appleButtonWeb, webCursor]}
-        >
-          <Text role="uiButton" style={styles.appleButtonWebLabel}>
-            {t('account.appleSignIn.web')}
-          </Text>
-        </Pressable>
-      )}
+        <>
+          <AppleAuthentication.AppleAuthenticationButton
+            buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
+            buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+            cornerRadius={radius.md}
+            style={styles.appleButtonNative}
+            onPress={() => void signInApple()}
+          />
 
-      <View style={styles.dividerRow}>
-        <View style={styles.dividerLine} />
-        <Text role="caption" color="ink3" style={styles.dividerLabel}>
-          {t('account.or')}
-        </Text>
-        <View style={styles.dividerLine} />
-      </View>
+          <View style={styles.dividerRow}>
+            <View style={styles.dividerLine} />
+            <Text role="caption" color="ink3" style={styles.dividerLabel}>
+              {t('account.or')}
+            </Text>
+            <View style={styles.dividerLine} />
+          </View>
+        </>
+      ) : null}
 
       <Card style={styles.emailCard}>
         <Text role="caption" color="ink2">
@@ -376,18 +366,6 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
       width: '100%',
       height: space.tapTarget,
       marginTop: space.xs,
-    },
-    appleButtonWeb: {
-      width: '100%',
-      minHeight: space.tapTarget,
-      borderRadius: radius.md,
-      backgroundColor: '#000000',
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginTop: space.xs,
-    },
-    appleButtonWebLabel: {
-      color: '#FFFFFF',
     },
     dividerRow: {
       flexDirection: 'row',

@@ -43,6 +43,7 @@ import { usePreferences } from '../../src/ui/data';
 import { fonts } from '../../src/ui/fonts';
 import { formatDate } from '../../src/ui/formatDate';
 import { Group } from '../../src/ui/GroupList';
+import { SectionEyebrow } from '../../src/ui/SectionEyebrow';
 import { Text } from '../../src/ui/Text';
 import { Shell } from '../../src/ui/Shell';
 import { Toast } from '../../src/ui/Toast';
@@ -316,10 +317,24 @@ export default function AccountScreen() {
         </Text>
 
         <View style={styles.groups}>
+          {/* The email gets its own card rather than a Group row: `Row` lays
+              label and value out side by side on one line, and a real address
+              is long enough to run off the edge of a 375 screen (seen in this
+              lane's own 375 proof shot). Label above, address below, wrapping. */}
+          <View style={styles.identity}>
+            <SectionEyebrow>{t('account.group.account')}</SectionEyebrow>
+            <Card style={styles.identityCard}>
+              <Text role="caption" color="ink2">
+                {t('account.emailRow')}
+              </Text>
+              <Text role="ui" size={15}>
+                {user.email}
+              </Text>
+            </Card>
+          </View>
+
           <Group
-            eyebrow={t('account.group.account')}
             rows={[
-              { label: t('account.emailRow'), value: user.email },
               {
                 label: t('account.planRow'),
                 value: free
@@ -649,6 +664,12 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     groups: {
       marginTop: space.lg,
       gap: space.gutter.phone,
+    },
+    identity: {
+      gap: space.md,
+    },
+    identityCard: {
+      gap: 2,
     },
     dataNote: {
       marginTop: -space.sm,

@@ -43,7 +43,16 @@ describe('gateVoiceState', () => {
   });
 
   it('leaves every other state untouched regardless of capture readiness', () => {
-    for (const state of ['idle', 'connecting', 'thinking', 'speaking', 'muted', 'error', 'reconnecting', 'ended'] as const) {
+    for (const state of [
+      'idle',
+      'connecting',
+      'thinking',
+      'speaking',
+      'muted',
+      'error',
+      'reconnecting',
+      'ended',
+    ] as const) {
       expect(gateVoiceState(state, false)).toBe(state);
       expect(gateVoiceState(state, true)).toBe(state);
     }

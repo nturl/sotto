@@ -86,5 +86,9 @@ export interface MicUnavailablePanelState {
 
 export function micUnavailablePanelState(errorCode: string | undefined): MicUnavailablePanelState {
   const isMicUnavailable = errorCode === 'mic_unavailable';
-  return { showHint: isMicUnavailable, showTryAgain: isMicUnavailable, showSettings: isMicUnavailable };
+  return {
+    showHint: isMicUnavailable,
+    showTryAgain: isMicUnavailable,
+    showSettings: isMicUnavailable,
+  };
 }

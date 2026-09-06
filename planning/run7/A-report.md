@@ -135,3 +135,21 @@ because it requires editing `scripts/build-web.mjs`, a file outside this lane's 
 paths (`apps/client/web/landing/**`, `planning/design/LANDING-V4.md`, the Cleo ledger).
 
 ## Commits
+
+- `sotto` repo: `0657d02` — "run7(A): rebuild the landing page around the learner's
+  decision" (3 files: `apps/client/web/landing/index.html`,
+  `planning/design/LANDING-V4.md`, `planning/run7/A-report.md`). Pushed to
+  `origin/main`.
+- `~/Claude/Agents` repo: `a53cfbe` — "design: readsotto.app landing run 7 rebuild — new
+  ledger row" (2 files: `design/LEDGER.md`, `design/log-archive.md`). Pushed to
+  `origin/main`.
+
+Note: the first commit attempt (`08eb6dd`) accidentally swept in an unrelated,
+already-staged rename from another run-7 lane's in-flight work
+(`apps/client/app/profile.tsx` → `apps/client/app/settings/index.tsx`, 0 content diff —
+likely lane B's CONFIRM 25 work). Caught immediately by inspecting `git show --stat`,
+fixed with `git reset --soft HEAD~1` (undoes the commit, keeps everything staged as
+before) followed by `git reset` (unstage everything) and a fresh `git add` of only this
+lane's three files. The rename remains in the working tree/index for that lane to commit
+itself; nothing was lost or reverted for them. Final commit `0657d02` contains only this
+lane's files, confirmed via `git show --stat`.

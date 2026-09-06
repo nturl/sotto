@@ -264,3 +264,105 @@ worth revisiting rather than a content problem.
 **zh-chengyu-stories-hant (zh-TW edition)** (one above): same tense/vocabulary profile
 as the Simplified edition (expected, since it's a script conversion of the same text);
 idioms 守株待兔/狐假虎威 are the same above-A0 driver noted above.
+
+## Library expansion — 2026-09-05/06 (18→39 books)
+
+`packages/content/scripts/expand-library.sh` ran unattended against a 22-book target
+list (French/Spanish/English classic-literature excerpts plus one Italian, one
+Portuguese, one Chinese), pipeline: assemble→build→fill→translate→rebuild→covers→
+narrate→words→validate, `SOTTO_LLM_BACKEND=deepseek`. 21 of 22 shipped; 1 parked (below).
+Three passes were needed while pipeline bugs were found and fixed:
+
+- **`gloss-fill.ts`'s own-locale identity bug**: `fillMissingGlosses` (build.ts) never
+  forced a book's own-content-locale glossary entry back to identity after the LLM call
+  — the same class of bug already fixed in `fill-locales.mjs` (see `ro-capra-trei-iezi`
+  above) but missed here. Surfaced as `fr-daudet-derniere-classe`'s `glossary["m"].fr`
+  coming back `"M."` (copied from `en`) instead of the token's own form `"m"`. Fixed with
+  an `OWN_GLOSS_LOCALE` map forcing identity post-fill; the one already-corrupted entry
+  was hand-patched in `source/fr-daudet-derniere-classe.bundle.json`.
+- **Unhandled `JSON.parse` on truncated/malformed DeepSeek responses**: both
+  `translate-sentences.ts`'s and `gloss-fill.ts`'s batch-fill functions threw uncaught on
+  a bad parse, killing the whole book. Fixed in both with: 2 retries (was 1), an explicit
+  quote-escaping instruction in the system prompt, and logging the raw response (first
+  2000 chars) plus the API's `finish_reason` on final failure — the diagnostic that later
+  proved this was genuine `finish_reason: "length"` truncation, not a quoting bug.
+  `gloss-fill.ts` also gained an explicit `max_tokens: 8000` (was provider-default) and a
+  smaller batch size for pinyin-needing (Chinese) books — 5 words/call instead of 40,
+  since each entry carries 10 fields (pinyin + 9 locales) versus 9, and DeepSeek's ceiling
+  was being hit mid-response even at 8000 tokens for a full batch.
+- One cascade artifact of the above: `validate` scans the whole corpus, so any
+  in-progress book with incomplete sentence translations shows every other book's
+  `validate` step as hundreds of `missing-sentence-translation` errors until that one
+  book is fixed. Not a bug — resolved itself once the root book was fixed each time.
+
+### Parked: `zh-luxun-kong-yiji` (孔乙己, Lu Xun)
+
+Not shipped. Root cause is a content-authoring defect, not a pipeline bug: this book's
+Chinese text has **zero** author-inserted spaces in any of its 88 sentences (the
+`presegmented` tokenizer splits purely on the space character — see
+`packages/core/src/tokenize.ts`'s `tokenizePresegmented`), so un-splittable sentences
+become single giant "word" tokens. ~50 of these were already baked into
+`bundle.glossary` as whole-sentence keys (pre-existing, wrong) and 38 more were still
+unglossed, both spanning close to the book's full 88 sentences — this is a systemic
+re-authoring job (proper Chinese word segmentation across the whole text), not a
+targeted patch. It's what was blowing up `gloss-fill.ts`'s batches (a single "word" that
+is actually a full sentence needs a full sentence's worth of pinyin + 9 translations,
+easily exceeding any reasonable per-call token budget) — the `max_tokens`/batch-size
+fixes above are still correct and worth keeping for future books, they just couldn't fix
+*this* book's underlying content gap.
+
+Source bundle moved (not deleted) to
+`packages/content/drafts/parked/zh-luxun-kong-yiji.bundle.json`; its partial built pack
+output under `packages/content/packs/zh-CN/books/zh-luxun-kong-yiji/` was removed.
+Follow-up would need proper Chinese word segmentation (space-inserting) across the whole
+text before re-attempting the pipeline — either a dedicated segmentation pass or a
+from-scratch glossary rebuild.
+
+### Validator
+
+`pnpm content:validate` (after parking the book above): **0 errors, 223 warnings**
+across all packs (up from 106 warnings at the start of this run — all pre-existing
+`gloss-cross-locale-leak`/`gloss-not-identity` warning classes, none new; no errors).
+
+### Level-sanity — 21 new books
+
+Same method as the Lane D3 report above, run against the full corpus post-expansion
+(40 rows total, only the 21 new ones shown here — see the table above for the original
+18 plus the `zh-TW` edition). **Caveat**: `level-sanity.mjs`'s CEFR estimator only
+outputs A0/A1/A2/B1 — it has no B2/C1 bucket. Every book below claimed **B1** is a
+genuine within-scale signal; every book claimed **B2 or C1** will mechanically show
+`one below` or `unknown` regardless of how accurate the claim actually is, since the
+tool cannot output anything above B1. Treat the B2/C1 rows as unverified by this tool,
+not as evidence of over-claiming.
+
+| book                        | claimed | estimated | verdict   | sentences | mean len | max len | TTR   | distinct words |
+| ---------------------------- | ------- | --------- | --------- | --------- | -------- | ------- | ----- | -------------- |
+| en-doyle-red-headed-league   | B2      | B1        | one below* | 94        | 18.4     | 33      | 39.7% | 687            |
+| en-london-build-a-fire       | B1      | B1        | matches   | 103       | 14.3     | 27      | 34.6% | 510            |
+| en-poe-tell-tale-heart       | C1      | B1        | unknown*  | 108       | 18.5     | 34      | 32.8% | 656            |
+| es-becquer-maese-perez       | B2      | B1        | one below* | 89        | 18.1     | 26      | 37.4% | 602            |
+| es-clarin-adios-cordera      | B2      | B1        | one below* | 100       | 16.0     | 27      | 37.3% | 597            |
+| es-conde-lucanor             | B1      | A2        | one below | 116       | 12.5     | 16      | 35.8% | 521            |
+| es-dario-rey-burgues         | C1      | B1        | unknown*  | 94        | 22.3     | 36      | 41.4% | 868            |
+| es-larra-vuelva-usted        | C1      | B1        | unknown*  | 87        | 23.5     | 46      | 36.6% | 749            |
+| es-palma-tradiciones         | B1      | B1        | matches   | 88        | 14.0     | 25      | 40.4% | 499            |
+| es-quiroga-almohadon         | B2      | B1        | one below* | 92        | 17.9     | 24      | 40.9% | 673            |
+| es-quiroga-tortuga-gigante   | B1      | A2        | one below | 108       | 12.7     | 16      | 36.7% | 503            |
+| fr-daudet-derniere-classe    | B1      | B1        | matches   | 95        | 14.2     | 23      | 38.8% | 522            |
+| fr-daudet-les-etoiles        | B1      | A2        | one below | 87        | 15.5     | 24      | 36.7% | 495            |
+| fr-flaubert-coeur-simple     | C1      | B1        | unknown*  | 100       | 21.1     | 42      | 38.1% | 802            |
+| fr-maupassant-la-parure      | B2      | B1        | one below* | 110       | 17.1     | 27      | 40.2% | 758            |
+| fr-maupassant-le-horla       | C1      | B1        | unknown*  | 105       | 22.5     | 38      | 34.6% | 816            |
+| fr-merimee-mateo-falcone     | B2      | B1        | one below* | 122       | 18.6     | 27      | 34.2% | 777            |
+| fr-verne-tour-du-monde       | B1      | A2        | one below | 86        | 15.1     | 20      | 40.8% | 531            |
+| fr-voltaire-candide          | B2      | B1        | one below* | 120       | 18.6     | 30      | 38.3% | 853            |
+| it-de-amicis-scrivano        | B1      | A2        | one below | 104       | 12.3     | 16      | 36.6% | 469            |
+| pt-machado-cartomante        | B1      | B1        | matches   | 95        | 12.8     | 15      | 40.6% | 495            |
+
+\* B2/C1 claim — verdict is a tool-ceiling artifact, not independently verified (see
+caveat above).
+
+Genuine (within-scale) mismatches worth a human read: `es-conde-lucanor`,
+`es-quiroga-tortuga-gigante`, `fr-daudet-les-etoiles`, `fr-verne-tour-du-monde`,
+`it-de-amicis-scrivano` — all claimed B1, estimated A2, one level over. Everything else
+either matches or is a starred tool-ceiling row above.

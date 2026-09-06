@@ -143,11 +143,11 @@ export async function translateSentencesBatch(
       (opts.targetLocale === 'zh-Hant'
         ? ' Use Traditional Chinese characters only (Taiwan conventions, never Simplified).'
         : ''),
-    'Reply with ONLY a JSON object mapping each sentence key EXACTLY as given to its translation as a plain string. No prose, no markdown code fences.',
+    'Reply with ONLY a JSON object mapping each sentence key EXACTLY as given to its translation as a plain string. Escape any double-quote characters that appear inside a translation as \\" so the result is valid JSON. No prose, no markdown code fences.',
   ].join(' ');
 
+  let content = '';
   try {
-    let content: string;
     if (backend === 'deepseek') {
       const key = getDeepseekKey();
       const res = await fetch(`${DEEPSEEK_URL}/chat/completions`, {
@@ -215,8 +215,13 @@ export async function translateSentencesBatch(
     }
     return parsed.data;
   } catch (err) {
-    if (attempt === 0) {
-      return translateSentencesBatch(sentences, opts, 1);
+    if (attempt < 2) {
+      return translateSentencesBatch(sentences, opts, attempt + 1);
+    }
+    if (content) {
+      console.error(
+        `translateSentencesBatch: giving up after ${attempt + 1} attempts; raw LLM content (first 2000 chars):\n${content.slice(0, 2000)}`,
+      );
     }
     throw err;
   }

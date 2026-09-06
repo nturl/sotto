@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "bookId": "en-london-build-a-fire",
+  "contentLocale": "en-US",
+  "title": "To Build a Fire",
+  "author": "Jack London",
+  "sourceEdition": "The Century Magazine (1908), Project Gutenberg plain-text edition",
+  "sourceUrl": "https://www.gutenberg.org/ebooks/author/862",
+  "sourceJurisdiction": "Public domain worldwide (author died 1916; US publication 1908)",
+  "adaptationEditor": "Sotto contributors (AI first draft, unreviewed)",
+  "reviewStatus": "draft",
+  "level": "B1",
+  "categories": [
+    "adventure",
+    "classics"
+  ],
+  "estimatedMinutes": 14,
+  "localizedTitles": {
+    "en": "To Build a Fire"
+  },
+  "premise": {
+    "en": "A man and his dog walk alone through the frozen Yukon, and the man must learn, too late, that the cold does not forgive small mistakes."
+  },
+  "summary": {
+    "en": "On a bitterly cold morning, a man sets out across the Yukon trail with only a husky dog for company, ignoring an old-timer's warning that no man should travel alone below fifty degrees. When his boots break through hidden ice, he must build a fire fast to save his wet feet, but the cold and his own small errors work steadily against him."
+  },
+  "contentWarning": "The story ends with the man freezing to death alone in the snow.",
+  "tutorNotes": {
+    "pronunciation": "Watch the long vowel sounds in 'cold,' 'snow,' and 'road,' which learners often shorten. The word 'trail' and 'trial' look similar on the page but sound different, so read them aloud slowly the first few times.",
+    "grammar": "This text uses simple and continuous past tenses to describe one action after another, plus a few conditionals like 'if he broke through, he would get wet.' Notice how short, simple relative clauses add detail without stopping the action, as in 'the dog that walked behind him.'",
+    "culture": "The story is set in the Yukon during the Klondike Gold Rush, when thousands of people traveled through Canada's far north hoping to find gold, often in weather cold enough to kill an unprepared traveler within hours.",
+    "commonErrors": "Learners often confuse 'freeze' (verb, to become solid with cold) and 'frozen' (adjective, already solid with cold); the story uses both. Also watch 'lose' (to no longer have something) versus 'loose' (not tight), since the man both loses feeling in his feet and has loose snow fall on his fire."
+  },
+  "vocabulary": [
+    {
+      "word": "trail",
+      "gloss": {
+        "en": "a rough path through wild land"
+      }
+    },
+    {
+      "word": "husky",
+      "gloss": {
+        "en": "a strong dog bred for cold climates"
+      }
+    },
+    {
+      "word": "frostbite",
+      "gloss": {
+        "en": "damage to skin caused by extreme cold"
+      }
+    },
+    {
+      "word": "spruce",
+      "gloss": {
+        "en": "a type of evergreen tree"
+      }
+    },
+    {
+      "word": "old-timer",
+      "gloss": {
+        "en": "a person with long experience of a place"
+      }
+    },
+    {
+      "word": "numb",
+      "gloss": {
+        "en": "unable to feel anything"
+      }
+    },
+    {
+      "word": "instinct",
+      "gloss": {
+        "en": "a natural, unlearned way of acting"
+      }
+    },
+    {
+      "word": "clumsy",
+      "gloss": {
+        "en": "awkward and lacking skill in movement"
+      }
+    },
+    {
+      "word": "panic",
+      "gloss": {
+        "en": "sudden, uncontrollable fear"
+      }
+    },
+    {
+      "word": "shelter",
+      "gloss": {
+        "en": "a place that protects from weather or danger"
+      }
+    },
+    {
+      "word": "thaw",
+      "gloss": {
+        "en": "to change from frozen to soft or liquid"
+      }
+    },
+    {
+      "word": "stiff",
+      "gloss": {
+        "en": "hard to bend or move"
+      }
+    },
+    {
+      "word": "dignity",
+      "gloss": {
+        "en": "a calm and serious manner that deserves respect"
+      }
+    }
+  ],
+  "comprehension": [
+    {
+      "question": {
+        "en": "Why does the man travel alone, against the old-timer's advice?"
+      }
+    },
+    {
+      "question": {
+        "en": "What happens to the man's feet, and why is it so dangerous?"
+      }
+    },
+    {
+      "question": {
+        "en": "Why does the fire under the spruce tree go out?"
+      }
+    },
+    {
+      "question": {
+        "en": "Why does the man fail when he tries to kill the dog?"
+      }
+    },
+    {
+      "question": {
+        "en": "What does the story suggest about the difference between the man's instincts and the dog's instincts?"
+      }
+    }
+  ],
+  "license": {
+    "spdx": "CC-BY-SA-4.0",
+    "attribution": "Sotto contributors; based on the public-domain original by Jack London"
+  },
+  "cover": "cover.svg",
+  "chapters": [
+    {
+      "id": "en-london-build-a-fire-01",
+      "title": "Chapter 1 — The Trail",
+      "order": 1,
+      "file": "chapters/01.json",
+      "wordCount": 536,
+      "audio": "audio/01.mp3",
+      "durationMs": 179284,
+      "alignment": {
+        "matched": 532,
+        "total": 536,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
+    },
+    {
+      "id": "en-london-build-a-fire-02",
+      "title": "Chapter 2 — The Fire",
+      "order": 2,
+      "file": "chapters/02.json",
+      "wordCount": 484,
+      "audio": "audio/02.mp3",
+      "durationMs": 168105,
+      "alignment": {
+        "matched": 483,
+        "total": 484,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
+    },
+    {
+      "id": "en-london-build-a-fire-03",
+      "title": "Chapter 3 — The Cold",
+      "order": 3,
+      "file": "chapters/03.json",
+      "wordCount": 454,
+      "audio": "audio/03.mp3",
+      "durationMs": 163242,
+      "alignment": {
+        "matched": 454,
+        "total": 454,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
+    }
+  ],
+  "wordAudio": {
+    "file": "audio/words.mp3",
+    "index": "audio/words.json",
+    "count": 510
+  }
+}

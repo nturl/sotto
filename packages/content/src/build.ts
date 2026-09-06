@@ -33,9 +33,12 @@ import {
   DEFAULT_LLM_URL,
   GLOSS_FILL_BATCH_SIZE,
   chunk,
+  deepseekGlossUsage,
   fillGlossesBatch,
   isLlmReachable,
+  OWN_GLOSS_LOCALE,
   type GlossFillWord,
+  type LlmBackend,
 } from './gloss-fill.ts';
 
 export interface BuildOptions {
@@ -415,10 +418,15 @@ async function fillMissingGlosses(
   sentenceByWord: Map<string, string>,
   llmUrl: string,
   llmModel: string,
+  backend: LlmBackend,
 ): Promise<{ filled: number }> {
   const needsPinyin = getLanguage(bundle.contentLocale).pronunciationGuide === 'pinyin';
   const languageName = getLanguage(bundle.contentLocale).localizedNames.en;
-  const batches = chunk(missingWords, GLOSS_FILL_BATCH_SIZE);
+  // Pinyin batches carry 10 fields/word (vs 9) plus verbose zh proper-noun
+  // glosses; a full 40-word batch can exceed DeepSeek's max_tokens ceiling
+  // mid-response (observed finish_reason: "length" at 8000 tokens).
+  const batchSize = needsPinyin ? 5 : GLOSS_FILL_BATCH_SIZE;
+  const batches = chunk(missingWords, batchSize);
   let filled = 0;
   for (const batch of batches) {
     const words: GlossFillWord[] = batch.map((word) => ({
@@ -430,10 +438,13 @@ async function fillMissingGlosses(
       model: llmModel,
       needsPinyin,
       contentLanguageName: languageName,
+      backend,
     });
+    const ownLocale = OWN_GLOSS_LOCALE[bundle.contentLocale];
     for (const word of batch) {
       const entry = result[word];
       if (entry) {
+        if (ownLocale) entry[ownLocale] = word;
         bundle.glossary[word] = entry;
         filled += 1;
       }
@@ -447,7 +458,7 @@ async function fillMissingGlosses(
 async function buildOneBundle(
   bundle: SourceBundle,
   sourceFilePath: string,
-  opts: { llmUrl: string; llmModel: string; shouldTryFill: boolean },
+  opts: { llmUrl: string; llmModel: string; shouldTryFill: boolean; backend: LlmBackend },
 ): Promise<{ rows: BuildRow[]; touchedLocales: Set<string> }> {
   const touchedLocales = new Set<string>();
   const rows: BuildRow[] = [];
@@ -467,6 +478,7 @@ async function buildOneBundle(
       sentenceByWord,
       opts.llmUrl,
       opts.llmModel,
+      opts.backend,
     );
     filled = result.filled;
     if (filled > 0) {
@@ -683,14 +695,19 @@ export async function runBuildCommand(opts: BuildOptions = {}): Promise<void> {
 
   const llmUrl = process.env.SOTTO_LLM_URL ?? DEFAULT_LLM_URL;
   const llmModel = process.env.SOTTO_LLM_MODEL ?? DEFAULT_LLM_MODEL;
-  const reachable = await isLlmReachable(llmUrl);
+  const backend: LlmBackend = process.env.SOTTO_LLM_BACKEND === 'deepseek' ? 'deepseek' : 'local';
+  // deepseek is a remote API, not a local URL to probe — shouldTryFill is
+  // true unconditionally, same as translate-sentences.ts's deepseek path.
+  const reachable = backend === 'deepseek' ? true : await isLlmReachable(llmUrl);
   const shouldTryFill = Boolean(opts.fill || reachable);
   console.log(
-    opts.fill
-      ? `sotto-content build: gloss auto-fill forced on (--fill), using ${llmUrl}`
-      : reachable
-        ? `sotto-content build: LLM reachable at ${llmUrl}, gloss auto-fill enabled`
-        : `sotto-content build: LLM not reachable at ${llmUrl}, missing glosses will be listed but not filled`,
+    backend === 'deepseek'
+      ? 'sotto-content build: SOTTO_LLM_BACKEND=deepseek, gloss auto-fill enabled (no local LLM probe)'
+      : opts.fill
+        ? `sotto-content build: gloss auto-fill forced on (--fill), using ${llmUrl}`
+        : reachable
+          ? `sotto-content build: LLM reachable at ${llmUrl}, gloss auto-fill enabled`
+          : `sotto-content build: LLM not reachable at ${llmUrl}, missing glosses will be listed but not filled`,
   );
 
   const touchedLocales = new Set<string>();
@@ -726,6 +743,7 @@ export async function runBuildCommand(opts: BuildOptions = {}): Promise<void> {
         llmUrl,
         llmModel,
         shouldTryFill,
+        backend,
       },
     );
     rows.push(...bundleRows);
@@ -753,6 +771,13 @@ export async function runBuildCommand(opts: BuildOptions = {}): Promise<void> {
 
   console.log('\npacks/');
   printTree(PACKS_DIR);
+
+  if (backend === 'deepseek' && deepseekGlossUsage.calls > 0) {
+    console.log('\n=== DeepSeek token usage (gloss-fill) ===');
+    console.log(
+      `calls: ${deepseekGlossUsage.calls}, prompt tokens: ${deepseekGlossUsage.promptTokens}, completion tokens: ${deepseekGlossUsage.completionTokens}`,
+    );
+  }
 
   if (hadSchemaError) process.exitCode = 1;
 }

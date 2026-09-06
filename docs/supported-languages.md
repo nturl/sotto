@@ -9,8 +9,9 @@ differences (`en-US` vs `en-GB`, `es-419` vs `es-ES`, `pt-BR` vs `pt-PT`)
 share one catalog and are not separately localized in v1.
 
 Generated from `packages/core/src/languages.ts` (the `LanguageDefinition`
-table) and `packages/content/packs/` on 2026-09-04; regenerate by hand if
-either changes.
+table) and `packages/content/packs/` on 2026-09-04, seeded-book counts
+refreshed 2026-09-05 after the library-expansion run (18→39 books, see
+content-qa.md); regenerate by hand if either changes.
 
 ## Interface catalogs (`apps/client/src/i18n/*.json`)
 
@@ -41,18 +42,24 @@ bug — see [verification.md](verification.md) criterion 21).
 
 | Locale   | Interface catalog | Script          | Stability | Kokoro TTS voice | Whisper STT lang | Seeded books                        | Narration audio                                |
 | -------- | ----------------- | --------------- | --------- | ---------------- | ---------------- | ----------------------------------- | ---------------------------------------------- |
-| `en-US`  | en                | Latin           | stable    | `af_heart`       | en               | 3                                   | yes (all 3)                                    |
+| `en-US`  | en                | Latin           | stable    | `af_heart`       | en               | 6                                   | yes (all 6)                                    |
 | `en-GB`  | en                | Latin           | stable    | `bf_emma`        | en               | 0 (shares en-US content*)           | —                                              |
-| `es-419` | es                | Latin           | stable    | `ef_dora`        | es               | 3                                   | yes (all 3)                                    |
+| `es-419` | es                | Latin           | stable    | `ef_dora`        | es               | 13                                  | yes (all 13)                                   |
 | `es-ES`  | es                | Latin           | stable    | `ef_dora`        | es               | 0 (shares es-419 content*)          | —                                              |
-| `fr-FR`  | fr                | Latin           | stable    | `ff_siwis`       | fr               | 3                                   | yes (all 3)                                    |
-| `pt-BR`  | pt                | Latin           | stable    | `pf_dora`        | pt               | 1                                   | yes                                            |
+| `fr-FR`  | fr                | Latin           | stable    | `ff_siwis`       | fr               | 13                                  | yes (all 13)                                   |
+| `pt-BR`  | pt                | Latin           | stable    | `pf_dora`        | pt               | 2                                   | yes (all 2)                                    |
 | `pt-PT`  | pt                | Latin           | stable    | `pf_dora`        | pt               | 0 (shares pt-BR content*)           | —                                              |
-| `it-IT`  | it                | Latin           | stable    | `if_sara`        | it               | 1                                   | yes                                            |
+| `it-IT`  | it                | Latin           | stable    | `if_sara`        | it               | 2                                   | yes (all 2)                                    |
 | `zh-CN`  | zh-Hans           | Simplified Han  | stable    | `zf_xiaoxiao`    | zh               | 1                                   | yes                                            |
 | `zh-TW`  | zh-Hant           | Traditional Han | stable    | `zf_xiaoxiao`    | zh               | 1 (zh-TW edition of the zh-CN book) | yes                                            |
 | `ro-RO`  | ro                | Latin           | **beta**  | none             | ro               | 1                                   | **no Kokoro voice — silent, transport hidden** |
 | `ca-ES`  | ca                | Latin           | **beta**  | none             | ca               | 1                                   | **no Kokoro voice — silent, transport hidden** |
+
+39 distinct stories seeded across all locales (40 physical book packages,
+counting the `zh-TW` script edition separately from its `zh-CN` source) —
+see content-qa.md's library-expansion section for the 21 added this run. A
+22nd candidate (`zh-luxun-kong-yiji`) was drafted but parked before
+shipping; not counted above.
 
 \* Regional pairs (`en-GB`, `es-ES`, `pt-PT`) are fully defined
 `LanguageDefinition`s (own TTS voice, STT language hint) but have no

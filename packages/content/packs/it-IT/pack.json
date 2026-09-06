@@ -31,6 +31,29 @@
   },
   "books": [
     {
+      "bookId": "it-de-amicis-scrivano",
+      "contentLocale": "it-IT",
+      "title": "Il piccolo scrivano fiorentino",
+      "author": "Edmondo De Amicis",
+      "level": "B1",
+      "categories": [
+        "classics",
+        "daily"
+      ],
+      "estimatedMinutes": 13,
+      "localizedTitles": {
+        "en": "The Little Florentine Scribe",
+        "it": "Il piccolo scrivano fiorentino"
+      },
+      "premise": {
+        "en": "In Florence, a boy named Giulio secretly takes over his exhausted father's night work, hiding the truth even as it costs him his father's affection.",
+        "it": "A Firenze, un ragazzo di nome Giulio prende segretamente il posto del padre esausto nel lavoro notturno, nascondendo la verità anche quando questo gli costa l'affetto del padre."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 3
+    },
+    {
       "bookId": "it-pinocchio-inizio",
       "contentLocale": "it-IT",
       "title": "Pinocchio: il pezzo di legno",
@@ -67,5 +90,5 @@
       "chapterCount": 3
     }
   ],
-  "generatedAt": "2026-09-05T04:35:04.701Z"
+  "generatedAt": "2026-09-06T01:08:01.162Z"
 }

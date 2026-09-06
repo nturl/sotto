@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 1,
+  "bookId": "en-poe-tell-tale-heart",
+  "contentLocale": "en-US",
+  "title": "The Tell-Tale Heart",
+  "author": "Edgar Allan Poe",
+  "sourceEdition": "The Pioneer (1843), Project Gutenberg plain-text edition",
+  "sourceUrl": "https://www.gutenberg.org/ebooks/author/28",
+  "sourceJurisdiction": "Public domain worldwide (author died 1849)",
+  "adaptationEditor": "Sotto contributors (AI first draft, unreviewed)",
+  "reviewStatus": "draft",
+  "level": "C1",
+  "categories": [
+    "classics"
+  ],
+  "estimatedMinutes": 19,
+  "localizedTitles": {
+    "en": "The Tell-Tale Heart"
+  },
+  "premise": {
+    "en": "A nameless narrator insists he is not mad, even as he confesses, in obsessive and feverish detail, to murdering an old man over nothing more than the look of his pale, clouded eye."
+  },
+  "summary": {
+    "en": "An unnamed narrator, desperate to prove his own sanity, describes how he came to hate a single filmy, vulture-like eye belonging to the old man he lives with, and how, over seven nights, he crept into the old man's room to watch him sleep before finally killing him. He hides the body beneath the floorboards with methodical calm, but when the police arrive on a neighbor's report, an unbearable sound rising from beneath his own feet begins to unravel him."
+  },
+  "contentWarning": "The narrator confesses in graphic detail to murdering and dismembering the old man he lives with.",
+  "tutorNotes": {
+    "pronunciation": "Poe's narrator speaks in long, breathless bursts, so practice reading whole sentences aloud without stopping for breath at every comma, letting the rising intensity carry through dashes and exclamation marks the way the original punctuation intends.",
+    "grammar": "This text leans on free indirect narration and long periodic sentences that delay their main verb, building suspense before the sentence resolves; watch also for the past perfect used to describe the narrator's careful preparations before each night's events. Dashes function almost as a second kind of punctuation, marking sudden shifts in the narrator's feverish thought.",
+    "culture": "Poe wrote in the 1840s, when houses of this kind commonly had no electric light, so a single dark lantern with a shuttered opening, as the narrator carries, was a realistic tool for moving unseen through a dark room at night. Nineteenth-century American law also allowed police to investigate a household on a neighbor's report of a scream, without any warrant, exactly as happens near the story's end.",
+    "commonErrors": "Learners often confuse 'conscience' (an inner sense of right and wrong) with 'consciousness' (the state of being awake and aware), both of which shadow the narrator's account. Note also that 'mad' here means 'insane,' an older usage distinct from the more common modern sense of 'angry.'"
+  },
+  "vocabulary": [
+    {
+      "word": "vulture",
+      "gloss": {
+        "en": "a large bird that feeds on dead animals"
+      }
+    },
+    {
+      "word": "stealthily",
+      "gloss": {
+        "en": "in a quiet, secret way meant to avoid detection"
+      }
+    },
+    {
+      "word": "hinge",
+      "gloss": {
+        "en": "a metal joint that lets a door or lid swing open"
+      }
+    },
+    {
+      "word": "lantern",
+      "gloss": {
+        "en": "a case holding a light, often with a covering that can be closed"
+      }
+    },
+    {
+      "word": "shriek",
+      "gloss": {
+        "en": "a loud, sharp cry, often of fear or pain"
+      }
+    },
+    {
+      "word": "suffocate",
+      "gloss": {
+        "en": "to cause someone to stop breathing"
+      }
+    },
+    {
+      "word": "dismember",
+      "gloss": {
+        "en": "to cut a body into separate pieces"
+      }
+    },
+    {
+      "word": "floorboard",
+      "gloss": {
+        "en": "one of the wooden planks that form a floor"
+      }
+    },
+    {
+      "word": "hypocrisy",
+      "gloss": {
+        "en": "the act of pretending to feel something one does not feel"
+      }
+    },
+    {
+      "word": "audacity",
+      "gloss": {
+        "en": "bold confidence that ignores normal caution"
+      }
+    },
+    {
+      "word": "derision",
+      "gloss": {
+        "en": "mocking contempt shown toward someone"
+      }
+    },
+    {
+      "word": "gesticulate",
+      "gloss": {
+        "en": "to make expressive movements with the hands or arms"
+      }
+    },
+    {
+      "word": "sagacity",
+      "gloss": {
+        "en": "good judgment and sound thinking"
+      }
+    },
+    {
+      "word": "torment",
+      "gloss": {
+        "en": "severe mental or physical suffering"
+      }
+    }
+  ],
+  "comprehension": [
+    {
+      "question": {
+        "en": "What reason does the narrator give for wanting to kill the old man, and what does this reveal about his state of mind?"
+      }
+    },
+    {
+      "question": {
+        "en": "How does the narrator behave during the seven nights before the murder, and what does this routine suggest about him?"
+      }
+    },
+    {
+      "question": {
+        "en": "How does the narrator dispose of the body, and how does he behave when the police arrive?"
+      }
+    },
+    {
+      "question": {
+        "en": "What does the narrator hear as he speaks with the police, and where does that sound most likely come from?"
+      }
+    },
+    {
+      "question": {
+        "en": "Why might the narrator's constant insistence that he is not mad actually convince the reader of the opposite?"
+      }
+    }
+  ],
+  "license": {
+    "spdx": "CC-BY-SA-4.0",
+    "attribution": "Sotto contributors; based on the public-domain original by Edgar Allan Poe"
+  },
+  "cover": "cover.svg",
+  "chapters": [
+    {
+      "id": "en-poe-tell-tale-heart-01",
+      "title": "Chapter 1 — The Eye",
+      "order": 1,
+      "file": "chapters/01.json",
+      "wordCount": 420,
+      "audio": "audio/01.mp3",
+      "durationMs": 148893,
+      "alignment": {
+        "matched": 417,
+        "total": 420,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
+    },
+    {
+      "id": "en-poe-tell-tale-heart-02",
+      "title": "Chapter 2 — Seven Nights",
+      "order": 2,
+      "file": "chapters/02.json",
+      "wordCount": 528,
+      "audio": "audio/02.mp3",
+      "durationMs": 192334,
+      "alignment": {
+        "matched": 527,
+        "total": 528,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
+    },
+    {
+      "id": "en-poe-tell-tale-heart-03",
+      "title": "Chapter 3 — The Deed",
+      "order": 3,
+      "file": "chapters/03.json",
+      "wordCount": 591,
+      "audio": "audio/03.mp3",
+      "durationMs": 210023,
+      "alignment": {
+        "matched": 589,
+        "total": 591,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
+    },
+    {
+      "id": "en-poe-tell-tale-heart-04",
+      "title": "Chapter 4 — The Confession",
+      "order": 4,
+      "file": "chapters/04.json",
+      "wordCount": 464,
+      "audio": "audio/04.mp3",
+      "durationMs": 169016,
+      "alignment": {
+        "matched": 462,
+        "total": 464,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
+    }
+  ],
+  "wordAudio": {
+    "file": "audio/words.mp3",
+    "index": "audio/words.json",
+    "count": 656
+  }
+}

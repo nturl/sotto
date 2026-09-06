@@ -31,6 +31,96 @@
   },
   "books": [
     {
+      "bookId": "es-becquer-maese-perez",
+      "contentLocale": "es-419",
+      "title": "Maese Pérez el organista",
+      "author": "Gustavo Adolfo Bécquer",
+      "level": "B2",
+      "categories": [
+        "tales",
+        "classics"
+      ],
+      "estimatedMinutes": 15,
+      "localizedTitles": {
+        "en": "Master Pérez, the Organist",
+        "es": "Maese Pérez el organista"
+      },
+      "premise": {
+        "en": "In Seville, a blind old organist insists on playing the Christmas Eve mass one last time, though it may cost him his life.",
+        "es": "En Sevilla, un anciano organista ciego insiste en tocar una última vez la misa de Nochebuena, aunque eso pueda costarle la vida."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 4
+    },
+    {
+      "bookId": "es-clarin-adios-cordera",
+      "contentLocale": "es-419",
+      "title": "¡Adiós, Cordera!",
+      "author": "Leopoldo Alas \"Clarín\"",
+      "level": "B2",
+      "categories": [
+        "classics"
+      ],
+      "estimatedMinutes": 15,
+      "localizedTitles": {
+        "en": "Farewell, Cordera!",
+        "es": "¡Adiós, Cordera!"
+      },
+      "premise": {
+        "en": "In a green meadow in Asturias, two poor siblings and their beloved old cow watch the railway arrive — and learn, twice over, what a train can take away.",
+        "es": "En un prado verde de Asturias, dos hermanos pobres y su querida vaca vieja ven llegar el ferrocarril, y aprenden, dos veces, lo que un tren puede llevarse."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 4
+    },
+    {
+      "bookId": "es-conde-lucanor",
+      "contentLocale": "es-419",
+      "title": "El Conde Lucanor",
+      "author": "Don Juan Manuel",
+      "level": "B1",
+      "categories": [
+        "fables",
+        "classics"
+      ],
+      "estimatedMinutes": 14,
+      "localizedTitles": {
+        "en": "Count Lucanor",
+        "es": "El Conde Lucanor"
+      },
+      "premise": {
+        "en": "Whenever Count Lucanor faces a difficult decision, his wise advisor Patronio answers with a short story that quietly holds the lesson he needs.",
+        "es": "Cada vez que el Conde Lucanor enfrenta una decisión difícil, su sabio consejero Patronio le responde con un cuento breve que contiene, en silencio, la lección que necesita."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 3
+    },
+    {
+      "bookId": "es-dario-rey-burgues",
+      "contentLocale": "es-419",
+      "title": "El rey burgués",
+      "author": "Rubén Darío",
+      "level": "C1",
+      "categories": [
+        "classics"
+      ],
+      "estimatedMinutes": 20,
+      "localizedTitles": {
+        "en": "The Bourgeois King",
+        "es": "El rey burgués"
+      },
+      "premise": {
+        "en": "A wealthy king who collects art without understanding it turns a starving poet into a music-box organ-grinder, with fatal consequences.",
+        "es": "Un rey rico que colecciona arte sin comprenderlo convierte a un poeta hambriento en organillero de su jardín, con consecuencias fatales."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 4
+    },
+    {
       "bookId": "es-fabulas-samaniego",
       "contentLocale": "es-419",
       "title": "Tres fábulas de Samaniego",
@@ -65,6 +155,29 @@
       "reviewStatus": "draft",
       "cover": "cover.svg",
       "chapterCount": 3
+    },
+    {
+      "bookId": "es-larra-vuelva-usted",
+      "contentLocale": "es-419",
+      "title": "Vuelva usted mañana",
+      "author": "Mariano José de Larra",
+      "level": "C1",
+      "categories": [
+        "classics",
+        "daily"
+      ],
+      "estimatedMinutes": 19,
+      "localizedTitles": {
+        "en": "Come Back Tomorrow",
+        "es": "Vuelva usted mañana"
+      },
+      "premise": {
+        "en": "A Spanish narrator watches a brisk Frenchman try to settle his affairs in Madrid in fifteen days, only to be swallowed by an endless chain of offices that always say the same thing: come back tomorrow.",
+        "es": "Un narrador español observa cómo un enérgico francés intenta resolver sus asuntos en Madrid en quince días, y termina engullido por una cadena interminable de oficinas que siempre le dicen lo mismo: vuelva usted mañana."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 4
     },
     {
       "bookId": "es-lazarillo",
@@ -176,6 +289,29 @@
       "chapterCount": 3
     },
     {
+      "bookId": "es-palma-tradiciones",
+      "contentLocale": "es-419",
+      "title": "Tradiciones peruanas",
+      "author": "Ricardo Palma",
+      "level": "B1",
+      "categories": [
+        "folk",
+        "classics"
+      ],
+      "estimatedMinutes": 12,
+      "localizedTitles": {
+        "en": "Peruvian Traditions",
+        "es": "Tradiciones peruanas"
+      },
+      "premise": {
+        "en": "Two of Ricardo Palma's famous retellings of colonial Lima: a strict rector who gets a surprise years after punishing a schoolboy, and a rich man's daughter whose forbidden love produces the most expensive shirt in Peru.",
+        "es": "Dos famosas tradiciones de Ricardo Palma sobre la Lima colonial: un rector estricto que recibe una sorpresa años después de castigar a un alumno, y la hija de un hombre rico cuyo amor prohibido produce la camisa más cara del Perú."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 3
+    },
+    {
       "bookId": "es-quijote-molinos",
       "contentLocale": "es-419",
       "title": "Don Quijote y los molinos",
@@ -210,7 +346,52 @@
       "reviewStatus": "draft",
       "cover": "cover.svg",
       "chapterCount": 3
+    },
+    {
+      "bookId": "es-quiroga-almohadon",
+      "contentLocale": "es-419",
+      "title": "El almohadón de plumas",
+      "author": "Horacio Quiroga",
+      "level": "B2",
+      "categories": [
+        "classics"
+      ],
+      "estimatedMinutes": 15,
+      "localizedTitles": {
+        "en": "The Feather Pillow",
+        "es": "El almohadón de plumas"
+      },
+      "premise": {
+        "en": "A young bride grows steadily weaker in her cold husband's silent house, and no doctor can explain why.",
+        "es": "Una joven esposa se debilita poco a poco en la casa fría y silenciosa de su marido, sin que ningún médico logre explicar por qué."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 4
+    },
+    {
+      "bookId": "es-quiroga-tortuga-gigante",
+      "contentLocale": "es-419",
+      "title": "La tortuga gigante",
+      "author": "Horacio Quiroga",
+      "level": "B1",
+      "categories": [
+        "tales",
+        "classics"
+      ],
+      "estimatedMinutes": 13,
+      "localizedTitles": {
+        "en": "The Giant Tortoise",
+        "es": "La tortuga gigante"
+      },
+      "premise": {
+        "en": "A sick hunter saves a giant tortoise from a jaguar deep in the jungle, and the grateful animal later saves his life in return.",
+        "es": "Un cazador enfermo salva a una tortuga gigante de un tigre en lo profundo de la selva, y el animal agradecido después le salva la vida a él."
+      },
+      "reviewStatus": "draft",
+      "cover": "cover.svg",
+      "chapterCount": 3
     }
   ],
-  "generatedAt": "2026-09-05T05:43:46.818Z"
+  "generatedAt": "2026-09-05T23:52:22.304Z"
 }

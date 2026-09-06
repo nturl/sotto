@@ -1,0 +1,6876 @@
+{
+ "schemaVersion": 1,
+ "bookId": "fr-daudet-les-etoiles",
+ "contentLocale": "fr-FR",
+ "title": "Les Étoiles",
+ "author": "Alphonse Daudet",
+ "sourceEdition": "Les Étoiles, in Lettres de mon moulin (1869), Project Gutenberg ebook 11770",
+ "sourceUrl": "https://www.gutenberg.org/ebooks/11770",
+ "sourceJurisdiction": "Public domain worldwide (author died 1897)",
+ "adaptationEditor": "Sotto contributors (AI first draft, unreviewed)",
+ "reviewStatus": "draft",
+ "level": "B1",
+ "categories": [
+  "classics"
+ ],
+ "estimatedMinutes": 12,
+ "localizedTitles": {
+  "en": "The Stars",
+  "fr": "Les Étoiles"
+ },
+ "premise": {
+  "en": "A lonely shepherd on Mont Luberon spends one unforgettable night watching the sky with the young woman he secretly loves.",
+  "fr": "Un berger solitaire du Luberon passe une nuit inoubliable à regarder le ciel avec la jeune femme qu'il aime en secret."
+ },
+ "summary": {
+  "en": "Alone for weeks on the mountain, a young shepherd waits eagerly for news of Stéphanette, his masters' daughter. One stormy Sunday she brings the provisions herself, gets stranded by a flooded stream on the way home, and spends the night by his fire, where he teaches her the names of the stars.",
+  "fr": "Seul depuis des semaines sur la montagne, un jeune berger attend avec impatience des nouvelles de Stéphanette, la fille de ses maîtres. Un dimanche d'orage, elle apporte elle-même les provisions, se retrouve bloquée par un torrent en crue en repartant, et passe la nuit près de son feu, où il lui apprend le nom des étoiles."
+ },
+ "contentWarning": null,
+ "tutorNotes": {
+  "pronunciation": "Practice the nasal vowels in « montagne », « troupeau » and « longtemps », and the liaison in « les_étoiles » and « nous_avons ». Pay attention to the silent final consonants in words like « mulet » and « feu ».",
+  "grammar": "The narration is built almost entirely on passé composé and imparfait: imparfait sets ongoing scenes (« j'attendais », « elle riait »), while passé composé marks single completed actions (« elle est descendue », « j'ai vu »). Notice the occasional plus-que-parfait for events before the main story, like « elle avait essayé de traverser ».",
+  "culture": "This story comes from Daudet's 1869 collection Lettres de mon moulin, set among the shepherds and farms of Provence in southern France, where flocks were traditionally led up into the hills for the summer.",
+  "commonErrors": "Learners often confuse « le ciel » (sky) with « le ciel » meaning heaven in a religious sense — here it is purely the night sky. Watch also the difference between « berger » (shepherd) and « bergerie » (sheepfold), and between « épaule » (shoulder) and « épaule » never meaning arm (« bras »)."
+ },
+ "vocabulary": [
+  {
+   "word": "berger",
+   "gloss": {
+    "en": "shepherd",
+    "fr": "berger"
+   }
+  },
+  {
+   "word": "troupeau",
+   "gloss": {
+    "en": "flock",
+    "fr": "troupeau"
+   }
+  },
+  {
+   "word": "mulet",
+   "gloss": {
+    "en": "mule",
+    "fr": "mulet"
+   }
+  },
+  {
+   "word": "orage",
+   "gloss": {
+    "en": "storm",
+    "fr": "orage"
+   }
+  },
+  {
+   "word": "torrent",
+   "gloss": {
+    "en": "mountain stream",
+    "fr": "torrent"
+   }
+  },
+  {
+   "word": "étoile",
+   "gloss": {
+    "en": "star",
+    "fr": "étoile"
+   }
+  },
+  {
+   "word": "ciel",
+   "gloss": {
+    "en": "sky",
+    "fr": "ciel"
+   }
+  },
+  {
+   "word": "feu",
+   "gloss": {
+    "en": "fire",
+    "fr": "feu"
+   }
+  },
+  {
+   "word": "cabane",
+   "gloss": {
+    "en": "hut, cabin",
+    "fr": "cabane"
+   }
+  },
+  {
+   "word": "loup",
+   "gloss": {
+    "en": "wolf",
+    "fr": "loup"
+   }
+  },
+  {
+   "word": "épaule",
+   "gloss": {
+    "en": "shoulder",
+    "fr": "épaule"
+   }
+  },
+  {
+   "word": "amoureux",
+   "gloss": {
+    "en": "in love",
+    "fr": "amoureux"
+   }
+  }
+ ],
+ "comprehension": [
+  {
+   "question": {
+    "en": "Why does the shepherd rarely see other people while he is on the mountain?",
+    "fr": "Pourquoi le berger voit-il rarement d'autres personnes pendant qu'il est sur la montagne ?"
+   }
+  },
+  {
+   "question": {
+    "en": "Why is Stéphanette the one who brings the provisions on this particular Sunday?",
+    "fr": "Pourquoi est-ce Stéphanette qui apporte les provisions ce dimanche-là ?"
+   }
+  },
+  {
+   "question": {
+    "en": "Why can't Stéphanette return to the farm that same night?",
+    "fr": "Pourquoi Stéphanette ne peut-elle pas rentrer à la ferme le soir même ?"
+   }
+  },
+  {
+   "question": {
+    "en": "What does the shepherd talk to Stéphanette about once night falls?",
+    "fr": "De quoi le berger parle-t-il à Stéphanette une fois la nuit tombée ?"
+   }
+  },
+  {
+   "question": {
+    "en": "Why does the shepherd imagine that the most beautiful star has come to rest on his shoulder?",
+    "fr": "Pourquoi le berger imagine-t-il que la plus belle des étoiles est venue se poser sur son épaule ?"
+   }
+  }
+ ],
+ "license": {
+  "spdx": "CC-BY-SA-4.0",
+  "attribution": "Sotto contributors; based on the public-domain original by Alphonse Daudet"
+ },
+ "chapters": [
+  {
+   "title": "Chapitre 1 — La vie solitaire du berger",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "Pendant des semaines entières, je restais seul sur la montagne du Luberon pour garder mon troupeau de moutons.",
+       "translation": {
+        "en": "For whole weeks, I stayed alone on the Luberon mountain to watch over my flock of sheep.",
+        "fr": "For whole weeks, I stayed alone on the Luberon mountain to watch over my flock of sheep.",
+        "es": "Durante semanas enteras, me quedaba solo en la montaña de Luberón para cuidar mi rebaño de ovejas.",
+        "pt": "Durante semanas inteiras, eu ficava sozinho na montanha de Luberon para guardar meu rebanho de ovelhas.",
+        "it": "Per intere settimane, restavo solo sulla montagna del Luberon per custodire il mio gregge di pecore.",
+        "zh-Hans": "整整几个星期，我独自待在吕贝隆山上，看守我的羊群。",
+        "zh-Hant": "連續好幾個星期，我獨自待在呂貝隆山上，看守我的羊群。",
+        "ro": "Săptămâni întregi stăteam singur pe muntele Luberon ca să-mi păzesc turma de oi.",
+        "ca": "Durant setmanes senceres, em quedava sol a la muntanya del Luberon per guardar el meu ramat d'ovelles."
+       }
+      },
+      {
+       "text": "Mon chien Labri et mes bêtes étaient ma seule compagnie pendant ces longues journées silencieuses.",
+       "translation": {
+        "en": "My dog Labri and my animals were my only company during those long, silent days.",
+        "fr": "My dog Labri and my animals were my only company during those long, silent days.",
+        "es": "Mi perro Labri y mis animales eran mi única compañía durante aquellos largos días silenciosos.",
+        "pt": "Meu cachorro Labri e meus animais eram minha única companhia durante esses longos dias silenciosos.",
+        "it": "Il mio cane Labri e i miei animali erano la mia unica compagnia durante quelle lunghe giornate silenziose.",
+        "zh-Hans": "在这些漫长而寂静的日子里，我的狗拉布里和我的牲畜是我唯一的伙伴。",
+        "zh-Hant": "在那些漫長而寂靜的日子裡，我的狗拉布里和我的牲畜是我唯一的夥伴。",
+        "ro": "Câinele meu Labri și animalele mele erau singura mea companie în acele zile lungi și tăcute.",
+        "ca": "El meu gos Labri i els meus animals eren la meva única companyia durant aquells llargs dies silenciosos."
+       }
+      },
+      {
+       "text": "Je ne voyais presque jamais personne, à part un moine qui cherchait des herbes rares ou un marchand de mules qui passait par hasard.",
+       "translation": {
+        "en": "I almost never saw anyone, except a monk looking for rare herbs or a mule dealer passing by by chance.",
+        "fr": "I almost never saw anyone, except a monk looking for rare herbs or a mule trader passing by by chance.",
+        "es": "Casi nunca veía a nadie, excepto a un monje que buscaba hierbas raras o a un comerciante de mulas que pasaba por casualidad.",
+        "pt": "Eu quase nunca via ninguém, exceto um monge que procurava ervas raras ou um vendedor de mulas que passava por acaso.",
+        "it": "Non vedevo quasi mai nessuno, tranne un monaco che cercava erbe rare o un mercante di muli che passava per caso.",
+        "zh-Hans": "我几乎见不到任何人，除了一个寻找稀有草药的僧侣，或是一个偶然路过的骡子商人。",
+        "zh-Hant": "我幾乎從未見到任何人，除了偶爾有一位尋找稀有草藥的修士，或是一位碰巧路過的騾子商人。",
+        "ro": "Nu vedeam aproape niciodată pe nimeni, în afară de un călugăr care căuta plante rare sau de un negustor de catâri care trecea întâmplător.",
+        "ca": "Gairebé no veia mai ningú, excepte un monjo que buscava herbes rares o un marxant de mules que passava per casualitat."
+       }
+      },
+      {
+       "text": "Dans le village, les gens simples disaient que la solitude finissait par rendre les bergers un peu étranges.",
+       "translation": {
+        "en": "In the village, simple people said that solitude eventually made shepherds a little strange.",
+        "fr": "In the village, simple people said that solitude eventually made shepherds a little strange.",
+        "es": "En el pueblo, la gente sencilla decía que la soledad acababa volviendo un poco extraños a los pastores.",
+        "pt": "Na aldeia, as pessoas simples diziam que a solidão acabava deixando os pastores um pouco estranhos.",
+        "it": "Nel villaggio, la gente semplice diceva che la solitudine finiva per rendere i pastori un po' strani.",
+        "zh-Hans": "在村子里，淳朴的人们说，孤独最终会让牧羊人变得有点古怪。",
+        "zh-Hant": "在村裡，單純的人們說，孤獨最終會讓牧羊人變得有點古怪。",
+        "ro": "În sat, oamenii simpli spuneau că singurătatea ajungea să-i facă pe ciobani un pic ciudați.",
+        "ca": "Al poble, la gent senzilla deia que la soledat acabava fent els pastors una mica estranys."
+       }
+      },
+      {
+       "text": "Ce n'était pas vraiment vrai, mais je comprenais pourquoi les habitants de la plaine le pensaient ainsi.",
+       "translation": {
+        "en": "That wasn't really true, but I understood why the people of the plain thought so.",
+        "fr": "That wasn't really true, but I understood why the people of the plain thought so.",
+        "es": "No era del todo cierto, pero entendía por qué los habitantes del llano lo pensaban así.",
+        "pt": "Não era bem verdade, mas eu entendia por que os moradores da planície pensavam assim.",
+        "it": "Non era proprio vero, ma capivo perché gli abitanti della pianura la pensassero così.",
+        "zh-Hans": "这并不完全是真的，但我理解为什么平原上的居民会这样想。",
+        "zh-Hant": "這並非完全屬實，但我理解為什麼平原上的居民會這樣想。",
+        "ro": "Nu era chiar adevărat, dar înțelegeam de ce locuitorii din câmpie credeau așa.",
+        "ca": "No era ben bé cert, però entenia per què els habitants de la plana ho pensaven així."
+       }
+      },
+      {
+       "text": "Dans ce grand silence de la montagne, on apprenait vite à aimer ses bêtes et à observer le ciel.",
+       "translation": {
+        "en": "In that great silence of the mountain, one quickly learned to love one's animals and to watch the sky.",
+        "fr": "In that great silence of the mountain, one quickly learned to love one's animals and to watch the sky.",
+        "es": "En aquel gran silencio de la montaña, uno aprendía pronto a querer a sus animales y a observar el cielo.",
+        "pt": "Nesse grande silêncio da montanha, a gente aprendia rápido a amar seus animais e a observar o céu.",
+        "it": "In quel grande silenzio della montagna, si imparava presto ad amare i propri animali e a osservare il cielo.",
+        "zh-Hans": "在山上这片巨大的寂静中，人们很快学会爱自己的牲畜，并观察天空。",
+        "zh-Hant": "在山上這片巨大的寂靜中，人們很快就學會了喜愛自己的牲畜，並觀察天空。",
+        "ro": "În acea mare tăcere a muntelui, învățai repede să-ți iubești animalele și să privești cerul.",
+        "ca": "En aquell gran silenci de la muntanya, s'aprenia de pressa a estimar els animals i a observar el cel."
+       }
+      },
+      {
+       "text": "Le jour, je surveillais mon troupeau et j'écoutais le vent souffler doucement entre les pins.",
+       "translation": {
+        "en": "During the day, I watched over my flock and listened to the wind blowing softly through the pines.",
+        "fr": "During the day, I watched my flock and listened to the wind blowing softly through the pines.",
+        "es": "De día, vigilaba mi rebaño y escuchaba el viento soplar suavemente entre los pinos.",
+        "pt": "De dia, eu vigiava meu rebanho e ouvia o vento soprar suavemente entre os pinheiros.",
+        "it": "Di giorno, sorvegliavo il mio gregge e ascoltavo il vento soffiare dolcemente tra i pini.",
+        "zh-Hans": "白天，我看守羊群，听风在松树间轻轻吹过。",
+        "zh-Hant": "白天，我照看羊群，聽著風輕輕吹過松樹間。",
+        "ro": "Ziua, îmi supravegheam turma și ascultam vântul suflând ușor printre pini.",
+        "ca": "De dia, vigilava el meu ramat i escoltava el vent bufar suaument entre els pins."
+       }
+      },
+      {
+       "text": "Le soir, je préparais mon repas et je regardais le soleil disparaître derrière les collines.",
+       "translation": {
+        "en": "In the evening, I prepared my meal and watched the sun disappear behind the hills.",
+        "fr": "In the evening, I prepared my meal and watched the sun disappear behind the hills.",
+        "es": "Por la noche, preparaba mi comida y miraba desaparecer el sol detrás de las colinas.",
+        "pt": "À noite, eu preparava minha refeição e via o sol desaparecer atrás das colinas.",
+        "it": "La sera, preparavo il mio pasto e guardavo il sole sparire dietro le colline.",
+        "zh-Hans": "晚上，我准备晚饭，看着太阳消失在山丘后面。",
+        "zh-Hant": "晚上，我準備晚餐，看著夕陽消失在山丘後面。",
+        "ro": "Seara, îmi pregăteam masa și priveam soarele dispărând după dealuri.",
+        "ca": "Al vespre, preparava el meu menjar i mirava el sol desaparèixer darrere els turons."
+       }
+      },
+      {
+       "text": "Les jours se ressemblaient tous, lents et paisibles.",
+       "translation": {
+        "en": "The days all looked alike, slow and peaceful.",
+        "fr": "The days all looked alike, slow and peaceful.",
+        "es": "Los días se parecían todos, lentos y tranquilos.",
+        "pt": "Os dias eram todos parecidos, lentos e tranquilos.",
+        "it": "I giorni si somigliavano tutti, lenti e pacifici.",
+        "zh-Hans": "日子都差不多，缓慢而宁静。",
+        "zh-Hant": "日子都過得一樣，緩慢而平靜。",
+        "ro": "Zilele se asemănau toate, lente și liniștite.",
+        "ca": "Els dies s'assemblaven tots, lents i tranquils."
+       }
+      },
+      {
+       "text": "J'aimais pourtant cette vie simple, malgré la solitude.",
+       "translation": {
+        "en": "Yet I loved this simple life, despite the solitude.",
+        "fr": "Yet I loved this simple life, despite the solitude.",
+        "es": "Sin embargo, amaba esta vida sencilla, a pesar de la soledad.",
+        "pt": "Eu amava, porém, essa vida simples, apesar da solidão.",
+        "it": "Amavo però questa vita semplice, nonostante la solitudine.",
+        "zh-Hans": "然而，尽管孤独，我喜欢这种简单的生活。",
+        "zh-Hant": "然而，儘管孤獨，我還是喜歡這種簡單的生活。",
+        "ro": "Totuși, îmi plăcea această viață simplă, în ciuda singurătății.",
+        "ca": "M'agradava, però, aquesta vida senzilla, malgrat la soledat."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Tous les quinze jours, on m'apportait des provisions depuis la ferme, tout en bas dans la vallée.",
+       "translation": {
+        "en": "Every two weeks, provisions were brought to me from the farm, far down in the valley.",
+        "fr": "Every two weeks, provisions were brought to me from the farm, far down in the valley.",
+        "es": "Cada quince días, me traían provisiones desde la granja, allá abajo en el valle.",
+        "pt": "A cada quinze dias, traziam-me mantimentos da fazenda, lá embaixo no vale.",
+        "it": "Ogni quindici giorni, mi portavano provviste dalla fattoria, giù in fondo alla valle.",
+        "zh-Hans": "每半个月，有人从山谷底部的农场给我送补给来。",
+        "zh-Hant": "每隔兩週，有人會從山谷底部的農場給我送來補給品。",
+        "ro": "La fiecare două săptămâni, mi se aduceau provizii de la fermă, chiar jos în vale.",
+        "ca": "Cada quinze dies, em portaven queviures des de la granja, allà baix a la vall."
+       }
+      },
+      {
+       "text": "Un mulet montait péniblement le chemin, chargé de pain, de viande salée et de vin.",
+       "translation": {
+        "en": "A mule climbed the path with difficulty, loaded with bread, salted meat, and wine.",
+        "fr": "A mule climbed the path with difficulty, loaded with bread, salted meat, and wine.",
+        "es": "Una mula subía penosamente el camino, cargada de pan, carne salada y vino.",
+        "pt": "Uma mula subia com dificuldade o caminho, carregada de pão, carne salgada e vinho.",
+        "it": "Un mulo saliva faticosamente il sentiero, carico di pane, carne salata e vino.",
+        "zh-Hans": "一头骡子艰难地爬上小路，驮着面包、咸肉和酒。",
+        "zh-Hant": "一頭騾子背著麵包、鹹肉和酒，吃力地爬上小徑。",
+        "ro": "Un catâr urca cu greu poteca, încărcat cu pâine, carne sărată și vin.",
+        "ca": "Una mula pujava amb dificultat el camí, carregada de pa, de carn salada i de vi."
+       }
+      },
+      {
+       "text": "Parfois c'était le jeune Miaro qui conduisait le mulet, parfois une vieille tante qu'on appelait tante Norade.",
+       "translation": {
+        "en": "Sometimes it was young Miaro who led the mule, sometimes an old aunt we called Aunt Norade.",
+        "fr": "Sometimes it was young Miaro who led the mule, sometimes an old aunt called Aunt Norade.",
+        "es": "A veces era el joven Miaro quien conducía la mula, a veces una vieja tía a la que llamaban tía Norade.",
+        "pt": "Às vezes era o jovem Miaro que conduzia a mula, às vezes uma tia velha que chamávamos de tia Norade.",
+        "it": "A volte era il giovane Miaro a condurre il mulo, a volte una vecchia zia che chiamavamo zia Norade.",
+        "zh-Hans": "有时是年轻的米亚罗赶骡子，有时是一个叫诺拉德姑妈的老妇人。",
+        "zh-Hant": "有時是年輕的米亞羅牽著騾子，有時是一位被稱為諾拉德嬸嬸的老姑媽。",
+        "ro": "Uneori tânărul Miaro conducea catârul, alteori o mătușă bătrână pe care o numeau mătușa Norade.",
+        "ca": "De vegades era el jove Miaro qui conduïa la mula, de vegades una tia gran que anomenaven tia Norade."
+       }
+      },
+      {
+       "text": "Ces jours de ravitaillement, j'attendais toujours avec impatience les nouvelles du village et de la ferme.",
+       "translation": {
+        "en": "On those supply days, I always waited impatiently for news from the village and the farm.",
+        "fr": "On those supply days, I always waited impatiently for news from the village and the farm.",
+        "es": "Esos días de avituallamiento, siempre esperaba con impaciencia las noticias del pueblo y de la granja.",
+        "pt": "Nesses dias de abastecimento, eu sempre esperava com impaciência as notícias da aldeia e da fazenda.",
+        "it": "In quei giorni di rifornimento, aspettavo sempre con impazienza le notizie del villaggio e della fattoria.",
+        "zh-Hans": "在这些补给的日子里，我总是急切地等待村庄和农场的消息。",
+        "zh-Hant": "在這些補給的日子裡，我總是迫不及待地想知道村莊和農場的消息。",
+        "ro": "În acele zile de aprovizionare, așteptam mereu cu nerăbdare veștile de la sat și de la fermă.",
+        "ca": "Aquells dies de proveïment, sempre esperava amb impaciència les notícies del poble i de la granja."
+       }
+      },
+      {
+       "text": "Je voulais surtout savoir comment allait Stéphanette, la fille de mes maîtres, dont j'étais amoureux en secret.",
+       "translation": {
+        "en": "Above all, I wanted to know how Stéphanette was doing, the daughter of my masters, whom I was secretly in love with.",
+        "fr": "Above all, I wanted to know how Stéphanette was doing, the daughter of my masters, with whom I was secretly in love.",
+        "es": "Quería sobre todo saber cómo estaba Estefaneta, la hija de mis amos, de la que estaba enamorado en secreto.",
+        "pt": "Eu queria principalmente saber como estava Stéphanette, a filha dos meus patrões, por quem eu estava apaixonado em segredo.",
+        "it": "Volevo soprattutto sapere come stava Stéphanette, la figlia dei miei padroni, di cui ero innamorato in segreto.",
+        "zh-Hans": "我尤其想知道斯泰法内特怎么样，她是我主人的女儿，我暗恋着她。",
+        "zh-Hant": "我尤其想知道史黛芳奈特過得如何，她是我主人的女兒，我暗自愛慕著她。",
+        "ro": "Voiam mai ales să știu cum o mai duce Stéphanette, fiica stăpânilor mei, de care eram îndrăgostit în secret.",
+        "ca": "Sobretot volia saber com estava Stéphanette, la filla dels meus amos, de qui estava enamorat en secret."
+       }
+      },
+      {
+       "text": "C'était, disait-on, la plus jolie personne de tout le pays, avec un rire clair et joyeux.",
+       "translation": {
+        "en": "She was, they said, the prettiest person in the whole region, with a clear and joyful laugh.",
+        "fr": "She was, they said, the prettiest person in the whole region, with a clear and joyful laugh.",
+        "es": "Era, decían, la persona más bonita de toda la comarca, con una risa clara y alegre.",
+        "pt": "Diziam que ela era a pessoa mais bonita de toda a região, com um riso claro e alegre.",
+        "it": "Era, si diceva, la persona più carina di tutto il paese, con una risata chiara e allegra.",
+        "zh-Hans": "据说，她是整个地区最漂亮的人，笑声清脆而欢快。",
+        "zh-Hant": "據說，她是整個地區最美麗的人，笑聲清脆而歡樂。",
+        "ro": "Se spunea că era cea mai frumoasă persoană din tot ținutul, cu un râs clar și vesel.",
+        "ca": "Era, deien, la persona més bonica de tot el país, amb un riure clar i alegre."
+       }
+      },
+      {
+       "text": "Je n'osais jamais lui avouer ce que je ressentais, car je n'étais qu'un simple berger de la montagne.",
+       "translation": {
+        "en": "I never dared to confess what I felt, because I was only a simple shepherd of the mountain.",
+        "fr": "I never dared to confess what I felt, because I was only a simple mountain shepherd.",
+        "es": "Nunca me atrevía a confesarle lo que sentía, porque no era más que un simple pastor de la montaña.",
+        "pt": "Eu nunca ousava confessar o que sentia, pois era apenas um simples pastor da montanha.",
+        "it": "Non osavo mai confessarle ciò che provavo, perché ero solo un semplice pastore di montagna.",
+        "zh-Hans": "我从来不敢告诉她我的感受，因为我只是一个山上的普通牧羊人。",
+        "zh-Hant": "我從來不敢向她表白我的感受，因為我只是山裡一個普通的牧羊人。",
+        "ro": "Nu îndrăzneam niciodată să-i mărturisesc ce simțeam, pentru că eram doar un simplu cioban de la munte.",
+        "ca": "No gosava mai confessar-li el que sentia, perquè només era un simple pastor de la muntanya."
+       }
+      },
+      {
+       "text": "Elle venait rarement elle-même, occupée qu'elle était par les fêtes et les travaux de la ferme.",
+       "translation": {
+        "en": "She rarely came herself, busy as she was with celebrations and farm work.",
+        "fr": "She rarely came herself, busy as she was with festivities and farm work.",
+        "es": "Ella rara vez venía en persona, ocupada como estaba con las fiestas y los trabajos de la granja.",
+        "pt": "Ela raramente vinha pessoalmente, ocupada que estava com as festas e os trabalhos da fazenda.",
+        "it": "Lei veniva raramente di persona, occupata com'era con le feste e i lavori della fattoria.",
+        "zh-Hans": "她自己很少来，因为她忙于节日和农场的活计。",
+        "zh-Hant": "她很少親自來，因為忙於節慶和農場的工作。",
+        "ro": "Ea venea rareori ea însăși, fiind ocupată cu sărbătorile și cu treburile fermei.",
+        "ca": "Ella venia poques vegades, ocupada com estava amb les festes i les feines de la granja."
+       }
+      },
+      {
+       "text": "Chaque fois que Miaro parlait d'elle, mon cœur battait un peu plus fort dans ma poitrine.",
+       "translation": {
+        "en": "Every time Miaro spoke of her, my heart beat a little harder in my chest.",
+        "fr": "Every time Miaro spoke of her, my heart beat a little harder in my chest.",
+        "es": "Cada vez que Miaro hablaba de ella, mi corazón latía un poco más fuerte en mi pecho.",
+        "pt": "Toda vez que Miaro falava dela, meu coração batia um pouco mais forte no peito.",
+        "it": "Ogni volta che Miaro parlava di lei, il mio cuore batteva un po' più forte nel petto.",
+        "zh-Hans": "每次米亚罗提到她，我的心在胸膛里跳得更厉害。",
+        "zh-Hant": "每次米亞羅談到她，我的心就在胸膛裡跳得更厲害。",
+        "ro": "De fiecare dată când Miaro vorbea despre ea, inima îmi bătea ceva mai tare în piept.",
+        "ca": "Cada vegada que Miaro parlava d'ella, el meu cor bategava una mica més fort al meu pit."
+       }
+      },
+      {
+       "text": "J'attendais ce jour comme une vraie fête.",
+       "translation": {
+        "en": "I waited for that day like a real celebration.",
+        "fr": "I waited for that day like a real celebration.",
+        "es": "Esperaba ese día como una verdadera fiesta.",
+        "pt": "Eu esperava por esse dia como uma verdadeira festa.",
+        "it": "Aspettavo quel giorno come una vera festa.",
+        "zh-Hans": "我像过节一样等待那一天。",
+        "zh-Hant": "我期待這一天，就像期待一個真正的節日。",
+        "ro": "Așteptam ziua aceea ca pe o adevărată sărbătoare.",
+        "ca": "Esperava aquell dia com una autèntica festa."
+       }
+      },
+      {
+       "text": "Son nom seul suffisait à me rendre joyeux.",
+       "translation": {
+        "en": "Her name alone was enough to make me happy.",
+        "fr": "His name alone was enough to make me happy.",
+        "es": "Solo su nombre bastaba para hacerme feliz.",
+        "pt": "Só o nome dela bastava para me deixar alegre.",
+        "it": "Il suo nome da solo bastava a rendermi felice.",
+        "zh-Hans": "仅仅她的名字就足以让我高兴。",
+        "zh-Hant": "光是她的名字就足以讓我開心。",
+        "ro": "Doar numele lui îmi era de ajuns să mă facă fericit.",
+        "ca": "El seu nom sol era suficient per fer-me feliç."
+       }
+      },
+      {
+       "text": "Je rêvais d'elle bien plus que je ne l'osais dire.",
+       "translation": {
+        "en": "I dreamed of her much more than I dared to say.",
+        "fr": "I dreamed of her much more than I dared to say.",
+        "es": "Soñaba con ella mucho más de lo que me atrevía a decir.",
+        "pt": "Eu sonhava com ela muito mais do que ousava dizer.",
+        "it": "Sognavo di lei molto più di quanto osassi dire.",
+        "zh-Hans": "我梦见她的次数远比我敢说的多。",
+        "zh-Hant": "我夢見她的次數，遠超過我敢說出口的。",
+        "ro": "Visam la ea mult mai mult decât îndrăzneam să spun.",
+        "ca": "Somiava amb ella molt més del que gosava dir."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Un dimanche matin, le mulet n'est pas arrivé à l'heure habituelle, ce qui m'a beaucoup inquiété.",
+       "translation": {
+        "en": "One Sunday morning, the mule did not arrive at the usual time, which worried me a lot.",
+        "fr": "One Sunday morning, the mule did not arrive at the usual time, which worried me a lot.",
+        "es": "Un domingo por la mañana, la mula no llegó a la hora habitual, lo que me preocupó mucho.",
+        "pt": "Num domingo de manhã, a mula não chegou na hora habitual, o que me deixou muito preocupado.",
+        "it": "Una domenica mattina, il mulo non arrivò all'ora solita, il che mi preoccupò molto.",
+        "zh-Hans": "一个星期天早上，骡子没有在平时的时间到达，这让我非常担心。",
+        "zh-Hant": "一個星期天早上，騾子沒有在平常的時間到達，這讓我很擔心。",
+        "ro": "Într-o duminică dimineață, catârul nu a sosit la ora obișnuită, ceea ce m-a îngrijorat foarte tare.",
+        "ca": "Un diumenge al matí, el matxo no va arribar a l'hora habitual, cosa que em va preocupar molt."
+       }
+      },
+      {
+       "text": "J'ai imaginé toutes sortes d'accidents, un mulet perdu, un pont cassé, ou peut-être une maladie à la ferme.",
+       "translation": {
+        "en": "I imagined all sorts of accidents, a lost mule, a broken bridge, or maybe an illness at the farm.",
+        "fr": "I imagined all sorts of accidents, a lost mule, a broken bridge, or maybe an illness at the farm.",
+        "es": "Imaginé todo tipo de accidentes, una mula perdida, un puente roto, o quizás una enfermedad en la granja.",
+        "pt": "Imaginei todo tipo de acidente, uma mula perdida, uma ponte quebrada, ou talvez uma doença na fazenda.",
+        "it": "Immaginai ogni sorta di incidenti, un mulo smarrito, un ponte rotto, o forse una malattia alla fattoria.",
+        "zh-Hans": "我想象了各种事故，骡子迷路了，桥断了，或者农场里可能有人生病了。",
+        "zh-Hant": "我想像了各種意外，一頭走失的騾子、一座斷掉的橋，或者也許是農場裡有人生病了。",
+        "ro": "Mi-am imaginat tot felul de accidente, un catâr rătăcit, un pod rupt, sau poate o boală la fermă.",
+        "ca": "Vaig imaginar tota mena d'accidents, un matxo perdut, un pont trencat, o potser una malaltia a la granja."
+       }
+      },
+      {
+       "text": "Vers midi, après un violent orage qui avait trempé toute la montagne, j'ai enfin entendu des clochettes.",
+       "translation": {
+        "en": "Around noon, after a violent storm that had soaked the whole mountain, I finally heard some little bells.",
+        "fr": "Around noon, after a violent storm that had soaked the whole mountain, I finally heard some little bells.",
+        "es": "Hacia el mediodía, después de una violenta tormenta que había empapado toda la montaña, por fin oí unas campanillas.",
+        "pt": "Perto do meio-dia, depois de uma tempestade violenta que tinha encharcado a montanha inteira, finalmente ouvi uns sininhos.",
+        "it": "Verso mezzogiorno, dopo un violento temporale che aveva inzuppato tutta la montagna, finalmente sentii dei campanelli.",
+        "zh-Hans": "中午时分，一场猛烈的暴风雨浸透了整座山，我终于听到了铃铛声。",
+        "zh-Hant": "將近中午時，一場猛烈的暴風雨淋濕了整座山，我終於聽到了鈴鐺聲。",
+        "ro": "Pe la prânz, după o furtună violentă care udase tot muntele, am auzit în sfârșit niște clopoței.",
+        "ca": "Cap al migdia, després d'una forta tempesta que havia xopat tota la muntanya, finalment vaig sentir unes campanetes."
+       }
+      },
+      {
+       "text": "Mais ce n'était pas les pas tranquilles de Miaro que je reconnaissais dans le chemin.",
+       "translation": {
+        "en": "But it was not the calm steps of Miaro that I recognized on the path.",
+        "fr": "But it was not the calm steps of Miaro that I recognized on the path.",
+        "es": "Pero no eran los pasos tranquilos de Miaro que yo reconocía en el camino.",
+        "pt": "Mas não eram os passos tranquilos de Miaro que eu reconhecia no caminho.",
+        "it": "Ma non erano i passi tranquilli di Miaro che riconoscevo nel sentiero.",
+        "zh-Hans": "但那不是我认出的米亚罗在路上的安静脚步。",
+        "zh-Hant": "但那不是我認得的米亞羅在路上的平穩腳步聲。",
+        "ro": "Dar nu erau pașii liniștiți ai lui Miaro pe care îi recunoșteam pe drum.",
+        "ca": "Però no eren els passos tranquils d'en Miaro que reconeixia al camí."
+       }
+      },
+      {
+       "text": "C'était un trot plus vif, plus léger, celui d'une jeune fille pressée.",
+       "translation": {
+        "en": "It was a livelier, lighter trot, that of a young girl in a hurry.",
+        "fr": "It was a quicker, lighter trot, that of a young girl in a hurry.",
+        "es": "Era un trote más vivo, más ligero, el de una muchacha apurada.",
+        "pt": "Era um trote mais vivo, mais leve, o de uma moça apressada.",
+        "it": "Era un trotto più vivace, più leggero, quello di una ragazza di fretta.",
+        "zh-Hans": "那是一种更轻快、更轻盈的小跑，是一个匆忙的年轻女孩的。",
+        "zh-Hant": "那是更輕快、更輕盈的小跑步，一個匆忙女孩的腳步。",
+        "ro": "Era un trap mai vioi, mai ușor, al unei fete grăbite.",
+        "ca": "Era un trot més viu, més lleuger, el d'una noia que tenia pressa."
+       }
+      },
+      {
+       "text": "J'ai levé la tête et j'ai vu Stéphanette elle-même, assise sur le mulet, toute seule.",
+       "translation": {
+        "en": "I looked up and saw Stéphanette herself, sitting on the mule, all alone.",
+        "fr": "I raised my head and saw Stéphanette herself, sitting on the mule, all alone.",
+        "es": "Levanté la cabeza y vi a la propia Estefanita, sentada sobre la mula, completamente sola.",
+        "pt": "Levantei a cabeça e vi a própria Stéphanette, sentada na mula, sozinha.",
+        "it": "Alzai la testa e vidi Stéphanette in persona, seduta sul mulo, tutta sola.",
+        "zh-Hans": "我抬起头，看到斯特凡内特本人，独自坐在骡子上。",
+        "zh-Hant": "我抬起頭，看見史黛芬妮特本人，獨自坐在騾子上。",
+        "ro": "Am ridicat capul și am văzut-o chiar pe Stéphanette, șezând pe catâr, complet singură.",
+        "ca": "Vaig aixecar el cap i vaig veure la Stéphanette mateixa, asseguda sobre el matxo, tota sola."
+       }
+      },
+      {
+       "text": "Mon cœur s'est mis à battre très vite.",
+       "translation": {
+        "en": "My heart started beating very fast.",
+        "fr": "My heart began to beat very fast.",
+        "es": "Mi corazón empezó a latir muy rápido.",
+        "pt": "Meu coração começou a bater muito rápido.",
+        "it": "Il mio cuore cominciò a battere molto veloce.",
+        "zh-Hans": "我的心开始跳得很快。",
+        "zh-Hant": "我的心開始跳得很快。",
+        "ro": "Inima mea a început să bată foarte repede.",
+        "ca": "El meu cor va començar a bategar molt de pressa."
+       }
+      },
+      {
+       "text": "Je n'en croyais pas mes yeux.",
+       "translation": {
+        "en": "I couldn't believe my eyes.",
+        "fr": "I couldn't believe my eyes.",
+        "es": "No podía creer lo que veían mis ojos.",
+        "pt": "Eu não acreditava nos meus olhos.",
+        "it": "Non credevo ai miei occhi.",
+        "zh-Hans": "我不敢相信自己的眼睛。",
+        "zh-Hant": "我不敢相信自己的眼睛。",
+        "ro": "Nu-mi venea să cred ochilor.",
+        "ca": "No em creia els ulls."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Chapitre 2 — L'arrivée de Stéphanette",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "Stéphanette est descendue du mulet, les joues rouges et un peu essoufflée par la longue montée.",
+       "translation": {
+        "en": "Stéphanette got down from the mule, her cheeks red and a little out of breath from the long climb.",
+        "fr": "Stéphanette got down from the mule, her cheeks red and a little out of breath from the long climb.",
+        "es": "Estefanita bajó de la mula, con las mejillas rojas y un poco sin aliento por la larga subida.",
+        "pt": "Stéphanette desceu da mula, com as bochechas vermelhas e um pouco sem fôlego pela subida longa.",
+        "it": "Stéphanette scese dal mulo, con le guance rosse e un po' senza fiato per la lunga salita.",
+        "zh-Hans": "斯特凡内特从骡子上下来，脸颊通红，因为长途爬坡而有点喘不过气。",
+        "zh-Hant": "史黛芬妮特從騾子上下來，臉頰通紅，因為長途爬坡而有點喘不過氣。",
+        "ro": "Stéphanette a coborât de pe catâr, cu obrajii roșii și puțin răsuflată din cauza urcușului lung.",
+        "ca": "La Stéphanette va baixar del matxo, amb les galtes vermelles i una mica sense alè per la llarga pujada."
+       }
+      },
+      {
+       "text": "Elle m'a expliqué que Miaro était malade et que tante Norade était partie voir ses enfants.",
+       "translation": {
+        "en": "She explained to me that Miaro was sick and that Aunt Norade had gone to see her children.",
+        "fr": "She explained to me that Miaro was sick and that Aunt Norade had gone to see her children.",
+        "es": "Me explicó que Miaro estaba enferma y que la tía Norade se había ido a ver a sus hijos.",
+        "pt": "Ela me explicou que Miaro estava doente e que a tia Norade tinha ido ver os filhos.",
+        "it": "Mi spiegò che Miaro era malato e che la zia Norade era partita per vedere i suoi figli.",
+        "zh-Hans": "她向我解释说米亚罗病了，诺拉德姨妈去看她的孩子们了。",
+        "zh-Hant": "她向我解釋說米亞羅生病了，諾拉德嬸嬸去看她的孩子們了。",
+        "ro": "Mi-a explicat că Miaro era bolnav și că mătușa Norade plecase să-și vadă copiii.",
+        "ca": "Em va explicar que en Miaro estava malalt i que la tia Norade havia marxat a veure els seus fills."
+       }
+      },
+      {
+       "text": "Elle avait donc dû monter seule, pour la première fois de sa vie, jusqu'à ma cabane isolée.",
+       "translation": {
+        "en": "So she had had to come up alone, for the first time in her life, to my isolated cabin.",
+        "fr": "So she had had to come up alone, for the first time in her life, to my isolated cabin.",
+        "es": "Así que había tenido que subir sola, por primera vez en su vida, hasta mi cabaña aislada.",
+        "pt": "Então ela teve que subir sozinha, pela primeira vez na vida, até minha cabana isolada.",
+        "it": "Quindi aveva dovuto salire da sola, per la prima volta in vita sua, fino alla mia capanna isolata.",
+        "zh-Hans": "因此，她不得不独自一人，有生以来第一次，来到我偏僻的小屋。",
+        "zh-Hant": "所以她只好第一次獨自騎上山，來到我這間偏僻的小屋。",
+        "ro": "Așa că fusese nevoită să urce singură, pentru prima dată în viața ei, până la coliba mea izolată.",
+        "ca": "Per tant, havia hagut de pujar sola, per primera vegada a la seva vida, fins a la meva cabana aïllada."
+       }
+      },
+      {
+       "text": "Elle portait sa plus belle robe du dimanche et semblait un peu perdue au milieu des rochers.",
+       "translation": {
+        "en": "She was wearing her most beautiful Sunday dress and seemed a little lost in the middle of the rocks.",
+        "fr": "She was wearing her most beautiful Sunday dress and seemed a little lost in the middle of the rocks.",
+        "es": "Llevaba su vestido más bonito de los domingos y parecía un poco perdida en medio de las rocas.",
+        "pt": "Ela estava com seu vestido mais bonito de domingo e parecia um pouco perdida no meio das rochas.",
+        "it": "Indossava il suo vestito più bello della domenica e sembrava un po' sperduta in mezzo alle rocce.",
+        "zh-Hans": "她穿着她最漂亮的周日连衣裙，在岩石中显得有点迷茫。",
+        "zh-Hant": "她穿著她最美的星期天洋裝，在岩石間看起來有點迷惘。",
+        "ro": "Purta cea mai frumoasă rochie de duminică și părea puțin rătăcită în mijlocul stâncilor.",
+        "ca": "Portava el seu vestit més bonic de diumenge i semblava una mica perduda enmig de les roques."
+       }
+      },
+      {
+       "text": "En chemin, elle s'était arrêtée pour cueillir des fleurs et avait pris beaucoup de retard.",
+       "translation": {
+        "en": "On the way, she had stopped to pick flowers and had fallen far behind.",
+        "fr": "On the way, she had stopped to pick flowers and had fallen far behind.",
+        "es": "En el camino, se había detenido a recoger flores y se había retrasado mucho.",
+        "pt": "No caminho, ela tinha parado para colher flores e tinha se atrasado muito.",
+        "it": "Per strada, si era fermata a cogliere dei fiori e aveva fatto molto tardi.",
+        "zh-Hans": "在路上，她停下来摘花，所以耽误了很多时间。",
+        "zh-Hant": "在路上，她停下來摘花，因此耽誤了很多時間。",
+        "ro": "Pe drum, se oprise să culeagă flori și întârziase mult.",
+        "ca": "Pel camí, s'havia aturat per collir flors i havia agafat molt de retard."
+       }
+      },
+      {
+       "text": "J'étais si heureux de la voir que j'ai presque oublié de répondre correctement à ses questions.",
+       "translation": {
+        "en": "I was so happy to see her that I almost forgot to answer her questions properly.",
+        "fr": "I was so happy to see her that I almost forgot to answer her questions properly.",
+        "es": "Estaba tan feliz de verla que casi olvidé responder correctamente a sus preguntas.",
+        "pt": "Eu estava tão feliz em vê-la que quase esqueci de responder corretamente às perguntas dela.",
+        "it": "Ero così felice di vederla che quasi dimenticai di rispondere correttamente alle sue domande.",
+        "zh-Hans": "我见到她太高兴了，几乎忘了正确回答她的问题。",
+        "zh-Hant": "我見到她太高興了，幾乎忘了好好回答她的問題。",
+        "ro": "Eram atât de fericit să o văd, încât aproape am uitat să răspund corect la întrebările ei.",
+        "ca": "Estava tan feliç de veure-la que gairebé vaig oblidar respondre correctament a les seves preguntes."
+       }
+      },
+      {
+       "text": "Elle m'a demandé si je vivais toujours ainsi, seul, sans jamais parler à personne pendant des semaines.",
+       "translation": {
+        "en": "She asked me if I always lived like that, alone, without ever talking to anyone for weeks.",
+        "fr": "She asked me if I always lived like that, alone, without ever talking to anyone for weeks.",
+        "es": "Me preguntó si siempre vivía así, solo, sin hablar con nadie durante semanas.",
+        "pt": "Ela me perguntou se eu vivia sempre assim, sozinho, sem nunca falar com ninguém por semanas.",
+        "it": "Mi chiese se vivevo sempre così, solo, senza mai parlare con nessuno per settimane.",
+        "zh-Hans": "她问我是否总是这样生活，独自一人，几周都不和任何人说话。",
+        "zh-Hant": "她問我是不是一直這樣生活，孤單一人，好幾個星期都不跟任何人說話。",
+        "ro": "M-a întrebat dacă trăiesc mereu așa, singur, fără să vorbesc cu nimeni săptămâni întregi.",
+        "ca": "Em va preguntar si sempre vivia així, sol, sense parlar mai amb ningú durant setmanes."
+       }
+      },
+      {
+       "text": "Je lui ai raconté mes journées avec Labri, mes moutons et le grand silence de la montagne.",
+       "translation": {
+        "en": "I told her about my days with Labri, my sheep, and the great silence of the mountain.",
+        "fr": "I told her about my days with Labri, my sheep, and the great silence of the mountain.",
+        "es": "Le conté mis días con Labri, mis ovejas y el gran silencio de la montaña.",
+        "pt": "Contei a ela meus dias com Labri, minhas ovelhas e o grande silêncio da montanha.",
+        "it": "Le raccontai le mie giornate con Labri, le mie pecore e il grande silenzio della montagna.",
+        "zh-Hans": "我告诉她我和拉布里、我的羊以及山里的寂静的日子。",
+        "zh-Hant": "我告訴她我和拉布里、我的羊群，以及山上那片寂靜的日子。",
+        "ro": "I-am povestit zilele mele cu Labri, oile mele și marea tăcere a muntelui.",
+        "ca": "Li vaig explicar els meus dies amb en Labri, les meves ovelles i el gran silenci de la muntanya."
+       }
+      },
+      {
+       "text": "Elle m'écoutait avec attention, comme si ma vie simple de berger l'intéressait vraiment beaucoup.",
+       "translation": {
+        "en": "She listened to me attentively, as if my simple life as a shepherd really interested her a lot.",
+        "fr": "She listened to me attentively, as if my simple life as a shepherd really interested her a lot.",
+        "es": "Ella me escuchaba con atención, como si mi vida sencilla de pastor le interesara de verdad mucho.",
+        "pt": "Ela me ouvia com atenção, como se minha vida simples de pastor realmente a interessasse muito.",
+        "it": "Mi ascoltava con attenzione, come se la mia semplice vita di pastore la interessasse davvero molto.",
+        "zh-Hans": "她专心地听着，好像我简单的牧羊人生活真的让她很感兴趣。",
+        "zh-Hant": "她專心地聽著，好像我這個牧羊人簡單的生活真的讓她很感興趣。",
+        "ro": "Mă asculta cu atenție, ca și cum viața mea simplă de cioban chiar o interesa foarte mult.",
+        "ca": "M'escoltava amb atenció, com si la meva vida senzilla de pastor li interessés de debò."
+       }
+      },
+      {
+       "text": "Je l'ai aidée à descendre avec précaution.",
+       "translation": {
+        "en": "I helped her down carefully.",
+        "fr": "I helped her down carefully.",
+        "es": "La ayudé a bajar con cuidado.",
+        "pt": "Ajudei-a a descer com cuidado.",
+        "it": "L'aiutai a scendere con cautela.",
+        "zh-Hans": "我小心翼翼地帮她下来。",
+        "zh-Hant": "我小心翼翼地扶她下來。",
+        "ro": "Am ajutat-o să coboare cu grijă.",
+        "ca": "La vaig ajudar a baixar amb cura."
+       }
+      },
+      {
+       "text": "Ses yeux brillaient de curiosité et de fatigue.",
+       "translation": {
+        "en": "Her eyes shone with curiosity and fatigue.",
+        "fr": "Her eyes shone with curiosity and fatigue.",
+        "es": "Sus ojos brillaban de curiosidad y de cansancio.",
+        "pt": "Seus olhos brilhavam de curiosidade e de cansaço.",
+        "it": "I suoi occhi brillavano di curiosità e di stanchezza.",
+        "zh-Hans": "她的眼睛因好奇和疲惫而闪闪发光。",
+        "zh-Hant": "她的眼睛因好奇和疲憊而閃閃發亮。",
+        "ro": "Ochii îi străluceau de curiozitate și de oboseală.",
+        "ca": "Els seus ulls brillaven de curiositat i de fatiga."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Après cette courte visite, elle a repris le chemin du retour vers la ferme, en bas.",
+       "translation": {
+        "en": "After that short visit, she headed back down to the farm.",
+        "fr": "After that short visit, she headed back down to the farm.",
+        "es": "Después de esa corta visita, emprendió el camino de regreso hacia la granja, abajo.",
+        "pt": "Depois dessa curta visita, ela retomou o caminho de volta para a fazenda, lá embaixo.",
+        "it": "Dopo quella breve visita, riprese la strada del ritorno verso la fattoria, in basso.",
+        "zh-Hans": "那次短暂的拜访之后，她踏上了返回山下农场的路。",
+        "zh-Hant": "短暫拜訪之後，她踏上了返回山下農場的路。",
+        "ro": "După această scurtă vizită, a reluat drumul înapoi spre fermă, în vale.",
+        "ca": "Després d'aquesta curta visita, va reprendre el camí de tornada cap a la masia, a baix."
+       }
+      },
+      {
+       "text": "Elle m'a dit au revoir en riant et je l'ai regardée disparaître derrière les premiers arbres.",
+       "translation": {
+        "en": "She said goodbye to me laughing, and I watched her disappear behind the first trees.",
+        "fr": "She said goodbye to me laughing, and I watched her disappear behind the first trees.",
+        "es": "Me dijo adiós riendo y la vi desaparecer detrás de los primeros árboles.",
+        "pt": "Ela me disse adeus rindo e eu a vi desaparecer atrás das primeiras árvores.",
+        "it": "Mi salutò ridendo e la guardai sparire dietro i primi alberi.",
+        "zh-Hans": "她笑着向我道别，我看着她消失在最初的几棵树后面。",
+        "zh-Hant": "她笑著向我道別，我看著她消失在最初的幾棵樹後面。",
+        "ro": "Mi-a spus la revedere râzând și am privit-o dispărând după primii copaci.",
+        "ca": "Em va dir adeu rient i la vaig veure desaparèixer darrere dels primers arbres."
+       }
+      },
+      {
+       "text": "Mais une heure plus tard environ, j'ai entendu quelqu'un courir et appeler mon nom.",
+       "translation": {
+        "en": "But about an hour later, I heard someone running and calling my name.",
+        "fr": "But about an hour later, I heard someone running and calling my name.",
+        "es": "Pero aproximadamente una hora después, oí a alguien correr y llamar mi nombre.",
+        "pt": "Mas cerca de uma hora depois, ouvi alguém correndo e chamando meu nome.",
+        "it": "Ma circa un'ora dopo, sentii qualcuno correre e chiamare il mio nome.",
+        "zh-Hans": "但大约一个小时后，我听到有人跑着喊我的名字。",
+        "zh-Hant": "但大約一個小時後，我聽到有人奔跑並呼喊我的名字。",
+        "ro": "Dar cam o oră mai târziu, am auzit pe cineva alergând și strigând numele meu.",
+        "ca": "Però aproximadament una hora més tard, vaig sentir algú córrer i cridar el meu nom."
+       }
+      },
+      {
+       "text": "C'était Stéphanette, trempée jusqu'aux os et visiblement effrayée par quelque chose de grave.",
+       "translation": {
+        "en": "It was Stéphanette, soaked to the bone and clearly frightened by something serious.",
+        "fr": "It was Stéphanette, soaked to the bone and clearly frightened by something serious.",
+        "es": "Era Estefanita, empapada hasta los huesos y visiblemente asustada por algo grave.",
+        "pt": "Era Stéphanette, encharcada até os ossos e visivelmente assustada com algo grave.",
+        "it": "Era Stéphanette, fradicia fino alle ossa e visibilmente spaventata da qualcosa di grave.",
+        "zh-Hans": "是斯泰法内特，浑身湿透，显然被什么严重的事情吓到了。",
+        "zh-Hant": "是斯特凡內特，全身濕透，顯然被什麼嚴重的事情嚇到了。",
+        "ro": "Era Stéphanette, udă leoarcă și vizibil speriată de ceva grav.",
+        "ca": "Era Estefaneta, xopa fins als ossos i visiblement espantada per alguna cosa greu."
+       }
+      },
+      {
+       "text": "Elle m'a expliqué qu'un torrent avait grossi à cause de l'orage de l'après-midi.",
+       "translation": {
+        "en": "She explained to me that a stream had swelled because of the afternoon storm.",
+        "fr": "She explained to me that a stream had swelled because of the afternoon storm.",
+        "es": "Me explicó que un torrente había crecido debido a la tormenta de la tarde.",
+        "pt": "Ela me explicou que um riacho tinha crescido por causa da tempestade da tarde.",
+        "it": "Mi spiegò che un torrente era ingrossato a causa del temporale del pomeriggio.",
+        "zh-Hans": "她向我解释说，下午的暴风雨使一条溪流暴涨了。",
+        "zh-Hant": "她向我解釋說，下午的暴風雨使一條溪流暴漲了。",
+        "ro": "Mi-a explicat că un pârâu crescuse din cauza furtunii de după-amiază.",
+        "ca": "Em va explicar que un torrent havia crescut a causa de la tempesta de la tarda."
+       }
+      },
+      {
+       "text": "Elle avait essayé de traverser l'eau avec le mulet, mais le courant était devenu bien trop fort.",
+       "translation": {
+        "en": "She had tried to cross the water with the mule, but the current had become far too strong.",
+        "fr": "She had tried to cross the water with the mule, but the current had become far too strong.",
+        "es": "Había intentado cruzar el agua con el mulo, pero la corriente se había vuelto demasiado fuerte.",
+        "pt": "Ela tinha tentado atravessar a água com a mula, mas a correnteza tinha ficado forte demais.",
+        "it": "Aveva provato ad attraversare l'acqua con il mulo, ma la corrente era diventata troppo forte.",
+        "zh-Hans": "她试图骑着骡子过河，但水流变得太急了。",
+        "zh-Hant": "她試圖帶著騾子涉水而過，但水流變得實在太強了。",
+        "ro": "Încercase să traverseze apa cu catârul, dar curentul devenise mult prea puternic.",
+        "ca": "Havia intentat travessar l'aigua amb el matxo, però el corrent s'havia tornat massa fort."
+       }
+      },
+      {
+       "text": "Elle avait eu très peur de se noyer et avait dû rebrousser chemin en pleurant.",
+       "translation": {
+        "en": "She had been very afraid of drowning and had to turn back crying.",
+        "fr": "She had been very afraid of drowning and had had to turn back crying.",
+        "es": "Había tenido mucho miedo de ahogarse y había tenido que retroceder llorando.",
+        "pt": "Ela teve muito medo de se afogar e teve que voltar chorando.",
+        "it": "Aveva avuto molta paura di annegare e aveva dovuto tornare indietro piangendo.",
+        "zh-Hans": "她非常害怕被淹死，只好哭着原路返回。",
+        "zh-Hant": "她非常害怕會被淹死，只好哭著折返。",
+        "ro": "Îi fusese foarte frică să nu se înece și fusese nevoită să se întoarcă plângând.",
+        "ca": "Havia tingut molta por d'ofegar-se i havia hagut de fer marxa enrere plorant."
+       }
+      },
+      {
+       "text": "Il n'y avait personne d'autre pour l'aider dans cette partie isolée de la montagne.",
+       "translation": {
+        "en": "There was no one else to help her in that isolated part of the mountain.",
+        "fr": "There was no one else to help her in that isolated part of the mountain.",
+        "es": "No había nadie más para ayudarla en esa parte aislada de la montaña.",
+        "pt": "Não havia mais ninguém para ajudá-la nessa parte isolada da montanha.",
+        "it": "Non c'era nessun altro per aiutarla in quella parte isolata della montagna.",
+        "zh-Hans": "在这片偏远的山区，没有其他人能帮她。",
+        "zh-Hant": "在這座偏遠的山區，沒有其他人可以幫她。",
+        "ro": "Nu mai era nimeni altcineva care s-o ajute în acea parte izolată a muntelui.",
+        "ca": "No hi havia ningú més per ajudar-la en aquesta part aïllada de la muntanya."
+       }
+      },
+      {
+       "text": "Elle était donc revenue jusqu'à ma cabane, seule solution qui lui restait avant la nuit.",
+       "translation": {
+        "en": "So she had come back to my cabin, the only solution left to her before nightfall.",
+        "fr": "So she had come back to my cabin, the only solution left to her before nightfall.",
+        "es": "Así que había vuelto hasta mi cabaña, la única solución que le quedaba antes de la noche.",
+        "pt": "Então ela voltou até minha cabana, única solução que lhe restava antes da noite.",
+        "it": "Così era tornata fino alla mia capanna, unica soluzione che le restava prima della notte.",
+        "zh-Hans": "所以她回到了我的小屋，这是夜晚来临前她唯一剩下的选择。",
+        "zh-Hant": "所以她只好回到我的小屋，這是天黑前她僅剩的選擇。",
+        "ro": "Așa că se întorsese până la coliba mea, singura soluție care-i rămăsese înainte de noapte.",
+        "ca": "Per tant, havia tornat fins a la meva cabana, l'única solució que li quedava abans de la nit."
+       }
+      },
+      {
+       "text": "La pluie tombait encore fort autour de nous.",
+       "translation": {
+        "en": "The rain was still falling heavily around us.",
+        "fr": "The rain was still falling hard around us.",
+        "es": "La lluvia todavía caía con fuerza a nuestro alrededor.",
+        "pt": "A chuva ainda caía forte ao nosso redor.",
+        "it": "La pioggia cadeva ancora forte intorno a noi.",
+        "zh-Hans": "雨还在我们周围下得很大。",
+        "zh-Hant": "雨在我們周圍仍然下得很大。",
+        "ro": "Ploaia cădea încă puternic în jurul nostru.",
+        "ca": "La pluja encara queia fort al nostre voltant."
+       }
+      },
+      {
+       "text": "J'ai compris tout de suite la gravité de la situation.",
+       "translation": {
+        "en": "I understood immediately the seriousness of the situation.",
+        "fr": "I understood immediately the seriousness of the situation.",
+        "es": "Comprendí de inmediato la gravedad de la situación.",
+        "pt": "Entendi imediatamente a gravidade da situação.",
+        "it": "Capii subito la gravità della situazione.",
+        "zh-Hans": "我立刻明白了情况的严重性。",
+        "zh-Hant": "我立刻明白了情況的嚴重性。",
+        "ro": "Am înțeles imediat gravitatea situației.",
+        "ca": "Vaig comprendre immediatament la gravetat de la situació."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Je lui ai promis de veiller sur elle et de la ramener à la ferme le lendemain matin.",
+       "translation": {
+        "en": "I promised to watch over her and take her back to the farm the next morning.",
+        "fr": "I promised to watch over her and to take her back to the farm the next morning.",
+        "es": "Le prometí cuidar de ella y llevarla de vuelta a la granja a la mañana siguiente.",
+        "pt": "Prometi a ela cuidar dela e levá-la de volta à fazenda na manhã seguinte.",
+        "it": "Le promisi di vegliare su di lei e di riportarla alla fattoria la mattina dopo.",
+        "zh-Hans": "我答应照顾她，并在第二天早上把她送回农场。",
+        "zh-Hant": "我答應她會照顧她，並在第二天早上帶她回農場。",
+        "ro": "I-am promis că voi avea grijă de ea și că o voi duce înapoi la fermă a doua zi dimineață.",
+        "ca": "Li vaig prometre tenir cura d'ella i portar-la de tornada a la masia l'endemà al matí."
+       }
+      },
+      {
+       "text": "Le torrent, lui ai-je expliqué, baisserait sûrement avant l'aube, quand l'orage serait bien fini.",
+       "translation": {
+        "en": "The stream, I explained to her, would surely go down before dawn, when the storm would be completely over.",
+        "fr": "The stream, I explained to her, would surely go down before dawn, when the storm would be completely over.",
+        "es": "El torrente, le expliqué, bajaría seguramente antes del amanecer, cuando la tormenta hubiera terminado por completo.",
+        "pt": "O riacho, expliquei a ela, certamente baixaria antes do amanhecer, quando a tempestade tivesse terminado.",
+        "it": "Il torrente, le spiegai, sarebbe sicuramente calato prima dell'alba, quando il temporale sarebbe finito del tutto.",
+        "zh-Hans": "我向她解释说，溪流在黎明前肯定会退去，那时暴风雨就会完全结束。",
+        "zh-Hant": "我向她解釋說，溪流在黎明前肯定會消退，那時暴風雨早已結束。",
+        "ro": "Pârâul, i-am explicat, va scădea cu siguranță înainte de zori, când furtuna se va fi terminat complet.",
+        "ca": "El torrent, li vaig explicar, baixaria segurament abans de l'alba, quan la tempesta s'hagués acabat del tot."
+       }
+      },
+      {
+       "text": "Elle a séché ses vêtements mouillés près du grand feu que j'avais allumé pour elle.",
+       "translation": {
+        "en": "She dried her wet clothes near the big fire I had lit for her.",
+        "fr": "She dried her wet clothes near the big fire I had lit for her.",
+        "es": "Secó su ropa mojada cerca del gran fuego que había encendido para ella.",
+        "pt": "Ela secou suas roupas molhadas perto do grande fogo que eu tinha acendido para ela.",
+        "it": "Asciugò i suoi vestiti bagnati vicino al grande fuoco che avevo acceso per lei.",
+        "zh-Hans": "她在我为她点燃的大火旁烘干了她湿透的衣服。",
+        "zh-Hant": "她在我為她點燃的大火旁烘乾了濕衣服。",
+        "ro": "Și-a uscat hainele ude lângă focul mare pe care îl aprinsesem pentru ea.",
+        "ca": "Va assecar la seva roba mullada prop del gran foc que havia encès per a ella."
+       }
+      },
+      {
+       "text": "Je lui ai offert du lait frais, du fromage et quelques fruits que je gardais dans ma cabane.",
+       "translation": {
+        "en": "I offered her fresh milk, cheese, and some fruits that I kept in my cabin.",
+        "fr": "I offered her fresh milk, cheese, and some fruit that I kept in my cabin.",
+        "es": "Le ofrecí leche fresca, queso y algunas frutas que guardaba en mi cabaña.",
+        "pt": "Ofereci a ela leite fresco, queijo e algumas frutas que eu guardava na minha cabana.",
+        "it": "Le offrii latte fresco, formaggio e alcuni frutti che tenevo nella mia capanna.",
+        "zh-Hans": "我给了她一些新鲜牛奶、奶酪和我保存在小屋里的水果。",
+        "zh-Hant": "我給了她新鮮的牛奶、乳酪和一些我存放在小屋裡的水果。",
+        "ro": "I-am oferit lapte proaspăt, brânză și câteva fructe pe care le păstram în colibă.",
+        "ca": "Li vaig oferir llet fresca, formatge i algunes fruites que guardava a la meva cabana."
+       }
+      },
+      {
+       "text": "J'ai aussi étendu une peau de mouton et une couverture pour qu'elle soit plus confortable.",
+       "translation": {
+        "en": "I also spread out a sheepskin and a blanket so she would be more comfortable.",
+        "fr": "I also spread out a sheepskin and a blanket so she would be more comfortable.",
+        "es": "También extendí una piel de oveja y una manta para que estuviera más cómoda.",
+        "pt": "Também estendi uma pele de carneiro e uma coberta para que ela ficasse mais confortável.",
+        "it": "Stesi anche una pelle di pecora e una coperta perché fosse più comoda.",
+        "zh-Hans": "我还铺了一张羊皮和一条毯子，让她更舒服些。",
+        "zh-Hant": "我也鋪了一張羊皮和一條毯子，讓她更舒服些。",
+        "ro": "Am întins și o piele de oaie și o pătură ca să fie mai confortabil.",
+        "ca": "També vaig estendre una pell d'ovella i una manta perquè estigués més còmoda."
+       }
+      },
+      {
+       "text": "Elle a souri et m'a remercié plusieurs fois, mais elle semblait encore inquiète de la nuit qui venait.",
+       "translation": {
+        "en": "She smiled and thanked me several times, but she still seemed worried about the coming night.",
+        "fr": "She smiled and thanked me several times, but she still seemed worried about the coming night.",
+        "es": "Sonrió y me agradeció varias veces, pero parecía todavía preocupada por la noche que se acercaba.",
+        "pt": "Ela sorriu e me agradeceu várias vezes, mas ainda parecia preocupada com a noite que vinha.",
+        "it": "Sorrise e mi ringraziò più volte, ma sembrava ancora preoccupata per la notte che veniva.",
+        "zh-Hans": "她微笑着多次感谢我，但她似乎仍然对即将到来的夜晚感到担忧。",
+        "zh-Hant": "她微笑著多次向我道謝，但她似乎仍然對即將到來的夜晚感到擔憂。",
+        "ro": "A zâmbit și mi-a mulțumit de mai multe ori, dar părea încă îngrijorată de noaptea care urma.",
+        "ca": "Va somriure i em va donar les gràcies diverses vegades, però semblava encara preocupada per la nit que s'acostava."
+       }
+      },
+      {
+       "text": "Moi, je suis resté dehors, assis contre la porte, pour qu'elle se sente en sécurité à l'intérieur.",
+       "translation": {
+        "en": "As for me, I stayed outside, sitting against the door, so she would feel safe inside.",
+        "fr": "As for me, I stayed outside, sitting against the door, so she would feel safe inside.",
+        "es": "Yo me quedé fuera, sentado contra la puerta, para que ella se sintiera segura dentro.",
+        "pt": "Eu fiquei do lado de fora, sentado contra a porta, para que ela se sentisse segura lá dentro.",
+        "it": "Io rimasi fuori, seduto contro la porta, perché lei si sentisse al sicuro dentro.",
+        "zh-Hans": "而我则待在外面，靠着门坐着，让她在里面感到安全。",
+        "zh-Hant": "而我則留在外面，靠在門邊坐著，好讓她覺得裡面很安全。",
+        "ro": "Eu am rămas afară, șezând lângă ușă, ca ea să se simtă în siguranță înăuntru.",
+        "ca": "Jo em vaig quedar fora, assegut contra la porta, perquè ella se sentís segura a dins."
+       }
+      },
+      {
+       "text": "Le feu crépitait doucement dans la nuit tombante.",
+       "translation": {
+        "en": "The fire crackled softly in the falling night.",
+        "fr": "The fire crackled softly in the falling night.",
+        "es": "El fuego crepitaba suavemente en la noche que caía.",
+        "pt": "O fogo crepitava suavemente na noite que caía.",
+        "it": "Il fuoco crepitava dolcemente nella notte che scendeva.",
+        "zh-Hans": "火在夜幕降临时轻轻噼啪作响。",
+        "zh-Hant": "火在漸暗的夜色中輕輕地噼啪作響。",
+        "ro": "Focul trosnea încet în noaptea care cădea.",
+        "ca": "El foc crepitava suaument en la nit que queia."
+       }
+      },
+      {
+       "text": "Elle semblait déjà plus rassurée près de moi.",
+       "translation": {
+        "en": "She already seemed more reassured near me.",
+        "fr": "She already seemed more reassured near me.",
+        "es": "Ya parecía más tranquila cerca de mí.",
+        "pt": "Ela já parecia mais tranquila perto de mim.",
+        "it": "Sembrava già più rassicurata vicino a me.",
+        "zh-Hans": "她在我身边似乎已经更安心了。",
+        "zh-Hant": "她在我身邊似乎已經比較安心了。",
+        "ro": "Părea deja mai liniștită lângă mine.",
+        "ca": "Semblava ja més tranquil·la prop meu."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Chapitre 3 — Une nuit sous les étoiles",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "Un peu plus tard dans la soirée, Stéphanette est sortie de la cabane, enveloppée dans la couverture.",
+       "translation": {
+        "en": "A little later in the evening, Stéphanette came out of the hut, wrapped in the blanket.",
+        "fr": "A little later in the evening, Stéphanette came out of the hut, wrapped in the blanket.",
+        "es": "Un poco más tarde en la noche, Stéphanette salió de la cabaña, envuelta en la manta.",
+        "pt": "Um pouco mais tarde, à noite, Stéphanette saiu da cabana, enrolada na coberta.",
+        "it": "Un po' più tardi nella sera, Stéphanette uscì dalla capanna, avvolta nella coperta.",
+        "zh-Hans": "那天晚上稍晚些时候，斯特凡内特裹着毯子走出了小屋。",
+        "zh-Hant": "稍晚一點，斯特凡內特裹著毯子走出了小屋。",
+        "ro": "Puțin mai târziu în seară, Stéphanette a ieșit din colibă, învelită în pătură.",
+        "ca": "Una mica més tard, al vespre, Stéphanette va sortir de la cabana, embolicada amb la manta."
+       }
+      },
+      {
+       "text": "Elle avait trop peur de dormir seule et elle a préféré s'asseoir dehors, près du feu, avec moi.",
+       "translation": {
+        "en": "She was too afraid to sleep alone and she preferred to sit outside, near the fire, with me.",
+        "fr": "She was too afraid to sleep alone and she preferred to sit outside, near the fire, with me.",
+        "es": "Tenía demasiado miedo de dormir sola y prefirió sentarse afuera, cerca del fuego, conmigo.",
+        "pt": "Ela estava com muito medo de dormir sozinha e preferiu sentar-se fora, perto do fogo, comigo.",
+        "it": "Aveva troppa paura di dormire da sola e preferì sedersi fuori, vicino al fuoco, con me.",
+        "zh-Hans": "她太害怕独自睡觉，宁愿坐在外面，靠近火堆，和我在一起。",
+        "zh-Hant": "她太害怕一個人睡了，所以寧願坐在外面，靠近火堆，和我在一起。",
+        "ro": "Îi era prea frică să doarmă singură și a preferat să stea afară, lângă foc, cu mine.",
+        "ca": "Tenia massa por de dormir sola i va preferir seure a fora, prop del foc, amb mi."
+       }
+      },
+      {
+       "text": "Nous avons entendu les bruits familiers de la montagne, les clochettes des moutons et le vent léger.",
+       "translation": {
+        "en": "We heard the familiar sounds of the mountain, the sheep's bells and the light wind.",
+        "fr": "We heard the familiar sounds of the mountain, the sheep's bells and the light wind.",
+        "es": "Oímos los ruidos familiares de la montaña, las campanillas de las ovejas y el viento suave.",
+        "pt": "Nós ouvimos os ruídos familiares da montanha, os sininhos das ovelhas e o vento leve.",
+        "it": "Sentimmo i rumori familiari della montagna, i campanacci delle pecore e il vento leggero.",
+        "zh-Hans": "我们听到了山里熟悉的声音，羊群的铃铛声和轻柔的风声。",
+        "zh-Hant": "我們聽到了山裡熟悉的聲音，羊群的鈴鐺聲和輕柔的風聲。",
+        "ro": "Am auzit zgomotele familiare ale muntelui, clopoțeii oilor și vântul ușor.",
+        "ca": "Vam sentir els sorolls familiars de la muntanya, les esquelles de les ovelles i el vent suau."
+       }
+      },
+      {
+       "text": "Un loup a hurlé au loin, et elle s'est rapprochée de moi sans dire un seul mot.",
+       "translation": {
+        "en": "A wolf howled in the distance, and she moved closer to me without saying a single word.",
+        "fr": "A wolf howled in the distance, and she moved closer to me without saying a single word.",
+        "es": "Un lobo aulló a lo lejos, y ella se acercó a mí sin decir una sola palabra.",
+        "pt": "Um lobo uivou ao longe, e ela se aproximou de mim sem dizer uma palavra.",
+        "it": "Un lupo ululò in lontananza, e lei si avvicinò a me senza dire una sola parola.",
+        "zh-Hans": "远处一只狼嚎叫，她一言不发地向我靠近。",
+        "zh-Hant": "遠處有一隻狼嚎叫，她一句話也沒說，就向我靠近了一些。",
+        "ro": "Un lup a urlat în depărtare, iar ea s-a apropiat de mine fără să spună un singur cuvânt.",
+        "ca": "Un llop va udolar lluny, i ella es va acostar a mi sense dir ni una paraula."
+       }
+      },
+      {
+       "text": "Je lui ai assuré que Labri surveillait le troupeau et que nous ne risquions vraiment rien cette nuit.",
+       "translation": {
+        "en": "I assured her that Labri was watching over the flock and that we really had nothing to fear that night.",
+        "fr": "I assured her that Labri was watching over the flock and that we really were not in any danger that night.",
+        "es": "Le aseguré que Labri vigilaba el rebaño y que no corríamos ningún peligro esa noche.",
+        "pt": "Eu garanti a ela que Labri vigiava o rebanho e que não corríamos nenhum perigo naquela noite.",
+        "it": "Le assicurai che Labri sorvegliava il gregge e che non correvamo davvero nessun rischio quella notte.",
+        "zh-Hans": "我向她保证拉布里在看守羊群，我们今晚真的不会有任何危险。",
+        "zh-Hant": "我向她保證，拉布里會看守羊群，我們今晚真的不會有什麼危險。",
+        "ro": "Am asigurat-o că Labri păzea turma și că nu aveam de ce să ne temem în noaptea aceea.",
+        "ca": "Li vaig assegurar que Labri vigilava el ramat i que no corríem cap perill aquella nit."
+       }
+      },
+      {
+       "text": "La nuit était claire et pleine d'étoiles.",
+       "translation": {
+        "en": "The night was clear and full of stars.",
+        "fr": "The night was clear and full of stars.",
+        "es": "La noche estaba despejada y llena de estrellas.",
+        "pt": "A noite estava clara e cheia de estrelas.",
+        "it": "La notte era chiara e piena di stelle.",
+        "zh-Hans": "夜晚晴朗，满天繁星。",
+        "zh-Hant": "夜晚晴朗，滿天星斗。",
+        "ro": "Noaptea era senină și plină de stele.",
+        "ca": "La nit era clara i plena d'estrelles."
+       }
+      },
+      {
+       "text": "Le silence autour de nous était presque parfait.",
+       "translation": {
+        "en": "The silence around us was almost perfect.",
+        "fr": "The silence around us was almost perfect.",
+        "es": "El silencio a nuestro alrededor era casi perfecto.",
+        "pt": "O silêncio ao nosso redor era quase perfeito.",
+        "it": "Il silenzio intorno a noi era quasi perfetto.",
+        "zh-Hans": "我们周围的寂静几乎是完美的。",
+        "zh-Hant": "我們周圍的寂靜幾乎是完美的。",
+        "ro": "Liniștea din jurul nostru era aproape perfectă.",
+        "ca": "El silenci al nostre voltant era gairebé perfecte."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Elle a levé les yeux vers le ciel et m'a demandé si les bergers connaissaient le nom des étoiles.",
+       "translation": {
+        "en": "She looked up at the sky and asked me if shepherds knew the names of the stars.",
+        "fr": "She looked up at the sky and asked me if shepherds knew the names of the stars.",
+        "es": "Ella levantó los ojos hacia el cielo y me preguntó si los pastores conocían el nombre de las estrellas.",
+        "pt": "Ela levantou os olhos para o céu e me perguntou se os pastores conheciam o nome das estrelas.",
+        "it": "Lei alzò gli occhi verso il cielo e mi chiese se i pastori conoscevano il nome delle stelle.",
+        "zh-Hans": "她抬头望向天空，问我牧羊人是否知道星星的名字。",
+        "zh-Hant": "她抬頭望向天空，問我牧羊人是否知道星星的名字。",
+        "ro": "Și-a ridicat privirea spre cer și m-a întrebat dacă păstorii cunosc numele stelelor.",
+        "ca": "Va aixecar els ulls cap al cel i em va preguntar si els pastors coneixien el nom de les estrelles."
+       }
+      },
+      {
+       "text": "Je lui ai répondu que je connaissais le ciel bien mieux que les gens qui vivaient en ville.",
+       "translation": {
+        "en": "I told her that I knew the sky much better than the people who lived in the city.",
+        "fr": "I told her that I knew the sky much better than the people who lived in the city.",
+        "es": "Le respondí que conocía el cielo mucho mejor que la gente que vivía en la ciudad.",
+        "pt": "Eu respondi que conhecia o céu muito melhor do que as pessoas que viviam na cidade.",
+        "it": "Le risposi che conoscevo il cielo molto meglio delle persone che vivevano in città.",
+        "zh-Hans": "我回答她说，我比城里人更了解天空。",
+        "zh-Hant": "我回答她，我對天空的了解比住在城裡的人多得多。",
+        "ro": "I-am răspuns că eu cunosc cerul mult mai bine decât oamenii care trăiesc la oraș.",
+        "ca": "Li vaig respondre que jo coneixia el cel molt millor que la gent que vivia a la ciutat."
+       }
+      },
+      {
+       "text": "Je lui ai montré le Chemin de Saint-Jacques, qui traverse tout le ciel du nord au sud.",
+       "translation": {
+        "en": "I showed her the Way of Saint James, which crosses the whole sky from north to south.",
+        "fr": "I showed her the Way of Saint James, which crosses the whole sky from north to south.",
+        "es": "Le mostré el Camino de Santiago, que cruza todo el cielo de norte a sur.",
+        "pt": "Mostrei a ela o Caminho de Santiago, que atravessa todo o céu de norte a sul.",
+        "it": "Le mostrai il Cammino di San Giacomo, che attraversa tutto il cielo da nord a sud.",
+        "zh-Hans": "我给她看了圣雅各之路，它从北到南横跨整个天空。",
+        "zh-Hant": "我指給她看聖雅各之路，它從北到南貫穿整個天空。",
+        "ro": "I-am arătat Calea lui Iacob, care traversează tot cerul de la nord la sud.",
+        "ca": "Li vaig mostrar el Camí de Sant Jaume, que travessa tot el cel de nord a sud."
+       }
+      },
+      {
+       "text": "Je lui ai parlé du Char, des Trois Rois, et de l'étoile qui garde toutes les autres.",
+       "translation": {
+        "en": "I told her about the Chariot, the Three Kings, and the star that guards all the others.",
+        "fr": "I told her about the Chariot, the Three Kings, and the star that guards all the others.",
+        "es": "Le hablé del Carro, de los Tres Reyes, y de la estrella que guarda a todas las demás.",
+        "pt": "Falei a ela sobre a Carroça, os Três Reis e a estrela que guarda todas as outras.",
+        "it": "Le parlai del Carro, dei Tre Re, e della stella che custodisce tutte le altre.",
+        "zh-Hans": "我跟她讲了北斗七星、三王星，以及守护所有其他星星的那颗星。",
+        "zh-Hant": "我告訴她關於大熊星座、三王星，以及那顆守護所有其他星星的星星的故事。",
+        "ro": "I-am vorbit despre Carul Mare, despre Cei Trei Crai și despre steaua care o păzește pe toate celelalte.",
+        "ca": "Li vaig parlar del Carro, dels Tres Reis, i de l'estrella que guarda totes les altres."
+       }
+      },
+      {
+       "text": "Je lui ai aussi raconté une vieille légende sur deux étoiles qui s'aiment mais ne peuvent jamais se rejoindre.",
+       "translation": {
+        "en": "I also told her an old legend about two stars that love each other but can never meet.",
+        "fr": "I also told her an old legend about two stars that love each other but can never meet.",
+        "es": "También le conté una vieja leyenda sobre dos estrellas que se aman pero nunca pueden encontrarse.",
+        "pt": "Também contei a ela uma velha lenda sobre duas estrelas que se amam, mas nunca podem se encontrar.",
+        "it": "Le raccontai anche una vecchia leggenda su due stelle che si amano ma non possono mai incontrarsi.",
+        "zh-Hans": "我还给她讲了一个古老的传说，关于两颗相爱却永远无法相聚的星星。",
+        "zh-Hant": "我還跟她講了一個古老的傳說，關於兩顆相愛卻永遠無法相聚的星星。",
+        "ro": "I-am spus și o veche legendă despre două stele care se iubesc, dar nu pot ajunge niciodată una la cealaltă.",
+        "ca": "També li vaig explicar una vella llegenda sobre dues estrelles que s'estimen però mai no es poden trobar."
+       }
+      },
+      {
+       "text": "Elle riait doucement à chaque nouvelle histoire, et ses yeux brillaient presque comme les étoiles elles-mêmes.",
+       "translation": {
+        "en": "She laughed softly at each new story, and her eyes shone almost like the stars themselves.",
+        "fr": "She laughed softly at each new story, and her eyes shone almost like the stars themselves.",
+        "es": "Ella se reía suavemente con cada nueva historia, y sus ojos brillaban casi como las propias estrellas.",
+        "pt": "Ela ria baixinho a cada nova história, e seus olhos brilhavam quase como as próprias estrelas.",
+        "it": "Lei rideva dolcemente a ogni nuova storia, e i suoi occhi brillavano quasi come le stelle stesse.",
+        "zh-Hans": "每讲一个新故事，她都轻轻笑着，她的眼睛几乎像星星本身一样闪闪发光。",
+        "zh-Hant": "每聽一個新故事，她就輕輕地笑，她的眼睛閃閃發亮，幾乎就像星星本身一樣。",
+        "ro": "Ea râdea încet la fiecare poveste nouă, iar ochii ei străluceau aproape ca stelele însele.",
+        "ca": "Ella reia suaument a cada nova història, i els seus ulls brillaven gairebé com les mateixes estrelles."
+       }
+      },
+      {
+       "text": "Elle m'a demandé si les étoiles se mariaient parfois, comme le font les gens du village.",
+       "translation": {
+        "en": "She asked me if stars sometimes got married, like the people in the village do.",
+        "fr": "She asked me if stars sometimes got married, like the people in the village do.",
+        "es": "Me preguntó si las estrellas a veces se casaban, como hace la gente del pueblo.",
+        "pt": "Ela me perguntou se as estrelas às vezes se casavam, como fazem as pessoas da aldeia.",
+        "it": "Mi chiese se le stelle a volte si sposavano, come fanno le persone del villaggio.",
+        "zh-Hans": "她问我星星是否有时也会像村里的人那样结婚。",
+        "zh-Hant": "她問我，星星會不會像村裡的人一樣，有時也會結婚。",
+        "ro": "M-a întrebat dacă stelele se căsătoresc uneori, așa cum fac oamenii din sat.",
+        "ca": "Em va preguntar si les estrelles de vegades es casaven, com fa la gent del poble."
+       }
+      },
+      {
+       "text": "J'ai répondu que oui, dans le ciel comme sur la terre, il existait aussi de belles histoires d'amour.",
+       "translation": {
+        "en": "I answered yes, in the sky as on earth, there were also beautiful love stories.",
+        "fr": "I answered yes, in the sky as on earth, there were also beautiful love stories.",
+        "es": "Respondí que sí, que en el cielo como en la tierra, también existían hermosas historias de amor.",
+        "pt": "Eu respondi que sim, no céu como na terra, também existiam belas histórias de amor.",
+        "it": "Risposi di sì, che in cielo come in terra esistevano anche belle storie d'amore.",
+        "zh-Hans": "我回答说，是的，在天上就像在地上一样，也有美丽的爱情故事。",
+        "zh-Hant": "我回答說會，在天空裡和在地上一樣，也有美麗的愛情故事。",
+        "ro": "Am răspuns că da, și pe cer, și pe pământ, există și frumoase povești de dragoste.",
+        "ca": "Vaig respondre que sí, al cel com a la terra, també hi havia belles històries d'amor."
+       }
+      },
+      {
+       "text": "Elle posait des questions comme une enfant curieuse.",
+       "translation": {
+        "en": "She asked questions like a curious child.",
+        "fr": "She asked questions like a curious child.",
+        "es": "Ella hacía preguntas como una niña curiosa.",
+        "pt": "Ela fazia perguntas como uma criança curiosa.",
+        "it": "Faceva domande come una bambina curiosa.",
+        "zh-Hans": "她像个好奇的孩子一样问问题。",
+        "zh-Hant": "她像個好奇的孩子一樣問問題。",
+        "ro": "Punea întrebări ca un copil curios.",
+        "ca": "Feia preguntes com una nena curiosa."
+       }
+      },
+      {
+       "text": "Moi, je répondais avec beaucoup de plaisir.",
+       "translation": {
+        "en": "I answered with great pleasure.",
+        "fr": "I answered with great pleasure.",
+        "es": "Yo respondía con mucho placer.",
+        "pt": "Eu respondia com muito prazer.",
+        "it": "Io rispondevo con molto piacere.",
+        "zh-Hans": "而我则非常乐意地回答。",
+        "zh-Hant": "而我則非常樂意地回答。",
+        "ro": "Eu răspundeam cu multă plăcere.",
+        "ca": "Jo responia amb molt de plaer."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "Peu à peu, pendant que je parlais, elle est devenue silencieuse et sa tête est tombée sur mon épaule.",
+       "translation": {
+        "en": "Little by little, while I was talking, she became silent and her head fell onto my shoulder.",
+        "fr": "Little by little, while I was talking, she became silent and her head fell onto my shoulder.",
+        "es": "Poco a poco, mientras yo hablaba, ella se quedó en silencio y su cabeza cayó sobre mi hombro.",
+        "pt": "Aos poucos, enquanto eu falava, ela ficou em silêncio e sua cabeça caiu no meu ombro.",
+        "it": "A poco a poco, mentre parlavo, lei divenne silenziosa e la sua testa cadde sulla mia spalla.",
+        "zh-Hans": "渐渐地，在我说话的时候，她安静下来，头靠在了我的肩膀上。",
+        "zh-Hant": "漸漸地，在我說話的時候，她安靜了下來，頭靠在了我的肩膀上。",
+        "ro": "Încetul cu încetul, în timp ce vorbeam, ea a tăcut și și-a lăsat capul pe umărul meu.",
+        "ca": "A poc a poc, mentre jo parlava, ella es va tornar silenciosa i el seu cap va caure sobre la meva espatlla."
+       }
+      },
+      {
+       "text": "Elle s'est endormie ainsi, doucement bercée par les étoiles et par le calme profond de la nuit.",
+       "translation": {
+        "en": "She fell asleep like that, gently lulled by the stars and by the deep calm of the night.",
+        "fr": "She fell asleep like that, gently rocked by the stars and by the deep calm of the night.",
+        "es": "Se durmió así, suavemente mecida por las estrellas y por la calma profunda de la noche.",
+        "pt": "Ela adormeceu assim, suavemente embalada pelas estrelas e pela calma profunda da noite.",
+        "it": "Si addormentò così, dolcemente cullata dalle stelle e dalla calma profonda della notte.",
+        "zh-Hans": "她就那样睡着了，被星星和夜晚的深沉宁静轻轻摇着。",
+        "zh-Hant": "她就這樣睡著了，在星星和夜晚深沉的寂靜中輕輕搖晃著。",
+        "ro": "A adormit astfel, legănată ușor de stele și de liniștea adâncă a nopții.",
+        "ca": "Es va adormir així, suaument bressolada per les estrelles i per la calma profunda de la nit."
+       }
+      },
+      {
+       "text": "Je suis resté immobile pendant des heures, n'osant presque pas respirer pour ne pas la réveiller.",
+       "translation": {
+        "en": "I stayed motionless for hours, hardly daring to breathe so as not to wake her.",
+        "fr": "Je suis resté immobile pendant des heures, n'osant presque pas respirer pour ne pas la réveiller.",
+        "es": "Me quedé inmóvil durante horas, casi sin atreverme a respirar para no despertarla.",
+        "pt": "Fiquei imóvel por horas, quase não ousando respirar para não acordá-la.",
+        "it": "Sono rimasto immobile per ore, quasi senza osare respirare per non svegliarla.",
+        "zh-Hans": "我几个小时一动不动地待着，几乎不敢呼吸，生怕吵醒她。",
+        "zh-Hant": "我動也不動地待了好幾個小時，幾乎不敢呼吸，就怕吵醒她。",
+        "ro": "Am stat nemișcat ore întregi, neîndrăznind aproape să respir ca să nu o trezesc.",
+        "ca": "Vaig quedar-me immòbil durant hores, gairebé sense gosar respirar per no despertar-la."
+       }
+      },
+      {
+       "text": "J'ai pensé, en la regardant dormir, que le ciel entier semblait veiller sur nous deux, cette nuit-là.",
+       "translation": {
+        "en": "I thought, watching her sleep, that the whole sky seemed to watch over the two of us that night.",
+        "fr": "J'ai pensé, en la regardant dormir, que le ciel entier semblait veiller sur nous deux, cette nuit-là.",
+        "es": "Pensé, mientras la miraba dormir, que todo el cielo parecía velar por nosotros dos, aquella noche.",
+        "pt": "Pensei, ao vê-la dormir, que o céu inteiro parecia velar por nós dois, naquela noite.",
+        "it": "Ho pensato, guardandola dormire, che l'intero cielo sembrava vegliare su di noi due, quella notte.",
+        "zh-Hans": "我看着她睡觉，心想整个天空似乎都在守护着我们俩，那一夜。",
+        "zh-Hant": "我看著她睡覺時心想，那晚整個天空似乎都在守護著我們倆。",
+        "ro": "M-am gândit, privind-o cum doarme, că tot cerul părea să vegheze asupra noastră doi, în noaptea aceea.",
+        "ca": "Vaig pensar, mentre la mirava dormir, que tot el cel semblava vetllar per nosaltres dos, aquella nit."
+       }
+      },
+      {
+       "text": "J'ai imaginé que la plus belle et la plus délicate de toutes les étoiles s'était perdue dans le ciel.",
+       "translation": {
+        "en": "I imagined that the most beautiful and delicate of all the stars had gotten lost in the sky.",
+        "fr": "J'ai imaginé que la plus belle et la plus délicate de toutes les étoiles s'était perdue dans le ciel.",
+        "es": "Imaginé que la más bella y delicada de todas las estrellas se había perdido en el cielo.",
+        "pt": "Imaginei que a mais bela e delicada de todas as estrelas se tinha perdido no céu.",
+        "it": "Ho immaginato che la più bella e la più delicata di tutte le stelle si fosse persa nel cielo.",
+        "zh-Hans": "我想象着所有星星中最美丽、最精致的一颗在天空中迷了路。",
+        "zh-Hant": "我想像那顆最美麗、最精緻的星星在天空中迷了路。",
+        "ro": "Mi-am imaginat că cea mai frumoasă și mai delicată dintre toate stelele s-a rătăcit pe cer.",
+        "ca": "Vaig imaginar que la més bonica i la més delicada de totes les estrelles s'havia perdut al cel."
+       }
+      },
+      {
+       "text": "Elle serait alors venue se poser doucement sur mon épaule, pour y dormir jusqu'au matin.",
+       "translation": {
+        "en": "She would then have come to rest gently on my shoulder, to sleep there until morning.",
+        "fr": "Elle serait alors venue se poser doucement sur mon épaule, pour y dormir jusqu'au matin.",
+        "es": "Entonces habría venido a posarse suavemente sobre mi hombro, para dormir allí hasta la mañana.",
+        "pt": "Ela teria então vindo pousar suavemente no meu ombro, para ali dormir até de manhã.",
+        "it": "Sarebbe allora venuta a posarsi dolcemente sulla mia spalla, per dormirci fino al mattino.",
+        "zh-Hans": "然后她会轻轻地落在我肩上，在那里睡到天亮。",
+        "zh-Hant": "然後她就會輕輕地飛來停在我的肩膀上，在那裡睡到天亮。",
+        "ro": "Atunci ea ar fi venit să se așeze ușor pe umărul meu, ca să doarmă acolo până dimineața.",
+        "ca": "Llavors hauria vingut a posar-se suaument sobre la meva espatlla, per dormir-hi fins al matí."
+       }
+      },
+      {
+       "text": "Cette nuit-là reste, dans mon souvenir, la plus douce et la plus belle de toute ma vie de berger.",
+       "translation": {
+        "en": "That night remains, in my memory, the sweetest and most beautiful of my whole life as a shepherd.",
+        "fr": "Cette nuit-là reste, dans mon souvenir, la plus douce et la plus belle de toute ma vie de berger.",
+        "es": "Aquella noche sigue siendo, en mi recuerdo, la más dulce y la más hermosa de toda mi vida de pastor.",
+        "pt": "Aquela noite permanece, na minha memória, a mais doce e a mais bela de toda a minha vida de pastor.",
+        "it": "Quella notte resta, nel mio ricordo, la più dolce e la più bella di tutta la mia vita di pastore.",
+        "zh-Hans": "那一夜，在我的记忆中，是我牧羊人一生中最温柔、最美丽的夜晚。",
+        "zh-Hant": "那一夜，在我記憶中，是我整個牧羊人生命中最溫柔、最美麗的一夜。",
+        "ro": "Noaptea aceea rămâne, în amintirea mea, cea mai dulce și mai frumoasă din toată viața mea de păstor.",
+        "ca": "Aquella nit roman, en el meu record, com la més dolça i la més bonica de tota la meva vida de pastor."
+       }
+      },
+      {
+       "text": "Le ciel entier semblait respirer avec nous.",
+       "translation": {
+        "en": "The whole sky seemed to breathe with us.",
+        "fr": "Le ciel entier semblait respirer avec nous.",
+        "es": "Todo el cielo parecía respirar con nosotros.",
+        "pt": "O céu inteiro parecia respirar conosco.",
+        "it": "L'intero cielo sembrava respirare con noi.",
+        "zh-Hans": "整个天空似乎都在和我们一起呼吸。",
+        "zh-Hant": "整個天空似乎都和我們一起呼吸。",
+        "ro": "Tot cerul părea să respire împreună cu noi.",
+        "ca": "Tot el cel semblava respirar amb nosaltres."
+       }
+      },
+      {
+       "text": "Je n'ai jamais oublié cette nuit magique.",
+       "translation": {
+        "en": "I have never forgotten that magical night.",
+        "fr": "Je n'ai jamais oublié cette nuit magique.",
+        "es": "Nunca he olvidado aquella noche mágica.",
+        "pt": "Nunca esqueci aquela noite mágica.",
+        "it": "Non ho mai dimenticato quella notte magica.",
+        "zh-Hans": "我从未忘记那个神奇的夜晚。",
+        "zh-Hant": "我從來沒有忘記那個神奇的夜晚。",
+        "ro": "N-am uitat niciodată noaptea aceea magică.",
+        "ca": "Mai no he oblidat aquella nit màgica."
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "glossary": {
+  "pendant": {
+   "en": "during",
+   "fr": "pendant",
+   "es": "durante",
+   "pt": "durante",
+   "it": "durante",
+   "zh-Hans": "在...期间",
+   "zh-Hant": "在...期間",
+   "ro": "în timpul",
+   "ca": "durant"
+  },
+  "des": {
+   "en": "some",
+   "fr": "des",
+   "es": "unos",
+   "pt": "uns",
+   "it": "dei",
+   "zh-Hans": "一些",
+   "zh-Hant": "一些",
+   "ro": "niște",
+   "ca": "uns"
+  },
+  "semaines": {
+   "en": "weeks",
+   "fr": "semaines",
+   "es": "semanas",
+   "pt": "semanas",
+   "it": "settimane",
+   "zh-Hans": "星期",
+   "zh-Hant": "星期",
+   "ro": "săptămâni",
+   "ca": "setmanes"
+  },
+  "entières": {
+   "en": "whole",
+   "fr": "entières",
+   "es": "enteras",
+   "pt": "inteiras",
+   "it": "intere",
+   "zh-Hans": "整个的",
+   "zh-Hant": "整個的",
+   "ro": "întregi",
+   "ca": "senceres"
+  },
+  "je": {
+   "en": "I",
+   "fr": "je",
+   "es": "yo",
+   "pt": "eu",
+   "it": "io",
+   "zh-Hans": "我",
+   "zh-Hant": "我",
+   "ro": "eu",
+   "ca": "jo"
+  },
+  "restais": {
+   "en": "stayed",
+   "fr": "restais",
+   "es": "permanecía",
+   "pt": "ficava",
+   "it": "restavo",
+   "zh-Hans": "停留",
+   "zh-Hant": "停留",
+   "ro": "rămâneam",
+   "ca": "quedava"
+  },
+  "seul": {
+   "en": "alone",
+   "fr": "seul",
+   "es": "solo",
+   "pt": "sozinho",
+   "it": "solo",
+   "zh-Hans": "独自",
+   "zh-Hant": "獨自",
+   "ro": "singur",
+   "ca": "sol"
+  },
+  "sur": {
+   "en": "on",
+   "fr": "sur",
+   "es": "en",
+   "pt": "em",
+   "it": "su",
+   "zh-Hans": "在...上",
+   "zh-Hant": "在...上",
+   "ro": "pe",
+   "ca": "sobre"
+  },
+  "la": {
+   "en": "the",
+   "fr": "la",
+   "es": "la",
+   "pt": "a",
+   "it": "la",
+   "zh-Hans": "这",
+   "zh-Hant": "這",
+   "ro": "ce",
+   "ca": "la"
+  },
+  "montagne": {
+   "en": "mountain",
+   "fr": "montagne",
+   "es": "montaña",
+   "pt": "montanha",
+   "it": "montagna",
+   "zh-Hans": "山",
+   "zh-Hant": "山",
+   "ro": "munte",
+   "ca": "muntanya"
+  },
+  "du": {
+   "en": "of the",
+   "fr": "du",
+   "es": "del",
+   "pt": "do",
+   "it": "del",
+   "zh-Hans": "的",
+   "zh-Hant": "的",
+   "ro": "al",
+   "ca": "del"
+  },
+  "luberon": {
+   "en": "Luberon",
+   "fr": "Luberon",
+   "es": "Luberon",
+   "pt": "Luberon",
+   "it": "Luberon",
+   "zh-Hans": "吕贝隆",
+   "zh-Hant": "呂貝隆",
+   "ro": "Luberon",
+   "ca": "Luberon"
+  },
+  "pour": {
+   "en": "to",
+   "fr": "pour",
+   "es": "para",
+   "pt": "para",
+   "it": "per",
+   "zh-Hans": "为了",
+   "zh-Hant": "為了",
+   "ro": "pentru",
+   "ca": "per"
+  },
+  "garder": {
+   "en": "to watch",
+   "fr": "garder",
+   "es": "cuidar",
+   "pt": "guardar",
+   "it": "custodire",
+   "zh-Hans": "看守",
+   "zh-Hant": "看守",
+   "ro": "a păzi",
+   "ca": "guardar"
+  },
+  "mon": {
+   "en": "my",
+   "fr": "mon",
+   "es": "mi",
+   "pt": "meu",
+   "it": "mio",
+   "zh-Hans": "我的",
+   "zh-Hant": "我的",
+   "ro": "meu",
+   "ca": "meu"
+  },
+  "troupeau": {
+   "en": "flock",
+   "fr": "troupeau",
+   "es": "rebaño",
+   "pt": "rebanho",
+   "it": "gregge",
+   "zh-Hans": "羊群",
+   "zh-Hant": "羊群",
+   "ro": "turmă",
+   "ca": "ramat"
+  },
+  "de": {
+   "en": "of",
+   "fr": "de",
+   "es": "de",
+   "pt": "de",
+   "it": "di",
+   "zh-Hans": "的",
+   "zh-Hant": "的",
+   "ro": "de",
+   "ca": "de"
+  },
+  "moutons": {
+   "en": "sheep",
+   "fr": "moutons",
+   "es": "ovejas",
+   "pt": "ovelhas",
+   "it": "pecore",
+   "zh-Hans": "羊",
+   "zh-Hant": "羊",
+   "ro": "oi",
+   "ca": "ovelles"
+  },
+  "chien": {
+   "en": "dog",
+   "fr": "chien",
+   "es": "perro",
+   "pt": "cão",
+   "it": "cane",
+   "zh-Hans": "狗",
+   "zh-Hant": "狗",
+   "ro": "câine",
+   "ca": "gos"
+  },
+  "labri": {
+   "en": "Labri",
+   "fr": "Labri",
+   "es": "Labri",
+   "pt": "Labri",
+   "it": "Labri",
+   "zh-Hans": "拉布里",
+   "zh-Hant": "拉布里",
+   "ro": "Labri",
+   "ca": "Labri"
+  },
+  "et": {
+   "en": "and",
+   "fr": "et",
+   "es": "y",
+   "pt": "e",
+   "it": "e",
+   "zh-Hans": "和",
+   "zh-Hant": "和",
+   "ro": "și",
+   "ca": "i"
+  },
+  "mes": {
+   "en": "my",
+   "fr": "mes",
+   "es": "mis",
+   "pt": "meus",
+   "it": "miei",
+   "zh-Hans": "我的",
+   "zh-Hant": "我的",
+   "ro": "mei",
+   "ca": "meus"
+  },
+  "bêtes": {
+   "en": "animals",
+   "fr": "bêtes",
+   "es": "animales",
+   "pt": "animais",
+   "it": "animali",
+   "zh-Hans": "动物",
+   "zh-Hant": "動物",
+   "ro": "animale",
+   "ca": "bèsties"
+  },
+  "étaient": {
+   "en": "were",
+   "fr": "étaient",
+   "es": "eran",
+   "pt": "eram",
+   "it": "erano",
+   "zh-Hans": "是",
+   "zh-Hant": "是",
+   "ro": "erau",
+   "ca": "eren"
+  },
+  "ma": {
+   "en": "my",
+   "fr": "ma",
+   "es": "mi",
+   "pt": "minha",
+   "it": "mia",
+   "zh-Hans": "我的",
+   "zh-Hant": "我的",
+   "ro": "mea",
+   "ca": "meva"
+  },
+  "seule": {
+   "en": "only",
+   "fr": "seule",
+   "es": "única",
+   "pt": "única",
+   "it": "unica",
+   "zh-Hans": "唯一的",
+   "zh-Hant": "唯一的",
+   "ro": "singura",
+   "ca": "única"
+  },
+  "compagnie": {
+   "en": "company",
+   "fr": "compagnie",
+   "es": "compañía",
+   "pt": "companhia",
+   "it": "compagnia",
+   "zh-Hans": "陪伴",
+   "zh-Hant": "陪伴",
+   "ro": "companie",
+   "ca": "companyia"
+  },
+  "ces": {
+   "en": "these",
+   "fr": "ces",
+   "es": "estos",
+   "pt": "estes",
+   "it": "questi",
+   "zh-Hans": "这些",
+   "zh-Hant": "這些",
+   "ro": "acești",
+   "ca": "aquests"
+  },
+  "longues": {
+   "en": "long",
+   "fr": "longues",
+   "es": "largas",
+   "pt": "longas",
+   "it": "lunghe",
+   "zh-Hans": "长的",
+   "zh-Hant": "長的",
+   "ro": "lungi",
+   "ca": "llargues"
+  },
+  "journées": {
+   "en": "days",
+   "fr": "journées",
+   "es": "jornadas",
+   "pt": "jornadas",
+   "it": "giornate",
+   "zh-Hans": "日子",
+   "zh-Hant": "日子",
+   "ro": "zile",
+   "ca": "jornades"
+  },
+  "silencieuses": {
+   "en": "silent",
+   "fr": "silencieuses",
+   "es": "silenciosas",
+   "pt": "silenciosas",
+   "it": "silenziose",
+   "zh-Hans": "寂静的",
+   "zh-Hant": "寂靜的",
+   "ro": "tăcute",
+   "ca": "silencioses"
+  },
+  "ne": {
+   "en": "not",
+   "fr": "ne",
+   "es": "no",
+   "pt": "não",
+   "it": "non",
+   "zh-Hans": "不",
+   "zh-Hant": "不",
+   "ro": "nu",
+   "ca": "no"
+  },
+  "voyais": {
+   "en": "saw",
+   "fr": "voyais",
+   "es": "veía",
+   "pt": "via",
+   "it": "vedevo",
+   "zh-Hans": "看见",
+   "zh-Hant": "看見",
+   "ro": "vedeam",
+   "ca": "veia"
+  },
+  "presque": {
+   "en": "almost",
+   "fr": "presque",
+   "es": "casi",
+   "pt": "quase",
+   "it": "quasi",
+   "zh-Hans": "几乎",
+   "zh-Hant": "幾乎",
+   "ro": "aproape",
+   "ca": "gairebé"
+  },
+  "jamais": {
+   "en": "never",
+   "fr": "jamais",
+   "es": "nunca",
+   "pt": "nunca",
+   "it": "mai",
+   "zh-Hans": "从不",
+   "zh-Hant": "從不",
+   "ro": "niciodată",
+   "ca": "mai"
+  },
+  "personne": {
+   "en": "anyone",
+   "fr": "personne",
+   "es": "nadie",
+   "pt": "ninguém",
+   "it": "nessuno",
+   "zh-Hans": "任何人",
+   "zh-Hant": "任何人",
+   "ro": "nimeni",
+   "ca": "ningú"
+  },
+  "à": {
+   "en": "to",
+   "fr": "à",
+   "es": "a",
+   "pt": "a",
+   "it": "a",
+   "zh-Hans": "到",
+   "zh-Hant": "到",
+   "ro": "la",
+   "ca": "a"
+  },
+  "part": {
+   "en": "except",
+   "fr": "part",
+   "es": "excepto",
+   "pt": "exceto",
+   "it": "eccetto",
+   "zh-Hans": "除了",
+   "zh-Hant": "除了",
+   "ro": "cu excepția",
+   "ca": "excepte"
+  },
+  "un": {
+   "en": "a",
+   "fr": "un",
+   "es": "un",
+   "pt": "um",
+   "it": "un",
+   "zh-Hans": "一个",
+   "zh-Hant": "一個",
+   "ro": "un",
+   "ca": "un"
+  },
+  "moine": {
+   "en": "monk",
+   "fr": "moine",
+   "es": "monje",
+   "pt": "monge",
+   "it": "monaco",
+   "zh-Hans": "僧侣",
+   "zh-Hant": "僧侶",
+   "ro": "călugăr",
+   "ca": "monjo"
+  },
+  "qui": {
+   "en": "who",
+   "fr": "qui",
+   "es": "que",
+   "pt": "que",
+   "it": "che",
+   "zh-Hans": "谁",
+   "zh-Hant": "誰",
+   "ro": "care",
+   "ca": "que"
+  },
+  "cherchait": {
+   "en": "was looking for",
+   "fr": "cherchait",
+   "es": "buscaba",
+   "pt": "procurava",
+   "it": "cercava",
+   "zh-Hans": "寻找",
+   "zh-Hant": "尋找",
+   "ro": "căuta",
+   "ca": "buscava"
+  },
+  "herbes": {
+   "en": "herbs",
+   "fr": "herbes",
+   "es": "hierbas",
+   "pt": "ervas",
+   "it": "erbe",
+   "zh-Hans": "草药",
+   "zh-Hant": "草藥",
+   "ro": "ierburi",
+   "ca": "herbes"
+  },
+  "rares": {
+   "en": "rare",
+   "fr": "rares",
+   "es": "raras",
+   "pt": "raras",
+   "it": "rare",
+   "zh-Hans": "稀有的",
+   "zh-Hant": "稀有的",
+   "ro": "rare",
+   "ca": "rares"
+  },
+  "ou": {
+   "en": "or",
+   "fr": "ou",
+   "es": "o",
+   "pt": "ou",
+   "it": "o",
+   "zh-Hans": "或",
+   "zh-Hant": "或",
+   "ro": "sau",
+   "ca": "o"
+  },
+  "marchand": {
+   "en": "merchant",
+   "fr": "marchand",
+   "es": "comerciante",
+   "pt": "comerciante",
+   "it": "mercante",
+   "zh-Hans": "商人",
+   "zh-Hant": "商人",
+   "ro": "negustor",
+   "ca": "mercader"
+  },
+  "mules": {
+   "en": "mules",
+   "fr": "mules",
+   "es": "mulas",
+   "pt": "mulas",
+   "it": "muli",
+   "zh-Hans": "骡子",
+   "zh-Hant": "騾子",
+   "ro": "catâri",
+   "ca": "mules"
+  },
+  "passait": {
+   "en": "was passing",
+   "fr": "passait",
+   "es": "pasaba",
+   "pt": "passava",
+   "it": "passava",
+   "zh-Hans": "经过",
+   "zh-Hant": "經過",
+   "ro": "trecea",
+   "ca": "passava"
+  },
+  "par": {
+   "en": "by",
+   "fr": "par",
+   "es": "por",
+   "pt": "por",
+   "it": "per",
+   "zh-Hans": "偶然",
+   "zh-Hant": "偶然",
+   "ro": "din",
+   "ca": "per"
+  },
+  "hasard": {
+   "en": "chance",
+   "fr": "hasard",
+   "es": "casualidad",
+   "pt": "acaso",
+   "it": "caso",
+   "zh-Hans": "偶然",
+   "zh-Hant": "偶然",
+   "ro": "întâmplare",
+   "ca": "atzar"
+  },
+  "dans": {
+   "en": "in",
+   "fr": "dans",
+   "es": "en",
+   "pt": "em",
+   "it": "in",
+   "zh-Hans": "在...里",
+   "zh-Hant": "在...裡",
+   "ro": "în",
+   "ca": "en"
+  },
+  "le": {
+   "en": "the",
+   "fr": "le",
+   "es": "el",
+   "pt": "o",
+   "it": "il",
+   "zh-Hans": "这",
+   "zh-Hant": "這",
+   "ro": "articol hotărât",
+   "ca": "el"
+  },
+  "village": {
+   "en": "village",
+   "fr": "village",
+   "es": "pueblo",
+   "pt": "aldeia",
+   "it": "villaggio",
+   "zh-Hans": "村庄",
+   "zh-Hant": "村莊",
+   "ro": "sat",
+   "ca": "poble"
+  },
+  "les": {
+   "en": "the",
+   "fr": "les",
+   "es": "los/las",
+   "pt": "os/as",
+   "it": "i/le",
+   "zh-Hans": "这些",
+   "zh-Hant": "這些",
+   "ro": "articol hotărât",
+   "ca": "els/les"
+  },
+  "gens": {
+   "en": "people",
+   "fr": "gens",
+   "es": "gente",
+   "pt": "pessoas",
+   "it": "persone",
+   "zh-Hans": "人们",
+   "zh-Hant": "人們",
+   "ro": "oameni",
+   "ca": "gent"
+  },
+  "simples": {
+   "en": "simple",
+   "fr": "simples",
+   "es": "sencillos",
+   "pt": "simples",
+   "it": "semplici",
+   "zh-Hans": "简单的",
+   "zh-Hant": "簡單的",
+   "ro": "simpli",
+   "ca": "simples"
+  },
+  "disaient": {
+   "en": "said",
+   "fr": "disaient",
+   "es": "decían",
+   "pt": "diziam",
+   "it": "dicevano",
+   "zh-Hans": "说",
+   "zh-Hant": "說",
+   "ro": "spuneau",
+   "ca": "deien"
+  },
+  "que": {
+   "en": "that",
+   "fr": "que",
+   "es": "que",
+   "pt": "que",
+   "it": "che",
+   "zh-Hans": "那",
+   "zh-Hant": "那",
+   "ro": "că",
+   "ca": "que"
+  },
+  "solitude": {
+   "en": "loneliness",
+   "fr": "solitude",
+   "es": "soledad",
+   "pt": "solidão",
+   "it": "solitudine",
+   "zh-Hans": "孤独",
+   "zh-Hant": "孤獨",
+   "ro": "singurătate",
+   "ca": "solitud"
+  },
+  "finissait": {
+   "en": "ended up",
+   "fr": "finissait",
+   "es": "terminaba",
+   "pt": "acabava",
+   "it": "finiva",
+   "zh-Hans": "最终",
+   "zh-Hant": "最終",
+   "ro": "ajungea",
+   "ca": "acabava"
+  },
+  "rendre": {
+   "en": "to make",
+   "fr": "rendre",
+   "es": "volver",
+   "pt": "tornar",
+   "it": "rendere",
+   "zh-Hans": "使",
+   "zh-Hant": "使",
+   "ro": "a face",
+   "ca": "fer"
+  },
+  "bergers": {
+   "en": "shepherds",
+   "fr": "bergers",
+   "es": "pastores",
+   "pt": "pastores",
+   "it": "pastori",
+   "zh-Hans": "牧羊人",
+   "zh-Hant": "牧羊人",
+   "ro": "păstori",
+   "ca": "pastors"
+  },
+  "peu": {
+   "en": "a little",
+   "fr": "peu",
+   "es": "un poco",
+   "pt": "um pouco",
+   "it": "un po'",
+   "zh-Hans": "一点",
+   "zh-Hant": "一點",
+   "ro": "puțin",
+   "ca": "una mica"
+  },
+  "étranges": {
+   "en": "strange",
+   "fr": "étranges",
+   "es": "extraños",
+   "pt": "estranhos",
+   "it": "strani",
+   "zh-Hans": "奇怪的",
+   "zh-Hant": "奇怪的",
+   "ro": "ciudați",
+   "ca": "estranys"
+  },
+  "ce": {
+   "en": "this",
+   "fr": "ce",
+   "es": "esto",
+   "pt": "isto",
+   "it": "questo",
+   "zh-Hans": "这",
+   "zh-Hant": "這",
+   "ro": "aceasta",
+   "ca": "això"
+  },
+  "n'": {
+   "en": "not",
+   "fr": "n'",
+   "es": "no",
+   "pt": "não",
+   "it": "non",
+   "zh-Hans": "不",
+   "zh-Hant": "不",
+   "ro": "nu",
+   "ca": "no"
+  },
+  "était": {
+   "en": "was",
+   "fr": "était",
+   "es": "era",
+   "pt": "era",
+   "it": "era",
+   "zh-Hans": "是",
+   "zh-Hant": "是",
+   "ro": "era",
+   "ca": "era"
+  },
+  "pas": {
+   "en": "not",
+   "fr": "pas",
+   "es": "no",
+   "pt": "não",
+   "it": "non",
+   "zh-Hans": "不",
+   "zh-Hant": "不",
+   "ro": "nu",
+   "ca": "no"
+  },
+  "vraiment": {
+   "en": "really",
+   "fr": "vraiment",
+   "es": "realmente",
+   "pt": "realmente",
+   "it": "davvero",
+   "zh-Hans": "真正地",
+   "zh-Hant": "真正地",
+   "ro": "cu adevărat",
+   "ca": "realment"
+  },
+  "vrai": {
+   "en": "true",
+   "fr": "vrai",
+   "es": "verdadero",
+   "pt": "verdadeiro",
+   "it": "vero",
+   "zh-Hans": "真的",
+   "zh-Hant": "真的",
+   "ro": "adevărat",
+   "ca": "veritat"
+  },
+  "mais": {
+   "en": "but",
+   "fr": "mais",
+   "es": "pero",
+   "pt": "mas",
+   "it": "ma",
+   "zh-Hans": "但是",
+   "zh-Hant": "但是",
+   "ro": "dar",
+   "ca": "però"
+  },
+  "comprenais": {
+   "en": "understood",
+   "fr": "comprenais",
+   "es": "comprendía",
+   "pt": "compreendia",
+   "it": "capivo",
+   "zh-Hans": "理解",
+   "zh-Hant": "理解",
+   "ro": "înțelegeam",
+   "ca": "comprenia"
+  },
+  "pourquoi": {
+   "en": "why",
+   "fr": "pourquoi",
+   "es": "por qué",
+   "pt": "por que",
+   "it": "perché",
+   "zh-Hans": "为什么",
+   "zh-Hant": "為什麼",
+   "ro": "de ce",
+   "ca": "per què"
+  },
+  "habitants": {
+   "en": "inhabitants",
+   "fr": "habitants",
+   "es": "habitantes",
+   "pt": "habitantes",
+   "it": "abitanti",
+   "zh-Hans": "居民",
+   "zh-Hant": "居民",
+   "ro": "locuitori",
+   "ca": "habitants"
+  },
+  "plaine": {
+   "en": "plain",
+   "fr": "plaine",
+   "es": "llanura",
+   "pt": "planície",
+   "it": "pianura",
+   "zh-Hans": "平原",
+   "zh-Hant": "平原",
+   "ro": "câmpie",
+   "ca": "plana"
+  },
+  "pensaient": {
+   "en": "thought",
+   "fr": "pensaient",
+   "es": "pensaban",
+   "pt": "pensavam",
+   "it": "pensavano",
+   "zh-Hans": "认为",
+   "zh-Hant": "認為",
+   "ro": "gândeau",
+   "ca": "pensaven"
+  },
+  "ainsi": {
+   "en": "thus",
+   "fr": "ainsi",
+   "es": "así",
+   "pt": "assim",
+   "it": "così",
+   "zh-Hans": "如此",
+   "zh-Hant": "如此",
+   "ro": "astfel",
+   "ca": "així"
+  },
+  "grand": {
+   "en": "big",
+   "fr": "grand",
+   "es": "gran",
+   "pt": "grande",
+   "it": "grande",
+   "zh-Hans": "大的",
+   "zh-Hant": "大的",
+   "ro": "mare",
+   "ca": "gran"
+  },
+  "silence": {
+   "en": "silence",
+   "fr": "silence",
+   "es": "silencio",
+   "pt": "silêncio",
+   "it": "silenzio",
+   "zh-Hans": "寂静",
+   "zh-Hant": "寂靜",
+   "ro": "tăcere",
+   "ca": "silenci"
+  },
+  "on": {
+   "en": "one",
+   "fr": "on",
+   "es": "se",
+   "pt": "a gente",
+   "it": "si",
+   "zh-Hans": "人们",
+   "zh-Hant": "人們",
+   "ro": "se",
+   "ca": "es"
+  },
+  "apprenait": {
+   "en": "was learning",
+   "fr": "apprenait",
+   "es": "aprendía",
+   "pt": "aprendia",
+   "it": "imparava",
+   "zh-Hans": "学习",
+   "zh-Hant": "學習",
+   "ro": "învăța",
+   "ca": "aprenia"
+  },
+  "vite": {
+   "en": "quickly",
+   "fr": "vite",
+   "es": "rápidamente",
+   "pt": "rapidamente",
+   "it": "rapidamente",
+   "zh-Hans": "很快",
+   "zh-Hant": "很快",
+   "ro": "repede",
+   "ca": "ràpidament"
+  },
+  "aimer": {
+   "en": "to love",
+   "fr": "aimer",
+   "es": "amar",
+   "pt": "amar",
+   "it": "amare",
+   "zh-Hans": "爱",
+   "zh-Hant": "愛",
+   "ro": "a iubi",
+   "ca": "estimar"
+  },
+  "ses": {
+   "en": "his/her/its",
+   "fr": "ses",
+   "es": "sus",
+   "pt": "seus/suas",
+   "it": "suoi/sue",
+   "zh-Hans": "他的/她的/它的",
+   "zh-Hant": "他的/她的/它的",
+   "ro": "sale",
+   "ca": "seus/seves"
+  },
+  "observer": {
+   "en": "to observe",
+   "fr": "observer",
+   "es": "observar",
+   "pt": "observar",
+   "it": "osservare",
+   "zh-Hans": "观察",
+   "zh-Hant": "觀察",
+   "ro": "a observa",
+   "ca": "observar"
+  },
+  "ciel": {
+   "en": "sky",
+   "fr": "ciel",
+   "es": "cielo",
+   "pt": "céu",
+   "it": "cielo",
+   "zh-Hans": "天空",
+   "zh-Hant": "天空",
+   "ro": "cer",
+   "ca": "cel"
+  },
+  "jour": {
+   "en": "day",
+   "fr": "jour",
+   "es": "día",
+   "pt": "dia",
+   "it": "giorno",
+   "zh-Hans": "白天",
+   "zh-Hant": "白天",
+   "ro": "zi",
+   "ca": "dia"
+  },
+  "surveillais": {
+   "en": "was watching",
+   "fr": "surveillais",
+   "es": "vigilaba",
+   "pt": "vigiava",
+   "it": "sorvegliavo",
+   "zh-Hans": "看守",
+   "zh-Hant": "看守",
+   "ro": "supravegheam",
+   "ca": "vigilava"
+  },
+  "j'": {
+   "en": "I",
+   "fr": "j'",
+   "es": "yo",
+   "pt": "eu",
+   "it": "io",
+   "zh-Hans": "我",
+   "zh-Hant": "我",
+   "ro": "eu",
+   "ca": "jo"
+  },
+  "écoutais": {
+   "en": "was listening",
+   "fr": "écoutais",
+   "es": "escuchaba",
+   "pt": "escutava",
+   "it": "ascoltavo",
+   "zh-Hans": "听",
+   "zh-Hant": "聽",
+   "ro": "ascultam",
+   "ca": "escoltava"
+  },
+  "vent": {
+   "en": "wind",
+   "fr": "vent",
+   "es": "viento",
+   "pt": "vento",
+   "it": "vento",
+   "zh-Hans": "风",
+   "zh-Hant": "風",
+   "ro": "vânt",
+   "ca": "vent"
+  },
+  "souffler": {
+   "en": "to blow",
+   "fr": "souffler",
+   "es": "soplar",
+   "pt": "soprar",
+   "it": "soffiare",
+   "zh-Hans": "吹",
+   "zh-Hant": "吹",
+   "ro": "a sufla",
+   "ca": "bufar"
+  },
+  "doucement": {
+   "en": "gently",
+   "fr": "doucement",
+   "es": "suavemente",
+   "pt": "suavemente",
+   "it": "dolcemente",
+   "zh-Hans": "轻轻地",
+   "zh-Hant": "輕輕地",
+   "ro": "încet",
+   "ca": "suaument"
+  },
+  "entre": {
+   "en": "between",
+   "fr": "entre",
+   "es": "entre",
+   "pt": "entre",
+   "it": "tra",
+   "zh-Hans": "在……之间",
+   "zh-Hant": "在……之間",
+   "ro": "între",
+   "ca": "entre"
+  },
+  "pins": {
+   "en": "pine trees",
+   "fr": "pins",
+   "es": "pinos",
+   "pt": "pinheiros",
+   "it": "pini",
+   "zh-Hans": "松树",
+   "zh-Hant": "松樹",
+   "ro": "pini",
+   "ca": "pins"
+  },
+  "soir": {
+   "en": "evening",
+   "fr": "soir",
+   "es": "tarde/noche",
+   "pt": "noite",
+   "it": "sera",
+   "zh-Hans": "晚上",
+   "zh-Hant": "晚上",
+   "ro": "seară",
+   "ca": "vespre"
+  },
+  "préparais": {
+   "en": "was preparing",
+   "fr": "préparais",
+   "es": "preparaba",
+   "pt": "preparava",
+   "it": "preparavo",
+   "zh-Hans": "准备",
+   "zh-Hant": "準備",
+   "ro": "pregăteam",
+   "ca": "preparava"
+  },
+  "repas": {
+   "en": "meal",
+   "fr": "repas",
+   "es": "comida",
+   "pt": "refeição",
+   "it": "pasto",
+   "zh-Hans": "餐",
+   "zh-Hant": "餐",
+   "ro": "masă",
+   "ca": "àpat"
+  },
+  "regardais": {
+   "en": "was watching",
+   "fr": "regardais",
+   "es": "miraba",
+   "pt": "olhava",
+   "it": "guardavo",
+   "zh-Hans": "看",
+   "zh-Hant": "看",
+   "ro": "priveam",
+   "ca": "mirava"
+  },
+  "soleil": {
+   "en": "sun",
+   "fr": "soleil",
+   "es": "sol",
+   "pt": "sol",
+   "it": "sole",
+   "zh-Hans": "太阳",
+   "zh-Hant": "太陽",
+   "ro": "soare",
+   "ca": "sol"
+  },
+  "disparaître": {
+   "en": "to disappear",
+   "fr": "disparaître",
+   "es": "desaparecer",
+   "pt": "desaparecer",
+   "it": "scomparire",
+   "zh-Hans": "消失",
+   "zh-Hant": "消失",
+   "ro": "a dispărea",
+   "ca": "desaparèixer"
+  },
+  "derrière": {
+   "en": "behind",
+   "fr": "derrière",
+   "es": "detrás de",
+   "pt": "atrás de",
+   "it": "dietro",
+   "zh-Hans": "在……后面",
+   "zh-Hant": "在……後面",
+   "ro": "în spatele",
+   "ca": "darrere"
+  },
+  "collines": {
+   "en": "hills",
+   "fr": "collines",
+   "es": "colinas",
+   "pt": "colinas",
+   "it": "colline",
+   "zh-Hans": "山丘",
+   "zh-Hant": "山丘",
+   "ro": "dealuri",
+   "ca": "turons"
+  },
+  "jours": {
+   "en": "days",
+   "fr": "jours",
+   "es": "días",
+   "pt": "dias",
+   "it": "giorni",
+   "zh-Hans": "日子",
+   "zh-Hant": "日子",
+   "ro": "zile",
+   "ca": "dies"
+  },
+  "se": {
+   "en": "themselves",
+   "fr": "se",
+   "es": "se",
+   "pt": "se",
+   "it": "si",
+   "zh-Hans": "互相",
+   "zh-Hant": "互相",
+   "ro": "se",
+   "ca": "es"
+  },
+  "ressemblaient": {
+   "en": "resembled",
+   "fr": "ressemblaient",
+   "es": "se parecían",
+   "pt": "se pareciam",
+   "it": "si somigliavano",
+   "zh-Hans": "相似",
+   "zh-Hant": "相似",
+   "ro": "se asemănau",
+   "ca": "s'assemblaven"
+  },
+  "tous": {
+   "en": "all",
+   "fr": "tous",
+   "es": "todos",
+   "pt": "todos",
+   "it": "tutti",
+   "zh-Hans": "所有",
+   "zh-Hant": "所有",
+   "ro": "toți",
+   "ca": "tots"
+  },
+  "lents": {
+   "en": "slow",
+   "fr": "lents",
+   "es": "lentos",
+   "pt": "lentos",
+   "it": "lenti",
+   "zh-Hans": "缓慢的",
+   "zh-Hant": "緩慢的",
+   "ro": "lenți",
+   "ca": "lents"
+  },
+  "paisibles": {
+   "en": "peaceful",
+   "fr": "paisibles",
+   "es": "pacíficos",
+   "pt": "pacíficos",
+   "it": "pacifici",
+   "zh-Hans": "平静的",
+   "zh-Hant": "平靜的",
+   "ro": "pașnici",
+   "ca": "pacífics"
+  },
+  "aimais": {
+   "en": "loved",
+   "fr": "aimais",
+   "es": "amaba",
+   "pt": "amava",
+   "it": "amavo",
+   "zh-Hans": "爱",
+   "zh-Hant": "愛",
+   "ro": "iubeam",
+   "ca": "estimava"
+  },
+  "pourtant": {
+   "en": "however",
+   "fr": "pourtant",
+   "es": "sin embargo",
+   "pt": "no entanto",
+   "it": "tuttavia",
+   "zh-Hans": "然而",
+   "zh-Hant": "然而",
+   "ro": "totuși",
+   "ca": "però"
+  },
+  "cette": {
+   "en": "this",
+   "fr": "cette",
+   "es": "esta",
+   "pt": "esta",
+   "it": "questa",
+   "zh-Hans": "这个",
+   "zh-Hant": "這個",
+   "ro": "această",
+   "ca": "aquesta"
+  },
+  "vie": {
+   "en": "life",
+   "fr": "vie",
+   "es": "vida",
+   "pt": "vida",
+   "it": "vita",
+   "zh-Hans": "生活",
+   "zh-Hant": "生活",
+   "ro": "viață",
+   "ca": "vida"
+  },
+  "simple": {
+   "en": "simple",
+   "fr": "simple",
+   "es": "simple",
+   "pt": "simples",
+   "it": "semplice",
+   "zh-Hans": "简单的",
+   "zh-Hant": "簡單的",
+   "ro": "simplă",
+   "ca": "simple"
+  },
+  "malgré": {
+   "en": "despite",
+   "fr": "malgré",
+   "es": "a pesar de",
+   "pt": "apesar de",
+   "it": "nonostante",
+   "zh-Hans": "尽管",
+   "zh-Hant": "儘管",
+   "ro": "în ciuda",
+   "ca": "malgrat"
+  },
+  "quinze": {
+   "en": "fifteen",
+   "fr": "quinze",
+   "es": "quince",
+   "pt": "quinze",
+   "it": "quindici",
+   "zh-Hans": "十五",
+   "zh-Hant": "十五",
+   "ro": "cincisprezece",
+   "ca": "quinze"
+  },
+  "m'": {
+   "en": "me",
+   "fr": "m'",
+   "es": "me",
+   "pt": "me",
+   "it": "mi",
+   "zh-Hans": "我",
+   "zh-Hant": "我",
+   "ro": "îmi",
+   "ca": "em"
+  },
+  "apportait": {
+   "en": "brought",
+   "fr": "apportait",
+   "es": "traía",
+   "pt": "trazia",
+   "it": "portava",
+   "zh-Hans": "带来",
+   "zh-Hant": "帶來",
+   "ro": "aducea",
+   "ca": "portava"
+  },
+  "provisions": {
+   "en": "supplies",
+   "fr": "provisions",
+   "es": "provisiones",
+   "pt": "provisões",
+   "it": "provviste",
+   "zh-Hans": "补给",
+   "zh-Hant": "補給",
+   "ro": "provizii",
+   "ca": "queviures"
+  },
+  "depuis": {
+   "en": "from",
+   "fr": "depuis",
+   "es": "desde",
+   "pt": "desde",
+   "it": "da",
+   "zh-Hans": "从",
+   "zh-Hant": "從",
+   "ro": "de la",
+   "ca": "des de"
+  },
+  "ferme": {
+   "en": "farm",
+   "fr": "ferme",
+   "es": "granja",
+   "pt": "fazenda",
+   "it": "fattoria",
+   "zh-Hans": "农场",
+   "zh-Hant": "農場",
+   "ro": "fermă",
+   "ca": "granja"
+  },
+  "tout": {
+   "en": "all",
+   "fr": "tout",
+   "es": "todo",
+   "pt": "todo",
+   "it": "tutto",
+   "zh-Hans": "所有",
+   "zh-Hant": "所有",
+   "ro": "tot",
+   "ca": "tot"
+  },
+  "en": {
+   "en": "in",
+   "fr": "en",
+   "es": "en",
+   "pt": "em",
+   "it": "in",
+   "zh-Hans": "在",
+   "zh-Hant": "在",
+   "ro": "în",
+   "ca": "en"
+  },
+  "bas": {
+   "en": "bottom",
+   "fr": "bas",
+   "es": "fondo",
+   "pt": "fundo",
+   "it": "fondo",
+   "zh-Hans": "底部",
+   "zh-Hant": "底部",
+   "ro": "fund",
+   "ca": "fons"
+  },
+  "vallée": {
+   "en": "valley",
+   "fr": "vallée",
+   "es": "valle",
+   "pt": "vale",
+   "it": "valle",
+   "zh-Hans": "山谷",
+   "zh-Hant": "山谷",
+   "ro": "vale",
+   "ca": "vall"
+  },
+  "mulet": {
+   "en": "mule",
+   "fr": "mulet",
+   "es": "mulo",
+   "pt": "mula",
+   "it": "mulo",
+   "zh-Hans": "骡子",
+   "zh-Hant": "騾子",
+   "ro": "catâr",
+   "ca": "mul"
+  },
+  "montait": {
+   "en": "was climbing",
+   "fr": "montait",
+   "es": "subía",
+   "pt": "subia",
+   "it": "saliva",
+   "zh-Hans": "正在爬",
+   "zh-Hant": "正在爬",
+   "ro": "urca",
+   "ca": "pujava"
+  },
+  "péniblement": {
+   "en": "painfully",
+   "fr": "péniblement",
+   "es": "penosamente",
+   "pt": "penosamente",
+   "it": "penosamente",
+   "zh-Hans": "艰难地",
+   "zh-Hant": "艱難地",
+   "ro": "anevoios",
+   "ca": "penosament"
+  },
+  "chemin": {
+   "en": "path",
+   "fr": "chemin",
+   "es": "camino",
+   "pt": "caminho",
+   "it": "sentiero",
+   "zh-Hans": "小路",
+   "zh-Hant": "小路",
+   "ro": "drum",
+   "ca": "camí"
+  },
+  "chargé": {
+   "en": "loaded",
+   "fr": "chargé",
+   "es": "cargado",
+   "pt": "carregado",
+   "it": "carico",
+   "zh-Hans": "装载的",
+   "zh-Hant": "裝載的",
+   "ro": "încărcat",
+   "ca": "carregat"
+  },
+  "pain": {
+   "en": "bread",
+   "fr": "pain",
+   "es": "pan",
+   "pt": "pão",
+   "it": "pane",
+   "zh-Hans": "面包",
+   "zh-Hant": "麵包",
+   "ro": "pâine",
+   "ca": "pa"
+  },
+  "viande": {
+   "en": "meat",
+   "fr": "viande",
+   "es": "carne",
+   "pt": "carne",
+   "it": "carne",
+   "zh-Hans": "肉",
+   "zh-Hant": "肉",
+   "ro": "carne",
+   "ca": "carn"
+  },
+  "salée": {
+   "en": "salted",
+   "fr": "salée",
+   "es": "salada",
+   "pt": "salgada",
+   "it": "salata",
+   "zh-Hans": "咸的",
+   "zh-Hant": "鹹的",
+   "ro": "sărată",
+   "ca": "salada"
+  },
+  "vin": {
+   "en": "wine",
+   "fr": "vin",
+   "es": "vino",
+   "pt": "vinho",
+   "it": "vino",
+   "zh-Hans": "葡萄酒",
+   "zh-Hant": "葡萄酒",
+   "ro": "vin",
+   "ca": "vi"
+  },
+  "parfois": {
+   "en": "sometimes",
+   "fr": "parfois",
+   "es": "a veces",
+   "pt": "às vezes",
+   "it": "a volte",
+   "zh-Hans": "有时",
+   "zh-Hant": "有時",
+   "ro": "uneori",
+   "ca": "de vegades"
+  },
+  "c'": {
+   "en": "it",
+   "fr": "c'",
+   "es": "lo",
+   "pt": "o",
+   "it": "lo",
+   "zh-Hans": "它",
+   "zh-Hant": "它",
+   "ro": "îl",
+   "ca": "ho"
+  },
+  "jeune": {
+   "en": "young",
+   "fr": "jeune",
+   "es": "joven",
+   "pt": "jovem",
+   "it": "giovane",
+   "zh-Hans": "年轻的",
+   "zh-Hant": "年輕的",
+   "ro": "tânăr",
+   "ca": "jove"
+  },
+  "miaro": {
+   "en": "Miaro",
+   "fr": "Miaro",
+   "es": "Miaro",
+   "pt": "Miaro",
+   "it": "Miaro",
+   "zh-Hans": "米亚罗",
+   "zh-Hant": "米亞羅",
+   "ro": "Miaro",
+   "ca": "Miaro"
+  },
+  "conduisait": {
+   "en": "was leading",
+   "fr": "conduisait",
+   "es": "conducía",
+   "pt": "conduzia",
+   "it": "conduceva",
+   "zh-Hans": "正在带领",
+   "zh-Hant": "正在帶領",
+   "ro": "conducea",
+   "ca": "conduïa"
+  },
+  "une": {
+   "en": "a",
+   "fr": "une",
+   "es": "una",
+   "pt": "uma",
+   "it": "una",
+   "zh-Hans": "一个",
+   "zh-Hant": "一個",
+   "ro": "o",
+   "ca": "una"
+  },
+  "vieille": {
+   "en": "old",
+   "fr": "vieille",
+   "es": "vieja",
+   "pt": "velha",
+   "it": "vecchia",
+   "zh-Hans": "老的",
+   "zh-Hant": "老的",
+   "ro": "bătrână",
+   "ca": "vella"
+  },
+  "tante": {
+   "en": "aunt",
+   "fr": "tante",
+   "es": "tía",
+   "pt": "tia",
+   "it": "zia",
+   "zh-Hans": "阿姨",
+   "zh-Hant": "阿姨",
+   "ro": "mătușă",
+   "ca": "tia"
+  },
+  "qu'": {
+   "en": "that",
+   "fr": "qu'",
+   "es": "que",
+   "pt": "que",
+   "it": "che",
+   "zh-Hans": "那",
+   "zh-Hant": "那",
+   "ro": "că",
+   "ca": "que"
+  },
+  "appelait": {
+   "en": "called",
+   "fr": "appelait",
+   "es": "llamaba",
+   "pt": "chamava",
+   "it": "chiamava",
+   "zh-Hans": "称呼",
+   "zh-Hant": "稱呼",
+   "ro": "numea",
+   "ca": "anomenava"
+  },
+  "norade": {
+   "en": "Norade",
+   "fr": "Norade",
+   "es": "Norade",
+   "pt": "Norade",
+   "it": "Norade",
+   "zh-Hans": "诺拉德",
+   "zh-Hant": "諾拉德",
+   "ro": "Norade",
+   "ca": "Norade"
+  },
+  "ravitaillement": {
+   "en": "supply",
+   "fr": "ravitaillement",
+   "es": "suministro",
+   "pt": "abastecimento",
+   "it": "rifornimento",
+   "zh-Hans": "补给",
+   "zh-Hant": "補給",
+   "ro": "aprovizionare",
+   "ca": "proveïment"
+  },
+  "attendais": {
+   "en": "was waiting",
+   "fr": "attendais",
+   "es": "esperaba",
+   "pt": "esperava",
+   "it": "aspettavo",
+   "zh-Hans": "正在等待",
+   "zh-Hant": "正在等待",
+   "ro": "așteptam",
+   "ca": "esperava"
+  },
+  "toujours": {
+   "en": "always",
+   "fr": "toujours",
+   "es": "siempre",
+   "pt": "sempre",
+   "it": "sempre",
+   "zh-Hans": "总是",
+   "zh-Hant": "總是",
+   "ro": "întotdeauna",
+   "ca": "sempre"
+  },
+  "avec": {
+   "en": "with",
+   "fr": "avec",
+   "es": "con",
+   "pt": "com",
+   "it": "con",
+   "zh-Hans": "带着",
+   "zh-Hant": "帶著",
+   "ro": "cu",
+   "ca": "amb"
+  },
+  "impatience": {
+   "en": "impatience",
+   "fr": "impatience",
+   "es": "impaciencia",
+   "pt": "impaciência",
+   "it": "impazienza",
+   "zh-Hans": "不耐烦",
+   "zh-Hant": "不耐煩",
+   "ro": "nerăbdare",
+   "ca": "impaciència"
+  },
+  "nouvelles": {
+   "en": "news",
+   "fr": "nouvelles",
+   "es": "noticias",
+   "pt": "notícias",
+   "it": "notizie",
+   "zh-Hans": "消息",
+   "zh-Hant": "消息",
+   "ro": "știri",
+   "ca": "notícies"
+  },
+  "voulais": {
+   "en": "wanted",
+   "fr": "voulais",
+   "es": "quería",
+   "pt": "queria",
+   "it": "volevo",
+   "zh-Hans": "想要",
+   "zh-Hant": "想要",
+   "ro": "voiam",
+   "ca": "volia"
+  },
+  "surtout": {
+   "en": "especially",
+   "fr": "surtout",
+   "es": "sobre todo",
+   "pt": "sobretudo",
+   "it": "soprattutto",
+   "zh-Hans": "尤其",
+   "zh-Hant": "尤其",
+   "ro": "mai ales",
+   "ca": "sobretot"
+  },
+  "savoir": {
+   "en": "to know",
+   "fr": "savoir",
+   "es": "saber",
+   "pt": "saber",
+   "it": "sapere",
+   "zh-Hans": "知道",
+   "zh-Hant": "知道",
+   "ro": "ști",
+   "ca": "saber"
+  },
+  "comment": {
+   "en": "how",
+   "fr": "comment",
+   "es": "cómo",
+   "pt": "como",
+   "it": "come",
+   "zh-Hans": "如何",
+   "zh-Hant": "如何",
+   "ro": "cum",
+   "ca": "com"
+  },
+  "allait": {
+   "en": "was doing",
+   "fr": "allait",
+   "es": "iba",
+   "pt": "ia",
+   "it": "andava",
+   "zh-Hans": "过得如何",
+   "zh-Hant": "過得如何",
+   "ro": "mergea",
+   "ca": "anava"
+  },
+  "stéphanette": {
+   "en": "Stéphanette",
+   "fr": "Stéphanette",
+   "es": "Stéphanette",
+   "pt": "Stéphanette",
+   "it": "Stéphanette",
+   "zh-Hans": "斯特凡内特",
+   "zh-Hant": "斯特凡內特",
+   "ro": "Stéphanette",
+   "ca": "Stéphanette"
+  },
+  "fille": {
+   "en": "daughter",
+   "fr": "fille",
+   "es": "hija",
+   "pt": "filha",
+   "it": "figlia",
+   "zh-Hans": "女儿",
+   "zh-Hant": "女兒",
+   "ro": "fiică",
+   "ca": "filla"
+  },
+  "maîtres": {
+   "en": "masters",
+   "fr": "maîtres",
+   "es": "amos",
+   "pt": "patrões",
+   "it": "padroni",
+   "zh-Hans": "主人",
+   "zh-Hant": "主人",
+   "ro": "stăpâni",
+   "ca": "amos"
+  },
+  "dont": {
+   "en": "of whom",
+   "fr": "dont",
+   "es": "de quien",
+   "pt": "de quem",
+   "it": "di cui",
+   "zh-Hans": "其中",
+   "zh-Hant": "其中",
+   "ro": "al cărui",
+   "ca": "de qui"
+  },
+  "étais": {
+   "en": "was",
+   "fr": "étais",
+   "es": "estaba",
+   "pt": "estava",
+   "it": "ero",
+   "zh-Hans": "是",
+   "zh-Hant": "是",
+   "ro": "eram",
+   "ca": "era"
+  },
+  "amoureux": {
+   "en": "in love",
+   "fr": "amoureux",
+   "es": "enamorado",
+   "pt": "apaixonado",
+   "it": "innamorato",
+   "zh-Hans": "爱上的",
+   "zh-Hant": "愛上的",
+   "ro": "îndrăgostit",
+   "ca": "enamorat"
+  },
+  "secret": {
+   "en": "secret",
+   "fr": "secret",
+   "es": "secreto",
+   "pt": "segredo",
+   "it": "segreto",
+   "zh-Hans": "秘密",
+   "zh-Hant": "秘密",
+   "ro": "secret",
+   "ca": "secret"
+  },
+  "disait-on": {
+   "en": "it was said",
+   "fr": "disait-on",
+   "es": "se decía",
+   "pt": "dizia-se",
+   "it": "si diceva",
+   "zh-Hans": "据说",
+   "zh-Hant": "據說",
+   "ro": "se spunea",
+   "ca": "es deia"
+  },
+  "plus": {
+   "en": "most",
+   "fr": "plus",
+   "es": "más",
+   "pt": "mais",
+   "it": "più",
+   "zh-Hans": "最",
+   "zh-Hant": "最",
+   "ro": "cel mai",
+   "ca": "més"
+  },
+  "jolie": {
+   "en": "pretty",
+   "fr": "jolie",
+   "es": "bonita",
+   "pt": "bonita",
+   "it": "carina",
+   "zh-Hans": "漂亮的",
+   "zh-Hant": "漂亮的",
+   "ro": "drăguță",
+   "ca": "bonica"
+  },
+  "pays": {
+   "en": "country",
+   "fr": "pays",
+   "es": "país",
+   "pt": "país",
+   "it": "paese",
+   "zh-Hans": "国家",
+   "zh-Hant": "國家",
+   "ro": "țară",
+   "ca": "país"
+  },
+  "rire": {
+   "en": "laugh",
+   "fr": "rire",
+   "es": "risa",
+   "pt": "riso",
+   "it": "risata",
+   "zh-Hans": "笑声",
+   "zh-Hant": "笑聲",
+   "ro": "râs",
+   "ca": "riure"
+  },
+  "clair": {
+   "en": "clear",
+   "fr": "clair",
+   "es": "claro",
+   "pt": "claro",
+   "it": "chiaro",
+   "zh-Hans": "清脆的",
+   "zh-Hant": "清脆的",
+   "ro": "clar",
+   "ca": "clar"
+  },
+  "joyeux": {
+   "en": "joyful",
+   "fr": "joyeux",
+   "es": "alegre",
+   "pt": "alegre",
+   "it": "gioioso",
+   "zh-Hans": "快乐的",
+   "zh-Hant": "快樂的",
+   "ro": "vesel",
+   "ca": "joiós"
+  },
+  "osais": {
+   "en": "dared",
+   "fr": "osais",
+   "es": "me atrevía",
+   "pt": "ousava",
+   "it": "osavo",
+   "zh-Hans": "敢",
+   "zh-Hant": "敢",
+   "ro": "îndrăzneam",
+   "ca": "gosava"
+  },
+  "lui": {
+   "en": "to her",
+   "fr": "lui",
+   "es": "le",
+   "pt": "lhe",
+   "it": "le",
+   "zh-Hans": "向她",
+   "zh-Hant": "向她",
+   "ro": "îi",
+   "ca": "li"
+  },
+  "avouer": {
+   "en": "confess",
+   "fr": "avouer",
+   "es": "confesar",
+   "pt": "confessar",
+   "it": "confessare",
+   "zh-Hans": "坦白",
+   "zh-Hant": "坦白",
+   "ro": "mărturisi",
+   "ca": "confessar"
+  },
+  "ressentais": {
+   "en": "felt",
+   "fr": "ressentais",
+   "es": "sentía",
+   "pt": "sentia",
+   "it": "sentivo",
+   "zh-Hans": "感受",
+   "zh-Hant": "感受",
+   "ro": "simțeam",
+   "ca": "sentia"
+  },
+  "car": {
+   "en": "because",
+   "fr": "car",
+   "es": "porque",
+   "pt": "porque",
+   "it": "perché",
+   "zh-Hans": "因为",
+   "zh-Hant": "因為",
+   "ro": "căci",
+   "ca": "perquè"
+  },
+  "berger": {
+   "en": "shepherd",
+   "fr": "berger",
+   "es": "pastor",
+   "pt": "pastor",
+   "it": "pastore",
+   "zh-Hans": "牧羊人",
+   "zh-Hant": "牧羊人",
+   "ro": "cioban",
+   "ca": "pastor"
+  },
+  "elle": {
+   "en": "she",
+   "fr": "elle",
+   "es": "ella",
+   "pt": "ela",
+   "it": "lei",
+   "zh-Hans": "她",
+   "zh-Hant": "她",
+   "ro": "ea",
+   "ca": "ella"
+  },
+  "venait": {
+   "en": "came",
+   "fr": "venait",
+   "es": "venía",
+   "pt": "vinha",
+   "it": "veniva",
+   "zh-Hans": "来",
+   "zh-Hant": "來",
+   "ro": "venea",
+   "ca": "venia"
+  },
+  "rarement": {
+   "en": "rarely",
+   "fr": "rarement",
+   "es": "raramente",
+   "pt": "raramente",
+   "it": "raramente",
+   "zh-Hans": "很少",
+   "zh-Hant": "很少",
+   "ro": "rar",
+   "ca": "rarament"
+  },
+  "elle-même": {
+   "en": "herself",
+   "fr": "elle-même",
+   "es": "ella misma",
+   "pt": "ela mesma",
+   "it": "lei stessa",
+   "zh-Hans": "她自己",
+   "zh-Hant": "她自己",
+   "ro": "ea însăși",
+   "ca": "ella mateixa"
+  },
+  "occupée": {
+   "en": "busy",
+   "fr": "occupée",
+   "es": "ocupada",
+   "pt": "ocupada",
+   "it": "occupata",
+   "zh-Hans": "忙碌的",
+   "zh-Hant": "忙碌的",
+   "ro": "ocupată",
+   "ca": "ocupada"
+  },
+  "fêtes": {
+   "en": "festivities",
+   "fr": "fêtes",
+   "es": "fiestas",
+   "pt": "festas",
+   "it": "feste",
+   "zh-Hans": "节日",
+   "zh-Hant": "節日",
+   "ro": "sărbători",
+   "ca": "festes"
+  },
+  "travaux": {
+   "en": "work",
+   "fr": "travaux",
+   "es": "trabajos",
+   "pt": "trabalhos",
+   "it": "lavori",
+   "zh-Hans": "工作",
+   "zh-Hant": "工作",
+   "ro": "lucrări",
+   "ca": "treballs"
+  },
+  "chaque": {
+   "en": "each",
+   "fr": "chaque",
+   "es": "cada",
+   "pt": "cada",
+   "it": "ogni",
+   "zh-Hans": "每",
+   "zh-Hant": "每",
+   "ro": "fiecare",
+   "ca": "cada"
+  },
+  "fois": {
+   "en": "time",
+   "fr": "fois",
+   "es": "vez",
+   "pt": "vez",
+   "it": "volta",
+   "zh-Hans": "次",
+   "zh-Hant": "次",
+   "ro": "dată",
+   "ca": "vegada"
+  },
+  "parlait": {
+   "en": "spoke",
+   "fr": "parlait",
+   "es": "hablaba",
+   "pt": "falava",
+   "it": "parlava",
+   "zh-Hans": "说话",
+   "zh-Hant": "說話",
+   "ro": "vorbea",
+   "ca": "parlava"
+  },
+  "d'": {
+   "en": "of",
+   "fr": "d'",
+   "es": "de",
+   "pt": "de",
+   "it": "di",
+   "zh-Hans": "的",
+   "zh-Hant": "的",
+   "ro": "lui",
+   "ca": "de"
+  },
+  "cœur": {
+   "en": "heart",
+   "fr": "cœur",
+   "es": "corazón",
+   "pt": "coração",
+   "it": "cuore",
+   "zh-Hans": "心脏",
+   "zh-Hant": "心臟",
+   "ro": "inimă",
+   "ca": "cor"
+  },
+  "battait": {
+   "en": "beat",
+   "fr": "battait",
+   "es": "latía",
+   "pt": "batia",
+   "it": "batteva",
+   "zh-Hans": "跳动",
+   "zh-Hant": "跳動",
+   "ro": "bătea",
+   "ca": "bategava"
+  },
+  "fort": {
+   "en": "hard",
+   "fr": "fort",
+   "es": "fuerte",
+   "pt": "forte",
+   "it": "forte",
+   "zh-Hans": "猛烈地",
+   "zh-Hant": "猛烈地",
+   "ro": "tare",
+   "ca": "fort"
+  },
+  "poitrine": {
+   "en": "chest",
+   "fr": "poitrine",
+   "es": "pecho",
+   "pt": "peito",
+   "it": "petto",
+   "zh-Hans": "胸膛",
+   "zh-Hant": "胸膛",
+   "ro": "piept",
+   "ca": "pit"
+  },
+  "comme": {
+   "en": "like",
+   "fr": "comme",
+   "es": "como",
+   "pt": "como",
+   "it": "come",
+   "zh-Hans": "像",
+   "zh-Hant": "像",
+   "ro": "ca",
+   "ca": "com"
+  },
+  "vraie": {
+   "en": "real",
+   "fr": "vraie",
+   "es": "verdadera",
+   "pt": "verdadeira",
+   "it": "vera",
+   "zh-Hans": "真正的",
+   "zh-Hant": "真正的",
+   "ro": "adevărată",
+   "ca": "veritable"
+  },
+  "fête": {
+   "en": "celebration",
+   "fr": "fête",
+   "es": "fiesta",
+   "pt": "festa",
+   "it": "festa",
+   "zh-Hans": "庆祝",
+   "zh-Hant": "慶祝",
+   "ro": "sărbătoare",
+   "ca": "festa"
+  },
+  "son": {
+   "en": "her",
+   "fr": "son",
+   "es": "su",
+   "pt": "seu",
+   "it": "il suo",
+   "zh-Hans": "她的",
+   "zh-Hant": "她的",
+   "ro": "său",
+   "ca": "seu"
+  },
+  "nom": {
+   "en": "name",
+   "fr": "nom",
+   "es": "nombre",
+   "pt": "nome",
+   "it": "nome",
+   "zh-Hans": "名字",
+   "zh-Hant": "名字",
+   "ro": "nume",
+   "ca": "nom"
+  },
+  "suffisait": {
+   "en": "was enough",
+   "fr": "suffisait",
+   "es": "bastaba",
+   "pt": "bastava",
+   "it": "bastava",
+   "zh-Hans": "足够",
+   "zh-Hant": "足夠",
+   "ro": "ajungea",
+   "ca": "prou"
+  },
+  "me": {
+   "en": "me",
+   "fr": "me",
+   "es": "me",
+   "pt": "me",
+   "it": "mi",
+   "zh-Hans": "我",
+   "zh-Hant": "我",
+   "ro": "mă",
+   "ca": "em"
+  },
+  "rêvais": {
+   "en": "dreamed",
+   "fr": "rêvais",
+   "es": "soñaba",
+   "pt": "sonhava",
+   "it": "sognavo",
+   "zh-Hans": "梦想",
+   "zh-Hant": "夢想",
+   "ro": "visam",
+   "ca": "somiava"
+  },
+  "bien": {
+   "en": "much",
+   "fr": "bien",
+   "es": "mucho",
+   "pt": "bem",
+   "it": "molto",
+   "zh-Hans": "多",
+   "zh-Hant": "多",
+   "ro": "mult",
+   "ca": "molt"
+  },
+  "l'": {
+   "en": "it",
+   "fr": "le/la",
+   "es": "lo/la",
+   "pt": "o/a",
+   "it": "lo/la",
+   "zh-Hans": "它",
+   "zh-Hant": "它",
+   "ro": "îl/ea",
+   "ca": "ho/la"
+  },
+  "dire": {
+   "en": "to say",
+   "fr": "dire",
+   "es": "decir",
+   "pt": "dizer",
+   "it": "dire",
+   "zh-Hans": "说",
+   "zh-Hant": "說",
+   "ro": "a spune",
+   "ca": "dir"
+  },
+  "dimanche": {
+   "en": "Sunday",
+   "fr": "dimanche",
+   "es": "domingo",
+   "pt": "domingo",
+   "it": "domenica",
+   "zh-Hans": "星期天",
+   "zh-Hant": "星期天",
+   "ro": "duminică",
+   "ca": "diumenge"
+  },
+  "matin": {
+   "en": "morning",
+   "fr": "matin",
+   "es": "mañana",
+   "pt": "manhã",
+   "it": "mattina",
+   "zh-Hans": "早晨",
+   "zh-Hant": "早晨",
+   "ro": "dimineață",
+   "ca": "matí"
+  },
+  "est": {
+   "en": "is",
+   "fr": "est",
+   "es": "es",
+   "pt": "é",
+   "it": "è",
+   "zh-Hans": "是",
+   "zh-Hant": "是",
+   "ro": "este",
+   "ca": "és"
+  },
+  "arrivé": {
+   "en": "arrived",
+   "fr": "arrivé",
+   "es": "llegado",
+   "pt": "chegado",
+   "it": "arrivato",
+   "zh-Hans": "到达",
+   "zh-Hant": "到達",
+   "ro": "sosit",
+   "ca": "arribat"
+  },
+  "heure": {
+   "en": "time",
+   "fr": "heure",
+   "es": "hora",
+   "pt": "hora",
+   "it": "ora",
+   "zh-Hans": "时间",
+   "zh-Hant": "時間",
+   "ro": "oră",
+   "ca": "hora"
+  },
+  "habituelle": {
+   "en": "usual",
+   "fr": "habituelle",
+   "es": "habitual",
+   "pt": "habitual",
+   "it": "abituale",
+   "zh-Hans": "通常的",
+   "zh-Hant": "通常的",
+   "ro": "obișnuită",
+   "ca": "habitual"
+  },
+  "a": {
+   "en": "has",
+   "fr": "a",
+   "es": "ha",
+   "pt": "tem",
+   "it": "ha",
+   "zh-Hans": "已经",
+   "zh-Hant": "已經",
+   "ro": "a",
+   "ca": "ha"
+  },
+  "beaucoup": {
+   "en": "much",
+   "fr": "beaucoup",
+   "es": "mucho",
+   "pt": "muito",
+   "it": "molto",
+   "zh-Hans": "很多",
+   "zh-Hant": "很多",
+   "ro": "mult",
+   "ca": "molt"
+  },
+  "inquiété": {
+   "en": "worried",
+   "fr": "inquiété",
+   "es": "preocupado",
+   "pt": "preocupado",
+   "it": "preoccupato",
+   "zh-Hans": "担心",
+   "zh-Hant": "擔心",
+   "ro": "îngrijorat",
+   "ca": "preocupat"
+  },
+  "ai": {
+   "en": "have",
+   "fr": "ai",
+   "es": "he",
+   "pt": "tenho",
+   "it": "ho",
+   "zh-Hans": "已经",
+   "zh-Hant": "已經",
+   "ro": "am",
+   "ca": "he"
+  },
+  "imaginé": {
+   "en": "imagined",
+   "fr": "imaginé",
+   "es": "imaginado",
+   "pt": "imaginado",
+   "it": "immaginato",
+   "zh-Hans": "想象",
+   "zh-Hant": "想像",
+   "ro": "imaginat",
+   "ca": "imaginat"
+  },
+  "toutes": {
+   "en": "all",
+   "fr": "toutes",
+   "es": "todas",
+   "pt": "todas",
+   "it": "tutte",
+   "zh-Hans": "所有",
+   "zh-Hant": "所有",
+   "ro": "toate",
+   "ca": "totes"
+  },
+  "sortes": {
+   "en": "kinds",
+   "fr": "sortes",
+   "es": "clases",
+   "pt": "tipos",
+   "it": "tipi",
+   "zh-Hans": "种类",
+   "zh-Hant": "種類",
+   "ro": "feluri",
+   "ca": "tipus"
+  },
+  "accidents": {
+   "en": "accidents",
+   "fr": "accidents",
+   "es": "accidentes",
+   "pt": "acidentes",
+   "it": "incidenti",
+   "zh-Hans": "事故",
+   "zh-Hant": "事故",
+   "ro": "accidente",
+   "ca": "accidents"
+  },
+  "perdu": {
+   "en": "lost",
+   "fr": "perdu",
+   "es": "perdido",
+   "pt": "perdido",
+   "it": "perso",
+   "zh-Hans": "丢失",
+   "zh-Hant": "丟失",
+   "ro": "pierdut",
+   "ca": "perdut"
+  },
+  "pont": {
+   "en": "bridge",
+   "fr": "pont",
+   "es": "puente",
+   "pt": "ponte",
+   "it": "ponte",
+   "zh-Hans": "桥",
+   "zh-Hant": "橋",
+   "ro": "pod",
+   "ca": "pont"
+  },
+  "cassé": {
+   "en": "broken",
+   "fr": "cassé",
+   "es": "roto",
+   "pt": "quebrado",
+   "it": "rotto",
+   "zh-Hans": "断裂",
+   "zh-Hant": "斷裂",
+   "ro": "rupt",
+   "ca": "trencat"
+  },
+  "peut-être": {
+   "en": "maybe",
+   "fr": "peut-être",
+   "es": "quizás",
+   "pt": "talvez",
+   "it": "forse",
+   "zh-Hans": "也许",
+   "zh-Hant": "也許",
+   "ro": "poate",
+   "ca": "potser"
+  },
+  "maladie": {
+   "en": "illness",
+   "fr": "maladie",
+   "es": "enfermedad",
+   "pt": "doença",
+   "it": "malattia",
+   "zh-Hans": "疾病",
+   "zh-Hant": "疾病",
+   "ro": "boală",
+   "ca": "malaltia"
+  },
+  "vers": {
+   "en": "towards",
+   "fr": "vers",
+   "es": "hacia",
+   "pt": "para",
+   "it": "verso",
+   "zh-Hans": "大约",
+   "zh-Hant": "大約",
+   "ro": "către",
+   "ca": "cap a"
+  },
+  "midi": {
+   "en": "noon",
+   "fr": "midi",
+   "es": "mediodía",
+   "pt": "meio-dia",
+   "it": "mezzogiorno",
+   "zh-Hans": "中午",
+   "zh-Hant": "中午",
+   "ro": "amiază",
+   "ca": "migdia"
+  },
+  "après": {
+   "en": "after",
+   "fr": "après",
+   "es": "después de",
+   "pt": "depois de",
+   "it": "dopo",
+   "zh-Hans": "在...之后",
+   "zh-Hant": "在...之後",
+   "ro": "după",
+   "ca": "després de"
+  },
+  "violent": {
+   "en": "violent",
+   "fr": "violent",
+   "es": "violento",
+   "pt": "violento",
+   "it": "violento",
+   "zh-Hans": "猛烈的",
+   "zh-Hant": "猛烈的",
+   "ro": "violent",
+   "ca": "violent"
+  },
+  "orage": {
+   "en": "storm",
+   "fr": "orage",
+   "es": "tormenta",
+   "pt": "tempestade",
+   "it": "temporale",
+   "zh-Hans": "暴风雨",
+   "zh-Hant": "暴風雨",
+   "ro": "furtună",
+   "ca": "tempesta"
+  },
+  "avait": {
+   "en": "had",
+   "fr": "avait",
+   "es": "había",
+   "pt": "tinha",
+   "it": "aveva",
+   "zh-Hans": "已经",
+   "zh-Hant": "已經",
+   "ro": "avusese",
+   "ca": "havia"
+  },
+  "trempé": {
+   "en": "soaked",
+   "fr": "trempé",
+   "es": "empapado",
+   "pt": "encharcado",
+   "it": "inzuppato",
+   "zh-Hans": "浸透",
+   "zh-Hant": "浸透",
+   "ro": "udat",
+   "ca": "xopat"
+  },
+  "toute": {
+   "en": "whole",
+   "fr": "toute",
+   "es": "toda",
+   "pt": "toda",
+   "it": "tutta",
+   "zh-Hans": "整个",
+   "zh-Hant": "整個",
+   "ro": "toată",
+   "ca": "tota"
+  },
+  "enfin": {
+   "en": "finally",
+   "fr": "enfin",
+   "es": "finalmente",
+   "pt": "finalmente",
+   "it": "finalmente",
+   "zh-Hans": "终于",
+   "zh-Hant": "終於",
+   "ro": "în sfârșit",
+   "ca": "finalment"
+  },
+  "entendu": {
+   "en": "heard",
+   "fr": "entendu",
+   "es": "oído",
+   "pt": "ouvido",
+   "it": "sentito",
+   "zh-Hans": "听到",
+   "zh-Hant": "聽到",
+   "ro": "auzit",
+   "ca": "sentit"
+  },
+  "clochettes": {
+   "en": "little bells",
+   "fr": "clochettes",
+   "es": "campanillas",
+   "pt": "sininhos",
+   "it": "campanelle",
+   "zh-Hans": "小铃铛",
+   "zh-Hant": "小鈴鐺",
+   "ro": "clopoței",
+   "ca": "campanetes"
+  },
+  "tranquilles": {
+   "en": "calm",
+   "fr": "tranquilles",
+   "es": "tranquilos",
+   "pt": "tranquilos",
+   "it": "tranquilli",
+   "zh-Hans": "平静的",
+   "zh-Hant": "平靜的",
+   "ro": "liniștiți",
+   "ca": "tranquils"
+  },
+  "reconnaissais": {
+   "en": "recognized",
+   "fr": "reconnaissais",
+   "es": "reconocía",
+   "pt": "reconhecia",
+   "it": "riconoscevo",
+   "zh-Hans": "认出",
+   "zh-Hant": "認出",
+   "ro": "recunoșteam",
+   "ca": "reconeixia"
+  },
+  "trot": {
+   "en": "trot",
+   "fr": "trot",
+   "es": "trote",
+   "pt": "trote",
+   "it": "trotto",
+   "zh-Hans": "小跑",
+   "zh-Hant": "小跑",
+   "ro": "trap",
+   "ca": "trot"
+  },
+  "vif": {
+   "en": "lively",
+   "fr": "vif",
+   "es": "vivo",
+   "pt": "vivo",
+   "it": "vivace",
+   "zh-Hans": "轻快",
+   "zh-Hant": "輕快",
+   "ro": "viu",
+   "ca": "vivaç"
+  },
+  "léger": {
+   "en": "light",
+   "fr": "léger",
+   "es": "ligero",
+   "pt": "leve",
+   "it": "leggero",
+   "zh-Hans": "轻的",
+   "zh-Hant": "輕的",
+   "ro": "ușor",
+   "ca": "lleuger"
+  },
+  "celui": {
+   "en": "the one",
+   "fr": "celui",
+   "es": "el de",
+   "pt": "o de",
+   "it": "quello",
+   "zh-Hans": "那个",
+   "zh-Hant": "那個",
+   "ro": "cel",
+   "ca": "el de"
+  },
+  "pressée": {
+   "en": "in a hurry",
+   "fr": "pressée",
+   "es": "apresurada",
+   "pt": "apressada",
+   "it": "di fretta",
+   "zh-Hans": "匆忙的",
+   "zh-Hant": "匆忙的",
+   "ro": "grăbită",
+   "ca": "afanyada"
+  },
+  "levé": {
+   "en": "raised",
+   "fr": "levé",
+   "es": "levantado",
+   "pt": "levantado",
+   "it": "alzato",
+   "zh-Hans": "抬起",
+   "zh-Hant": "抬起",
+   "ro": "ridicat",
+   "ca": "aixecat"
+  },
+  "tête": {
+   "en": "head",
+   "fr": "tête",
+   "es": "cabeza",
+   "pt": "cabeça",
+   "it": "testa",
+   "zh-Hans": "头",
+   "zh-Hant": "頭",
+   "ro": "cap",
+   "ca": "cap"
+  },
+  "vu": {
+   "en": "saw",
+   "fr": "vu",
+   "es": "visto",
+   "pt": "visto",
+   "it": "visto",
+   "zh-Hans": "看见",
+   "zh-Hant": "看見",
+   "ro": "văzut",
+   "ca": "vist"
+  },
+  "assise": {
+   "en": "seated",
+   "fr": "assise",
+   "es": "sentada",
+   "pt": "sentada",
+   "it": "seduta",
+   "zh-Hans": "坐着的",
+   "zh-Hant": "坐著的",
+   "ro": "așezată",
+   "ca": "asseguda"
+  },
+  "s'": {
+   "en": "herself",
+   "fr": "s'",
+   "es": "se",
+   "pt": "se",
+   "it": "si",
+   "zh-Hans": "自己",
+   "zh-Hant": "自己",
+   "ro": "se",
+   "ca": "es"
+  },
+  "mis": {
+   "en": "put",
+   "fr": "mis",
+   "es": "puesto",
+   "pt": "posto",
+   "it": "messo",
+   "zh-Hans": "开始",
+   "zh-Hant": "開始",
+   "ro": "pus",
+   "ca": "posat"
+  },
+  "battre": {
+   "en": "to beat",
+   "fr": "battre",
+   "es": "latir",
+   "pt": "bater",
+   "it": "battere",
+   "zh-Hans": "跳动",
+   "zh-Hant": "跳動",
+   "ro": "a bate",
+   "ca": "batre"
+  },
+  "très": {
+   "en": "very",
+   "fr": "très",
+   "es": "muy",
+   "pt": "muito",
+   "it": "molto",
+   "zh-Hans": "非常",
+   "zh-Hant": "非常",
+   "ro": "foarte",
+   "ca": "molt"
+  },
+  "croyais": {
+   "en": "believed",
+   "fr": "croyais",
+   "es": "creía",
+   "pt": "acreditava",
+   "it": "credevo",
+   "zh-Hans": "相信",
+   "zh-Hant": "相信",
+   "ro": "credeam",
+   "ca": "creia"
+  },
+  "yeux": {
+   "en": "eyes",
+   "fr": "yeux",
+   "es": "ojos",
+   "pt": "olhos",
+   "it": "occhi",
+   "zh-Hans": "眼睛",
+   "zh-Hant": "眼睛",
+   "ro": "ochi",
+   "ca": "ulls"
+  },
+  "descendue": {
+   "en": "got down",
+   "fr": "descendue",
+   "es": "bajada",
+   "pt": "descida",
+   "it": "scesa",
+   "zh-Hans": "下来",
+   "zh-Hant": "下來",
+   "ro": "coborâtă",
+   "ca": "baixada"
+  },
+  "joues": {
+   "en": "cheeks",
+   "fr": "joues",
+   "es": "mejillas",
+   "pt": "bochechas",
+   "it": "guance",
+   "zh-Hans": "脸颊",
+   "zh-Hant": "臉頰",
+   "ro": "obraji",
+   "ca": "galtes"
+  },
+  "rouges": {
+   "en": "red",
+   "fr": "rouges",
+   "es": "rojas",
+   "pt": "vermelhas",
+   "it": "rosse",
+   "zh-Hans": "红的",
+   "zh-Hant": "紅的",
+   "ro": "roșii",
+   "ca": "vermelles"
+  },
+  "essoufflée": {
+   "en": "out of breath",
+   "fr": "essoufflée",
+   "es": "sin aliento",
+   "pt": "sem fôlego",
+   "it": "senza fiato",
+   "zh-Hans": "气喘吁吁",
+   "zh-Hant": "氣喘吁吁",
+   "ro": "fără suflare",
+   "ca": "sense alè"
+  },
+  "longue": {
+   "en": "long",
+   "fr": "longue",
+   "es": "larga",
+   "pt": "longa",
+   "it": "lunga",
+   "zh-Hans": "长的",
+   "zh-Hant": "長的",
+   "ro": "lungă",
+   "ca": "llarga"
+  },
+  "montée": {
+   "en": "climb",
+   "fr": "montée",
+   "es": "subida",
+   "pt": "subida",
+   "it": "salita",
+   "zh-Hans": "攀登",
+   "zh-Hant": "攀登",
+   "ro": "urcare",
+   "ca": "pujada"
+  },
+  "expliqué": {
+   "en": "explained",
+   "fr": "expliqué",
+   "es": "explicado",
+   "pt": "explicado",
+   "it": "spiegato",
+   "zh-Hans": "解释",
+   "zh-Hant": "解釋",
+   "ro": "explicat",
+   "ca": "explicat"
+  },
+  "malade": {
+   "en": "sick",
+   "fr": "malade",
+   "es": "enfermo",
+   "pt": "doente",
+   "it": "malato",
+   "zh-Hans": "生病的",
+   "zh-Hant": "生病的",
+   "ro": "bolnav",
+   "ca": "malalt"
+  },
+  "partie": {
+   "en": "left",
+   "fr": "partie",
+   "es": "ido",
+   "pt": "partida",
+   "it": "partita",
+   "zh-Hans": "离开",
+   "zh-Hant": "離開",
+   "ro": "plecată",
+   "ca": "partida"
+  },
+  "voir": {
+   "en": "to see",
+   "fr": "voir",
+   "es": "ver",
+   "pt": "ver",
+   "it": "vedere",
+   "zh-Hans": "看望",
+   "zh-Hant": "看望",
+   "ro": "a vedea",
+   "ca": "veure"
+  },
+  "enfants": {
+   "en": "children",
+   "fr": "enfants",
+   "es": "hijos",
+   "pt": "filhos",
+   "it": "figli",
+   "zh-Hans": "孩子",
+   "zh-Hant": "孩子",
+   "ro": "copii",
+   "ca": "fills"
+  },
+  "donc": {
+   "en": "therefore",
+   "fr": "donc",
+   "es": "por lo tanto",
+   "pt": "portanto",
+   "it": "quindi",
+   "zh-Hans": "因此",
+   "zh-Hant": "因此",
+   "ro": "deci",
+   "ca": "per tant"
+  },
+  "dû": {
+   "en": "had to",
+   "fr": "dû",
+   "es": "debido",
+   "pt": "devido",
+   "it": "dovuto",
+   "zh-Hans": "不得不",
+   "zh-Hant": "不得不",
+   "ro": "trebuit",
+   "ca": "degut"
+  },
+  "monter": {
+   "en": "to climb",
+   "fr": "monter",
+   "es": "subir",
+   "pt": "subir",
+   "it": "salire",
+   "zh-Hans": "爬",
+   "zh-Hant": "爬",
+   "ro": "a urca",
+   "ca": "pujar"
+  },
+  "première": {
+   "en": "first",
+   "fr": "première",
+   "es": "primera",
+   "pt": "primeira",
+   "it": "prima",
+   "zh-Hans": "第一次",
+   "zh-Hant": "第一次",
+   "ro": "prima",
+   "ca": "primera"
+  },
+  "sa": {
+   "en": "her",
+   "fr": "sa",
+   "es": "su",
+   "pt": "sua",
+   "it": "sua",
+   "zh-Hans": "她的",
+   "zh-Hant": "她的",
+   "ro": "sa",
+   "ca": "seva"
+  },
+  "jusqu'": {
+   "en": "until",
+   "fr": "jusqu'",
+   "es": "hasta",
+   "pt": "até",
+   "it": "fino a",
+   "zh-Hans": "直到",
+   "zh-Hant": "直到",
+   "ro": "până la",
+   "ca": "fins a"
+  },
+  "cabane": {
+   "en": "hut",
+   "fr": "cabane",
+   "es": "cabaña",
+   "pt": "cabana",
+   "it": "capanna",
+   "zh-Hans": "小屋",
+   "zh-Hant": "小屋",
+   "ro": "colibă",
+   "ca": "cabana"
+  },
+  "isolée": {
+   "en": "isolated",
+   "fr": "isolée",
+   "es": "aislada",
+   "pt": "isolada",
+   "it": "isolata",
+   "zh-Hans": "孤立的",
+   "zh-Hant": "孤立的",
+   "ro": "izolată",
+   "ca": "aïllada"
+  },
+  "portait": {
+   "en": "was wearing",
+   "fr": "portait",
+   "es": "llevaba",
+   "pt": "usava",
+   "it": "indossava",
+   "zh-Hans": "穿着",
+   "zh-Hant": "穿著",
+   "ro": "purtat",
+   "ca": "portava"
+  },
+  "belle": {
+   "en": "beautiful",
+   "fr": "belle",
+   "es": "hermosa",
+   "pt": "bonita",
+   "it": "bella",
+   "zh-Hans": "漂亮的",
+   "zh-Hant": "漂亮的",
+   "ro": "frumoasă",
+   "ca": "bonica"
+  },
+  "robe": {
+   "en": "dress",
+   "fr": "robe",
+   "es": "vestido",
+   "pt": "vestido",
+   "it": "vestito",
+   "zh-Hans": "连衣裙",
+   "zh-Hant": "連衣裙",
+   "ro": "rochie",
+   "ca": "vestit"
+  },
+  "semblait": {
+   "en": "seemed",
+   "fr": "semblait",
+   "es": "parecía",
+   "pt": "parecia",
+   "it": "sembrava",
+   "zh-Hans": "似乎",
+   "zh-Hant": "似乎",
+   "ro": "părea",
+   "ca": "semblava"
+  },
+  "perdue": {
+   "en": "lost",
+   "fr": "perdue",
+   "es": "perdida",
+   "pt": "perdida",
+   "it": "persa",
+   "zh-Hans": "迷路的",
+   "zh-Hant": "迷路的",
+   "ro": "pierdută",
+   "ca": "perduda"
+  },
+  "au": {
+   "en": "in the",
+   "fr": "au",
+   "es": "en el",
+   "pt": "no",
+   "it": "nel",
+   "zh-Hans": "在...之中",
+   "zh-Hant": "在...之中",
+   "ro": "în",
+   "ca": "al"
+  },
+  "milieu": {
+   "en": "middle",
+   "fr": "milieu",
+   "es": "medio",
+   "pt": "meio",
+   "it": "mezzo",
+   "zh-Hans": "中间",
+   "zh-Hant": "中間",
+   "ro": "mijloc",
+   "ca": "mig"
+  },
+  "rochers": {
+   "en": "rocks",
+   "fr": "rochers",
+   "es": "rocas",
+   "pt": "rochas",
+   "it": "rocce",
+   "zh-Hans": "岩石",
+   "zh-Hant": "岩石",
+   "ro": "stânci",
+   "ca": "roques"
+  },
+  "arrêtée": {
+   "en": "stopped",
+   "fr": "arrêtée",
+   "es": "detenida",
+   "pt": "parada",
+   "it": "fermata",
+   "zh-Hans": "停下来",
+   "zh-Hant": "停下來",
+   "ro": "oprită",
+   "ca": "aturada"
+  },
+  "cueillir": {
+   "en": "to pick",
+   "fr": "cueillir",
+   "es": "recoger",
+   "pt": "colher",
+   "it": "cogliere",
+   "zh-Hans": "采摘",
+   "zh-Hant": "採摘",
+   "ro": "a culege",
+   "ca": "collir"
+  },
+  "fleurs": {
+   "en": "flowers",
+   "fr": "fleurs",
+   "es": "flores",
+   "pt": "flores",
+   "it": "fiori",
+   "zh-Hans": "花",
+   "zh-Hant": "花",
+   "ro": "flori",
+   "ca": "flors"
+  },
+  "pris": {
+   "en": "taken",
+   "fr": "pris",
+   "es": "tomado",
+   "pt": "tomado",
+   "it": "preso",
+   "zh-Hans": "花费",
+   "zh-Hant": "花費",
+   "ro": "luat",
+   "ca": "pres"
+  },
+  "retard": {
+   "en": "delay",
+   "fr": "retard",
+   "es": "retraso",
+   "pt": "atraso",
+   "it": "ritardo",
+   "zh-Hans": "迟到",
+   "zh-Hant": "遲到",
+   "ro": "întârziere",
+   "ca": "retard"
+  },
+  "si": {
+   "en": "so",
+   "fr": "si",
+   "es": "tan",
+   "pt": "tão",
+   "it": "così",
+   "zh-Hans": "如此",
+   "zh-Hant": "如此",
+   "ro": "atât de",
+   "ca": "tan"
+  },
+  "heureux": {
+   "en": "happy",
+   "fr": "heureux",
+   "es": "feliz",
+   "pt": "feliz",
+   "it": "felice",
+   "zh-Hans": "高兴的",
+   "zh-Hant": "高興的",
+   "ro": "fericit",
+   "ca": "feliç"
+  },
+  "oublié": {
+   "en": "forgotten",
+   "fr": "oublié",
+   "es": "olvidado",
+   "pt": "esquecido",
+   "it": "dimenticato",
+   "zh-Hans": "忘记",
+   "zh-Hant": "忘記",
+   "ro": "uitat",
+   "ca": "oblidat"
+  },
+  "répondre": {
+   "en": "to answer",
+   "fr": "répondre",
+   "es": "responder",
+   "pt": "responder",
+   "it": "rispondere",
+   "zh-Hans": "回答",
+   "zh-Hant": "回答",
+   "ro": "a răspunde",
+   "ca": "respondre"
+  },
+  "correctement": {
+   "en": "correctly",
+   "fr": "correctement",
+   "es": "correctamente",
+   "pt": "corretamente",
+   "it": "correttamente",
+   "zh-Hans": "正确地",
+   "zh-Hant": "正確地",
+   "ro": "corect",
+   "ca": "correctament"
+  },
+  "questions": {
+   "en": "questions",
+   "fr": "questions",
+   "es": "preguntas",
+   "pt": "perguntas",
+   "it": "domande",
+   "zh-Hans": "问题",
+   "zh-Hant": "問題",
+   "ro": "întrebări",
+   "ca": "preguntes"
+  },
+  "demandé": {
+   "en": "asked",
+   "fr": "demandé",
+   "es": "preguntado",
+   "pt": "perguntado",
+   "it": "chiesto",
+   "zh-Hans": "问",
+   "zh-Hant": "問",
+   "ro": "întrebat",
+   "ca": "preguntat"
+  },
+  "vivais": {
+   "en": "lived",
+   "fr": "vivais",
+   "es": "vivía",
+   "pt": "vivia",
+   "it": "vivevo",
+   "zh-Hans": "生活",
+   "zh-Hant": "生活",
+   "ro": "trăiam",
+   "ca": "vivia"
+  },
+  "sans": {
+   "en": "without",
+   "fr": "sans",
+   "es": "sin",
+   "pt": "sem",
+   "it": "senza",
+   "zh-Hans": "没有",
+   "zh-Hant": "沒有",
+   "ro": "fără",
+   "ca": "sense"
+  },
+  "parler": {
+   "en": "to speak",
+   "fr": "parler",
+   "es": "hablar",
+   "pt": "falar",
+   "it": "parlare",
+   "zh-Hans": "说话",
+   "zh-Hant": "說話",
+   "ro": "a vorbi",
+   "ca": "parlar"
+  },
+  "raconté": {
+   "en": "told",
+   "fr": "raconté",
+   "es": "contado",
+   "pt": "contado",
+   "it": "raccontato",
+   "zh-Hans": "讲述",
+   "zh-Hant": "講述",
+   "ro": "povestit",
+   "ca": "explicat"
+  },
+  "écoutait": {
+   "en": "listened",
+   "fr": "écoutait",
+   "es": "escuchaba",
+   "pt": "escutava",
+   "it": "ascoltava",
+   "zh-Hans": "听",
+   "zh-Hant": "聽",
+   "ro": "asculta",
+   "ca": "escoltava"
+  },
+  "attention": {
+   "en": "attention",
+   "fr": "attention",
+   "es": "atención",
+   "pt": "atenção",
+   "it": "attenzione",
+   "zh-Hans": "注意",
+   "zh-Hant": "注意",
+   "ro": "atenție",
+   "ca": "atenció"
+  },
+  "intéressait": {
+   "en": "interested",
+   "fr": "intéressait",
+   "es": "interesaba",
+   "pt": "interessava",
+   "it": "interessava",
+   "zh-Hans": "使感兴趣",
+   "zh-Hant": "使感興趣",
+   "ro": "interesa",
+   "ca": "interessava"
+  },
+  "aidée": {
+   "en": "helped",
+   "fr": "aidée",
+   "es": "ayudada",
+   "pt": "ajudada",
+   "it": "aiutata",
+   "zh-Hans": "帮助",
+   "zh-Hant": "幫助",
+   "ro": "ajutată",
+   "ca": "ajudada"
+  },
+  "descendre": {
+   "en": "to go down",
+   "fr": "descendre",
+   "es": "bajar",
+   "pt": "descer",
+   "it": "scendere",
+   "zh-Hans": "下去",
+   "zh-Hant": "下去",
+   "ro": "a coborî",
+   "ca": "baixar"
+  },
+  "précaution": {
+   "en": "caution",
+   "fr": "précaution",
+   "es": "precaución",
+   "pt": "precaução",
+   "it": "precauzione",
+   "zh-Hans": "小心",
+   "zh-Hant": "小心",
+   "ro": "precauție",
+   "ca": "precaució"
+  },
+  "brillaient": {
+   "en": "shone",
+   "fr": "brillaient",
+   "es": "brillaban",
+   "pt": "brilhavam",
+   "it": "brillavano",
+   "zh-Hans": "闪耀",
+   "zh-Hant": "閃耀",
+   "ro": "străluceau",
+   "ca": "brillaven"
+  },
+  "curiosité": {
+   "en": "curiosity",
+   "fr": "curiosité",
+   "es": "curiosidad",
+   "pt": "curiosidade",
+   "it": "curiosità",
+   "zh-Hans": "好奇心",
+   "zh-Hant": "好奇心",
+   "ro": "curiozitate",
+   "ca": "curiositat"
+  },
+  "fatigue": {
+   "en": "fatigue",
+   "fr": "fatigue",
+   "es": "fatiga",
+   "pt": "fadiga",
+   "it": "stanchezza",
+   "zh-Hans": "疲劳",
+   "zh-Hant": "疲勞",
+   "ro": "oboseală",
+   "ca": "fatiga"
+  },
+  "courte": {
+   "en": "short",
+   "fr": "courte",
+   "es": "corta",
+   "pt": "curta",
+   "it": "breve",
+   "zh-Hans": "短暂的",
+   "zh-Hant": "短暫的",
+   "ro": "scurtă",
+   "ca": "curta"
+  },
+  "visite": {
+   "en": "visit",
+   "fr": "visite",
+   "es": "visita",
+   "pt": "visita",
+   "it": "visita",
+   "zh-Hans": "访问",
+   "zh-Hant": "訪問",
+   "ro": "vizită",
+   "ca": "visita"
+  },
+  "repris": {
+   "en": "resumed",
+   "fr": "repris",
+   "es": "reanudado",
+   "pt": "retomado",
+   "it": "ripreso",
+   "zh-Hans": "重新开始",
+   "zh-Hant": "重新開始",
+   "ro": "reluat",
+   "ca": "reprès"
+  },
+  "retour": {
+   "en": "return",
+   "fr": "retour",
+   "es": "regreso",
+   "pt": "retorno",
+   "it": "ritorno",
+   "zh-Hans": "返回",
+   "zh-Hant": "返回",
+   "ro": "întoarcere",
+   "ca": "retorn"
+  },
+  "dit": {
+   "en": "said",
+   "fr": "dit",
+   "es": "dicho",
+   "pt": "dito",
+   "it": "detto",
+   "zh-Hans": "说",
+   "zh-Hant": "說",
+   "ro": "spus",
+   "ca": "dit"
+  },
+  "revoir": {
+   "en": "see again",
+   "fr": "revoir",
+   "es": "volver a ver",
+   "pt": "rever",
+   "it": "rivedere",
+   "zh-Hans": "再见",
+   "zh-Hant": "再見",
+   "ro": "revedere",
+   "ca": "reviure"
+  },
+  "riant": {
+   "en": "laughing",
+   "fr": "riant",
+   "es": "riendo",
+   "pt": "rindo",
+   "it": "ridendo",
+   "zh-Hans": "笑着",
+   "zh-Hant": "笑著",
+   "ro": "râzând",
+   "ca": "rient"
+  },
+  "regardée": {
+   "en": "watched",
+   "fr": "regardée",
+   "es": "mirada",
+   "pt": "olhada",
+   "it": "guardata",
+   "zh-Hans": "看",
+   "zh-Hant": "看",
+   "ro": "privită",
+   "ca": "mirada"
+  },
+  "premiers": {
+   "en": "first",
+   "fr": "premiers",
+   "es": "primeros",
+   "pt": "primeiros",
+   "it": "primi",
+   "zh-Hans": "最初的",
+   "zh-Hant": "最初的",
+   "ro": "primii",
+   "ca": "primers"
+  },
+  "arbres": {
+   "en": "trees",
+   "fr": "arbres",
+   "es": "árboles",
+   "pt": "árvores",
+   "it": "alberi",
+   "zh-Hans": "树",
+   "zh-Hant": "樹",
+   "ro": "copaci",
+   "ca": "arbres"
+  },
+  "tard": {
+   "en": "later",
+   "fr": "tard",
+   "es": "tarde",
+   "pt": "tarde",
+   "it": "tardi",
+   "zh-Hans": "晚",
+   "zh-Hant": "晚",
+   "ro": "târziu",
+   "ca": "tard"
+  },
+  "environ": {
+   "en": "approximately",
+   "fr": "environ",
+   "es": "aproximadamente",
+   "pt": "aproximadamente",
+   "it": "circa",
+   "zh-Hans": "大约",
+   "zh-Hant": "大約",
+   "ro": "aproximativ",
+   "ca": "aproximadament"
+  },
+  "quelqu'un": {
+   "en": "someone",
+   "fr": "quelqu'un",
+   "es": "alguien",
+   "pt": "alguém",
+   "it": "qualcuno",
+   "zh-Hans": "某人",
+   "zh-Hant": "某人",
+   "ro": "cineva",
+   "ca": "algú"
+  },
+  "courir": {
+   "en": "to run",
+   "fr": "courir",
+   "es": "correr",
+   "pt": "correr",
+   "it": "correre",
+   "zh-Hans": "跑",
+   "zh-Hant": "跑",
+   "ro": "a alerga",
+   "ca": "córrer"
+  },
+  "appeler": {
+   "en": "to call",
+   "fr": "appeler",
+   "es": "llamar",
+   "pt": "chamar",
+   "it": "chiamare",
+   "zh-Hans": "叫",
+   "zh-Hant": "叫",
+   "ro": "a chema",
+   "ca": "cridar"
+  },
+  "trempée": {
+   "en": "soaked",
+   "fr": "trempée",
+   "es": "empapada",
+   "pt": "encharcada",
+   "it": "inzuppata",
+   "zh-Hans": "湿透的",
+   "zh-Hant": "濕透的",
+   "ro": "udată",
+   "ca": "xopa"
+  },
+  "aux": {
+   "en": "to the",
+   "fr": "aux",
+   "es": "a los",
+   "pt": "aos",
+   "it": "alle",
+   "zh-Hans": "到",
+   "zh-Hant": "到",
+   "ro": "la",
+   "ca": "als"
+  },
+  "os": {
+   "en": "bones",
+   "fr": "os",
+   "es": "huesos",
+   "pt": "ossos",
+   "it": "ossa",
+   "zh-Hans": "骨头",
+   "zh-Hant": "骨頭",
+   "ro": "oase",
+   "ca": "ossos"
+  },
+  "visiblement": {
+   "en": "visibly",
+   "fr": "visiblement",
+   "es": "visiblemente",
+   "pt": "visivelmente",
+   "it": "visibilmente",
+   "zh-Hans": "明显地",
+   "zh-Hant": "明顯地",
+   "ro": "vizibil",
+   "ca": "visiblement"
+  },
+  "effrayée": {
+   "en": "frightened",
+   "fr": "effrayée",
+   "es": "asustada",
+   "pt": "assustada",
+   "it": "spaventata",
+   "zh-Hans": "害怕的",
+   "zh-Hant": "害怕的",
+   "ro": "speriată",
+   "ca": "espantada"
+  },
+  "quelque": {
+   "en": "some",
+   "fr": "quelque",
+   "es": "alguna",
+   "pt": "alguma",
+   "it": "qualche",
+   "zh-Hans": "某个",
+   "zh-Hant": "某個",
+   "ro": "ceva",
+   "ca": "alguna"
+  },
+  "chose": {
+   "en": "thing",
+   "fr": "chose",
+   "es": "cosa",
+   "pt": "coisa",
+   "it": "cosa",
+   "zh-Hans": "事情",
+   "zh-Hant": "事情",
+   "ro": "lucru",
+   "ca": "cosa"
+  },
+  "grave": {
+   "en": "serious",
+   "fr": "grave",
+   "es": "grave",
+   "pt": "grave",
+   "it": "grave",
+   "zh-Hans": "严重的",
+   "zh-Hant": "嚴重的",
+   "ro": "grav",
+   "ca": "greu"
+  },
+  "torrent": {
+   "en": "torrent",
+   "fr": "torrent",
+   "es": "torrente",
+   "pt": "torrente",
+   "it": "torrente",
+   "zh-Hans": "激流",
+   "zh-Hant": "激流",
+   "ro": "torent",
+   "ca": "torrent"
+  },
+  "grossi": {
+   "en": "swollen",
+   "fr": "grossi",
+   "es": "crecido",
+   "pt": "aumentado",
+   "it": "ingrossato",
+   "zh-Hans": "涨水",
+   "zh-Hant": "漲水",
+   "ro": "umflat",
+   "ca": "crescut"
+  },
+  "cause": {
+   "en": "cause",
+   "fr": "cause",
+   "es": "causa",
+   "pt": "causa",
+   "it": "causa",
+   "zh-Hans": "原因",
+   "zh-Hant": "原因",
+   "ro": "cauză",
+   "ca": "causa"
+  },
+  "après-midi": {
+   "en": "afternoon",
+   "fr": "après-midi",
+   "es": "tarde",
+   "pt": "tarde",
+   "it": "pomeriggio",
+   "zh-Hans": "下午",
+   "zh-Hant": "下午",
+   "ro": "după-amiază",
+   "ca": "tarda"
+  },
+  "essayé": {
+   "en": "tried",
+   "fr": "essayé",
+   "es": "intentado",
+   "pt": "tentado",
+   "it": "provato",
+   "zh-Hans": "尝试过",
+   "zh-Hant": "嘗試過",
+   "ro": "încercat",
+   "ca": "intentat"
+  },
+  "traverser": {
+   "en": "to cross",
+   "fr": "traverser",
+   "es": "cruzar",
+   "pt": "atravessar",
+   "it": "attraversare",
+   "zh-Hans": "穿过",
+   "zh-Hant": "穿過",
+   "ro": "a traversa",
+   "ca": "travessar"
+  },
+  "eau": {
+   "en": "water",
+   "fr": "eau",
+   "es": "agua",
+   "pt": "água",
+   "it": "acqua",
+   "zh-Hans": "水",
+   "zh-Hant": "水",
+   "ro": "apă",
+   "ca": "aigua"
+  },
+  "courant": {
+   "en": "current",
+   "fr": "courant",
+   "es": "corriente",
+   "pt": "corrente",
+   "it": "corrente",
+   "zh-Hans": "水流",
+   "zh-Hant": "水流",
+   "ro": "curent",
+   "ca": "corrent"
+  },
+  "devenu": {
+   "en": "become",
+   "fr": "devenu",
+   "es": "vuelto",
+   "pt": "tornado",
+   "it": "diventato",
+   "zh-Hans": "变得",
+   "zh-Hant": "變得",
+   "ro": "devenit",
+   "ca": "tornat"
+  },
+  "trop": {
+   "en": "too",
+   "fr": "trop",
+   "es": "demasiado",
+   "pt": "demasiado",
+   "it": "troppo",
+   "zh-Hans": "太",
+   "zh-Hant": "太",
+   "ro": "prea",
+   "ca": "massa"
+  },
+  "eu": {
+   "en": "had",
+   "fr": "eu",
+   "es": "tenido",
+   "pt": "tido",
+   "it": "avuto",
+   "zh-Hans": "有",
+   "zh-Hant": "有",
+   "ro": "avut",
+   "ca": "tingut"
+  },
+  "peur": {
+   "en": "fear",
+   "fr": "peur",
+   "es": "miedo",
+   "pt": "medo",
+   "it": "paura",
+   "zh-Hans": "害怕",
+   "zh-Hant": "害怕",
+   "ro": "frică",
+   "ca": "por"
+  },
+  "noyer": {
+   "en": "to drown",
+   "fr": "noyer",
+   "es": "ahogarse",
+   "pt": "afogar",
+   "it": "annegare",
+   "zh-Hans": "溺水",
+   "zh-Hant": "溺水",
+   "ro": "a se îneca",
+   "ca": "ofegar-se"
+  },
+  "rebrousser": {
+   "en": "to turn back",
+   "fr": "rebrousser",
+   "es": "retroceder",
+   "pt": "voltar atrás",
+   "it": "tornare indietro",
+   "zh-Hans": "折返",
+   "zh-Hant": "折返",
+   "ro": "a se întoarce",
+   "ca": "retrocedir"
+  },
+  "pleurant": {
+   "en": "crying",
+   "fr": "pleurant",
+   "es": "llorando",
+   "pt": "chorando",
+   "it": "piangendo",
+   "zh-Hans": "哭泣",
+   "zh-Hant": "哭泣",
+   "ro": "plângând",
+   "ca": "plorant"
+  },
+  "il": {
+   "en": "it",
+   "fr": "il",
+   "es": "él",
+   "pt": "ele",
+   "it": "egli",
+   "zh-Hans": "它",
+   "zh-Hant": "它",
+   "ro": "el",
+   "ca": "ell"
+  },
+  "y": {
+   "en": "there",
+   "fr": "y",
+   "es": "allí",
+   "pt": "lá",
+   "it": "ci",
+   "zh-Hans": "那里",
+   "zh-Hant": "那裡",
+   "ro": "acolo",
+   "ca": "hi"
+  },
+  "autre": {
+   "en": "other",
+   "fr": "autre",
+   "es": "otro",
+   "pt": "outro",
+   "it": "altro",
+   "zh-Hans": "其他的",
+   "zh-Hant": "其他的",
+   "ro": "altul",
+   "ca": "altre"
+  },
+  "aider": {
+   "en": "to help",
+   "fr": "aider",
+   "es": "ayudar",
+   "pt": "ajudar",
+   "it": "aiutare",
+   "zh-Hans": "帮助",
+   "zh-Hant": "幫助",
+   "ro": "a ajuta",
+   "ca": "ajudar"
+  },
+  "revenue": {
+   "en": "returned",
+   "fr": "revenue",
+   "es": "vuelta",
+   "pt": "voltado",
+   "it": "tornata",
+   "zh-Hans": "回来",
+   "zh-Hant": "回來",
+   "ro": "întoarsă",
+   "ca": "tornada"
+  },
+  "solution": {
+   "en": "solution",
+   "fr": "solution",
+   "es": "solución",
+   "pt": "solução",
+   "it": "soluzione",
+   "zh-Hans": "解决办法",
+   "zh-Hant": "解決辦法",
+   "ro": "soluție",
+   "ca": "solució"
+  },
+  "restait": {
+   "en": "remained",
+   "fr": "restait",
+   "es": "quedaba",
+   "pt": "restava",
+   "it": "restava",
+   "zh-Hans": "剩下",
+   "zh-Hant": "剩下",
+   "ro": "rămânea",
+   "ca": "quedava"
+  },
+  "avant": {
+   "en": "before",
+   "fr": "avant",
+   "es": "antes",
+   "pt": "antes",
+   "it": "prima",
+   "zh-Hans": "在...之前",
+   "zh-Hant": "在...之前",
+   "ro": "înainte",
+   "ca": "abans"
+  },
+  "nuit": {
+   "en": "night",
+   "fr": "nuit",
+   "es": "noche",
+   "pt": "noite",
+   "it": "notte",
+   "zh-Hans": "夜晚",
+   "zh-Hant": "夜晚",
+   "ro": "noapte",
+   "ca": "nit"
+  },
+  "pluie": {
+   "en": "rain",
+   "fr": "pluie",
+   "es": "lluvia",
+   "pt": "chuva",
+   "it": "pioggia",
+   "zh-Hans": "雨",
+   "zh-Hant": "雨",
+   "ro": "ploaie",
+   "ca": "pluja"
+  },
+  "tombait": {
+   "en": "was falling",
+   "fr": "tombait",
+   "es": "caía",
+   "pt": "caía",
+   "it": "cadeva",
+   "zh-Hans": "下着",
+   "zh-Hant": "下著",
+   "ro": "cădea",
+   "ca": "queia"
+  },
+  "encore": {
+   "en": "still",
+   "fr": "encore",
+   "es": "todavía",
+   "pt": "ainda",
+   "it": "ancora",
+   "zh-Hans": "仍然",
+   "zh-Hant": "仍然",
+   "ro": "încă",
+   "ca": "encara"
+  },
+  "autour": {
+   "en": "around",
+   "fr": "autour",
+   "es": "alrededor",
+   "pt": "ao redor",
+   "it": "intorno",
+   "zh-Hans": "周围",
+   "zh-Hant": "周圍",
+   "ro": "în jur",
+   "ca": "al voltant"
+  },
+  "nous": {
+   "en": "us",
+   "fr": "nous",
+   "es": "nosotros",
+   "pt": "nós",
+   "it": "noi",
+   "zh-Hans": "我们",
+   "zh-Hant": "我們",
+   "ro": "noi",
+   "ca": "nosaltres"
+  },
+  "compris": {
+   "en": "understood",
+   "fr": "compris",
+   "es": "comprendido",
+   "pt": "compreendido",
+   "it": "capito",
+   "zh-Hans": "明白",
+   "zh-Hant": "明白",
+   "ro": "înțeles",
+   "ca": "comprès"
+  },
+  "suite": {
+   "en": "immediately",
+   "fr": "suite",
+   "es": "seguida",
+   "pt": "seguida",
+   "it": "subito",
+   "zh-Hans": "立刻",
+   "zh-Hant": "立刻",
+   "ro": "imediat",
+   "ca": "seguida"
+  },
+  "gravité": {
+   "en": "gravity",
+   "fr": "gravité",
+   "es": "gravedad",
+   "pt": "gravidade",
+   "it": "gravità",
+   "zh-Hans": "严重性",
+   "zh-Hant": "嚴重性",
+   "ro": "gravitate",
+   "ca": "gravetat"
+  },
+  "situation": {
+   "en": "situation",
+   "fr": "situation",
+   "es": "situación",
+   "pt": "situação",
+   "it": "situazione",
+   "zh-Hans": "情况",
+   "zh-Hant": "情況",
+   "ro": "situație",
+   "ca": "situació"
+  },
+  "promis": {
+   "en": "promised",
+   "fr": "promis",
+   "es": "prometido",
+   "pt": "prometido",
+   "it": "promesso",
+   "zh-Hans": "承诺",
+   "zh-Hant": "承諾",
+   "ro": "promis",
+   "ca": "promès"
+  },
+  "veiller": {
+   "en": "to watch over",
+   "fr": "veiller",
+   "es": "velar",
+   "pt": "velar",
+   "it": "vegliare",
+   "zh-Hans": "照看",
+   "zh-Hant": "照看",
+   "ro": "a veghea",
+   "ca": "vetllar"
+  },
+  "ramener": {
+   "en": "to bring back",
+   "fr": "ramener",
+   "es": "llevar de vuelta",
+   "pt": "trazer de volta",
+   "it": "riportare",
+   "zh-Hans": "带回",
+   "zh-Hant": "帶回",
+   "ro": "a aduce înapoi",
+   "ca": "tornar a portar"
+  },
+  "lendemain": {
+   "en": "next day",
+   "fr": "lendemain",
+   "es": "día siguiente",
+   "pt": "dia seguinte",
+   "it": "giorno dopo",
+   "zh-Hans": "次日",
+   "zh-Hant": "次日",
+   "ro": "a doua zi",
+   "ca": "endemà"
+  },
+  "ai-je": {
+   "en": "I have (inversion)",
+   "fr": "ai-je",
+   "es": "he (yo)",
+   "pt": "tenho (eu)",
+   "it": "ho (io)",
+   "zh-Hans": "我（助动词倒装）",
+   "zh-Hant": "我（助動詞倒裝）",
+   "ro": "am (eu)",
+   "ca": "he (jo)"
+  },
+  "baisserait": {
+   "en": "would go down",
+   "fr": "baisserait",
+   "es": "bajaría",
+   "pt": "baixaria",
+   "it": "scenderebbe",
+   "zh-Hans": "会下降",
+   "zh-Hant": "會下降",
+   "ro": "ar scădea",
+   "ca": "baixaria"
+  },
+  "sûrement": {
+   "en": "surely",
+   "fr": "sûrement",
+   "es": "seguramente",
+   "pt": "certamente",
+   "it": "sicuramente",
+   "zh-Hans": "肯定",
+   "zh-Hant": "肯定",
+   "ro": "sigur",
+   "ca": "segurament"
+  },
+  "aube": {
+   "en": "dawn",
+   "fr": "aube",
+   "es": "amanecer",
+   "pt": "amanhecer",
+   "it": "alba",
+   "zh-Hans": "黎明",
+   "zh-Hant": "黎明",
+   "ro": "zori",
+   "ca": "alba"
+  },
+  "quand": {
+   "en": "when",
+   "fr": "quand",
+   "es": "cuando",
+   "pt": "quando",
+   "it": "quando",
+   "zh-Hans": "当",
+   "zh-Hant": "當",
+   "ro": "când",
+   "ca": "quan"
+  },
+  "serait": {
+   "en": "would be",
+   "fr": "serait",
+   "es": "sería",
+   "pt": "seria",
+   "it": "sarebbe",
+   "zh-Hans": "将会是",
+   "zh-Hant": "將會是",
+   "ro": "ar fi",
+   "ca": "seria"
+  },
+  "fini": {
+   "en": "finished",
+   "fr": "fini",
+   "es": "terminado",
+   "pt": "terminado",
+   "it": "finito",
+   "zh-Hans": "结束的",
+   "zh-Hant": "結束的",
+   "ro": "terminat",
+   "ca": "acabat"
+  },
+  "séché": {
+   "en": "dried",
+   "fr": "séché",
+   "es": "secado",
+   "pt": "secado",
+   "it": "asciugato",
+   "zh-Hans": "弄干",
+   "zh-Hant": "弄乾",
+   "ro": "uscat",
+   "ca": "assecat"
+  },
+  "vêtements": {
+   "en": "clothes",
+   "fr": "vêtements",
+   "es": "ropa",
+   "pt": "roupas",
+   "it": "vestiti",
+   "zh-Hans": "衣服",
+   "zh-Hant": "衣服",
+   "ro": "haine",
+   "ca": "roba"
+  },
+  "mouillés": {
+   "en": "wet",
+   "fr": "mouillés",
+   "es": "mojados",
+   "pt": "molhados",
+   "it": "bagnati",
+   "zh-Hans": "湿的",
+   "zh-Hant": "濕的",
+   "ro": "umezi",
+   "ca": "mullats"
+  },
+  "près": {
+   "en": "near",
+   "fr": "près",
+   "es": "cerca",
+   "pt": "perto",
+   "it": "vicino",
+   "zh-Hans": "近",
+   "zh-Hant": "近",
+   "ro": "lângă",
+   "ca": "prop"
+  },
+  "feu": {
+   "en": "fire",
+   "fr": "feu",
+   "es": "fuego",
+   "pt": "fogo",
+   "it": "fuoco",
+   "zh-Hans": "火",
+   "zh-Hant": "火",
+   "ro": "foc",
+   "ca": "foc"
+  },
+  "avais": {
+   "en": "had (I)",
+   "fr": "avais",
+   "es": "había (yo)",
+   "pt": "tinha (eu)",
+   "it": "avevo (io)",
+   "zh-Hans": "我有（过去时）",
+   "zh-Hant": "我有（過去時）",
+   "ro": "aveam (eu)",
+   "ca": "havia (jo)"
+  },
+  "allumé": {
+   "en": "lit",
+   "fr": "allumé",
+   "es": "encendido",
+   "pt": "aceso",
+   "it": "acceso",
+   "zh-Hans": "点燃",
+   "zh-Hant": "點燃",
+   "ro": "aprins",
+   "ca": "encès"
+  },
+  "offert": {
+   "en": "offered",
+   "fr": "offert",
+   "es": "ofrecido",
+   "pt": "oferecido",
+   "it": "offerto",
+   "zh-Hans": "提供",
+   "zh-Hant": "提供",
+   "ro": "oferit",
+   "ca": "ofert"
+  },
+  "lait": {
+   "en": "milk",
+   "fr": "lait",
+   "es": "leche",
+   "pt": "leite",
+   "it": "latte",
+   "zh-Hans": "牛奶",
+   "zh-Hant": "牛奶",
+   "ro": "lapte",
+   "ca": "llet"
+  },
+  "frais": {
+   "en": "fresh",
+   "fr": "frais",
+   "es": "fresco",
+   "pt": "fresco",
+   "it": "fresco",
+   "zh-Hans": "新鲜的",
+   "zh-Hant": "新鮮的",
+   "ro": "proaspăt",
+   "ca": "fresc"
+  },
+  "fromage": {
+   "en": "cheese",
+   "fr": "fromage",
+   "es": "queso",
+   "pt": "queijo",
+   "it": "formaggio",
+   "zh-Hans": "奶酪",
+   "zh-Hant": "起司",
+   "ro": "brânză",
+   "ca": "formatge"
+  },
+  "quelques": {
+   "en": "some",
+   "fr": "quelques",
+   "es": "algunos",
+   "pt": "alguns",
+   "it": "alcuni",
+   "zh-Hans": "一些",
+   "zh-Hant": "一些",
+   "ro": "câteva",
+   "ca": "alguns"
+  },
+  "fruits": {
+   "en": "fruits",
+   "fr": "fruits",
+   "es": "frutas",
+   "pt": "frutas",
+   "it": "frutti",
+   "zh-Hans": "水果",
+   "zh-Hant": "水果",
+   "ro": "fructe",
+   "ca": "fruites"
+  },
+  "gardais": {
+   "en": "kept (I)",
+   "fr": "gardais",
+   "es": "guardaba (yo)",
+   "pt": "guardava (eu)",
+   "it": "tenevo (io)",
+   "zh-Hans": "我保存（过去时）",
+   "zh-Hant": "我保存（過去時）",
+   "ro": "păstram (eu)",
+   "ca": "guardava (jo)"
+  },
+  "aussi": {
+   "en": "also",
+   "fr": "aussi",
+   "es": "también",
+   "pt": "também",
+   "it": "anche",
+   "zh-Hans": "也",
+   "zh-Hant": "也",
+   "ro": "de asemenea",
+   "ca": "també"
+  },
+  "étendu": {
+   "en": "spread out",
+   "fr": "étendu",
+   "es": "extendido",
+   "pt": "estendido",
+   "it": "steso",
+   "zh-Hans": "铺开",
+   "zh-Hant": "鋪開",
+   "ro": "întins",
+   "ca": "estès"
+  },
+  "peau": {
+   "en": "skin",
+   "fr": "peau",
+   "es": "piel",
+   "pt": "pele",
+   "it": "pelle",
+   "zh-Hans": "皮",
+   "zh-Hant": "皮",
+   "ro": "piele",
+   "ca": "pell"
+  },
+  "mouton": {
+   "en": "sheep",
+   "fr": "mouton",
+   "es": "oveja",
+   "pt": "ovelha",
+   "it": "pecora",
+   "zh-Hans": "羊",
+   "zh-Hant": "羊",
+   "ro": "oaie",
+   "ca": "ovella"
+  },
+  "couverture": {
+   "en": "blanket",
+   "fr": "couverture",
+   "es": "manta",
+   "pt": "cobertor",
+   "it": "coperta",
+   "zh-Hans": "毯子",
+   "zh-Hant": "毯子",
+   "ro": "pătură",
+   "ca": "manta"
+  },
+  "soit": {
+   "en": "be (subjunctive)",
+   "fr": "soit",
+   "es": "sea",
+   "pt": "seja",
+   "it": "sia",
+   "zh-Hans": "是（虚拟式）",
+   "zh-Hant": "是（虛擬式）",
+   "ro": "fie",
+   "ca": "sigui"
+  },
+  "confortable": {
+   "en": "comfortable",
+   "fr": "confortable",
+   "es": "cómodo",
+   "pt": "confortável",
+   "it": "comodo",
+   "zh-Hans": "舒适的",
+   "zh-Hant": "舒適的",
+   "ro": "confortabil",
+   "ca": "confortable"
+  },
+  "souri": {
+   "en": "smiled",
+   "fr": "souri",
+   "es": "sonreído",
+   "pt": "sorrido",
+   "it": "sorriso",
+   "zh-Hans": "微笑",
+   "zh-Hant": "微笑",
+   "ro": "zâmbit",
+   "ca": "somrigut"
+  },
+  "remercié": {
+   "en": "thanked",
+   "fr": "remercié",
+   "es": "agradecido",
+   "pt": "agradecido",
+   "it": "ringraziato",
+   "zh-Hans": "感谢",
+   "zh-Hant": "感謝",
+   "ro": "mulțumit",
+   "ca": "agraït"
+  },
+  "plusieurs": {
+   "en": "several",
+   "fr": "plusieurs",
+   "es": "varios",
+   "pt": "vários",
+   "it": "diversi",
+   "zh-Hans": "几个",
+   "zh-Hant": "幾個",
+   "ro": "mai mulți",
+   "ca": "diversos"
+  },
+  "inquiète": {
+   "en": "worried",
+   "fr": "inquiète",
+   "es": "preocupada",
+   "pt": "preocupada",
+   "it": "preoccupata",
+   "zh-Hans": "担心的",
+   "zh-Hant": "擔心的",
+   "ro": "îngrijorată",
+   "ca": "preocupada"
+  },
+  "moi": {
+   "en": "me",
+   "fr": "moi",
+   "es": "yo",
+   "pt": "eu",
+   "it": "io",
+   "zh-Hans": "我",
+   "zh-Hant": "我",
+   "ro": "eu",
+   "ca": "jo"
+  },
+  "suis": {
+   "en": "am",
+   "fr": "suis",
+   "es": "soy",
+   "pt": "sou",
+   "it": "sono",
+   "zh-Hans": "是",
+   "zh-Hant": "是",
+   "ro": "sunt",
+   "ca": "sóc"
+  },
+  "resté": {
+   "en": "stayed",
+   "fr": "resté",
+   "es": "quedado",
+   "pt": "ficado",
+   "it": "rimasto",
+   "zh-Hans": "留下",
+   "zh-Hant": "留下",
+   "ro": "rămas",
+   "ca": "quedat"
+  },
+  "dehors": {
+   "en": "outside",
+   "fr": "dehors",
+   "es": "afuera",
+   "pt": "fora",
+   "it": "fuori",
+   "zh-Hans": "外面",
+   "zh-Hant": "外面",
+   "ro": "afară",
+   "ca": "fora"
+  },
+  "assis": {
+   "en": "seated",
+   "fr": "assis",
+   "es": "sentado",
+   "pt": "sentado",
+   "it": "seduto",
+   "zh-Hans": "坐着的",
+   "zh-Hant": "坐著的",
+   "ro": "așezat",
+   "ca": "assegut"
+  },
+  "contre": {
+   "en": "against",
+   "fr": "contre",
+   "es": "contra",
+   "pt": "contra",
+   "it": "contro",
+   "zh-Hans": "靠着",
+   "zh-Hant": "靠著",
+   "ro": "contra",
+   "ca": "contra"
+  },
+  "porte": {
+   "en": "door",
+   "fr": "porte",
+   "es": "puerta",
+   "pt": "porta",
+   "it": "porta",
+   "zh-Hans": "门",
+   "zh-Hant": "門",
+   "ro": "ușă",
+   "ca": "porta"
+  },
+  "sente": {
+   "en": "feels",
+   "fr": "sente",
+   "es": "sienta",
+   "pt": "sinta",
+   "it": "senta",
+   "zh-Hans": "感觉",
+   "zh-Hant": "感覺",
+   "ro": "simtă",
+   "ca": "senti"
+  },
+  "sécurité": {
+   "en": "safety",
+   "fr": "sécurité",
+   "es": "seguridad",
+   "pt": "segurança",
+   "it": "sicurezza",
+   "zh-Hans": "安全",
+   "zh-Hant": "安全",
+   "ro": "siguranță",
+   "ca": "seguretat"
+  },
+  "intérieur": {
+   "en": "inside",
+   "fr": "intérieur",
+   "es": "interior",
+   "pt": "interior",
+   "it": "interno",
+   "zh-Hans": "里面",
+   "zh-Hant": "裡面",
+   "ro": "interior",
+   "ca": "interior"
+  },
+  "crépitait": {
+   "en": "crackled",
+   "fr": "crépitait",
+   "es": "crepitaba",
+   "pt": "crepitava",
+   "it": "crepitava",
+   "zh-Hans": "噼啪作响",
+   "zh-Hant": "噼啪作響",
+   "ro": "trosnea",
+   "ca": "crepitava"
+  },
+  "tombante": {
+   "en": "falling",
+   "fr": "tombante",
+   "es": "caída",
+   "pt": "caindo",
+   "it": "calante",
+   "zh-Hans": "降临的",
+   "zh-Hant": "降臨的",
+   "ro": "căzând",
+   "ca": "que queia"
+  },
+  "déjà": {
+   "en": "already",
+   "fr": "déjà",
+   "es": "ya",
+   "pt": "já",
+   "it": "già",
+   "zh-Hans": "已经",
+   "zh-Hant": "已經",
+   "ro": "deja",
+   "ca": "ja"
+  },
+  "rassurée": {
+   "en": "reassured",
+   "fr": "rassurée",
+   "es": "tranquilizada",
+   "pt": "tranquilizada",
+   "it": "rassicurata",
+   "zh-Hans": "安心的",
+   "zh-Hant": "安心的",
+   "ro": "liniștită",
+   "ca": "tranquil·litzada"
+  },
+  "soirée": {
+   "en": "evening",
+   "fr": "soirée",
+   "es": "noche",
+   "pt": "noite",
+   "it": "serata",
+   "zh-Hans": "晚上",
+   "zh-Hant": "晚上",
+   "ro": "seară",
+   "ca": "vespre"
+  },
+  "sortie": {
+   "en": "came out",
+   "fr": "sortie",
+   "es": "salió",
+   "pt": "saiu",
+   "it": "uscita",
+   "zh-Hans": "出来",
+   "zh-Hant": "出來",
+   "ro": "ieșit",
+   "ca": "sortit"
+  },
+  "enveloppée": {
+   "en": "wrapped",
+   "fr": "enveloppée",
+   "es": "envuelta",
+   "pt": "envolvida",
+   "it": "avvolta",
+   "zh-Hans": "裹着",
+   "zh-Hant": "裹著",
+   "ro": "învelită",
+   "ca": "embolicada"
+  },
+  "dormir": {
+   "en": "to sleep",
+   "fr": "dormir",
+   "es": "dormir",
+   "pt": "dormir",
+   "it": "dormire",
+   "zh-Hans": "睡觉",
+   "zh-Hant": "睡覺",
+   "ro": "dormi",
+   "ca": "dormir"
+  },
+  "préféré": {
+   "en": "preferred",
+   "fr": "préféré",
+   "es": "preferido",
+   "pt": "preferido",
+   "it": "preferito",
+   "zh-Hans": "宁愿",
+   "zh-Hant": "寧願",
+   "ro": "preferat",
+   "ca": "preferit"
+  },
+  "asseoir": {
+   "en": "to sit",
+   "fr": "asseoir",
+   "es": "sentarse",
+   "pt": "sentar",
+   "it": "sedersi",
+   "zh-Hans": "坐",
+   "zh-Hant": "坐",
+   "ro": "așeza",
+   "ca": "asseure's"
+  },
+  "avons": {
+   "en": "have",
+   "fr": "avons",
+   "es": "hemos",
+   "pt": "temos",
+   "it": "abbiamo",
+   "zh-Hans": "我们",
+   "zh-Hant": "我們",
+   "ro": "am",
+   "ca": "hem"
+  },
+  "bruits": {
+   "en": "noises",
+   "fr": "bruits",
+   "es": "ruidos",
+   "pt": "ruídos",
+   "it": "rumori",
+   "zh-Hans": "声音",
+   "zh-Hant": "聲音",
+   "ro": "zgomote",
+   "ca": "sorolls"
+  },
+  "familiers": {
+   "en": "familiar",
+   "fr": "familiers",
+   "es": "familiares",
+   "pt": "familiares",
+   "it": "familiari",
+   "zh-Hans": "熟悉的",
+   "zh-Hant": "熟悉的",
+   "ro": "familiare",
+   "ca": "familiars"
+  },
+  "loup": {
+   "en": "wolf",
+   "fr": "loup",
+   "es": "lobo",
+   "pt": "lobo",
+   "it": "lupo",
+   "zh-Hans": "狼",
+   "zh-Hant": "狼",
+   "ro": "lup",
+   "ca": "llop"
+  },
+  "hurlé": {
+   "en": "howled",
+   "fr": "hurlé",
+   "es": "aulló",
+   "pt": "uivou",
+   "it": "ululato",
+   "zh-Hans": "嚎叫",
+   "zh-Hant": "嚎叫",
+   "ro": "urlat",
+   "ca": "udolat"
+  },
+  "loin": {
+   "en": "far",
+   "fr": "loin",
+   "es": "lejos",
+   "pt": "longe",
+   "it": "lontano",
+   "zh-Hans": "远处",
+   "zh-Hant": "遠處",
+   "ro": "departe",
+   "ca": "lluny"
+  },
+  "rapprochée": {
+   "en": "moved closer",
+   "fr": "rapprochée",
+   "es": "acercó",
+   "pt": "aproximou",
+   "it": "avvicinata",
+   "zh-Hans": "靠近",
+   "zh-Hant": "靠近",
+   "ro": "apropiat",
+   "ca": "apropat"
+  },
+  "mot": {
+   "en": "word",
+   "fr": "mot",
+   "es": "palabra",
+   "pt": "palavra",
+   "it": "parola",
+   "zh-Hans": "话",
+   "zh-Hant": "話",
+   "ro": "cuvânt",
+   "ca": "paraula"
+  },
+  "assuré": {
+   "en": "assured",
+   "fr": "assuré",
+   "es": "asegurado",
+   "pt": "assegurado",
+   "it": "assicurato",
+   "zh-Hans": "保证",
+   "zh-Hant": "保證",
+   "ro": "asigurat",
+   "ca": "assegurat"
+  },
+  "surveillait": {
+   "en": "was watching",
+   "fr": "surveillait",
+   "es": "vigilaba",
+   "pt": "vigiava",
+   "it": "sorvegliava",
+   "zh-Hans": "看守",
+   "zh-Hant": "看守",
+   "ro": "supraveghea",
+   "ca": "vigilava"
+  },
+  "risquions": {
+   "en": "risked",
+   "fr": "risquions",
+   "es": "arriesgábamos",
+   "pt": "arriscávamos",
+   "it": "rischiavamo",
+   "zh-Hans": "冒险",
+   "zh-Hant": "冒險",
+   "ro": "riscam",
+   "ca": "arriscàvem"
+  },
+  "rien": {
+   "en": "nothing",
+   "fr": "rien",
+   "es": "nada",
+   "pt": "nada",
+   "it": "niente",
+   "zh-Hans": "什么",
+   "zh-Hant": "什麼",
+   "ro": "nimic",
+   "ca": "res"
+  },
+  "claire": {
+   "en": "clear",
+   "fr": "claire",
+   "es": "clara",
+   "pt": "clara",
+   "it": "chiara",
+   "zh-Hans": "清澈的",
+   "zh-Hant": "清澈的",
+   "ro": "clară",
+   "ca": "clara"
+  },
+  "pleine": {
+   "en": "full",
+   "fr": "pleine",
+   "es": "llena",
+   "pt": "cheia",
+   "it": "piena",
+   "zh-Hans": "充满",
+   "zh-Hant": "充滿",
+   "ro": "plină",
+   "ca": "plena"
+  },
+  "étoiles": {
+   "en": "stars",
+   "fr": "étoiles",
+   "es": "estrellas",
+   "pt": "estrelas",
+   "it": "stelle",
+   "zh-Hans": "星星",
+   "zh-Hant": "星星",
+   "ro": "stele",
+   "ca": "estrelles"
+  },
+  "parfait": {
+   "en": "perfect",
+   "fr": "parfait",
+   "es": "perfecto",
+   "pt": "perfeito",
+   "it": "perfetto",
+   "zh-Hans": "完美的",
+   "zh-Hant": "完美的",
+   "ro": "perfect",
+   "ca": "perfecte"
+  },
+  "connaissaient": {
+   "en": "knew",
+   "fr": "connaissaient",
+   "es": "conocían",
+   "pt": "conheciam",
+   "it": "conoscevano",
+   "zh-Hans": "知道",
+   "zh-Hant": "知道",
+   "ro": "cunoșteau",
+   "ca": "coneixien"
+  },
+  "répondu": {
+   "en": "answered",
+   "fr": "répondu",
+   "es": "respondido",
+   "pt": "respondido",
+   "it": "risposto",
+   "zh-Hans": "回答",
+   "zh-Hant": "回答",
+   "ro": "răspuns",
+   "ca": "respost"
+  },
+  "connaissais": {
+   "en": "knew",
+   "fr": "connaissais",
+   "es": "conocía",
+   "pt": "conhecia",
+   "it": "conoscevo",
+   "zh-Hans": "知道",
+   "zh-Hant": "知道",
+   "ro": "cunoșteam",
+   "ca": "coneixia"
+  },
+  "mieux": {
+   "en": "better",
+   "fr": "mieux",
+   "es": "mejor",
+   "pt": "melhor",
+   "it": "meglio",
+   "zh-Hans": "更好",
+   "zh-Hant": "更好",
+   "ro": "mai bine",
+   "ca": "millor"
+  },
+  "vivaient": {
+   "en": "lived",
+   "fr": "vivaient",
+   "es": "vivían",
+   "pt": "viviam",
+   "it": "vivevano",
+   "zh-Hans": "居住",
+   "zh-Hant": "居住",
+   "ro": "trăiau",
+   "ca": "vivien"
+  },
+  "ville": {
+   "en": "city",
+   "fr": "ville",
+   "es": "ciudad",
+   "pt": "cidade",
+   "it": "città",
+   "zh-Hans": "城市",
+   "zh-Hant": "城市",
+   "ro": "oraș",
+   "ca": "ciutat"
+  },
+  "montré": {
+   "en": "shown",
+   "fr": "montré",
+   "es": "mostrado",
+   "pt": "mostrado",
+   "it": "mostrato",
+   "zh-Hans": "展示",
+   "zh-Hant": "展示",
+   "ro": "arătat",
+   "ca": "mostrat"
+  },
+  "saint-jacques": {
+   "en": "Saint James",
+   "fr": "saint-jacques",
+   "es": "Santiago",
+   "pt": "Santiago",
+   "it": "San Giacomo",
+   "zh-Hans": "圣雅各",
+   "zh-Hant": "聖雅各",
+   "ro": "Sfântul Iacob",
+   "ca": "Sant Jaume"
+  },
+  "traverse": {
+   "en": "crosses",
+   "fr": "traverse",
+   "es": "atraviesa",
+   "pt": "atravessa",
+   "it": "attraversa",
+   "zh-Hans": "穿过",
+   "zh-Hant": "穿過",
+   "ro": "traversează",
+   "ca": "travessa"
+  },
+  "nord": {
+   "en": "north",
+   "fr": "nord",
+   "es": "norte",
+   "pt": "norte",
+   "it": "nord",
+   "zh-Hans": "北",
+   "zh-Hant": "北",
+   "ro": "nord",
+   "ca": "nord"
+  },
+  "sud": {
+   "en": "south",
+   "fr": "sud",
+   "es": "sur",
+   "pt": "sul",
+   "it": "sud",
+   "zh-Hans": "南",
+   "zh-Hant": "南",
+   "ro": "sud",
+   "ca": "sud"
+  },
+  "parlé": {
+   "en": "spoken",
+   "fr": "parlé",
+   "es": "hablado",
+   "pt": "falado",
+   "it": "parlato",
+   "zh-Hans": "说过",
+   "zh-Hant": "說過",
+   "ro": "vorbit",
+   "ca": "parlat"
+  },
+  "char": {
+   "en": "chariot",
+   "fr": "char",
+   "es": "carro",
+   "pt": "carro",
+   "it": "carro",
+   "zh-Hans": "战车",
+   "zh-Hant": "戰車",
+   "ro": "car",
+   "ca": "carro"
+  },
+  "trois": {
+   "en": "three",
+   "fr": "trois",
+   "es": "tres",
+   "pt": "três",
+   "it": "tre",
+   "zh-Hans": "三",
+   "zh-Hant": "三",
+   "ro": "trei",
+   "ca": "tres"
+  },
+  "rois": {
+   "en": "kings",
+   "fr": "rois",
+   "es": "reyes",
+   "pt": "reis",
+   "it": "re",
+   "zh-Hans": "国王",
+   "zh-Hant": "國王",
+   "ro": "regi",
+   "ca": "reis"
+  },
+  "étoile": {
+   "en": "star",
+   "fr": "étoile",
+   "es": "estrella",
+   "pt": "estrela",
+   "it": "stella",
+   "zh-Hans": "星星",
+   "zh-Hant": "星星",
+   "ro": "stea",
+   "ca": "estrella"
+  },
+  "garde": {
+   "en": "keeps",
+   "fr": "garde",
+   "es": "guarda",
+   "pt": "guarda",
+   "it": "custodisce",
+   "zh-Hans": "守护",
+   "zh-Hant": "守護",
+   "ro": "păstrează",
+   "ca": "guarda"
+  },
+  "autres": {
+   "en": "others",
+   "fr": "autres",
+   "es": "otros",
+   "pt": "outras",
+   "it": "altre",
+   "zh-Hans": "其他的",
+   "zh-Hant": "其他的",
+   "ro": "altele",
+   "ca": "altres"
+  },
+  "légende": {
+   "en": "legend",
+   "fr": "légende",
+   "es": "leyenda",
+   "pt": "lenda",
+   "it": "leggenda",
+   "zh-Hans": "传说",
+   "zh-Hant": "傳說",
+   "ro": "legendă",
+   "ca": "llegenda"
+  },
+  "deux": {
+   "en": "two",
+   "fr": "deux",
+   "es": "dos",
+   "pt": "dois",
+   "it": "due",
+   "zh-Hans": "二",
+   "zh-Hant": "二",
+   "ro": "doi",
+   "ca": "dos"
+  },
+  "aiment": {
+   "en": "love",
+   "fr": "aiment",
+   "es": "aman",
+   "pt": "amam",
+   "it": "amano",
+   "zh-Hans": "相爱",
+   "zh-Hant": "相愛",
+   "ro": "iubesc",
+   "ca": "s'estimen"
+  },
+  "peuvent": {
+   "en": "can",
+   "fr": "peuvent",
+   "es": "pueden",
+   "pt": "podem",
+   "it": "possono",
+   "zh-Hans": "能",
+   "zh-Hant": "能",
+   "ro": "pot",
+   "ca": "poden"
+  },
+  "rejoindre": {
+   "en": "join",
+   "fr": "rejoindre",
+   "es": "unirse",
+   "pt": "encontrar-se",
+   "it": "raggiungersi",
+   "zh-Hans": "相聚",
+   "zh-Hant": "相聚",
+   "ro": "ajunge",
+   "ca": "reunir-se"
+  },
+  "riait": {
+   "en": "laughed",
+   "fr": "riait",
+   "es": "reía",
+   "pt": "ria",
+   "it": "rideva",
+   "zh-Hans": "笑",
+   "zh-Hant": "笑",
+   "ro": "râdea",
+   "ca": "reia"
+  },
+  "nouvelle": {
+   "en": "new",
+   "fr": "nouvelle",
+   "es": "nueva",
+   "pt": "nova",
+   "it": "nuova",
+   "zh-Hans": "新的",
+   "zh-Hant": "新的",
+   "ro": "nouă",
+   "ca": "nova"
+  },
+  "histoire": {
+   "en": "story",
+   "fr": "histoire",
+   "es": "historia",
+   "pt": "história",
+   "it": "storia",
+   "zh-Hans": "故事",
+   "zh-Hant": "故事",
+   "ro": "poveste",
+   "ca": "història"
+  },
+  "elles-mêmes": {
+   "en": "themselves",
+   "fr": "elles-mêmes",
+   "es": "ellas mismas",
+   "pt": "elas mesmas",
+   "it": "loro stesse",
+   "zh-Hans": "它们自己",
+   "zh-Hant": "它們自己",
+   "ro": "ele însele",
+   "ca": "elles mateixes"
+  },
+  "mariaient": {
+   "en": "got married",
+   "fr": "mariaient",
+   "es": "se casaban",
+   "pt": "se casavam",
+   "it": "si sposavano",
+   "zh-Hans": "结婚",
+   "zh-Hant": "結婚",
+   "ro": "se căsătoreau",
+   "ca": "es casaven"
+  },
+  "font": {
+   "en": "do",
+   "fr": "font",
+   "es": "hacen",
+   "pt": "fazem",
+   "it": "fanno",
+   "zh-Hans": "做",
+   "zh-Hant": "做",
+   "ro": "fac",
+   "ca": "fan"
+  },
+  "oui": {
+   "en": "yes",
+   "fr": "oui",
+   "es": "sí",
+   "pt": "sim",
+   "it": "sì",
+   "zh-Hans": "是的",
+   "zh-Hant": "是的",
+   "ro": "da",
+   "ca": "sí"
+  },
+  "terre": {
+   "en": "earth",
+   "fr": "terre",
+   "es": "tierra",
+   "pt": "terra",
+   "it": "terra",
+   "zh-Hans": "地球",
+   "zh-Hant": "地球",
+   "ro": "pământ",
+   "ca": "terra"
+  },
+  "existait": {
+   "en": "existed",
+   "fr": "existait",
+   "es": "existía",
+   "pt": "existia",
+   "it": "esisteva",
+   "zh-Hans": "存在",
+   "zh-Hant": "存在",
+   "ro": "exista",
+   "ca": "existia"
+  },
+  "belles": {
+   "en": "beautiful",
+   "fr": "belles",
+   "es": "hermosas",
+   "pt": "belas",
+   "it": "belle",
+   "zh-Hans": "美丽的",
+   "zh-Hant": "美麗的",
+   "ro": "frumoase",
+   "ca": "belles"
+  },
+  "histoires": {
+   "en": "stories",
+   "fr": "histoires",
+   "es": "historias",
+   "pt": "histórias",
+   "it": "storie",
+   "zh-Hans": "故事",
+   "zh-Hant": "故事",
+   "ro": "povești",
+   "ca": "històries"
+  },
+  "amour": {
+   "en": "love",
+   "fr": "amour",
+   "es": "amor",
+   "pt": "amor",
+   "it": "amore",
+   "zh-Hans": "爱情",
+   "zh-Hant": "愛情",
+   "ro": "dragoste",
+   "ca": "amor"
+  },
+  "posait": {
+   "en": "asked",
+   "fr": "posait",
+   "es": "hacía",
+   "pt": "fazia",
+   "it": "faceva",
+   "zh-Hans": "提出",
+   "zh-Hant": "提出",
+   "ro": "punea",
+   "ca": "feia"
+  },
+  "enfant": {
+   "en": "child",
+   "fr": "enfant",
+   "es": "niña",
+   "pt": "criança",
+   "it": "bambina",
+   "zh-Hans": "孩子",
+   "zh-Hant": "孩子",
+   "ro": "copil",
+   "ca": "nena"
+  },
+  "curieuse": {
+   "en": "curious",
+   "fr": "curieuse",
+   "es": "curiosa",
+   "pt": "curiosa",
+   "it": "curiosa",
+   "zh-Hans": "好奇的",
+   "zh-Hant": "好奇的",
+   "ro": "curioasă",
+   "ca": "curiosa"
+  },
+  "répondais": {
+   "en": "answered",
+   "fr": "répondais",
+   "es": "respondía",
+   "pt": "respondia",
+   "it": "rispondevo",
+   "zh-Hans": "回答",
+   "zh-Hant": "回答",
+   "ro": "răspundeam",
+   "ca": "responia"
+  },
+  "plaisir": {
+   "en": "pleasure",
+   "fr": "plaisir",
+   "es": "placer",
+   "pt": "prazer",
+   "it": "piacere",
+   "zh-Hans": "愉快",
+   "zh-Hant": "愉快",
+   "ro": "plăcere",
+   "ca": "plaer"
+  },
+  "parlais": {
+   "en": "was speaking",
+   "fr": "parlais",
+   "es": "hablaba",
+   "pt": "falava",
+   "it": "parlavo",
+   "zh-Hans": "说话",
+   "zh-Hant": "說話",
+   "ro": "vorbeam",
+   "ca": "parlava"
+  },
+  "devenue": {
+   "en": "became",
+   "fr": "devenue",
+   "es": "se volvió",
+   "pt": "tornou-se",
+   "it": "diventata",
+   "zh-Hans": "变得",
+   "zh-Hant": "變得",
+   "ro": "devenit",
+   "ca": "esdevinguda"
+  },
+  "silencieuse": {
+   "en": "silent",
+   "fr": "silencieuse",
+   "es": "silenciosa",
+   "pt": "silenciosa",
+   "it": "silenziosa",
+   "zh-Hans": "沉默的",
+   "zh-Hant": "沉默的",
+   "ro": "tăcută",
+   "ca": "silenciosa"
+  },
+  "tombée": {
+   "en": "fallen",
+   "fr": "tombée",
+   "es": "caída",
+   "pt": "caída",
+   "it": "caduta",
+   "zh-Hans": "落下",
+   "zh-Hant": "落下",
+   "ro": "căzută",
+   "ca": "caiguda"
+  },
+  "épaule": {
+   "en": "shoulder",
+   "fr": "épaule",
+   "es": "hombro",
+   "pt": "ombro",
+   "it": "spalla",
+   "zh-Hans": "肩膀",
+   "zh-Hant": "肩膀",
+   "ro": "umăr",
+   "ca": "espatlla"
+  },
+  "endormie": {
+   "en": "fallen asleep",
+   "fr": "endormie",
+   "es": "dormida",
+   "pt": "adormecida",
+   "it": "addormentata",
+   "zh-Hans": "睡着了",
+   "zh-Hant": "睡著了",
+   "ro": "adormită",
+   "ca": "adormida"
+  },
+  "bercée": {
+   "en": "rocked",
+   "fr": "bercée",
+   "es": "mecida",
+   "pt": "embalada",
+   "it": "cullata",
+   "zh-Hans": "轻轻摇动",
+   "zh-Hant": "輕輕搖動",
+   "ro": "legănată",
+   "ca": "bressolada"
+  },
+  "calme": {
+   "en": "calm",
+   "fr": "calme",
+   "es": "calma",
+   "pt": "calma",
+   "it": "calma",
+   "zh-Hans": "平静",
+   "zh-Hant": "平靜",
+   "ro": "calm",
+   "ca": "calma"
+  },
+  "profond": {
+   "en": "deep",
+   "fr": "profond",
+   "es": "profundo",
+   "pt": "profundo",
+   "it": "profondo",
+   "zh-Hans": "深的",
+   "zh-Hant": "深的",
+   "ro": "adânc",
+   "ca": "profund"
+  },
+  "immobile": {
+   "en": "motionless",
+   "fr": "immobile",
+   "es": "inmóvil",
+   "pt": "imóvel",
+   "it": "immobile",
+   "zh-Hans": "不动的",
+   "zh-Hant": "不動的",
+   "ro": "imobil",
+   "ca": "immòbil"
+  },
+  "heures": {
+   "en": "hours",
+   "fr": "heures",
+   "es": "horas",
+   "pt": "horas",
+   "it": "ore",
+   "zh-Hans": "小时",
+   "zh-Hant": "小時",
+   "ro": "ore",
+   "ca": "hores"
+  },
+  "osant": {
+   "en": "daring",
+   "fr": "osant",
+   "es": "osando",
+   "pt": "ousando",
+   "it": "osando",
+   "zh-Hans": "敢于",
+   "zh-Hant": "敢於",
+   "ro": "îndrăznind",
+   "ca": "gosant"
+  },
+  "respirer": {
+   "en": "to breathe",
+   "fr": "respirer",
+   "es": "respirar",
+   "pt": "respirar",
+   "it": "respirare",
+   "zh-Hans": "呼吸",
+   "zh-Hant": "呼吸",
+   "ro": "a respira",
+   "ca": "respirar"
+  },
+  "réveiller": {
+   "en": "to wake up",
+   "fr": "réveiller",
+   "es": "despertar",
+   "pt": "acordar",
+   "it": "svegliare",
+   "zh-Hans": "唤醒",
+   "zh-Hant": "喚醒",
+   "ro": "a trezi",
+   "ca": "despertar"
+  },
+  "pensé": {
+   "en": "thought",
+   "fr": "pensé",
+   "es": "pensado",
+   "pt": "pensado",
+   "it": "pensato",
+   "zh-Hans": "想",
+   "zh-Hant": "想",
+   "ro": "gândit",
+   "ca": "pensat"
+  },
+  "regardant": {
+   "en": "watching",
+   "fr": "regardant",
+   "es": "mirando",
+   "pt": "olhando",
+   "it": "guardando",
+   "zh-Hans": "看着",
+   "zh-Hant": "看著",
+   "ro": "privind",
+   "ca": "mirant"
+  },
+  "entier": {
+   "en": "whole",
+   "fr": "entier",
+   "es": "entero",
+   "pt": "inteiro",
+   "it": "intero",
+   "zh-Hans": "整个",
+   "zh-Hant": "整個",
+   "ro": "întreg",
+   "ca": "sencer"
+  },
+  "nuit-là": {
+   "en": "that night",
+   "fr": "nuit-là",
+   "es": "esa noche",
+   "pt": "aquela noite",
+   "it": "quella notte",
+   "zh-Hans": "那晚",
+   "zh-Hant": "那晚",
+   "ro": "acea noapte",
+   "ca": "aquella nit"
+  },
+  "délicate": {
+   "en": "delicate",
+   "fr": "délicate",
+   "es": "delicada",
+   "pt": "delicada",
+   "it": "delicata",
+   "zh-Hans": "精致",
+   "zh-Hant": "精緻",
+   "ro": "delicată",
+   "ca": "delicada"
+  },
+  "alors": {
+   "en": "then",
+   "fr": "alors",
+   "es": "entonces",
+   "pt": "então",
+   "it": "allora",
+   "zh-Hans": "然后",
+   "zh-Hant": "然後",
+   "ro": "atunci",
+   "ca": "llavors"
+  },
+  "venue": {
+   "en": "come",
+   "fr": "venue",
+   "es": "venida",
+   "pt": "vinda",
+   "it": "venuta",
+   "zh-Hans": "来",
+   "zh-Hant": "來",
+   "ro": "venită",
+   "ca": "vinguda"
+  },
+  "poser": {
+   "en": "to place",
+   "fr": "poser",
+   "es": "posar",
+   "pt": "pousar",
+   "it": "posare",
+   "zh-Hans": "放下",
+   "zh-Hant": "放下",
+   "ro": "a așeza",
+   "ca": "posar"
+  },
+  "reste": {
+   "en": "remains",
+   "fr": "reste",
+   "es": "queda",
+   "pt": "permanece",
+   "it": "resta",
+   "zh-Hans": "留下",
+   "zh-Hant": "留下",
+   "ro": "rămâne",
+   "ca": "queda"
+  },
+  "souvenir": {
+   "en": "memory",
+   "fr": "souvenir",
+   "es": "recuerdo",
+   "pt": "memória",
+   "it": "ricordo",
+   "zh-Hans": "记忆",
+   "zh-Hant": "記憶",
+   "ro": "amintire",
+   "ca": "record"
+  },
+  "douce": {
+   "en": "sweet",
+   "fr": "douce",
+   "es": "dulce",
+   "pt": "doce",
+   "it": "dolce",
+   "zh-Hans": "甜蜜",
+   "zh-Hant": "甜蜜",
+   "ro": "dulce",
+   "ca": "dolça"
+  },
+  "magique": {
+   "en": "magical",
+   "fr": "magique",
+   "es": "mágica",
+   "pt": "mágica",
+   "it": "magica",
+   "zh-Hans": "神奇",
+   "zh-Hant": "神奇",
+   "ro": "magică",
+   "ca": "màgica"
+  }
+ }
+}

@@ -1,0 +1,2093 @@
+{
+ "schemaVersion": 1,
+ "bookId": "zh-luxun-kong-yiji",
+ "contentLocale": "zh-CN",
+ "title": "孔乙己",
+ "author": "鲁迅 (Lu Xun)",
+ "sourceEdition": "《孔乙己》(1919), abridged retelling; classical text on Chinese Wikisource",
+ "sourceUrl": "https://zh.wikisource.org/wiki/孔乙己",
+ "sourceJurisdiction": "Public domain worldwide (author died 1936)",
+ "adaptationEditor": "Sotto contributors (AI first draft, unreviewed)",
+ "reviewStatus": "draft",
+ "level": "B1",
+ "categories": [
+  "classics"
+ ],
+ "estimatedMinutes": 8,
+ "localizedTitles": {
+  "en": "Kong Yiji",
+  "zh-Hans": "孔乙己"
+ },
+ "premise": {
+  "en": "At the Xianheng tavern in a small Chinese town, a poor, old-fashioned scholar named Kong Yiji becomes a figure of mockery, pity, and finally tragedy.",
+  "zh-Hans": "在中国一个小镇的咸亨酒店里，一个贫穷、迂腐的读书人孔乙己，成了大家嘲笑、同情，最终又令人悲伤的人物。"
+ },
+ "summary": {
+  "en": "Told through the eyes of a boy who works at the Xianheng tavern warming wine, this story follows Kong Yiji, a poor scholar who still wears a long gown out of pride even though he cannot pass the exams or hold a job. Mocked for stealing and for his old-fashioned speech, he still shows unexpected kindness to children, but his troubles slowly grow worse until he disappears from the tavern for good.",
+  "zh-Hans": "故事通过一个在咸亨酒店温酒的男孩的眼睛，讲述了孔乙己的故事。他是一个贫穷的读书人，虽然没有通过科举考试，也没有正式的工作，却仍然骄傲地穿着长衫。他因偷东西和说话迂腐常常被人嘲笑，却对孩子们表现出意想不到的善意，但他的处境渐渐变得更糟，最终从酒店里永远消失了。"
+ },
+ "contentWarning": null,
+ "tutorNotes": {
+  "pronunciation": "Point out the retroflex initials zh/ch/sh in words like 之乎者也 (zhī hū zhě yě), 掌柜 (zhǎngguì) and 窃书 (qiè shū); these sounds are made with the tongue curled back, unlike English 'j' or 'ch'. The neutral tone in 伙计 (huǒji) and 茴香豆 (huíxiāngdòu) should stay light and unstressed. Remember that 一 changes tone before a falling-tone syllable, as in 一颗 (yì kē).",
+  "grammar": "The text uses 了 to mark completed actions, such as 打断了 (broke) and 死了 (died), alongside 是……的 constructions to highlight how or when something happened. Simple relative clauses built with 的 are frequent, as in 温酒的伙计 (the boy who warms wine). Note the negative pattern 不能算 (cannot be considered), used in Kong Yiji's famous defense of himself.",
+  "culture": "Before China's imperial examination system ended, passing it could bring a scholar wealth and status, symbolized by the long gown (长衫) that separated the educated from laborers in short jackets. A person like Kong Yiji, who never passed the exams but refuses to give up the gown, became a tragic symbol of a dying social order. Lu Xun wrote this story in 1919 to criticize how society mocked and abandoned people like him instead of helping them.",
+  "commonErrors": "Learners often confuse 不 and 没 for negation: 不 negates habits, opinions, or the future, while 没(有) negates completed past events, as in 没有再来 (did not come again). Another common mistake is reading a fixed phrase like 之乎者也 word by word instead of treating it as one unit meaning 'old-fashioned bookish talk'. Watch also for 把 in 把兔子带回家-style sentences, which moves the object before the verb."
+ },
+ "vocabulary": [
+  {
+   "word": "长衫",
+   "pinyin": "chángshān",
+   "gloss": {
+    "en": "long scholar's gown",
+    "zh-Hans": "长衫"
+   }
+  },
+  {
+   "word": "短衣",
+   "pinyin": "duǎnyī",
+   "gloss": {
+    "en": "short jacket (worker's clothes)",
+    "zh-Hans": "短衣"
+   }
+  },
+  {
+   "word": "伙计",
+   "pinyin": "huǒji",
+   "gloss": {
+    "en": "shop assistant",
+    "zh-Hans": "伙计"
+   }
+  },
+  {
+   "word": "温酒",
+   "pinyin": "wēn jiǔ",
+   "gloss": {
+    "en": "to warm wine",
+    "zh-Hans": "温酒"
+   }
+  },
+  {
+   "word": "之乎者也",
+   "pinyin": "zhī hū zhě yě",
+   "gloss": {
+    "en": "old-fashioned bookish talk",
+    "zh-Hans": "之乎者也"
+   }
+  },
+  {
+   "word": "窃书",
+   "pinyin": "qiè shū",
+   "gloss": {
+    "en": "to steal books",
+    "zh-Hans": "窃书"
+   }
+  },
+  {
+   "word": "茴香豆",
+   "pinyin": "huíxiāngdòu",
+   "gloss": {
+    "en": "fennel beans (a bar snack)",
+    "zh-Hans": "茴香豆"
+   }
+  },
+  {
+   "word": "掌柜",
+   "pinyin": "zhǎngguì",
+   "gloss": {
+    "en": "shopkeeper, tavern owner",
+    "zh-Hans": "掌柜"
+   }
+  },
+  {
+   "word": "举人",
+   "pinyin": "jǔrén",
+   "gloss": {
+    "en": "successful imperial exam candidate",
+    "zh-Hans": "举人"
+   }
+  },
+  {
+   "word": "乞讨",
+   "pinyin": "qǐtǎo",
+   "gloss": {
+    "en": "to beg",
+    "zh-Hans": "乞讨"
+   }
+  },
+  {
+   "word": "嘲笑",
+   "pinyin": "cháoxiào",
+   "gloss": {
+    "en": "to mock, to laugh at",
+    "zh-Hans": "嘲笑"
+   }
+  },
+  {
+   "word": "伤疤",
+   "pinyin": "shāngbā",
+   "gloss": {
+    "en": "scar",
+    "zh-Hans": "伤疤"
+   }
+  },
+  {
+   "word": "爬",
+   "pinyin": "pá",
+   "gloss": {
+    "en": "to crawl",
+    "zh-Hans": "爬"
+   }
+  },
+  {
+   "word": "欠钱",
+   "pinyin": "qiàn qián",
+   "gloss": {
+    "en": "to owe money",
+    "zh-Hans": "欠钱"
+   }
+  }
+ ],
+ "comprehension": [
+  {
+   "question": {
+    "en": "Who works at the Xianheng tavern, and what is his job?",
+    "zh-Hans": "谁在咸亨酒店当伙计，他负责做什么工作？"
+   }
+  },
+  {
+   "question": {
+    "en": "How is Kong Yiji different from the other customers at the tavern?",
+    "zh-Hans": "孔乙己和酒店里的其他客人有什么不同？"
+   }
+  },
+  {
+   "question": {
+    "en": "What famous line does Kong Yiji say when people accuse him of stealing?",
+    "zh-Hans": "当别人指责孔乙己偷东西时，他说了哪句有名的话？"
+   }
+  },
+  {
+   "question": {
+    "en": "How did Kong Yiji's legs get broken?",
+    "zh-Hans": "孔乙己的腿是怎么打断的？"
+   }
+  },
+  {
+   "question": {
+    "en": "Why might the story's last line use the contradictory phrase \"probably... indeed\" (大约的确)?",
+    "zh-Hans": "为什么故事的最后一句话要用“大约……的确”这样看似矛盾的说法？"
+   }
+  }
+ ],
+ "license": {
+  "spdx": "CC-BY-SA-4.0",
+  "attribution": "Sotto contributors; based on the public-domain original by 鲁迅 (Lu Xun)"
+ },
+ "chapters": [
+  {
+   "title": "第一章 咸亨酒店",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "我十二岁的时候，在鲁镇的咸亨酒店当伙计。",
+       "translation": {
+        "en": "When I was twelve years old, I worked as a waiter at the Xianheng Wine Shop in Luzhen.",
+        "fr": "Quand j'avais douze ans, j'étais serveur à l'auberge Xianheng de la ville de Lu.",
+        "es": "Cuando tenía doce años, trabajaba como mozo en la taberna Xianheng del pueblo de Lu.",
+        "pt": "Quando eu tinha doze anos, trabalhei como empregado na taverna Xianheng, na cidade de Lu.",
+        "it": "Quando avevo dodici anni, lavoravo come garzone nella taverna Xianheng di Luzhen.",
+        "zh-Hans": "我十二岁的时候，在鲁镇的咸亨酒店当伙计。",
+        "zh-Hant": "我十二歲的時候，在魯鎮的咸亨酒店當夥計。",
+        "ro": "Când aveam doisprezece ani, lucram ca băiat la hanul Xianheng din orașul Lu.",
+        "ca": "Quan tenia dotze anys, treballava com a mosso a la taverna Xianheng del poble de Lu."
+       }
+      },
+      {
+       "text": "我的工作很简单，就是每天给客人温酒。",
+       "translation": {
+        "en": "My job was simple: every day I warmed wine for the customers.",
+        "fr": "Mon travail était très simple : chaque jour, je devais chauffer le vin pour les clients.",
+        "es": "Mi trabajo era muy simple: todos los días calentaba vino para los clientes.",
+        "pt": "Meu trabalho era simples: todos os dias eu esquentava vinho para os clientes.",
+        "it": "Il mio lavoro era molto semplice: ogni giorno dovevo scaldare il vino per i clienti.",
+        "zh-Hans": "我的工作很简单，就是每天给客人温酒。",
+        "zh-Hant": "我的工作很簡單，就是每天給客人溫酒。",
+        "ro": "Munca mea era simplă: în fiecare zi încălzeam vinul pentru clienți.",
+        "ca": "La meva feina era molt senzilla: cada dia escalfava vi per als clients."
+       }
+      },
+      {
+       "text": "咸亨酒店的客人分成两种，很容易分辨。",
+       "translation": {
+        "en": "The customers at Xianheng Wine Shop were divided into two types, easy to tell apart.",
+        "fr": "Les clients de l'auberge Xianheng se divisaient en deux catégories, faciles à distinguer.",
+        "es": "Los clientes de la taberna Xianheng se dividían en dos tipos, fáciles de distinguir.",
+        "pt": "Os clientes da taverna Xianheng se dividiam em dois tipos, fáceis de distinguir.",
+        "it": "I clienti della taverna Xianheng erano di due tipi, facili da distinguere.",
+        "zh-Hans": "咸亨酒店的客人分成两种，很容易分辨。",
+        "zh-Hant": "咸亨酒店的客人分成兩種，很容易分辨。",
+        "ro": "Clienții hanului Xianheng erau de două feluri, ușor de deosebit.",
+        "ca": "Els clients de la taverna Xianheng es dividien en dos tipus, fàcils de distingir."
+       }
+      },
+      {
+       "text": "穿长衫的客人坐在里面的房间，慢慢地喝酒吃菜。",
+       "translation": {
+        "en": "Those in long gowns sat in the inner room, slowly drinking wine and eating dishes.",
+        "fr": "Les clients en robe longue s'asseyaient dans la salle intérieure, buvant et mangeant lentement.",
+        "es": "Los que vestían túnicas largas se sentaban en la sala interior, bebiendo vino y comiendo platos lentamente.",
+        "pt": "Os que vestiam roupas compridas sentavam-se na sala dos fundos, bebendo e comendo devagar.",
+        "it": "Quelli che indossavano la veste lunga sedevano nella stanza interna, bevendo vino e mangiando piatti lentamente.",
+        "zh-Hans": "穿长衫的客人坐在里面的房间，慢慢地喝酒吃菜。",
+        "zh-Hant": "穿長衫的客人坐在裡面的房間，慢慢地喝酒吃菜。",
+        "ro": "Cei care purtau robe lungi stăteau în camera dinăuntru, bând și mâncând încet.",
+        "ca": "Els que portaven túnica llarga seien a la sala interior, bevent vi i menjant plats a poc a poc."
+       }
+      },
+      {
+       "text": "穿短衣的客人只能站在柜台外面，喝一碗便宜的酒。",
+       "translation": {
+        "en": "Those in short jackets could only stand outside the counter, drinking a cheap bowl of wine.",
+        "fr": "Les clients en veste courte devaient rester debout devant le comptoir, buvant un bol de vin bon marché.",
+        "es": "Los que vestían ropa corta solo podían estar de pie fuera del mostrador, bebiendo un tazón de vino barato.",
+        "pt": "Os que vestiam roupas curtas só podiam ficar em pé do lado de fora do balcão, bebendo uma tigela de vinho barato.",
+        "it": "Quelli che indossavano la giacca corta potevano solo stare in piedi fuori dal bancone e bere una ciotola di vino a buon mercato.",
+        "zh-Hans": "穿短衣的客人只能站在柜台外面，喝一碗便宜的酒。",
+        "zh-Hant": "穿短衣的客人只能站在櫃檯外面，喝一碗便宜的酒。",
+        "ro": "Cei care purtau haine scurte stăteau afară, lângă tejghea, și beau un castron de vin ieftin.",
+        "ca": "Els que portaven roba curta només podien estar davant del taulell, bevent un bol de vi barat."
+       }
+      },
+      {
+       "text": "只有孔乙己是个例外，他也穿长衫，却只能站着喝酒。",
+       "translation": {
+        "en": "Only Kong Yiji was an exception: he also wore a long gown, but he had to stand and drink.",
+        "fr": "Seul Kong Yiji faisait exception : il portait aussi une robe longue, mais devait boire debout.",
+        "es": "Solo Kong Yiji era una excepción: también vestía túnica larga, pero solo podía beber de pie.",
+        "pt": "Só Kong Yiji era uma exceção: ele também vestia roupas compridas, mas só podia beber em pé.",
+        "it": "Solo Kong Yiji faceva eccezione: anche lui indossava la veste lunga, ma doveva bere in piedi.",
+        "zh-Hans": "只有孔乙己是个例外，他也穿长衫，却只能站着喝酒。",
+        "zh-Hant": "只有孔乙己是個例外，他也穿長衫，卻只能站著喝酒。",
+        "ro": "Doar Kong Yiji era o excepție: și el purta robă lungă, dar stătea în picioare să bea.",
+        "ca": "Només Kong Yiji era una excepció: també portava túnica llarga, però havia de beure dempeus."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "我在咸亨酒店干了很久，渐渐觉得这份工作十分无聊。",
+       "translation": {
+        "en": "I worked at Xianheng Wine Shop for a long time, and gradually found the job very boring.",
+        "fr": "J'avais travaillé longtemps à l'auberge Xianheng, et peu à peu, je trouvais ce travail très ennuyeux.",
+        "es": "Trabajé en la taberna Xianheng durante mucho tiempo, y poco a poco sentí que este trabajo era muy aburrido.",
+        "pt": "Trabalhei na taverna Xianheng por muito tempo e, aos poucos, comecei a achar o trabalho muito chato.",
+        "it": "Lavorai alla taverna Xianheng per molto tempo, e a poco a poco trovai quel lavoro molto noioso.",
+        "zh-Hans": "我在咸亨酒店干了很久，渐渐觉得这份工作十分无聊。",
+        "zh-Hant": "我在咸亨酒店幹了很久，漸漸覺得這份工作十分無聊。",
+        "ro": "Am lucrat mult timp la hanul Xianheng și, încet-încet, am început să mă plictisesc de această slujbă.",
+        "ca": "Vaig treballar molt de temps a la taverna Xianheng i a poc a poc vaig trobar aquella feina molt avorrida."
+       }
+      },
+      {
+       "text": "掌柜见我老实，本来想让我专门伺候那些穿长衫的客人。",
+       "translation": {
+        "en": "The manager saw that I was honest, and originally wanted me to serve those customers in long gowns.",
+        "fr": "Le patron, voyant que j'étais honnête, avait d'abord voulu me charger spécialement de servir les clients en robe longue.",
+        "es": "El dueño, al verme honesto, al principio quiso que atendiera especialmente a esos clientes de túnica larga.",
+        "pt": "O gerente, vendo que eu era honesto, a princípio quis me designar para servir especialmente os clientes de roupas compridas.",
+        "it": "Il padrone, vedendo che ero onesto, all'inizio voleva farmi servire apposta quei clienti con la veste lunga.",
+        "zh-Hans": "掌柜见我老实，本来想让我专门伺候那些穿长衫的客人。",
+        "zh-Hant": "掌櫃見我老實，本來想讓我專門伺候那些穿長衫的客人。",
+        "ro": "Patronul, văzând că sunt cinstit, a vrut să mă pună să servesc doar clienții cu robe lungi.",
+        "ca": "El gerent, com que em veia honest, al principi volia que servís especialment els clients de túnica llarga."
+       }
+      },
+      {
+       "text": "可是我总是做得不好，掌柜说我不够圆滑，脸上不会堆笑。",
+       "translation": {
+        "en": "But I never did well; the manager said I wasn't smooth enough, and didn't know how to put on a smile.",
+        "fr": "Mais je n'y arrivais jamais bien ; le patron disait que je n'étais pas assez habile, que je ne savais pas sourire.",
+        "es": "Pero yo siempre lo hacía mal; el dueño decía que no era lo bastante diplomático, que no sabía poner una sonrisa en la cara.",
+        "pt": "Mas eu nunca fazia bem o serviço; o gerente dizia que eu não era flexível e não sabia sorrir com falsidade.",
+        "it": "Ma non ci riuscivo mai bene; il padrone diceva che non ero abbastanza diplomatico, che non sapevo mettere un sorriso finto sul viso.",
+        "zh-Hans": "可是我总是做得不好，掌柜说我不够圆滑，脸上不会堆笑。",
+        "zh-Hant": "可是我總是做得不好，掌櫃說我不夠圓滑，臉上不會堆笑。",
+        "ro": "Dar nu mă descurcam bine; patronul spunea că nu sunt destul de isteț și că nu știu să zâmbesc prefăcut.",
+        "ca": "Però jo no ho feia bé mai; el gerent deia que no era prou astut i que no posava cara de somriure."
+       }
+      },
+      {
+       "text": "后来，掌柜就让我专门负责温酒这一件简单的事情。",
+       "translation": {
+        "en": "Later, the manager assigned me to the simple task of warming wine.",
+        "fr": "Plus tard, le patron me confia uniquement la tâche simple de chauffer le vin.",
+        "es": "Después, el dueño me encargó únicamente la tarea simple de calentar el vino.",
+        "pt": "Depois, o gerente me encarregou apenas da tarefa simples de esquentar vinho.",
+        "it": "Più tardi, il padrone mi fece occupare solo di quella semplice faccenda di scaldare il vino.",
+        "zh-Hans": "后来，掌柜就让我专门负责温酒这一件简单的事情。",
+        "zh-Hant": "後來，掌櫃就讓我專門負責溫酒這一件簡單的事情。",
+        "ro": "Apoi, patronul m-a pus să mă ocup doar de încălzitul vinului, o treabă simplă.",
+        "ca": "Després, el gerent em va fer encarregar només de la tasca senzilla d'escalfar vi."
+       }
+      },
+      {
+       "text": "每天从早到晚，我站在柜台里，机械地重复着同样的动作。",
+       "translation": {
+        "en": "Every day from morning to night, I stood behind the counter, mechanically repeating the same motions.",
+        "fr": "Chaque jour, du matin au soir, je restais debout derrière le comptoir, répétant mécaniquement les mêmes gestes.",
+        "es": "Cada día, de la mañana a la noche, me quedaba detrás del mostrador, repitiendo mecánicamente los mismos movimientos.",
+        "pt": "Todos os dias, de manhã à noite, eu ficava atrás do balcão, repetindo mecanicamente os mesmos movimentos.",
+        "it": "Ogni giorno dall'alba al tramonto, stavo dietro il bancone e ripetevo meccanicamente gli stessi gesti.",
+        "zh-Hans": "每天从早到晚，我站在柜台里，机械地重复着同样的动作。",
+        "zh-Hant": "每天從早到晚，我站在櫃檯裡，機械地重複著同樣的動作。",
+        "ro": "În fiecare zi, de dimineață până seara, stăteam la tejghea și repetam aceleași mișcări mecanic.",
+        "ca": "Cada dia de matí a nit, estava darrere del taulell repetint mecànicament els mateixos moviments."
+       }
+      },
+      {
+       "text": "只有孔乙己到店，才能让这间无聊的酒店热闹一点。",
+       "translation": {
+        "en": "Only when Kong Yiji came to the shop did the boring place liven up a bit.",
+        "fr": "Seul Kong Yiji, quand il venait, pouvait animer un peu cette auberge ennuyeuse.",
+        "es": "Solo cuando Kong Yiji llegaba a la taberna, este lugar aburrido se animaba un poco.",
+        "pt": "Só quando Kong Yiji vinha à taverna é que aquele lugar chato ficava um pouco mais animado.",
+        "it": "Solo quando arrivava Kong Yiji, quella taverna noiosa si animava un po'.",
+        "zh-Hans": "只有孔乙己到店，才能让这间无聊的酒店热闹一点。",
+        "zh-Hant": "只有孔乙己到店，才能讓這間無聊的酒店熱鬧一點。",
+        "ro": "Doar când venea Kong Yiji, hanul ăsta plictisitor devenea puțin mai vesel.",
+        "ca": "Només quan Kong Yiji venia a la taverna, aquest lloc avorrit s'animava una mica."
+       }
+      },
+      {
+       "text": "所以每次听到孔乙己的声音，我心里反而有点高兴。",
+       "translation": {
+        "en": "So every time I heard Kong Yiji's voice, I felt a little happy inside.",
+        "fr": "Aussi, chaque fois que j'entendais la voix de Kong Yiji, j'étais en fait un peu content.",
+        "es": "Por eso, cada vez que oía la voz de Kong Yiji, en mi interior me sentía un poco contento.",
+        "pt": "Por isso, toda vez que eu ouvia a voz de Kong Yiji, sentia uma certa alegria no coração.",
+        "it": "Perciò ogni volta che sentivo la voce di Kong Yiji, in cuor mio ero un po' contento.",
+        "zh-Hans": "所以每次听到孔乙己的声音，我心里反而有点高兴。",
+        "zh-Hant": "所以每次聽到孔乙己的聲音，我心裡反而有點高興。",
+        "ro": "Așa că, de fiecare dată când auzeam vocea lui Kong Yiji, în sufletul meu mă bucuram.",
+        "ca": "Per això, cada vegada que sentia la veu de Kong Yiji, en el fons em sentia una mica content."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "孔乙己身材很高，脸色青白，脸上常常有伤疤。",
+       "translation": {
+        "en": "Kong Yiji was very tall, with a pale complexion, and often had scars on his face.",
+        "fr": "Kong Yiji était très grand, son visage était pâle, et il avait souvent des cicatrices.",
+        "es": "Kong Yiji era muy alto, de tez pálida, y a menudo tenía cicatrices en la cara.",
+        "pt": "Kong Yiji era muito alto, tinha o rosto pálido e frequentemente apresentava cicatrizes.",
+        "it": "Kong Yiji era molto alto, aveva il viso pallido e spesso portava cicatrici.",
+        "zh-Hans": "孔乙己身材很高，脸色青白，脸上常常有伤疤。",
+        "zh-Hant": "孔乙己身材很高，臉色青白，臉上常常有傷疤。",
+        "ro": "Kong Yiji era foarte înalt, cu fața palidă și adesea cu cicatrici.",
+        "ca": "Kong Yiji era molt alt, tenia la cara pàl·lida i sovint hi tenia cicatrius."
+       }
+      },
+      {
+       "text": "他的长衫又脏又破，好像十几年没有洗过一样。",
+       "translation": {
+        "en": "His long gown was dirty and torn, as if it hadn't been washed in over ten years.",
+        "fr": "Sa robe longue était sale et déchirée, comme si elle n'avait pas été lavée depuis une dizaine d'années.",
+        "es": "Su túnica larga estaba sucia y rota, como si no la hubiera lavado en más de diez años.",
+        "pt": "Suas roupas compridas eram sujas e rasgadas, como se não fossem lavadas há mais de dez anos.",
+        "it": "La sua veste lunga era sporca e strappata, come se non fosse stata lavata da una decina d'anni.",
+        "zh-Hans": "他的长衫又脏又破，好像十几年没有洗过一样。",
+        "zh-Hant": "他的長衫又髒又破，好像十幾年沒有洗過一樣。",
+        "ro": "Roba lui era murdară și ruptă, de parcă n-ar fi fost spălată de zece ani.",
+        "ca": "La seva túnica llarga era bruta i esquinçada, com si no l'hagués rentat en deu anys."
+       }
+      },
+      {
+       "text": "他说话总是满口之乎者也，别人常常听不懂。",
+       "translation": {
+        "en": "He always spoke with 'zhi hu zhe ye' (literary particles), and others often couldn't understand him.",
+        "fr": "Il parlait toujours avec des 'zhi hu zhe ye' (langage classique), et les autres ne comprenaient souvent pas.",
+        "es": "Siempre hablaba con muchas expresiones clásicas, y los demás a menudo no lo entendían.",
+        "pt": "Ele sempre falava cheio de expressões antigas e eruditas, e os outros muitas vezes não entendiam.",
+        "it": "Parlava sempre con un sacco di 'zhī hū zhě yě', e gli altri spesso non capivano.",
+        "zh-Hans": "他说话总是满口之乎者也，别人常常听不懂。",
+        "zh-Hant": "他說話總是滿口之乎者也，別人常常聽不懂。",
+        "ro": "Vorbea mereu cu expresii învechite, iar ceilalți de multe ori nu-l înțelegeau.",
+        "ca": "Sempre parlava amb un munt de 'zhi hu zhe ye' (paraules clàssiques) i sovint els altres no l'entenien."
+       }
+      },
+      {
+       "text": "每次他一来，喝酒的人都会笑他，拿他开玩笑。",
+       "translation": {
+        "en": "Every time he came, the drinkers would laugh at him and make jokes about him.",
+        "fr": "Chaque fois qu'il venait, les buveurs se moquaient de lui et plaisantaient à ses dépens.",
+        "es": "Cada vez que él venía, los bebedores se reían de él y le gastaban bromas.",
+        "pt": "Toda vez que ele chegava, os bebedores caçoavam dele e faziam piadas.",
+        "it": "Ogni volta che arrivava, i bevitori lo prendevano in giro e scherzavano su di lui.",
+        "zh-Hans": "每次他一来，喝酒的人都会笑他，拿他开玩笑。",
+        "zh-Hant": "每次他來，喝酒的人都會笑他，拿他開玩笑。",
+        "ro": "De fiecare dată când venea, oamenii care beau râdeau de el și își băteau joc de el.",
+        "ca": "Cada vegada que venia, els qui bevien se'n reien i li feien bromes."
+       }
+      },
+      {
+       "text": "镇上的孩子们也常常围着孔乙己，等着看他出丑取乐。",
+       "translation": {
+        "en": "The children in town also often gathered around Kong Yiji, waiting to see him make a fool of himself for fun.",
+        "fr": "Les enfants du village aussi s'attroupaient souvent autour de Kong Yiji, attendant de le voir se ridiculiser pour s'amuser.",
+        "es": "Los niños del pueblo también solían rodear a Kong Yiji, esperando verlo hacer el ridículo para divertirse.",
+        "pt": "As crianças da cidade também costumavam cercar Kong Yiji, esperando vê-lo passar vergonha para se divertir.",
+        "it": "Anche i bambini del paese spesso gli si radunavano intorno, aspettando di vederlo fare brutta figura per divertirsi.",
+        "zh-Hans": "镇上的孩子们也常常围着孔乙己，等着看他出丑取乐。",
+        "zh-Hant": "鎮上的孩子們也常常圍著孔乙己，等著看他出醜取樂。",
+        "ro": "Și copiii din oraș se adunau adesea în jurul lui Kong Yiji, așteptând să-l vadă făcându-se de râs.",
+        "ca": "Els nens del poble també sovint envoltaven Kong Yiji, esperant veure'l fer el ridícul per divertir-se."
+       }
+      },
+      {
+       "text": "孔乙己对大人的嘲笑毫不在意，却唯独对孩子们特别耐心。",
+       "translation": {
+        "en": "Kong Yiji didn't care about the adults' mockery, but he was especially patient with the children.",
+        "fr": "Kong Yiji ne prêtait pas attention aux moqueries des adultes, mais il était particulièrement patient avec les enfants.",
+        "es": "Kong Yiji no le daba importancia a las burlas de los adultos, pero era especialmente paciente con los niños.",
+        "pt": "Kong Yiji não ligava para as zombarias dos adultos, mas era especialmente paciente com as crianças.",
+        "it": "Kong Yiji non badava alle risate degli adulti, ma era particolarmente paziente con i bambini.",
+        "zh-Hans": "孔乙己对大人的嘲笑毫不在意，却唯独对孩子们特别耐心。",
+        "zh-Hant": "孔乙己對大人的嘲笑毫不在意，卻唯獨對孩子們特別耐心。",
+        "ro": "Kong Yiji nu băga în seamă râsul adulților, dar era deosebit de răbdător cu copiii.",
+        "ca": "Kong Yiji no feia cas de les rialles dels adults, però amb els nens era especialment pacient."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "有人问他：“孔乙己，你脸上又添新伤疤了！”",
+       "translation": {
+        "en": "Someone asked him, \"Kong Yiji, you've got new scars on your face again!\"",
+        "fr": "Quelqu'un lui demanda : \"Kong Yiji, tu as encore de nouvelles cicatrices sur le visage !\"",
+        "es": "Alguien le preguntó: \"Kong Yiji, ¡tienes nuevas cicatrices en la cara!\"",
+        "pt": "Alguém perguntou: \"Kong Yiji, você ganhou novas cicatrizes no rosto!\"",
+        "it": "Qualcuno gli chiese: \"Kong Yiji, hai di nuovo nuove cicatrici sul viso!\"",
+        "zh-Hans": "有人问他：“孔乙己，你脸上又添新伤疤了！”",
+        "zh-Hant": "有人問他：「孔乙己，你臉上又添新傷疤了！」",
+        "ro": "Cineva l-a întrebat: \"Kong Yiji, ai iarăși o cicatrice nouă pe față!\"",
+        "ca": "Algú li preguntava: \"Kong Yiji, tens una altra cicatriu nova a la cara!\""
+       }
+      },
+      {
+       "text": "孔乙己不回答，只是涨红了脸，喝一口酒不说话。",
+       "translation": {
+        "en": "Kong Yiji didn't answer, just flushed red, took a sip of wine, and said nothing.",
+        "fr": "Kong Yiji did not answer, but his face turned red, and he took a sip of wine without speaking.",
+        "es": "Kong Yiji didn't answer, just turned red in the face, took a sip of wine, and said nothing.",
+        "pt": "孔乙己 didn't answer, just flushed red, took a sip of wine and said nothing.",
+        "it": "Kong Yiji didn't answer, just blushed, took a sip of wine, and said nothing.",
+        "zh-Hans": "孔乙己不回答，只是涨红了脸，喝一口酒不说话。",
+        "zh-Hant": "孔乙己不回答，只是漲紅了臉，喝一口酒不說話。",
+        "ro": "孔乙己 nu răspunde, doar își înroșește fața, bea o gură de vin și nu vorbește.",
+        "ca": "Kong Yiji no va respondre, només es va posar vermell, va beure un glop de vi i no va dir res."
+       }
+      },
+      {
+       "text": "又有人大声问：“你一定又偷了别人的东西吧！”",
+       "translation": {
+        "en": "Someone else asked loudly, \"You must have stolen someone else's things again!\"",
+        "fr": "Someone else asked loudly, \"You must have stolen someone else's things again!\"",
+        "es": "Someone else asked loudly, \"You must have stolen someone else's things again!\"",
+        "pt": "Someone else loudly asked: \"You must have stolen someone else's things again!\"",
+        "it": "Someone else asked loudly: \"You must have stolen someone else's things again!\"",
+        "zh-Hans": "又有人大声问：“你一定又偷了别人的东西吧！”",
+        "zh-Hant": "又有人大聲問：「你一定又偷了別人的東西吧！」",
+        "ro": "Altcineva întreabă cu voce tare: „Sigur ai furat din nou lucrurile altora, nu-i așa?”",
+        "ca": "Algú altre va preguntar en veu alta: \"Segur que has robat una altra vegada les coses dels altres!\""
+       }
+      },
+      {
+       "text": "孔乙己睁大眼睛说：“你怎么这样凭空污人清白……”",
+       "translation": {
+        "en": "Kong Yiji opened his eyes wide and said, \"How can you slander an innocent man like this...\"",
+        "fr": "Kong Yiji opened his eyes wide and said, \"How can you slander an innocent person like this...\"",
+        "es": "Kong Yiji opened his eyes wide and said, \"How can you slander an innocent person like this...\"",
+        "pt": "孔乙己 opened his eyes wide and said: \"How can you slander an innocent person like this...\"",
+        "it": "Kong Yiji opened his eyes wide and said: \"How can you slander an innocent person like this...\"",
+        "zh-Hans": "孔乙己睁大眼睛说：“你怎么这样凭空污人清白……”",
+        "zh-Hant": "孔乙己睜大眼睛說：「你怎麼這樣憑空污人清白……」",
+        "ro": "孔乙己 deschide ochii mari și spune: „Cum poți să calomniezi așa, fără dovezi...”",
+        "ca": "Kong Yiji va obrir els ulls de bat a bat i va dir: \"Com pots tacar la innocència d'algú així, sense cap motiu...\""
+       }
+      },
+      {
+       "text": "别人又笑着问：“上次明明看见你偷了何家的书！”",
+       "translation": {
+        "en": "Others laughed and asked, \"Last time we clearly saw you steal the He family's books!\"",
+        "fr": "Others laughed and asked, \"Last time we clearly saw you steal the He family's books!\"",
+        "es": "Others laughed and asked, \"Last time we clearly saw you steal the He family's books!\"",
+        "pt": "Others laughed and asked: \"Last time we clearly saw you steal the He family's books!\"",
+        "it": "Others asked with a laugh: \"Last time we clearly saw you steal the He family's books!\"",
+        "zh-Hans": "别人又笑着问：“上次明明看见你偷了何家的书！”",
+        "zh-Hant": "別人又笑著問：「上次明明看見你偷了何家的書！」",
+        "ro": "Alții întreabă râzând: „Data trecută te-am văzut clar furând cărțile familiei He!”",
+        "ca": "Els altres van preguntar rient: \"L'altre dia et vam veure clarament robant els llibres de la família He!\""
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "孔乙己脸上的红色慢慢散开，涨得更红了。",
+       "translation": {
+        "en": "The red on Kong Yiji's face slowly spread, turning even redder.",
+        "fr": "The redness on Kong Yiji's face slowly spread, turning even redder.",
+        "es": "The red on Kong Yiji's face slowly spread, turning even redder.",
+        "pt": "The red on 孔乙己's face slowly spread, turning even redder.",
+        "it": "The red on Kong Yiji's face slowly spread, turning even redder.",
+        "zh-Hans": "孔乙己脸上的红色慢慢散开，涨得更红了。",
+        "zh-Hant": "孔乙己臉上的紅色慢慢散開，漲得更紅了。",
+        "ro": "Roșeața de pe fața lui 孔乙己 se răspândește încet, devenind și mai roșie.",
+        "ca": "El vermell de la cara de Kong Yiji es va anar escampant a poc a poc, i es va posar encara més vermell."
+       }
+      },
+      {
+       "text": "他低声说：“窃书不能算偷……窃书！……读书人的事，能算偷吗？”",
+       "translation": {
+        "en": "He said in a low voice, \"Borrowing books can't be considered stealing... Borrowing books!... Can the affairs of a scholar be considered stealing?\"",
+        "fr": "He said in a low voice, \"Borrowing books cannot be considered stealing... Borrowing books!... Can the affairs of a scholar be considered stealing?\"",
+        "es": "He said in a low voice, \"Taking books can't be considered stealing... Taking books!... Can the affairs of a scholar be considered stealing?\"",
+        "pt": "He said in a low voice: \"Borrowing books can't be considered stealing... Borrowing books!... Can the affairs of a scholar be considered stealing?\"",
+        "it": "He said in a low voice: \"Borrowing books can't be considered stealing... Borrowing books!... Can the affairs of a scholar be considered stealing?\"",
+        "zh-Hans": "他低声说：“窃书不能算偷……窃书！……读书人的事，能算偷吗？”",
+        "zh-Hant": "他低聲說：「竊書不能算偷……竊書！……讀書人的事，能算偷嗎？」",
+        "ro": "El spune cu voce scăzută: „Furtul de cărți nu poate fi considerat furt... Furtul de cărți!... Afacerile oamenilor cărturari pot fi considerate furt?”",
+        "ca": "Va dir en veu baixa: \"Robar llibres no es pot considerar robar... Robar llibres!... Els assumptes dels homes de lletres, es poden considerar robatori?\""
+       }
+      },
+      {
+       "text": "接着他说了一串别人听不懂的话，引得大家哄堂大笑。",
+       "translation": {
+        "en": "Then he said a string of words that others couldn't understand, causing everyone to burst into laughter.",
+        "fr": "Then he said a string of words that others could not understand, causing everyone to burst into laughter.",
+        "es": "Then he said a string of words that others couldn't understand, causing everyone to burst into laughter.",
+        "pt": "Then he said a string of words that others couldn't understand, causing everyone to burst into laughter.",
+        "it": "Then he said a string of words that others couldn't understand, causing everyone to burst into laughter.",
+        "zh-Hans": "接着他说了一串别人听不懂的话，引得大家哄堂大笑。",
+        "zh-Hant": "接著他說了一串別人聽不懂的話，引得大家哄堂大笑。",
+        "ro": "Apoi rostește o serie de cuvinte pe care ceilalți nu le înțeleg, stârnind râsete puternice din partea tuturor.",
+        "ca": "Després va dir una sèrie de paraules que ningú no entenia, cosa que va provocar rialles generals."
+       }
+      },
+      {
+       "text": "柜台里外充满了快活的空气，只有孔乙己一个人显得孤单。",
+       "translation": {
+        "en": "Inside and outside the counter was filled with cheerful atmosphere, only Kong Yiji seemed lonely.",
+        "fr": "Inside and outside the counter was filled with cheerful atmosphere, only Kong Yiji appeared lonely.",
+        "es": "Inside and outside the counter was filled with cheerful atmosphere, only Kong Yiji seemed lonely.",
+        "pt": "Inside and outside the counter was filled with cheerful atmosphere, only 孔乙己 seemed lonely.",
+        "it": "Inside and outside the counter was filled with cheerful air, only Kong Yiji seemed lonely.",
+        "zh-Hans": "柜台里外充满了快活的空气，只有孔乙己一个人显得孤单。",
+        "zh-Hant": "櫃台裡外充滿了快活的空氣，只有孔乙己一個人顯得孤單。",
+        "ro": "Înăuntru și în afara tejghelei aerul este plin de veselie, doar 孔乙己 pare singur.",
+        "ca": "Dins i fora del taulell hi havia una atmosfera alegre, només Kong Yiji semblava sol."
+       }
+      },
+      {
+       "text": "虽然大家常常笑他，孔乙己对我这个小伙计却很和气。",
+       "translation": {
+        "en": "Although everyone often laughed at him, Kong Yiji was very kind to me, the young apprentice.",
+        "fr": "Although everyone often laughed at him, Kong Yiji was very kind to me, the young apprentice.",
+        "es": "Although everyone often laughed at him, Kong Yiji was very kind to me, the little apprentice.",
+        "pt": "Although everyone often laughed at him, 孔乙己 was very kind to me, the young apprentice.",
+        "it": "Although everyone often laughed at him, Kong Yiji was very kind to me, the little apprentice.",
+        "zh-Hans": "虽然大家常常笑他，孔乙己对我这个小伙计却很和气。",
+        "zh-Hant": "雖然大家常常笑他，孔乙己對我這個小夥計卻很和氣。",
+        "ro": "Deși toți râd adesea de el, 孔乙己 este foarte amabil cu mine, ucenicul.",
+        "ca": "Tot i que tothom sovint se'n reia, Kong Yiji era molt amable amb mi, el jove aprenent."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "第二章 茴香豆的四种写法",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "有一天，孔乙己问我：“你读过书吗？”",
+       "translation": {
+        "en": "One day, Kong Yiji asked me, \"Have you studied?\"",
+        "fr": "One day, Kong Yiji asked me, \"Have you studied?\"",
+        "es": "One day, Kong Yiji asked me, \"Have you studied?\"",
+        "pt": "One day, 孔乙己 asked me: \"Have you studied?\"",
+        "it": "One day, Kong Yiji asked me: \"Have you studied?\"",
+        "zh-Hans": "有一天，孔乙己问我：“你读过书吗？”",
+        "zh-Hant": "有一天，孔乙己問我：「你讀過書嗎？」",
+        "ro": "Într-o zi, 孔乙己 mă întreabă: „Ai citit cărți?”",
+        "ca": "Un dia, Kong Yiji em va preguntar: \"Has estudiat?\""
+       }
+      },
+      {
+       "text": "我点点头，说：“读过一点。”",
+       "translation": {
+        "en": "I nodded and said, \"A little.\"",
+        "fr": "I nodded and said, \"A little.\"",
+        "es": "I nodded and said, \"A little.\"",
+        "pt": "I nodded and said: \"A little.\"",
+        "it": "I nodded and said: \"A little.\"",
+        "zh-Hans": "我点点头，说：“读过一点。”",
+        "zh-Hant": "我點點頭，說：「讀過一點。」",
+        "ro": "Dau din cap și spun: „Am citit puțin.”",
+        "ca": "Vaig assentir amb el cap i vaig dir: \"N'he estudiat una mica.\""
+       }
+      },
+      {
+       "text": "他说：“那我考考你，茴香豆的茴字，怎么写？”",
+       "translation": {
+        "en": "He said, \"Then let me test you: how do you write the character 'hui' in fennel beans?\"",
+        "fr": "He said, \"Then let me test you. How do you write the character 'hui' in fennel beans?\"",
+        "es": "He said, \"Then let me test you. How do you write the character 'hui' in fennel beans?\"",
+        "pt": "He said: \"Then let me test you, how do you write the character 'hui' in fennel beans?\"",
+        "it": "He said: \"Then let me test you. How do you write the character 'hui' in fennel beans?\"",
+        "zh-Hans": "他说：“那我考考你，茴香豆的茴字，怎么写？”",
+        "zh-Hant": "他說：「那我考考你，茴香豆的茴字，怎麼寫？」",
+        "ro": "El spune: „Atunci hai să te testez: cum se scrie caracterul „hui” din „hui xiang dou” (anason)?",
+        "ca": "Ell va dir: \"Doncs et posaré a prova, com s'escriu el caràcter 'hui' de 'hui xiang dou'?\""
+       }
+      },
+      {
+       "text": "我心里觉得他很可笑，一个乞讨的人也配考我。",
+       "translation": {
+        "en": "I thought he was ridiculous; a beggar like him was not qualified to test me.",
+        "fr": "I thought he was ridiculous; a beggar like him was not qualified to test me.",
+        "es": "I thought he was ridiculous; a beggar like him was not worthy to test me.",
+        "pt": "I thought he was ridiculous, a beggar also worthy to test me.",
+        "it": "I thought he was ridiculous; a beggar like him was not worthy to test me.",
+        "zh-Hans": "我心里觉得他很可笑，一个乞讨的人也配考我。",
+        "zh-Hant": "我心裡覺得他很可笑，一個乞討的人也配考我。",
+        "ro": "În gândul meu îl consider ridicol; un cerșetor cum îndrăznește să mă testeze?",
+        "ca": "Al meu interior vaig pensar que era molt ridícul, que un captaire també es permetia posar-me a prova."
+       }
+      },
+      {
+       "text": "我转过身，不再理他，孔乙己等了许久，只好叹一口气。",
+       "translation": {
+        "en": "I turned around and ignored him. Kong Yiji waited for a long time, then had to sigh.",
+        "fr": "I turned around and ignored him. Kong Yiji waited for a long time, then had to sigh.",
+        "es": "I turned around and ignored him. Kong Yiji waited for a long time, then had to sigh.",
+        "pt": "I turned around and ignored him. 孔乙己 waited for a long time, then had to sigh.",
+        "it": "I turned around and ignored him. Kong Yiji waited for a long time, then had to sigh.",
+        "zh-Hans": "我转过身，不再理他，孔乙己等了许久，只好叹一口气。",
+        "zh-Hant": "我轉過身，不再理他，孔乙己等了許久，只好嘆一口氣。",
+        "ro": "Mă întorc și nu-i mai dau atenție. 孔乙己 așteaptă mult timp, apoi doar oftează.",
+        "ca": "Em vaig girar i ja no li vaig fer cas. Kong Yiji va esperar una bona estona i finalment va sospirar."
+       }
+      },
+      {
+       "text": "他说：“不会写吧？我告诉你，茴字有四种写法，你知道吗？”",
+       "translation": {
+        "en": "He said, \"You don't know how to write it, do you? Let me tell you, the character 'hui' has four ways of writing. Do you know that?\"",
+        "fr": "He said, \"You don't know how to write it, right? Let me tell you, the character 'hui' has four ways of writing. Do you know that?\"",
+        "es": "He said, \"You don't know how to write it, right? Let me tell you, the character 'hui' has four ways to write it. Do you know that?\"",
+        "pt": "He said: \"You don't know how to write it, right? Let me tell you, the character 'hui' has four ways of writing, do you know?\"",
+        "it": "He said: \"You don't know how to write it, right? Let me tell you, the character 'hui' has four ways of writing. Do you know that?\"",
+        "zh-Hans": "他说：“不会写吧？我告诉你，茴字有四种写法，你知道吗？”",
+        "zh-Hant": "他說：「不會寫吧？我告訴你，茴字有四種寫法，你知道嗎？」",
+        "ro": "El spune: „Nu știi să-l scrii, nu-i așa? Îți spun eu: caracterul „hui” are patru moduri de scriere. Știi tu?”",
+        "ca": "Va dir: \"No saps escriure'l, oi? T'ho diré, el caràcter 'hui' té quatre maneres d'escriure's, ho sabies?\""
+       }
+      },
+      {
+       "text": "我仍然没有回答，觉得这些知识对我根本没有用处。",
+       "translation": {
+        "en": "I still didn't answer, feeling that this knowledge was completely useless to me.",
+        "fr": "I still did not answer, feeling that this knowledge was completely useless to me.",
+        "es": "I still didn't answer, feeling that this knowledge was useless to me.",
+        "pt": "I still didn't answer, feeling that this knowledge was completely useless to me.",
+        "it": "I still didn't answer, feeling that this knowledge was useless to me.",
+        "zh-Hans": "我仍然没有回答，觉得这些知识对我根本没有用处。",
+        "zh-Hant": "我仍然沒有回答，覺得這些知識對我根本沒有用處。",
+        "ro": "Tot nu răspund, considerând că aceste cunoștințe nu-mi sunt de niciun folos.",
+        "ca": "Jo encara no vaig respondre, pensant que aquests coneixements no em servien de res."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "孔乙己见我不热心，脸上露出很失望的样子。",
+       "translation": {
+        "en": "Seeing that I wasn't enthusiastic, Kong Yiji showed a disappointed expression.",
+        "fr": "Seeing that I was not enthusiastic, Kong Yiji showed a disappointed expression.",
+        "es": "Seeing that I wasn't enthusiastic, Kong Yiji showed a disappointed expression.",
+        "pt": "Seeing that I wasn't enthusiastic, 孔乙己 showed a disappointed expression.",
+        "it": "Seeing that I wasn't enthusiastic, Kong Yiji showed a disappointed expression.",
+        "zh-Hans": "孔乙己见我不热心，脸上露出很失望的样子。",
+        "zh-Hant": "孔乙己見我不熱心，臉上露出很失望的樣子。",
+        "ro": "Văzând că nu sunt interesat, 孔乙己 arată o expresie dezamăgită.",
+        "ca": "Quan Kong Yiji va veure que no m'interessava, la seva cara va mostrar una expressió de decepció."
+       }
+      },
+      {
+       "text": "柜台外面几个孩子听见笑声，也跑过来看热闹。",
+       "translation": {
+        "en": "Several children outside the counter heard the laughter and ran over to watch the excitement.",
+        "fr": "Several children outside the counter heard the laughter and ran over to watch the excitement.",
+        "es": "Several children outside the counter heard the laughter and ran over to watch the excitement.",
+        "pt": "Several children outside the counter heard the laughter and also ran over to watch the excitement.",
+        "it": "Several children outside the counter heard the laughter and ran over to watch the excitement.",
+        "zh-Hans": "柜台外面几个孩子听见笑声，也跑过来看热闹。",
+        "zh-Hant": "櫃台外面幾個孩子聽見笑聲，也跑過來看熱鬧。",
+        "ro": "Câțiva copii din afara tejghelei aud râsul și aleargă să vadă ce se întâmplă.",
+        "ca": "Uns quants nens de fora del taulell, en sentir les rialles, també van córrer a veure què passava."
+       }
+      },
+      {
+       "text": "孔乙己看见孩子们，露出难得的笑容，显得很高兴。",
+       "translation": {
+        "en": "When Kong Yiji saw the children, he showed a rare smile and looked very happy.",
+        "fr": "When Kong Yiji saw the children, he showed a rare smile and looked very happy.",
+        "es": "When Kong Yiji saw the children, he showed a rare smile and looked very happy.",
+        "pt": "When 孔乙己 saw the children, he showed a rare smile, looking very happy.",
+        "it": "When Kong Yiji saw the children, he showed a rare smile and looked very happy.",
+        "zh-Hans": "孔乙己看见孩子们，露出难得的笑容，显得很高兴。",
+        "zh-Hant": "孔乙己看見孩子們，露出難得的笑容，顯得很高興。",
+        "ro": "Când îi vede pe copii, 孔乙己 zâmbește rar, părând foarte fericit.",
+        "ca": "Quan Kong Yiji va veure els nens, va mostrar un somriure poc habitual, semblava molt content."
+       }
+      },
+      {
+       "text": "他把手里的茴香豆分给孩子们，一人一颗，自己却舍不得多吃。",
+       "translation": {
+        "en": "He distributed the fennel beans in his hand to the children, one each, but he himself was reluctant to eat more.",
+        "fr": "He distributed the fennel beans in his hand to the children, one each, but he himself was reluctant to eat more.",
+        "es": "He distributed the fennel beans in his hand to the children, one each, but he himself was reluctant to eat more.",
+        "pt": "He distributed the fennel beans in his hand to the children, one each, but he himself was reluctant to eat more.",
+        "it": "He distributed the fennel beans in his hand to the children, one each, but he himself was reluctant to eat more.",
+        "zh-Hans": "他把手里的茴香豆分给孩子们，一人一颗，自己却舍不得多吃。",
+        "zh-Hant": "他把手裡的茴香豆分給孩子們，一人一顆，自己卻捨不得多吃。",
+        "ro": "El împarte anasonul din mână copiilor, câte unul fiecăruia, dar el însuși nu se îndură să mănânce mai mult.",
+        "ca": "Va repartir els pèsols d'anís que tenia a la mà entre els nens, un per a cadascun, però ell mateix no en volia menjar més."
+       }
+      },
+      {
+       "text": "孩子们吃完还不肯走，围着他，眼睛盯着碟子里剩下的豆子。",
+       "translation": {
+        "en": "After eating, the children still wouldn't leave. They surrounded him, eyes fixed on the remaining beans in the dish.",
+        "fr": "The children, after eating, still refused to leave, surrounding him, their eyes fixed on the remaining beans in the dish.",
+        "es": "Los niños, después de comer, no querían irse; lo rodeaban, con los ojos fijos en los frijoles que quedaban en el plato.",
+        "pt": "As crianças, depois de comer, ainda não queriam ir embora, cercavam-no, com os olhos fixos nos feijões restantes no prato.",
+        "it": "I bambini, dopo aver mangiato, non volevano andarsene, lo circondavano, con gli occhi fissi sui fagioli rimasti nel piatto.",
+        "zh-Hans": "孩子们吃完还不肯走，围着他，眼睛盯着碟子里剩下的豆子。",
+        "zh-Hant": "孩子們吃完還不肯走，圍著他，眼睛盯著碟子裡剩下的豆子。",
+        "ro": "Copiii, după ce au terminat de mâncat, nu voiau să plece, îl înconjurau, cu ochii ațintiți asupra boabelor rămase în farfurie.",
+        "ca": "Els nens, després de menjar, no volien marxar, el voltaven, amb els ulls fixats en les mongetes que quedaven al plat."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "孔乙己着急地说：“不多了，我已经不多了。”",
+       "translation": {
+        "en": "Kong Yiji said anxiously, \"Not many left, I don't have many left.\"",
+        "fr": "Kong Yiji said anxiously, \"Not many left, I already don't have many.\"",
+        "es": "Kong Yiji dijo apurado: \"No hay muchos, ya no me quedan muchos.\"",
+        "pt": "Kong Yiji disse apressadamente: \"Não há muitos, já não tenho muitos.\"",
+        "it": "Kong Yiji disse con ansia: \"Non ce ne sono molti, non ne ho più molti.\"",
+        "zh-Hans": "孔乙己着急地说：“不多了，我已经不多了。”",
+        "zh-Hant": "孔乙己著急地說：「不多了，我已經不多了。」",
+        "ro": "Kong Yiji a spus grăbit: „Nu mai sunt multe, deja nu mai am multe.”",
+        "ca": "Kong Yiji va dir amb pressa: \"No en queden gaires, ja no en tinc gaires.\""
+       }
+      },
+      {
+       "text": "他用手捂住碟子，弯下腰说：“多乎哉？不多也。”",
+       "translation": {
+        "en": "He covered the dish with his hand, bent down, and said, \"How many? Not many.\"",
+        "fr": "He covered the dish with his hand, bent over, and said, \"Many? Not many.\"",
+        "es": "Cubrió el plato con la mano y, inclinándose, dijo: \"¿Mucho? No mucho.\"",
+        "pt": "Ele cobriu o prato com a mão, curvou-se e disse: \"Muito? Não muito.\"",
+        "it": "Coprì il piatto con la mano, si chinò e disse: \"Molti? Non molti.\"",
+        "zh-Hans": "他用手捂住碟子，弯下腰说：“多乎哉？不多也。”",
+        "zh-Hant": "他用手捂住碟子，彎下腰說：「多乎哉？不多也。」",
+        "ro": "Și-a acoperit farfuria cu mâna, s-a aplecat și a zis: „Multe? Nu prea multe.”",
+        "ca": "Va tapar el plat amb la mà, es va inclinar i va dir: \"N'hi ha moltes? No gaires.\""
+       }
+      },
+      {
+       "text": "孩子们听不懂这句话，只是笑着一哄而散。",
+       "translation": {
+        "en": "The children didn't understand this sentence, they just laughed and scattered.",
+        "fr": "The children didn't understand this sentence, just laughed and scattered.",
+        "es": "Los niños no entendieron esta frase, solo rieron y se dispersaron.",
+        "pt": "As crianças não entenderam essa frase, apenas riram e se dispersaram.",
+        "it": "I bambini non capirono questa frase, e ridendo si dispersero in fretta.",
+        "zh-Hans": "孩子们听不懂这句话，只是笑着一哄而散。",
+        "zh-Hant": "孩子們聽不懂這句話，只是笑着一哄而散。",
+        "ro": "Copiii nu au înțeles vorbele lui, doar au râs și s-au împrăștiat.",
+        "ca": "Els nens no van entendre aquesta frase, només van riure i es van escampar."
+       }
+      },
+      {
+       "text": "除了茴香豆，孔乙己还常常欠酒店的钱，从不按时还清。",
+       "translation": {
+        "en": "Besides fennel beans, Kong Yiji often owed money to the tavern and never paid it back on time.",
+        "fr": "Besides fennel beans, Kong Yiji often owed money to the tavern and never paid it back on time.",
+        "es": "Además de los frijoles de anís, Kong Yiji a menudo debía dinero en la taberna y nunca lo pagaba a tiempo.",
+        "pt": "Além dos feijões de erva-doce, Kong Yiji frequentemente devia dinheiro ao bar, nunca pagando em dia.",
+        "it": "Oltre ai fagioli all'anice, Kong Yiji era spesso in debito con la taverna, e non pagava mai in tempo.",
+        "zh-Hans": "除了茴香豆，孔乙己还常常欠酒店的钱，从不按时还清。",
+        "zh-Hant": "除了茴香豆，孔乙己還常常欠酒店的錢，從不按時還清。",
+        "ro": "Pe lângă boabele de anason, Kong Yiji mai datora adesea bani la crâșmă, fără să plătească la timp.",
+        "ca": "A més de les mongetes d'anís, Kong Yiji sovint devia diners a la taverna i mai no els tornava a temps."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "孔乙己虽然穷困，但写得一手好字，曾经替人抄书为生。",
+       "translation": {
+        "en": "Although Kong Yiji was poor, he wrote a good hand and once made a living copying manuscripts for others.",
+        "fr": "Although Kong Yiji was poor, he wrote a good hand and once made a living copying manuscripts for others.",
+        "es": "Aunque Kong Yiji era pobre, escribía muy bien y solía ganarse la vida copiando libros para otros.",
+        "pt": "Embora Kong Yiji fosse pobre, ele escrevia muito bem, e já ganhara a vida copiando livros para outros.",
+        "it": "Sebbene Kong Yiji fosse povero, scriveva molto bene, e un tempo viveva copiando libri per gli altri.",
+        "zh-Hans": "孔乙己虽然穷困，但写得一手好字，曾经替人抄书为生。",
+        "zh-Hant": "孔乙己雖然窮困，但寫得一手好字，曾經替人抄書為生。",
+        "ro": "Deși Kong Yiji era sărac, scria foarte frumos și cândva își câștiga existența copiind cărți pentru alții.",
+        "ca": "Tot i que Kong Yiji era pobre, escrivia molt bé i s'havia guanyat la vida copiant llibres per a altres."
+       }
+      },
+      {
+       "text": "可惜他还有一个坏习惯，喜欢喝酒，又懒得做长久的工作。",
+       "translation": {
+        "en": "Unfortunately, he also had a bad habit: he liked drinking and was too lazy to do long-term work.",
+        "fr": "Unfortunately, he also had a bad habit: he liked drinking and was too lazy to do long-term work.",
+        "es": "Lamentablemente, también tenía un mal hábito: le gustaba beber y era perezoso para trabajos de larga duración.",
+        "pt": "Infelizmente, ele também tinha um mau hábito: gostava de beber e era preguiçoso para trabalhos de longo prazo.",
+        "it": "Purtroppo aveva anche un brutto vizio: amava bere e non gli piaceva fare lavori a lungo termine.",
+        "zh-Hans": "可惜他还有一个坏习惯，喜欢喝酒，又懒得做长久的工作。",
+        "zh-Hant": "可惜他還有個壞習慣，喜歡喝酒，又懶得做長久的工作。",
+        "ro": "Din păcate, mai avea un obicei prost: îi plăcea să bea și lenevea să muncească pe termen lung.",
+        "ca": "Però tenia un mal hàbit: li agradava beure i era mandrós per fer feines de llarga durada."
+       }
+      },
+      {
+       "text": "抄书的人家渐渐发现，纸笔和书本常常跟着他一起消失。",
+       "translation": {
+        "en": "The people who hired him to copy gradually discovered that paper, brushes, and books often disappeared along with him.",
+        "fr": "The families who hired him to copy gradually discovered that paper, brushes, and books often disappeared along with him.",
+        "es": "Las familias que le encargaban copias poco a poco descubrieron que el papel, los pinceles y los libros solían desaparecer junto con él.",
+        "pt": "As pessoas que o contratavam para copiar gradualmente descobriram que papel, pincéis e livros frequentemente desapareciam junto com ele.",
+        "it": "Le persone che gli commissionavano copie scoprirono gradualmente che carta, penne e libri spesso scomparivano insieme a lui.",
+        "zh-Hans": "抄书的人家渐渐发现，纸笔和书本常常跟着他一起消失。",
+        "zh-Hant": "抄書的人家漸漸發現，紙筆和書本常常跟著他一起消失。",
+        "ro": "Oamenii pentru care copia au descoperit treptat că hârtia, pensulele și cărțile dispăreau adesea odată cu el.",
+        "ca": "La gent que li encarregava còpies va descobrir a poc a poc que el paper, els pinzells i els llibres sovint desapareixien juntament amb ell."
+       }
+      },
+      {
+       "text": "没有人再敢雇他抄书，他的生活也因此越来越艰难。",
+       "translation": {
+        "en": "No one dared to hire him to copy anymore, and his life became more and more difficult because of this.",
+        "fr": "No one dared to hire him to copy anymore, and his life became increasingly difficult because of this.",
+        "es": "Nadie se atrevía a contratarlo para copiar, y su vida se volvió cada vez más difícil.",
+        "pt": "Ninguém mais ousava contratá-lo para copiar, e sua vida tornou-se cada vez mais difícil por causa disso.",
+        "it": "Nessuno osò più assumerlo per copiare, e la sua vita divenne sempre più difficile.",
+        "zh-Hans": "没有人再敢雇他抄书，他的生活也因此越来越艰难。",
+        "zh-Hant": "沒有人再敢僱他抄書，他的生活也因此越來越艱難。",
+        "ro": "Nimeni nu a mai îndrăznit să-l angajeze să copieze, iar viața lui a devenit din ce în ce mai grea.",
+        "ca": "Ningú gosava tornar a contractar-lo per copiar, i la seva vida es va fer cada cop més difícil."
+       }
+      },
+      {
+       "text": "没有生计的时候，他只好偶尔做些偷窃的事情来维持生活。",
+       "translation": {
+        "en": "When he had no livelihood, he had to occasionally do some stealing to maintain his life.",
+        "fr": "When he had no livelihood, he had to occasionally do some stealing to maintain his life.",
+        "es": "Cuando no tenía cómo ganarse la vida, a veces recurría a pequeños robos para mantenerse.",
+        "pt": "Quando não tinha como ganhar a vida, ele ocasionalmente recorria a pequenos furtos para se sustentar.",
+        "it": "Quando non aveva mezzi di sostentamento, doveva occasionalmente rubare per sopravvivere.",
+        "zh-Hans": "没有生计的时候，他只好偶尔做些偷窃的事情来维持生活。",
+        "zh-Hant": "沒有生計的時候，他只好偶爾做些偷竊的事情來維持生活。",
+        "ro": "Când nu avea de lucru, recurgea uneori la furturi mărunte ca să se întrețină.",
+        "ca": "Quan no tenia feina, de tant en tant havia de fer algun robatori per mantenir-se."
+       }
+      },
+      {
+       "text": "这也是为什么每次他一来，大家总喜欢问他偷东西的事。",
+       "translation": {
+        "en": "This is also why every time he came, everyone always liked to ask him about stealing things.",
+        "fr": "This is also why every time he came, everyone always liked to ask him about stealing things.",
+        "es": "Por eso, cada vez que venía, a todos les gustaba preguntarle sobre sus robos.",
+        "pt": "É por isso que, toda vez que ele vinha, todos gostavam de perguntar sobre seus furtos.",
+        "it": "Questo è anche il motivo per cui ogni volta che arrivava, tutti amavano chiedergli del furto.",
+        "zh-Hans": "这也是为什么每次他一来，大家总喜欢问他偷东西的事。",
+        "zh-Hant": "這也是為什麼每次他來，大家總喜歡問他偷東西的事。",
+        "ro": "De aceea, de fiecare dată când venea, tuturor le plăcea să-l întrebe despre furturi.",
+        "ca": "Per això, cada vegada que venia, tothom li preguntava sobre els robatoris."
+       }
+      },
+      {
+       "text": "孔乙己从不肯承认自己做错，总要为自己辩解几句。",
+       "translation": {
+        "en": "Kong Yiji never admitted that he had done wrong; he always wanted to defend himself with a few words.",
+        "fr": "Kong Yiji never admitted his mistakes and always tried to defend himself with a few words.",
+        "es": "Kong Yiji nunca admitía haber hecho algo mal y siempre intentaba justificarse.",
+        "pt": "Kong Yiji nunca admitia ter feito algo errado; sempre tentava se justificar.",
+        "it": "Kong Yiji non ammetteva mai di aver sbagliato, e cercava sempre di giustificarsi.",
+        "zh-Hans": "孔乙己从不肯承认自己做错，总要为自己辩解几句。",
+        "zh-Hant": "孔乙己從不肯承認自己做錯，總要為自己辯解幾句。",
+        "ro": "Kong Yiji nu recunoștea niciodată că a greșit și totdeauna încerca să se justifice.",
+        "ca": "Kong Yiji mai no admetia haver fet res malament, sempre intentava justificar-se."
+       }
+      },
+      {
+       "text": "可是他辩解的话，大家从来都不认真去听，只当作笑话。",
+       "translation": {
+        "en": "But people never listened seriously to his excuses; they only treated them as jokes.",
+        "fr": "But people never listened seriously to his excuses, only treated them as jokes.",
+        "es": "Pero sus excusas, nadie las escuchaba en serio, solo las tomaban como chiste.",
+        "pt": "Mas ninguém nunca levava a sério suas justificativas, apenas as tratavam como piada.",
+        "it": "Ma le sue scuse, nessuno le ascoltava mai seriamente, le prendevano solo come uno scherzo.",
+        "zh-Hans": "可是他辩解的话，大家从来都不认真去听，只当作笑话。",
+        "zh-Hant": "可是他辯解的話，大家從來都不認真去聽，只當作笑話。",
+        "ro": "Dar nimeni nu-l asculta cu adevărat când se justifica, ci doar îl luau în râs.",
+        "ca": "Però les seves excuses, ningú no les escoltava seriosament, només les prenien com una broma."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "掌柜每次看到他，总要提一提他欠的十九个钱。",
+       "translation": {
+        "en": "Every time the boss saw him, he always mentioned the nineteen coins he owed.",
+        "fr": "Every time the shopkeeper saw him, he always brought up the nineteen coins he owed.",
+        "es": "Cada vez que el dueño lo veía, siempre mencionaba los diecinueve centavos que debía.",
+        "pt": "Toda vez que o gerente o via, sempre mencionava os dezenove centavos que ele devia.",
+        "it": "Ogni volta che il proprietario lo vedeva, menzionava sempre i diciannove soldi che doveva.",
+        "zh-Hans": "掌柜每次看到他，总要提一提他欠的十九个钱。",
+        "zh-Hant": "掌櫃每次看到他，總要提一提他欠的十九個錢。",
+        "ro": "De fiecare dată când îl vedea, patronul aducea vorba despre cei nouăsprezece bani datorați.",
+        "ca": "Cada vegada que el veia, el propietari sempre li recordava els dinou diners que devia."
+       }
+      },
+      {
+       "text": "孔乙己听了，总是脸上带着窘迫，低声说下次一定还清。",
+       "translation": {
+        "en": "When Kong Yiji heard this, he always looked embarrassed and said in a low voice that he would pay it back next time.",
+        "fr": "Hearing this, Kong Yiji always looked embarrassed and said in a low voice that he would pay it back next time.",
+        "es": "Kong Yiji, al oírlo, siempre se ponía apurado y decía en voz baja que la próxima vez pagaría todo.",
+        "pt": "Ao ouvir isso, Kong Yiji sempre ficava envergonhado e dizia em voz baixa que pagaria na próxima vez.",
+        "it": "Kong Yiji, sentendo ciò, mostrava sempre imbarazzo sul viso e diceva a bassa voce che la prossima volta avrebbe pagato tutto.",
+        "zh-Hans": "孔乙己听了，总是脸上带着窘迫，低声说下次一定还清。",
+        "zh-Hant": "孔乙己聽了，總是臉上帶著窘迫，低聲說下次一定還清。",
+        "ro": "Kong Yiji, auzind, avea o expresie stânjenită și spunea cu voce scăzută că data viitoare va plăti negreșit.",
+        "ca": "Kong Yiji, en sentir-ho, sempre posava cara d'angoixa i deia en veu baixa que la propera vegada ho pagaria tot."
+       }
+      },
+      {
+       "text": "不过他每次来喝酒，还是照样赊账，从不例外。",
+       "translation": {
+        "en": "But every time he came to drink, he still ran up a tab as usual, never an exception.",
+        "fr": "But every time he came to drink, he still ran up a tab as usual, never an exception.",
+        "es": "Pero cada vez que venía a beber, seguía fiando como siempre, sin excepción.",
+        "pt": "Mas toda vez que vinha beber, ele continuava a comprar fiado, sem exceção.",
+        "it": "Ma ogni volta che veniva a bere, continuava a comprare a credito, senza eccezioni.",
+        "zh-Hans": "不过他每次来喝酒，还是照样赊账，从不例外。",
+        "zh-Hant": "不過他每次來喝酒，還是照樣賒帳，從不例外。",
+        "ro": "Dar de fiecare dată când venea să bea, tot pe datorie lua, fără excepție.",
+        "ca": "Però cada vegada que venia a beure, seguia demanant crèdit, sense excepció."
+       }
+      },
+      {
+       "text": "渐渐地，来喝酒的人们都习惯了嘲笑他，习惯了他的存在。",
+       "translation": {
+        "en": "Gradually, the people who came to drink got used to mocking him and used to his presence.",
+        "fr": "Gradually, the people who came to drink got used to mocking him and used to his presence.",
+        "es": "Poco a poco, los clientes de la taberna se acostumbraron a burlarse de él y a su presencia.",
+        "pt": "Aos poucos, as pessoas que vinham beber se acostumaram a zombar dele e se acostumaram com sua presença.",
+        "it": "A poco a poco, le persone che venivano a bere si abituarono a deriderlo e alla sua presenza.",
+        "zh-Hans": "渐渐地，来喝酒的人们都习惯了嘲笑他，习惯了他的存在。",
+        "zh-Hant": "漸漸地，來喝酒的人們都習慣了嘲笑他，習慣了他的存在。",
+        "ro": "Treptat, oamenii care veneau să bea s-au obișnuit să râdă de el și să-i accepte prezența.",
+        "ca": "A poc a poc, la gent que venia a beure es va acostumar a riure's d'ell i a la seva presència."
+       }
+      },
+      {
+       "text": "如果有一天他忽然不来了，大家似乎也不会太在意。",
+       "translation": {
+        "en": "If one day he suddenly didn't come, it seemed no one would care too much.",
+        "fr": "If one day he suddenly didn't come, everyone probably wouldn't care too much.",
+        "es": "Si un día de repente no venía, parecía que a nadie le importaba mucho.",
+        "pt": "Se um dia ele de repente não aparecesse, ninguém parecia se importar muito.",
+        "it": "Se un giorno improvvisamente non fosse venuto, nessuno sembrava preoccuparsene troppo.",
+        "zh-Hans": "如果有一天他忽然不来了，大家似乎也不会太在意。",
+        "zh-Hant": "如果有一天他忽然不來了，大家似乎也不會太在意。",
+        "ro": "Dacă într-o zi nu mai venea, probabil că nimeni nu și-ar fi bătut capul.",
+        "ca": "Si un dia deixés de venir de sobte, probablement ningú no se'n preocuparia gaire."
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "第三章 最后一次来喝酒",
+   "paragraphs": [
+    {
+     "sentences": [
+      {
+       "text": "孔乙己有一段时间没有来咸亨酒店了，掌柜也没有在意。",
+       "translation": {
+        "en": "Kong Yiji hadn't come to the Xianheng Tavern for a while, and the boss didn't pay attention.",
+        "fr": "Kong Yiji hadn't come to the Xianheng Tavern for a while, and the shopkeeper didn't mind.",
+        "es": "Kong Yiji no había ido a la taberna Xianheng por un tiempo, y el dueño no le dio importancia.",
+        "pt": "Kong Yiji não aparecia no bar Xianheng há um tempo, e o gerente não se importou.",
+        "it": "Kong Yiji non venne alla taverna Xianheng per un po' di tempo, e il proprietario non ci fece caso.",
+        "zh-Hans": "孔乙己有一段时间没有来咸亨酒店了，掌柜也没有在意。",
+        "zh-Hant": "孔乙己有一段時間沒有來咸亨酒店了，掌櫃也沒有在意。",
+        "ro": "Kong Yiji nu a mai venit de ceva vreme la Taverna Xianheng, iar patronul nu a băgat de seamă.",
+        "ca": "Kong Yiji no havia anat a la taverna Xianheng durant un temps, i el propietari no hi havia parat atenció."
+       }
+      },
+      {
+       "text": "中秋节前后，忽然有人说起孔乙己，说他又惹了大祸。",
+       "translation": {
+        "en": "Around the Mid-Autumn Festival, someone suddenly mentioned Kong Yiji, saying he had caused big trouble again.",
+        "fr": "Around the Mid-Autumn Festival, someone suddenly mentioned Kong Yiji, saying he had gotten into big trouble again.",
+        "es": "Alrededor del Festival del Medio Otoño, de repente alguien mencionó a Kong Yiji, diciendo que había causado un gran problema otra vez.",
+        "pt": "Por volta do Festival do Meio do Outono, de repente alguém falou de Kong Yiji, dizendo que ele tinha se metido em uma grande encrenca.",
+        "it": "Verso la festa di metà autunno, improvvisamente qualcuno parlò di Kong Yiji, dicendo che aveva causato un grosso guaio.",
+        "zh-Hans": "中秋节前后，忽然有人说起孔乙己，说他又惹了大祸。",
+        "zh-Hant": "中秋節前後，忽然有人說起孔乙己，說他又惹了大禍。",
+        "ro": "În preajma Festivalului de Mijlocul Toamnei, cineva a pomenit de Kong Yiji, spunând că a mai făcut o poznă mare.",
+        "ca": "Cap a la festa del Mig Tardor, de sobte algú va parlar de Kong Yiji, dient que havia causat un gran problema."
+       }
+      },
+      {
+       "text": "原来他因为生活困难，偷了城里丁举人家里的书。",
+       "translation": {
+        "en": "It turned out that because of financial difficulties, he had stolen books from the Ding family's house in town.",
+        "fr": "Il avait volé des livres dans la maison du lettré Ding chez lui parce qu'il avait des difficultés de vie.",
+        "es": "Resulta que, por dificultades económicas, había robado los libros de la casa del señor Ding, un erudito de la ciudad.",
+        "pt": "原来他因为生活困难，偷了城里丁举人家里的书。",
+        "it": "Originariamente, a causa delle difficoltà economiche, aveva rubato i libri dalla casa del signor Ding, un uomo della città.",
+        "zh-Hans": "原来他因为生活困难，偷了城里丁举人家里的书。",
+        "zh-Hant": "原来他因为生活困难，偷了城里丁举人家里的书。",
+        "ro": "It turned out that because of financial difficulties, he had stolen books from the Ding family's house in town.",
+        "ca": "Originalment, perquè tenia dificultats econòmiques, havia robat els llibres de la casa del senyor Ding, el lletrat, a la ciutat."
+       }
+      },
+      {
+       "text": "丁举人家里的人抓住他，把他打了大半夜，打断了他的腿。",
+       "translation": {
+        "en": "The people in the Ding family caught him, beat him for most of the night, and broke his legs.",
+        "fr": "Les gens de la maison du lettré Ding l'ont attrapé, l'ont battu pendant une grande partie de la nuit et lui ont cassé les jambes.",
+        "es": "La gente de la casa del señor Ding lo atrapó, lo golpearon durante gran parte de la noche y le rompieron las piernas.",
+        "pt": "丁举人家里的人抓住他，把他打了大半夜，打断了他的腿。",
+        "it": "La gente della famiglia del signor Ding lo catturò, lo picchiò per gran parte della notte e gli ruppe le gambe.",
+        "zh-Hans": "丁举人家里的人抓住他，把他打了大半夜，打断了他的腿。",
+        "zh-Hant": "丁举人家里的人抓住他，把他打了大半夜，打断了他的腿。",
+        "ro": "The people of the Ding family caught him, beat him for most of the night, and broke his legs.",
+        "ca": "La gent de la casa del senyor Ding el va atrapar, el va colpejar durant mitja nit i li va trencar les cames."
+       }
+      },
+      {
+       "text": "这件事情传开以后，掌柜提起孔乙己，脸上带着一点笑意。",
+       "translation": {
+        "en": "After this news spread, the掌柜 mentioned Kong Yiji with a slight smile on his face.",
+        "fr": "Quand cette affaire s'est répandue, le patron, en parlant de Kong Yiji, avait un peu de sourire sur le visage.",
+        "es": "Cuando esto se difundió, el dueño de la taberna mencionó a Kong Yiji con una sonrisa en el rostro.",
+        "pt": "这件事情传开以后，掌柜提起孔乙己，脸上带着一点笑意。",
+        "it": "Dopo che la notizia si diffuse, il proprietario, menzionando Kong Yiji, aveva un po' di sorriso sul viso.",
+        "zh-Hans": "这件事情传开以后，掌柜提起孔乙己，脸上带着一点笑意。",
+        "zh-Hant": "这件事情传开以后，掌柜提起孔乙己，脸上带着一点笑意。",
+        "ro": "After this matter spread, the掌柜 mentioned Kong Yiji with a slight smile on his face.",
+        "ca": "Quan la notícia es va escampar, el botiguer, en parlar de Kong Yiji, tenia un somriure a la cara."
+       }
+      },
+      {
+       "text": "大家都觉得，孔乙己这一次，恐怕再也站不起来了。",
+       "translation": {
+        "en": "Everyone felt that Kong Yiji, this time, probably would never be able to stand up again.",
+        "fr": "Tout le monde pensait que cette fois, Kong Yiji ne pourrait probablement plus jamais se lever.",
+        "es": "Todos pensaron que Kong Yiji, esta vez, probablemente nunca más podría ponerse de pie.",
+        "pt": "大家都觉得，孔乙己这一次，恐怕再也站不起来了。",
+        "it": "Tutti pensavano che Kong Yiji, questa volta, probabilmente non sarebbe mai più stato in grado di alzarsi.",
+        "zh-Hans": "大家都觉得，孔乙己这一次，恐怕再也站不起来了。",
+        "zh-Hant": "大家都觉得，孔乙己这一次，恐怕再也站不起来了。",
+        "ro": "Everyone felt that Kong Yiji, this time, probably would never stand up again.",
+        "ca": "Tothom pensava que Kong Yiji, aquesta vegada, potser mai més no es podria posar dret."
+       }
+      },
+      {
+       "text": "后来听人说，丁举人本来还想直接打死他，是邻居劝阻才留了他一条命。",
+       "translation": {
+        "en": "Later, I heard from others that Ding had originally wanted to beat him to death directly, but it was only because the neighbors dissuaded him that he spared Kong's life.",
+        "fr": "Plus tard, on a entendu dire que le lettré Ding avait d'abord voulu le tuer directement, mais que c'était grâce à l'intervention des voisins qu'il avait gardé la vie.",
+        "es": "Más tarde, se supo que el señor Ding originalmente quería matarlo directamente, pero fue gracias a la intercesión de los vecinos que le perdonaron la vida.",
+        "pt": "后来听人说，丁举人本来还想直接打死他，是邻居劝阻才留了他一条命。",
+        "it": "Più tardi si sentì dire che il signor Ding aveva originariamente voluto picchiarlo a morte, ma fu solo grazie all'intercessione dei vicini che gli fu risparmiata la vita.",
+        "zh-Hans": "后来听人说，丁举人本来还想直接打死他，是邻居劝阻才留了他一条命。",
+        "zh-Hant": "后来听人说，丁举人本来还想直接打死他，是邻居劝阻才留了他一条命。",
+        "ro": "Later, people said that Ding had originally wanted to beat him to death directly, but it was only because of the neighbors' persuasion that his life was spared.",
+        "ca": "Més tard, vam sentir dir que el senyor Ding originalment volia matar-lo directament, però va ser gràcies a la intercessió dels veïns que va conservar la vida."
+       }
+      },
+      {
+       "text": "孔乙己被打断腿之后，在家里躺了很长时间，没有钱去看大夫。",
+       "translation": {
+        "en": "After Kong Yiji's legs were broken, he lay at home for a long time, without money to see a doctor.",
+        "fr": "Après s'être fait casser les jambes, Kong Yiji est resté couché à la maison pendant très longtemps, sans argent pour voir un médecin.",
+        "es": "Después de que le rompieron las piernas, Kong Yiji permaneció en cama durante mucho tiempo, sin dinero para ver a un médico.",
+        "pt": "孔乙己被打断腿之后，在家里躺了很长时间，没有钱去看大夫。",
+        "it": "Dopo che gli furono rotte le gambe, Kong Yiji rimase a letto per molto tempo, senza soldi per vedere un medico.",
+        "zh-Hans": "孔乙己被打断腿之后，在家里躺了很长时间，没有钱去看大夫。",
+        "zh-Hant": "孔乙己被打断腿之后，在家里躺了很长时间，没有钱去看大夫。",
+        "ro": "After Kong Yiji's legs were broken, he lay at home for a long time, without money to see a doctor.",
+        "ca": "Després de tenir les cames trencades, Kong Yiji va estar estirat a casa durant molt de temps, sense diners per anar al metge."
+       }
+      },
+      {
+       "text": "他靠着邻居偶尔送来的一点米粥，才勉强撑了下来。",
+       "translation": {
+        "en": "He relied on the occasional bowl of rice porridge that neighbors brought, barely managing to survive.",
+        "fr": "Il s'accrochait à peine grâce à un peu de bouillie de riz que les voisins lui apportaient de temps en temps.",
+        "es": "Sobrevivió apenas gracias a un poco de gachas de arroz que los vecinos le traían de vez en cuando.",
+        "pt": "他靠着邻居偶尔送来的一点米粥，才勉强撑了下来。",
+        "it": "Si affidò al porridge di riso che i vicini occasionalmente gli portavano, riuscendo a malapena a sopravvivere.",
+        "zh-Hans": "他靠着邻居偶尔送来的一点米粥，才勉强撑了下来。",
+        "zh-Hant": "他靠着邻居偶尔送来的一点米粥，才勉强撑了下来。",
+        "ro": "He barely managed to survive by relying on the occasional rice porridge that neighbors brought.",
+        "ca": "Es va mantenir amb prou feines gràcies a una mica de farinetes d'arròs que els veïns li portaven de tant en tant."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "初冬的一个傍晚，我正在柜台里忙碌，忽然听见有人喊：“温一碗酒。”",
+       "translation": {
+        "en": "One early winter evening, I was busy behind the counter when I suddenly heard someone shout: \"Warm a bowl of wine.\"",
+        "fr": "Un soir au début de l'hiver, j'étais occupé derrière le comptoir quand j'ai soudain entendu quelqu'un crier : \"Chauffez un bol de vin.\"",
+        "es": "Una tarde a principios del invierno, estaba ocupado detrás del mostrador cuando de repente oí a alguien gritar: \"Calienta un tazón de vino.\"",
+        "pt": "初冬的一个傍晚，我正在柜台里忙碌，忽然听见有人喊：“温一碗酒。”",
+        "it": "Una sera all'inizio dell'inverno, mentre ero occupato dietro il bancone, improvvisamente sentii qualcuno chiamare: \"Scalda una ciotola di vino.\"",
+        "zh-Hans": "初冬的一个傍晚，我正在柜台里忙碌，忽然听见有人喊：“温一碗酒。”",
+        "zh-Hant": "初冬的一个傍晚，我正在柜台里忙碌，忽然听见有人喊：“温一碗酒。”",
+        "ro": "One early winter evening, I was busy behind the counter when I suddenly heard someone shout: \"Warm a bowl of wine.\"",
+        "ca": "Un capvespre a principis d'hivern, estava ocupat darrere del taulell quan de sobte vaig sentir algú que cridava: \"Escalfa'm un bol de vi.\""
+       }
+      },
+      {
+       "text": "声音低哑，我抬头一看，是孔乙己，可是他的样子完全变了。",
+       "translation": {
+        "en": "The voice was low and hoarse. I looked up and saw it was Kong Yiji, but his appearance had completely changed.",
+        "fr": "La voix était basse et rauque. J'ai levé la tête et j'ai vu que c'était Kong Yiji, mais son apparence avait complètement changé.",
+        "es": "La voz era ronca y baja. Levanté la vista y vi a Kong Yiji, pero su apariencia había cambiado por completo.",
+        "pt": "声音低哑，我抬头一看，是孔乙己，可是他的样子完全变了。",
+        "it": "La voce era bassa e rauca. Alzai lo sguardo e vidi che era Kong Yiji, ma il suo aspetto era completamente cambiato.",
+        "zh-Hans": "声音低哑，我抬头一看，是孔乙己，可是他的样子完全变了。",
+        "zh-Hant": "声音低哑，我抬头一看，是孔乙己，可是他的样子完全变了。",
+        "ro": "The voice was low and hoarse. I looked up and saw it was Kong Yiji, but his appearance had completely changed.",
+        "ca": "La veu era ronca i apagada. Vaig aixecar el cap i vaig veure que era Kong Yiji, però el seu aspecte havia canviat completament."
+       }
+      },
+      {
+       "text": "他的脸又黑又瘦，穿着一件破烂的夹袄，盘着两条腿。",
+       "translation": {
+        "en": "His face was dark and thin, he wore a tattered lined jacket, and his two legs were crossed.",
+        "fr": "Son visage était noir et maigre, il portait une veste ouatée en lambeaux et il avait les jambes croisées.",
+        "es": "Su rostro estaba oscuro y delgado, vestía una chaqueta acolchada rota y tenía las piernas cruzadas.",
+        "pt": "他的脸又黑又瘦，穿着一件破烂的夹袄，盘着两条腿。",
+        "it": "Il suo viso era nero e magro, indossava una giacca rattoppata e teneva le gambe incrociate.",
+        "zh-Hans": "他的脸又黑又瘦，穿着一件破烂的夹袄，盘着两条腿。",
+        "zh-Hant": "他的脸又黑又瘦，穿着一件破烂的夹袄，盘着两条腿。",
+        "ro": "His face was black and thin, he wore a tattered lined jacket, and his two legs were crossed.",
+        "ca": "Tenia la cara negra i prima, duia una jaqueta esparracada i tenia les cames creuades."
+       }
+      },
+      {
+       "text": "他的两条腿已经不能走路了，是用手撑着地面爬过来的。",
+       "translation": {
+        "en": "His legs could no longer walk; he had crawled over using his hands to support himself on the ground.",
+        "fr": "Ses deux jambes ne pouvaient plus marcher ; il était venu en rampant sur le sol avec ses mains.",
+        "es": "Ya no podía caminar con sus dos piernas; había llegado arrastrándose con las manos apoyadas en el suelo.",
+        "pt": "他的两条腿已经不能走路了，是用手撑着地面爬过来的。",
+        "it": "Le sue gambe non potevano più camminare; era strisciato usando le mani per sostenersi sul terreno.",
+        "zh-Hans": "他的两条腿已经不能走路了，是用手撑着地面爬过来的。",
+        "zh-Hant": "他的两条腿已经不能走路了，是用手撑着地面爬过来的。",
+        "ro": "His legs could no longer walk; he had crawled over using his hands to support himself on the ground.",
+        "ca": "Les seves cames ja no podien caminar; s'havia arrossegat fins allà amb les mans."
+       }
+      },
+      {
+       "text": "他从怀里摸出四文钱，放在我手里，让我给他温一碗酒。",
+       "translation": {
+        "en": "He took out four coppers from his bosom, placed them in my hand, and asked me to warm a bowl of wine for him.",
+        "fr": "Il sortit quatre pièces de monnaie de son sein, les mit dans ma main et me demanda de lui chauffer un bol de vin.",
+        "es": "Sacó cuatro monedas de cobre del pecho, las puso en mi mano y me pidió que le calentara un tazón de vino.",
+        "pt": "他从怀里摸出四文钱，放在我手里，让我给他温一碗酒。",
+        "it": "Tirò fuori quattro monete di rame dal petto, le mise nella mia mano e mi chiese di scaldargli una ciotola di vino.",
+        "zh-Hans": "他从怀里摸出四文钱，放在我手里，让我给他温一碗酒。",
+        "zh-Hant": "他从怀里摸出四文钱，放在我手里，让我给他温一碗酒。",
+        "ro": "He took out four coppers from his bosom, placed them in my hand, and asked me to warm a bowl of wine for him.",
+        "ca": "Va treure quatre monedes de coure de la butxaca interior, me les va posar a la mà i em va demanar que li escalfés un bol de vi."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "掌柜看见他，还是照旧说：“孔乙己，你又欠十九个钱了！”",
+       "translation": {
+        "en": "The掌柜 saw him and still said as usual: \"Kong Yiji, you owe nineteen coppers again!\"",
+        "fr": "Le patron le vit et dit comme d'habitude : \"Kong Yiji, tu me dois encore dix-neuf pièces !\"",
+        "es": "El dueño de la taberna lo vio y, como siempre, dijo: \"¡Kong Yiji, otra vez debes diecinueve monedas!\"",
+        "pt": "掌柜看见他，还是照旧说：“孔乙己，你又欠十九个钱了！”",
+        "it": "Il proprietario, vedendolo, disse ancora come al solito: \"Kong Yiji, devi ancora diciannove soldi!\"",
+        "zh-Hans": "掌柜看见他，还是照旧说：“孔乙己，你又欠十九个钱了！”",
+        "zh-Hant": "掌柜看见他，还是照旧说：“孔乙己，你又欠十九个钱了！”",
+        "ro": "The掌柜 saw him and still said as usual: \"Kong Yiji, you owe nineteen coppers again!\"",
+        "ca": "El botiguer, en veure'l, va dir com sempre: \"Kong Yiji, tornes a deure dinou monedes!\""
+       }
+      },
+      {
+       "text": "孔乙己这次没有争辩，只是低声说：“这……下回还清。”",
+       "translation": {
+        "en": "This time Kong Yiji did not argue, only said in a low voice: \"This... next time I'll pay it off.\"",
+        "fr": "Cette fois, Kong Yiji ne discuta pas, il dit seulement à voix basse : \"Ce... je rembourserai la prochaine fois.\"",
+        "es": "Esta vez Kong Yiji no discutió, solo dijo en voz baja: \"Esto... la próxima vez lo pagaré todo.\"",
+        "pt": "孔乙己这次没有争辩，只是低声说：“这……下回还清。”",
+        "it": "Questa volta Kong Yiji non discusse, disse solo a bassa voce: \"Questo... la prossima volta salderò il debito.\"",
+        "zh-Hans": "孔乙己这次没有争辩，只是低声说：“这……下回还清。”",
+        "zh-Hant": "孔乙己这次没有争辩，只是低声说：“这……下回还清。”",
+        "ro": "This time Kong Yiji did not argue, but only said in a low voice: \"This... I'll pay it back next time.\"",
+        "ca": "Aquesta vegada Kong Yiji no va discutir, només va dir en veu baixa: \"Això... ho pagaré la propera vegada.\""
+       }
+      },
+      {
+       "text": "他喝完那碗酒，用手慢慢地撑着地面，一点一点地爬着离开。",
+       "translation": {
+        "en": "After he finished that bowl of wine, he slowly supported himself with his hands on the ground and crawled away bit by bit.",
+        "fr": "Après avoir fini son bol de vin, il s'appuya lentement sur ses mains pour ramper et partir petit à petit.",
+        "es": "Después de beber ese tazón de vino, lentamente se apoyó en el suelo con las manos y se alejó arrastrándose poco a poco.",
+        "pt": "他喝完那碗酒，用手慢慢地撑着地面，一点一点地爬着离开。",
+        "it": "Dopo aver finito quella ciotola di vino, lentamente si sostenne con le mani sul terreno e se ne andò strisciando poco a poco.",
+        "zh-Hans": "他喝完那碗酒，用手慢慢地撑着地面，一点一点地爬着离开。",
+        "zh-Hant": "他喝完那碗酒，用手慢慢地撑着地面，一点一点地爬着离开。",
+        "ro": "After finishing that bowl of wine, he slowly supported himself with his hands on the ground and crawled away little by little.",
+        "ca": "Després de beure's el bol de vi, es va empènyer lentament amb les mans sobre el terra i va marxar arrossegant-se a poc a poc."
+       }
+      },
+      {
+       "text": "从那以后，孔乙己再也没有到咸亨酒店来过。",
+       "translation": {
+        "en": "From then on, Kong Yiji never came to the Xianheng Tavern again.",
+        "fr": "Depuis ce jour-là, Kong Yiji n'est plus jamais venu à la taverne Xianheng.",
+        "es": "Desde entonces, Kong Yiji nunca más volvió a la taberna Xianheng.",
+        "pt": "从那以后，孔乙己再也没有到咸亨酒店来过。",
+        "it": "Da allora, Kong Yiji non venne mai più alla taverna Xianheng.",
+        "zh-Hans": "从那以后，孔乙己再也没有到咸亨酒店来过。",
+        "zh-Hant": "从那以后，孔乙己再也没有到咸亨酒店来过。",
+        "ro": "From then on, Kong Yiji never came to the Xianheng Tavern again.",
+        "ca": "Des d'aleshores, Kong Yiji no va tornar mai més a la taverna Xianheng."
+       }
+      },
+      {
+       "text": "我看着他爬着离开的背影，心里忽然觉得有点难过。",
+       "translation": {
+        "en": "Watching his crawling figure leave, I suddenly felt a little sad in my heart.",
+        "fr": "En le regardant s'éloigner en rampant, je me suis soudain senti un peu triste.",
+        "es": "Lo vi alejarse arrastrándose y, de repente, sentí un poco de tristeza en el corazón.",
+        "pt": "我看着他爬着离开的背影，心里忽然觉得有点难过。",
+        "it": "Guardando la sua figura che strisciava via, improvvisamente provai un po' di tristezza nel cuore.",
+        "zh-Hans": "我看着他爬着离开的背影，心里忽然觉得有点难过。",
+        "zh-Hant": "我看着他爬着离开的背影，心里忽然觉得有点难过。",
+        "ro": "Watching his back as he crawled away, I suddenly felt a little sad in my heart.",
+        "ca": "Mentre el veia marxar arrossegant-se, vaig sentir una mica de tristesa al cor."
+       }
+      },
+      {
+       "text": "这是我最后一次看见孔乙己，虽然当时我并不知道。",
+       "translation": {
+        "en": "That was the last time I saw Kong Yiji, although I didn't know it at the time.",
+        "fr": "C'était la dernière fois que je voyais Kong Yiji, même si je ne le savais pas à ce moment-là.",
+        "es": "Esa fue la última vez que vi a Kong Yiji, aunque en ese momento no lo sabía.",
+        "pt": "这是我最后一次看见孔乙己，虽然当时我并不知道。",
+        "it": "Questa fu l'ultima volta che vidi Kong Yiji, anche se allora non lo sapevo.",
+        "zh-Hans": "这是我最后一次看见孔乙己，虽然当时我并不知道。",
+        "zh-Hant": "这是我最后一次看见孔乙己，虽然当时我并不知道。",
+        "ro": "This was the last time I saw Kong Yiji, although I did not know it at the time.",
+        "ca": "Va ser l'última vegada que vaig veure Kong Yiji, tot i que aleshores no ho sabia."
+       }
+      },
+      {
+       "text": "咸亨酒店里的生活照常继续，客人来来往往，谁也不再提起他。",
+       "translation": {
+        "en": "Life at the Xianheng Tavern continued as usual, customers came and went, and no one mentioned him anymore.",
+        "fr": "La vie à la taverne Xianheng continua comme d'habitude, les clients allaient et venaient, et plus personne ne parlait de lui.",
+        "es": "La vida en la taberna Xianheng continuó como siempre, los clientes iban y venían, y nadie volvió a mencionarlo.",
+        "pt": "咸亨酒店里的生活照常继续，客人来来往往，谁也不再提起他。",
+        "it": "La vita nella taverna Xianheng continuò come al solito, i clienti andavano e venivano, e nessuno lo menzionava più.",
+        "zh-Hans": "咸亨酒店里的生活照常继续，客人来来往往，谁也不再提起他。",
+        "zh-Hant": "咸亨酒店里的生活照常继续，客人来来往往，谁也不再提起他。",
+        "ro": "Life in the Xianheng Tavern continued as usual, customers came and went, and no one mentioned him anymore.",
+        "ca": "La vida a la taverna Xianheng va continuar com sempre, els clients anaven i venien, i ningú no el mencionava més."
+       }
+      },
+      {
+       "text": "只有我，偶尔在温酒的时候，会想起他教我写茴字的样子。",
+       "translation": {
+        "en": "Only I, occasionally while warming wine, would think of the way he taught me to write the character 'hui'.",
+        "fr": "Seulement moi, parfois en chauffant le vin, je pensais à la façon dont il m'avait appris à écrire le caractère hui.",
+        "es": "Solo yo, de vez en cuando, al calentar vino, recordaba cómo me enseñaba a escribir el carácter 'hui'.",
+        "pt": "只有我，偶尔在温酒的时候，会想起他教我写茴字的样子。",
+        "it": "Solo io, ogni tanto mentre scaldo il vino, ricordo come mi insegnava a scrivere il carattere 'hui'.",
+        "zh-Hans": "只有我，偶尔在温酒的时候，会想起他教我写茴字的样子。",
+        "zh-Hant": "只有我，偶尔在温酒的时候，会想起他教我写茴字的样子。",
+        "ro": "Only I, occasionally while warming wine, would think of the way he taught me to write the character 'hui'.",
+        "ca": "Només jo, de tant en tant, mentre escalfava vi, recordava com m'ensenyava a escriure el caràcter 'hui'."
+       }
+      },
+      {
+       "text": "我也会想起他分给孩子们茴香豆时脸上难得的笑容。",
+       "translation": {
+        "en": "I would also remember the rare smile on his face when he distributed aniseed peas to the children.",
+        "fr": "Je me souviens aussi du sourire rare sur son visage quand il distribuait des fèves de soja aux enfants.",
+        "es": "También recuerdo la rara sonrisa en su rostro cuando repartía habas de anís a los niños.",
+        "pt": "Também me lembro do raro sorriso em seu rosto quando ele distribuía favas de anis às crianças.",
+        "it": "Anch'io ricordo il raro sorriso sul suo viso quando distribuiva i semi di soia fermentata ai bambini.",
+        "zh-Hans": "我也会想起他分给孩子们茴香豆时脸上难得的笑容。",
+        "zh-Hant": "我也会想起他分给孩子们茴香豆时脸上难得的笑容。",
+        "ro": "Îmi amintesc și de zâmbetul rar de pe fața lui când împărțea boabe de anason copiilor.",
+        "ca": "També recordaré el somriure rar que tenia a la cara quan repartia faves d'anís als nens."
+       }
+      },
+      {
+       "text": "一个连秀才都没有考中的读书人，最终却因为偷书断了双腿。",
+       "translation": {
+        "en": "A scholar who had not even passed the county examination ended up with both legs broken because of stealing books.",
+        "fr": "Un lettré qui n'avait même pas réussi l'examen de licence, mais qui finalement a eu les jambes cassées pour avoir volé des livres.",
+        "es": "Un hombre letrado que ni siquiera había aprobado el examen de xiucai, al final perdió ambas piernas por robar libros.",
+        "pt": "Um estudioso que nem mesmo passou no exame imperial, mas acabou perdendo as duas pernas por roubar livros.",
+        "it": "Un uomo di lettere che non era nemmeno riuscito a superare l'esame di contea, alla fine si ruppe entrambe le gambe per aver rubato libri.",
+        "zh-Hans": "一个连秀才都没有考中的读书人，最终却因为偷书断了双腿。",
+        "zh-Hant": "一个连秀才都没有考中的读书人，最终却因为偷书断了双腿。",
+        "ro": "Un cărturar care nu reușise nici măcar să treacă examenul de licență a ajuns, în cele din urmă, să-și piardă picioarele din cauza furtului de cărți.",
+        "ca": "Un home lletrat que ni tan sols havia aprovat l'examen de xiucai, finalment va acabar amb les cames trencades per robar llibres."
+       }
+      },
+      {
+       "text": "这样的结局，让人觉得可笑，却也让人觉得说不出的悲伤。",
+       "translation": {
+        "en": "Such an ending makes people feel ridiculous, yet also brings an indescribable sadness.",
+        "fr": "Une telle fin semble risible, mais elle inspire aussi une tristesse indicible.",
+        "es": "Un final así resulta ridículo, pero también provoca una tristeza indescriptible.",
+        "pt": "Um final assim faz as pessoas acharem engraçado, mas também traz uma tristeza indescritível.",
+        "it": "Un finale del genere fa ridere, ma allo stesso tempo provoca una tristezza indescrivibile.",
+        "zh-Hans": "这样的结局，让人觉得可笑，却也让人觉得说不出的悲伤。",
+        "zh-Hant": "这样的结局，让人觉得可笑，却也让人觉得说不出的悲伤。",
+        "ro": "Un asemenea deznodământ pare ridicol, dar și de o tristețe greu de exprimat.",
+        "ca": "Aquest final fa riure, però també fa sentir una tristesa indescriptible."
+       }
+      }
+     ]
+    },
+    {
+     "sentences": [
+      {
+       "text": "到了年底，掌柜取下账簿，说：“孔乙己还欠十九个钱呢。”",
+       "translation": {
+        "en": "At the end of the year, the shopkeeper took down the ledger and said, \"Kong Yiji still owes nineteen coppers.\"",
+        "fr": "À la fin de l'année, le patron prit le registre et dit : « Kong Yiji doit encore dix-neuf pièces de monnaie. »",
+        "es": "A finales de año, el dueño tomó el libro de cuentas y dijo: \"Kong Yiji todavía debe diecinueve monedas.\"",
+        "pt": "No fim do ano, o gerente pegou o livro de contas e disse: \"Kong Yiji ainda deve dezenove moedas.\"",
+        "it": "Alla fine dell'anno, il padrone prese il registro e disse: \"Kong Yiji deve ancora diciannove monete.\"",
+        "zh-Hans": "到了年底，掌柜取下账簿，说：“孔乙己还欠十九个钱呢。”",
+        "zh-Hant": "到了年底，掌柜取下账簿，说：“孔乙己还欠十九个钱呢。”",
+        "ro": "La sfârșitul anului, patronul a scos registrul și a spus: „Kong Yiji încă mai datorează nouăsprezece bani.”",
+        "ca": "A finals d'any, el botiguer va treure el llibre de comptes i va dir: \"Kong Yiji encara deu dinou monedes.\""
+       }
+      },
+      {
+       "text": "第二年的端午，掌柜又说了一遍同样的话。",
+       "translation": {
+        "en": "The next year at the Dragon Boat Festival, the shopkeeper said the same thing again.",
+        "fr": "À la fête des bateaux-dragons de l'année suivante, le patron répéta les mêmes paroles.",
+        "es": "Al año siguiente, durante la Fiesta del Bote del Dragón, el dueño repitió las mismas palabras.",
+        "pt": "No Festival do Barco-Dragão do ano seguinte, o gerente repetiu as mesmas palavras.",
+        "it": "Il secondo anno, durante la Festa delle Barche Drago, il padrone ripeté le stesse parole.",
+        "zh-Hans": "第二年的端午，掌柜又说了一遍同样的话。",
+        "zh-Hant": "第二年的端午，掌柜又说了一遍同样的话。",
+        "ro": "În ziua de Dragon Boat din anul următor, patronul a spus din nou aceleași cuvinte.",
+        "ca": "El segon any, per la festa del Duanwu, el botiguer va dir el mateix una altra vegada."
+       }
+      },
+      {
+       "text": "到了中秋，仍然没有人看见孔乙己的身影出现在酒店里。",
+       "translation": {
+        "en": "By the Mid-Autumn Festival, still no one had seen Kong Yiji appear at the tavern.",
+        "fr": "À la fête de la mi-automne, personne n'avait encore vu Kong Yiji apparaître dans le restaurant.",
+        "es": "Para la Fiesta del Medio Otoño, todavía nadie había visto a Kong Yiji aparecer en la taberna.",
+        "pt": "No Festival do Meio do Outono, ainda ninguém tinha visto Kong Yiji aparecer no bar.",
+        "it": "A metà autunno, nessuno aveva ancora visto Kong Yiji comparire nella taverna.",
+        "zh-Hans": "到了中秋，仍然没有人看见孔乙己的身影出现在酒店里。",
+        "zh-Hant": "到了中秋，仍然没有人看见孔乙己的身影出现在酒店里。",
+        "ro": "Până la Festivalul de Mijlocul Toamnei, nimeni nu mai văzuse figura lui Kong Yiji apărând în han.",
+        "ca": "Quan va arribar la festa de la Lluna, encara ningú havia vist Kong Yiji aparèixer a la taverna."
+       }
+      },
+      {
+       "text": "就这样，一年又一年过去，再也没有人提起他了。",
+       "translation": {
+        "en": "And so, year after year passed, and no one mentioned him anymore.",
+        "fr": "Ainsi, les années passèrent, et plus personne ne parlait de lui.",
+        "es": "Así, pasaron los años uno tras otro, y nadie volvió a mencionarlo.",
+        "pt": "Assim, ano após ano se passou, e ninguém mais falava dele.",
+        "it": "Così, anno dopo anno, nessuno parlò più di lui.",
+        "zh-Hans": "就这样，一年又一年过去，再也没有人提起他了。",
+        "zh-Hant": "就这样，一年又一年过去，再也没有人提起他了。",
+        "ro": "Astfel, an după an, nimeni nu a mai pomenit de el.",
+        "ca": "Així, any rere any, ningú més va parlar d'ell."
+       }
+      },
+      {
+       "text": "大约孔乙己的确死了，只是没有人能够确定这件事。",
+       "translation": {
+        "en": "Probably Kong Yiji really did die, but no one could be sure of it.",
+        "fr": "Kong Yiji était probablement mort, mais personne ne pouvait en être certain.",
+        "es": "Probablemente Kong Yiji realmente murió, pero nadie pudo confirmarlo.",
+        "pt": "Provavelmente Kong Yiji realmente morreu, mas ninguém podia ter certeza disso.",
+        "it": "Probabilmente Kong Yiji era davvero morto, ma nessuno poteva esserne certo.",
+        "zh-Hans": "大约孔乙己的确死了，只是没有人能够确定这件事。",
+        "zh-Hant": "大约孔乙己的确死了，只是没有人能够确定这件事。",
+        "ro": "Probabil că Kong Yiji chiar a murit, dar nimeni nu putea fi sigur de acest lucru.",
+        "ca": "Probablement Kong Yiji va morir de debò, però ningú no ho podia confirmar."
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "glossary": {
+  "每天从早到晚，我站在柜台里，机械地重复着同样的动作。": {
+   "pinyin": "měi tiān cóng zǎo dào wǎn, wǒ zhàn zài guì tái lǐ, jī xiè de chóng fù zhe tóng yàng de dòng zuò.",
+   "en": "Every day from morning to night, I stand behind the counter, mechanically repeating the same actions.",
+   "fr": "Chaque jour du matin au soir, je me tiens derrière le comptoir, répétant mécaniquement les mêmes gestes.",
+   "es": "Todos los días de la mañana a la noche, me paro detrás del mostrador, repitiendo mecánicamente las mismas acciones.",
+   "pt": "Todos os dias, de manhã à noite, fico atrás do balcão, repetindo mecanicamente as mesmas ações.",
+   "it": "Ogni giorno dalla mattina alla sera, sto dietro il bancone, ripetendo meccanicamente le stesse azioni.",
+   "zh-Hans": "每天从早到晚，我站在柜台里，机械地重复着同样的动作。",
+   "zh-Hant": "每天從早到晚，我站在櫃檯裡，機械地重複著同樣的動作。",
+   "ro": "În fiecare zi de dimineață până seara, stau în spatele tejghelei, repetând mecanic aceleași acțiuni.",
+   "ca": "Cada dia de matí a nit, estic darrere del taulell, repetint mecànicament les mateixes accions."
+  },
+  "只有孔乙己到店，才能让这间无聊的酒店热闹一点。": {
+   "pinyin": "zhǐ yǒu Kǒng Yǐjǐ dào diàn, cái néng ràng zhè jiān wú liáo de jiǔ diàn rè nào yì diǎn.",
+   "en": "Only when Kong Yiji comes to the shop can this boring tavern become a bit lively.",
+   "fr": "Seulement quand Kong Yiji arrive au magasin, cette taverne ennuyeuse peut devenir un peu animée.",
+   "es": "Solo cuando Kong Yiji llega a la tienda, esta taberna aburrida puede animarse un poco.",
+   "pt": "Somente quando Kong Yiji chega à loja é que esta taverna chata pode ficar um pouco animada.",
+   "it": "Solo quando Kong Yiji arriva al negozio, questa taverna noiosa può diventare un po' vivace.",
+   "zh-Hans": "只有孔乙己到店，才能让这间无聊的酒店热闹一点。",
+   "zh-Hant": "只有孔乙己到店，才能讓這間無聊的酒店熱鬧一點。",
+   "ro": "Numai când Kong Yiji ajunge la prăvălie, această cârciumă plictisitoare poate deveni puțin animată.",
+   "ca": "Només quan Kong Yiji arriba a la botiga, aquesta taverna avorrida pot esdevenir una mica animada."
+  },
+  "所以每次听到孔乙己的声音，我心里反而有点高兴。": {
+   "pinyin": "suǒ yǐ měi cì tīng dào Kǒng Yǐjǐ de shēng yīn, wǒ xīn lǐ fǎn ér yǒu diǎn gāo xìng.",
+   "en": "So every time I hear Kong Yiji's voice, I feel a bit happy instead.",
+   "fr": "Donc chaque fois que j'entends la voix de Kong Yiji, je me sens un peu content au contraire.",
+   "es": "Así que cada vez que oigo la voz de Kong Yiji, me siento un poco feliz en cambio.",
+   "pt": "Então, toda vez que ouço a voz de Kong Yiji, sinto-me um pouco feliz em vez disso.",
+   "it": "Quindi ogni volta che sento la voce di Kong Yiji, mi sento un po' felice invece.",
+   "zh-Hans": "所以每次听到孔乙己的声音，我心里反而有点高兴。",
+   "zh-Hant": "所以每次聽到孔乙己的聲音，我心裡反而有點高興。",
+   "ro": "Deci, de fiecare dată când aud vocea lui Kong Yiji, mă simt puțin fericit în schimb.",
+   "ca": "Així que cada vegada que sento la veu de Kong Yiji, em sento una mica feliç en canvi."
+  },
+  "孔乙己身材很高，脸色青白，脸上常常有伤疤。": {
+   "pinyin": "Kǒng Yǐjǐ shēn cái hěn gāo, liǎn sè qīng bái, liǎn shàng cháng cháng yǒu shāng bā.",
+   "en": "Kong Yiji was tall, with a pale complexion, and often had scars on his face.",
+   "fr": "Kong Yiji était grand, avec un teint pâle, et avait souvent des cicatrices sur le visage.",
+   "es": "Kong Yiji era alto, de tez pálida, y a menudo tenía cicatrices en la cara.",
+   "pt": "Kong Yiji era alto, de tez pálida, e frequentemente tinha cicatrizes no rosto.",
+   "it": "Kong Yiji era alto, con una carnagione pallida, e spesso aveva cicatrici sul viso.",
+   "zh-Hans": "孔乙己身材很高，脸色青白，脸上常常有伤疤。",
+   "zh-Hant": "孔乙己身材很高，臉色青白，臉上常常有傷疤。",
+   "ro": "Kong Yiji era înalt, cu ten palid, și avea adesea cicatrici pe față.",
+   "ca": "Kong Yiji era alt, amb una pell pàl·lida, i sovint tenia cicatrius a la cara."
+  },
+  "他的长衫又脏又破，好像十几年没有洗过一样。": {
+   "pinyin": "tā de cháng shān yòu zāng yòu pò, hǎo xiàng shí jǐ nián méi yǒu xǐ guò yí yàng.",
+   "en": "His long gown was dirty and torn, as if it had not been washed for over ten years.",
+   "fr": "Sa longue robe était sale et déchirée, comme si elle n'avait pas été lavée depuis plus de dix ans.",
+   "es": "Su túnica larga estaba sucia y rota, como si no se hubiera lavado en más de diez años.",
+   "pt": "Sua túnica longa estava suja e rasgada, como se não tivesse sido lavada há mais de dez anos.",
+   "it": "La sua lunga veste era sporca e strappata, come se non fosse stata lavata da più di dieci anni.",
+   "zh-Hans": "他的长衫又脏又破，好像十几年没有洗过一样。",
+   "zh-Hant": "他的長衫又髒又破，好像十幾年沒有洗過一樣。",
+   "ro": "Roba lui lungă era murdară și ruptă, de parcă nu ar fi fost spălată de peste zece ani.",
+   "ca": "La seva túnica llarga era bruta i estripada, com si no s'hagués rentat en més de deu anys."
+  },
+  "他说话总是满口之乎者也，别人常常听不懂。": {
+   "pinyin": "tā shuōhuà zǒngshì mǎnkǒu zhī hū zhě yě, biérén chángcháng tīng bù dǒng.",
+   "en": "He always speaks with a mouth full of archaic particles, so others often cannot understand him.",
+   "fr": "Il parle toujours avec une bouche pleine de particules archaïques, si bien que les autres ne le comprennent souvent pas.",
+   "es": "Siempre habla con la boca llena de partículas arcaicas, por lo que los demás a menudo no lo entienden.",
+   "pt": "Ele sempre fala com a boca cheia de partículas arcaicas, então os outros muitas vezes não o entendem.",
+   "it": "Parla sempre con la bocca piena di particelle arcaiche, così gli altri spesso non lo capiscono.",
+   "zh-Hans": "他说话总是满口之乎者也，别人常常听不懂。",
+   "zh-Hant": "他說話總是滿口之乎者也，別人常常聽不懂。",
+   "ro": "Vorbește mereu cu gura plină de particule arhaice, așa că ceilalți deseori nu îl înțeleg.",
+   "ca": "Sempre parla amb la boca plena de partícules arcaiques, així que els altres sovint no l'entenen."
+  },
+  "每次他一来，喝酒的人都会笑他，拿他开玩笑。": {
+   "pinyin": "měi cì tā yī lái, hē jiǔ de rén dōu huì xiào tā, ná tā kāi wánxiào.",
+   "en": "Every time he comes, the drinkers laugh at him and make fun of him.",
+   "fr": "Chaque fois qu'il vient, les buveurs se moquent de lui et plaisantent à ses dépens.",
+   "es": "Cada vez que viene, los bebedores se ríen de él y se burlan de él.",
+   "pt": "Toda vez que ele vem, os bebedores riem dele e zombam dele.",
+   "it": "Ogni volta che viene, i bevitori ridono di lui e lo prendono in giro.",
+   "zh-Hans": "每次他一来，喝酒的人都会笑他，拿他开玩笑。",
+   "zh-Hant": "每次他來，喝酒的人都會笑他，拿他開玩笑。",
+   "ro": "De fiecare dată când vine, cei care beau râd de el și îl iau peste picior.",
+   "ca": "Cada vegada que ve, els bevedors es riuen d'ell i se'n burlen."
+  },
+  "镇上的孩子们也常常围着孔乙己，等着看他出丑取乐。": {
+   "pinyin": "zhèn shàng de háizimen yě chángcháng wéi zhe Kǒng Yǐjǐ, děng zhe kàn tā chūchǒu qǔlè.",
+   "en": "The children in town also often gather around Kong Yiji, waiting to see him make a fool of himself for fun.",
+   "fr": "Les enfants de la ville se rassemblent aussi souvent autour de Kong Yiji, attendant de le voir se ridiculiser pour s'amuser.",
+   "es": "Los niños del pueblo también suelen rodear a Kong Yiji, esperando verlo hacer el ridículo para divertirse.",
+   "pt": "As crianças da cidade também costumam cercar Kong Yiji, esperando vê-lo passar vergonha para se divertir.",
+   "it": "Anche i bambini della città si radunano spesso intorno a Kong Yiji, aspettando di vederlo fare una figuraccia per divertirsi.",
+   "zh-Hans": "镇上的孩子们也常常围着孔乙己，等着看他出丑取乐。",
+   "zh-Hant": "鎮上的孩子們也常常圍著孔乙己，等著看他出醜取樂。",
+   "ro": "Copiii din oraș se adună adesea în jurul lui Kong Yiji, așteptând să-l vadă făcându-se de râs pentru distracție.",
+   "ca": "Els nens del poble també sovint envolten Kong Yiji, esperant veure'l fer el ridícul per divertir-se."
+  },
+  "孔乙己对大人的嘲笑毫不在意，却唯独对孩子们特别耐心。": {
+   "pinyin": "Kǒng Yǐjǐ duì dàrén de cháoxiào háo bù zàiyì, què wéidú duì háizimen tèbié nàixīn.",
+   "en": "Kong Yiji did not care at all about the adults' mockery, but was especially patient with the children.",
+   "fr": "Kong Yiji ne se souciait pas du tout des moqueries des adultes, mais il était particulièrement patient avec les enfants.",
+   "es": "A Kong Yiji no le importaban en absoluto las burlas de los adultos, pero era especialmente paciente con los niños.",
+   "pt": "Kong Yiji não se importava nada com as zombarias dos adultos, mas era especialmente paciente com as crianças.",
+   "it": "A Kong Yiji non importava affatto delle prese in giro degli adulti, ma era particolarmente paziente con i bambini.",
+   "zh-Hans": "孔乙己对大人的嘲笑毫不在意，却唯独对孩子们特别耐心。",
+   "zh-Hant": "孔乙己對大人的嘲笑毫不在意，卻唯獨對孩子們特別耐心。",
+   "ro": "Kong Yiji nu-i păsa deloc de batjocura adulților, dar era deosebit de răbdător cu copiii.",
+   "ca": "A Kong Yiji no li importava gens les burles dels adults, però era especialment pacient amb els nens."
+  },
+  "有人问他：“孔乙己，你脸上又添新伤疤了！”": {
+   "pinyin": "yǒu rén wèn tā: “Kǒng Yǐjǐ, nǐ liǎn shàng yòu tiān xīn shāngbā le!”",
+   "en": "Someone asked him: \"Kong Yiji, you have new scars on your face again!\"",
+   "fr": "Quelqu'un lui demanda : « Kong Yiji, tu as encore de nouvelles cicatrices sur le visage ! »",
+   "es": "Alguien le preguntó: «Kong Yiji, ¡tienes nuevas cicatrices en la cara otra vez!»",
+   "pt": "Alguém perguntou-lhe: \"Kong Yiji, você tem novas cicatrizes no rosto de novo!\"",
+   "it": "Qualcuno gli chiese: «Kong Yiji, hai di nuovo nuove cicatrici sul viso!»",
+   "zh-Hans": "有人问他：“孔乙己，你脸上又添新伤疤了！”",
+   "zh-Hant": "有人問他：「孔乙己，你臉上又添新傷疤了！」",
+   "ro": "Cineva l-a întrebat: „Kong Yiji, ai din nou noi cicatrici pe față!”",
+   "ca": "Algú li va preguntar: «Kong Yiji, tens noves cicatrius a la cara una altra vegada!»"
+  },
+  "孔乙己不回答，只是涨红了脸，喝一口酒不说话。": {
+   "pinyin": "Kǒng Yǐjǐ bù huídá, zhǐshì zhàng hóng le liǎn, hē yī kǒu jiǔ bù shuōhuà.",
+   "en": "Kong Yiji did not answer, but his face flushed red, and he took a sip of wine without speaking.",
+   "fr": "Kong Yiji ne répondit pas, mais son visage devint rouge, et il but une gorgée de vin sans parler.",
+   "es": "Kong Yiji no respondió, solo se puso rojo de la cara, y bebió un sorbo de vino sin hablar.",
+   "pt": "Kong Yiji não respondeu, apenas ficou com o rosto vermelho, e bebeu um gole de vinho sem falar.",
+   "it": "Kong Yiji non rispose, ma il suo viso divenne rosso, e bevve un sorso di vino senza parlare.",
+   "zh-Hans": "孔乙己不回答，只是涨红了脸，喝一口酒不说话。",
+   "zh-Hant": "孔乙己不回答，只是漲紅了臉，喝一口酒不說話。",
+   "ro": "Kong Yiji nu a răspuns, dar fața i s-a înroșit, și a băut o gură de vin fără să vorbească.",
+   "ca": "Kong Yiji no va respondre, però la seva cara es va enrojolar, i va beure un glop de vi sense parlar."
+  },
+  "又有人大声问：“你一定又偷了别人的东西吧！”": {
+   "pinyin": "Yòu yǒu rén dàshēng wèn: “Nǐ yīdìng yòu tōu le biérén de dōngxi ba!”",
+   "en": "Someone else asked loudly: \"You must have stolen someone else's things again!\"",
+   "fr": "Quelqu'un d'autre demanda à voix haute : « Tu as dû encore voler les affaires des autres ! »",
+   "es": "Otra persona preguntó en voz alta: \"¡Debes haber vuelto a robar cosas de otros!\"",
+   "pt": "Outra pessoa perguntou em voz alta: \"Você deve ter roubado coisas de outras pessoas de novo!\"",
+   "it": "Un'altra persona chiese ad alta voce: \"Devi aver rubato di nuovo le cose degli altri!\"",
+   "zh-Hans": "又有人大声问：“你一定又偷了别人的东西吧！”",
+   "zh-Hant": "又有人大聲問：「你一定又偷了別人的東西吧！」",
+   "ro": "Altcineva a întrebat cu voce tare: „Sigur ai furat din nou lucrurile altora!”",
+   "ca": "Una altra persona va preguntar en veu alta: \"Segur que has tornat a robar coses dels altres!\""
+  },
+  "孔乙己睁大眼睛说：“你怎么这样凭空污人清白……”": {
+   "pinyin": "Kǒng Yǐjǐ zhēng dà yǎnjīng shuō: “Nǐ zěnme zhèyàng píngkōng wū rén qīngbái……”",
+   "en": "Kong Yiji opened his eyes wide and said: \"How can you defame my innocence out of thin air...\"",
+   "fr": "Kong Yiji ouvrit de grands yeux et dit : « Comment peux-tu salir mon innocence sans aucune preuve... »",
+   "es": "Kong Yiji abrió mucho los ojos y dijo: \"¿Cómo puedes difamar mi inocencia sin fundamento...\"",
+   "pt": "Kong Yiji arregalou os olhos e disse: \"Como você pode difamar minha inocência sem fundamento...\"",
+   "it": "Kong Yiji spalancò gli occhi e disse: \"Come puoi diffamare la mia innocenza senza alcuna prova...\"",
+   "zh-Hans": "孔乙己睁大眼睛说：“你怎么这样凭空污人清白……”",
+   "zh-Hant": "孔乙己睜大眼睛說：「你怎麼這樣憑空污人清白……」",
+   "ro": "Kong Yiji a deschis ochii mari și a spus: „Cum poți să-mi pătezi nevinovăția fără nicio dovadă...”",
+   "ca": "Kong Yiji va obrir molt els ulls i va dir: \"Com pots difamar la meva innocència sense cap fonament...\""
+  },
+  "别人又笑着问：“上次明明看见你偷了何家的书！”": {
+   "pinyin": "Biérén yòu xiàozhe wèn: “Shàngcì míngmíng kànjiàn nǐ tōu le Hé jiā de shū!”",
+   "en": "Others asked again with a smile: \"Last time we clearly saw you steal the He family's books!\"",
+   "fr": "D'autres demandèrent encore en souriant : « La dernière fois, nous t'avons clairement vu voler les livres de la famille He ! »",
+   "es": "Otros volvieron a preguntar sonriendo: \"¡La última vez claramente te vimos robar los libros de la familia He!\"",
+   "pt": "Outros perguntaram novamente sorrindo: \"Da última vez, claramente vimos você roubar os livros da família He!\"",
+   "it": "Altri chiesero di nuovo sorridendo: \"L'ultima volta ti abbiamo chiaramente visto rubare i libri della famiglia He!\"",
+   "zh-Hans": "别人又笑着问：“上次明明看见你偷了何家的书！”",
+   "zh-Hant": "別人又笑著問：「上次明明看見你偷了何家的書！」",
+   "ro": "Alții au întrebat din nou zâmbind: „Data trecută te-am văzut clar furând cărțile familiei He!”",
+   "ca": "Altres van tornar a preguntar somrient: \"L'última vegada et vam veure clarament robar els llibres de la família He!\""
+  },
+  "孔乙己脸上的红色慢慢散开，涨得更红了。": {
+   "pinyin": "Kǒng Yǐjǐ liǎn shàng de hóngsè mànman sànkāi, zhàng de gèng hóng le.",
+   "en": "The red on Kong Yiji's face slowly spread, and he became even redder.",
+   "fr": "Le rouge sur le visage de Kong Yiji se répandit lentement, et il devint encore plus rouge.",
+   "es": "El rojo en la cara de Kong Yiji se extendió lentamente, y se puso aún más rojo.",
+   "pt": "O vermelho no rosto de Kong Yiji se espalhou lentamente, e ele ficou ainda mais vermelho.",
+   "it": "Il rosso sul viso di Kong Yiji si diffuse lentamente, e divenne ancora più rosso.",
+   "zh-Hans": "孔乙己脸上的红色慢慢散开，涨得更红了。",
+   "zh-Hant": "孔乙己臉上的紅色慢慢散開，漲得更紅了。",
+   "ro": "Roșul de pe fața lui Kong Yiji s-a răspândit încet, și a devenit și mai roșu.",
+   "ca": "El vermell a la cara de Kong Yiji es va estendre lentament, i es va posar encara més vermell."
+  },
+  "他低声说：“窃书不能算偷……窃书！……读书人的事，能算偷吗？”": {
+   "pinyin": "tā dī shēng shuō: “qiè shū bù néng suàn tōu…… qiè shū! …… dú shū rén de shì, néng suàn tōu ma?”",
+   "en": "He said in a low voice: \"Stealing books cannot be considered stealing... Stealing books! ... Can the matter of a scholar be considered stealing?\"",
+   "fr": "Il dit à voix basse : « Voler des livres ne peut pas être considéré comme voler... Voler des livres ! ... La question d'un lettré peut-elle être considérée comme voler ? »",
+   "es": "Dijo en voz baja: \"Robar libros no puede considerarse robar... ¡Robar libros! ... ¿Puede considerarse robar el asunto de un erudito?\"",
+   "pt": "Ele disse em voz baixa: \"Roubar livros não pode ser considerado roubo... Roubar livros! ... O assunto de um estudioso pode ser considerado roubo?\"",
+   "it": "Disse a bassa voce: \"Rubare libri non può essere considerato rubare... Rubare libri! ... La questione di uno studioso può essere considerata rubare?\"",
+   "zh-Hans": "他低声说：“窃书不能算偷……窃书！……读书人的事，能算偷吗？”",
+   "zh-Hant": "他低聲說：「竊書不能算偷……竊書！……讀書人的事，能算偷嗎？」",
+   "ro": "El a spus cu voce scăzută: \"A fura cărți nu poate fi considerat furt... A fura cărți! ... Afacerea unui cărturar poate fi considerată furt?\"",
+   "ca": "Va dir en veu baixa: \"Robar llibres no es pot considerar robar... Robar llibres! ... L'assumpte d'un erudit es pot considerar robar?\""
+  },
+  "接着他说了一串别人听不懂的话，引得大家哄堂大笑。": {
+   "pinyin": "jiē zhe tā shuō le yī chuàn bié rén tīng bù dǒng de huà, yǐn dé dà jiā hōng táng dà xiào.",
+   "en": "Then he said a string of words that others could not understand, causing everyone to burst into laughter.",
+   "fr": "Puis il dit une série de paroles que les autres ne comprenaient pas, provoquant des éclats de rire de tous.",
+   "es": "Luego dijo una serie de palabras que los demás no entendían, provocando que todos estallaran en risas.",
+   "pt": "Em seguida, ele disse uma série de palavras que os outros não entendiam, fazendo todos rirem alto.",
+   "it": "Poi disse una serie di parole che gli altri non capivano, facendo scoppiare tutti in una fragorosa risata.",
+   "zh-Hans": "接着他说了一串别人听不懂的话，引得大家哄堂大笑。",
+   "zh-Hant": "接著他說了一串別人聽不懂的話，引得大家哄堂大笑。",
+   "ro": "Apoi a spus un șir de cuvinte pe care ceilalți nu le înțelegeau, stârnind râsul în hohote al tuturor.",
+   "ca": "Després va dir una sèrie de paraules que els altres no entenien, provocant que tothom esclatés en rialles."
+  },
+  "柜台里外充满了快活的空气，只有孔乙己一个人显得孤单。": {
+   "pinyin": "guì tái lǐ wài chōng mǎn le kuài huó de kōng qì, zhǐ yǒu Kǒng Yǐjǐ yī gè rén xiǎn de gū dān.",
+   "en": "Inside and outside the counter was filled with a cheerful atmosphere, only Kong Yiji appeared lonely.",
+   "fr": "À l'intérieur et à l'extérieur du comptoir, l'air était rempli de gaieté, seul Kong Yiji semblait solitaire.",
+   "es": "Dentro y fuera del mostrador el ambiente estaba lleno de alegría, solo Kong Yiji parecía solitario.",
+   "pt": "Dentro e fora do balcão o ar estava cheio de alegria, apenas Kong Yiji parecia solitário.",
+   "it": "Dentro e fuori dal bancone l'aria era piena di allegria, solo Kong Yiji sembrava solo.",
+   "zh-Hans": "柜台里外充满了快活的空气，只有孔乙己一个人显得孤单。",
+   "zh-Hant": "櫃台裡外充滿了快活的空氣，只有孔乙己一個人顯得孤單。",
+   "ro": "Înăuntru și în afara tejghelei aerul era plin de veselie, doar Kong Yiji părea singuratic.",
+   "ca": "Dins i fora del taulell l'aire estava ple d'alegria, només Kong Yiji semblava solitari."
+  },
+  "虽然大家常常笑他，孔乙己对我这个小伙计却很和气。": {
+   "pinyin": "suī rán dà jiā cháng cháng xiào tā, Kǒng Yǐjǐ duì wǒ zhè gè xiǎo huǒ jì què hěn hé qì.",
+   "en": "Although everyone often laughed at him, Kong Yiji was very kind to me, this little apprentice.",
+   "fr": "Bien que tout le monde se moquait souvent de lui, Kong Yiji était très aimable avec moi, ce petit apprenti.",
+   "es": "Aunque todos a menudo se reían de él, Kong Yiji era muy amable conmigo, este pequeño aprendiz.",
+   "pt": "Embora todos frequentemente rissem dele, Kong Yiji era muito gentil comigo, este pequeno aprendiz.",
+   "it": "Sebbene tutti spesso ridessero di lui, Kong Yiji era molto gentile con me, questo piccolo apprendista.",
+   "zh-Hans": "虽然大家常常笑他，孔乙己对我这个小伙计却很和气。",
+   "zh-Hant": "雖然大家常常笑他，孔乙己對我這個小夥計卻很和氣。",
+   "ro": "Deși toată lumea râdea adesea de el, Kong Yiji era foarte amabil cu mine, acest mic ucenic.",
+   "ca": "Encara que tothom sovint es reia d'ell, Kong Yiji era molt amable amb mi, aquest petit aprenent."
+  },
+  "有一天，孔乙己问我：“你读过书吗？”": {
+   "pinyin": "yǒu yī tiān, Kǒng Yǐjǐ wèn wǒ: “nǐ dú guò shū ma?”",
+   "en": "One day, Kong Yiji asked me: \"Have you read books?\"",
+   "fr": "Un jour, Kong Yiji me demanda : « As-tu lu des livres ? »",
+   "es": "Un día, Kong Yiji me preguntó: \"¿Has leído libros?\"",
+   "pt": "Um dia, Kong Yiji me perguntou: \"Você já leu livros?\"",
+   "it": "Un giorno, Kong Yiji mi chiese: \"Hai letto libri?\"",
+   "zh-Hans": "有一天，孔乙己问我：“你读过书吗？”",
+   "zh-Hant": "有一天，孔乙己問我：「你讀過書嗎？」",
+   "ro": "Într-o zi, Kong Yiji m-a întrebat: \"Ai citit cărți?\"",
+   "ca": "Un dia, Kong Yiji em va preguntar: \"Has llegit llibres?\""
+  },
+  "我点点头，说：“读过一点。”": {
+   "pinyin": "wǒ diǎn diǎn tóu, shuō: “dú guò yī diǎn.”",
+   "en": "I nodded and said, \"I've read a little.\"",
+   "fr": "Je hochai la tête et dis : « J'en ai lu un peu. »",
+   "es": "Asentí con la cabeza y dije: «He leído un poco.»",
+   "pt": "Assenti com a cabeça e disse: \"Li um pouco.\"",
+   "it": "Annuii e dissi: \"Ne ho letto un po'.\"",
+   "zh-Hans": "我点点头，说：“读过一点。”",
+   "zh-Hant": "我點點頭，說：「讀過一點。」",
+   "ro": "Am dat din cap și am spus: „Am citit puțin.”",
+   "ca": "Vaig assentir amb el cap i vaig dir: «N'he llegit una mica.»"
+  },
+  "他说：“那我考考你，茴香豆的茴字，怎么写？”": {
+   "pinyin": "tā shuō: “nà wǒ kǎo kǎo nǐ, huíxiāngdòu de huí zì, zěnme xiě?”",
+   "en": "He said, \"Then let me test you: how do you write the character 'hui' in 'huixiangdou' (aniseed beans)?\"",
+   "fr": "Il dit : « Alors je vais te tester : comment écris-tu le caractère 'hui' dans 'huixiangdou' (fèves à l'anis) ? »",
+   "es": "Dijo: «Entonces te voy a examinar: ¿cómo se escribe el carácter 'hui' en 'huixiangdou' (habas de anís)?»",
+   "pt": "Ele disse: \"Então vou te testar: como se escreve o caractere 'hui' em 'huixiangdou' (feijões de anis)?\"",
+   "it": "Disse: \"Allora ti esamino: come si scrive il carattere 'hui' in 'huixiangdou' (fagioli all'anice)?\"",
+   "zh-Hans": "他说：“那我考考你，茴香豆的茴字，怎么写？”",
+   "zh-Hant": "他說：「那我考考你，茴香豆的茴字，怎麼寫？」",
+   "ro": "El a spus: „Atunci te testez: cum se scrie caracterul 'hui' din 'huixiangdou' (fasole cu anason)?”",
+   "ca": "Va dir: «Doncs et posaré a prova: com s'escriu el caràcter 'hui' de 'huixiangdou' (faves d'anís)?»"
+  },
+  "我心里觉得他很可笑，一个乞讨的人也配考我。": {
+   "pinyin": "wǒ xīn lǐ jué de tā hěn kě xiào, yī gè qǐ tǎo de rén yě pèi kǎo wǒ.",
+   "en": "I thought he was ridiculous; how could a beggar be qualified to test me?",
+   "fr": "Je le trouvais ridicule ; comment un mendiant pouvait-il être digne de m'examiner ?",
+   "es": "Lo encontraba ridículo; ¿cómo podía un mendigo ser digno de examinarme?",
+   "pt": "Eu o achava ridículo; como um mendigo podia ser digno de me testar?",
+   "it": "Lo trovavo ridicolo; come poteva un mendicante essere degno di esaminarmi?",
+   "zh-Hans": "我心里觉得他很可笑，一个乞讨的人也配考我。",
+   "zh-Hant": "我心裡覺得他很可笑，一個乞討的人也配考我。",
+   "ro": "Îl găseam ridicol; cum putea un cerșetor să fie demn să mă testeze?",
+   "ca": "El trobava ridícul; com podia un captaire ser digne d'examinar-me?"
+  },
+  "我转过身，不再理他，孔乙己等了许久，只好叹一口气。": {
+   "pinyin": "wǒ zhuǎn guò shēn, bù zài lǐ tā, Kǒng Yǐjǐ děng le xǔjiǔ, zhǐ hǎo tàn yī kǒu qì.",
+   "en": "I turned around and ignored him; Kong Yiji waited for a long time, then had to sigh.",
+   "fr": "Je me retournai et l'ignorai ; Kong Yiji attendit longtemps, puis dut soupirer.",
+   "es": "Me di la vuelta y lo ignoré; Kong Yiji esperó mucho tiempo, y al final tuvo que suspirar.",
+   "pt": "Virei-me e o ignorei; Kong Yiji esperou muito tempo, e por fim teve que suspirar.",
+   "it": "Mi girai e lo ignorai; Kong Yiji aspettò a lungo, poi dovette sospirare.",
+   "zh-Hans": "我转过身，不再理他，孔乙己等了许久，只好叹一口气。",
+   "zh-Hant": "我轉過身，不再理他，孔乙己等了許久，只好嘆一口氣。",
+   "ro": "M-am întors și l-am ignorat; Kong Yiji a așteptat mult timp, apoi a trebuit să ofteze.",
+   "ca": "Em vaig girar i el vaig ignorar; Kong Yiji va esperar molt de temps, i finalment va haver de sospirar."
+  },
+  "他说：“不会写吧？我告诉你，茴字有四种写法，你知道吗？”": {
+   "pinyin": "tā shuō: “bù huì xiě ba? wǒ gào sù nǐ, huí zì yǒu sì zhǒng xiě fǎ, nǐ zhī dào ma?”",
+   "en": "He said, \"You don't know how to write it, right? Let me tell you, the character 'hui' has four ways of writing it. Do you know that?\"",
+   "fr": "Il dit : « Tu ne sais pas l'écrire, n'est-ce pas ? Je te dis que le caractère 'hui' a quatre façons de s'écrire. Le sais-tu ? »",
+   "es": "Dijo: «No sabes escribirlo, ¿verdad? Te digo que el carácter 'hui' tiene cuatro formas de escribirse. ¿Lo sabías?»",
+   "pt": "Ele disse: \"Você não sabe escrever, não é? Eu te digo que o caractere 'hui' tem quatro maneiras de escrever. Você sabia?\"",
+   "it": "Disse: \"Non sai scriverlo, vero? Ti dico che il carattere 'hui' ha quattro modi di scriverlo. Lo sapevi?\"",
+   "zh-Hans": "他说：“不会写吧？我告诉你，茴字有四种写法，你知道吗？”",
+   "zh-Hant": "他說：「不會寫吧？我告訴你，茴字有四種寫法，你知道嗎？」",
+   "ro": "El a spus: „Nu știi să-l scrii, nu-i așa? Îți spun că caracterul 'hui' are patru moduri de scriere. Știai?”",
+   "ca": "Va dir: «No saps escriure'l, oi? Et dic que el caràcter 'hui' té quatre maneres d'escriure's. Ho sabies?»"
+  },
+  "孩子们吃完还不肯走，围着他，眼睛盯着碟子里剩下的豆子。": {
+   "pinyin": "hái zi men chī wán hái bù kěn zǒu, wéi zhe tā, yǎn jīng dīng zhe dié zi lǐ shèng xià de dòu zi.",
+   "en": "The children finished eating but were unwilling to leave, surrounding him, their eyes fixed on the beans left in the dish.",
+   "fr": "Les enfants, après avoir fini de manger, ne voulaient pas partir, l'entourant, les yeux fixés sur les haricots restés dans l'assiette.",
+   "es": "Los niños, después de terminar de comer, no querían irse, lo rodeaban, con los ojos fijos en los frijoles que quedaban en el plato.",
+   "pt": "As crianças, depois de terminar de comer, não queriam ir embora, cercando-o, com os olhos fixos nos feijões que sobraram no prato.",
+   "it": "I bambini, dopo aver finito di mangiare, non volevano andarsene, gli stavano intorno, con gli occhi fissi sui fagioli rimasti nel piatto.",
+   "zh-Hans": "孩子们吃完还不肯走，围着他，眼睛盯着碟子里剩下的豆子。",
+   "zh-Hant": "孩子們吃完還不肯走，圍著他，眼睛盯著碟子裡剩下的豆子。",
+   "ro": "Copiii, după ce au terminat de mâncat, nu voiau să plece, înconjurându-l, cu ochii ațintiți asupra boabelor rămase în farfurie.",
+   "ca": "Els nens, després d'acabar de menjar, no volien marxar, l'envoltaven, amb els ulls fixats en les mongetes que quedaven al plat."
+  },
+  "孔乙己着急地说：“不多了，我已经不多了。”": {
+   "pinyin": "Kǒng Yǐjǐ zháo jí de shuō: “Bù duō le, wǒ yǐ jīng bù duō le.”",
+   "en": "Kong Yiji said anxiously, \"Not many left, I already don't have many.\"",
+   "fr": "Kong Yiji dit avec anxiété : « Il n'y en a plus beaucoup, je n'en ai déjà plus beaucoup. »",
+   "es": "Kong Yiji dijo con ansiedad: «Ya no quedan muchos, ya no tengo muchos.»",
+   "pt": "Kong Yiji disse ansiosamente: \"Já não há muitos, eu já não tenho muitos.\"",
+   "it": "Kong Yiji disse con ansia: \"Non ne restano molti, già non ne ho molti.\"",
+   "zh-Hans": "孔乙己着急地说：“不多了，我已经不多了。”",
+   "zh-Hant": "孔乙己著急地說：「不多了，我已經不多了。」",
+   "ro": "Kong Yiji a spus îngrijorat: „Nu mai sunt multe, deja nu mai am multe.”",
+   "ca": "Kong Yiji va dir amb ansietat: «Ja no en queden moltes, ja no en tinc moltes.»"
+  },
+  "他用手捂住碟子，弯下腰说：“多乎哉？不多也。”": {
+   "pinyin": "Tā yòng shǒu wǔ zhù dié zi, wān xià yāo shuō: “Duō hū zāi? Bù duō yě.”",
+   "en": "He covered the dish with his hand, bent down and said, \"Are there many? Not many.\"",
+   "fr": "Il couvrit l'assiette de sa main, se pencha et dit : « Y en a-t-il beaucoup ? Pas beaucoup. »",
+   "es": "Cubrió el plato con la mano, se inclinó y dijo: «¿Hay muchas? No muchas.»",
+   "pt": "Ele cobriu o prato com a mão, curvou-se e disse: \"Há muitas? Não muitas.\"",
+   "it": "Coprì il piatto con la mano, si chinò e disse: \"Ce ne sono molte? Non molte.\"",
+   "zh-Hans": "他用手捂住碟子，弯下腰说：“多乎哉？不多也。”",
+   "zh-Hant": "他用手指住碟子，彎下腰說：「多乎哉？不多也。」",
+   "ro": "El a acoperit farfuria cu mâna, s-a aplecat și a spus: „Sunt multe? Nu multe.”",
+   "ca": "Va cobrir el plat amb la mà, es va inclinar i va dir: «N'hi ha moltes? No moltes.»"
+  },
+  "孩子们听不懂这句话，只是笑着一哄而散。": {
+   "pinyin": "Hái zi men tīng bù dǒng zhè jù huà, zhǐ shì xiào zhe yī hōng ér sàn.",
+   "en": "The children didn't understand this sentence, they just laughed and scattered.",
+   "fr": "Les enfants ne comprirent pas cette phrase, ils rirent et se dispersèrent.",
+   "es": "Los niños no entendieron esta frase, solo se rieron y se dispersaron.",
+   "pt": "As crianças não entenderam essa frase, apenas riram e se dispersaram.",
+   "it": "I bambini non capirono questa frase, risero e si dispersero.",
+   "zh-Hans": "孩子们听不懂这句话，只是笑着一哄而散。",
+   "zh-Hant": "孩子們聽不懂這句話，只是笑著一鬨而散。",
+   "ro": "Copiii nu au înțeles această frază, doar au râs și s-au împrăștiat.",
+   "ca": "Els nens no van entendre aquesta frase, només van riure i es van dispersar."
+  },
+  "除了茴香豆，孔乙己还常常欠酒店的钱，从不按时还清。": {
+   "pinyin": "Chú le huí xiāng dòu, Kǒng Yǐjǐ hái cháng cháng qiàn jiǔ diàn de qián, cóng bù àn shí huán qīng.",
+   "en": "Besides fennel beans, Kong Yiji often owed money to the tavern and never paid it back on time.",
+   "fr": "Outre les fèves à l'anis, Kong Yiji devait souvent de l'argent à la taverne et ne le remboursait jamais à temps.",
+   "es": "Además de los frijoles de anís, Kong Yiji a menudo debía dinero a la taberna y nunca lo pagaba a tiempo.",
+   "pt": "Além dos feijões de erva-doce, Kong Yiji frequentemente devia dinheiro à taverna e nunca pagava em dia.",
+   "it": "Oltre ai fagioli all'anice, Kong Yiji doveva spesso soldi alla taverna e non li restituiva mai in tempo.",
+   "zh-Hans": "除了茴香豆，孔乙己还常常欠酒店的钱，从不按时还清。",
+   "zh-Hant": "除了茴香豆，孔乙己還常常欠酒店的錢，從不按時還清。",
+   "ro": "Pe lângă boabele de anason, Kong Yiji datora adesea bani cârciumii și nu îi plătea niciodată la timp.",
+   "ca": "A més de les mongetes d'anís, Kong Yiji sovint devia diners a la taverna i mai no els pagava a temps."
+  },
+  "这也是为什么每次他一来，大家总喜欢问他偷东西的事。": {
+   "pinyin": "zhè yě shì wèishénme měi cì tā yī lái, dàjiā zǒng xǐhuān wèn tā tōu dōngxi de shì.",
+   "en": "This is also why every time he comes, everyone always likes to ask him about stealing things.",
+   "fr": "C'est aussi pourquoi chaque fois qu'il vient, tout le monde aime toujours lui demander des choses sur le vol.",
+   "es": "Esta es también la razón por la que cada vez que viene, a todos siempre les gusta preguntarle sobre robar cosas.",
+   "pt": "Esta é também a razão pela qual toda vez que ele vem, todos sempre gostam de perguntar a ele sobre roubar coisas.",
+   "it": "Questo è anche il motivo per cui ogni volta che viene, a tutti piace sempre chiedergli di rubare cose.",
+   "zh-Hans": "这也是为什么每次他一来，大家总喜欢问他偷东西的事。",
+   "zh-Hant": "這也是為什麼每次他來，大家總喜歡問他偷東西的事。",
+   "ro": "Acesta este și motivul pentru care de fiecare dată când vine, tuturor le place mereu să-l întrebe despre furtul de lucruri.",
+   "ca": "Aquesta és també la raó per la qual cada vegada que ve, a tothom sempre li agrada preguntar-li sobre robar coses."
+  },
+  "孔乙己从不肯承认自己做错，总要为自己辩解几句。": {
+   "pinyin": "Kǒng Yǐjǐ cóng bù kěn chéngrèn zìjǐ zuò cuò, zǒng yào wèi zìjǐ biànjiě jǐ jù.",
+   "en": "Kong Yiji never admitted that he was wrong, and always had to make a few excuses for himself.",
+   "fr": "Kong Yiji ne voulait jamais admettre qu'il avait tort, et il fallait toujours qu'il se justifie en quelques mots.",
+   "es": "Kong Yiji nunca admitía que se equivocaba, y siempre tenía que dar algunas excusas por sí mismo.",
+   "pt": "Kong Yiji nunca admitia que estava errado, e sempre tinha que dar algumas desculpas por si mesmo.",
+   "it": "Kong Yiji non ammetteva mai di aver sbagliato, e doveva sempre giustificarsi con qualche parola.",
+   "zh-Hans": "孔乙己从不肯承认自己做错，总要为自己辩解几句。",
+   "zh-Hant": "孔乙己從不肯承認自己做錯，總要為自己辯解幾句。",
+   "ro": "Kong Yiji nu voia niciodată să admită că a greșit, și trebuia mereu să se justifice cu câteva cuvinte.",
+   "ca": "Kong Yiji mai admetia que s'equivocava, i sempre havia de justificar-se amb unes quantes paraules."
+  },
+  "可是他辩解的话，大家从来都不认真去听，只当作笑话。": {
+   "pinyin": "Kěshì tā biànjiě de huà, dàjiā cónglái dōu bù rènzhēn qù tīng, zhǐ dàng zuò xiàohuà.",
+   "en": "But his excuses, people never listened to seriously, only treated them as jokes.",
+   "fr": "Mais ses justifications, personne ne les écoutait sérieusement, on les prenait seulement pour des plaisanteries.",
+   "es": "Pero sus excusas, la gente nunca las escuchaba en serio, solo las tomaban como chistes.",
+   "pt": "Mas suas desculpas, as pessoas nunca ouviam a sério, apenas as tratavam como piadas.",
+   "it": "Ma le sue scuse, la gente non le ascoltava mai seriamente, le prendevano solo come battute.",
+   "zh-Hans": "可是他辩解的话，大家从来都不认真去听，只当作笑话。",
+   "zh-Hant": "可是他辯解的話，大家從來都不認真去聽，只當作笑話。",
+   "ro": "Dar scuzele lui, oamenii nu le ascultau niciodată serios, le tratau doar ca pe glume.",
+   "ca": "Però les seves excuses, la gent no les escoltava mai seriosament, només les prenien com a acudits."
+  },
+  "掌柜每次看到他，总要提一提他欠的十九个钱。": {
+   "pinyin": "Zhǎngguì měi cì kàndào tā, zǒng yào tí yī tí tā qiàn de shíjiǔ gè qián.",
+   "en": "The shopkeeper, every time he saw him, would always bring up the nineteen coins he owed.",
+   "fr": "Le patron, chaque fois qu'il le voyait, tenait toujours à mentionner les dix-neuf pièces qu'il devait.",
+   "es": "El dueño de la tienda, cada vez que lo veía, siempre mencionaba las diecinueve monedas que debía.",
+   "pt": "O dono da loja, toda vez que o via, sempre mencionava as dezenove moedas que ele devia.",
+   "it": "Il negoziante, ogni volta che lo vedeva, teneva sempre a menzionare le diciannove monete che doveva.",
+   "zh-Hans": "掌柜每次看到他，总要提一提他欠的十九个钱。",
+   "zh-Hant": "掌櫃每次看到他，總要提一提他欠的十九個錢。",
+   "ro": "Patronul, de fiecare dată când îl vedea, ținea mereu să menționeze cele nouăsprezece monede pe care le datora.",
+   "ca": "El botiguer, cada vegada que el veia, sempre esmentava les dinou monedes que devia."
+  },
+  "孔乙己听了，总是脸上带着窘迫，低声说下次一定还清。": {
+   "pinyin": "Kǒng Yǐjǐ tīng le, zǒng shì liǎn shàng dài zhe jiǒngpò, dī shēng shuō xià cì yīdìng huán qīng.",
+   "en": "Kong Yiji, upon hearing this, always had an embarrassed look on his face and said in a low voice that he would definitely pay it off next time.",
+   "fr": "Kong Yiji, en entendant cela, avait toujours l'air embarrassé et disait à voix basse qu'il rembourserait certainement la prochaine fois.",
+   "es": "Kong Yiji, al oír esto, siempre tenía una expresión avergonzada y decía en voz baja que definitivamente lo pagaría la próxima vez.",
+   "pt": "Kong Yiji, ao ouvir isso, sempre tinha uma expressão envergonhada e dizia em voz baixa que certamente pagaria na próxima vez.",
+   "it": "Kong Yiji, sentendo questo, aveva sempre un'espressione imbarazzata e diceva a bassa voce che avrebbe sicuramente saldato il debito la prossima volta.",
+   "zh-Hans": "孔乙己听了，总是脸上带着窘迫，低声说下次一定还清。",
+   "zh-Hant": "孔乙己聽了，總是臉上帶著窘迫，低聲說下次一定還清。",
+   "ro": "Kong Yiji, auzind aceasta, avea mereu o expresie jenată și spunea cu voce joasă că va plăti cu siguranță data viitoare.",
+   "ca": "Kong Yiji, en sentir això, sempre tenia una expressió avergonyida i deia en veu baixa que sens dubte ho pagaria la propera vegada."
+  },
+  "他的两条腿已经不能走路了，是用手撑着地面爬过来的。": {
+   "pinyin": "tā de liǎng tiáo tuǐ yǐjīng bù néng zǒulù le, shì yòng shǒu chēng zhe dìmiàn pá guòlái de.",
+   "en": "His two legs could no longer walk, so he crawled over using his hands to prop himself up on the ground.",
+   "fr": "Ses deux jambes ne pouvaient plus marcher, il était donc venu en rampant, s'appuyant sur le sol avec ses mains.",
+   "es": "Sus dos piernas ya no podían caminar, así que vino arrastrándose, apoyándose en el suelo con las manos.",
+   "pt": "As suas duas pernas já não podiam andar, por isso veio rastejando, apoiando-se no chão com as mãos.",
+   "it": "Le sue due gambe non potevano più camminare, così venne strisciando, appoggiandosi al suolo con le mani.",
+   "zh-Hans": "他的两条腿已经不能走路了，是用手撑着地面爬过来的。",
+   "zh-Hant": "他的兩條腿已經不能走路了，是用手撐著地面爬過來的。",
+   "ro": "Cele două picioare ale lui nu mai puteau merge, așa că a venit târându-se, sprijinindu-se pe pământ cu mâinile.",
+   "ca": "Les seves dues cames ja no podien caminar, així que va venir arrossegant-se, recolzant-se a terra amb les mans."
+  },
+  "他从怀里摸出四文钱，放在我手里，让我给他温一碗酒。": {
+   "pinyin": "tā cóng huái lǐ mō chū sì wén qián, fàng zài wǒ shǒu lǐ, ràng wǒ gěi tā wēn yī wǎn jiǔ.",
+   "en": "He fumbled out four coppers from his bosom, put them in my hand, and asked me to warm a bowl of wine for him.",
+   "fr": "Il sortit quatre pièces de monnaie de son sein, les mit dans ma main et me demanda de lui chauffer un bol de vin.",
+   "es": "Sacó cuatro monedas de su pecho, las puso en mi mano y me pidió que le calentara un cuenco de vino.",
+   "pt": "Ele tirou quatro moedas do peito, colocou-as na minha mão e pediu-me para lhe aquecer uma tigela de vinho.",
+   "it": "Tirò fuori quattro monete dal petto, le mise nella mia mano e mi chiese di scaldargli una ciotola di vino.",
+   "zh-Hans": "他从怀里摸出四文钱，放在我手里，让我给他温一碗酒。",
+   "zh-Hant": "他從懷裡摸出四文錢，放在我手裡，讓我給他溫一碗酒。",
+   "ro": "A scos patru monede de la piept, le-a pus în mâna mea și mi-a cerut să-i încălzesc un bol de vin.",
+   "ca": "Va treure quatre monedes del pit, les va posar a la meva mà i em va demanar que li escalfés un bol de vi."
+  },
+  "掌柜看见他，还是照旧说：“孔乙己，你又欠十九个钱了！”": {
+   "pinyin": "zhǎngguì kànjiàn tā, háishì zhàojiù shuō: “Kǒng Yǐjǐ, nǐ yòu qiàn shíjiǔ gè qián le!”",
+   "en": "When the shopkeeper saw him, he still said as usual: \"Kong Yiji, you owe nineteen coppers again!\"",
+   "fr": "Quand le patron le vit, il dit encore comme d'habitude : « Kong Yiji, tu dois encore dix-neuf pièces ! »",
+   "es": "Cuando el dueño de la tienda lo vio, dijo como siempre: «Kong Yiji, ¡debes diecinueve monedas otra vez!»",
+   "pt": "Quando o dono da loja o viu, disse como sempre: «Kong Yiji, você deve dezenove moedas de novo!»",
+   "it": "Quando il negoziante lo vide, disse come al solito: «Kong Yiji, devi di nuovo diciannove monete!»",
+   "zh-Hans": "掌柜看见他，还是照旧说：“孔乙己，你又欠十九个钱了！”",
+   "zh-Hant": "掌櫃看見他，還是照舊說：「孔乙己，你又欠十九個錢了！」",
+   "ro": "Când negustorul l-a văzut, a spus ca de obicei: „Kong Yiji, datorezi din nou nouăsprezece monede!”",
+   "ca": "Quan el botiguer el va veure, va dir com sempre: «Kong Yiji, deus dinou monedes una altra vegada!»"
+  },
+  "孔乙己这次没有争辩，只是低声说：“这……下回还清。”": {
+   "pinyin": "Kǒng Yǐjǐ zhè cì méiyǒu zhēngbiàn, zhǐshì dīshēng shuō: “Zhè…… xià huí huán qīng.”",
+   "en": "This time Kong Yiji did not argue, but only said in a low voice: \"This... I'll pay it all back next time.\"",
+   "fr": "Cette fois, Kong Yiji ne discuta pas, il dit seulement à voix basse : « Ce... je rembourserai tout la prochaine fois. »",
+   "es": "Esta vez Kong Yiji no discutió, solo dijo en voz baja: «Esto... la próxima vez lo pagaré todo.»",
+   "pt": "Desta vez Kong Yiji não discutiu, apenas disse em voz baixa: «Isto... da próxima vez pagarei tudo.»",
+   "it": "Questa volta Kong Yiji non discusse, disse solo a bassa voce: «Questo... la prossima volta pagherò tutto.»",
+   "zh-Hans": "孔乙己这次没有争辩，只是低声说：“这……下回还清。”",
+   "zh-Hant": "孔乙己這次沒有爭辯，只是低聲說：「這……下回還清。」",
+   "ro": "De data aceasta Kong Yiji nu a discutat, ci doar a spus încet: „Asta... data viitoare voi plăti tot.”",
+   "ca": "Aquesta vegada Kong Yiji no va discutir, només va dir en veu baixa: «Això... la propera vegada ho pagaré tot.»"
+  },
+  "他喝完那碗酒，用手慢慢地撑着地面，一点一点地爬着离开。": {
+   "pinyin": "tā hē wán nà wǎn jiǔ, yòng shǒu mànmàn de chēng zhe dìmiàn, yīdiǎn yīdiǎn de pá zhe líkāi.",
+   "en": "After finishing that bowl of wine, he slowly propped himself up on the ground with his hands and crawled away little by little.",
+   "fr": "Après avoir fini ce bol de vin, il s'appuya lentement sur le sol avec ses mains et s'éloigna en rampant petit à petit.",
+   "es": "Después de terminar ese cuenco de vino, se apoyó lentamente en el suelo con las manos y se alejó arrastrándose poco a poco.",
+   "pt": "Depois de terminar aquela tigela de vinho, apoiou-se lentamente no chão com as mãos e afastou-se rastejando pouco a pouco.",
+   "it": "Dopo aver finito quella ciotola di vino, si appoggiò lentamente al suolo con le mani e si allontanò strisciando a poco a poco.",
+   "zh-Hans": "他喝完那碗酒，用手慢慢地撑着地面，一点一点地爬着离开。",
+   "zh-Hant": "他喝完那碗酒，用手慢慢地撐著地面，一點一點地爬著離開。",
+   "ro": "După ce a terminat acel bol de vin, s-a sprijinit încet pe pământ cu mâinile și s-a îndepărtat târându-se puțin câte puțin.",
+   "ca": "Després d'acabar aquell bol de vi, es va recolzar lentament a terra amb les mans i se'n va anar arrossegant-se a poc a poc."
+  },
+  "我也会想起他分给孩子们茴香豆时脸上难得的笑容。": {
+   "pinyin": "wǒ yě huì xiǎng qǐ tā fēn gěi hái zi men huí xiāng dòu shí liǎn shàng nán dé de xiào róng.",
+   "en": "I would also think of the rare smile on his face when he distributed aniseed beans to the children.",
+   "fr": "Je penserais aussi au sourire rare sur son visage lorsqu'il distribuait des fèves à l'anis aux enfants.",
+   "es": "También recordaría la rara sonrisa en su rostro cuando repartía habas de anís a los niños.",
+   "pt": "Eu também me lembraria do sorriso raro em seu rosto quando distribuía favas de anis às crianças.",
+   "it": "Penserei anche al raro sorriso sul suo viso quando distribuiva fave all'anice ai bambini.",
+   "zh-Hans": "我也会想起他分给孩子们茴香豆时脸上难得的笑容。",
+   "zh-Hant": "我也會想起他分給孩子們茴香豆時臉上難得的笑容。",
+   "ro": "M-aș gândi și la zâmbetul rar de pe fața lui când împărțea boabe de anason copiilor.",
+   "ca": "També recordaria el somriure rar a la seva cara quan repartia faves d'anís als nens."
+  },
+  "一个连秀才都没有考中的读书人，最终却因为偷书断了双腿。": {
+   "pinyin": "yí gè lián xiù cái dōu méi yǒu kǎo zhòng de dú shū rén, zuì zhōng què yīn wèi tōu shū duàn le shuāng tuǐ.",
+   "en": "A scholar who had not even passed the county examination ended up with both legs broken because of stealing books.",
+   "fr": "Un lettré qui n'avait même pas réussi l'examen de licence finit par avoir les deux jambes cassées pour avoir volé des livres.",
+   "es": "Un erudito que ni siquiera había aprobado el examen de licenciado terminó con ambas piernas rotas por robar libros.",
+   "pt": "Um estudioso que nem sequer havia passado no exame de bacharel acabou com as duas pernas quebradas por roubar livros.",
+   "it": "Uno studioso che non aveva nemmeno superato l'esame di licenza finì con entrambe le gambe rotte per aver rubato libri.",
+   "zh-Hans": "一个连秀才都没有考中的读书人，最终却因为偷书断了双腿。",
+   "zh-Hant": "一個連秀才都沒有考中的讀書人，最終卻因為偷書斷了雙腿。",
+   "ro": "Un cărturar care nu trecuse nici măcar examenul de licență a ajuns cu ambele picioare rupte pentru că a furat cărți.",
+   "ca": "Un erudit que ni tan sols havia aprovat l'examen de llicenciat va acabar amb les dues cames trencades per robar llibres."
+  },
+  "这样的结局，让人觉得可笑，却也让人觉得说不出的悲伤。": {
+   "pinyin": "zhè yàng de jié jú, ràng rén jué de kě xiào, què yě ràng rén jué de shuō bù chū de bēi shāng.",
+   "en": "Such an ending makes one feel ridiculous, yet also an inexpressible sadness.",
+   "fr": "Une telle fin fait paraître les choses ridicules, mais aussi une tristesse inexprimable.",
+   "es": "Un final así hace que uno se sienta ridículo, pero también una tristeza inexpresable.",
+   "pt": "Um final assim faz a pessoa se sentir ridícula, mas também uma tristeza inexprimível.",
+   "it": "Un finale del genere fa sentire ridicoli, ma anche una tristezza inesprimibile.",
+   "zh-Hans": "这样的结局，让人觉得可笑，却也让人觉得说不出的悲伤。",
+   "zh-Hant": "這樣的結局，讓人覺得可笑，卻也讓人覺得說不出的悲傷。",
+   "ro": "Un asemenea final te face să te simți ridicol, dar și o tristețe inexprimabilă.",
+   "ca": "Un final així fa que un se senti ridícul, però també una tristesa inexpressable."
+  },
+  "到了年底，掌柜取下账簿，说：“孔乙己还欠十九个钱呢。”": {
+   "pinyin": "dào le nián dǐ, zhǎng guì qǔ xià zhàng bù, shuō: “Kǒng Yǐjǐ hái qiàn shí jiǔ gè qián ne.”",
+   "en": "At the end of the year, the shopkeeper took down the account book and said, \"Kong Yiji still owes nineteen coppers.\"",
+   "fr": "À la fin de l'année, le patron prit le livre de comptes et dit : « Kong Yiji doit encore dix-neuf pièces. »",
+   "es": "A fin de año, el dueño de la tienda tomó el libro de cuentas y dijo: «Kong Yiji todavía debe diecinueve monedas.»",
+   "pt": "No fim do ano, o dono da loja pegou o livro de contas e disse: \"Kong Yiji ainda deve dezenove moedas.\"",
+   "it": "Alla fine dell'anno, il negoziante prese il libro dei conti e disse: \"Kong Yiji deve ancora diciannove monete.\"",
+   "zh-Hans": "到了年底，掌柜取下账簿，说：“孔乙己还欠十九个钱呢。”",
+   "zh-Hant": "到了年底，掌櫃取下賬簿，說：「孔乙己還欠十九個錢呢。」",
+   "ro": "La sfârșitul anului, patronul a luat registrul și a spus: „Kong Yiji mai datorează nouăsprezece monede.”",
+   "ca": "A finals d'any, el botiguer va agafar el llibre de comptes i va dir: «Kong Yiji encara deu dinou monedes.»"
+  },
+  "第二年的端午，掌柜又说了一遍同样的话。": {
+   "pinyin": "dì èr nián de duān wǔ, zhǎng guì yòu shuō le yí biàn tóng yàng de huà.",
+   "en": "On the Dragon Boat Festival of the second year, the shopkeeper said the same thing again.",
+   "fr": "À la fête des bateaux-dragons de la deuxième année, le patron répéta la même chose.",
+   "es": "En el Festival del Bote del Dragón del segundo año, el dueño de la tienda dijo lo mismo otra vez.",
+   "pt": "No Festival do Barco do Dragão do segundo ano, o dono da loja disse a mesma coisa novamente.",
+   "it": "Al Festival delle Barche Drago del secondo anno, il negoziante disse di nuovo la stessa cosa.",
+   "zh-Hans": "第二年的端午，掌柜又说了一遍同样的话。",
+   "zh-Hant": "第二年的端午，掌櫃又說了一遍同樣的話。",
+   "ro": "La Festivalul Bărcilor Dragon din al doilea an, patronul a spus din nou același lucru.",
+   "ca": "Al Festival del Drac del segon any, el botiguer va dir el mateix una altra vegada."
+  },
+  "只有孔乙己是个例外，他也穿长衫，却只能站着喝酒。": {
+   "pinyin": "zhǐ yǒu Kǒng Yǐjǐ shì gè lìwài, tā yě chuān chángshān, què zhǐ néng zhàn zhe hē jiǔ.",
+   "en": "Only Kong Yiji was an exception; he also wore a long gown, but could only stand and drink.",
+   "fr": "Seul Kong Yiji était une exception ; il portait aussi une longue robe, mais ne pouvait que boire debout.",
+   "es": "Solo Kong Yiji era una excepción; él también vestía una túnica larga, pero solo podía beber de pie.",
+   "pt": "Apenas Kong Yiji era uma exceção; ele também usava uma túnica comprida, mas só podia beber em pé.",
+   "it": "Solo Kong Yiji era un'eccezione; anche lui indossava una veste lunga, ma poteva solo bere in piedi.",
+   "zh-Hans": "只有孔乙己是个例外，他也穿长衫，却只能站着喝酒。",
+   "zh-Hant": "只有孔乙己是個例外，他也穿長衫，卻只能站著喝酒。",
+   "ro": "Doar Kong Yiji era o excepție; el purta și el o robă lungă, dar nu putea decât să bea în picioare.",
+   "ca": "Només Kong Yiji era una excepció; ell també duia una túnica llarga, però només podia beure dret."
+  },
+  "我在咸亨酒店干了很久，渐渐觉得这份工作十分无聊。": {
+   "pinyin": "wǒ zài Xiánhēng jiǔdiàn gàn le hěn jiǔ, jiànjiàn juéde zhè fèn gōngzuò shífēn wúliáo.",
+   "en": "I worked at the Xianheng Tavern for a long time and gradually found this job very boring.",
+   "fr": "J'ai travaillé longtemps à la taverne Xianheng et j'ai peu à peu trouvé ce travail très ennuyeux.",
+   "es": "Trabajé mucho tiempo en la taberna Xianheng y poco a poco encontré este trabajo muy aburrido.",
+   "pt": "Trabalhei muito tempo na taverna Xianheng e gradualmente achei este trabalho muito chato.",
+   "it": "Ho lavorato a lungo alla taverna Xianheng e gradualmente ho trovato questo lavoro molto noioso.",
+   "zh-Hans": "我在咸亨酒店干了很久，渐渐觉得这份工作十分无聊。",
+   "zh-Hant": "我在咸亨酒店幹了很久，漸漸覺得這份工作十分無聊。",
+   "ro": "Am lucrat mult timp la taverna Xianheng și treptat am găsit această slujbă foarte plictisitoare.",
+   "ca": "Vaig treballar molt de temps a la taverna Xianheng i a poc a poc vaig trobar aquesta feina molt avorrida."
+  },
+  "掌柜见我老实，本来想让我专门伺候那些穿长衫的客人。": {
+   "pinyin": "zhǎngguì jiàn wǒ lǎoshi, běnlái xiǎng ràng wǒ zhuānmén cìhou nàxiē chuān chángshān de kèrén.",
+   "en": "The shopkeeper saw that I was honest and originally wanted me to specifically serve those customers wearing long gowns.",
+   "fr": "Le patron vit que j'étais honnête et voulait à l'origine que je serve spécifiquement les clients portant de longues robes.",
+   "es": "El dueño vio que yo era honesto y originalmente quería que sirviera específicamente a los clientes que vestían túnicas largas.",
+   "pt": "O patrão viu que eu era honesto e originalmente queria que eu servisse especificamente os clientes que usavam túnicas compridas.",
+   "it": "Il padrone vide che ero onesto e originariamente voleva che servissi specificamente i clienti che indossavano vesti lunghe.",
+   "zh-Hans": "掌柜见我老实，本来想让我专门伺候那些穿长衫的客人。",
+   "zh-Hant": "掌櫃見我老實，本來想讓我專門伺候那些穿長衫的客人。",
+   "ro": "Patronul a văzut că sunt cinstit și inițial a vrut să servesc în mod special clienții care purtau robe lungi.",
+   "ca": "El propietari va veure que jo era honest i originalment volia que servís específicament els clients que duien túniaques llargues."
+  },
+  "可是我总是做得不好，掌柜说我不够圆滑，脸上不会堆笑。": {
+   "pinyin": "kěshì wǒ zǒngshì zuò de bù hǎo, zhǎngguì shuō wǒ bú gòu yuánhuá, liǎn shàng bú huì duī xiào.",
+   "en": "But I always did poorly; the shopkeeper said I wasn't tactful enough and couldn't put on a smile.",
+   "fr": "Mais je faisais toujours mal ; le patron disait que je n'étais pas assez diplomate et que je ne savais pas sourire.",
+   "es": "Pero siempre lo hacía mal; el dueño decía que yo no era lo bastante diplomático y que no sabía sonreír.",
+   "pt": "Mas eu sempre fazia mal; o patrão dizia que eu não era suficientemente diplomático e que não sabia sorrir.",
+   "it": "Ma facevo sempre male; il padrone diceva che non ero abbastanza diplomatico e che non sapevo sorridere.",
+   "zh-Hans": "可是我总是做得不好，掌柜说我不够圆滑，脸上不会堆笑。",
+   "zh-Hant": "可是我總是做得不好，掌櫃說我不夠圓滑，臉上不會堆笑。",
+   "ro": "Dar întotdeauna făceam prost; patronul spunea că nu sunt suficient de diplomat și că nu știu să zâmbesc.",
+   "ca": "Però sempre ho feia malament; el propietari deia que no era prou diplomàtic i que no sabia somriure."
+  },
+  "后来，掌柜就让我专门负责温酒这一件简单的事情。": {
+   "pinyin": "hòulái, zhǎngguì jiù ràng wǒ zhuānmén fùzé wēn jiǔ zhè yī jiàn jiǎndān de shìqing.",
+   "en": "Later, the shopkeeper had me specifically responsible for the simple task of warming wine.",
+   "fr": "Plus tard, le patron me fit spécifiquement responsable de la tâche simple de chauffer le vin.",
+   "es": "Más tarde, el dueño me hizo específicamente responsable de la tarea simple de calentar el vino.",
+   "pt": "Mais tarde, o patrão me fez especificamente responsável pela tarefa simples de aquecer o vinho.",
+   "it": "Più tardi, il padrone mi rese specificamente responsabile del semplice compito di riscaldare il vino.",
+   "zh-Hans": "后来，掌柜就让我专门负责温酒这一件简单的事情。",
+   "zh-Hant": "後來，掌櫃就讓我專門負責溫酒這一件簡單的事情。",
+   "ro": "Mai târziu, patronul m-a făcut în mod special responsabil pentru sarcina simplă de a încălzi vinul.",
+   "ca": "Més tard, el propietari em va fer específicament responsable de la tasca simple d'escalfar el vi."
+  }
+ }
+}

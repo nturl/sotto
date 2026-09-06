@@ -1,0 +1,215 @@
+{
+  "schemaVersion": 1,
+  "bookId": "en-doyle-red-headed-league",
+  "contentLocale": "en-US",
+  "title": "The Red-Headed League",
+  "author": "Arthur Conan Doyle",
+  "sourceEdition": "The Strand Magazine (1891), Project Gutenberg plain-text edition",
+  "sourceUrl": "https://www.gutenberg.org/ebooks/author/69",
+  "sourceJurisdiction": "Public domain worldwide (author died 1930; US publication 1891, pre-1929)",
+  "adaptationEditor": "Sotto contributors (AI first draft, unreviewed)",
+  "reviewStatus": "draft",
+  "level": "B2",
+  "categories": [
+    "classics",
+    "adventure"
+  ],
+  "estimatedMinutes": 16,
+  "localizedTitles": {
+    "en": "The Red-Headed League"
+  },
+  "premise": {
+    "en": "A red-haired pawnbroker is paid a small fortune to copy an encyclopedia for a mysterious league, and Sherlock Holmes suspects that something far more serious is hidden beneath the strange arrangement."
+  },
+  "summary": {
+    "en": "Mr. Jabez Wilson visits Sherlock Holmes with an odd story: a strange organization called the Red-Headed League paid him generously for weeks to copy the encyclopedia, only to dissolve without warning. Holmes, intrigued by the sheer pointlessness of the scheme, suspects it was designed to keep Wilson away from his own shop, and he and Watson set out to discover what has really been happening beneath the pawnbroker's floor."
+  },
+  "contentWarning": null,
+  "tutorNotes": {
+    "pronunciation": "Practice the stress pattern in longer words like 'encyclopedia,' 'organization,' and 'pawnbroker,' since misplaced stress can make Holmes's Victorian vocabulary hard to follow aloud. The silent letters in 'Wednesday' and 'business' also trip learners up.",
+    "grammar": "This text uses full narrative tenses, including the past perfect for events before the main story ('he had answered the advertisement') and reported speech when characters retell what others said to them. Passive constructions like 'the League was founded' and 'he was told to remain' appear often, since Victorian English favors formal, indirect phrasing.",
+    "culture": "Pawnbrokers, who lent money in exchange for holding an item as security, were common on ordinary London streets in the 1890s, and a small business like Wilson's would have relied on a single loyal assistant to survive. Newspaper advertisements were the main way such strange offers reached the public before telephones or radio existed.",
+    "commonErrors": "Learners often confuse 'lend' (to give something temporarily, done by the pawnbroker) with 'borrow' (to receive something temporarily, done by the customer). Watch also for 'vacancy' (an open position) versus 'vacant' (empty), both of which appear in the story's newspaper advertisement."
+  },
+  "vocabulary": [
+    {
+      "word": "pawnbroker",
+      "gloss": {
+        "en": "a person who lends money in exchange for holding valuable items"
+      }
+    },
+    {
+      "word": "vacancy",
+      "gloss": {
+        "en": "an unfilled position or job opening"
+      }
+    },
+    {
+      "word": "encyclopedia",
+      "gloss": {
+        "en": "a large reference book covering many subjects"
+      }
+    },
+    {
+      "word": "suspicious",
+      "gloss": {
+        "en": "causing a feeling that something is wrong or dishonest"
+      }
+    },
+    {
+      "word": "assistant",
+      "gloss": {
+        "en": "a person who helps another person with their work"
+      }
+    },
+    {
+      "word": "dissolve",
+      "gloss": {
+        "en": "to officially end an organization or agreement"
+      }
+    },
+    {
+      "word": "cellar",
+      "gloss": {
+        "en": "an underground room beneath a building"
+      }
+    },
+    {
+      "word": "forger",
+      "gloss": {
+        "en": "a person who illegally copies money, documents, or signatures"
+      }
+    },
+    {
+      "word": "tunnel",
+      "gloss": {
+        "en": "a long passage dug underground"
+      }
+    },
+    {
+      "word": "vault",
+      "gloss": {
+        "en": "a strongly locked room used for storing valuables"
+      }
+    },
+    {
+      "word": "constable",
+      "gloss": {
+        "en": "a police officer of the lowest rank"
+      }
+    },
+    {
+      "word": "scheme",
+      "gloss": {
+        "en": "a secret or dishonest plan"
+      }
+    },
+    {
+      "word": "trifle",
+      "gloss": {
+        "en": "a small or unimportant detail"
+      }
+    },
+    {
+      "word": "deduce",
+      "gloss": {
+        "en": "to work out an answer using logic and evidence"
+      }
+    }
+  ],
+  "comprehension": [
+    {
+      "question": {
+        "en": "Why does the Red-Headed League pay Jabez Wilson to copy the encyclopedia?"
+      }
+    },
+    {
+      "question": {
+        "en": "What clue about Wilson's assistant first makes Holmes suspicious?"
+      }
+    },
+    {
+      "question": {
+        "en": "What are the criminals actually planning to steal, and how do they plan to reach it?"
+      }
+    },
+    {
+      "question": {
+        "en": "Why does Holmes wait until Saturday night to act, rather than earlier in the week?"
+      }
+    },
+    {
+      "question": {
+        "en": "What does the story suggest about why Holmes finds the case interesting despite its strange, almost comic details?"
+      }
+    }
+  ],
+  "license": {
+    "spdx": "CC-BY-SA-4.0",
+    "attribution": "Sotto contributors; based on the public-domain original by Arthur Conan Doyle"
+  },
+  "cover": "cover.svg",
+  "chapters": [
+    {
+      "id": "en-doyle-red-headed-league-01",
+      "title": "Chapter 1 — A Curious Advertisement",
+      "order": 1,
+      "file": "chapters/01.json",
+      "wordCount": 487,
+      "audio": "audio/01.mp3",
+      "durationMs": 200146,
+      "alignment": {
+        "matched": 487,
+        "total": 487,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
+    },
+    {
+      "id": "en-doyle-red-headed-league-02",
+      "title": "Chapter 2 — Holmes Investigates",
+      "order": 2,
+      "file": "chapters/02.json",
+      "wordCount": 466,
+      "audio": "audio/02.mp3",
+      "durationMs": 192946,
+      "alignment": {
+        "matched": 462,
+        "total": 466,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
+    },
+    {
+      "id": "en-doyle-red-headed-league-03",
+      "title": "Chapter 3 — A Night in the Vault",
+      "order": 3,
+      "file": "chapters/03.json",
+      "wordCount": 438,
+      "audio": "audio/03.mp3",
+      "durationMs": 166950,
+      "alignment": {
+        "matched": 438,
+        "total": 438,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
+    },
+    {
+      "id": "en-doyle-red-headed-league-04",
+      "title": "Chapter 4 — The Explanation",
+      "order": 4,
+      "file": "chapters/04.json",
+      "wordCount": 338,
+      "audio": "audio/04.mp3",
+      "durationMs": 130668,
+      "alignment": {
+        "matched": 337,
+        "total": 338,
+        "method": "lcs+clitic-split+fuzzy-0.34"
+      }
+    }
+  ],
+  "wordAudio": {
+    "file": "audio/words.mp3",
+    "index": "audio/words.json",
+    "count": 687
+  }
+}

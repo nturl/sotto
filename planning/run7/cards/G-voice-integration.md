@@ -1,0 +1,18 @@
+# Lane G: voice integration and the spoken-exchange proof
+
+Task: finish what lanes F1 and F2 escalated across each other's files, then prove a spoken exchange end to end: a learner turn goes in (text is fine), the tutor's reply is rendered AND audible (Web Audio samples > 0), on the local path with this Mac's local models.
+
+Inputs: `planning/run7/PLAN.md`; `planning/run7/F1-report.md` and `F2-report.md` (their "escalated" sections carry the exact interfaces); `planning/run7/D-report.md` §audio arbitration (the `audioBus` interface for tutor speech); `~/Claude/sotto-run7-recon/scout-T-tutor.md` §6 and "What a spoken-exchange proof would need"; `docs/local-models.md`, `docs/voice-pipeline.md`; `apps/client/e2e/audible-probe.mjs`, `voice-live.mjs`, `self-hosted-voice.mjs`. Dev servers: content/voice server :8790 (`apps/server`, check its `/health` for which local services are up), Metro :8081.
+
+Owned files (lanes F1, F2, D are finished; nobody else edits these now): `apps/client/app/voice/**`, `apps/client/src/voice/**`, `packages/voice/src/**`, `packages/core/src/prompt.ts` (+test), `apps/client/src/state/createStore.ts` (caption fields only), `apps/client/src/platform/audioBus.ts` and `audio.ts` (tutor-speech wiring only), `apps/client/e2e/voice-*.mjs`, `audible-probe.mjs`, `docs/voice-pipeline.md`, tests beside them. NOT `app/account/**`, `app/onboarding/**`, `app/index.tsx`, `src/cloud/**` (lane C is still running there).
+
+Directives:
+1. Wire F2's four escalations: (a) a speaker/output toggle on the control cluster that silences tutor playback without ending capture (WebAudio gain or pause on the adapter; expose through the provider/session interface); (b) `notSpoken` on `CaptionEntry` propagated from F1's events into the transcript with a Replay action that re-synthesizes that sentence; (c) an automatic opening turn on connect (one short invitation in the learning language grounded in the passage; it must appear in the transcript and be spoken); (d) `bookTitle` receives the title, not the id.
+2. Tutor speech registers with lane D's `audioBus` so narration and word audio never overlap it (D wrote the interface; wire it, test it).
+3. Repair the stale e2e scripts: they must click Start (CONFIRM 17). Keep them passing or delete the ones that cannot run here, saying which.
+4. The proof, `apps/client/e2e/audible-probe.mjs`: drive a turn through the text fallback (no microphone capture needed), on the local path, learner text "Qu'est-ce que c'est, la Provence ? Est-ce en France ?" in a French book whose passage mentions Provence if one exists (grep packs for "Provence"; else pick any French book and ask about a place in its passage). Assert: the reply renders in the transcript; the AudioContext probe counts `started > 0 && totalSamples > 0`; the reply is in French, mentions the place, and ends with a question (record the text in the report; judge grounding by reading it). Screenshot each state. If the local server lacks a service (check `/health`), say exactly which and whether `docs/local-models.md` gives a download you can run in under 10 minutes; otherwise stop at the unit-level proof and say so.
+5. Full client suite green, `pnpm -r typecheck`, `pnpm lint`, prettier, `pnpm content:validate` (i18n parity).
+
+Proof: the probe output pasted; the transcript text of the Provence exchange; screenshots in `~/Claude/sotto-run7-recon/G/`; test counts.
+
+Stop when: committed (path-scoped), pushed, `planning/run7/G-report.md` written. Escalate when: the local path cannot produce audio on this Mac (name the missing piece) or a change under lane C's files is needed.

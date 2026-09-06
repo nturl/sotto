@@ -137,9 +137,23 @@
         display: flex;
         align-items: baseline;
         justify-content: space-between;
+        flex-wrap: wrap;
         padding-top: 20px;
         padding-bottom: 20px;
         gap: 16px;
+        row-gap: 4px;
+      }
+      .meta a {
+        color: var(--ink-2);
+        text-decoration-color: var(--hairline);
+      }
+      .meta a:hover {
+        text-decoration-color: var(--ink-2);
+      }
+      .tap-link {
+        display: inline-block;
+        padding: 16px 0;
+        margin: -16px 0;
       }
       .wordmark {
         display: inline-block;
@@ -257,6 +271,13 @@
         color: var(--ink-2);
         font-size: 0.8125rem;
         margin: 20px 0 0;
+        max-width: var(--measure);
+      }
+      .lead-note {
+        color: var(--ink-2);
+        font-size: 0.9375rem;
+        margin: 0 0 24px;
+        max-width: var(--measure);
       }
 
       /* 5 Four ways, 6 Phone steps: rows, never cards */
@@ -369,7 +390,10 @@
     <header>
       <div class="col">
         <a class="wordmark" href="/">Sotto</a>
-        <span class="meta">Free · Open source · No account</span>
+        <span class="meta"
+          >Free · Open source · No account ·
+          <a class="tap-link" href="https://app.readsotto.app">Sign in</a></span
+        >
       </div>
     </header>
 
@@ -393,6 +417,12 @@
             <a class="cta" href="/start">Start reading</a>
             <p class="cta-note">
               No account. Nothing leaves your device. A book you have opened keeps working offline.
+            </p>
+            <p class="cta-note">
+              The voice tutor works either way: your own OpenAI key, about a cent a minute, or the
+              hosted plan at
+              <a class="tap-link" href="https://app.readsotto.app">app.readsotto.app</a>
+              ($9.99/mo, 3-day trial) — a separate sign-in from this page.
             </p>
           </div>
         </div>
@@ -452,7 +482,11 @@
 
       <section id="ways">
         <div class="col wide">
-          <h2>Four ways to run it</h2>
+          <h2>Compare all four ways</h2>
+          <p class="lead-note">
+            Already decided? Reading and the tutor are both covered above. Here's everything side
+            by side.
+          </p>
           <div class="rows">
             <div class="head">
               <span class="meta">Way</span><span class="meta">What it costs</span
@@ -461,7 +495,7 @@
             <div>
               <span class="cell lead">Read</span
               ><span class="cell" data-label="What it costs">Free</span
-              ><span class="cell" data-label="Where">readsotto.app</span>
+              ><span class="cell" data-label="Where">readsotto.app — this page</span>
             </div>
             <div>
               <span class="cell lead">Talk to the tutor with your own key</span
@@ -473,7 +507,8 @@
               <span class="cell lead">Talk to the tutor on the plan</span
               ><span class="cell num" data-label="What it costs">$9.99 a month, 3-day trial</span
               ><span class="cell" data-label="Where"
-                ><a class="rowlink" href="https://app.readsotto.app">app.readsotto.app</a></span
+                ><a class="rowlink" href="https://app.readsotto.app">app.readsotto.app</a> — sign in
+                or subscribe</span
               >
             </div>
             <div>

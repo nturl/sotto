@@ -24,6 +24,9 @@ import { Text } from '../../src/ui/Text';
 import { Shell } from '../../src/ui/Shell';
 import { Toast } from '../../src/ui/Toast';
 import { useTheme } from '../../src/ui/theme';
+import { webCursor } from '../../src/ui/tokens';
+
+const FREE_URL = 'https://readsotto.app';
 
 type DeleteStep = 0 | 1 | 2;
 
@@ -330,6 +333,17 @@ export default function AccountScreen() {
         </Text>
       ) : null}
 
+      <Text
+        role="caption"
+        size={14}
+        color="ink2"
+        style={[styles.freeLink, webCursor]}
+        onPress={() => void Linking.openURL(FREE_URL)}
+        accessibilityRole="link"
+      >
+        {t('account.signedOut.freeLink')}
+      </Text>
+
       <Toast message={toast} onHide={() => setToast(null)} />
     </Shell>
   );
@@ -410,6 +424,12 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     },
     sentCaption: {
       marginTop: space.sm,
+    },
+    freeLink: {
+      // DESIGN.md reserves `accent` for the primary CTA and the active tab,
+      // so a link is marked by the underline, not by color.
+      marginTop: space.xl,
+      textDecorationLine: 'underline',
     },
   });
 }

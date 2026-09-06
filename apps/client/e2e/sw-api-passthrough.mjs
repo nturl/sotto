@@ -180,6 +180,34 @@ async function waitForServer(url, timeoutMs = 20_000) {
       fail(`control path ${CONTROL_PATH}: was NOT cached — cache-first may be broken generally`);
     }
 
+    // The bypass above must NOT swallow navigations. /account, /account/magic,
+    // /voice/<bookId>, /import and /import/<jobId> are client routes as well as
+    // API prefixes, and this worker also ships to the free origin, where no API
+    // exists and /voice/<bookId> is the reading screen. If the bypass caught
+    // navigations too, those routes would lose their offline shell fallback.
+    // A navigation goes through the app-shell branch, which cache-firsts and so
+    // puts the document in the shell cache — the same signal the control check
+    // uses. Asserting on that keeps us clear of the setOffline trap above.
+    const NAV_PATH = '/account';
+    await page.goto(`${BASE_URL}${NAV_PATH}`, { waitUntil: 'load' });
+    const navCachedIn = await page.evaluate(async (navPath) => {
+      const target = new URL(navPath, self.location.origin).href;
+      for (const name of await caches.keys()) {
+        const cache = await caches.open(name);
+        if (await cache.match(target)) return name;
+      }
+      return null;
+    }, NAV_PATH);
+    if (navCachedIn) {
+      log(
+        `navigation to ${NAV_PATH}: cached in "${navCachedIn}" — PASS (client routes that share an API prefix keep their offline shell fallback)`,
+      );
+    } else {
+      fail(
+        `navigation to ${NAV_PATH}: NOT cached — the API bypass is swallowing navigations, so this client route has lost its offline fallback`,
+      );
+    }
+
     await browser.close();
   } finally {
     server.kill();

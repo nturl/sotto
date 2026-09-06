@@ -257,3 +257,37 @@ $ grep -rnE "sk-[A-Za-z0-9]|rk_[A-Za-z0-9]|whsec_[A-Za-z0-9]" \
     apps/client/src/i18n/*.json apps/client/e2e/sw-api-passthrough.mjs \
     docs/self-hosting.md docs/evidence/f2-2026-09-06.log
 (no matches — clean)
+
+--------------------------------------------------------------------------------
+ORCHESTRATOR FOLLOW-UP (2026-09-06 21:45): the API bypass swallowed navigations
+--------------------------------------------------------------------------------
+Reviewing F2's sw.js change, the bypass was unconditional on path prefix. Five
+of the twelve prefixes are ALSO client routes:
+
+  /account            apps/client/app/account/index.tsx
+  /account/magic      apps/client/app/account/magic.tsx
+  /voice/<bookId>     apps/client/app/voice/[bookId].tsx
+  /import             apps/client/app/import/index.tsx
+  /import/<jobId>     apps/client/app/import/[jobId].tsx
+
+and public/sw.js ships to BOTH origins — including the free readsotto.app, where
+no API exists at all and /voice/<bookId> is the reading screen. An unconditional
+bypass returns before the app-shell branch, so those routes lost their
+`mode: 'navigate'` offline fallback to the cached shell. The fix traded an
+API-caching bug for an offline-navigation bug on the free app's core route.
+
+Fix: the bypass now also requires `event.request.mode !== 'navigate'`. The app's
+own API calls all go through fetch(), whose mode is never 'navigate', so the
+discriminator separates exactly the right two cases.
+
+Proof (same harness, e2e/sw-api-passthrough.mjs, static export on :8095):
+  all 12 API prefixes           not cached, network answered untouched   PASS
+  control SPA route             cached in the shell cache                PASS
+  navigation to /account        cached in the shell cache                PASS   <- new assertion
+
+Negative control: with only `event.request.mode !== 'navigate'` removed from the
+served copy, the run FAILS on exactly that new assertion and nothing else —
+  "navigation to /account: NOT cached — the API bypass is swallowing
+   navigations, so this client route has lost its offline fallback"
+so the assertion sees the regression it guards. Guard restored, RESULT: PASS,
+exit 0.

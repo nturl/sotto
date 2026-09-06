@@ -314,7 +314,18 @@ self.addEventListener('fetch', (event) => {
   // Without this, the app-shell handler below (cache-first) would treat
   // every same-origin API GET as a shell asset and freeze it at its first
   // response — e.g. still "free" right after a real subscribe.
-  if (API_PATH_PREFIXES.some((p) => url.pathname === p || url.pathname.startsWith(p + '/'))) {
+  //
+  // Navigations are deliberately excluded from the bypass. Several of these
+  // prefixes are ALSO client routes — /account, /account/magic, /voice/<bookId>,
+  // /import, /import/<jobId> — and this same worker ships to the free origin,
+  // where no API exists at all and /voice/<bookId> is the reading screen. A
+  // bare bypass would take those routes' offline shell fallback away. The
+  // app's own API calls all go through fetch(), whose mode is never
+  // 'navigate', so this discriminates exactly the right way round.
+  if (
+    event.request.mode !== 'navigate' &&
+    API_PATH_PREFIXES.some((p) => url.pathname === p || url.pathname.startsWith(p + '/'))
+  ) {
     return; // pass through, untouched — same treatment as a cross-origin request
   }
 

@@ -595,16 +595,32 @@ cold start 16.8 s. Evidence: `sotto-cloud/docs/evidence/d3-staging-2026-09-05.lo
 
 ### Open defects on the paid surface (found during stage 5, not yet fixed)
 
-1. **HIGH — dead "Sign in with Apple" button.** The account screen on
+**Note added run 5 (2026-09-06):** this doc was written mid-run-4, before the
+F2 fix pass later the same night (`planning/LEDGER.md` ~21:50-22:05). Defects
+1, 2, 3, and 4 below were fixed in that pass and are still fixed on current
+HEAD — re-verified by direct read for this note, not just re-quoted:
+`apps/client/app/account/index.tsx` gates the Apple button to
+`Platform.OS === 'ios'` (renders nothing on the web build, defect 1);
+`apps/client/src/cloud/http.ts:199-200` sends Checkout's `successUrl`/
+`cancelUrl` to `/account?paid=1` / `/account` (defect 2);
+`apps/client/app/voice/[bookId].tsx:297-335` offers `byok.row` from both
+recovery panels (defect 3, and run 5 additionally surfaces this choice on the
+landing page itself — see `planning/design/LANDING-V2.md`); `sw.js:326-327`
+guards the API-prefix bypass on `event.request.mode !== 'navigate'` (defect
+4, which per the note on defect 9 below also closes defect 9). Left as
+originally written below for the historical record and because the
+numbering is cross-referenced elsewhere in this file and in the ledger.
+
+1. **HIGH — dead "Sign in with Apple" button. FIXED (run 4, F2).** The account screen on
    `app.readsotto.app` still renders the Apple button and it fails on click
    ("Sign-in with Apple failed") because D1 unregistered the route. The
    subtitle still reads "iPhone access". CONFIRM 4 says Apple is off the web
    surface, so the control should be hidden, not repaired.
-2. **MEDIUM — Checkout `success_url` points at `/billing/success`**, which no
-   route matches; it should return the learner to `/account`.
-3. **MEDIUM — BYOK is undiscoverable** (see Tier 5): the only entry point is
+2. **MEDIUM — Checkout `success_url` points at `/billing/success`, which no
+   route matches. FIXED (run 4, F2)** — it should return the learner to `/account`.
+3. **MEDIUM — BYOK is undiscoverable (see Tier 5). FIXED (run 4, F2; reinforced run 5).** The only entry point is
    Profile → Tutor preferences, and nothing points at it.
-4. **MEDIUM — service worker caches API paths.** `apps/client/public/sw.js` is
+4. **MEDIUM — service worker caches API paths. FIXED (run 4, F2).** `apps/client/public/sw.js` is
    cache-first over every path; the shipped mitigation is a cache-busting query
    parameter added in `apps/client/src/cloud/http.ts`. The durable fix is to
    exempt API paths in the service worker and drop the query parameter.
@@ -636,13 +652,15 @@ cold start 16.8 s. Evidence: `sotto-cloud/docs/evidence/d3-staging-2026-09-05.lo
    the pinned `34201b2` predates the landing commit `18b0074`. It detonates on
    the first pin bump, which is exactly what shipping any of defects 1-4
    requires. `static.test.ts:22-27` hand-writes `index.html`, so no test sees it.
-9. **MEDIUM — unbounded service-worker cache holding signed-in data.**
+9. **MEDIUM — unbounded service-worker cache holding signed-in data. FIXED (run 4, F2), same fix as defect 4.**
    `sw.js:175-182` `cache.put`s every ok response from the catch-all branch, and
    the `_sw=${Date.now()}` buster makes every API GET a unique key. `activate`
    prunes only by cache name and sign-out never clears Cache Storage, so `/me`
    and `/usage` bodies persist on disk after sign-out and the cache grows without
    bound. Fixing defect 4 properly (exempt API paths _and_ remove the buster)
-   closes this.
+   closes this — verified: both halves landed, `sw.js` no longer applies the
+   cache-first branch to API paths at all (see note above), and the
+   `_sw=` cache-buster no longer appears anywhere in `apps/client/src/`.
 10. **MEDIUM — the self-hosting Fly quickstart ships an unauthenticated
     endpoint.** `docs/self-hosting.md:66-71` never sets `SOTTO_BASIC_AUTH`, and
     `apps/server/src/app.ts:68` only applies auth when it is set — so following
@@ -686,7 +704,7 @@ Evidence: `docs/evidence/byok-live-2026-09-05.log`,
 | Settings screen at 1440 with a stored key            | **PASS**                                                                                                                                                 |
 | Safari standalone-PWA microphone                     | **PARTIAL** — not tested. WebKit has no fake-capture flag, so the live turn ran on Chromium; standalone-PWA mic permission on iOS is assumed, not proven |
 | Native `expo-secure-store` branch                    | **PARTIAL** — code committed and unit-tested; not run on a simulator                                                                                     |
-| Discoverability                                      | **FAIL (UX)** — reachable only from Profile → Tutor preferences; nothing on the voice screen points at it. Defect 3 above                                |
+| Discoverability                                      | **FIXED (run 4, F2; reinforced run 5)** — was FAIL (UX), reachable only from Profile → Tutor preferences. `apps/client/app/voice/[bookId].tsx:297-335` now offers it from both recovery panels; run 5 additionally names it in prose on the landing page itself, at the same moment as the primary "Start reading" CTA (`planning/design/LANDING-V2.md`), so it no longer depends on the tutor failing first. Not re-screenshotted this pass — verified by direct code read, not a live capture |
 
 ## Deploy kit (self-hosting) — run 4
 

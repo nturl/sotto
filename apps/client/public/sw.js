@@ -246,6 +246,12 @@ self.addEventListener('message', (event) => {
   );
 });
 
+// URLs with a background fill currently in flight — guards against two
+// rapid Range requests on the same uncached file (e.g. a double tap)
+// scheduling two full downloads. `rangeFromCache` checks this before
+// scheduling, `fillCacheFromNetwork` removes itself when it settles.
+const fillsInFlight = new Set();
+
 // Fetches `url` again WITHOUT a Range header and stores the resulting full
 // 200 in `cacheName`, so the *next* Range request (and any offline replay)
 // is served by `rangeFromCache` below instead of passing through again.
@@ -261,6 +267,8 @@ async function fillCacheFromNetwork(url, cacheName) {
   } catch {
     // Offline, or the server doesn't like a bare GET on this path — the
     // next tap just passes through again.
+  } finally {
+    fillsInFlight.delete(url);
   }
 }
 
@@ -274,7 +282,10 @@ async function rangeFromCache(request, cacheName, event) {
   const cache = await caches.open(cacheName);
   const cached = await cache.match(request.url, { ignoreSearch: false });
   if (!cached || cached.status !== 200) {
-    if (event) event.waitUntil(fillCacheFromNetwork(request.url, cacheName));
+    if (event && !fillsInFlight.has(request.url)) {
+      fillsInFlight.add(request.url);
+      event.waitUntil(fillCacheFromNetwork(request.url, cacheName));
+    }
     return fetch(request);
   }
   const match = /^bytes=(\d*)-(\d*)$/.exec(request.headers.get('range') || '');

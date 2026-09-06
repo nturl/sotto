@@ -193,4 +193,39 @@ describe('rangeFromCache pass-through fill (R6-C2 commit 3)', () => {
     expect(response.headers.get('Content-Range')).toBe(`bytes 0-4/${FULL_BODY.length}`);
     expect(fetchCalls).toEqual([]); // served entirely from cache — this is the offline case too
   });
+
+  it('schedules only one background fill for two rapid Range requests on the same uncached URL', async () => {
+    const { sandbox, fetchCalls, FakeHeaders } = ctx;
+    const rangeFromCache = sandbox.rangeFromCache as (
+      request: unknown,
+      cacheName: string,
+      event: { waitUntil: (p: Promise<unknown>) => void },
+    ) => Promise<{ status: number }>;
+
+    const url = 'https://sotto.test/content/packs/fr/book/audio/words.mp3';
+    const waited: Promise<unknown>[] = [];
+    const event = { waitUntil: (p: Promise<unknown>) => waited.push(p) };
+
+    // Two taps in quick succession, before either fill has resolved — the
+    // in-flight guard, not the cache, is what must dedupe the second one.
+    const [firstResponse, secondResponse] = await Promise.all([
+      rangeFromCache(
+        { url, headers: new FakeHeaders({ range: 'bytes=0-4' }) },
+        'sotto-content-v1',
+        event,
+      ),
+      rangeFromCache(
+        { url, headers: new FakeHeaders({ range: 'bytes=0-4' }) },
+        'sotto-content-v1',
+        event,
+      ),
+    ]);
+    expect(firstResponse.status).toBe(200);
+    expect(secondResponse.status).toBe(200);
+
+    await Promise.all(waited);
+
+    const fillCalls = fetchCalls.filter((c) => c.range === null);
+    expect(fillCalls).toHaveLength(1);
+  });
 });

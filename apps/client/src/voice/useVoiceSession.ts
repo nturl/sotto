@@ -20,6 +20,7 @@ import {
 } from './availability';
 import { buildPassageWindow } from './passage';
 import * as sessionManager from './sessionManager';
+import { startControlState, type StartControlState } from './voiceStartGate';
 
 export interface UseVoiceSessionArgs {
   bookId: string;
@@ -132,38 +133,49 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
     return [...new Set(words.map((w) => w.normalizedWord))];
   }, [bookWords, reviewOnly]);
 
+  // R6-B3: capture (getUserMedia/AudioContext) must never start before a
+  // tap (B1 candidate 2, B2's screenshot evidence — auto-starting in this
+  // effect raised iOS's mic sheet on mount, with no user gesture behind
+  // it). This effect now only resumes an *already-active* session's UI on
+  // remount; a brand-new session is only ever begun by `start()` below,
+  // called synchronously from the voice screen's own tap handler so the
+  // gesture survives into the `getUserMedia` call inside it.
+  const [started, setStarted] = useState(false);
+
   useEffect(() => {
     if (!chapter || !chapterId) return undefined;
 
     if (sessionManager.isSessionActiveFor(bookId) && !pathChoice) {
       sessionManager.resumeSessionUI();
-    } else if (activePath) {
-      sessionManager.startSession({
-        path: activePath,
-        bookId,
-        chapterId,
-        mode,
-        learner: {
-          level: preferences.level,
-          learningLocale: locale,
-          explanationLocale: preferences.explanationLocale,
-        },
-        passage: buildPassageWindow(chapter, progress[bookId]?.tokenId),
-        savedWords: savedWordList,
-        cloudProvider: me.status === 'signed-in' ? me.me.entitlement.provider : undefined,
-      });
+      setStarted(true);
     }
 
     return () => {
       if (sessionManager.isSessionActiveFor(bookId)) sessionManager.pauseSession();
     };
-    // Only (re)connect on book/chapter identity changes, availability
-    // flipping to 'ready' (so the gated startSession above actually fires
-    // once the health probe resolves), and a deliberate desktop chip choice
-    // (`pathChoice`) — not on every store update (savedWordList/progress
-    // churn while the session runs).
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookId, chapterId, !!chapter, availability.status, activePath]);
+  }, [bookId, chapterId, !!chapter, pathChoice]);
+
+  const beginSession = (path: VoicePath): void => {
+    if (!chapter || !chapterId) return;
+    sessionManager.startSession({
+      path,
+      bookId,
+      chapterId,
+      mode,
+      learner: {
+        level: preferences.level,
+        learningLocale: locale,
+        explanationLocale: preferences.explanationLocale,
+      },
+      passage: buildPassageWindow(chapter, progress[bookId]?.tokenId),
+      savedWords: savedWordList,
+      cloudProvider: me.status === 'signed-in' ? me.me.entitlement.provider : undefined,
+    });
+    setStarted(true);
+  };
+
+  const startControl: StartControlState = startControlState(availability.status, started);
 
   return {
     availability,
@@ -174,6 +186,17 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
     activePath,
     /** Called by the download panel once models are installed/removed. */
     recheckAvailability: () => setGateNonce((n) => n + 1),
+    /** R6-B3: what the screen's primary control area should show —
+     * `'hidden'` (still checking), `'start'` (a Start button, no capture
+     * requested yet), or `'active'` (the live in-session controls). */
+    startControl,
+    /** R6-B3: called synchronously from the Start tap's press handler so
+     * the resulting `getUserMedia` call keeps the browser's user
+     * activation. A no-op until the availability probe has resolved
+     * `activePath` — the button stays up rather than starting late. */
+    start: () => {
+      if (activePath) beginSession(activePath);
+    },
     voiceState,
     captions,
     mode,
@@ -188,7 +211,14 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
     /** R3-S: the voice screen's chip row calls this to switch between an
      * offered `availability.alternatives` entry (desktop only — phones
      * never get more than one path to choose from). */
-    switchPath: (path: VoicePath) => setPathChoice(path),
+    switchPath: (path: VoicePath) => {
+      setPathChoice(path);
+      // A chip tap is itself a user gesture, and if a session is already
+      // running the learner is deliberately swapping tutors mid-session —
+      // restart on the new path directly, synchronously in this handler,
+      // rather than waiting on a second Start tap.
+      if (started) beginSession(path);
+    },
     chapter,
     chapterTitle: chapterSummary?.title,
     setMuted: (muted: boolean) => sessionManager.setMuted(muted),

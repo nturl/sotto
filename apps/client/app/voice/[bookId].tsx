@@ -379,7 +379,17 @@ export default function VoiceScreen() {
             />
           </View>
         </View>
-      ) : (
+      ) : session.startControl === 'start' ? (
+        // R6-B3: the tutor starts from a tap, not on mount — the
+        // availability probe may already have resolved (this button only
+        // renders once it has, per `startControlState`), but `startSession`
+        // (and, inside it, `getUserMedia`/`AudioContext`) is only ever
+        // invoked from this press handler, synchronously, so the tap's
+        // user-activation survives into the capture call.
+        <View style={styles.controls}>
+          <Button title={t('voice.start')} onPress={session.start} style={styles.recoveryButton} />
+        </View>
+      ) : session.startControl === 'active' ? (
         <View style={styles.controls}>
           <IconButton
             icon={<MuteGlyph size={20} />}
@@ -409,9 +419,9 @@ export default function VoiceScreen() {
             }}
           />
         </View>
-      )}
+      ) : null}
 
-      {!isChecking && !isUnavailable ? (
+      {!isChecking && !isUnavailable && session.startControl === 'active' ? (
         <View style={styles.pttWrap}>
           {(() => {
             const indicator = micIndicator(preferences.turnDetection, session.voiceState);

@@ -19,6 +19,7 @@ import {
   OpenAIDirectProvider,
   OpenAIRealtimeProvider,
   systemClock,
+  type AudioAdapter,
   type PassageContext,
   type SessionOptions,
   type VoiceProvider,
@@ -34,6 +35,36 @@ import type { VoicePath } from './availability';
 import { cachedByokKey } from './byokKey';
 import { createVoiceController } from './controller';
 import { createToolContext } from './toolContext';
+import { gateVoiceState } from './voiceStartGate';
+
+/**
+ * R6-B3: wraps the real `AudioAdapter` so `startSession` can tell whether
+ * the capture transport has an actual microphone stream yet, independent
+ * of whatever a provider (or, for the local path, the server over its own
+ * websocket — see `voiceStartGate.ts`) reports as `listening`. Every path
+ * that touches a real microphone (local/browser/byok/cloud-cascade) shares
+ * one wrapped adapter per session so the gate reflects the one real
+ * `getUserMedia` call this session makes.
+ */
+function wrapAudioForGating(inner: AudioAdapter): {
+  adapter: AudioAdapter;
+  captureReady: () => boolean;
+} {
+  let ready = false;
+  const adapter: AudioAdapter = {
+    startCapture: async (onPcm16) => {
+      await inner.startCapture(onPcm16);
+      ready = true;
+    },
+    stopCapture: () => {
+      ready = false;
+      inner.stopCapture();
+    },
+    playPcm: (buf, sampleRate) => inner.playPcm(buf, sampleRate),
+    stopPlayback: () => inner.stopPlayback(),
+  };
+  return { adapter, captureReady: () => ready };
+}
 
 const REALTIME_PROVIDER_IDS = new Set<CloudProviderId>(['realtime-mini', 'realtime']);
 
@@ -67,11 +98,11 @@ function debugOverride(): WorkerInitPayload['debug'] | undefined {
 // only how the session is created, since the cloud broker's
 // `POST /voice/session` already needs cookie/bearer auth this class
 // doesn't otherwise send, and returns a pre-signed `wsUrl` directly.
-function cloudCascadeProvider(): VoiceProvider {
+function cloudCascadeProvider(audio: AudioAdapter): VoiceProvider {
   const cloud = getCloudAdapter();
   return new LocalCascadeProvider({
     serverUrl: serverUrl(),
-    audio: createAudioAdapter(),
+    audio,
     createSession: (opts) => cloud.voiceSession(opts),
   });
 }
@@ -80,10 +111,11 @@ function pickProvider(
   path: VoicePath,
   cloudProvider: CloudProviderId | undefined,
   sessionOptions: SessionOptions,
+  audio: AudioAdapter,
 ): VoiceProvider {
   if (process.env.EXPO_PUBLIC_VOICE === 'fake') return new FakeVoiceProvider(systemClock);
   if (path === 'browser') {
-    return new BrowserCascadeProvider({ audio: createAudioAdapter(), debug: debugOverride() });
+    return new BrowserCascadeProvider({ audio, debug: debugOverride() });
   }
   if (path === 'byok') {
     // R4-B2: the learner's own OpenAI key, read from device storage
@@ -96,7 +128,7 @@ function pickProvider(
     // body is unreadable browser-direct, see docs/byok.md).
     const apiKey = cachedByokKey();
     if (apiKey) {
-      return new OpenAIDirectProvider({ apiKey, audio: createAudioAdapter() });
+      return new OpenAIDirectProvider({ apiKey, audio });
     }
   }
   if (path === 'cloud') {
@@ -121,9 +153,9 @@ function pickProvider(
         platform: 'web',
       });
     }
-    return cloudCascadeProvider();
+    return cloudCascadeProvider(audio);
   }
-  return new LocalCascadeProvider({ serverUrl: serverUrl(), audio: createAudioAdapter() });
+  return new LocalCascadeProvider({ serverUrl: serverUrl(), audio });
 }
 
 interface ActiveSession {
@@ -170,9 +202,19 @@ export function startSession(params: {
     learner.explanationLocale,
   );
 
+  // R6-B3: one gated adapter per session, shared by every cascade provider
+  // this session might construct (the initial pick and, for a failed
+  // Realtime attempt, its cascade fallback) — the Realtime provider itself
+  // uses WebRTC directly and has no local capture to gate, so it always
+  // reports `captureReady`.
+  const isFakeProvider = process.env.EXPO_PUBLIC_VOICE === 'fake';
+  const gatedAudio = isFakeProvider ? null : wrapAudioForGating(createAudioAdapter());
+
   const attach = (provider: VoiceProvider, isRealtimeAttempt: boolean): void => {
+    const captureReady = isRealtimeAttempt || !gatedAudio ? () => true : gatedAudio.captureReady;
     const { unsubscribe } = createVoiceController(provider, ctx, {
-      onState: (state) => useSottoStore.getState().setVoiceState(state),
+      onState: (state) =>
+        useSottoStore.getState().setVoiceState(gateVoiceState(state, captureReady())),
       onCaption: (entry) => {
         useSottoStore.getState().pushCaption(entry);
         if (entry.speaker === 'tutor' && entry.final) {
@@ -221,7 +263,7 @@ export function startSession(params: {
         text: 'Switching to the standard voice tutor.',
         final: true,
       });
-      attach(cloudCascadeProvider(), false);
+      attach(cloudCascadeProvider(gatedAudio!.adapter), false);
     });
   };
 
@@ -234,7 +276,12 @@ export function startSession(params: {
     startedAt: new Date().toISOString(),
   });
 
-  const provider = pickProvider(params.path ?? 'local', params.cloudProvider, sessionOptions);
+  const provider = pickProvider(
+    params.path ?? 'local',
+    params.cloudProvider,
+    sessionOptions,
+    gatedAudio?.adapter as AudioAdapter,
+  );
   const isRealtimeAttempt = provider instanceof OpenAIRealtimeProvider;
   attach(provider, isRealtimeAttempt);
 }

@@ -213,8 +213,8 @@ export class HttpCloudAdapter implements CloudAdapter {
       body: JSON.stringify({
         plan,
         interval,
-        successUrl: `${this.baseUrl}/billing/success`,
-        cancelUrl: `${this.baseUrl}/billing/cancel`,
+        successUrl: `${this.baseUrl}/account?paid=1`,
+        cancelUrl: `${this.baseUrl}/account`,
       }),
     });
   }

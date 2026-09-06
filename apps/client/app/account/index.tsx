@@ -46,12 +46,26 @@ export default function AccountScreen() {
   // — this is the literal deep-link target, so forward straight to the
   // magic-link handler (app/account/magic.tsx) rather than duplicating its
   // completion logic here.
-  const params = useLocalSearchParams<{ session?: string | string[] }>();
+  const params = useLocalSearchParams<{ session?: string | string[]; paid?: string | string[] }>();
   useEffect(() => {
     const token = Array.isArray(params.session) ? params.session[0] : params.session;
     if (token) router.replace({ pathname: '/account/magic', params: { session: token } });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.session]);
+
+  // Checkout's successUrl lands back here with ?paid=1 (there is no
+  // apps/client/app/billing/ route for it to go to) — refresh the
+  // entitlement once, confirm with a toast, then drop the query param so a
+  // reload doesn't re-fire it.
+  useEffect(() => {
+    const paid = Array.isArray(params.paid) ? params.paid[0] : params.paid;
+    if (paid === '1') {
+      me.refresh();
+      setToast(t('account.paid.success'));
+      router.replace('/account');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.paid]);
 
   const sendMagicLink = async () => {
     if (!email.trim() || busy) return;

@@ -226,6 +226,16 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
     interrupt: () => sessionManager.interrupt(),
     replayLast: () => sessionManager.replayLast(),
     sendText: (text: string) => sessionManager.sendText(text),
+    /** run7/F1: re-enters the same book/chapter/mode after a connection
+     * failure without clearing the transcript (unlike `start`, which goes
+     * through `endSession()`'s `clearSessionEphemeral()` on the very first
+     * connection but not on a later one — see sessionManager's `retry()`
+     * doc comment). Falls back to `start` if nothing has ever been started
+     * yet (retry is a no-op then). */
+    retry: () => sessionManager.retry(),
+    /** run7/F1: the action for a `playback_blocked` error's "Tap to hear
+     * the tutor" button. */
+    resumePlayback: () => sessionManager.resumePlayback(),
     end: () => sessionManager.endSession(),
   };
 }

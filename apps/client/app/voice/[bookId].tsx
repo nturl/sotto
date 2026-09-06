@@ -1,27 +1,39 @@
 /**
  * Voice screen — DESIGN.md "Voice screen". CONTRACTS §6 route: /voice/[bookId].
+ *
+ * Redesigned for run7/F2 (planning/run7/cards/F2-voice-screen.md): a
+ * conversation screen — passage card, scrollable transcript, one bottom
+ * control cluster — replacing the old layout of a corner status dot, a
+ * separate caption strip, and a dead-end "Enable push-to-talk in settings"
+ * caption with nothing to press (see F2-report.md's step-0 log for why
+ * that caption never actually contradicted the header: both read the same
+ * `voiceState`; it's now a real in-place toggle regardless).
  */
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getLanguage, type TutorMode } from '@sotto/core';
-import { radius, space } from '@sotto/core/theme';
+import { space } from '@sotto/core/theme';
 import { useCloud } from '../../src/cloud/provider';
 import { useT } from '../../src/i18n/useT';
 import { Button } from '../../src/ui/Button';
-import { CloseGlyph, MicGlyph, MuteGlyph, ReplayGlyph, StopGlyph } from '../../src/ui/Glyphs';
+import { CloseGlyph, SettingsGlyph } from '../../src/ui/Glyphs';
 import { IconButton } from '../../src/ui/IconButton';
-import { SpeechFillText, type SpeechSentence } from '../../src/ui/SpeechFillText';
+import type { SpeechSentence } from '../../src/ui/SpeechFillText';
 import { Text } from '../../src/ui/Text';
 import { useTheme } from '../../src/ui/theme';
 import { webCursor } from '../../src/ui/tokens';
 import { useSottoStore } from '../../src/state/store';
-import { micIndicator } from '../../src/voice/micIndicator';
-import { micUnavailablePanelState } from '../../src/voice/voiceStartGate';
 import { buildPassageWindow } from '../../src/voice/passage';
 import { TutorModelsPanel, type TutorModelsPanelState } from '../../src/voice/TutorModelsPanel';
 import { useVoiceSession } from '../../src/voice/useVoiceSession';
+import { ControlCluster, type TurnDetection } from '../../src/voice/ui/ControlCluster';
+import { PassageCard } from '../../src/voice/ui/PassageCard';
+import { RecoveryView } from '../../src/voice/ui/RecoveryView';
+import { recoveryPanelFor } from '../../src/voice/ui/recoveryPanel';
+import { TextFallback } from '../../src/voice/ui/TextFallback';
+import { Transcript } from '../../src/voice/ui/Transcript';
 
 const MODES: TutorMode[] = ['read_to_me', 'read_with_me', 'pronunciation', 'discuss'];
 
@@ -32,12 +44,6 @@ const MODES: TutorMode[] = ['read_to_me', 'read_with_me', 'pronunciation', 'disc
 // dims-then-fills while a reading event is actively in flight (for this
 // window after the last one, or until the voice state changes).
 const READING_ACTIVE_WINDOW_MS = 6000;
-
-function stateColor(state: string, colors: ReturnType<typeof useTheme>['colors']): string {
-  if (state === 'listening') return colors.accent;
-  if (state === 'speaking' || state === 'thinking') return colors.ink;
-  return colors.ink3;
-}
 
 export default function VoiceScreen() {
   const t = useT();
@@ -54,6 +60,7 @@ export default function VoiceScreen() {
   const preferences = useSottoStore((s) => s.preferences);
   const progress = useSottoStore((s) => s.progress);
   const bookLocale = useSottoStore((s) => s.bookLocale);
+  const setPreferences = useSottoStore((s) => s.setPreferences);
 
   const session = useVoiceSession({
     bookId: bookId ?? '',
@@ -61,8 +68,6 @@ export default function VoiceScreen() {
     reviewOnly: review === '1',
   });
 
-  const [muted, setMutedState] = useState(false);
-  const [captionsOpen, setCaptionsOpen] = useState(true);
   const [pttHeld, setPttHeld] = useState(false);
 
   const locale = bookId
@@ -136,7 +141,6 @@ export default function VoiceScreen() {
     session.voiceState === 'error' ||
     session.voiceState === 'reconnecting' ||
     !!session.limitReason;
-  const micPanel = micUnavailablePanelState(session.error?.code);
   const availability = session.availability;
   const isChecking = availability.status === 'checking';
   // O2-B: the old two-state gate (checking / unavailable) is now three-state.
@@ -152,7 +156,7 @@ export default function VoiceScreen() {
   const isServerUnavailable =
     availability.status === 'unavailable' && availability.reason !== 'no-webgpu';
   // Everything that used to be hidden behind "unavailable" stays hidden for
-  // both flavours: no mode chips, captions or PTT ring until a tutor can run.
+  // both flavours: no mode chips, transcript or controls until a tutor can run.
   const isUnavailable = isServerUnavailable || panelState !== null;
   const unavailableMessage =
     availability.status === 'unavailable' && availability.reason === 'server'
@@ -163,57 +167,45 @@ export default function VoiceScreen() {
           })
         : '';
 
-  const recentCaptions = session.captions.slice(-6);
+  const recoverySpec = isBroken
+    ? recoveryPanelFor({
+        code: session.error?.code,
+        limitReason: session.limitReason,
+        voiceState: session.voiceState,
+        cloudEnabled: cloud.enabled,
+      })
+    : null;
+  const recoveryMessage =
+    session.limitReason === 'cap'
+      ? (session.error?.message ?? undefined)
+      : session.error?.code === 'cap_exhausted' || session.error?.code === 'plan_required'
+        ? session.error.message
+        : undefined;
 
   return (
     <View style={[styles.root, { paddingBottom: space.xl + insets.bottom }]}>
       <View style={styles.header}>
-        <View style={styles.stateRow}>
-          <View style={[styles.dot, { backgroundColor: stateColor(session.voiceState, colors) }]} />
-          <Text role="mono" color="ink2">
-            {t(`voice.state.${session.voiceState}` as const)}
-          </Text>
-          {/* R3-S: cloud-path minutes-remaining ticker, from {t:'usage'}
-              messages — absent (null) on every other path. */}
-          {session.remainingSeconds != null ? (
-            <Text role="mono" color="ink3">
-              {t('voice.remainingMinutes', {
-                minutes: Math.max(0, Math.round(session.remainingSeconds / 60)),
-              })}
-            </Text>
-          ) : null}
-        </View>
         <IconButton
           icon={<CloseGlyph size={20} />}
           accessibilityLabel={t('common.close')}
           onPress={() => router.back()}
         />
+        <IconButton
+          icon={<SettingsGlyph size={20} />}
+          accessibilityLabel={t('home.settings')}
+          onPress={() => router.push('/settings')}
+        />
       </View>
 
-      <ScrollView style={styles.passageScroll} contentContainerStyle={styles.passage}>
-        {!isChecking && hasPassage ? (
-          <SpeechFillText
-            sentences={passageSentences}
-            selectedId={session.explanation?.tokenId}
-            cjk={cjk}
-          />
-        ) : (
-          <Text role="caption" color="ink3">
-            {t('voice.loading')}
-          </Text>
-        )}
-      </ScrollView>
-
-      {session.explanation ? (
-        <View style={styles.explanationCard}>
-          <Text role="heading" size={16}>
-            {session.explanation.title}
-          </Text>
-          <Text role="ui" size={14} color="ink2">
-            {session.explanation.body}
-          </Text>
-        </View>
-      ) : null}
+      <PassageCard
+        title={session.chapterTitle ?? t('voice.loading')}
+        sentences={passageSentences}
+        hasPassage={hasPassage}
+        isLoading={isChecking}
+        selectedId={session.explanation?.tokenId}
+        cjk={cjk}
+        onChangePassage={() => router.replace(readSeulPath)}
+      />
 
       {!isChecking && !isUnavailable ? (
         <View style={styles.modeRow}>
@@ -232,10 +224,7 @@ export default function VoiceScreen() {
       ) : null}
 
       {/* R3-S: desktop-only chip row offering a choice between the local/
-          browser tutor and the hosted cloud one, when both are usable
-          (availability.ts's resolveAvailability only fills `alternatives`
-          past one entry on desktop). Phones never see this — cloud wins
-          outright there when usable. */}
+          browser tutor and the hosted cloud one, when both are usable. */}
       {!isChecking &&
       availability.status === 'ready' &&
       (availability.alternatives?.length ?? 0) > 1 ? (
@@ -251,9 +240,6 @@ export default function VoiceScreen() {
               ]}
             >
               <Text role="caption" color={session.activePath === p ? 'surface' : 'ink'}>
-                {/* R4-B2: byok's label lives with the rest of the
-                    bring-your-own-key copy rather than under voice.path.*,
-                    so the two stay in sync when either is retranslated. */}
                 {p === 'byok' ? t('byok.pathLabel') : t(`voice.path.${p}` as const)}
               </Text>
             </Pressable>
@@ -261,29 +247,17 @@ export default function VoiceScreen() {
         </View>
       ) : null}
 
-      {!isUnavailable ? (
-        <>
-          <Pressable onPress={() => setCaptionsOpen((v) => !v)} style={webCursor}>
-            <Text role="caption" color="ink2" style={styles.captionsToggle}>
-              {t('voice.captionsToggle')}
-            </Text>
-          </Pressable>
-          {captionsOpen ? (
-            <View style={styles.captionsStrip}>
-              {recentCaptions.map((c) => (
-                <Text
-                  key={c.id}
-                  role="caption"
-                  color={c.speaker === 'tutor' ? 'ink' : 'ink2'}
-                  style={styles.captionLine}
-                >
-                  {c.speaker === 'tutor' ? t('voice.tutorLabel') : t('voice.learnerLabel')}:{' '}
-                  {c.text}
-                </Text>
-              ))}
-            </View>
-          ) : null}
-        </>
+      {!isUnavailable ? <Transcript captions={session.captions} /> : <View style={styles.spacer} />}
+
+      {session.explanation ? (
+        <View style={styles.explanationCard}>
+          <Text role="heading" size={16}>
+            {session.explanation.title}
+          </Text>
+          <Text role="ui" size={14} color="ink2">
+            {session.explanation.body}
+          </Text>
+        </View>
       ) : null}
 
       {panelState ? (
@@ -345,159 +319,46 @@ export default function VoiceScreen() {
             />
           </View>
         </View>
-      ) : isBroken ? (
-        // R3-S: cap_exhausted/plan_required (a CloudError surfaced through
-        // the provider's 'error' event, or `{t:'limit', reason:'cap'}` mid-
-        // session) show the server's own message plus a "See plans" button
-        // next to "Read alone" — every other broken state keeps its plain
-        // generic message and single button.
-        //
-        // R6-B3 (B1 candidate 3): `mic_unavailable` used to be a dead end
-        // here — a plain message and only "Read alone", with no way to
-        // actually fix the mic and continue. It now also gets a hint line,
-        // a "Try again" that re-runs the Start path, and a button to the
-        // setting's own screen — the same route/label the pre-session
-        // panels above already use for it.
-        <View style={styles.recovery}>
-          <Text role="caption" color="warn" style={styles.recoveryText}>
-            {session.limitReason === 'cap'
-              ? (session.error?.message ?? t('voice.limitReached'))
-              : session.limitReason
-                ? t('voice.limitReached')
-                : session.error?.code === 'cap_exhausted' || session.error?.code === 'plan_required'
-                  ? session.error.message
-                  : session.error?.code === 'mic_unavailable'
-                    ? t('voice.micUnavailable')
-                    : t('voice.connectionIssue')}
-          </Text>
-          {micPanel.showHint ? (
-            <Text role="caption" color="ink3" style={styles.recoveryText}>
-              {t('voice.micUnavailableHint')}
-            </Text>
-          ) : null}
-          <View style={styles.recoveryButtons}>
-            {session.limitReason === 'cap' ||
-            session.error?.code === 'cap_exhausted' ||
-            session.error?.code === 'plan_required' ? (
-              <Button
-                title={t('voice.seePlans')}
-                onPress={() => router.push('/paywall')}
-                style={styles.recoveryButton}
-              />
-            ) : null}
-            {micPanel.showTryAgain ? (
-              <Button
-                title={t('voice.tryAgain')}
-                onPress={session.start}
-                style={styles.recoveryButton}
-              />
-            ) : null}
-            {micPanel.showSettings ? (
-              <Button
-                title={t('byok.row')}
-                variant="secondary"
-                onPress={() => router.push('/settings/openai-key')}
-                style={styles.recoveryButton}
-              />
-            ) : null}
-            <Button
-              title={t('voice.readAlone')}
-              variant="secondary"
-              onPress={() => router.replace(readSeulPath)}
-              style={styles.recoveryButton}
-            />
-          </View>
-        </View>
+      ) : isBroken && recoverySpec ? (
+        <RecoveryView
+          spec={recoverySpec}
+          message={recoveryMessage}
+          onTryAgain={session.retry}
+          onResumePlayback={session.resumePlayback}
+          onReadAlone={() => router.replace(readSeulPath)}
+        />
       ) : session.startControl === 'start' ? (
         // R6-B3: the tutor starts from a tap, not on mount — the
         // availability probe may already have resolved (this button only
-        // renders once it has, per `startControlState`), but `startSession`
-        // (and, inside it, `getUserMedia`/`AudioContext`) is only ever
-        // invoked from this press handler, synchronously, so the tap's
-        // user-activation survives into the capture call.
-        <View style={styles.controls}>
+        // renders once it has), but `startSession` is only ever invoked
+        // from this press handler, synchronously, so the tap's user
+        // activation survives into the capture call.
+        <View style={styles.startRow}>
           <Button title={t('voice.start')} onPress={session.start} style={styles.recoveryButton} />
         </View>
       ) : session.startControl === 'active' ? (
-        <View style={styles.controls}>
-          <IconButton
-            icon={<MuteGlyph size={20} />}
-            accessibilityLabel={t('voice.mute')}
-            onPress={() => {
-              const next = !muted;
-              setMutedState(next);
-              session.setMuted(next);
+        <>
+          <ControlCluster
+            voiceState={session.voiceState}
+            turnDetection={preferences.turnDetection}
+            onSetTurnDetection={(next: TurnDetection) => setPreferences({ turnDetection: next })}
+            pttHeld={pttHeld}
+            onPushToTalk={(active) => {
+              setPttHeld(active);
+              session.pushToTalk(active);
             }}
-          />
-          <IconButton
-            icon={<ReplayGlyph size={20} />}
-            accessibilityLabel={t('voice.replay')}
-            onPress={session.replayLast}
-          />
-          <IconButton
-            icon={<StopGlyph size={20} />}
-            accessibilityLabel={t('voice.interrupt')}
-            onPress={session.interrupt}
-          />
-          <IconButton
-            icon={<CloseGlyph size={20} />}
-            accessibilityLabel={t('voice.end')}
-            onPress={() => {
+            onToggleMute={() => session.setMuted(session.voiceState !== 'muted')}
+            onReplay={session.replayLast}
+            onInterrupt={session.interrupt}
+            onEnd={() => {
               session.end();
               router.back();
             }}
           />
-        </View>
-      ) : null}
-
-      {!isChecking && !isUnavailable && session.startControl === 'active' ? (
-        <View style={styles.pttWrap}>
-          {(() => {
-            const indicator = micIndicator(preferences.turnDetection, session.voiceState);
-            if (indicator.kind === 'push') {
-              return (
-                <Pressable
-                  onPressIn={() => {
-                    setPttHeld(true);
-                    session.pushToTalk(true);
-                  }}
-                  onPressOut={() => {
-                    setPttHeld(false);
-                    session.pushToTalk(false);
-                  }}
-                  style={[styles.pttRing, pttHeld && styles.pttRingActive, webCursor]}
-                >
-                  <MicGlyph size={26} color={pttHeld ? colors.surface : colors.accent} />
-                </Pressable>
-              );
-            }
-            if (indicator.kind === 'disabled') {
-              return (
-                <>
-                  <View style={[styles.pttRing, styles.pttDisabled]}>
-                    <MicGlyph size={26} color={colors.ink3} />
-                  </View>
-                  <Text role="caption" color="ink3" style={styles.pttCaption}>
-                    {t('voice.pttDisabled')}
-                  </Text>
-                </>
-              );
-            }
-            // Auto turn-detection, not muted: the mic is genuinely open and
-            // listening, so this shows the same live state as the header
-            // row instead of the always-on "push-to-talk disabled" hint.
-            return (
-              <>
-                <View style={styles.pttRing}>
-                  <MicGlyph size={26} color={stateColor(indicator.state, colors)} />
-                </View>
-                <Text role="caption" color="ink2" style={styles.pttCaption}>
-                  {t(`voice.state.${indicator.state}` as const)}
-                </Text>
-              </>
-            );
-          })()}
-        </View>
+          <View style={styles.textFallback}>
+            <TextFallback onSend={session.sendText} />
+          </View>
+        </>
       ) : null}
     </View>
   );
@@ -507,87 +368,40 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
   return StyleSheet.create({
     root: {
       flex: 1,
-      backgroundColor: colors.canvas,
       paddingHorizontal: space.gutter.phone,
-      paddingTop: space.xl,
+      paddingTop: space.lg,
       paddingBottom: space.xl,
+      gap: space.md,
     },
     header: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginBottom: space.xl,
-    },
-    stateRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: space.sm,
-    },
-    dot: {
-      width: 8,
-      height: 8,
-      borderRadius: 4,
-    },
-    // ADVERSARIAL-REVIEW.md §1.9/§3 row 28: the passage used to be a plain
-    // View with no scroll, so a chapter's-worth of text pushed the mode
-    // chips/captions/controls/PTT ring below the viewport with nothing able
-    // to reclaim the space — clipping the ring at narrow widths (375/430).
-    // `flex: 1` + `minHeight: 0` lets this ScrollView shrink and scroll
-    // instead, so everything below it stays pinned and on screen.
-    passageScroll: {
-      flex: 1,
-      minHeight: 0,
-    },
-    passage: {
-      paddingBottom: space.lg,
-    },
-    explanationCard: {
-      backgroundColor: colors.surface,
-      borderRadius: radius.md,
-      borderWidth: 1,
-      borderColor: colors.hairline,
-      padding: space.lg,
-      marginBottom: space.lg,
-      gap: space.xs,
     },
     modeRow: {
       flexDirection: 'row',
       gap: space.sm,
-      marginBottom: space.md,
     },
     modeChip: {
       flex: 1,
       backgroundColor: colors.surface2,
-      borderRadius: radius.md,
+      borderRadius: 10,
       paddingVertical: space.sm,
       alignItems: 'center',
     },
     modeChipActive: {
       backgroundColor: colors.ink,
     },
-    captionsToggle: {
-      marginBottom: space.sm,
+    spacer: {
+      flex: 1,
+      minHeight: 0,
     },
-    captionsStrip: {
-      backgroundColor: colors.surface,
-      borderRadius: radius.md,
-      padding: space.md,
+    explanationCard: {
       gap: space.xs,
-      marginBottom: space.lg,
-    },
-    captionLine: {
-      lineHeight: 18,
-    },
-    controls: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      gap: space.xl,
-      marginBottom: space.xl,
     },
     recovery: {
       alignItems: 'center',
       gap: space.md,
-      marginBottom: space.xl,
     },
     recoveryText: {
       textAlign: 'center',
@@ -601,28 +415,11 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     recoveryButton: {
       minWidth: 140,
     },
-    pttWrap: {
+    startRow: {
       alignItems: 'center',
-      gap: space.sm,
     },
-    pttRing: {
-      width: 64,
-      height: 64,
-      borderRadius: 32,
-      borderWidth: 2,
-      borderColor: colors.accent,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    pttRingActive: {
-      backgroundColor: colors.accent,
-    },
-    pttDisabled: {
-      borderColor: colors.ink3,
-      opacity: 0.6,
-    },
-    pttCaption: {
-      textAlign: 'center',
+    textFallback: {
+      marginTop: space.xs,
     },
   });
 }

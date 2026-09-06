@@ -84,11 +84,12 @@ describe('buildSystemInstruction passage rendering', () => {
       .join('\n');
     expect(out).toContain(newStyle);
     expect(newStyle.length).toBeLessThan(oldStyle.length);
-    // Whole instruction stays well inside the ~950-token budget (~4 chars/token).
+    // Whole instruction stays well inside the ~1150-token budget (~4 chars/token).
     // Budget raised from 3600 to fit the reply-in-kind rule added for
-    // BUGS-TUTOR-RUN5.md #2 (there were only 4 spare characters left at
-    // 3600; that rule needed ~111 to state clearly).
-    expect(out.length).toBeLessThan(3800);
+    // BUGS-TUTOR-RUN5.md #2, then again for run7/F2's proportionate-
+    // correction, passage-only-facts and opening-invitation rules
+    // (planning/run7/cards/F2-voice-screen.md directive 6).
+    expect(out.length).toBeLessThan(4600);
   });
 });
 
@@ -123,6 +124,51 @@ describe('buildSystemInstruction shared by both providers', () => {
     const out = buildSystemInstruction(ctx([SAMANIEGO_S1]));
     expect(out).toMatch(/reply in the language\s+the learner (just )?used/i);
     expect(out).toMatch(/offer to (return|switch back) to/i);
+  });
+});
+
+// run7/F2 directive 6: conversational tuning for the discuss mode — short
+// spoken turns, one follow-up question, proportionate (not every-turn)
+// correction, passage-only facts, and the real book title (scout-T-tutor.md
+// §4 flagged the book id being passed as `bookTitle` at the provider call
+// sites; this only asserts the builder renders whatever it is given, since
+// the id-vs-title fix itself is a provider.ts change outside this lane).
+describe('buildSystemInstruction conversational tuning (run7/F2)', () => {
+  it('caps ordinary spoken turns at two sentences', () => {
+    const out = buildSystemInstruction(ctx([SAMANIEGO_S1]));
+    expect(out).toMatch(/at most two sentences/i);
+  });
+
+  it('asks for exactly one follow-up question in discuss mode', () => {
+    const out = buildSystemInstruction(ctx([SAMANIEGO_S1]));
+    expect(out).toMatch(/exactly one short.*follow-up comprehension question/i);
+    expect(out).toMatch(/never more than one/i);
+  });
+
+  it('makes correction proportionate, not automatic every turn', () => {
+    const out = buildSystemInstruction(ctx([SAMANIEGO_S1]));
+    expect(out).toMatch(/most turns have no correction at all/i);
+    expect(out).toMatch(/never a numeric score/i);
+  });
+
+  it('tells the tutor to stick to the supplied passage for facts', () => {
+    const out = buildSystemInstruction(ctx([SAMANIEGO_S1]));
+    expect(out).toMatch(/only state facts that are in it/i);
+    expect(out).toMatch(/say so plainly rather\s*than inventing detail/i);
+  });
+
+  it('renders the real book title it was given, not an id-shaped placeholder', () => {
+    const out = buildSystemInstruction({
+      ...ctx([SAMANIEGO_S1]),
+      bookTitle: 'La cigarra y la hormiga',
+    });
+    expect(out).toContain('Book: La cigarra y la hormiga');
+  });
+
+  it('tells the tutor to open the session with one grounded invitation before the learner speaks', () => {
+    const out = buildSystemInstruction(ctx([SAMANIEGO_S1]));
+    expect(out).toMatch(/open the session with exactly one short spoken sentence/i);
+    expect(out).toMatch(/no generic "hello"/i);
   });
 });
 

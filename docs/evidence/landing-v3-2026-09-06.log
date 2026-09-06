@@ -1,0 +1,314 @@
+=== R6-A3 landing deploy evidence ===
+Timestamp: 2026-09-06T16:26:14Z
+Archived SHA: 899cea42d4bb5cf21514fa3b1414e14410a0b95c
+
+=== pnpm install --frozen-lockfile ===
+Scope: all 6 workspace projects
+✓ Lockfile passes supply-chain policies (verified 12h ago)
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +877
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Packages are cloned from the content-addressable store to the virtual store.
+  Content-addressable store is at: /Users/noelturlington/Library/pnpm/store/v11
+  Virtual store is at:             node_modules/.pnpm
+Progress: resolved 877, reused 877, downloaded 0, added 84
+Progress: resolved 877, reused 877, downloaded 0, added 197
+Progress: resolved 877, reused 877, downloaded 0, added 388
+Progress: resolved 877, reused 877, downloaded 0, added 683
+Progress: resolved 877, reused 877, downloaded 0, added 877, done
+.../node_modules/onnxruntime-node postinstall$ node ./script/install
+.../node_modules/onnxruntime-node postinstall$ node ./script/install
+.../node_modules/onnxruntime-node postinstall$ node ./script/install
+.../node_modules/onnxruntime-node postinstall: Done
+.../node_modules/onnxruntime-node postinstall: Done
+.../node_modules/onnxruntime-node postinstall: Done
+
+devDependencies:
++ @eslint/js 9.39.5
++ concurrently 9.2.4
++ eslint 9.39.5
++ eslint-plugin-react-hooks 7.1.1
++ playwright 1.62.1
++ prettier 3.9.6
++ typescript 5.9.3
++ typescript-eslint 8.69.0
++ vitest 3.2.7
+
+Done in 6.2s using pnpm v11.25.0
+
+=== pnpm deploy:web (apps/client) ===
+$ pnpm web:export && vercel build --prod --yes --scope nturls-projects && vercel deploy --prebuilt --prod --yes --scope nturls-projects
+$ node scripts/build-web.mjs
+tutor worker: 8.44 MB -> apps/client/public/tutor/tutor-worker.js (+8 onnxruntime files)
+🔍 [expo-iap] Config values: horizonAppId=undefined, isHorizonEnabled=false, isFireOsEnabled=false, isVegaEnabled=false, isOnsideEnabled=false
+📦 [expo-iap] Using OpenIAP from CocoaPods
+Expo Autolinking module resolution enabled
+Starting Metro Bundler
+
+Web Bundled 521ms node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/entry.js (1085 modules)
+
+› Assets (54):
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/100Thin_Italic/Fraunces_100Thin_Italic.6b4cab9b1863ed1cbb96c2cdd8276a26.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/100Thin/Fraunces_100Thin.2cbb9a3b3bbda5192ffe28bf04d6b29d.ttf (72KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/200ExtraLight_Italic/Fraunces_200ExtraLight_Italic.5b31322f6198efae6d40650ab8a3623b.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/200ExtraLight/Fraunces_200ExtraLight.073905a75e6d90aaee9f7fe82157a0b6.ttf (72KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/300Light_Italic/Fraunces_300Light_Italic.f2bb3f7e850840f830024567570d5c3e.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/300Light/Fraunces_300Light.5e37aa8e672db18ba0f7c4d6789cf5ef.ttf (72KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/400Regular_Italic/Fraunces_400Regular_Italic.65805d7e2c7f9bad1bf1fa5ccbc7df26.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/400Regular/Fraunces_400Regular.d484e2f727663ddd31e7fcebc7cc25ea.ttf (72KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/500Medium_Italic/Fraunces_500Medium_Italic.0f15c5ff3dbf7b54423fe98d18069ab2.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/500Medium/Fraunces_500Medium.d1acf82088f232372c997dbadbc3f405.ttf (73KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/600SemiBold_Italic/Fraunces_600SemiBold_Italic.d3386675410283c88aedd87637eb5741.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/600SemiBold/Fraunces_600SemiBold.e995588822b0867215ce518a9a79175b.ttf (73KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/700Bold_Italic/Fraunces_700Bold_Italic.c051d8ea6e94f62ad79ed57304d75165.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/700Bold/Fraunces_700Bold.0c859ce19af0584bccfc6941addedf34.ttf (72KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/800ExtraBold_Italic/Fraunces_800ExtraBold_Italic.5d3601dd56349d0087980d9f2cc7d14c.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/800ExtraBold/Fraunces_800ExtraBold.1fca6eacc1fd7d8bb65c1b3c881d057a.ttf (73KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/900Black_Italic/Fraunces_900Black_Italic.6677d45b62b851f1fd8c6061ff492d9d.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/900Black/Fraunces_900Black.64dd2eb4f9509117d7047543a3b7c46a.ttf (73KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/100Thin_Italic/Inter_100Thin_Italic.1b97f7df9b976cfe530c18c09598e6f6.ttf (347KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/100Thin/Inter_100Thin.ddbb1cd55ad509e82377bd10beed6506.ttf (343KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/200ExtraLight_Italic/Inter_200ExtraLight_Italic.3d0662838915a7a16d01c262735d3d29.ttf (347KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/200ExtraLight/Inter_200ExtraLight.e1f33daee21eb5998b13d3e05264d9a3.ttf (343KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/300Light_Italic/Inter_300Light_Italic.17f8f23a2852bfa14ce5bf590c2a0e2c.ttf (347KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/300Light/Inter_300Light.d2994e3dea3856e1834395ad6cce32af.ttf (343KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/400Regular_Italic/Inter_400Regular_Italic.36cad9f97595b7759264b945d64502b4.ttf (346KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/400Regular/Inter_400Regular.51b6ad87261f18b6433ec52871ddfabc.ttf (342KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/500Medium_Italic/Inter_500Medium_Italic.155406bfbfb023eb104728edfe62c0e9.ttf (346KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/500Medium/Inter_500Medium.137ab18bace28dd0bd83eb3b8ed2bc54.ttf (343KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/600SemiBold_Italic/Inter_600SemiBold_Italic.a349d1ac188e1a67689432f44de99849.ttf (347KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/600SemiBold/Inter_600SemiBold.a5f35888d2da465de352e0dcfaf33324.ttf (344KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/700Bold_Italic/Inter_700Bold_Italic.3398006c80026f0508aaaf4808950d56.ttf (348KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/700Bold/Inter_700Bold.6e237de4f1f413afa2fcc45c77ac343a.ttf (344KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/800ExtraBold_Italic/Inter_800ExtraBold_Italic.7ca909a56537d965feef41abe58b87e0.ttf (349KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/800ExtraBold/Inter_800ExtraBold.6016034293c084aa0c056e83938bf1cc.ttf (345KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/900Black_Italic/Inter_900Black_Italic.d5f78c24de59ce5e4bad405e10e71941.ttf (349KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.bcec6eda9700a81ba92c483a2f2c02c1.ttf (345KB)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/arrow_down.017bc6ba3fc25503e5eb5e53826d48a8.png (9.5KB)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/error.d1ea1496f9057eb392d5bbf3732a61b7.png (469B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/file.19eeb73b9593a38f8e9f418337fc7d10.png (138B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/forward.d8b800c443b8972542883e0b9de2bdc6.png (188B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/pkg.ab19f4cbc543357183a20571f68380a3.png (364B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/react-navigation/elements/back-icon-mask.0a328cd9c1afd0afe8e3b1ec5165b1b4.png (653B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/react-navigation/elements/back-icon.35ba0eaec5a4f5ed12ca16fabeae451d.png (207B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/react-navigation/elements/clear-icon.c94f6478e7ae0cdd9f15de1fcb9e5e55.png (4 variations | 425B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/react-navigation/elements/close-icon.808e1b1b9b53114ec2838071a7e6daa7.png (4 variations | 235B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/react-navigation/elements/search-icon.286d67d3f74808a60a78d3ebf1a5fb57.png (928B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/sitemap.412dd9275b6b48ad28f5e3d81bb1f626.png (465B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/unmatched.20e71bdf79e3a97bf55fd9e164041578.png (4.8KB)
+
+› web bundles (2):
+_expo/static/js/web/entry-26c01178e4b775c95dd4182037da47b9.js (1.9MB)
+_expo/static/js/web/SecureStore-7238752c07d03b0f564d462bceb4e4f6.js (2.4KB)
+
+› Files (3):
+favicon.ico (15KB)
+index.html (1.2KB)
+metadata.json (49B)
+
+Exported: dist
+web build: 9 packs copied to dist/content/packs
+web build: landing page + 4 fonts copied to dist/
+web build: PWA manifest + sw-manifest.json written (37 shell files, v1788711989168.9885)
+<claude-code-hint v="1" type="plugin" value="vercel@claude-plugins-official" />
+Vercel CLI 54.21.0 (Node.js 26.7.0)
+Detected `pnpm-lock.yaml` version 9 generated by pnpm@10.x with package.json#packageManager pnpm@11.25.0
+Skipping "install" command...
+$ node scripts/build-web.mjs
+tutor worker: 8.44 MB -> apps/client/public/tutor/tutor-worker.js (+8 onnxruntime files)
+🔍 [expo-iap] Config values: horizonAppId=undefined, isHorizonEnabled=false, isFireOsEnabled=false, isVegaEnabled=false, isOnsideEnabled=false
+📦 [expo-iap] Using OpenIAP from CocoaPods
+Expo Autolinking module resolution enabled
+Starting Metro Bundler
+
+Web Bundled 362ms node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/entry.js (1078 modules)
+
+› Assets (54):
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/100Thin_Italic/Fraunces_100Thin_Italic.6b4cab9b1863ed1cbb96c2cdd8276a26.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/100Thin/Fraunces_100Thin.2cbb9a3b3bbda5192ffe28bf04d6b29d.ttf (72KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/200ExtraLight_Italic/Fraunces_200ExtraLight_Italic.5b31322f6198efae6d40650ab8a3623b.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/200ExtraLight/Fraunces_200ExtraLight.073905a75e6d90aaee9f7fe82157a0b6.ttf (72KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/300Light_Italic/Fraunces_300Light_Italic.f2bb3f7e850840f830024567570d5c3e.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/300Light/Fraunces_300Light.5e37aa8e672db18ba0f7c4d6789cf5ef.ttf (72KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/400Regular_Italic/Fraunces_400Regular_Italic.65805d7e2c7f9bad1bf1fa5ccbc7df26.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/400Regular/Fraunces_400Regular.d484e2f727663ddd31e7fcebc7cc25ea.ttf (72KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/500Medium_Italic/Fraunces_500Medium_Italic.0f15c5ff3dbf7b54423fe98d18069ab2.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/500Medium/Fraunces_500Medium.d1acf82088f232372c997dbadbc3f405.ttf (73KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/600SemiBold_Italic/Fraunces_600SemiBold_Italic.d3386675410283c88aedd87637eb5741.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/600SemiBold/Fraunces_600SemiBold.e995588822b0867215ce518a9a79175b.ttf (73KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/700Bold_Italic/Fraunces_700Bold_Italic.c051d8ea6e94f62ad79ed57304d75165.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/700Bold/Fraunces_700Bold.0c859ce19af0584bccfc6941addedf34.ttf (72KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/800ExtraBold_Italic/Fraunces_800ExtraBold_Italic.5d3601dd56349d0087980d9f2cc7d14c.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/800ExtraBold/Fraunces_800ExtraBold.1fca6eacc1fd7d8bb65c1b3c881d057a.ttf (73KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/900Black_Italic/Fraunces_900Black_Italic.6677d45b62b851f1fd8c6061ff492d9d.ttf (86KB)
+../../node_modules/.pnpm/@expo-google-fonts+fraunces@0.4.1/node_modules/@expo-google-fonts/fraunces/900Black/Fraunces_900Black.64dd2eb4f9509117d7047543a3b7c46a.ttf (73KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/100Thin_Italic/Inter_100Thin_Italic.1b97f7df9b976cfe530c18c09598e6f6.ttf (347KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/100Thin/Inter_100Thin.ddbb1cd55ad509e82377bd10beed6506.ttf (343KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/200ExtraLight_Italic/Inter_200ExtraLight_Italic.3d0662838915a7a16d01c262735d3d29.ttf (347KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/200ExtraLight/Inter_200ExtraLight.e1f33daee21eb5998b13d3e05264d9a3.ttf (343KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/300Light_Italic/Inter_300Light_Italic.17f8f23a2852bfa14ce5bf590c2a0e2c.ttf (347KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/300Light/Inter_300Light.d2994e3dea3856e1834395ad6cce32af.ttf (343KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/400Regular_Italic/Inter_400Regular_Italic.36cad9f97595b7759264b945d64502b4.ttf (346KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/400Regular/Inter_400Regular.51b6ad87261f18b6433ec52871ddfabc.ttf (342KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/500Medium_Italic/Inter_500Medium_Italic.155406bfbfb023eb104728edfe62c0e9.ttf (346KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/500Medium/Inter_500Medium.137ab18bace28dd0bd83eb3b8ed2bc54.ttf (343KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/600SemiBold_Italic/Inter_600SemiBold_Italic.a349d1ac188e1a67689432f44de99849.ttf (347KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/600SemiBold/Inter_600SemiBold.a5f35888d2da465de352e0dcfaf33324.ttf (344KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/700Bold_Italic/Inter_700Bold_Italic.3398006c80026f0508aaaf4808950d56.ttf (348KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/700Bold/Inter_700Bold.6e237de4f1f413afa2fcc45c77ac343a.ttf (344KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/800ExtraBold_Italic/Inter_800ExtraBold_Italic.7ca909a56537d965feef41abe58b87e0.ttf (349KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/800ExtraBold/Inter_800ExtraBold.6016034293c084aa0c056e83938bf1cc.ttf (345KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/900Black_Italic/Inter_900Black_Italic.d5f78c24de59ce5e4bad405e10e71941.ttf (349KB)
+../../node_modules/.pnpm/@expo-google-fonts+inter@0.4.2/node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.bcec6eda9700a81ba92c483a2f2c02c1.ttf (345KB)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/arrow_down.017bc6ba3fc25503e5eb5e53826d48a8.png (9.5KB)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/error.d1ea1496f9057eb392d5bbf3732a61b7.png (469B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/file.19eeb73b9593a38f8e9f418337fc7d10.png (138B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/forward.d8b800c443b8972542883e0b9de2bdc6.png (188B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/pkg.ab19f4cbc543357183a20571f68380a3.png (364B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/react-navigation/elements/back-icon-mask.0a328cd9c1afd0afe8e3b1ec5165b1b4.png (653B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/react-navigation/elements/back-icon.35ba0eaec5a4f5ed12ca16fabeae451d.png (207B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/react-navigation/elements/clear-icon.c94f6478e7ae0cdd9f15de1fcb9e5e55.png (4 variations | 425B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/react-navigation/elements/close-icon.808e1b1b9b53114ec2838071a7e6daa7.png (4 variations | 235B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/react-navigation/elements/search-icon.286d67d3f74808a60a78d3ebf1a5fb57.png (928B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/sitemap.412dd9275b6b48ad28f5e3d81bb1f626.png (465B)
+../../node_modules/.pnpm/expo-router@57.0.19_4141ab01ad7e94c60347c7d5e01161b9/node_modules/expo-router/assets/unmatched.20e71bdf79e3a97bf55fd9e164041578.png (4.8KB)
+
+› web bundles (2):
+_expo/static/js/web/entry-26c01178e4b775c95dd4182037da47b9.js (1.9MB)
+_expo/static/js/web/SecureStore-7238752c07d03b0f564d462bceb4e4f6.js (2.4KB)
+
+› Files (3):
+favicon.ico (15KB)
+index.html (1.2KB)
+metadata.json (49B)
+
+Exported: dist
+web build: 9 packs copied to dist/content/packs
+web build: landing page + 4 fonts copied to dist/
+web build: PWA manifest + sw-manifest.json written (37 shell files, v1788711993055.2595)
+{
+  "status": "ok",
+  "outputDir": "/private/tmp/claude-502/-Users-noelturlington-Claude/aab5365c-3508-4e66-a6d6-fe952687f0ce/scratchpad/a3-deploy/apps/client/.vercel/output",
+  "outputDirRelative": "apps/client/.vercel/output",
+  "target": "production",
+  "message": "Build completed successfully.",
+  "next": [
+    {
+      "command": "vercel deploy --scope nturls-projects",
+      "when": "Deploy the build output"
+    }
+  ]
+}
+<claude-code-hint v="1" type="plugin" value="vercel@claude-plugins-official" />
+Vercel CLI 54.21.0 (Node.js 26.7.0)
+Retrieving project…
+Deploying nturls-projects/sotto
+Uploading [--------------------] (0.0B/10.3MB)
+Uploading [=====---------------] (2.6MB/10.3MB)
+Uploading [==========----------] (5.2MB/10.3MB)
+Uploading [===============-----] (7.7MB/10.3MB)
+Uploading [====================] (10.3MB/10.3MB)
+  Inspect         https://vercel.com/nturls-projects/sotto/6znKpiszApxL1qdoyoUtHh7HjD7J
+  Production      https://sotto-2jbd55dmt-nturls-projects.vercel.app
+Building…
+Building…
+Running build in Washington, D.C., USA (East) – iad1 (Turbo Build Machine)
+Build machine configuration: 30 cores, 60 GB
+Retrieving list of deployment files...
+Previous build caches not available.
+Downloading 545 deployment files...
+Using prebuilt build artifacts from .vercel/output
+Learn more: https://vercel.link/build-output-api
+Deploying outputs...
+[2K[1A[2K[G  Production      https://sotto-2jbd55dmt-nturls-projects.vercel.app
+Completing…
+▲ Aliased         https://readsotto.app
+{
+  "status": "ok",
+  "deployment": {
+    "id": "dpl_6znKpiszApxL1qdoyoUtHh7HjD7J",
+    "url": "https://sotto-2jbd55dmt-nturls-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/nturls-projects/sotto/6znKpiszApxL1qdoyoUtHh7HjD7J",
+    "readyState": "READY",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_6znKpiszApxL1qdoyoUtHh7HjD7J"
+  },
+  "message": "Deployment sotto-2jbd55dmt-nturls-projects.vercel.app ready.",
+  "next": [
+    {
+      "command": "vercel inspect sotto-2jbd55dmt-nturls-projects.vercel.app --scope nturls-projects",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod --scope nturls-projects",
+      "when": "Promote to production"
+    }
+  ]
+}
+EXIT CODE: 0
+
+=== Live checks 2026-09-06T16:26:54Z ===
+-- grep counts on https://readsotto.app/ --
+Add the voice tutor: 1
+Run it yourself: 2
+works either way: 0
+class="fold": 1
+Sign in: 1
+
+=== hosted.mjs e2e ===
+[hosted-smoke 2026-09-06T16:26:58.704Z] BASE_URL=https://readsotto.app
+[hosted-smoke 2026-09-06T16:26:58.705Z] --- width 375 ---
+[hosted-smoke 2026-09-06T16:26:59.361Z] 375: cold visit loaded
+[hosted-smoke 2026-09-06T16:26:59.383Z] 375: landing headline visible
+[hosted-smoke 2026-09-06T16:26:59.485Z] 375: clicked landing "Start reading" link
+[hosted-smoke 2026-09-06T16:26:59.487Z] 375: manifest link present
+[hosted-smoke 2026-09-06T16:27:00.326Z] 375: tap 1 — clicked "Start reading in French"
+[hosted-smoke 2026-09-06T16:27:00.327Z] 375: reader visible at https://readsotto.app/reader/fr-cendrillon
+[hosted-smoke 2026-09-06T16:27:00.863Z] 375: first-visit content cache has this book's chapter JSON
+[hosted-smoke 2026-09-06T16:27:00.863Z] 375: first-visit content cache has this book's narration audio
+[hosted-smoke 2026-09-06T16:27:00.897Z] 375: tap 2 — clicked play
+[hosted-smoke 2026-09-06T16:27:01.656Z] 375: narration playing within 10s
+[hosted-smoke 2026-09-06T16:27:01.708Z] 375: tapped "Une", translation panel shown
+[hosted-smoke 2026-09-06T16:27:02.349Z] 375: saved "Une" to vocabulary
+[hosted-smoke 2026-09-06T16:27:02.932Z] 375: saved word survived reload
+[hosted-smoke 2026-09-06T16:27:02.934Z] 375: service worker registered
+[hosted-smoke 2026-09-06T16:27:04.444Z] 375: shell cache (sotto-shell-1788711993055.2595) has index.html
+[hosted-smoke 2026-09-06T16:27:04.444Z] 375: content cache (sotto-content-1788711993055.2595) has 9 file(s) for this book
+[hosted-smoke 2026-09-06T16:27:04.456Z] 375: offline fetch('/index.html') -> 200
+[hosted-smoke 2026-09-06T16:27:04.456Z] 375: offline fetch(chapter json) -> 200
+[hosted-smoke 2026-09-06T16:27:04.456Z] 375: offline fetch(audio, Range bytes=0-1) -> 206
+[hosted-smoke 2026-09-06T16:27:04.560Z] 375: offline reload rendered the reader (network-level offline honored by the SW)
+[hosted-smoke 2026-09-06T16:27:04.598Z] --- width 375 done ---
+[hosted-smoke 2026-09-06T16:27:04.598Z] --- width 1440 ---
+[hosted-smoke 2026-09-06T16:27:05.008Z] 1440: cold visit loaded
+[hosted-smoke 2026-09-06T16:27:05.022Z] 1440: landing headline visible
+[hosted-smoke 2026-09-06T16:27:05.109Z] 1440: clicked landing "Start reading" link
+[hosted-smoke 2026-09-06T16:27:05.110Z] 1440: manifest link present
+[hosted-smoke 2026-09-06T16:27:05.390Z] 1440: tap 1 — clicked "Start reading in French"
+[hosted-smoke 2026-09-06T16:27:05.390Z] 1440: reader visible at https://readsotto.app/reader/fr-cendrillon
+[hosted-smoke 2026-09-06T16:27:06.155Z] 1440: first-visit content cache has this book's chapter JSON
+[hosted-smoke 2026-09-06T16:27:06.155Z] 1440: first-visit content cache has this book's narration audio
+[hosted-smoke 2026-09-06T16:27:06.203Z] 1440: tap 2 — clicked play
+[hosted-smoke 2026-09-06T16:27:06.963Z] 1440: narration playing within 10s
+[hosted-smoke 2026-09-06T16:27:07.014Z] 1440: tapped "Une", translation panel shown
+[hosted-smoke 2026-09-06T16:27:07.362Z] 1440: saved "Une" to vocabulary
+[hosted-smoke 2026-09-06T16:27:07.938Z] 1440: saved word survived reload
+[hosted-smoke 2026-09-06T16:27:07.939Z] 1440: service worker registered
+[hosted-smoke 2026-09-06T16:27:09.448Z] 1440: shell cache (sotto-shell-1788711993055.2595) has index.html
+[hosted-smoke 2026-09-06T16:27:09.448Z] 1440: content cache (sotto-content-1788711993055.2595) has 9 file(s) for this book
+[hosted-smoke 2026-09-06T16:27:09.453Z] 1440: offline fetch('/index.html') -> 200
+[hosted-smoke 2026-09-06T16:27:09.453Z] 1440: offline fetch(chapter json) -> 200
+[hosted-smoke 2026-09-06T16:27:09.453Z] 1440: offline fetch(audio, Range bytes=0-1) -> 206
+[hosted-smoke 2026-09-06T16:27:09.549Z] 1440: offline reload rendered the reader (network-level offline honored by the SW)
+[hosted-smoke 2026-09-06T16:27:09.581Z] --- width 1440 done ---
+[hosted-smoke 2026-09-06T16:27:09.581Z] RESULT: PASS
+
+=== fonts/start checks ===
+-- fonts HEAD --
+HTTP/2 200 
+-- /start status --
+200
+
+=== cleo_verify.py --quick ===
+(no WARN/FAIL lines found)

@@ -100,6 +100,8 @@
   "voice.limitReached": "本次工作階段已結束。",
   "voice.connectionIssue": "連線已中斷。",
   "voice.micUnavailable": "麥克風無法使用。請允許此網站使用麥克風，然後重新開啟導師。",
+  "voice.micUnavailableHint": "請在瀏覽器設定中允許此網站使用麥克風，然後再次點擊開始。",
+  "voice.tryAgain": "重試",
   "voice.unavailableServer": "語音導師需要 Sotto 伺服器，但伺服器沒有回應。閱讀、朗讀和點按翻譯仍可使用。",
   "voice.unavailableServices": "語音導師已關閉，因為以下服務未運行：{services}。閱讀、朗讀和點按翻譯仍可使用。",
   "voice.unavailableHint": "要啟用它，請啟動本地模型（docs/local-models.md）或將伺服器連接到 OpenAI（docs/openai.md）。",

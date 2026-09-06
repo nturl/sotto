@@ -37,3 +37,23 @@ export function gateVoiceState(state: VoiceState, captureReady: boolean): VoiceS
   if (state === 'listening' && !captureReady) return 'connecting';
   return state;
 }
+
+/**
+ * R6-B3 (B1 candidate 3): the mid-session `isBroken` panel used to be a
+ * dead end for `mic_unavailable` — a plain message and only "Read alone",
+ * with no way to actually fix the mic and continue. This decides which of
+ * the panel's extra recovery pieces (a platform-aware hint line, a "Try
+ * again" that re-runs the Start path, and a button to the setting's own
+ * screen) apply — every other broken-session error code keeps its plain,
+ * single-button panel.
+ */
+export interface MicUnavailablePanelState {
+  showHint: boolean;
+  showTryAgain: boolean;
+  showSettings: boolean;
+}
+
+export function micUnavailablePanelState(errorCode: string | undefined): MicUnavailablePanelState {
+  const isMicUnavailable = errorCode === 'mic_unavailable';
+  return { showHint: isMicUnavailable, showTryAgain: isMicUnavailable, showSettings: isMicUnavailable };
+}

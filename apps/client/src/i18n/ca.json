@@ -100,6 +100,8 @@
   "voice.limitReached": "Aquesta sessió ha acabat.",
   "voice.connectionIssue": "S'ha perdut la connexió.",
   "voice.micUnavailable": "Micròfon no disponible. Permet l'accés al micròfon per a aquest lloc i torna a obrir el tutor.",
+  "voice.micUnavailableHint": "Permet el micròfon per a aquest lloc als ajustos del navegador i torna a tocar Comença.",
+  "voice.tryAgain": "Torna-ho a provar",
   "voice.unavailableServer": "El tutor de veu necessita el servidor de Sotto i no ha respost. La lectura, la narració i la traducció en tocar segueixen funcionant.",
   "voice.unavailableServices": "El tutor de veu està desactivat perquè aquests serveis no s'estan executant: {services}. La lectura, la narració i la traducció en tocar segueixen funcionant.",
   "voice.unavailableHint": "Per activar-lo, inicia els models locals (docs/local-models.md) o configura el servidor amb OpenAI (docs/openai.md).",

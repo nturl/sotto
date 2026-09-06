@@ -100,6 +100,8 @@
   "voice.limitReached": "Esta sessão terminou.",
   "voice.connectionIssue": "Conexão perdida.",
   "voice.micUnavailable": "Microfone indisponível. Permita o acesso ao microfone para este site e reabra o tutor.",
+  "voice.micUnavailableHint": "Permita o microfone para este site nas configurações do navegador e toque em Começar novamente.",
+  "voice.tryAgain": "Tentar novamente",
   "voice.unavailableServer": "O tutor de voz precisa do servidor do Sotto, e ele não respondeu. Leitura, narração e tradução ao toque continuam funcionando.",
   "voice.unavailableServices": "O tutor de voz está desligado porque estes serviços não estão em execução: {services}. Leitura, narração e tradução ao toque continuam funcionando.",
   "voice.unavailableHint": "Para ativá-lo, inicie os modelos locais (docs/local-models.md) ou configure o servidor com a OpenAI (docs/openai.md).",

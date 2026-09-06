@@ -100,6 +100,8 @@
   "voice.limitReached": "Cette session est terminée.",
   "voice.connectionIssue": "Connexion perdue.",
   "voice.micUnavailable": "Micro indisponible. Autorise l'accès au micro pour ce site, puis rouvre le tuteur.",
+  "voice.micUnavailableHint": "Autorisez le microphone pour ce site dans les réglages de votre navigateur, puis appuyez de nouveau sur Commencer.",
+  "voice.tryAgain": "Réessayer",
   "voice.unavailableServer": "Le tuteur vocal a besoin du serveur Sotto, qui n'a pas répondu. La lecture, la narration et la traduction au toucher fonctionnent toujours.",
   "voice.unavailableServices": "Le tuteur vocal est désactivé car ces services ne sont pas en cours d'exécution : {services}. La lecture, la narration et la traduction au toucher fonctionnent toujours.",
   "voice.unavailableHint": "Pour l'activer, démarrez les modèles locaux (docs/local-models.md) ou configurez le serveur avec OpenAI (docs/openai.md).",

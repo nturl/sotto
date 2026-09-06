@@ -18,6 +18,7 @@ import { useTheme } from '../../src/ui/theme';
 import { webCursor } from '../../src/ui/tokens';
 import { useSottoStore } from '../../src/state/store';
 import { micIndicator } from '../../src/voice/micIndicator';
+import { micUnavailablePanelState } from '../../src/voice/voiceStartGate';
 import { buildPassageWindow } from '../../src/voice/passage';
 import { TutorModelsPanel, type TutorModelsPanelState } from '../../src/voice/TutorModelsPanel';
 import { useVoiceSession } from '../../src/voice/useVoiceSession';
@@ -135,6 +136,7 @@ export default function VoiceScreen() {
     session.voiceState === 'error' ||
     session.voiceState === 'reconnecting' ||
     !!session.limitReason;
+  const micPanel = micUnavailablePanelState(session.error?.code);
   const availability = session.availability;
   const isChecking = availability.status === 'checking';
   // O2-B: the old two-state gate (checking / unavailable) is now three-state.
@@ -349,6 +351,13 @@ export default function VoiceScreen() {
         // session) show the server's own message plus a "See plans" button
         // next to "Read alone" — every other broken state keeps its plain
         // generic message and single button.
+        //
+        // R6-B3 (B1 candidate 3): `mic_unavailable` used to be a dead end
+        // here — a plain message and only "Read alone", with no way to
+        // actually fix the mic and continue. It now also gets a hint line,
+        // a "Try again" that re-runs the Start path, and a button to the
+        // setting's own screen — the same route/label the pre-session
+        // panels above already use for it.
         <View style={styles.recovery}>
           <Text role="caption" color="warn" style={styles.recoveryText}>
             {session.limitReason === 'cap'
@@ -361,6 +370,11 @@ export default function VoiceScreen() {
                     ? t('voice.micUnavailable')
                     : t('voice.connectionIssue')}
           </Text>
+          {micPanel.showHint ? (
+            <Text role="caption" color="ink3" style={styles.recoveryText}>
+              {t('voice.micUnavailableHint')}
+            </Text>
+          ) : null}
           <View style={styles.recoveryButtons}>
             {session.limitReason === 'cap' ||
             session.error?.code === 'cap_exhausted' ||
@@ -368,6 +382,21 @@ export default function VoiceScreen() {
               <Button
                 title={t('voice.seePlans')}
                 onPress={() => router.push('/paywall')}
+                style={styles.recoveryButton}
+              />
+            ) : null}
+            {micPanel.showTryAgain ? (
+              <Button
+                title={t('voice.tryAgain')}
+                onPress={session.start}
+                style={styles.recoveryButton}
+              />
+            ) : null}
+            {micPanel.showSettings ? (
+              <Button
+                title={t('byok.row')}
+                variant="secondary"
+                onPress={() => router.push('/settings/openai-key')}
                 style={styles.recoveryButton}
               />
             ) : null}

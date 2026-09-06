@@ -4,7 +4,7 @@
  * "the tutor starts from a tap, not on mount".
  */
 import { describe, expect, it } from 'vitest';
-import { gateVoiceState, startControlState } from './voiceStartGate';
+import { gateVoiceState, micUnavailablePanelState, startControlState } from './voiceStartGate';
 
 describe('startControlState', () => {
   it('shows nothing while the availability probe is still checking, even before any tap', () => {
@@ -42,5 +42,28 @@ describe('gateVoiceState', () => {
       expect(gateVoiceState(state, false)).toBe(state);
       expect(gateVoiceState(state, true)).toBe(state);
     }
+  });
+});
+
+describe('micUnavailablePanelState', () => {
+  it('offers the hint, a Try again, and a Settings link for a mic_unavailable error', () => {
+    expect(micUnavailablePanelState('mic_unavailable')).toEqual({
+      showHint: true,
+      showTryAgain: true,
+      showSettings: true,
+    });
+  });
+
+  it('offers none of them for any other broken-session error code', () => {
+    expect(micUnavailablePanelState('session_create_failed')).toEqual({
+      showHint: false,
+      showTryAgain: false,
+      showSettings: false,
+    });
+    expect(micUnavailablePanelState(undefined)).toEqual({
+      showHint: false,
+      showTryAgain: false,
+      showSettings: false,
+    });
   });
 });

@@ -33,6 +33,25 @@ const MANIFEST_URL = '/sw-manifest.json';
 const SHELL_CACHE_PREFIX = 'sotto-shell-';
 const CONTENT_CACHE_PREFIX = 'sotto-content-';
 
+// R4-F2: on the paid origin the static export and the cloud API share one
+// origin, so these same-origin GETs must never be treated as app-shell
+// assets (see the fetch handler below). Taken from the cloud service's own
+// route registrations, plus the server-rendered /terms and /privacy pages.
+const API_PATH_PREFIXES = [
+  '/account',
+  '/admin',
+  '/auth',
+  '/billing',
+  '/health',
+  '/import',
+  '/imports',
+  '/me',
+  '/voice',
+  '/webhooks',
+  '/terms',
+  '/privacy',
+];
+
 // In-memory for the life of this worker instance — avoids a network (or
 // even a Cache Storage) round trip on every single fetch.
 let memoryManifest = null;
@@ -290,6 +309,13 @@ self.addEventListener('fetch', (event) => {
       ),
     );
     return;
+  }
+
+  // Without this, the app-shell handler below (cache-first) would treat
+  // every same-origin API GET as a shell asset and freeze it at its first
+  // response — e.g. still "free" right after a real subscribe.
+  if (API_PATH_PREFIXES.some((p) => url.pathname === p || url.pathname.startsWith(p + '/'))) {
+    return; // pass through, untouched — same treatment as a cross-origin request
   }
 
   // App shell: cache-first, network fallback. Navigation requests

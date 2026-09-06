@@ -1,11 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  LEAD_PAD_MS,
-  TAIL_PAD_MS,
-  TRIM_FADE_MS,
-  TRIM_ROLL_MS,
-  trimSilence,
-} from './word-audio.ts';
+import { LEAD_PAD_MS, TAIL_PAD_MS, TRIM_FADE_MS, TRIM_ROLL_MS, trimSilence } from './word-audio.ts';
 import { pcmDurationMs, type WavAudio } from './wav.ts';
 
 const SAMPLE_RATE = 24000;
@@ -86,11 +80,7 @@ describe('trimSilence — roll + fade at trim edges', () => {
       peak: 600,
       silence2Ms: 100,
     });
-    const { startFrame, endFrame } = findTrimBoundaries(
-      raw,
-      TRIM_BLOCK_MS,
-      SILENCE_RMS_THRESHOLD,
-    );
+    const { startFrame, endFrame } = findTrimBoundaries(raw, TRIM_BLOCK_MS, SILENCE_RMS_THRESHOLD);
 
     const rollFrames = Math.round((TRIM_ROLL_MS / 1000) * SAMPLE_RATE);
     const fadeFrames = Math.round((TRIM_FADE_MS / 1000) * SAMPLE_RATE);
@@ -109,10 +99,7 @@ describe('trimSilence — roll + fade at trim edges', () => {
 
     // "starts 25ms before the threshold crossing" (not clamped in this fixture).
     expect(expectedKeptStart).toBe(startFrame - rollFrames);
-    expect((startFrame - expectedKeptStart) / (SAMPLE_RATE / 1000)).toBeCloseTo(
-      TRIM_ROLL_MS,
-      5,
-    );
+    expect((startFrame - expectedKeptStart) / (SAMPLE_RATE / 1000)).toBeCloseTo(TRIM_ROLL_MS, 5);
 
     // "ends 25ms after the last crossing" (not clamped in this fixture).
     expect((expectedKeptEnd - endFrame) / (SAMPLE_RATE / 1000)).toBeCloseTo(TRIM_ROLL_MS, 5);

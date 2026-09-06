@@ -63,12 +63,29 @@ first response ~4.6s, ~195MB idle RSS — comfortably under `fly.toml.example`'s
 
 ### Fly (a public URL, costs ~nothing while idle)
 
+**This gives the server a public URL on the open internet.** Unlike Docker
+above (which only listens on your own machine unless you expose it
+yourself), a Fly deploy is reachable by anyone who finds or guesses it —
+and `SOTTO_BASIC_AUTH` is off by default (`apps/server/src/app.ts`). Deploy
+without setting it and a stray scanner can drive the tutor and hosted
+import on the OpenAI key you just gave it, at your expense, with nothing
+but the per-IP rate limit (10 session-creates/min) and `SOTTO_MAX_SESSIONS`
+standing in the way. Set the secret before your first `fly deploy`, not
+after:
+
 ```sh
 cp fly.toml.example fly.toml    # edit `app` to a name you own
 fly launch --copy-config --name <app-name> --now=false
-fly secrets set SOTTO_API_KEY=sk-...   # or the local-model URLs, as secrets
+SOTTO_PASS=$(openssl rand -hex 16); echo "save this password: $SOTTO_PASS"
+fly secrets set SOTTO_API_KEY=sk-... SOTTO_BASIC_AUTH=sotto:$SOTTO_PASS   # or the local-model URLs, as secrets
 fly deploy
 ```
+
+Save the password the `echo` prints somewhere real (a password manager, not
+a scrollback buffer) — `fly secrets set` stores it but never prints it back,
+so there is no way to read it off Fly afterward, only to overwrite it with
+a new one via `fly secrets set` again. See "What `SOTTO_BASIC_AUTH` is and
+isn't" below for what this credential does and does not protect against.
 
 One `shared-cpu-1x` machine, no volume (the server keeps no state worth
 persisting — see "Deletion / privacy" below), `min_machines_running = 0` so

@@ -732,7 +732,11 @@ establish the claim.
 | 72 | "The built image is 4.49 GB, dominated by a full non-production `node_modules`" | **PARTIAL** | 4.49 GB confirmed by the log and by `docker images` today. The breakdown is narrated prose that does not reconcile with `docker history` (M13) |
 | 73 | Implicit: the kit is safe to follow as documented | **UNSUPPORTED** | The kit's default `docker compose up -d` and its documented Fly quickstart both publish an unauthenticated, key-spending endpoint (H7). No verification row covers this |
 
-**Tally: 40 VERIFIED / 27 PARTIAL / 6 UNSUPPORTED** (73 rows).
+**Tally: 56 VERIFIED / 13 PARTIAL / 4 UNSUPPORTED** (73 rows).
+
+The four UNSUPPORTED rows are 50 (daily spend ceiling "verified live"), 54 (account
+deletion), 69 (Tier 5 has no cost row) and 73 (the deploy kit is safe to follow as
+documented).
 
 ---
 

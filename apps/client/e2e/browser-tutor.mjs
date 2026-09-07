@@ -52,6 +52,25 @@
  * Usage: node apps/client/e2e/browser-tutor.mjs
  *   PORT=8091          port for `npx serve dist -s`
  *   KEEP_PROFILE=1     reuse the cached models from a previous run
+ *   PROFILE_NAME=...   which cache profile under e2e/.cache to use
+ *   TUTOR_TIER=large   run the LARGE tier (whisper-small + Qwen3.5 4B,
+ *                      2844 MB) instead of the default `standard`
+ *                      (whisper-base + Qwen3.5 2B, 1240 MB). The tier is
+ *                      set the way the app itself persists it — as
+ *                      `tutorModelTier` inside the seeded
+ *                      `sotto.preferences` IndexedDB entry (see
+ *                      apps/client/src/state/createStore.ts's KEYS and
+ *                      DEFAULT_PREFERENCES) — rather than by clicking the
+ *                      "Large" row in TutorSizePicker. Seeding is the more
+ *                      robust of the two: the preference is read by the
+ *                      capability gate (useVoiceSession -> resolveAvailability),
+ *                      the panel and the session provider alike, so the whole
+ *                      run agrees on the tier from first paint; whereas the
+ *                      picker row is disabled whenever
+ *                      `deviceSupportsLargeTier()` says no, renders only in
+ *                      the needs-download/ready panel states, and a tap that
+ *                      silently no-ops would leave the run testing `standard`
+ *                      while claiming `large`.
  *
  * Diagnostic-only flags added for the STT/LLM-contention regression
  * (docs/evidence/browser-tutor-stt-regression-2026-09-05.log). None of
@@ -76,6 +95,14 @@ const STT_ONLY = process.env.STT_ONLY === '1';
 // test whether the second utterance's presence in the file changes VAD
 // segmentation of the first one.
 const SINGLE_UTTERANCE = process.env.SINGLE_UTTERANCE === '1';
+// Which tutor size this run downloads and drives. `standard` (the default,
+// so an existing invocation is unchanged) is whisper-base + Qwen3.5 2B;
+// `large` is whisper-small + Qwen3.5 4B — see TUTOR_TIERS in
+// packages/voice/src/browser-cascade/models.ts.
+const TUTOR_TIER = process.env.TUTOR_TIER === 'large' ? 'large' : 'standard';
+// Measured totals from that same catalog, only for the log line that says
+// what the panel SHOULD be offering; the assertion still reads the panel.
+const EXPECTED_SIZE_MB = TUTOR_TIER === 'large' ? 2844 : 1240;
 import { execFile, spawn } from 'node:child_process';
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -136,16 +163,58 @@ function fuzzyIncludesWord(text, target, maxDist = 2) {
   return tokens.some((tok) => levenshtein(tok, targetFolded) <= maxDist);
 }
 
+/**
+ * Turns the voice screen's rendered rows into the "You: ..." / "Tutor: ..."
+ * lines the assertions below are written against.
+ *
+ * src/voice/ui/Transcript.tsx does not render a "You:"/"Tutor:" prefix: each
+ * turn is a speaker LABEL element (`voice.learnerLabel` = "You",
+ * `voice.tutorLabel` = "Tutor", uppercased by `textTransform`, which
+ * `innerText` honours) followed by the turn's text as its own element — so a
+ * plain `/^(You|Tutor):/` filter over `innerText` rows matches nothing, which
+ * is why the caption assertions had rotted. Pairing a lone label row with the
+ * row after it reconstructs the same shape from the DOM as it stands, and the
+ * legacy prefixed form is still accepted so an older build's screen reads the
+ * same way.
+ */
+function captionLinesFrom(rows) {
+  const out = [];
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i];
+    if (/^(You|Tutor):/.test(row)) {
+      out.push(row);
+      continue;
+    }
+    const label = /^(you|tutor)$/i.exec(row);
+    const text = rows[i + 1];
+    if (label && text && !/^(you|tutor)$/i.test(text)) {
+      out.push(`${label[1].toLowerCase() === 'tutor' ? 'Tutor' : 'You'}: ${text}`);
+      i += 1;
+    }
+  }
+  return out;
+}
+
 const TARGET_WORD = 'cigarra';
 const UTTERANCE = '¿Qué significa la palabra cigarra?';
 const TOOL_UTTERANCE = 'Por favor, guarda la palabra cigarra.';
-const DOWNLOAD_TIMEOUT_MS = 300_000;
+// The large tier is ~2.8 GB against Hugging Face / MLC rather than the
+// standard tier's ~1.2 GB, so it gets a proportionally longer budget.
+const DOWNLOAD_TIMEOUT_MS = Number(
+  process.env.DOWNLOAD_TIMEOUT_MS ?? (TUTOR_TIER === 'large' ? 1_200_000 : 300_000),
+);
 // Two learner turns, each waiting on a full LLM (and, for English, TTS)
 // round trip on Qwen3 1.7B — generous budgets rather than tight ones, since
 // the point of this script is to prove the pipeline works, not to be a
 // latency benchmark (the `metric` lines in the log carry the real numbers).
-const TUTOR_REPLY_TIMEOUT_MS = 60_000;
-const TOOL_ROUND_TRIP_TIMEOUT_MS = 60_000;
+// The large tier's Qwen3.5 4B decodes a good deal slower than the standard
+// tier's 2B on the same adapter (measured on the first large run: the second
+// turn was still `thinking` 130 s in), so both budgets — and the fixture's
+// own utterance spacing below — scale with the tier rather than being
+// tightened for the small one.
+const SLOW_TIER = TUTOR_TIER === 'large';
+const TUTOR_REPLY_TIMEOUT_MS = SLOW_TIER ? 150_000 : 60_000;
+const TOOL_ROUND_TRIP_TIMEOUT_MS = SLOW_TIER ? 150_000 : 60_000;
 const SESSION_TIMEOUT_MS = TUTOR_REPLY_TIMEOUT_MS + TOOL_ROUND_TRIP_TIMEOUT_MS + 30_000;
 // Long enough that the fake-mic wav's own loop point never falls inside a
 // real turn's processing window for the length of this test's session.
@@ -158,7 +227,7 @@ const SESSION_TIMEOUT_MS = TUTOR_REPLY_TIMEOUT_MS + TOOL_ROUND_TRIP_TIMEOUT_MS +
 // this test is waiting on. A real learner never repeats their question
 // every 8 seconds, so the fix stays; the fixture's silence just needs to
 // outlast SESSION_TIMEOUT_MS so the loop point is never reached again.
-const TRAILING_SILENCE_MS = 180_000;
+const TRAILING_SILENCE_MS = SLOW_TIER ? SESSION_TIMEOUT_MS + 60_000 : 180_000;
 // Wide enough that turn 1 has finished replying before utterance 2 plays,
 // even on the slow path this task's own fixes made correct rather than
 // fast: waiting out a still-loading LLM (`llmLoadPromise` in worker.ts,
@@ -171,7 +240,7 @@ const TRAILING_SILENCE_MS = 180_000;
 // browser-tutor-slice5-2026-09-05.log). 2.5s was fine before the LLM-load
 // race was fixed (turn 1 used to fail fast instead of waiting); now that it
 // waits properly, it needs more room to finish first.
-const INTER_UTTERANCE_SILENCE_MS = 15_000;
+const INTER_UTTERANCE_SILENCE_MS = SLOW_TIER ? 60_000 : 15_000;
 
 mkdirSync(CACHE_DIR, { recursive: true });
 
@@ -308,6 +377,8 @@ const PREFERENCES = {
   speakingPace: 'normal',
   narrationSpeed: 1,
   onboarded: true,
+  // The app's own key for "Tutor size" (createStore.ts DEFAULT_PREFERENCES).
+  tutorModelTier: TUTOR_TIER,
 };
 
 async function seedProfile(page) {
@@ -348,6 +419,7 @@ async function main() {
   }
   if (!process.env.KEEP_PROFILE) rmSync(PROFILE_DIR, { recursive: true, force: true });
 
+  log(`Tutor tier: ${TUTOR_TIER} (~${EXPECTED_SIZE_MB} MB), profile ${path.basename(PROFILE_DIR)}`);
   log(`Synthesizing fake-mic wav: "${UTTERANCE}" then "${TOOL_UTTERANCE}"`);
   const wav = await buildFakeMicWav(
     SINGLE_UTTERANCE ? [UTTERANCE] : [UTTERANCE, TOOL_UTTERANCE],
@@ -499,7 +571,10 @@ async function main() {
     const bodyBefore = await page.evaluate(() => document.body.innerText);
     const sizeMatch = alreadyInstalled ? ['', 'cached'] : /about (\d+) MB/.exec(bodyBefore);
     if (!alreadyInstalled) {
-      log(`Panel states the download size: ${sizeMatch ? `${sizeMatch[1]} MB` : 'NOT SHOWN'}`);
+      log(
+        `Panel states the download size: ${sizeMatch ? `${sizeMatch[1]} MB` : 'NOT SHOWN'} ` +
+          `(tier ${TUTOR_TIER} totals ${EXPECTED_SIZE_MB} MB in TUTOR_TIERS)`,
+      );
       await cta.click();
     }
 
@@ -574,10 +649,16 @@ async function main() {
           .map((l) => l.trim())
           .filter(Boolean);
         return {
-          stateLine: rows.find((l) => stateRe.test(l)) ?? '',
-          captionLines: rows.filter((l) => /^(You|Tutor):/.test(l)),
+          // ControlCluster.tsx renders the state chip through
+          // `voice.state.<state>` (lowercase in en.json) with
+          // `textTransform: 'uppercase'`, which `innerText` honours — so the
+          // row reads "LISTENING". Fold it back to the lowercase names the
+          // state machine (and every comparison below) uses.
+          stateLine: (rows.find((l) => stateRe.test(l)) ?? '').toLowerCase(),
+          rows,
         };
       });
+      snapshot.captionLines = captionLinesFrom(snapshot.rows);
 
       if (snapshot.stateLine && snapshot.stateLine !== lastState) {
         lastState = snapshot.stateLine;
@@ -615,11 +696,13 @@ async function main() {
         // retry — a moment to land before we snapshot and exit. Extendable
         // for diagnostics that need to observe the reactive fallback path.
         await page.waitForTimeout(Number(process.env.STT_ONLY_WAIT_MS ?? 1000));
-        const finalSnapshot = await page.evaluate(() =>
-          document.body.innerText
-            .split('\n')
-            .map((l) => l.trim())
-            .filter((l) => /^(You|Tutor):/.test(l)),
+        const finalSnapshot = captionLinesFrom(
+          await page.evaluate(() =>
+            document.body.innerText
+              .split('\n')
+              .map((l) => l.trim())
+              .filter(Boolean),
+          ),
         );
         for (const line of finalSnapshot) {
           if (!timeline.includes(line)) {

@@ -75,3 +75,79 @@ describe('streamChatCompletion request body', () => {
     });
   });
 });
+
+describe('asynchronous spoken text handling', () => {
+  it('waits for each sentence handler before the next delta or stream completion', async () => {
+    let release!: () => void;
+    let started!: () => void;
+    const gate = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    const firstStarted = new Promise<void>((resolve) => {
+      started = resolve;
+    });
+    const order: string[] = [];
+    let completed = false;
+    const fetchImpl = vi.fn(
+      async () =>
+        new Response(
+          sseStream([
+            { choices: [{ delta: { content: 'First.' } }] },
+            { choices: [{ delta: { content: 'Second.' } }] },
+          ]),
+        ),
+    ) as unknown as typeof fetch;
+    const pending = streamChatCompletion(
+      MESSAGES,
+      {
+        url: 'http://127.0.0.1:8080/v1',
+        model: 'fixture',
+        fetchImpl,
+      },
+      {
+        onTextDelta: async (text) => {
+          order.push(`start:${text}`);
+          if (text === 'First.') {
+            started();
+            await gate;
+          }
+          order.push(`end:${text}`);
+        },
+      },
+    ).then((result) => {
+      completed = true;
+      return result;
+    });
+    await firstStarted;
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    try {
+      expect(order).toEqual(['start:First.']);
+      expect(completed).toBe(false);
+    } finally {
+      release();
+    }
+    await expect(pending).resolves.toMatchObject({ text: 'First.Second.' });
+    expect(order).toEqual(['start:First.', 'end:First.', 'start:Second.', 'end:Second.']);
+  });
+});
+
+it('propagates an asynchronous speech-handler failure to the voice pipeline', async () => {
+  const fetchImpl = vi.fn(
+    async () => new Response(sseStream([{ choices: [{ delta: { content: 'A sentence.' } }] }])),
+  ) as unknown as typeof fetch;
+  await expect(
+    streamChatCompletion(
+      MESSAGES,
+      {
+        url: 'http://127.0.0.1:8080/v1',
+        model: 'fixture',
+        fetchImpl,
+      },
+      {
+        onTextDelta: async () => {
+          throw new Error('speech fixture failed');
+        },
+      },
+    ),
+  ).rejects.toThrow('speech fixture failed');
+});

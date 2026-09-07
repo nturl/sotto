@@ -72,6 +72,10 @@ ENV NODE_ENV=production \
 # from the build stage.
 COPY --from=prod-deps /app /app
 COPY --from=build /app/apps/client/dist /app/apps/client/dist
+# Drop root before running the server. The node:*-slim images already ship an
+# unprivileged `node` user; nothing here writes outside the image, and
+# SOTTO_STATIC_DIR / packages/content are read-only at runtime.
+USER node
 EXPOSE 8790
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
   CMD node -e "fetch('http://127.0.0.1:'+(process.env.SOTTO_PORT||8790)+'/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"

@@ -22,6 +22,7 @@ function testConfig(overrides: Partial<Config> = {}): Config {
     IMPORT_JOB_MAX_MS: 45 * 60_000,
     SOTTO_STATIC_DIR: undefined,
     SOTTO_BASIC_AUTH: undefined,
+    SOTTO_TRUST_PROXY: false,
     ...overrides,
   };
 }
@@ -100,6 +101,67 @@ describe('POST /voice/session concurrent-session cap', () => {
     const third = await app.inject({ method: 'POST', url: '/voice/session', payload: sessionBody });
     expect(third.statusCode).toBe(429);
     expect(third.json()).toEqual({ error: 'too_many_sessions' });
+  });
+});
+
+describe('POST /voice/session behind a TLS-terminating proxy', () => {
+  // Fly/Tailscale/nginx terminate TLS and speak plain HTTP to this process.
+  // Without SOTTO_TRUST_PROXY the server cannot see either the real caller or
+  // the browser's https, which breaks the wsUrl scheme and the rate limiter.
+  it('hands back a ws:// URL when proxy headers are NOT trusted', async () => {
+    app = await buildApp(testConfig({ SOTTO_TRUST_PROXY: false }));
+    const res = await app.inject({
+      method: 'POST',
+      url: '/voice/session',
+      payload: sessionBody,
+      headers: { 'x-forwarded-proto': 'https' },
+    });
+    expect(res.statusCode).toBe(200);
+    expect(res.json().wsUrl).toMatch(/^ws:\/\//);
+  });
+
+  it('upgrades the wsUrl to wss:// once proxy headers are trusted', async () => {
+    app = await buildApp(testConfig({ SOTTO_TRUST_PROXY: true }));
+    const res = await app.inject({
+      method: 'POST',
+      url: '/voice/session',
+      payload: sessionBody,
+      headers: { 'x-forwarded-proto': 'https' },
+    });
+    expect(res.statusCode).toBe(200);
+    // An https page refuses a ws:// socket as mixed content, so this is the
+    // difference between the tutor working and silently failing on Fly.
+    expect(res.json().wsUrl).toMatch(/^wss:\/\//);
+  });
+
+  it('separates callers by their forwarded IP, not by the proxy address', async () => {
+    app = await buildApp(testConfig({ SOTTO_TRUST_PROXY: true, SOTTO_MAX_SESSIONS: 1000 }));
+    // Burn one caller's whole per-IP budget.
+    for (let i = 0; i < 10; i++) {
+      await app.inject({
+        method: 'POST',
+        url: '/voice/session',
+        payload: sessionBody,
+        headers: { 'x-forwarded-for': '203.0.113.7' },
+      });
+    }
+    const exhausted = await app.inject({
+      method: 'POST',
+      url: '/voice/session',
+      payload: sessionBody,
+      headers: { 'x-forwarded-for': '203.0.113.7' },
+    });
+    expect(exhausted.statusCode).toBe(429);
+
+    // A different caller behind the same proxy must be unaffected. Without
+    // trustProxy both would share one bucket and this would also be 429.
+    const other = await app.inject({
+      method: 'POST',
+      url: '/voice/session',
+      payload: sessionBody,
+      headers: { 'x-forwarded-for': '203.0.113.8' },
+    });
+    expect(other.statusCode).toBe(200);
   });
 });
 

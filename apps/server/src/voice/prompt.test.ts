@@ -86,6 +86,11 @@ describe('buildSystemInstruction passage rendering', () => {
     // packages/core/src/prompt.test.ts, which exercises the same builder.
     // Run 7 raised both to 4600 for the spoken-turn rules (two sentences,
     // one follow-up, proportionate correction, passage-only facts).
-    expect(out.length).toBeLessThan(4600);
+    // Raised from 4600 to 4800 for the passage fence (the BOOK TEXT markers
+    // plus the one rule line telling the model never to obey text inside
+    // them). That fence is a security control, not prose: imported books are
+    // arbitrary user-supplied text that lands in this same instruction, so
+    // the ~50 tokens it costs per turn buy prompt-injection resistance.
+    expect(out.length).toBeLessThan(4800);
   });
 });

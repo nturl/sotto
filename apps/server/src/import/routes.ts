@@ -9,7 +9,7 @@ import multipart from '@fastify/multipart';
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import type { Config } from '../config.js';
-import { isOriginAllowed, parseAllowedOrigins } from '../security.js';
+import { isLoopbackHost, isOriginAllowed, parseAllowedOrigins } from '../security.js';
 import { ImportError, narrateChapter, type NarrationMode } from '@sotto/content/import';
 import { ImportJobRegistry } from './jobs.js';
 
@@ -48,6 +48,7 @@ export async function importRoutes(app: FastifyInstance, config: Config): Promis
   const tts = { baseUrl: config.SOTTO_TTS_URL, apiKey: config.SOTTO_API_KEY };
   const stt = { baseUrl: config.SOTTO_STT_URL, apiKey: config.SOTTO_API_KEY };
   const allowedOrigins = parseAllowedOrigins(config.SOTTO_CORS_ORIGINS, DEFAULT_CORS_ORIGINS);
+  const allowLoopbackOrigins = isLoopbackHost(config.SOTTO_HOST);
 
   app.post('/import', async (request, reply) => {
     if (registry.isBusy()) {
@@ -132,7 +133,7 @@ export async function importRoutes(app: FastifyInstance, config: Config): Promis
     // browser still requires Access-Control-Allow-Origin on the response,
     // which @fastify/cors' onSend hook never runs for a raw-written
     // response like this SSE stream, so it's set by hand here.
-    if (isOriginAllowed(origin, allowedOrigins) && origin) {
+    if (isOriginAllowed(origin, allowedOrigins, allowLoopbackOrigins) && origin) {
       headers['access-control-allow-origin'] = origin;
     }
     reply.raw.writeHead(200, headers);

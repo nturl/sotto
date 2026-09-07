@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { RateLimiter, isBasicAuthValid, isOriginAllowed, parseAllowedOrigins } from './security.js';
+import {
+  RateLimiter,
+  isBasicAuthValid,
+  isLoopbackHost,
+  isOriginAllowed,
+  parseAllowedOrigins,
+} from './security.js';
 
 describe('parseAllowedOrigins', () => {
   it('splits a comma-separated env value into trimmed origins', () => {
@@ -91,5 +97,39 @@ describe('isBasicAuthValid', () => {
 
   it('rejects malformed base64 without throwing', () => {
     expect(isBasicAuthValid('Basic ***not-base64***', 'sotto:demo-only')).toBe(false);
+  });
+});
+
+describe('isLoopbackHost', () => {
+  it('treats real loopback binds as loopback', () => {
+    expect(isLoopbackHost('127.0.0.1')).toBe(true);
+    expect(isLoopbackHost('localhost')).toBe(true);
+    expect(isLoopbackHost('::1')).toBe(true);
+    expect(isLoopbackHost(' 127.0.0.1 ')).toBe(true);
+  });
+
+  it('does NOT treat all-interfaces binds as loopback — that is the exposed case', () => {
+    expect(isLoopbackHost('0.0.0.0')).toBe(false);
+    expect(isLoopbackHost('::')).toBe(false);
+    expect(isLoopbackHost('192.168.1.10')).toBe(false);
+  });
+});
+
+describe('isOriginAllowed with the loopback bypass disabled', () => {
+  const allowed = ['https://sotto.example'];
+
+  it('still allows an explicitly allowlisted origin', () => {
+    expect(isOriginAllowed('https://sotto.example', allowed, false)).toBe(true);
+  });
+
+  it('rejects a localhost origin once the server is reachable off-box', () => {
+    // An exposed instance must not accept whatever dev server the victim
+    // happens to have running on their own machine.
+    expect(isOriginAllowed('http://localhost:3000', allowed, false)).toBe(false);
+    expect(isOriginAllowed('http://127.0.0.1:8081', allowed, false)).toBe(false);
+  });
+
+  it('still allows an absent origin (native clients send none)', () => {
+    expect(isOriginAllowed(undefined, allowed, false)).toBe(true);
   });
 });

@@ -1,9 +1,17 @@
 /**
  * Icon glyphs: 24px viewBox strokes drawn with the local SVG layer.
- * Icon strokes use the ink token by default; the speaker/ring usages pass
- * the accent token explicitly (accent as 2px outline only, per DESIGN.md).
+ * Paths follow `planning/design/app-mockup-v2.html` (run 8, lane E); stroke
+ * weights follow the mockup's CSS — 1.5 for the 22px tab glyphs, 1.6 for
+ * the 20px icon buttons (`.ib svg`) and the 18px transport glyphs
+ * (`.tc svg`), 1.8 for the 15-18px speaker/save glyphs (`.spk svg`,
+ * `.save svg`). Caps and joins are round everywhere, as in the mockup.
+ *
+ * Colour comes from `useTheme()`, not the module-scope `themeColors`
+ * proxy: a proxy read at module scope freezes whichever palette was active
+ * when the module was evaluated, so glyphs kept their light-mode ink after
+ * a scheme switch (RECON.md risk 10).
  */
-import { themeColors as colors } from './theme';
+import { useTheme } from './theme';
 import { Circle, Line, Path, Polygon, Rect, Svg } from './svg';
 
 export type GlyphProps = {
@@ -12,20 +20,29 @@ export type GlyphProps = {
   strokeWidth?: number;
 };
 
+/** Resolves an explicit colour, else the live ink token. */
+function useGlyphColor(color?: string) {
+  const { colors } = useTheme();
+  return color ?? colors.ink;
+}
+
 function GlyphShell({
   size = 24,
-  color = colors.ink,
+  color,
   strokeWidth = 1.8,
   children,
 }: GlyphProps & { children: React.ReactNode }) {
+  const stroke = useGlyphColor(color);
   return (
     <Svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
       fill="none"
-      stroke={color}
+      stroke={stroke}
       strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
       {children}
     </Svg>
@@ -52,9 +69,9 @@ export function GiftGlyph(props: GlyphProps) {
 
 export function SearchGlyph(props: GlyphProps) {
   return (
-    <GlyphShell {...props}>
+    <GlyphShell strokeWidth={1.6} {...props}>
       <Circle cx={11} cy={11} r={7} />
-      <Path d="M21 21l-4.3-4.3" />
+      <Path d="M20 20l-3.5-3.5" />
     </GlyphShell>
   );
 }
@@ -84,10 +101,11 @@ export function BackGlyph(props: GlyphProps) {
   );
 }
 
-export function PlayGlyph({ size = 24, color = colors.ink }: GlyphProps) {
+export function PlayGlyph({ size = 24, color }: GlyphProps) {
+  const fill = useGlyphColor(color);
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24">
-      <Path d="M8 5v14l11-7z" fill={color} />
+      <Path d="M7 4l13 8-13 8z" fill={fill} />
     </Svg>
   );
 }
@@ -102,16 +120,16 @@ export function WaveformGlyph(props: GlyphProps) {
 
 export function SpeakerGlyph(props: GlyphProps) {
   return (
-    <GlyphShell strokeWidth={2} {...props}>
-      <Path d="M3 9v6h4l5 5V4L7 9H3z" />
-      <Path d="M16 8a5 5 0 0 1 0 8" />
+    <GlyphShell strokeWidth={1.8} {...props}>
+      <Path d="M4 9v6h4l5 4V5L8 9H4z" />
+      <Path d="M16 9a4 4 0 0 1 0 6" />
     </GlyphShell>
   );
 }
 
 export function BookmarkGlyph(props: GlyphProps) {
   return (
-    <GlyphShell strokeWidth={2} {...props}>
+    <GlyphShell strokeWidth={1.8} {...props}>
       <Path d="M6 3h12v18l-6-4-6 4z" />
     </GlyphShell>
   );
@@ -127,8 +145,8 @@ export function TrashGlyph(props: GlyphProps) {
 
 export function CloseGlyph(props: GlyphProps) {
   return (
-    <GlyphShell strokeWidth={2} {...props}>
-      <Path d="M5 5l14 14M19 5 5 19" />
+    <GlyphShell strokeWidth={1.6} {...props}>
+      <Path d="M6 6l12 12M18 6 6 18" />
     </GlyphShell>
   );
 }
@@ -168,11 +186,12 @@ export function ReplayGlyph(props: GlyphProps) {
   );
 }
 
-export function PauseGlyph({ size = 24, color = colors.ink }: GlyphProps) {
+export function PauseGlyph({ size = 24, color }: GlyphProps) {
+  const fill = useGlyphColor(color);
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24">
-      <Rect x={6} y={5} width={4} height={14} rx={1} fill={color} />
-      <Rect x={14} y={5} width={4} height={14} rx={1} fill={color} />
+      <Rect x={6} y={5} width={4} height={14} rx={1} fill={fill} />
+      <Rect x={14} y={5} width={4} height={14} rx={1} fill={fill} />
     </Svg>
   );
 }
@@ -188,7 +207,7 @@ export function StopGlyph(props: GlyphProps) {
 export function MicGlyph(props: GlyphProps) {
   return (
     <GlyphShell strokeWidth={1.8} {...props}>
-      <Rect x={9} y={3} width={6} height={11} rx={3} />
+      <Path d="M12 3a4 4 0 0 1 4 4v5a4 4 0 0 1-8 0V7a4 4 0 0 1 4-4z" />
       <Path d="M5 11a7 7 0 0 0 14 0M12 18v3" />
     </GlyphShell>
   );
@@ -221,19 +240,57 @@ export function CapGlyph(props: GlyphProps) {
   );
 }
 
-export function SkipPrevGlyph({ size = 24, color = colors.ink }: GlyphProps) {
+/**
+ * The four tab-bar glyphs (`app-mockup-v2.html:345-348`), drawn at 22px
+ * with stroke 1.5 by `TabBar`. `BookOpenGlyph` is the mockup's split
+ * open-book (For you); `OpenBookGlyph` above is the older single-spine
+ * drawing still used by the book-detail metadata strip.
+ */
+export function BookOpenGlyph(props: GlyphProps) {
   return (
-    <Svg width={size} height={size} viewBox="0 0 24 24">
-      <Path d="M6 6h2v12H6zM20 6l-10 6 10 6z" fill={color} />
-    </Svg>
+    <GlyphShell strokeWidth={1.5} {...props}>
+      <Path d="M4 5h6a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H4z" />
+      <Path d="M20 5h-6a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h7z" />
+    </GlyphShell>
   );
 }
 
-export function SkipNextGlyph({ size = 24, color = colors.ink }: GlyphProps) {
+/** Library tab: three books upright with a fourth leaning. */
+export function ShelvesGlyph(props: GlyphProps) {
   return (
-    <Svg width={size} height={size} viewBox="0 0 24 24">
-      <Path d="M16 6h2v12h-2zM4 6l10 6-10 6z" fill={color} />
-    </Svg>
+    <GlyphShell strokeWidth={1.5} {...props}>
+      <Path d="M4 4h4v16H4zM10 4h4v16h-4zM16.5 5l3.8 1 -3.9 14-3.8-1z" />
+    </GlyphShell>
+  );
+}
+
+/**
+ * Settings tab: the mockup's sun-style gear (`app-mockup-v2.html:348`),
+ * distinct from `SettingsGlyph`, the cog used by the title-row icon button
+ * (`app-mockup-v2.html:206`).
+ */
+export function GearGlyph(props: GlyphProps) {
+  return (
+    <GlyphShell strokeWidth={1.5} {...props}>
+      <Circle cx={12} cy={12} r={3} />
+      <Path d="M4 12h2M18 12h2M12 4v2M12 18v2M6.3 6.3l1.4 1.4M16.3 16.3l1.4 1.4M6.3 17.7l1.4-1.4M16.3 7.7l1.4-1.4" />
+    </GlyphShell>
+  );
+}
+
+export function SkipPrevGlyph(props: GlyphProps) {
+  return (
+    <GlyphShell strokeWidth={1.6} {...props}>
+      <Path d="M6 5v14M18 5 8 12l10 7z" />
+    </GlyphShell>
+  );
+}
+
+export function SkipNextGlyph(props: GlyphProps) {
+  return (
+    <GlyphShell strokeWidth={1.6} {...props}>
+      <Path d="M18 5v14M6 5l10 7-10 7z" />
+    </GlyphShell>
   );
 }
 
@@ -256,7 +313,7 @@ export function ForwardGlyph(props: GlyphProps) {
 export function HandDrawnArrowGlyph({
   width = 24,
   height = 40,
-  color = colors.ink,
+  color,
   strokeWidth = 1.5,
 }: {
   width?: number;
@@ -264,13 +321,14 @@ export function HandDrawnArrowGlyph({
   color?: string;
   strokeWidth?: number;
 }) {
+  const stroke = useGlyphColor(color);
   return (
     <Svg
       width={width}
       height={height}
       viewBox="0 0 24 40"
       fill="none"
-      stroke={color}
+      stroke={stroke}
       strokeWidth={strokeWidth}
     >
       <Path d="M12 2 C 10.5 8 13.5 13 12 19 C 10.7 25 13.4 29 12 34" strokeLinecap="round" />

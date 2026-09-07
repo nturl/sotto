@@ -228,6 +228,50 @@ describe('sessionManager.retry', () => {
   });
 });
 
+describe('sessionManager.pauseSession after a limit', () => {
+  afterEach(async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.endSession();
+  });
+
+  it('ends a session that already hit its limit instead of pausing it', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+    testStore.useStore.getState().pushCaption({ speaker: 'tutor', text: 'Bonjour', final: true });
+    testStore.useStore.getState().setLimitReason('idle');
+
+    sessionManager.pauseSession();
+
+    const state = testStore.useStore.getState();
+    expect(state.sessionRecord).toBeNull();
+    expect(state.captions).toEqual([]);
+    expect(state.limitReason).toBeNull();
+    expect(sessionManager.getProvider()).toBeNull();
+  });
+
+  it('still pauses a live session', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+    sessionManager.pauseSession();
+    expect(testStore.useStore.getState().sessionRecord?.status).toBe('paused');
+    expect(sessionManager.getProvider()).not.toBeNull();
+  });
+});
+
 // run7/F1 directive 2: the tap action for a `playback_blocked` error event.
 describe('sessionManager.resumePlayback', () => {
   afterEach(async () => {

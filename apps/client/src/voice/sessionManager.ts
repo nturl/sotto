@@ -394,6 +394,13 @@ export function isSessionActiveFor(bookId: string): boolean {
  * provider keeps running, only the store's session status changes. */
 export function pauseSession(): void {
   if (!active) return;
+  // A session that already hit its idle/max-duration limit is over (the
+  // provider disconnected itself); pausing it would carry a dead transcript
+  // and the "session has ended" panel into the next book or passage.
+  if (useSottoStore.getState().limitReason) {
+    endSession();
+    return;
+  }
   useSottoStore.getState().patchSessionRecord({ status: 'paused' });
 }
 

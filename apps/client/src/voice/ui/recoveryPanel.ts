@@ -18,7 +18,8 @@
  */
 import type { VoiceState } from '@sotto/voice';
 
-export type RecoveryButton = 'tryAgain' | 'settings' | 'plans' | 'readAlone' | 'resumePlayback';
+export type RecoveryButton =
+  'tryAgain' | 'continue' | 'newSession' | 'settings' | 'plans' | 'readAlone' | 'resumePlayback';
 
 export interface RecoverySpec {
   /** i18n key for the main message. */
@@ -46,8 +47,17 @@ export function recoveryPanelFor(input: RecoveryInput): RecoverySpec {
       buttons: cloudEnabled ? ['plans', 'readAlone'] : ['readAlone'],
     };
   }
-  if (limitReason === 'max_duration' || limitReason === 'idle') {
-    return { messageKey: 'voice.limitReached', buttons: ['readAlone'] };
+  // A limit is a deliberate end, not a failure, but it used to be wired
+  // like one: the flag was set and the only exit was "Read alone", so the
+  // Start button (rendered after this panel) could never come back. Idle
+  // is short (90 s) and the learner usually wants the same conversation,
+  // so `continue` goes through `retry()` and keeps the transcript; max
+  // duration is a real end, so `newSession` starts over clean.
+  if (limitReason === 'idle') {
+    return { messageKey: 'voice.limitReached', buttons: ['continue', 'readAlone'] };
+  }
+  if (limitReason === 'max_duration') {
+    return { messageKey: 'voice.limitReached', buttons: ['newSession', 'readAlone'] };
   }
 
   switch (code) {

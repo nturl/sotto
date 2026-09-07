@@ -19,6 +19,9 @@ import type { RecoveryButton, RecoverySpec } from './recoveryPanel';
 export interface RecoveryViewProps {
   spec: RecoverySpec;
   onTryAgain: () => void;
+  /** Starts over after a `max_duration` limit — the screen's `session.start`,
+   * which ends the spent session (clearing the transcript) before beginning. */
+  onNewSession: () => void;
   onResumePlayback: () => void;
   onReadAlone: () => void;
   message?: string;
@@ -27,6 +30,7 @@ export interface RecoveryViewProps {
 export function RecoveryView({
   spec,
   onTryAgain,
+  onNewSession,
   onResumePlayback,
   onReadAlone,
   message,
@@ -38,6 +42,10 @@ export function RecoveryView({
     switch (button) {
       case 'tryAgain':
         return { title: t('voice.tryAgain'), onPress: onTryAgain, variant: 'primary' as const };
+      case 'continue':
+        return { title: t('voice.continue'), onPress: onTryAgain, variant: 'primary' as const };
+      case 'newSession':
+        return { title: t('voice.newSession'), onPress: onNewSession, variant: 'primary' as const };
       case 'resumePlayback':
         return {
           title: t('voice.recovery.resumePlaybackAction'),

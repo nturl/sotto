@@ -51,6 +51,18 @@ describe('recoveryPanelFor', () => {
     expect(spec.buttons).toEqual(['resumePlayback', 'readAlone']);
   });
 
+  it('idle timeout: continue keeps the transcript, read alone exits', () => {
+    const spec = recoveryPanelFor(input({ limitReason: 'idle', voiceState: 'idle' }));
+    expect(spec.messageKey).toBe('voice.limitReached');
+    expect(spec.buttons).toEqual(['continue', 'readAlone']);
+  });
+
+  it('max duration: a fresh session, not a continue (the old one is over)', () => {
+    const spec = recoveryPanelFor(input({ limitReason: 'max_duration', voiceState: 'idle' }));
+    expect(spec.messageKey).toBe('voice.limitReached');
+    expect(spec.buttons).toEqual(['newSession', 'readAlone']);
+  });
+
   it('plan required / cap exhausted: See plans only when cloud is enabled', () => {
     const withCloud = recoveryPanelFor(input({ code: 'plan_required', cloudEnabled: true }));
     const withoutCloud = recoveryPanelFor(input({ code: 'cap_exhausted', cloudEnabled: false }));

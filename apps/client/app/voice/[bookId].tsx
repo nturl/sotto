@@ -344,6 +344,7 @@ export default function VoiceScreen() {
           spec={recoverySpec}
           message={recoveryMessage}
           onTryAgain={session.retry}
+          onNewSession={session.start}
           onResumePlayback={session.resumePlayback}
           onReadAlone={() => router.replace(readSeulPath)}
         />

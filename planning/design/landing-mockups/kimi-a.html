@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sotto — a free, open-source graded reader</title>
+<style>
+:root{
+  --canvas:#F4ECDF; --surface:#FBF6EC; --surface2:#EFE4D2;
+  --ink:#221E1B; --ink2:#6E6459; --ink3:#9C9287;
+  --hair:rgba(34,30,27,0.12);
+  --accent:#E4572E; --peach:#F2C8B4; --marker:#FFD8A8;
+  --teal:#1F4F57; --sage:#5B8A6B;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--canvas); color:var(--ink);
+  font-family:Inter,-apple-system,system-ui,sans-serif;
+  font-size:16px; line-height:1.55;
+}
+.serif{font-family:"Fraunces","Iowan Old Style",Georgia,serif}
+.mono{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
+}
+a{color:var(--ink); text-underline-offset:3px; transition:color 120ms ease}
+a:hover{color:var(--ink2)}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+
+/* header */
+header{border-bottom:1px solid var(--hair)}
+.hd{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:18px 0}
+.brand{font-family:"Fraunces","Iowan Old Style",Georgia,serif;font-weight:300;font-size:26px;text-decoration:none;color:var(--ink)}
+nav{display:flex;gap:22px;align-items:baseline;font-size:14px}
+nav a{color:var(--ink2);text-decoration:none}
+nav a:hover{color:var(--ink)}
+
+/* hero */
+.hero{padding:44px 0 56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+.kicker{color:var(--ink3);margin-bottom:16px}
+h1{font-family:"Fraunces","Iowan Old Style",Georgia,serif;font-weight:300;font-size:clamp(30px,4.6vw,52px);line-height:1.08;letter-spacing:-0.01em}
+.lede{margin-top:18px;color:var(--ink2);font-size:17px;max-width:34em}
+.cta-row{margin-top:26px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.cta{
+  display:inline-block;background:var(--accent);color:var(--surface);
+  text-decoration:none;font-size:15px;padding:13px 28px;border-radius:2px;
+  transition:filter 120ms ease;
+}
+.cta:hover{filter:brightness(0.93);color:var(--surface)}
+.cta-note{margin-top:12px;color:var(--ink3)}
+
+/* the book */
+.book{
+  background:var(--surface);border:1px solid var(--hair);border-radius:2px;
+  box-shadow:6px 6px 0 0 var(--peach);
+  display:grid;grid-template-columns:1fr 1fr;min-width:0;
+}
+.page{padding:22px 20px 18px;min-width:0}
+.page.cover{display:flex;align-items:stretch}
+.page.cover svg{width:100%;height:auto;display:block}
+.page.text{border-left:1px solid var(--hair)}
+.page .mono{color:var(--ink3);display:block;margin-bottom:14px}
+.passage{font-family:"Fraunces","Iowan Old Style",Georgia,serif;font-weight:400;font-size:16.5px;line-height:1.75}
+.tap{background:rgba(242,200,180,0.18);border-radius:2px;padding:0 1px}
+.saved{display:inline-block;background:var(--marker);border-radius:2px;padding:0 4px;transform:skew(-7deg) rotate(-1deg)}
+.saved>span{display:inline-block;transform:skew(7deg) rotate(1deg)}
+.gloss{
+  margin-top:16px;border:1px solid var(--hair);border-radius:2px;
+  background:var(--surface);padding:10px 12px;
+}
+.gloss .mono{color:var(--ink3);display:block;margin-bottom:4px}
+.gloss p{font-family:"Fraunces","Iowan Old Style",Georgia,serif;font-size:15px}
+
+/* sections */
+section{padding:52px 0;border-top:1px solid var(--hair)}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:30px;flex-wrap:wrap}
+h2{font-family:"Fraunces","Iowan Old Style",Georgia,serif;font-weight:300;font-size:clamp(24px,3vw,34px);line-height:1.15}
+.sec-head .mono{color:var(--ink3)}
+.prose{max-width:38em;color:var(--ink2)}
+.prose+.prose{margin-top:14px}
+
+/* numbered prose rows (steps, ways, install) */
+.rows{border-top:1px solid var(--hair);margin-top:26px}
+.row{display:grid;grid-template-columns:210px minmax(0,1fr);gap:24px;padding:24px 0;border-bottom:1px solid var(--hair)}
+.row .lab{color:var(--ink3);padding-top:3px}
+.row h3{font-family:"Fraunces","Iowan Old Style",Georgia,serif;font-weight:400;font-size:20px;margin-bottom:6px}
+.row p{color:var(--ink2);max-width:40em}
+.row code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;background:var(--surface2);border:1px solid var(--hair);border-radius:2px;padding:1px 6px}
+
+/* screenshot placeholder */
+.shot{
+  border:1px solid var(--hair);border-radius:10px;background:var(--surface2);
+  min-height:230px;display:flex;align-items:center;justify-content:center;
+  padding:24px;text-align:center;
+}
+.shot span{color:var(--ink3);font-size:13px}
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:30px}
+
+.caveat{color:var(--ink3);font-size:13px;max-width:44em}
+
+footer{border-top:1px solid var(--hair);padding:30px 0 44px}
+.ft{display:flex;gap:26px;flex-wrap:wrap;font-size:14px;align-items:baseline}
+.ft .mono{color:var(--ink3)}
+.ft a{color:var(--ink2);text-decoration:none}
+.ft a:hover{color:var(--ink)}
+.ft-note{margin-top:14px;color:var(--ink3);font-size:12.5px}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;gap:34px;padding:30px 0 44px}
+  .shots{grid-template-columns:1fr}
+}
+@media (max-width:700px){
+  .row{grid-template-columns:1fr;gap:6px;padding:20px 0}
+  nav{gap:16px;font-size:13px}
+  .passage{font-size:15px}
+  section{padding:40px 0}
+}
+a:focus-visible,.cta:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hd">
+    <a class="brand" href="/start">Sotto</a>
+    <nav>
+      <a href="/start">Try a sample</a>
+      <a href="https://app.readsotto.app/account">Sign in</a>
+      <a href="https://github.com/readsotto/sotto">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO: the book is the hero -->
+  <div class="wrap hero">
+    <div>
+      <p class="mono kicker">Graded reader · Voice tutor · Free &amp; open source</p>
+      <h1>Read a book at your level, then talk about it.</h1>
+      <p class="lede">Sotto rewrites short books to the level you choose. Tap any word for its meaning, hear the story narrated, save words to review — then discuss the passage with a voice tutor that has read the same page.</p>
+      <div class="cta-row">
+        <a class="cta" href="https://app.readsotto.app/account?intent=start">Start free</a>
+        <a href="/start">Try a sample, no account</a>
+      </div>
+      <p class="mono cta-note">No account needed to try · No analytics</p>
+    </div>
+
+    <div class="book" role="img" aria-label="An open copy of Sotto: the cover on the left, a graded French passage on the right with one word tapped and one word saved.">
+      <div class="page cover">
+        <svg viewBox="0 0 200 264" aria-hidden="true">
+          <rect x="0" y="0" width="200" height="264" rx="2" fill="#1F4F57"/>
+          <rect x="20" y="30" width="160" height="1.5" fill="#5B8A6B"/>
+          <text x="100" y="118" text-anchor="middle" fill="#FBF6EC" font-family="Fraunces,'Iowan Old Style',Georgia,serif" font-weight="300" font-size="34">Sotto</text>
+          <text x="100" y="142" text-anchor="middle" fill="#F2C8B4" font-family="Fraunces,'Iowan Old Style',Georgia,serif" font-size="12" font-style="italic">un livre adapté</text>
+          <rect x="20" y="216" width="160" height="1.5" fill="#5B8A6B"/>
+          <text x="100" y="240" text-anchor="middle" fill="#FBF6EC" font-family="ui-monospace,Menlo,monospace" font-size="9" letter-spacing="1.5">FRENCH · LEVEL A2</text>
+        </svg>
+      </div>
+      <div class="page text">
+        <span class="mono">Chapter one · A2</span>
+        <p class="passage">Sotto est un livre gratuit et <span class="tap">adapté</span>. Vous choisissez une langue et un <span class="saved"><span>niveau</span></span>, puis vous lisez. Touchez un mot pour le traduire.</p>
+        <div class="gloss">
+          <span class="mono">Tapped word</span>
+          <p>adapté — graded (rewritten at your level)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW READING WORKS -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>What you do in Sotto</h2>
+        <span class="mono">Three steps</span>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <span class="mono lab">01 · Choose</span>
+          <div><h3>Pick a language and a level</h3>
+          <p>Open a short book that has been adapted — rewritten — to exactly that level, so the text stretches you without stopping you.</p></div>
+        </div>
+        <div class="row">
+          <span class="mono lab">02 · Read</span>
+          <div><h3>Tap, listen, save</h3>
+          <p>Tap any word for its meaning. Hear the story narrated. Save the words you want to keep and review them later.</p></div>
+        </div>
+        <div class="row">
+          <span class="mono lab">03 · Talk</span>
+          <div><h3>Discuss what you just read</h3>
+          <p>The voice tutor talks with you about the passage you just finished — it already knows what you read.</p></div>
+        </div>
+      </div>
+      <div class="shots">
+        <div class="shot"><span>Real screenshot: reader with a word popup open</span></div>
+        <div class="shot"><span>Real screenshot: the voice tutor mid-conversation</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TUTOR, EXPLAINED PLAINLY -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>The tutor, in plain words</h2>
+        <span class="mono">Read, then speak</span>
+      </div>
+      <p class="prose">You read a passage. Then you talk about it — out loud, in the language you are learning. The tutor listens and answers, and because it has the passage in front of it too, the conversation stays on what you actually just read: the words, the plot, what you think happens next.</p>
+      <p class="prose">Below are the four ways to use Sotto. The first is free reading itself; the other three are different ways to power the voice tutor — alternatives to each other, not tiers.</p>
+
+      <div class="rows">
+        <div class="row">
+          <span class="mono lab">01 · Free reading</span>
+          <div><h3>Free reading</h3>
+          <p>Reading, listening, tap-to-translate, saved vocabulary, and an in-browser tutor that runs on on-device models are free — with the on-device tutor, nothing leaves your device. No account is needed to try: your progress and saved words stay in this browser until you create an account, and an account keeps them. <a href="https://app.readsotto.app/account?intent=start">Start free</a> or <a href="/start">try a sample</a>.</p></div>
+        </div>
+        <div class="row">
+          <span class="mono lab">02 · The plan</span>
+          <div><h3>The plan — a hosted voice tutor</h3>
+          <p>Nothing to set up: sign in and talk. $9.99 a month or $79 a year, after a 3-day trial. Sign-in for the plan is at <a href="https://app.readsotto.app/account">app.readsotto.app</a>. With the plan, your voice goes to OpenAI through Sotto&rsquo;s server, which brokers each tutor turn; Sotto does not store transcripts or recordings — only usage minutes and billing.</p></div>
+        </div>
+        <div class="row">
+          <span class="mono lab">03 · Your own key</span>
+          <div><h3>Your own key</h3>
+          <p>Works with or without the plan. Paste an OpenAI API key in Settings and the page calls OpenAI directly from your browser. The key stays on this device, and OpenAI bills you, not Sotto. <a href="/docs/byok">Read the guide</a>.</p></div>
+        </div>
+        <div class="row">
+          <span class="mono lab">04 · Run it yourself</span>
+          <div><h3>Run it yourself</h3>
+          <p>Free, on your own hardware. <code>docker compose up</code> serves the app and the tutor from one origin, using local models or your own key. <a href="/docs/self-hosting">Read the self-hosting guide</a>.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTALL -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Add Sotto to your device</h2>
+        <span class="mono">Installs like an app</span>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <span class="mono lab">iPhone / iPad</span>
+          <div><p>In Safari, tap Share, choose &ldquo;Add to Home Screen&rdquo;, then open Sotto from your Home Screen.</p></div>
+        </div>
+        <div class="row">
+          <span class="mono lab">Android</span>
+          <div><p>In Chrome, open the menu and tap &ldquo;Install app&rdquo;.</p></div>
+        </div>
+        <div class="row">
+          <span class="mono lab">Desktop</span>
+          <div><p>In Chrome, click the install icon in the address bar (or open the menu and choose &ldquo;Install Sotto&rdquo;), then confirm Install.</p></div>
+        </div>
+      </div>
+      <p class="prose" style="margin-top:22px">A book you have opened keeps working offline.</p>
+    </div>
+  </section>
+
+  <div class="wrap" style="padding-bottom:36px">
+    <p class="caveat">A quiet caveat: the books are machine-adapted drafts, and their levels are estimates.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <span class="mono">Sotto</span>
+      <a href="https://github.com/readsotto/sotto">GitHub</a>
+      <a href="/docs/byok">Docs: your own key</a>
+      <a href="/docs/self-hosting">Docs: self-hosting</a>
+      <a href="/docs/add-a-book">Docs: add a book</a>
+    </div>
+    <p class="ft-note">Code Apache-2.0 · Stories CC BY-SA 4.0 · No analytics on this page or in the app.</p>
+  </div>
+</footer>
+
+</body>
+</html>

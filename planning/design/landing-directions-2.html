@@ -1,0 +1,3478 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sotto landing directions, sheet 2</title>
+<style>
+:root{
+  --canvas:#F1ECE3; --paper:#F4ECDF; --surface:#FBF6EC; --surface-2:#EFE4D2;
+  --ink:#221E1B; --ink-2:#655B50; --ink-3:#8A7F73; --hair:rgba(34,30,27,0.14);
+  --accent:#E4572E; --on-accent:#1A1614; --peach:#F2C8B4; --mark:#FFD8A8; --quiet:#B5AB9F; --teal:#1F4F57;
+  --serif:"Fraunces","Iowan Old Style",Georgia,serif; --sans:Inter,-apple-system,system-ui,sans-serif; --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--canvas);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+@media (min-width:900px){.wrap{padding:0 48px}}
+h1,h2,h3{font-family:var(--serif);font-weight:300;margin:0;letter-spacing:-0.02em}
+h1{font-size:clamp(2.6rem, 1.8rem + 3.2vw, 4.5rem);line-height:1.0}
+h2{font-size:clamp(2rem, 1.4rem + 1.8vw, 3rem);line-height:1.05}
+h3{font-size:1.25rem;line-height:1.3;letter-spacing:-0.01em;font-weight:400}
+p{margin:0}
+.hairline{height:1px;background:var(--hair)}
+
+/* masthead */
+.mast{padding:56px 0 48px}
+.mast .lede{max-width:38rem;font-size:1.0625rem;color:var(--ink-2);margin-top:20px}
+.axis{margin-top:36px;display:grid;grid-template-columns:1fr;gap:20px}
+@media (min-width:900px){.axis{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:48px}}
+.axis p.big{font-family:var(--serif);font-weight:300;font-size:1.5rem;line-height:1.3;letter-spacing:-0.01em}
+.complaints{list-style:none;margin:0;padding:0;border-top:1px solid var(--hair)}
+.complaints li{display:grid;grid-template-columns:2rem minmax(0,1fr) auto;gap:12px;padding:10px 0;border-bottom:1px solid var(--hair);align-items:baseline}
+.complaints .n{font-family:var(--serif);font-size:1.1rem;color:var(--ink-2)}
+.complaints .by{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-2)}
+@media (max-width:900px){.complaints li{grid-template-columns:2rem minmax(0,1fr)}.complaints .by{grid-column:2}}
+@media (min-width:900px){.complaints .by{white-space:nowrap}}
+
+/* bands */
+.band{padding:72px 0 80px}
+.band-head{display:grid;grid-template-columns:1fr;gap:12px 48px;align-items:end}
+@media (min-width:900px){.band-head{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}}
+.band-head .thesis{font-family:var(--serif);font-weight:300;font-size:1.375rem;line-height:1.35;color:var(--ink);max-width:34rem}
+.band-head .thesis em{font-style:italic}
+.credit{margin-top:8px}
+
+.stage{margin-top:36px}
+.specimen{display:grid;grid-template-columns:1fr;gap:28px;align-items:start}
+@media (min-width:900px){.specimen{grid-template-columns:minmax(0,2.2fr) minmax(0,1fr)}}
+.frame{position:relative;border:1px solid var(--hair);background:var(--paper);border-radius:2px;overflow:hidden}
+.frame .cap{padding:0 10px;align-items:center;min-height:44px;background:var(--canvas);border-top:1px solid var(--hair);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.frame .cap a{color:var(--ink);display:inline-flex;align-items:center;min-height:44px}
+.scaler{width:100%;overflow:hidden;position:relative}
+.scaler iframe{border:0;display:block;transform-origin:0 0;background:var(--paper)}
+.scaler[data-w="1280"]{aspect-ratio:1280/800}
+.scaler[data-w="375"]{aspect-ratio:375/760}
+.scaler[data-w="1280"] iframe{width:1280px;height:800px}
+.scaler[data-w="375"] iframe{width:375px;height:760px}
+.variants{display:flex;gap:8px;align-items:center;margin-top:0;margin-bottom:14px;flex-wrap:wrap}
+.vchip{font:inherit;font-size:13px;padding:7px 14px;border:1px solid var(--hair);background:transparent;color:var(--ink-2);border-radius:2px;cursor:pointer;min-height:44px;transition:background 120ms ease,color 120ms ease,border-color 120ms ease}
+.vchip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.vchip:hover{border-color:var(--ink)}
+.variant[hidden]{display:none}
+
+.notes{margin-top:40px;display:grid;grid-template-columns:1fr;gap:24px 40px}
+@media (min-width:700px){.notes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1100px){.notes{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.note h4{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);font-weight:400;margin:0 0 8px;padding-bottom:6px;border-bottom:1px solid var(--hair)}
+.note ul{margin:0;padding-left:1.05rem}
+.note li{margin:4px 0}
+.note p{color:var(--ink)}
+.dna dt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);float:left;width:5.2rem;clear:left;padding-top:2px}
+.dna dd{margin:0 0 6px 5.4rem}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:28px;align-items:center}
+.chips .lab{margin-right:8px}
+.chip{font:inherit;font-size:14px;padding:10px 16px;min-height:44px;border:1px solid var(--hair);border-radius:2px;background:transparent;color:var(--ink);cursor:pointer;transition:background 120ms ease,color 120ms ease}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.chip:hover{border-color:var(--ink)}
+
+/* ===== Band C: the open spread ===== */
+.c-hero{display:grid;grid-template-columns:1fr;gap:32px;align-items:center;padding:36px 0 8px}
+@media (min-width:900px){.c-hero{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:56px}}
+.c-copy h2{font-size:clamp(2.6rem, 1.8rem + 3.2vw, 4.25rem);line-height:1.0}
+.c-copy .sub{margin-top:18px;font-size:1.0625rem;color:var(--ink-2);max-width:26rem}
+.c-cta{display:inline-flex;align-items:center;justify-content:center;margin-top:26px;background:var(--accent);color:var(--on-accent);text-decoration:none;font-weight:500;padding:0 26px;height:52px;border-radius:10px;box-shadow:4px 4px 0 0 var(--ink);transition:transform 120ms ease,box-shadow 120ms ease}
+.c-cta:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 0 var(--ink)}
+.c-links{margin-top:14px;display:flex;gap:18px;font-size:14px}
+.c-links a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink);text-decoration:underline;text-decoration-color:var(--hair);text-underline-offset:3px}
+.c-stage{position:relative}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.step{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:0 12px;height:44px;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--hair);border-radius:2px;background:transparent;color:var(--ink-2);cursor:pointer;transition:background 120ms ease,color 120ms ease}
+.step b{font-family:var(--serif);font-weight:400;font-size:13px;letter-spacing:0}
+.step[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.book{position:relative;display:grid;grid-template-columns:1fr 1fr;background:var(--surface);border:1px solid var(--hair);border-radius:2px;box-shadow:6px 6px 0 0 var(--peach);min-height:340px}
+.book::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--hair)}
+.book::after{content:"";position:absolute;top:0;bottom:0;left:calc(50% - 14px);width:28px;background:linear-gradient(90deg,rgba(34,30,27,0) 0%,rgba(34,30,27,.07) 50%,rgba(34,30,27,0) 100%);pointer-events:none}
+.page{padding:22px 22px 26px;min-width:0}
+.page .lab{display:block;margin-bottom:12px}
+.passage{font-family:var(--serif);font-size:clamp(1.05rem, 0.9rem + 0.6vw, 1.3rem);line-height:1.5}
+.passage .w{border-radius:2px;padding:0 2px;margin:0 -2px;transition:background 120ms ease,color 120ms ease}
+.book[data-state="tap"] .w[data-word="adapte"]{background:rgba(242,200,180,.55)}
+.book[data-state="listen"] .w{color:var(--quiet)}
+.book[data-state="listen"] .w.said{color:var(--ink)}
+.book[data-state="speak"] .w[data-word="adapte"]{background:rgba(242,200,180,.55)}
+.mark{position:relative;white-space:nowrap}
+.mark::after{content:"";position:absolute;left:-2px;right:-2px;bottom:1px;height:.55em;background:var(--mark);z-index:-1;transform:skew(-8deg)}
+.right .pane{display:none}
+.book[data-state="read"] .pane.read,.book[data-state="tap"] .pane.tap,.book[data-state="listen"] .pane.listen,.book[data-state="speak"] .pane.speak,.book[data-state="power"] .pane.power{display:block}
+.cover-meta{font-family:var(--serif);font-weight:300;font-size:2rem;line-height:1.05;letter-spacing:-0.02em}
+.cover-meta small{display:block;font-family:var(--sans);font-size:14px;color:var(--ink-2);margin-top:10px;letter-spacing:0}
+.gloss{border:1px solid var(--hair);border-radius:10px;padding:12px 14px;background:var(--paper)}
+.gloss .word{font-family:var(--serif);font-size:1.5rem;line-height:1.1}
+.gloss .def{color:var(--ink-2);margin-top:4px}
+.gloss .save{margin-top:10px;display:inline-block;font-size:13px;padding:6px 10px;border-radius:10px;background:var(--surface-2)}
+.transport{display:flex;align-items:center;gap:12px;margin-top:10px}
+.ring{width:44px;height:44px;border-radius:9999px;border:2px solid var(--accent);display:inline-flex;align-items:center;justify-content:center}
+.ring svg{width:14px;height:14px;fill:var(--ink)}
+.track{flex:1;height:3px;background:var(--surface-2);position:relative;border-radius:2px}
+.track::after{content:"";position:absolute;left:0;top:0;bottom:0;width:38%;background:var(--ink);border-radius:2px}
+.talk{display:grid;gap:10px}
+.talk .line{display:grid;grid-template-columns:3.4rem minmax(0,1fr);gap:8px;align-items:baseline}
+.talk .who{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.talk .say{font-family:var(--serif);font-size:1.05rem;line-height:1.4}
+.talk .state{display:flex;align-items:center;gap:8px;margin-top:6px}
+.talk .dot{width:8px;height:8px;border-radius:9999px;background:var(--accent)}
+.power{display:grid;gap:6px}
+.power label{display:grid;grid-template-columns:18px minmax(0,1fr);gap:10px;align-items:start;padding:8px 0;border-bottom:1px solid var(--hair);cursor:pointer;font-size:14px}
+.power label:last-child{border-bottom:0}
+.power input{margin:4px 0 0;accent-color:var(--ink)}
+.power .t{font-weight:500}
+.power .d{color:var(--ink-2);font-size:13px;display:block;margin-top:2px}
+.footnote{margin-top:22px;min-height:3.2em;color:var(--ink-2);font-size:14px;max-width:38rem}
+.footnote b{color:var(--ink);font-weight:500}
+@media (max-width:560px){.book{grid-template-columns:1fr}.book::before,.book::after{display:none}.right .page{border-top:1px solid var(--hair)}}
+.c-below{margin-top:34px;padding-top:22px;border-top:1px solid var(--hair);display:grid;grid-template-columns:1fr;gap:20px 40px}
+@media (min-width:900px){.c-below{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.c-below .k{font-family:var(--serif);font-weight:400;font-size:1.1rem;margin-bottom:6px}
+.c-below p{color:var(--ink-2);font-size:14px}
+
+/* reply builder */
+.reply{padding:72px 0 96px}
+.reply .lede{color:var(--ink-2);margin:12px 0 28px;max-width:38rem}
+.rb-row{display:grid;grid-template-columns:1fr;gap:10px 24px;align-items:center;padding:14px 0;border-top:1px solid var(--hair)}
+@media (min-width:700px){.rb-row{grid-template-columns:16rem minmax(0,1fr)}}
+.rb-row:last-of-type{border-bottom:1px solid var(--hair)}
+.rb-name{font-family:var(--serif);font-size:1.15rem;font-weight:400}
+.rb-name small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin-top:2px}
+.rb-chips{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.rb-base{margin-top:28px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.rb-base label{display:inline-flex;gap:8px;align-items:center;min-height:44px;cursor:pointer}
+.rb-base input{accent-color:var(--ink)}
+.rb-out{margin-top:20px;display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:700px){.rb-out{grid-template-columns:minmax(0,1fr) auto;align-items:start}}
+textarea{width:100%;min-height:7.5em;font:inherit;font-size:15px;line-height:1.5;padding:14px 16px;border:1px solid var(--hair);border-radius:10px;background:var(--surface);color:var(--ink);resize:vertical}
+.copy{font:inherit;font-weight:500;height:52px;padding:0 24px;border:0;border-radius:10px;background:var(--accent);color:var(--on-accent);cursor:pointer;box-shadow:4px 4px 0 0 var(--ink);transition:transform 120ms ease,box-shadow 120ms ease}
+.copy:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 0 var(--ink)}
+.copy[data-copied]{background:var(--ink);color:var(--surface)}
+footer{padding:28px 0 56px;color:var(--ink-2);font-size:13px}
+footer .hairline{margin-bottom:20px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="wrap mast">
+  <p class="mono">Sotto · readsotto.app · landing directions, sheet 2 · 2026-09-06</p>
+  <h1 style="margin-top:14px">What the eye lands on first.</h1>
+  <p class="lede">Three bets on the ten-second read. Two came back from the fan-out (Kimi K3 and GPT-6 Astra each sent two mockups, and both families independently converged on the same two skeletons, so bands A and B show each family's version). Band C is mine. Every band answers all six complaints; they differ on the one thing that carries the value before any reading happens.</p>
+  <div class="axis">
+    <div>
+      <p class="mono" style="margin-bottom:10px">The axis</p>
+      <p class="big">The object (a literal book), the act (read a page, then talk about it, shown on one persistent stage), or the structure (the page itself is the reader, a margin holds the promise).</p>
+    </div>
+    <div>
+      <p class="mono" style="margin-bottom:10px">Your six complaints, and where each band answers them</p>
+      <ol class="complaints">
+        <li><span class="n">1</span><span>Does not show the value or what is offered</span><span class="by">A: headline + book · B: rail promise · C: the stage</span></li>
+        <li><span class="n">2</span><span>There should be a book on it</span><span class="by">A: cover + page · B: small cover in rail · C: open spread</span></li>
+        <li><span class="n">3</span><span>"Voice tutor listens and answers using your own key" is unclear</span><span class="by">A, B: tutor row before the four ways · C: Speak, then Power</span></li>
+        <li><span class="n">4</span><span>Free self-host flow is unclear</span><span class="by">A, B: one row, one command, one link · C: Power footnote</span></li>
+        <li><span class="n">5</span><span>"Compare all four ways" matrix looked bad</span><span class="by">A, B, C: prose rows, never a grid</span></li>
+        <li><span class="n">6</span><span>"Add it to your phone" is unclear</span><span class="by">A, B: three device rows · C: device-detected, one at a time</span></li>
+      </ol>
+    </div>
+  </div>
+</header>
+<div class="hairline"></div>
+
+<!-- ============ BAND A ============ -->
+<section class="band wrap" id="band-a" data-band="A">
+  <div class="band-head">
+    <div>
+      <p class="mono">Direction A · poster register · the object</p>
+      <h2 style="margin-top:10px">The Book</h2>
+    </div>
+    <p class="thesis">This direction says: <em>here is a book at your level, and a word you can tap.</em> The book sits beside the headline as a drawn object with a cover, a level label, and the real sample passage on its page. Everything after it is a plain list.</p>
+  </div>
+  <div class="stage">
+    <div class="variants" role="group" aria-label="Direction A variant">
+      <span class="mono" style="margin-right:6px">Variant</span>
+      <button class="vchip" data-variant="kimi-a" aria-pressed="true">Kimi K3</button>
+      <button class="vchip" data-variant="astra-a" aria-pressed="false">GPT-6 Astra</button>
+    </div>
+    <div class="variant" data-variant="kimi-a">
+      <div class="specimen">
+        <div class="frame"><div class="scaler" data-w="1280"><iframe title="Direction A, Kimi K3, at 1280" loading="lazy" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;title&gt;Sotto — a free, open-source graded reader&lt;/title&gt;
+&lt;style&gt;
+:root{
+  --canvas:#F4ECDF; --surface:#FBF6EC; --surface2:#EFE4D2;
+  --ink:#221E1B; --ink2:#6E6459; --ink3:#9C9287;
+  --hair:rgba(34,30,27,0.12);
+  --accent:#E4572E; --peach:#F2C8B4; --marker:#FFD8A8;
+  --teal:#1F4F57; --sage:#5B8A6B;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--canvas); color:var(--ink);
+  font-family:Inter,-apple-system,system-ui,sans-serif;
+  font-size:16px; line-height:1.55;
+}
+.serif{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif}
+.mono{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
+}
+a{color:var(--ink); text-underline-offset:3px; transition:color 120ms ease}
+a:hover{color:var(--ink2)}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+
+/* header */
+header{border-bottom:1px solid var(--hair)}
+.hd{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:18px 0}
+.brand{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:300;font-size:26px;text-decoration:none;color:var(--ink)}
+nav{display:flex;gap:22px;align-items:baseline;font-size:14px}
+nav a{color:var(--ink2);text-decoration:none}
+nav a:hover{color:var(--ink)}
+
+/* hero */
+.hero{padding:44px 0 56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+.kicker{color:var(--ink3);margin-bottom:16px}
+h1{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:300;font-size:clamp(30px,4.6vw,52px);line-height:1.08;letter-spacing:-0.01em}
+.lede{margin-top:18px;color:var(--ink2);font-size:17px;max-width:34em}
+.cta-row{margin-top:26px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.cta{
+  display:inline-block;background:var(--accent);color:var(--surface);
+  text-decoration:none;font-size:15px;padding:13px 28px;border-radius:2px;
+  transition:filter 120ms ease;
+}
+.cta:hover{filter:brightness(0.93);color:var(--surface)}
+.cta-note{margin-top:12px;color:var(--ink3)}
+
+/* the book */
+.book{
+  background:var(--surface);border:1px solid var(--hair);border-radius:2px;
+  box-shadow:6px 6px 0 0 var(--peach);
+  display:grid;grid-template-columns:1fr 1fr;min-width:0;
+}
+.page{padding:22px 20px 18px;min-width:0}
+.page.cover{display:flex;align-items:stretch}
+.page.cover svg{width:100%;height:auto;display:block}
+.page.text{border-left:1px solid var(--hair)}
+.page .mono{color:var(--ink3);display:block;margin-bottom:14px}
+.passage{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:400;font-size:16.5px;line-height:1.75}
+.tap{background:rgba(242,200,180,0.18);border-radius:2px;padding:0 1px}
+.saved{display:inline-block;background:var(--marker);border-radius:2px;padding:0 4px;transform:skew(-7deg) rotate(-1deg)}
+.saved&gt;span{display:inline-block;transform:skew(7deg) rotate(1deg)}
+.gloss{
+  margin-top:16px;border:1px solid var(--hair);border-radius:2px;
+  background:var(--surface);padding:10px 12px;
+}
+.gloss .mono{color:var(--ink3);display:block;margin-bottom:4px}
+.gloss p{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-size:15px}
+
+/* sections */
+section{padding:52px 0;border-top:1px solid var(--hair)}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:30px;flex-wrap:wrap}
+h2{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:300;font-size:clamp(24px,3vw,34px);line-height:1.15}
+.sec-head .mono{color:var(--ink3)}
+.prose{max-width:38em;color:var(--ink2)}
+.prose+.prose{margin-top:14px}
+
+/* numbered prose rows (steps, ways, install) */
+.rows{border-top:1px solid var(--hair);margin-top:26px}
+.row{display:grid;grid-template-columns:210px minmax(0,1fr);gap:24px;padding:24px 0;border-bottom:1px solid var(--hair)}
+.row .lab{color:var(--ink3);padding-top:3px}
+.row h3{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:400;font-size:20px;margin-bottom:6px}
+.row p{color:var(--ink2);max-width:40em}
+.row code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;background:var(--surface2);border:1px solid var(--hair);border-radius:2px;padding:1px 6px}
+
+/* screenshot placeholder */
+.shot{
+  border:1px solid var(--hair);border-radius:10px;background:var(--surface2);
+  min-height:230px;display:flex;align-items:center;justify-content:center;
+  padding:24px;text-align:center;
+}
+.shot span{color:var(--ink3);font-size:13px}
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:30px}
+
+.caveat{color:var(--ink3);font-size:13px;max-width:44em}
+
+footer{border-top:1px solid var(--hair);padding:30px 0 44px}
+.ft{display:flex;gap:26px;flex-wrap:wrap;font-size:14px;align-items:baseline}
+.ft .mono{color:var(--ink3)}
+.ft a{color:var(--ink2);text-decoration:none}
+.ft a:hover{color:var(--ink)}
+.ft-note{margin-top:14px;color:var(--ink3);font-size:12.5px}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;gap:34px;padding:30px 0 44px}
+  .shots{grid-template-columns:1fr}
+}
+@media (max-width:700px){
+  .row{grid-template-columns:1fr;gap:6px;padding:20px 0}
+  nav{gap:16px;font-size:13px}
+  .passage{font-size:15px}
+  section{padding:40px 0}
+}
+a:focus-visible,.cta:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;header&gt;
+  &lt;div class=&quot;wrap hd&quot;&gt;
+    &lt;a class=&quot;brand&quot; href=&quot;/start&quot;&gt;Sotto&lt;/a&gt;
+    &lt;nav&gt;
+      &lt;a href=&quot;/start&quot;&gt;Try a sample&lt;/a&gt;
+      &lt;a href=&quot;https://app.readsotto.app/account&quot;&gt;Sign in&lt;/a&gt;
+      &lt;a href=&quot;https://github.com/readsotto/sotto&quot;&gt;GitHub&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/div&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+  &lt;!-- HERO: the book is the hero --&gt;
+  &lt;div class=&quot;wrap hero&quot;&gt;
+    &lt;div&gt;
+      &lt;p class=&quot;mono kicker&quot;&gt;Graded reader · Voice tutor · Free &amp;amp; open source&lt;/p&gt;
+      &lt;h1&gt;Read a book at your level, then talk about it.&lt;/h1&gt;
+      &lt;p class=&quot;lede&quot;&gt;Sotto rewrites short books to the level you choose. Tap any word for its meaning, hear the story narrated, save words to review — then discuss the passage with a voice tutor that has read the same page.&lt;/p&gt;
+      &lt;div class=&quot;cta-row&quot;&gt;
+        &lt;a class=&quot;cta&quot; href=&quot;https://app.readsotto.app/account?intent=start&quot;&gt;Start free&lt;/a&gt;
+        &lt;a href=&quot;/start&quot;&gt;Try a sample, no account&lt;/a&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;mono cta-note&quot;&gt;No account needed to try · No analytics&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;book&quot; role=&quot;img&quot; aria-label=&quot;An open copy of Sotto: the cover on the left, a graded French passage on the right with one word tapped and one word saved.&quot;&gt;
+      &lt;div class=&quot;page cover&quot;&gt;
+        &lt;svg viewBox=&quot;0 0 200 264&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;rect x=&quot;0&quot; y=&quot;0&quot; width=&quot;200&quot; height=&quot;264&quot; rx=&quot;2&quot; fill=&quot;#1F4F57&quot;/&gt;
+          &lt;rect x=&quot;20&quot; y=&quot;30&quot; width=&quot;160&quot; height=&quot;1.5&quot; fill=&quot;#5B8A6B&quot;/&gt;
+          &lt;text x=&quot;100&quot; y=&quot;118&quot; text-anchor=&quot;middle&quot; fill=&quot;#FBF6EC&quot; font-family=&quot;Fraunces,&#x27;Iowan Old Style&#x27;,Georgia,serif&quot; font-weight=&quot;300&quot; font-size=&quot;34&quot;&gt;Sotto&lt;/text&gt;
+          &lt;text x=&quot;100&quot; y=&quot;142&quot; text-anchor=&quot;middle&quot; fill=&quot;#F2C8B4&quot; font-family=&quot;Fraunces,&#x27;Iowan Old Style&#x27;,Georgia,serif&quot; font-size=&quot;12&quot; font-style=&quot;italic&quot;&gt;un livre adapté&lt;/text&gt;
+          &lt;rect x=&quot;20&quot; y=&quot;216&quot; width=&quot;160&quot; height=&quot;1.5&quot; fill=&quot;#5B8A6B&quot;/&gt;
+          &lt;text x=&quot;100&quot; y=&quot;240&quot; text-anchor=&quot;middle&quot; fill=&quot;#FBF6EC&quot; font-family=&quot;ui-monospace,Menlo,monospace&quot; font-size=&quot;9&quot; letter-spacing=&quot;1.5&quot;&gt;FRENCH · LEVEL A2&lt;/text&gt;
+        &lt;/svg&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;page text&quot;&gt;
+        &lt;span class=&quot;mono&quot;&gt;Chapter one · A2&lt;/span&gt;
+        &lt;p class=&quot;passage&quot;&gt;Sotto est un livre gratuit et &lt;span class=&quot;tap&quot;&gt;adapté&lt;/span&gt;. Vous choisissez une langue et un &lt;span class=&quot;saved&quot;&gt;&lt;span&gt;niveau&lt;/span&gt;&lt;/span&gt;, puis vous lisez. Touchez un mot pour le traduire.&lt;/p&gt;
+        &lt;div class=&quot;gloss&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;Tapped word&lt;/span&gt;
+          &lt;p&gt;adapté — graded (rewritten at your level)&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- HOW READING WORKS --&gt;
+  &lt;section&gt;
+    &lt;div class=&quot;wrap&quot;&gt;
+      &lt;div class=&quot;sec-head&quot;&gt;
+        &lt;h2&gt;What you do in Sotto&lt;/h2&gt;
+        &lt;span class=&quot;mono&quot;&gt;Three steps&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;rows&quot;&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;01 · Choose&lt;/span&gt;
+          &lt;div&gt;&lt;h3&gt;Pick a language and a level&lt;/h3&gt;
+          &lt;p&gt;Open a short book that has been adapted — rewritten — to exactly that level, so the text stretches you without stopping you.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;02 · Read&lt;/span&gt;
+          &lt;div&gt;&lt;h3&gt;Tap, listen, save&lt;/h3&gt;
+          &lt;p&gt;Tap any word for its meaning. Hear the story narrated. Save the words you want to keep and review them later.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;03 · Talk&lt;/span&gt;
+          &lt;div&gt;&lt;h3&gt;Discuss what you just read&lt;/h3&gt;
+          &lt;p&gt;The voice tutor talks with you about the passage you just finished — it already knows what you read.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;shots&quot;&gt;
+        &lt;div class=&quot;shot&quot;&gt;&lt;span&gt;Real screenshot: reader with a word popup open&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;shot&quot;&gt;&lt;span&gt;Real screenshot: the voice tutor mid-conversation&lt;/span&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;!-- TUTOR, EXPLAINED PLAINLY --&gt;
+  &lt;section&gt;
+    &lt;div class=&quot;wrap&quot;&gt;
+      &lt;div class=&quot;sec-head&quot;&gt;
+        &lt;h2&gt;The tutor, in plain words&lt;/h2&gt;
+        &lt;span class=&quot;mono&quot;&gt;Read, then speak&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;prose&quot;&gt;You read a passage. Then you talk about it — out loud, in the language you are learning. The tutor listens and answers, and because it has the passage in front of it too, the conversation stays on what you actually just read: the words, the plot, what you think happens next.&lt;/p&gt;
+      &lt;p class=&quot;prose&quot;&gt;Below are the four ways to use Sotto. The first is free reading itself; the other three are different ways to power the voice tutor — alternatives to each other, not tiers.&lt;/p&gt;
+
+      &lt;div class=&quot;rows&quot;&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;01 · Free reading&lt;/span&gt;
+          &lt;div&gt;&lt;h3&gt;Free reading&lt;/h3&gt;
+          &lt;p&gt;Reading, listening, tap-to-translate, saved vocabulary, and an in-browser tutor that runs on on-device models are free — with the on-device tutor, nothing leaves your device. No account is needed to try: your progress and saved words stay in this browser until you create an account, and an account keeps them. &lt;a href=&quot;https://app.readsotto.app/account?intent=start&quot;&gt;Start free&lt;/a&gt; or &lt;a href=&quot;/start&quot;&gt;try a sample&lt;/a&gt;.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;02 · The plan&lt;/span&gt;
+          &lt;div&gt;&lt;h3&gt;The plan — a hosted voice tutor&lt;/h3&gt;
+          &lt;p&gt;Nothing to set up: sign in and talk. $9.99 a month or $79 a year, after a 3-day trial. Sign-in for the plan is at &lt;a href=&quot;https://app.readsotto.app/account&quot;&gt;app.readsotto.app&lt;/a&gt;. With the plan, your voice goes to OpenAI through Sotto&amp;rsquo;s server, which brokers each tutor turn; Sotto does not store transcripts or recordings — only usage minutes and billing.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;03 · Your own key&lt;/span&gt;
+          &lt;div&gt;&lt;h3&gt;Your own key&lt;/h3&gt;
+          &lt;p&gt;Works with or without the plan. Paste an OpenAI API key in Settings and the page calls OpenAI directly from your browser. The key stays on this device, and OpenAI bills you, not Sotto. &lt;a href=&quot;/docs/byok&quot;&gt;Read the guide&lt;/a&gt;.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;04 · Run it yourself&lt;/span&gt;
+          &lt;div&gt;&lt;h3&gt;Run it yourself&lt;/h3&gt;
+          &lt;p&gt;Free, on your own hardware. &lt;code&gt;docker compose up&lt;/code&gt; serves the app and the tutor from one origin, using local models or your own key. &lt;a href=&quot;/docs/self-hosting&quot;&gt;Read the self-hosting guide&lt;/a&gt;.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;!-- INSTALL --&gt;
+  &lt;section&gt;
+    &lt;div class=&quot;wrap&quot;&gt;
+      &lt;div class=&quot;sec-head&quot;&gt;
+        &lt;h2&gt;Add Sotto to your device&lt;/h2&gt;
+        &lt;span class=&quot;mono&quot;&gt;Installs like an app&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;rows&quot;&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;iPhone / iPad&lt;/span&gt;
+          &lt;div&gt;&lt;p&gt;In Safari, tap Share, choose &amp;ldquo;Add to Home Screen&amp;rdquo;, then open Sotto from your Home Screen.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;Android&lt;/span&gt;
+          &lt;div&gt;&lt;p&gt;In Chrome, open the menu and tap &amp;ldquo;Install app&amp;rdquo;.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;Desktop&lt;/span&gt;
+          &lt;div&gt;&lt;p&gt;In Chrome, click the install icon in the address bar (or open the menu and choose &amp;ldquo;Install Sotto&amp;rdquo;), then confirm Install.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;prose&quot; style=&quot;margin-top:22px&quot;&gt;A book you have opened keeps working offline.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;div class=&quot;wrap&quot; style=&quot;padding-bottom:36px&quot;&gt;
+    &lt;p class=&quot;caveat&quot;&gt;A quiet caveat: the books are machine-adapted drafts, and their levels are estimates.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;
+  &lt;div class=&quot;wrap&quot;&gt;
+    &lt;div class=&quot;ft&quot;&gt;
+      &lt;span class=&quot;mono&quot;&gt;Sotto&lt;/span&gt;
+      &lt;a href=&quot;https://github.com/readsotto/sotto&quot;&gt;GitHub&lt;/a&gt;
+      &lt;a href=&quot;/docs/byok&quot;&gt;Docs: your own key&lt;/a&gt;
+      &lt;a href=&quot;/docs/self-hosting&quot;&gt;Docs: self-hosting&lt;/a&gt;
+      &lt;a href=&quot;/docs/add-a-book&quot;&gt;Docs: add a book&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;ft-note&quot;&gt;Code Apache-2.0 · Stories CC BY-SA 4.0 · No analytics on this page or in the app.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;"></iframe></div><div class="cap"><span class="mono">Fragment · first screen at 1280 · Kimi K3</span><a class="mono" href="landing-mockups/kimi-a.html">Open full page</a></div></div>
+        <div class="frame"><div class="scaler" data-w="375"><iframe title="Direction A, Kimi K3, at 375" loading="lazy" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;title&gt;Sotto — a free, open-source graded reader&lt;/title&gt;
+&lt;style&gt;
+:root{
+  --canvas:#F4ECDF; --surface:#FBF6EC; --surface2:#EFE4D2;
+  --ink:#221E1B; --ink2:#6E6459; --ink3:#9C9287;
+  --hair:rgba(34,30,27,0.12);
+  --accent:#E4572E; --peach:#F2C8B4; --marker:#FFD8A8;
+  --teal:#1F4F57; --sage:#5B8A6B;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--canvas); color:var(--ink);
+  font-family:Inter,-apple-system,system-ui,sans-serif;
+  font-size:16px; line-height:1.55;
+}
+.serif{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif}
+.mono{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
+}
+a{color:var(--ink); text-underline-offset:3px; transition:color 120ms ease}
+a:hover{color:var(--ink2)}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+
+/* header */
+header{border-bottom:1px solid var(--hair)}
+.hd{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:18px 0}
+.brand{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:300;font-size:26px;text-decoration:none;color:var(--ink)}
+nav{display:flex;gap:22px;align-items:baseline;font-size:14px}
+nav a{color:var(--ink2);text-decoration:none}
+nav a:hover{color:var(--ink)}
+
+/* hero */
+.hero{padding:44px 0 56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+.kicker{color:var(--ink3);margin-bottom:16px}
+h1{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:300;font-size:clamp(30px,4.6vw,52px);line-height:1.08;letter-spacing:-0.01em}
+.lede{margin-top:18px;color:var(--ink2);font-size:17px;max-width:34em}
+.cta-row{margin-top:26px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.cta{
+  display:inline-block;background:var(--accent);color:var(--surface);
+  text-decoration:none;font-size:15px;padding:13px 28px;border-radius:2px;
+  transition:filter 120ms ease;
+}
+.cta:hover{filter:brightness(0.93);color:var(--surface)}
+.cta-note{margin-top:12px;color:var(--ink3)}
+
+/* the book */
+.book{
+  background:var(--surface);border:1px solid var(--hair);border-radius:2px;
+  box-shadow:6px 6px 0 0 var(--peach);
+  display:grid;grid-template-columns:1fr 1fr;min-width:0;
+}
+.page{padding:22px 20px 18px;min-width:0}
+.page.cover{display:flex;align-items:stretch}
+.page.cover svg{width:100%;height:auto;display:block}
+.page.text{border-left:1px solid var(--hair)}
+.page .mono{color:var(--ink3);display:block;margin-bottom:14px}
+.passage{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:400;font-size:16.5px;line-height:1.75}
+.tap{background:rgba(242,200,180,0.18);border-radius:2px;padding:0 1px}
+.saved{display:inline-block;background:var(--marker);border-radius:2px;padding:0 4px;transform:skew(-7deg) rotate(-1deg)}
+.saved&gt;span{display:inline-block;transform:skew(7deg) rotate(1deg)}
+.gloss{
+  margin-top:16px;border:1px solid var(--hair);border-radius:2px;
+  background:var(--surface);padding:10px 12px;
+}
+.gloss .mono{color:var(--ink3);display:block;margin-bottom:4px}
+.gloss p{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-size:15px}
+
+/* sections */
+section{padding:52px 0;border-top:1px solid var(--hair)}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:30px;flex-wrap:wrap}
+h2{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:300;font-size:clamp(24px,3vw,34px);line-height:1.15}
+.sec-head .mono{color:var(--ink3)}
+.prose{max-width:38em;color:var(--ink2)}
+.prose+.prose{margin-top:14px}
+
+/* numbered prose rows (steps, ways, install) */
+.rows{border-top:1px solid var(--hair);margin-top:26px}
+.row{display:grid;grid-template-columns:210px minmax(0,1fr);gap:24px;padding:24px 0;border-bottom:1px solid var(--hair)}
+.row .lab{color:var(--ink3);padding-top:3px}
+.row h3{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:400;font-size:20px;margin-bottom:6px}
+.row p{color:var(--ink2);max-width:40em}
+.row code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;background:var(--surface2);border:1px solid var(--hair);border-radius:2px;padding:1px 6px}
+
+/* screenshot placeholder */
+.shot{
+  border:1px solid var(--hair);border-radius:10px;background:var(--surface2);
+  min-height:230px;display:flex;align-items:center;justify-content:center;
+  padding:24px;text-align:center;
+}
+.shot span{color:var(--ink3);font-size:13px}
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:30px}
+
+.caveat{color:var(--ink3);font-size:13px;max-width:44em}
+
+footer{border-top:1px solid var(--hair);padding:30px 0 44px}
+.ft{display:flex;gap:26px;flex-wrap:wrap;font-size:14px;align-items:baseline}
+.ft .mono{color:var(--ink3)}
+.ft a{color:var(--ink2);text-decoration:none}
+.ft a:hover{color:var(--ink)}
+.ft-note{margin-top:14px;color:var(--ink3);font-size:12.5px}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;gap:34px;padding:30px 0 44px}
+  .shots{grid-template-columns:1fr}
+}
+@media (max-width:700px){
+  .row{grid-template-columns:1fr;gap:6px;padding:20px 0}
+  nav{gap:16px;font-size:13px}
+  .passage{font-size:15px}
+  section{padding:40px 0}
+}
+a:focus-visible,.cta:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;header&gt;
+  &lt;div class=&quot;wrap hd&quot;&gt;
+    &lt;a class=&quot;brand&quot; href=&quot;/start&quot;&gt;Sotto&lt;/a&gt;
+    &lt;nav&gt;
+      &lt;a href=&quot;/start&quot;&gt;Try a sample&lt;/a&gt;
+      &lt;a href=&quot;https://app.readsotto.app/account&quot;&gt;Sign in&lt;/a&gt;
+      &lt;a href=&quot;https://github.com/readsotto/sotto&quot;&gt;GitHub&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/div&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+  &lt;!-- HERO: the book is the hero --&gt;
+  &lt;div class=&quot;wrap hero&quot;&gt;
+    &lt;div&gt;
+      &lt;p class=&quot;mono kicker&quot;&gt;Graded reader · Voice tutor · Free &amp;amp; open source&lt;/p&gt;
+      &lt;h1&gt;Read a book at your level, then talk about it.&lt;/h1&gt;
+      &lt;p class=&quot;lede&quot;&gt;Sotto rewrites short books to the level you choose. Tap any word for its meaning, hear the story narrated, save words to review — then discuss the passage with a voice tutor that has read the same page.&lt;/p&gt;
+      &lt;div class=&quot;cta-row&quot;&gt;
+        &lt;a class=&quot;cta&quot; href=&quot;https://app.readsotto.app/account?intent=start&quot;&gt;Start free&lt;/a&gt;
+        &lt;a href=&quot;/start&quot;&gt;Try a sample, no account&lt;/a&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;mono cta-note&quot;&gt;No account needed to try · No analytics&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;book&quot; role=&quot;img&quot; aria-label=&quot;An open copy of Sotto: the cover on the left, a graded French passage on the right with one word tapped and one word saved.&quot;&gt;
+      &lt;div class=&quot;page cover&quot;&gt;
+        &lt;svg viewBox=&quot;0 0 200 264&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;rect x=&quot;0&quot; y=&quot;0&quot; width=&quot;200&quot; height=&quot;264&quot; rx=&quot;2&quot; fill=&quot;#1F4F57&quot;/&gt;
+          &lt;rect x=&quot;20&quot; y=&quot;30&quot; width=&quot;160&quot; height=&quot;1.5&quot; fill=&quot;#5B8A6B&quot;/&gt;
+          &lt;text x=&quot;100&quot; y=&quot;118&quot; text-anchor=&quot;middle&quot; fill=&quot;#FBF6EC&quot; font-family=&quot;Fraunces,&#x27;Iowan Old Style&#x27;,Georgia,serif&quot; font-weight=&quot;300&quot; font-size=&quot;34&quot;&gt;Sotto&lt;/text&gt;
+          &lt;text x=&quot;100&quot; y=&quot;142&quot; text-anchor=&quot;middle&quot; fill=&quot;#F2C8B4&quot; font-family=&quot;Fraunces,&#x27;Iowan Old Style&#x27;,Georgia,serif&quot; font-size=&quot;12&quot; font-style=&quot;italic&quot;&gt;un livre adapté&lt;/text&gt;
+          &lt;rect x=&quot;20&quot; y=&quot;216&quot; width=&quot;160&quot; height=&quot;1.5&quot; fill=&quot;#5B8A6B&quot;/&gt;
+          &lt;text x=&quot;100&quot; y=&quot;240&quot; text-anchor=&quot;middle&quot; fill=&quot;#FBF6EC&quot; font-family=&quot;ui-monospace,Menlo,monospace&quot; font-size=&quot;9&quot; letter-spacing=&quot;1.5&quot;&gt;FRENCH · LEVEL A2&lt;/text&gt;
+        &lt;/svg&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;page text&quot;&gt;
+        &lt;span class=&quot;mono&quot;&gt;Chapter one · A2&lt;/span&gt;
+        &lt;p class=&quot;passage&quot;&gt;Sotto est un livre gratuit et &lt;span class=&quot;tap&quot;&gt;adapté&lt;/span&gt;. Vous choisissez une langue et un &lt;span class=&quot;saved&quot;&gt;&lt;span&gt;niveau&lt;/span&gt;&lt;/span&gt;, puis vous lisez. Touchez un mot pour le traduire.&lt;/p&gt;
+        &lt;div class=&quot;gloss&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;Tapped word&lt;/span&gt;
+          &lt;p&gt;adapté — graded (rewritten at your level)&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- HOW READING WORKS --&gt;
+  &lt;section&gt;
+    &lt;div class=&quot;wrap&quot;&gt;
+      &lt;div class=&quot;sec-head&quot;&gt;
+        &lt;h2&gt;What you do in Sotto&lt;/h2&gt;
+        &lt;span class=&quot;mono&quot;&gt;Three steps&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;rows&quot;&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;01 · Choose&lt;/span&gt;
+          &lt;div&gt;&lt;h3&gt;Pick a language and a level&lt;/h3&gt;
+          &lt;p&gt;Open a short book that has been adapted — rewritten — to exactly that level, so the text stretches you without stopping you.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;02 · Read&lt;/span&gt;
+          &lt;div&gt;&lt;h3&gt;Tap, listen, save&lt;/h3&gt;
+          &lt;p&gt;Tap any word for its meaning. Hear the story narrated. Save the words you want to keep and review them later.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;03 · Talk&lt;/span&gt;
+          &lt;div&gt;&lt;h3&gt;Discuss what you just read&lt;/h3&gt;
+          &lt;p&gt;The voice tutor talks with you about the passage you just finished — it already knows what you read.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;shots&quot;&gt;
+        &lt;div class=&quot;shot&quot;&gt;&lt;span&gt;Real screenshot: reader with a word popup open&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;shot&quot;&gt;&lt;span&gt;Real screenshot: the voice tutor mid-conversation&lt;/span&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;!-- TUTOR, EXPLAINED PLAINLY --&gt;
+  &lt;section&gt;
+    &lt;div class=&quot;wrap&quot;&gt;
+      &lt;div class=&quot;sec-head&quot;&gt;
+        &lt;h2&gt;The tutor, in plain words&lt;/h2&gt;
+        &lt;span class=&quot;mono&quot;&gt;Read, then speak&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;prose&quot;&gt;You read a passage. Then you talk about it — out loud, in the language you are learning. The tutor listens and answers, and because it has the passage in front of it too, the conversation stays on what you actually just read: the words, the plot, what you think happens next.&lt;/p&gt;
+      &lt;p class=&quot;prose&quot;&gt;Below are the four ways to use Sotto. The first is free reading itself; the other three are different ways to power the voice tutor — alternatives to each other, not tiers.&lt;/p&gt;
+
+      &lt;div class=&quot;rows&quot;&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;01 · Free reading&lt;/span&gt;
+          &lt;div&gt;&lt;h3&gt;Free reading&lt;/h3&gt;
+          &lt;p&gt;Reading, listening, tap-to-translate, saved vocabulary, and an in-browser tutor that runs on on-device models are free — with the on-device tutor, nothing leaves your device. No account is needed to try: your progress and saved words stay in this browser until you create an account, and an account keeps them. &lt;a href=&quot;https://app.readsotto.app/account?intent=start&quot;&gt;Start free&lt;/a&gt; or &lt;a href=&quot;/start&quot;&gt;try a sample&lt;/a&gt;.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;02 · The plan&lt;/span&gt;
+          &lt;div&gt;&lt;h3&gt;The plan — a hosted voice tutor&lt;/h3&gt;
+          &lt;p&gt;Nothing to set up: sign in and talk. $9.99 a month or $79 a year, after a 3-day trial. Sign-in for the plan is at &lt;a href=&quot;https://app.readsotto.app/account&quot;&gt;app.readsotto.app&lt;/a&gt;. With the plan, your voice goes to OpenAI through Sotto&amp;rsquo;s server, which brokers each tutor turn; Sotto does not store transcripts or recordings — only usage minutes and billing.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;03 · Your own key&lt;/span&gt;
+          &lt;div&gt;&lt;h3&gt;Your own key&lt;/h3&gt;
+          &lt;p&gt;Works with or without the plan. Paste an OpenAI API key in Settings and the page calls OpenAI directly from your browser. The key stays on this device, and OpenAI bills you, not Sotto. &lt;a href=&quot;/docs/byok&quot;&gt;Read the guide&lt;/a&gt;.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;04 · Run it yourself&lt;/span&gt;
+          &lt;div&gt;&lt;h3&gt;Run it yourself&lt;/h3&gt;
+          &lt;p&gt;Free, on your own hardware. &lt;code&gt;docker compose up&lt;/code&gt; serves the app and the tutor from one origin, using local models or your own key. &lt;a href=&quot;/docs/self-hosting&quot;&gt;Read the self-hosting guide&lt;/a&gt;.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;!-- INSTALL --&gt;
+  &lt;section&gt;
+    &lt;div class=&quot;wrap&quot;&gt;
+      &lt;div class=&quot;sec-head&quot;&gt;
+        &lt;h2&gt;Add Sotto to your device&lt;/h2&gt;
+        &lt;span class=&quot;mono&quot;&gt;Installs like an app&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;rows&quot;&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;iPhone / iPad&lt;/span&gt;
+          &lt;div&gt;&lt;p&gt;In Safari, tap Share, choose &amp;ldquo;Add to Home Screen&amp;rdquo;, then open Sotto from your Home Screen.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;Android&lt;/span&gt;
+          &lt;div&gt;&lt;p&gt;In Chrome, open the menu and tap &amp;ldquo;Install app&amp;rdquo;.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono lab&quot;&gt;Desktop&lt;/span&gt;
+          &lt;div&gt;&lt;p&gt;In Chrome, click the install icon in the address bar (or open the menu and choose &amp;ldquo;Install Sotto&amp;rdquo;), then confirm Install.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;prose&quot; style=&quot;margin-top:22px&quot;&gt;A book you have opened keeps working offline.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;div class=&quot;wrap&quot; style=&quot;padding-bottom:36px&quot;&gt;
+    &lt;p class=&quot;caveat&quot;&gt;A quiet caveat: the books are machine-adapted drafts, and their levels are estimates.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;
+  &lt;div class=&quot;wrap&quot;&gt;
+    &lt;div class=&quot;ft&quot;&gt;
+      &lt;span class=&quot;mono&quot;&gt;Sotto&lt;/span&gt;
+      &lt;a href=&quot;https://github.com/readsotto/sotto&quot;&gt;GitHub&lt;/a&gt;
+      &lt;a href=&quot;/docs/byok&quot;&gt;Docs: your own key&lt;/a&gt;
+      &lt;a href=&quot;/docs/self-hosting&quot;&gt;Docs: self-hosting&lt;/a&gt;
+      &lt;a href=&quot;/docs/add-a-book&quot;&gt;Docs: add a book&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;ft-note&quot;&gt;Code Apache-2.0 · Stories CC BY-SA 4.0 · No analytics on this page or in the app.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;"></iframe></div><div class="cap"><span class="mono">At 375</span></div></div>
+      </div>
+    </div>
+    <div class="variant" data-variant="astra-a" hidden>
+      <div class="specimen">
+        <div class="frame"><div class="scaler" data-w="1280"><iframe title="Direction A, GPT-6 Astra, at 1280" loading="lazy" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta name=&quot;color-scheme&quot; content=&quot;light&quot;&gt;
+&lt;meta name=&quot;description&quot; content=&quot;Sotto is a free, open-source graded reader. Read at your level, tap words for their meaning, and talk about the passage with a voice tutor.&quot;&gt;
+&lt;title&gt;Sotto — A book at your level&lt;/title&gt;
+&lt;style&gt;
+:root {
+  --canvas: #F4ECDF;
+  --surface: #FBF6EC;
+  --surface-2: #EFE4D2;
+  --ink: #221E1B;
+  --ink-2: #6E6459;
+  --ink-3: #9C9287;
+  --hairline: rgba(34,30,27,0.12);
+  --accent: #E4572E;
+  --peach: #F2C8B4;
+  --tapped: rgba(242,200,180,0.18);
+  --marker: #FFD8A8;
+  --serif: &quot;Fraunces&quot;, &quot;Iowan Old Style&quot;, Georgia, serif;
+  --sans: Inter, -apple-system, system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html { background: var(--canvas); }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--canvas);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-underline-offset: 4px; }
+a, summary { transition: opacity 120ms ease, transform 120ms ease; }
+a:hover { opacity: .8; }
+a:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 5px;
+}
+svg { display: block; max-width: 100%; }
+h1, h2, h3, p, figure { margin: 0; }
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+.wrap { width: min(1120px, calc(100% - 64px)); margin-inline: auto; }
+.meta {
+  color: var(--ink-2);
+  font: 400 11px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.site-header {
+  min-height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid var(--hairline);
+}
+.wordmark { font: 400 31px/1 var(--serif); letter-spacing: -.04em; }
+.header-links { display: flex; align-items: center; gap: 26px; font-size: 13px; }
+.header-links a { text-decoration: none; }
+.hero {
+  display: grid;
+  grid-template-columns: .92fr 1.08fr;
+  align-items: center;
+  gap: 46px;
+  padding-block: 66px 70px;
+}
+.hero &gt; *, .section-heading &gt; *, .tutor-layout &gt; * { min-width: 0; }
+h1 {
+  max-width: 10ch;
+  font: 300 clamp(44px, 5.4vw, 69px)/1.03 var(--serif);
+  letter-spacing: -.055em;
+  margin-top: 17px;
+}
+.hero-copy &gt; p {
+  max-width: 40ch;
+  color: var(--ink-2);
+  margin-top: 23px;
+  font-size: 17px;
+  line-height: 1.65;
+}
+.actions { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; margin-top: 27px; }
+.primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 23px;
+  background: var(--accent);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  box-shadow: 6px 6px 0 0 var(--peach);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-decoration: none;
+}
+.primary:hover { opacity: 1; transform: translate(-1px, -1px); }
+.primary:active { transform: translate(2px, 2px); }
+.secondary { font-size: 13px; }
+.hero-copy .account-note { margin-top: 20px; font-size: 12px; }
+.book-stage { padding: 16px 8px 8px 0; }
+.open-book {
+  position: relative;
+  display: grid;
+  grid-template-columns: .37fr .63fr;
+  min-height: 350px;
+  border: 1px solid var(--ink);
+  border-radius: 10px 10px 2px 2px;
+  background: var(--surface);
+  box-shadow: 6px 6px 0 0 var(--peach);
+}
+.open-book::after {
+  content: &quot;&quot;;
+  position: absolute;
+  inset: auto 6px -7px 6px;
+  height: 5px;
+  border-block: 1px solid var(--ink-3);
+  background: var(--surface-2);
+}
+.book-left {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px 20px;
+  background: var(--surface-2);
+  border-right: 1px solid var(--hairline);
+  border-radius: 10px 0 0 2px;
+}
+.book-left::after {
+  content: &quot;&quot;;
+  position: absolute;
+  inset: 0 5px 0 auto;
+  width: 3px;
+  border-left: 1px solid var(--hairline);
+}
+.book-title { font: 300 43px/1 var(--serif); letter-spacing: -.06em; }
+.book-ornament { width: 100%; height: 92px; margin-block: 22px; }
+.book-left .meta { font-size: 10px; }
+.book-right { padding: 29px 25px 24px; }
+.book-right &gt; .meta { padding-bottom: 18px; border-bottom: 1px solid var(--hairline); }
+.passage { font: 400 clamp(18px, 1.8vw, 23px)/1.58 var(--serif); margin-top: 20px; }
+.tapped { padding-inline: 2px; background: var(--tapped); border-bottom: 1px solid var(--ink-2); }
+.saved { position: relative; isolation: isolate; white-space: nowrap; }
+.saved::before {
+  content: &quot;&quot;;
+  position: absolute;
+  z-index: -1;
+  inset: 52% -3px 1px;
+  background: var(--marker);
+  transform: skew(-7deg) rotate(-1deg);
+}
+.gloss { margin-top: 16px; font-size: 12px; line-height: 1.55; }
+.gloss summary { cursor: pointer; color: var(--ink-2); }
+.gloss p { margin-top: 7px; }
+.book-caption { margin-top: 21px; text-align: center; font-size: 11px; color: var(--ink-2); }
+.section {
+  padding-block: 54px;
+  border-top: 1px solid var(--hairline);
+}
+.section-heading {
+  display: grid;
+  grid-template-columns: .38fr 1fr;
+  gap: 36px;
+  margin-bottom: 32px;
+}
+.section-heading .meta { padding-top: 9px; }
+h2 { font: 300 clamp(32px, 3.4vw, 44px)/1.12 var(--serif); letter-spacing: -.04em; }
+.section-heading p { max-width: 60ch; color: var(--ink-2); margin-top: 16px; }
+.reading-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  padding-block: 20px;
+  border-block: 1px solid var(--hairline);
+  margin-bottom: 28px;
+  font-size: 14px;
+}
+.reading-line span { display: flex; gap: 10px; align-items: baseline; }
+.reading-line b { font-weight: 400; color: var(--ink-3); font-family: ui-monospace, monospace; }
+.screenshot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  padding: 28px;
+  background: var(--surface-2);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  text-align: center;
+}
+.screenshot figcaption { max-width: 32ch; font-size: 12px; color: var(--ink-2); }
+.reading-note { margin-top: 16px; color: var(--ink-2); font-size: 12px; }
+.tutor-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.tutor-copy .meta { margin-bottom: 18px; }
+.tutor-copy p { margin-top: 18px; max-width: 46ch; color: var(--ink-2); }
+.tutor-copy .quiet-link { font-size: 13px; }
+.ways-intro { max-width: 61ch; }
+.way {
+  display: grid;
+  grid-template-columns: 64px 250px 1fr;
+  gap: 22px;
+  padding-block: 29px;
+  border-top: 1px solid var(--hairline);
+}
+.way-number { padding-top: 6px; }
+.way h3 { font: 400 25px/1.2 var(--serif); letter-spacing: -.02em; }
+.way .tagline { color: var(--ink-2); font-size: 12px; margin-top: 8px; }
+.way-body p + p { margin-top: 12px; }
+.way-body { font-size: 15px; }
+.way-body .detail { color: var(--ink-2); font-size: 13px; }
+.way-body .way-link { display: inline-block; margin-top: 13px; font-size: 13px; }
+code { font: 13px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; }
+.command {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  padding: 10px 15px;
+  margin-top: 15px;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  border-radius: 2px;
+}
+.install-body { margin-left: calc((100% - 36px) * .275); }
+.device { padding-block: 20px; border-top: 1px solid var(--hairline); }
+.device h3 { font-size: 14px; font-family: var(--sans); font-weight: 600; margin-bottom: 7px; }
+.device p { color: var(--ink-2); font-size: 14px; }
+.offline { margin-top: 17px; font: 400 22px/1.4 var(--serif); }
+.closing {
+  padding: 38px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+  margin-block: 15px 55px;
+}
+.closing h2 { font-size: clamp(28px, 3vw, 37px); }
+.closing p { color: var(--ink-2); font-size: 14px; margin-top: 8px; }
+.closing .primary { flex-shrink: 0; }
+footer { padding-block: 28px 35px; border-top: 1px solid var(--hairline); }
+.footer-top { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 12px 23px; font-size: 12px; }
+.footer-bottom { margin-top: 22px; font-size: 11px; color: var(--ink-2); }
+.footer-bottom p + p { margin-top: 5px; }
+@media (max-width: 699px) {
+  .wrap { width: calc(100% - 36px); }
+  .site-header { min-height: 62px; }
+  .wordmark { font-size: 28px; }
+  .header-links { gap: 17px; font-size: 12px; }
+  .hero { grid-template-columns: 1fr; gap: 23px; padding-block: 28px 34px; }
+  h1 { font-size: clamp(40px, 11.8vw, 65px); max-width: 12ch; margin-top: 10px; }
+  .hero-copy &gt; p { font-size: 15px; line-height: 1.5; margin-top: 14px; }
+  .actions { gap: 17px; margin-top: 18px; }
+  .primary { min-height: 45px; padding: 11px 19px; }
+  .hero-copy .account-note { margin-top: 14px; font-size: 11px; }
+  .book-stage { padding: 0 6px 0 0; }
+  .open-book { min-height: 225px; grid-template-columns: .3fr .7fr; }
+  .book-left { padding: 20px 11px; }
+  .book-title { font-size: 30px; }
+  .book-left .meta { font-size: 9px; }
+  .book-ornament { height: 48px; margin-block: 15px; }
+  .book-right { padding: 18px 15px; }
+  .book-right &gt; .meta { font-size: 10px; padding-bottom: 9px; }
+  .passage { font-size: 17px; line-height: 1.4; margin-top: 11px; }
+  .gloss { margin-top: 10px; font-size: 10px; }
+  .book-caption { margin-top: 15px; font-size: 10px; }
+  .section { padding-block: 34px; }
+  .section-heading { grid-template-columns: 1fr; gap: 13px; margin-bottom: 23px; }
+  .section-heading .meta { padding-top: 0; }
+  .section-heading p { font-size: 14px; margin-top: 12px; }
+  .reading-line { flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .screenshot { min-height: 185px; padding: 22px; }
+  .tutor-layout { grid-template-columns: 1fr; gap: 24px; }
+  .tutor-copy .meta { margin-bottom: 13px; }
+  .tutor-copy p { font-size: 14px; margin-top: 13px; }
+  .way { grid-template-columns: 25px 1fr; gap: 10px 12px; padding-block: 24px; }
+  .way-body { grid-column: 2; font-size: 14px; }
+  .way h3 { font-size: 25px; }
+  .way .tagline { margin-top: 5px; }
+  .way-body .detail { font-size: 12px; }
+  .install-body { margin-left: 0; }
+  .closing { flex-direction: column; align-items: flex-start; padding: 24px; margin-bottom: 34px; }
+  .footer-top { align-items: flex-start; flex-direction: column; }
+  .footer-links { gap: 12px 19px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  a, summary { transition: none; }
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;header class=&quot;site-header wrap&quot;&gt;
+  &lt;span class=&quot;wordmark&quot; aria-label=&quot;Sotto&quot;&gt;sotto&lt;/span&gt;
+  &lt;nav class=&quot;header-links&quot; aria-label=&quot;Main navigation&quot;&gt;
+    &lt;a href=&quot;/start&quot;&gt;Try a sample&lt;/a&gt;
+    &lt;a href=&quot;https://app.readsotto.app/account&quot;&gt;Sign in&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+&lt;main class=&quot;wrap&quot;&gt;
+  &lt;section class=&quot;hero&quot; aria-labelledby=&quot;hero-title&quot;&gt;
+    &lt;div class=&quot;hero-copy&quot;&gt;
+      &lt;div class=&quot;meta&quot;&gt;Free · Open source · In your browser&lt;/div&gt;
+      &lt;h1 id=&quot;hero-title&quot;&gt;A book at your level.&lt;/h1&gt;
+      &lt;p&gt;Pick a language and a level, read a short book rewritten to fit, and tap any word for its meaning—all free.&lt;/p&gt;
+      &lt;div class=&quot;actions&quot;&gt;
+        &lt;a class=&quot;primary&quot; href=&quot;https://app.readsotto.app/account?intent=start&quot;&gt;Start free&lt;/a&gt;
+        &lt;a class=&quot;secondary&quot; href=&quot;/start&quot;&gt;Try a sample&lt;/a&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;account-note&quot;&gt;No account needed to try.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;figure class=&quot;book-stage&quot; aria-label=&quot;An open Sotto book with a French A2 sample passage&quot;&gt;
+      &lt;div class=&quot;open-book&quot;&gt;
+        &lt;div class=&quot;book-left&quot;&gt;
+          &lt;div&gt;
+            &lt;div class=&quot;meta&quot;&gt;A graded reader&lt;/div&gt;
+            &lt;div class=&quot;book-title&quot;&gt;Sotto&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;svg class=&quot;book-ornament&quot; viewBox=&quot;0 0 110 92&quot; aria-hidden=&quot;true&quot;&gt;
+            &lt;path d=&quot;M15 76V23C30 18 41 21 55 30C69 21 80 18 95 23V76C79 71 69 74 55 83C41 74 31 71 15 76Z&quot; fill=&quot;none&quot; stroke=&quot;#6E6459&quot; stroke-width=&quot;1&quot;/&gt;
+            &lt;path d=&quot;M55 30V83M23 32C32 30 41 33 47 37M23 42C32 40 41 43 47 47M63 37C71 32 79 30 87 32M63 47C71 42 79 40 87 42&quot; fill=&quot;none&quot; stroke=&quot;#9C9287&quot; stroke-width=&quot;1&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;div class=&quot;meta&quot;&gt;French&lt;br&gt;Level A2&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;book-right&quot;&gt;
+          &lt;div class=&quot;meta&quot;&gt;A passage to try&lt;/div&gt;
+          &lt;p class=&quot;passage&quot; lang=&quot;fr&quot;&gt;Sotto est un livre gratuit et &lt;span class=&quot;tapped&quot;&gt;adapté&lt;/span&gt;. Vous choisissez une langue et un niveau, puis vous lisez. Touchez un &lt;span class=&quot;saved&quot;&gt;mot&lt;/span&gt; pour le traduire.&lt;/p&gt;
+          &lt;details class=&quot;gloss&quot; open&gt;
+            &lt;summary&gt;adapté&lt;/summary&gt;
+            &lt;p&gt;&lt;strong&gt;graded&lt;/strong&gt; (rewritten at your level)&lt;/p&gt;
+          &lt;/details&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;figcaption class=&quot;book-caption&quot;&gt;Sample passage · Highlighted word and saved-word marker illustrated&lt;/figcaption&gt;
+    &lt;/figure&gt;
+  &lt;/section&gt;
+
+  &lt;section class=&quot;section&quot; aria-labelledby=&quot;reading-title&quot;&gt;
+    &lt;div class=&quot;section-heading&quot;&gt;
+      &lt;div class=&quot;meta&quot;&gt;01 / Read&lt;/div&gt;
+      &lt;div&gt;
+        &lt;h2 id=&quot;reading-title&quot;&gt;Stay with the story.&lt;/h2&gt;
+        &lt;p&gt;Open a short book adapted to your level. Tap any word for its meaning, hear the story narrated, and save words to review later.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;reading-line&quot; aria-label=&quot;What free reading includes&quot;&gt;
+      &lt;span&gt;&lt;b&gt;01&lt;/b&gt; Read at your level&lt;/span&gt;
+      &lt;span&gt;&lt;b&gt;02&lt;/b&gt; Listen to the story&lt;/span&gt;
+      &lt;span&gt;&lt;b&gt;03&lt;/b&gt; Save words for later&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;figure class=&quot;screenshot&quot;&gt;
+      &lt;figcaption&gt;Real screenshot: reader with a word popup open&lt;/figcaption&gt;
+    &lt;/figure&gt;
+    &lt;p class=&quot;reading-note&quot;&gt;The books are machine-adapted drafts, and their levels are estimates.&lt;/p&gt;
+  &lt;/section&gt;
+
+  &lt;section class=&quot;section tutor-layout&quot; aria-labelledby=&quot;tutor-title&quot;&gt;
+    &lt;div class=&quot;tutor-copy&quot;&gt;
+      &lt;div class=&quot;meta&quot;&gt;02 / Talk about it&lt;/div&gt;
+      &lt;h2 id=&quot;tutor-title&quot;&gt;Read a passage.&lt;br&gt;Then say what you think.&lt;/h2&gt;
+      &lt;p&gt;Talk out loud about the passage you just read. The voice tutor answers, and you keep talking. It already knows what you read.&lt;/p&gt;
+      &lt;p&gt;You can use the free in-browser tutor, choose a hosted plan, bring your own key, or run Sotto yourself. Here is how each works.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;figure class=&quot;screenshot&quot;&gt;
+      &lt;figcaption&gt;Real screenshot: the voice tutor mid-conversation&lt;/figcaption&gt;
+    &lt;/figure&gt;
+  &lt;/section&gt;
+
+  &lt;section class=&quot;section&quot; aria-labelledby=&quot;ways-title&quot;&gt;
+    &lt;div class=&quot;section-heading&quot;&gt;
+      &lt;div class=&quot;meta&quot;&gt;03 / Your choice&lt;/div&gt;
+      &lt;div&gt;
+        &lt;h2 id=&quot;ways-title&quot;&gt;Four ways to use Sotto.&lt;/h2&gt;
+        &lt;p class=&quot;ways-intro&quot;&gt;Start with free reading. For conversation, use the on-device tutor or choose how to power it. Your own key and self-hosting are alternatives to the hosted plan.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;article class=&quot;way&quot;&gt;
+      &lt;div class=&quot;way-number meta&quot;&gt;01&lt;/div&gt;
+      &lt;div&gt;
+        &lt;h3&gt;Free reading&lt;/h3&gt;
+        &lt;p class=&quot;tagline&quot;&gt;The book, the words, the conversation.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;way-body&quot;&gt;
+        &lt;p&gt;Reading, listening, tap-to-translate, saved vocabulary, and an in-browser tutor are free. The tutor runs on on-device models; nothing leaves the device.&lt;/p&gt;
+        &lt;p class=&quot;detail&quot;&gt;No account is needed to try. Your progress and saved words stay in this browser until you create an account, and an account keeps them.&lt;/p&gt;
+        &lt;a class=&quot;way-link&quot; href=&quot;/start&quot;&gt;Try a sample without an account →&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+
+    &lt;article class=&quot;way&quot;&gt;
+      &lt;div class=&quot;way-number meta&quot;&gt;02&lt;/div&gt;
+      &lt;div&gt;
+        &lt;h3&gt;The plan&lt;/h3&gt;
+        &lt;p class=&quot;tagline&quot;&gt;Hosted voice tutor. Nothing to set up.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;way-body&quot;&gt;
+        &lt;p&gt;&lt;strong&gt;$9.99 a month or $79 a year&lt;/strong&gt; after a 3-day trial.&lt;/p&gt;
+        &lt;p class=&quot;detail&quot;&gt;With the plan, your voice goes to OpenAI through Sotto&#x27;s server, which brokers each tutor turn. Sotto does not store transcripts or recordings, only usage minutes and billing.&lt;/p&gt;
+        &lt;a class=&quot;way-link&quot; href=&quot;https://app.readsotto.app/account&quot;&gt;Sign in for the plan at app.readsotto.app →&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+
+    &lt;article class=&quot;way&quot;&gt;
+      &lt;div class=&quot;way-number meta&quot;&gt;03&lt;/div&gt;
+      &lt;div&gt;
+        &lt;h3&gt;Your own key&lt;/h3&gt;
+        &lt;p class=&quot;tagline&quot;&gt;Works with or without the plan.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;way-body&quot;&gt;
+        &lt;p&gt;Paste an OpenAI API key in Settings. The page then calls OpenAI directly from your browser.&lt;/p&gt;
+        &lt;p class=&quot;detail&quot;&gt;The key stays on this device. OpenAI bills you, not Sotto.&lt;/p&gt;
+        &lt;a class=&quot;way-link&quot; href=&quot;/docs/byok&quot;&gt;Read the own-key guide →&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+
+    &lt;article class=&quot;way&quot;&gt;
+      &lt;div class=&quot;way-number meta&quot;&gt;04&lt;/div&gt;
+      &lt;div&gt;
+        &lt;h3&gt;Run it yourself&lt;/h3&gt;
+        &lt;p class=&quot;tagline&quot;&gt;Free on your own hardware.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;way-body&quot;&gt;
+        &lt;p&gt;Run Sotto on your own computer. One command serves the app and the tutor from one origin, using local models or your own key.&lt;/p&gt;
+        &lt;code class=&quot;command&quot;&gt;docker compose up&lt;/code&gt;
+        &lt;a class=&quot;way-link&quot; href=&quot;/docs/self-hosting&quot;&gt;Follow the self-hosting guide →&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+  &lt;/section&gt;
+
+  &lt;section class=&quot;section&quot; aria-labelledby=&quot;install-title&quot;&gt;
+    &lt;div class=&quot;section-heading&quot;&gt;
+      &lt;div class=&quot;meta&quot;&gt;04 / Keep it close&lt;/div&gt;
+      &lt;div&gt;
+        &lt;h2 id=&quot;install-title&quot;&gt;Install Sotto.&lt;/h2&gt;
+        &lt;p&gt;Sotto is a progressive web app. Add it to your phone or desktop from your browser.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;install-body&quot;&gt;
+      &lt;article class=&quot;device&quot;&gt;
+        &lt;h3&gt;iPhone / iPad · Safari&lt;/h3&gt;
+        &lt;p&gt;Tap Share, choose “Add to Home Screen”, open Sotto from the Home Screen.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class=&quot;device&quot;&gt;
+        &lt;h3&gt;Android · Chrome&lt;/h3&gt;
+        &lt;p&gt;Open the menu, tap “Install app”.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class=&quot;device&quot;&gt;
+        &lt;h3&gt;Desktop · Chrome&lt;/h3&gt;
+        &lt;p&gt;Click the install icon in the address bar (or menu, “Install Sotto”), confirm Install.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;p class=&quot;offline&quot;&gt;A book you have opened keeps working offline.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;section class=&quot;closing&quot; aria-labelledby=&quot;closing-title&quot;&gt;
+    &lt;div&gt;
+      &lt;h2 id=&quot;closing-title&quot;&gt;Your next page starts here.&lt;/h2&gt;
+      &lt;p&gt;Choose a language. Choose a level. Open a book.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;a class=&quot;primary&quot; href=&quot;https://app.readsotto.app/account?intent=start&quot;&gt;Start free&lt;/a&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+&lt;footer class=&quot;wrap&quot;&gt;
+  &lt;div class=&quot;footer-top&quot;&gt;
+    &lt;span class=&quot;wordmark&quot;&gt;sotto&lt;/span&gt;
+    &lt;nav class=&quot;footer-links&quot; aria-label=&quot;Source and documentation&quot;&gt;
+      &lt;a href=&quot;https://github.com/readsotto/sotto&quot;&gt;GitHub&lt;/a&gt;
+      &lt;a href=&quot;/docs/byok&quot;&gt;Your own key&lt;/a&gt;
+      &lt;a href=&quot;/docs/self-hosting&quot;&gt;Self-hosting&lt;/a&gt;
+      &lt;a href=&quot;/docs/add-a-book&quot;&gt;Add a book&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;footer-bottom&quot;&gt;
+    &lt;p&gt;Free and open source. No analytics on the page or in the app.&lt;/p&gt;
+    &lt;p&gt;Code: Apache-2.0 · Stories: CC BY-SA 4.0&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;"></iframe></div><div class="cap"><span class="mono">Fragment · first screen at 1280 · GPT-6 Astra</span><a class="mono" href="landing-mockups/astra-a.html">Open full page</a></div></div>
+        <div class="frame"><div class="scaler" data-w="375"><iframe title="Direction A, GPT-6 Astra, at 375" loading="lazy" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta name=&quot;color-scheme&quot; content=&quot;light&quot;&gt;
+&lt;meta name=&quot;description&quot; content=&quot;Sotto is a free, open-source graded reader. Read at your level, tap words for their meaning, and talk about the passage with a voice tutor.&quot;&gt;
+&lt;title&gt;Sotto — A book at your level&lt;/title&gt;
+&lt;style&gt;
+:root {
+  --canvas: #F4ECDF;
+  --surface: #FBF6EC;
+  --surface-2: #EFE4D2;
+  --ink: #221E1B;
+  --ink-2: #6E6459;
+  --ink-3: #9C9287;
+  --hairline: rgba(34,30,27,0.12);
+  --accent: #E4572E;
+  --peach: #F2C8B4;
+  --tapped: rgba(242,200,180,0.18);
+  --marker: #FFD8A8;
+  --serif: &quot;Fraunces&quot;, &quot;Iowan Old Style&quot;, Georgia, serif;
+  --sans: Inter, -apple-system, system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html { background: var(--canvas); }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--canvas);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-underline-offset: 4px; }
+a, summary { transition: opacity 120ms ease, transform 120ms ease; }
+a:hover { opacity: .8; }
+a:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 5px;
+}
+svg { display: block; max-width: 100%; }
+h1, h2, h3, p, figure { margin: 0; }
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+.wrap { width: min(1120px, calc(100% - 64px)); margin-inline: auto; }
+.meta {
+  color: var(--ink-2);
+  font: 400 11px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.site-header {
+  min-height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid var(--hairline);
+}
+.wordmark { font: 400 31px/1 var(--serif); letter-spacing: -.04em; }
+.header-links { display: flex; align-items: center; gap: 26px; font-size: 13px; }
+.header-links a { text-decoration: none; }
+.hero {
+  display: grid;
+  grid-template-columns: .92fr 1.08fr;
+  align-items: center;
+  gap: 46px;
+  padding-block: 66px 70px;
+}
+.hero &gt; *, .section-heading &gt; *, .tutor-layout &gt; * { min-width: 0; }
+h1 {
+  max-width: 10ch;
+  font: 300 clamp(44px, 5.4vw, 69px)/1.03 var(--serif);
+  letter-spacing: -.055em;
+  margin-top: 17px;
+}
+.hero-copy &gt; p {
+  max-width: 40ch;
+  color: var(--ink-2);
+  margin-top: 23px;
+  font-size: 17px;
+  line-height: 1.65;
+}
+.actions { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; margin-top: 27px; }
+.primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 23px;
+  background: var(--accent);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  box-shadow: 6px 6px 0 0 var(--peach);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-decoration: none;
+}
+.primary:hover { opacity: 1; transform: translate(-1px, -1px); }
+.primary:active { transform: translate(2px, 2px); }
+.secondary { font-size: 13px; }
+.hero-copy .account-note { margin-top: 20px; font-size: 12px; }
+.book-stage { padding: 16px 8px 8px 0; }
+.open-book {
+  position: relative;
+  display: grid;
+  grid-template-columns: .37fr .63fr;
+  min-height: 350px;
+  border: 1px solid var(--ink);
+  border-radius: 10px 10px 2px 2px;
+  background: var(--surface);
+  box-shadow: 6px 6px 0 0 var(--peach);
+}
+.open-book::after {
+  content: &quot;&quot;;
+  position: absolute;
+  inset: auto 6px -7px 6px;
+  height: 5px;
+  border-block: 1px solid var(--ink-3);
+  background: var(--surface-2);
+}
+.book-left {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px 20px;
+  background: var(--surface-2);
+  border-right: 1px solid var(--hairline);
+  border-radius: 10px 0 0 2px;
+}
+.book-left::after {
+  content: &quot;&quot;;
+  position: absolute;
+  inset: 0 5px 0 auto;
+  width: 3px;
+  border-left: 1px solid var(--hairline);
+}
+.book-title { font: 300 43px/1 var(--serif); letter-spacing: -.06em; }
+.book-ornament { width: 100%; height: 92px; margin-block: 22px; }
+.book-left .meta { font-size: 10px; }
+.book-right { padding: 29px 25px 24px; }
+.book-right &gt; .meta { padding-bottom: 18px; border-bottom: 1px solid var(--hairline); }
+.passage { font: 400 clamp(18px, 1.8vw, 23px)/1.58 var(--serif); margin-top: 20px; }
+.tapped { padding-inline: 2px; background: var(--tapped); border-bottom: 1px solid var(--ink-2); }
+.saved { position: relative; isolation: isolate; white-space: nowrap; }
+.saved::before {
+  content: &quot;&quot;;
+  position: absolute;
+  z-index: -1;
+  inset: 52% -3px 1px;
+  background: var(--marker);
+  transform: skew(-7deg) rotate(-1deg);
+}
+.gloss { margin-top: 16px; font-size: 12px; line-height: 1.55; }
+.gloss summary { cursor: pointer; color: var(--ink-2); }
+.gloss p { margin-top: 7px; }
+.book-caption { margin-top: 21px; text-align: center; font-size: 11px; color: var(--ink-2); }
+.section {
+  padding-block: 54px;
+  border-top: 1px solid var(--hairline);
+}
+.section-heading {
+  display: grid;
+  grid-template-columns: .38fr 1fr;
+  gap: 36px;
+  margin-bottom: 32px;
+}
+.section-heading .meta { padding-top: 9px; }
+h2 { font: 300 clamp(32px, 3.4vw, 44px)/1.12 var(--serif); letter-spacing: -.04em; }
+.section-heading p { max-width: 60ch; color: var(--ink-2); margin-top: 16px; }
+.reading-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  padding-block: 20px;
+  border-block: 1px solid var(--hairline);
+  margin-bottom: 28px;
+  font-size: 14px;
+}
+.reading-line span { display: flex; gap: 10px; align-items: baseline; }
+.reading-line b { font-weight: 400; color: var(--ink-3); font-family: ui-monospace, monospace; }
+.screenshot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  padding: 28px;
+  background: var(--surface-2);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  text-align: center;
+}
+.screenshot figcaption { max-width: 32ch; font-size: 12px; color: var(--ink-2); }
+.reading-note { margin-top: 16px; color: var(--ink-2); font-size: 12px; }
+.tutor-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.tutor-copy .meta { margin-bottom: 18px; }
+.tutor-copy p { margin-top: 18px; max-width: 46ch; color: var(--ink-2); }
+.tutor-copy .quiet-link { font-size: 13px; }
+.ways-intro { max-width: 61ch; }
+.way {
+  display: grid;
+  grid-template-columns: 64px 250px 1fr;
+  gap: 22px;
+  padding-block: 29px;
+  border-top: 1px solid var(--hairline);
+}
+.way-number { padding-top: 6px; }
+.way h3 { font: 400 25px/1.2 var(--serif); letter-spacing: -.02em; }
+.way .tagline { color: var(--ink-2); font-size: 12px; margin-top: 8px; }
+.way-body p + p { margin-top: 12px; }
+.way-body { font-size: 15px; }
+.way-body .detail { color: var(--ink-2); font-size: 13px; }
+.way-body .way-link { display: inline-block; margin-top: 13px; font-size: 13px; }
+code { font: 13px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; }
+.command {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  padding: 10px 15px;
+  margin-top: 15px;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  border-radius: 2px;
+}
+.install-body { margin-left: calc((100% - 36px) * .275); }
+.device { padding-block: 20px; border-top: 1px solid var(--hairline); }
+.device h3 { font-size: 14px; font-family: var(--sans); font-weight: 600; margin-bottom: 7px; }
+.device p { color: var(--ink-2); font-size: 14px; }
+.offline { margin-top: 17px; font: 400 22px/1.4 var(--serif); }
+.closing {
+  padding: 38px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+  margin-block: 15px 55px;
+}
+.closing h2 { font-size: clamp(28px, 3vw, 37px); }
+.closing p { color: var(--ink-2); font-size: 14px; margin-top: 8px; }
+.closing .primary { flex-shrink: 0; }
+footer { padding-block: 28px 35px; border-top: 1px solid var(--hairline); }
+.footer-top { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 12px 23px; font-size: 12px; }
+.footer-bottom { margin-top: 22px; font-size: 11px; color: var(--ink-2); }
+.footer-bottom p + p { margin-top: 5px; }
+@media (max-width: 699px) {
+  .wrap { width: calc(100% - 36px); }
+  .site-header { min-height: 62px; }
+  .wordmark { font-size: 28px; }
+  .header-links { gap: 17px; font-size: 12px; }
+  .hero { grid-template-columns: 1fr; gap: 23px; padding-block: 28px 34px; }
+  h1 { font-size: clamp(40px, 11.8vw, 65px); max-width: 12ch; margin-top: 10px; }
+  .hero-copy &gt; p { font-size: 15px; line-height: 1.5; margin-top: 14px; }
+  .actions { gap: 17px; margin-top: 18px; }
+  .primary { min-height: 45px; padding: 11px 19px; }
+  .hero-copy .account-note { margin-top: 14px; font-size: 11px; }
+  .book-stage { padding: 0 6px 0 0; }
+  .open-book { min-height: 225px; grid-template-columns: .3fr .7fr; }
+  .book-left { padding: 20px 11px; }
+  .book-title { font-size: 30px; }
+  .book-left .meta { font-size: 9px; }
+  .book-ornament { height: 48px; margin-block: 15px; }
+  .book-right { padding: 18px 15px; }
+  .book-right &gt; .meta { font-size: 10px; padding-bottom: 9px; }
+  .passage { font-size: 17px; line-height: 1.4; margin-top: 11px; }
+  .gloss { margin-top: 10px; font-size: 10px; }
+  .book-caption { margin-top: 15px; font-size: 10px; }
+  .section { padding-block: 34px; }
+  .section-heading { grid-template-columns: 1fr; gap: 13px; margin-bottom: 23px; }
+  .section-heading .meta { padding-top: 0; }
+  .section-heading p { font-size: 14px; margin-top: 12px; }
+  .reading-line { flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .screenshot { min-height: 185px; padding: 22px; }
+  .tutor-layout { grid-template-columns: 1fr; gap: 24px; }
+  .tutor-copy .meta { margin-bottom: 13px; }
+  .tutor-copy p { font-size: 14px; margin-top: 13px; }
+  .way { grid-template-columns: 25px 1fr; gap: 10px 12px; padding-block: 24px; }
+  .way-body { grid-column: 2; font-size: 14px; }
+  .way h3 { font-size: 25px; }
+  .way .tagline { margin-top: 5px; }
+  .way-body .detail { font-size: 12px; }
+  .install-body { margin-left: 0; }
+  .closing { flex-direction: column; align-items: flex-start; padding: 24px; margin-bottom: 34px; }
+  .footer-top { align-items: flex-start; flex-direction: column; }
+  .footer-links { gap: 12px 19px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  a, summary { transition: none; }
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;header class=&quot;site-header wrap&quot;&gt;
+  &lt;span class=&quot;wordmark&quot; aria-label=&quot;Sotto&quot;&gt;sotto&lt;/span&gt;
+  &lt;nav class=&quot;header-links&quot; aria-label=&quot;Main navigation&quot;&gt;
+    &lt;a href=&quot;/start&quot;&gt;Try a sample&lt;/a&gt;
+    &lt;a href=&quot;https://app.readsotto.app/account&quot;&gt;Sign in&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+&lt;main class=&quot;wrap&quot;&gt;
+  &lt;section class=&quot;hero&quot; aria-labelledby=&quot;hero-title&quot;&gt;
+    &lt;div class=&quot;hero-copy&quot;&gt;
+      &lt;div class=&quot;meta&quot;&gt;Free · Open source · In your browser&lt;/div&gt;
+      &lt;h1 id=&quot;hero-title&quot;&gt;A book at your level.&lt;/h1&gt;
+      &lt;p&gt;Pick a language and a level, read a short book rewritten to fit, and tap any word for its meaning—all free.&lt;/p&gt;
+      &lt;div class=&quot;actions&quot;&gt;
+        &lt;a class=&quot;primary&quot; href=&quot;https://app.readsotto.app/account?intent=start&quot;&gt;Start free&lt;/a&gt;
+        &lt;a class=&quot;secondary&quot; href=&quot;/start&quot;&gt;Try a sample&lt;/a&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;account-note&quot;&gt;No account needed to try.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;figure class=&quot;book-stage&quot; aria-label=&quot;An open Sotto book with a French A2 sample passage&quot;&gt;
+      &lt;div class=&quot;open-book&quot;&gt;
+        &lt;div class=&quot;book-left&quot;&gt;
+          &lt;div&gt;
+            &lt;div class=&quot;meta&quot;&gt;A graded reader&lt;/div&gt;
+            &lt;div class=&quot;book-title&quot;&gt;Sotto&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;svg class=&quot;book-ornament&quot; viewBox=&quot;0 0 110 92&quot; aria-hidden=&quot;true&quot;&gt;
+            &lt;path d=&quot;M15 76V23C30 18 41 21 55 30C69 21 80 18 95 23V76C79 71 69 74 55 83C41 74 31 71 15 76Z&quot; fill=&quot;none&quot; stroke=&quot;#6E6459&quot; stroke-width=&quot;1&quot;/&gt;
+            &lt;path d=&quot;M55 30V83M23 32C32 30 41 33 47 37M23 42C32 40 41 43 47 47M63 37C71 32 79 30 87 32M63 47C71 42 79 40 87 42&quot; fill=&quot;none&quot; stroke=&quot;#9C9287&quot; stroke-width=&quot;1&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;div class=&quot;meta&quot;&gt;French&lt;br&gt;Level A2&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;book-right&quot;&gt;
+          &lt;div class=&quot;meta&quot;&gt;A passage to try&lt;/div&gt;
+          &lt;p class=&quot;passage&quot; lang=&quot;fr&quot;&gt;Sotto est un livre gratuit et &lt;span class=&quot;tapped&quot;&gt;adapté&lt;/span&gt;. Vous choisissez une langue et un niveau, puis vous lisez. Touchez un &lt;span class=&quot;saved&quot;&gt;mot&lt;/span&gt; pour le traduire.&lt;/p&gt;
+          &lt;details class=&quot;gloss&quot; open&gt;
+            &lt;summary&gt;adapté&lt;/summary&gt;
+            &lt;p&gt;&lt;strong&gt;graded&lt;/strong&gt; (rewritten at your level)&lt;/p&gt;
+          &lt;/details&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;figcaption class=&quot;book-caption&quot;&gt;Sample passage · Highlighted word and saved-word marker illustrated&lt;/figcaption&gt;
+    &lt;/figure&gt;
+  &lt;/section&gt;
+
+  &lt;section class=&quot;section&quot; aria-labelledby=&quot;reading-title&quot;&gt;
+    &lt;div class=&quot;section-heading&quot;&gt;
+      &lt;div class=&quot;meta&quot;&gt;01 / Read&lt;/div&gt;
+      &lt;div&gt;
+        &lt;h2 id=&quot;reading-title&quot;&gt;Stay with the story.&lt;/h2&gt;
+        &lt;p&gt;Open a short book adapted to your level. Tap any word for its meaning, hear the story narrated, and save words to review later.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;reading-line&quot; aria-label=&quot;What free reading includes&quot;&gt;
+      &lt;span&gt;&lt;b&gt;01&lt;/b&gt; Read at your level&lt;/span&gt;
+      &lt;span&gt;&lt;b&gt;02&lt;/b&gt; Listen to the story&lt;/span&gt;
+      &lt;span&gt;&lt;b&gt;03&lt;/b&gt; Save words for later&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;figure class=&quot;screenshot&quot;&gt;
+      &lt;figcaption&gt;Real screenshot: reader with a word popup open&lt;/figcaption&gt;
+    &lt;/figure&gt;
+    &lt;p class=&quot;reading-note&quot;&gt;The books are machine-adapted drafts, and their levels are estimates.&lt;/p&gt;
+  &lt;/section&gt;
+
+  &lt;section class=&quot;section tutor-layout&quot; aria-labelledby=&quot;tutor-title&quot;&gt;
+    &lt;div class=&quot;tutor-copy&quot;&gt;
+      &lt;div class=&quot;meta&quot;&gt;02 / Talk about it&lt;/div&gt;
+      &lt;h2 id=&quot;tutor-title&quot;&gt;Read a passage.&lt;br&gt;Then say what you think.&lt;/h2&gt;
+      &lt;p&gt;Talk out loud about the passage you just read. The voice tutor answers, and you keep talking. It already knows what you read.&lt;/p&gt;
+      &lt;p&gt;You can use the free in-browser tutor, choose a hosted plan, bring your own key, or run Sotto yourself. Here is how each works.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;figure class=&quot;screenshot&quot;&gt;
+      &lt;figcaption&gt;Real screenshot: the voice tutor mid-conversation&lt;/figcaption&gt;
+    &lt;/figure&gt;
+  &lt;/section&gt;
+
+  &lt;section class=&quot;section&quot; aria-labelledby=&quot;ways-title&quot;&gt;
+    &lt;div class=&quot;section-heading&quot;&gt;
+      &lt;div class=&quot;meta&quot;&gt;03 / Your choice&lt;/div&gt;
+      &lt;div&gt;
+        &lt;h2 id=&quot;ways-title&quot;&gt;Four ways to use Sotto.&lt;/h2&gt;
+        &lt;p class=&quot;ways-intro&quot;&gt;Start with free reading. For conversation, use the on-device tutor or choose how to power it. Your own key and self-hosting are alternatives to the hosted plan.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;article class=&quot;way&quot;&gt;
+      &lt;div class=&quot;way-number meta&quot;&gt;01&lt;/div&gt;
+      &lt;div&gt;
+        &lt;h3&gt;Free reading&lt;/h3&gt;
+        &lt;p class=&quot;tagline&quot;&gt;The book, the words, the conversation.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;way-body&quot;&gt;
+        &lt;p&gt;Reading, listening, tap-to-translate, saved vocabulary, and an in-browser tutor are free. The tutor runs on on-device models; nothing leaves the device.&lt;/p&gt;
+        &lt;p class=&quot;detail&quot;&gt;No account is needed to try. Your progress and saved words stay in this browser until you create an account, and an account keeps them.&lt;/p&gt;
+        &lt;a class=&quot;way-link&quot; href=&quot;/start&quot;&gt;Try a sample without an account →&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+
+    &lt;article class=&quot;way&quot;&gt;
+      &lt;div class=&quot;way-number meta&quot;&gt;02&lt;/div&gt;
+      &lt;div&gt;
+        &lt;h3&gt;The plan&lt;/h3&gt;
+        &lt;p class=&quot;tagline&quot;&gt;Hosted voice tutor. Nothing to set up.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;way-body&quot;&gt;
+        &lt;p&gt;&lt;strong&gt;$9.99 a month or $79 a year&lt;/strong&gt; after a 3-day trial.&lt;/p&gt;
+        &lt;p class=&quot;detail&quot;&gt;With the plan, your voice goes to OpenAI through Sotto&#x27;s server, which brokers each tutor turn. Sotto does not store transcripts or recordings, only usage minutes and billing.&lt;/p&gt;
+        &lt;a class=&quot;way-link&quot; href=&quot;https://app.readsotto.app/account&quot;&gt;Sign in for the plan at app.readsotto.app →&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+
+    &lt;article class=&quot;way&quot;&gt;
+      &lt;div class=&quot;way-number meta&quot;&gt;03&lt;/div&gt;
+      &lt;div&gt;
+        &lt;h3&gt;Your own key&lt;/h3&gt;
+        &lt;p class=&quot;tagline&quot;&gt;Works with or without the plan.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;way-body&quot;&gt;
+        &lt;p&gt;Paste an OpenAI API key in Settings. The page then calls OpenAI directly from your browser.&lt;/p&gt;
+        &lt;p class=&quot;detail&quot;&gt;The key stays on this device. OpenAI bills you, not Sotto.&lt;/p&gt;
+        &lt;a class=&quot;way-link&quot; href=&quot;/docs/byok&quot;&gt;Read the own-key guide →&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+
+    &lt;article class=&quot;way&quot;&gt;
+      &lt;div class=&quot;way-number meta&quot;&gt;04&lt;/div&gt;
+      &lt;div&gt;
+        &lt;h3&gt;Run it yourself&lt;/h3&gt;
+        &lt;p class=&quot;tagline&quot;&gt;Free on your own hardware.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;way-body&quot;&gt;
+        &lt;p&gt;Run Sotto on your own computer. One command serves the app and the tutor from one origin, using local models or your own key.&lt;/p&gt;
+        &lt;code class=&quot;command&quot;&gt;docker compose up&lt;/code&gt;
+        &lt;a class=&quot;way-link&quot; href=&quot;/docs/self-hosting&quot;&gt;Follow the self-hosting guide →&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+  &lt;/section&gt;
+
+  &lt;section class=&quot;section&quot; aria-labelledby=&quot;install-title&quot;&gt;
+    &lt;div class=&quot;section-heading&quot;&gt;
+      &lt;div class=&quot;meta&quot;&gt;04 / Keep it close&lt;/div&gt;
+      &lt;div&gt;
+        &lt;h2 id=&quot;install-title&quot;&gt;Install Sotto.&lt;/h2&gt;
+        &lt;p&gt;Sotto is a progressive web app. Add it to your phone or desktop from your browser.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;install-body&quot;&gt;
+      &lt;article class=&quot;device&quot;&gt;
+        &lt;h3&gt;iPhone / iPad · Safari&lt;/h3&gt;
+        &lt;p&gt;Tap Share, choose “Add to Home Screen”, open Sotto from the Home Screen.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class=&quot;device&quot;&gt;
+        &lt;h3&gt;Android · Chrome&lt;/h3&gt;
+        &lt;p&gt;Open the menu, tap “Install app”.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class=&quot;device&quot;&gt;
+        &lt;h3&gt;Desktop · Chrome&lt;/h3&gt;
+        &lt;p&gt;Click the install icon in the address bar (or menu, “Install Sotto”), confirm Install.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;p class=&quot;offline&quot;&gt;A book you have opened keeps working offline.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;section class=&quot;closing&quot; aria-labelledby=&quot;closing-title&quot;&gt;
+    &lt;div&gt;
+      &lt;h2 id=&quot;closing-title&quot;&gt;Your next page starts here.&lt;/h2&gt;
+      &lt;p&gt;Choose a language. Choose a level. Open a book.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;a class=&quot;primary&quot; href=&quot;https://app.readsotto.app/account?intent=start&quot;&gt;Start free&lt;/a&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+&lt;footer class=&quot;wrap&quot;&gt;
+  &lt;div class=&quot;footer-top&quot;&gt;
+    &lt;span class=&quot;wordmark&quot;&gt;sotto&lt;/span&gt;
+    &lt;nav class=&quot;footer-links&quot; aria-label=&quot;Source and documentation&quot;&gt;
+      &lt;a href=&quot;https://github.com/readsotto/sotto&quot;&gt;GitHub&lt;/a&gt;
+      &lt;a href=&quot;/docs/byok&quot;&gt;Your own key&lt;/a&gt;
+      &lt;a href=&quot;/docs/self-hosting&quot;&gt;Self-hosting&lt;/a&gt;
+      &lt;a href=&quot;/docs/add-a-book&quot;&gt;Add a book&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;footer-bottom&quot;&gt;
+    &lt;p&gt;Free and open source. No analytics on the page or in the app.&lt;/p&gt;
+    &lt;p&gt;Code: Apache-2.0 · Stories: CC BY-SA 4.0&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;"></iframe></div><div class="cap"><span class="mono">At 375</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="notes">
+    <div class="note"><h4>Commits to</h4><ul><li>One object above the fold: a book you can see is a book (Kimi: teal cover beside its open page; Astra: a spread with cover left, passage right).</li><li>"Read a book at your level, then talk about it" as the whole promise, one sentence under it.</li><li>Four ways as numbered prose rows with the tutor explained first, in plain words.</li></ul></div>
+    <div class="note"><h4>Trades away</h4><ul><li>The book is a still. It shows a page, not what happens when you tap, listen, or speak; the act lives in the text below.</li><li>Kimi's cover brings a second hue (teal) into the hero; allowed for cover art only, but it competes with the CTA for the eye.</li><li>Both variants fail contrast on 11px mono labels in ink-3 (2.6:1); fixable, the token is wrong at that size. Kimi's header nav clips at 375.</li></ul></div>
+    <div class="note"><h4>Right when</h4><p>You want the shared-link visitor to get "a book, free, at my level" before anything else, and you are fine explaining the tutor in words rather than showing it.</p><h4 style="margin-top:18px">Taken all the way</h4><p>The book becomes the only image on the page: real cover art per language, the passage typeset on its page, the screenshots demoted to captions under the fold.</p></div>
+    <div class="note dna"><h4>Build DNA</h4><dl><dt>Register</dt><dd>Poster (object dominates, minimal copy), rows below</dd><dt>Anchor</dt><dd>Haptic's staged-object hero on Sotto paper</dd><dt>Flood</dt><dd>#F4ECDF paper, #221E1B ink, accent on Start free only</dd><dt>Device</dt><dd>The drawn book (cover + page, peach cutout)</dd><dt>Type</dt><dd>Fraunces 300 display 52 to 69px, Inter body, mono labels</dd></dl></div>
+  </div>
+  <div class="chips" role="group" aria-label="Direction A action"><span class="mono lab">Your call</span><button class="chip" data-band="A" data-action="steal">Steal</button><button class="chip" data-band="A" data-action="skip">Skip</button><button class="chip" data-band="A" data-action="deeper">Go deeper</button></div>
+</section>
+<div class="hairline"></div>
+
+<!-- ============ BAND B ============ -->
+<section class="band wrap" id="band-b" data-band="B">
+  <div class="band-head">
+    <div>
+      <p class="mono">Direction B · field guide, rail and column · the structure</p>
+      <h2 style="margin-top:10px">The Rail</h2>
+    </div>
+    <p class="thesis">This direction says: <em>this page is the reader.</em> A margin rail holds the name, the promise, and the one button while the column opens straight into the sample passage as chapter one, then the tutor as chapter two, then the four ways, then install.</p>
+  </div>
+  <div class="stage">
+    <div class="variants" role="group" aria-label="Direction B variant">
+      <span class="mono" style="margin-right:6px">Variant</span>
+      <button class="vchip" data-variant="astra-b" aria-pressed="true">GPT-6 Astra</button>
+      <button class="vchip" data-variant="kimi-b" aria-pressed="false">Kimi K3</button>
+    </div>
+    <div class="variant" data-variant="astra-b">
+      <div class="specimen">
+        <div class="frame"><div class="scaler" data-w="1280"><iframe title="Direction B, GPT-6 Astra, at 1280" loading="lazy" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta name=&quot;color-scheme&quot; content=&quot;light&quot;&gt;
+&lt;meta name=&quot;description&quot; content=&quot;Read a short book at your level, hear it narrated, and talk about it with Sotto, a free and open-source graded reader.&quot;&gt;
+&lt;title&gt;Sotto — Read it. Then talk about it.&lt;/title&gt;
+&lt;style&gt;
+:root {
+  --canvas: #F4ECDF;
+  --surface: #FBF6EC;
+  --surface-2: #EFE4D2;
+  --ink: #221E1B;
+  --ink-2: #6E6459;
+  --ink-3: #9C9287;
+  --hairline: rgba(34,30,27,0.12);
+  --accent: #E4572E;
+  --peach: #F2C8B4;
+  --tapped: rgba(242,200,180,0.18);
+  --marker: #FFD8A8;
+  --serif: &quot;Fraunces&quot;, &quot;Iowan Old Style&quot;, Georgia, serif;
+  --sans: Inter, -apple-system, system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html { background: var(--canvas); }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--canvas);
+  font: 400 16px/1.65 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-underline-offset: 4px; }
+a, summary { transition: opacity 120ms ease, transform 120ms ease; }
+a:hover { opacity: .8; }
+a:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 5px;
+}
+h1, h2, h3, p, figure, blockquote { margin: 0; }
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+svg { display: block; max-width: 100%; }
+.meta {
+  color: var(--ink-2);
+  font: 400 11px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.shell {
+  display: grid;
+  grid-template-columns: 266px minmax(0, 1fr);
+  max-width: 1200px;
+  margin-inline: auto;
+}
+.margin {
+  min-width: 0;
+  border-right: 1px solid var(--hairline);
+  padding: 37px 30px 35px;
+}
+.margin-inner { position: sticky; top: 32px; }
+.brand-row { display: flex; justify-content: space-between; align-items: center; gap: 15px; }
+.wordmark { font: 400 36px/1 var(--serif); letter-spacing: -.055em; }
+.margin .edition { margin-top: 13px; }
+.cover-figure { margin-block: 36px 27px; }
+.cover-object {
+  position: relative;
+  width: 164px;
+  height: 211px;
+  padding: 20px 15px 16px 23px;
+  background: var(--surface-2);
+  border: 1px solid var(--ink);
+  border-radius: 2px 10px 10px 2px;
+  box-shadow: 6px 6px 0 0 var(--peach);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cover-object::before {
+  content: &quot;&quot;;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 8px;
+  border-right: 1px solid var(--ink-3);
+}
+.cover-object::after {
+  content: &quot;&quot;;
+  position: absolute;
+  left: 11px;
+  right: 5px;
+  bottom: -5px;
+  height: 3px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--ink-3);
+}
+.cover-name { font: 300 40px/1 var(--serif); letter-spacing: -.05em; }
+.cover-object .meta { font-size: 9px; }
+.cover-art { width: 85px; height: 65px; align-self: center; }
+.cover-figure figcaption { color: var(--ink-2); margin-top: 17px; font-size: 11px; }
+.margin-description { max-width: 23ch; font: 400 21px/1.4 var(--serif); }
+.margin-note { margin-top: 16px; color: var(--ink-2); font-size: 12px; max-width: 26ch; }
+.margin-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 11px;
+  margin-top: 27px;
+  padding-top: 21px;
+  border-top: 1px solid var(--hairline);
+  font-size: 12px;
+}
+.mobile-signin { display: none; font-size: 12px; }
+.main-column { min-width: 0; padding: 0 58px; }
+.hero { padding-block: 38px 42px; }
+.topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 39px;
+}
+.topline a { font-size: 12px; }
+h1 {
+  font: 300 clamp(45px, 5.2vw, 67px)/1.04 var(--serif);
+  letter-spacing: -.055em;
+  max-width: 14ch;
+}
+.hero-description {
+  font-size: 17px;
+  color: var(--ink-2);
+  max-width: 52ch;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 21px; margin-top: 25px; }
+.primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 47px;
+  padding: 12px 23px;
+  background: var(--accent);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  box-shadow: 6px 6px 0 0 var(--peach);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+}
+.primary:hover { opacity: 1; transform: translate(-1px, -1px); }
+.primary:active { transform: translate(2px, 2px); }
+.actions .sample { font-size: 13px; }
+.account-note { color: var(--ink-2); font-size: 11px; margin-top: 19px; }
+.chapter { padding-block: 35px 39px; border-top: 1px solid var(--hairline); }
+.chapter-label { display: flex; align-items: baseline; gap: 15px; margin-bottom: 17px; }
+.chapter-label .number { color: var(--ink-3); }
+h2 { font: 300 clamp(31px, 3.4vw, 43px)/1.13 var(--serif); letter-spacing: -.04em; }
+.lede { margin-top: 15px; color: var(--ink-2); max-width: 61ch; }
+.sample-sheet {
+  margin-top: 27px;
+  padding: 26px 30px 23px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+}
+.sheet-top { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--hairline); padding-bottom: 14px; }
+.sample-passage {
+  font: 400 clamp(23px, 2.35vw, 30px)/1.52 var(--serif);
+  margin-top: 20px;
+  letter-spacing: -.012em;
+}
+.tapped { background: var(--tapped); padding-inline: 3px; border-bottom: 1px solid var(--ink-2); }
+.saved { position: relative; isolation: isolate; white-space: nowrap; }
+.saved::before {
+  content: &quot;&quot;;
+  position: absolute;
+  z-index: -1;
+  inset: 55% -3px 2px;
+  transform: skew(-8deg) rotate(-1deg);
+  background: var(--marker);
+}
+.word-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 16px;
+  align-items: baseline;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--hairline);
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.word-note strong { color: var(--ink); font-weight: 500; font-size: 14px; }
+.sample-caption { margin-top: 10px; color: var(--ink-2); font-size: 11px; }
+.reader-details { margin-top: 24px; }
+.reader-details summary { cursor: pointer; font-size: 13px; text-decoration: underline; text-underline-offset: 4px; }
+.screenshot {
+  min-height: 215px;
+  margin-top: 20px;
+  background: var(--surface-2);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  text-align: center;
+}
+.screenshot figcaption { max-width: 34ch; color: var(--ink-2); font-size: 12px; }
+.caveat { margin-top: 18px; font-size: 11px; color: var(--ink-2); }
+.conversation-text { margin-top: 22px; padding-left: 20px; border-left: 2px solid var(--ink-3); }
+.conversation-text p { font: 400 25px/1.45 var(--serif); max-width: 38ch; }
+.conversation-text p + p { margin-top: 10px; }
+.tutor-footnote { margin-top: 19px; color: var(--ink-2); font-size: 14px; }
+.install-list { margin-top: 25px; border-bottom: 1px solid var(--hairline); }
+.device { padding-block: 18px; border-top: 1px solid var(--hairline); }
+.device h3 { font: 600 14px/1.5 var(--sans); }
+.device p { font-size: 14px; color: var(--ink-2); margin-top: 5px; }
+.offline { font: 400 23px/1.4 var(--serif); margin-top: 20px; }
+.ways { margin-top: 28px; padding: 0; list-style: none; counter-reset: routes; }
+.route {
+  position: relative;
+  padding: 25px 0 25px 40px;
+  border-top: 1px solid var(--hairline);
+  counter-increment: routes;
+}
+.route::before {
+  content: &quot;0&quot; counter(routes);
+  position: absolute;
+  left: 0;
+  top: 30px;
+  color: var(--ink-3);
+  font: 400 11px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .08em;
+}
+.route h3 { font: 400 28px/1.2 var(--serif); letter-spacing: -.025em; }
+.route .route-caption { margin-top: 7px; color: var(--ink-2); font-size: 12px; }
+.route p { margin-top: 14px; font-size: 15px; }
+.route .detail { color: var(--ink-2); font-size: 13px; }
+.route a { display: inline-block; margin-top: 14px; font-size: 13px; }
+.command {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  padding: 11px 16px;
+  margin-top: 17px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  font: 400 13px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+  overflow-wrap: anywhere;
+}
+.endnote { padding-block: 36px 45px; border-top: 1px solid var(--hairline); }
+.endnote h2 { max-width: 18ch; }
+.endnote p { margin-top: 15px; color: var(--ink-2); font-size: 14px; }
+.endnote .actions { margin-top: 22px; }
+footer { padding-block: 25px 35px; border-top: 1px solid var(--hairline); }
+.footer-links { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 12px; }
+footer p { color: var(--ink-2); font-size: 11px; margin-top: 17px; }
+footer .license { margin-top: 5px; }
+@media (min-width: 700px) and (max-width: 999px) {
+  .shell { grid-template-columns: 215px minmax(0, 1fr); }
+  .margin { padding-inline: 23px; }
+  .main-column { padding-inline: 30px; }
+  .cover-object { width: 150px; height: 199px; }
+}
+@media (max-width: 699px) {
+  .shell { display: block; width: 100%; }
+  .margin { padding: 18px; border-right: 0; border-bottom: 1px solid var(--hairline); }
+  .margin-inner {
+    position: static;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 49px;
+    align-items: center;
+    gap: 0 20px;
+  }
+  .brand-row { grid-column: 1; grid-row: 1; }
+  .wordmark { font-size: 29px; }
+  .mobile-signin { display: inline; }
+  .margin .edition { margin-top: 8px; font-size: 9px; grid-column: 1; grid-row: 2; }
+  .cover-figure { grid-column: 2; grid-row: 1 / 3; margin: 0; }
+  .cover-object {
+    width: 43px;
+    height: 56px;
+    padding: 8px 4px 5px 8px;
+    border-radius: 2px;
+  }
+  .cover-object::before { left: 4px; }
+  .cover-object::after { left: 5px; right: 2px; bottom: -3px; height: 2px; }
+  .cover-name { font-size: 14px; }
+  .cover-object .meta { font-size: 5px; letter-spacing: .02em; }
+  .cover-art, .cover-object .cover-subtitle, .cover-figure figcaption { display: none; }
+  .margin-description, .margin-note, .margin-nav { display: none; }
+  .main-column { padding-inline: 18px; }
+  .hero { padding-block: 26px 30px; }
+  .topline { margin-bottom: 15px; }
+  .topline a { display: none; }
+  .topline .meta { font-size: 10px; }
+  h1 { font-size: clamp(43px, 12vw, 66px); max-width: 12ch; }
+  .hero-description { margin-top: 15px; font-size: 15px; line-height: 1.55; }
+  .actions { gap: 18px; margin-top: 20px; }
+  .primary { padding: 11px 20px; min-height: 45px; }
+  .account-note { margin-top: 16px; }
+  .chapter { padding-block: 28px 31px; }
+  .chapter-label { margin-bottom: 13px; }
+  .lede { font-size: 14px; margin-top: 13px; }
+  .sample-sheet { padding: 19px 19px 18px; margin-top: 21px; }
+  .sheet-top .meta { font-size: 9px; }
+  .sample-passage { font-size: 24px; line-height: 1.45; margin-top: 16px; }
+  .word-note { margin-top: 18px; padding-top: 13px; gap: 5px 10px; font-size: 11px; }
+  .word-note strong { font-size: 13px; }
+  .conversation-text { padding-left: 16px; margin-top: 20px; }
+  .conversation-text p { font-size: 23px; }
+  .screenshot { min-height: 180px; padding: 20px; }
+  .tutor-footnote { font-size: 13px; }
+  .route { padding-left: 30px; padding-block: 23px; }
+  .route::before { top: 29px; }
+  .route h3 { font-size: 26px; }
+  .route p { font-size: 14px; }
+  .route .detail { font-size: 12px; }
+  .endnote { padding-block: 30px 37px; }
+  .footer-links { gap: 12px 19px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  a, summary { transition: none; }
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;shell&quot;&gt;
+  &lt;aside class=&quot;margin&quot; aria-label=&quot;About Sotto&quot;&gt;
+    &lt;div class=&quot;margin-inner&quot;&gt;
+      &lt;div class=&quot;brand-row&quot;&gt;
+        &lt;span class=&quot;wordmark&quot;&gt;sotto&lt;/span&gt;
+        &lt;a class=&quot;mobile-signin&quot; href=&quot;https://app.readsotto.app/account&quot;&gt;Sign in&lt;/a&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;edition meta&quot;&gt;An open-source graded reader&lt;/p&gt;
+      &lt;figure class=&quot;cover-figure&quot; aria-label=&quot;A small Sotto book cover&quot;&gt;
+        &lt;div class=&quot;cover-object&quot;&gt;
+          &lt;div&gt;
+            &lt;div class=&quot;cover-subtitle meta&quot;&gt;Read at your level&lt;/div&gt;
+            &lt;div class=&quot;cover-name&quot;&gt;Sotto&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;svg class=&quot;cover-art&quot; viewBox=&quot;0 0 85 65&quot; aria-hidden=&quot;true&quot;&gt;
+            &lt;path d=&quot;M11 53L29 12H43L26 53Z&quot; fill=&quot;#1F4F57&quot;/&gt;
+            &lt;path d=&quot;M34 53L51 12H65L48 53Z&quot; fill=&quot;#5B8A6B&quot;/&gt;
+            &lt;path d=&quot;M7 59H75&quot; stroke=&quot;#6E6459&quot; stroke-width=&quot;1&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;div class=&quot;meta&quot;&gt;French · A2&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;figcaption&gt;A book. A passage. A conversation.&lt;/figcaption&gt;
+      &lt;/figure&gt;
+      &lt;p class=&quot;margin-description&quot;&gt;A little reading.&lt;br&gt;Something to talk about.&lt;/p&gt;
+      &lt;p class=&quot;margin-note&quot;&gt;Choose a language and a level. Let the passage be the start.&lt;/p&gt;
+      &lt;nav class=&quot;margin-nav&quot; aria-label=&quot;Reading and source links&quot;&gt;
+        &lt;a href=&quot;/start&quot;&gt;Open a sample, no account&lt;/a&gt;
+        &lt;a href=&quot;https://github.com/readsotto/sotto&quot;&gt;Explore the source&lt;/a&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+  &lt;/aside&gt;
+
+  &lt;main class=&quot;main-column&quot;&gt;
+    &lt;section class=&quot;hero&quot; aria-labelledby=&quot;hero-title&quot;&gt;
+      &lt;div class=&quot;topline&quot;&gt;
+        &lt;span class=&quot;meta&quot;&gt;Free reading, in your browser&lt;/span&gt;
+        &lt;a href=&quot;https://app.readsotto.app/account&quot;&gt;Sign in&lt;/a&gt;
+      &lt;/div&gt;
+      &lt;h1 id=&quot;hero-title&quot;&gt;Read it.&lt;br&gt;Then talk about it.&lt;/h1&gt;
+      &lt;p class=&quot;hero-description&quot;&gt;Read a free short book rewritten at your level, tap words for their meaning, and talk about the passage with a voice tutor.&lt;/p&gt;
+      &lt;div class=&quot;actions&quot;&gt;
+        &lt;a class=&quot;primary&quot; href=&quot;https://app.readsotto.app/account?intent=start&quot;&gt;Start free&lt;/a&gt;
+        &lt;a class=&quot;sample&quot; href=&quot;/start&quot;&gt;Try a sample&lt;/a&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;account-note&quot;&gt;No account needed to try.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;chapter&quot; aria-labelledby=&quot;read-title&quot;&gt;
+      &lt;div class=&quot;chapter-label meta&quot;&gt;&lt;span class=&quot;number&quot;&gt;01&lt;/span&gt;&lt;span&gt;Begin with a passage&lt;/span&gt;&lt;/div&gt;
+      &lt;h2 id=&quot;read-title&quot;&gt;The words meet you where you are.&lt;/h2&gt;
+      &lt;p class=&quot;lede&quot;&gt;Choose a language and a level, then open a short adapted book. Read it, hear the story narrated, and save words to review later.&lt;/p&gt;
+      &lt;figure&gt;
+        &lt;div class=&quot;sample-sheet&quot;&gt;
+          &lt;div class=&quot;sheet-top&quot;&gt;
+            &lt;span class=&quot;meta&quot;&gt;Sotto · Sample passage&lt;/span&gt;
+            &lt;span class=&quot;meta&quot;&gt;French / A2&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;blockquote class=&quot;sample-passage&quot; lang=&quot;fr&quot;&gt;Sotto est un livre gratuit et &lt;span class=&quot;tapped&quot;&gt;adapté&lt;/span&gt;. Vous choisissez une langue et un niveau, puis vous lisez. Touchez un &lt;span class=&quot;saved&quot;&gt;mot&lt;/span&gt; pour le traduire.&lt;/blockquote&gt;
+          &lt;div class=&quot;word-note&quot;&gt;
+            &lt;strong lang=&quot;fr&quot;&gt;adapté&lt;/strong&gt;
+            &lt;span&gt;graded (rewritten at your level)&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;figcaption class=&quot;sample-caption&quot;&gt;A typeset passage with a word gloss and saved-word marker illustrated.&lt;/figcaption&gt;
+      &lt;/figure&gt;
+      &lt;details class=&quot;reader-details&quot; open&gt;
+        &lt;summary&gt;The reader&lt;/summary&gt;
+        &lt;figure class=&quot;screenshot&quot;&gt;
+          &lt;figcaption&gt;Real screenshot: reader with a word popup open&lt;/figcaption&gt;
+        &lt;/figure&gt;
+      &lt;/details&gt;
+      &lt;p class=&quot;caveat&quot;&gt;The books are machine-adapted drafts, and their levels are estimates.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;chapter&quot; aria-labelledby=&quot;talk-title&quot;&gt;
+      &lt;div class=&quot;chapter-label meta&quot;&gt;&lt;span class=&quot;number&quot;&gt;02&lt;/span&gt;&lt;span&gt;Give the passage a voice&lt;/span&gt;&lt;/div&gt;
+      &lt;h2 id=&quot;talk-title&quot;&gt;Now you have something to say.&lt;/h2&gt;
+      &lt;div class=&quot;conversation-text&quot;&gt;
+        &lt;p&gt;You read a passage. Then you talk about it out loud.&lt;/p&gt;
+        &lt;p&gt;The voice tutor answers. It already knows what you read.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;lede&quot;&gt;Keep the conversation about the story you just opened. You can start with the free tutor that runs on on-device models in your browser.&lt;/p&gt;
+      &lt;figure class=&quot;screenshot&quot;&gt;
+        &lt;figcaption&gt;Real screenshot: the voice tutor mid-conversation&lt;/figcaption&gt;
+      &lt;/figure&gt;
+      &lt;p class=&quot;tutor-footnote&quot;&gt;The free in-browser tutor keeps everything on the device. A hosted plan, your own key, and self-hosting give you other ways to power the conversation, explained below.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;chapter&quot; aria-labelledby=&quot;install-title&quot;&gt;
+      &lt;div class=&quot;chapter-label meta&quot;&gt;&lt;span class=&quot;number&quot;&gt;03&lt;/span&gt;&lt;span&gt;Put the book within reach&lt;/span&gt;&lt;/div&gt;
+      &lt;h2 id=&quot;install-title&quot;&gt;Install it from your browser.&lt;/h2&gt;
+      &lt;p class=&quot;lede&quot;&gt;Sotto is a progressive web app for your phone or desktop. Follow the steps for your device.&lt;/p&gt;
+      &lt;div class=&quot;install-list&quot;&gt;
+        &lt;article class=&quot;device&quot;&gt;
+          &lt;h3&gt;iPhone / iPad Safari&lt;/h3&gt;
+          &lt;p&gt;Tap Share, choose “Add to Home Screen”, open Sotto from the Home Screen.&lt;/p&gt;
+        &lt;/article&gt;
+        &lt;article class=&quot;device&quot;&gt;
+          &lt;h3&gt;Android Chrome&lt;/h3&gt;
+          &lt;p&gt;Open the menu, tap “Install app”.&lt;/p&gt;
+        &lt;/article&gt;
+        &lt;article class=&quot;device&quot;&gt;
+          &lt;h3&gt;Desktop Chrome&lt;/h3&gt;
+          &lt;p&gt;Click the install icon in the address bar (or menu, “Install Sotto”), confirm Install.&lt;/p&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;offline&quot;&gt;A book you have opened keeps working offline.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;chapter&quot; aria-labelledby=&quot;ways-title&quot;&gt;
+      &lt;div class=&quot;chapter-label meta&quot;&gt;&lt;span class=&quot;number&quot;&gt;04&lt;/span&gt;&lt;span&gt;Choose how it runs&lt;/span&gt;&lt;/div&gt;
+      &lt;h2 id=&quot;ways-title&quot;&gt;Free to read.&lt;br&gt;Four ways to use it.&lt;/h2&gt;
+      &lt;p class=&quot;lede&quot;&gt;The hosted plan is one option for the voice tutor. Your own key and running Sotto yourself are alternatives to that plan.&lt;/p&gt;
+      &lt;ol class=&quot;ways&quot;&gt;
+        &lt;li class=&quot;route&quot;&gt;
+          &lt;h3&gt;Free reading&lt;/h3&gt;
+          &lt;p class=&quot;route-caption&quot;&gt;Open the book and begin.&lt;/p&gt;
+          &lt;p&gt;Reading, listening, tap-to-translate, saved vocabulary, and an in-browser tutor are free. The tutor runs on on-device models; nothing leaves the device.&lt;/p&gt;
+          &lt;p class=&quot;detail&quot;&gt;No account is needed to try. Progress and saved words stay in this browser until you create an account, and an account keeps them.&lt;/p&gt;
+          &lt;a href=&quot;/start&quot;&gt;Try a sample without an account →&lt;/a&gt;
+        &lt;/li&gt;
+
+        &lt;li class=&quot;route&quot;&gt;
+          &lt;h3&gt;The plan&lt;/h3&gt;
+          &lt;p class=&quot;route-caption&quot;&gt;A hosted voice tutor with nothing to set up.&lt;/p&gt;
+          &lt;p&gt;&lt;strong&gt;$9.99 a month or $79 a year&lt;/strong&gt; after a 3-day trial.&lt;/p&gt;
+          &lt;p class=&quot;detail&quot;&gt;With the plan, your voice goes to OpenAI through Sotto&#x27;s server, which brokers each tutor turn. Sotto does not store transcripts or recordings, only usage minutes and billing.&lt;/p&gt;
+          &lt;a href=&quot;https://app.readsotto.app/account&quot;&gt;Sign in for the plan at app.readsotto.app →&lt;/a&gt;
+        &lt;/li&gt;
+
+        &lt;li class=&quot;route&quot;&gt;
+          &lt;h3&gt;Your own key&lt;/h3&gt;
+          &lt;p class=&quot;route-caption&quot;&gt;With or without the plan.&lt;/p&gt;
+          &lt;p&gt;Paste an OpenAI API key in Settings. The page then calls OpenAI directly from your browser.&lt;/p&gt;
+          &lt;p class=&quot;detail&quot;&gt;The key stays on this device. OpenAI bills you, not Sotto.&lt;/p&gt;
+          &lt;a href=&quot;/docs/byok&quot;&gt;Set up your own key →&lt;/a&gt;
+        &lt;/li&gt;
+
+        &lt;li class=&quot;route&quot;&gt;
+          &lt;h3&gt;Run it yourself&lt;/h3&gt;
+          &lt;p class=&quot;route-caption&quot;&gt;Free, on your own computer.&lt;/p&gt;
+          &lt;p&gt;Use your own hardware. One command serves the app and the tutor from one origin, using local models or your own key.&lt;/p&gt;
+          &lt;code class=&quot;command&quot;&gt;docker compose up&lt;/code&gt;
+          &lt;a href=&quot;/docs/self-hosting&quot;&gt;Follow the self-hosting guide →&lt;/a&gt;
+        &lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;endnote&quot; aria-labelledby=&quot;end-title&quot;&gt;
+      &lt;div class=&quot;chapter-label meta&quot;&gt;&lt;span&gt;Next / Your first book&lt;/span&gt;&lt;/div&gt;
+      &lt;h2 id=&quot;end-title&quot;&gt;Pick a language.&lt;br&gt;Find your level.&lt;br&gt;Start reading.&lt;/h2&gt;
+      &lt;p&gt;The book, narration, word meanings, saved vocabulary, and on-device tutor are free.&lt;/p&gt;
+      &lt;div class=&quot;actions&quot;&gt;
+        &lt;a class=&quot;primary&quot; href=&quot;https://app.readsotto.app/account?intent=start&quot;&gt;Start free&lt;/a&gt;
+        &lt;a class=&quot;sample&quot; href=&quot;/start&quot;&gt;Try a sample&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;footer&gt;
+      &lt;nav class=&quot;footer-links&quot; aria-label=&quot;Source and documentation&quot;&gt;
+        &lt;a href=&quot;https://github.com/readsotto/sotto&quot;&gt;GitHub&lt;/a&gt;
+        &lt;a href=&quot;/docs/byok&quot;&gt;Your own key&lt;/a&gt;
+        &lt;a href=&quot;/docs/self-hosting&quot;&gt;Self-hosting&lt;/a&gt;
+        &lt;a href=&quot;/docs/add-a-book&quot;&gt;Add a book&lt;/a&gt;
+      &lt;/nav&gt;
+      &lt;p&gt;Free and open source. No analytics on the page or in the app.&lt;/p&gt;
+      &lt;p class=&quot;license&quot;&gt;Code: Apache-2.0 · Stories: CC BY-SA 4.0&lt;/p&gt;
+    &lt;/footer&gt;
+  &lt;/main&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;"></iframe></div><div class="cap"><span class="mono">Fragment · first screen at 1280 · GPT-6 Astra</span><a class="mono" href="landing-mockups/astra-b.html">Open full page</a></div></div>
+        <div class="frame"><div class="scaler" data-w="375"><iframe title="Direction B, GPT-6 Astra, at 375" loading="lazy" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta name=&quot;color-scheme&quot; content=&quot;light&quot;&gt;
+&lt;meta name=&quot;description&quot; content=&quot;Read a short book at your level, hear it narrated, and talk about it with Sotto, a free and open-source graded reader.&quot;&gt;
+&lt;title&gt;Sotto — Read it. Then talk about it.&lt;/title&gt;
+&lt;style&gt;
+:root {
+  --canvas: #F4ECDF;
+  --surface: #FBF6EC;
+  --surface-2: #EFE4D2;
+  --ink: #221E1B;
+  --ink-2: #6E6459;
+  --ink-3: #9C9287;
+  --hairline: rgba(34,30,27,0.12);
+  --accent: #E4572E;
+  --peach: #F2C8B4;
+  --tapped: rgba(242,200,180,0.18);
+  --marker: #FFD8A8;
+  --serif: &quot;Fraunces&quot;, &quot;Iowan Old Style&quot;, Georgia, serif;
+  --sans: Inter, -apple-system, system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html { background: var(--canvas); }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--canvas);
+  font: 400 16px/1.65 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-underline-offset: 4px; }
+a, summary { transition: opacity 120ms ease, transform 120ms ease; }
+a:hover { opacity: .8; }
+a:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 5px;
+}
+h1, h2, h3, p, figure, blockquote { margin: 0; }
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+svg { display: block; max-width: 100%; }
+.meta {
+  color: var(--ink-2);
+  font: 400 11px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.shell {
+  display: grid;
+  grid-template-columns: 266px minmax(0, 1fr);
+  max-width: 1200px;
+  margin-inline: auto;
+}
+.margin {
+  min-width: 0;
+  border-right: 1px solid var(--hairline);
+  padding: 37px 30px 35px;
+}
+.margin-inner { position: sticky; top: 32px; }
+.brand-row { display: flex; justify-content: space-between; align-items: center; gap: 15px; }
+.wordmark { font: 400 36px/1 var(--serif); letter-spacing: -.055em; }
+.margin .edition { margin-top: 13px; }
+.cover-figure { margin-block: 36px 27px; }
+.cover-object {
+  position: relative;
+  width: 164px;
+  height: 211px;
+  padding: 20px 15px 16px 23px;
+  background: var(--surface-2);
+  border: 1px solid var(--ink);
+  border-radius: 2px 10px 10px 2px;
+  box-shadow: 6px 6px 0 0 var(--peach);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cover-object::before {
+  content: &quot;&quot;;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 8px;
+  border-right: 1px solid var(--ink-3);
+}
+.cover-object::after {
+  content: &quot;&quot;;
+  position: absolute;
+  left: 11px;
+  right: 5px;
+  bottom: -5px;
+  height: 3px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--ink-3);
+}
+.cover-name { font: 300 40px/1 var(--serif); letter-spacing: -.05em; }
+.cover-object .meta { font-size: 9px; }
+.cover-art { width: 85px; height: 65px; align-self: center; }
+.cover-figure figcaption { color: var(--ink-2); margin-top: 17px; font-size: 11px; }
+.margin-description { max-width: 23ch; font: 400 21px/1.4 var(--serif); }
+.margin-note { margin-top: 16px; color: var(--ink-2); font-size: 12px; max-width: 26ch; }
+.margin-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 11px;
+  margin-top: 27px;
+  padding-top: 21px;
+  border-top: 1px solid var(--hairline);
+  font-size: 12px;
+}
+.mobile-signin { display: none; font-size: 12px; }
+.main-column { min-width: 0; padding: 0 58px; }
+.hero { padding-block: 38px 42px; }
+.topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 39px;
+}
+.topline a { font-size: 12px; }
+h1 {
+  font: 300 clamp(45px, 5.2vw, 67px)/1.04 var(--serif);
+  letter-spacing: -.055em;
+  max-width: 14ch;
+}
+.hero-description {
+  font-size: 17px;
+  color: var(--ink-2);
+  max-width: 52ch;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 21px; margin-top: 25px; }
+.primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 47px;
+  padding: 12px 23px;
+  background: var(--accent);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  box-shadow: 6px 6px 0 0 var(--peach);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+}
+.primary:hover { opacity: 1; transform: translate(-1px, -1px); }
+.primary:active { transform: translate(2px, 2px); }
+.actions .sample { font-size: 13px; }
+.account-note { color: var(--ink-2); font-size: 11px; margin-top: 19px; }
+.chapter { padding-block: 35px 39px; border-top: 1px solid var(--hairline); }
+.chapter-label { display: flex; align-items: baseline; gap: 15px; margin-bottom: 17px; }
+.chapter-label .number { color: var(--ink-3); }
+h2 { font: 300 clamp(31px, 3.4vw, 43px)/1.13 var(--serif); letter-spacing: -.04em; }
+.lede { margin-top: 15px; color: var(--ink-2); max-width: 61ch; }
+.sample-sheet {
+  margin-top: 27px;
+  padding: 26px 30px 23px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+}
+.sheet-top { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--hairline); padding-bottom: 14px; }
+.sample-passage {
+  font: 400 clamp(23px, 2.35vw, 30px)/1.52 var(--serif);
+  margin-top: 20px;
+  letter-spacing: -.012em;
+}
+.tapped { background: var(--tapped); padding-inline: 3px; border-bottom: 1px solid var(--ink-2); }
+.saved { position: relative; isolation: isolate; white-space: nowrap; }
+.saved::before {
+  content: &quot;&quot;;
+  position: absolute;
+  z-index: -1;
+  inset: 55% -3px 2px;
+  transform: skew(-8deg) rotate(-1deg);
+  background: var(--marker);
+}
+.word-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 16px;
+  align-items: baseline;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--hairline);
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.word-note strong { color: var(--ink); font-weight: 500; font-size: 14px; }
+.sample-caption { margin-top: 10px; color: var(--ink-2); font-size: 11px; }
+.reader-details { margin-top: 24px; }
+.reader-details summary { cursor: pointer; font-size: 13px; text-decoration: underline; text-underline-offset: 4px; }
+.screenshot {
+  min-height: 215px;
+  margin-top: 20px;
+  background: var(--surface-2);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  text-align: center;
+}
+.screenshot figcaption { max-width: 34ch; color: var(--ink-2); font-size: 12px; }
+.caveat { margin-top: 18px; font-size: 11px; color: var(--ink-2); }
+.conversation-text { margin-top: 22px; padding-left: 20px; border-left: 2px solid var(--ink-3); }
+.conversation-text p { font: 400 25px/1.45 var(--serif); max-width: 38ch; }
+.conversation-text p + p { margin-top: 10px; }
+.tutor-footnote { margin-top: 19px; color: var(--ink-2); font-size: 14px; }
+.install-list { margin-top: 25px; border-bottom: 1px solid var(--hairline); }
+.device { padding-block: 18px; border-top: 1px solid var(--hairline); }
+.device h3 { font: 600 14px/1.5 var(--sans); }
+.device p { font-size: 14px; color: var(--ink-2); margin-top: 5px; }
+.offline { font: 400 23px/1.4 var(--serif); margin-top: 20px; }
+.ways { margin-top: 28px; padding: 0; list-style: none; counter-reset: routes; }
+.route {
+  position: relative;
+  padding: 25px 0 25px 40px;
+  border-top: 1px solid var(--hairline);
+  counter-increment: routes;
+}
+.route::before {
+  content: &quot;0&quot; counter(routes);
+  position: absolute;
+  left: 0;
+  top: 30px;
+  color: var(--ink-3);
+  font: 400 11px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .08em;
+}
+.route h3 { font: 400 28px/1.2 var(--serif); letter-spacing: -.025em; }
+.route .route-caption { margin-top: 7px; color: var(--ink-2); font-size: 12px; }
+.route p { margin-top: 14px; font-size: 15px; }
+.route .detail { color: var(--ink-2); font-size: 13px; }
+.route a { display: inline-block; margin-top: 14px; font-size: 13px; }
+.command {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  padding: 11px 16px;
+  margin-top: 17px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  font: 400 13px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+  overflow-wrap: anywhere;
+}
+.endnote { padding-block: 36px 45px; border-top: 1px solid var(--hairline); }
+.endnote h2 { max-width: 18ch; }
+.endnote p { margin-top: 15px; color: var(--ink-2); font-size: 14px; }
+.endnote .actions { margin-top: 22px; }
+footer { padding-block: 25px 35px; border-top: 1px solid var(--hairline); }
+.footer-links { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 12px; }
+footer p { color: var(--ink-2); font-size: 11px; margin-top: 17px; }
+footer .license { margin-top: 5px; }
+@media (min-width: 700px) and (max-width: 999px) {
+  .shell { grid-template-columns: 215px minmax(0, 1fr); }
+  .margin { padding-inline: 23px; }
+  .main-column { padding-inline: 30px; }
+  .cover-object { width: 150px; height: 199px; }
+}
+@media (max-width: 699px) {
+  .shell { display: block; width: 100%; }
+  .margin { padding: 18px; border-right: 0; border-bottom: 1px solid var(--hairline); }
+  .margin-inner {
+    position: static;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 49px;
+    align-items: center;
+    gap: 0 20px;
+  }
+  .brand-row { grid-column: 1; grid-row: 1; }
+  .wordmark { font-size: 29px; }
+  .mobile-signin { display: inline; }
+  .margin .edition { margin-top: 8px; font-size: 9px; grid-column: 1; grid-row: 2; }
+  .cover-figure { grid-column: 2; grid-row: 1 / 3; margin: 0; }
+  .cover-object {
+    width: 43px;
+    height: 56px;
+    padding: 8px 4px 5px 8px;
+    border-radius: 2px;
+  }
+  .cover-object::before { left: 4px; }
+  .cover-object::after { left: 5px; right: 2px; bottom: -3px; height: 2px; }
+  .cover-name { font-size: 14px; }
+  .cover-object .meta { font-size: 5px; letter-spacing: .02em; }
+  .cover-art, .cover-object .cover-subtitle, .cover-figure figcaption { display: none; }
+  .margin-description, .margin-note, .margin-nav { display: none; }
+  .main-column { padding-inline: 18px; }
+  .hero { padding-block: 26px 30px; }
+  .topline { margin-bottom: 15px; }
+  .topline a { display: none; }
+  .topline .meta { font-size: 10px; }
+  h1 { font-size: clamp(43px, 12vw, 66px); max-width: 12ch; }
+  .hero-description { margin-top: 15px; font-size: 15px; line-height: 1.55; }
+  .actions { gap: 18px; margin-top: 20px; }
+  .primary { padding: 11px 20px; min-height: 45px; }
+  .account-note { margin-top: 16px; }
+  .chapter { padding-block: 28px 31px; }
+  .chapter-label { margin-bottom: 13px; }
+  .lede { font-size: 14px; margin-top: 13px; }
+  .sample-sheet { padding: 19px 19px 18px; margin-top: 21px; }
+  .sheet-top .meta { font-size: 9px; }
+  .sample-passage { font-size: 24px; line-height: 1.45; margin-top: 16px; }
+  .word-note { margin-top: 18px; padding-top: 13px; gap: 5px 10px; font-size: 11px; }
+  .word-note strong { font-size: 13px; }
+  .conversation-text { padding-left: 16px; margin-top: 20px; }
+  .conversation-text p { font-size: 23px; }
+  .screenshot { min-height: 180px; padding: 20px; }
+  .tutor-footnote { font-size: 13px; }
+  .route { padding-left: 30px; padding-block: 23px; }
+  .route::before { top: 29px; }
+  .route h3 { font-size: 26px; }
+  .route p { font-size: 14px; }
+  .route .detail { font-size: 12px; }
+  .endnote { padding-block: 30px 37px; }
+  .footer-links { gap: 12px 19px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  a, summary { transition: none; }
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;shell&quot;&gt;
+  &lt;aside class=&quot;margin&quot; aria-label=&quot;About Sotto&quot;&gt;
+    &lt;div class=&quot;margin-inner&quot;&gt;
+      &lt;div class=&quot;brand-row&quot;&gt;
+        &lt;span class=&quot;wordmark&quot;&gt;sotto&lt;/span&gt;
+        &lt;a class=&quot;mobile-signin&quot; href=&quot;https://app.readsotto.app/account&quot;&gt;Sign in&lt;/a&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;edition meta&quot;&gt;An open-source graded reader&lt;/p&gt;
+      &lt;figure class=&quot;cover-figure&quot; aria-label=&quot;A small Sotto book cover&quot;&gt;
+        &lt;div class=&quot;cover-object&quot;&gt;
+          &lt;div&gt;
+            &lt;div class=&quot;cover-subtitle meta&quot;&gt;Read at your level&lt;/div&gt;
+            &lt;div class=&quot;cover-name&quot;&gt;Sotto&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;svg class=&quot;cover-art&quot; viewBox=&quot;0 0 85 65&quot; aria-hidden=&quot;true&quot;&gt;
+            &lt;path d=&quot;M11 53L29 12H43L26 53Z&quot; fill=&quot;#1F4F57&quot;/&gt;
+            &lt;path d=&quot;M34 53L51 12H65L48 53Z&quot; fill=&quot;#5B8A6B&quot;/&gt;
+            &lt;path d=&quot;M7 59H75&quot; stroke=&quot;#6E6459&quot; stroke-width=&quot;1&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;div class=&quot;meta&quot;&gt;French · A2&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;figcaption&gt;A book. A passage. A conversation.&lt;/figcaption&gt;
+      &lt;/figure&gt;
+      &lt;p class=&quot;margin-description&quot;&gt;A little reading.&lt;br&gt;Something to talk about.&lt;/p&gt;
+      &lt;p class=&quot;margin-note&quot;&gt;Choose a language and a level. Let the passage be the start.&lt;/p&gt;
+      &lt;nav class=&quot;margin-nav&quot; aria-label=&quot;Reading and source links&quot;&gt;
+        &lt;a href=&quot;/start&quot;&gt;Open a sample, no account&lt;/a&gt;
+        &lt;a href=&quot;https://github.com/readsotto/sotto&quot;&gt;Explore the source&lt;/a&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+  &lt;/aside&gt;
+
+  &lt;main class=&quot;main-column&quot;&gt;
+    &lt;section class=&quot;hero&quot; aria-labelledby=&quot;hero-title&quot;&gt;
+      &lt;div class=&quot;topline&quot;&gt;
+        &lt;span class=&quot;meta&quot;&gt;Free reading, in your browser&lt;/span&gt;
+        &lt;a href=&quot;https://app.readsotto.app/account&quot;&gt;Sign in&lt;/a&gt;
+      &lt;/div&gt;
+      &lt;h1 id=&quot;hero-title&quot;&gt;Read it.&lt;br&gt;Then talk about it.&lt;/h1&gt;
+      &lt;p class=&quot;hero-description&quot;&gt;Read a free short book rewritten at your level, tap words for their meaning, and talk about the passage with a voice tutor.&lt;/p&gt;
+      &lt;div class=&quot;actions&quot;&gt;
+        &lt;a class=&quot;primary&quot; href=&quot;https://app.readsotto.app/account?intent=start&quot;&gt;Start free&lt;/a&gt;
+        &lt;a class=&quot;sample&quot; href=&quot;/start&quot;&gt;Try a sample&lt;/a&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;account-note&quot;&gt;No account needed to try.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;chapter&quot; aria-labelledby=&quot;read-title&quot;&gt;
+      &lt;div class=&quot;chapter-label meta&quot;&gt;&lt;span class=&quot;number&quot;&gt;01&lt;/span&gt;&lt;span&gt;Begin with a passage&lt;/span&gt;&lt;/div&gt;
+      &lt;h2 id=&quot;read-title&quot;&gt;The words meet you where you are.&lt;/h2&gt;
+      &lt;p class=&quot;lede&quot;&gt;Choose a language and a level, then open a short adapted book. Read it, hear the story narrated, and save words to review later.&lt;/p&gt;
+      &lt;figure&gt;
+        &lt;div class=&quot;sample-sheet&quot;&gt;
+          &lt;div class=&quot;sheet-top&quot;&gt;
+            &lt;span class=&quot;meta&quot;&gt;Sotto · Sample passage&lt;/span&gt;
+            &lt;span class=&quot;meta&quot;&gt;French / A2&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;blockquote class=&quot;sample-passage&quot; lang=&quot;fr&quot;&gt;Sotto est un livre gratuit et &lt;span class=&quot;tapped&quot;&gt;adapté&lt;/span&gt;. Vous choisissez une langue et un niveau, puis vous lisez. Touchez un &lt;span class=&quot;saved&quot;&gt;mot&lt;/span&gt; pour le traduire.&lt;/blockquote&gt;
+          &lt;div class=&quot;word-note&quot;&gt;
+            &lt;strong lang=&quot;fr&quot;&gt;adapté&lt;/strong&gt;
+            &lt;span&gt;graded (rewritten at your level)&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;figcaption class=&quot;sample-caption&quot;&gt;A typeset passage with a word gloss and saved-word marker illustrated.&lt;/figcaption&gt;
+      &lt;/figure&gt;
+      &lt;details class=&quot;reader-details&quot; open&gt;
+        &lt;summary&gt;The reader&lt;/summary&gt;
+        &lt;figure class=&quot;screenshot&quot;&gt;
+          &lt;figcaption&gt;Real screenshot: reader with a word popup open&lt;/figcaption&gt;
+        &lt;/figure&gt;
+      &lt;/details&gt;
+      &lt;p class=&quot;caveat&quot;&gt;The books are machine-adapted drafts, and their levels are estimates.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;chapter&quot; aria-labelledby=&quot;talk-title&quot;&gt;
+      &lt;div class=&quot;chapter-label meta&quot;&gt;&lt;span class=&quot;number&quot;&gt;02&lt;/span&gt;&lt;span&gt;Give the passage a voice&lt;/span&gt;&lt;/div&gt;
+      &lt;h2 id=&quot;talk-title&quot;&gt;Now you have something to say.&lt;/h2&gt;
+      &lt;div class=&quot;conversation-text&quot;&gt;
+        &lt;p&gt;You read a passage. Then you talk about it out loud.&lt;/p&gt;
+        &lt;p&gt;The voice tutor answers. It already knows what you read.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;lede&quot;&gt;Keep the conversation about the story you just opened. You can start with the free tutor that runs on on-device models in your browser.&lt;/p&gt;
+      &lt;figure class=&quot;screenshot&quot;&gt;
+        &lt;figcaption&gt;Real screenshot: the voice tutor mid-conversation&lt;/figcaption&gt;
+      &lt;/figure&gt;
+      &lt;p class=&quot;tutor-footnote&quot;&gt;The free in-browser tutor keeps everything on the device. A hosted plan, your own key, and self-hosting give you other ways to power the conversation, explained below.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;chapter&quot; aria-labelledby=&quot;install-title&quot;&gt;
+      &lt;div class=&quot;chapter-label meta&quot;&gt;&lt;span class=&quot;number&quot;&gt;03&lt;/span&gt;&lt;span&gt;Put the book within reach&lt;/span&gt;&lt;/div&gt;
+      &lt;h2 id=&quot;install-title&quot;&gt;Install it from your browser.&lt;/h2&gt;
+      &lt;p class=&quot;lede&quot;&gt;Sotto is a progressive web app for your phone or desktop. Follow the steps for your device.&lt;/p&gt;
+      &lt;div class=&quot;install-list&quot;&gt;
+        &lt;article class=&quot;device&quot;&gt;
+          &lt;h3&gt;iPhone / iPad Safari&lt;/h3&gt;
+          &lt;p&gt;Tap Share, choose “Add to Home Screen”, open Sotto from the Home Screen.&lt;/p&gt;
+        &lt;/article&gt;
+        &lt;article class=&quot;device&quot;&gt;
+          &lt;h3&gt;Android Chrome&lt;/h3&gt;
+          &lt;p&gt;Open the menu, tap “Install app”.&lt;/p&gt;
+        &lt;/article&gt;
+        &lt;article class=&quot;device&quot;&gt;
+          &lt;h3&gt;Desktop Chrome&lt;/h3&gt;
+          &lt;p&gt;Click the install icon in the address bar (or menu, “Install Sotto”), confirm Install.&lt;/p&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;offline&quot;&gt;A book you have opened keeps working offline.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;chapter&quot; aria-labelledby=&quot;ways-title&quot;&gt;
+      &lt;div class=&quot;chapter-label meta&quot;&gt;&lt;span class=&quot;number&quot;&gt;04&lt;/span&gt;&lt;span&gt;Choose how it runs&lt;/span&gt;&lt;/div&gt;
+      &lt;h2 id=&quot;ways-title&quot;&gt;Free to read.&lt;br&gt;Four ways to use it.&lt;/h2&gt;
+      &lt;p class=&quot;lede&quot;&gt;The hosted plan is one option for the voice tutor. Your own key and running Sotto yourself are alternatives to that plan.&lt;/p&gt;
+      &lt;ol class=&quot;ways&quot;&gt;
+        &lt;li class=&quot;route&quot;&gt;
+          &lt;h3&gt;Free reading&lt;/h3&gt;
+          &lt;p class=&quot;route-caption&quot;&gt;Open the book and begin.&lt;/p&gt;
+          &lt;p&gt;Reading, listening, tap-to-translate, saved vocabulary, and an in-browser tutor are free. The tutor runs on on-device models; nothing leaves the device.&lt;/p&gt;
+          &lt;p class=&quot;detail&quot;&gt;No account is needed to try. Progress and saved words stay in this browser until you create an account, and an account keeps them.&lt;/p&gt;
+          &lt;a href=&quot;/start&quot;&gt;Try a sample without an account →&lt;/a&gt;
+        &lt;/li&gt;
+
+        &lt;li class=&quot;route&quot;&gt;
+          &lt;h3&gt;The plan&lt;/h3&gt;
+          &lt;p class=&quot;route-caption&quot;&gt;A hosted voice tutor with nothing to set up.&lt;/p&gt;
+          &lt;p&gt;&lt;strong&gt;$9.99 a month or $79 a year&lt;/strong&gt; after a 3-day trial.&lt;/p&gt;
+          &lt;p class=&quot;detail&quot;&gt;With the plan, your voice goes to OpenAI through Sotto&#x27;s server, which brokers each tutor turn. Sotto does not store transcripts or recordings, only usage minutes and billing.&lt;/p&gt;
+          &lt;a href=&quot;https://app.readsotto.app/account&quot;&gt;Sign in for the plan at app.readsotto.app →&lt;/a&gt;
+        &lt;/li&gt;
+
+        &lt;li class=&quot;route&quot;&gt;
+          &lt;h3&gt;Your own key&lt;/h3&gt;
+          &lt;p class=&quot;route-caption&quot;&gt;With or without the plan.&lt;/p&gt;
+          &lt;p&gt;Paste an OpenAI API key in Settings. The page then calls OpenAI directly from your browser.&lt;/p&gt;
+          &lt;p class=&quot;detail&quot;&gt;The key stays on this device. OpenAI bills you, not Sotto.&lt;/p&gt;
+          &lt;a href=&quot;/docs/byok&quot;&gt;Set up your own key →&lt;/a&gt;
+        &lt;/li&gt;
+
+        &lt;li class=&quot;route&quot;&gt;
+          &lt;h3&gt;Run it yourself&lt;/h3&gt;
+          &lt;p class=&quot;route-caption&quot;&gt;Free, on your own computer.&lt;/p&gt;
+          &lt;p&gt;Use your own hardware. One command serves the app and the tutor from one origin, using local models or your own key.&lt;/p&gt;
+          &lt;code class=&quot;command&quot;&gt;docker compose up&lt;/code&gt;
+          &lt;a href=&quot;/docs/self-hosting&quot;&gt;Follow the self-hosting guide →&lt;/a&gt;
+        &lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;endnote&quot; aria-labelledby=&quot;end-title&quot;&gt;
+      &lt;div class=&quot;chapter-label meta&quot;&gt;&lt;span&gt;Next / Your first book&lt;/span&gt;&lt;/div&gt;
+      &lt;h2 id=&quot;end-title&quot;&gt;Pick a language.&lt;br&gt;Find your level.&lt;br&gt;Start reading.&lt;/h2&gt;
+      &lt;p&gt;The book, narration, word meanings, saved vocabulary, and on-device tutor are free.&lt;/p&gt;
+      &lt;div class=&quot;actions&quot;&gt;
+        &lt;a class=&quot;primary&quot; href=&quot;https://app.readsotto.app/account?intent=start&quot;&gt;Start free&lt;/a&gt;
+        &lt;a class=&quot;sample&quot; href=&quot;/start&quot;&gt;Try a sample&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;footer&gt;
+      &lt;nav class=&quot;footer-links&quot; aria-label=&quot;Source and documentation&quot;&gt;
+        &lt;a href=&quot;https://github.com/readsotto/sotto&quot;&gt;GitHub&lt;/a&gt;
+        &lt;a href=&quot;/docs/byok&quot;&gt;Your own key&lt;/a&gt;
+        &lt;a href=&quot;/docs/self-hosting&quot;&gt;Self-hosting&lt;/a&gt;
+        &lt;a href=&quot;/docs/add-a-book&quot;&gt;Add a book&lt;/a&gt;
+      &lt;/nav&gt;
+      &lt;p&gt;Free and open source. No analytics on the page or in the app.&lt;/p&gt;
+      &lt;p class=&quot;license&quot;&gt;Code: Apache-2.0 · Stories: CC BY-SA 4.0&lt;/p&gt;
+    &lt;/footer&gt;
+  &lt;/main&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;"></iframe></div><div class="cap"><span class="mono">At 375</span></div></div>
+      </div>
+    </div>
+    <div class="variant" data-variant="kimi-b" hidden>
+      <div class="specimen">
+        <div class="frame"><div class="scaler" data-w="1280"><iframe title="Direction B, Kimi K3, at 1280" loading="lazy" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;title&gt;Sotto — read at your level, talk about what you read&lt;/title&gt;
+&lt;style&gt;
+:root{
+  --canvas:#F4ECDF; --surface:#FBF6EC; --surface2:#EFE4D2;
+  --ink:#221E1B; --ink2:#6E6459; --ink3:#9C9287;
+  --hair:rgba(34,30,27,0.12);
+  --accent:#E4572E; --peach:#F2C8B4; --marker:#FFD8A8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--canvas); color:var(--ink);
+  font-family:Inter,-apple-system,system-ui,sans-serif;
+  font-size:16px; line-height:1.55;
+}
+.mono{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
+}
+a{color:var(--ink); text-underline-offset:3px; transition:color 120ms ease}
+a:hover{color:var(--ink2)}
+a:focus-visible,.cta:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+/* two-column reading-rail skeleton */
+.shell{max-width:1120px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:320px minmax(0,1fr);gap:64px}
+.rail{position:sticky;top:0;align-self:start;padding:44px 0;border-right:1px solid var(--hair);padding-right:40px}
+.brand{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:300;font-size:34px;text-decoration:none;color:var(--ink);display:block}
+.rail .mono{color:var(--ink3);display:block;margin:8px 0 26px}
+h1{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:300;font-size:clamp(28px,3.4vw,40px);line-height:1.1;letter-spacing:-0.01em}
+.lede{margin-top:16px;color:var(--ink2);font-size:15.5px}
+.cta{
+  display:inline-block;background:var(--accent);color:var(--surface);
+  text-decoration:none;font-size:15px;padding:13px 28px;border-radius:2px;
+  margin-top:24px;transition:filter 120ms ease;
+}
+.cta:hover{filter:brightness(0.93);color:var(--surface)}
+.rail-links{margin-top:18px;font-size:13.5px;display:flex;flex-direction:column;gap:8px}
+.rail-links a{color:var(--ink2);text-decoration:none}
+.rail-links a:hover{color:var(--ink)}
+
+/* the reading column */
+.col{padding:44px 0 0;max-width:700px}
+.chapter{margin-bottom:64px}
+.chapter&gt;.mono{color:var(--ink3);display:block;margin-bottom:14px}
+h2{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:300;font-size:clamp(23px,2.6vw,30px);line-height:1.15;margin-bottom:14px}
+.prose{color:var(--ink2);max-width:40em}
+.prose+.prose{margin-top:14px}
+
+/* the reader card: passage as hero */
+.reader{
+  background:var(--surface);border:1px solid var(--hair);border-radius:2px;
+  box-shadow:6px 6px 0 0 var(--peach);
+  padding:34px 36px 26px;margin-top:18px;
+}
+.reader .mono{color:var(--ink3);display:block;margin-bottom:18px}
+.passage{
+  font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:400;
+  font-size:clamp(18px,2.1vw,21px);line-height:1.8;
+}
+.tap{background:rgba(242,200,180,0.18);border-radius:2px;padding:0 1px}
+.saved{display:inline-block;background:var(--marker);border-radius:2px;padding:0 4px;transform:skew(-7deg) rotate(-1deg)}
+.saved&gt;span{display:inline-block;transform:skew(7deg) rotate(1deg)}
+.gloss{
+  margin-top:22px;border:1px solid var(--hair);border-radius:2px;
+  background:var(--surface);padding:10px 14px;max-width:340px;
+}
+.gloss .mono{color:var(--ink3);display:block;margin-bottom:4px}
+.gloss p{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-size:15.5px}
+.reader-foot{margin-top:22px;padding-top:12px;border-top:1px solid var(--hair);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.reader-foot .mono{color:var(--ink3)}
+
+/* screenshot placeholder */
+.shot{
+  border:1px solid var(--hair);border-radius:10px;background:var(--surface2);
+  min-height:220px;display:flex;align-items:center;justify-content:center;
+  padding:24px;text-align:center;margin-top:22px;
+}
+.shot span{color:var(--ink3);font-size:13px}
+
+/* prose rows for the four ways + install */
+.rows{border-top:1px solid var(--hair);margin-top:22px}
+.row{padding:22px 0;border-bottom:1px solid var(--hair)}
+.row .mono{color:var(--ink3);display:block;margin-bottom:6px}
+.row h3{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:400;font-size:19px;margin-bottom:6px}
+.row p{color:var(--ink2);max-width:40em}
+.row code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;background:var(--surface2);border:1px solid var(--hair);border-radius:2px;padding:1px 6px}
+
+.caveat{color:var(--ink3);font-size:13px;max-width:44em;margin-top:40px}
+
+footer{border-top:1px solid var(--hair);margin-top:48px;padding:26px 0 44px}
+.ft{display:flex;gap:24px;flex-wrap:wrap;font-size:14px;align-items:baseline}
+.ft .mono{color:var(--ink3)}
+.ft a{color:var(--ink2);text-decoration:none}
+.ft a:hover{color:var(--ink)}
+.ft-note{margin-top:12px;color:var(--ink3);font-size:12.5px}
+
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr;gap:0}
+  .rail{position:static;border-right:none;border-bottom:1px solid var(--hair);padding:26px 0 30px}
+  .rail-links{flex-direction:row;gap:18px;flex-wrap:wrap}
+  .col{padding-top:36px}
+}
+@media (max-width:700px){
+  .reader{padding:24px 20px 20px}
+  .chapter{margin-bottom:48px}
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&quot;shell&quot;&gt;
+
+  &lt;!-- RAIL: identity, value, one CTA — persistent on desktop --&gt;
+  &lt;aside class=&quot;rail&quot;&gt;
+    &lt;a class=&quot;brand&quot; href=&quot;/start&quot;&gt;Sotto&lt;/a&gt;
+    &lt;span class=&quot;mono&quot;&gt;Free · Open source · Graded reader&lt;/span&gt;
+    &lt;h1&gt;Read at your level. Talk about what you read.&lt;/h1&gt;
+    &lt;p class=&quot;lede&quot;&gt;Sotto is a free, open-source graded reader: open a short book rewritten to the level you choose, tap any word for its meaning, hear it narrated — then discuss the passage out loud with a voice tutor that has read the same page.&lt;/p&gt;
+    &lt;a class=&quot;cta&quot; href=&quot;https://app.readsotto.app/account?intent=start&quot;&gt;Start free&lt;/a&gt;
+    &lt;div class=&quot;rail-links&quot;&gt;
+      &lt;a href=&quot;/start&quot;&gt;Try a sample, no account&lt;/a&gt;
+      &lt;a href=&quot;https://app.readsotto.app/account&quot;&gt;Sign in&lt;/a&gt;
+      &lt;a href=&quot;https://github.com/readsotto/sotto&quot;&gt;GitHub&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/aside&gt;
+
+  &lt;!-- READING COLUMN --&gt;
+  &lt;main class=&quot;col&quot;&gt;
+
+    &lt;div class=&quot;chapter&quot;&gt;
+      &lt;span class=&quot;mono&quot;&gt;Chapter 01 · The reader — this page is the demo&lt;/span&gt;
+      &lt;h2&gt;Pick a language and a level; the book adapts to you.&lt;/h2&gt;
+      &lt;div class=&quot;reader&quot;&gt;
+        &lt;span class=&quot;mono&quot;&gt;Sotto · French · Level A2 · Chapter one&lt;/span&gt;
+        &lt;p class=&quot;passage&quot;&gt;Sotto est un livre gratuit et &lt;span class=&quot;tap&quot;&gt;adapté&lt;/span&gt;. Vous choisissez une langue et un &lt;span class=&quot;saved&quot;&gt;&lt;span&gt;niveau&lt;/span&gt;&lt;/span&gt;, puis vous lisez. Touchez un mot pour le traduire.&lt;/p&gt;
+        &lt;div class=&quot;gloss&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;Tapped word&lt;/span&gt;
+          &lt;p&gt;adapté — graded (rewritten at your level)&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;reader-foot&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;Tap a word → meaning&lt;/span&gt;
+          &lt;span class=&quot;mono&quot;&gt;Highlighted word → saved for review&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;prose&quot; style=&quot;margin-top:18px&quot;&gt;Every book is a short story adapted — rewritten — to the level you pick. You can listen to it narrated, tap words as you go, and save the ones you want to review later.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;chapter&quot;&gt;
+      &lt;span class=&quot;mono&quot;&gt;Chapter 02 · The tutor — read, then speak&lt;/span&gt;
+      &lt;h2&gt;You read a passage. Then you talk about it, out loud.&lt;/h2&gt;
+      &lt;p class=&quot;prose&quot;&gt;The voice tutor listens and answers — in the language you are learning — about the exact passage you just finished. It already knows what you read, so it can ask what you thought, check a word you stumbled on, or keep the story going.&lt;/p&gt;
+      &lt;div class=&quot;shot&quot;&gt;&lt;span&gt;Real screenshot: the voice tutor mid-conversation&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;chapter&quot;&gt;
+      &lt;span class=&quot;mono&quot;&gt;Chapter 03 · Using Sotto — four ways, no tiers&lt;/span&gt;
+      &lt;h2&gt;Reading is free. Power the tutor whichever way suits you.&lt;/h2&gt;
+      &lt;p class=&quot;prose&quot;&gt;The plan is one option; your own key and your own hardware are alternatives to it, not lesser versions of it.&lt;/p&gt;
+      &lt;div class=&quot;rows&quot;&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;Free reading&lt;/span&gt;
+          &lt;h3&gt;Start here — free, no account needed to try&lt;/h3&gt;
+          &lt;p&gt;Reading, listening, tap-to-translate, saved vocabulary, and an in-browser tutor that runs on on-device models are free; with the on-device tutor, nothing leaves your device. Your progress and saved words stay in this browser until you create an account, and an account keeps them.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;The plan&lt;/span&gt;
+          &lt;h3&gt;A hosted voice tutor, nothing to set up&lt;/h3&gt;
+          &lt;p&gt;$9.99 a month or $79 a year, after a 3-day trial. Sign-in for the plan is at &lt;a href=&quot;https://app.readsotto.app/account&quot;&gt;app.readsotto.app&lt;/a&gt;. With the plan, your voice goes to OpenAI through Sotto&amp;rsquo;s server, which brokers each tutor turn; Sotto does not store transcripts or recordings — only usage minutes and billing.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;Your own key&lt;/span&gt;
+          &lt;h3&gt;Bring an OpenAI API key&lt;/h3&gt;
+          &lt;p&gt;Works with or without the plan. Paste the key in Settings and the page calls OpenAI directly from your browser. The key stays on this device, and OpenAI bills you, not Sotto. &lt;a href=&quot;/docs/byok&quot;&gt;Read the guide&lt;/a&gt;.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;Run it yourself&lt;/span&gt;
+          &lt;h3&gt;Self-host, free, on your own hardware&lt;/h3&gt;
+          &lt;p&gt;One command — &lt;code&gt;docker compose up&lt;/code&gt; — serves the app and the tutor from one origin, using local models or your own key. &lt;a href=&quot;/docs/self-hosting&quot;&gt;Read the self-hosting guide&lt;/a&gt;.&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;chapter&quot;&gt;
+      &lt;span class=&quot;mono&quot;&gt;Chapter 04 · Install — keep it on your device&lt;/span&gt;
+      &lt;h2&gt;Add Sotto to your phone or desktop.&lt;/h2&gt;
+      &lt;div class=&quot;rows&quot;&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;iPhone / iPad · Safari&lt;/span&gt;
+          &lt;p&gt;Tap Share, choose &amp;ldquo;Add to Home Screen&amp;rdquo;, then open Sotto from your Home Screen.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;Android · Chrome&lt;/span&gt;
+          &lt;p&gt;Open the menu and tap &amp;ldquo;Install app&amp;rdquo;.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;Desktop · Chrome&lt;/span&gt;
+          &lt;p&gt;Click the install icon in the address bar (or open the menu and choose &amp;ldquo;Install Sotto&amp;rdquo;), then confirm Install.&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;prose&quot; style=&quot;margin-top:18px&quot;&gt;A book you have opened keeps working offline.&lt;/p&gt;
+      &lt;p class=&quot;caveat&quot;&gt;A quiet caveat: the books are machine-adapted drafts, and their levels are estimates.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;footer&gt;
+      &lt;div class=&quot;ft&quot;&gt;
+        &lt;span class=&quot;mono&quot;&gt;Sotto&lt;/span&gt;
+        &lt;a href=&quot;https://github.com/readsotto/sotto&quot;&gt;GitHub&lt;/a&gt;
+        &lt;a href=&quot;/docs/byok&quot;&gt;Docs: your own key&lt;/a&gt;
+        &lt;a href=&quot;/docs/self-hosting&quot;&gt;Docs: self-hosting&lt;/a&gt;
+        &lt;a href=&quot;/docs/add-a-book&quot;&gt;Docs: add a book&lt;/a&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;ft-note&quot;&gt;Code Apache-2.0 · Stories CC BY-SA 4.0 · No analytics on this page or in the app.&lt;/p&gt;
+    &lt;/footer&gt;
+
+  &lt;/main&gt;
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;"></iframe></div><div class="cap"><span class="mono">Fragment · first screen at 1280 · Kimi K3</span><a class="mono" href="landing-mockups/kimi-b.html">Open full page</a></div></div>
+        <div class="frame"><div class="scaler" data-w="375"><iframe title="Direction B, Kimi K3, at 375" loading="lazy" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;title&gt;Sotto — read at your level, talk about what you read&lt;/title&gt;
+&lt;style&gt;
+:root{
+  --canvas:#F4ECDF; --surface:#FBF6EC; --surface2:#EFE4D2;
+  --ink:#221E1B; --ink2:#6E6459; --ink3:#9C9287;
+  --hair:rgba(34,30,27,0.12);
+  --accent:#E4572E; --peach:#F2C8B4; --marker:#FFD8A8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--canvas); color:var(--ink);
+  font-family:Inter,-apple-system,system-ui,sans-serif;
+  font-size:16px; line-height:1.55;
+}
+.mono{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
+}
+a{color:var(--ink); text-underline-offset:3px; transition:color 120ms ease}
+a:hover{color:var(--ink2)}
+a:focus-visible,.cta:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+/* two-column reading-rail skeleton */
+.shell{max-width:1120px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:320px minmax(0,1fr);gap:64px}
+.rail{position:sticky;top:0;align-self:start;padding:44px 0;border-right:1px solid var(--hair);padding-right:40px}
+.brand{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:300;font-size:34px;text-decoration:none;color:var(--ink);display:block}
+.rail .mono{color:var(--ink3);display:block;margin:8px 0 26px}
+h1{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:300;font-size:clamp(28px,3.4vw,40px);line-height:1.1;letter-spacing:-0.01em}
+.lede{margin-top:16px;color:var(--ink2);font-size:15.5px}
+.cta{
+  display:inline-block;background:var(--accent);color:var(--surface);
+  text-decoration:none;font-size:15px;padding:13px 28px;border-radius:2px;
+  margin-top:24px;transition:filter 120ms ease;
+}
+.cta:hover{filter:brightness(0.93);color:var(--surface)}
+.rail-links{margin-top:18px;font-size:13.5px;display:flex;flex-direction:column;gap:8px}
+.rail-links a{color:var(--ink2);text-decoration:none}
+.rail-links a:hover{color:var(--ink)}
+
+/* the reading column */
+.col{padding:44px 0 0;max-width:700px}
+.chapter{margin-bottom:64px}
+.chapter&gt;.mono{color:var(--ink3);display:block;margin-bottom:14px}
+h2{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:300;font-size:clamp(23px,2.6vw,30px);line-height:1.15;margin-bottom:14px}
+.prose{color:var(--ink2);max-width:40em}
+.prose+.prose{margin-top:14px}
+
+/* the reader card: passage as hero */
+.reader{
+  background:var(--surface);border:1px solid var(--hair);border-radius:2px;
+  box-shadow:6px 6px 0 0 var(--peach);
+  padding:34px 36px 26px;margin-top:18px;
+}
+.reader .mono{color:var(--ink3);display:block;margin-bottom:18px}
+.passage{
+  font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:400;
+  font-size:clamp(18px,2.1vw,21px);line-height:1.8;
+}
+.tap{background:rgba(242,200,180,0.18);border-radius:2px;padding:0 1px}
+.saved{display:inline-block;background:var(--marker);border-radius:2px;padding:0 4px;transform:skew(-7deg) rotate(-1deg)}
+.saved&gt;span{display:inline-block;transform:skew(7deg) rotate(1deg)}
+.gloss{
+  margin-top:22px;border:1px solid var(--hair);border-radius:2px;
+  background:var(--surface);padding:10px 14px;max-width:340px;
+}
+.gloss .mono{color:var(--ink3);display:block;margin-bottom:4px}
+.gloss p{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-size:15.5px}
+.reader-foot{margin-top:22px;padding-top:12px;border-top:1px solid var(--hair);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.reader-foot .mono{color:var(--ink3)}
+
+/* screenshot placeholder */
+.shot{
+  border:1px solid var(--hair);border-radius:10px;background:var(--surface2);
+  min-height:220px;display:flex;align-items:center;justify-content:center;
+  padding:24px;text-align:center;margin-top:22px;
+}
+.shot span{color:var(--ink3);font-size:13px}
+
+/* prose rows for the four ways + install */
+.rows{border-top:1px solid var(--hair);margin-top:22px}
+.row{padding:22px 0;border-bottom:1px solid var(--hair)}
+.row .mono{color:var(--ink3);display:block;margin-bottom:6px}
+.row h3{font-family:&quot;Fraunces&quot;,&quot;Iowan Old Style&quot;,Georgia,serif;font-weight:400;font-size:19px;margin-bottom:6px}
+.row p{color:var(--ink2);max-width:40em}
+.row code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;background:var(--surface2);border:1px solid var(--hair);border-radius:2px;padding:1px 6px}
+
+.caveat{color:var(--ink3);font-size:13px;max-width:44em;margin-top:40px}
+
+footer{border-top:1px solid var(--hair);margin-top:48px;padding:26px 0 44px}
+.ft{display:flex;gap:24px;flex-wrap:wrap;font-size:14px;align-items:baseline}
+.ft .mono{color:var(--ink3)}
+.ft a{color:var(--ink2);text-decoration:none}
+.ft a:hover{color:var(--ink)}
+.ft-note{margin-top:12px;color:var(--ink3);font-size:12.5px}
+
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr;gap:0}
+  .rail{position:static;border-right:none;border-bottom:1px solid var(--hair);padding:26px 0 30px}
+  .rail-links{flex-direction:row;gap:18px;flex-wrap:wrap}
+  .col{padding-top:36px}
+}
+@media (max-width:700px){
+  .reader{padding:24px 20px 20px}
+  .chapter{margin-bottom:48px}
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&quot;shell&quot;&gt;
+
+  &lt;!-- RAIL: identity, value, one CTA — persistent on desktop --&gt;
+  &lt;aside class=&quot;rail&quot;&gt;
+    &lt;a class=&quot;brand&quot; href=&quot;/start&quot;&gt;Sotto&lt;/a&gt;
+    &lt;span class=&quot;mono&quot;&gt;Free · Open source · Graded reader&lt;/span&gt;
+    &lt;h1&gt;Read at your level. Talk about what you read.&lt;/h1&gt;
+    &lt;p class=&quot;lede&quot;&gt;Sotto is a free, open-source graded reader: open a short book rewritten to the level you choose, tap any word for its meaning, hear it narrated — then discuss the passage out loud with a voice tutor that has read the same page.&lt;/p&gt;
+    &lt;a class=&quot;cta&quot; href=&quot;https://app.readsotto.app/account?intent=start&quot;&gt;Start free&lt;/a&gt;
+    &lt;div class=&quot;rail-links&quot;&gt;
+      &lt;a href=&quot;/start&quot;&gt;Try a sample, no account&lt;/a&gt;
+      &lt;a href=&quot;https://app.readsotto.app/account&quot;&gt;Sign in&lt;/a&gt;
+      &lt;a href=&quot;https://github.com/readsotto/sotto&quot;&gt;GitHub&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/aside&gt;
+
+  &lt;!-- READING COLUMN --&gt;
+  &lt;main class=&quot;col&quot;&gt;
+
+    &lt;div class=&quot;chapter&quot;&gt;
+      &lt;span class=&quot;mono&quot;&gt;Chapter 01 · The reader — this page is the demo&lt;/span&gt;
+      &lt;h2&gt;Pick a language and a level; the book adapts to you.&lt;/h2&gt;
+      &lt;div class=&quot;reader&quot;&gt;
+        &lt;span class=&quot;mono&quot;&gt;Sotto · French · Level A2 · Chapter one&lt;/span&gt;
+        &lt;p class=&quot;passage&quot;&gt;Sotto est un livre gratuit et &lt;span class=&quot;tap&quot;&gt;adapté&lt;/span&gt;. Vous choisissez une langue et un &lt;span class=&quot;saved&quot;&gt;&lt;span&gt;niveau&lt;/span&gt;&lt;/span&gt;, puis vous lisez. Touchez un mot pour le traduire.&lt;/p&gt;
+        &lt;div class=&quot;gloss&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;Tapped word&lt;/span&gt;
+          &lt;p&gt;adapté — graded (rewritten at your level)&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;reader-foot&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;Tap a word → meaning&lt;/span&gt;
+          &lt;span class=&quot;mono&quot;&gt;Highlighted word → saved for review&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;prose&quot; style=&quot;margin-top:18px&quot;&gt;Every book is a short story adapted — rewritten — to the level you pick. You can listen to it narrated, tap words as you go, and save the ones you want to review later.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;chapter&quot;&gt;
+      &lt;span class=&quot;mono&quot;&gt;Chapter 02 · The tutor — read, then speak&lt;/span&gt;
+      &lt;h2&gt;You read a passage. Then you talk about it, out loud.&lt;/h2&gt;
+      &lt;p class=&quot;prose&quot;&gt;The voice tutor listens and answers — in the language you are learning — about the exact passage you just finished. It already knows what you read, so it can ask what you thought, check a word you stumbled on, or keep the story going.&lt;/p&gt;
+      &lt;div class=&quot;shot&quot;&gt;&lt;span&gt;Real screenshot: the voice tutor mid-conversation&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;chapter&quot;&gt;
+      &lt;span class=&quot;mono&quot;&gt;Chapter 03 · Using Sotto — four ways, no tiers&lt;/span&gt;
+      &lt;h2&gt;Reading is free. Power the tutor whichever way suits you.&lt;/h2&gt;
+      &lt;p class=&quot;prose&quot;&gt;The plan is one option; your own key and your own hardware are alternatives to it, not lesser versions of it.&lt;/p&gt;
+      &lt;div class=&quot;rows&quot;&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;Free reading&lt;/span&gt;
+          &lt;h3&gt;Start here — free, no account needed to try&lt;/h3&gt;
+          &lt;p&gt;Reading, listening, tap-to-translate, saved vocabulary, and an in-browser tutor that runs on on-device models are free; with the on-device tutor, nothing leaves your device. Your progress and saved words stay in this browser until you create an account, and an account keeps them.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;The plan&lt;/span&gt;
+          &lt;h3&gt;A hosted voice tutor, nothing to set up&lt;/h3&gt;
+          &lt;p&gt;$9.99 a month or $79 a year, after a 3-day trial. Sign-in for the plan is at &lt;a href=&quot;https://app.readsotto.app/account&quot;&gt;app.readsotto.app&lt;/a&gt;. With the plan, your voice goes to OpenAI through Sotto&amp;rsquo;s server, which brokers each tutor turn; Sotto does not store transcripts or recordings — only usage minutes and billing.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;Your own key&lt;/span&gt;
+          &lt;h3&gt;Bring an OpenAI API key&lt;/h3&gt;
+          &lt;p&gt;Works with or without the plan. Paste the key in Settings and the page calls OpenAI directly from your browser. The key stays on this device, and OpenAI bills you, not Sotto. &lt;a href=&quot;/docs/byok&quot;&gt;Read the guide&lt;/a&gt;.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;Run it yourself&lt;/span&gt;
+          &lt;h3&gt;Self-host, free, on your own hardware&lt;/h3&gt;
+          &lt;p&gt;One command — &lt;code&gt;docker compose up&lt;/code&gt; — serves the app and the tutor from one origin, using local models or your own key. &lt;a href=&quot;/docs/self-hosting&quot;&gt;Read the self-hosting guide&lt;/a&gt;.&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;chapter&quot;&gt;
+      &lt;span class=&quot;mono&quot;&gt;Chapter 04 · Install — keep it on your device&lt;/span&gt;
+      &lt;h2&gt;Add Sotto to your phone or desktop.&lt;/h2&gt;
+      &lt;div class=&quot;rows&quot;&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;iPhone / iPad · Safari&lt;/span&gt;
+          &lt;p&gt;Tap Share, choose &amp;ldquo;Add to Home Screen&amp;rdquo;, then open Sotto from your Home Screen.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;Android · Chrome&lt;/span&gt;
+          &lt;p&gt;Open the menu and tap &amp;ldquo;Install app&amp;rdquo;.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+          &lt;span class=&quot;mono&quot;&gt;Desktop · Chrome&lt;/span&gt;
+          &lt;p&gt;Click the install icon in the address bar (or open the menu and choose &amp;ldquo;Install Sotto&amp;rdquo;), then confirm Install.&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;prose&quot; style=&quot;margin-top:18px&quot;&gt;A book you have opened keeps working offline.&lt;/p&gt;
+      &lt;p class=&quot;caveat&quot;&gt;A quiet caveat: the books are machine-adapted drafts, and their levels are estimates.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;footer&gt;
+      &lt;div class=&quot;ft&quot;&gt;
+        &lt;span class=&quot;mono&quot;&gt;Sotto&lt;/span&gt;
+        &lt;a href=&quot;https://github.com/readsotto/sotto&quot;&gt;GitHub&lt;/a&gt;
+        &lt;a href=&quot;/docs/byok&quot;&gt;Docs: your own key&lt;/a&gt;
+        &lt;a href=&quot;/docs/self-hosting&quot;&gt;Docs: self-hosting&lt;/a&gt;
+        &lt;a href=&quot;/docs/add-a-book&quot;&gt;Docs: add a book&lt;/a&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;ft-note&quot;&gt;Code Apache-2.0 · Stories CC BY-SA 4.0 · No analytics on this page or in the app.&lt;/p&gt;
+    &lt;/footer&gt;
+
+  &lt;/main&gt;
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;"></iframe></div><div class="cap"><span class="mono">At 375</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="notes">
+    <div class="note"><h4>Commits to</h4><ul><li>A persistent margin: wordmark, promise, Start free, sample and sign-in links never scroll away on desktop (Astra keeps a small cover there too).</li><li>Chapters, not sections: 01 the passage, 02 the tutor, 03 install or the four ways, so the page reads like the product it describes.</li><li>Astra's headline "Read it. Then talk about it." is the clearest value line of the four mockups.</li></ul></div>
+    <div class="note"><h4>Trades away</h4><ul><li>At 375 the rail collapses to a header and the structure's whole point disappears; the phone visitor gets a long single column.</li><li>Astra's page is 4,450px tall at 1280: a lot of scroll before install and the four ways.</li><li>This is a field guide again (V4's register) with a better rail; the repeat has to be justified by fit, not habit.</li></ul></div>
+    <div class="note"><h4>Right when</h4><p>Most first visits come from a laptop, and you want the promise and the button in view for the whole read while the column does the showing.</p><h4 style="margin-top:18px">Taken all the way</h4><p>The rail gains the reader's own chrome: chapter label, level, a progress hairline that fills as the visitor scrolls, so the page literally behaves like a Sotto book.</p></div>
+    <div class="note dna"><h4>Build DNA</h4><dl><dt>Register</dt><dd>Field guide (rail plus content), the page as the reader</dd><dt>Anchor</dt><dd>Medium cream broadsheet crossed with a docs sidebar, on Sotto paper</dd><dt>Flood</dt><dd>#F4ECDF paper, hairline rail, accent on Start free only</dd><dt>Device</dt><dd>The passage card as chapter one (peach cutout)</dd><dt>Type</dt><dd>Fraunces 300 display 40 to 67px, Inter body, mono chapter labels</dd></dl></div>
+  </div>
+  <div class="chips" role="group" aria-label="Direction B action"><span class="mono lab">Your call</span><button class="chip" data-band="B" data-action="steal">Steal</button><button class="chip" data-band="B" data-action="skip">Skip</button><button class="chip" data-band="B" data-action="deeper">Go deeper</button></div>
+</section>
+<div class="hairline"></div>
+
+<!-- ============ BAND C ============ -->
+<section class="band wrap" id="band-c" data-band="C">
+  <div class="band-head">
+    <div>
+      <p class="mono">Direction C · scrollytelling stage · the act · Cleo's own</p>
+      <h2 style="margin-top:10px">The Open Spread</h2>
+    </div>
+    <p class="thesis">This direction says: <em>watch one page go through everything Sotto does.</em> A single open book stays on screen while five scenes change its state: read, tap, listen, speak, and then power, where the four ways to run the tutor are a footnote under the book, never a tier. The fragment below is the stage with its scenes as chips; on the real page they advance as you scroll.</p>
+  </div>
+
+  <div class="c-hero">
+    <div class="c-copy">
+      <p class="mono">A free graded reader</p>
+      <h2 style="margin-top:12px">Read a page.<br>Then talk about it.</h2>
+      <p class="sub">A short book rewritten to your level. Tap any word, hear it read, then say what you think out loud to a tutor that read the same page.</p>
+      <a class="c-cta" href="https://app.readsotto.app/account?intent=start">Start free</a>
+      <div class="c-links"><a href="/start">Try a sample, no account</a><a href="https://app.readsotto.app/account">Sign in</a></div>
+    </div>
+    <div class="c-stage">
+      <div class="steps" role="tablist" aria-label="Scenes">
+        <button class="step" data-state="read" aria-pressed="true"><b>01</b> Read</button>
+        <button class="step" data-state="tap" aria-pressed="false"><b>02</b> Tap</button>
+        <button class="step" data-state="listen" aria-pressed="false"><b>03</b> Listen</button>
+        <button class="step" data-state="speak" aria-pressed="false"><b>04</b> Speak</button>
+        <button class="step" data-state="power" aria-pressed="false"><b>05</b> Power</button>
+      </div>
+      <div class="book" id="book" data-state="read">
+        <div class="page left">
+          <span class="mono lab">Chapitre un · Français · A2</span>
+          <p class="passage"><span class="w said">Sotto</span> <span class="w said">est</span> <span class="w said">un</span> <span class="w said">livre</span> <span class="w said">gratuit</span> <span class="w said">et</span> <span class="w said" data-word="adapte">adapté</span>. <span class="w">Vous</span> <span class="w">choisissez</span> <span class="w">une</span> <span class="w">langue</span> <span class="w">et</span> <span class="w">un</span> <span class="w mark">niveau</span>, <span class="w">puis</span> <span class="w">vous</span> <span class="w">lisez</span>. <span class="w">Touchez</span> <span class="w">un</span> <span class="w">mot</span> <span class="w">pour</span> <span class="w">le</span> <span class="w">traduire</span>.</p>
+        </div>
+        <div class="page right">
+          <div class="pane read">
+            <span class="mono lab">Your book</span>
+            <p class="cover-meta">Sotto<small>Pick a language and a level. The book is rewritten to fit. Books are machine-adapted drafts and their levels are estimates.</small></p>
+          </div>
+          <div class="pane tap">
+            <span class="mono lab">Tapped word</span>
+            <div class="gloss"><p class="word">adapté</p><p class="def">graded: rewritten at your level</p><span class="save">Save for later</span></div>
+          </div>
+          <div class="pane listen">
+            <span class="mono lab">Narration</span>
+            <p style="color:var(--ink-2);font-size:14px">The story is read aloud and each word fills in as the narrator reaches it.</p>
+            <div class="transport"><span class="ring" aria-hidden="true"><svg viewBox="0 0 10 10"><path d="M2 1l7 4-7 4z"/></svg></span><span class="track" aria-hidden="true"></span><span class="mono">0:08 · 0:21</span></div>
+          </div>
+          <div class="pane speak">
+            <span class="mono lab">Talk about it</span>
+            <div class="talk">
+              <div class="line"><span class="who">Tutor</span><p class="say">Pourquoi le livre est-il « adapté » ?</p></div>
+              <div class="line"><span class="who">You</span><p class="say">Parce qu'il est réécrit pour mon niveau.</p></div>
+              <div class="state"><span class="dot" aria-hidden="true"></span><span class="mono">Listening</span></div>
+            </div>
+          </div>
+          <div class="pane power">
+            <span class="mono lab">Where the tutor runs</span>
+            <div class="power" role="radiogroup" aria-label="Where the tutor runs">
+              <label><input type="radio" name="pw" value="device" checked><span><span class="t">On this device</span><span class="d">Free. In-browser models, nothing leaves the device.</span></span></label>
+              <label><input type="radio" name="pw" value="plan"><span><span class="t">Through Sotto's server</span><span class="d">The plan: $9.99 a month or $79 a year after a 3-day trial.</span></span></label>
+              <label><input type="radio" name="pw" value="key"><span><span class="t">With your own key</span><span class="d">Paste an OpenAI key in Settings.</span></span></label>
+              <label><input type="radio" name="pw" value="self"><span><span class="t">On your own machine</span><span class="d">Free. docker compose up.</span></span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="footnote" id="footnote"><b>Reading, listening, tapping, and saved words are free.</b> No account needed to try; progress stays in this browser until you create one.</p>
+    </div>
+  </div>
+  <div class="c-below">
+    <div><p class="k">Below the stage</p><p>Two real screenshots as a captioned pair, then install: the book closes onto a phone home screen with only your device's steps beside it, then the footer. Nothing else. The four ways never get a section of their own; they are the Power scene's footnote.</p></div>
+    <div><p class="k">The footnote is the pricing page</p><p>Select a source above. Each one rewrites one sentence, in the same voice, with the exact facts: nothing stored on the plan beyond usage minutes and billing; the key stays on the device; self-hosting is free and one command.</p></div>
+    <div><p class="k">On the real page</p><p>The book is sticky at 1280 and the five scenes advance by scroll, 240ms per state change, no looping. At 375 the book stacks above the scene copy and the chips stay as tabs. Under reduced motion, every scene is a tab.</p></div>
+  </div>
+  <div class="notes">
+    <div class="note"><h4>Commits to</h4><ul><li>Show, not tell: the tutor is explained by a two-line exchange on the page, before anyone reads a paragraph about it.</li><li>Power as a footnote under the act. Complaint 3 and 4 are answered by one radio row and one sentence each.</li><li>One object, one device, the app's own tokens: peach cutout, 18% peach tap fill, marker stroke, speech fill, accent ring.</li></ul></div>
+    <div class="note"><h4>Trades away</h4><ul><li>It is the most build: sticky stage, scroll-driven scenes, a reduced-motion tab fallback, and a device-detected install block. Two rounds, not one.</li><li>The passage is the only foreign-language prose on the page, so the stage carries the whole hero; if it reads as a demo widget rather than a book, the direction fails.</li><li>Screenshots move below the fold, so the "real, not stock" proof arrives second.</li></ul></div>
+    <div class="note"><h4>Right when</h4><p>You believe the value is the loop (read, tap, listen, speak) and not the catalog, and you want the visitor to feel a tap and a reply within the first screen.</p><h4 style="margin-top:18px">Taken all the way</h4><p>The stage is live: the tap actually glosses, the play ring actually narrates the sentence with the app's speech fill, and Speak plays a six-second recorded exchange with captions.</p></div>
+    <div class="note dna"><h4>Build DNA</h4><dl><dt>Register</dt><dd>Scrollytelling stage (one persistent graphic, five scenes)</dd><dt>Anchor</dt><dd>Shade's paper cutout crossed with Haptic's staged object; Sotto's own system</dd><dt>Flood</dt><dd>#F4ECDF paper, #FBF6EC pages, accent on Start free and the play ring only</dd><dt>Device</dt><dd>The open spread as a linked state graphic</dd><dt>Type</dt><dd>Fraunces 300 display 64px, Fraunces 400 passage, Inter body, mono scene labels</dd></dl></div>
+  </div>
+  <div class="chips" role="group" aria-label="Direction C action"><span class="mono lab">Your call</span><button class="chip" data-band="C" data-action="steal">Steal</button><button class="chip" data-band="C" data-action="skip">Skip</button><button class="chip" data-band="C" data-action="deeper">Go deeper</button></div>
+</section>
+<div class="hairline"></div>
+
+<!-- ============ REPLY BUILDER ============ -->
+<section class="reply wrap">
+  <h2>Build the reply</h2>
+  <p class="lede">Pick the base direction, mark what to steal or skip from the others, then copy. The text is the Design brief for LANDING-V5.</p>
+  <div class="rb-row"><p class="rb-name">A · The Book<small>steals: the literal book object in the hero</small></p><div class="rb-chips"><button class="chip rb" data-band="A" data-action="steal">Steal</button><button class="chip rb" data-band="A" data-action="skip">Skip</button><button class="chip rb" data-band="A" data-action="deeper">Go deeper</button></div></div>
+  <div class="rb-row"><p class="rb-name">B · The Rail<small>steals: the persistent margin rail with the passage as chapter one</small></p><div class="rb-chips"><button class="chip rb" data-band="B" data-action="steal">Steal</button><button class="chip rb" data-band="B" data-action="skip">Skip</button><button class="chip rb" data-band="B" data-action="deeper">Go deeper</button></div></div>
+  <div class="rb-row"><p class="rb-name">C · The Open Spread<small>steals: the open spread that changes state through read, tap, listen, speak, power</small></p><div class="rb-chips"><button class="chip rb" data-band="C" data-action="steal">Steal</button><button class="chip rb" data-band="C" data-action="skip">Skip</button><button class="chip rb" data-band="C" data-action="deeper">Go deeper</button></div></div>
+  <div class="rb-base"><span class="mono">Base direction</span>
+    <label><input type="radio" name="rbBase" value="A"> A. The Book</label>
+    <label><input type="radio" name="rbBase" value="B"> B. The Rail</label>
+    <label><input type="radio" name="rbBase" value="C" checked> C. The Open Spread</label>
+  </div>
+  <div class="rb-out"><textarea id="rbText" readonly aria-label="Composed reply">Build C, skip A, skip B.</textarea><button class="copy" id="rbCopy">Copy</button></div>
+</section>
+
+<footer class="wrap">
+  <div class="hairline"></div>
+  <p>Sotto landing directions, sheet 2, drafted by Cleo on Fable. Mockup files in planning/design/landing-mockups/. No new prices, quotas, or claims beyond the brief.</p>
+</footer>
+
+<script>
+(function(){
+  /* scale the embedded mockups to their frame */
+  function fit(){
+    document.querySelectorAll('.scaler').forEach(function(s){
+      var w = parseInt(s.getAttribute('data-w'),10);
+      var k = Math.min(1, s.clientWidth / w);
+      var f = s.querySelector('iframe');
+      if(f){ f.style.transform = 'scale(' + k + ')'; }
+    });
+  }
+  window.addEventListener('resize', fit);
+  fit();
+
+  /* variant toggles */
+  document.querySelectorAll('.variants').forEach(function(group){
+    var section = group.closest('.band');
+    group.querySelectorAll('.vchip').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var v = btn.getAttribute('data-variant');
+        group.querySelectorAll('.vchip').forEach(function(b){ b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+        section.querySelectorAll('.variant').forEach(function(el){ el.hidden = el.getAttribute('data-variant') !== v; });
+        variantChoice[section.getAttribute('data-band')] = btn.textContent;
+        fit(); refresh(); save();
+      });
+    });
+  });
+
+  /* band C scenes */
+  var book = document.getElementById('book');
+  var foot = document.getElementById('footnote');
+  var footnotes = {
+    read: '<b>Reading, listening, tapping, and saved words are free.</b> No account needed to try; progress stays in this browser until you create one.',
+    tap: '<b>Tap any word for its meaning.</b> Save it, and the marker stays on the page so you can see what you kept.',
+    listen: '<b>Hear the story narrated.</b> Each word fills in as it is spoken; the current sentence never gets a box.',
+    speak: '<b>Talk about the passage with a voice tutor that already knows what you read.</b> Where the tutor runs is the next scene, and it is a footnote, not a tier.',
+    power: {
+      device: '<b>On this device is free.</b> The in-browser tutor runs on on-device models, so nothing leaves the device.',
+      plan: '<b>The plan is the hosted tutor with nothing to set up:</b> $9.99 a month or $79 a year after a 3-day trial, at a separate sign-in (app.readsotto.app). Your voice goes to OpenAI through Sotto\'s server; no transcripts or recordings are stored, only usage minutes and billing.',
+      key: '<b>Your own key works with or without the plan.</b> Paste an OpenAI key in Settings and the page calls OpenAI directly from your browser. The key stays on this device and OpenAI bills you, not Sotto.',
+      self: '<b>Run it yourself, free, on your own hardware.</b> docker compose up serves the app and the tutor from one origin, with local models or your own key.'
+    }
+  };
+  function setFoot(){
+    var st = book.getAttribute('data-state');
+    if(st === 'power'){
+      var v = (book.querySelector('input[name="pw"]:checked') || {}).value || 'device';
+      foot.innerHTML = footnotes.power[v];
+    } else { foot.innerHTML = footnotes[st]; }
+  }
+  document.querySelectorAll('.step').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.step').forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      book.setAttribute('data-state', b.getAttribute('data-state'));
+      setFoot();
+    });
+  });
+  book.querySelectorAll('input[name="pw"]').forEach(function(r){ r.addEventListener('change', setFoot); });
+
+  /* reply builder */
+  var KEY = 'sotto-landing-directions-2';
+  var actions = { A: 'skip', B: 'skip', C: 'deeper' };
+  var base = 'C';
+  var variantChoice = { A: 'Kimi K3', B: 'GPT-6 Astra' };
+  var stealPhrase = {
+    A: "take A's literal book object in the hero",
+    B: "take B's persistent margin rail with the passage as chapter one",
+    C: "take C's open spread that changes state through read, tap, listen, speak, power"
+  };
+  function load(){
+    try{ var s = JSON.parse(localStorage.getItem(KEY) || 'null'); if(s){ actions = s.actions || actions; base = s.base || base; variantChoice = s.variantChoice || variantChoice; } }catch(e){}
+  }
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify({actions: actions, base: base, variantChoice: variantChoice})); }catch(e){} }
+  function compose(){
+    var parts = [];
+    ['A','B','C'].forEach(function(b){
+      if(b === base) return;
+      if(actions[b] === 'steal') parts.push(stealPhrase[b]);
+      else if(actions[b] === 'skip') parts.push('skip ' + b);
+    });
+    var name = base === 'A' ? 'A (' + variantChoice.A + ' variant)' : base === 'B' ? 'B (' + variantChoice.B + ' variant)' : 'C';
+    var s = 'Build ' + name + (parts.length ? ', ' + parts.join(', ') : '') + '.';
+    if(actions[base] === 'deeper') s += ' Go deeper on ' + base + '.';
+    s += ' Ship as LANDING-V5 in planning/design/, deploy via pnpm deploy:web from a clean git archive, then run apps/client/e2e/hosted.mjs live.';
+    return s;
+  }
+  function refresh(){
+    document.querySelectorAll('.chip[data-band]').forEach(function(c){ c.setAttribute('aria-pressed', actions[c.getAttribute('data-band')] === c.getAttribute('data-action') ? 'true' : 'false'); });
+    document.querySelectorAll('input[name="rbBase"]').forEach(function(r){ r.checked = r.value === base; });
+    document.getElementById('rbText').value = compose();
+  }
+  document.querySelectorAll('.chip[data-band]').forEach(function(c){
+    c.addEventListener('click', function(){ actions[c.getAttribute('data-band')] = c.getAttribute('data-action'); refresh(); save(); });
+  });
+  document.querySelectorAll('input[name="rbBase"]').forEach(function(r){ r.addEventListener('change', function(){ if(r.checked){ base = r.value; refresh(); save(); } }); });
+  var copy = document.getElementById('rbCopy');
+  copy.addEventListener('click', function(){
+    var t = document.getElementById('rbText');
+    var done = function(){ copy.textContent = 'Copied'; copy.setAttribute('data-copied','1'); setTimeout(function(){ copy.textContent = 'Copy'; copy.removeAttribute('data-copied'); }, 1600); };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(t.value).then(done, function(){ t.select(); done(); }); } else { t.select(); done(); }
+  });
+  load(); refresh();
+  /* restore variant chips */
+  document.querySelectorAll('.variants').forEach(function(group){
+    var section = group.closest('.band'); var want = variantChoice[section.getAttribute('data-band')];
+    group.querySelectorAll('.vchip').forEach(function(b){ if(b.textContent === want){ b.click(); } });
+  });
+})();
+</script>
+</body>
+</html>

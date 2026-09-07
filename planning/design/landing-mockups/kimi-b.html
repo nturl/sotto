@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sotto — read at your level, talk about what you read</title>
+<style>
+:root{
+  --canvas:#F4ECDF; --surface:#FBF6EC; --surface2:#EFE4D2;
+  --ink:#221E1B; --ink2:#6E6459; --ink3:#9C9287;
+  --hair:rgba(34,30,27,0.12);
+  --accent:#E4572E; --peach:#F2C8B4; --marker:#FFD8A8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--canvas); color:var(--ink);
+  font-family:Inter,-apple-system,system-ui,sans-serif;
+  font-size:16px; line-height:1.55;
+}
+.mono{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
+}
+a{color:var(--ink); text-underline-offset:3px; transition:color 120ms ease}
+a:hover{color:var(--ink2)}
+a:focus-visible,.cta:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+/* two-column reading-rail skeleton */
+.shell{max-width:1120px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:320px minmax(0,1fr);gap:64px}
+.rail{position:sticky;top:0;align-self:start;padding:44px 0;border-right:1px solid var(--hair);padding-right:40px}
+.brand{font-family:"Fraunces","Iowan Old Style",Georgia,serif;font-weight:300;font-size:34px;text-decoration:none;color:var(--ink);display:block}
+.rail .mono{color:var(--ink3);display:block;margin:8px 0 26px}
+h1{font-family:"Fraunces","Iowan Old Style",Georgia,serif;font-weight:300;font-size:clamp(28px,3.4vw,40px);line-height:1.1;letter-spacing:-0.01em}
+.lede{margin-top:16px;color:var(--ink2);font-size:15.5px}
+.cta{
+  display:inline-block;background:var(--accent);color:var(--surface);
+  text-decoration:none;font-size:15px;padding:13px 28px;border-radius:2px;
+  margin-top:24px;transition:filter 120ms ease;
+}
+.cta:hover{filter:brightness(0.93);color:var(--surface)}
+.rail-links{margin-top:18px;font-size:13.5px;display:flex;flex-direction:column;gap:8px}
+.rail-links a{color:var(--ink2);text-decoration:none}
+.rail-links a:hover{color:var(--ink)}
+
+/* the reading column */
+.col{padding:44px 0 0;max-width:700px}
+.chapter{margin-bottom:64px}
+.chapter>.mono{color:var(--ink3);display:block;margin-bottom:14px}
+h2{font-family:"Fraunces","Iowan Old Style",Georgia,serif;font-weight:300;font-size:clamp(23px,2.6vw,30px);line-height:1.15;margin-bottom:14px}
+.prose{color:var(--ink2);max-width:40em}
+.prose+.prose{margin-top:14px}
+
+/* the reader card: passage as hero */
+.reader{
+  background:var(--surface);border:1px solid var(--hair);border-radius:2px;
+  box-shadow:6px 6px 0 0 var(--peach);
+  padding:34px 36px 26px;margin-top:18px;
+}
+.reader .mono{color:var(--ink3);display:block;margin-bottom:18px}
+.passage{
+  font-family:"Fraunces","Iowan Old Style",Georgia,serif;font-weight:400;
+  font-size:clamp(18px,2.1vw,21px);line-height:1.8;
+}
+.tap{background:rgba(242,200,180,0.18);border-radius:2px;padding:0 1px}
+.saved{display:inline-block;background:var(--marker);border-radius:2px;padding:0 4px;transform:skew(-7deg) rotate(-1deg)}
+.saved>span{display:inline-block;transform:skew(7deg) rotate(1deg)}
+.gloss{
+  margin-top:22px;border:1px solid var(--hair);border-radius:2px;
+  background:var(--surface);padding:10px 14px;max-width:340px;
+}
+.gloss .mono{color:var(--ink3);display:block;margin-bottom:4px}
+.gloss p{font-family:"Fraunces","Iowan Old Style",Georgia,serif;font-size:15.5px}
+.reader-foot{margin-top:22px;padding-top:12px;border-top:1px solid var(--hair);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.reader-foot .mono{color:var(--ink3)}
+
+/* screenshot placeholder */
+.shot{
+  border:1px solid var(--hair);border-radius:10px;background:var(--surface2);
+  min-height:220px;display:flex;align-items:center;justify-content:center;
+  padding:24px;text-align:center;margin-top:22px;
+}
+.shot span{color:var(--ink3);font-size:13px}
+
+/* prose rows for the four ways + install */
+.rows{border-top:1px solid var(--hair);margin-top:22px}
+.row{padding:22px 0;border-bottom:1px solid var(--hair)}
+.row .mono{color:var(--ink3);display:block;margin-bottom:6px}
+.row h3{font-family:"Fraunces","Iowan Old Style",Georgia,serif;font-weight:400;font-size:19px;margin-bottom:6px}
+.row p{color:var(--ink2);max-width:40em}
+.row code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;background:var(--surface2);border:1px solid var(--hair);border-radius:2px;padding:1px 6px}
+
+.caveat{color:var(--ink3);font-size:13px;max-width:44em;margin-top:40px}
+
+footer{border-top:1px solid var(--hair);margin-top:48px;padding:26px 0 44px}
+.ft{display:flex;gap:24px;flex-wrap:wrap;font-size:14px;align-items:baseline}
+.ft .mono{color:var(--ink3)}
+.ft a{color:var(--ink2);text-decoration:none}
+.ft a:hover{color:var(--ink)}
+.ft-note{margin-top:12px;color:var(--ink3);font-size:12.5px}
+
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr;gap:0}
+  .rail{position:static;border-right:none;border-bottom:1px solid var(--hair);padding:26px 0 30px}
+  .rail-links{flex-direction:row;gap:18px;flex-wrap:wrap}
+  .col{padding-top:36px}
+}
+@media (max-width:700px){
+  .reader{padding:24px 20px 20px}
+  .chapter{margin-bottom:48px}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- RAIL: identity, value, one CTA — persistent on desktop -->
+  <aside class="rail">
+    <a class="brand" href="/start">Sotto</a>
+    <span class="mono">Free · Open source · Graded reader</span>
+    <h1>Read at your level. Talk about what you read.</h1>
+    <p class="lede">Sotto is a free, open-source graded reader: open a short book rewritten to the level you choose, tap any word for its meaning, hear it narrated — then discuss the passage out loud with a voice tutor that has read the same page.</p>
+    <a class="cta" href="https://app.readsotto.app/account?intent=start">Start free</a>
+    <div class="rail-links">
+      <a href="/start">Try a sample, no account</a>
+      <a href="https://app.readsotto.app/account">Sign in</a>
+      <a href="https://github.com/readsotto/sotto">GitHub</a>
+    </div>
+  </aside>
+
+  <!-- READING COLUMN -->
+  <main class="col">
+
+    <div class="chapter">
+      <span class="mono">Chapter 01 · The reader — this page is the demo</span>
+      <h2>Pick a language and a level; the book adapts to you.</h2>
+      <div class="reader">
+        <span class="mono">Sotto · French · Level A2 · Chapter one</span>
+        <p class="passage">Sotto est un livre gratuit et <span class="tap">adapté</span>. Vous choisissez une langue et un <span class="saved"><span>niveau</span></span>, puis vous lisez. Touchez un mot pour le traduire.</p>
+        <div class="gloss">
+          <span class="mono">Tapped word</span>
+          <p>adapté — graded (rewritten at your level)</p>
+        </div>
+        <div class="reader-foot">
+          <span class="mono">Tap a word → meaning</span>
+          <span class="mono">Highlighted word → saved for review</span>
+        </div>
+      </div>
+      <p class="prose" style="margin-top:18px">Every book is a short story adapted — rewritten — to the level you pick. You can listen to it narrated, tap words as you go, and save the ones you want to review later.</p>
+    </div>
+
+    <div class="chapter">
+      <span class="mono">Chapter 02 · The tutor — read, then speak</span>
+      <h2>You read a passage. Then you talk about it, out loud.</h2>
+      <p class="prose">The voice tutor listens and answers — in the language you are learning — about the exact passage you just finished. It already knows what you read, so it can ask what you thought, check a word you stumbled on, or keep the story going.</p>
+      <div class="shot"><span>Real screenshot: the voice tutor mid-conversation</span></div>
+    </div>
+
+    <div class="chapter">
+      <span class="mono">Chapter 03 · Using Sotto — four ways, no tiers</span>
+      <h2>Reading is free. Power the tutor whichever way suits you.</h2>
+      <p class="prose">The plan is one option; your own key and your own hardware are alternatives to it, not lesser versions of it.</p>
+      <div class="rows">
+        <div class="row">
+          <span class="mono">Free reading</span>
+          <h3>Start here — free, no account needed to try</h3>
+          <p>Reading, listening, tap-to-translate, saved vocabulary, and an in-browser tutor that runs on on-device models are free; with the on-device tutor, nothing leaves your device. Your progress and saved words stay in this browser until you create an account, and an account keeps them.</p>
+        </div>
+        <div class="row">
+          <span class="mono">The plan</span>
+          <h3>A hosted voice tutor, nothing to set up</h3>
+          <p>$9.99 a month or $79 a year, after a 3-day trial. Sign-in for the plan is at <a href="https://app.readsotto.app/account">app.readsotto.app</a>. With the plan, your voice goes to OpenAI through Sotto&rsquo;s server, which brokers each tutor turn; Sotto does not store transcripts or recordings — only usage minutes and billing.</p>
+        </div>
+        <div class="row">
+          <span class="mono">Your own key</span>
+          <h3>Bring an OpenAI API key</h3>
+          <p>Works with or without the plan. Paste the key in Settings and the page calls OpenAI directly from your browser. The key stays on this device, and OpenAI bills you, not Sotto. <a href="/docs/byok">Read the guide</a>.</p>
+        </div>
+        <div class="row">
+          <span class="mono">Run it yourself</span>
+          <h3>Self-host, free, on your own hardware</h3>
+          <p>One command — <code>docker compose up</code> — serves the app and the tutor from one origin, using local models or your own key. <a href="/docs/self-hosting">Read the self-hosting guide</a>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter">
+      <span class="mono">Chapter 04 · Install — keep it on your device</span>
+      <h2>Add Sotto to your phone or desktop.</h2>
+      <div class="rows">
+        <div class="row">
+          <span class="mono">iPhone / iPad · Safari</span>
+          <p>Tap Share, choose &ldquo;Add to Home Screen&rdquo;, then open Sotto from your Home Screen.</p>
+        </div>
+        <div class="row">
+          <span class="mono">Android · Chrome</span>
+          <p>Open the menu and tap &ldquo;Install app&rdquo;.</p>
+        </div>
+        <div class="row">
+          <span class="mono">Desktop · Chrome</span>
+          <p>Click the install icon in the address bar (or open the menu and choose &ldquo;Install Sotto&rdquo;), then confirm Install.</p>
+        </div>
+      </div>
+      <p class="prose" style="margin-top:18px">A book you have opened keeps working offline.</p>
+      <p class="caveat">A quiet caveat: the books are machine-adapted drafts, and their levels are estimates.</p>
+    </div>
+
+    <footer>
+      <div class="ft">
+        <span class="mono">Sotto</span>
+        <a href="https://github.com/readsotto/sotto">GitHub</a>
+        <a href="/docs/byok">Docs: your own key</a>
+        <a href="/docs/self-hosting">Docs: self-hosting</a>
+        <a href="/docs/add-a-book">Docs: add a book</a>
+      </div>
+      <p class="ft-note">Code Apache-2.0 · Stories CC BY-SA 4.0 · No analytics on this page or in the app.</p>
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>

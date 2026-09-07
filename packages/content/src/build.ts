@@ -410,6 +410,7 @@ function bookFromBundle(
   chapterSummaries: ChapterSummary[],
   coverInk?: CoverInk,
   wordAudio?: Book['wordAudio'],
+  cover: string = 'cover.svg',
 ): Book {
   return {
     schemaVersion: 1,
@@ -434,7 +435,7 @@ function bookFromBundle(
     vocabulary: bundle.vocabulary,
     comprehension: bundle.comprehension,
     license: bundle.license,
-    cover: 'cover.svg',
+    cover,
     // Only a hand-authored cover carries an ink: the app prints the title
     // block over the art's band in it. A generated cover has its own text
     // baked in, so the field stays absent (see covers.ts).
@@ -534,19 +535,20 @@ async function buildOneBundle(
   const mergedChapters = chapters.map((c) => mergeExistingChapterTimings(dir, c));
   const mergedSummaries = mergeExistingChapterAssets(dir, chapterSummaries);
   writeChapters(dir, mergedChapters);
-  const book = bookFromBundle(
-    bundle,
-    mergedSummaries,
-    authoredCoverInk(bundle.bookId),
-    mergeExistingWordAudio(dir),
-  );
-  writeBookJson(dir, book);
-  writeCover(dir, {
+  const cover = writeCover(dir, {
     bookId: bundle.bookId,
     title: bundle.title,
     author: bundle.author,
     category: bundle.categories[0] ?? 'tales',
   });
+  const book = bookFromBundle(
+    bundle,
+    mergedSummaries,
+    authoredCoverInk(bundle.bookId),
+    mergeExistingWordAudio(dir),
+    cover.file,
+  );
+  writeBookJson(dir, book);
   writeAttribution(dir, bundle.bookId, bundle);
   if (missing.size > 0) {
     writeMissingGlosses(dir, {
@@ -584,6 +586,16 @@ async function buildOneBundle(
       const mergedHantChapters = hantChapters.map((c) => mergeExistingChapterTimings(hantDir, c));
       const mergedHantSummaries = mergeExistingChapterAssets(hantDir, hantSummaries);
       writeChapters(hantDir, mergedHantChapters);
+      const hantCover = writeCover(
+        hantDir,
+        {
+          bookId: hantBookId,
+          title: convertGreedy(bundle.title, bundle.hantOverrides),
+          author: bundle.author,
+          category: bundle.categories[0] ?? 'tales',
+        },
+        bundle.bookId,
+      );
       const hantBook: Book = {
         // The traditional edition is the same book in another script, so it
         // reuses the simplified original's art and its ink.
@@ -592,6 +604,7 @@ async function buildOneBundle(
           mergedHantSummaries,
           authoredCoverInk(bundle.bookId),
           mergeExistingWordAudio(hantDir),
+          hantCover.file,
         ),
         bookId: hantBookId,
         contentLocale: 'zh-TW',
@@ -604,16 +617,6 @@ async function buildOneBundle(
         })),
       };
       writeBookJson(hantDir, hantBook);
-      writeCover(
-        hantDir,
-        {
-          bookId: hantBookId,
-          title: hantBook.title,
-          author: bundle.author,
-          category: bundle.categories[0] ?? 'tales',
-        },
-        bundle.bookId,
-      );
       writeAttribution(hantDir, hantBookId, bundle);
       touchedLocales.add('zh-TW');
       console.log(

@@ -193,6 +193,12 @@ const shellFiles = walk(dist).filter(
 // changes on every real rebuild (new bundle hash => new mtimes).
 const version = String(Math.max(...shellFiles.map((f) => statSync(path.join(dist, f)).mtimeMs)));
 writeFileSync(path.join(dist, 'sw-manifest.json'), JSON.stringify({ version, files: shellFiles }));
+// A changed manifest alone does not trigger a browser's byte-for-byte worker update.
+// Stamp each export so returning clients install its matching offline shell.
+writeFileSync(
+  path.join(dist, 'sw.js'),
+  `${readFileSync(path.join(clientDir, 'public/sw.js'), 'utf-8')}\n// Sotto build: ${version}\n`,
+);
 console.log(
   `web build: PWA manifest + sw-manifest.json written (${shellFiles.length} shell files, v${version})`,
 );

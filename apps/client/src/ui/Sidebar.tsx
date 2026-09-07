@@ -1,14 +1,17 @@
 /**
- * Sidebar — desktop (>= 900px) navigation: 220px surface column with a
- * hairline right edge, "Sotto" wordmark in Fraunces 300, three scrolling
- * nav rows plus a Settings row pinned to the bottom slot (CONFIRM 25: four
- * rows total — Home, Library, Vocabulary, Settings; active = surface-2
- * fill, ink 500 label; inactive ink-2).
+ * Sidebar — desktop navigation, matching the mockup's `.side` / `.nav`
+ * (`app-mockup-v2.html:38-43`): a 220px surface column with a hairline
+ * right edge and 24/20 padding, the "Sotto" wordmark in Fraunces 300 at
+ * 26, three text nav rows (9/12 padding, radius 10, 15px, 2px apart) plus
+ * a Settings row pinned to the bottom slot (CONFIRM 25: four rows total —
+ * Home, Library, Vocabulary, Settings; active = surface-2 fill, ink 500
+ * label; inactive ink-2). Text rows only — the four glyphs from
+ * `navRows.ts` are the phone tab bar's, not the sidebar's.
  */
 import { useMemo } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { usePathname, useRouter } from 'expo-router';
-import { space } from '@sotto/core/theme';
+import { radius, space } from '@sotto/core/theme';
 import { useTheme } from './theme';
 import { useT } from '../i18n/useT';
 import { fonts } from './fonts';
@@ -17,6 +20,9 @@ import { Text } from './Text';
 import { webCursor } from './tokens';
 
 export { NAV_ROWS, SETTINGS_ROW };
+
+/** The mockup's `.app` grid puts the sidebar at a fixed 220px. */
+export const SIDEBAR_WIDTH = 220;
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -51,7 +57,7 @@ export function Sidebar() {
 
   return (
     <View style={styles.sidebar}>
-      <Text role="display" size={22} style={styles.wordmark}>
+      <Text role="display" size={26} style={styles.wordmark}>
         {t('common.appName')}
       </Text>
       {NAV_ROWS.map((row) => renderRow(row, pathname.endsWith(row.segment)))}
@@ -64,7 +70,7 @@ export function Sidebar() {
 function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
   return StyleSheet.create({
     sidebar: {
-      width: 220,
+      width: SIDEBAR_WIDTH,
       backgroundColor: colors.surface,
       borderRightWidth: 1,
       borderRightColor: colors.hairline,
@@ -78,10 +84,13 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
       marginBottom: 28,
     },
     row: {
-      paddingVertical: 10,
+      paddingVertical: 9,
       paddingHorizontal: space.sm,
-      borderRadius: space.sm,
-      marginBottom: space.xs,
+      borderRadius: radius.md,
+      marginBottom: 2,
+      // DESIGN.md "Radius, elevation, spacing": tap targets 44 minimum.
+      // The mockup's row box is 38 tall; we keep 44 and let the surface-2
+      // active fill grow with it rather than shrink the hit area.
       minHeight: space.tapTarget,
       justifyContent: 'center',
     },

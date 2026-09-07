@@ -1,9 +1,14 @@
 /**
  * TabBar — phone tab bar (DESIGN.md navigation): surface bar with a top
- * hairline; active tab = accent icon + label at 500 weight, inactive ink-2.
- * Icons are 24px strokes: star (Pour toi), open book (Bibliothèque),
- * graduation cap (Vocabulaire), gear (Settings). Hidden at >= 900px, where
- * Shell renders the sidebar instead.
+ * hairline; active tab = accent glyph + label at 500 weight, inactive
+ * ink-2. Glyphs are the mockup's four ink drawings at 22px, stroke 1.5
+ * (`app-mockup-v2.html:345-348`): open book (For you), shelves (Library),
+ * bookmark (Vocabulary), sun-gear (Settings) — the name → component
+ * mapping lives here, the row → name pairing in `navRows.ts` so it can be
+ * tested without a react-native import. Bar padding is the mockup's
+ * `10px 8px 22px`; on a device the 22 gives way to the safe-area inset
+ * when that is larger. Hidden at >= DESKTOP_BREAKPOINT, where Shell
+ * renders the sidebar instead.
  *
  * CONFIRM 25 / card B: Settings is a fourth row alongside the three real
  * tab-navigator routes, even though it isn't one of the `Tabs.Screen`s in
@@ -22,8 +27,9 @@ import { space } from '@sotto/core/theme';
 import { useTheme } from './theme';
 import { useT, type MessageKey } from '../i18n/useT';
 import { fonts } from './fonts';
-import { CapGlyph, OpenBookGlyph, SettingsGlyph, StarGlyph } from './Glyphs';
-import { buildTabRows } from './navRows';
+import { BookmarkGlyph, BookOpenGlyph, GearGlyph, ShelvesGlyph, type GlyphProps } from './Glyphs';
+import { buildTabRows, type NavGlyphName } from './navRows';
+import { DESKTOP_BREAKPOINT } from './Shell';
 import { Text } from './Text';
 import { webCursor } from './tokens';
 
@@ -39,11 +45,15 @@ export type TabBarProps = {
   };
 };
 
-const TAB_ICONS: Record<string, (props: { color: string }) => React.ReactNode> = {
-  home: ({ color }) => <StarGlyph color={color} />,
-  library: ({ color }) => <OpenBookGlyph color={color} />,
-  vocabulary: ({ color }) => <CapGlyph color={color} />,
-  settings: ({ color }) => <SettingsGlyph color={color} />,
+/** The mockup's `.tab svg`: 22px, stroke 1.5, round caps and joins. */
+const TAB_GLYPH_SIZE = 22;
+const TAB_GLYPH_STROKE = 1.5;
+
+const TAB_GLYPHS: Record<NavGlyphName, (props: GlyphProps) => React.ReactNode> = {
+  bookOpen: (props) => <BookOpenGlyph {...props} />,
+  shelves: (props) => <ShelvesGlyph {...props} />,
+  bookmark: (props) => <BookmarkGlyph {...props} />,
+  gear: (props) => <GearGlyph {...props} />,
 };
 
 export function TabBar({ state, navigation }: TabBarProps) {
@@ -55,12 +65,17 @@ export function TabBar({ state, navigation }: TabBarProps) {
   const { colors } = useTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
-  if (width >= 900) return null;
+  if (width >= DESKTOP_BREAKPOINT) return null;
 
   const rows = buildTabRows(state.routes);
 
   return (
-    <View style={[styles.bar, { paddingBottom: insets.bottom }]}>
+    <View
+      style={[
+        styles.bar,
+        { paddingBottom: Math.max(insets.bottom, styles.bar.paddingBottom as number) },
+      ]}
+    >
       {rows.map((row, index) => {
         // Settings also counts "active" while /profile is still the live
         // settings screen (pre lane-E rename).
@@ -88,7 +103,13 @@ export function TabBar({ state, navigation }: TabBarProps) {
             accessibilityState={{ selected: focused }}
             style={[styles.tab, webCursor]}
           >
-            {TAB_ICONS[row.name]?.({ color })}
+            {row.glyph
+              ? TAB_GLYPHS[row.glyph]({
+                  color,
+                  size: TAB_GLYPH_SIZE,
+                  strokeWidth: TAB_GLYPH_STROKE,
+                })
+              : null}
             <Text
               role="caption"
               size={11}
@@ -110,14 +131,15 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
       backgroundColor: colors.surface,
       borderTopWidth: 1,
       borderTopColor: colors.hairline,
+      paddingTop: 10,
+      paddingHorizontal: space.sm,
+      paddingBottom: 22,
     },
     tab: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
       gap: space.xs,
-      paddingTop: 10,
-      paddingBottom: space.sm,
       minHeight: space.tapTarget,
     },
   });

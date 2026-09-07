@@ -44,5 +44,19 @@ export function useMe(): MeState & { refresh: () => void } {
     };
   }, [cloud, nonce]);
 
+  useEffect(() => {
+    if (!cloud.enabled || typeof window === 'undefined') return;
+    const refresh = () => setNonce((n) => n + 1);
+    const visible = () => {
+      if (!document.hidden) refresh();
+    };
+    window.addEventListener('focus', refresh);
+    document.addEventListener('visibilitychange', visible);
+    return () => {
+      window.removeEventListener('focus', refresh);
+      document.removeEventListener('visibilitychange', visible);
+    };
+  }, [cloud]);
+
   return { ...state, refresh: () => setNonce((n) => n + 1) };
 }

@@ -171,3 +171,17 @@ describe('HttpCloudAdapter — sign-in surface', () => {
     });
   });
 });
+
+it('hosted import preserves the filename and sends the server locale field', async () => {
+  const fetchMock = vi.fn(async (_url: string, init?: RequestInit) => {
+    const form = init!.body as FormData;
+    expect((form.get('file') as File).name).toBe('story.md');
+    expect(form.get('locale')).toBe('fr-FR');
+    expect(form.get('narrate')).toBe('first');
+    return jsonResponse(200, { jobId: 'fixture', estimate: { minutes: 1, costUsd: 0 } });
+  });
+  const cloud = new HttpCloudAdapter('https://fixture.invalid', {
+    fetch: fetchMock as typeof fetch,
+  });
+  await cloud.importBook(new Blob(['# Story']), { bookTitle: 'story.md', sourceLocale: 'fr-FR' });
+});

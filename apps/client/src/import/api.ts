@@ -2,9 +2,17 @@
  * Client for apps/server's `/import` routes (planning/LEDGER.md
  * "R3-I Importer"): mirrors state/contentApi.ts's `serverUrl()` pattern.
  */
+import { getCloudAdapter } from '../cloud/provider';
 import { serverUrl } from '../state/contentApi';
 import type { PickedFile } from './pickFile';
 import type { BookLevel } from '../ui/dev/fixtures';
+
+function importResource(path: string, init?: RequestInit): Promise<Response> {
+  const cloud = getCloudAdapter();
+  return cloud.enabled && cloud.importResource
+    ? cloud.importResource(path, init)
+    : fetch(`${serverUrl()}/import/${path}`, init);
+}
 
 export interface StartImportOptions {
   locale: string;
@@ -46,7 +54,7 @@ export interface ImportJobEvent {
   totalChapters?: number;
   done: number;
   total: number;
-  status?: 'running' | 'done' | 'error';
+  status?: 'running' | 'done' | 'error' | 'failed' | 'cancelled';
   error?: string;
 }
 
@@ -60,7 +68,7 @@ export function subscribeImportEvents(
   onEvent: (event: ImportJobEvent) => void,
 ): () => void {
   const EventSourceCtor = (globalThis as { EventSource?: typeof EventSource }).EventSource;
-  if (EventSourceCtor) {
+  if (EventSourceCtor && !getCloudAdapter().enabled) {
     const source = new EventSourceCtor(`${serverUrl()}/import/${jobId}/events`);
     source.onmessage = (message) => {
       try {
@@ -73,14 +81,21 @@ export function subscribeImportEvents(
   }
 
   let cancelled = false;
+  let failures = 0;
   const poll = async (): Promise<void> => {
     if (cancelled) return;
-    const res = await fetch(`${serverUrl()}/import/${jobId}/result`).catch(() => undefined);
+    const res = await importResource(`${jobId}/result`).catch(() => undefined);
+    if (cancelled) return;
+    failures = res ? 0 : failures + 1;
+    if (failures >= 3) {
+      onEvent({ stage: 'done', status: 'error', done: 0, total: 1 });
+      return;
+    }
     if (res?.status === 200) {
       onEvent({ stage: 'done', status: 'done', done: 1, total: 1 });
       return;
     }
-    if (res?.status === 422) {
+    if (res && res.status !== 202 && !res.ok) {
       onEvent({ stage: 'done', status: 'error', done: 0, total: 1 });
       return;
     }
@@ -98,19 +113,19 @@ export interface ImportJobResult {
 }
 
 export async function fetchImportResult(jobId: string): Promise<ImportJobResult | null> {
-  const res = await fetch(`${serverUrl()}/import/${jobId}/result`);
+  const res = await importResource(`${jobId}/result`);
   if (!res.ok) return null;
   return (await res.json()) as ImportJobResult;
 }
 
 export async function fetchImportAudio(jobId: string, file: string): Promise<Uint8Array | null> {
-  const res = await fetch(`${serverUrl()}/import/${jobId}/audio/${file}`);
+  const res = await importResource(`${jobId}/audio/${file}`);
   if (!res.ok) return null;
   return new Uint8Array(await res.arrayBuffer());
 }
 
 export async function requestLazyNarration(jobId: string, chapterIndex: number): Promise<boolean> {
-  const res = await fetch(`${serverUrl()}/import/${jobId}/narrate/${chapterIndex}`, {
+  const res = await importResource(`${jobId}/narrate/${chapterIndex}`, {
     method: 'POST',
   });
   if (!res.ok) return false;

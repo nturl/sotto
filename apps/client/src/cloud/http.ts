@@ -140,6 +140,10 @@ export class HttpCloudAdapter implements CloudAdapter {
     return body as T;
   }
 
+  trialEligibility(): Promise<{ eligible: boolean; trialDays: number }> {
+    return this.request('/billing/trial');
+  }
+
   async me(): Promise<Me | null> {
     try {
       return await this.request<Me>('/me');
@@ -272,15 +276,28 @@ export class HttpCloudAdapter implements CloudAdapter {
     });
   }
 
+  async importResource(path: string, init: RequestInit = {}): Promise<Response> {
+    const headers = new Headers(init.headers);
+    if (this.platform !== 'web') {
+      const token = await this.tokenStore.get();
+      if (token) headers.set('Authorization', `Bearer ${token}`);
+    }
+    return this.fetchImpl(`${this.baseUrl}/import/${path}`, {
+      ...init,
+      headers,
+      ...(this.platform === 'web' ? { credentials: 'include' as RequestCredentials } : {}),
+    });
+  }
+
   async importBook(
     file: Blob,
     opts: ImportOptions,
     onProgress?: (e: ImportProgressEvent) => void,
   ): Promise<ImportHandle> {
     const form = new FormData();
-    form.append('file', file);
-    if (opts.bookTitle) form.append('bookTitle', opts.bookTitle);
-    if (opts.sourceLocale) form.append('sourceLocale', opts.sourceLocale);
+    form.append('file', file, opts.bookTitle ?? 'book.txt');
+    if (opts.sourceLocale) form.append('locale', opts.sourceLocale);
+    form.append('narrate', 'first');
 
     const headers: Record<string, string> = {};
     if (this.platform !== 'web') {

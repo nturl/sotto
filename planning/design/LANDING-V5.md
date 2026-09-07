@@ -185,3 +185,24 @@ Where the build read the spec one way rather than another, so the next revision 
   headline (line 137, left alone to keep the diff to the assertion).
 - JS-off text parity reads 1.70 (2620 chars visible with JavaScript off against 1538 with it
   on): every pane and footnote is visible without script, so the page has more text, not less.
+
+## Revision 2026-09-06 late: the ring narrates (`745ac72`)
+
+Noel, on seeing the Listen scene: "It would be cool if you could click the button here so it
+reads out the passage." This lifts the "no audio" line above, for this one control only.
+
+- The ring is a `<button>` (aria-label "Play the passage", aria-pressed while playing). It plays
+  a real Kokoro clip of the sample passage: voice `ff_siwis` (the French books' voice), speed 0.9,
+  8.45 s, three sentences with the pipeline's 350 ms gaps, 32 kbps mono mp3, 34 KB, embedded as a
+  data URI so build-web.mjs needs no change. Made with the content pipeline's own pieces
+  (Kokoro at :8880, whisper at :9000, `align.ts`, `wav.ts`): 23 of 23 words matched, none
+  interpolated. Timings and the clip are in `~/Claude/sotto-run7-recon/landing-v5/`.
+- During playback the words fill on the real start times, the track and readout follow
+  `currentTime` (readout "0:02 · 0:08"), the glyph flips to pause, and pressing again pauses.
+  At the end all words stay ink and the readout reads "0:08 · 0:08". Leaving the scene by scroll
+  or tab stops and rewinds. Entering Listen without pressing still shows the still preview at the
+  38% point (readout "0:03 · 0:08"), so the scene reads the same as before until someone asks
+  for sound. Nothing plays without a press.
+- Verified: cleo_verify 0 FAIL, 4 WARN (the CTA cutout); headless play, pause, end, and
+  leave at 1280 and 375, 0 console errors; the clip re-transcribed by whisper as the exact
+  passage text; hosted.mjs live PASS after deploy `dpl_EhTquxXvnVccwumC2QcFqGewjhny`.

@@ -42,9 +42,14 @@ export const TUTOR_SAMPLE_RATE = 24000;
 /** What the AudioAdapter captures at (CONTRACTS §5b). */
 export const CAPTURE_SAMPLE_RATE = 16000;
 
-export const DEFAULT_STT_MODEL = 'gpt-4o-mini-transcribe';
-export const DEFAULT_LLM_MODEL = 'gpt-4o-mini';
+export const DEFAULT_STT_MODEL = 'gpt-transcribe';
+export const DEFAULT_LLM_MODEL = 'gpt-5.6-terra';
 export const DEFAULT_TTS_MODEL = 'gpt-4o-mini-tts';
+
+/** GPT-5.x chat models take `reasoning_effort`; earlier ones reject it. */
+export function isReasoningModel(model: string): boolean {
+  return /^gpt-5/.test(model);
+}
 
 /**
  * One voice per learning language.
@@ -328,17 +333,24 @@ export class OpenAIChatEngine implements LlmEngine {
     handlers: EngineChatHandlers,
     signal: AbortSignal,
   ): Promise<{ text: string; toolCalls: EngineToolCall[] }> {
+    const model = this.opts.model ?? DEFAULT_LLM_MODEL;
     const res = await this.fetchImpl(`${this.baseUrl}/chat/completions`, {
       method: 'POST',
       headers: { ...authHeaders(this.opts.apiKey), 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: this.opts.model ?? DEFAULT_LLM_MODEL,
+        model,
         messages,
         tools: TOOL_DEFINITIONS,
         stream: true,
         temperature: this.opts.temperature ?? 0.4,
-        // Same ceiling the server's llm.ts uses for spoken turns.
-        max_tokens: this.opts.maxTokens ?? 400,
+        // Same ceiling the server's llm.ts uses for spoken turns. GPT-5.x
+        // rejects `max_tokens` (verified live 2026-09-06) and every OpenAI
+        // chat model accepts `max_completion_tokens`.
+        max_completion_tokens: this.opts.maxTokens ?? 400,
+        // GPT-5.x reasons before it answers by default; a spoken turn cannot
+        // wait for that, and the ceiling above would be spent on reasoning
+        // rather than the reply. Only GPT-5.x accepts the parameter.
+        ...(isReasoningModel(model) ? { reasoning_effort: 'none' } : {}),
       }),
       signal,
     });

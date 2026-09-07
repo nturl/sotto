@@ -18,8 +18,8 @@ other path runs, but from the page itself:
 
 | Stage          | Endpoint                               | Model                    |
 | -------------- | -------------------------------------- | ------------------------ |
-| Speech to text | `POST /v1/audio/transcriptions`        | `gpt-4o-mini-transcribe` |
-| Tutor replies  | `POST /v1/chat/completions` (streamed) | `gpt-4o-mini`            |
+| Speech to text | `POST /v1/audio/transcriptions`        | `gpt-transcribe`         |
+| Tutor replies  | `POST /v1/chat/completions` (streamed) | `gpt-5.6-terra`          |
 | Tutor speech   | `POST /v1/audio/speech`                | `gpt-4o-mini-tts`        |
 | Key check      | `GET /v1/models`                       | —                        |
 

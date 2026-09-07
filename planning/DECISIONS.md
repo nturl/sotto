@@ -44,3 +44,11 @@ Product priority note from Noel: the live tutor is valuable but "a little harder
 ## Parked for later (Noel, 2026-09-04)
 
 - **User-uploaded books.** Not in Phase 1. Constraint on the build now: the content-pack contract is the ONLY content format, and seeded books go through the same pipeline (tokenize -> gloss -> narrate with timings) a future EPUB/text importer would. Do not special-case seeds. Later version: local converter on the user's machine, content never redistributed, optional "simplify to my level" companion.
+
+## Tutor model quality (Noel, 2026-09-06)
+
+Noel's direction, verbatim in substance: "If people bring their own key, let them use the best solution possible. If you're paying for it as a subscriber, it still needs to be better than what it is today."
+
+- **BYOK path (free app, own key): best available, cost is the learner's.** Defaults moved from `gpt-4o-mini-transcribe` / `gpt-4o-mini` to `gpt-transcribe` / `gpt-5.6-terra` (`packages/voice/src/openai-direct/api.ts`). Terra over Sol: same answer quality on tutor-shaped turns, 1.4 s vs 1.7 s measured live 2026-09-06, and Sol is a one-line override. GPT-5.x needs `max_completion_tokens` and `reasoning_effort: 'none'` on spoken turns; both engines send that now.
+- **Next step for BYOK is `gpt-realtime-2.1` speech-to-speech** (the model ChatGPT-Voice-class quality actually comes from). The Realtime client is still not wired (`sessionManager.ts` never constructs the provider). This supersedes the 2026-09-04 "Realtime deferred, interface only" line for the BYOK path only. It is a run-sized build, not a default swap; scope it as its own kickoff.
+- **Paid tier: same cascade upgrade, margin re-checked.** `sotto-cloud` defaults follow (`gpt-transcribe` + `gpt-5.6-terra`); text is the cheapest leg so the per-minute cost moves from $0.018 to ~$0.020 audio plus text. STRATEGY.md's "Realtime not sold" stays: Realtime minutes still lose money at $9.99.

@@ -60,10 +60,17 @@ export async function streamChatCompletion(
       tools: openAiTools,
       stream: true,
       temperature: 0.4,
-      max_tokens: 400,
+      // OpenAI's GPT-5.x rejects `max_tokens` and wants
+      // `max_completion_tokens` (verified live 2026-09-06); llama-server only
+      // knows `max_tokens`. GPT-5.x also reasons before answering unless told
+      // not to, which a spoken turn cannot afford.
       ...(isOpenAi
-        ? {}
+        ? {
+            max_completion_tokens: 400,
+            ...(/^gpt-5/.test(config.model) ? { reasoning_effort: 'none' } : {}),
+          }
         : {
+            max_tokens: 400,
             chat_template_kwargs: { enable_thinking: false },
             // llama-server extension: reuse the KV cache across requests
             // that share a prompt prefix (the stable tutor system

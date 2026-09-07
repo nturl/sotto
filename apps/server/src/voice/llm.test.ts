@@ -38,6 +38,24 @@ describe('streamChatCompletion request body', () => {
     expect(capturedBody).not.toHaveProperty('cache_prompt');
   });
 
+  it('uses max_completion_tokens and turns reasoning off for a GPT-5.x model on api.openai.com', async () => {
+    let capturedBody: Record<string, unknown> | undefined;
+    const fetchImpl = vi.fn(async (_url: string, init?: RequestInit) => {
+      capturedBody = JSON.parse(init!.body as string);
+      return new Response(sseStream([{ choices: [{ delta: { content: 'hi' } }] }]));
+    }) as unknown as typeof fetch;
+
+    await streamChatCompletion(
+      MESSAGES,
+      { url: 'https://api.openai.com/v1', model: 'gpt-5.6-terra', fetchImpl },
+      {},
+    );
+
+    // GPT-5.x rejects `max_tokens` outright (verified live 2026-09-06).
+    expect(capturedBody).not.toHaveProperty('max_tokens');
+    expect(capturedBody).toMatchObject({ max_completion_tokens: 400, reasoning_effort: 'none' });
+  });
+
   it('sends the llama-server extensions for a non-OpenAI (local) endpoint', async () => {
     let capturedBody: Record<string, unknown> | undefined;
     const fetchImpl = vi.fn(async (_url: string, init?: RequestInit) => {

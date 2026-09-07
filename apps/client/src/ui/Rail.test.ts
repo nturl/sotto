@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { resolveRailView } from './railView';
+import { pickRibbon, resolveRailView } from './railView';
 import type { LibraryBook } from './data';
 
 function book(id: string): LibraryBook {
@@ -12,8 +12,7 @@ function book(id: string): LibraryBook {
     shortAuthor: 'Author',
     level: 'A1',
     minutes: 5,
-    categories: ['contes'],
-    cover: 'fox',
+    categories: ['tales'],
     svgUrl: '',
     progress: 0,
     isNew: true,
@@ -35,5 +34,24 @@ describe('resolveRailView', () => {
   it('stays hidden (null) when no emptyLabel is given, preserving old behaviour', () => {
     const view = resolveRailView([], undefined);
     expect(view).toEqual({ kind: 'hidden' });
+  });
+});
+
+describe('pickRibbon', () => {
+  it('marks the current book when this rail is holding it', () => {
+    expect(pickRibbon([book('a'), book('b')], 'b')).toBe('b');
+  });
+
+  it('marks nothing when the current book is on some other shelf', () => {
+    expect(pickRibbon([book('a')], 'b')).toBe(null);
+  });
+
+  it('marks nothing when no book is in progress', () => {
+    expect(pickRibbon([book('a')], undefined)).toBe(null);
+    expect(pickRibbon([book('a')], null)).toBe(null);
+  });
+
+  it('marks nothing on an empty shelf', () => {
+    expect(pickRibbon([], 'a')).toBe(null);
   });
 });

@@ -1,23 +1,23 @@
 /**
- * BookTile — cover with the peach cutout, Fraunces title, caption author,
- * and a 3px progress track in surface-2 with an accent fill when the book
- * is in progress (DESIGN.md Home/Library rails).
+ * BookTile — a book standing on a shelf (run 8, mockup `.book`): the
+ * typographic cover with its peach cutout, the title in the display face,
+ * the author, and one mono line that says either where the reader is
+ * ("p. 3 of 7") or how long the book takes ("7 MIN").
  *
- * Phone: fixed 110x165 cover (unchanged). Desktop grids (DESKTOP.md §2/§3)
- * pass a larger `coverWidth`/`coverHeight` (150x225 at 900-1199, 160x240 at
- * >= 1200) so the same component drives both the scroll rail and the grid.
- * Desktop-only hover (120ms via usePressAnimation's reduced-motion
- * handling): cutout grows 6 -> 8px, title darkens ink-2 -> ink. Phone stays
- * exactly as it was (cutout 6, title ink) since it has no hover.
+ * Run 8 changes: the 3px progress track is gone (the mono line replaces it,
+ * PLAN decision 5); the coral ribbon marks the one book the reader is
+ * currently in (`ribbon`, PLAN decision 6); the desktop grid sizes are
+ * retired with DESKTOP.md's grid tiers, so a tile is 120x180 on desktop and
+ * 104x156 on phone and nothing else (PLAN decision 1).
  */
 import { useMemo, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
-import { radius } from '@sotto/core/theme';
+import { StyleSheet, Pressable, View } from 'react-native';
 import { useTheme } from './theme';
 import { Cover } from './Cover';
 import type { LibraryBook } from './data';
 import { fonts } from './fonts';
 import { useT } from '../i18n/useT';
+import { progressLabel } from './progressLabel';
 import { useLayoutMetrics } from './Shell';
 import { Text } from './Text';
 import { webCursor } from './tokens';
@@ -25,32 +25,37 @@ import { webCursor } from './tokens';
 export type BookTileProps = {
   book: LibraryBook;
   onPress: (book: LibraryBook) => void;
-  coverWidth?: number;
-  coverHeight?: number;
+  /** PLAN decision 6: exactly one book in the app wears the ribbon — the
+   * one with the most recent progress that is not finished. */
+  ribbon?: boolean;
   /** Optional small caption line beneath the title/author (IMPORT.md §6:
-   * "Votre livre" under a private/imported book). Wired from the library
-   * seam — defaults to that caption whenever `book.private` is set, so
-   * every existing BookTile call site (Rail, search, reader
-   * recommendations) picks it up without change; pass an explicit value
-   * (or `null`) to override. */
+   * "Votre livre" under a private/imported book). Defaults to that caption
+   * whenever `book.private` is set; pass an explicit value (or `null`) to
+   * override. */
   caption?: string | null;
 };
 
-export function BookTile({
-  book,
-  onPress,
-  coverWidth = 110,
-  coverHeight = 165,
-  caption,
-}: BookTileProps) {
+/** Mockup `.book` / `.pmain .book`. */
+export const TILE_SIZES = {
+  desktop: { width: 120, coverHeight: 180 },
+  phone: { width: 104, coverHeight: 156 },
+} as const;
+
+export function BookTile({ book, onPress, ribbon = false, caption }: BookTileProps) {
   const { colors } = useTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
   const { isDesktop } = useLayoutMetrics();
   const [hovered, setHovered] = useState(false);
-  const hoverActive = isDesktop && hovered;
   const t = useT();
+  const size = isDesktop ? TILE_SIZES.desktop : TILE_SIZES.phone;
   const resolvedCaption =
     caption !== undefined ? caption : book.private ? t('import.yourBook') : null;
+
+  const label = progressLabel({ minutes: book.minutes, progress: book.progress });
+  const metaLine =
+    label.kind === 'page'
+      ? t('tile.pageOf', { page: label.page, pages: label.pages })
+      : t('book.minutesAbbr', { count: label.minutes });
 
   return (
     <Pressable
@@ -59,35 +64,35 @@ export function BookTile({
       accessibilityLabel={`${book.title}, ${book.author}`}
       onHoverIn={() => setHovered(true)}
       onHoverOut={() => setHovered(false)}
-      style={[styles.tile, { width: coverWidth }, webCursor]}
+      style={[styles.tile, { width: size.width }, webCursor]}
     >
       <Cover
         book={book}
-        width={coverWidth}
-        height={coverHeight}
+        width={size.width}
+        height={size.coverHeight}
         cutout
-        cutoutSize={hoverActive ? 8 : 6}
+        cutoutSize={isDesktop && hovered ? 8 : 6}
         accessibilityLabel={book.title}
       />
-      <Text
-        role="caption"
-        color={isDesktop ? (hoverActive ? 'ink' : 'ink2') : 'ink'}
-        style={styles.title}
-        numberOfLines={1}
-      >
+      {ribbon ? (
+        <View style={styles.ribbon} pointerEvents="none">
+          <View style={styles.ribbonNotch} />
+        </View>
+      ) : null}
+      <Text role="heading" size={14} style={styles.title} numberOfLines={1}>
         {book.title}
       </Text>
-      <Text role="caption" size={12} numberOfLines={1}>
+      <Text role="caption" size={12.5} numberOfLines={1}>
         {book.shortAuthor}
       </Text>
       {resolvedCaption ? (
-        <Text role="caption" size={12} color="ink3" numberOfLines={1}>
+        <Text role="caption" size={12.5} color="ink3" numberOfLines={1}>
           {resolvedCaption}
         </Text>
       ) : null}
-      <View style={styles.track}>
-        <View style={[styles.fill, { width: `${Math.round(book.progress * 100)}%` }]} />
-      </View>
+      <Text role="mono" size={11} style={styles.meta} numberOfLines={1}>
+        {metaLine}
+      </Text>
     </Pressable>
   );
 }
@@ -95,23 +100,45 @@ export function BookTile({
 function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
   return StyleSheet.create({
     tile: {
-      gap: 8,
+      gap: 2,
     },
     title: {
+      // PLAN decision 13: Fraunces 400 at 14/1.3, ink, one line. The heading
+      // role gives the face and the colour; 1.3 is tighter than the role's
+      // own line-height, so it is set here.
       fontFamily: fonts.frauncesRegular,
-      marginTop: 4,
+      lineHeight: 18,
+      marginTop: 10,
     },
-    track: {
-      width: '100%',
-      height: 3,
-      borderRadius: radius.full,
-      backgroundColor: colors.surface2,
-      overflow: 'hidden',
+    meta: {
+      // PLAN decision 13: mono 11, tracked 0.06em, uppercase, ink-2 (never
+      // ink-3 — it fails 4.5:1 at this size on canvas).
+      letterSpacing: 11 * 0.06,
+      textTransform: 'uppercase',
     },
-    fill: {
-      height: '100%',
+    // Mockup `.ribbon`: a 12x44 accent strip hooked over the cover's top
+    // edge, with a chevron notch at the bottom.
+    ribbon: {
+      position: 'absolute',
+      top: -6,
+      right: 14,
+      width: 12,
+      height: 44,
       backgroundColor: colors.accent,
-      borderRadius: radius.full,
+      zIndex: 2,
+    },
+    ribbonNotch: {
+      position: 'absolute',
+      left: 0,
+      bottom: -6,
+      width: 0,
+      height: 0,
+      borderLeftWidth: 6,
+      borderRightWidth: 6,
+      borderBottomWidth: 6,
+      borderLeftColor: colors.accent,
+      borderRightColor: colors.accent,
+      borderBottomColor: 'transparent',
     },
   });
 }

@@ -1,35 +1,40 @@
 /**
- * Rail — heading + optional "Voir tout" (ui 500 ink-2) + a horizontal
- * scroll of BookTiles on phone/tablet. Section rhythm (32 phone / 48
- * desktop) is applied by screens.
+ * Rail — a shelf of books: heading, an optional "See all" text link, and
+ * one horizontal row of BookTiles resting on a 1.5px hairline.
  *
- * Desktop (DESKTOP.md §2/§3, >= 900px): the scroll becomes a grid — 3
- * columns/150x225 covers at 900-1199, 4 columns/160x240 at >= 1200, column
- * gap 20/24, row gap 32 both tiers. A rail with a "Voir tout" escape hatch
- * clips to exactly one row (no vertical overflow, no horizontal scroll);
- * a rail with no escape hatch (Library's unfiltered "all books" rail,
- * which is already the full list) shows everything, unclipped.
+ * Run 8 PLAN decision 1: the shelf replaces DESKTOP.md's 3/4-column desktop
+ * grid at every width (`useBookGridTier` is retired with it). Desktop
+ * covers are 120x180 with a 24px gap, phone 104x156 with 18 — the tile owns
+ * those sizes. The shelf line sits 12px under the last caption and runs the
+ * full width of the rail, per the mockup's `.shelf`.
+ *
+ * Migrated off the module-scope `themeColors` proxy onto `useTheme()`
+ * (RECON risk 10) — the "See all" link's frozen background interpolation
+ * was one of the two sites that comment warned about, and it is gone: the
+ * mockup's "See all" is a plain text link with no fill.
  */
-import { useState } from 'react';
-import { Animated, Pressable, ScrollView, StyleSheet, View } from 'react-native';
-import { radius, space } from '@sotto/core/theme';
-import { themeColors as colors } from './theme';
+import { useMemo } from 'react';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { space } from '@sotto/core/theme';
+import { useTheme } from './theme';
 import { useT } from '../i18n/useT';
-import { usePressAnimation } from './Button';
 import { BookTile } from './BookTile';
 import type { LibraryBook } from './data';
-import { resolveRailView, type RailViewState } from './railView';
+import { pickRibbon, resolveRailView, type RailViewState } from './railView';
 import { useLayoutMetrics } from './Shell';
 import { Text } from './Text';
 import { webCursor } from './tokens';
 
-export { resolveRailView, type RailViewState };
+export { pickRibbon, resolveRailView, type RailViewState };
 
 export type RailProps = {
   title: string;
   books: LibraryBook[];
   onPressBook: (book: LibraryBook) => void;
   onSeeAll?: () => void;
+  /** PLAN decision 6: the id of the book the reader is currently in. This
+   * rail draws the coral ribbon on it only if it is holding it. */
+  ribbonBookId?: string | null;
   /** Run 7 card B, directive 4: when set, an empty `books` array renders a
    * titled empty line (this label) instead of the rail vanishing (`null`).
    * Omit to keep the old "hide when empty" behaviour — e.g. Home's
@@ -38,52 +43,28 @@ export type RailProps = {
   emptyLabel?: string;
 };
 
-export type BookGridTier = {
-  columns: number;
-  coverWidth: number;
-  coverHeight: number;
-  columnGap: number;
-  rowGap: number;
-};
-
-/** DESKTOP.md §2/§3 grid tiers, or null below the 900px desktop breakpoint. */
-export function useBookGridTier(): BookGridTier | null {
-  const { isDesktop, isWideDesktop } = useLayoutMetrics();
-  if (!isDesktop) return null;
-  return isWideDesktop
-    ? { columns: 4, coverWidth: 160, coverHeight: 240, columnGap: 24, rowGap: 32 }
-    : { columns: 3, coverWidth: 150, coverHeight: 225, columnGap: 20, rowGap: 32 };
-}
-
+/** Mockup `.seeall`: a text link, no pill, 40px of hit height (PLAN
+ * decision 14). */
 function SeeAllLink({ label, onPress }: { label: string; onPress: () => void }) {
-  const [hovered, setHovered] = useState(false);
-  const animation = usePressAnimation(hovered);
-  const backgroundColor = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [colors.surface, colors.surface2],
-  });
-
   return (
     <Pressable
       onPress={onPress}
       accessibilityRole="button"
       hitSlop={space.sm}
-      onHoverIn={() => setHovered(true)}
-      onHoverOut={() => setHovered(false)}
-      style={webCursor}
+      style={[styles.seeAll, webCursor]}
     >
-      <Animated.View style={[styles.seeAll, { backgroundColor }]}>
-        <Text role="uiButton" size={13} color="ink2">
-          {label}
-        </Text>
-      </Animated.View>
+      <Text role="uiButton" size={14} color="ink2">
+        {label}
+      </Text>
     </Pressable>
   );
 }
 
-export function Rail({ title, books, onPressBook, onSeeAll, emptyLabel }: RailProps) {
+export function Rail({ title, books, onPressBook, onSeeAll, ribbonBookId, emptyLabel }: RailProps) {
   const t = useT();
-  const grid = useBookGridTier();
+  const { colors } = useTheme();
+  const { isDesktop } = useLayoutMetrics();
+  const shelfStyles = useMemo(() => createStyles(colors), [colors]);
   const view = resolveRailView(books, emptyLabel);
   if (view.kind === 'hidden') return null;
 
@@ -100,7 +81,7 @@ export function Rail({ title, books, onPressBook, onSeeAll, emptyLabel }: RailPr
     );
   }
 
-  const displayBooks = grid && onSeeAll ? view.books.slice(0, grid.columns) : view.books;
+  const ribbonId = pickRibbon(view.books, ribbonBookId);
 
   return (
     <View style={styles.rail}>
@@ -108,29 +89,22 @@ export function Rail({ title, books, onPressBook, onSeeAll, emptyLabel }: RailPr
         <Text role="heading">{title}</Text>
         {onSeeAll ? <SeeAllLink label={t('common.seeAll')} onPress={onSeeAll} /> : null}
       </View>
-      {grid ? (
-        <View style={[styles.grid, { columnGap: grid.columnGap, rowGap: grid.rowGap }]}>
-          {displayBooks.map((book) => (
+      <View style={shelfStyles.shelf}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={[styles.row, { gap: isDesktop ? 24 : 18 }]}
+        >
+          {view.books.map((book) => (
             <BookTile
               key={book.id}
               book={book}
               onPress={onPressBook}
-              coverWidth={grid.coverWidth}
-              coverHeight={grid.coverHeight}
+              ribbon={book.id === ribbonId}
             />
           ))}
-        </View>
-      ) : (
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.row}
-        >
-          {displayBooks.map((book) => (
-            <BookTile key={book.id} book={book} onPress={onPressBook} />
-          ))}
         </ScrollView>
-      )}
+      </View>
     </View>
   );
 }
@@ -145,18 +119,27 @@ const styles = StyleSheet.create({
     alignItems: 'baseline',
   },
   row: {
-    gap: 14,
-    paddingBottom: space.xs,
-    // Leave room for the tiles' 6px peach cutout on the trailing edge.
+    // The ribbon hangs 6px above the cover's top edge; leave it room rather
+    // than letting the scroll view clip it. The trailing tile's 6px peach
+    // cutout needs the same on the right.
+    paddingTop: 8,
     paddingRight: space.sm,
   },
-  grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
   seeAll: {
-    paddingHorizontal: space.sm,
-    paddingVertical: 4,
-    borderRadius: radius.md,
+    minHeight: 40,
+    justifyContent: 'center',
+    paddingHorizontal: 4,
   },
 });
+
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    // Mockup `.shelf`: the books stand on a 1.5px hairline that runs the
+    // full width of the rail, 12px under the last caption line.
+    shelf: {
+      paddingBottom: 12,
+      borderBottomWidth: 1.5,
+      borderBottomColor: colors.hairline2,
+    },
+  });
+}

@@ -65,6 +65,13 @@ export type Library = {
    * recently added first — a new rail on Home/Library, per
    * planning/design/IMPORT.md. */
   yourBooks: LibraryBook[];
+  /** Run 8 PLAN decision 6: the book the reader is currently in — the most
+   * recently updated progress that is not completed, which is exactly the
+   * head of `continueReading` (`selectContinueBooks` sorts by `updatedAt`
+   * descending and drops completed books). `null` when nothing is open.
+   * Rails pass it as `ribbonBookId`; exactly one tile in the app wears the
+   * coral ribbon. */
+  currentBookId: string | null;
   byId: (id: string) => LibraryBook | undefined;
   byCategory: (category: BookCategory) => LibraryBook[];
   byLevel: (level: BookLevel) => LibraryBook[];
@@ -205,6 +212,7 @@ export function useLibrary(): Library {
       recommended,
       newReleases,
       yourBooks,
+      currentBookId: continueReading[0]?.id ?? null,
       byId: (id) => {
         const summary = allSummaries.find((b) => b.bookId === id);
         return summary ? toView(summary) : undefined;

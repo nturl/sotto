@@ -20,3 +20,14 @@ export function resolveRailView(books: LibraryBook[], emptyLabel?: string): Rail
   if (emptyLabel) return { kind: 'empty', label: emptyLabel };
   return { kind: 'hidden' };
 }
+
+/**
+ * PLAN decision 6: exactly one book in the app wears the ribbon. A rail
+ * only draws it on the book it actually holds, so Home's "Continue reading"
+ * shelf marks the current book and every other shelf that happens to list
+ * it does not fight over it.
+ */
+export function pickRibbon(books: LibraryBook[], ribbonBookId?: string | null): string | null {
+  if (!ribbonBookId) return null;
+  return books.some((b) => b.id === ribbonBookId) ? ribbonBookId : null;
+}

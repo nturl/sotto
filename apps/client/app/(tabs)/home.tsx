@@ -95,6 +95,7 @@ export default function HomeScreen() {
               books={library.continueReading}
               onPressBook={openBook}
               onSeeAll={seeAll}
+              ribbonBookId={library.currentBookId}
             />
             <Rail
               title={t('home.rail.recommended')}

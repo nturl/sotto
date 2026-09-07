@@ -9,7 +9,6 @@ import { Cover } from '../../src/ui/Cover';
 import { useLibrary, type LibraryBook } from '../../src/ui/data';
 import { fonts } from '../../src/ui/fonts';
 import { SearchGlyph } from '../../src/ui/Glyphs';
-import { useBookGridTier } from '../../src/ui/Rail';
 import { Shell, useLayoutMetrics } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
 import { useTheme } from '../../src/ui/theme';
@@ -53,7 +52,6 @@ export default function LibrarySearchScreen() {
   const router = useRouter();
   const library = useLibrary();
   const { isDesktop } = useLayoutMetrics();
-  const grid = useBookGridTier();
   const [query, setQuery] = useState('');
   const results = library.search(query);
   const { colors } = useTheme();
@@ -81,18 +79,13 @@ export default function LibrarySearchScreen() {
         <Text role="caption" color="ink3" style={styles.empty}>
           {t('library.noResults', { query })}
         </Text>
-      ) : grid ? (
-        // DESKTOP.md §3: search results are the same grid as Library, not a
-        // list — keeps the grid affordance consistent between the two.
-        <View style={[styles.grid, { columnGap: grid.columnGap, rowGap: grid.rowGap }]}>
+      ) : isDesktop ? (
+        // Run 8 PLAN decision 1 retired DESKTOP.md's column tiers with the
+        // shelf, but search results are a set, not a rail — they wrap at
+        // the tile's own 120px width with the shelf's 24px gap.
+        <View style={styles.grid}>
           {results.map((book) => (
-            <BookTile
-              key={book.id}
-              book={book}
-              onPress={openBook}
-              coverWidth={grid.coverWidth}
-              coverHeight={grid.coverHeight}
-            />
+            <BookTile key={book.id} book={book} onPress={openBook} />
           ))}
         </View>
       ) : (
@@ -153,6 +146,8 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     grid: {
       flexDirection: 'row',
       flexWrap: 'wrap',
+      columnGap: 24,
+      rowGap: space.xxl,
     },
     empty: {
       textAlign: 'center',

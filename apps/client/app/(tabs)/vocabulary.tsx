@@ -13,7 +13,6 @@ import { useLibrary, usePreferences } from '../../src/ui/data';
 import { ChevronRightGlyph, SpeakerGlyph, TrashGlyph } from '../../src/ui/Glyphs';
 import { IconButton } from '../../src/ui/IconButton';
 import { MarkerStroke } from '../../src/ui/MarkerStroke';
-import { useBookGridTier } from '../../src/ui/Rail';
 import { Sheet } from '../../src/ui/Sheet';
 import { Shell, useLayoutMetrics } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
@@ -81,6 +80,17 @@ function WordCard({
  * BookTile's fixed cover sizes) so the column width is measured rather than
  * a fixed token.
  */
+/** DESKTOP.md §3's column tiers, kept for the *word* grid only. Run 8
+ * retired the book grid (`useBookGridTier`) with the shelf, but saved words
+ * are not books and still read better in columns on a wide screen. */
+function useWordGridTier(): { columns: number; columnGap: number; rowGap: number } | null {
+  const { isDesktop, isWideDesktop } = useLayoutMetrics();
+  if (!isDesktop) return null;
+  return isWideDesktop
+    ? { columns: 4, columnGap: 24, rowGap: 32 }
+    : { columns: 3, columnGap: 20, rowGap: 32 };
+}
+
 function WordGrid({
   words,
   renderWord,
@@ -88,7 +98,7 @@ function WordGrid({
   words: SavedWord[];
   renderWord: (word: SavedWord) => React.ReactNode;
 }) {
-  const grid = useBookGridTier();
+  const grid = useWordGridTier();
   const [width, setWidth] = useState(0);
   const onLayout = (e: LayoutChangeEvent) => setWidth(e.nativeEvent.layout.width);
 

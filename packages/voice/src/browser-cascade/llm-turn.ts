@@ -12,10 +12,11 @@
  * safeReleaseIndex/stripMarkers/SentenceChunker pipeline. See
  * planning/BROWSER-TUTOR.md, Slice 2 checklist.
  */
-import { TOOL_NAMES, type ToolName } from '@sotto/core';
+import { TOOL_NAMES, type ToolName, type TutorMode } from '@sotto/core';
 import type { VoiceState } from '../events.ts';
 import { SentenceChunker } from './chunker.ts';
 import { safeReleaseIndex, stripMarkers } from './markers.ts';
+import { ReplyBudget, ReplyNormalizer } from './reply-shape.ts';
 
 export interface ChatMessage {
   role: 'system' | 'user' | 'assistant' | 'tool';
@@ -50,12 +51,21 @@ export interface EngineChatHandlers {
   onTextDelta?: (delta: string) => void | Promise<void>;
 }
 
+/** Per-call generation options. Only `maxTokens` so far: the browser
+ * cascade's 2B model fills whatever room it is given, so the conversational
+ * modes ask for a ceiling too small to hold a five-line list (run 9 lane B;
+ * `reply-shape.ts`'s `maxTokensForMode`). */
+export interface EngineChatOptions {
+  maxTokens?: number;
+}
+
 /** The one thing `worker.ts` must implement against a real LLM. */
 export interface LlmEngine {
   chat(
     messages: ChatMessage[],
     handlers: EngineChatHandlers,
     signal: AbortSignal,
+    options?: EngineChatOptions,
   ): Promise<{ text: string; toolCalls: EngineToolCall[] }>;
 }
 
@@ -73,6 +83,12 @@ export interface TutorTurnDeps {
    * requested, matching the server's synchronous-looking flush order. */
   onSentence: (sentence: string) => void | Promise<void>;
   onTutorCaption: (text: string, final: boolean) => void;
+  /** The session's current tutor mode, read fresh each turn. Drives the
+   * spoken-sentence cap (`ReplyBudget`). Omitted => no cap, which is what
+   * every caller that predates run 9 lane B gets. */
+  mode?: () => TutorMode;
+  /** The generation ceiling to ask the engine for, read fresh each turn. */
+  maxTokens?: () => number | undefined;
   maxHistory?: number;
   maxToolIterations?: number;
 }
@@ -82,6 +98,24 @@ const DEFAULT_MAX_TOOL_ITERATIONS = 4;
 
 function isToolName(name: string): name is ToolName {
   return (TOOL_NAMES as readonly string[]).includes(name);
+}
+
+/**
+ * One signal that fires when either input does. `AbortSignal.any` exists in
+ * every browser that can run WebGPU, but not in every runtime a unit test
+ * might use, so the fallback is spelled out rather than assumed.
+ */
+function anySignal(a: AbortSignal, b: AbortSignal): AbortSignal {
+  const anyFn = (AbortSignal as unknown as { any?: (s: AbortSignal[]) => AbortSignal }).any;
+  if (typeof anyFn === 'function') return anyFn.call(AbortSignal, [a, b]);
+  const merged = new AbortController();
+  const onAbort = () => merged.abort();
+  if (a.aborted || b.aborted) merged.abort();
+  else {
+    a.addEventListener('abort', onAbort, { once: true });
+    b.addEventListener('abort', onAbort, { once: true });
+  }
+  return merged.signal;
 }
 
 /** Owns the running chat history for one session and drives turns against
@@ -129,13 +163,40 @@ export class TutorTurnRunner {
       if (signal.aborted) break;
 
       const chunker = new SentenceChunker();
+      // One normalizer and one budget per engine call: the leading-filler
+      // rule is about the START of a reply, and the cap is per reply.
+      const normalizer = new ReplyNormalizer();
+      const budget = ReplyBudget.forMode(this.deps.mode?.());
+      // The cap aborts the ENGINE, not the turn. A barge-in flips the
+      // caller's `signal` and deliberately suppresses the final caption and
+      // the `listening` transition (see the interrupt test); hitting the cap
+      // is the opposite — the tutor said everything it was allowed to say,
+      // so the caption must finalize and the session must go back to
+      // listening. Hence a separate controller, merged only for the engine.
+      const capAbort = new AbortController();
+      const engineSignal = anySignal(signal, capAbort.signal);
+      let capped = false;
+      const spoken: string[] = [];
+
+      const speak = async (sentences: string[]): Promise<void> => {
+        for (const sentence of sentences) {
+          if (!budget.take()) {
+            capped = true;
+            break;
+          }
+          spoken.push(sentence);
+          await this.deps.onSentence(sentence);
+        }
+        if (capped && !capAbort.signal.aborted) capAbort.abort();
+      };
+
       let rawBuffer = '';
-      let turnText = '';
 
       const { text: rawText, toolCalls } = await this.deps.engine.chat(
         messages,
         {
           onTextDelta: async (delta) => {
+            if (capped) return;
             rawBuffer += delta;
             const safeIdx = safeReleaseIndex(rawBuffer);
             const release = rawBuffer.slice(0, safeIdx);
@@ -145,32 +206,38 @@ export class TutorTurnRunner {
             const { text: clean, readingTokenIds, pace } = stripMarkers(release);
             if (readingTokenIds.length > 0) this.deps.onReading(readingTokenIds);
             if (pace) this.deps.onPace(pace);
-            turnText += clean;
 
-            for (const sentence of chunker.push(clean)) {
-              await this.deps.onSentence(sentence);
-            }
+            const normalized = normalizer.push(clean);
+            if (normalized) await speak(chunker.push(normalized));
           },
         },
-        signal,
+        engineSignal,
+        { maxTokens: this.deps.maxTokens?.() },
       );
 
       if (signal.aborted) break;
 
-      const { text: cleanRest, readingTokenIds, pace } = stripMarkers(rawBuffer);
-      if (readingTokenIds.length > 0) this.deps.onReading(readingTokenIds);
-      if (pace) this.deps.onPace(pace);
-      turnText += cleanRest;
+      if (!capped) {
+        const { text: cleanRest, readingTokenIds, pace } = stripMarkers(rawBuffer);
+        if (readingTokenIds.length > 0) this.deps.onReading(readingTokenIds);
+        if (pace) this.deps.onPace(pace);
 
-      for (const sentence of [...chunker.push(cleanRest), ...chunker.flush()]) {
-        await this.deps.onSentence(sentence);
+        const tail = normalizer.push(cleanRest) + normalizer.flush();
+        await speak([...chunker.push(tail), ...chunker.flush()]);
       }
+
+      // The caption, and the history entry, are exactly what was SPOKEN —
+      // not the raw stream, which may hold a half-sentence the cap cut off.
+      const turnText = spoken.join(' ');
 
       if (turnText.trim() && !signal.aborted) {
         this.deps.onTutorCaption(turnText.trim(), true);
       }
       finalText += (finalText ? ' ' : '') + turnText.trim();
 
+      // A capped generation was cut mid-stream, so any tool call it had
+      // started is partial; do not replay it.
+      if (capped) break;
       if (toolCalls.length === 0 || signal.aborted) break;
 
       messages = [

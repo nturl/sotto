@@ -39,12 +39,14 @@ import {
   TutorTurnRunner,
   type ChatMessage,
   type EngineChatHandlers,
+  type EngineChatOptions,
   type EngineToolCall,
   type LlmEngine,
   type ToolCallResult,
 } from './llm-turn.ts';
 import { TTS_MODEL } from './models.ts';
 import { prepareForSpeech } from './tts-text.ts';
+import { maxTokensForMode } from './reply-shape.ts';
 import {
   WORKER_SAMPLE_RATE,
   TUTOR_SAMPLE_RATE,
@@ -272,12 +274,21 @@ class WebLlmEngine implements LlmEngine {
     messages: ChatMessage[],
     handlers: EngineChatHandlers,
     signal: AbortSignal,
+    options?: EngineChatOptions,
   ): Promise<{ text: string; toolCalls: EngineToolCall[] }> {
     const request = {
       messages: toWebLlmMessages(messages),
       stream: true,
       temperature: 0.4,
-      max_tokens: 400,
+      // Per-mode (run 9 lane B, `maxTokensForMode`): 400 tokens is about the
+      // size of the five-line list Noel got, and a 2B model fills the room
+      // it is given, so the conversational modes now ask for 160. Only
+      // read_to_me still needs 400, to read several passage sentences
+      // verbatim. `?? 400` keeps the old value for any caller that does not
+      // pass one. `temperature` is unchanged: nothing in the live failure
+      // pointed at sampling — the reply was confidently, fluently the wrong
+      // SHAPE, which is a prompt-and-post-processing problem.
+      max_tokens: options?.maxTokens ?? 400,
       // Qwen3 is a reasoning model: left to its default, it prepends a full
       // <think>...</think> block of internal reasoning before the actual
       // reply. The server's llm.ts disables this on llama-server via
@@ -313,7 +324,7 @@ class WebLlmEngine implements LlmEngine {
           detail: err instanceof Error ? err.message : String(err),
         });
         this.supportsTools = false;
-        return this.chat(withJsonToolInstruction(messages), handlers, signal);
+        return this.chat(withJsonToolInstruction(messages), handlers, signal, options);
       }
       throw err;
     }
@@ -689,8 +700,18 @@ function makeTurnRunner(s: SessionState): TutorTurnRunner {
     engine: llmEngine!,
     maxHistory: MAX_HISTORY_MESSAGES,
     maxToolIterations: MAX_TOOL_ITERATIONS,
+    // The session's mode, read fresh: it changes mid-session (the `mode`
+    // message below) and drives both the spoken-sentence cap and the
+    // generation ceiling.
+    mode: () => s.payload.mode,
+    maxTokens: () => maxTokensForMode(s.payload.mode),
     buildSystemInstruction: () =>
       buildSystemInstruction({
+        // The in-browser model is Qwen3.5-2B. `compact` reorders the prompt
+        // for it (context first, short numbered rules last) and is set HERE
+        // and nowhere else — the paid provider and the local server keep
+        // today's prompt byte for byte (packages/core prompt.test.ts).
+        compact: true,
         mode: s.payload.mode,
         // `level` is a free string on the wire (WorkerInitPayload) but a
         // BookLevel enum in the prompt builder's types; the value always

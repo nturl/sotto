@@ -14,6 +14,7 @@ import {
   type ToolCallResult,
   type TutorTurnDeps,
 } from '../src/browser-cascade/llm-turn.ts';
+import type { TutorMode } from '@sotto/core';
 
 /** Scripted engine: each call to `chat()` consumes the next scripted turn. */
 class ScriptedEngine implements LlmEngine {
@@ -81,6 +82,8 @@ function mkDeps(
     onState?: (s: string) => void;
     onReading?: (ids: string[]) => void;
     requestTool?: (callId: string, name: string, args: unknown) => Promise<ToolCallResult>;
+    mode?: () => TutorMode;
+    maxTokens?: () => number | undefined;
   },
 ): TutorTurnDeps {
   return {
@@ -93,6 +96,8 @@ function mkDeps(
     onPace: () => {},
     onSentence: (s) => over.onSentence?.(s),
     onTutorCaption: (text, final) => over.onTutorCaption?.(text, final),
+    ...(over.mode ? { mode: over.mode } : {}),
+    ...(over.maxTokens ? { maxTokens: over.maxTokens } : {}),
   };
 }
 
@@ -200,5 +205,141 @@ describe('TutorTurnRunner', () => {
     // handler — is responsible for that, same as the server's bargeIn()).
     expect(states).not.toContain('listening');
     expect(captions).toEqual([]);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// run 9 lane B — the reply contract.
+//
+// Noel's live Discuss turn (planning/run9/PLAN.md) streamed a filler line and
+// then a five-line list, and every line was spoken because nothing between
+// the engine and TTS looked at the SHAPE of the reply. These tests drive the
+// runner with a fake engine that streams exactly that.
+// ---------------------------------------------------------------------------
+describe('TutorTurnRunner reply contract', () => {
+  const BULLET_REPLY = [
+    "Okay, let's see.\n",
+    '- The passage is about a man walking on a frozen trail. \n',
+    '- The dog is a big **grey husky**. \n',
+    '- It is fifty below zero. \n',
+    '- The man has no imagination. \n',
+    '- The dog is unhappy but loyal. \n',
+  ];
+
+  it('normalizes a markdown bullet reply into prose and speaks at most three sentences (discuss)', async () => {
+    const engine = new ScriptedEngine([{ deltas: BULLET_REPLY }]);
+    const { runner, sentences, captions } = setup(engine, { mode: () => 'discuss' });
+
+    await runner.run('Tell me more about the gray husky dog.', new AbortController().signal);
+
+    expect(sentences).toHaveLength(3);
+    expect(sentences.join(' ')).not.toMatch(/[-*#`]/);
+    expect(sentences[0]).toBe('The passage is about a man walking on a frozen trail.');
+    expect(sentences[1]).toBe('The dog is a big grey husky.');
+    expect(sentences[2]).toBe('It is fifty below zero.');
+    // The caption that finalizes is exactly what was spoken.
+    const final = captions.filter((c) => c.final);
+    expect(final).toHaveLength(1);
+    expect(final[0]!.text).toBe(sentences.join(' '));
+  });
+
+  it('does not cap read_to_me (the passage may run long)', async () => {
+    const engine = new ScriptedEngine([
+      { deltas: ['Uno. ', 'Dos. ', 'Tres. ', 'Cuatro. ', 'Cinco.'] },
+    ]);
+    const { runner, sentences } = setup(engine, { mode: () => 'read_to_me' });
+
+    await runner.run('lee', new AbortController().signal);
+
+    expect(sentences).toHaveLength(5);
+  });
+
+  it('caps read_with_me and pronunciation at two spoken sentences', async () => {
+    for (const mode of ['read_with_me', 'pronunciation'] as const) {
+      const engine = new ScriptedEngine([{ deltas: ['Uno. ', 'Dos. ', 'Tres. ', 'Cuatro.'] }]);
+      const { runner, sentences } = setup(engine, { mode: () => mode });
+      await runner.run('hola', new AbortController().signal);
+      expect(sentences).toHaveLength(2);
+    }
+  });
+
+  it('is uncapped when no mode is supplied (every existing caller is unchanged)', async () => {
+    const engine = new ScriptedEngine([{ deltas: ['Uno. ', 'Dos. ', 'Tres. ', 'Cuatro.'] }]);
+    const { runner, sentences } = setup(engine);
+    await runner.run('hola', new AbortController().signal);
+    expect(sentences).toHaveLength(4);
+  });
+
+  it('aborts the engine stream when the cap is reached, without marking the turn barged-in', async () => {
+    let deltasRequested = 0;
+    let sawAbort = false;
+    const engine: LlmEngine = {
+      chat: async (_messages, handlers, signal) => {
+        let text = '';
+        for (const delta of ['Uno. ', 'Dos. ', 'Tres. ', 'Cuatro. ', 'Cinco. ']) {
+          if (signal.aborted) {
+            sawAbort = true;
+            break;
+          }
+          deltasRequested += 1;
+          text += delta;
+          await handlers.onTextDelta?.(delta);
+        }
+        return { text, toolCalls: [] };
+      },
+    };
+    const { runner, sentences, captions, states } = setup(engine, { mode: () => 'discuss' });
+    const external = new AbortController();
+
+    await runner.run('hola', external.signal);
+
+    expect(sawAbort).toBe(true);
+    expect(deltasRequested).toBeLessThan(5);
+    expect(sentences).toEqual(['Uno.', 'Dos.', 'Tres.']);
+    // Not a barge-in: the external signal is untouched, the caption still
+    // finalizes, and the runner still hands the session back to `listening`.
+    expect(external.signal.aborted).toBe(false);
+    expect(captions.filter((c) => c.final).map((c) => c.text)).toEqual(['Uno. Dos. Tres.']);
+    expect(states).toEqual(['thinking', 'listening']);
+  });
+
+  it('records the spoken text (not the truncated remainder) in history', async () => {
+    const engine = new ScriptedEngine([
+      { deltas: ['Uno. ', 'Dos. ', 'Tres. ', 'Cuatro. '] },
+      { deltas: ['Cinco.'] },
+    ]);
+    const { runner } = setup(engine, { mode: () => 'discuss' });
+
+    await runner.run('hola', new AbortController().signal);
+    await runner.run('otra vez', new AbortController().signal);
+
+    const second = engine.calls[1]!;
+    const assistant = second.filter((m) => m.role === 'assistant');
+    expect(assistant.map((m) => m.content)).toEqual(['Uno. Dos. Tres.']);
+  });
+
+  it('passes the per-mode token ceiling down to the engine', async () => {
+    const seen: Array<number | undefined> = [];
+    const engine: LlmEngine = {
+      chat: async (_m, handlers, _s, opts) => {
+        seen.push(opts?.maxTokens);
+        await handlers.onTextDelta?.('Hola.');
+        return { text: 'Hola.', toolCalls: [] };
+      },
+    };
+    const { runner } = setup(engine, { mode: () => 'discuss', maxTokens: () => 160 });
+    await runner.run('hola', new AbortController().signal);
+    expect(seen).toEqual([160]);
+  });
+
+  it('drops a leading filler sentence before it is ever spoken', async () => {
+    const engine = new ScriptedEngine([
+      { deltas: ['Okay, ', "let's ", 'see. ', 'El perro es gris.'] },
+    ]);
+    const { runner, sentences } = setup(engine, { mode: () => 'discuss' });
+
+    await runner.run('hola', new AbortController().signal);
+
+    expect(sentences).toEqual(['El perro es gris.']);
   });
 });

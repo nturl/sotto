@@ -136,7 +136,7 @@ async function runAtWidth({ width, height, label }) {
   } catch {
     fail(`${label}: landing heading "Sotto reads with you." never became visible`);
   }
-  const startLink = page.getByRole('link', { name: 'Try a sample' });
+  const startLink = page.getByRole('link', { name: 'Read free, no account' });
   try {
     await startLink.waitFor({ state: 'visible', timeout: 5000 });
   } catch {

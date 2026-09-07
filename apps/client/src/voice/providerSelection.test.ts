@@ -186,7 +186,7 @@ describe('byok voice provider selection (R4-B2)', () => {
     expect(sessionManager.getProvider()).toBeInstanceOf(OpenAIDirectProvider);
   });
 
-  it('falls back to the local provider when the key was removed after the gate ran', async () => {
+  it('refuses a missing key without falling back to another provider', async () => {
     stubLocalStorage();
     await removeByokKey();
     const sessionManager = await import('./sessionManager');
@@ -200,7 +200,7 @@ describe('byok voice provider selection (R4-B2)', () => {
       path: 'byok',
     });
 
-    expect(sessionManager.getProvider()).toBeInstanceOf(LocalCascadeProvider);
+    expect(sessionManager.getProvider()).toBeNull();
     expect(sessionManager.getProvider()).not.toBeInstanceOf(OpenAIDirectProvider);
   });
 });

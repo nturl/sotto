@@ -256,7 +256,7 @@ describe('sessionManager.pauseSession after a limit', () => {
     expect(sessionManager.getProvider()).toBeNull();
   });
 
-  it('still pauses a live session', async () => {
+  it('ends a live session when leaving the voice screen', async () => {
     const sessionManager = await import('./sessionManager');
     sessionManager.startSession({
       bookId: 'fr-chat-botte',
@@ -267,8 +267,8 @@ describe('sessionManager.pauseSession after a limit', () => {
       savedWords: [],
     });
     sessionManager.pauseSession();
-    expect(testStore.useStore.getState().sessionRecord?.status).toBe('paused');
-    expect(sessionManager.getProvider()).not.toBeNull();
+    expect(testStore.useStore.getState().sessionRecord).toBeNull();
+    expect(sessionManager.getProvider()).toBeNull();
   });
 });
 

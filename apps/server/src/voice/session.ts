@@ -90,6 +90,7 @@ export class VoiceSession {
   private readonly history: ChatMessage[] = [];
   private pace: 'slow' | 'normal' = 'normal';
   private muted = false;
+  private transcriptionAbort: AbortController | null = null;
   private turnMode: 'auto' | 'push' = 'auto';
 
   private capturingSpeech = false;
@@ -150,6 +151,7 @@ export class VoiceSession {
   }
 
   private setState(s: VoiceState): void {
+    if (s === 'listening' && this.muted) s = 'muted';
     if (this.state === s) return;
     this.state = s;
     this.send({ t: 'state', state: s });
@@ -193,6 +195,7 @@ export class VoiceSession {
   endSession(reason: string): void {
     if (this.ended) return;
     this.ended = true;
+    this.transcriptionAbort?.abort();
     this.currentAbort?.abort();
     if (this.idleTimer) clearTimeout(this.idleTimer);
     if (this.maxDurationTimer) clearTimeout(this.maxDurationTimer);
@@ -263,6 +266,7 @@ export class VoiceSession {
       case 'mute':
         this.muted = msg.muted;
         if (this.muted) {
+          this.transcriptionAbort?.abort();
           this.capturingSpeech = false;
           this.speechFrames = [];
           this.preBuffer = [];
@@ -271,6 +275,15 @@ export class VoiceSession {
         } else if (this.state === 'muted') {
           this.setState('listening');
         }
+        break;
+      case 'turn_detection':
+        this.transcriptionAbort?.abort();
+        this.turnMode = msg.mode;
+        this.capturingSpeech = false;
+        this.speechFrames = [];
+        this.preBuffer = [];
+        this.preBufferMs = 0;
+        this.setState(this.muted ? 'muted' : 'listening');
         break;
       case 'ptt':
         this.handlePtt(msg.active);
@@ -299,6 +312,7 @@ export class VoiceSession {
   }
 
   private handlePtt(active: boolean): void {
+    if (this.ended || this.muted) return;
     this.turnMode = 'push';
     if (active) {
       this.resetIdleTimer();
@@ -359,6 +373,10 @@ export class VoiceSession {
   // ---- Learner turn handling ----
 
   private async handleLearnerSegment(segment: Uint8Array): Promise<void> {
+    if (this.ended || this.muted) return;
+    this.transcriptionAbort?.abort();
+    const abort = new AbortController();
+    this.transcriptionAbort = abort;
     this.setState('thinking');
     const sttStart = Date.now();
     try {
@@ -368,7 +386,9 @@ export class VoiceSession {
         this.learner.learningLocale,
         this.learner.explanationLocale,
         this.config.stt,
+        abort.signal,
       );
+      if (abort.signal.aborted || this.ended || this.muted) return;
       this.logger.info(
         { sessionId: this.id, stt_ms: Date.now() - sttStart, captionLength: text.length },
         'stt complete',
@@ -380,7 +400,7 @@ export class VoiceSession {
       this.send({ t: 'caption', speaker: 'learner', text, final: true });
       await this.runLlmTurn(text);
     } catch (err) {
-      this.emitError('stt_failed', err);
+      if (!abort.signal.aborted) this.emitError('stt_failed', err);
     }
   }
 

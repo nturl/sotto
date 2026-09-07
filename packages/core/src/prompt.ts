@@ -137,7 +137,8 @@ When a tool needs a tokenId, copy it from the passage's word list: each sentence
 words as word=suffix, and the full tokenId is the sentence id + "." + suffix (b1.s1 and
 cigarra=t6 give b1.s1.t6). Never derive a tokenId by counting words; punctuation also has
 ids, so counts are wrong. Pass the word itself as well whenever a tool accepts it.
-Avoid unnecessary greetings or praise. If the learner switches language, reply in the language
+Avoid unnecessary greetings or praise. Explicit response-language requests take priority over
+the language used to ask; keep level ${learner.level}. Otherwise, reply in the language
 the learner just used, then offer to return to ${learner.learningLocale}.
 
 Before the learner has said anything, open the session with exactly one short spoken sentence

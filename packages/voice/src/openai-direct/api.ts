@@ -93,6 +93,7 @@ export class OpenAIHttpError extends Error {
   constructor(
     readonly status: number,
     message: string,
+    readonly providerCode?: string,
   ) {
     super(message);
     this.name = 'OpenAIHttpError';
@@ -116,20 +117,46 @@ export class OpenAIHttpError extends Error {
  * endpoints (fact 1), is reported as recoverable: the session stays alive
  * and the learner can try again.
  */
-export function byokError(err: unknown, opts?: { stage?: 'speech' }): ByokErrorShape {
+export function byokError(err: unknown, _opts?: { stage?: 'speech' }): ByokErrorShape {
   if (err instanceof OpenAIHttpError) {
-    if (err.status === 401 || err.status === 403) {
-      return { code: 'provider_rejected_setting', message: err.message, recoverable: false };
-    }
-    if (err.status === 429) {
-      const code = opts?.stage === 'speech' ? 'quota_exceeded' : 'byok_rate_limited';
-      return { code, message: err.message, recoverable: true };
-    }
-    return { code: 'byok_request_failed', message: err.message, recoverable: true };
+    if (err.status === 401)
+      return {
+        code: 'provider_rejected_setting',
+        message: 'OpenAI rejected this key. Reconnect or replace it in Settings.',
+        recoverable: false,
+      };
+    if (err.status === 403 || err.status === 404)
+      return {
+        code: 'byok_permission_denied',
+        message:
+          'This key cannot access the requested model. Check project permissions and model access in OpenAI.',
+        recoverable: true,
+      };
+    if (err.providerCode === 'insufficient_quota')
+      return {
+        code: 'quota_exceeded',
+        message:
+          'OpenAI quota or billing is exhausted. Check your OpenAI project billing, then retry.',
+        recoverable: true,
+      };
+    if (err.status === 429)
+      return {
+        code: 'byok_rate_limited',
+        message:
+          'OpenAI is rate limiting requests. Wait briefly and retry; check project limits if this continues.',
+        recoverable: true,
+      };
+    return {
+      code: 'byok_request_failed',
+      message:
+        'OpenAI could not complete the request. Retry shortly; if it continues, check model availability and OpenAI service status.',
+      recoverable: true,
+    };
   }
   return {
     code: 'byok_network_failed',
-    message: err instanceof Error ? err.message : String(err),
+    message:
+      'Could not reach OpenAI. Check your connection and retry. If this continues, retest the saved key in Settings; the browser may hide the cause.',
     recoverable: true,
   };
 }
@@ -139,19 +166,21 @@ function authHeaders(apiKey: string): Record<string, string> {
 }
 
 async function failure(res: Response): Promise<OpenAIHttpError> {
-  let detail = '';
+  let code: string | undefined;
   try {
-    detail = (await res.text()).slice(0, 200);
+    const body = (await res.json()) as { error?: { code?: unknown } };
+    if (body.error?.code === 'insufficient_quota') code = 'insufficient_quota';
   } catch {
-    // A body we cannot read is normal here (see fact 1); the status is enough.
+    /* Status is sufficient when no structured error is readable. */
   }
-  return new OpenAIHttpError(res.status, `HTTP ${res.status}${detail ? `: ${detail}` : ''}`);
+  return new OpenAIHttpError(res.status, `HTTP ${res.status}`, code);
 }
 
 // ---- Key validation ----
 
 export type KeyValidation =
-  { ok: true } | { ok: false; reason: 'invalid' | 'rate_limited' | 'network'; message: string };
+  | { ok: true }
+  | { ok: false; reason: 'invalid' | 'rate_limited' | 'network' | 'unavailable'; message: string };
 
 /**
  * The only safe way to tell a learner their key is wrong.
@@ -165,20 +194,36 @@ export async function validateOpenAIKey(
   fetchImpl: typeof fetch = fetch,
   baseUrl: string = OPENAI_BASE_URL,
 ): Promise<KeyValidation> {
-  if (!key.trim()) return { ok: false, reason: 'invalid', message: 'empty key' };
+  if (!key.trim()) return { ok: false, reason: 'invalid', message: 'Enter an OpenAI key.' };
   let res: Response;
   try {
     res = await fetchImpl(`${baseUrl}/models`, { headers: authHeaders(key.trim()) });
-  } catch (err) {
+  } catch {
     return {
       ok: false,
       reason: 'network',
-      message: err instanceof Error ? err.message : String(err),
+      message: 'Could not reach OpenAI. Check your connection and try again.',
     };
   }
   if (res.ok) return { ok: true };
-  if (res.status === 429) return { ok: false, reason: 'rate_limited', message: 'HTTP 429' };
-  return { ok: false, reason: 'invalid', message: `HTTP ${res.status}` };
+  if (res.status === 429)
+    return {
+      ok: false,
+      reason: 'rate_limited',
+      message: 'OpenAI is rate limiting requests. Wait and retry.',
+    };
+  if (res.status === 401)
+    return {
+      ok: false,
+      reason: 'invalid',
+      message: 'OpenAI rejected the key. Check it and try again.',
+    };
+  return {
+    ok: false,
+    reason: 'unavailable',
+    message:
+      'OpenAI could not verify access. Check project permissions or try again later; the saved key has not been changed.',
+  };
 }
 
 // ---- STT ----

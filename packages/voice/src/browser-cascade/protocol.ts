@@ -30,6 +30,8 @@ export interface StageReadiness {
 }
 
 export interface WorkerInitPayload {
+  turnDetection?: 'auto' | 'push';
+  muted?: boolean;
   /** Model ids/dtypes chosen by the main thread (models.ts catalog). Both
    * stages are named here rather than read from the catalog inside the
    * worker, because which ones they are depends on the learner's "Tutor
@@ -67,6 +69,7 @@ export type MainToWorker =
   | { t: 'mode'; mode: TutorMode }
   | { t: 'mute'; muted: boolean }
   | { t: 'ptt'; active: boolean }
+  | { t: 'turn_detection'; mode: 'auto' | 'push' }
   | { t: 'interrupt' }
   | { t: 'replay' }
   | { t: 'text'; text: string }

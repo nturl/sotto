@@ -460,6 +460,7 @@ interface SessionState {
   vad: EnergyVad;
   buffer: SpeechBuffer;
   muted: boolean;
+  inputGeneration: number;
   turnMode: 'auto' | 'push';
   pace: 'slow' | 'normal';
   turnRunner: TutorTurnRunner;
@@ -499,7 +500,7 @@ const MAX_TOOL_ITERATIONS = 4;
 const MAX_HISTORY_MESSAGES = 24;
 
 function setState(state: VoiceState): void {
-  post({ t: 'state', state });
+  post({ t: 'state', state: state === 'listening' && session?.muted ? 'muted' : state });
 }
 
 function pcm16ToFloat32(pcm: Int16Array): Float32Array {
@@ -670,7 +671,10 @@ async function runTutorTurnBody(s: SessionState, learnerText: string): Promise<v
 }
 
 async function transcribeSegment(segment: Int16Array): Promise<void> {
-  if (!session || !sttPipeline) return;
+  if (!session || session.muted || !sttPipeline) return;
+  const s = session;
+  const generation = s.inputGeneration;
+  const current = () => session === s && !s.muted && generation === s.inputGeneration;
   setState('thinking');
   const started = Date.now();
   try {
@@ -695,6 +699,7 @@ async function transcribeSegment(segment: Int16Array): Promise<void> {
       no_repeat_ngram_size: 3,
       max_new_tokens: 128,
     } as never)) as { text?: string } | Array<{ text?: string }>;
+    if (!current()) return;
     const text = (Array.isArray(result) ? (result[0]?.text ?? '') : (result.text ?? '')).trim();
     const elapsedMs = Date.now() - started;
     const deviceAtAttempt = sttDevice ?? 'webgpu';
@@ -720,7 +725,8 @@ async function transcribeSegment(segment: Int16Array): Promise<void> {
       sttPipeline = null;
       sttDevice = null;
       try {
-        await loadStt(session.payload.stt, 'wasm');
+        await loadStt(s.payload.stt, 'wasm');
+        if (!current()) return;
       } catch (err) {
         post({
           t: 'metric',
@@ -743,6 +749,7 @@ async function transcribeSegment(segment: Int16Array): Promise<void> {
     post({ t: 'caption', speaker: 'learner', text, final: true });
     await runTutorTurn(text);
   } catch (err) {
+    if (!current()) return;
     post({
       t: 'error',
       code: 'stt_failed',
@@ -839,8 +846,9 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
           payload: msg.payload,
           vad: new EnergyVad(),
           buffer: new SpeechBuffer(WORKER_SAMPLE_RATE),
-          muted: false,
-          turnMode: 'auto',
+          muted: msg.payload.muted ?? false,
+          inputGeneration: 0,
+          turnMode: msg.payload.turnDetection ?? 'auto',
           pace: 'normal',
           turnRunner: null as unknown as TutorTurnRunner, // set below, needs `s` for the closure
           currentAbort: null,
@@ -902,6 +910,7 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
         if (session) {
           session.muted = msg.muted;
           if (msg.muted) {
+            session.inputGeneration++;
             session.buffer.clear();
             session.vad.reset();
             setState('muted');
@@ -911,8 +920,18 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
         }
         break;
 
-      case 'ptt':
+      case 'turn_detection':
         if (session) {
+          session.inputGeneration++;
+          session.turnMode = msg.mode;
+          session.buffer.clear();
+          session.vad.reset();
+          setState('listening');
+        }
+        break;
+
+      case 'ptt':
+        if (session && !session.muted) {
           session.turnMode = 'push';
           if (msg.active) {
             session.buffer.clear();

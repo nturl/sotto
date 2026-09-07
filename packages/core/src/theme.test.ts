@@ -3,6 +3,7 @@ import {
   colors,
   darkColors,
   schemes,
+  paper,
   type,
   radius,
   space,
@@ -48,6 +49,26 @@ describe('@sotto/core theme', () => {
     expect(motion.speechFillStaggerMs).toBe(60);
 
     expect(theme.colors).toBe(colors);
+    expect(theme.paper).toBe(paper);
+  });
+
+  it('exports the six cover papers and a shelf hairline in both schemes', () => {
+    // Run 8 decision 3: the typographic cover system's six grounds. They are
+    // artwork (one colourway in both schemes), so they live beside `colors`
+    // rather than inside it; only the shelf hairline is a per-scheme token.
+    expect(Object.keys(paper).sort()).toEqual(['brick', 'peach', 'sage', 'sand', 'slate', 'teal']);
+    expect(paper.sage).toBe('#6E9A7C');
+    expect(colors.hairline2).toBe('rgba(34,30,27,0.2)');
+    expect(darkColors.hairline2).toBe('rgba(241,234,224,0.2)');
+  });
+
+  it('keeps ink legible on the three light papers and canvas on the three dark ones', () => {
+    for (const light of [paper.sand, paper.sage, paper.peach]) {
+      expect(contrastRatio(colors.ink, light)).toBeGreaterThanOrEqual(4.5);
+    }
+    for (const dark of [paper.teal, paper.brick, paper.slate]) {
+      expect(contrastRatio(colors.canvas, dark)).toBeGreaterThanOrEqual(4.5);
+    }
   });
 
   it('gives every light token a dark counterpart', () => {

@@ -19,7 +19,7 @@ import { fetchHealth } from '../../src/state/contentApi';
 
 type Filter = 'all' | BookCategory | BookLevel;
 const LEVELS: BookLevel[] = [...BOOK_LEVELS];
-const VALID_FILTERS = new Set<string>(['all', 'fables', 'voyage', ...LEVELS]);
+const VALID_FILTERS = new Set<string>(['all', 'fables', 'adventure', ...LEVELS]);
 
 function isValidFilter(value: unknown): value is Filter {
   return typeof value === 'string' && VALID_FILTERS.has(value);
@@ -52,7 +52,7 @@ export default function LibraryScreen() {
   const openBook = (book: LibraryBook) => router.push(`/book/${book.id}`);
 
   const rails = useMemo<Array<{ title: string; books: LibraryBook[]; seeAll?: Filter }>>(() => {
-    if (filter === 'fables' || filter === 'voyage') {
+    if (filter === 'fables' || filter === 'adventure') {
       const title = filter === 'fables' ? t('library.rail.fables') : t('library.rail.voyage');
       return [{ title, books: library.byCategory(filter) }];
     }
@@ -67,8 +67,8 @@ export default function LibraryScreen() {
       },
       {
         title: t('library.rail.voyage'),
-        books: library.byCategory('voyage'),
-        seeAll: 'voyage' as Filter,
+        books: library.byCategory('adventure'),
+        seeAll: 'adventure' as Filter,
       },
       { title: t('library.rail.all'), books: library.books },
     ];
@@ -80,7 +80,7 @@ export default function LibraryScreen() {
   const filters: Array<{ value: Filter; label: string }> = [
     { value: 'all', label: t('library.filter.all') },
     { value: 'fables', label: t('library.filter.fables') },
-    { value: 'voyage', label: t('library.filter.voyage') },
+    { value: 'adventure', label: t('library.filter.voyage') },
     ...LEVELS.map((level) => ({ value: level as Filter, label: level })),
   ];
 

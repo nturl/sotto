@@ -3,24 +3,16 @@
  *
  * WS-4: now backed by the real zustand store (apps/client/src/state,
  * CONTRACTS §4) instead of dev fixtures. `LibraryBook` keeps the exact
- * shape the WS-2 screens/components were built against (BookTile, Cover,
- * DailyStoryCard, library.tsx's category filter) so none of them had to
- * change: `cover` is still one of Cover.tsx's fixed illustrations and
- * `categories` is still the 3-value fixture taxonomy. Cover.tsx (owned by a
- * concurrent worker) only knows how to render those named illustrations,
- * not the packs' generated `cover.svg`, so real books are mapped onto a
- * deterministic illustration by hashing their id — a known simplification,
- * see the WS-4 report. `dev/fixtures.ts` stays for tests only.
+ * shape the WS-2 screens/components were built against.
+ *
+ * Run 8: the lossy 7 -> 3 category collapse and the `cover` field (a hash
+ * of the bookId into eight flat illustrations) are both gone. `categories`
+ * is now the pack's own seven-value taxonomy and covers are set from
+ * metadata by `Cover`/`coverPaper`. `dev/fixtures.ts` stays for tests only.
  */
 import { useEffect, useMemo } from 'react';
-import type {
-  BookCategory as CoreBookCategory,
-  BookSummary,
-  ReviewStatus,
-  UserPreferences,
-} from '@sotto/core';
-import type { CoverArt } from './Cover';
-import type { BookCategory, BookLevel } from './dev/fixtures';
+import type { BookCategory, BookSummary, ReviewStatus, UserPreferences } from '@sotto/core';
+import type { BookLevel } from './dev/fixtures';
 import { assetUrl } from '../state/contentApi';
 import {
   filterByCategory,
@@ -45,11 +37,13 @@ export type LibraryBook = {
   shortAuthor: string;
   level: BookLevel;
   minutes: number;
+  /** Run 8 PLAN decision 3: the pack's own seven-value taxonomy, no longer
+   * collapsed into the three fixture values. It drives Library's collection
+   * links and, through `coverPaper`, the book's paper colour. */
   categories: BookCategory[];
-  cover: CoverArt;
   /** Real pack cover (CONTRACTS §2b `books/<bookId>/cover.svg`), resolved
-   * against the server. Passed to `Cover`'s `svgUrl` prop, which renders it
-   * in place of the flat fixture illustration in `cover`. */
+   * against the server. `Cover` reads it only as the fallback for a book
+   * with no title, since covers are now set from metadata. */
   svgUrl: string;
   progress: number;
   isNew: boolean;
@@ -85,33 +79,6 @@ export type Library = {
    * again after a failure) — wired to the error banner's Retry button. */
   retryPacks: () => void;
 };
-
-const COVER_ARTS: CoverArt[] = [
-  'fox',
-  'lantern',
-  'river',
-  'mountain',
-  'dune',
-  'night',
-  'market',
-  'sail',
-];
-
-function hashCover(bookId: string): CoverArt {
-  let hash = 0;
-  for (let i = 0; i < bookId.length; i += 1) hash = (hash * 31 + bookId.charCodeAt(i)) >>> 0;
-  return COVER_ARTS[hash % COVER_ARTS.length]!;
-}
-
-function mapCategories(categories: CoreBookCategory[]): BookCategory[] {
-  const mapped = new Set<BookCategory>();
-  for (const c of categories) {
-    if (c === 'fables') mapped.add('fables');
-    else if (c === 'adventure') mapped.add('voyage');
-    else mapped.add('contes');
-  }
-  return mapped.size ? [...mapped] : ['contes'];
-}
 
 function shortAuthorName(author: string): string {
   const parts = author.trim().split(/\s+/);
@@ -150,11 +117,10 @@ export function toLibraryBook(
     shortAuthor: shortAuthorName(summary.author),
     level: summary.level,
     minutes: summary.estimatedMinutes,
-    categories: mapCategories(summary.categories),
-    cover: hashCover(summary.bookId),
-    // Private (imported) books have no server-hosted cover asset — an
-    // empty svgUrl makes Cover.tsx fall back to its own flat illustration
-    // (picked deterministically from the bookId via `cover` above).
+    categories: summary.categories.length > 0 ? [...summary.categories] : ['tales'],
+    // Private (imported) books have no server-hosted cover asset. Their
+    // cover is set from metadata like every other book's, so an empty
+    // svgUrl costs nothing.
     svgUrl: summary.private
       ? ''
       : assetUrl(summary.contentLocale, summary.bookId, summary.cover || 'cover.svg'),
@@ -221,8 +187,7 @@ export function useLibrary(): Library {
             shortAuthor: '',
             level: 'A1',
             minutes: 0,
-            categories: ['contes'],
-            cover: 'market',
+            categories: ['tales'],
             svgUrl: '',
             progress: 0,
             isNew: false,
@@ -244,8 +209,7 @@ export function useLibrary(): Library {
         const summary = allSummaries.find((b) => b.bookId === id);
         return summary ? toView(summary) : undefined;
       },
-      byCategory: (category) =>
-        filterByCategory(summaries, mapFixtureCategoryToCore(category)).map(toView),
+      byCategory: (category) => filterByCategory(summaries, category).map(toView),
       byLevel: (level) => filterByLevel(summaries, level).map(toView),
       search: (query) =>
         [...searchBooks(summaries, query), ...searchBooks(privateSummariesForLocale, query)].map(
@@ -255,14 +219,6 @@ export function useLibrary(): Library {
       retryPacks: loadPacks,
     };
   }, [packs, packsStatus, loadPacks, preferences, progress, completedBooks, privateBooks]);
-}
-
-/** Inverse of `mapCategories`: the library screen's chips only offer
- * 'fables' | 'voyage', both of which map onto exactly one core category. */
-function mapFixtureCategoryToCore(category: BookCategory): CoreBookCategory {
-  if (category === 'fables') return 'fables';
-  if (category === 'voyage') return 'adventure';
-  return 'tales';
 }
 
 /** Resolves a book's asset (cover, audio) path against the server, for

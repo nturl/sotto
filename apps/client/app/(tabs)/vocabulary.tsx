@@ -212,10 +212,9 @@ export default function VocabularyScreen() {
       {selectedBook ? (
         <Pressable onPress={() => setPickerOpen(true)} style={[styles.bookCard, webCursor]}>
           <Cover
-            art={selectedBook.cover}
+            book={selectedBook}
             width={40}
             height={60}
-            svgUrl={selectedBook.svgUrl}
             accessibilityLabel={selectedBook.title}
           />
           <View style={styles.bookCardText}>
@@ -275,13 +274,7 @@ export default function VocabularyScreen() {
                 }}
                 style={[styles.pickerRow, webCursor]}
               >
-                <Cover
-                  art={b.cover}
-                  width={32}
-                  height={48}
-                  svgUrl={b.svgUrl}
-                  accessibilityLabel={b.title}
-                />
+                <Cover book={b} width={32} height={48} accessibilityLabel={b.title} />
                 <Text role="ui" size={15}>
                   {b.title}
                 </Text>

@@ -59,14 +59,7 @@ export default function BookDetailScreen() {
         <BackLink />
         <View style={styles.desktopRow}>
           <View style={styles.desktopCoverCol}>
-            <Cover
-              art={book.cover}
-              width={280}
-              height={420}
-              cutout
-              svgUrl={book.svgUrl}
-              accessibilityLabel={book.title}
-            />
+            <Cover book={book} width={280} height={420} cutout accessibilityLabel={book.title} />
           </View>
           <View style={styles.desktopTextCol}>
             <Text role="display" size={34}>
@@ -102,14 +95,7 @@ export default function BookDetailScreen() {
       <BackLink />
 
       <View style={styles.coverWrap}>
-        <Cover
-          art={book.cover}
-          width={180}
-          height={270}
-          cutout
-          svgUrl={book.svgUrl}
-          accessibilityLabel={book.title}
-        />
+        <Cover book={book} width={180} height={270} cutout accessibilityLabel={book.title} />
       </View>
 
       <Text role="display" size={30} style={styles.title}>

@@ -56,12 +56,11 @@ export function SessionBar() {
         style={[styles.tapArea, webCursor]}
       >
         <Cover
-          art={book.cover}
+          book={book}
           width={32}
           height={48}
           cutout
           cutoutSize={2}
-          svgUrl={book.svgUrl}
           accessibilityLabel={book.title}
         />
         <View style={styles.text}>

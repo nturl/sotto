@@ -114,12 +114,11 @@ export function DailyStoryCard({ book, onPress }: { book: LibraryBook; onPress: 
               <Rect x={0} y={0} width={100} height={100} fill="url(#daily-gradient)" />
             </Svg>
             <Cover
-              art={book.cover}
+              book={book}
               width={coverWidth}
               height={coverHeight}
               cutout
               cutoutSize={4}
-              svgUrl={book.svgUrl}
               accessibilityLabel={book.title}
             />
           </View>

@@ -26,12 +26,11 @@ function ResultRow({ book, onPress }: { book: LibraryBook; onPress: () => void }
       style={[styles.resultRow, webCursor]}
     >
       <Cover
-        art={book.cover}
+        book={book}
         width={56}
         height={84}
         cutout
         cutoutSize={3}
-        svgUrl={book.svgUrl}
         accessibilityLabel={book.title}
       />
       <View style={styles.resultText}>

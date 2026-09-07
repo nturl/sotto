@@ -4,6 +4,25 @@
  * Screens must import from here — never inline colors/sizes.
  */
 
+/**
+ * Cover papers — the six typographic cover grounds (APP-V2-SPEC "Cover
+ * system", PLAN run 8 decision 3). These are artwork, not UI chrome, so
+ * like the cover illustrations they replaced they carry ONE colourway in
+ * both schemes; `paperInk()` in the client decides ink vs canvas text per
+ * paper. `sage` is lightened from DESIGN.md's #5B8A6B so ink text clears
+ * 4.5:1 on it.
+ */
+export const paper = {
+  sand: '#E8D6B8',
+  teal: '#1F4F57',
+  sage: '#6E9A7C',
+  brick: '#8C3B2E',
+  peach: '#F2C8B4',
+  slate: '#2B2A28',
+} as const;
+
+export type PaperName = keyof typeof paper;
+
 export const colors = {
   canvas: '#F4ECDF', // app background, every screen
   surface: '#FBF6EC', // cards, sheets, docked panels, tab bar
@@ -12,6 +31,7 @@ export const colors = {
   ink2: '#6E6459', // secondary text, inactive tab labels
   ink3: '#9C9287', // muted/legal text (4.5:1 on canvas)
   hairline: 'rgba(34,30,27,0.12)', // borders, dividers
+  hairline2: 'rgba(34,30,27,0.2)', // the 1.5px shelf a rail of books rests on
   accent: '#E4572E', // ONE job: primary CTA fill + active tab. Nowhere else.
   peach: '#F2C8B4', // the cutout shadow color, and the 18% word-selection fill
   mark: '#FFD8A8', // the saved-word marker stroke (marker sweep)
@@ -39,6 +59,7 @@ export const darkColors = {
   ink2: '#B8AFA3',
   ink3: '#8A8176', // >= 4.5:1 on canvas (contrast test below)
   hairline: 'rgba(241,234,224,0.12)',
+  hairline2: 'rgba(241,234,224,0.2)', // shelf line, same role as light's
   accent: '#E4572E', // unchanged — one job, same job in both schemes
   peach: '#6B3F30', // cutout shadow, darkened to keep the cutout legible on a dark surface
   mark: '#8A6A2E', // saved-word marker stroke, darkened; text over it must stay ink-colored
@@ -169,6 +190,16 @@ export const motion = {
   speechFillStaggerMs: 60,
 } as const;
 
-export const theme = { colors, darkColors, schemes, type, radius, space, shadow, motion } as const;
+export const theme = {
+  colors,
+  darkColors,
+  schemes,
+  paper,
+  type,
+  radius,
+  space,
+  shadow,
+  motion,
+} as const;
 
 export type Theme = typeof theme;

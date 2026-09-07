@@ -62,12 +62,11 @@ export function BookTile({
       style={[styles.tile, { width: coverWidth }, webCursor]}
     >
       <Cover
-        art={book.cover}
+        book={book}
         width={coverWidth}
         height={coverHeight}
         cutout
         cutoutSize={hoverActive ? 8 : 6}
-        svgUrl={book.svgUrl}
         accessibilityLabel={book.title}
       />
       <Text

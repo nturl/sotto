@@ -3,10 +3,14 @@
  * planning/design/system.html. These stand in for pack data until WS-4's
  * store selectors exist — src/ui/data.ts is the ONLY file that reads them.
  */
-import type { CoverArt } from '../Cover';
+import type { BookCategory as CoreBookCategory } from '@sotto/core';
 
 export type BookLevel = 'A0' | 'A1' | 'A2' | 'B1' | 'B2' | 'C1';
-export type BookCategory = 'fables' | 'voyage' | 'contes';
+
+/** Run 8 PLAN decision 3: collections are the seven core categories. The
+ * three-value fixture taxonomy is gone; this re-export keeps the one
+ * import path the screens already use. */
+export type { BookCategory } from '@sotto/core';
 
 export type FixtureBook = {
   id: string;
@@ -15,8 +19,7 @@ export type FixtureBook = {
   shortAuthor: string;
   level: BookLevel;
   minutes: number;
-  categories: BookCategory[];
-  cover: CoverArt;
+  categories: CoreBookCategory[];
   /** 0..1 reading progress; > 0 puts the book on the "Reprendre" rail. */
   progress: number;
   isNew: boolean;
@@ -32,7 +35,6 @@ export const FIXTURE_BOOKS: FixtureBook[] = [
     level: 'A1',
     minutes: 12,
     categories: ['fables'],
-    cover: 'fox',
     progress: 0.64,
     isNew: false,
     synopsis:
@@ -46,7 +48,6 @@ export const FIXTURE_BOOKS: FixtureBook[] = [
     level: 'A1',
     minutes: 9,
     categories: ['fables'],
-    cover: 'lantern',
     progress: 0,
     isNew: false,
     synopsis:
@@ -59,8 +60,7 @@ export const FIXTURE_BOOKS: FixtureBook[] = [
     shortAuthor: 'L. Nadeau',
     level: 'A2',
     minutes: 14,
-    categories: ['voyage'],
-    cover: 'river',
+    categories: ['adventure'],
     progress: 0.22,
     isNew: false,
     synopsis:
@@ -73,8 +73,7 @@ export const FIXTURE_BOOKS: FixtureBook[] = [
     shortAuthor: 'D. Reyes',
     level: 'A2',
     minutes: 11,
-    categories: ['voyage'],
-    cover: 'mountain',
+    categories: ['adventure'],
     progress: 0.08,
     isNew: false,
     synopsis:
@@ -87,8 +86,7 @@ export const FIXTURE_BOOKS: FixtureBook[] = [
     shortAuthor: 'M. Farah',
     level: 'A0',
     minutes: 7,
-    categories: ['voyage'],
-    cover: 'dune',
+    categories: ['adventure'],
     progress: 0,
     isNew: true,
     synopsis:
@@ -101,8 +99,7 @@ export const FIXTURE_BOOKS: FixtureBook[] = [
     shortAuthor: 'R. Aoki',
     level: 'A0',
     minutes: 6,
-    categories: ['contes'],
-    cover: 'night',
+    categories: ['tales'],
     progress: 0,
     isNew: true,
     synopsis:
@@ -117,8 +114,7 @@ export const DAILY_BOOK: FixtureBook = {
   shortAuthor: 'C. Ibarra',
   level: 'A1',
   minutes: 6,
-  categories: ['contes'],
-  cover: 'market',
+  categories: ['tales'],
   progress: 0,
   isNew: false,
   synopsis:

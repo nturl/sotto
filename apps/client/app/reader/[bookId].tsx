@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { getLanguage, type Block, type Chapter, type Sentence, type Token } from '@sotto/core';
-import { radius, space, type schemes } from '@sotto/core/theme';
+import { radius, shadow, space, type schemes } from '@sotto/core/theme';
 import { useTheme } from '../../src/ui/theme';
 import { useT } from '../../src/i18n/useT';
 import { BookTile } from '../../src/ui/BookTile';
@@ -50,6 +50,13 @@ import {
   spanText,
   type FlatBlockToken,
 } from '../../src/ui/reader/selection';
+import {
+  panelRowOrder,
+  savedWordsLine,
+  sentenceHighlight,
+  type PanelRowId,
+} from '../../src/ui/reader/readerPanel';
+import { DESKTOP_BREAKPOINT } from '../../src/ui/Shell';
 import { webCursor } from '../../src/ui/tokens';
 import {
   playAudioSlice,
@@ -278,7 +285,7 @@ export default function ReaderScreen() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookId, book?.private, chapterIndex, chapterSummary?.audio]);
 
-  const isDesktop = width >= 900;
+  const isDesktop = width >= DESKTOP_BREAKPOINT;
   const language = locale ? getLanguage(locale) : undefined;
   const cjk = language?.typography === 'cjk';
 
@@ -546,6 +553,18 @@ export default function ReaderScreen() {
     '';
   const isSaved = selectedToken ? savedTokenIds.has(selectedToken.token.id) : false;
 
+  // Mockup frame 3's top-left label: "{book title} · Chapter {n} of {m}"
+  // (the chapter's own title is longer than the measure allows and repeats
+  // what the segmented progress row already shows).
+  const chapterLabel =
+    book && chapterIndex >= 0
+      ? t('reader.chapterLabel', {
+          title: library.byId(bookId)?.title ?? book.title,
+          n: String(chapterIndex + 1),
+          m: String(book.chapters.length),
+        })
+      : (chapterSummary?.title ?? '');
+
   // O2-C task C1: a drag span (more than one token) gets its own panel —
   // the pre-built sentence translation when the span covers a whole
   // sentence, otherwise a composed gloss line for just the span. Single
@@ -575,158 +594,235 @@ export default function ReaderScreen() {
     playAudioSlice(audioUri, spanFirst.startMs, spanLast?.endMs ?? spanFirst.startMs + 600);
   };
 
-  const translationPanel = !selectedToken ? (
-    <Text role="caption" color="ink3" style={styles.emptyState}>
-      {t('reader.emptyState')}
-    </Text>
-  ) : isSpanSelection && wholeSentence ? (
-    <View style={styles.panelInner}>
-      <View style={styles.panelHeaderRow}>
-        <Text role="reading" style={styles.flexShrink}>
-          {wholeSentence.text}
-        </Text>
-        {spanFirst?.startMs !== undefined && audioUri ? (
-          <IconButton
-            variant="ring"
-            size={44}
-            icon={<SpeakerGlyph size={18} color={colors.accent} />}
-            accessibilityLabel={t('book.a11y.playNarration')}
-            onPress={playSpanAudio}
-          />
-        ) : null}
-      </View>
-      <Text role="ui">{wholeSentenceTranslation}</Text>
-      {wholeSentenceUsedFallback ? (
-        <Text role="caption" color="ink3">
-          {t('reader.translatedToEnglish')}
-        </Text>
-      ) : null}
-      <View style={styles.panelActions}>
-        <Pressable onPress={report} style={webCursor}>
-          <Text role="caption" color="ink2">
-            {t('reader.report')}
-          </Text>
-        </Pressable>
-      </View>
-    </View>
-  ) : isSpanSelection ? (
-    <View style={styles.panelInner}>
-      <View style={styles.panelHeaderRow}>
-        <Text role="heading" size={24} style={styles.flexShrink}>
-          {spanDisplayText}
-        </Text>
-        {spanFirst?.startMs !== undefined && audioUri ? (
-          <IconButton
-            variant="ring"
-            size={44}
-            icon={<SpeakerGlyph size={18} color={colors.accent} />}
-            accessibilityLabel={t('book.a11y.playNarration')}
-            onPress={playSpanAudio}
-          />
-        ) : null}
-      </View>
-      <Text role="ui">{spanGlossLine ?? ''}</Text>
-      {spanGlossFallback ? (
-        <Text role="caption" color="ink3">
-          {t('reader.translatedToEnglish')}
-        </Text>
-      ) : null}
-      <View style={styles.panelActions}>
-        <Pressable onPress={report} style={webCursor}>
-          <Text role="caption" color="ink2">
-            {t('reader.report')}
-          </Text>
-        </Pressable>
-      </View>
-    </View>
-  ) : (
-    <View style={styles.panelInner}>
-      <View style={styles.panelHeaderRow}>
-        <Text role="heading" size={24}>
-          {selectedToken.token.text}
-        </Text>
-        {selectedToken.token.startMs !== undefined && audioUri ? (
-          <IconButton
-            variant="ring"
-            size={44}
-            icon={<SpeakerGlyph size={18} color={colors.accent} />}
-            accessibilityLabel={t('book.a11y.playNarration')}
-            onPress={() => {
-              const normalized = selectedToken.token.normalized;
-              const fallback = {
-                uri: audioUri,
-                startMs: selectedToken.token.startMs!,
-                endMs: selectedToken.token.endMs ?? selectedToken.token.startMs! + 600,
-              };
-              const decision = resolveWordPlayback(
-                wordAudioUri,
-                wordAudioIndex,
-                normalized,
-                fallback,
-              );
-              if (decision.kind === 'wait') {
-                // Sprite exists but words.json hasn't resolved yet — wait
-                // for it instead of silently taking the narration
-                // fallback (the bug: the render gate only checks
-                // startMs/audioUri, not whether the index has loaded).
-                if (bookId && locale && book?.wordAudio) {
-                  void loadWordAudioIndex(bookId, locale, book.wordAudio.index).then((index) => {
-                    playWordAudio({
-                      spriteUri: wordAudioUri,
-                      index: index ?? undefined,
-                      normalized,
-                      fallback,
-                    });
-                  });
-                }
-                return;
-              }
-              playWordAudio(decision.options);
-            }}
-          />
-        ) : null}
-      </View>
-      {cjk && selectedToken.token.pinyin ? (
-        <Text role="caption" color="ink2">
-          {selectedToken.token.pinyin}
-        </Text>
-      ) : null}
-      <Text role="ui">{glossText}</Text>
-      {glossFallback ? (
-        <Text role="caption" color="ink3">
-          {t('reader.translatedToEnglish')}
-        </Text>
-      ) : null}
+  // Run 8 (PLAN.md decision 11): the four mutually-exclusive panel shapes
+  // the reader used to render collapse into one. Every shape resolves to the
+  // same six values below, then `panelRowOrder` decides which rows appear and
+  // in what order, and the JSX renders them in exactly that order — so the
+  // DOM order is the tested order, not a second hand-maintained copy of it.
+  const isWholeSentenceSelection = isSpanSelection && !!wholeSentence;
+  const headword = isWholeSentenceSelection
+    ? (wholeSentence?.text ?? '')
+    : isSpanSelection
+      ? spanDisplayText
+      : (selectedToken?.token.text ?? '');
+  const panelGloss = isWholeSentenceSelection
+    ? wholeSentenceTranslation
+    : isSpanSelection
+      ? (spanGlossLine ?? '')
+      : glossText;
+  const panelGlossFallback = isWholeSentenceSelection
+    ? wholeSentenceUsedFallback
+    : isSpanSelection
+      ? spanGlossFallback
+      : !!glossFallback;
+  // The mockup's `.ph` form line ("trouver · third person, present"). The
+  // Token model (packages/core/src/models.ts) carries neither `lemma` nor a
+  // part-of-speech field, so the only per-token form data that exists today
+  // is CJK pinyin — see planning/run8/D-report.md. No placeholder otherwise.
+  const formLine = !isSpanSelection && cjk ? selectedToken?.token.pinyin : undefined;
+  const speakerStartMs = isSpanSelection ? spanFirst?.startMs : selectedToken?.token.startMs;
+  const hasSpeaker = speakerStartMs !== undefined && !!audioUri;
+  const selectedTokenIdList = selectedToken
+    ? (selectedToken.spanTokens ?? [selectedToken.token]).map((tk) => tk.id)
+    : [];
+  // "In this passage" would be the selection itself when the selection *is*
+  // the whole sentence, so that shape omits the block.
+  const passageParts =
+    selectedToken && !isWholeSentenceSelection
+      ? sentenceHighlight(selectedToken.sentence, selectedTokenIdList)
+      : undefined;
+  const yourWords = savedWordsLine(savedWords.filter((w) => w.bookId === bookId));
 
-      <View style={styles.panelActions}>
-        <Pressable
-          onPress={() => toggleSaved(selectedToken.token, selectedToken.sentence)}
-          accessibilityRole="button"
-          accessibilityLabel={t('reader.save')}
-          style={[styles.saveButton, isSaved && styles.saveButtonActive, webCursor]}
-        >
-          <BookmarkGlyph size={16} color={isSaved ? colors.ink : colors.ink2} />
-          <Text role="ui" size={14} color={isSaved ? 'ink' : 'ink2'}>
-            {isSaved ? t('reader.saved') : t('reader.save')}
-          </Text>
-        </Pressable>
-        <Pressable onPress={() => setShowSentenceDetail((v) => !v)} style={webCursor}>
-          <Text role="caption" color="ink2">
-            {t('reader.details')}
-          </Text>
-        </Pressable>
-        <Pressable onPress={report} style={webCursor}>
-          <Text role="caption" color="ink2">
-            {t('reader.report')}
-          </Text>
-        </Pressable>
-      </View>
+  const panelRows = panelRowOrder({
+    hasSelection: !!selectedToken,
+    isSingleWord: !isSpanSelection,
+    hasForm: !!formLine,
+    hasSpeaker,
+    hasPassage: !!passageParts,
+    hasYourWords: !!yourWords,
+  });
 
-      {showSentenceDetail ? (
-        <Text role="ui" size={14} color="ink2" style={styles.sentenceDetail}>
-          {sentenceTranslation}
+  const shows = (id: PanelRowId) => panelRows.includes(id);
+
+  const playSelectionAudio = () => {
+    if (!selectedToken || !audioUri) return;
+    if (isSpanSelection) {
+      playSpanAudio();
+      return;
+    }
+    const token = selectedToken.token;
+    if (token.startMs === undefined) return;
+    const normalized = token.normalized;
+    const fallback = {
+      uri: audioUri,
+      startMs: token.startMs,
+      endMs: token.endMs ?? token.startMs + 600,
+    };
+    const decision = resolveWordPlayback(wordAudioUri, wordAudioIndex, normalized, fallback);
+    if (decision.kind === 'wait') {
+      // Sprite exists but words.json hasn't resolved yet — wait for it
+      // instead of silently taking the narration fallback (the bug: the
+      // render gate only checks startMs/audioUri, not whether the index
+      // has loaded).
+      if (bookId && locale && book?.wordAudio) {
+        void loadWordAudioIndex(bookId, locale, book.wordAudio.index).then((index) => {
+          playWordAudio({ spriteUri: wordAudioUri, index: index ?? undefined, normalized, fallback });
+        });
+      }
+      return;
+    }
+    playWordAudio(decision.options);
+  };
+
+  const talkRow = (
+    <Pressable
+      testID="reader-panel-talk"
+      accessibilityRole="button"
+      accessibilityLabel={t('book.a11y.talkAboutPassage')}
+      onPress={talkAboutPassage}
+      style={[styles.talkRow, webCursor]}
+    >
+      <MicGlyph size={18} color={colors.ink} />
+      <Text role="uiButton" size={15}>
+        {t('book.a11y.talkAboutPassage')}
+      </Text>
+    </Pressable>
+  );
+
+  const translationPanel = (
+    <View style={styles.panelInner}>
+      {!selectedToken ? (
+        <Text role="caption" color="ink3" style={styles.emptyState}>
+          {t('reader.emptyState')}
         </Text>
-      ) : null}
+      ) : (
+        <>
+          {/* word · gloss · form line in one column, speaker ring pinned to
+              that block's top-right — the DOM order inside this row is
+              word, gloss, form, speaker, matching panelRowOrder(). */}
+          <View style={styles.panelHeaderRow}>
+            <View style={styles.panelHeaderText}>
+              <Text
+                testID="reader-panel-word"
+                role={isWholeSentenceSelection ? 'reading' : 'heading'}
+                size={isWholeSentenceSelection ? undefined : 28}
+              >
+                {headword}
+              </Text>
+              <Text testID="reader-panel-gloss" role="ui" size={16} color="ink2">
+                {panelGloss}
+              </Text>
+              {panelGlossFallback ? (
+                <Text role="caption" color="ink3">
+                  {t('reader.translatedToEnglish')}
+                </Text>
+              ) : null}
+              {shows('reader-panel-form') && formLine ? (
+                <Text
+                  testID="reader-panel-form"
+                  role="mono"
+                  size={12}
+                  color="ink2"
+                  style={styles.formLine}
+                >
+                  {formLine}
+                </Text>
+              ) : null}
+            </View>
+            {shows('reader-panel-speaker') ? (
+              <IconButton
+                variant="ring"
+                size={44}
+                icon={<SpeakerGlyph size={18} color={colors.accent} />}
+                accessibilityLabel={t('book.a11y.playNarration')}
+                onPress={playSelectionAudio}
+                style={styles.panelSpeaker}
+              />
+            ) : null}
+          </View>
+
+          <View style={styles.panelActions}>
+            {shows('reader-panel-save') ? (
+              <Pressable
+                testID="reader-panel-save"
+                onPress={() => toggleSaved(selectedToken.token, selectedToken.sentence)}
+                accessibilityRole="button"
+                accessibilityLabel={t('reader.save')}
+                style={webCursor}
+              >
+                <View>
+                  {isSaved ? (
+                    <View pointerEvents="none" style={[StyleSheet.absoluteFill, styles.saveCutout]} />
+                  ) : null}
+                  <View style={[styles.saveButton, isSaved && styles.saveButtonActive]}>
+                    <BookmarkGlyph size={15} color={isSaved ? colors.ink : colors.ink2} />
+                    <Text role="uiButton" size={14} color={isSaved ? 'ink' : 'ink2'}>
+                      {isSaved ? t('reader.saved') : t('reader.save')}
+                    </Text>
+                  </View>
+                </View>
+              </Pressable>
+            ) : null}
+            {shows('reader-panel-details') ? (
+              <Pressable
+                testID="reader-panel-details"
+                accessibilityRole="button"
+                accessibilityLabel={t('reader.details')}
+                onPress={() => setShowSentenceDetail((v) => !v)}
+                style={[styles.textLink, webCursor]}
+              >
+                <Text role="caption" color="ink2">
+                  {t('reader.details')}
+                </Text>
+              </Pressable>
+            ) : null}
+            <Pressable
+              testID="reader-panel-report"
+              accessibilityRole="button"
+              accessibilityLabel={t('reader.report')}
+              onPress={report}
+              style={[styles.textLink, webCursor]}
+            >
+              <Text role="caption" color="ink2">
+                {t('reader.report')}
+              </Text>
+            </Pressable>
+          </View>
+
+          {showSentenceDetail && !isSpanSelection ? (
+            <Text role="ui" size={14} color="ink2" style={styles.sentenceDetail}>
+              {sentenceTranslation}
+            </Text>
+          ) : null}
+
+          {shows('reader-panel-passage') && passageParts ? (
+            <View testID="reader-panel-passage" style={styles.panelSection}>
+              <Text role="mono" color="ink2" style={styles.panelEyebrow}>
+                {t('reader.inThisPassage')}
+              </Text>
+              <Text role="reading" size={15}>
+                {passageParts.before}
+                <Text role="reading" size={15} style={styles.passageMark}>
+                  {passageParts.word}
+                </Text>
+                {passageParts.after}
+              </Text>
+            </View>
+          ) : null}
+
+          {shows('reader-panel-your-words') && yourWords ? (
+            <View testID="reader-panel-your-words" style={styles.panelSection}>
+              <Text role="mono" color="ink2" style={styles.panelEyebrow}>
+                {t('reader.yourWordsInBook')}
+              </Text>
+              <Text role="reading" size={15}>
+                {yourWords}
+              </Text>
+            </View>
+          ) : null}
+        </>
+      )}
+      {talkRow}
     </View>
   );
 
@@ -743,6 +839,68 @@ export default function ReaderScreen() {
       style={[styles.transport, isDesktop && styles.transportDesktop]}
       onLayout={(e) => setTransportHeight(e.nativeEvent.layout.height)}
     >
+      <View style={styles.transportRow}>
+        <Text role="mono" color="ink2">
+          {formatClock(narration.positionMs)}
+        </Text>
+        <View style={styles.transportControls}>
+          <IconButton
+            icon={<SkipPrevGlyph size={18} color={colors.ink} />}
+            accessibilityLabel={t('reader.prevChapter')}
+            onPress={() => {
+              const prev = book?.chapters[chapterIndex - 1];
+              if (prev) setChapterId(prev.id);
+            }}
+          />
+          <Pressable onPress={() => narration.seekBy(-10)} style={webCursor}>
+            <Text role="mono">-10</Text>
+          </Pressable>
+          <IconButton
+            variant="ring"
+            size={44}
+            icon={
+              narration.playing ? (
+                <PauseGlyph size={18} color={colors.accent} />
+              ) : (
+                <PlayGlyph size={18} color={colors.accent} />
+              )
+            }
+            accessibilityLabel={narration.playing ? t('reader.pause') : t('reader.play')}
+            onPress={() => (narration.playing ? narration.pause() : narration.play())}
+          />
+          <Pressable onPress={() => narration.seekBy(10)} style={webCursor}>
+            <Text role="mono">+10</Text>
+          </Pressable>
+          <IconButton
+            icon={<SkipNextGlyph size={18} color={colors.ink} />}
+            accessibilityLabel={t('reader.nextChapter')}
+            onPress={() => {
+              const next = book?.chapters[chapterIndex + 1];
+              if (next) setChapterId(next.id);
+            }}
+          />
+        </View>
+        <View style={styles.transportMeta}>
+          <Text role="mono" color="ink2">
+            -{formatClock(Math.max(0, narration.durationMs - narration.positionMs))}
+          </Text>
+          <Text role="mono" color="ink2">
+            ·
+          </Text>
+          <Pressable
+            onPress={() => {
+              const idx = SPEEDS.indexOf(preferences.narrationSpeed as NarrationSpeed);
+              const next = SPEEDS[(idx + 1) % SPEEDS.length]!;
+              useSottoStore.getState().setPreference('narrationSpeed', next);
+            }}
+            style={webCursor}
+          >
+            <Text role="mono" color="ink2">
+              {preferences.narrationSpeed}x
+            </Text>
+          </Pressable>
+        </View>
+      </View>
       <View style={styles.progressTrack}>
         {chapter?.blocks.map((block) => {
           const tokens = block.sentences.flatMap((s) => s.tokens);
@@ -761,63 +919,6 @@ export default function ReaderScreen() {
             </View>
           );
         })}
-      </View>
-      <View style={styles.transportRow}>
-        <IconButton
-          icon={<SkipPrevGlyph size={22} color={colors.ink} />}
-          accessibilityLabel={t('reader.prevChapter')}
-          onPress={() => {
-            const prev = book?.chapters[chapterIndex - 1];
-            if (prev) setChapterId(prev.id);
-          }}
-        />
-        <Pressable onPress={() => narration.seekBy(-10)} style={webCursor}>
-          <Text role="mono">-10</Text>
-        </Pressable>
-        <IconButton
-          variant="ring"
-          size={56}
-          icon={
-            narration.playing ? (
-              <PauseGlyph size={22} color={colors.accent} />
-            ) : (
-              <PlayGlyph size={22} color={colors.accent} />
-            )
-          }
-          accessibilityLabel={narration.playing ? t('reader.pause') : t('reader.play')}
-          onPress={() => (narration.playing ? narration.pause() : narration.play())}
-        />
-        <Pressable onPress={() => narration.seekBy(10)} style={webCursor}>
-          <Text role="mono">+10</Text>
-        </Pressable>
-        <IconButton
-          icon={<SkipNextGlyph size={22} color={colors.ink} />}
-          accessibilityLabel={t('reader.nextChapter')}
-          onPress={() => {
-            const next = book?.chapters[chapterIndex + 1];
-            if (next) setChapterId(next.id);
-          }}
-        />
-      </View>
-      <View style={styles.transportMeta}>
-        <Text role="mono" color="ink2">
-          {formatClock(narration.positionMs)}
-        </Text>
-        <Pressable
-          onPress={() => {
-            const idx = SPEEDS.indexOf(preferences.narrationSpeed as NarrationSpeed);
-            const next = SPEEDS[(idx + 1) % SPEEDS.length]!;
-            useSottoStore.getState().setPreference('narrationSpeed', next);
-          }}
-          style={webCursor}
-        >
-          <Text role="mono" color="ink2">
-            {preferences.narrationSpeed}x
-          </Text>
-        </Pressable>
-        <Text role="mono" color="ink2">
-          -{formatClock(Math.max(0, narration.durationMs - narration.positionMs))}
-        </Text>
       </View>
     </View>
   ) : null;
@@ -849,20 +950,17 @@ export default function ReaderScreen() {
             ]}
           >
             <Text role="mono" numberOfLines={1} style={styles.chapterLabel}>
-              {chapterSummary?.title ?? ''}
+              {chapterLabel}
             </Text>
             <View style={styles.headerActions}>
               <IconButton
-                icon={<MicGlyph size={18} color={colors.ink2} />}
-                accessibilityLabel={t('book.a11y.talkAboutPassage')}
-                onPress={talkAboutPassage}
-              />
-              <IconButton
+                size={40}
                 icon={<SettingsGlyph size={18} color={colors.ink2} />}
                 accessibilityLabel={t('book.a11y.settings')}
                 onPress={() => router.push('/settings')}
               />
               <IconButton
+                size={40}
                 icon={<CloseGlyph size={20} color={colors.ink} />}
                 accessibilityLabel={t('common.close')}
                 onPress={() => router.back()}
@@ -946,7 +1044,12 @@ export default function ReaderScreen() {
 
       {!isDesktop ? (
         <Sheet
-          visible={!!selectedToken}
+          // Run 8 lane D: always docked on phone. The header mic button is
+          // gone (its action is now the panel's last row), so the sheet must
+          // be present with the empty state + "Talk about this passage" even
+          // before a word is tapped. The run-7 `bottomOffset` logic is
+          // untouched — the transport still docks below the sheet.
+          visible
           style={styles.mobileSheet}
           bottomOffset={transportHeight}
           onHeightChange={setSheetHeight}
@@ -1060,11 +1163,10 @@ function CompletionView({
       </View>
       {book ? (
         <Cover
-          art={book.cover}
+          book={book}
           width={140}
           height={210}
           cutout
-          svgUrl={book.svgUrl}
           accessibilityLabel={book.title}
         />
       ) : null}
@@ -1121,14 +1223,15 @@ function createStyles(colors: ThemeColors) {
       flexDirection: 'row',
     },
     // Fills all space left of the docked 360px panel; its children cap at
-    // 620 individually (styles.passageCapped) so the passage reads as
-    // left-aligned within this wrapper rather than centered or stretched to
-    // the panel's edge (DESKTOP.md §5).
+    // 640 individually (styles.passageCapped), centered in that space —
+    // run 8 APP-V2-SPEC.md: "reader passage column 640 centered".
     passageWrapper: {
       flex: 1,
     },
     passageCapped: {
-      maxWidth: 620,
+      maxWidth: 640,
+      width: '100%',
+      alignSelf: 'center',
     },
     scrollContent: {
       paddingTop: space.sm,
@@ -1146,38 +1249,90 @@ function createStyles(colors: ThemeColors) {
       ...(Platform.OS === 'web' ? { position: 'sticky', top: 0, maxHeight: '100vh' } : null),
     } as ViewStyle,
     desktopPanelContent: {
-      padding: space.xl,
+      padding: 28,
+      // Lets panelInner stretch to the panel's full height so the talk row's
+      // `marginTop: auto` actually pins it to the bottom.
+      flexGrow: 1,
     },
     mobileSheet: {
       maxHeight: '60%',
     },
     panelInner: {
-      gap: space.sm,
+      flexGrow: 1,
     },
     panelHeaderRow: {
       flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+      gap: space.md,
+    },
+    panelHeaderText: {
+      flexShrink: 1,
+      gap: space.xs,
+    },
+    panelSpeaker: {
+      marginLeft: 'auto',
+    },
+    formLine: {
+      // Mockup `.ph`: mono 12, tracking .04em (Text's mono role tracks at
+      // .08em, so this narrows it back down for this one line).
+      letterSpacing: 0.04 * 12,
     },
     panelActions: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: space.lg,
-      marginTop: space.sm,
+      gap: space.md,
+      marginTop: space.lg,
+    },
+    // PLAN.md decision 14: every text link gets a 40px hit height.
+    textLink: {
+      minHeight: 40,
+      justifyContent: 'center',
     },
     saveButton: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: space.xs,
+      gap: space.sm,
       backgroundColor: colors.surface2,
       borderRadius: radius.md,
-      paddingVertical: space.sm,
-      paddingHorizontal: space.md,
+      paddingVertical: 11,
+      paddingHorizontal: 14,
     },
     saveButtonActive: {
       backgroundColor: colors.mark,
       borderWidth: 1.5,
       borderColor: colors.ink,
+    },
+    // Saved state carries the 4px ink cutout (mockup `.save.done`), drawn as
+    // an offset View behind the face — the same technique Button.tsx uses,
+    // since RN has no hard-edged box-shadow.
+    saveCutout: {
+      backgroundColor: colors.ink,
+      borderRadius: radius.md,
+      transform: [{ translateX: shadow.cutoutInk.offsetX }, { translateY: shadow.cutoutInk.offsetY }],
+    },
+    panelSection: {
+      marginTop: 26,
+      paddingTop: 18,
+      borderTopWidth: 1,
+      borderTopColor: colors.hairline,
+      gap: space.sm,
+    },
+    panelEyebrow: {
+      textTransform: 'uppercase',
+    },
+    passageMark: {
+      backgroundColor: colors.mark,
+    },
+    talkRow: {
+      marginTop: 'auto',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: space.sm,
+      backgroundColor: colors.surface2,
+      borderRadius: radius.md,
+      paddingVertical: 14,
+      paddingHorizontal: space.md,
     },
     sentenceDetail: {
       marginTop: space.sm,
@@ -1189,19 +1344,21 @@ function createStyles(colors: ThemeColors) {
     flexShrink: {
       flexShrink: 1,
     },
+    // Run 8 mockup `.transport`: a hairline-topped thin bar under the
+    // passage, inside the same 640 measure.
     transport: {
       borderTopWidth: 1,
       borderTopColor: colors.hairline,
       backgroundColor: colors.surface,
       paddingHorizontal: space.gutter.phone,
-      paddingTop: space.md,
+      paddingTop: 14,
       paddingBottom: space.lg,
-      gap: space.sm,
+      gap: space.md,
     },
-    // DESKTOP.md §5: transport docks to the bottom of the passage column
-    // only (620 max), not the full viewport width under the panel too.
     transportDesktop: {
-      maxWidth: 620,
+      maxWidth: 640,
+      width: '100%',
+      alignSelf: 'center',
       ...(Platform.OS === 'web' ? { position: 'sticky', bottom: 0 } : null),
     } as ViewStyle,
     progressTrack: {
@@ -1219,15 +1376,25 @@ function createStyles(colors: ThemeColors) {
       height: '100%',
       backgroundColor: colors.ink,
     },
+    // Mockup grid `auto 1fr auto`: elapsed left, controls centered in the
+    // remaining space, remaining time + speed right.
     transportRow: {
       flexDirection: 'row',
       alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: space.lg,
+    },
+    transportControls: {
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
       justifyContent: 'center',
-      gap: space.xl,
+      gap: space.md,
     },
     transportMeta: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      alignItems: 'center',
+      gap: space.xs,
     },
     completionRoot: {
       alignItems: 'center',

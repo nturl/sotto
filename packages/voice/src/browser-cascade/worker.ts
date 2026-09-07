@@ -44,6 +44,7 @@ import {
   type ToolCallResult,
 } from './llm-turn.ts';
 import { TTS_MODEL } from './models.ts';
+import { prepareForSpeech } from './tts-text.ts';
 import {
   WORKER_SAMPLE_RATE,
   TUTOR_SAMPLE_RATE,
@@ -428,20 +429,66 @@ async function loadLlm(llmId: string): Promise<void> {
 // docs say so explicitly rather than silently going quiet.
 let kokoro: KokoroTTS | null = null;
 
+/**
+ * Which weights to load per device. This used to be `q8` on both, which is
+ * what kokoro-js's README explicitly warns against for WebGPU: "If using
+ * 'webgpu', we recommend using dtype='fp32'" (kokoro-js 1.2.1, README.md
+ * line 29). Noel's report of gibberish speech came from a WebGPU machine.
+ *
+ * Run 9 lane C numbers, Node/cpu round trip (Kokoro -> Whisper base, WER
+ * against the sentence asked for; packages/voice/scripts/tts-roundtrip.mjs,
+ * full table in planning/run9/C-report.md):
+ *   see the report — q8 and fp32 both score well on CPU, so the CPU/wasm
+ *   path keeps q8 (a 90 MB download instead of 330 MB). The webgpu entry is
+ *   fp32 on the strength of the vendor's own warning plus the browser
+ *   matrix in the same report.
+ *
+ * `wasm` stays q8 deliberately: it is the fallback path on machines with no
+ * WebGPU at all, which are also the machines least able to afford a 330 MB
+ * download and fp32 inference.
+ */
+const TTS_DTYPE: Record<'webgpu' | 'wasm', 'fp32' | 'q8'> = {
+  webgpu: 'fp32',
+  wasm: 'q8',
+};
+
+/**
+ * Diagnostic override for the dtype matrix (apps/client/e2e/
+ * tts-browser-matrix.mjs). The worker is spawned by URL from
+ * `provider.ts`/`sample.ts`, which this lane does not own, so the knob is a
+ * worker-global rather than a new field on `WorkerInitPayload.debug`: the
+ * matrix creates a tiny module-blob worker that sets
+ * `self.__SOTTO_TTS_DTYPE__` and then dynamically imports the real bundle.
+ * Never set by the app.
+ */
+function debugTtsDtype(): 'fp32' | 'fp16' | 'q8' | 'q4' | 'q4f16' | null {
+  const v = (globalThis as { __SOTTO_TTS_DTYPE__?: unknown }).__SOTTO_TTS_DTYPE__;
+  return typeof v === 'string' && ['fp32', 'fp16', 'q8', 'q4', 'q4f16'].includes(v)
+    ? (v as 'fp32')
+    : null;
+}
+
 async function loadTts(): Promise<void> {
   if (kokoro) return;
   const started = Date.now();
   const attempts: Array<'webgpu' | 'wasm'> =
     typeof navigator !== 'undefined' && 'gpu' in navigator ? ['webgpu', 'wasm'] : ['wasm'];
+  const override = debugTtsDtype();
   let lastError: unknown = null;
   for (const device of attempts) {
+    const dtype = override ?? TTS_DTYPE[device];
     try {
       kokoro = await KokoroTTS.from_pretrained(TTS_MODEL.id, {
-        dtype: 'q8',
+        dtype,
         device,
         progress_callback: progressReporter(TTS_MODEL.id) as never,
       });
-      post({ t: 'metric', name: 'tts_load_ms', ms: Date.now() - started, detail: device });
+      post({
+        t: 'metric',
+        name: 'tts_load_ms',
+        ms: Date.now() - started,
+        detail: `${device}/${dtype}`,
+      });
       return;
     } catch (err) {
       lastError = err;
@@ -586,15 +633,22 @@ async function speakSentence(
     try {
       if (!kokoro) await loadTts();
       const speed = s.pace === 'slow' ? 0.85 : 1.0;
-      const audio = await kokoro!.generate(sentence, { voice: 'af_heart', speed });
-      if (abort.signal.aborted || s.currentUtteranceId !== utteranceId) return;
-      const pcm16 = floatToPcm16(audio.audio);
-      const buf = pcm16.buffer.slice(
-        pcm16.byteOffset,
-        pcm16.byteOffset + pcm16.byteLength,
-      ) as ArrayBuffer;
-      s.currentUtteranceChunks.push(buf);
-      post({ t: 'audio', utteranceId, pcm: buf, sampleRate: TUTOR_SAMPLE_RATE }, [buf]);
+      // Never hand Kokoro the model's raw text: markdown decoration is
+      // pronounced ("Astroskastrisk the dog Astroskastrisk…" — measured, run
+      // 9 lane C) and anything past ~510 phoneme tokens is silently
+      // truncated. `prepareForSpeech` cleans it and splits it; the pieces
+      // stay inside the SAME utterance so barge-in and replay are unchanged.
+      for (const piece of prepareForSpeech(sentence)) {
+        const audio = await kokoro!.generate(piece, { voice: 'af_heart', speed });
+        if (abort.signal.aborted || s.currentUtteranceId !== utteranceId) return;
+        const pcm16 = floatToPcm16(audio.audio);
+        const buf = pcm16.buffer.slice(
+          pcm16.byteOffset,
+          pcm16.byteOffset + pcm16.byteLength,
+        ) as ArrayBuffer;
+        s.currentUtteranceChunks.push(buf);
+        post({ t: 'audio', utteranceId, pcm: buf, sampleRate: TUTOR_SAMPLE_RATE }, [buf]);
+      }
     } catch (err) {
       post({
         t: 'metric',
@@ -1067,11 +1121,21 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
         }
         try {
           if (!kokoro) await loadTts();
-          const audio = await kokoro!.generate(msg.text, { voice: 'af_heart', speed: 1.0 });
-          const buf = audio.audio.buffer.slice(
-            audio.audio.byteOffset,
-            audio.audio.byteOffset + audio.audio.byteLength,
-          ) as ArrayBuffer;
+          // Same cleaning as `speakSentence`; the pieces are concatenated
+          // because `sample_result` is a single one-shot buffer.
+          const parts: Float32Array[] = [];
+          for (const piece of prepareForSpeech(msg.text)) {
+            const audio = await kokoro!.generate(piece, { voice: 'af_heart', speed: 1.0 });
+            parts.push(audio.audio);
+          }
+          const total = parts.reduce((n, p) => n + p.length, 0);
+          const pcm = new Float32Array(total);
+          let offset = 0;
+          for (const p of parts) {
+            pcm.set(p, offset);
+            offset += p.length;
+          }
+          const buf = pcm.buffer as ArrayBuffer;
           post({ t: 'sample_result', pcm: buf, sampleRate: TUTOR_SAMPLE_RATE }, [buf]);
         } catch (err) {
           post({

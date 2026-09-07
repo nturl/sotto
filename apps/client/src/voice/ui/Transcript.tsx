@@ -3,6 +3,13 @@
  * screen's middle section. Renders `session.captions` as learner/tutor
  * turns (not a caption strip), scrollable, latest turn kept in view.
  *
+ * Run 9 lane D directives 2 and 4: the newest final learner turn (on the
+ * paths where speech-to-text runs on this device) carries a "Not what you
+ * said? Type it" link that prefills the text fallback with what STT heard,
+ * so a misheard turn is correctable instead of just wrong; and lane A's
+ * fixed English "didn't catch that" caption — posted from a worker that
+ * has no locale — is rendered as the localized `voice.didNotCatch`.
+ *
  * `notSpoken`/Replay affordance (run7/G directive 1(b), finishing what F2
  * flagged as blocked): a caption whose speech synthesis failed carries
  * `notSpoken: true` (threaded from `packages/voice`'s `VoiceEvent` through
@@ -21,6 +28,7 @@ import { Text } from '../../ui/Text';
 import { useTheme } from '../../ui/theme';
 import { webCursor } from '../../ui/tokens';
 import type { CaptionEntry } from '../../state/types';
+import { isDidNotCatchCaption } from '../didNotCatch';
 
 export interface TranscriptProps {
   captions: CaptionEntry[];
@@ -28,9 +36,19 @@ export interface TranscriptProps {
    * its Replay button is pressed. Optional so this component still renders
    * plainly wherever no replay action is wired. */
   onReplaySentence?: (text: string) => void;
+  /** Run 9 lane D directive 2: the id of the one learner caption that gets
+   * the "type it instead" affordance (`correctableCaptionId`), or null. */
+  correctableId?: string | null;
+  /** Called with that caption's text when the affordance is pressed. */
+  onCorrectCaption?: (text: string) => void;
 }
 
-export function Transcript({ captions, onReplaySentence }: TranscriptProps) {
+export function Transcript({
+  captions,
+  onReplaySentence,
+  correctableId,
+  onCorrectCaption,
+}: TranscriptProps) {
   const t = useT();
   const { colors } = useTheme();
   const styles = createStyles(colors);
@@ -64,8 +82,22 @@ export function Transcript({ captions, onReplaySentence }: TranscriptProps) {
             {c.speaker === 'tutor' ? t('voice.tutorLabel') : t('voice.learnerLabel')}
           </Text>
           <Text role="ui" color="ink" style={styles.turnText}>
-            {c.text}
+            {c.speaker === 'tutor' && isDidNotCatchCaption(c.text)
+              ? t('voice.didNotCatch')
+              : c.text}
           </Text>
+          {c.id === correctableId && onCorrectCaption ? (
+            <Pressable
+              onPress={() => onCorrectCaption(c.text)}
+              accessibilityRole="button"
+              accessibilityLabel={t('voice.correctCaption')}
+              style={webCursor}
+            >
+              <Text role="caption" color="accent">
+                {t('voice.correctCaption')}
+              </Text>
+            </Pressable>
+          ) : null}
           {c.notSpoken ? (
             <View style={styles.notSpokenRow}>
               <Text role="caption" color="warn">

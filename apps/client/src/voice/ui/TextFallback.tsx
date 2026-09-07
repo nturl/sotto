@@ -5,7 +5,7 @@
  * whenever a session is live, including mid-session recovery states, so a
  * learner without a working mic can keep the conversation going.
  */
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 import { radius, space } from '@sotto/core/theme';
 import { useT } from '../../i18n/useT';
@@ -15,13 +15,32 @@ import { webCursor } from '../../ui/tokens';
 
 export interface TextFallbackProps {
   onSend: (text: string) => void;
+  /**
+   * Run 9 lane D directive 2: the transcript's "Not what you said? Type
+   * it" affordance drops what STT heard into this field and focuses it, so
+   * the learner edits a wrong transcript instead of retyping the turn.
+   * `nonce` is what makes a second tap on the same caption re-apply.
+   */
+  prefill?: { text: string; nonce: number };
 }
 
-export function TextFallback({ onSend }: TextFallbackProps) {
+export function TextFallback({ onSend, prefill }: TextFallbackProps) {
   const t = useT();
   const { colors } = useTheme();
   const styles = createStyles(colors);
   const [value, setValue] = useState('');
+  const inputRef = useRef<TextInput>(null);
+
+  const nonce = prefill?.nonce ?? 0;
+  const prefillText = prefill?.text ?? '';
+  useEffect(() => {
+    if (nonce === 0) return;
+    setValue(prefillText);
+    inputRef.current?.focus();
+    // Only a fresh tap (a new nonce) re-prefills — editing the field must
+    // not be undone by this effect re-running.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nonce]);
 
   const send = () => {
     const trimmed = value.trim();
@@ -33,6 +52,7 @@ export function TextFallback({ onSend }: TextFallbackProps) {
   return (
     <View style={styles.row}>
       <TextInput
+        ref={inputRef}
         value={value}
         onChangeText={setValue}
         placeholder={t('voice.textFallbackPlaceholder')}

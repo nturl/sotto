@@ -9,13 +9,22 @@
  * ring itself (states: ready/connecting/listening/thinking/speaking/muted,
  * directive 3), and Replay / Stop / End.
  *
+ * Run 9 lane D directive 1: the ring is rendered in every state this
+ * cluster is mounted for — including `speaking` (the run-9 screenshots at
+ * 375 and 1440 confirm it; PLAN.md diagnosis 4's hidden-mic reading is
+ * refuted in planning/run9/D-report.md). What it gained this run is
+ * keyboard hold-to-talk on web (space held, the same press/release the
+ * mouse and touch handlers already produce), because a 72 px ring you can
+ * only reach with a pointer is not "always usable".
+ *
  * Speaker (tutor output) mute (run7/G directive 1(a), finishing what F2
  * flagged as blocked on an interface it didn't own): a standing toggle that
  * silences tutor TTS playback via `VoiceProvider.setOutputMuted` — distinct
  * from capture-mute (the ring/toggle above) and from Stop (one-shot
  * barge-in).
  */
-import { Pressable, StyleSheet, View } from 'react-native';
+import { useEffect, useRef } from 'react';
+import { Platform, Pressable, StyleSheet, View } from 'react-native';
 import type { VoiceState } from '@sotto/voice';
 import { radius, space } from '@sotto/core/theme';
 import type { UserPreferences } from '@sotto/core';
@@ -70,6 +79,44 @@ export function ControlCluster({
   const isPush = turnDetection === 'push';
   const muted = voiceState === 'muted';
 
+  // Space-held push-to-talk (web). Kept in a ref so the listener is
+  // registered once per mode change rather than re-registered on every
+  // render (the screen passes a fresh inline handler each time), and so a
+  // key held when this unmounts still releases capture.
+  const pushRef = useRef(onPushToTalk);
+  pushRef.current = onPushToTalk;
+  useEffect(() => {
+    if (Platform.OS !== 'web' || typeof window === 'undefined' || !isPush) return undefined;
+    let held = false;
+    // The text fallback sits right under this cluster: a space typed into
+    // it (or into any other field/button) is a space, not a mic press.
+    const isTyping = (target: EventTarget | null): boolean => {
+      const el = target as { tagName?: string; isContentEditable?: boolean } | null;
+      if (!el) return false;
+      const tag = el.tagName?.toUpperCase();
+      return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'BUTTON' || !!el.isContentEditable;
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.code !== 'Space' || e.repeat || held || isTyping(e.target)) return;
+      e.preventDefault();
+      held = true;
+      pushRef.current(true);
+    };
+    const onKeyUp = (e: KeyboardEvent) => {
+      if (e.code !== 'Space' || !held) return;
+      e.preventDefault();
+      held = false;
+      pushRef.current(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    window.addEventListener('keyup', onKeyUp);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('keyup', onKeyUp);
+      if (held) pushRef.current(false);
+    };
+  }, [isPush]);
+
   return (
     <View style={styles.root}>
       <View style={styles.modeToggleRow}>
@@ -115,6 +162,7 @@ export function ControlCluster({
             onPressOut={() => onPushToTalk(false)}
             accessibilityRole="button"
             accessibilityLabel={t('voice.holdToTalk')}
+            accessibilityHint={t('voice.holdToTalkHint')}
             style={[
               styles.ring,
               { borderColor: ringColor(voiceState, colors) },

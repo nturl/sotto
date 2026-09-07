@@ -26,6 +26,8 @@ import { useTheme } from '../../src/ui/theme';
 import { webCursor } from '../../src/ui/tokens';
 import { useSottoStore } from '../../src/state/store';
 import { buildPassageWindow } from '../../src/voice/passage';
+import { correctableCaptionId } from '../../src/voice/captionCorrection';
+import { micPressAction } from '../../src/voice/micPress';
 import { TutorModelsPanel, type TutorModelsPanelState } from '../../src/voice/TutorModelsPanel';
 import { useOwnProviderStatus } from '../../src/voice/ownProviderStatus';
 import { useVoiceSession } from '../../src/voice/useVoiceSession';
@@ -77,6 +79,14 @@ export default function VoiceScreen() {
   });
 
   const [pttHeld, setPttHeld] = useState(false);
+  // Run 9 lane D directive 2: a "Not what you said? Type it" tap pushes the
+  // misheard transcript into the text fallback. The nonce is what makes a
+  // second tap on the same caption re-prefill a field the learner has since
+  // edited or cleared.
+  const [correctionPrefill, setCorrectionPrefill] = useState<{ text: string; nonce: number }>({
+    text: '',
+    nonce: 0,
+  });
   // run7/G directive 1(a): screen-local — the toggle only needs to persist
   // for this mounted session, same lifetime as `pttHeld`; the provider
   // itself is the source of truth for whether playback is actually muted.
@@ -264,7 +274,14 @@ export default function VoiceScreen() {
       ) : null}
 
       {!isUnavailable ? (
-        <Transcript captions={session.captions} onReplaySentence={session.replaySentence} />
+        <Transcript
+          captions={session.captions}
+          onReplaySentence={session.replaySentence}
+          correctableId={correctableCaptionId(session.captions, session.activePath)}
+          onCorrectCaption={(text) =>
+            setCorrectionPrefill((prev) => ({ text, nonce: prev.nonce + 1 }))
+          }
+        />
       ) : (
         <View style={styles.spacer} />
       )}
@@ -365,6 +382,13 @@ export default function VoiceScreen() {
             onSetTurnDetection={(next: TurnDetection) => setPreferences({ turnDetection: next })}
             pttHeld={pttHeld}
             onPushToTalk={(active) => {
+              // Run 9 lane D directive 1: pressing the mic while the tutor
+              // holds the audio floor is a barge-in first — otherwise the
+              // tutor keeps playing over the learner and the cascade hears
+              // its own output back through the speakers.
+              const action = micPressAction(session.voiceState);
+              if (!action.capture) return;
+              if (active && action.interruptFirst) session.interrupt();
               setPttHeld(active);
               session.pushToTalk(active);
             }}
@@ -383,7 +407,7 @@ export default function VoiceScreen() {
             }}
           />
           <View style={styles.textFallback}>
-            <TextFallback onSend={session.sendText} />
+            <TextFallback onSend={session.sendText} prefill={correctionPrefill} />
           </View>
         </>
       ) : null}

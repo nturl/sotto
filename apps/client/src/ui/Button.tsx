@@ -9,7 +9,7 @@
  */
 import { useEffect, useRef, useState } from 'react';
 import { Animated, Easing, Pressable, StyleSheet, View, type ViewStyle } from 'react-native';
-import { motion, radius, shadow, space } from '@sotto/core/theme';
+import { colors as lightColors, motion, radius, shadow, space } from '@sotto/core/theme';
 import { themeColors as colors } from './theme';
 import { Text } from './Text';
 import { webCursor } from './tokens';
@@ -75,7 +75,12 @@ export function Button({
       : variant === 'ghost'
         ? { backgroundColor: 'transparent' }
         : { backgroundColor: disabled ? colors.surface2 : colors.accent };
-  const labelColor = disabled ? 'ink3' : isPrimary ? 'surface' : 'ink';
+  // PLAN decision 8 / mockup `.btn.cta`: the primary label is ink on the
+  // accent fill (5:1) — cream on coral measured 3.42:1. The accent and the
+  // cutout carry one colourway in both schemes, so the label and the cutout
+  // that sit on it are pinned to the light ink rather than the active one.
+  const labelColor = disabled ? 'ink3' : 'ink';
+  const onAccent = isPrimary && !disabled;
 
   return (
     <Pressable
@@ -97,7 +102,7 @@ export function Button({
             style={[
               StyleSheet.absoluteFill,
               styles.cutout,
-              !disabled && { backgroundColor: colors.ink },
+              !disabled && { backgroundColor: lightColors.ink },
               { transform: [{ translateX: shadowOffset }, { translateY: shadowOffset }] },
             ]}
           />
@@ -112,7 +117,11 @@ export function Button({
           ]}
         >
           {icon}
-          <Text role="uiButton" color={labelColor}>
+          <Text
+            role="uiButton"
+            color={labelColor}
+            style={onAccent ? { color: lightColors.ink } : undefined}
+          >
             {title}
           </Text>
         </Animated.View>

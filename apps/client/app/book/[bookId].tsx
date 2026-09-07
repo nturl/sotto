@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { space } from '@sotto/core/theme';
+import { colors as lightColors, space } from '@sotto/core/theme';
 import { themeColors as colors } from '../../src/ui/theme';
 import { useT } from '../../src/i18n/useT';
 import { BackLink } from '../../src/ui/BackLink';
@@ -36,7 +36,7 @@ export default function BookDetailScreen() {
     <View style={isDesktop ? styles.actionsDesktop : styles.actions}>
       <Button
         title={readLabel}
-        icon={<PlayGlyph size={16} color={colors.surface} />}
+        icon={<PlayGlyph size={16} color={lightColors.ink} />}
         accessibilityLabel={readLabel}
         onPress={() => router.push(`/reader/${book.id}`)}
       />

@@ -813,3 +813,10 @@ INCIDENT — a parallel session ran `git add -A` in the shared tree throughout t
 - Hero CTA is now "Try the tutor free for 3 days" → `app.readsotto.app/account?intent=start&returnTo=/paywall`; text links "Read free, no account" (/start) and "Sign in"; note under it states the free/paid split and the price. Tutor pane in the book leads with the plan (checked by default), then own key, on-device, self-hosted; on-device note now says it is slower and needs a big download. Scene 05: "The tutor is the part you pay for. The rest stays free."
 - Shipped `e35ab90` + `a4b5b2a` (nowrap so the CTA holds one line at desktop). Free origin deployed from a clean `git archive` copy: sotto-ohtuh7peb (production). Live-checked at 375 and 1440; DOM readout confirmed plan radio checked and the new footnote.
 - Not traced: whether a no-key user on the free origin who taps Discuss is steered to the plan before the model download starts. Worth a look next session.
+
+## Run 9 (2026-09-06 → 07, Fable orchestrator, Opus lanes in worktrees; spec planning/run9/PLAN.md)
+
+SHIPPED to the free origin (`dpl_2QMDzgXxJ1uQDBNw97CDzdRSH9Mm`), branch `run9/integration` pushed, NOT merged to main (Noel's ff-merge; another session has uncommitted worker.ts edits). Handoff: `planning/run9/FINAL.md`.
+- The no-key Discuss tutor: whisper's "you" silence hallucination gated; PTT pre-roll; half-duplex VAD held until playback drains; compact prompt + reply shaping + 3-sentence budget + question continuation for the 2B model; Kokoro fp32 on WebGPU (q8 there was the gibberish, WER 4.35 → 0.00); markdown never spoken; mic interrupts mid-utterance; SPEAKING honest until audio ends.
+- Proof: `discuss-quality.mjs` round-trip probe 14/18 baseline → 18/18 ×2; 1009 tests; hosted smoke PASS live.
+- One worktree per lane worked: no sweeps this run.

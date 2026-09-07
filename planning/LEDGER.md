@@ -747,6 +747,7 @@ SHIPPED
 - D: the word popup scrolls instead of clipping, saving says so, "Talk about this passage" reaches the tutor with the passage, and narration / word audio / tutor speech can no longer overlap. Noel's "clipped word" measured on the sprites the app actually plays: not truncated (`fr-petit-chaperon-rouge` exactly 0.000).
 - E + H: own-provider mode is a guided flow reachable from Settings and the tutor, with one deliberate action that stores *and* selects, and a status that now reads the same on every screen **and survives a reload** — which is what recording 3's complaint actually was. CONFIRM 26.
 - F1/F2/G/G2 + H/H2: the tutor is a conversation. It opens with one short spoken sentence, keeps a readable transcript with no duplicated bubbles, shows one control cluster with the input-mode switch in place, offers a text fallback, and gives a specific recovery panel — mic denied, no device, rejected key, quota, blocked playback — instead of a spinner. Every swallowed speech failure now surfaces. The Provence question from recording 3 gets a grounded French answer, aloud: probe 10/10 on three separate runs, `started: 107`, `totalSamples: 249,186`. CONFIRM 27.
+- Hosted smoke (`0ffb2c8`): `apps/client/e2e/hosted.mjs` rewritten for the four-step wizard, then run against the deployed https://readsotto.app — PASS at 375 and 1440, landing to reader in six taps, narration playing, a saved word surviving a reload, offline reload served from the service worker.
 - R + H + H2: four P0s the lanes had reported as fixed were re-opened by the review and closed for real, each with a live proof rather than a unit test alone.
 
 NEEDS NOEL
@@ -761,7 +762,6 @@ PARTIAL, NOT VERIFIED (carried, honestly)
 - The chunker's abbreviation fix is unit-verified on both copies; the post-restart probe opened with "Bonjour.", which contains no abbreviation, so the "M. Seguin" case has not been watched passing live.
 - The probe's "ends with a question" assertion is model compliance, not code: 1 miss in 4 observed. It will be flaky at that rate as a CI gate.
 - The own-provider network path, the `notSpoken` → Replay marker, Apple sign-in and the native deep link are all mock-only; no real key was ever pasted in this run.
-- `apps/client/e2e/hosted.mjs` is mid-rewrite for the new journey and uncommitted, so the deployed free origin has no automated end-to-end gate yet — only hand curls.
 
 CARRIED TO RUN 8
 - `packages/core/src/models.ts` needs an owner: `ReadingProgress` has no `tokenId`, so "Talk about this passage" always opens the chapter's first window rather than where the learner was.

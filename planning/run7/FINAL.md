@@ -178,6 +178,10 @@ committed files).
 - Landing: all eight hrefs 200; install detection driven at five real UA strings; focus
   ring on all eight tab stops; `prefers-reduced-motion` honoured; the deployed page
   curled (`<title>Sotto reads with you</title>`, `/content/packs` → JSON).
+- The hosted smoke test against the deployed `readsotto.app`: PASS at 375 and 1440 —
+  landing → Try a sample → four wizard steps → recommendation → reader in six taps,
+  narration playing, a word saved and surviving a reload, and an offline reload served
+  from the service worker's shell and content caches.
 - Lane C's account and onboarding journey: 55 assertions, 0 failures — but against a
   **local** sotto-cloud with stub billing and the magic link read from the server's own
   staging log, not against the live paid origin.
@@ -322,6 +326,6 @@ changes too; no separate `pnpm deploy:web` is needed for the paid origin.
 11. **Small copy and i18n nits**: the landing `<meta description>` calls Sotto "free" with
     no qualifier while the plan is $9.99; `zh-Hans` renders "tutor" as 辅导 in
     `settings.tutorMode` and 导师 in `voice.muteSpeaker`.
-12. **`apps/client/e2e/hosted.mjs` is mid-rewrite** for the new journey and uncommitted at
-    the time of writing, so the deployed free origin has no automated end-to-end gate —
-    only the hand curls in `docs/verification.md` row 21.
+12. **The sample path now costs six taps** from the landing to the first page of a book
+    (landing → Try a sample → four wizard steps → Start reading), counted by the hosted
+    smoke test. That is the price of CONFIRM 28 and the reason to decide it.

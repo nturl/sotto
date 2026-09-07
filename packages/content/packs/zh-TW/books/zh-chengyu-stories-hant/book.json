@@ -331,6 +331,7 @@
     "attribution": "Sotto contributors; based on ancient public-domain sources (Han Feizi, Zhan Guo Ce)"
   },
   "cover": "cover.svg",
+  "coverInk": "ink",
   "chapters": [
     {
       "id": "zh-chengyu-stories-hant-01",
@@ -360,11 +361,11 @@
       "durationMs": 44880
     }
   ],
-  "edition": "zh-TW",
-  "sourceBookId": "zh-chengyu-stories",
   "wordAudio": {
     "file": "audio/words.mp3",
     "index": "audio/words.json",
     "count": 117
-  }
+  },
+  "edition": "zh-TW",
+  "sourceBookId": "zh-chengyu-stories"
 }

@@ -80,6 +80,8 @@ export interface Book {
   comprehension: ComprehensionQuestion[];
   license: License;
   cover: string;
+  /** See `CoverInk`. Present only when `cover` is hand-authored art. */
+  coverInk?: CoverInk;
   chapters: ChapterSummary[];
   /**
    * Set by `sotto-content word-audio` (R3-W): a sprite of every unique
@@ -104,6 +106,14 @@ export interface Book {
   private?: boolean;
 }
 
+/**
+ * Which of the two text colours the app prints over a hand-authored cover's
+ * bottom band (planning/design/COVERS-DIRECTIONS-SPEC.md, direction B). Set
+ * from `packages/content/covers/covers.json` by `sotto-content build`, and
+ * absent on a book whose cover is the deterministic generated one.
+ */
+export type CoverInk = 'ink' | 'canvas';
+
 /** The condensed form of a Book listed in `pack.json`. */
 export interface BookSummary {
   bookId: string;
@@ -118,6 +128,8 @@ export interface BookSummary {
   premise: Record<string, string>;
   reviewStatus: ReviewStatus;
   cover: string;
+  /** See `Book.coverInk`. */
+  coverInk?: CoverInk;
   chapterCount: number;
   /** See `Book.private`. */
   private?: boolean;

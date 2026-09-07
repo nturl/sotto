@@ -10,7 +10,7 @@
  * arbitrary artwork. Here the hash only picks *within* a collection's
  * palette triple, so a book's paper still says something true about it.
  */
-import type { BookCategory, BookLevel } from '@sotto/core';
+import type { BookCategory, BookLevel, CoverInk } from '@sotto/core';
 import type { PaperName } from '@sotto/core/theme';
 
 /** The metadata a cover renders from. `LibraryBook` satisfies it
@@ -21,10 +21,38 @@ export type CoverSource = {
   author: string;
   level: BookLevel;
   categories: BookCategory[];
-  /** Real pack cover. Used only as a fallback when `title` is empty (the
+  /** Real pack cover. The hand-authored art for a book that has `coverInk`;
+   * otherwise used only as a fallback when `title` is empty (the
    * placeholder book the library seam returns before packs land). */
   svgUrl?: string;
+  /** Set by `sotto-content build` for a book whose cover.svg is drawn art
+   * with a solid band across its bottom (CoverInk names which of the two
+   * text colours prints on that band). Absent on an imported/private book
+   * and on any pack built before the art landed. */
+  coverInk?: CoverInk;
 };
+
+/**
+ * Which cover a book gets. Direction B (planning/design/COVERS-DIRECTIONS
+ * -SPEC.md): a book with authored art wears it and the app prints the title
+ * block over the art's band; everything else keeps the run 8 typographic
+ * cover built from metadata. `svgUrl` is required for the authored branch
+ * because that is where the art actually is.
+ */
+export type CoverArt =
+  { kind: 'authored'; svgUrl: string; ink: CoverInk } | { kind: 'typographic' };
+
+export function coverArt(book: Pick<CoverSource, 'svgUrl' | 'coverInk'>): CoverArt {
+  if (book.coverInk && book.svgUrl) {
+    return { kind: 'authored', svgUrl: book.svgUrl, ink: book.coverInk };
+  }
+  return { kind: 'typographic' };
+}
+
+/** The fraction of the cover's height the authored band occupies: the art is
+ * drawn in a 220x330 viewBox with the band running from y 232 to the foot. */
+export const BAND_TOP = 232 / 330;
+export const BAND_HEIGHT = 98 / 330;
 
 /** PLAN decision 3: paper per collection, variation by id. */
 export const PAPER_BY_CATEGORY: Record<BookCategory, readonly PaperName[]> = {

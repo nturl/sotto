@@ -11,7 +11,13 @@
  * metadata by `Cover`/`coverPaper`. `dev/fixtures.ts` stays for tests only.
  */
 import { useEffect, useMemo } from 'react';
-import type { BookCategory, BookSummary, ReviewStatus, UserPreferences } from '@sotto/core';
+import type {
+  BookCategory,
+  BookSummary,
+  CoverInk,
+  ReviewStatus,
+  UserPreferences,
+} from '@sotto/core';
 import type { BookLevel } from './dev/fixtures';
 import { assetUrl } from '../state/contentApi';
 import {
@@ -42,9 +48,13 @@ export type LibraryBook = {
    * links and, through `coverPaper`, the book's paper colour. */
   categories: BookCategory[];
   /** Real pack cover (CONTRACTS §2b `books/<bookId>/cover.svg`), resolved
-   * against the server. `Cover` reads it only as the fallback for a book
-   * with no title, since covers are now set from metadata. */
+   * against the server. `Cover` renders it as the book's artwork when
+   * `coverInk` is set; otherwise it is only the fallback for a book with no
+   * title, whose cover is set from metadata. */
   svgUrl: string;
+  /** @sotto/core `BookSummary.coverInk`: present when cover.svg is drawn
+   * art, and names the colour the title block prints in over its band. */
+  coverInk?: CoverInk;
   progress: number;
   isNew: boolean;
   synopsis: string;
@@ -149,6 +159,7 @@ export function toLibraryBook(
     svgUrl: summary.private
       ? ''
       : assetUrl(summary.contentLocale, summary.bookId, summary.cover || 'cover.svg'),
+    ...(summary.coverInk ? { coverInk: summary.coverInk } : {}),
     progress,
     isNew: progress === 0,
     synopsis,

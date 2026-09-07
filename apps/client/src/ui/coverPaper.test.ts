@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import {
+  BAND_HEIGHT,
+  BAND_TOP,
   COVER_GLYPHS,
+  coverArt,
   coverInitial,
   coverMark,
   coverPaper,
@@ -133,5 +136,26 @@ describe('coverMark', () => {
       ),
     );
     expect(glyphs.size).toBe(COVER_GLYPHS.length);
+  });
+});
+
+describe('coverArt', () => {
+  it('wears the authored art when the book has both a cover ink and a cover url', () => {
+    const art = coverArt(source({ id: 'en-poe', coverInk: 'canvas', svgUrl: '/c/cover.svg' }));
+    expect(art).toEqual({ kind: 'authored', svgUrl: '/c/cover.svg', ink: 'canvas' });
+  });
+
+  it('keeps the typographic cover for a book with no authored art', () => {
+    expect(coverArt(source({ id: 'x', svgUrl: '/c/cover.svg' })).kind).toBe('typographic');
+  });
+
+  it('keeps the typographic cover for a private book, which has no cover url', () => {
+    expect(coverArt(source({ id: 'x', coverInk: 'ink', svgUrl: '' })).kind).toBe('typographic');
+  });
+
+  it('places the band over the artwork\u2019s own text zone (y 232 of 330)', () => {
+    expect(BAND_TOP).toBeCloseTo(232 / 330);
+    expect(BAND_HEIGHT).toBeCloseTo(98 / 330);
+    expect(BAND_TOP + BAND_HEIGHT).toBeCloseTo(1);
   });
 });

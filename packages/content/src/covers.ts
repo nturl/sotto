@@ -1,14 +1,20 @@
 /**
  * Deterministic cover SVG generator (planning/CONTRACTS.md §2b): seeded from
- * bookId, flat geometric composition, palette per category. `content:build`
- * calls `generateCoverSvg` whenever a book's cover.svg is missing;
- * `content:covers` regenerates every cover in packs/ on demand.
+ * bookId, flat geometric composition, palette per category.
+ *
+ * Since the covers direction B ship (planning/design/COVERS-DIRECTIONS-SPEC
+ * .md) the generator is the *fallback*, not the source of truth: a book with
+ * hand-authored art under `packages/content/covers/<bookId>.svg` gets that
+ * file copied into its pack instead, and `covers.json` names the ink the app
+ * prints over the art's bottom band. `content:build` calls `writeCover` for
+ * every book; `content:covers` regenerates the generated covers under packs/
+ * and leaves the authored ones alone.
  */
-import { readFileSync, readdirSync, writeFileSync, existsSync } from 'node:fs';
+import { copyFileSync, readFileSync, readdirSync, writeFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
-import type { BookCategory } from '@sotto/core';
+import type { BookCategory, CoverInk } from '@sotto/core';
 import { seededRandom } from './prng.ts';
-import { PACKS_DIR } from './paths.ts';
+import { CONTENT_ROOT, PACKS_DIR } from './paths.ts';
 
 const W = 220;
 const H = 330;
@@ -226,20 +232,99 @@ export function generateCoverSvg(input: CoverInput): string {
 `;
 }
 
-export function writeCoverIfMissing(dir: string, input: CoverInput): boolean {
-  const coverPath = path.join(dir, 'cover.svg');
-  if (existsSync(coverPath)) return false;
-  writeFileSync(coverPath, generateCoverSvg(input), 'utf8');
-  return true;
+// ---- hand-authored art (direction B) --------------------------------------
+
+/** Where the drawn covers live: one `<bookId>.svg` per book (art only, no
+ * text) plus `covers.json` describing each. Data-driven — whatever is in
+ * this folder is authored, nothing is listed in code. */
+export const COVERS_DIR = path.join(CONTENT_ROOT, 'covers');
+
+export interface AuthoredCoverEntry {
+  ink: CoverInk;
+  band?: string;
+  motif?: string;
+  why?: string;
+  drawnBy?: string;
 }
 
-/** `content:covers` — regenerate every cover.svg already present under packs/. */
+export type AuthoredCovers = Record<string, AuthoredCoverEntry>;
+
+const authoredCache = new Map<string, AuthoredCovers>();
+
+/** The `covers.json` manifest, or `{}` when there is none. Cached per dir —
+ * `content:build` asks once per book. */
+export function readAuthoredCovers(coversDir: string = COVERS_DIR): AuthoredCovers {
+  const cached = authoredCache.get(coversDir);
+  if (cached) return cached;
+  const manifestPath = path.join(coversDir, 'covers.json');
+  let parsed: AuthoredCovers = {};
+  if (existsSync(manifestPath)) {
+    try {
+      parsed = JSON.parse(readFileSync(manifestPath, 'utf8')) as AuthoredCovers;
+    } catch {
+      console.warn(`sotto-content covers: ${manifestPath} is not valid JSON — ignoring it`);
+    }
+  }
+  authoredCache.set(coversDir, parsed);
+  return parsed;
+}
+
+/**
+ * The authored SVG for a book, or `undefined` when it has none. `artBookId`
+ * is the id the art is filed under, which is the *source* book for a derived
+ * edition (zh-TW's `-hant` twin reuses its simplified original's cover).
+ */
+export function authoredCoverPath(
+  artBookId: string,
+  coversDir: string = COVERS_DIR,
+): string | undefined {
+  const file = path.join(coversDir, `${artBookId}.svg`);
+  return existsSync(file) ? file : undefined;
+}
+
+/** The ink the app prints over an authored cover's band, or `undefined` when
+ * the book has no authored art (so the generated cover, and the typographic
+ * client fallback, still apply). */
+export function authoredCoverInk(
+  artBookId: string,
+  coversDir: string = COVERS_DIR,
+): CoverInk | undefined {
+  if (!authoredCoverPath(artBookId, coversDir)) return undefined;
+  const entry = readAuthoredCovers(coversDir)[artBookId];
+  return entry?.ink ?? 'ink';
+}
+
+/**
+ * Put a cover in a built book's directory. Authored art wins and is copied
+ * every build (it is the source of truth, so it overwrites a cover generated
+ * by an earlier run); otherwise the deterministic generator fills in, and
+ * only when nothing is there yet.
+ */
+export function writeCover(
+  dir: string,
+  input: CoverInput,
+  artBookId: string = input.bookId,
+): 'authored' | 'generated' | 'kept' {
+  const coverPath = path.join(dir, 'cover.svg');
+  const authored = authoredCoverPath(artBookId);
+  if (authored) {
+    copyFileSync(authored, coverPath);
+    return 'authored';
+  }
+  if (existsSync(coverPath)) return 'kept';
+  writeFileSync(coverPath, generateCoverSvg(input), 'utf8');
+  return 'generated';
+}
+
+/** `content:covers` — regenerate the *generated* cover.svg files under
+ * packs/, leaving every hand-authored cover as drawn. */
 export function runCoversCommand(): void {
   if (!existsSync(PACKS_DIR)) {
     console.log('sotto-content covers: packs/ does not exist yet, run `content:build` first');
     return;
   }
   let count = 0;
+  let kept = 0;
   for (const locale of readdirSync(PACKS_DIR)) {
     const booksDir = path.join(PACKS_DIR, locale, 'books');
     if (!existsSync(booksDir)) continue;
@@ -250,7 +335,13 @@ export function runCoversCommand(): void {
         title: string;
         author: string;
         categories: BookCategory[];
+        sourceBookId?: string;
       };
+      if (authoredCoverPath(book.sourceBookId ?? bookId)) {
+        console.log(`sotto-content covers: ${locale}/${bookId} authored, kept`);
+        kept += 1;
+        continue;
+      }
       const svg = generateCoverSvg({
         bookId,
         title: book.title,
@@ -261,5 +352,7 @@ export function runCoversCommand(): void {
       count += 1;
     }
   }
-  console.log(`sotto-content covers: regenerated ${count} cover${count === 1 ? '' : 's'}`);
+  console.log(
+    `sotto-content covers: regenerated ${count} cover${count === 1 ? '' : 's'}, kept ${kept} authored`,
+  );
 }

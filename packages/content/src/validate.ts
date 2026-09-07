@@ -14,6 +14,7 @@ import {
 } from '@sotto/core';
 import { CLIENT_I18N_DIR, PACKS_DIR, SOURCE_DIR, TEST_FIXTURES_DIR } from './paths.ts';
 import { GLOSS_LOCALES } from './gloss-fill.ts';
+import { COVERS_DIR, readAuthoredCovers } from './covers.ts';
 
 export type IssueSeverity = 'error' | 'warning';
 
@@ -650,6 +651,34 @@ function groupByScope(issues: ValidationIssue[]): Map<string, ValidationIssue[]>
   return map;
 }
 
+/**
+ * The hand-authored cover manifest (packages/content/covers/covers.json) is
+ * the direction-B source of truth: every book it names must actually have a
+ * drawn `<bookId>.svg` beside it, or `content:build` would silently fall
+ * back to the generated cover while the manifest claims otherwise.
+ */
+export function validateAuthoredCovers(): ValidationIssue[] {
+  const issues: ValidationIssue[] = [];
+  const manifest = readAuthoredCovers();
+  for (const [bookId, entry] of Object.entries(manifest)) {
+    if (!existsSync(path.join(COVERS_DIR, `${bookId}.svg`))) {
+      issues.push(
+        issue(
+          'covers',
+          'missing-asset',
+          `covers.json names ${bookId} but ${bookId}.svg is missing`,
+        ),
+      );
+    }
+    if (entry?.ink !== 'ink' && entry?.ink !== 'canvas') {
+      issues.push(
+        issue('covers', 'invalid-cover-ink', `covers.json ${bookId} has no ink ("ink" | "canvas")`),
+      );
+    }
+  }
+  return issues;
+}
+
 export function validateAllPacks(): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
   if (existsSync(PACKS_DIR)) {
@@ -660,6 +689,7 @@ export function validateAllPacks(): ValidationIssue[] {
     }
   }
   issues.push(...validateMessageCatalogs());
+  issues.push(...validateAuthoredCovers());
   return issues;
 }
 

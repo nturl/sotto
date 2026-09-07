@@ -15,6 +15,7 @@ import {
   type Book,
   type BookSummary,
   type Chapter,
+  type CoverInk,
   type ChapterSummary,
   type Pack,
   type Sentence,
@@ -27,7 +28,7 @@ import {
   type SourceBundle,
 } from './types.ts';
 import { SOURCE_DIR, PACKS_DIR, bookDir, packDir, chapterFileName } from './paths.ts';
-import { writeCoverIfMissing } from './covers.ts';
+import { authoredCoverInk, writeCover } from './covers.ts';
 import {
   DEFAULT_LLM_MODEL,
   DEFAULT_LLM_URL,
@@ -226,6 +227,29 @@ function mergeExistingChapterTimings(dir: string, chapter: Chapter): Chapter {
   };
 }
 
+/**
+ * `wordAudio` is written by `sotto-content word-audio`, not by the build, so
+ * a rebuild must carry the existing block forward or it silently deletes a
+ * synthesized sprite's index from book.json (only while the sprite files are
+ * still on disk — a removed sprite should drop the field).
+ */
+function mergeExistingWordAudio(dir: string): Book['wordAudio'] | undefined {
+  const bookJsonPath = path.join(dir, 'book.json');
+  if (!existsSync(bookJsonPath)) return undefined;
+  let previous: Book;
+  try {
+    previous = JSON.parse(readFileSync(bookJsonPath, 'utf8')) as Book;
+  } catch {
+    return undefined;
+  }
+  const wordAudio = previous.wordAudio;
+  if (!wordAudio) return undefined;
+  if (!existsSync(path.join(dir, wordAudio.file)) || !existsSync(path.join(dir, wordAudio.index))) {
+    return undefined;
+  }
+  return wordAudio;
+}
+
 function mergeExistingChapterAssets(
   dir: string,
   chapterSummaries: ChapterSummary[],
@@ -381,7 +405,12 @@ function writeMissingGlosses(dir: string, file: MissingGlossesFile): void {
   );
 }
 
-function bookFromBundle(bundle: SourceBundle, chapterSummaries: ChapterSummary[]): Book {
+function bookFromBundle(
+  bundle: SourceBundle,
+  chapterSummaries: ChapterSummary[],
+  coverInk?: CoverInk,
+  wordAudio?: Book['wordAudio'],
+): Book {
   return {
     schemaVersion: 1,
     bookId: bundle.bookId,
@@ -406,7 +435,12 @@ function bookFromBundle(bundle: SourceBundle, chapterSummaries: ChapterSummary[]
     comprehension: bundle.comprehension,
     license: bundle.license,
     cover: 'cover.svg',
+    // Only a hand-authored cover carries an ink: the app prints the title
+    // block over the art's band in it. A generated cover has its own text
+    // baked in, so the field stays absent (see covers.ts).
+    ...(coverInk ? { coverInk } : {}),
     chapters: chapterSummaries,
+    ...(wordAudio ? { wordAudio } : {}),
   };
 }
 
@@ -500,9 +534,14 @@ async function buildOneBundle(
   const mergedChapters = chapters.map((c) => mergeExistingChapterTimings(dir, c));
   const mergedSummaries = mergeExistingChapterAssets(dir, chapterSummaries);
   writeChapters(dir, mergedChapters);
-  const book = bookFromBundle(bundle, mergedSummaries);
+  const book = bookFromBundle(
+    bundle,
+    mergedSummaries,
+    authoredCoverInk(bundle.bookId),
+    mergeExistingWordAudio(dir),
+  );
   writeBookJson(dir, book);
-  writeCoverIfMissing(dir, {
+  writeCover(dir, {
     bookId: bundle.bookId,
     title: bundle.title,
     author: bundle.author,
@@ -546,7 +585,14 @@ async function buildOneBundle(
       const mergedHantSummaries = mergeExistingChapterAssets(hantDir, hantSummaries);
       writeChapters(hantDir, mergedHantChapters);
       const hantBook: Book = {
-        ...bookFromBundle(bundle, mergedHantSummaries),
+        // The traditional edition is the same book in another script, so it
+        // reuses the simplified original's art and its ink.
+        ...bookFromBundle(
+          bundle,
+          mergedHantSummaries,
+          authoredCoverInk(bundle.bookId),
+          mergeExistingWordAudio(hantDir),
+        ),
         bookId: hantBookId,
         contentLocale: 'zh-TW',
         edition: 'zh-TW',
@@ -558,12 +604,16 @@ async function buildOneBundle(
         })),
       };
       writeBookJson(hantDir, hantBook);
-      writeCoverIfMissing(hantDir, {
-        bookId: hantBookId,
-        title: hantBook.title,
-        author: bundle.author,
-        category: bundle.categories[0] ?? 'tales',
-      });
+      writeCover(
+        hantDir,
+        {
+          bookId: hantBookId,
+          title: hantBook.title,
+          author: bundle.author,
+          category: bundle.categories[0] ?? 'tales',
+        },
+        bundle.bookId,
+      );
       writeAttribution(hantDir, hantBookId, bundle);
       touchedLocales.add('zh-TW');
       console.log(
@@ -649,6 +699,7 @@ function writePackJson(locale: string): void {
         premise: book.premise,
         reviewStatus: book.reviewStatus,
         cover: book.cover,
+        ...(book.coverInk ? { coverInk: book.coverInk } : {}),
         chapterCount: book.chapters.length,
       } satisfies BookSummary;
     })

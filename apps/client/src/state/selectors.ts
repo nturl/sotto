@@ -3,7 +3,7 @@
  * vocabulary-by-book, due reviews, progress percent. No React here — data.ts
  * (the UI seam) and screens call these directly on store snapshots.
  */
-import { dueWords as coreDueWords } from '@sotto/core';
+import { BOOK_LEVELS, dueWords as coreDueWords } from '@sotto/core';
 import type {
   BookCategory,
   BookLevel,
@@ -42,13 +42,27 @@ export function selectContinueBooks(
     });
 }
 
-/** Same level as the learner's, not started yet. */
+/**
+ * The learner's own level first, not started yet — and when that set is
+ * empty (a thin pack, or the one book at that level is the one in progress)
+ * widen by one level either side, then by two, so Home keeps the mockup's
+ * third rail instead of dropping it. Never mixes distances: the nearest
+ * non-empty ring wins whole.
+ */
 export function selectRecommendedBooks(
   books: BookSummary[],
   progress: Record<string, ReadingProgress>,
   level: BookLevel,
 ): BookSummary[] {
-  return books.filter((b) => b.level === level && !isStarted(progress, b.bookId));
+  const home = BOOK_LEVELS.indexOf(level);
+  const unstarted = books.filter((b) => !isStarted(progress, b.bookId));
+  for (let distance = 0; distance <= 2; distance += 1) {
+    const ring = unstarted.filter(
+      (b) => Math.abs(BOOK_LEVELS.indexOf(b.level) - home) === distance,
+    );
+    if (ring.length > 0) return ring;
+  }
+  return [];
 }
 
 /** Everything not already on the continue or recommended rail. */

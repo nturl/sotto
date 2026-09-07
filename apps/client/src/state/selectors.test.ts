@@ -202,3 +202,49 @@ describe('isFilterEmpty (Library filter-yields-nothing state)', () => {
     expect(isFilterEmpty([{ books: [] }, { books: [] }])).toBe(true);
   });
 });
+
+describe('selectRecommendedBooks level fallback', () => {
+  const shelf = [
+    book({ bookId: 'a0', level: 'A0' }),
+    book({ bookId: 'a1', level: 'A1' }),
+    book({ bookId: 'a2', level: 'A2' }),
+    book({ bookId: 'b1', level: 'B1' }),
+    book({ bookId: 'c1', level: 'C1' }),
+  ];
+  const none: Record<string, ReadingProgress> = {};
+  const started = (bookId: string): Record<string, ReadingProgress> => ({
+    [bookId]: {
+      bookId,
+      chapterId: `${bookId}-01`,
+      audioPositionMs: 0,
+      percentComplete: 0.3,
+      updatedAt: '2026-09-01T00:00:00.000Z',
+    },
+  });
+
+  it('prefers the exact level and never mixes neighbours in', () => {
+    expect(selectRecommendedBooks(shelf, none, 'A2').map((b) => b.bookId)).toEqual(['a2']);
+  });
+
+  it('falls back to +/-1 when the exact level is all started', () => {
+    const result = selectRecommendedBooks(shelf, started('a2'), 'A2');
+    expect(result.map((b) => b.bookId).sort()).toEqual(['a1', 'b1']);
+  });
+
+  it('reaches +/-2 only when +/-1 is empty too', () => {
+    const sparse = [book({ bookId: 'a0', level: 'A0' }), book({ bookId: 'b1', level: 'B1' })];
+    expect(selectRecommendedBooks(sparse, none, 'A2').map((b) => b.bookId)).toEqual(['b1']);
+    const farther = [book({ bookId: 'c1', level: 'C1' })];
+    expect(selectRecommendedBooks(farther, none, 'B1').map((b) => b.bookId)).toEqual(['c1']);
+  });
+
+  it('never recommends a started book, at any distance', () => {
+    const only = [book({ bookId: 'b1', level: 'B1' })];
+    expect(selectRecommendedBooks(only, started('b1'), 'A2')).toEqual([]);
+  });
+
+  it('returns nothing when no book is within two levels', () => {
+    const far = [book({ bookId: 'c1', level: 'C1' })];
+    expect(selectRecommendedBooks(far, none, 'A0')).toEqual([]);
+  });
+});

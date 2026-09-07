@@ -1,28 +1,98 @@
+/**
+ * Library — mockup frame 2 (desktop) and phone 2.
+ *
+ * Run 8: run 7's single flat chip row (collections and levels sharing one
+ * mutually-exclusive list) is replaced by the two controls the mockup draws
+ * — one hairline-segmented level scale and a row of plain collection links —
+ * plus an inline search field where the search icon button used to be. No
+ * pills anywhere. The URL grammar and the rail composition live in
+ * `src/ui/libraryFilters.ts` (RN-free, tested); this file is the rendering.
+ */
 import { useEffect, useMemo, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { BOOK_LEVELS } from '@sotto/core';
-import { space } from '@sotto/core/theme';
+import { radius, space } from '@sotto/core/theme';
 import { isFilterEmpty, resolvePacksBanner } from '../../src/state/selectors';
-import { useT } from '../../src/i18n/useT';
+import { useT, type MessageKey } from '../../src/i18n/useT';
 import { Button } from '../../src/ui/Button';
-import { Chip } from '../../src/ui/Chip';
 import { useLibrary, usePreferences, type LibraryBook } from '../../src/ui/data';
-import type { BookCategory, BookLevel } from '../../src/ui/dev/fixtures';
+import { fonts } from '../../src/ui/fonts';
 import { PlusGlyph, SearchGlyph } from '../../src/ui/Glyphs';
 import { IconButton } from '../../src/ui/IconButton';
 import { languageNameFor } from '../../src/ui/languages';
+import { LevelScale } from '../../src/ui/LevelScale';
+import {
+  composeRails,
+  CORE_CATEGORIES,
+  LEVELS,
+  parseLibraryParams,
+  paramsNeedRewrite,
+  serializeLibraryParams,
+  type Collection,
+  type LibraryFilters,
+} from '../../src/ui/libraryFilters';
 import { Rail } from '../../src/ui/Rail';
 import { Shell, useLayoutMetrics } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
+import { useTheme } from '../../src/ui/theme';
+import { webCursor } from '../../src/ui/tokens';
 import { fetchHealth } from '../../src/state/contentApi';
 
-type Filter = 'all' | BookCategory | BookLevel;
-const LEVELS: BookLevel[] = [...BOOK_LEVELS];
-const VALID_FILTERS = new Set<string>(['all', 'fables', 'adventure', ...LEVELS]);
+/** Collection link labels. `fables` and `adventure` reuse the run-7 keys
+ * that already say exactly "Fables" and "Travel" in all nine catalogs
+ * (COMMON.md: reuse a key that already says the same thing); the other five
+ * are new `library.collection.*` keys. */
+const COLLECTION_LABEL: Record<Collection, MessageKey> = {
+  all: 'library.collection.everything',
+  tales: 'library.collection.tales',
+  fables: 'library.filter.fables',
+  adventure: 'library.filter.voyage',
+  classics: 'library.collection.classics',
+  folk: 'library.collection.folk',
+  idioms: 'library.collection.idioms',
+  daily: 'library.collection.daily',
+  yours: 'import.library.rail',
+};
 
-function isValidFilter(value: unknown): value is Filter {
-  return typeof value === 'string' && VALID_FILTERS.has(value);
+/** Shelf headings. Two categories have a longer authored rail title than
+ * their link label ("Animal fables", "Travel"); the rest reuse the link
+ * label, and `all`/`yours` keep their run-7 headings. */
+const RAIL_TITLE: Record<Collection | 'results', MessageKey> = {
+  ...COLLECTION_LABEL,
+  all: 'library.rail.all',
+  fables: 'library.rail.fables',
+  adventure: 'library.rail.voyage',
+  results: 'library.rail.results',
+};
+
+/** Mockup `.coll a` / `.coll a.on`: a plain text link, ink-2, with a 1.5px
+ * inset underline when active. 40px of hit height (PLAN decision 14). */
+function CollectionLink({
+  label,
+  active,
+  onPress,
+}: {
+  label: string;
+  active: boolean;
+  onPress: () => void;
+}) {
+  const { colors } = useTheme();
+  return (
+    <Pressable
+      onPress={onPress}
+      accessibilityRole="link"
+      accessibilityState={{ selected: active }}
+      style={[
+        styles.collLink,
+        active ? { borderBottomWidth: 1.5, borderBottomColor: colors.ink } : null,
+        webCursor,
+      ]}
+    >
+      <Text role="ui" size={14} color={active ? 'ink' : 'ink2'}>
+        {label}
+      </Text>
+    </Pressable>
+  );
 }
 
 export default function LibraryScreen() {
@@ -31,16 +101,37 @@ export default function LibraryScreen() {
   const library = useLibrary();
   const preferences = usePreferences();
   const { sectionGap, isDesktop } = useLayoutMetrics();
-  // Run 7 card B, directive 6: the recon found this filter chip reset to
-  // 'all' on every remount (a plain useState, nothing persisted it) — a
-  // refresh, back-navigation, or direct link all silently dropped the
-  // learner's chosen category/level. Reading/writing it as the `filter`
-  // URL param instead makes it survive all three the same way `bookId`
-  // already does on the reader/book-detail routes.
-  const { filter: filterParam } = useLocalSearchParams<{ filter?: string }>();
-  const filter: Filter = isValidFilter(filterParam) ? filterParam : 'all';
-  const setFilter = (next: Filter) =>
-    router.setParams({ filter: next === 'all' ? undefined : next });
+  const { colors } = useTheme();
+  const themed = useMemo(() => createStyles(colors), [colors]);
+
+  // Run 7 card B, directive 6: the filter used to be plain component state,
+  // so a refresh, a back-navigation or a direct link all silently dropped
+  // it. It lives in the URL instead. Run 8 splits it in two — `?filter=`
+  // for the collection, `?level=` for the level scale — and reads run 7's
+  // legacy spellings (PLAN decision 9).
+  const { filter: filterParam, level: levelParam } = useLocalSearchParams<{
+    filter?: string;
+    level?: string;
+  }>();
+  const filters: LibraryFilters = useMemo(
+    () => parseLibraryParams({ filter: filterParam, level: levelParam }),
+    [filterParam, levelParam],
+  );
+  useEffect(() => {
+    // A legacy or invalid URL is rewritten to its canonical spelling once,
+    // so the address bar always shows the state the screen is actually in.
+    if (paramsNeedRewrite({ filter: filterParam, level: levelParam }, filters)) {
+      router.setParams(serializeLibraryParams(filters));
+    }
+  }, [filterParam, levelParam, filters, router]);
+
+  const setFilters = (next: LibraryFilters) => router.setParams(serializeLibraryParams(next));
+  const setCollection = (collection: Collection) => setFilters({ ...filters, collection });
+  const setLevel = (level: LibraryFilters['level']) => setFilters({ ...filters, level });
+
+  const [query, setQuery] = useState('');
+  const trimmedQuery = query.trim();
+
   // R3-I: free-tier import needs apps/server reachable (local LLM/TTS/STT).
   // No CloudAdapter exists in this OSS-only build, so "no cloud adapter" is
   // always true here — the health check alone decides visibility.
@@ -51,51 +142,82 @@ export default function LibraryScreen() {
 
   const openBook = (book: LibraryBook) => router.push(`/book/${book.id}`);
 
-  const rails = useMemo<Array<{ title: string; books: LibraryBook[]; seeAll?: Filter }>>(() => {
-    if (filter === 'fables' || filter === 'adventure') {
-      const title = filter === 'fables' ? t('library.rail.fables') : t('library.rail.voyage');
-      return [{ title, books: library.byCategory(filter) }];
+  const rails = useMemo(() => {
+    if (trimmedQuery) {
+      return [{ key: 'results' as const, books: library.search(trimmedQuery), seeAll: undefined }];
     }
-    if (LEVELS.includes(filter as BookLevel)) {
-      return [{ title: filter, books: library.byLevel(filter as BookLevel) }];
-    }
-    const base = [
-      {
-        title: t('library.rail.fables'),
-        books: library.byCategory('fables'),
-        seeAll: 'fables' as Filter,
-      },
-      {
-        title: t('library.rail.voyage'),
-        books: library.byCategory('adventure'),
-        seeAll: 'adventure' as Filter,
-      },
-      { title: t('library.rail.all'), books: library.books },
-    ];
-    return library.yourBooks.length > 0
-      ? [{ title: t('import.library.rail'), books: library.yourBooks }, ...base]
-      : base;
-  }, [filter, library, t]);
+    return composeRails({ books: library.books, yourBooks: library.yourBooks, filters });
+  }, [filters, library, trimmedQuery]);
 
-  const filters: Array<{ value: Filter; label: string }> = [
-    { value: 'all', label: t('library.filter.all') },
-    { value: 'fables', label: t('library.filter.fables') },
-    { value: 'adventure', label: t('library.filter.voyage') },
-    ...LEVELS.map((level) => ({ value: level as Filter, label: level })),
-  ];
+  /** Only collections that actually have a book in this locale get a link,
+   * plus "Your books" once something has been imported. */
+  const collections: Collection[] = useMemo(() => {
+    const present = CORE_CATEGORIES.filter((category) =>
+      library.books.some((b) => b.categories.includes(category)),
+    );
+    return [
+      'all',
+      ...present,
+      ...(library.yourBooks.length > 0 ? (['yours'] as Collection[]) : []),
+    ];
+  }, [library]);
 
   // Run 7 card B, directive 4: distinguish loading / error / "no books for
-  // this locale+level" (packs-wide) from "this filter chip has zero
-  // results" (filter-scoped) — previously both looked identical to a
-  // permanently blank rail set.
+  // this locale+level" (packs-wide) from "these filters have zero results"
+  // (filter-scoped) — previously both looked identical to a permanently
+  // blank rail set.
   const banner = resolvePacksBanner(library.packsStatus, library.books.length);
-  const filterEmpty = banner.kind === 'none' && filter !== 'all' && isFilterEmpty(rails);
+  const hasFilters = filters.collection !== 'all' || filters.level !== undefined;
+  const filterEmpty = banner.kind === 'none' && !trimmedQuery && hasFilters && isFilterEmpty(rails);
+
+  const searchField = (
+    <View style={[themed.search, isDesktop ? styles.searchDesktop : styles.searchPhone]}>
+      <SearchGlyph size={16} color={colors.ink2} />
+      <TextInput
+        value={query}
+        onChangeText={setQuery}
+        placeholder={t('library.searchPlaceholder')}
+        placeholderTextColor={colors.ink2}
+        accessibilityLabel={t('library.a11y.search')}
+        style={themed.searchInput}
+      />
+    </View>
+  );
+
+  const levelScale = (
+    <LevelScale
+      levels={LEVELS}
+      value={filters.level}
+      onChange={setLevel}
+      allLabel={t('library.filter.all')}
+      groupLabel={t('library.a11y.level')}
+      compact={!isDesktop}
+    />
+  );
+
+  const collectionLinks = collections.map((collection) => (
+    <CollectionLink
+      key={collection}
+      label={t(COLLECTION_LABEL[collection])}
+      active={filters.collection === collection}
+      onPress={() => setCollection(collection)}
+    />
+  ));
+
+  const bookCount = t('library.count', { n: library.books.length });
 
   return (
     <Shell>
       <View style={styles.header}>
         <Text role="display">{t('tabs.library')}</Text>
-        <View style={styles.headerIcons}>
+        <View style={styles.headerRight}>
+          {/* Mockup `.titlerow .meta`: the language is dropped on the phone,
+              where the row has no room for it. */}
+          <Text role="mono">
+            {isDesktop
+              ? `${languageNameFor(preferences.learningLocale)} · ${bookCount}`
+              : bookCount}
+          </Text>
           {serverReachable ? (
             <IconButton
               icon={<PlusGlyph size={20} />}
@@ -103,11 +225,6 @@ export default function LibraryScreen() {
               onPress={() => router.push('/import')}
             />
           ) : null}
-          <IconButton
-            icon={<SearchGlyph size={20} />}
-            accessibilityLabel={t('library.a11y.search')}
-            onPress={() => router.push('/library/search')}
-          />
         </View>
       </View>
       {serverReachable === false ? (
@@ -117,43 +234,40 @@ export default function LibraryScreen() {
       ) : null}
 
       {isDesktop ? (
-        // DESKTOP.md §3: chips never scroll horizontally on desktop — wrap
-        // to a second line instead.
-        <View style={[styles.chips, styles.chipsWrap]}>
-          {filters.map((item) => (
-            <Chip
-              key={item.value}
-              label={item.label}
-              selected={filter === item.value}
-              onPress={() => setFilter(item.value)}
-            />
-          ))}
+        // Mockup `.controls`: one wrapping row, gap 28, the search field
+        // pushed to the right edge by `margin-left:auto`.
+        <View style={styles.controls}>
+          {levelScale}
+          <View style={styles.coll}>{collectionLinks}</View>
+          {searchField}
         </View>
       ) : (
-        // R-adversarial finding 4: with `style={styles.chips}` on the
-        // ScrollView itself, RN Web gave the phone chip row no height cap
-        // at all — after any filter change (any route with `?filter=`,
-        // this run's new deep-link) the row rendered at 342px instead of
-        // 36px. Rail.tsx's own horizontal ScrollView (a working reference
-        // for the same "one scrolling row" shape) never puts a style on
-        // the ScrollView itself, only on an outer wrapper and the content
-        // container — matching that here, plus an explicit `nowrap` on
-        // the content container so nothing can wrap a second line.
-        <View style={styles.chips}>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.chipsContent}
-          >
-            {filters.map((item) => (
-              <Chip
-                key={item.value}
-                label={item.label}
-                selected={filter === item.value}
-                onPress={() => setFilter(item.value)}
-              />
-            ))}
-          </ScrollView>
+        <View>
+          {searchField}
+          {/* R-adversarial finding 4 (run 7): with the style on the
+              ScrollView itself, RN Web gave this row no height cap at all
+              and it rendered at 342px instead of 36. Rail.tsx's own
+              horizontal ScrollView is the working reference — the style
+              goes on the outer View and the content container, never on
+              the ScrollView. */}
+          <View style={styles.scaleRow}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.scrollRowContent}
+            >
+              {levelScale}
+            </ScrollView>
+          </View>
+          <View style={styles.collRow}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={[styles.scrollRowContent, styles.collContent]}
+            >
+              {collectionLinks}
+            </ScrollView>
+          </View>
         </View>
       )}
 
@@ -186,6 +300,10 @@ export default function LibraryScreen() {
             onPress={() => router.push('/settings/learning-language')}
           />
         </View>
+      ) : trimmedQuery && rails[0]?.books.length === 0 ? (
+        <Text role="caption" color="ink3" style={styles.noResults}>
+          {t('library.noResults', { query: trimmedQuery })}
+        </Text>
       ) : filterEmpty ? (
         <View style={styles.banner}>
           <Text role="caption" color="ink2">
@@ -194,18 +312,19 @@ export default function LibraryScreen() {
           <Button
             variant="secondary"
             title={t('packs.status.clearFilters')}
-            onPress={() => setFilter('all')}
+            onPress={() => setFilters({ collection: 'all', level: undefined })}
           />
         </View>
       ) : (
-        <View style={{ gap: sectionGap }}>
+        <View style={[styles.rails, { gap: sectionGap }]}>
           {rails.map((rail) => (
             <Rail
-              key={rail.title}
-              title={rail.title}
+              key={rail.key}
+              title={t(RAIL_TITLE[rail.key])}
               books={rail.books}
               onPressBook={openBook}
-              onSeeAll={rail.seeAll ? () => setFilter(rail.seeAll ?? 'all') : undefined}
+              ribbonBookId={library.currentBookId}
+              onSeeAll={rail.seeAll ? () => setCollection(rail.seeAll as Collection) : undefined}
             />
           ))}
         </View>
@@ -215,37 +334,95 @@ export default function LibraryScreen() {
 }
 
 const styles = StyleSheet.create({
+  // Mockup `.titlerow`: display left, mono meta right, 28 below.
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: space.gutter.phone,
+    gap: space.md,
+    marginBottom: space.xl,
   },
-  headerIcons: {
+  headerRight: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: space.sm,
+    gap: space.md,
   },
   offlineCaption: {
     marginTop: -space.sm,
     marginBottom: space.lg,
   },
-  chips: {
-    marginBottom: space.xl,
+  controls: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 28,
+    marginBottom: space.sm,
   },
-  chipsContent: {
+  coll: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 18,
+  },
+  collLink: {
+    minHeight: 40,
+    justifyContent: 'center',
+    paddingHorizontal: 2,
+  },
+  searchDesktop: {
+    width: 240,
+    marginLeft: 'auto',
+  },
+  searchPhone: {
+    marginBottom: 14,
+  },
+  scaleRow: {
+    marginBottom: 14,
+  },
+  collRow: {
+    marginBottom: space.sm,
+  },
+  scrollRowContent: {
     flexDirection: 'row',
     flexWrap: 'nowrap',
-    gap: space.sm,
+    alignItems: 'center',
     paddingRight: space.gutter.phone,
   },
-  chipsWrap: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: space.sm,
+  collContent: {
+    gap: 18,
   },
   banner: {
     gap: space.md,
     alignItems: 'flex-start',
   },
+  noResults: {
+    textAlign: 'center',
+    marginTop: space.xxxl,
+  },
+  rails: {
+    marginTop: 28,
+  },
 });
+
+function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
+  return StyleSheet.create({
+    // Mockup `.search`: surface-2, radius 10, 9/12 padding, glyph + field.
+    search: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space.sm,
+      backgroundColor: colors.surface2,
+      borderRadius: radius.md,
+      paddingVertical: 9,
+      paddingHorizontal: 12,
+      minHeight: 40,
+    },
+    searchInput: {
+      flex: 1,
+      fontFamily: fonts.interRegular,
+      fontSize: 14,
+      color: colors.ink,
+      padding: 0,
+    },
+  });
+}

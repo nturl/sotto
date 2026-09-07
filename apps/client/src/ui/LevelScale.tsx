@@ -56,6 +56,10 @@ export function LevelScale({
             key={segment.key}
             onPress={() => onChange(segment.level)}
             accessibilityRole="radio"
+            // react-native-web 0.21 dropped the `accessibilityState` ->
+            // `aria-*` mapping, so without this the DOM radio never reports
+            // which segment is on. `accessibilityState` stays for native.
+            aria-checked={on}
             accessibilityState={{ selected: on, checked: on }}
             accessibilityLabel={segment.label}
             style={[

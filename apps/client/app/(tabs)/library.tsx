@@ -65,6 +65,17 @@ const RAIL_TITLE: Record<Collection | 'results', MessageKey> = {
   results: 'library.rail.results',
 };
 
+/** The canonical Library URL for a filter state. Expo Router's `params`
+ * object drops nothing, so the defaults are left out of it entirely rather
+ * than written as `filter=all`. */
+function libraryHref(filters: LibraryFilters) {
+  const { filter, level } = serializeLibraryParams(filters);
+  const params: Record<string, string> = {};
+  if (filter) params.filter = filter;
+  if (level) params.level = level;
+  return { pathname: '/library' as const, params };
+}
+
 /** Mockup `.coll a` / `.coll a.on`: a plain text link, ink-2, with a 1.5px
  * inset underline when active. 40px of hit height (PLAN decision 14). */
 function CollectionLink({
@@ -81,6 +92,10 @@ function CollectionLink({
     <Pressable
       onPress={onPress}
       accessibilityRole="link"
+      // react-native-web 0.21 no longer maps `accessibilityState` to
+      // `aria-*`; the aria prop is the one that reaches the DOM. Both are
+      // set so native keeps its own state too.
+      aria-selected={active}
       accessibilityState={{ selected: active }}
       style={[
         styles.collLink,
@@ -118,13 +133,25 @@ export default function LibraryScreen() {
     [filterParam, levelParam],
   );
   useEffect(() => {
-    // A legacy or invalid URL is rewritten to its canonical spelling once,
-    // so the address bar always shows the state the screen is actually in.
+    // A legacy or invalid URL is rewritten to its canonical spelling, so the
+    // address bar always shows the state the screen is actually in. It is a
+    // `replace`, not a `setParams`: canonicalising a link the learner
+    // followed must not leave the legacy spelling sitting in history for the
+    // back button to return to.
     if (paramsNeedRewrite({ filter: filterParam, level: levelParam }, filters)) {
-      router.setParams(serializeLibraryParams(filters));
+      router.replace(libraryHref(filters));
     }
   }, [filterParam, levelParam, filters, router]);
 
+  // Run 7's mechanism, kept: the filter state is the URL, so it survives a
+  // reload, a direct link, and leaving the screen and coming back.
+  //
+  // MEASURED LIMIT (lane C report): on web this — and `router.push` of the
+  // same route with new params, which was tried and behaves identically —
+  // updates the address bar without adding a history entry
+  // (`history.length` stays put), so the back button does not step back
+  // through successive filter changes; it leaves Library. Undoing a filter
+  // is the "Everything"/"All" segment, not the browser's back button.
   const setFilters = (next: LibraryFilters) => router.setParams(serializeLibraryParams(next));
   const setCollection = (collection: Collection) => setFilters({ ...filters, collection });
   const setLevel = (level: LibraryFilters['level']) => setFilters({ ...filters, level });

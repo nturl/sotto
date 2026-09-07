@@ -91,14 +91,18 @@ async function readSavedVocabulary(page) {
   });
 }
 
-/** Finds the first tappable word token (the reader underlines real words
- * with a dotted border; punctuation/spacing spans aren't tappable) that's
- * actually laid out on screen, and returns its center point. */
+/** Finds the first tappable word token (only real words carry a token id;
+ * punctuation/spacing spans aren't tappable) that's actually laid out on
+ * screen, and returns its center point. */
 async function firstWordCenter(page) {
   return page.evaluate(() => {
-    const spans = [...document.querySelectorAll('span')].filter((el) =>
-      /dotted/.test(el.style.borderBottomStyle || ''),
-    );
+    // Run 8 lane D: tokens are plain now (PLAN.md decision 7 removed the
+    // dotted peach underline this used to scan for). Word tokens carry
+    // `dataSet={{tokenId}}` from SelectableSpeechText.tsx, which RN Web
+    // emits as the DOM attribute `data-token-id` (hyphenated — verified in
+    // a live Metro page, not `data-tokenid` as RECON.md §8 guessed), and
+    // only `isWord` tokens get it, so this still lands on a tappable word.
+    const spans = [...document.querySelectorAll('span[data-token-id]')];
     for (const span of spans) {
       const rect = span.getBoundingClientRect();
       if (rect.width > 0 && rect.height > 0 && rect.top > 0) {
@@ -125,7 +129,7 @@ async function runAtWidth({ width, height, label }) {
   // account, as opposed to "Start free"/"Sign in", which go to the paid
   // origin's account screen.
   let taps = 0;
-  const landingHeadline = page.getByRole('heading', { name: 'Sotto reads with you.' });
+  const landingHeadline = page.getByRole('heading', { name: 'Read a page. Then talk about it.' });
   try {
     await landingHeadline.waitFor({ state: 'visible', timeout: 15000 });
     log(`${label}: landing headline visible`);

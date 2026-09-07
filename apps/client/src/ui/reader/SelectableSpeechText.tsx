@@ -8,9 +8,10 @@
  * This is a fork rather than an edit to SpeechFillText.tsx because that
  * component is also used by the voice screen (Lane B territory) — kept
  * separate so this lane's reader-only change can't collide with it.
- * Visual language (speech fill animation, marker stroke, dotted
- * underline) mirrors it exactly; DESIGN.md reader spec additionally calls
- * for an 18% peach fill with radius 2 across every token in a drag span.
+ * Visual language (speech fill animation, marker stroke) mirrors it
+ * exactly. Run 8 PLAN.md decision 7: tokens are plain — no dotted
+ * underline at any time — and the selection fill is peach at 55% with
+ * radius 2 across every token in a drag span.
  *
  * Drag hit-testing works by giving every word a `data-token-id` (RN Web
  * forwards `dataSet` straight to a DOM `data-*` attribute) and, once a
@@ -48,7 +49,6 @@ export type SelectableSpeechTextProps = {
   selectedSpanTokenIds?: ReadonlySet<string>;
   style?: TextStyle;
   cjk?: boolean;
-  underline?: boolean;
   onTap?: (token: SpeechToken, sentence: SpeechSentence) => void;
   /** Fires once, on drag release, with the drag's start/end token ids (in
    * whichever order the drag happened — the caller normalizes). */
@@ -63,12 +63,10 @@ function SpeechWord({
   selected,
   previewSelected,
   saved,
-  underline,
   reduced,
   isWord,
   colors,
   peachSelection,
-  peachUnderline,
   onPress,
   onPointerDown,
   onPointerEnter,
@@ -79,7 +77,6 @@ function SpeechWord({
   selected: boolean;
   previewSelected: boolean;
   saved: boolean;
-  underline: boolean;
   reduced: boolean;
   isWord: boolean;
   /** Active scheme's palette (DESIGN.md dark-mode task) — read via
@@ -87,7 +84,6 @@ function SpeechWord({
    * token, doesn't each subscribe to the theme context separately. */
   colors: ThemeColors;
   peachSelection: string;
-  peachUnderline: string;
   onPress?: () => void;
   onPointerDown?: (e: { pointerType?: string; clientX: number; clientY: number }) => void;
   onPointerEnter?: () => void;
@@ -125,13 +121,6 @@ function SpeechWord({
           borderRadius: radius.sm,
         },
         saved ? { transform: [{ skewX: '-10deg' }] } : null,
-        underline
-          ? {
-              borderBottomWidth: 1,
-              borderBottomColor: peachUnderline,
-              borderStyle: 'dotted' as const,
-            }
-          : null,
       ]}
     >
       {text}
@@ -144,7 +133,6 @@ export function SelectableSpeechText({
   selectedSpanTokenIds,
   style,
   cjk = false,
-  underline = false,
   onTap,
   onSpanSelect,
   onLongPressSentence,
@@ -152,8 +140,9 @@ export function SelectableSpeechText({
   const reduced = useReducedMotion();
   const isWeb = Platform.OS === 'web';
   const { colors } = useTheme();
-  const peachSelectionActive = useMemo(() => withAlpha(colors.peach, 0.18), [colors.peach]);
-  const peachUnderlineActive = useMemo(() => withAlpha(colors.peach, 0.35), [colors.peach]);
+  // Run 8 decision 7: peach at 55% (the mockup's `.w.sel`), computed against
+  // the *active* scheme rather than the static light token in ui/tokens.ts.
+  const peachSelectionActive = useMemo(() => withAlpha(colors.peach, 0.55), [colors.peach]);
 
   // Flat reading-order id list for this block, used only to compute the
   // *preview* highlight while dragging (the parent recomputes the
@@ -263,12 +252,10 @@ export function SelectableSpeechText({
                   selected={!!selectedSpanTokenIds?.has(token.id)}
                   previewSelected={!!previewSpan?.has(token.id)}
                   saved={!!token.saved}
-                  underline={underline && !!token.isWord && !token.saved}
                   reduced={reduced}
                   isWord={!!token.isWord}
                   colors={colors}
                   peachSelection={peachSelectionActive}
-                  peachUnderline={peachUnderlineActive}
                   onPress={onTap && token.isWord ? () => onTap(token, sentence) : undefined}
                   onPointerDown={token.isWord ? (e) => handlePointerDown(token.id, e) : undefined}
                   onPointerEnter={token.isWord ? () => handlePointerEnter(token.id) : undefined}

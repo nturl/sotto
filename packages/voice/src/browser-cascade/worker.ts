@@ -270,7 +270,7 @@ class WebLlmEngine implements LlmEngine {
       messages: toWebLlmMessages(messages),
       stream: true,
       temperature: 0.4,
-      max_tokens: 200,
+      max_tokens: 400,
       // Qwen3 is a reasoning model: left to its default, it prepends a full
       // <think>...</think> block of internal reasoning before the actual
       // reply. The server's llm.ts disables this on llama-server via

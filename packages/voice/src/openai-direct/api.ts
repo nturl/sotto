@@ -338,7 +338,7 @@ export class OpenAIChatEngine implements LlmEngine {
         stream: true,
         temperature: this.opts.temperature ?? 0.4,
         // Same ceiling the server's llm.ts uses for spoken turns.
-        max_tokens: this.opts.maxTokens ?? 200,
+        max_tokens: this.opts.maxTokens ?? 400,
       }),
       signal,
     });

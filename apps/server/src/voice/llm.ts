@@ -60,7 +60,7 @@ export async function streamChatCompletion(
       tools: openAiTools,
       stream: true,
       temperature: 0.4,
-      max_tokens: 200,
+      max_tokens: 400,
       ...(isOpenAi
         ? {}
         : {

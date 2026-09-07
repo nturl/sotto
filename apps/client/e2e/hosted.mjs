@@ -130,24 +130,28 @@ async function runAtWidth({ width, height, label }) {
   // account, as opposed to "Start free"/"Sign in", which go to the paid
   // origin's account screen.
   let taps = 0;
-  const landingHeadline = page.getByRole('heading', { name: 'Read a page. Then talk about it.' });
-  try {
-    await landingHeadline.waitFor({ state: 'visible', timeout: 15000 });
-    log(`${label}: landing headline visible`);
-  } catch {
-    fail(`${label}: landing heading "Sotto reads with you." never became visible`);
+  if (process.env.HOSTED_APP === '1') {
+    await page.goto(BASE_URL + '/onboarding');
+  } else {
+    const landingHeadline = page.getByRole('heading', { name: 'Read a page. Then talk about it.' });
+    try {
+      await landingHeadline.waitFor({ state: 'visible', timeout: 15000 });
+      log(`${label}: landing headline visible`);
+    } catch {
+      fail(`${label}: landing heading "Sotto reads with you." never became visible`);
+    }
+    const startLink = page.getByRole('link', { name: 'Read free, no account' });
+    try {
+      await startLink.waitFor({ state: 'visible', timeout: 5000 });
+    } catch {
+      fail(`${label}: landing "Read free, no account" link never became visible`);
+      await browser.close();
+      return;
+    }
+    await startLink.click();
+    taps += 1;
+    log(`${label}: tap ${taps} — clicked landing "Read free, no account" link`);
   }
-  const startLink = page.getByRole('link', { name: 'Read free, no account' });
-  try {
-    await startLink.waitFor({ state: 'visible', timeout: 5000 });
-  } catch {
-    fail(`${label}: landing "Read free, no account" link never became visible`);
-    await browser.close();
-    return;
-  }
-  await startLink.click();
-  taps += 1;
-  log(`${label}: tap ${taps} — clicked landing "Read free, no account" link`);
 
   // <link rel="manifest"> present (installability check 1/2).
   const hasManifest = await page.evaluate(() => !!document.querySelector('link[rel="manifest"]'));

@@ -65,9 +65,7 @@ describe('measureSegment', () => {
   });
 
   it('peak RMS of a real utterance clears the VAD speech threshold', () => {
-    expect(measureSegment(tone(1, 0.4), SAMPLE_RATE).peakRms).toBeGreaterThan(
-      SPEECH_RMS_THRESHOLD,
-    );
+    expect(measureSegment(tone(1, 0.4), SAMPLE_RATE).peakRms).toBeGreaterThan(SPEECH_RMS_THRESHOLD);
   });
 });
 

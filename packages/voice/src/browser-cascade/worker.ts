@@ -27,8 +27,14 @@ import { CreateMLCEngine, type MLCEngine } from '@mlc-ai/web-llm';
 import { KokoroTTS } from 'kokoro-js';
 import { buildSystemInstruction, TOOL_DEFINITIONS, type TutorPassageContext } from '@sotto/core';
 import type { VoiceState } from '../events.ts';
-import { EnergyVad, SpeechBuffer } from './vad.ts';
-import { isDegenerateTranscript, SttFallbackTracker } from './stt-fallback.ts';
+import { EnergyVad, HALF_DUPLEX_THRESHOLD_SCALE, PTT_PRE_ROLL_MS, SpeechBuffer } from './vad.ts';
+import { SttFallbackTracker } from './stt-fallback.ts';
+import {
+  classifyTranscript,
+  measureSegment,
+  MIN_SEGMENT_MS,
+  NOT_CAUGHT_CAPTION,
+} from './transcript-gate.ts';
 import {
   TutorTurnRunner,
   type ChatMessage,
@@ -460,6 +466,12 @@ interface SessionState {
   vad: EnergyVad;
   buffer: SpeechBuffer;
   muted: boolean;
+  /**
+   * True between the first sentence of a tutor turn actually producing
+   * audio and that utterance's `audio_end`. Drives the half-duplex gate:
+   * see `setSpeakingState`.
+   */
+  speaking: boolean;
   turnMode: 'auto' | 'push';
   pace: 'slow' | 'normal';
   turnRunner: TutorTurnRunner;
@@ -502,6 +514,26 @@ function setState(state: VoiceState): void {
   post({ t: 'state', state });
 }
 
+/**
+ * Half-duplex gate (BUGS-TUTOR-RUN5.md #3). The energy VAD hears raw mic
+ * frames, so the tutor's own voice leaking back through a laptop speaker
+ * was firing `speech_start` and barging the tutor in on itself — which
+ * `TutorTurnRunner` then drops from both the transcript and the model's
+ * history, producing the "three learner turns with no tutor reply" in that
+ * report. While the tutor's audio is out, the bar to open a turn goes up by
+ * `HALF_DUPLEX_THRESHOLD_SCALE`; a real barge-in still clears it easily.
+ *
+ * Known limitation, not fixed here: `audio_end` is posted when GENERATION
+ * ends, not when the main thread has finished playing the audio out, so the
+ * gate lifts a little early on a long final sentence. Closing that needs a
+ * playback-finished signal from the client, which is lane D's file.
+ */
+function setSpeakingState(s: SessionState, speaking: boolean): void {
+  if (s.speaking === speaking) return;
+  s.speaking = speaking;
+  s.vad.setThresholdScale(speaking ? HALF_DUPLEX_THRESHOLD_SCALE : 1);
+}
+
 function pcm16ToFloat32(pcm: Int16Array): Float32Array {
   const out = new Float32Array(pcm.length);
   for (let i = 0; i < pcm.length; i++) out[i] = pcm[i]! / 32768;
@@ -542,6 +574,9 @@ async function speakSentence(
   // `loadTts` explains why).
   if (base === 'en') {
     setState('speaking');
+    // Lane A's single line in this function: raise the VAD's bar while the
+    // tutor's own audio is out. See setSpeakingState.
+    setSpeakingState(s, true);
     if (!s.currentUtteranceId) {
       s.currentUtteranceId = randomId();
       s.currentUtteranceChunks = [];
@@ -665,12 +700,17 @@ async function runTutorTurnBody(s: SessionState, learnerText: string): Promise<v
     post({ t: 'audio_end', utteranceId: s.currentUtteranceId });
     s.lastUtterance = { id: s.currentUtteranceId, chunks: s.currentUtteranceChunks };
   }
+  setSpeakingState(s, false);
   s.currentUtteranceId = null;
   if (s.currentAbort === abort) s.currentAbort = null;
 }
 
 async function transcribeSegment(segment: Int16Array): Promise<void> {
   if (!session || !sttPipeline) return;
+  // Measured before transcription so the gate can weigh what Whisper says
+  // against what was actually captured — a confident transcript over a
+  // segment that never reached speech energy is exactly the run-8 failure.
+  const stats = measureSegment(segment, WORKER_SAMPLE_RATE);
   setState('thinking');
   const started = Date.now();
   try {
@@ -733,10 +773,31 @@ async function transcribeSegment(segment: Int16Array): Promise<void> {
       if (note) post({ t: 'caption', speaker: 'tutor', text: note, final: true });
     }
 
-    // A fallback-triggering degenerate transcript is discarded rather than
-    // sent to the LLM as if it were a real question — the learner just
-    // needs to repeat themselves, now on the more reliable device.
-    if (!text || (tripped && isDegenerateTranscript(text))) {
+    // The gate (transcript-gate.ts): nothing the learner did not say gets
+    // to be a learner turn. This subsumes the old `!text || (tripped &&
+    // isDegenerateTranscript(text))` check — the degenerate case is folded
+    // into the gate's `hallucination` verdict and is now rejected whether
+    // or not it also tripped the wasm fallback, since a decoder collapse is
+    // never a question regardless of which device produced it.
+    const verdict = classifyTranscript(text, {
+      durationMs: stats.durationMs,
+      rms: stats.peakRms,
+      locale: session.payload.learner.learningLocale,
+    });
+    if (verdict.verdict !== 'ok') {
+      post({
+        t: 'metric',
+        name: 'stt_rejected',
+        ms: elapsedMs,
+        detail: `${verdict.verdict} ${verdict.reason} ${JSON.stringify(text.slice(0, 40))}`,
+      });
+      // `too_short` is a fumbled push-to-talk press, not a misheard
+      // sentence: asking the learner to repeat something they know they
+      // never finished saying is noise. Every other rejection gets the
+      // line, so the screen is never silent about having dropped a turn.
+      if (verdict.verdict !== 'too_short') {
+        post({ t: 'caption', speaker: 'tutor', text: NOT_CAUGHT_CAPTION, final: true });
+      }
       setState('listening');
       return;
     }
@@ -787,6 +848,9 @@ function handleFrame(pcm: ArrayBuffer): void {
 /** Cancels any in-flight LLM/TTS work for the current turn — mirrors the
  * server's `bargeIn()`. No-op when nothing is in flight. */
 function interruptSession(s: SessionState): void {
+  // The tutor's audio stops here, so the half-duplex gate must lift —
+  // otherwise a barge-in would leave the VAD permanently deafened.
+  setSpeakingState(s, false);
   const hadAbort = !!s.currentAbort;
   s.currentAbort?.abort();
   s.currentAbort = null;
@@ -840,6 +904,7 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
           vad: new EnergyVad(),
           buffer: new SpeechBuffer(WORKER_SAMPLE_RATE),
           muted: false,
+          speaking: false,
           turnMode: 'auto',
           pace: 'normal',
           turnRunner: null as unknown as TutorTurnRunner, // set below, needs `s` for the closure
@@ -915,11 +980,35 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
         if (session) {
           session.turnMode = 'push';
           if (msg.active) {
-            session.buffer.clear();
-            session.buffer.start();
+            // No `clear()` before this any more. Clearing threw away the
+            // rolling pre-roll, so the first syllables after the press were
+            // lost — a learner starts saying the word as they press the
+            // button, not after it lands, and losing that opening is one of
+            // the ways a real question decays into something Whisper
+            // answers with "you". The seed is capped at PTT_PRE_ROLL_MS
+            // rather than the full 1200 ms default because the press is an
+            // explicit "from here" marker and the preceding second may hold
+            // the tutor's own audio.
+            session.buffer.start(PTT_PRE_ROLL_MS);
           } else {
             const segment = session.buffer.end();
-            if (segment) void transcribeSegment(segment);
+            if (segment) {
+              const durationMs = (segment.length / WORKER_SAMPLE_RATE) * 1000;
+              if (durationMs < MIN_SEGMENT_MS) {
+                // A mis-tap. Dropped without running Whisper at all and
+                // without a caption: the learner knows they fumbled the
+                // button, and there is nothing for them to repeat.
+                post({
+                  t: 'metric',
+                  name: 'stt_rejected',
+                  ms: 0,
+                  detail: `too_short duration_${Math.round(durationMs)}ms ptt`,
+                });
+                setState('listening');
+              } else {
+                void transcribeSegment(segment);
+              }
+            }
           }
         }
         break;

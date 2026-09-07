@@ -385,6 +385,58 @@ reliable enough to claim as a shipped capability. `tutor.browser.sliceNote`
 replies, and that saving a word by voice is still being finished, rather
 than claiming it works.
 
+## Run 9 status (2026-09-07) — tool calls on Qwen3.5-2B / 4B
+
+Full run table and the diagnostics added:
+`docs/evidence/browser-tutor-run9-tools-2026-09-07.log`. The "narrates the
+save instead of calling the tool" failure on the large tier was not a model
+limitation; it was four worker-side defects, all in
+`packages/voice/src/browser-cascade`:
+
+1. **The fallback instruction only ever reached the first LLM call.**
+   `WebLlmEngine.chat` added `withJsonToolInstruction` inside the catch that
+   discovers WebLLM rejects `tools` for Qwen builds — so every later turn was
+   sent with no `tools` parameter and no instruction at all. That is the whole
+   intermittency the slice-5 note called "unreliable": the save worked whenever
+   it happened to be the session's first LLM call and was narrated whenever it
+   was the second. Now injected on every call once the fallback is engaged.
+2. **`Role is not supported: tool`.** WebLLM's fixed Qwen conversation template
+   has no tool role, so the continuation after a tool result threw on every
+   run (the "Sorry, something went wrong there" caption right after a save
+   that had succeeded). `tool-protocol.ts` re-renders the history into Qwen's
+   own shape for the fallback: tool results as a user turn wrapping
+   `<tool_response>`, the assistant's call as its text plus `<tool_call>`.
+3. **Barge-in lock hang.** WebLLM 0.2.84's `asyncGenerate` releases its
+   per-model lock only when the generator runs to its end; `break`ing out of
+   `for await` on abort never reaches that, so the next `create()` blocked
+   forever (standard tier: turn 2 never produced an LLM call). The abort path
+   now drains the interrupted stream instead of breaking.
+4. **Protocol shape.** The instruction now carries Qwen's native
+   `<tools>`/`<tool_call>` block (what its chat template would render; WebLLM's
+   template never injects it), and the parser accepts that, the legacy
+   ```` ```tool ```` fence, a ```` ```json ```` fence, and a bare JSON object
+   naming a known tool. `markers.ts` strips/holds back `<tool_call>` as it did
+   the fence. The protocol lives in `tool-protocol.ts` with its own unit tests.
+
+**Result on the final build**: large tier 8/9 with assertion 9 (the save) passing and the
+continuation clean — the one miss was whisper-small transcribing the save
+request in English, which the harness's `guarda` check cannot match (an
+earlier run on the same protocol code was 9/9); standard tier 8/9, with the
+save call emitted on every run but rejected by the executor for the reason
+below. Per-assertion table and STT/LLM timings are in the evidence log.
+
+**Still open, and not a protocol defect**: the standard tier's whisper-base
+mishears this fixture's Spanish ("cigarra" -> "sigurra", "siga arra",
+"cigarette"; "¿Qué significa…" -> "What does the word grab mean?"). Qwen3.5-2B
+then emits `save_vocabulary` reliably but with the misheard word, and the
+executor (`toolContext.ts`, `resolveWordToken`) rightly rejects a word that is
+not in the chapter — visible now as `tool_result=… -> error=word "siga" not
+found in chapter`. The 4B snaps the misheard word to the passage on its own;
+the 2B does not, even with the new "match to the closest passage word" line
+in the instruction. Options, none taken here: a stronger STT model in the
+standard tier, or fuzzy word matching in the executor (a deliberate
+strictness today — see its comment).
+
 ## Slice 2 (LLM + tools) — checklist
 
 1. `worker.ts`: load `@mlc-ai/web-llm` `CreateMLCEngine` with

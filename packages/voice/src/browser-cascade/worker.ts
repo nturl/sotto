@@ -38,6 +38,7 @@ import {
   type ToolCallResult,
 } from './llm-turn.ts';
 import { TTS_MODEL } from './models.ts';
+import { parseJsonToolBlock, withJsonToolInstruction } from './tool-protocol.ts';
 import {
   WORKER_SAMPLE_RATE,
   TUTOR_SAMPLE_RATE,
@@ -201,57 +202,6 @@ function toWebLlmMessages(messages: ChatMessage[]): unknown[] {
   });
 }
 
-const TOOL_BLOCK_RE = /```tool\s*([\s\S]*?)```/;
-
-/** Fallback protocol (Slice 2 checklist #4) for a Qwen3 build that rejects
- * the OpenAI `tools` parameter: ask for a single fenced JSON block instead,
- * mirroring apps/server/src/voice/llm.ts's shape once parsed. */
-function withJsonToolInstruction(messages: ChatMessage[]): ChatMessage[] {
-  const toolsList = TOOL_DEFINITIONS.map(
-    (t) => `- ${t.function.name}: ${t.function.description}`,
-  ).join('\n');
-  // Found live while diagnosing slice 5 (docs/evidence/
-  // browser-tutor-slice5-2026-09-05.log): Qwen3-1.7B (the in-browser model —
-  // the server's much larger Qwen3.6-35B does not need this fallback path
-  // at all) reliably NARRATES an action ("La palabra es... y la guardo")
-  // without ever emitting the fenced block, i.e. it says it will call the
-  // tool but doesn't. A worked example for the exact tool this session
-  // exercises most (saving a word) plus an explicit "do not just describe
-  // it in prose" line measurably changes that — a weak model imitates a
-  // concrete shown shape far more reliably than a prose description of one.
-  const instruction =
-    'This model build does not support native tool calling. When the learner ' +
-    'asks you to do one of the actions below, you must actually emit the fenced ' +
-    'block below — do not just describe the action in your reply text (for ' +
-    'example, do not say "I will save it" without the block). You may still ' +
-    'write normal reply text before or after the block.\n' +
-    'Format:\n```tool\n{"name": "<tool name>", "arguments": {...}}\n```\n' +
-    'Example — the learner says "guarda la palabra cigarra" and the current ' +
-    'passage has a token with id "t42" and text "cigarra":\n' +
-    '```tool\n{"name": "save_vocabulary", "arguments": {"tokenId": "t42", "word": "cigarra"}}\n```\n' +
-    `At most one such block per reply. Available tools:\n${toolsList}`;
-  if (messages[0]?.role !== 'system') return messages;
-  return [
-    { ...messages[0], content: `${messages[0].content}\n\n${instruction}` },
-    ...messages.slice(1),
-  ];
-}
-
-function parseJsonToolBlock(text: string): { call: EngineToolCall; strippedText: string } | null {
-  const match = TOOL_BLOCK_RE.exec(text);
-  if (!match) return null;
-  try {
-    const parsed = JSON.parse(match[1]!.trim()) as { name?: string; arguments?: unknown };
-    if (typeof parsed.name !== 'string') return null;
-    return {
-      call: { id: 'call_0', name: parsed.name, arguments: JSON.stringify(parsed.arguments ?? {}) },
-      strippedText: (text.slice(0, match.index) + text.slice(match.index + match[0].length)).trim(),
-    };
-  } catch {
-    return null;
-  }
-}
-
 /** Adapts a loaded `@mlc-ai/web-llm` engine to the transport-agnostic
  * `LlmEngine` interface `TutorTurnRunner` drives. Tries native OpenAI-shaped
  * `tools` first; if the loaded build rejects that request shape, falls back
@@ -266,6 +216,16 @@ class WebLlmEngine implements LlmEngine {
     handlers: EngineChatHandlers,
     signal: AbortSignal,
   ): Promise<{ text: string; toolCalls: EngineToolCall[] }> {
+    // Root cause of run 9's "narrates the save instead of calling the tool"
+    // (large tier, assertion 9): the fallback instruction used to be added
+    // only inside the catch below, i.e. on the ONE call that discovered the
+    // build rejects `tools`. Every later turn of the session went out with
+    // no `tools` parameter AND no instruction, so the model had never been
+    // told how to call anything — which is why the save worked whenever it
+    // happened to be the session's first LLM call and failed when it was
+    // the second. The instruction has to ride along on every call once the
+    // fallback is engaged.
+    if (!this.supportsTools) messages = withJsonToolInstruction(messages);
     const request = {
       messages: toWebLlmMessages(messages),
       stream: true,
@@ -306,13 +266,14 @@ class WebLlmEngine implements LlmEngine {
           detail: err instanceof Error ? err.message : String(err),
         });
         this.supportsTools = false;
-        return this.chat(withJsonToolInstruction(messages), handlers, signal);
+        return this.chat(messages, handlers, signal);
       }
       throw err;
     }
 
     const toolCallsByIndex = new Map<number, { id: string; name: string; arguments: string }>();
     let text = '';
+    const started = Date.now();
 
     const onAbort = () => {
       void this.engine.interruptGenerate();
@@ -320,7 +281,20 @@ class WebLlmEngine implements LlmEngine {
     signal.addEventListener('abort', onAbort, { once: true });
     try {
       for await (const chunk of stream) {
-        if (signal.aborted) break;
+        // On barge-in, keep DRAINING rather than `break`. WebLLM 0.2.84's
+        // `asyncGenerate` holds a per-model lock and only releases it when
+        // the generator runs to its end (or throws) — there is no
+        // try/finally around the decode loop. Breaking out of `for await`
+        // calls `return()` on the generator, which ends it at the current
+        // `yield` without ever reaching `lock.release()`, so the NEXT
+        // `chat.completions.create()` blocks forever on `lock.acquire()`:
+        // no error, no output, the session sits in `thinking` until the
+        // idle timeout. Seen live in run 9's standard-tier e2e (the save
+        // request right after a barge-in never produced an LLM turn at
+        // all). `interruptGenerate()` (fired by `onAbort` below) makes the
+        // generator stop within one decode step, so draining costs at most
+        // one more chunk, which is simply ignored.
+        if (signal.aborted) continue;
         const delta = chunk.choices[0]?.delta;
         if (!delta) continue;
 
@@ -358,6 +332,21 @@ class WebLlmEngine implements LlmEngine {
         text = parsed.strippedText;
       }
     }
+
+    // One line per LLM call in the e2e log (provider.ts prints metrics as
+    // `[sotto-tutor] llm_turn_ms=...`): how long the generation took, which
+    // tool (if any) was parsed out of it, and — when none was — the start
+    // of the raw reply, so a narrated-not-called failure is diagnosable
+    // from the log alone instead of needing a second instrumented run.
+    post({
+      t: 'metric',
+      name: 'llm_turn_ms',
+      ms: Date.now() - started,
+      detail:
+        toolCalls.length > 0
+          ? `tool=${toolCalls.map((tc) => tc.name).join(',')}`
+          : `no-tool raw=${JSON.stringify(text.slice(0, 400))}`,
+    });
 
     return { text, toolCalls };
   }
@@ -514,12 +503,26 @@ function requestTool(
   name: string,
   args: unknown,
 ): Promise<ToolCallResult> {
+  const started = Date.now();
   return new Promise((resolve) => {
+    // Diagnostic line per relayed call (`[sotto-tutor] tool_result=...` in
+    // the e2e log): which tool, with what args, and the executor's verdict
+    // — a model that emits the call correctly but with a wrong tokenId is
+    // otherwise indistinguishable from one that never called at all.
+    const settle = (result: ToolCallResult) => {
+      post({
+        t: 'metric',
+        name: 'tool_result',
+        ms: Date.now() - started,
+        detail: `${name} ${JSON.stringify(args)} -> ${result.ok ? 'ok' : `error=${result.error}`}`,
+      });
+      resolve(result);
+    };
     const timer = setTimeout(() => {
       s.pendingToolResults.delete(callId);
-      resolve({ ok: false, error: 'timeout' });
+      settle({ ok: false, error: 'timeout' });
     }, TOOL_RESULT_TIMEOUT_MS);
-    s.pendingToolResults.set(callId, { resolve, timer });
+    s.pendingToolResults.set(callId, { resolve: settle, timer });
     post({ t: 'tool_call', callId, name: name as never, args });
   });
 }

@@ -318,6 +318,10 @@ export class BrowserCascadeProvider implements VoiceProvider {
         console.info(`[sotto-tutor] ${msg.name}=${msg.ms}ms${msg.detail ? ` ${msg.detail}` : ''}`);
         break;
       case 'error':
+        // Same local-only diagnostic line as `metric` above: a recoverable
+        // error otherwise reaches the e2e log only as the generic "Sorry,
+        // something went wrong there" caption, with no cause recorded.
+        console.warn(`[sotto-tutor] error ${msg.code}: ${msg.message}`);
         this.emit({
           type: 'error',
           code: msg.code,

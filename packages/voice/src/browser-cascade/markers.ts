@@ -20,7 +20,14 @@ const THINK_RE = /<think>[\s\S]*?<\/think>\s*/gi;
 // once the model actually attempted a tool call, the caption literally
 // read "```tool" mid-JSON. Stripped here too, the same way `<think>` is,
 // so the streamed captions never see it in the first place.
-const TOOL_BLOCK_RE = /```tool\s*[\s\S]*?```\s*/gi;
+// Run 9 switched the fallback's requested shape to Qwen's native
+// `<tool_call>{json}</tool_call>` (tool-protocol.ts); both shapes are
+// control structure, so both are stripped and held back here.
+const TOOL_BLOCK_RE = /(?:```tool\s*[\s\S]*?```|<tool_call>[\s\S]*?<\/tool_call>)\s*/gi;
+const TOOL_FENCES: ReadonlyArray<readonly [open: string, close: string]> = [
+  ['```tool', '```'],
+  ['<tool_call>', '</tool_call>'],
+];
 
 export interface StrippedMarkers {
   text: string;
@@ -138,17 +145,21 @@ export function safeReleaseIndex(buf: string): number {
 
   const resolvedEnd = lastCompleteToolBlockEnd(buf);
   const rest = buf.slice(resolvedEnd);
+  const restLower = rest.toLowerCase();
 
-  const openToolIdxRel = rest.lastIndexOf('```tool');
-  const toolOpenSafeRel =
-    openToolIdxRel === -1 || rest.indexOf('```', openToolIdxRel + '```tool'.length) !== -1
-      ? rest.length
-      : openToolIdxRel;
-  // A trailing fragment of `rest` that could still become "```tool" once
-  // more of the stream arrives (e.g. `rest` currently ends in just "```").
-  const toolPrefixLenRel = openingPrefixLen(rest, '```tool');
-  const toolPrefixSafeRel = rest.length - toolPrefixLenRel;
-  const toolSafe = resolvedEnd + Math.min(toolOpenSafeRel, toolPrefixSafeRel);
+  let toolSafe = buf.length;
+  for (const [open, close] of TOOL_FENCES) {
+    const openIdxRel = restLower.lastIndexOf(open);
+    const openSafeRel =
+      openIdxRel === -1 || restLower.indexOf(close, openIdxRel + open.length) !== -1
+        ? rest.length
+        : openIdxRel;
+    // A trailing fragment of `rest` that could still become the opener
+    // once more of the stream arrives (e.g. `rest` currently ends in "```"
+    // or "<tool").
+    const prefixSafeRel = rest.length - openingPrefixLen(rest, open);
+    toolSafe = Math.min(toolSafe, resolvedEnd + Math.min(openSafeRel, prefixSafeRel));
+  }
 
   return Math.min(markerSafe, thinkSafe, toolSafe);
 }

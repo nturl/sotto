@@ -1,0 +1,102 @@
+Sotto — in-browser tutor, run 9: tool calls on Qwen3.5-2B / Qwen3.5-4B (WebLLM 0.2.84)
+=======================================================================================
+
+Task: TUTOR_TIER=large e2e (apps/client/e2e/browser-tutor.mjs) had the 4B answer
+"Guardé **cigarra** para ti." with no tool block, so save_vocabulary never ran
+(assertion 9). Goal: reliable tool calls on both Qwen3.5 builds.
+
+All runs: KEEP_PROFILE=1, warm model caches, fake mic = Kokoro wav of
+"¿Qué significa la palabra cigarra?" then "Por favor, guarda la palabra cigarra."
+Logs of every run are summarized below; raw logs were kept in the session
+scratchpad only.
+
+Reproduction (unchanged code, large tier)
+-----------------------------------------
+repro-large: 9/9 PASS — but only because utterance 1 played while the models
+were still loading, so the SAVE request was the session's FIRST LLM call. A
+"Sorry, something went wrong there" caption appeared right after the save.
+fix2-large (fresh build, both utterances heard): assertion 9 FAIL —
+  llm_turn_ms=6769ms no-tool raw="...He guardado **cigarra** en tu vocabulario..."
+i.e. the reported failure, reproduced: turn 2 narrates the save.
+
+Root causes found (four, all in packages/voice/src/browser-cascade)
+-------------------------------------------------------------------
+1. worker.ts WebLlmEngine.chat: the JSON-tool fallback instruction was only
+   added inside the catch that discovers `tools` is rejected — i.e. on the
+   ONE call that hit the throw. Every later turn of the session went out
+   with no `tools` parameter and no instruction at all. This is the whole
+   intermittency: the save worked whenever it was the first LLM call and
+   narrated whenever it was the second. Fix: inject the instruction on
+   every call once `supportsTools` is false.
+2. WebLLM's fixed Qwen conversation template has no `tool` role: the
+   continuation after a tool result threw `Role is not supported: tool`
+   (llm_pipeline_failed -> the "Sorry, something went wrong" caption, on
+   every run, right after a save that had succeeded). Fix (tool-protocol.ts):
+   re-render the OpenAI-shaped history into Qwen's own shape for the
+   fallback — tool results as a user turn wrapping <tool_response>, the
+   assistant's call as its text plus the <tool_call> block.
+3. Barge-in hang (standard tier, fix5-standard): after speech_start
+   interrupted turn 1, turn 2 never produced an LLM call (session sat in
+   `thinking` for 130s). WebLLM 0.2.84 asyncGenerate releases its per-model
+   lock only when the generator runs to its end; `break`ing out of
+   `for await` on abort ends the generator at the current yield, the lock
+   is never released, and the next create() blocks forever on
+   lock.acquire(). Fix: on abort keep draining (interruptGenerate() stops it
+   within one decode step) instead of `break`.
+4. Protocol shape: the instruction now carries Qwen's native
+   `<tools>…</tools>` / `<tool_call>{json}</tool_call>` block (the text its
+   chat template would render for native tools; WebLLM's non-Jinja template
+   never injects it), and the parser accepts that, the legacy ```tool fence,
+   ```json / bare fences, and a bare JSON object naming a known tool.
+   markers.ts strips / holds back <tool_call> the same way it did ```tool.
+
+Diagnostics added (local console only, never leave the browser)
+---------------------------------------------------------------
+- llm_turn_ms=<ms> tool=<names> | no-tool raw="<first 400 chars>"
+- tool_result=<ms> <tool> <args> -> ok | error=<executor message>
+- [sotto-tutor] error <code>: <message> (provider.ts, for recoverable errors)
+
+Run table (assertion 9 = "cigarra actually saved")
+--------------------------------------------------
+run            tier      STT heard (turn1 / turn2)                       tool call         a9    notes
+repro-large    large     — / "Por favor, guarda la palabra cigarra."     fence (turn 1)    PASS  save was 1st LLM call; "Sorry…" after
+fix1-large     large     — / "…guarda la palabra cigarra."               fence (turn 1)    PASS  same shape as repro
+fix2-large     large     cigarra / cigarra                               none (narrated)   FAIL  reproduced: instruction missing on turn 2
+fix3-large     large     cigarra / "Please keep the word Cigarra."       <tool_call> ✓     PASS  then `Role is not supported: tool`
+fix4-large     large     cigarra / cigarra                               <tool_call> ✓     PASS  9/9, continuation clean, no error caption
+fix4-standard  standard  "grab" / "sigarra"                              <tool_call> ✓     FAIL  store empty; then 3x set_session_mode loop
+fix5-standard  standard  "grab" / "sigurra"                              — (turn 2 hung)   FAIL  barge-in lock hang (root cause 3)
+fix6-standard  standard  "grab" / "sigurra"                              <tool_call> ✓     FAIL  executor: word "grabar" not found (tokenId is "tanto")
+fix7-standard  standard  "cigarette" / "siga arra"                       <tool_call> ✓     FAIL  executor: word "siga" not found (tokenId is "Cerca")
+final-standard standard  "cigar" / "sigarra"                             <tool_call> ✓     FAIL  executor: word "sigarra" not found (tokenId is "No"); model then reports it honestly
+final-large    large     cigarra / "Please keep the word Cigarra."       <tool_call> ✓     PASS  tool_result ok (b1.s1.t6 "cigarra"); a8 FAIL: STT put utterance 2 in English
+
+Final build, per assertion
+--------------------------
+                                                     large (4B)   standard (2B)
+1 static host: /health unreachable                    PASS         PASS
+2 download panel offered models with a size           PASS         PASS
+3 models downloaded on the explicit tap               PASS         PASS
+4 learner caption contains "cigarra"                  PASS         PASS
+5 state cycled listening -> thinking                  PASS         PASS
+6 tutor caption (final) within the reply budget       PASS         PASS
+7 no false "speaking" state for es-419                PASS         PASS
+8 "Guarda la palabra cigarra" heard as a caption      FAIL*        PASS
+9 tool round trip: cigarra actually saved             PASS         FAIL**
+ * whisper-small transcribed utterance 2 as "Please keep the word Cigarra."
+   (language auto-detect; the harness deliberately forces no `language`).
+   The 4B still called save_vocabulary with the right tokenId and the save
+   succeeded. fix4-large, same protocol code, was 9/9.
+** whisper-base heard "sigarra"; the 2B called save_vocabulary with that
+   spelling and the executor rejected it (not in the chapter). The call
+   itself was emitted on every standard-tier run after the fixes.
+
+Timings (final runs, warm caches, Apple-silicon WebGPU)
+-------------------------------------------------------
+                       large (whisper-small + 4B)        standard (whisper-base + 2B)
+stt_load_ms            3201                              2225
+llm_load_ms            8272                              4705
+stt_ms (utt 1 / 2)     4034 / 2357  (3.0s / 3.6s audio)  1386 / 968
+llm_turn_ms turn 1     12054 (first prefill)             6523
+llm_turn_ms turn 2     13717 (tool call) + 11929 (cont.) 7653 (tool call) + 6633 (cont.)
+tool_result            22ms                              11ms

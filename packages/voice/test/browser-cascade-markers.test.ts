@@ -145,3 +145,34 @@ describe('safeReleaseIndex', () => {
     expect(shownToLearner).toBe('Listo.  Hecho.');
   });
 });
+
+describe('native <tool_call> shape (run 9)', () => {
+  it('strips a complete <tool_call> block', () => {
+    const r = stripMarkers(
+      '<tool_call>{"name": "save_vocabulary", "arguments": {}}</tool_call>\nListo.',
+    );
+    expect(r.text.trim()).toBe('Listo.');
+  });
+
+  it('holds back an unterminated <tool_call> block and its partial opener', () => {
+    expect(safeReleaseIndex('Claro. <tool_call>{"name": "sa')).toBe('Claro. '.length);
+    expect(safeReleaseIndex('Claro. <tool')).toBe('Claro. '.length);
+    expect(safeReleaseIndex('Claro. <tool_call>{}</tool_call> Listo.')).toBe(
+      'Claro. <tool_call>{}</tool_call> Listo.'.length,
+    );
+  });
+
+  it('never leaks the <tool_call> tags to captions one delta at a time', () => {
+    const deltas = ['<', 'tool', '_call', '>{"name"', ': "x"}', '</tool', '_call>', ' Listo.'];
+    let buf = '';
+    let released = '';
+    for (const d of deltas) {
+      buf += d;
+      const idx = safeReleaseIndex(buf);
+      released += stripMarkers(buf.slice(0, idx)).text;
+      buf = buf.slice(idx);
+    }
+    released += stripMarkers(buf).text;
+    expect(released.trim()).toBe('Listo.');
+  });
+});

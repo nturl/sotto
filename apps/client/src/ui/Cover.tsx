@@ -20,6 +20,7 @@
  * RECON risk 2 and risk 10: this file used to import the static light
  * `colors` and never darkened).
  */
+import { useState } from 'react';
 import { Image, Platform, StyleSheet, Text, View } from 'react-native';
 import { colors as lightColors, paper, radius } from '@sotto/core/theme';
 import { SvgUri } from 'react-native-svg';
@@ -42,6 +43,10 @@ export type CoverProps = {
 /** The mockup's `.cv` is drawn at 120x180; everything scales from there. */
 const BASE_WIDTH = 120;
 
+/** Narrower than this and the title/author/stamp are smaller than any legible
+ * type, so they are dropped rather than printed as smudges (run 8 P1-10). */
+const MIN_TYPOGRAPHIC_WIDTH = 72;
+
 export function Cover({
   book,
   width,
@@ -51,6 +56,10 @@ export function Cover({
   accessibilityLabel,
 }: CoverProps) {
   const { colors } = useTheme();
+  // Measured so the author line can reserve exactly the stamp's footprint
+  // (see the author style below). Declared here, above the no-title early
+  // return, to keep the hook order stable.
+  const [stampWidth, setStampWidth] = useState(0);
   const label = accessibilityLabel ?? book.title;
   const shadow = cutout ? (
     <View
@@ -92,6 +101,11 @@ export function Cover({
 
   const scale = width / BASE_WIDTH;
   const px = (value: number) => value * scale;
+  // Below the mockup's smallest cover the type stops being type: at the
+  // 32x48 and 44x66 selectors on the vocabulary screen the title would be
+  // ~3.5px and the author ~2.1px. Under 72px wide the cover keeps only what
+  // still reads — the paper, the spine and the one big mark.
+  const typographic = width >= MIN_TYPOGRAPHIC_WIDTH;
   const paperName = coverPaper(book);
   const ground = paper[paperName];
   const ink = paperInk(paperName) === 'ink' ? lightColors.ink : lightColors.canvas;
@@ -125,55 +139,68 @@ export function Cover({
           {mark.text}
         </Text>
 
-        <Text
-          numberOfLines={3}
-          style={{
-            marginLeft: px(3),
-            paddingRight: px(6),
-            color: ink,
-            fontFamily: fonts.frauncesLight,
-            fontSize: titleSize,
-            lineHeight: Math.round(titleSize * 1.2),
-          }}
-        >
-          {book.title}
-        </Text>
-        <Text
-          numberOfLines={1}
-          style={{
-            marginLeft: px(3),
-            marginTop: px(6),
-            paddingRight: px(30),
-            color: ink,
-            fontFamily: fonts.interRegular,
-            fontSize: authorSize,
-            lineHeight: Math.round(authorSize * 1.3),
-            letterSpacing: authorSize * 0.14,
-            textTransform: 'uppercase',
-          }}
-        >
-          {book.author}
-        </Text>
+        {typographic ? (
+          <>
+            <Text
+              numberOfLines={3}
+              style={{
+                marginLeft: px(3),
+                paddingRight: px(6),
+                color: ink,
+                fontFamily: fonts.frauncesLight,
+                fontSize: titleSize,
+                lineHeight: Math.round(titleSize * 1.2),
+              }}
+            >
+              {book.title}
+            </Text>
+            <Text
+              numberOfLines={1}
+              style={{
+                marginLeft: px(3),
+                marginTop: px(6),
+                // The clearance for the level stamp is the stamp itself —
+                // its measured width plus its own right offset and a 2px
+                // gap — not a scaled guess at it. `px(30)` came from the
+                // mockup, whose cover is always 120 wide; measured, the
+                // stamp is 21px there and 49px on the 280px book-detail
+                // cover, so a *constant* 30 would have run the author under
+                // the stamp at that size. Until the first layout pass lands
+                // the mockup's own value stands in.
+                paddingRight: stampWidth > 0 ? stampWidth + px(8) + 2 : px(30),
+                color: ink,
+                fontFamily: fonts.interRegular,
+                fontSize: authorSize,
+                lineHeight: Math.round(authorSize * 1.3),
+                letterSpacing: authorSize * 0.14,
+                textTransform: 'uppercase',
+              }}
+            >
+              {book.author}
+            </Text>
 
-        <Text
-          style={{
-            position: 'absolute',
-            right: px(8),
-            bottom: px(8),
-            color: ink,
-            borderColor: ink,
-            borderWidth: 1,
-            borderRadius: radius.sm,
-            paddingHorizontal: px(4),
-            paddingVertical: px(3),
-            fontFamily: fonts.mono,
-            fontSize: stampSize,
-            lineHeight: stampSize,
-            letterSpacing: stampSize * 0.08,
-          }}
-        >
-          {book.level}
-        </Text>
+            <Text
+              onLayout={(event) => setStampWidth(event.nativeEvent.layout.width)}
+              style={{
+                position: 'absolute',
+                right: px(8),
+                bottom: px(8),
+                color: ink,
+                borderColor: ink,
+                borderWidth: 1,
+                borderRadius: radius.sm,
+                paddingHorizontal: px(4),
+                paddingVertical: px(3),
+                fontFamily: fonts.mono,
+                fontSize: stampSize,
+                lineHeight: stampSize,
+                letterSpacing: stampSize * 0.08,
+              }}
+            >
+              {book.level}
+            </Text>
+          </>
+        ) : null}
       </View>
     </View>
   );

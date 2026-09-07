@@ -17,7 +17,7 @@
  */
 import { Fragment, useEffect, useRef } from 'react';
 import { Animated, Easing, Text as RNText, type TextStyle } from 'react-native';
-import { motion, radius } from '@sotto/core/theme';
+import { colors as lightColors, motion, radius } from '@sotto/core/theme';
 import { Text } from './Text';
 import { useTheme } from './theme';
 import { peachSelection, peachUnderline } from './tokens';
@@ -89,7 +89,11 @@ function SpeechWord({
     }).start();
   }, [spoken, reduced, fill]);
 
-  const color = fill.interpolate({ inputRange: [0, 1], outputRange: [colors.quiet, colors.ink] });
+  // The peach selection fill and the mark band are artwork: one colourway in
+  // both schemes (ui/tokens.ts derives `peachSelection` from the light
+  // palette), so the text on them reads from the light palette too.
+  const scheme = selected || saved ? lightColors : colors;
+  const color = fill.interpolate({ inputRange: [0, 1], outputRange: [scheme.quiet, scheme.ink] });
 
   return (
     <Animated.Text
@@ -98,7 +102,7 @@ function SpeechWord({
       style={[
         {
           color,
-          backgroundColor: selected ? peachSelection : saved ? colors.mark : 'transparent',
+          backgroundColor: selected ? peachSelection : saved ? lightColors.mark : 'transparent',
           borderRadius: radius.sm,
         },
         saved ? { transform: [{ skewX: '-10deg' }] } : null,

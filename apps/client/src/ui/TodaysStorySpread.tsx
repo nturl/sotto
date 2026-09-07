@@ -23,7 +23,7 @@
  */
 import { useMemo, useState } from 'react';
 import { Animated, Pressable, StyleSheet, View } from 'react-native';
-import { radius, shadow, space } from '@sotto/core/theme';
+import { colors as lightColors, radius, shadow, space } from '@sotto/core/theme';
 import { useT } from '../i18n/useT';
 import { usePressAnimation } from './Button';
 import { Cover } from './Cover';
@@ -92,7 +92,7 @@ function SpreadButton({
             style={[
               StyleSheet.absoluteFill,
               styles.cutout,
-              { backgroundColor: colors.ink },
+              { backgroundColor: lightColors.ink },
               { transform: [{ translateX: shadowOffset }, { translateY: shadowOffset }] },
             ]}
           />
@@ -112,8 +112,12 @@ function SpreadButton({
             role="uiButton"
             size={isDesktop ? 15 : 14}
             /* PLAN decision 8: ink on the accent fill (5:1), not cream
-             * (3.45:1). Ghost is the mockup's ink-2 text link. */
+             * (3.45:1). Ghost is the mockup's ink-2 text link. The accent
+             * fill and its cutout are the same in both schemes, so the CTA
+             * label and the cutout are pinned to the light ink — the active
+             * `ink` is cream in dark and turned the cutout into a halo. */
             color={variant === 'ghost' ? 'ink2' : 'ink'}
+            style={isCta ? { color: lightColors.ink } : undefined}
           >
             {label}
           </Text>

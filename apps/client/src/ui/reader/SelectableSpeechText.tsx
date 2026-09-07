@@ -29,12 +29,12 @@
  */
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Easing, Platform, Text as RNText, type TextStyle } from 'react-native';
-import { motion, radius, type schemes } from '@sotto/core/theme';
+import { colors as lightColors, motion, radius, type schemes } from '@sotto/core/theme';
 // ThemedText (not the plain Text component) so the paragraph wrapper's
 // base color follows the active scheme too — see
 // ui/theme/ThemedText.tsx's doc comment.
 import { ThemedText as Text, useTheme } from '../theme';
-import { withAlpha } from '../tokens';
+import { peachSelection } from '../tokens';
 import { useReducedMotion } from '../useReducedMotion';
 import type { SpeechSentence, SpeechToken } from '../SpeechFillText';
 
@@ -66,7 +66,6 @@ function SpeechWord({
   reduced,
   isWord,
   colors,
-  peachSelection,
   onPress,
   onPointerDown,
   onPointerEnter,
@@ -83,7 +82,6 @@ function SpeechWord({
    * useTheme() in the parent and passed down so this leaf, called per
    * token, doesn't each subscribe to the theme context separately. */
   colors: ThemeColors;
-  peachSelection: string;
   onPress?: () => void;
   onPointerDown?: (e: { pointerType?: string; clientX: number; clientY: number }) => void;
   onPointerEnter?: () => void;
@@ -103,8 +101,14 @@ function SpeechWord({
     }).start();
   }, [spoken, reduced, fill]);
 
-  const color = fill.interpolate({ inputRange: [0, 1], outputRange: [colors.quiet, colors.ink] });
   const filled = selected || previewSelected;
+  // A highlighted word sits on artwork, not on chrome: the peach selection
+  // fill and the mark band carry one colourway in both schemes (PLAN
+  // decision 7 fixes the selection at rgba(242,200,180,.55)), so the text on
+  // them comes from the light palette too. In dark, the active `colors.ink`
+  // is cream and measured 2.95:1 on the mark.
+  const scheme = filled || saved ? lightColors : colors;
+  const color = fill.interpolate({ inputRange: [0, 1], outputRange: [scheme.quiet, scheme.ink] });
 
   return (
     <Animated.Text
@@ -117,7 +121,7 @@ function SpeechWord({
       style={[
         {
           color,
-          backgroundColor: filled ? peachSelection : saved ? colors.mark : 'transparent',
+          backgroundColor: filled ? peachSelection : saved ? lightColors.mark : 'transparent',
           borderRadius: radius.sm,
         },
         saved ? { transform: [{ skewX: '-10deg' }] } : null,
@@ -140,9 +144,6 @@ export function SelectableSpeechText({
   const reduced = useReducedMotion();
   const isWeb = Platform.OS === 'web';
   const { colors } = useTheme();
-  // Run 8 decision 7: peach at 55% (the mockup's `.w.sel`), computed against
-  // the *active* scheme rather than the static light token in ui/tokens.ts.
-  const peachSelectionActive = useMemo(() => withAlpha(colors.peach, 0.55), [colors.peach]);
 
   // Flat reading-order id list for this block, used only to compute the
   // *preview* highlight while dragging (the parent recomputes the
@@ -255,7 +256,6 @@ export function SelectableSpeechText({
                   reduced={reduced}
                   isWord={!!token.isWord}
                   colors={colors}
-                  peachSelection={peachSelectionActive}
                   onPress={onTap && token.isWord ? () => onTap(token, sentence) : undefined}
                   onPointerDown={token.isWord ? (e) => handlePointerDown(token.id, e) : undefined}
                   onPointerEnter={token.isWord ? () => handlePointerEnter(token.id) : undefined}

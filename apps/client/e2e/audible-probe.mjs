@@ -52,7 +52,11 @@ const BASE_URL = process.env.BASE_URL ?? 'http://localhost:8081';
 const SERVER_URL = process.env.SOTTO_SERVER_URL ?? 'http://localhost:8790';
 const BOOK_ID = 'fr-chevre-de-m-seguin';
 const LEARNER_TEXT = "Qu'est-ce que c'est, la Provence ? Est-ce en France ?";
-const TIMEOUT_MS = 90_000;
+const TIMEOUT_MS = 150_000;
+// How long to wait for the tutor's own opening invitation before giving up
+// and sending the learner turn anyway (which makes the ordering assertion
+// below fail loudly rather than hang).
+const OPENING_WAIT_MS = 60_000;
 
 mkdirSync(OUT_DIR, { recursive: true });
 
@@ -195,6 +199,16 @@ async function main() {
   let shotCount = 2;
   let sentTurn = false;
   let sawTutorReply = false;
+  // R-adversarial finding 9: the local path now opens the session with one
+  // spoken invitation of its own (`VoiceSession.beginOpeningTurn()`), before
+  // the learner has said anything. The probe used to fire the learner turn
+  // the instant the text box appeared (~2.5 s), which raced that opening
+  // turn and interleaved the two replies' sentence captions. It now waits
+  // for the invitation to render, so the exchange it measures is the one a
+  // learner actually gets — and so the ordering can be asserted below.
+  let openingCaption = null;
+  let samplesBeforeLearnerTurn = 0;
+  const openingDeadline = Date.now() + OPENING_WAIT_MS;
   const deadline = Date.now() + TIMEOUT_MS;
 
   while (Date.now() < deadline) {
@@ -214,6 +228,10 @@ async function main() {
           timeline.push({ t: (Date.now() - t0) / 1000, kind: 'caption', value: line });
           log(`caption: ${line}`);
           if (sentTurn && /^Tutor:/.test(line)) sawTutorReply = true;
+          if (!sentTurn && !openingCaption && /^Tutor:/.test(line)) {
+            openingCaption = line.replace(/^Tutor:\s*/, '');
+            log(`opening invitation seen before the learner turn: "${openingCaption}"`);
+          }
         }
       }
     }
@@ -223,9 +241,23 @@ async function main() {
     // the turn the first time its input box is on the page, rather than
     // waiting on `listening` specifically (a local-server session can
     // briefly show `connecting` first).
+    // Wait for the opening invitation to have been said AND for the session
+    // to have settled back to listening — sending mid-`speaking` interleaves
+    // the two turns' sentence captions and measures an exchange no learner
+    // would ever have.
+    const openingDone = !!openingCaption && (lastState === 'listening' || lastState === 'muted');
+    if (!sentTurn && !openingDone && Date.now() < openingDeadline) {
+      await page.waitForTimeout(500);
+      continue;
+    }
     if (!sentTurn) {
       const input = page.getByRole('textbox');
       if ((await input.count()) > 0) {
+        // Read the audio counter *before* our turn, so "the invitation was
+        // spoken, not just printed" is a claim about the opening turn's own
+        // playback rather than the reply's.
+        samplesBeforeLearnerTurn =
+          (await page.evaluate(() => window.__sottoAudioProbe))?.totalSamples ?? 0;
         log(`Sending learner turn via text fallback: "${LEARNER_TEXT}"`);
         await input.first().fill(LEARNER_TEXT);
         await input.first().press('Enter');
@@ -249,6 +281,11 @@ async function main() {
 
   const probe = await page.evaluate(() => window.__sottoAudioProbe);
   await shot(page, 'state-99-final');
+  // Read once while the page is still open — the duplicate check below is
+  // about what is *rendered* at the end, not about what ever streamed past.
+  const renderedTutorLines = (await readVoiceSnapshot(page)).captionLines
+    .filter((l) => /^Tutor:/.test(l))
+    .map((l) => l.replace(/^Tutor:\s*/, '').trim());
   await context.close();
 
   console.log('\n===== Timeline =====');
@@ -267,6 +304,20 @@ async function main() {
   const mentionsPlace = /provence/i.test(lastTutorReply);
   const endsWithQuestion = /\?\s*$/.test(lastTutorReply.trim());
 
+  // R-adversarial finding 2: a non-final caption that arrived after its own
+  // final used to survive as a permanent duplicate bubble. Assert the final
+  // transcript holds no tutor sentence twice, and no tutor line that is
+  // wholly contained in another one.
+  const duplicated = renderedTutorLines.filter(
+    (line, i) =>
+      line.length > 0 &&
+      renderedTutorLines.some((other, j) => j !== i && other.includes(line) && other !== line),
+  );
+  const openingBeforeLearner =
+    !!openingCaption &&
+    timeline.findIndex((e) => e.kind === 'caption' && e.value === `Tutor: ${openingCaption}`) <
+      timeline.findIndex((e) => e.kind === 'caption' && e.value.startsWith('You:'));
+
   const results = {
     'learner turn ("...Provence...") rendered in the transcript': !!learnerLine,
     'a tutor reply rendered in the transcript': tutorLines.length > 0,
@@ -275,6 +326,10 @@ async function main() {
     'reply mentions Provence (mechanical substring check)': mentionsPlace,
     'reply ends with a question (discuss-mode follow-up)': endsWithQuestion,
     'no page/console errors': pageErrors.length === 0,
+    'an opening invitation rendered before the learner turn': openingBeforeLearner,
+    'the opening invitation was spoken (samples scheduled before the learner turn)':
+      samplesBeforeLearnerTurn > 0,
+    'no duplicated tutor sentence in the rendered transcript': duplicated.length === 0,
   };
   console.log('\n===== Assertions =====');
   let allPass = true;
@@ -286,6 +341,12 @@ async function main() {
     console.log('\n  Page/console errors:');
     for (const e of pageErrors) console.log('    -', e);
   }
+  if (duplicated.length) {
+    console.log('\n  Duplicated tutor fragments still rendered:');
+    for (const d of duplicated) console.log('    -', d);
+  }
+  console.log(`\nOpening invitation: "${openingCaption ?? '(none)'}"`);
+  console.log(`Samples scheduled before the learner turn: ${samplesBeforeLearnerTurn}`);
   console.log(
     `\nLast tutor reply (read this to judge grounding/language yourself): "${lastTutorReply}"`,
   );

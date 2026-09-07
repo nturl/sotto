@@ -41,4 +41,19 @@ describe('SentenceChunker', () => {
     c.push('Complet. ');
     expect(c.flush()).toEqual([]);
   });
+  // Kept in step with apps/server/src/voice/chunker.test.ts — the two
+  // chunkers are a deliberate byte-for-byte port, so the abbreviation rule
+  // (run7 H2: "M. Seguin" used to chunk as two sentences) must hold on the
+  // browser path too.
+  it('does not split after a French title abbreviation', () => {
+    const c = new SentenceChunker();
+    expect(c.push('Dans cette histoire, M. Seguin a peur du loup. Ensuite')).toEqual([
+      'Dans cette histoire, M. Seguin a peur du loup.',
+    ]);
+  });
+
+  it('does not split after a single-letter initial', () => {
+    const c = new SentenceChunker();
+    expect(c.push('A. Daudet a écrit ce conte. Fin')).toEqual(['A. Daudet a écrit ce conte.']);
+  });
 });

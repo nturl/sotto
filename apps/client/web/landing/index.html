@@ -780,15 +780,17 @@
               think out loud to a tutor that read the same page.
             </p>
             <div class="cta-row">
-              <a class="cta" href="https://app.readsotto.app/account?intent=start">Start free</a>
+              <a class="cta" href="https://app.readsotto.app/account?intent=start&amp;returnTo=%2Fpaywall"
+                >Try the tutor free for 3 days</a
+              >
               <span class="cta-links">
+                <a class="tap-link" href="/start">Read free, no account</a>
                 <a class="tap-link" href="https://app.readsotto.app/account">Sign in</a>
-                <a class="tap-link" href="/start">Try a sample</a>
               </span>
             </div>
             <p class="cta-note">
-              No account needed to try. Progress and saved words stay in this browser until you
-              create one.
+              Reading, listening, and tap-to-translate are free for good. The voice tutor is
+              $9.99 a month or $79 a year after the trial.
             </p>
           </div>
 
@@ -866,18 +868,18 @@
                   </div>
                   <div class="pane power">
                     <fieldset class="power">
-                      <legend class="meta">Where the tutor runs</legend>
+                      <legend class="meta">The tutor</legend>
                       <label
-                        ><input type="radio" name="pw" value="device" checked /><span class="ind"></span
-                        ><span>On this device.</span></label
-                      >
-                      <label
-                        ><input type="radio" name="pw" value="plan" /><span class="ind"></span
-                        ><span>Through Sotto's server.</span></label
+                        ><input type="radio" name="pw" value="plan" checked /><span class="ind"></span
+                        ><span>Sotto's tutor. $9.99 a month.</span></label
                       >
                       <label
                         ><input type="radio" name="pw" value="key" /><span class="ind"></span
-                        ><span>With your own key.</span></label
+                        ><span>Your own key.</span></label
+                      >
+                      <label
+                        ><input type="radio" name="pw" value="device" /><span class="ind"></span
+                        ><span>On this device.</span></label
                       >
                       <label
                         ><input type="radio" name="pw" value="self" /><span class="ind"></span
@@ -892,22 +894,22 @@
                 <p data-for="free" class="on">
                   <b>Reading, listening, tap-to-translate, and saved words are free.</b>
                 </p>
-                <p data-for="device">
-                  <b>On this device.</b> Free. The in-browser tutor runs on on-device models, so
-                  nothing leaves the device.
-                </p>
                 <p data-for="plan">
-                  <b>Through Sotto's server.</b> The plan: the hosted tutor with nothing to set up.
-                  $9.99 a month or $79 a year after a 3-day trial, at a separate sign-in
-                  (<a href="https://app.readsotto.app/account">app.readsotto.app</a>). Your voice
-                  goes to OpenAI through Sotto's server; no transcripts or recordings are stored,
-                  only usage minutes and billing.
+                  <b>Sotto's tutor.</b> Nothing to install, nothing to set up. Talk about the page
+                  the moment you finish it. $9.99 a month or $79 a year, free for the first 3 days.
+                  <a href="https://app.readsotto.app/account?intent=start&amp;returnTo=%2Fpaywall"
+                    >Start the trial</a
+                  >. No transcripts or recordings are kept, only minutes used.
                 </p>
                 <p data-for="key">
-                  <b>With your own key.</b> Works with or without the plan. Paste an OpenAI key in
-                  Settings and the page calls OpenAI directly from your browser. The key stays on
-                  this device and OpenAI bills you, not Sotto.
+                  <b>Your own key.</b> Paste an OpenAI key in Settings and the page calls OpenAI
+                  directly from your browser. The key stays on this device and OpenAI bills you.
                   <a href="https://github.com/nturl/sotto/blob/main/docs/byok.md">How it works</a>
+                </p>
+                <p data-for="device">
+                  <b>On this device.</b> Free. The tutor runs on models downloaded into your
+                  browser, so nothing leaves the device. Needs a recent laptop and a large first
+                  download; slower and less accurate than the plan.
                 </p>
                 <p data-for="self">
                   <b>On your own machine.</b> Free, on your own hardware. <code>docker compose up</code>
@@ -937,8 +939,8 @@
           </div>
           <div class="scene" id="scene-power" data-scene="power">
             <p class="meta">05 · Power</p>
-            <p class="line">Where the tutor runs is a footnote, not a tier.</p>
-            <p class="body">Choose one in the book. The footnote under it says what that means.</p>
+            <p class="line">The tutor is the part you pay for. The rest stays free.</p>
+            <p class="body">Pick how it runs in the book. The note under it says what that means.</p>
           </div>
         </div>
       </section>
@@ -1158,7 +1160,7 @@
           var key = 'free';
           if (st === 'power') {
             var checked = book.querySelector('input[name="pw"]:checked');
-            key = checked ? checked.value : 'device';
+            key = checked ? checked.value : 'plan';
           }
           Array.prototype.forEach.call(foot.querySelectorAll('p'), function (p) {
             p.classList.toggle('on', p.getAttribute('data-for') === key);

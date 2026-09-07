@@ -84,6 +84,7 @@ function mkDeps(
     requestTool?: (callId: string, name: string, args: unknown) => Promise<ToolCallResult>;
     mode?: () => TutorMode;
     maxTokens?: () => number | undefined;
+    onMetric?: (name: string, detail?: string) => void;
   },
 ): TutorTurnDeps {
   return {
@@ -98,6 +99,7 @@ function mkDeps(
     onTutorCaption: (text, final) => over.onTutorCaption?.(text, final),
     ...(over.mode ? { mode: over.mode } : {}),
     ...(over.maxTokens ? { maxTokens: over.maxTokens } : {}),
+    ...(over.onMetric ? { onMetric: over.onMetric } : {}),
   };
 }
 
@@ -341,5 +343,77 @@ describe('TutorTurnRunner reply contract', () => {
     await runner.run('hola', new AbortController().signal);
 
     expect(sentences).toEqual(['El perro es gris.']);
+  });
+});
+
+describe('the sentence cap is safe to abort on (lane R, P1-5)', () => {
+  it('reports llm_capped when the budget fires, and nothing when it does not', async () => {
+    const metrics: Array<{ name: string; detail?: string }> = [];
+    const onMetric = (name: string, detail?: string) => metrics.push({ name, detail });
+
+    const capped = new ScriptedEngine([{ deltas: ['Uno. ', 'Dos. ', 'Tres. ', 'Cuatro. '] }]);
+    const a = setup(capped, { mode: () => 'discuss', onMetric });
+    await a.runner.run('hola', new AbortController().signal);
+    expect(metrics.map((m) => m.name)).toEqual(['llm_capped']);
+    expect(metrics[0]!.detail).toContain('discuss');
+
+    metrics.length = 0;
+    const short = new ScriptedEngine([{ deltas: ['Uno. ', 'Dos.'] }]);
+    const b = setup(short, { mode: () => 'discuss', onMetric });
+    await b.runner.run('hola', new AbortController().signal);
+    expect(metrics).toEqual([]);
+  });
+
+  it('does not resolve the turn until the capped engine call has actually returned', async () => {
+    // worker.ts serializes turns on `currentTurnPromise`, which is the
+    // `run()` promise: starting a second chat() on the same MLCEngine
+    // before an interrupted one unwound hung the session indefinitely.
+    // That guard is only worth anything if `run()` outlives the engine
+    // call it aborted — before this, `interruptGenerate()` was fired and
+    // forgotten, and with the cap firing on ordinary replies rather than
+    // only on a barge-in, this is now the common path.
+    let releaseEngine: () => void = () => {};
+    const engineSettled = new Promise<void>((resolve) => {
+      releaseEngine = resolve;
+    });
+    let sawAbort = false;
+    let engineCalls = 0;
+
+    const engine: LlmEngine = {
+      chat: async (_messages, handlers, signal) => {
+        engineCalls += 1;
+        let text = '';
+        for (const delta of ['Uno. ', 'Dos. ', 'Tres. ', 'Cuatro. ', 'Cinco. ']) {
+          if (signal.aborted) {
+            sawAbort = true;
+            break;
+          }
+          text += delta;
+          await handlers.onTextDelta?.(delta);
+        }
+        // Stands in for `await interruptGenerate()`: the engine has been
+        // told to stop but has not finished unwinding yet.
+        await engineSettled;
+        return { text, toolCalls: [] };
+      },
+    };
+
+    const { runner, sentences } = setup(engine, { mode: () => 'discuss' });
+    let turnResolved = false;
+    const turn = runner.run('hola', new AbortController().signal).then(() => {
+      turnResolved = true;
+    });
+
+    // Let every already-queued microtask run: the cap has fired and the
+    // stream loop has broken, but the engine call is still unwinding.
+    for (let i = 0; i < 200; i++) await Promise.resolve();
+    expect(sawAbort).toBe(true);
+    expect(sentences).toEqual(['Uno.', 'Dos.', 'Tres.']);
+    expect(turnResolved).toBe(false);
+
+    releaseEngine();
+    await turn;
+    expect(turnResolved).toBe(true);
+    expect(engineCalls).toBe(1);
   });
 });

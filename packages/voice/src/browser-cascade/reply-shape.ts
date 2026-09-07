@@ -204,9 +204,19 @@ export function sentenceCapForMode(mode: TutorMode | undefined): number | null {
  * exactly what Noel got — and a 2B model fills whatever room it is given, so
  * the conversational modes get a ceiling that cannot hold one. `read_to_me`
  * keeps 400 because it may have to read several passage sentences verbatim.
+ *
+ * 240, not the 160 run 9 lane B first set: this budget also has to hold the
+ * tool call. Qwen3.5-2B rejects OpenAI-shaped `tools` outright
+ * (`llm_tools_unsupported`, observed live by lanes A and E and again in the
+ * acceptance run), so worker.ts falls back to asking for a fenced ```tool
+ * JSON block in the reply itself — inside this same ceiling. A block cut
+ * off before its closing fence does not parse, so the tool silently never
+ * runs while the prose has already promised it (run 9 lane R, P1-6). Three
+ * sentences plus a block needs roughly 110 tokens; 240 leaves margin
+ * without being anywhere near the five-line list 400 allowed.
  */
 export function maxTokensForMode(mode: TutorMode | undefined): number {
-  return mode === 'read_to_me' || mode === undefined ? 400 : 160;
+  return mode === 'read_to_me' || mode === undefined ? 400 : 240;
 }
 
 /** Counts spoken sentences against the per-mode cap. */

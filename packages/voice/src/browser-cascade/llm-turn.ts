@@ -89,6 +89,15 @@ export interface TutorTurnDeps {
   mode?: () => TutorMode;
   /** The generation ceiling to ask the engine for, read fresh each turn. */
   maxTokens?: () => number | undefined;
+  /**
+   * Diagnostic counter, wired to the worker's `metric` message. Only
+   * `llm_capped` so far: the sentence cap aborts the engine mid-stream on
+   * any reply longer than the mode's cap, and nothing in the log
+   * distinguished that from the model stopping by itself — so if the abort
+   * ever does hang the engine it reads as the old silent stall (run 9 lane
+   * R, P1-5). Optional: callers that predate this simply report nothing.
+   */
+  onMetric?: (name: string, detail?: string) => void;
   maxHistory?: number;
   maxToolIterations?: number;
 }
@@ -187,7 +196,10 @@ export class TutorTurnRunner {
           spoken.push(sentence);
           await this.deps.onSentence(sentence);
         }
-        if (capped && !capAbort.signal.aborted) capAbort.abort();
+        if (capped && !capAbort.signal.aborted) {
+          this.deps.onMetric?.('llm_capped', `${this.deps.mode?.() ?? 'unknown'} ${budget.count}`);
+          capAbort.abort();
+        }
       };
 
       let rawBuffer = '';

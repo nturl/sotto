@@ -145,9 +145,24 @@ describe('ReplyBudget', () => {
   it('exposes the caps and the per-mode token ceiling', () => {
     expect(sentenceCapForMode('discuss')).toBe(3);
     expect(sentenceCapForMode('read_to_me')).toBe(null);
-    expect(maxTokensForMode('discuss')).toBe(160);
-    expect(maxTokensForMode('read_with_me')).toBe(160);
-    expect(maxTokensForMode('pronunciation')).toBe(160);
+    expect(maxTokensForMode('discuss')).toBe(240);
+    expect(maxTokensForMode('read_with_me')).toBe(240);
+    expect(maxTokensForMode('pronunciation')).toBe(240);
     expect(maxTokensForMode('read_to_me')).toBe(400);
+  });
+
+  it('leaves room for a fenced tool block after a full three-sentence reply', () => {
+    // Qwen3.5-2B rejects native tools, so every browser session falls back
+    // to emitting a ```tool JSON block inside the SAME budget as its prose
+    // — and a block truncated before its closing fence parses as nothing,
+    // so save_vocabulary / show_explanation silently do not happen while
+    // the prose still promises them (run 9 lane R, P1-6). Three sentences
+    // of tutor prose run ~55-70 tokens; the smallest useful tool block is
+    // ~40. 160 left no margin for both.
+    const THREE_SENTENCES = 70;
+    const TOOL_BLOCK = 40;
+    for (const mode of ['discuss', 'read_with_me', 'pronunciation'] as const) {
+      expect(maxTokensForMode(mode)).toBeGreaterThan(THREE_SENTENCES + TOOL_BLOCK);
+    }
   });
 });

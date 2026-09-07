@@ -64,6 +64,15 @@ the full monorepo `node_modules`), cold start to first response ~4.6s,
 ~195MB idle RSS — comfortably under `fly.toml.example`'s 512MB note.
 `docker compose down` to stop it.
 
+The published port is bound to `127.0.0.1` on purpose: this server has no
+accounts unless you set `SOTTO_BASIC_AUTH`, so publishing it on every host
+interface would put an unauthenticated `/voice/session` and `/import` on your
+network. To reach the container from another device, set `SOTTO_BASIC_AUTH`
+first and then change the mapping in `docker-compose.yml` to
+`'0.0.0.0:8790:8790'` — or, better, leave it bound to loopback and put
+Tailscale Serve in front (below), which also gets you the HTTPS that iOS
+requires for the microphone.
+
 ### Fly (a public URL, costs ~nothing while idle)
 
 **This gives the server a public URL on the open internet.** Unlike Docker

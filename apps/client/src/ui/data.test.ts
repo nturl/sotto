@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { BookSummary, UserPreferences } from '@sotto/core';
-import { toLibraryBook } from './data';
+import { pickDailyBook, toLibraryBook } from './data';
 
 function book(partial: Partial<BookSummary> & { bookId: string }): BookSummary {
   return {
@@ -59,5 +59,37 @@ describe('toLibraryBook title localization', () => {
     const result = toLibraryBook(summary, prefs, 0);
 
     expect(result.title).toBe('Alice Falls Down the Rabbit Hole');
+  });
+});
+
+describe('pickDailyBook', () => {
+  const shelf = [{ id: 'a' }, { id: 'b' }, { id: 'c' }];
+  // dayOfYear() for these dates: Jan 1 -> 1, Jan 2 -> 2, Jan 3 -> 3.
+  const jan1 = new Date(2026, 0, 1);
+  const jan2 = new Date(2026, 0, 2);
+
+  it('returns undefined for an empty shelf', () => {
+    expect(pickDailyBook([], new Set(), jan1)).toBeUndefined();
+  });
+
+  it('rotates by day of year when nothing is in progress', () => {
+    expect(pickDailyBook(shelf, new Set(), jan1)!.id).toBe('b');
+    expect(pickDailyBook(shelf, new Set(), jan2)!.id).toBe('c');
+  });
+
+  it('never offers a book that is already on the continue rail', () => {
+    // Jan 1 would otherwise land on 'b'.
+    const daily = pickDailyBook(shelf, new Set(['b']), jan1);
+    expect(daily!.id).not.toBe('b');
+  });
+
+  it('excludes every in-progress book while any other book exists', () => {
+    const daily = pickDailyBook(shelf, new Set(['a', 'b']), jan1);
+    expect(daily!.id).toBe('c');
+  });
+
+  it('falls back to the full shelf when every book is in progress', () => {
+    const daily = pickDailyBook(shelf, new Set(['a', 'b', 'c']), jan1);
+    expect(daily!.id).toBe('b');
   });
 });

@@ -100,6 +100,24 @@ function dayOfYear(date: Date): number {
   return Math.floor(diff / 86_400_000);
 }
 
+/**
+ * Today's story (mockup frame 1): a book to *start*, so it is never one the
+ * learner is already part-way through — the spread and the Continue-reading
+ * shelf carried the same book before this. Excluding the in-progress set can
+ * empty the pool on a one-book shelf, so we fall back to the whole shelf
+ * rather than render nothing.
+ */
+export function pickDailyBook<T extends { id: string }>(
+  books: readonly T[],
+  continueIds: ReadonlySet<string>,
+  date: Date,
+): T | undefined {
+  if (books.length === 0) return undefined;
+  const unstarted = books.filter((b) => !continueIds.has(b.id));
+  const pool = unstarted.length > 0 ? unstarted : books;
+  return pool[dayOfYear(date) % pool.length];
+}
+
 /** Re-export so `state/*.test.ts` and screens can both reach it without
  * duplicating the seam's book-summary -> LibraryBook mapping. */
 export function toLibraryBook(
@@ -183,23 +201,22 @@ export function useLibrary(): Library {
     const books = [...seededBooks, ...yourBooks];
 
     const daily =
-      seededBooks.length > 0
-        ? seededBooks[dayOfYear(new Date()) % seededBooks.length]!
-        : ({
-            id: '',
-            contentLocale: '',
-            reviewStatus: 'draft',
-            title: '',
-            author: '',
-            shortAuthor: '',
-            level: 'A1',
-            minutes: 0,
-            categories: ['tales'],
-            svgUrl: '',
-            progress: 0,
-            isNew: false,
-            synopsis: '',
-          } satisfies LibraryBook);
+      pickDailyBook(seededBooks, continueIds, new Date()) ??
+      ({
+        id: '',
+        contentLocale: '',
+        reviewStatus: 'draft',
+        title: '',
+        author: '',
+        shortAuthor: '',
+        level: 'A1',
+        minutes: 0,
+        categories: ['tales'],
+        svgUrl: '',
+        progress: 0,
+        isNew: false,
+        synopsis: '',
+      } satisfies LibraryBook);
 
     const privateSummariesForLocale = privateBooks.filter(
       (b) => b.contentLocale === preferences.learningLocale,

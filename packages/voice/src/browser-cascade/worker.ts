@@ -37,7 +37,7 @@ import {
   type LlmEngine,
   type ToolCallResult,
 } from './llm-turn.ts';
-import { LLM_MODEL, TTS_MODEL } from './models.ts';
+import { TTS_MODEL } from './models.ts';
 import {
   WORKER_SAMPLE_RATE,
   TUTOR_SAMPLE_RATE,
@@ -382,15 +382,18 @@ let llmEngine: WebLlmEngine | null = null;
  */
 let llmLoadPromise: Promise<void> | null = null;
 
-async function loadLlm(): Promise<void> {
+/** `llmId` comes from the init/download payload, not from the catalog: it
+ * is whichever tier the learner chose (models.ts `TUTOR_TIERS`), and only
+ * the main thread can read that preference. */
+async function loadLlm(llmId: string): Promise<void> {
   if (mlcEngine) return;
   const started = Date.now();
-  mlcEngine = await CreateMLCEngine(LLM_MODEL.id, {
+  mlcEngine = await CreateMLCEngine(llmId, {
     initProgressCallback: (report) => {
       post({
         t: 'progress',
         progress: {
-          modelId: LLM_MODEL.id,
+          modelId: llmId,
           fraction: Math.max(0, Math.min(1, report.progress)),
           loadedBytes: 0,
           totalBytes: null,
@@ -818,7 +821,7 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
       case 'download':
         try {
           await loadStt(msg.payload.stt, msg.payload.debug?.forceSttDevice);
-          await loadLlm();
+          await loadLlm(msg.payload.llm.id);
           await loadTts();
           post({ t: 'ready', stages: { stt: true, llm: true, tts: true } });
         } catch (err) {
@@ -863,7 +866,7 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
             post({ t: 'metric', name: 'llm_load_skipped', ms: 0, detail: 'debug.skipLlm' });
             llmLoadPromise = null;
           } else {
-            llmLoadPromise = loadLlm().catch((err) => {
+            llmLoadPromise = loadLlm(msg.payload.llm.id).catch((err) => {
               // LLM failing to load is not fatal to the session: STT still
               // works, and runTutorTurn() degrades to caption-only when
               // `llmEngine` is still null once this promise has settled.

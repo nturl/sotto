@@ -20,25 +20,137 @@
  * it.
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import {
   downloadTutorModels,
+  modelsForTier,
   removeModels,
+  resolveTier,
   totalSizeMb,
+  TUTOR_TIERS,
   type ModelProgress,
   type TutorModelSpec,
+  type TutorTier,
 } from '@sotto/voice';
 import { radius, space } from '@sotto/core/theme';
 import { useT } from '../i18n/useT';
 import { Button } from '../ui/Button';
+import { setPreference, usePreferences } from '../ui/data';
 import { Text } from '../ui/Text';
 import { useTheme } from '../ui/theme';
+import { webCursor } from '../ui/tokens';
+import { deviceSupportsLargeTier } from './availability';
 import type { OwnProviderStatus } from './ownProviderStatus';
 
 export type TutorModelsPanelState =
   | { kind: 'unsupported' }
   | { kind: 'needs-download'; models: TutorModelSpec[] }
   | { kind: 'ready' };
+
+/**
+ * The learner's "Tutor size" (preferences.tutorModelTier, packages/voice
+ * `TUTOR_TIERS`). Read it here rather than passing it down: every screen
+ * that renders this panel already reads the store, and the two would
+ * otherwise be able to disagree about which models the panel is describing.
+ */
+export function useTutorTier(): TutorTier {
+  return resolveTier(usePreferences().tutorModelTier);
+}
+
+const TIERS: TutorTier[] = ['standard', 'large'];
+
+/**
+ * Two rows — Standard and Large — each with its measured total download and
+ * a one-line description. The Large row is disabled, with the reason shown,
+ * on a device `deviceSupportsLargeTier()` rules out (availability.ts): under
+ * 8 GB of reported memory, or a WebGPU adapter whose buffer limits are too
+ * small to hold a 4B model.
+ *
+ * Row visuals follow Settings > Appearance's picker (surface card, hairline
+ * dividers, accent left bar on the selection) so this reads as the same
+ * control the rest of Settings uses.
+ *
+ * Changing the size does NOT delete the other size's cached weights — the
+ * libraries keep both — which the note under the rows says outright.
+ */
+export function TutorSizePicker({ onChanged }: { onChanged?: () => void }) {
+  const t = useT();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+  const selected = useTutorTier();
+  const [largeOk, setLargeOk] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    void deviceSupportsLargeTier().then((ok) => {
+      if (!cancelled) setLargeOk(ok);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return (
+    <View style={styles.picker}>
+      <Text role="ui" size={14}>
+        {t('tutor.size.title')}
+      </Text>
+      <View style={[styles.card, { borderColor: colors.hairline }]}>
+        {TIERS.map((tier, index) => {
+          const isSelected = selected === tier;
+          // `null` is "still probing": leave the row enabled rather than
+          // flashing a disabled state that resolves a frame later.
+          const disabled = tier === 'large' && largeOk === false;
+          const total = totalSizeMb(modelsForTier(tier));
+          return (
+            <Pressable
+              key={tier}
+              onPress={() => {
+                if (disabled || isSelected) return;
+                setPreference('tutorModelTier', tier);
+                onChanged?.();
+              }}
+              disabled={disabled}
+              accessibilityRole="button"
+              accessibilityState={{ selected: isSelected, disabled }}
+              style={[
+                styles.tierRow,
+                index < TIERS.length - 1 && {
+                  borderBottomWidth: 1,
+                  borderBottomColor: colors.hairline,
+                },
+                isSelected && {
+                  borderLeftWidth: 3,
+                  borderLeftColor: colors.accent,
+                  paddingLeft: 11,
+                },
+                disabled && styles.tierRowDisabled,
+                webCursor,
+              ]}
+            >
+              <View style={styles.rowHead}>
+                <Text role="ui" size={15}>
+                  {t(`tutor.size.${tier}` as const)}
+                </Text>
+                <Text role="caption" color="ink3">
+                  {t('tutor.browser.sizeMb', { size: total })}
+                </Text>
+              </View>
+              <Text role="caption" color="ink3">
+                {disabled
+                  ? t('tutor.size.needsCapableDevice')
+                  : t(`tutor.size.${tier}Hint` as const)}
+              </Text>
+            </Pressable>
+          );
+        })}
+      </View>
+      <Text role="caption" color="ink3">
+        {t('tutor.size.keepsBoth')}
+      </Text>
+    </View>
+  );
+}
 
 function ProgressBar({
   fraction,
@@ -81,6 +193,7 @@ export function TutorModelsPanel({
   const [progress, setProgress] = useState<Record<string, ModelProgress>>({});
   const [busy, setBusy] = useState(false);
   const [failure, setFailure] = useState<string | null>(null);
+  const tier = useTutorTier();
   const mounted = useRef(true);
   const ownProviderConnected = ownProviderStatus === 'connected' || ownProviderStatus === 'active';
   const ownProviderNote = ownProviderConnected ? (
@@ -101,6 +214,7 @@ export function TutorModelsPanel({
     setBusy(true);
     setProgress({});
     const handle = downloadTutorModels({
+      tier,
       onProgress: (p) => {
         if (mounted.current) setProgress((prev) => ({ ...prev, [p.modelId]: p }));
       },
@@ -116,7 +230,7 @@ export function TutorModelsPanel({
         setBusy(false);
         setFailure(err instanceof Error ? err.message : String(err));
       });
-  }, [onChanged]);
+  }, [onChanged, tier]);
 
   const remove = useCallback(() => {
     void removeModels().then(() => {
@@ -148,6 +262,7 @@ export function TutorModelsPanel({
         <Text role="caption" color="ink3" style={styles.centered}>
           {t('tutor.browser.sliceNote')}
         </Text>
+        <TutorSizePicker onChanged={onChanged} />
         {showRemove ? (
           <Button title={t('tutor.browser.remove')} variant="secondary" onPress={remove} />
         ) : null}
@@ -165,6 +280,8 @@ export function TutorModelsPanel({
       <Text role="caption" color="ink2" style={styles.centered}>
         {t('tutor.browser.needsDownload', { size: total })}
       </Text>
+
+      <TutorSizePicker onChanged={onChanged} />
 
       <View style={styles.list}>
         {state.models.map((m) => {
@@ -229,6 +346,24 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     },
     list: {
       gap: space.sm,
+    },
+    picker: {
+      gap: space.sm,
+    },
+    card: {
+      borderRadius: radius.md,
+      borderWidth: 1,
+      overflow: 'hidden',
+    },
+    tierRow: {
+      paddingVertical: space.md,
+      paddingHorizontal: 14,
+      minHeight: space.tapTarget,
+      justifyContent: 'center',
+      gap: space.xs,
+    },
+    tierRowDisabled: {
+      opacity: 0.5,
     },
     row: {
       gap: space.xs,

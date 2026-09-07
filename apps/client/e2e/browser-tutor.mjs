@@ -266,7 +266,13 @@ async function readVocabulary(page) {
 // ---- Static host ----
 
 function serveDist() {
-  const child = spawn('npx', ['serve', DIST, '-l', String(PORT), '-s'], {
+  // scripts/serve-static.mjs, not `npx serve -s`: since the landing V5
+  // build (2026-09-06) `dist/index.html` is the LANDING page and the app
+  // shell is `dist/app.html`, so `-s`'s index.html fallback served the
+  // landing page for `/voice/<bookId>` and the download panel never
+  // appeared. serve-static.mjs mirrors vercel.json's rewrites (unknown
+  // extension-less path -> /app.html), which is what the hosted site does.
+  const child = spawn('node', [path.join(clientDir, 'scripts/serve-static.mjs'), String(PORT)], {
     cwd: clientDir,
     stdio: 'ignore',
   });
@@ -530,6 +536,19 @@ async function main() {
 
     // ---- The session. Reload so the gate re-runs cleanly from cache. ----
     await page.goto(`${BASE_URL}/voice/${BOOK_ID}`, { waitUntil: 'domcontentloaded' });
+
+    // R6-B3 (voiceStartGate.ts) added an explicit Start tap: the screen no
+    // longer auto-connects on mount, so without this the session never
+    // begins and every caption/state assertion below fails with an empty
+    // timeline. Tolerant of its absence so an older build still runs.
+    const startButton = page.getByText('Start', { exact: true }).first();
+    try {
+      await startButton.waitFor({ timeout: 20_000 });
+      await startButton.click();
+      log('tapped Start (R6-B3 start gate)');
+    } catch {
+      log('no Start control appeared; assuming this build auto-starts');
+    }
 
     const timeline = [];
     const statesSeen = [];

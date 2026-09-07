@@ -30,6 +30,10 @@ const UserPreferencesSchema = z
     // Dark-mode task (models.ts): kept optional so old export files without
     // it still validate under .strict() below.
     colorScheme: z.enum(['system', 'light', 'dark']).optional(),
+    // Tutor-size task (models.ts): optional for the same reason as
+    // `colorScheme` — every export written before it existed must still
+    // validate under .strict() below.
+    tutorModelTier: z.enum(['standard', 'large']).optional(),
   })
   .strict() satisfies z.ZodType<UserPreferences>;
 

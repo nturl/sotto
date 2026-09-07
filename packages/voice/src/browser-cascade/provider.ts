@@ -23,7 +23,13 @@ import {
   type WorkerInitPayload,
   type WorkerToMain,
 } from './protocol.ts';
-import { markModelCached, TUTOR_MODELS, STT_MODEL } from './models.ts';
+import {
+  DEFAULT_TIER,
+  markModelCached,
+  modelsForTier,
+  TUTOR_TIERS,
+  type TutorTier,
+} from './models.ts';
 
 /** The slice of the DOM `Worker` surface this provider uses — so unit tests
  * can hand in a shim without a real worker or real models. */
@@ -48,6 +54,10 @@ export interface BrowserCascadeOptions {
   /** Diagnostic-only overrides forwarded verbatim into `WorkerInitPayload.debug`
    * — see protocol.ts. Only the e2e harness sets this (sessionManager.ts). */
   debug?: WorkerInitPayload['debug'];
+  /** Which "Tutor size" the learner picked (models.ts `TUTOR_TIERS`).
+   * Defaults to `standard`, which is also what a learner who has never
+   * touched the setting gets. */
+  tier?: TutorTier;
 }
 
 const DEFAULT_LIMITS = { maxMs: 1_200_000, idleMs: 90_000 };
@@ -60,10 +70,13 @@ function defaultWorkerFactory(url: string): WorkerFactory {
 function initPayload(
   opts: SessionOptions,
   allowDownload: boolean,
+  tier: TutorTier,
   debug?: WorkerInitPayload['debug'],
 ): WorkerInitPayload {
+  const models = TUTOR_TIERS[tier];
   return {
-    stt: { id: STT_MODEL.id, dtype: STT_MODEL.dtype ?? {} },
+    stt: { id: models.stt.id, dtype: models.stt.dtype ?? {} },
+    llm: { id: models.llm.id },
     learner: {
       level: opts.learner.level,
       learningLocale: opts.learner.learningLocale,
@@ -86,6 +99,7 @@ export class BrowserCascadeProvider implements VoiceProvider {
   private readonly limits: { maxMs: number; idleMs: number };
   private readonly onProgress?: (p: ModelProgress) => void;
   private readonly debug?: WorkerInitPayload['debug'];
+  private readonly tier: TutorTier;
 
   private worker: WorkerLike | null = null;
   private listeners = new Set<(e: VoiceEvent) => void>();
@@ -104,6 +118,7 @@ export class BrowserCascadeProvider implements VoiceProvider {
     this.limits = opts.limits ?? DEFAULT_LIMITS;
     this.onProgress = opts.onProgress;
     this.debug = opts.debug;
+    this.tier = opts.tier ?? DEFAULT_TIER;
   }
 
   // ---- VoiceProvider ----
@@ -144,7 +159,7 @@ export class BrowserCascadeProvider implements VoiceProvider {
 
     // `allowDownload: false` — a session never pulls weights on its own. The
     // download panel does that explicitly, on a tap, with sizes shown.
-    worker.postMessage({ t: 'init', payload: initPayload(opts, false, this.debug) });
+    worker.postMessage({ t: 'init', payload: initPayload(opts, false, this.tier, this.debug) });
 
     this.armLimits();
 
@@ -334,7 +349,13 @@ export function downloadTutorModels(opts: {
   onProgress?: (p: ModelProgress) => void;
   workerFactory?: WorkerFactory;
   workerUrl?: string;
+  /** Which "Tutor size" to fetch; defaults to `standard`. Downloading one
+   * tier never removes the other's cached weights — the libraries keep
+   * both, and only `removeModels()` clears them. */
+  tier?: TutorTier;
 }): DownloadHandle {
+  const tier = opts.tier ?? DEFAULT_TIER;
+  const models = TUTOR_TIERS[tier];
   const makeWorker =
     opts.workerFactory ?? defaultWorkerFactory(opts.workerUrl ?? DEFAULT_WORKER_URL);
   const worker = makeWorker();
@@ -348,7 +369,7 @@ export function downloadTutorModels(opts: {
     const msg = ev.data;
     if (msg.t === 'progress') opts.onProgress?.(msg.progress);
     else if (msg.t === 'ready') {
-      void Promise.all(TUTOR_MODELS.map((m) => markModelCached(m.id))).then(() => {
+      void Promise.all(modelsForTier(tier).map((m) => markModelCached(m.id))).then(() => {
         worker.terminate();
         settle.resolve();
       });
@@ -367,7 +388,8 @@ export function downloadTutorModels(opts: {
   worker.postMessage({
     t: 'download',
     payload: {
-      stt: { id: STT_MODEL.id, dtype: STT_MODEL.dtype ?? {} },
+      stt: { id: models.stt.id, dtype: models.stt.dtype ?? {} },
+      llm: { id: models.llm.id },
       learner: { level: 'A1', learningLocale: 'en-US', explanationLocale: 'en' },
       mode: 'discuss',
       bookTitle: '',

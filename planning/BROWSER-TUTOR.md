@@ -118,11 +118,46 @@ Only the panel's `download`, on a tap, sets it true.
 
 ## Models
 
-| Stage | Model | Size | Notes |
-|---|---|---|---|
-| STT | `onnx-community/whisper-base`, encoder fp32 + decoder_merged q8 | 136 MB | shipped, slice 1; encoder dtype changed fp16→fp32 2026-09-05, see below |
-| LLM | Qwen3 1.7B q4f16_1 (MLC) | ~1.1 GB | slice 2 |
-| TTS | Kokoro 82M ONNX | ~90 MB | slice 3 |
+Two tiers, chosen by the learner ("Tutor size", `preferences.tutorModelTier`,
+default `standard`). `packages/voice/src/browser-cascade/models.ts` holds both
+as `TUTOR_TIERS`; `modelsForTier(tier)` is what the gate, the panel, the
+provider and the worker payload all read.
+
+| Tier | Stage | Model | Size | Notes |
+|---|---|---|---|---|
+| standard | STT | `onnx-community/whisper-base`, encoder fp32 + decoder_merged q8 | 134 MB | encoder dtype changed fp16→fp32 2026-09-05, see below |
+| standard | LLM | `Qwen3.5-2B-q4f16_1-MLC` | 1,016 MB | replaced Qwen3 1.7B 2026-09-06 (latency + listening) |
+| standard | TTS | Kokoro 82M ONNX | 90 MB | |
+| large | STT | `onnx-community/whisper-small`, encoder fp32 + decoder_merged q8 | 490 MB | same dtype rule, including the wasm decoder upgrade |
+| large | LLM | `Qwen3.5-4B-q4f16_1-MLC` | 2,264 MB | offered only where `deviceSupportsLargeTier()` passes |
+| large | TTS | Kokoro 82M ONNX | 90 MB | |
+
+Totals: **1,240 MB** standard, **2,844 MB** large.
+
+All six figures are measured, not estimated. The LLMs are the sum of `nbytes`
+in `https://huggingface.co/mlc-ai/<id>/raw/main/tensor-cache.json` plus the
+`model_lib` wasm; whisper is the exact ONNX files those dtypes select
+(`encoder_model.onnx` + `decoder_model_merged_quantized.onnx`) plus the
+tokenizer/vocab/config files transformers.js fetches with them.
+
+Both LLM ids were verified against the pinned `@mlc-ai/web-llm@0.2.84`: each
+appears in its `prebuiltAppConfig`, each `model_lib` URL under
+`binary-mlc-llm-libs/web-llm-models/v0_2_84/base/` returns 200, and each
+`mlc-ai/<id>` HF repo exists. The Qwen3.5 repos ship the newer
+`tensor-cache.json` manifest rather than `ndarray-cache.json` — which is what
+0.2.84 reads (it has no `ndarray-cache.json` code path left). `enable_thinking:
+false` is still honoured: WebLLM implements it itself by pushing an empty
+`<think></think>` block into the prompt before decoding, so it does not depend
+on the model's Jinja chat template.
+
+Switching tiers does **not** evict the other tier's weights. The libraries'
+caches keep both; only `removeModels()` ("Remove models") clears them. This is
+deliberate scope, and both the panel and `docs/browser-tutor.md` say so.
+
+`deviceSupportsLargeTier()` (`apps/client/src/voice/availability.ts`) gates the
+large row: `navigator.deviceMemory >= 8` where the browser reports it, and
+otherwise (Safari) a WebGPU adapter with `maxStorageBufferBindingSize >= 1 GiB`
+and `maxBufferSize >= 2 GiB`.
 
 The whisper dtype split is measured, not guessed. On the slice-1 fixture (a
 Kokoro-synthesized `¿Qué significa la palabra cigarra?`, 3.8 s of es-419),
@@ -141,9 +176,11 @@ turned out to be the root cause of the STT/LLM-contention regression below —
 it causes WebGPU whisper decoding to collapse into a token-repetition loop on
 this environment, independent of the LLM. Root-caused and fixed 2026-09-05;
 see `docs/evidence/browser-tutor-stt-regression-2026-09-05.log`. The encoder
-is now fp32 on every device (136 MB total, up from 95 MB) and the fp16 export
-is not used at all. whisper-small would be better again but its q8 export is
-~249 MB.
+is now fp32 on every device, in **both** tiers, and the fp16 export is not
+used at all. The wasm fallback in `dtypeForDevice` upgrades the decoder to
+fp32 too, per-device rather than per-tier, so whisper-small inherits it
+unchanged. whisper-small is what the large tier now uses (490 MB with these
+dtypes); the standard tier stays on whisper-base at 134 MB.
 
 ## Capability gate
 

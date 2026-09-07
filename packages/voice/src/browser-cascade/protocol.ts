@@ -30,8 +30,12 @@ export interface StageReadiness {
 }
 
 export interface WorkerInitPayload {
-  /** Model ids/dtypes chosen by the main thread (models.ts catalog). */
+  /** Model ids/dtypes chosen by the main thread (models.ts catalog). Both
+   * stages are named here rather than read from the catalog inside the
+   * worker, because which ones they are depends on the learner's "Tutor
+   * size" tier — a main-thread preference the worker has no access to. */
   stt: { id: string; dtype: Record<string, string> };
+  llm: { id: string };
   learner: { level: string; learningLocale: string; explanationLocale: string };
   mode: TutorMode;
   bookTitle: string;

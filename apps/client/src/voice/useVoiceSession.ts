@@ -7,6 +7,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import type { TutorMode } from '@sotto/core';
+import { resolveTier } from '@sotto/voice';
 import { useMe } from '../cloud/useMe';
 import { useSottoStore } from '../state/store';
 import { selectDueWords, selectVocabularyForBook } from '../state/selectors';
@@ -92,6 +93,9 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
   // probe once per bookId before ever attempting a connection — starting a
   // session against a tutor that can't run just fails silently later.
   const isFakeProvider = process.env.EXPO_PUBLIC_VOICE === 'fake';
+  // "Tutor size": decides which models the browser path's gate looks for
+  // and which the worker then loads. Absent preference = 'standard'.
+  const tier = resolveTier(preferences.tutorModelTier);
   const [availability, setAvailability] = useState<VoiceAvailability>(
     isFakeProvider ? { status: 'ready', path: 'local' } : { status: 'checking' },
   );
@@ -106,14 +110,14 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
     // through to the in-browser tutor when there isn't one (the static host),
     // and now also to the cloud path when it's usable (see availability.ts).
     void fetchHealth()
-      .then((health) => resolveAvailability(health, { cloudUsable, isDesktop }))
+      .then((health) => resolveAvailability(health, { cloudUsable, isDesktop, tier }))
       .then((next) => {
         if (!cancelled) setAvailability(next);
       });
     return () => {
       cancelled = true;
     };
-  }, [bookId, isFakeProvider, gateNonce, cloudUsable, isDesktop]);
+  }, [bookId, isFakeProvider, gateNonce, cloudUsable, isDesktop, tier]);
 
   // Reset a desktop chip choice whenever the underlying gate re-runs with a
   // different verdict, so a stale choice from a previous book doesn't leak.
@@ -174,6 +178,7 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
       passage: buildPassageWindow(chapter, progress[bookId]?.tokenId),
       savedWords: savedWordList,
       cloudProvider: me.status === 'signed-in' ? me.me.entitlement.provider : undefined,
+      tutorTier: tier,
     });
     setStarted(true);
   };

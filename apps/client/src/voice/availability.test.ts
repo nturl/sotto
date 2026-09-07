@@ -4,13 +4,14 @@
  * (WebGPU + cached models, planning/BROWSER-TUTOR.md).
  */
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { LLM_MODEL, STT_MODEL, TTS_MODEL, TUTOR_MODELS } from '@sotto/voice';
+import { LLM_MODEL, modelsForTier, STT_MODEL, TTS_MODEL, TUTOR_MODELS } from '@sotto/voice';
 import type { Health } from '../state/contentApi';
 import {
   availabilityFromHealth,
   browserAvailability,
   byokPathUsable,
   cloudPathUsable,
+  deviceSupportsLargeTier,
   resolveAvailability,
 } from './availability';
 
@@ -99,6 +100,109 @@ describe('browserAvailability', () => {
     vi.stubGlobal('navigator', { gpu: {} });
     stubCaches(TUTOR_MODELS.map((m) => m.id));
     expect(await browserAvailability()).toEqual({ status: 'ready', path: 'browser' });
+  });
+});
+
+describe('deviceSupportsLargeTier', () => {
+  it('trusts navigator.deviceMemory when the browser reports it', async () => {
+    vi.stubGlobal('navigator', { deviceMemory: 8, gpu: {} });
+    expect(await deviceSupportsLargeTier()).toBe(true);
+  });
+
+  it('rules the large tier out under 8 GB of reported memory', async () => {
+    vi.stubGlobal('navigator', { deviceMemory: 4, gpu: {} });
+    expect(await deviceSupportsLargeTier()).toBe(false);
+  });
+
+  it('never consults the GPU when deviceMemory answered', async () => {
+    const requestAdapter = vi.fn();
+    vi.stubGlobal('navigator', { deviceMemory: 16, gpu: { requestAdapter } });
+    expect(await deviceSupportsLargeTier()).toBe(true);
+    expect(requestAdapter).not.toHaveBeenCalled();
+  });
+
+  // Safari exposes no deviceMemory at all: fall back to the WebGPU
+  // adapter's own buffer limits.
+  it('accepts a WebGPU adapter with big enough buffer limits (no deviceMemory)', async () => {
+    vi.stubGlobal('navigator', {
+      gpu: {
+        requestAdapter: async () => ({
+          limits: { maxStorageBufferBindingSize: 2 ** 31, maxBufferSize: 4 * 1024 ** 3 },
+        }),
+      },
+    });
+    expect(await deviceSupportsLargeTier()).toBe(true);
+  });
+
+  it('rejects an adapter whose maxBufferSize is under 2 GiB', async () => {
+    vi.stubGlobal('navigator', {
+      gpu: {
+        requestAdapter: async () => ({
+          limits: { maxStorageBufferBindingSize: 2 ** 31, maxBufferSize: 1024 ** 3 },
+        }),
+      },
+    });
+    expect(await deviceSupportsLargeTier()).toBe(false);
+  });
+
+  it('rejects an adapter whose maxStorageBufferBindingSize is under 1 GiB', async () => {
+    vi.stubGlobal('navigator', {
+      gpu: {
+        requestAdapter: async () => ({
+          limits: { maxStorageBufferBindingSize: 128 * 1024 * 1024, maxBufferSize: 4 * 1024 ** 3 },
+        }),
+      },
+    });
+    expect(await deviceSupportsLargeTier()).toBe(false);
+  });
+
+  it('is false with no deviceMemory and no WebGPU at all', async () => {
+    vi.stubGlobal('navigator', {});
+    expect(await deviceSupportsLargeTier()).toBe(false);
+  });
+
+  it('is false when requestAdapter returns null or throws', async () => {
+    vi.stubGlobal('navigator', { gpu: { requestAdapter: async () => null } });
+    expect(await deviceSupportsLargeTier()).toBe(false);
+    vi.stubGlobal('navigator', {
+      gpu: {
+        requestAdapter: async () => {
+          throw new Error('no adapter');
+        },
+      },
+    });
+    expect(await deviceSupportsLargeTier()).toBe(false);
+  });
+});
+
+describe('the tutor tier the gate evaluates', () => {
+  it("asks for the large tier's models when that tier is chosen", async () => {
+    vi.stubGlobal('navigator', { gpu: {} });
+    // Only the standard tier is cached, so the large tier still needs one.
+    stubCaches(TUTOR_MODELS.map((m) => m.id));
+    const result = await resolveAvailability(null, { tier: 'large' });
+    expect(result.status).toBe('needs-download');
+    const missing = result.status === 'needs-download' ? result.models.map((m) => m.id) : [];
+    expect(missing).toEqual(
+      modelsForTier('large')
+        .filter((m) => !TUTOR_MODELS.some((s) => s.id === m.id))
+        .map((m) => m.id),
+    );
+  });
+
+  it('is ready on the browser path once the large tier is cached', async () => {
+    vi.stubGlobal('navigator', { gpu: {} });
+    stubCaches(modelsForTier('large').map((m) => m.id));
+    expect(await resolveAvailability(null, { tier: 'large' })).toEqual({
+      status: 'ready',
+      path: 'browser',
+    });
+  });
+
+  it('defaults to the standard tier when no tier is passed', async () => {
+    vi.stubGlobal('navigator', { gpu: {} });
+    stubCaches(TUTOR_MODELS.map((m) => m.id));
+    expect(await resolveAvailability(null)).toEqual({ status: 'ready', path: 'browser' });
   });
 });
 

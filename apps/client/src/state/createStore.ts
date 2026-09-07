@@ -50,6 +50,7 @@ export const DEFAULT_PREFERENCES: UserPreferences = {
   narrationSpeed: 1,
   onboarded: false,
   colorScheme: 'system',
+  tutorModelTier: 'standard',
 };
 
 const MAX_CAPTIONS = 50;

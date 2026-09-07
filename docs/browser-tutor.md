@@ -17,20 +17,34 @@ models**, where you can also remove them again.
 The models are cached by your browser. Clearing site data, or tapping "Remove
 models", frees the space; the app then offers the download again.
 
-| Stage          | Model                                   | Download |
-| -------------- | --------------------------------------- | -------- |
-| Speech to text | Whisper base (encoder fp32, decoder q8) | 136 MB   |
-| Tutor          | Qwen3 1.7B (q4f16, MLC)                 | 1,100 MB |
-| Voice          | Kokoro 82M                              | 90 MB    |
+### Tutor size
 
-Total opt-in download: 1,326 MB (~1.3 GB).
+There are two sizes, picked in the same panel ("Tutor size"). **Standard** is
+the default and is what a phone or an 8 GB laptop should use. **Large** hears
+you noticeably better and answers better, but it needs a capable computer —
+the row is disabled, with the reason shown, when this device reports under
+8 GB of memory (or, on Safari, when its WebGPU adapter's buffer limits are
+too small to hold the bigger model).
+
+| Stage          | Standard                                | Download | Large                                    | Download |
+| -------------- | --------------------------------------- | -------- | ---------------------------------------- | -------- |
+| Speech to text | Whisper base (encoder fp32, decoder q8) | 134 MB   | Whisper small (encoder fp32, decoder q8) | 490 MB   |
+| Tutor          | Qwen3.5 2B (q4f16, MLC)                 | 1,016 MB | Qwen3.5 4B (q4f16, MLC)                  | 2,264 MB |
+| Voice          | Kokoro 82M                              | 90 MB    | Kokoro 82M                               | 90 MB    |
+
+Total opt-in download: **1,240 MB** standard (~1.2 GB), **2,844 MB** large
+(~2.8 GB). Every figure is measured from the files those dtypes actually
+fetch, not estimated.
+
+Changing the size does **not** delete the other size's downloaded models —
+they stay in this browser until you tap "Remove models", which clears both.
 
 ### Honest capability matrix
 
 | Stage          | Where it can run                                                      | Notes                                                                                                                                                                                                                                                        |
 | -------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Speech to text | WebGPU (default) or WebAssembly                                       | WebGPU is the fast path (~1-2.5s per turn). If a session's WebGPU transcription is ever unreliable — slower than 8s, or a repeated-token transcript — that session switches to WebAssembly on its own for the rest of it, with a one-time caption saying so. |
-| Tutor (LLM)    | WebGPU only                                                           | Qwen3 1.7B has no WebAssembly path in this build; without WebGPU, only STT and captions work.                                                                                                                                                                |
+| Tutor (LLM)    | WebGPU only                                                           | Qwen3.5 has no WebAssembly path in this build; without WebGPU, only STT and captions work.                                                                                                                                                                   |
 | Voice (TTS)    | English only, proven in Node; not yet exercised in the browser worker | See "Speech is English-only for now" above — fr/es/other tutor replies stay text-only captions, never silently attempted.                                                                                                                                    |
 
 The tutor listens and replies entirely inside the browser, no server

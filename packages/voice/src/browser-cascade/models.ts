@@ -25,8 +25,37 @@ export interface TutorModelSpec {
 }
 
 /**
- * Slice 1 ships STT only. whisper-small would be better but its q8 export is
- * ~249 MB, far past the budget; whisper-base is the largest that fits.
+ * ---- The two tutor tiers ----
+ *
+ * One catalog, two sizes, chosen by the learner ("Tutor size" in Settings >
+ * Tutor models and in the download panel itself). The default is
+ * `standard`; `large` is offered only where `deviceSupportsLargeTier()`
+ * (apps/client/src/voice/availability.ts) says the machine can hold it.
+ *
+ * standard  whisper-base + Qwen3.5 2B + Kokoro — the phone/8 GB-laptop tier.
+ * large     whisper-small + Qwen3.5 4B + Kokoro — noticeably better at
+ *           picking speech up, and at answering, on a capable computer.
+ *
+ * Both LLM ids are in @mlc-ai/web-llm 0.2.84's `prebuiltAppConfig`, their
+ * `model_lib` wasm URLs resolve, and their `mlc-ai/<id>` HF repos exist
+ * (they ship the newer `tensor-cache.json` manifest, which is the only one
+ * 0.2.84 reads — it has no `ndarray-cache.json` code path left). WebLLM
+ * implements `extra_body.enable_thinking: false` itself, by pushing an
+ * empty `<think>\n\n</think>` block into the prompt before decoding, so
+ * worker.ts's no-think request is honoured by Qwen3.5 exactly as it was by
+ * Qwen3 — it does not depend on either model's Jinja chat template (both of
+ * which also branch on `enable_thinking`).
+ *
+ * Sizes below are MEASURED, not estimated: LLMs are the sum of `nbytes` in
+ * `https://huggingface.co/mlc-ai/<id>/raw/main/tensor-cache.json` plus the
+ * model_lib wasm; whisper is the exact ONNX files the dtypes below select
+ * plus the tokenizer/vocab/config files transformers.js fetches alongside.
+ *
+ * Switching tiers does NOT delete the other tier's cached weights — the
+ * libraries keep them, and only "Remove models" clears everything (see
+ * `removeModels`). The panel says so rather than implying a swap is free.
+ *
+ * ---- Why these whisper dtypes ----
  *
  * The dtype split is not arbitrary. Measured on the slice-1 fixture (a
  * Kokoro-synthesized "¿Qué significa la palabra cigarra?", 3.8 s of es-419)
@@ -51,51 +80,120 @@ export interface TutorModelSpec {
  * exact same audio file was correct, ruling out the audio; forcing the
  * encoder to fp32 while keeping WebGPU as the device and the decoder at q8
  * fixed it outright (confirmed live, same fresh-profile methodology). So
- * fp32 is now the encoder dtype on every device — the smaller fp16 export is
- * not used at all. The decoder stays q8 (85 MB combined, and q8 costs only
- * punctuation/casing per the measurement above); wasm's CPU execution
+ * fp32 is now the encoder dtype on every device, in BOTH tiers — the
+ * smaller fp16 export is not used at all. The decoder stays q8 (q8 costs
+ * only punctuation/casing per the measurement above); wasm's CPU execution
  * provider additionally cannot build a session from a quantized
  * decoder_model_merged at all ("Can't create a session", a hard graph-build
  * failure, not a slowdown) — the wasm fallback in worker.ts's
  * `dtypeForDevice` upgrades the decoder to fp32 too, only for that device.
+ * That rule is per-device, not per-tier, so it applies to whisper-small
+ * unchanged.
  *
- * LLM and TTS now load too (slices 2/3), so `TUTOR_MODELS` — what the
- * download button actually fetches — covers all three. `TTS_MODEL` still
- * downloads even though the worker only ever calls it for English books
- * (see worker.ts's honest label above `loadTts`): fr/es prompts still need
- * the STT+LLM stages, and the panel would otherwise have to explain a
- * locale-conditional download list before any book is chosen.
+ * `TTS_MODEL` still downloads in both tiers even though the worker only
+ * ever calls it for English books (see worker.ts's honest label above
+ * `loadTts`): fr/es prompts still need the STT+LLM stages, and the panel
+ * would otherwise have to explain a locale-conditional download list before
+ * any book is chosen.
  */
-export const STT_MODEL: TutorModelSpec = {
-  id: 'onnx-community/whisper-base',
-  name: 'Whisper base (speech to text)',
-  sizeMb: 136,
-  stage: 'stt',
-  dtype: { encoder_model: 'fp32', decoder_model_merged: 'q8' },
-};
 
-export const LLM_MODEL: TutorModelSpec = {
-  id: 'Qwen3-1.7B-q4f16_1-MLC',
-  name: 'Qwen3 1.7B (tutor)',
-  sizeMb: 1100,
-  stage: 'llm',
-};
+/** Which download size the learner picked. Missing preference = 'standard'. */
+export type TutorTier = 'standard' | 'large';
 
-export const TTS_MODEL: TutorModelSpec = {
+/** The three models one tier loads. */
+export interface TutorTierSpec {
+  tier: TutorTier;
+  stt: TutorModelSpec;
+  llm: TutorModelSpec;
+  tts: TutorModelSpec;
+}
+
+/** Both tiers speak with the same voice; only STT and the LLM change. */
+const KOKORO: TutorModelSpec = {
   id: 'onnx-community/Kokoro-82M-v1.0-ONNX',
   name: 'Kokoro 82M (text to speech)',
   sizeMb: 90,
   stage: 'tts',
 };
 
-/** What "Download tutor models" fetches: every stage, slices 1-3. */
-export const TUTOR_MODELS: TutorModelSpec[] = [STT_MODEL, LLM_MODEL, TTS_MODEL];
+/** fp32 encoder / q8 decoder, for both whisper sizes — see the note above. */
+const WHISPER_DTYPE = { encoder_model: 'fp32', decoder_model_merged: 'q8' };
 
-/** Every model the browser tutor will eventually need, for the docs/panel.
- * Same list as `TUTOR_MODELS` now that all three stages ship; kept as a
- * separate export so callers that mean "the complete catalog" (docs, the
- * Settings row) don't depend on `TUTOR_MODELS` also being "what's
- * downloaded today", which was the slice-1 distinction this name preserves. */
+export const TUTOR_TIERS: Record<TutorTier, TutorTierSpec> = {
+  standard: {
+    tier: 'standard',
+    stt: {
+      // 78.6 MB encoder_model.onnx + 51.2 MB decoder_model_merged_quantized
+      // .onnx + 4.2 MB tokenizer/vocab/config = 134 MB.
+      id: 'onnx-community/whisper-base',
+      name: 'Whisper base (speech to text)',
+      sizeMb: 134,
+      stage: 'stt',
+      dtype: WHISPER_DTYPE,
+    },
+    llm: {
+      // 1010.2 MB of weights (tensor-cache.json) + 5.9 MB model_lib wasm.
+      id: 'Qwen3.5-2B-q4f16_1-MLC',
+      name: 'Qwen3.5 2B (tutor)',
+      sizeMb: 1016,
+      stage: 'llm',
+    },
+    tts: KOKORO,
+  },
+  large: {
+    tier: 'large',
+    stt: {
+      // 336.5 MB encoder_model.onnx + 149.5 MB
+      // decoder_model_merged_quantized.onnx + 4.2 MB tokenizer/vocab/config.
+      id: 'onnx-community/whisper-small',
+      name: 'Whisper small (speech to text)',
+      sizeMb: 490,
+      stage: 'stt',
+      dtype: WHISPER_DTYPE,
+    },
+    llm: {
+      // 2257.5 MB of weights (tensor-cache.json) + 6.2 MB model_lib wasm.
+      id: 'Qwen3.5-4B-q4f16_1-MLC',
+      name: 'Qwen3.5 4B (tutor)',
+      sizeMb: 2264,
+      stage: 'llm',
+    },
+    tts: KOKORO,
+  },
+};
+
+/** What a learner who has never touched the setting gets. */
+export const DEFAULT_TIER: TutorTier = 'standard';
+
+/** Narrows a stored preference (which may be absent, or from an older or
+ * newer build) to a tier this build knows about. */
+export function resolveTier(tier: string | undefined | null): TutorTier {
+  return tier === 'large' ? 'large' : DEFAULT_TIER;
+}
+
+/** The three models a tier downloads, in pipeline order (stt, llm, tts) —
+ * the order the panel lists them in and the worker loads them in. */
+export function modelsForTier(tier: TutorTier): TutorModelSpec[] {
+  const spec = TUTOR_TIERS[tier];
+  return [spec.stt, spec.llm, spec.tts];
+}
+
+/** The standard tier's models, as bare exports. Every real consumer is
+ * tier-aware now (the provider, the worker payload, the capability gate,
+ * the panel); these stay so that callers which only ever mean "the default
+ * tutor" — the sample-audio helper, the unit tests — keep compiling. */
+export const STT_MODEL: TutorModelSpec = TUTOR_TIERS[DEFAULT_TIER].stt;
+export const LLM_MODEL: TutorModelSpec = TUTOR_TIERS[DEFAULT_TIER].llm;
+export const TTS_MODEL: TutorModelSpec = TUTOR_TIERS[DEFAULT_TIER].tts;
+
+/** What "Download tutor models" fetches at the default tier. */
+export const TUTOR_MODELS: TutorModelSpec[] = modelsForTier(DEFAULT_TIER);
+
+/** Every model the default tier needs, for the docs/panel. Same list as
+ * `TUTOR_MODELS` now that all three stages ship; kept as a separate export
+ * so callers that mean "the complete catalog" (docs, the Settings row)
+ * don't depend on `TUTOR_MODELS` also being "what's downloaded today",
+ * which was the slice-1 distinction this name preserves. */
 export const ALL_TUTOR_MODELS: TutorModelSpec[] = TUTOR_MODELS;
 
 export function totalSizeMb(models: TutorModelSpec[]): number {

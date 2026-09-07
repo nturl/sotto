@@ -5,7 +5,7 @@
  */
 import { useCallback, useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ALL_TUTOR_MODELS, totalSizeMb } from '@sotto/voice';
+import { modelsForTier, totalSizeMb } from '@sotto/voice';
 import { space } from '@sotto/core/theme';
 import { useT } from '../../src/i18n/useT';
 import { BackLink } from '../../src/ui/BackLink';
@@ -14,7 +14,11 @@ import { Shell } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
 import { browserAvailability } from '../../src/voice/availability';
 import { useOwnProviderStatus } from '../../src/voice/ownProviderStatus';
-import { TutorModelsPanel, type TutorModelsPanelState } from '../../src/voice/TutorModelsPanel';
+import {
+  TutorModelsPanel,
+  useTutorTier,
+  type TutorModelsPanelState,
+} from '../../src/voice/TutorModelsPanel';
 
 function toPanelState(
   availability: Awaited<ReturnType<typeof browserAvailability>>,
@@ -30,10 +34,14 @@ export default function TutorModelsScreen() {
   const t = useT();
   const [state, setState] = useState<TutorModelsPanelState | null>(null);
   const ownProviderStatus = useOwnProviderStatus();
+  // The picker inside the panel writes this preference; re-running the gate
+  // against the newly chosen tier is what makes the download list below it
+  // switch to that tier's models.
+  const tier = useTutorTier();
 
   const recheck = useCallback(() => {
-    void browserAvailability().then((a) => setState(toPanelState(a)));
-  }, []);
+    void browserAvailability(modelsForTier(tier)).then((a) => setState(toPanelState(a)));
+  }, [tier]);
 
   useEffect(recheck, [recheck]);
 
@@ -50,7 +58,7 @@ export default function TutorModelsScreen() {
           />
         ) : null}
         <Text role="caption" color="ink3">
-          {t('tutor.browser.eventualTotal', { size: totalSizeMb(ALL_TUTOR_MODELS) })}
+          {t('tutor.browser.eventualTotal', { size: totalSizeMb(modelsForTier(tier)) })}
         </Text>
       </View>
     </Shell>

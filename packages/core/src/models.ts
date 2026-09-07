@@ -228,6 +228,12 @@ export interface UserPreferences {
   /** 'system' resolves to the OS/browser preference; absent on old exports
    * (client treats missing as 'system'). */
   colorScheme?: 'system' | 'light' | 'dark';
+  /** In-browser tutor download size (packages/voice `TUTOR_TIERS`): the
+   * 'standard' models run on a phone or an 8 GB laptop, 'large' listens and
+   * answers better but needs a capable computer. Absent on old exports and
+   * on any device that never opened the setting; the client treats missing
+   * as 'standard', the same convention as `colorScheme`/'system'. */
+  tutorModelTier?: 'standard' | 'large';
 }
 
 export interface VoiceSessionRecord {

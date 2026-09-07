@@ -15,7 +15,14 @@
  * `needs-download` with sizes so the screen can offer the opt-in; when there
  * is no WebGPU either, `unavailable/no-webgpu`.
  */
-import { cachedModelIds, hasWebGpu, TUTOR_MODELS, type TutorModelSpec } from '@sotto/voice';
+import {
+  cachedModelIds,
+  DEFAULT_TIER,
+  hasWebGpu,
+  modelsForTier,
+  type TutorModelSpec,
+  type TutorTier,
+} from '@sotto/voice';
 import type { Health } from '../state/contentApi';
 import { hasByokKey } from './byokKey';
 
@@ -73,9 +80,49 @@ export function availabilityFromHealth(health: Health | null): VoiceAvailability
   return { status: 'ready', path: 'local' };
 }
 
-/** The in-browser verdict on its own. Async: reading the model cache is. */
+/**
+ * Whether this machine can be offered the LARGE tutor tier (whisper-small +
+ * Qwen3.5 4B, ~2.8 GB of weights resident): true when
+ * `navigator.deviceMemory` reports at least 8 GB, and — on browsers that
+ * don't expose `deviceMemory` at all, Safari being the one that matters —
+ * when the WebGPU adapter's own limits are large enough to hold a 4B model's
+ * biggest buffers: a storage-buffer binding of at least 1 GiB and a maximum
+ * buffer size of at least 2 GiB. Those two limits are what an adapter on a
+ * small integrated GPU actually caps, so they stand in for the RAM figure
+ * Safari won't give us.
+ *
+ * False (never "unknown"): the picker disables the large row rather than
+ * offering a download that will fail three-quarters of the way in, and the
+ * standard tier is always available as the answer.
+ */
+export async function deviceSupportsLargeTier(): Promise<boolean> {
+  if (typeof navigator === 'undefined') return false;
+  const nav = navigator as Navigator & {
+    deviceMemory?: number;
+    gpu?: { requestAdapter(): Promise<{ limits: Record<string, number> } | null> };
+  };
+  if (typeof nav.deviceMemory === 'number') return nav.deviceMemory >= 8;
+  if (!nav.gpu) return false;
+  try {
+    const adapter = await nav.gpu.requestAdapter();
+    if (!adapter) return false;
+    const limits = adapter.limits ?? {};
+    return (
+      (limits.maxStorageBufferBindingSize ?? 0) >= 1024 ** 3 &&
+      (limits.maxBufferSize ?? 0) >= 2 * 1024 ** 3
+    );
+  } catch {
+    // A browser that throws on requestAdapter() is in no position to run
+    // the big tier either.
+    return false;
+  }
+}
+
+/** The in-browser verdict on its own. Async: reading the model cache is.
+ * Defaults to the standard tier's models; callers that know the learner's
+ * "Tutor size" preference pass that tier's list instead. */
 export async function browserAvailability(
-  models: TutorModelSpec[] = TUTOR_MODELS,
+  models: TutorModelSpec[] = modelsForTier(DEFAULT_TIER),
 ): Promise<VoiceAvailability> {
   if (!hasWebGpu()) return { status: 'unavailable', reason: 'no-webgpu', missing: [] };
   const cached = new Set(await cachedModelIds());
@@ -115,7 +162,14 @@ export async function browserAvailability(
  */
 export async function resolveAvailability(
   health: Health | null,
-  opts?: { cloudUsable?: boolean; isDesktop?: boolean; byokUsable?: boolean },
+  opts?: {
+    cloudUsable?: boolean;
+    isDesktop?: boolean;
+    byokUsable?: boolean;
+    /** The learner's "Tutor size" (preferences.tutorModelTier). Decides
+     * WHICH models `needs-download` asks for; defaults to `standard`. */
+    tier?: TutorTier;
+  },
 ): Promise<VoiceAvailability> {
   const cloudUsable = opts?.cloudUsable ?? false;
   const isDesktop = opts?.isDesktop ?? false;
@@ -144,7 +198,7 @@ export async function resolveAvailability(
     return { status: 'ready', path: 'byok' };
   }
 
-  const browser = await browserAvailability();
+  const browser = await browserAvailability(modelsForTier(opts?.tier ?? DEFAULT_TIER));
   if (browser.status === 'ready') {
     const alternatives = withByok(cloudUsable ? ['browser', 'cloud'] : ['browser']);
     return alternatives.length > 1 ? { status: 'ready', path: 'browser', alternatives } : browser;

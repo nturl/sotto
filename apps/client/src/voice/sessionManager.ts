@@ -14,6 +14,7 @@
 import type { TutorMode } from '@sotto/core';
 import {
   BrowserCascadeProvider,
+  DEFAULT_TIER,
   FakeVoiceProvider,
   LocalCascadeProvider,
   OpenAIDirectProvider,
@@ -22,6 +23,7 @@ import {
   type AudioAdapter,
   type PassageContext,
   type SessionOptions,
+  type TutorTier,
   type VoiceProvider,
   type WorkerInitPayload,
 } from '@sotto/voice';
@@ -117,10 +119,14 @@ function pickProvider(
   cloudProvider: CloudProviderId | undefined,
   sessionOptions: SessionOptions,
   audio: AudioAdapter,
+  tutorTier: TutorTier,
 ): VoiceProvider {
   if (process.env.EXPO_PUBLIC_VOICE === 'fake') return new FakeVoiceProvider(systemClock);
   if (path === 'browser') {
-    return new BrowserCascadeProvider({ audio, debug: debugOverride() });
+    // The learner's "Tutor size" decides which STT/LLM ids the worker
+    // loads (packages/voice models.ts `TUTOR_TIERS`); the capability gate
+    // has already confirmed that tier's models are cached.
+    return new BrowserCascadeProvider({ audio, debug: debugOverride(), tier: tutorTier });
   }
   if (path === 'byok') {
     // R4-B2: the learner's own OpenAI key, read from device storage
@@ -221,6 +227,9 @@ export function startSession(params: {
    * meaningful when `path === 'cloud'`; decides Realtime vs the cascade
    * broker for that path. */
   cloudProvider?: CloudProviderId;
+  /** The learner's "Tutor size" (preferences.tutorModelTier). Only
+   * meaningful when `path === 'browser'`; defaults to `standard`. */
+  tutorTier?: TutorTier;
 }): void {
   lastStartParams = params;
   if (active) endSession();
@@ -379,6 +388,7 @@ function beginSession(params: StartSessionParams): void {
     params.cloudProvider,
     sessionOptions,
     gatedAudio?.adapter as AudioAdapter,
+    params.tutorTier ?? DEFAULT_TIER,
   );
   const isRealtimeAttempt = provider instanceof OpenAIRealtimeProvider;
   attach(provider, isRealtimeAttempt);

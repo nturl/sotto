@@ -39,7 +39,18 @@ export async function buildApp(config: Config): Promise<FastifyInstance> {
   // reverse proxy — and therefore what makes the per-IP limiter below mean
   // anything — and what lets `request.protocol` see the browser's `https`
   // through a TLS-terminating proxy, so the wsUrl handed back is `wss://`.
-  const app = Fastify({ logger: true, trustProxy: config.SOTTO_TRUST_PROXY });
+  //
+  // `hop === 0` trusts ONLY the immediate peer, not `true` (trust every hop).
+  // The difference is a spoofing hole, not a style choice: with every hop
+  // trusted, proxy-addr walks the whole `x-forwarded-for` list and returns its
+  // LEFTMOST entry — which the client wrote. A caller sending
+  // `x-forwarded-for: 1.2.3.4` would get a fresh rate-limit bucket per
+  // request. Trusting one hop returns the rightmost entry instead, the one
+  // the proxy itself appended, which the client cannot forge.
+  const app = Fastify({
+    logger: true,
+    trustProxy: config.SOTTO_TRUST_PROXY ? (_address: string, hop: number) => hop === 0 : false,
+  });
 
   // Voice sessions juggle several concurrent in-flight fetches (STT/LLM/TTS)
   // that get aborted on barge-in; Node's undici fetch can surface an abort as

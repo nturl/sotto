@@ -134,6 +134,28 @@ describe('POST /voice/session behind a TLS-terminating proxy', () => {
     expect(res.json().wsUrl).toMatch(/^wss:\/\//);
   });
 
+  it('ignores a client-forged x-forwarded-for prepended ahead of the proxy value', async () => {
+    app = await buildApp(testConfig({ SOTTO_TRUST_PROXY: true, SOTTO_MAX_SESSIONS: 1000 }));
+    // A real proxy APPENDS, so the rightmost entry is the one it vouches for.
+    // A client that writes its own leftmost value must not get a fresh bucket
+    // per request — that would defeat the limiter entirely.
+    for (let i = 0; i < 10; i++) {
+      await app.inject({
+        method: 'POST',
+        url: '/voice/session',
+        payload: sessionBody,
+        headers: { 'x-forwarded-for': `10.0.0.${i}, 198.51.100.5` },
+      });
+    }
+    const spoofed = await app.inject({
+      method: 'POST',
+      url: '/voice/session',
+      payload: sessionBody,
+      headers: { 'x-forwarded-for': '10.0.0.99, 198.51.100.5' },
+    });
+    expect(spoofed.statusCode).toBe(429);
+  });
+
   it('separates callers by their forwarded IP, not by the proxy address', async () => {
     app = await buildApp(testConfig({ SOTTO_TRUST_PROXY: true, SOTTO_MAX_SESSIONS: 1000 }));
     // Burn one caller's whole per-IP budget.

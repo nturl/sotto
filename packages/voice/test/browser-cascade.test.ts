@@ -14,6 +14,7 @@ import {
   type WorkerLike,
 } from '../src/browser-cascade/provider.ts';
 import type { MainToWorker, WorkerToMain } from '../src/browser-cascade/protocol.ts';
+import { modelsForTier, totalSizeMb, TTS_MODEL } from '../src/browser-cascade/models.ts';
 
 class FakeWorker implements WorkerLike {
   static instances: FakeWorker[] = [];
@@ -291,6 +292,25 @@ describe('BrowserCascadeProvider controls', () => {
       expect(events.some((e) => e.type === 'limit')).toBe(false);
     } finally {
       vi.useRealTimers();
+    }
+  });
+});
+
+describe('the sizes the panel shows before the learner consents', () => {
+  // Run 9 lane R, P0-3: the worker moved Kokoro to fp32 on WebGPU (which is
+  // the default path on any machine that has it) and this number stayed at
+  // the q8 file's 90 MB, so the panel and the Settings total both
+  // understated the download by ~220 MB. See the comment on KOKORO.
+  it('reports the fp32 Kokoro the WebGPU path actually downloads', () => {
+    expect(TTS_MODEL.sizeMb).toBeGreaterThanOrEqual(300);
+  });
+
+  it('the tier total is the sum of the three rows the panel lists', () => {
+    for (const tier of ['standard', 'large'] as const) {
+      const models = modelsForTier(tier);
+      expect(models).toHaveLength(3);
+      expect(totalSizeMb(models)).toBe(models.reduce((n, m) => n + m.sizeMb, 0));
+      expect(models.some((m) => m.stage === 'tts' && m.sizeMb === TTS_MODEL.sizeMb)).toBe(true);
     }
   });
 });

@@ -108,11 +108,30 @@ export interface TutorTierSpec {
   tts: TutorModelSpec;
 }
 
-/** Both tiers speak with the same voice; only STT and the LLM change. */
+/**
+ * Both tiers speak with the same voice; only STT and the LLM change.
+ *
+ * 312 MB, not the 90 MB this said through run 9 lane C: on WebGPU the
+ * worker now loads Kokoro at **fp32**, because q8 on WebGPU emits noise
+ * (`TTS_DTYPE` in worker.ts has the WER table). fp32 is
+ * `onnx/model.onnx`, 310.4 MB, against `onnx/model_quantized.onnx`'s
+ * 88.1 MB — plus the tokenizer/config and the one 0.5 MB voice file
+ * kokoro-js fetches, the same rounding every other row here uses.
+ *
+ * `sizeMb` has no device axis, and the panel shows this number BEFORE the
+ * download, i.e. before the worker has probed for WebGPU — so there is no
+ * honest way to show 90 to the machines that will only ever get the wasm
+ * fallback. It shows the larger number to everyone. Over-stating a
+ * download by 220 MB costs a wasm-only learner nothing but a pleasant
+ * surprise; under-stating it by 220 MB is a number someone acted on with a
+ * metered connection (run 9 lane R, P0-3). If a device-aware size is ever
+ * wanted, the fix is a `sizeMb` per device on `TutorModelSpec` and a probe
+ * in the panel, not a smaller constant here.
+ */
 const KOKORO: TutorModelSpec = {
   id: 'onnx-community/Kokoro-82M-v1.0-ONNX',
   name: 'Kokoro 82M (text to speech)',
-  sizeMb: 90,
+  sizeMb: 312,
   stage: 'tts',
 };
 

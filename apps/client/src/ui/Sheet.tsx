@@ -28,12 +28,23 @@ export type SheetProps = {
    * sheet instead of the two overlapping (DESIGN.md: "Narration transport
    * below the panel"). */
   bottomOffset?: number;
+  /** Rendered as the sheet's last child, below (and outside) the scrolling
+   * body — the mockup's `.transport` sits there, after `.talk`, and must
+   * stay reachable however far the panel above it has scrolled. */
+  footer?: React.ReactNode;
   /** Reports the sheet's own (untransformed) layout height, e.g. so a
    * caller can reserve scroll content padding for the full docked stack. */
   onHeightChange?: (height: number) => void;
 };
 
-export function Sheet({ visible, children, style, bottomOffset = 0, onHeightChange }: SheetProps) {
+export function Sheet({
+  visible,
+  children,
+  style,
+  bottomOffset = 0,
+  footer,
+  onHeightChange,
+}: SheetProps) {
   const { colors } = useTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
   const animation = useRef(new Animated.Value(visible ? 1 : 0)).current;
@@ -76,6 +87,7 @@ export function Sheet({ visible, children, style, bottomOffset = 0, onHeightChan
       >
         {children}
       </ScrollView>
+      {footer}
     </Animated.View>
   );
 }

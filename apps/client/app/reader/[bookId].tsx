@@ -235,11 +235,9 @@ export default function ReaderScreen() {
   const [showSentenceDetail, setShowSentenceDetail] = useState(false);
   const [width, setWidth] = useState(390);
   const [showCompletion, setShowCompletion] = useState(false);
-  // Both dock at the bottom, sheet above the transport (DESIGN.md: "Narration
-  // transport below the panel") — measured so the sheet can sit flush above
-  // the transport instead of the two overlapping, and so the reading area
-  // can reserve exactly enough bottom padding to keep its last lines
-  // reachable above the docked stack.
+  // Measured so the reading area can reserve exactly enough bottom padding
+  // to keep its last lines reachable above whatever is docked: the transport
+  // on desktop, the sheet (which now contains the transport) on phone.
   const [transportHeight, setTransportHeight] = useState(0);
   const [sheetHeight, setSheetHeight] = useState(0);
   const scrollThrottle = useRef(0);
@@ -985,7 +983,9 @@ export default function ReaderScreen() {
               styles.scrollContent,
               {
                 paddingHorizontal: space.gutter.phone,
-                paddingBottom: transportHeight + (isDesktop ? 0 : sheetHeight) + space.xxl,
+                // Desktop: the transport sits under the passage. Phone: it
+                // is inside the sheet, so `sheetHeight` already covers it.
+                paddingBottom: (isDesktop ? transportHeight : sheetHeight) + space.xxl,
               },
             ]}
             onScroll={onScroll}
@@ -1058,18 +1058,19 @@ export default function ReaderScreen() {
           // Run 8 lane D: always docked on phone. The header mic button is
           // gone (its action is now the panel's last row), so the sheet must
           // be present with the empty state + "Talk about this passage" even
-          // before a word is tapped. The run-7 `bottomOffset` logic is
-          // untouched — the transport still docks below the sheet.
+          // before a word is tapped — which is also why the transport can
+          // live inside it (mockup line 397: `.transport` is the last child
+          // of `.sheet`, after `.talk`). It rides in the sheet's `footer`,
+          // outside the scrolling body, so Play stays reachable whether or
+          // not a word is selected and however far the panel has scrolled.
           visible
           style={styles.mobileSheet}
-          bottomOffset={transportHeight}
+          footer={transportView ?? narratingOnDemandCaption}
           onHeightChange={setSheetHeight}
         >
           {translationPanel}
         </Sheet>
       ) : null}
-
-      {!isDesktop ? (transportView ?? narratingOnDemandCaption) : null}
 
       <Toast message={toast} onHide={() => setToast(null)} />
     </View>

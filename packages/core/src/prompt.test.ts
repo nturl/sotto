@@ -459,6 +459,25 @@ describe('buildSystemInstruction compact mode (the in-browser 2B model)', () => 
     expect(compact('read_to_me')).toContain('[[reading: id1 id2]]');
   });
 
+  // Run 9 lane R, P1-7. Rule 6 used to end "Nothing else goes in double
+  // brackets." — which comes AFTER the mode guidance, in the block
+  // deliberately moved last for recency, and so told a 2B model last and
+  // most emphatically not to emit the marker read_to_me's own instruction
+  // had just demanded. `[[reading:]]` is what drives sentence highlighting.
+  it('does not forbid the [[reading:]] marker it asks read_to_me for', () => {
+    const out = compact('read_to_me');
+    expect(out).toContain('Begin your reply with the marker [[reading: id1 id2]]');
+    const rules = out.slice(out.indexOf('Rules. Follow every one.'));
+    expect(rules).toContain('[[reading: ...]]');
+    expect(rules).not.toContain('Nothing else goes in double brackets');
+  });
+
+  it('still forbids INVENTED markers, in every mode', () => {
+    for (const mode of ALL_MODES) {
+      expect(compact(mode)).toContain('Never invent a different double-bracket marker.');
+    }
+  });
+
   it('keeps the pace markers, the tokenId assembly rule and the opening invitation', () => {
     const out = compact('discuss');
     expect(out).toContain('[[pace: slow]]');

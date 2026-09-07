@@ -1,22 +1,15 @@
 /**
- * Session-local bookId -> jobId map (planning/LEDGER.md "R3-I Importer"):
- * apps/server's import jobs live in memory with a 30-minute TTL (see
- * apps/server/src/import/jobs.ts), keyed by jobId, not bookId — lazy
- * per-chapter narration (`POST /import/:jobId/narrate/:chapterIndex`)
- * needs that jobId. The progress screen (app/import/[jobId].tsx) registers
- * the mapping once a job finishes; useLazyNarration.ts reads it. This is
- * deliberately session-local, not persisted: a book imported in an earlier
- * session (or after the job's 30-minute TTL) can no longer be narrated
- * lazily through the original job — see the importer report for why a
- * durable path (re-running narrateChapter from the stored book/chapters
- * with no job at all) is future work, not built in this lane.
+ * Keep the import job reference with the private book so later chapters can
+ * be narrated after reopening the app. The server still checks ownership and
+ * job availability; storing the reference does not extend local jobs' TTL.
  */
-const registry = new Map<string, string>();
+import { persistence } from '../platform/persistence';
+import { privateImportJobKey } from './privateKeys';
 
-export function registerImportJob(bookId: string, jobId: string): void {
-  registry.set(bookId, jobId);
+export async function registerImportJob(bookId: string, jobId: string): Promise<void> {
+  await persistence.setItem(privateImportJobKey(bookId), jobId);
 }
 
-export function getImportJobId(bookId: string): string | undefined {
-  return registry.get(bookId);
+export async function getImportJobId(bookId: string): Promise<string | undefined> {
+  return (await persistence.getItem(privateImportJobKey(bookId))) ?? undefined;
 }

@@ -30,7 +30,7 @@ export function useLazyNarration(): UseLazyNarrationResult {
 
   const narrateChapter = useCallback(
     async (bookId: string, chapterIndex: number): Promise<boolean> => {
-      const jobId = getImportJobId(bookId);
+      const jobId = await getImportJobId(bookId);
       if (!jobId) return false;
       setNarrating(true);
       try {

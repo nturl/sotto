@@ -23,6 +23,7 @@ import { useT } from '../../src/i18n/useT';
 import { BookTile } from '../../src/ui/BookTile';
 import { Cover } from '../../src/ui/Cover';
 import { bookAssetUrl, useLibrary } from '../../src/ui/data';
+import { getAudioAssetUrl } from '../../src/import/privateAudio';
 import {
   BookmarkGlyph,
   CloseGlyph,
@@ -297,9 +298,32 @@ export default function ReaderScreen() {
     flatTokens.forEach((tk, i) => map.set(tk.id, i));
     return map;
   }, [flatTokens]);
-  const audioUri =
-    chapterSummary?.audio && locale
-      ? bookAssetUrl(bookId ?? '', chapterSummary.audio, locale)
+  const audioPath = chapterSummary?.audio;
+  const [privateAudio, setPrivateAudio] = useState<{
+    bookId: string;
+    path: string;
+    uri: string;
+  }>();
+  useEffect(() => {
+    if (!book?.private || !bookId || !audioPath) return;
+    let cancelled = false;
+    void getAudioAssetUrl(bookId, audioPath.replace(/^audio\//, ''))
+      .then((uri) => {
+        if (!cancelled && uri) setPrivateAudio({ bookId, path: audioPath, uri });
+      })
+      .catch(() => {
+        // A missing/unreadable local asset must never fall back to a public book URL.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [book?.private, bookId, audioPath]);
+  const audioUri = book?.private
+    ? privateAudio?.bookId === bookId && privateAudio.path === audioPath
+      ? privateAudio.uri
+      : undefined
+    : audioPath && locale
+      ? bookAssetUrl(bookId ?? '', audioPath, locale)
       : undefined;
   const narration = useNarrationPlayer(audioUri, preferences.narrationSpeed as NarrationSpeed);
 

@@ -316,7 +316,9 @@ describe('private (imported) books', () => {
     await hydrate();
     await useStore.getState().addPrivateBook(PRIVATE_BOOK, [PRIVATE_CHAPTER]);
 
+    await persistence.setItem('sotto.private.importJob.private-abcdef01', 'hosted-job');
     await useStore.getState().removePrivateBook('private-abcdef01');
+    expect(await persistence.getItem('sotto.private.importJob.private-abcdef01')).toBeNull();
 
     expect(useStore.getState().privateBooks).toEqual([]);
     expect(await persistence.getItem('sotto.private.book.private-abcdef01')).toBeNull();

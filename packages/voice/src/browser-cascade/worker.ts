@@ -615,12 +615,21 @@ async function speakSentence(
   if (abort.signal.aborted) return;
   const base = iso639(s.payload.learner.learningLocale);
 
+  // Never hand Kokoro the model's raw text: markdown decoration is
+  // pronounced ("Astroskastrisk the dog Astroskastrisk…" — measured, run 9
+  // lane C) and anything past ~510 phoneme tokens is silently truncated.
+  // `prepareForSpeech` cleans it and splits it. It returns NO pieces when a
+  // "sentence" was pure decoration (a lone emoji, a stray `**`), which is
+  // treated the same way a non-English locale is: caption only, no utterance
+  // opened, no `speaking` claimed. Same doctrine as the comment below.
+  const pieces = base === 'en' ? prepareForSpeech(sentence) : [];
+
   // Only enter `speaking` / open an utterance when audio is actually about
   // to play. For every other locale this turn stays caption-only — no
   // audio_start/audio_end pair is ever sent, so the provider never fakes a
   // "spoke but produced nothing" utterance (the honest label above
   // `loadTts` explains why).
-  if (base === 'en') {
+  if (pieces.length > 0) {
     setState('speaking');
     // Lane A's single line in this function: raise the VAD's bar while the
     // tutor's own audio is out. See setSpeakingState.
@@ -634,12 +643,9 @@ async function speakSentence(
     try {
       if (!kokoro) await loadTts();
       const speed = s.pace === 'slow' ? 0.85 : 1.0;
-      // Never hand Kokoro the model's raw text: markdown decoration is
-      // pronounced ("Astroskastrisk the dog Astroskastrisk…" — measured, run
-      // 9 lane C) and anything past ~510 phoneme tokens is silently
-      // truncated. `prepareForSpeech` cleans it and splits it; the pieces
-      // stay inside the SAME utterance so barge-in and replay are unchanged.
-      for (const piece of prepareForSpeech(sentence)) {
+      // The pieces stay inside the SAME utterance id, so `audio_end`,
+      // barge-in and `replay` behave exactly as they did for one call.
+      for (const piece of pieces) {
         const audio = await kokoro!.generate(piece, { voice: 'af_heart', speed });
         if (abort.signal.aborted || s.currentUtteranceId !== utteranceId) return;
         const pcm16 = floatToPcm16(audio.audio);

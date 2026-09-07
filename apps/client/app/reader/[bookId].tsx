@@ -735,14 +735,17 @@ export default function ReaderScreen() {
               ) : null}
             </View>
             {shows('reader-panel-speaker') ? (
-              <IconButton
-                variant="ring"
-                size={44}
-                icon={<SpeakerGlyph size={18} color={colors.accent} />}
-                accessibilityLabel={t('book.a11y.playNarration')}
-                onPress={playSelectionAudio}
-                style={styles.panelSpeaker}
-              />
+              // IconButton takes no testID, so the row's id lives on a
+              // wrapper — it still sits at this exact point in the DOM.
+              <View testID="reader-panel-speaker" style={styles.panelSpeaker}>
+                <IconButton
+                  variant="ring"
+                  size={44}
+                  icon={<SpeakerGlyph size={18} color={colors.accent} />}
+                  accessibilityLabel={t('book.a11y.playNarration')}
+                  onPress={playSelectionAudio}
+                />
+              </View>
             ) : null}
           </View>
 
@@ -1239,6 +1242,11 @@ function createStyles(colors: ThemeColors) {
     },
     desktopPanel: {
       width: 360,
+      // RN Web's ScrollView base style is flexGrow:1/flexShrink:1, so inside
+      // this row the panel used to split the leftover space with the passage
+      // wrapper and render ~900px wide instead of 360 (measured live). Pin it.
+      flexGrow: 0,
+      flexShrink: 0,
       borderLeftWidth: 1,
       borderLeftColor: colors.hairline,
       backgroundColor: colors.surface,
@@ -1363,6 +1371,10 @@ function createStyles(colors: ThemeColors) {
       maxWidth: 640,
       width: '100%',
       alignSelf: 'center',
+      // Mockup frame 3: on desktop the transport is a hairline rule on the
+      // canvas, not a surface block (the surface fill is the phone sheet's,
+      // where the transport docks directly under it).
+      backgroundColor: colors.canvas,
       ...(Platform.OS === 'web' ? { position: 'sticky', bottom: 0 } : null),
     } as ViewStyle,
     progressTrack: {

@@ -253,6 +253,8 @@
           width: auto;
           display: inline-flex;
           padding: 0 40px;
+          white-space: nowrap;
+          flex-shrink: 0;
         }
       }
       .cta-row {
@@ -264,13 +266,15 @@
       @media (min-width: 600px) {
         .cta-row {
           flex-direction: row;
+          flex-wrap: wrap;
           align-items: center;
-          gap: 28px;
+          gap: 16px 28px;
         }
       }
       .cta-links {
         display: flex;
         gap: 24px;
+        white-space: nowrap;
         font: 500 0.9375rem/1.5 var(--sans);
       }
       .cta-note {

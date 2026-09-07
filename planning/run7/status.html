@@ -289,7 +289,7 @@
   <header class="masthead">
     <p class="eyebrow">Sotto · run 7 · 2026-09-06</p>
     <h1>From a landing page to a spoken answer about Provence.</h1>
-    <p class="deck">Review done, fix pass running. <span class="muted">Three P0 defects found and being fixed before the free origin deploys. Paid origin deploy is Noel's.</span></p>
+    <p class="deck">Free origin deployed. <span class="muted">Three P0 defects from the review fixed and live-proven first. Paid origin deploy is Noel's.</span></p>
   </header>
 
   <section aria-label="state at a glance">
@@ -479,14 +479,51 @@
         </div>
       </div>
 
-      <div class="tick rail-green" data-status="pending">
-        <div class="tick-time">now<span class="sha">—</span></div>
+      <div class="tick rail-green" data-status="partial">
+        <div class="tick-time">21:20<span class="sha">540aac6</span></div>
         <div class="tick-body">
           <p class="tick-lane">H · Fix pass</p>
-          <p class="tick-sentence">One lane owns every affected file: hydrate the status, fix the transcript dedup, let mic denial reach the recovery panel, size the chips, wire the status into the voice screen, the opening turn and real title on the local path, the two landing corrections. Then the free origin deploys.</p>
-          <span class="status pending"><span class="glyph">◌</span> pending</span>
+          <p class="tick-sentence">Own-provider status hydrated across reload; transcript dedup fixed; a denied microphone reaches the recovery panel; filter chips 36 px; the voice screen reads the status; opening turn and real title on the local path; landing says the plan sends your voice to OpenAI through Sotto’s server; iOS Chrome and Firefox get their own install steps. Servers were down, so unit proofs only.</p>
+          <span class="status partial"><span class="glyph">◐</span> partial</span>
         </div>
       </div>
+
+      <div class="tick rail-green" data-status="verified">
+        <div class="tick-time">21:45<span class="sha">b4de9cc</span></div>
+        <div class="tick-body">
+          <p class="tick-lane">H2 · Live proofs</p>
+          <p class="tick-sentence">All six live: status survives reload, mic denial recovers in 0.7 s, chips 36 px filtered or not, probe 10/10 twice. Found and fixed one more: the chunker cut “M. Seguin” at the abbreviation, so the tutor spoke a lone “M.” aloud.</p>
+          <span class="status verified"><span class="glyph">●</span> verified</span>
+        </div>
+      </div>
+
+      <div class="tick rail-green" data-status="verified">
+        <div class="tick-time">21:55<span class="sha">—</span></div>
+        <div class="tick-body">
+          <p class="tick-lane">Orchestrator</p>
+          <p class="tick-sentence">Voice server restarted on the fixed chunker; probe 10/10 again (107 starts, 249,186 samples). Isolated pnpm check green on b4de9cc.</p>
+          <span class="status verified"><span class="glyph">●</span> verified</span>
+        </div>
+      </div>
+
+      <div class="tick rail-green" data-status="verified">
+        <div class="tick-time">22:15<span class="sha">deploy</span></div>
+        <div class="tick-body">
+          <p class="tick-lane">Free origin</p>
+          <p class="tick-sentence">readsotto.app deployed from a clean archive of b4de9cc: new landing live, /content/packs JSON. sotto-cloud vendor pin bumped to b4de9cc (fc806ee), 375 tests green, Fly deploy left to Noel.</p>
+          <span class="status verified"><span class="glyph">●</span> verified</span>
+        </div>
+      </div>
+
+      <div class="tick rail-green" data-status="verified">
+        <div class="tick-time">22:40<span class="sha">—</span></div>
+        <div class="tick-body">
+          <p class="tick-lane">Closing</p>
+          <p class="tick-sentence">Hosted smoke test walks the four-step sample journey against the live origin, PASS at 375 and 1440 (0ffb2c8; six taps landing to reader). Verification table re-graded, FINAL.md handoff and the ledger finish line written (6dd0f68, 8aaa2df).</p>
+          <span class="status verified"><span class="glyph">●</span> verified</span>
+        </div>
+      </div>
+
 
     </div>
   </section>
@@ -507,7 +544,7 @@
         <p class="evidence">C-report, four steps, tests</p>
       </div>
       <div class="dod-item">
-        <p class="crit"><span class="status partial"><span class="glyph">◐</span> partial: filter chips oversize at 375, fix in flight</span> Library shows content or a specific empty/error state</p>
+        <p class="crit"><span class="status verified"><span class="glyph">●</span> verified live after fix (H2)</span> Library shows content or a specific empty/error state</p>
         <p class="evidence">B-report screenshots of four states</p>
       </div>
       <div class="dod-item">
@@ -519,7 +556,7 @@
         <p class="evidence">D-report live walk, voice-live.mjs 6/6</p>
       </div>
       <div class="dod-item">
-        <p class="crit"><span class="status partial"><span class="glyph">◐</span> partial: resets on reload, fix in flight</span> Connecting a usable setting yields one consistent state</p>
+        <p class="crit"><span class="status verified"><span class="glyph">●</span> verified live after fix (H2)</span> Connecting a usable setting yields one consistent state</p>
         <p class="evidence">E-report walk</p>
       </div>
       <div class="dod-item">
@@ -527,7 +564,7 @@
         <p class="evidence">G2 probe</p>
       </div>
       <div class="dod-item">
-        <p class="crit"><span class="status partial"><span class="glyph">◐</span> partial: mic denial still strands "connecting", fix in flight</span> Failed voice paths show specific recovery</p>
+        <p class="crit"><span class="status verified"><span class="glyph">●</span> verified live after fix (H2)</span> Failed voice paths show specific recovery</p>
         <p class="evidence">Own-provider failures not exercised live (needs a real setting) — F1, F2 reports</p>
       </div>
       <div class="dod-item">

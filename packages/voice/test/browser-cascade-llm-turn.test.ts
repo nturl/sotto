@@ -4,7 +4,7 @@
  * sentence chunking into onSentence, interrupt (abort mid-stream), and the
  * max-tool-iterations cap (planning/BROWSER-TUTOR.md, Slice 2 checklist #8).
  */
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import {
   TutorTurnRunner,
   type ChatMessage,
@@ -14,7 +14,10 @@ import {
   type ToolCallResult,
   type TutorTurnDeps,
 } from '../src/browser-cascade/llm-turn.ts';
-import { QUESTION_RETRY_MAX_TOKENS } from '../src/browser-cascade/reply-shape.ts';
+import {
+  QUESTION_RETRY_MAX_TOKENS,
+  QUESTION_RETRY_TIMEOUT_MS,
+} from '../src/browser-cascade/reply-shape.ts';
 import type { TutorMode } from '@sotto/core';
 
 /** Scripted engine: each call to `chat()` consumes the next scripted turn. */
@@ -634,5 +637,81 @@ describe('TutorTurnRunner question-only continuation', () => {
     await runner.run('hola', new AbortController().signal);
 
     expect(engine.calls).toHaveLength(2);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// run 9 lane H2 — two defects the FIRST live probe run of the continuation
+// found (AFTER3/run3.log), both regressions this feature introduced.
+// ---------------------------------------------------------------------------
+describe('TutorTurnRunner continuation, as the live model actually answers it', () => {
+  it('strips a <think> block out of the continuation before it is spoken', async () => {
+    // Verbatim from AFTER3/run3.log, the mic scenario: the continuation came
+    // back wrapped in an empty reasoning block, and Kokoro read it aloud as
+    // "Think slash think did the dog know…". The main stream runs every
+    // delta through stripMarkers; the continuation did not.
+    const engine = new ScriptedEngine([
+      { deltas: ['The dog is a big, gray husky.'] },
+      { deltas: ['<think> </think> Did the dog know that the man was traveling?'] },
+    ]);
+    const { runner, sentences, captions } = setup(engine, { mode: () => 'discuss' });
+
+    await runner.run('Tell me more about the gray husky dog.', new AbortController().signal);
+
+    expect(sentences.at(-1)).toBe('Did the dog know that the man was traveling?');
+    expect(sentences.join(' ')).not.toContain('think');
+    expect(captions.filter((c) => c.final)[0]!.text).toBe(
+      'The dog is a big, gray husky. Did the dog know that the man was traveling?',
+    );
+  });
+
+  it('gives up on a continuation that never answers, instead of hanging the turn', async () => {
+    // Also from run3: after the sentence cap aborted the generation, the
+    // very next chat.completions.create() on the same MLCEngine never
+    // returned — the hazard SessionState.currentTurnPromise exists for,
+    // reached from INSIDE a turn for the first time. The text scenario sat
+    // with no final caption and no `listening` until the probe's 180 s
+    // timeout. A continuation is a nicety; it may not cost the turn.
+    let calls = 0;
+    const engine: LlmEngine = {
+      chat: async (_messages, handlers, signal) => {
+        calls += 1;
+        if (calls === 1) {
+          await handlers.onTextDelta?.('The dog is a big, gray husky.');
+          return { text: 'The dog is a big, gray husky.', toolCalls: [] };
+        }
+        // Never settles on its own; only the continuation's own deadline
+        // can end this turn.
+        await new Promise<void>((resolve) => {
+          if (signal.aborted) resolve();
+          else signal.addEventListener('abort', () => resolve(), { once: true });
+        });
+        return { text: '', toolCalls: [] };
+      },
+    };
+    const metrics: Array<{ name: string; detail?: string }> = [];
+    const { runner, sentences, captions, states } = setup(engine, {
+      mode: () => 'discuss',
+      onMetric: (name, detail) => metrics.push({ name, detail }),
+    });
+
+    vi.useFakeTimers();
+    try {
+      const turn = runner.run('hola', new AbortController().signal);
+      await vi.advanceTimersByTimeAsync(QUESTION_RETRY_TIMEOUT_MS + 1000);
+      await turn;
+    } finally {
+      vi.useRealTimers();
+    }
+
+    expect(calls).toBe(2);
+    expect(metrics).toEqual([{ name: 'llm_question_retry', detail: 'timeout' }]);
+    // The turn finished normally: the answer was spoken, captioned and the
+    // session handed back to listening.
+    expect(sentences).toEqual(['The dog is a big, gray husky.']);
+    expect(captions.filter((c) => c.final).map((c) => c.text)).toEqual([
+      'The dog is a big, gray husky.',
+    ]);
+    expect(states).toEqual(['thinking', 'listening']);
   });
 });

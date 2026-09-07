@@ -19,6 +19,7 @@ import { safeReleaseIndex, stripMarkers } from './markers.ts';
 import {
   QUESTION_NUDGE,
   QUESTION_RETRY_MAX_TOKENS,
+  QUESTION_RETRY_TIMEOUT_MS,
   ReplyBudget,
   ReplyNormalizer,
   endsWithQuestion,
@@ -368,27 +369,56 @@ export class TutorTurnRunner {
     if (endsWithQuestion(answered)) return null;
     if (isStopRequest(learnerText)) return null;
 
-    let raw = '';
+    // The deadline is load-bearing, not defensive: see
+    // QUESTION_RETRY_TIMEOUT_MS. It aborts the engine call AND stops
+    // awaiting it, because the failure it exists for is a call that never
+    // returns at all.
+    const deadline = new AbortController();
+    const engineSignal = anySignal(signal, deadline.signal);
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const expired = new Promise<null>((resolve) => {
+      timer = setTimeout(() => {
+        deadline.abort();
+        resolve(null);
+      }, QUESTION_RETRY_TIMEOUT_MS);
+    });
+
+    let raw: string | null = '';
     try {
-      const result = await this.deps.engine.chat(
-        [
-          ...this.buildMessages(),
-          { role: 'assistant', content: answered },
-          { role: 'user', content: QUESTION_NUDGE },
-        ],
-        {},
-        signal,
-        { maxTokens: QUESTION_RETRY_MAX_TOKENS },
-      );
-      raw = result.text;
+      const result = await Promise.race([
+        this.deps.engine.chat(
+          [
+            ...this.buildMessages(),
+            { role: 'assistant', content: answered },
+            { role: 'user', content: QUESTION_NUDGE },
+          ],
+          {},
+          engineSignal,
+          { maxTokens: QUESTION_RETRY_MAX_TOKENS },
+        ),
+        expired,
+      ]);
+      raw = result === null ? null : result.text;
     } catch {
       raw = '';
+    } finally {
+      clearTimeout(timer);
     }
     // A barge-in during the continuation is a barge-in: say nothing, and do
     // not report a drop that the learner caused.
     if (signal.aborted) return null;
+    if (raw === null) {
+      this.deps.onMetric?.('llm_question_retry', 'timeout');
+      return null;
+    }
 
-    const question = questionContinuation(raw);
+    // The same marker pass every delta of the main stream gets. Without it
+    // the model's empty `<think> </think>` wrapper reached Kokoro and was
+    // read aloud as "think slash think" (AFTER3/run3.log, mic scenario).
+    // Any reading/pace marker inside a follow-up question is noise, so it is
+    // stripped and dropped rather than acted on.
+    const { text: clean } = stripMarkers(raw);
+    const question = questionContinuation(clean);
     this.deps.onMetric?.('llm_question_retry', question ? 'ok' : 'dropped');
     return question;
   }

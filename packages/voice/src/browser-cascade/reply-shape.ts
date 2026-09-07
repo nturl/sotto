@@ -276,6 +276,20 @@ export const QUESTION_NUDGE =
  * 32 leaves margin and cannot hold a second sentence worth speaking. */
 export const QUESTION_RETRY_MAX_TOKENS = 32;
 
+/**
+ * How long the continuation may take before the turn goes on without it.
+ *
+ * A 32-token decode is about a second on this adapter. This deadline is not
+ * about slowness: the first live run of this feature (AFTER3/run3.log) hit
+ * the hazard `SessionState.currentTurnPromise` documents — a fresh
+ * `chat.completions.create()` immediately after the sentence cap interrupted
+ * the previous one never returned — and, because the continuation runs
+ * INSIDE the turn, that took the final caption and the `listening`
+ * transition with it. The learner sat in SPEAKING with silent speakers for
+ * 172 seconds. A follow-up question is a nicety; it may not cost the turn.
+ */
+export const QUESTION_RETRY_TIMEOUT_MS = 12_000;
+
 /** Trailing wrapping a model puts after its final punctuation — whitespace,
  * straight and curly quotes, a closing bracket. */
 const TRAILING_WRAP_RE = /[\s"'“”‘’)\]]+$/u;

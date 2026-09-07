@@ -2,15 +2,22 @@
 /**
  * "First contact on the hosted link" smoke test (O2-A, OVERNIGHT-2.md Lane
  * A): a stranger opening BASE_URL lands on the static landing page (Cleo
- * spec, planning/design/LANDING.md), clicks "Start reading", and should
- * then be reading a narrated story within two more taps, at both a phone
- * and a desktop width, be able to install the site (manifest + registered
- * service worker), and be able to reload an already-opened book while
- * offline.
+ * spec, planning/design/LANDING-V4.md), clicks "Try a sample" (run 7 lane A),
+ * walks the four-step onboarding wizard (run 7 lane C) accepting each step's
+ * proposed default, opens the book the last screen recommends, and should
+ * then be reading a narrated story at both a phone and a desktop width, be
+ * able to install the site (manifest + registered service worker), and be
+ * able to reload an already-opened book while offline.
+ *
+ * The one-tap fast path this smoke used to click ("Start reading in French")
+ * no longer exists: /start now redirects to /onboarding, which asks four
+ * questions (app language, I'm learning, your level, explain in) and ends on
+ * /onboarding/done with a single recommended book. The run counts and logs
+ * the taps it takes to get from the landing page into the reader.
  *
  * Usage:
  *   node apps/client/e2e/hosted.mjs                # BASE_URL defaults to
- *                                                   # https://sotto-steel.vercel.app
+ *                                                   # https://readsotto.app
  *   BASE_URL=http://localhost:8090 node apps/client/e2e/hosted.mjs
  *
  * Local static export: `node apps/client/scripts/serve-static.mjs 8090` (mirrors the vercel.json rewrites), then run
@@ -21,7 +28,7 @@
  * `location.hostname` is exactly "localhost"/"127.0.0.1"/"[::1]" — a
  * carve-out for local dev, where a real content server runs on :8790
  * alongside the web client. On the real hosted origin (any other
- * hostname, e.g. sotto-steel.vercel.app) this branch does not apply and
+ * hostname, e.g. readsotto.app) this branch does not apply and
  * `/content/packs/**` is same-origin, which is what public/sw.js's
  * runtime content-cache targets. That means the "offline reload of an
  * opened book" check below only exercises the *app shell* cache against
@@ -32,7 +39,7 @@
  */
 import { chromium } from 'playwright';
 
-const BASE_URL = (process.env.BASE_URL ?? 'https://sotto-steel.vercel.app').replace(/\/$/, '');
+const BASE_URL = (process.env.BASE_URL ?? 'https://readsotto.app').replace(/\/$/, '');
 const WIDTHS = [
   { width: 375, height: 812, label: '375' },
   { width: 1440, height: 900, label: '1440' },
@@ -112,10 +119,12 @@ async function runAtWidth({ width, height, label }) {
   await page.goto(BASE_URL, { waitUntil: 'load' });
   log(`${label}: cold visit loaded`);
 
-  // Landing page (Cleo spec, planning/design/LANDING.md): / is the static
-  // landing, not the app. Assert the headline, then click "Start reading"
-  // (href="/start") to enter the app — the same fast-path onboarding flow
-  // the rest of this smoke exercised before the landing page existed.
+  // Landing page (Cleo spec, planning/design/LANDING-V4.md): / is the static
+  // landing, not the app. Assert the headline, then click "Try a sample"
+  // (href="/start") to enter the app as a guest — the door that needs no
+  // account, as opposed to "Start free"/"Sign in", which go to the paid
+  // origin's account screen.
+  let taps = 0;
   const landingHeadline = page.getByRole('heading', { name: 'Sotto reads with you.' });
   try {
     await landingHeadline.waitFor({ state: 'visible', timeout: 15000 });
@@ -123,44 +132,159 @@ async function runAtWidth({ width, height, label }) {
   } catch {
     fail(`${label}: landing heading "Sotto reads with you." never became visible`);
   }
-  const startLink = page.getByRole('link', { name: 'Start reading' });
+  const startLink = page.getByRole('link', { name: 'Try a sample' });
   try {
     await startLink.waitFor({ state: 'visible', timeout: 5000 });
   } catch {
-    fail(`${label}: landing "Start reading" link never became visible`);
+    fail(`${label}: landing "Try a sample" link never became visible`);
     await browser.close();
     return;
   }
   await startLink.click();
-  log(`${label}: clicked landing "Start reading" link`);
+  taps += 1;
+  log(`${label}: tap ${taps} — clicked landing "Try a sample" link`);
 
   // <link rel="manifest"> present (installability check 1/2).
   const hasManifest = await page.evaluate(() => !!document.querySelector('link[rel="manifest"]'));
   if (hasManifest) log(`${label}: manifest link present`);
   else fail(`${label}: no <link rel="manifest"> found`);
 
-  // Tap 1: the fast-path CTA.
-  const cta = page.getByRole('button', { name: /^Start reading in/ });
+  // The four-step onboarding wizard (run 7 lane C, app/onboarding/index.tsx).
+  // /start redirects a guest here. Each step already has its proposal
+  // selected (the old fast path's defaults), so the journey is four
+  // confirmations: "Continue" three times, then "Finish". Titles come from
+  // src/i18n/en.json (onboarding.step.*); the progress line is
+  // onboarding.progress, "Step N of 4".
+  const WIZARD_STEPS = [
+    { title: 'App language' },
+    { title: "I'm learning" },
+    { title: 'Your level' },
+    { title: 'Explain in' },
+  ];
+  const progress = page.getByTestId('onboarding-progress');
   try {
-    await cta.waitFor({ state: 'visible', timeout: 15000 });
+    await progress.waitFor({ state: 'visible', timeout: 15000 });
   } catch {
-    fail(`${label}: fast-path CTA never became visible`);
+    fail(`${label}: onboarding wizard never appeared after "Try a sample" (at ${page.url()})`);
     await browser.close();
     return;
   }
-  const ctaText = await cta.textContent();
-  await cta.click();
-  log(`${label}: tap 1 — clicked "${ctaText}"`);
+
+  /** The option row the step arrives with already chosen. react-native-web
+   * drops accessibilityState.selected for role="button", so the selection is
+   * read the way a learner sees it: OptionRow's selected style is the 3px
+   * accent bar down the left edge (src/ui/OptionRow.tsx). */
+  const selectedOption = () =>
+    page.evaluate(() => {
+      const rows = [...document.querySelectorAll('[role="button"]')].filter(
+        (el) => getComputedStyle(el).borderLeftWidth === '3px',
+      );
+      if (rows.length !== 1) return null;
+      return rows[0].textContent.replace(/\s+/g, ' ').trim();
+    });
+
+  let wizardOk = true;
+  for (const [index, step] of WIZARD_STEPS.entries()) {
+    const isLast = index === WIZARD_STEPS.length - 1;
+    const wantProgress = `Step ${index + 1} of ${WIZARD_STEPS.length}`;
+    try {
+      await page.getByTestId('onboarding-progress').filter({ hasText: wantProgress }).waitFor({
+        state: 'visible',
+        timeout: 15000,
+      });
+    } catch {
+      fail(
+        `${label}: onboarding never showed "${wantProgress}" (saw "${await progress
+          .textContent()
+          .catch(() => '?')}")`,
+      );
+      wizardOk = false;
+      break;
+    }
+    const title = (await page.getByTestId('onboarding-title').textContent()) ?? '';
+    if (title.trim() !== step.title) {
+      fail(`${label}: step ${index + 1} title is "${title.trim()}", want "${step.title}"`);
+      wizardOk = false;
+      break;
+    }
+    // Step 3 carries the "not sure which level?" helper (the one question a
+    // stranger can't answer from a label); assert it's offered, don't open it
+    // — this walk accepts the proposed level.
+    if (index === 2) {
+      const helper = page.getByRole('button', { name: 'Not sure which level?' });
+      if (await helper.isVisible().catch(() => false))
+        log(`${label}: level step offers the "Not sure which level?" helper`);
+      else fail(`${label}: level step is missing the "Not sure which level?" helper`);
+    }
+    const proposed = await selectedOption();
+    if (!proposed)
+      fail(
+        `${label}: step ${index + 1} ("${step.title}") arrived with no single option pre-selected`,
+      );
+    const next = page.getByRole('button', { name: isLast ? 'Finish' : 'Continue' });
+    try {
+      await next.waitFor({ state: 'visible', timeout: 10000 });
+    } catch {
+      fail(
+        `${label}: step ${index + 1} ("${step.title}") has no ${isLast ? 'Finish' : 'Continue'} button`,
+      );
+      wizardOk = false;
+      break;
+    }
+    await next.click();
+    taps += 1;
+    log(
+      `${label}: tap ${taps} — step ${index + 1}/4 "${step.title}", kept "${proposed ?? '(none)'}", ${isLast ? 'Finish' : 'Continue'}`,
+    );
+  }
+  if (!wizardOk) {
+    await browser.close();
+    return;
+  }
+
+  // /onboarding/done — the recommendation screen: one book by name, plus the
+  // tutor-is-optional line and a link to the library.
+  const doneTitle = page.getByTestId('onboarding-done-title');
+  try {
+    await doneTitle.waitFor({ state: 'visible', timeout: 15000 });
+  } catch {
+    fail(`${label}: onboarding never reached the recommendation screen (at ${page.url()})`);
+    await browser.close();
+    return;
+  }
+  if (!/\/onboarding\/done/.test(page.url()))
+    fail(`${label}: recommendation screen is at ${page.url()}, want /onboarding/done`);
+  const recommended = await page
+    .getByTestId('onboarding-done-book')
+    .textContent()
+    .catch(() => null);
+  if (recommended) log(`${label}: recommendation screen names "${recommended.trim()}"`);
+  else fail(`${label}: recommendation screen named no book (packs may not have loaded)`);
+
+  const startReading = page.getByRole('button', { name: 'Start reading' });
+  try {
+    await startReading.waitFor({ state: 'visible', timeout: 10000 });
+  } catch {
+    fail(`${label}: recommendation screen has no "Start reading" button`);
+    await browser.close();
+    return;
+  }
+  await startReading.click();
+  taps += 1;
+  log(`${label}: tap ${taps} — clicked "Start reading"`);
 
   // Lands on the reader.
   try {
     await page.waitForURL(/\/reader\//, { timeout: 15000 });
   } catch {
-    fail(`${label}: CTA did not navigate to a /reader/<bookId> URL (stayed at ${page.url()})`);
+    fail(
+      `${label}: "Start reading" did not navigate to a /reader/<bookId> URL (stayed at ${page.url()})`,
+    );
     await browser.close();
     return;
   }
   log(`${label}: reader visible at ${page.url()}`);
+  log(`${label}: TAPS landing -> reader = ${taps}`);
 
   // First-visit offline readiness (F1.2): the book opened above is this
   // page's very first load — the service worker only just started
@@ -218,7 +342,7 @@ async function runAtWidth({ width, height, label }) {
     warmedAudioUrl = firstVisitCache.audioUrl;
   }
 
-  // Tap 2: play.
+  // In the reader: play.
   const playButton = page.getByRole('button', { name: /^(Play|Pause)$/ });
   try {
     await playButton.waitFor({ state: 'visible', timeout: 15000 });
@@ -228,7 +352,7 @@ async function runAtWidth({ width, height, label }) {
     return;
   }
   await playButton.click();
-  log(`${label}: tap 2 — clicked play`);
+  log(`${label}: clicked play in the reader`);
 
   // Narration audible and progressing within 10s. expo-audio's web backend
   // plays via an <audio> element when one exists; fall back to the

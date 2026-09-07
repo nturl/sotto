@@ -134,33 +134,34 @@ export interface TranscriptContext {
   durationMs: number;
   /** The segment's PEAK RMS — see `SPEECH_RMS_THRESHOLD`. */
   rms: number;
-  /** Reserved: no rule is locale-dependent yet, and inventing per-locale
-   * stock-phrase lists without a recording set to check them against would
-   * be guessing. Accepted now so worker.ts's call site does not change when
-   * one lands. */
+  /**
+   * The learner's learning locale (worker.ts passes
+   * `payload.learner.learningLocale`). Used as the segmentation hint for
+   * `countWords` — a Chinese or Japanese transcript carries no spaces, so
+   * splitting on ' ' would count an entire sentence as one word and hand
+   * every zh/ja turn to the short-and-quiet rule below (run 9 lane R,
+   * P1-1). It is NOT used to pick stock-phrase lists: those are still
+   * English-only, because inventing per-locale ones without a recording set
+   * to check them against would be guessing.
+   */
   locale?: string;
 }
 
 /**
  * Whisper's stock silence output, normalized (lowercase, punctuation and
- * bracketing stripped, whitespace collapsed). Every entry is a phrase the
- * model emits ON SILENCE with high confidence; none of them carry enough
- * meaning as a learner turn to be worth the risk of passing through. A
- * learner who genuinely says only "okay" loses that turn to one re-ask,
- * which is a far cheaper error than a fabricated question answered as fact.
+ * bracketing stripped, whitespace collapsed). Every entry here is a phrase
+ * the model emits ON SILENCE with high confidence AND which no learner
+ * plausibly offers as their whole turn — so these are rejected at any
+ * energy. "you" is the run-8 failure itself; the subtitle-corpus phrases
+ * and the bracketed sound tags are never speech.
  */
 const STOCK_HALLUCINATIONS = new Set([
   'you',
-  'thank you',
-  'thanks',
   'thanks for watching',
   'thank you for watching',
   'thanks for watching and see you next time',
-  'bye',
   'bye bye',
   'goodbye',
-  'okay',
-  'ok',
   'hmm',
   'mm',
   'mhm',
@@ -174,6 +175,17 @@ const STOCK_HALLUCINATIONS = new Set([
   'applause',
   'inaudible',
 ]);
+
+/**
+ * Phrases Whisper also emits on silence, but which are ORDINARY ANSWERS to
+ * the questions this tutor is pushed to ask ("shall we go on?"). Rejecting
+ * them unconditionally, as run 9 lane A did, left the learner with no
+ * escape: answering "Okay" again produced the same re-ask, forever (lane R,
+ * P1-8). They are rejected only when the segment never reached speech
+ * energy — the ambiguous case the gate exists for. At a normal speaking
+ * level they pass, because at that level the learner really did say them.
+ */
+const QUIET_ONLY_HALLUCINATIONS = new Set(['okay', 'ok', 'bye', 'thanks', 'thank you']);
 
 /**
  * Attribution boilerplate Whisper picked up from subtitle corpora. Matched
@@ -193,6 +205,76 @@ function normalize(text: string): string {
     .replace(/[\p{P}\p{S}]/gu, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+/**
+ * Scripts written without inter-word spaces. Han, hiragana, katakana and the
+ * CJK compatibility block: enough to cover the zh-CN / zh-TW packs that ship
+ * today and Japanese if it ever does.
+ */
+const CJK_RE = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]/u;
+
+/**
+ * Splits a normalized transcript into "words" for the length rules below.
+ *
+ * Splitting on ' ' is right for every space-delimited script and wrong for
+ * Chinese and Japanese, where a whole sentence normalizes to ONE token —
+ * which made `words.length <= 2` true for every zh turn of any length, so a
+ * zh learner on a quiet mic lost every turn to "I didn't catch that" (run 9
+ * lane R, P1-1). Where the text contains CJK we segment instead:
+ * `Intl.Segmenter` when the runtime has it (every browser that can run
+ * WebGPU does; `locale` is passed straight through as its hint), and
+ * otherwise one CJK character = one word, which is the same order of
+ * magnitude and is all these rules need.
+ */
+export function countWords(normalized: string, locale?: string): number {
+  if (!normalized) return 0;
+  const spaced = normalized.split(' ').filter(Boolean);
+  if (!CJK_RE.test(normalized)) return spaced.length;
+
+  const Segmenter = (
+    Intl as unknown as {
+      Segmenter?: new (
+        locales?: string | string[],
+        options?: { granularity?: string },
+      ) => { segment(input: string): Iterable<{ segment: string; isWordLike?: boolean }> };
+    }
+  ).Segmenter;
+  if (typeof Segmenter === 'function') {
+    try {
+      const segmenter = new Segmenter(locale || 'zh', { granularity: 'word' });
+      let n = 0;
+      for (const part of segmenter.segment(normalized)) if (part.isWordLike) n++;
+      if (n > 0) return n;
+    } catch {
+      // Fall through to the character count below.
+    }
+  }
+  // One CJK character per word; runs of non-CJK stay whole.
+  const chars = normalized.match(
+    /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]|[^\s\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]+/gu,
+  );
+  return chars ? chars.length : spaced.length;
+}
+
+/**
+ * How much of a captured segment the learner actually spoke.
+ *
+ * A push-to-talk press seeds the segment with up to `PTT_PRE_ROLL_MS` of
+ * rolling pre-roll (vad.ts `SpeechBuffer.start`), so measuring the seeded
+ * segment made a 50 ms mis-tap look like 350 ms of speech: it cleared
+ * `MIN_SEGMENT_MS`, ran Whisper over 300 ms of room tone and came back with
+ * a stock hallucination, which then got the re-ask caption a fumbled button
+ * must never get (run 9 lane R, P1-2). The seed is not speech, so it does
+ * not count toward the too-short test.
+ */
+export function spokenDurationMs(
+  segmentSamples: number,
+  sampleRate: number,
+  seededPreRollMs = 0,
+): number {
+  if (sampleRate <= 0) return 0;
+  return Math.max(0, (segmentSamples / sampleRate) * 1000 - seededPreRollMs);
 }
 
 /**
@@ -218,7 +300,7 @@ function isDegenerate(words: string[]): boolean {
  */
 export function classifyTranscript(
   text: string,
-  { durationMs, rms }: TranscriptContext,
+  { durationMs, rms, locale }: TranscriptContext,
 ): TranscriptClassification {
   if (durationMs < MIN_SEGMENT_MS) {
     return { verdict: 'too_short', reason: `duration_${Math.round(durationMs)}ms` };
@@ -238,6 +320,9 @@ export function classifyTranscript(
   if (STOCK_HALLUCINATIONS.has(normalized)) {
     return { verdict: 'hallucination', reason: `stock_${normalized.replace(/ /g, '_')}` };
   }
+  if (QUIET_ONLY_HALLUCINATIONS.has(normalized) && rms < SPEECH_RMS_THRESHOLD) {
+    return { verdict: 'hallucination', reason: `quiet_stock_${normalized.replace(/ /g, '_')}` };
+  }
   if (STOCK_PREFIXES.some((p) => normalized.startsWith(p))) {
     return { verdict: 'hallucination', reason: 'stock_subtitle_credit' };
   }
@@ -250,8 +335,9 @@ export function classifyTranscript(
   // A short transcript from a segment that never reached speech energy is
   // the ambiguous case this gate is really for. Longer transcripts are
   // spared: a distant-but-real sentence is still a sentence, and enough
-  // words is itself evidence that something was said.
-  if (words.length <= 2 && rms < SPEECH_RMS_THRESHOLD) {
+  // words is itself evidence that something was said. `countWords` is what
+  // makes "short" mean the same thing in a script with no spaces.
+  if (countWords(normalized, locale) <= 2 && rms < SPEECH_RMS_THRESHOLD) {
     return { verdict: 'hallucination', reason: `short_quiet_rms_${rms.toFixed(4)}` };
   }
 

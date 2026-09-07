@@ -8,11 +8,14 @@
 import { describe, expect, it } from 'vitest';
 import {
   classifyTranscript,
+  countWords,
   measureSegment,
   MIN_SEGMENT_MS,
   NOT_CAUGHT_CAPTION,
   SPEECH_RMS_THRESHOLD,
+  spokenDurationMs,
 } from '../src/browser-cascade/transcript-gate.ts';
+import { PTT_PRE_ROLL_MS, SpeechBuffer } from '../src/browser-cascade/vad.ts';
 
 const SAMPLE_RATE = 16000;
 
@@ -81,13 +84,32 @@ describe('classifyTranscript — real speech passes', () => {
     },
   );
 
-  it('the stock-phrase list is unconditional, even at speech energy', () => {
-    // A deliberate tradeoff, pinned so it is not accidental: a learner who
-    // loudly says only "okay" loses that turn to a re-ask. Whisper emits
-    // these phrases on silence far more often than a learner utters one
-    // alone, and the cost of the wrong call is one extra "say that again"
-    // rather than a fabricated question answered as fact.
-    expect(ok('okay').verdict).toBe('hallucination');
+  // Run 9 lane R, P1-8. Rejecting these at ANY energy left the learner with
+  // no escape: "shall we go on?" answered with "Okay" got the re-ask, and
+  // saying "Okay" again got it a second time, forever. They are ordinary
+  // answers to the questions this tutor is pushed to ask, so they are now
+  // rejected only from a segment that never reached speech energy.
+  it.each(['okay', 'Okay.', 'ok', 'bye', 'Bye.', 'thanks', 'thank you', 'Thank you.'])(
+    'passes the short answer %j at normal speech energy',
+    (text) => {
+      expect(ok(text).verdict).toBe('ok');
+    },
+  );
+
+  it.each(['okay', 'ok', 'bye', 'thanks', 'thank you'])(
+    'still rejects %j from a segment that never reached speech energy',
+    (text) => {
+      expect(classifyTranscript(text, { durationMs: 2000, rms: QUIET_RMS }).verdict).toBe(
+        'hallucination',
+      );
+    },
+  );
+
+  it('never lets "you" through, at any energy — it is the run-8 failure itself', () => {
+    expect(ok('you').verdict).toBe('hallucination');
+    expect(classifyTranscript('you', { durationMs: 2000, rms: QUIET_RMS }).verdict).toBe(
+      'hallucination',
+    );
   });
 });
 
@@ -96,15 +118,10 @@ describe('classifyTranscript — hallucinations', () => {
     'you',
     'You.',
     ' YOU ',
-    'thank you',
-    'Thank you.',
-    'thanks',
     'Thanks for watching!',
     'Thank you for watching.',
-    'bye',
-    'Bye.',
-    'okay',
-    'Okay.',
+    'bye bye',
+    'Goodbye.',
     'hmm',
     'Hmm...',
     'mm',
@@ -174,6 +191,85 @@ describe('classifyTranscript — silence and short segments', () => {
     expect(classifyTranscript('you', { durationMs: 100, rms: QUIET_RMS }).verdict).toBe(
       'too_short',
     );
+  });
+});
+
+describe('classifyTranscript — scripts with no inter-word spaces (lane R P1-1)', () => {
+  // "为什么这只狗在雪地里不高兴？" normalizes to a single space-free token, so
+  // splitting on ' ' counted an entire Chinese sentence as ONE word and
+  // handed every zh turn to the short-and-quiet rule. zh-CN and zh-TW are
+  // shipped packs, so this was every turn of a live locale on a quiet mic.
+  it('passes a whole Chinese sentence from a quiet segment', () => {
+    expect(
+      classifyTranscript('为什么这只狗在雪地里不高兴？', {
+        durationMs: 2000,
+        rms: QUIET_RMS,
+        locale: 'zh-CN',
+      }).verdict,
+    ).toBe('ok');
+  });
+
+  it('passes the same sentence at normal speech energy', () => {
+    expect(
+      classifyTranscript('为什么这只狗在雪地里不高兴？', {
+        durationMs: 2000,
+        rms: LOUD_RMS,
+        locale: 'zh-CN',
+      }).verdict,
+    ).toBe('ok');
+  });
+
+  it('still rejects a one- or two-character Chinese transcript from a quiet segment', () => {
+    expect(
+      classifyTranscript('好的', { durationMs: 2000, rms: QUIET_RMS, locale: 'zh-CN' }).verdict,
+    ).toBe('hallucination');
+    expect(
+      classifyTranscript('嗯', { durationMs: 2000, rms: QUIET_RMS, locale: 'zh-TW' }).verdict,
+    ).toBe('hallucination');
+  });
+
+  it('segments CJK instead of counting one space-free token', () => {
+    expect(countWords('the gray husky dog')).toBe(4);
+    // The whole point: a 13-character sentence is not one word.
+    expect(countWords('为什么这只狗在雪地里不高兴', 'zh-CN')).toBeGreaterThan(2);
+    // A genuinely short one still counts short, whether Intl.Segmenter
+    // reads 好的 as one word or the fallback reads it as two characters.
+    expect(countWords('好的', 'zh-CN')).toBeLessThanOrEqual(2);
+  });
+});
+
+describe('spokenDurationMs — the push-to-talk pre-roll seed (lane R P1-2)', () => {
+  const SAMPLES_PER_MS = SAMPLE_RATE / 1000;
+
+  it('subtracts the seeded pre-roll from the captured segment', () => {
+    expect(spokenDurationMs(350 * SAMPLES_PER_MS, SAMPLE_RATE, 300)).toBeCloseTo(50, 6);
+  });
+
+  it('is the whole segment when nothing was seeded (auto mode)', () => {
+    expect(spokenDurationMs(2000 * SAMPLES_PER_MS, SAMPLE_RATE)).toBeCloseTo(2000, 6);
+  });
+
+  it('a 50ms tap with a 300ms seed is too_short, so no caption is posted', () => {
+    // Exactly the worker's `ptt` release path: SpeechBuffer seeds up to
+    // PTT_PRE_ROLL_MS of pre-roll, the learner holds for 50ms, and the
+    // segment that comes back is ~350ms long. Measured whole it cleared
+    // MIN_SEGMENT_MS and reached Whisper; measured honestly it is a mis-tap.
+    const buffer = new SpeechBuffer(SAMPLE_RATE);
+    const frame = (ms: number) => new Int16Array(ms * SAMPLES_PER_MS);
+    for (let i = 0; i < 12; i++) buffer.push(frame(50)); // 600ms of rolling pre-roll
+    buffer.start(PTT_PRE_ROLL_MS);
+    buffer.push(frame(50));
+    const seeded = buffer.seededPreRollMs;
+    const segment = buffer.end()!;
+
+    expect(seeded).toBe(PTT_PRE_ROLL_MS);
+    expect((segment.length / SAMPLE_RATE) * 1000).toBeCloseTo(350, 6);
+
+    const durationMs = spokenDurationMs(segment.length, SAMPLE_RATE, seeded);
+    expect(durationMs).toBeCloseTo(50, 6);
+    // `too_short` is the one verdict worker.ts drops WITHOUT posting the
+    // "I didn't catch that" caption.
+    expect(classifyTranscript('you', { durationMs, rms: LOUD_RMS }).verdict).toBe('too_short');
   });
 });
 

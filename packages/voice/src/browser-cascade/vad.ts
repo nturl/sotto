@@ -231,6 +231,7 @@ export class SpeechBuffer {
   private preMs = 0;
   private speech: Int16Array[] = [];
   private capturing = false;
+  private seeded = 0;
 
   constructor(
     private readonly sampleRate = SAMPLE_RATE,
@@ -243,6 +244,19 @@ export class SpeechBuffer {
 
   get isCapturing(): boolean {
     return this.capturing;
+  }
+
+  /**
+   * How many ms of pre-roll the current (or just-ended) utterance was seeded
+   * with. The seed is audio from BEFORE the learner began this turn, so a
+   * caller measuring "how long did they speak?" has to subtract it — see
+   * `spokenDurationMs` in transcript-gate.ts and the push-to-talk mis-tap it
+   * exists to catch (run 9 lane R, P1-2). Reset by `start()` and `clear()`,
+   * deliberately NOT by `end()`, so the release path can read it after the
+   * segment is closed.
+   */
+  get seededPreRollMs(): number {
+    return this.seeded;
   }
 
   push(frame: Int16Array): void {
@@ -275,6 +289,7 @@ export class SpeechBuffer {
     this.capturing = true;
     if (preRollCapMs === undefined) {
       this.speech = [...this.pre];
+      this.seeded = this.preMs;
       return;
     }
     const seed: Int16Array[] = [];
@@ -287,6 +302,7 @@ export class SpeechBuffer {
       ms += frameMs;
     }
     this.speech = seed;
+    this.seeded = ms;
   }
 
   /** End an utterance and return it as one contiguous buffer (null if empty). */
@@ -311,5 +327,6 @@ export class SpeechBuffer {
     this.speech = [];
     this.pre = [];
     this.preMs = 0;
+    this.seeded = 0;
   }
 }

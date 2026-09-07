@@ -1,0 +1,386 @@
+{
+ "axis": "Where a book's individuality lives: in an object, a place, or a surface.",
+ "directions": [
+  {
+   "key": "A",
+   "name": "The Pressed Emblem",
+   "thesis": "A library of objects: every book is one thing you can hold.",
+   "commits": [
+    "Instant recognition at 104px",
+    "One drawn thing per book, cheap to hold in memory"
+   ],
+   "trades": [
+    "No atmosphere; a few stories, like Larra's, lack an obvious object"
+   ],
+   "rightWhen": "Right when the shelf needs to read fast, not linger.",
+   "dna": {
+    "anchor": "Penguin Great Ideas / Pelican, cut paper",
+    "ground": "One ground tone per book, picked from its story, never by hash",
+    "device": "Single emblem, 2 to 3 tones, upper two thirds; ground text zone below y 232",
+    "type": "Fraunces 300 title, tracked uppercase author, mono level stamp, as Cover.tsx renders today",
+    "cost": "Cheapest to hold in memory: one considered object per book, 40 emblems total"
+   },
+   "allTheWay": "Every shelf becomes a cabinet of forty small held things.",
+   "books": [
+    {
+     "id": "en-poe-tell-tale-heart",
+     "title": "The Tell-Tale Heart",
+     "author": "Edgar Allan Poe",
+     "shortAuthor": "E. A. Poe",
+     "level": "C1",
+     "minutes": 19,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <path fill=\"#2B2A28\" d=\"M0 0H220V330H0Z\"/>\n  <path fill=\"#F4ECDF\" d=\"M32 119Q69 67 111 77Q153 79 188 119Q147 162 107 161Q65 157 32 119Z\"/>\n  <path fill=\"#6E9A7C\" d=\"M110 84Q140 85 143 117Q143 149 111 154Q81 149 78 121Q78 91 110 84Z\"/>\n  <path fill=\"#221E1B\" d=\"M110 103Q126 105 127 120Q125 136 110 138Q96 134 95 120Q96 106 110 103Z\"/>\n  <path fill=\"#F4ECDF\" d=\"M87 94L118 87L136 107L129 123L107 112L86 115Z\"/>\n</svg>",
+     "textInk": "canvas",
+     "zoneBg": "#2B2A28",
+     "motif": "Clouded eye with watchful pupil",
+     "why": "The pale, clouded eye isolates the narrator’s obsession against the slate darkness of the old man’s room."
+    },
+    {
+     "id": "fr-maupassant-la-parure",
+     "title": "La Parure",
+     "author": "Guy de Maupassant",
+     "shortAuthor": "G. de Maupassant",
+     "level": "B2",
+     "minutes": 17,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <path fill=\"#F2C8B4\" d=\"M0 0H220V330H0Z\"/>\n  <path fill=\"#1F4F57\" fill-rule=\"evenodd\" d=\"M55 46L72 40L66 81L77 119L110 145L143 119L154 81L148 40L165 46L168 83L155 129L123 157L121 174H99L97 157L65 129L52 83ZM78 50L72 80L85 112L110 132L135 112L148 80L142 50Z\"/>\n  <path fill=\"#1F4F57\" d=\"M91 165H129L145 182L110 213L75 182Z\"/>\n  <path fill=\"#F4ECDF\" d=\"M94 174H126L110 199Z\"/>\n  <path fill=\"#F4ECDF\" d=\"M59 69L72 76L68 91L56 85Z\"/>\n  <path fill=\"#F4ECDF\" d=\"M148 76L161 69L164 85L152 91Z\"/>\n  <path fill=\"#F4ECDF\" d=\"M74 111L88 120L79 133L67 123Z\"/>\n  <path fill=\"#F4ECDF\" d=\"M132 120L146 111L153 123L141 133Z\"/>\n</svg>",
+     "textInk": "ink",
+     "zoneBg": "#F2C8B4",
+     "motif": "Borrowed necklace with diamond pendant",
+     "why": "A brilliant borrowed necklace sits on the peach of imagined ballroom finery, embodying the luxury that becomes ruinous debt."
+    },
+    {
+     "id": "es-quijote-molinos",
+     "title": "Don Quijote y los molinos",
+     "author": "Miguel de Cervantes",
+     "shortAuthor": "M. de Cervantes",
+     "level": "A1",
+     "minutes": 8,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <path fill=\"#E8D6B8\" d=\"M0 0H220V330H0Z\"/>\n  <path fill=\"#8C3B2E\" d=\"M90 105H130L144 211H76Z\"/>\n  <path fill=\"#221E1B\" d=\"M78 111L110 79L142 111Z\"/>\n  <path fill=\"#F4ECDF\" d=\"M103 107L68 43L48 57L91 119Z\"/>\n  <path fill=\"#F4ECDF\" d=\"M111 105L175 70L189 90L123 117Z\"/>\n  <path fill=\"#F4ECDF\" d=\"M117 119L152 183L172 169L129 107Z\"/>\n  <path fill=\"#F4ECDF\" d=\"M109 121L45 156L31 136L97 109Z\"/>\n  <path fill=\"#221E1B\" d=\"M98 103H122V127H98Z\"/>\n  <path fill=\"#221E1B\" d=\"M99 211V179Q110 165 121 179V211Z\"/>\n</svg>",
+     "textInk": "ink",
+     "zoneBg": "#E8D6B8",
+     "motif": "Four sails above tapered windmill",
+     "why": "The unmistakable windmill stands on the sand of La Mancha, ready to become a giant in Quijote’s imagination."
+    },
+    {
+     "id": "en-oz-cyclone",
+     "title": "Dorothy and the Cyclone",
+     "author": "L. Frank Baum",
+     "shortAuthor": "L. F. Baum",
+     "level": "A1",
+     "minutes": 8,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <path fill=\"#1F4F57\" d=\"M0 0H220V330H0Z\"/>\n  <path fill=\"#F4ECDF\" d=\"M33 68L58 45L113 35L166 45L188 68L178 94L158 108L154 132L135 150L132 174L117 194L122 213L102 205L96 186L100 166L84 153L76 131L56 112L50 92Z\"/>\n  <path fill=\"#6E9A7C\" d=\"M33 68L79 77L134 74L170 61L188 68L178 86L135 98L79 94L50 84Z\"/>\n  <path fill=\"#1F4F57\" d=\"M56 112L99 119L154 108L154 124L105 135L76 131Z\"/>\n  <path fill=\"#6E9A7C\" d=\"M84 153L110 157L135 145L132 165L105 177L100 166Z\"/>\n</svg>",
+     "textInk": "canvas",
+     "zoneBg": "#1F4F57",
+     "motif": "Twisting cyclone with curling crown",
+     "why": "A broad storm twists into a narrow funnel over a teal storm sky, recalling the cyclone that lifts Dorothy out of Kansas."
+    },
+    {
+     "id": "fr-petit-chaperon-rouge",
+     "title": "Le Petit Chaperon rouge",
+     "author": "Charles Perrault",
+     "shortAuthor": "C. Perrault",
+     "level": "A0",
+     "minutes": 5,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <rect x=\"0\" y=\"0\" width=\"220\" height=\"330\" fill=\"#1F4F57\"/>\n  <path d=\"M132,106 L164,72 L158,120 Z\" fill=\"#2B2A28\"/>\n  <path d=\"M142,104 L160,84 L156,112 Z\" fill=\"#221E1B\"/>\n  <path d=\"M78,172 C78,110 90,92 110,92 C130,92 142,110 142,172 Z\" fill=\"#8C3B2E\"/>\n  <ellipse cx=\"110\" cy=\"138\" rx=\"18\" ry=\"24\" fill=\"#2B2A28\"/>\n</svg>",
+     "textInk": "canvas",
+     "zoneBg": "#1F4F57",
+     "motif": "red hood beside grey wolf ear",
+     "why": "The little red hood with a wolf's ear already rising behind it tells the whole tale, on a deep teal ground like the dark forest path to grandmother's house."
+    },
+    {
+     "id": "zh-chengyu-stories",
+     "title": "三个成语故事",
+     "author": "Traditional",
+     "shortAuthor": "Traditional",
+     "level": "A0",
+     "minutes": 4,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <rect x=\"0\" y=\"0\" width=\"220\" height=\"330\" fill=\"#F2C8B4\"/>\n  <rect x=\"84\" y=\"158\" width=\"10\" height=\"16\" rx=\"3\" fill=\"#221E1B\"/>\n  <rect x=\"106\" y=\"168\" width=\"10\" height=\"16\" rx=\"3\" fill=\"#221E1B\"/>\n  <rect x=\"128\" y=\"156\" width=\"10\" height=\"16\" rx=\"3\" fill=\"#221E1B\"/>\n  <path d=\"M60,150 C80,120 100,180 125,150 C145,125 150,140 162,128\" fill=\"none\" stroke=\"#4E7D5B\" stroke-width=\"14\" stroke-linecap=\"round\"/>\n  <circle cx=\"162\" cy=\"124\" r=\"12\" fill=\"#4E7D5B\"/>\n  <circle cx=\"166\" cy=\"120\" r=\"3\" fill=\"#221E1B\"/>\n</svg>",
+     "textInk": "ink",
+     "zoneBg": "#F2C8B4",
+     "motif": "green snake with painted-on feet",
+     "why": "The snake given useless feet is 画蛇添足, the best-known of the idiom fables — its inky \"added\" feet show the ruin of a finished thing, on a warm peach ground like an old storybook page."
+    },
+    {
+     "id": "pt-jabuti-onca",
+     "title": "O jabuti e a onça",
+     "author": "Sílvio Romero",
+     "shortAuthor": "S. Romero",
+     "level": "A0",
+     "minutes": 3,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <path fill=\"#6E9A7C\" d=\"M0 0H220V330H0Z\"/>\n  <path fill=\"#F4ECDF\" d=\"M119 65Q106 57 111 43Q117 30 131 35Q142 25 153 35Q165 48 151 63L101 176Q115 186 105 199Q98 210 85 202Q74 213 62 202Q50 189 69 175Z\"/>\n  <path fill=\"#E8D6B8\" d=\"M139 65L151 63L101 176L88 182Z\"/>\n  <path fill=\"#221E1B\" d=\"M117 83L130 89L124 103L111 97Z\"/>\n  <path fill=\"#221E1B\" d=\"M103 114L116 120L110 134L97 128Z\"/>\n  <path fill=\"#221E1B\" d=\"M89 145L102 151L96 165L83 159Z\"/>\n</svg>",
+     "textInk": "ink",
+     "zoneBg": "#6E9A7C",
+     "motif": "Bone flute with three holes",
+     "why": "The bone flute identifies the tortoise’s ingenious trick, while the sage ground places it in the Brazilian forest."
+    },
+    {
+     "id": "es-larra-vuelva-usted",
+     "title": "Vuelva usted mañana",
+     "author": "Mariano José de Larra",
+     "shortAuthor": "M. J. de Larra",
+     "level": "C1",
+     "minutes": 19,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <path fill=\"#FFD8A8\" d=\"M0 0H220V330H0Z\"/>\n  <path fill=\"#221E1B\" d=\"M84 32H136V49H84Z\"/>\n  <path fill=\"#1F4F57\" d=\"M110 43C153 43 185 77 185 121C185 166 154 201 110 201C66 201 35 167 35 123C35 78 67 43 110 43Z\"/>\n  <path fill=\"#F4ECDF\" d=\"M110 58C144 58 170 86 170 122C170 158 145 186 110 186C75 186 50 159 50 123C50 87 76 58 110 58Z\"/>\n  <path fill=\"#221E1B\" d=\"M102 77H118V114H151V130H102Z\"/>\n  <path fill=\"#1F4F57\" d=\"M102 163H118V175H102Z\"/>\n  <path fill=\"#1F4F57\" d=\"M60 115H72V131H60Z\"/>\n</svg>",
+     "textInk": "ink",
+     "zoneBg": "#FFD8A8",
+     "motif": "Stopped clock with heavy hands",
+     "why": "A motionless office clock rests on the marker ground of aging paperwork, turning bureaucratic delay into the story’s single emblem."
+    }
+   ]
+  },
+  {
+   "key": "B",
+   "name": "The Mise-en-scène",
+   "thesis": "Every book is a place and a weather.",
+   "commits": [
+    "Atmosphere, era and weather in a glance",
+    "One clear stage and one actor per scene"
+   ],
+   "trades": [
+    "Busiest direction at 104px; 40 scenes is the most authoring of the three"
+   ],
+   "rightWhen": "Right when opening a book should feel like arriving somewhere.",
+   "dna": {
+    "anchor": "Folio Society flat-scene jackets, Charley Harper geometry",
+    "ground": "No separate ground tone; the horizon line is the ground",
+    "device": "Full-bleed flat scene, 4 tones, horizon or stage, one actor; solid text band y 250 to 330",
+    "type": "Fraunces 300 title set on the solid band, mono level stamp, small caps author",
+    "cost": "Most authoring: 40 distinct scenes, each needing its own weather and stage"
+   },
+   "allTheWay": "The shelf becomes forty small windows onto forty places.",
+   "books": [
+    {
+     "id": "en-poe-tell-tale-heart",
+     "title": "The Tell-Tale Heart",
+     "author": "Edgar Allan Poe",
+     "shortAuthor": "E. A. Poe",
+     "level": "C1",
+     "minutes": 19,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <rect width=\"220\" height=\"330\" fill=\"#221E1B\"/>\n  <path d=\"M0 0H138V154H0Z\" fill=\"#2B2A28\"/>\n  <path d=\"M148 28H178V100L112 166H42L148 100Z\" fill=\"#E8D6B8\"/>\n  <path d=\"M0 166H220V184H0Z\" fill=\"#E8D6B8\"/>\n  <path d=\"M0 194H58V212H0Z\" fill=\"#E8D6B8\"/>\n  <path d=\"M164 194H220V212H164Z\" fill=\"#E8D6B8\"/>\n  <path d=\"M0 222H220V240H0Z\" fill=\"#2B2A28\"/>\n  <path d=\"M110 188C88 164 68 182 76 201C82 216 100 227 110 234C120 227 138 216 144 201C152 182 132 164 110 188Z\" fill=\"#8C3B2E\"/>\n  <rect y=\"250\" width=\"220\" height=\"80\" fill=\"#221E1B\"/>\n</svg>",
+     "textInk": "canvas",
+     "zoneBg": "#221E1B",
+     "motif": "Hidden Heart Beneath The Floorboards",
+     "why": "A brick-red heart interrupts the floorboards of a room pierced by midnight light, with an ink ground embodying the narrator’s concealed crime."
+    },
+    {
+     "id": "fr-maupassant-la-parure",
+     "title": "La Parure",
+     "author": "Guy de Maupassant",
+     "shortAuthor": "G. de Maupassant",
+     "level": "B2",
+     "minutes": 17,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <rect width=\"220\" height=\"330\" fill=\"#F2C8B4\"/>\n  <path d=\"M24 0H196V192H24Z\" fill=\"#E8D6B8\"/>\n  <path d=\"M44 174V82C44 18 176 18 176 82V174Z\" fill=\"#1F4F57\"/>\n  <path d=\"M0 192H220V250H0Z\" fill=\"#1F4F57\"/>\n  <path d=\"M0 0H36V150L0 174Z\" fill=\"#F2C8B4\"/>\n  <path d=\"M184 0H220V174L184 150Z\" fill=\"#F2C8B4\"/>\n  <path d=\"M58 82L70 72L82 84L70 98Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M54 108L66 98L80 110L68 124Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M62 136L74 122L88 136L76 150Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M80 158L92 144L106 158L94 172Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M138 84L150 72L162 82L150 98Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M140 110L154 98L166 108L152 124Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M132 136L146 122L158 136L144 150Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M114 158L128 144L140 158L126 172Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M110 166L128 184L110 208L92 184Z\" fill=\"#F4ECDF\"/>\n  <rect y=\"250\" width=\"220\" height=\"80\" fill=\"#F2C8B4\"/>\n</svg>",
+     "textInk": "ink",
+     "zoneBg": "#F2C8B4",
+     "motif": "Borrowed Diamonds On Ballroom Velvet",
+     "why": "An oversized necklace hangs against a ballroom’s evening teal, while the peach ground evokes the borrowed luxury of Mathilde’s one glorious night."
+    },
+    {
+     "id": "es-quijote-molinos",
+     "title": "Don Quijote y los molinos",
+     "author": "Miguel de Cervantes",
+     "shortAuthor": "M. de Cervantes",
+     "level": "A1",
+     "minutes": 8,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <rect width=\"220\" height=\"330\" fill=\"#E8D6B8\"/>\n  <path d=\"M0 151L62 134L127 148L182 128L220 142V250H0Z\" fill=\"#8C3B2E\"/>\n  <path d=\"M25 148L31 91H49L55 148Z\" fill=\"#221E1B\"/>\n  <path d=\"M84 153L91 77H113L120 153Z\" fill=\"#221E1B\"/>\n  <path d=\"M161 145L167 91H185L191 145Z\" fill=\"#221E1B\"/>\n  <path d=\"M34 51H46V135H34Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M4 87H76V99H4Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M96 27H108V127H96Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M58 71H146V83H58Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M170 51H182V131H170Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M140 85H212V97H140Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M0 216L64 198L133 207L220 178V250H0Z\" fill=\"#E8D6B8\"/>\n  <path d=\"M64 210L57 197L67 191L80 203H111L117 181L137 183L143 198L127 203L124 219L135 242H123L111 224H87L82 242H70L76 218Z\" fill=\"#221E1B\"/>\n  <path d=\"M88 204L84 178L97 165L107 177L108 204Z\" fill=\"#221E1B\"/>\n  <path d=\"M82 167L96 149L110 167Z\" fill=\"#221E1B\"/>\n  <path d=\"M111 148H121V212H111Z\" fill=\"#221E1B\"/>\n  <rect y=\"250\" width=\"220\" height=\"80\" fill=\"#E8D6B8\"/>\n</svg>",
+     "textInk": "ink",
+     "zoneBg": "#E8D6B8",
+     "motif": "Lone Rider Before Three Windmills",
+     "why": "A tiny mounted knight confronts three enormous windmills at brick-red dusk, with a sand ground recalling the dry plains of La Mancha."
+    },
+    {
+     "id": "en-oz-cyclone",
+     "title": "Dorothy and the Cyclone",
+     "author": "L. Frank Baum",
+     "shortAuthor": "L. F. Baum",
+     "level": "A1",
+     "minutes": 8,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <rect width=\"220\" height=\"330\" fill=\"#2B2A28\"/>\n  <path d=\"M0 210L65 196L135 208L220 190V250H0Z\" fill=\"#E8D6B8\"/>\n  <path d=\"M10 14H210L189 44H30Z\" fill=\"#6E9A7C\"/>\n  <path d=\"M35 56H185L168 86H54Z\" fill=\"#6E9A7C\"/>\n  <path d=\"M58 98H170L146 130H76Z\" fill=\"#6E9A7C\"/>\n  <path d=\"M79 142H146L122 172H92Z\" fill=\"#6E9A7C\"/>\n  <path d=\"M96 184H124L108 222L96 236Z\" fill=\"#6E9A7C\"/>\n  <path d=\"M58 118L85 83L128 106L103 146Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M42 120L79 67L140 101L126 118L84 94L61 132Z\" fill=\"#E8D6B8\"/>\n  <path d=\"M77 115L90 122L80 139L67 132Z\" fill=\"#2B2A28\"/>\n  <rect y=\"250\" width=\"220\" height=\"80\" fill=\"#2B2A28\"/>\n</svg>",
+     "textInk": "canvas",
+     "zoneBg": "#2B2A28",
+     "motif": "Kansas Farmhouse Inside The Cyclone",
+     "why": "A pale farmhouse tilts inside a descending geometric funnel, with a slate ground turning the Kansas afternoon into storm-darkness."
+    },
+    {
+     "id": "fr-petit-chaperon-rouge",
+     "title": "Le Petit Chaperon rouge",
+     "author": "Charles Perrault",
+     "shortAuthor": "C. Perrault",
+     "level": "A0",
+     "minutes": 5,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <rect width=\"220\" height=\"330\" fill=\"#4E7D5B\"/>\n  <path d=\"M99 104H121L133 146L121 181L173 250H44L94 180L108 147Z\" fill=\"#E8D6B8\"/>\n  <path d=\"M0 0H24V250H0Z\" fill=\"#221E1B\"/>\n  <path d=\"M38 0H56V208L38 231Z\" fill=\"#221E1B\"/>\n  <path d=\"M72 0H86V154L72 171Z\" fill=\"#221E1B\"/>\n  <path d=\"M196 0H220V250H196Z\" fill=\"#221E1B\"/>\n  <path d=\"M164 0H182V233L164 211Z\" fill=\"#221E1B\"/>\n  <path d=\"M136 0H150V166L136 151Z\" fill=\"#221E1B\"/>\n  <path d=\"M12 37L64 70V86L12 56Z\" fill=\"#221E1B\"/>\n  <path d=\"M142 53L205 19V39L142 71Z\" fill=\"#221E1B\"/>\n  <path d=\"M101 215H111V240H101Z\" fill=\"#221E1B\"/>\n  <path d=\"M119 215H129V240H119Z\" fill=\"#221E1B\"/>\n  <path d=\"M95 174C91 140 139 140 135 174L148 220H82Z\" fill=\"#8C3B2E\"/>\n  <rect y=\"250\" width=\"220\" height=\"80\" fill=\"#E8D6B8\"/>\n</svg>",
+     "textInk": "ink",
+     "zoneBg": "#E8D6B8",
+     "motif": "Red Cloak On Forest Path",
+     "why": "A solitary red hood enters a narrowing path beneath dark branches, with a forest-green ground establishing the still, threatening woodland afternoon."
+    },
+    {
+     "id": "zh-chengyu-stories",
+     "title": "三个成语故事",
+     "author": "Traditional",
+     "shortAuthor": "Traditional",
+     "level": "A0",
+     "minutes": 4,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <rect width=\"220\" height=\"330\" fill=\"#FFD8A8\"/>\n  <path d=\"M0 125L57 105L120 122L176 106L220 116V250H0Z\" fill=\"#6E9A7C\"/>\n  <path d=\"M0 153L220 133V150L0 174Z\" fill=\"#FFD8A8\"/>\n  <path d=\"M0 195L220 163V181L0 221Z\" fill=\"#FFD8A8\"/>\n  <path d=\"M0 240L220 198V218L70 250H0Z\" fill=\"#FFD8A8\"/>\n  <path d=\"M141 169H177L175 209L195 229H127L143 208Z\" fill=\"#8C3B2E\"/>\n  <path d=\"M151 183L124 169L130 157L153 169Z\" fill=\"#8C3B2E\"/>\n  <circle cx=\"94\" cy=\"132\" r=\"13\" fill=\"#221E1B\"/>\n  <path d=\"M67 124L94 99L121 124Z\" fill=\"#8C3B2E\"/>\n  <path d=\"M85 147H107L117 175L145 179V191H109L98 174L94 194L116 207L111 238H98L99 216L74 202Z\" fill=\"#221E1B\"/>\n  <path d=\"M76 192H94L82 226H66Z\" fill=\"#221E1B\"/>\n  <rect y=\"250\" width=\"220\" height=\"80\" fill=\"#FFD8A8\"/>\n</svg>",
+     "textInk": "ink",
+     "zoneBg": "#FFD8A8",
+     "motif": "Idle Farmer Beside Rabbit Stump",
+     "why": "A farmer waits beside a stump in an untended field—a reading of 守株待兔—with the warm marker ground suggesting the long, dry afternoon of his foolish vigil."
+    },
+    {
+     "id": "pt-jabuti-onca",
+     "title": "O jabuti e a onça",
+     "author": "Sílvio Romero",
+     "shortAuthor": "S. Romero",
+     "level": "A0",
+     "minutes": 3,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <rect width=\"220\" height=\"330\" fill=\"#1F4F57\"/>\n  <path d=\"M0 109C60 96 89 151 137 144C177 139 193 121 220 128V250H0Z\" fill=\"#4E7D5B\"/>\n  <path d=\"M0 146C57 125 78 176 123 177C165 178 185 152 220 158V187C176 180 157 208 113 199C68 190 43 151 0 174Z\" fill=\"#E8D6B8\"/>\n  <path d=\"M0 24C23 24 32 46 27 65L45 73L68 54L124 49L149 33L169 36L180 17L191 34L208 31L216 55L199 76L174 77L160 92L160 118L145 134L132 128L144 109L137 85L112 92L85 87L72 111L52 124L41 115L60 96L52 88L27 82C7 78 8 63 13 51C17 41 9 36 0 38Z\" fill=\"#221E1B\"/>\n  <path d=\"M69 224L62 241H77L87 227Z\" fill=\"#E8D6B8\"/>\n  <path d=\"M110 224L118 241H133L125 221Z\" fill=\"#E8D6B8\"/>\n  <path d=\"M67 213L52 219L67 229Z\" fill=\"#E8D6B8\"/>\n  <path d=\"M122 209H141C155 209 155 227 141 227H122Z\" fill=\"#E8D6B8\"/>\n  <path d=\"M65 224C65 180 129 180 133 224Z\" fill=\"#E8D6B8\"/>\n  <path d=\"M91 199H108L119 213H81Z\" fill=\"#4E7D5B\"/>\n  <rect y=\"250\" width=\"220\" height=\"80\" fill=\"#1F4F57\"/>\n</svg>",
+     "textInk": "canvas",
+     "zoneBg": "#1F4F57",
+     "motif": "Small Tortoise Under Jaguar Shadow",
+     "why": "A small tortoise occupies a riverbank beneath a jaguar-shaped shadow, with the teal ground evoking shaded Brazilian water in the humid afternoon."
+    },
+    {
+     "id": "es-larra-vuelva-usted",
+     "title": "Vuelva usted mañana",
+     "author": "Mariano José de Larra",
+     "shortAuthor": "M. J. de Larra",
+     "level": "C1",
+     "minutes": 19,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <rect width=\"220\" height=\"330\" fill=\"#8C3B2E\"/>\n  <path d=\"M0 0H220V28H0Z\" fill=\"#E8D6B8\"/>\n  <path d=\"M0 196H220V250H0Z\" fill=\"#E8D6B8\"/>\n  <path d=\"M0 48H58V196H0Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M73 48H147V196H73Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M162 48H220V196H162Z\" fill=\"#F4ECDF\"/>\n  <path d=\"M0 65H43V196H0Z\" fill=\"#221E1B\"/>\n  <path d=\"M88 65H132V196H88Z\" fill=\"#221E1B\"/>\n  <path d=\"M177 65H220V196H177Z\" fill=\"#221E1B\"/>\n  <path d=\"M0 104H43V121H0Z\" fill=\"#8C3B2E\"/>\n  <path d=\"M88 104H132V121H88Z\" fill=\"#8C3B2E\"/>\n  <path d=\"M177 104H220V121H177Z\" fill=\"#8C3B2E\"/>\n  <path d=\"M0 151H43V168H0Z\" fill=\"#8C3B2E\"/>\n  <path d=\"M88 151H132V168H88Z\" fill=\"#8C3B2E\"/>\n  <path d=\"M177 151H220V168H177Z\" fill=\"#8C3B2E\"/>\n  <path d=\"M161 224L205 196H220V211L179 235Z\" fill=\"#8C3B2E\"/>\n  <circle cx=\"160\" cy=\"151\" r=\"12\" fill=\"#221E1B\"/>\n  <path d=\"M148 169H171L181 208H144Z\" fill=\"#221E1B\"/>\n  <path d=\"M147 205H159V239H147Z\" fill=\"#221E1B\"/>\n  <path d=\"M166 205H178V239H166Z\" fill=\"#221E1B\"/>\n  <rect y=\"250\" width=\"220\" height=\"80\" fill=\"#8C3B2E\"/>\n</svg>",
+     "textInk": "canvas",
+     "zoneBg": "#8C3B2E",
+     "motif": "Lone Visitor Before Closed Offices",
+     "why": "A lone visitor waits before an unbroken sequence of shuttered offices in late afternoon, with the brick ground recalling Madrid’s masonry and bureaucratic confinement."
+    }
+   ]
+  },
+  {
+   "key": "C",
+   "name": "The Endpaper",
+   "thesis": "A shelf of cloth spines: every book has its own woven pattern.",
+   "commits": [
+    "Individuality at scale; works for abstract and CJK titles alike",
+    "Cheapest to author: one motif tiled, not one scene composed"
+   ],
+   "trades": [
+    "Motif reads as plain texture at 104px; the label shape repeats on every book"
+   ],
+   "rightWhen": "Right when 40 books need to ship fast without looking hashed.",
+   "dna": {
+    "anchor": "Coralie Bickford-Smith Clothbound Classics",
+    "ground": "Motif tile repeated full bleed; no separate ground layer beneath it",
+    "device": "One motif tile, 2 to 3 tones, repeated full bleed; paper label x 24 to 196, y 210 to 300",
+    "type": "Fraunces 300 title on the label, ink text only; the label is always the light tone",
+    "cost": "Cheapest to author: one tile pattern per book, no scene composition"
+   },
+   "allTheWay": "The shelf reads as a run of forty bound cloth spines.",
+   "books": [
+    {
+     "id": "en-poe-tell-tale-heart",
+     "title": "The Tell-Tale Heart",
+     "author": "Edgar Allan Poe",
+     "shortAuthor": "E. A. Poe",
+     "level": "C1",
+     "minutes": 19,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <defs>\n    <pattern id=\"poe\" width=\"40\" height=\"40\" patternUnits=\"userSpaceOnUse\">\n      <rect width=\"40\" height=\"40\" fill=\"#221E1B\"/>\n      <path d=\"M16 2 H24 L36 36 L20 28 L4 36 Z\" fill=\"#FFD8A8\"/>\n      <path d=\"M16 2 H20 L20 28 L4 36 Z\" fill=\"#B8651B\"/>\n    </pattern>\n  </defs>\n  <rect width=\"220\" height=\"330\" fill=\"url(#poe)\"/>\n  <rect x=\"24\" y=\"210\" width=\"172\" height=\"90\" fill=\"#F4ECDF\"/>\n  <path fill=\"#221E1B\" fill-rule=\"evenodd\" d=\"M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z\"/>\n</svg>",
+     "textInk": "ink",
+     "zoneBg": "#F4ECDF",
+     "motif": "fever yellow ochre night feathers",
+     "why": "Split lantern-yellow and ochre feathers on ink cloth stand for the sleepless confession and the old man's pallid, sickly gleam."
+    },
+    {
+     "id": "fr-maupassant-la-parure",
+     "title": "La Parure",
+     "author": "Guy de Maupassant",
+     "shortAuthor": "G. de Maupassant",
+     "level": "B2",
+     "minutes": 17,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <defs>\n    <pattern id=\"parure\" width=\"40\" height=\"40\" patternUnits=\"userSpaceOnUse\">\n      <rect width=\"40\" height=\"40\" fill=\"#2B2A28\"/>\n      <polygon points=\"20,4 36,20 20,36 4,20\" fill=\"#F4ECDF\"/>\n      <polygon points=\"20,12 28,20 20,28 12,20\" fill=\"#B8651B\"/>\n    </pattern>\n  </defs>\n  <rect width=\"220\" height=\"330\" fill=\"url(#parure)\"/>\n  <rect x=\"24\" y=\"210\" width=\"172\" height=\"90\" fill=\"#F4ECDF\"/>\n  <path fill=\"#2B2A28\" fill-rule=\"evenodd\" d=\"M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z\"/>\n</svg>",
+     "textInk": "ink",
+     "zoneBg": "#F4ECDF",
+     "motif": "borrowed paste diamond necklace lozenges",
+     "why": "Cream lozenges with ochre cuts on slate are the borrowed necklace flashing through one black evening."
+    },
+    {
+     "id": "es-quijote-molinos",
+     "title": "Don Quijote y los molinos",
+     "author": "Miguel de Cervantes",
+     "shortAuthor": "M. de Cervantes",
+     "level": "A1",
+     "minutes": 8,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <defs>\n    <pattern id=\"molinos\" width=\"44\" height=\"44\" patternUnits=\"userSpaceOnUse\">\n      <rect width=\"44\" height=\"44\" fill=\"#E8D6B8\"/>\n      <polygon points=\"16,16 28,16 34,2 10,2\" fill=\"#8C3B2E\"/>\n      <polygon points=\"28,16 28,28 42,34 42,10\" fill=\"#8C3B2E\"/>\n      <polygon points=\"16,28 28,28 34,42 10,42\" fill=\"#8C3B2E\"/>\n      <polygon points=\"16,16 16,28 2,34 2,10\" fill=\"#8C3B2E\"/>\n      <rect x=\"16\" y=\"16\" width=\"12\" height=\"12\" fill=\"#F2C8B4\"/>\n    </pattern>\n  </defs>\n  <rect width=\"220\" height=\"330\" fill=\"url(#molinos)\"/>\n  <rect x=\"24\" y=\"210\" width=\"172\" height=\"90\" fill=\"#F4ECDF\"/>\n  <path fill=\"#E8D6B8\" fill-rule=\"evenodd\" d=\"M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z\"/>\n</svg>",
+     "textInk": "ink",
+     "zoneBg": "#F4ECDF",
+     "motif": "La Mancha windmill sail crosses",
+     "why": "Brick mill-sails on sand cloth are the windmills of La Mancha that Quixote charges as giants."
+    },
+    {
+     "id": "en-oz-cyclone",
+     "title": "Dorothy and the Cyclone",
+     "author": "L. Frank Baum",
+     "shortAuthor": "L. F. Baum",
+     "level": "A1",
+     "minutes": 8,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <defs>\n    <pattern id=\"cyclone\" width=\"40\" height=\"40\" patternUnits=\"userSpaceOnUse\">\n      <rect width=\"40\" height=\"40\" fill=\"#1F4F57\"/>\n      <ellipse cx=\"20\" cy=\"8\" rx=\"16\" ry=\"8\" fill=\"#E8D6B8\"/>\n      <ellipse cx=\"24\" cy=\"20\" rx=\"13\" ry=\"8\" fill=\"#F2C8B4\"/>\n      <ellipse cx=\"17\" cy=\"31\" rx=\"11\" ry=\"8\" fill=\"#E8D6B8\"/>\n    </pattern>\n  </defs>\n  <rect width=\"220\" height=\"330\" fill=\"url(#cyclone)\"/>\n  <rect x=\"24\" y=\"210\" width=\"172\" height=\"90\" fill=\"#F4ECDF\"/>\n  <path fill=\"#1F4F57\" fill-rule=\"evenodd\" d=\"M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z\"/>\n</svg>",
+     "textInk": "ink",
+     "zoneBg": "#F4ECDF",
+     "motif": "stacked offset cyclone spiral funnels",
+     "why": "Sand and peach ovals stacked off-centre on teal are the Kansas cyclone winding Dorothy into the sky."
+    },
+    {
+     "id": "fr-petit-chaperon-rouge",
+     "title": "Le Petit Chaperon rouge",
+     "author": "Charles Perrault",
+     "shortAuthor": "C. Perrault",
+     "level": "A0",
+     "minutes": 5,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <defs>\n    <pattern id=\"chaperon\" width=\"40\" height=\"40\" patternUnits=\"userSpaceOnUse\">\n      <rect width=\"40\" height=\"40\" fill=\"#F2C8B4\"/>\n      <path d=\"M6 38 L8 16 Q8 4 20 4 Q32 4 32 16 L34 38 Z\" fill=\"#8C3B2E\"/>\n      <ellipse cx=\"20\" cy=\"17\" rx=\"8\" ry=\"10\" fill=\"#F4ECDF\"/>\n    </pattern>\n  </defs>\n  <rect width=\"220\" height=\"330\" fill=\"url(#chaperon)\"/>\n  <rect x=\"24\" y=\"210\" width=\"172\" height=\"90\" fill=\"#F4ECDF\"/>\n  <path fill=\"#F2C8B4\" fill-rule=\"evenodd\" d=\"M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z\"/>\n</svg>",
+     "textInk": "ink",
+     "zoneBg": "#F4ECDF",
+     "motif": "little red riding hood cloaks",
+     "why": "Brick hoods with cream openings on peach cloth are the girl's cloak on the path to grandmother."
+    },
+    {
+     "id": "zh-chengyu-stories",
+     "title": "三个成语故事",
+     "author": "Traditional",
+     "shortAuthor": "Traditional",
+     "level": "A0",
+     "minutes": 4,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <defs>\n    <pattern id=\"chengyu\" width=\"40\" height=\"40\" patternUnits=\"userSpaceOnUse\">\n      <rect width=\"40\" height=\"40\" fill=\"#B8651B\"/>\n      <polygon points=\"4,6 36,12 34,24 2,18\" fill=\"#221E1B\"/>\n      <circle cx=\"12\" cy=\"32\" r=\"6\" fill=\"#F4ECDF\"/>\n      <rect x=\"24\" y=\"26\" width=\"12\" height=\"12\" fill=\"#221E1B\"/>\n    </pattern>\n  </defs>\n  <rect width=\"220\" height=\"330\" fill=\"url(#chengyu)\"/>\n  <rect x=\"24\" y=\"210\" width=\"172\" height=\"90\" fill=\"#F4ECDF\"/>\n  <path fill=\"#B8651B\" fill-rule=\"evenodd\" d=\"M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z\"/>\n</svg>",
+     "textInk": "ink",
+     "zoneBg": "#F4ECDF",
+     "motif": "three idiom brush stroke marks",
+     "why": "An ink slash, a cream blot, and an ink square on ochre silk stand for the three idiom tales laid down as calligraphy."
+    },
+    {
+     "id": "pt-jabuti-onca",
+     "title": "O jabuti e a onça",
+     "author": "Sílvio Romero",
+     "shortAuthor": "S. Romero",
+     "level": "A0",
+     "minutes": 3,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <defs>\n    <pattern id=\"jabuti\" width=\"40\" height=\"40\" patternUnits=\"userSpaceOnUse\">\n      <rect width=\"40\" height=\"40\" fill=\"#4E7D5B\"/>\n      <circle cx=\"10\" cy=\"20\" r=\"8\" fill=\"#F4ECDF\"/>\n      <circle cx=\"30\" cy=\"20\" r=\"8\" fill=\"#F4ECDF\"/>\n      <rect x=\"10\" y=\"12\" width=\"20\" height=\"16\" fill=\"#F4ECDF\"/>\n      <circle cx=\"20\" cy=\"20\" r=\"5\" fill=\"#221E1B\"/>\n    </pattern>\n  </defs>\n  <rect width=\"220\" height=\"330\" fill=\"url(#jabuti)\"/>\n  <rect x=\"24\" y=\"210\" width=\"172\" height=\"90\" fill=\"#F4ECDF\"/>\n  <path fill=\"#4E7D5B\" fill-rule=\"evenodd\" d=\"M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z\"/>\n</svg>",
+     "textInk": "ink",
+     "zoneBg": "#F4ECDF",
+     "motif": "knobby tortoise bone flute pipes",
+     "why": "Cream bone-flutes with an ink hole on forest cloth are the tortoise's instrument in the Brazilian jungle."
+    },
+    {
+     "id": "es-larra-vuelva-usted",
+     "title": "Vuelva usted mañana",
+     "author": "Mariano José de Larra",
+     "shortAuthor": "M. J. de Larra",
+     "level": "C1",
+     "minutes": 19,
+     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 330\" width=\"220\" height=\"330\">\n  <defs>\n    <pattern id=\"larra\" width=\"40\" height=\"40\" patternUnits=\"userSpaceOnUse\">\n      <rect width=\"40\" height=\"40\" fill=\"#8C3B2E\"/>\n      <circle cx=\"20\" cy=\"20\" r=\"16\" fill=\"#F4ECDF\"/>\n      <path d=\"M20 20 L20 6 A14 14 0 0 1 32 27 Z\" fill=\"#221E1B\"/>\n    </pattern>\n  </defs>\n  <rect width=\"220\" height=\"330\" fill=\"url(#larra)\"/>\n  <rect x=\"24\" y=\"210\" width=\"172\" height=\"90\" fill=\"#F4ECDF\"/>\n  <path fill=\"#8C3B2E\" fill-rule=\"evenodd\" d=\"M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z\"/>\n</svg>",
+     "textInk": "ink",
+     "zoneBg": "#F4ECDF",
+     "motif": "Madrid office clock face wedges",
+     "why": "Cream clock-faces with ink wedges on brick cloth are the Madrid offices where every hour says come back tomorrow."
+    }
+   ]
+  }
+ ]
+}

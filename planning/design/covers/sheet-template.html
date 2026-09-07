@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sotto cover directions</title>
+<style>
+  :root {
+    --bg: #F1ECE3;
+    --surface: #F4ECDF;
+    --ink: #221E1B;
+    --ink2: #6E6459;
+    --hair: rgba(34, 30, 27, 0.12);
+    --hair2: rgba(34, 30, 27, 0.22);
+    --peach: #F2C8B4;
+    --serif: 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    --sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    --r-sm: 4px;
+    --max: 1120px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17140F;
+      --surface: #1E1A14;
+      --ink: #EDE6D9;
+      --ink2: #A79E90;
+      --hair: rgba(237, 230, 217, 0.14);
+      --hair2: rgba(237, 230, 217, 0.24);
+      --peach: #6B4636;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17140F;
+    --surface: #1E1A14;
+    --ink: #EDE6D9;
+    --ink2: #A79E90;
+    --hair: rgba(237, 230, 217, 0.14);
+    --hair2: rgba(237, 230, 217, 0.24);
+    --peach: #6B4636;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 16px/1.5 var(--sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+  .mono {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink2);
+  }
+  .hairline { height: 1px; background: var(--hair2); width: 100%; }
+
+  /* ---------- header ---------- */
+  header.sheet-header { padding: 56px 0 36px; }
+  header.sheet-header p.eyebrow { margin: 0 0 14px; }
+  header.sheet-header h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(30px, 4vw + 12px, 48px);
+    letter-spacing: -0.015em;
+    line-height: 1.05;
+    margin: 0 0 16px;
+    max-width: 20ch;
+  }
+  header.sheet-header p.axis {
+    margin: 0;
+    color: var(--ink2);
+    font-size: 16px;
+    line-height: 1.55;
+    max-width: 62ch;
+  }
+
+  /* ---------- band shell ---------- */
+  .cover-band { width: 100%; padding: 64px 0 56px; }
+  .cover-band + .cover-band { border-top: 1px solid var(--hair2); }
+  .band-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 10px; flex-wrap: wrap; }
+  .band-letter {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink2); border: 1px solid var(--hair2); border-radius: var(--r-sm); padding: 3px 8px;
+  }
+  .band-name {
+    font-family: var(--serif); font-weight: 300; margin: 0;
+    font-size: clamp(24px, 2vw + 14px, 34px); letter-spacing: -0.01em;
+  }
+  .band-thesis {
+    margin: 0 0 34px; font-size: 16px; line-height: 1.55; color: var(--ink); max-width: 64ch;
+  }
+
+  .hero-label { margin: 0 0 12px; }
+  .shelf-scroll { overflow-x: auto; overflow-y: hidden; padding-bottom: 6px; margin-bottom: 8px; }
+  .shelf-row {
+    display: flex; align-items: flex-end; gap: 16px; padding-bottom: 12px;
+    border-bottom: 1.5px solid var(--hair2); width: max-content;
+  }
+  .shelf-row.at-phone { gap: 16px; }
+  .cv-tile { flex: none; display: flex; flex-direction: column; gap: 2px; }
+  .cv-frame {
+    position: relative; border-radius: var(--r-sm); overflow: hidden;
+  }
+  .cv-frame svg { width: 100%; height: 100%; display: block; }
+  .cv-zone { position: absolute; display: flex; flex-direction: column; justify-content: flex-end; box-sizing: border-box; overflow: visible; }
+  .cv-zone .cv-title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .cv-zone p { margin: 0; font-family: var(--serif); font-weight: 300; }
+  .cv-author {
+    font-family: var(--sans) !important; font-weight: 400 !important; text-transform: uppercase;
+    letter-spacing: 0.14em; margin-top: 5px !important; padding-right: 26%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .cv-stamp {
+    position: absolute; right: 7%; bottom: 6%; font-family: var(--mono); letter-spacing: 0.08em;
+    border: 1px solid currentColor; border-radius: var(--r-sm); padding: 2px 4px;
+  }
+  .cv-under-title {
+    font-family: var(--serif); font-weight: 400; font-size: 14px; line-height: 18px; color: var(--ink);
+    margin: 10px 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .cv-under-author {
+    font-size: 12.5px; color: var(--ink2); margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .cv-under-meta {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink2); margin: 2px 0 0;
+  }
+  .fragment-caption { margin: 4px 0 36px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink2); }
+
+  .block-group { display: flex; flex-direction: column; gap: 20px; max-width: 64ch; margin-bottom: 28px; }
+  .block { display: flex; flex-direction: column; gap: 6px; }
+  .block p.eyebrow { margin: 0; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink2); }
+  .block p { margin: 0; font-size: 15px; line-height: 1.55; max-width: 62ch; color: var(--ink); }
+  .block ul { margin: 0; padding-left: 18px; }
+  .block li { font-size: 15px; line-height: 1.55; max-width: 60ch; }
+  .dna-grid { display: flex; flex-direction: column; gap: 8px; }
+  .dna-grid .row { display: flex; gap: 10px; align-items: baseline; }
+  .dna-grid .tag { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink2); width: 62px; flex-shrink: 0; }
+  .dna-grid .val { font-size: 14.5px; line-height: 1.5; max-width: 58ch; }
+
+  /* ---------- per-band chips ---------- */
+  .band-chips { display: flex; align-items: center; gap: 18px; margin-top: 8px; flex-wrap: wrap; }
+  .band-chips .chip-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink2); }
+  .chip-row { display: flex; gap: 18px; }
+  .chip {
+    background: none; border: none; border-bottom: 2px solid transparent; font-family: var(--sans);
+    font-size: 14px; color: var(--ink2); padding: 10px 4px; cursor: pointer; min-height: 40px; min-width: 40px;
+  }
+  .chip[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); font-weight: 500; }
+
+  /* ---------- reply builder ---------- */
+  .reply-builder { padding: 64px 0 88px; }
+  .reply-builder h2 {
+    font-family: var(--serif); font-weight: 300; font-size: clamp(22px, 2vw + 14px, 28px); margin: 0 0 8px;
+  }
+  .reply-builder .lede { color: var(--ink2); font-size: 14px; margin: 0 0 28px; max-width: 60ch; }
+  .rb-output { display: flex; flex-direction: column; gap: 12px; max-width: 720px; }
+  .rb-textarea {
+    width: 100%; min-height: 84px; resize: vertical; font-family: var(--sans); font-size: 15px;
+    padding: 14px; border-radius: var(--r-sm); border: 1px solid var(--hair2); background: transparent; color: var(--ink);
+  }
+  .rb-copy-btn {
+    align-self: flex-start; font-family: var(--sans); font-size: 14px; font-weight: 500; color: var(--surface);
+    background: var(--ink); border: none; border-radius: var(--r-sm); padding: 10px 18px; cursor: pointer; min-height: 44px;
+  }
+  .rb-copy-btn[data-copied="true"] { background: #4E7D5B; }
+
+  footer.sheet-footer { padding: 28px 24px 64px; text-align: center; }
+  footer.sheet-footer p { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink2); margin: 0; }
+
+  noscript .band-chips, noscript .reply-builder { display: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition-duration: 0.001ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="sheet-header wrap">
+  <p class="eyebrow mono">Sotto &middot; cover directions</p>
+  <h1>Three directions for forty small objects</h1>
+  <p class="axis"><!--AXIS--></p>
+</header>
+
+<div class="hairline"></div>
+
+<!--BANDS-->
+
+<div class="hairline"></div>
+
+<section class="reply-builder wrap">
+  <h2>Build the reply</h2>
+  <p class="lede">Pick steal, skip, or go deeper on each direction above. Exactly one direction can be the one you go deeper on &mdash; that is the build. The instruction below updates live and is saved in this browser.</p>
+  <div class="rb-output">
+    <textarea class="rb-textarea" id="rbTextarea" readonly aria-label="Composed brief"></textarea>
+    <button class="rb-copy-btn" id="rbCopyBtn">Copy</button>
+  </div>
+</section>
+
+<footer class="sheet-footer">
+  <p>Sotto cover directions, drafted by Cleo</p>
+</footer>
+
+<script>
+(function () {
+  var DATA = /*REPLY_DATA_JSON*/{}/*END_REPLY_DATA_JSON*/;
+  var STORAGE_KEY = 'sotto-cover-directions-reply-builder';
+  var order = DATA.order;
+  var noun = DATA.noun;
+  var stealPhrase = DATA.stealPhrase;
+
+  var bandActions = {};
+  order.forEach(function (k) { bandActions[k] = null; });
+
+  function currentBase() {
+    for (var i = 0; i < order.length; i++) {
+      if (bandActions[order[i]] === 'deeper') return order[i];
+    }
+    return null;
+  }
+
+  function loadState() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      var saved = JSON.parse(raw);
+      if (saved && saved.bandActions) {
+        order.forEach(function (k) {
+          if (saved.bandActions[k]) bandActions[k] = saved.bandActions[k];
+        });
+      }
+    } catch (e) { /* localStorage unavailable, use defaults */ }
+  }
+
+  function saveState() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ bandActions: bandActions })); }
+    catch (e) { /* ignore write failures */ }
+  }
+
+  function applyStateToUI() {
+    document.querySelectorAll('.band-chips').forEach(function (group) {
+      var band = group.getAttribute('data-band');
+      group.querySelectorAll('.chip').forEach(function (chip) {
+        var active = chip.getAttribute('data-action') === bandActions[band];
+        chip.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+    });
+  }
+
+  function composeInstruction() {
+    var base = currentBase();
+    var picked = order.some(function (k) { return bandActions[k]; });
+    if (!picked) return '';
+    if (!base) { base = order.filter(function (k) { return bandActions[k] === 'steal'; })[0] || order[0]; }
+    var parts = [];
+    order.forEach(function (band) {
+      if (band === base) return;
+      var action = bandActions[band];
+      if (action === 'steal') parts.push(stealPhrase[band]);
+      else if (action === 'skip') parts.push('lose ' + band + "'s " + noun[band]);
+    });
+    return 'Build ' + base + (parts.length ? ', ' + parts.join(', ') : '') + '.';
+  }
+
+  function refreshOutput() {
+    var textarea = document.getElementById('rbTextarea');
+    if (textarea) textarea.value = composeInstruction();
+  }
+
+  document.querySelectorAll('.band-chips').forEach(function (group) {
+    var band = group.getAttribute('data-band');
+    group.querySelectorAll('.chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var action = chip.getAttribute('data-action');
+        if (action === 'deeper') {
+          order.forEach(function (k) { if (bandActions[k] === 'deeper') bandActions[k] = 'skip'; });
+        }
+        bandActions[band] = action;
+        applyStateToUI();
+        refreshOutput();
+        saveState();
+      });
+    });
+  });
+
+  var rbCopyBtn = document.getElementById('rbCopyBtn');
+  if (rbCopyBtn) {
+    rbCopyBtn.addEventListener('click', function () {
+      var textarea = document.getElementById('rbTextarea');
+      var text = textarea ? textarea.value : '';
+      var markCopied = function () {
+        rbCopyBtn.textContent = 'Copied';
+        rbCopyBtn.setAttribute('data-copied', 'true');
+        setTimeout(function () {
+          rbCopyBtn.textContent = 'Copy';
+          rbCopyBtn.removeAttribute('data-copied');
+        }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(markCopied, function () { fallbackCopy(textarea, markCopied); });
+      } else {
+        fallbackCopy(textarea, markCopied);
+      }
+    });
+  }
+
+  function fallbackCopy(textarea, done) {
+    if (!textarea) return;
+    try {
+      textarea.removeAttribute('readonly');
+      textarea.select();
+      document.execCommand('copy');
+      textarea.setAttribute('readonly', 'true');
+      done();
+    } catch (e) { /* copy unsupported, leave text selected for manual copy */ }
+  }
+
+  loadState();
+  applyStateToUI();
+  refreshOutput();
+})();
+</script>
+
+</body>
+</html>

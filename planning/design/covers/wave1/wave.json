@@ -1,0 +1,47 @@
+[
+ {
+  "id": "A-codex",
+  "worker": "codex",
+  "prompt_file": "/private/tmp/claude-502/-Users-noelturlington-Claude/28569a15-0296-4d38-a9f5-190b3a840789/scratchpad/wave1/brief-A-codex.md",
+  "out": "/private/tmp/claude-502/-Users-noelturlington-Claude/28569a15-0296-4d38-a9f5-190b3a840789/scratchpad/wave1/out-A-codex.md"
+ },
+ {
+  "id": "A-kimi",
+  "worker": "kimi",
+  "prompt_file": "/private/tmp/claude-502/-Users-noelturlington-Claude/28569a15-0296-4d38-a9f5-190b3a840789/scratchpad/wave1/brief-A-kimi.md",
+  "out": "/private/tmp/claude-502/-Users-noelturlington-Claude/28569a15-0296-4d38-a9f5-190b3a840789/scratchpad/wave1/out-A-kimi.md",
+  "model": "kimi-k3",
+  "effort": "high",
+  "max_turns": 6
+ },
+ {
+  "id": "B-codex",
+  "worker": "codex",
+  "prompt_file": "/private/tmp/claude-502/-Users-noelturlington-Claude/28569a15-0296-4d38-a9f5-190b3a840789/scratchpad/wave1/brief-B-codex.md",
+  "out": "/private/tmp/claude-502/-Users-noelturlington-Claude/28569a15-0296-4d38-a9f5-190b3a840789/scratchpad/wave1/out-B-codex.md"
+ },
+ {
+  "id": "B-kimi",
+  "worker": "kimi",
+  "prompt_file": "/private/tmp/claude-502/-Users-noelturlington-Claude/28569a15-0296-4d38-a9f5-190b3a840789/scratchpad/wave1/brief-B-kimi.md",
+  "out": "/private/tmp/claude-502/-Users-noelturlington-Claude/28569a15-0296-4d38-a9f5-190b3a840789/scratchpad/wave1/out-B-kimi.md",
+  "model": "kimi-k3",
+  "effort": "high",
+  "max_turns": 6
+ },
+ {
+  "id": "C-kimi",
+  "worker": "kimi",
+  "prompt_file": "/private/tmp/claude-502/-Users-noelturlington-Claude/28569a15-0296-4d38-a9f5-190b3a840789/scratchpad/wave1/brief-C-kimi.md",
+  "out": "/private/tmp/claude-502/-Users-noelturlington-Claude/28569a15-0296-4d38-a9f5-190b3a840789/scratchpad/wave1/out-C-kimi.md",
+  "model": "kimi-k3",
+  "effort": "high",
+  "max_turns": 6
+ },
+ {
+  "id": "C-grok",
+  "worker": "grok",
+  "prompt_file": "/private/tmp/claude-502/-Users-noelturlington-Claude/28569a15-0296-4d38-a9f5-190b3a840789/scratchpad/wave1/brief-C-grok.md",
+  "out": "/private/tmp/claude-502/-Users-noelturlington-Claude/28569a15-0296-4d38-a9f5-190b3a840789/scratchpad/wave1/out-C-grok.md"
+ }
+]

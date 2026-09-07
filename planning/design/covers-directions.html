@@ -1,0 +1,1007 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sotto cover directions</title>
+<style>
+  :root {
+    --bg: #F1ECE3;
+    --surface: #F4ECDF;
+    --ink: #221E1B;
+    --ink2: #6E6459;
+    --hair: rgba(34, 30, 27, 0.12);
+    --hair2: rgba(34, 30, 27, 0.22);
+    --peach: #F2C8B4;
+    --serif: 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    --sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    --r-sm: 4px;
+    --max: 1120px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17140F;
+      --surface: #1E1A14;
+      --ink: #EDE6D9;
+      --ink2: #A79E90;
+      --hair: rgba(237, 230, 217, 0.14);
+      --hair2: rgba(237, 230, 217, 0.24);
+      --peach: #6B4636;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17140F;
+    --surface: #1E1A14;
+    --ink: #EDE6D9;
+    --ink2: #A79E90;
+    --hair: rgba(237, 230, 217, 0.14);
+    --hair2: rgba(237, 230, 217, 0.24);
+    --peach: #6B4636;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 16px/1.5 var(--sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+  .mono {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink2);
+  }
+  .hairline { height: 1px; background: var(--hair2); width: 100%; }
+
+  /* ---------- header ---------- */
+  header.sheet-header { padding: 56px 0 36px; }
+  header.sheet-header p.eyebrow { margin: 0 0 14px; }
+  header.sheet-header h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(30px, 4vw + 12px, 48px);
+    letter-spacing: -0.015em;
+    line-height: 1.05;
+    margin: 0 0 16px;
+    max-width: 20ch;
+  }
+  header.sheet-header p.axis {
+    margin: 0;
+    color: var(--ink2);
+    font-size: 16px;
+    line-height: 1.55;
+    max-width: 62ch;
+  }
+
+  /* ---------- band shell ---------- */
+  .cover-band { width: 100%; padding: 64px 0 56px; }
+  .cover-band + .cover-band { border-top: 1px solid var(--hair2); }
+  .band-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 10px; flex-wrap: wrap; }
+  .band-letter {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink2); border: 1px solid var(--hair2); border-radius: var(--r-sm); padding: 3px 8px;
+  }
+  .band-name {
+    font-family: var(--serif); font-weight: 300; margin: 0;
+    font-size: clamp(24px, 2vw + 14px, 34px); letter-spacing: -0.01em;
+  }
+  .band-thesis {
+    margin: 0 0 34px; font-size: 16px; line-height: 1.55; color: var(--ink); max-width: 64ch;
+  }
+
+  .hero-label { margin: 0 0 12px; }
+  .shelf-scroll { overflow-x: auto; overflow-y: hidden; padding-bottom: 6px; margin-bottom: 8px; }
+  .shelf-row {
+    display: flex; align-items: flex-end; gap: 16px; padding-bottom: 12px;
+    border-bottom: 1.5px solid var(--hair2); width: max-content;
+  }
+  .shelf-row.at-phone { gap: 16px; }
+  .cv-tile { flex: none; display: flex; flex-direction: column; gap: 2px; }
+  .cv-frame {
+    position: relative; border-radius: var(--r-sm); overflow: hidden;
+  }
+  .cv-frame svg { width: 100%; height: 100%; display: block; }
+  .cv-zone { position: absolute; display: flex; flex-direction: column; justify-content: flex-end; box-sizing: border-box; overflow: visible; }
+  .cv-zone .cv-title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .cv-zone p { margin: 0; font-family: var(--serif); font-weight: 300; }
+  .cv-author {
+    font-family: var(--sans) !important; font-weight: 400 !important; text-transform: uppercase;
+    letter-spacing: 0.14em; margin-top: 5px !important; padding-right: 26%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .cv-stamp {
+    position: absolute; right: 7%; bottom: 6%; font-family: var(--mono); letter-spacing: 0.08em;
+    border: 1px solid currentColor; border-radius: var(--r-sm); padding: 2px 4px;
+  }
+  .cv-under-title {
+    font-family: var(--serif); font-weight: 400; font-size: 14px; line-height: 18px; color: var(--ink);
+    margin: 10px 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .cv-under-author {
+    font-size: 12.5px; color: var(--ink2); margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .cv-under-meta {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink2); margin: 2px 0 0;
+  }
+  .fragment-caption { margin: 4px 0 36px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink2); }
+
+  .block-group { display: flex; flex-direction: column; gap: 20px; max-width: 64ch; margin-bottom: 28px; }
+  .block { display: flex; flex-direction: column; gap: 6px; }
+  .block p.eyebrow { margin: 0; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink2); }
+  .block p { margin: 0; font-size: 15px; line-height: 1.55; max-width: 62ch; color: var(--ink); }
+  .block ul { margin: 0; padding-left: 18px; }
+  .block li { font-size: 15px; line-height: 1.55; max-width: 60ch; }
+  .dna-grid { display: flex; flex-direction: column; gap: 8px; }
+  .dna-grid .row { display: flex; gap: 10px; align-items: baseline; }
+  .dna-grid .tag { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink2); width: 62px; flex-shrink: 0; }
+  .dna-grid .val { font-size: 14.5px; line-height: 1.5; max-width: 58ch; }
+
+  /* ---------- per-band chips ---------- */
+  .band-chips { display: flex; align-items: center; gap: 18px; margin-top: 8px; flex-wrap: wrap; }
+  .band-chips .chip-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink2); }
+  .chip-row { display: flex; gap: 18px; }
+  .chip {
+    background: none; border: none; border-bottom: 2px solid transparent; font-family: var(--sans);
+    font-size: 14px; color: var(--ink2); padding: 10px 4px; cursor: pointer; min-height: 40px; min-width: 40px;
+  }
+  .chip[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); font-weight: 500; }
+
+  /* ---------- reply builder ---------- */
+  .reply-builder { padding: 64px 0 88px; }
+  .reply-builder h2 {
+    font-family: var(--serif); font-weight: 300; font-size: clamp(22px, 2vw + 14px, 28px); margin: 0 0 8px;
+  }
+  .reply-builder .lede { color: var(--ink2); font-size: 14px; margin: 0 0 28px; max-width: 60ch; }
+  .rb-output { display: flex; flex-direction: column; gap: 12px; max-width: 720px; }
+  .rb-textarea {
+    width: 100%; min-height: 84px; resize: vertical; font-family: var(--sans); font-size: 15px;
+    padding: 14px; border-radius: var(--r-sm); border: 1px solid var(--hair2); background: transparent; color: var(--ink);
+  }
+  .rb-copy-btn {
+    align-self: flex-start; font-family: var(--sans); font-size: 14px; font-weight: 500; color: var(--surface);
+    background: var(--ink); border: none; border-radius: var(--r-sm); padding: 10px 18px; cursor: pointer; min-height: 44px;
+  }
+  .rb-copy-btn[data-copied="true"] { background: #4E7D5B; }
+
+  footer.sheet-footer { padding: 28px 24px 64px; text-align: center; }
+  footer.sheet-footer p { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink2); margin: 0; }
+
+  noscript .band-chips, noscript .reply-builder { display: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition-duration: 0.001ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="sheet-header wrap">
+  <p class="eyebrow mono">Sotto &middot; cover directions</p>
+  <h1>Three directions for forty small objects</h1>
+  <p class="axis">Where a book&#x27;s individuality lives: in an object, a place, or a surface.</p>
+</header>
+
+<div class="hairline"></div>
+
+
+<section class="cover-band" data-dir="A">
+  <div class="wrap">
+    <div class="band-head">
+      <span class="band-letter mono">Direction A</span>
+      <h2 class="band-name">The Pressed Emblem</h2>
+    </div>
+    <p class="band-thesis">This direction says: A library of objects: every book is one thing you can hold.</p>
+
+    <p class="hero-label mono">Shelf at 120, desktop tile width</p>
+    <div class="shelf-scroll"><div class="shelf-row"><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <path fill="#2B2A28" d="M0 0H220V330H0Z"/>
+  <path fill="#F4ECDF" d="M32 119Q69 67 111 77Q153 79 188 119Q147 162 107 161Q65 157 32 119Z"/>
+  <path fill="#6E9A7C" d="M110 84Q140 85 143 117Q143 149 111 154Q81 149 78 121Q78 91 110 84Z"/>
+  <path fill="#221E1B" d="M110 103Q126 105 127 120Q125 136 110 138Q96 134 95 120Q96 106 110 103Z"/>
+  <path fill="#F4ECDF" d="M87 94L118 87L136 107L129 123L107 112L86 115Z"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:29.70%;padding:6% 9% 8% 12%;background-color:#2B2A28;color:#F4ECDF"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">The Tell-Tale Heart</p><p class="cv-author" style="font-size:8.0px">Edgar Allan Poe</p><span class="cv-stamp" style="font-size:9.0px">C1</span></div></div><p class="cv-under-title">The Tell-Tale Heart</p><p class="cv-under-author">E. A. Poe</p><p class="cv-under-meta">19 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <path fill="#F2C8B4" d="M0 0H220V330H0Z"/>
+  <path fill="#1F4F57" fill-rule="evenodd" d="M55 46L72 40L66 81L77 119L110 145L143 119L154 81L148 40L165 46L168 83L155 129L123 157L121 174H99L97 157L65 129L52 83ZM78 50L72 80L85 112L110 132L135 112L148 80L142 50Z"/>
+  <path fill="#1F4F57" d="M91 165H129L145 182L110 213L75 182Z"/>
+  <path fill="#F4ECDF" d="M94 174H126L110 199Z"/>
+  <path fill="#F4ECDF" d="M59 69L72 76L68 91L56 85Z"/>
+  <path fill="#F4ECDF" d="M148 76L161 69L164 85L152 91Z"/>
+  <path fill="#F4ECDF" d="M74 111L88 120L79 133L67 123Z"/>
+  <path fill="#F4ECDF" d="M132 120L146 111L153 123L141 133Z"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:29.70%;padding:6% 9% 8% 12%;background-color:#F2C8B4;color:#221E1B"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">La Parure</p><p class="cv-author" style="font-size:8.0px">Guy de Maupassant</p><span class="cv-stamp" style="font-size:9.0px">B2</span></div></div><p class="cv-under-title">La Parure</p><p class="cv-under-author">G. de Maupassant</p><p class="cv-under-meta">17 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <path fill="#E8D6B8" d="M0 0H220V330H0Z"/>
+  <path fill="#8C3B2E" d="M90 105H130L144 211H76Z"/>
+  <path fill="#221E1B" d="M78 111L110 79L142 111Z"/>
+  <path fill="#F4ECDF" d="M103 107L68 43L48 57L91 119Z"/>
+  <path fill="#F4ECDF" d="M111 105L175 70L189 90L123 117Z"/>
+  <path fill="#F4ECDF" d="M117 119L152 183L172 169L129 107Z"/>
+  <path fill="#F4ECDF" d="M109 121L45 156L31 136L97 109Z"/>
+  <path fill="#221E1B" d="M98 103H122V127H98Z"/>
+  <path fill="#221E1B" d="M99 211V179Q110 165 121 179V211Z"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:29.70%;padding:6% 9% 8% 12%;background-color:#E8D6B8;color:#221E1B"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">Don Quijote y los molinos</p><p class="cv-author" style="font-size:8.0px">Miguel de Cervantes</p><span class="cv-stamp" style="font-size:9.0px">A1</span></div></div><p class="cv-under-title">Don Quijote y los molinos</p><p class="cv-under-author">M. de Cervantes</p><p class="cv-under-meta">8 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <path fill="#1F4F57" d="M0 0H220V330H0Z"/>
+  <path fill="#F4ECDF" d="M33 68L58 45L113 35L166 45L188 68L178 94L158 108L154 132L135 150L132 174L117 194L122 213L102 205L96 186L100 166L84 153L76 131L56 112L50 92Z"/>
+  <path fill="#6E9A7C" d="M33 68L79 77L134 74L170 61L188 68L178 86L135 98L79 94L50 84Z"/>
+  <path fill="#1F4F57" d="M56 112L99 119L154 108L154 124L105 135L76 131Z"/>
+  <path fill="#6E9A7C" d="M84 153L110 157L135 145L132 165L105 177L100 166Z"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:29.70%;padding:6% 9% 8% 12%;background-color:#1F4F57;color:#F4ECDF"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">Dorothy and the Cyclone</p><p class="cv-author" style="font-size:8.0px">L. Frank Baum</p><span class="cv-stamp" style="font-size:9.0px">A1</span></div></div><p class="cv-under-title">Dorothy and the Cyclone</p><p class="cv-under-author">L. F. Baum</p><p class="cv-under-meta">8 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect x="0" y="0" width="220" height="330" fill="#1F4F57"/>
+  <path d="M132,106 L164,72 L158,120 Z" fill="#2B2A28"/>
+  <path d="M142,104 L160,84 L156,112 Z" fill="#221E1B"/>
+  <path d="M78,172 C78,110 90,92 110,92 C130,92 142,110 142,172 Z" fill="#8C3B2E"/>
+  <ellipse cx="110" cy="138" rx="18" ry="24" fill="#2B2A28"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:29.70%;padding:6% 9% 8% 12%;background-color:#1F4F57;color:#F4ECDF"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">Le Petit Chaperon rouge</p><p class="cv-author" style="font-size:8.0px">Charles Perrault</p><span class="cv-stamp" style="font-size:9.0px">A0</span></div></div><p class="cv-under-title">Le Petit Chaperon rouge</p><p class="cv-under-author">C. Perrault</p><p class="cv-under-meta">5 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect x="0" y="0" width="220" height="330" fill="#F2C8B4"/>
+  <rect x="84" y="158" width="10" height="16" rx="3" fill="#221E1B"/>
+  <rect x="106" y="168" width="10" height="16" rx="3" fill="#221E1B"/>
+  <rect x="128" y="156" width="10" height="16" rx="3" fill="#221E1B"/>
+  <path d="M60,150 C80,120 100,180 125,150 C145,125 150,140 162,128" fill="none" stroke="#4E7D5B" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="162" cy="124" r="12" fill="#4E7D5B"/>
+  <circle cx="166" cy="120" r="3" fill="#221E1B"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:29.70%;padding:6% 9% 8% 12%;background-color:#F2C8B4;color:#221E1B"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">三个成语故事</p><p class="cv-author" style="font-size:8.0px">Traditional</p><span class="cv-stamp" style="font-size:9.0px">A0</span></div></div><p class="cv-under-title">三个成语故事</p><p class="cv-under-author">Traditional</p><p class="cv-under-meta">4 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <path fill="#6E9A7C" d="M0 0H220V330H0Z"/>
+  <path fill="#F4ECDF" d="M119 65Q106 57 111 43Q117 30 131 35Q142 25 153 35Q165 48 151 63L101 176Q115 186 105 199Q98 210 85 202Q74 213 62 202Q50 189 69 175Z"/>
+  <path fill="#E8D6B8" d="M139 65L151 63L101 176L88 182Z"/>
+  <path fill="#221E1B" d="M117 83L130 89L124 103L111 97Z"/>
+  <path fill="#221E1B" d="M103 114L116 120L110 134L97 128Z"/>
+  <path fill="#221E1B" d="M89 145L102 151L96 165L83 159Z"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:29.70%;padding:6% 9% 8% 12%;background-color:#6E9A7C;color:#221E1B"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">O jabuti e a onça</p><p class="cv-author" style="font-size:8.0px">Sílvio Romero</p><span class="cv-stamp" style="font-size:9.0px">A0</span></div></div><p class="cv-under-title">O jabuti e a onça</p><p class="cv-under-author">S. Romero</p><p class="cv-under-meta">3 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <path fill="#FFD8A8" d="M0 0H220V330H0Z"/>
+  <path fill="#221E1B" d="M84 32H136V49H84Z"/>
+  <path fill="#1F4F57" d="M110 43C153 43 185 77 185 121C185 166 154 201 110 201C66 201 35 167 35 123C35 78 67 43 110 43Z"/>
+  <path fill="#F4ECDF" d="M110 58C144 58 170 86 170 122C170 158 145 186 110 186C75 186 50 159 50 123C50 87 76 58 110 58Z"/>
+  <path fill="#221E1B" d="M102 77H118V114H151V130H102Z"/>
+  <path fill="#1F4F57" d="M102 163H118V175H102Z"/>
+  <path fill="#1F4F57" d="M60 115H72V131H60Z"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:29.70%;padding:6% 9% 8% 12%;background-color:#FFD8A8;color:#221E1B"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">Vuelva usted mañana</p><p class="cv-author" style="font-size:8.0px">Mariano José de Larra</p><span class="cv-stamp" style="font-size:9.0px">C1</span></div></div><p class="cv-under-title">Vuelva usted mañana</p><p class="cv-under-author">M. J. de Larra</p><p class="cv-under-meta">19 MIN</p></div></div></div>
+
+    <p class="hero-label mono">At phone size</p>
+    <div class="shelf-scroll"><div class="shelf-row at-phone"><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <path fill="#2B2A28" d="M0 0H220V330H0Z"/>
+  <path fill="#F4ECDF" d="M32 119Q69 67 111 77Q153 79 188 119Q147 162 107 161Q65 157 32 119Z"/>
+  <path fill="#6E9A7C" d="M110 84Q140 85 143 117Q143 149 111 154Q81 149 78 121Q78 91 110 84Z"/>
+  <path fill="#221E1B" d="M110 103Q126 105 127 120Q125 136 110 138Q96 134 95 120Q96 106 110 103Z"/>
+  <path fill="#F4ECDF" d="M87 94L118 87L136 107L129 123L107 112L86 115Z"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:29.70%;padding:6% 9% 8% 12%;background-color:#2B2A28;color:#F4ECDF"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">The Tell-Tale Heart</p><p class="cv-author" style="font-size:6.9px">Edgar Allan Poe</p><span class="cv-stamp" style="font-size:7.8px">C1</span></div></div><p class="cv-under-title">The Tell-Tale Heart</p><p class="cv-under-author">E. A. Poe</p><p class="cv-under-meta">19 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <path fill="#F2C8B4" d="M0 0H220V330H0Z"/>
+  <path fill="#1F4F57" fill-rule="evenodd" d="M55 46L72 40L66 81L77 119L110 145L143 119L154 81L148 40L165 46L168 83L155 129L123 157L121 174H99L97 157L65 129L52 83ZM78 50L72 80L85 112L110 132L135 112L148 80L142 50Z"/>
+  <path fill="#1F4F57" d="M91 165H129L145 182L110 213L75 182Z"/>
+  <path fill="#F4ECDF" d="M94 174H126L110 199Z"/>
+  <path fill="#F4ECDF" d="M59 69L72 76L68 91L56 85Z"/>
+  <path fill="#F4ECDF" d="M148 76L161 69L164 85L152 91Z"/>
+  <path fill="#F4ECDF" d="M74 111L88 120L79 133L67 123Z"/>
+  <path fill="#F4ECDF" d="M132 120L146 111L153 123L141 133Z"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:29.70%;padding:6% 9% 8% 12%;background-color:#F2C8B4;color:#221E1B"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">La Parure</p><p class="cv-author" style="font-size:6.9px">Guy de Maupassant</p><span class="cv-stamp" style="font-size:7.8px">B2</span></div></div><p class="cv-under-title">La Parure</p><p class="cv-under-author">G. de Maupassant</p><p class="cv-under-meta">17 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <path fill="#E8D6B8" d="M0 0H220V330H0Z"/>
+  <path fill="#8C3B2E" d="M90 105H130L144 211H76Z"/>
+  <path fill="#221E1B" d="M78 111L110 79L142 111Z"/>
+  <path fill="#F4ECDF" d="M103 107L68 43L48 57L91 119Z"/>
+  <path fill="#F4ECDF" d="M111 105L175 70L189 90L123 117Z"/>
+  <path fill="#F4ECDF" d="M117 119L152 183L172 169L129 107Z"/>
+  <path fill="#F4ECDF" d="M109 121L45 156L31 136L97 109Z"/>
+  <path fill="#221E1B" d="M98 103H122V127H98Z"/>
+  <path fill="#221E1B" d="M99 211V179Q110 165 121 179V211Z"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:29.70%;padding:6% 9% 8% 12%;background-color:#E8D6B8;color:#221E1B"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">Don Quijote y los molinos</p><p class="cv-author" style="font-size:6.9px">Miguel de Cervantes</p><span class="cv-stamp" style="font-size:7.8px">A1</span></div></div><p class="cv-under-title">Don Quijote y los molinos</p><p class="cv-under-author">M. de Cervantes</p><p class="cv-under-meta">8 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <path fill="#1F4F57" d="M0 0H220V330H0Z"/>
+  <path fill="#F4ECDF" d="M33 68L58 45L113 35L166 45L188 68L178 94L158 108L154 132L135 150L132 174L117 194L122 213L102 205L96 186L100 166L84 153L76 131L56 112L50 92Z"/>
+  <path fill="#6E9A7C" d="M33 68L79 77L134 74L170 61L188 68L178 86L135 98L79 94L50 84Z"/>
+  <path fill="#1F4F57" d="M56 112L99 119L154 108L154 124L105 135L76 131Z"/>
+  <path fill="#6E9A7C" d="M84 153L110 157L135 145L132 165L105 177L100 166Z"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:29.70%;padding:6% 9% 8% 12%;background-color:#1F4F57;color:#F4ECDF"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">Dorothy and the Cyclone</p><p class="cv-author" style="font-size:6.9px">L. Frank Baum</p><span class="cv-stamp" style="font-size:7.8px">A1</span></div></div><p class="cv-under-title">Dorothy and the Cyclone</p><p class="cv-under-author">L. F. Baum</p><p class="cv-under-meta">8 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect x="0" y="0" width="220" height="330" fill="#1F4F57"/>
+  <path d="M132,106 L164,72 L158,120 Z" fill="#2B2A28"/>
+  <path d="M142,104 L160,84 L156,112 Z" fill="#221E1B"/>
+  <path d="M78,172 C78,110 90,92 110,92 C130,92 142,110 142,172 Z" fill="#8C3B2E"/>
+  <ellipse cx="110" cy="138" rx="18" ry="24" fill="#2B2A28"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:29.70%;padding:6% 9% 8% 12%;background-color:#1F4F57;color:#F4ECDF"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">Le Petit Chaperon rouge</p><p class="cv-author" style="font-size:6.9px">Charles Perrault</p><span class="cv-stamp" style="font-size:7.8px">A0</span></div></div><p class="cv-under-title">Le Petit Chaperon rouge</p><p class="cv-under-author">C. Perrault</p><p class="cv-under-meta">5 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect x="0" y="0" width="220" height="330" fill="#F2C8B4"/>
+  <rect x="84" y="158" width="10" height="16" rx="3" fill="#221E1B"/>
+  <rect x="106" y="168" width="10" height="16" rx="3" fill="#221E1B"/>
+  <rect x="128" y="156" width="10" height="16" rx="3" fill="#221E1B"/>
+  <path d="M60,150 C80,120 100,180 125,150 C145,125 150,140 162,128" fill="none" stroke="#4E7D5B" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="162" cy="124" r="12" fill="#4E7D5B"/>
+  <circle cx="166" cy="120" r="3" fill="#221E1B"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:29.70%;padding:6% 9% 8% 12%;background-color:#F2C8B4;color:#221E1B"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">三个成语故事</p><p class="cv-author" style="font-size:6.9px">Traditional</p><span class="cv-stamp" style="font-size:7.8px">A0</span></div></div><p class="cv-under-title">三个成语故事</p><p class="cv-under-author">Traditional</p><p class="cv-under-meta">4 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <path fill="#6E9A7C" d="M0 0H220V330H0Z"/>
+  <path fill="#F4ECDF" d="M119 65Q106 57 111 43Q117 30 131 35Q142 25 153 35Q165 48 151 63L101 176Q115 186 105 199Q98 210 85 202Q74 213 62 202Q50 189 69 175Z"/>
+  <path fill="#E8D6B8" d="M139 65L151 63L101 176L88 182Z"/>
+  <path fill="#221E1B" d="M117 83L130 89L124 103L111 97Z"/>
+  <path fill="#221E1B" d="M103 114L116 120L110 134L97 128Z"/>
+  <path fill="#221E1B" d="M89 145L102 151L96 165L83 159Z"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:29.70%;padding:6% 9% 8% 12%;background-color:#6E9A7C;color:#221E1B"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">O jabuti e a onça</p><p class="cv-author" style="font-size:6.9px">Sílvio Romero</p><span class="cv-stamp" style="font-size:7.8px">A0</span></div></div><p class="cv-under-title">O jabuti e a onça</p><p class="cv-under-author">S. Romero</p><p class="cv-under-meta">3 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <path fill="#FFD8A8" d="M0 0H220V330H0Z"/>
+  <path fill="#221E1B" d="M84 32H136V49H84Z"/>
+  <path fill="#1F4F57" d="M110 43C153 43 185 77 185 121C185 166 154 201 110 201C66 201 35 167 35 123C35 78 67 43 110 43Z"/>
+  <path fill="#F4ECDF" d="M110 58C144 58 170 86 170 122C170 158 145 186 110 186C75 186 50 159 50 123C50 87 76 58 110 58Z"/>
+  <path fill="#221E1B" d="M102 77H118V114H151V130H102Z"/>
+  <path fill="#1F4F57" d="M102 163H118V175H102Z"/>
+  <path fill="#1F4F57" d="M60 115H72V131H60Z"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:29.70%;padding:6% 9% 8% 12%;background-color:#FFD8A8;color:#221E1B"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">Vuelva usted mañana</p><p class="cv-author" style="font-size:6.9px">Mariano José de Larra</p><span class="cv-stamp" style="font-size:7.8px">C1</span></div></div><p class="cv-under-title">Vuelva usted mañana</p><p class="cv-under-author">M. J. de Larra</p><p class="cv-under-meta">19 MIN</p></div></div></div>
+    <p class="fragment-caption">Direction fragment: eight of the forty books, drawn by the wave, not a finished comp.</p>
+
+    <div class="block-group">
+      <div class="block"><p class="eyebrow">Commits to</p><ul><li>Instant recognition at 104px</li><li>One drawn thing per book, cheap to hold in memory</li></ul></div>
+      <div class="block"><p class="eyebrow">Trades away</p><ul><li>No atmosphere; a few stories, like Larra&#x27;s, lack an obvious object</li></ul></div>
+      <div class="block"><p class="eyebrow">Right when</p><p>Right when the shelf needs to read fast, not linger.</p></div>
+      <div class="block">
+        <p class="eyebrow">Build DNA</p>
+        <div class="dna-grid">
+          <div class="row"><span class="tag">Anchor</span><span class="val">Penguin Great Ideas / Pelican, cut paper</span></div>
+          <div class="row"><span class="tag">Ground</span><span class="val">One ground tone per book, picked from its story, never by hash</span></div>
+          <div class="row"><span class="tag">Device</span><span class="val">Single emblem, 2 to 3 tones, upper two thirds; ground text zone below y 232</span></div>
+          <div class="row"><span class="tag">Type</span><span class="val">Fraunces 300 title, tracked uppercase author, mono level stamp, as Cover.tsx renders today</span></div>
+          <div class="row"><span class="tag">Cost</span><span class="val">Cheapest to hold in memory: one considered object per book, 40 emblems total</span></div>
+        </div>
+      </div>
+      <div class="block"><p class="eyebrow">Taken all the way</p><p>Every shelf becomes a cabinet of forty small held things.</p></div>
+    </div>
+
+    <div class="band-chips" data-band="A">
+      <span class="chip-label mono">This direction</span>
+      <div class="chip-row" role="group" aria-label="Direction A action">
+        <button class="chip" type="button" data-action="steal" aria-pressed="false">Steal</button>
+        <button class="chip" type="button" data-action="skip" aria-pressed="false">Skip</button>
+        <button class="chip" type="button" data-action="deeper" aria-pressed="false">Go deeper</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cover-band" data-dir="B">
+  <div class="wrap">
+    <div class="band-head">
+      <span class="band-letter mono">Direction B</span>
+      <h2 class="band-name">The Mise-en-scène</h2>
+    </div>
+    <p class="band-thesis">This direction says: Every book is a place and a weather.</p>
+
+    <p class="hero-label mono">Shelf at 120, desktop tile width</p>
+    <div class="shelf-scroll"><div class="shelf-row"><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect width="220" height="330" fill="#221E1B"/>
+  <path d="M0 0H138V154H0Z" fill="#2B2A28"/>
+  <path d="M148 28H178V100L112 166H42L148 100Z" fill="#E8D6B8"/>
+  <path d="M0 166H220V184H0Z" fill="#E8D6B8"/>
+  <path d="M0 194H58V212H0Z" fill="#E8D6B8"/>
+  <path d="M164 194H220V212H164Z" fill="#E8D6B8"/>
+  <path d="M0 222H220V240H0Z" fill="#2B2A28"/>
+  <path d="M110 188C88 164 68 182 76 201C82 216 100 227 110 234C120 227 138 216 144 201C152 182 132 164 110 188Z" fill="#8C3B2E"/>
+  <rect y="250" width="220" height="80" fill="#221E1B"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:24.24%;padding:6% 10% 8%;background-color:#221E1B;color:#F4ECDF"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">The Tell-Tale Heart</p><p class="cv-author" style="font-size:8.0px">Edgar Allan Poe</p><span class="cv-stamp" style="font-size:9.0px">C1</span></div></div><p class="cv-under-title">The Tell-Tale Heart</p><p class="cv-under-author">E. A. Poe</p><p class="cv-under-meta">19 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect width="220" height="330" fill="#F2C8B4"/>
+  <path d="M24 0H196V192H24Z" fill="#E8D6B8"/>
+  <path d="M44 174V82C44 18 176 18 176 82V174Z" fill="#1F4F57"/>
+  <path d="M0 192H220V250H0Z" fill="#1F4F57"/>
+  <path d="M0 0H36V150L0 174Z" fill="#F2C8B4"/>
+  <path d="M184 0H220V174L184 150Z" fill="#F2C8B4"/>
+  <path d="M58 82L70 72L82 84L70 98Z" fill="#F4ECDF"/>
+  <path d="M54 108L66 98L80 110L68 124Z" fill="#F4ECDF"/>
+  <path d="M62 136L74 122L88 136L76 150Z" fill="#F4ECDF"/>
+  <path d="M80 158L92 144L106 158L94 172Z" fill="#F4ECDF"/>
+  <path d="M138 84L150 72L162 82L150 98Z" fill="#F4ECDF"/>
+  <path d="M140 110L154 98L166 108L152 124Z" fill="#F4ECDF"/>
+  <path d="M132 136L146 122L158 136L144 150Z" fill="#F4ECDF"/>
+  <path d="M114 158L128 144L140 158L126 172Z" fill="#F4ECDF"/>
+  <path d="M110 166L128 184L110 208L92 184Z" fill="#F4ECDF"/>
+  <rect y="250" width="220" height="80" fill="#F2C8B4"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:24.24%;padding:6% 10% 8%;background-color:#F2C8B4;color:#221E1B"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">La Parure</p><p class="cv-author" style="font-size:8.0px">Guy de Maupassant</p><span class="cv-stamp" style="font-size:9.0px">B2</span></div></div><p class="cv-under-title">La Parure</p><p class="cv-under-author">G. de Maupassant</p><p class="cv-under-meta">17 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect width="220" height="330" fill="#E8D6B8"/>
+  <path d="M0 151L62 134L127 148L182 128L220 142V250H0Z" fill="#8C3B2E"/>
+  <path d="M25 148L31 91H49L55 148Z" fill="#221E1B"/>
+  <path d="M84 153L91 77H113L120 153Z" fill="#221E1B"/>
+  <path d="M161 145L167 91H185L191 145Z" fill="#221E1B"/>
+  <path d="M34 51H46V135H34Z" fill="#F4ECDF"/>
+  <path d="M4 87H76V99H4Z" fill="#F4ECDF"/>
+  <path d="M96 27H108V127H96Z" fill="#F4ECDF"/>
+  <path d="M58 71H146V83H58Z" fill="#F4ECDF"/>
+  <path d="M170 51H182V131H170Z" fill="#F4ECDF"/>
+  <path d="M140 85H212V97H140Z" fill="#F4ECDF"/>
+  <path d="M0 216L64 198L133 207L220 178V250H0Z" fill="#E8D6B8"/>
+  <path d="M64 210L57 197L67 191L80 203H111L117 181L137 183L143 198L127 203L124 219L135 242H123L111 224H87L82 242H70L76 218Z" fill="#221E1B"/>
+  <path d="M88 204L84 178L97 165L107 177L108 204Z" fill="#221E1B"/>
+  <path d="M82 167L96 149L110 167Z" fill="#221E1B"/>
+  <path d="M111 148H121V212H111Z" fill="#221E1B"/>
+  <rect y="250" width="220" height="80" fill="#E8D6B8"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:24.24%;padding:6% 10% 8%;background-color:#E8D6B8;color:#221E1B"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">Don Quijote y los molinos</p><p class="cv-author" style="font-size:8.0px">Miguel de Cervantes</p><span class="cv-stamp" style="font-size:9.0px">A1</span></div></div><p class="cv-under-title">Don Quijote y los molinos</p><p class="cv-under-author">M. de Cervantes</p><p class="cv-under-meta">8 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect width="220" height="330" fill="#2B2A28"/>
+  <path d="M0 210L65 196L135 208L220 190V250H0Z" fill="#E8D6B8"/>
+  <path d="M10 14H210L189 44H30Z" fill="#6E9A7C"/>
+  <path d="M35 56H185L168 86H54Z" fill="#6E9A7C"/>
+  <path d="M58 98H170L146 130H76Z" fill="#6E9A7C"/>
+  <path d="M79 142H146L122 172H92Z" fill="#6E9A7C"/>
+  <path d="M96 184H124L108 222L96 236Z" fill="#6E9A7C"/>
+  <path d="M58 118L85 83L128 106L103 146Z" fill="#F4ECDF"/>
+  <path d="M42 120L79 67L140 101L126 118L84 94L61 132Z" fill="#E8D6B8"/>
+  <path d="M77 115L90 122L80 139L67 132Z" fill="#2B2A28"/>
+  <rect y="250" width="220" height="80" fill="#2B2A28"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:24.24%;padding:6% 10% 8%;background-color:#2B2A28;color:#F4ECDF"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">Dorothy and the Cyclone</p><p class="cv-author" style="font-size:8.0px">L. Frank Baum</p><span class="cv-stamp" style="font-size:9.0px">A1</span></div></div><p class="cv-under-title">Dorothy and the Cyclone</p><p class="cv-under-author">L. F. Baum</p><p class="cv-under-meta">8 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect width="220" height="330" fill="#4E7D5B"/>
+  <path d="M99 104H121L133 146L121 181L173 250H44L94 180L108 147Z" fill="#E8D6B8"/>
+  <path d="M0 0H24V250H0Z" fill="#221E1B"/>
+  <path d="M38 0H56V208L38 231Z" fill="#221E1B"/>
+  <path d="M72 0H86V154L72 171Z" fill="#221E1B"/>
+  <path d="M196 0H220V250H196Z" fill="#221E1B"/>
+  <path d="M164 0H182V233L164 211Z" fill="#221E1B"/>
+  <path d="M136 0H150V166L136 151Z" fill="#221E1B"/>
+  <path d="M12 37L64 70V86L12 56Z" fill="#221E1B"/>
+  <path d="M142 53L205 19V39L142 71Z" fill="#221E1B"/>
+  <path d="M101 215H111V240H101Z" fill="#221E1B"/>
+  <path d="M119 215H129V240H119Z" fill="#221E1B"/>
+  <path d="M95 174C91 140 139 140 135 174L148 220H82Z" fill="#8C3B2E"/>
+  <rect y="250" width="220" height="80" fill="#E8D6B8"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:24.24%;padding:6% 10% 8%;background-color:#E8D6B8;color:#221E1B"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">Le Petit Chaperon rouge</p><p class="cv-author" style="font-size:8.0px">Charles Perrault</p><span class="cv-stamp" style="font-size:9.0px">A0</span></div></div><p class="cv-under-title">Le Petit Chaperon rouge</p><p class="cv-under-author">C. Perrault</p><p class="cv-under-meta">5 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect width="220" height="330" fill="#FFD8A8"/>
+  <path d="M0 125L57 105L120 122L176 106L220 116V250H0Z" fill="#6E9A7C"/>
+  <path d="M0 153L220 133V150L0 174Z" fill="#FFD8A8"/>
+  <path d="M0 195L220 163V181L0 221Z" fill="#FFD8A8"/>
+  <path d="M0 240L220 198V218L70 250H0Z" fill="#FFD8A8"/>
+  <path d="M141 169H177L175 209L195 229H127L143 208Z" fill="#8C3B2E"/>
+  <path d="M151 183L124 169L130 157L153 169Z" fill="#8C3B2E"/>
+  <circle cx="94" cy="132" r="13" fill="#221E1B"/>
+  <path d="M67 124L94 99L121 124Z" fill="#8C3B2E"/>
+  <path d="M85 147H107L117 175L145 179V191H109L98 174L94 194L116 207L111 238H98L99 216L74 202Z" fill="#221E1B"/>
+  <path d="M76 192H94L82 226H66Z" fill="#221E1B"/>
+  <rect y="250" width="220" height="80" fill="#FFD8A8"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:24.24%;padding:6% 10% 8%;background-color:#FFD8A8;color:#221E1B"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">三个成语故事</p><p class="cv-author" style="font-size:8.0px">Traditional</p><span class="cv-stamp" style="font-size:9.0px">A0</span></div></div><p class="cv-under-title">三个成语故事</p><p class="cv-under-author">Traditional</p><p class="cv-under-meta">4 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect width="220" height="330" fill="#1F4F57"/>
+  <path d="M0 109C60 96 89 151 137 144C177 139 193 121 220 128V250H0Z" fill="#4E7D5B"/>
+  <path d="M0 146C57 125 78 176 123 177C165 178 185 152 220 158V187C176 180 157 208 113 199C68 190 43 151 0 174Z" fill="#E8D6B8"/>
+  <path d="M0 24C23 24 32 46 27 65L45 73L68 54L124 49L149 33L169 36L180 17L191 34L208 31L216 55L199 76L174 77L160 92L160 118L145 134L132 128L144 109L137 85L112 92L85 87L72 111L52 124L41 115L60 96L52 88L27 82C7 78 8 63 13 51C17 41 9 36 0 38Z" fill="#221E1B"/>
+  <path d="M69 224L62 241H77L87 227Z" fill="#E8D6B8"/>
+  <path d="M110 224L118 241H133L125 221Z" fill="#E8D6B8"/>
+  <path d="M67 213L52 219L67 229Z" fill="#E8D6B8"/>
+  <path d="M122 209H141C155 209 155 227 141 227H122Z" fill="#E8D6B8"/>
+  <path d="M65 224C65 180 129 180 133 224Z" fill="#E8D6B8"/>
+  <path d="M91 199H108L119 213H81Z" fill="#4E7D5B"/>
+  <rect y="250" width="220" height="80" fill="#1F4F57"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:24.24%;padding:6% 10% 8%;background-color:#1F4F57;color:#F4ECDF"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">O jabuti e a onça</p><p class="cv-author" style="font-size:8.0px">Sílvio Romero</p><span class="cv-stamp" style="font-size:9.0px">A0</span></div></div><p class="cv-under-title">O jabuti e a onça</p><p class="cv-under-author">S. Romero</p><p class="cv-under-meta">3 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect width="220" height="330" fill="#8C3B2E"/>
+  <path d="M0 0H220V28H0Z" fill="#E8D6B8"/>
+  <path d="M0 196H220V250H0Z" fill="#E8D6B8"/>
+  <path d="M0 48H58V196H0Z" fill="#F4ECDF"/>
+  <path d="M73 48H147V196H73Z" fill="#F4ECDF"/>
+  <path d="M162 48H220V196H162Z" fill="#F4ECDF"/>
+  <path d="M0 65H43V196H0Z" fill="#221E1B"/>
+  <path d="M88 65H132V196H88Z" fill="#221E1B"/>
+  <path d="M177 65H220V196H177Z" fill="#221E1B"/>
+  <path d="M0 104H43V121H0Z" fill="#8C3B2E"/>
+  <path d="M88 104H132V121H88Z" fill="#8C3B2E"/>
+  <path d="M177 104H220V121H177Z" fill="#8C3B2E"/>
+  <path d="M0 151H43V168H0Z" fill="#8C3B2E"/>
+  <path d="M88 151H132V168H88Z" fill="#8C3B2E"/>
+  <path d="M177 151H220V168H177Z" fill="#8C3B2E"/>
+  <path d="M161 224L205 196H220V211L179 235Z" fill="#8C3B2E"/>
+  <circle cx="160" cy="151" r="12" fill="#221E1B"/>
+  <path d="M148 169H171L181 208H144Z" fill="#221E1B"/>
+  <path d="M147 205H159V239H147Z" fill="#221E1B"/>
+  <path d="M166 205H178V239H166Z" fill="#221E1B"/>
+  <rect y="250" width="220" height="80" fill="#8C3B2E"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:24.24%;padding:6% 10% 8%;background-color:#8C3B2E;color:#F4ECDF"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">Vuelva usted mañana</p><p class="cv-author" style="font-size:8.0px">Mariano José de Larra</p><span class="cv-stamp" style="font-size:9.0px">C1</span></div></div><p class="cv-under-title">Vuelva usted mañana</p><p class="cv-under-author">M. J. de Larra</p><p class="cv-under-meta">19 MIN</p></div></div></div>
+
+    <p class="hero-label mono">At phone size</p>
+    <div class="shelf-scroll"><div class="shelf-row at-phone"><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect width="220" height="330" fill="#221E1B"/>
+  <path d="M0 0H138V154H0Z" fill="#2B2A28"/>
+  <path d="M148 28H178V100L112 166H42L148 100Z" fill="#E8D6B8"/>
+  <path d="M0 166H220V184H0Z" fill="#E8D6B8"/>
+  <path d="M0 194H58V212H0Z" fill="#E8D6B8"/>
+  <path d="M164 194H220V212H164Z" fill="#E8D6B8"/>
+  <path d="M0 222H220V240H0Z" fill="#2B2A28"/>
+  <path d="M110 188C88 164 68 182 76 201C82 216 100 227 110 234C120 227 138 216 144 201C152 182 132 164 110 188Z" fill="#8C3B2E"/>
+  <rect y="250" width="220" height="80" fill="#221E1B"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:24.24%;padding:6% 10% 8%;background-color:#221E1B;color:#F4ECDF"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">The Tell-Tale Heart</p><p class="cv-author" style="font-size:6.9px">Edgar Allan Poe</p><span class="cv-stamp" style="font-size:7.8px">C1</span></div></div><p class="cv-under-title">The Tell-Tale Heart</p><p class="cv-under-author">E. A. Poe</p><p class="cv-under-meta">19 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect width="220" height="330" fill="#F2C8B4"/>
+  <path d="M24 0H196V192H24Z" fill="#E8D6B8"/>
+  <path d="M44 174V82C44 18 176 18 176 82V174Z" fill="#1F4F57"/>
+  <path d="M0 192H220V250H0Z" fill="#1F4F57"/>
+  <path d="M0 0H36V150L0 174Z" fill="#F2C8B4"/>
+  <path d="M184 0H220V174L184 150Z" fill="#F2C8B4"/>
+  <path d="M58 82L70 72L82 84L70 98Z" fill="#F4ECDF"/>
+  <path d="M54 108L66 98L80 110L68 124Z" fill="#F4ECDF"/>
+  <path d="M62 136L74 122L88 136L76 150Z" fill="#F4ECDF"/>
+  <path d="M80 158L92 144L106 158L94 172Z" fill="#F4ECDF"/>
+  <path d="M138 84L150 72L162 82L150 98Z" fill="#F4ECDF"/>
+  <path d="M140 110L154 98L166 108L152 124Z" fill="#F4ECDF"/>
+  <path d="M132 136L146 122L158 136L144 150Z" fill="#F4ECDF"/>
+  <path d="M114 158L128 144L140 158L126 172Z" fill="#F4ECDF"/>
+  <path d="M110 166L128 184L110 208L92 184Z" fill="#F4ECDF"/>
+  <rect y="250" width="220" height="80" fill="#F2C8B4"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:24.24%;padding:6% 10% 8%;background-color:#F2C8B4;color:#221E1B"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">La Parure</p><p class="cv-author" style="font-size:6.9px">Guy de Maupassant</p><span class="cv-stamp" style="font-size:7.8px">B2</span></div></div><p class="cv-under-title">La Parure</p><p class="cv-under-author">G. de Maupassant</p><p class="cv-under-meta">17 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect width="220" height="330" fill="#E8D6B8"/>
+  <path d="M0 151L62 134L127 148L182 128L220 142V250H0Z" fill="#8C3B2E"/>
+  <path d="M25 148L31 91H49L55 148Z" fill="#221E1B"/>
+  <path d="M84 153L91 77H113L120 153Z" fill="#221E1B"/>
+  <path d="M161 145L167 91H185L191 145Z" fill="#221E1B"/>
+  <path d="M34 51H46V135H34Z" fill="#F4ECDF"/>
+  <path d="M4 87H76V99H4Z" fill="#F4ECDF"/>
+  <path d="M96 27H108V127H96Z" fill="#F4ECDF"/>
+  <path d="M58 71H146V83H58Z" fill="#F4ECDF"/>
+  <path d="M170 51H182V131H170Z" fill="#F4ECDF"/>
+  <path d="M140 85H212V97H140Z" fill="#F4ECDF"/>
+  <path d="M0 216L64 198L133 207L220 178V250H0Z" fill="#E8D6B8"/>
+  <path d="M64 210L57 197L67 191L80 203H111L117 181L137 183L143 198L127 203L124 219L135 242H123L111 224H87L82 242H70L76 218Z" fill="#221E1B"/>
+  <path d="M88 204L84 178L97 165L107 177L108 204Z" fill="#221E1B"/>
+  <path d="M82 167L96 149L110 167Z" fill="#221E1B"/>
+  <path d="M111 148H121V212H111Z" fill="#221E1B"/>
+  <rect y="250" width="220" height="80" fill="#E8D6B8"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:24.24%;padding:6% 10% 8%;background-color:#E8D6B8;color:#221E1B"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">Don Quijote y los molinos</p><p class="cv-author" style="font-size:6.9px">Miguel de Cervantes</p><span class="cv-stamp" style="font-size:7.8px">A1</span></div></div><p class="cv-under-title">Don Quijote y los molinos</p><p class="cv-under-author">M. de Cervantes</p><p class="cv-under-meta">8 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect width="220" height="330" fill="#2B2A28"/>
+  <path d="M0 210L65 196L135 208L220 190V250H0Z" fill="#E8D6B8"/>
+  <path d="M10 14H210L189 44H30Z" fill="#6E9A7C"/>
+  <path d="M35 56H185L168 86H54Z" fill="#6E9A7C"/>
+  <path d="M58 98H170L146 130H76Z" fill="#6E9A7C"/>
+  <path d="M79 142H146L122 172H92Z" fill="#6E9A7C"/>
+  <path d="M96 184H124L108 222L96 236Z" fill="#6E9A7C"/>
+  <path d="M58 118L85 83L128 106L103 146Z" fill="#F4ECDF"/>
+  <path d="M42 120L79 67L140 101L126 118L84 94L61 132Z" fill="#E8D6B8"/>
+  <path d="M77 115L90 122L80 139L67 132Z" fill="#2B2A28"/>
+  <rect y="250" width="220" height="80" fill="#2B2A28"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:24.24%;padding:6% 10% 8%;background-color:#2B2A28;color:#F4ECDF"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">Dorothy and the Cyclone</p><p class="cv-author" style="font-size:6.9px">L. Frank Baum</p><span class="cv-stamp" style="font-size:7.8px">A1</span></div></div><p class="cv-under-title">Dorothy and the Cyclone</p><p class="cv-under-author">L. F. Baum</p><p class="cv-under-meta">8 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect width="220" height="330" fill="#4E7D5B"/>
+  <path d="M99 104H121L133 146L121 181L173 250H44L94 180L108 147Z" fill="#E8D6B8"/>
+  <path d="M0 0H24V250H0Z" fill="#221E1B"/>
+  <path d="M38 0H56V208L38 231Z" fill="#221E1B"/>
+  <path d="M72 0H86V154L72 171Z" fill="#221E1B"/>
+  <path d="M196 0H220V250H196Z" fill="#221E1B"/>
+  <path d="M164 0H182V233L164 211Z" fill="#221E1B"/>
+  <path d="M136 0H150V166L136 151Z" fill="#221E1B"/>
+  <path d="M12 37L64 70V86L12 56Z" fill="#221E1B"/>
+  <path d="M142 53L205 19V39L142 71Z" fill="#221E1B"/>
+  <path d="M101 215H111V240H101Z" fill="#221E1B"/>
+  <path d="M119 215H129V240H119Z" fill="#221E1B"/>
+  <path d="M95 174C91 140 139 140 135 174L148 220H82Z" fill="#8C3B2E"/>
+  <rect y="250" width="220" height="80" fill="#E8D6B8"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:24.24%;padding:6% 10% 8%;background-color:#E8D6B8;color:#221E1B"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">Le Petit Chaperon rouge</p><p class="cv-author" style="font-size:6.9px">Charles Perrault</p><span class="cv-stamp" style="font-size:7.8px">A0</span></div></div><p class="cv-under-title">Le Petit Chaperon rouge</p><p class="cv-under-author">C. Perrault</p><p class="cv-under-meta">5 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect width="220" height="330" fill="#FFD8A8"/>
+  <path d="M0 125L57 105L120 122L176 106L220 116V250H0Z" fill="#6E9A7C"/>
+  <path d="M0 153L220 133V150L0 174Z" fill="#FFD8A8"/>
+  <path d="M0 195L220 163V181L0 221Z" fill="#FFD8A8"/>
+  <path d="M0 240L220 198V218L70 250H0Z" fill="#FFD8A8"/>
+  <path d="M141 169H177L175 209L195 229H127L143 208Z" fill="#8C3B2E"/>
+  <path d="M151 183L124 169L130 157L153 169Z" fill="#8C3B2E"/>
+  <circle cx="94" cy="132" r="13" fill="#221E1B"/>
+  <path d="M67 124L94 99L121 124Z" fill="#8C3B2E"/>
+  <path d="M85 147H107L117 175L145 179V191H109L98 174L94 194L116 207L111 238H98L99 216L74 202Z" fill="#221E1B"/>
+  <path d="M76 192H94L82 226H66Z" fill="#221E1B"/>
+  <rect y="250" width="220" height="80" fill="#FFD8A8"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:24.24%;padding:6% 10% 8%;background-color:#FFD8A8;color:#221E1B"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">三个成语故事</p><p class="cv-author" style="font-size:6.9px">Traditional</p><span class="cv-stamp" style="font-size:7.8px">A0</span></div></div><p class="cv-under-title">三个成语故事</p><p class="cv-under-author">Traditional</p><p class="cv-under-meta">4 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect width="220" height="330" fill="#1F4F57"/>
+  <path d="M0 109C60 96 89 151 137 144C177 139 193 121 220 128V250H0Z" fill="#4E7D5B"/>
+  <path d="M0 146C57 125 78 176 123 177C165 178 185 152 220 158V187C176 180 157 208 113 199C68 190 43 151 0 174Z" fill="#E8D6B8"/>
+  <path d="M0 24C23 24 32 46 27 65L45 73L68 54L124 49L149 33L169 36L180 17L191 34L208 31L216 55L199 76L174 77L160 92L160 118L145 134L132 128L144 109L137 85L112 92L85 87L72 111L52 124L41 115L60 96L52 88L27 82C7 78 8 63 13 51C17 41 9 36 0 38Z" fill="#221E1B"/>
+  <path d="M69 224L62 241H77L87 227Z" fill="#E8D6B8"/>
+  <path d="M110 224L118 241H133L125 221Z" fill="#E8D6B8"/>
+  <path d="M67 213L52 219L67 229Z" fill="#E8D6B8"/>
+  <path d="M122 209H141C155 209 155 227 141 227H122Z" fill="#E8D6B8"/>
+  <path d="M65 224C65 180 129 180 133 224Z" fill="#E8D6B8"/>
+  <path d="M91 199H108L119 213H81Z" fill="#4E7D5B"/>
+  <rect y="250" width="220" height="80" fill="#1F4F57"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:24.24%;padding:6% 10% 8%;background-color:#1F4F57;color:#F4ECDF"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">O jabuti e a onça</p><p class="cv-author" style="font-size:6.9px">Sílvio Romero</p><span class="cv-stamp" style="font-size:7.8px">A0</span></div></div><p class="cv-under-title">O jabuti e a onça</p><p class="cv-under-author">S. Romero</p><p class="cv-under-meta">3 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <rect width="220" height="330" fill="#8C3B2E"/>
+  <path d="M0 0H220V28H0Z" fill="#E8D6B8"/>
+  <path d="M0 196H220V250H0Z" fill="#E8D6B8"/>
+  <path d="M0 48H58V196H0Z" fill="#F4ECDF"/>
+  <path d="M73 48H147V196H73Z" fill="#F4ECDF"/>
+  <path d="M162 48H220V196H162Z" fill="#F4ECDF"/>
+  <path d="M0 65H43V196H0Z" fill="#221E1B"/>
+  <path d="M88 65H132V196H88Z" fill="#221E1B"/>
+  <path d="M177 65H220V196H177Z" fill="#221E1B"/>
+  <path d="M0 104H43V121H0Z" fill="#8C3B2E"/>
+  <path d="M88 104H132V121H88Z" fill="#8C3B2E"/>
+  <path d="M177 104H220V121H177Z" fill="#8C3B2E"/>
+  <path d="M0 151H43V168H0Z" fill="#8C3B2E"/>
+  <path d="M88 151H132V168H88Z" fill="#8C3B2E"/>
+  <path d="M177 151H220V168H177Z" fill="#8C3B2E"/>
+  <path d="M161 224L205 196H220V211L179 235Z" fill="#8C3B2E"/>
+  <circle cx="160" cy="151" r="12" fill="#221E1B"/>
+  <path d="M148 169H171L181 208H144Z" fill="#221E1B"/>
+  <path d="M147 205H159V239H147Z" fill="#221E1B"/>
+  <path d="M166 205H178V239H166Z" fill="#221E1B"/>
+  <rect y="250" width="220" height="80" fill="#8C3B2E"/>
+</svg><div class="cv-zone" style="bottom:0.00%;left:0.00%;width:100.00%;min-height:24.24%;padding:6% 10% 8%;background-color:#8C3B2E;color:#F4ECDF"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">Vuelva usted mañana</p><p class="cv-author" style="font-size:6.9px">Mariano José de Larra</p><span class="cv-stamp" style="font-size:7.8px">C1</span></div></div><p class="cv-under-title">Vuelva usted mañana</p><p class="cv-under-author">M. J. de Larra</p><p class="cv-under-meta">19 MIN</p></div></div></div>
+    <p class="fragment-caption">Direction fragment: eight of the forty books, drawn by the wave, not a finished comp.</p>
+
+    <div class="block-group">
+      <div class="block"><p class="eyebrow">Commits to</p><ul><li>Atmosphere, era and weather in a glance</li><li>One clear stage and one actor per scene</li></ul></div>
+      <div class="block"><p class="eyebrow">Trades away</p><ul><li>Busiest direction at 104px; 40 scenes is the most authoring of the three</li></ul></div>
+      <div class="block"><p class="eyebrow">Right when</p><p>Right when opening a book should feel like arriving somewhere.</p></div>
+      <div class="block">
+        <p class="eyebrow">Build DNA</p>
+        <div class="dna-grid">
+          <div class="row"><span class="tag">Anchor</span><span class="val">Folio Society flat-scene jackets, Charley Harper geometry</span></div>
+          <div class="row"><span class="tag">Ground</span><span class="val">No separate ground tone; the horizon line is the ground</span></div>
+          <div class="row"><span class="tag">Device</span><span class="val">Full-bleed flat scene, 4 tones, horizon or stage, one actor; solid text band y 250 to 330</span></div>
+          <div class="row"><span class="tag">Type</span><span class="val">Fraunces 300 title set on the solid band, mono level stamp, small caps author</span></div>
+          <div class="row"><span class="tag">Cost</span><span class="val">Most authoring: 40 distinct scenes, each needing its own weather and stage</span></div>
+        </div>
+      </div>
+      <div class="block"><p class="eyebrow">Taken all the way</p><p>The shelf becomes forty small windows onto forty places.</p></div>
+    </div>
+
+    <div class="band-chips" data-band="B">
+      <span class="chip-label mono">This direction</span>
+      <div class="chip-row" role="group" aria-label="Direction B action">
+        <button class="chip" type="button" data-action="steal" aria-pressed="false">Steal</button>
+        <button class="chip" type="button" data-action="skip" aria-pressed="false">Skip</button>
+        <button class="chip" type="button" data-action="deeper" aria-pressed="false">Go deeper</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cover-band" data-dir="C">
+  <div class="wrap">
+    <div class="band-head">
+      <span class="band-letter mono">Direction C</span>
+      <h2 class="band-name">The Endpaper</h2>
+    </div>
+    <p class="band-thesis">This direction says: A shelf of cloth spines: every book has its own woven pattern.</p>
+
+    <p class="hero-label mono">Shelf at 120, desktop tile width</p>
+    <div class="shelf-scroll"><div class="shelf-row"><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <defs>
+    <pattern id="poe" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#221E1B"/>
+      <path d="M16 2 H24 L36 36 L20 28 L4 36 Z" fill="#FFD8A8"/>
+      <path d="M16 2 H20 L20 28 L4 36 Z" fill="#B8651B"/>
+    </pattern>
+  </defs>
+  <rect width="220" height="330" fill="url(#poe)"/>
+  <rect x="24" y="210" width="172" height="90" fill="#F4ECDF"/>
+  <path fill="#221E1B" fill-rule="evenodd" d="M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z"/>
+</svg><div class="cv-zone" style="bottom:9.09%;left:10.91%;width:78.18%;min-height:27.27%;padding:6% 8%;background-color:#F4ECDF;color:#221E1B"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">The Tell-Tale Heart</p><p class="cv-author" style="font-size:8.0px">Edgar Allan Poe</p><span class="cv-stamp" style="font-size:9.0px">C1</span></div></div><p class="cv-under-title">The Tell-Tale Heart</p><p class="cv-under-author">E. A. Poe</p><p class="cv-under-meta">19 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <defs>
+    <pattern id="parure" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#2B2A28"/>
+      <polygon points="20,4 36,20 20,36 4,20" fill="#F4ECDF"/>
+      <polygon points="20,12 28,20 20,28 12,20" fill="#B8651B"/>
+    </pattern>
+  </defs>
+  <rect width="220" height="330" fill="url(#parure)"/>
+  <rect x="24" y="210" width="172" height="90" fill="#F4ECDF"/>
+  <path fill="#2B2A28" fill-rule="evenodd" d="M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z"/>
+</svg><div class="cv-zone" style="bottom:9.09%;left:10.91%;width:78.18%;min-height:27.27%;padding:6% 8%;background-color:#F4ECDF;color:#221E1B"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">La Parure</p><p class="cv-author" style="font-size:8.0px">Guy de Maupassant</p><span class="cv-stamp" style="font-size:9.0px">B2</span></div></div><p class="cv-under-title">La Parure</p><p class="cv-under-author">G. de Maupassant</p><p class="cv-under-meta">17 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <defs>
+    <pattern id="molinos" width="44" height="44" patternUnits="userSpaceOnUse">
+      <rect width="44" height="44" fill="#E8D6B8"/>
+      <polygon points="16,16 28,16 34,2 10,2" fill="#8C3B2E"/>
+      <polygon points="28,16 28,28 42,34 42,10" fill="#8C3B2E"/>
+      <polygon points="16,28 28,28 34,42 10,42" fill="#8C3B2E"/>
+      <polygon points="16,16 16,28 2,34 2,10" fill="#8C3B2E"/>
+      <rect x="16" y="16" width="12" height="12" fill="#F2C8B4"/>
+    </pattern>
+  </defs>
+  <rect width="220" height="330" fill="url(#molinos)"/>
+  <rect x="24" y="210" width="172" height="90" fill="#F4ECDF"/>
+  <path fill="#E8D6B8" fill-rule="evenodd" d="M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z"/>
+</svg><div class="cv-zone" style="bottom:9.09%;left:10.91%;width:78.18%;min-height:27.27%;padding:6% 8%;background-color:#F4ECDF;color:#221E1B"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">Don Quijote y los molinos</p><p class="cv-author" style="font-size:8.0px">Miguel de Cervantes</p><span class="cv-stamp" style="font-size:9.0px">A1</span></div></div><p class="cv-under-title">Don Quijote y los molinos</p><p class="cv-under-author">M. de Cervantes</p><p class="cv-under-meta">8 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <defs>
+    <pattern id="cyclone" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#1F4F57"/>
+      <ellipse cx="20" cy="8" rx="16" ry="8" fill="#E8D6B8"/>
+      <ellipse cx="24" cy="20" rx="13" ry="8" fill="#F2C8B4"/>
+      <ellipse cx="17" cy="31" rx="11" ry="8" fill="#E8D6B8"/>
+    </pattern>
+  </defs>
+  <rect width="220" height="330" fill="url(#cyclone)"/>
+  <rect x="24" y="210" width="172" height="90" fill="#F4ECDF"/>
+  <path fill="#1F4F57" fill-rule="evenodd" d="M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z"/>
+</svg><div class="cv-zone" style="bottom:9.09%;left:10.91%;width:78.18%;min-height:27.27%;padding:6% 8%;background-color:#F4ECDF;color:#221E1B"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">Dorothy and the Cyclone</p><p class="cv-author" style="font-size:8.0px">L. Frank Baum</p><span class="cv-stamp" style="font-size:9.0px">A1</span></div></div><p class="cv-under-title">Dorothy and the Cyclone</p><p class="cv-under-author">L. F. Baum</p><p class="cv-under-meta">8 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <defs>
+    <pattern id="chaperon" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#F2C8B4"/>
+      <path d="M6 38 L8 16 Q8 4 20 4 Q32 4 32 16 L34 38 Z" fill="#8C3B2E"/>
+      <ellipse cx="20" cy="17" rx="8" ry="10" fill="#F4ECDF"/>
+    </pattern>
+  </defs>
+  <rect width="220" height="330" fill="url(#chaperon)"/>
+  <rect x="24" y="210" width="172" height="90" fill="#F4ECDF"/>
+  <path fill="#F2C8B4" fill-rule="evenodd" d="M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z"/>
+</svg><div class="cv-zone" style="bottom:9.09%;left:10.91%;width:78.18%;min-height:27.27%;padding:6% 8%;background-color:#F4ECDF;color:#221E1B"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">Le Petit Chaperon rouge</p><p class="cv-author" style="font-size:8.0px">Charles Perrault</p><span class="cv-stamp" style="font-size:9.0px">A0</span></div></div><p class="cv-under-title">Le Petit Chaperon rouge</p><p class="cv-under-author">C. Perrault</p><p class="cv-under-meta">5 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <defs>
+    <pattern id="chengyu" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#B8651B"/>
+      <polygon points="4,6 36,12 34,24 2,18" fill="#221E1B"/>
+      <circle cx="12" cy="32" r="6" fill="#F4ECDF"/>
+      <rect x="24" y="26" width="12" height="12" fill="#221E1B"/>
+    </pattern>
+  </defs>
+  <rect width="220" height="330" fill="url(#chengyu)"/>
+  <rect x="24" y="210" width="172" height="90" fill="#F4ECDF"/>
+  <path fill="#B8651B" fill-rule="evenodd" d="M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z"/>
+</svg><div class="cv-zone" style="bottom:9.09%;left:10.91%;width:78.18%;min-height:27.27%;padding:6% 8%;background-color:#F4ECDF;color:#221E1B"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">三个成语故事</p><p class="cv-author" style="font-size:8.0px">Traditional</p><span class="cv-stamp" style="font-size:9.0px">A0</span></div></div><p class="cv-under-title">三个成语故事</p><p class="cv-under-author">Traditional</p><p class="cv-under-meta">4 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <defs>
+    <pattern id="jabuti" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#4E7D5B"/>
+      <circle cx="10" cy="20" r="8" fill="#F4ECDF"/>
+      <circle cx="30" cy="20" r="8" fill="#F4ECDF"/>
+      <rect x="10" y="12" width="20" height="16" fill="#F4ECDF"/>
+      <circle cx="20" cy="20" r="5" fill="#221E1B"/>
+    </pattern>
+  </defs>
+  <rect width="220" height="330" fill="url(#jabuti)"/>
+  <rect x="24" y="210" width="172" height="90" fill="#F4ECDF"/>
+  <path fill="#4E7D5B" fill-rule="evenodd" d="M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z"/>
+</svg><div class="cv-zone" style="bottom:9.09%;left:10.91%;width:78.18%;min-height:27.27%;padding:6% 8%;background-color:#F4ECDF;color:#221E1B"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">O jabuti e a onça</p><p class="cv-author" style="font-size:8.0px">Sílvio Romero</p><span class="cv-stamp" style="font-size:9.0px">A0</span></div></div><p class="cv-under-title">O jabuti e a onça</p><p class="cv-under-author">S. Romero</p><p class="cv-under-meta">3 MIN</p></div><div class="cv-tile" style="width:120px"><div class="cv-frame" style="width:120px;height:180px;box-shadow:6px 6px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <defs>
+    <pattern id="larra" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#8C3B2E"/>
+      <circle cx="20" cy="20" r="16" fill="#F4ECDF"/>
+      <path d="M20 20 L20 6 A14 14 0 0 1 32 27 Z" fill="#221E1B"/>
+    </pattern>
+  </defs>
+  <rect width="220" height="330" fill="url(#larra)"/>
+  <rect x="24" y="210" width="172" height="90" fill="#F4ECDF"/>
+  <path fill="#8C3B2E" fill-rule="evenodd" d="M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z"/>
+</svg><div class="cv-zone" style="bottom:9.09%;left:10.91%;width:78.18%;min-height:27.27%;padding:6% 8%;background-color:#F4ECDF;color:#221E1B"><p class="cv-title" style="font-size:13.0px;line-height:15.6px">Vuelva usted mañana</p><p class="cv-author" style="font-size:8.0px">Mariano José de Larra</p><span class="cv-stamp" style="font-size:9.0px">C1</span></div></div><p class="cv-under-title">Vuelva usted mañana</p><p class="cv-under-author">M. J. de Larra</p><p class="cv-under-meta">19 MIN</p></div></div></div>
+
+    <p class="hero-label mono">At phone size</p>
+    <div class="shelf-scroll"><div class="shelf-row at-phone"><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <defs>
+    <pattern id="poe" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#221E1B"/>
+      <path d="M16 2 H24 L36 36 L20 28 L4 36 Z" fill="#FFD8A8"/>
+      <path d="M16 2 H20 L20 28 L4 36 Z" fill="#B8651B"/>
+    </pattern>
+  </defs>
+  <rect width="220" height="330" fill="url(#poe)"/>
+  <rect x="24" y="210" width="172" height="90" fill="#F4ECDF"/>
+  <path fill="#221E1B" fill-rule="evenodd" d="M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z"/>
+</svg><div class="cv-zone" style="bottom:9.09%;left:10.91%;width:78.18%;min-height:27.27%;padding:6% 8%;background-color:#F4ECDF;color:#221E1B"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">The Tell-Tale Heart</p><p class="cv-author" style="font-size:6.9px">Edgar Allan Poe</p><span class="cv-stamp" style="font-size:7.8px">C1</span></div></div><p class="cv-under-title">The Tell-Tale Heart</p><p class="cv-under-author">E. A. Poe</p><p class="cv-under-meta">19 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <defs>
+    <pattern id="parure" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#2B2A28"/>
+      <polygon points="20,4 36,20 20,36 4,20" fill="#F4ECDF"/>
+      <polygon points="20,12 28,20 20,28 12,20" fill="#B8651B"/>
+    </pattern>
+  </defs>
+  <rect width="220" height="330" fill="url(#parure)"/>
+  <rect x="24" y="210" width="172" height="90" fill="#F4ECDF"/>
+  <path fill="#2B2A28" fill-rule="evenodd" d="M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z"/>
+</svg><div class="cv-zone" style="bottom:9.09%;left:10.91%;width:78.18%;min-height:27.27%;padding:6% 8%;background-color:#F4ECDF;color:#221E1B"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">La Parure</p><p class="cv-author" style="font-size:6.9px">Guy de Maupassant</p><span class="cv-stamp" style="font-size:7.8px">B2</span></div></div><p class="cv-under-title">La Parure</p><p class="cv-under-author">G. de Maupassant</p><p class="cv-under-meta">17 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <defs>
+    <pattern id="molinos" width="44" height="44" patternUnits="userSpaceOnUse">
+      <rect width="44" height="44" fill="#E8D6B8"/>
+      <polygon points="16,16 28,16 34,2 10,2" fill="#8C3B2E"/>
+      <polygon points="28,16 28,28 42,34 42,10" fill="#8C3B2E"/>
+      <polygon points="16,28 28,28 34,42 10,42" fill="#8C3B2E"/>
+      <polygon points="16,16 16,28 2,34 2,10" fill="#8C3B2E"/>
+      <rect x="16" y="16" width="12" height="12" fill="#F2C8B4"/>
+    </pattern>
+  </defs>
+  <rect width="220" height="330" fill="url(#molinos)"/>
+  <rect x="24" y="210" width="172" height="90" fill="#F4ECDF"/>
+  <path fill="#E8D6B8" fill-rule="evenodd" d="M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z"/>
+</svg><div class="cv-zone" style="bottom:9.09%;left:10.91%;width:78.18%;min-height:27.27%;padding:6% 8%;background-color:#F4ECDF;color:#221E1B"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">Don Quijote y los molinos</p><p class="cv-author" style="font-size:6.9px">Miguel de Cervantes</p><span class="cv-stamp" style="font-size:7.8px">A1</span></div></div><p class="cv-under-title">Don Quijote y los molinos</p><p class="cv-under-author">M. de Cervantes</p><p class="cv-under-meta">8 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <defs>
+    <pattern id="cyclone" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#1F4F57"/>
+      <ellipse cx="20" cy="8" rx="16" ry="8" fill="#E8D6B8"/>
+      <ellipse cx="24" cy="20" rx="13" ry="8" fill="#F2C8B4"/>
+      <ellipse cx="17" cy="31" rx="11" ry="8" fill="#E8D6B8"/>
+    </pattern>
+  </defs>
+  <rect width="220" height="330" fill="url(#cyclone)"/>
+  <rect x="24" y="210" width="172" height="90" fill="#F4ECDF"/>
+  <path fill="#1F4F57" fill-rule="evenodd" d="M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z"/>
+</svg><div class="cv-zone" style="bottom:9.09%;left:10.91%;width:78.18%;min-height:27.27%;padding:6% 8%;background-color:#F4ECDF;color:#221E1B"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">Dorothy and the Cyclone</p><p class="cv-author" style="font-size:6.9px">L. Frank Baum</p><span class="cv-stamp" style="font-size:7.8px">A1</span></div></div><p class="cv-under-title">Dorothy and the Cyclone</p><p class="cv-under-author">L. F. Baum</p><p class="cv-under-meta">8 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <defs>
+    <pattern id="chaperon" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#F2C8B4"/>
+      <path d="M6 38 L8 16 Q8 4 20 4 Q32 4 32 16 L34 38 Z" fill="#8C3B2E"/>
+      <ellipse cx="20" cy="17" rx="8" ry="10" fill="#F4ECDF"/>
+    </pattern>
+  </defs>
+  <rect width="220" height="330" fill="url(#chaperon)"/>
+  <rect x="24" y="210" width="172" height="90" fill="#F4ECDF"/>
+  <path fill="#F2C8B4" fill-rule="evenodd" d="M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z"/>
+</svg><div class="cv-zone" style="bottom:9.09%;left:10.91%;width:78.18%;min-height:27.27%;padding:6% 8%;background-color:#F4ECDF;color:#221E1B"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">Le Petit Chaperon rouge</p><p class="cv-author" style="font-size:6.9px">Charles Perrault</p><span class="cv-stamp" style="font-size:7.8px">A0</span></div></div><p class="cv-under-title">Le Petit Chaperon rouge</p><p class="cv-under-author">C. Perrault</p><p class="cv-under-meta">5 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <defs>
+    <pattern id="chengyu" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#B8651B"/>
+      <polygon points="4,6 36,12 34,24 2,18" fill="#221E1B"/>
+      <circle cx="12" cy="32" r="6" fill="#F4ECDF"/>
+      <rect x="24" y="26" width="12" height="12" fill="#221E1B"/>
+    </pattern>
+  </defs>
+  <rect width="220" height="330" fill="url(#chengyu)"/>
+  <rect x="24" y="210" width="172" height="90" fill="#F4ECDF"/>
+  <path fill="#B8651B" fill-rule="evenodd" d="M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z"/>
+</svg><div class="cv-zone" style="bottom:9.09%;left:10.91%;width:78.18%;min-height:27.27%;padding:6% 8%;background-color:#F4ECDF;color:#221E1B"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">三个成语故事</p><p class="cv-author" style="font-size:6.9px">Traditional</p><span class="cv-stamp" style="font-size:7.8px">A0</span></div></div><p class="cv-under-title">三个成语故事</p><p class="cv-under-author">Traditional</p><p class="cv-under-meta">4 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <defs>
+    <pattern id="jabuti" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#4E7D5B"/>
+      <circle cx="10" cy="20" r="8" fill="#F4ECDF"/>
+      <circle cx="30" cy="20" r="8" fill="#F4ECDF"/>
+      <rect x="10" y="12" width="20" height="16" fill="#F4ECDF"/>
+      <circle cx="20" cy="20" r="5" fill="#221E1B"/>
+    </pattern>
+  </defs>
+  <rect width="220" height="330" fill="url(#jabuti)"/>
+  <rect x="24" y="210" width="172" height="90" fill="#F4ECDF"/>
+  <path fill="#4E7D5B" fill-rule="evenodd" d="M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z"/>
+</svg><div class="cv-zone" style="bottom:9.09%;left:10.91%;width:78.18%;min-height:27.27%;padding:6% 8%;background-color:#F4ECDF;color:#221E1B"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">O jabuti e a onça</p><p class="cv-author" style="font-size:6.9px">Sílvio Romero</p><span class="cv-stamp" style="font-size:7.8px">A0</span></div></div><p class="cv-under-title">O jabuti e a onça</p><p class="cv-under-author">S. Romero</p><p class="cv-under-meta">3 MIN</p></div><div class="cv-tile" style="width:104px"><div class="cv-frame" style="width:104px;height:156px;box-shadow:5px 5px 0 0 var(--peach)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 330" width="220" height="330">
+  <defs>
+    <pattern id="larra" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#8C3B2E"/>
+      <circle cx="20" cy="20" r="16" fill="#F4ECDF"/>
+      <path d="M20 20 L20 6 A14 14 0 0 1 32 27 Z" fill="#221E1B"/>
+    </pattern>
+  </defs>
+  <rect width="220" height="330" fill="url(#larra)"/>
+  <rect x="24" y="210" width="172" height="90" fill="#F4ECDF"/>
+  <path fill="#8C3B2E" fill-rule="evenodd" d="M26 212 H194 V298 H26 Z M28 214 H192 V296 H28 Z"/>
+</svg><div class="cv-zone" style="bottom:9.09%;left:10.91%;width:78.18%;min-height:27.27%;padding:6% 8%;background-color:#F4ECDF;color:#221E1B"><p class="cv-title" style="font-size:11.3px;line-height:13.6px">Vuelva usted mañana</p><p class="cv-author" style="font-size:6.9px">Mariano José de Larra</p><span class="cv-stamp" style="font-size:7.8px">C1</span></div></div><p class="cv-under-title">Vuelva usted mañana</p><p class="cv-under-author">M. J. de Larra</p><p class="cv-under-meta">19 MIN</p></div></div></div>
+    <p class="fragment-caption">Direction fragment: eight of the forty books, drawn by the wave, not a finished comp.</p>
+
+    <div class="block-group">
+      <div class="block"><p class="eyebrow">Commits to</p><ul><li>Individuality at scale; works for abstract and CJK titles alike</li><li>Cheapest to author: one motif tiled, not one scene composed</li></ul></div>
+      <div class="block"><p class="eyebrow">Trades away</p><ul><li>Motif reads as plain texture at 104px; the label shape repeats on every book</li></ul></div>
+      <div class="block"><p class="eyebrow">Right when</p><p>Right when 40 books need to ship fast without looking hashed.</p></div>
+      <div class="block">
+        <p class="eyebrow">Build DNA</p>
+        <div class="dna-grid">
+          <div class="row"><span class="tag">Anchor</span><span class="val">Coralie Bickford-Smith Clothbound Classics</span></div>
+          <div class="row"><span class="tag">Ground</span><span class="val">Motif tile repeated full bleed; no separate ground layer beneath it</span></div>
+          <div class="row"><span class="tag">Device</span><span class="val">One motif tile, 2 to 3 tones, repeated full bleed; paper label x 24 to 196, y 210 to 300</span></div>
+          <div class="row"><span class="tag">Type</span><span class="val">Fraunces 300 title on the label, ink text only; the label is always the light tone</span></div>
+          <div class="row"><span class="tag">Cost</span><span class="val">Cheapest to author: one tile pattern per book, no scene composition</span></div>
+        </div>
+      </div>
+      <div class="block"><p class="eyebrow">Taken all the way</p><p>The shelf reads as a run of forty bound cloth spines.</p></div>
+    </div>
+
+    <div class="band-chips" data-band="C">
+      <span class="chip-label mono">This direction</span>
+      <div class="chip-row" role="group" aria-label="Direction C action">
+        <button class="chip" type="button" data-action="steal" aria-pressed="false">Steal</button>
+        <button class="chip" type="button" data-action="skip" aria-pressed="false">Skip</button>
+        <button class="chip" type="button" data-action="deeper" aria-pressed="false">Go deeper</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="hairline"></div>
+
+<section class="reply-builder wrap">
+  <h2>Build the reply</h2>
+  <p class="lede">Pick steal, skip, or go deeper on each direction above. Exactly one direction can be the one you go deeper on &mdash; that is the build. The instruction below updates live and is saved in this browser.</p>
+  <div class="rb-output">
+    <textarea class="rb-textarea" id="rbTextarea" readonly aria-label="Composed brief"></textarea>
+    <button class="rb-copy-btn" id="rbCopyBtn">Copy</button>
+  </div>
+</section>
+
+<footer class="sheet-footer">
+  <p>Sotto cover directions, drafted by Cleo</p>
+</footer>
+
+<script>
+(function () {
+  var DATA = /*REPLY_DATA_JSON*/{"order": ["A", "B", "C"], "noun": {"A": "pressed emblem", "B": "mise-en-sc\u00e8ne", "C": "endpaper"}, "stealPhrase": {"A": "take A's pressed emblem", "B": "take B's mise-en-sc\u00e8ne", "C": "take C's endpaper"}}/*END_REPLY_DATA_JSON*/;
+  var STORAGE_KEY = 'sotto-cover-directions-reply-builder';
+  var order = DATA.order;
+  var noun = DATA.noun;
+  var stealPhrase = DATA.stealPhrase;
+
+  var bandActions = {};
+  order.forEach(function (k) { bandActions[k] = null; });
+
+  function currentBase() {
+    for (var i = 0; i < order.length; i++) {
+      if (bandActions[order[i]] === 'deeper') return order[i];
+    }
+    return null;
+  }
+
+  function loadState() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      var saved = JSON.parse(raw);
+      if (saved && saved.bandActions) {
+        order.forEach(function (k) {
+          if (saved.bandActions[k]) bandActions[k] = saved.bandActions[k];
+        });
+      }
+    } catch (e) { /* localStorage unavailable, use defaults */ }
+  }
+
+  function saveState() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ bandActions: bandActions })); }
+    catch (e) { /* ignore write failures */ }
+  }
+
+  function applyStateToUI() {
+    document.querySelectorAll('.band-chips').forEach(function (group) {
+      var band = group.getAttribute('data-band');
+      group.querySelectorAll('.chip').forEach(function (chip) {
+        var active = chip.getAttribute('data-action') === bandActions[band];
+        chip.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+    });
+  }
+
+  function composeInstruction() {
+    var base = currentBase();
+    var picked = order.some(function (k) { return bandActions[k]; });
+    if (!picked) return '';
+    if (!base) { base = order.filter(function (k) { return bandActions[k] === 'steal'; })[0] || order[0]; }
+    var parts = [];
+    order.forEach(function (band) {
+      if (band === base) return;
+      var action = bandActions[band];
+      if (action === 'steal') parts.push(stealPhrase[band]);
+      else if (action === 'skip') parts.push('lose ' + band + "'s " + noun[band]);
+    });
+    return 'Build ' + base + (parts.length ? ', ' + parts.join(', ') : '') + '.';
+  }
+
+  function refreshOutput() {
+    var textarea = document.getElementById('rbTextarea');
+    if (textarea) textarea.value = composeInstruction();
+  }
+
+  document.querySelectorAll('.band-chips').forEach(function (group) {
+    var band = group.getAttribute('data-band');
+    group.querySelectorAll('.chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var action = chip.getAttribute('data-action');
+        if (action === 'deeper') {
+          order.forEach(function (k) { if (bandActions[k] === 'deeper') bandActions[k] = 'skip'; });
+        }
+        bandActions[band] = action;
+        applyStateToUI();
+        refreshOutput();
+        saveState();
+      });
+    });
+  });
+
+  var rbCopyBtn = document.getElementById('rbCopyBtn');
+  if (rbCopyBtn) {
+    rbCopyBtn.addEventListener('click', function () {
+      var textarea = document.getElementById('rbTextarea');
+      var text = textarea ? textarea.value : '';
+      var markCopied = function () {
+        rbCopyBtn.textContent = 'Copied';
+        rbCopyBtn.setAttribute('data-copied', 'true');
+        setTimeout(function () {
+          rbCopyBtn.textContent = 'Copy';
+          rbCopyBtn.removeAttribute('data-copied');
+        }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(markCopied, function () { fallbackCopy(textarea, markCopied); });
+      } else {
+        fallbackCopy(textarea, markCopied);
+      }
+    });
+  }
+
+  function fallbackCopy(textarea, done) {
+    if (!textarea) return;
+    try {
+      textarea.removeAttribute('readonly');
+      textarea.select();
+      document.execCommand('copy');
+      textarea.setAttribute('readonly', 'true');
+      done();
+    } catch (e) { /* copy unsupported, leave text selected for manual copy */ }
+  }
+
+  loadState();
+  applyStateToUI();
+  refreshOutput();
+})();
+</script>
+
+</body>
+</html>

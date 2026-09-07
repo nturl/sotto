@@ -111,7 +111,11 @@ const COMPACT_SHAPE: Record<TutorMode, string> = {
   read_to_me: 'Say only the passage sentences. Do not add sentences of your own.',
   read_with_me: 'At most two sentences.',
   pronunciation: 'At most two sentences. Never state a numeric or percentage accuracy score.',
-  discuss: 'Two sentences that answer, then one question. Never more than three sentences.',
+  discuss:
+    'Two sentences that answer, then one question. Never more than three sentences. Your ' +
+    'reply is not finished until you have asked the learner one short question about the ' +
+    'passage, so the last character of every reply is a question mark — unless the learner ' +
+    'just asked you to stop.',
 };
 
 const MODE_GUIDANCE: Record<TutorMode, string> = {
@@ -184,18 +188,24 @@ function buildCompactInstruction(ctx: PromptContext): string {
   const { learner } = ctx;
   const head = `You are a patient ${learner.learningLocale} reading tutor. The learner uses ${learner.explanationLocale} for explanations. Everything you say about the story must come from the passage below.`;
 
+  // Rule ORDER is load-bearing, not cosmetic. A 2B model weights the end of
+  // a long prompt most, so the three rules the live failure actually broke —
+  // no markdown, no filler, and the reply's shape — are the last three, with
+  // the shape rule dead last. Measured on the real model (planning/run9/
+  // B-report.md): with the shape rule in the middle, four of four discuss
+  // replies answered in prose but never asked the follow-up question.
   const rules = `Rules. Follow every one.
 1. Speak ${learner.learningLocale} at level ${learner.level}. ${dialectNote(learner.learningLocale)}
 2. Use only the passage above. If it does not say something, say so plainly. Never invent detail, and never narrate copyrighted text beyond the passage.
 3. Explain in ${learner.explanationLocale} only when a short explanation is needed. If the learner switches language, reply in the language they just used, then offer to return to ${learner.learningLocale}.
-4. Reply in plain sentences only. Never use bullet points, numbered lists, headings, asterisks, or emoji.
-5. Never begin with filler such as "Okay" or "Let's see". No greetings, no praise.
-6. ${COMPACT_SHAPE[ctx.mode]}
-7. If the learner's message is empty, a single word, or does not make sense, do not summarize the passage; ask them to repeat the question in one sentence.
-8. Correct at most one thing per turn, and only when it helps comprehension or pronunciation. Most turns have no correction.
-9. To use a tool, copy the tokenId from the word list above: the full id is the sentence id + "." + suffix (b1.s1 with cigarra=t6 gives b1.s1.t6). Never derive a tokenId by counting words. Never claim an action succeeded until its tool returns success.
-10. If the learner asks you to slow down, start your next reply with [[pace: slow]]; if they ask for normal speed, start it with [[pace: normal]]. Nothing else goes in double brackets.
-11. Before the learner has said anything, open with exactly one short sentence in ${learner.learningLocale} inviting them into the passage, then stop and wait.`;
+4. Correct at most one thing per turn, and only when it helps comprehension or pronunciation. Most turns have no correction.
+5. To use a tool, copy the tokenId from the word list above: the full id is the sentence id + "." + suffix (b1.s1 with cigarra=t6 gives b1.s1.t6). Never derive a tokenId by counting words. Never claim an action succeeded until its tool returns success.
+6. If the learner asks you to slow down, start your next reply with [[pace: slow]]; if they ask for normal speed, start it with [[pace: normal]]. Nothing else goes in double brackets.
+7. Before the learner has said anything, open with exactly one short sentence in ${learner.learningLocale} inviting them into the passage, then stop and wait.
+8. Reply in plain sentences only. Never use bullet points, numbered lists, headings, asterisks, or emoji.
+9. Never begin with filler such as "Okay" or "Let's see". No greetings, no praise.
+10. If the learner's message is empty, a single word, or does not make sense, do not summarize the passage; ask them to repeat the question in one sentence.
+11. ${COMPACT_SHAPE[ctx.mode]}`;
 
   return `${head}\n\n${renderDynamicContext(ctx)}\n\n${COMPACT_MODE_GUIDANCE[ctx.mode]}\n\n${rules}`;
 }

@@ -480,6 +480,23 @@ describe('buildSystemInstruction compact mode (the in-browser 2B model)', () => 
     expect(compact('pronunciation')).toMatch(/never (give|state) a numeric/i);
   });
 
+  // Recency: on the real model, with the shape rule in the middle of the
+  // list, four of four discuss replies answered in prose and never asked the
+  // follow-up question (planning/run9/B-report.md). The three rules the live
+  // failure broke are now the last three, shape last.
+  it('puts the no-markdown, no-filler and shape rules LAST, in that order', () => {
+    const out = compact('discuss');
+    const markdown = out.indexOf('Reply in plain sentences only.');
+    const filler = out.indexOf('Never begin with filler');
+    const repeat = out.indexOf("If the learner's message is empty");
+    const shape = out.indexOf('Two sentences that answer, then one question.');
+    expect(markdown).toBeGreaterThan(-1);
+    expect(filler).toBeGreaterThan(markdown);
+    expect(repeat).toBeGreaterThan(filler);
+    expect(shape).toBeGreaterThan(repeat);
+    expect(out.trimEnd().endsWith('unless the learner just asked you to stop.')).toBe(true);
+  });
+
   it('is shorter than the prompt it replaces (a 2B model has a small budget)', () => {
     for (const mode of ALL_MODES) {
       expect(compact(mode).length).toBeLessThan(GOLDEN_NON_COMPACT[mode].length);

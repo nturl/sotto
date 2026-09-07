@@ -18,6 +18,10 @@ import { webCursor } from './tokens';
 export type RowSpec = {
   label: string;
   value?: string;
+  /** Run 8 lane B: the plan row in Settings > Account states its value as an
+   * action ("See") rather than a fact, so it is set in accent. Every other
+   * row keeps the ink-2 default. */
+  accent?: boolean;
   destructive?: boolean;
   onPress?: () => void;
 };
@@ -32,7 +36,11 @@ export function Row({ spec, last }: { spec: RowSpec; last: boolean }) {
       </Text>
       <View style={styles.rowValue}>
         {spec.value ? (
-          <Text role="caption" size={14} color={spec.destructive ? 'warn' : 'ink2'}>
+          <Text
+            role="caption"
+            size={14}
+            color={spec.destructive ? 'warn' : spec.accent ? 'accent' : 'ink2'}
+          >
             {spec.value}
           </Text>
         ) : null}

@@ -21,6 +21,7 @@ import { radius, space } from '@sotto/core/theme';
 import { useCloud } from '../../src/cloud/provider';
 import { useMe } from '../../src/cloud/useMe';
 import { exportJson, importJson } from '../../src/platform/importExport';
+import { shouldShowPlanRow } from '../../src/paywall/planRow';
 import { useT } from '../../src/i18n/useT';
 import { BackLink } from '../../src/ui/BackLink';
 import { Button } from '../../src/ui/Button';
@@ -63,6 +64,11 @@ export default function SettingsScreen() {
   const cloud = useCloud();
   const me = useMe();
   const privateBooks = useSottoStore((s) => s.privateBooks);
+  const showPlanRow = shouldShowPlanRow({
+    cloudEnabled: cloud.enabled,
+    status: me.status,
+    plan: me.status === 'signed-in' ? me.me.entitlement.plan : undefined,
+  });
   const [manageImportsOpen, setManageImportsOpen] = useState(false);
 
   // Run 7, lane E: single source of truth for the own-provider row, read by
@@ -158,6 +164,20 @@ export default function SettingsScreen() {
                 : { label: t('account.signIn'), onPress: go('/account') },
               ...(me.status === 'signed-in'
                 ? [{ label: t('account.usageRow'), onPress: go('/usage') }]
+                : []),
+              // Run 8 PLAN decision 10: the plan nag left Home and lives here
+              // as a row. `shouldShowPlanRow` (src/paywall/planRow.ts) is the
+              // whole visibility rule; it replaced the once-per-session
+              // `claimNagSlot`, which made no sense for a settings list.
+              ...(showPlanRow
+                ? [
+                    {
+                      label: t('paywall.nag.copy'),
+                      value: t('paywall.nag.cta'),
+                      accent: true,
+                      onPress: go('/paywall'),
+                    },
+                  ]
                 : []),
             ]}
           />

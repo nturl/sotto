@@ -38,6 +38,22 @@ import { peachSelection } from '../tokens';
 import { useReducedMotion } from '../useReducedMotion';
 import type { SpeechSentence, SpeechToken } from '../SpeechFillText';
 
+/**
+ * The mockup's `.w.saved` (line 107) is a marker band, not a block fill:
+ * `linear-gradient(transparent 62%, var(--mark) 62%, var(--mark) 92%,
+ * transparent 92%)` — mark-coloured from 62% to 92% of the line box, so it
+ * reads as a highlighter sweep under the word rather than as the same
+ * device as the peach selection fill. RN Web forwards `backgroundImage`
+ * straight to CSS; native has no gradient in a Text background, so there it
+ * stays a plain mark fill (disclosed in DESIGN.md). The invented
+ * `skewX(-10deg)` appears nowhere in the mockup and is gone.
+ */
+const SAVED_BAND = `linear-gradient(transparent 62%, ${lightColors.mark} 62%, ${lightColors.mark} 92%, transparent 92%)`;
+const savedStyle: TextStyle =
+  Platform.OS === 'web'
+    ? ({ backgroundImage: SAVED_BAND } as TextStyle)
+    : { backgroundColor: lightColors.mark };
+
 const LONG_PRESS_MS = 350;
 
 type ThemeColors = Record<keyof (typeof schemes)['light'], string>;
@@ -121,10 +137,10 @@ function SpeechWord({
       style={[
         {
           color,
-          backgroundColor: filled ? peachSelection : saved ? lightColors.mark : 'transparent',
+          backgroundColor: filled ? peachSelection : 'transparent',
           borderRadius: radius.sm,
         },
-        saved ? { transform: [{ skewX: '-10deg' }] } : null,
+        saved && !filled ? savedStyle : null,
       ]}
     >
       {text}

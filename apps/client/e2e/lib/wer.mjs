@@ -14,18 +14,75 @@
  * up `wer.test.mjs` next to this file.
  */
 
+const ONES = [
+  'zero',
+  'one',
+  'two',
+  'three',
+  'four',
+  'five',
+  'six',
+  'seven',
+  'eight',
+  'nine',
+  'ten',
+  'eleven',
+  'twelve',
+  'thirteen',
+  'fourteen',
+  'fifteen',
+  'sixteen',
+  'seventeen',
+  'eighteen',
+  'nineteen',
+];
+const TENS = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+
+/**
+ * Spells a whole number 0-999 the way a TTS voice says it, so a digit in
+ * one side of the comparison and a word in the other are the same token.
+ * Anything larger is left as digits: past 999 the readings diverge
+ * ("nineteen hundred" / "one thousand nine hundred") and guessing wrong
+ * would invent errors rather than remove them.
+ */
+function spellNumber(n) {
+  if (n < 20) return ONES[n];
+  if (n < 100) {
+    const tens = TENS[Math.floor(n / 10)];
+    const rest = n % 10;
+    return rest ? `${tens} ${ONES[rest]}` : tens;
+  }
+  if (n < 1000) {
+    const hundreds = `${ONES[Math.floor(n / 100)]} hundred`;
+    const rest = n % 100;
+    return rest ? `${hundreds} ${spellNumber(rest)}` : hundreds;
+  }
+  return null;
+}
+
 /**
  * Folds a transcript to the tokens a WER comparison should see: lowercase,
- * accents stripped, punctuation dropped, digits left alone. Whisper writes
- * "Gray husky dog." and a caption may say "gray husky dog" — a difference in
- * casing or a full stop is not a word error.
+ * accents stripped, punctuation dropped, whole numbers 0-999 spelled out.
+ * Whisper writes "Gray husky dog." and a caption may say "gray husky dog" —
+ * a difference in casing or a full stop is not a word error.
+ *
+ * Numerals are folded because they are an ORTHOGRAPHY difference, not an
+ * audio one: Kokoro says "fifty" for "50", Whisper writes back whichever it
+ * feels like, and lane C measured 0.188 on a single sentence from that
+ * alone. Against a 0.35 gate a two-number reply could fail on spelling
+ * while sounding perfect (run 9 lane R, P2).
  */
 export function normalizeForWer(text) {
   return String(text ?? '')
     .toLowerCase()
     .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
+    .replace(/[\u0300-\u036f]/g, '')
     .replace(/[^a-z0-9'\s]/g, ' ')
+    .replace(/\b\d+\b/g, (digits) => {
+      const n = Number(digits);
+      const spelled = Number.isSafeInteger(n) ? spellNumber(n) : null;
+      return spelled ?? digits;
+    })
     .replace(/\s+/g, ' ')
     .trim();
 }

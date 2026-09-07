@@ -19,6 +19,24 @@ describe('normalizeForWer', () => {
     expect(normalizeForWer("It's the dog's trail.")).toBe("it's the dog's trail");
   });
 
+  it('spells whole numbers so "50" and "fifty" are the same token', () => {
+    // Orthography, not audio: Kokoro says "fifty below zero" either way.
+    expect(normalizeForWer('It is 50 below zero.')).toBe('it is fifty below zero');
+    expect(normalizeForWer('It is fifty below zero.')).toBe('it is fifty below zero');
+    expect(normalizeForWer('25 dogs')).toBe('twenty five dogs');
+    expect(normalizeForWer('twenty-five dogs')).toBe('twenty five dogs');
+    expect(normalizeForWer('chapter 3')).toBe('chapter three');
+    expect(normalizeForWer('107 miles')).toBe('one hundred seven miles');
+  });
+
+  it('leaves numbers past 999 as digits rather than guessing a reading', () => {
+    expect(normalizeForWer('the year 1903')).toBe('the year 1903');
+  });
+
+  it('scores a numeral against its spelled form as no error at all', () => {
+    expect(wordErrorRate('It is 50 below zero.', 'it is fifty below zero').wer).toBe(0);
+  });
+
   it('returns an empty string for punctuation-only input', () => {
     expect(normalizeForWer('… -- ?!')).toBe('');
     expect(tokenize('… -- ?!')).toEqual([]);

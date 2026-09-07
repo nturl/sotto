@@ -216,6 +216,15 @@ reusable at 8094). No repo file was changed to do this.
   mic ring is on screen in `SPEAKING` at 375 and 1440.
 - New on the voice screen: hold the **space bar** to talk (web), and pressing the
   mic while the tutor is talking now cuts it off instead of talking over it.
-- A misheard learner line (the "you" in your report) now carries
-  **"Not what you said? Type it"** — it drops the transcript into the text box,
-  focused, for you to fix and send.
+- A misheard learner line now carries **"Not what you said? Type it"** — it
+  drops the transcript into the text box, focused, for you to fix and send.
+
+  Corrected by lane H after lane R's review (P2): this does **not** apply to
+  the "you" in your report, and the sentence above originally said it did.
+  Lane A's gate (`transcript-gate.ts`) stops "you" before any learner caption
+  is posted at all — the screen shows "I didn't catch that. Could you say it
+  again?" and there is no learner caption to correct. The correction
+  affordance attaches only to a *learner* caption
+  (`captionCorrection.ts:33`), so it covers the other half of the problem:
+  transcripts that are real but wrong ("the dog was gray" heard as "the door
+  was grey"), which the gate deliberately lets through.

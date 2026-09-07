@@ -783,3 +783,17 @@ Spec `planning/design/LANDING-V5.md` (direction C of `landing-directions-2.html`
 - ~22:45 Noel: "deploy it". `fly deploy --app sotto-cloud` from `~/Claude/sotto-cloud` at `fc806ee` (vendor pin `b4de9cc`, run 7 final): image `deployment-01M1WVB0FR2161TEZV8442FTQW`, machine `83095da7642648` updated in place, health passing. FINAL.md §5 checks: `/content/packs` is JSON starting `[{`; `/auth/config` is `{"magicLink":true,"apple":false,"google":false}`; `/` signed out lands on `/account?intent=start` at 375 and 1440; `/library` lists books (La Chèvre de M. Seguin, Three Fables, Travel). Not walked: the magic-link round trip (needs Noel's inbox).
 - ~23:10 Noel: make the play ring read the passage. Kokoro clip of the sample passage (ff_siwis, 8.45 s, 23/23 words whisper-aligned with the pipeline's align.ts), 34 KB mp3 inline; words, track, and readout follow real playback; still preview unchanged until pressed. `745ac72`, deployed `dpl_EhTquxXvnVccwumC2QcFqGewjhny`. Details in LANDING-V5.md "Revision".
 - Also diagnosed, not fixed (Noel saw the 09-05 landing in Dia): `public/sw.js` serves navigations cache-first from a manifest-versioned shell cache and only re-reads the manifest at install/activate, so a returning visitor keeps the old landing until `sw.js` itself changes bytes. Proposed fix: network-first navigations with cache fallback, plus a build-time version stamp in sw.js. Awaiting Noel's go-ahead (the file ships to both origins).
+
+## Run 8 (2026-09-06 → 07, Fable orchestrator, Opus lanes; spec planning/KICKOFF-8-FABLE.md)
+
+SHIPPED — the app UI v2 mockup, deployed to the free origin at `49265dc` (Vercel `sotto-rhl24li57`), hosted smoke PASS live at 375 and 1440. Handoff: `planning/run8/FINAL.md`.
+- Covers rendered at runtime from metadata (six papers by collection, spine, one mark, mono stamp); the shelf under every rail; one ribbon on the current book; "p. X of Y" instead of bars; no pills anywhere.
+- Home: Continue reading → Today's story spread (Read / Listen / About) → Recommended for {level} → Your books; plan nag moved to Settings › Account.
+- Library: level scale + collection links over the seven core categories + inline search; `?filter=` kept, `?level=` added, legacy values rewritten.
+- Reader: 640 measure, plain tokens (55 % peach selection, marker band), transport under the passage / inside the phone sheet, panel ending in "Talk about this passage".
+- Tab bar on the mockup's four glyphs; DESIGN.md records the widened accent, the paper table, the shelf, the cover system, the four verify findings and "no pills".
+- Review (R) found 3 P0 / 9 P1 / 16 P2; fix pass (H) closed every P0 and P1 with tests (client 385, repo 793). Isolated check green except prettier on the landing file a parallel session keeps editing.
+
+NEEDS NOEL — `fly deploy` sotto-cloud at `906b159`; CONFIRM 29 (pages ≈ minutes), 30 (55 % selection), 31 (no lemma/POS data for the form line), 32 (Recommended widens by level); Chip.tsx deletion; the catalog thinness (palette, A2, collections); the ink-3 sweep.
+
+INCIDENT — a parallel session ran `git add -A` in the shared tree throughout the run and swept four lanes' staged work into its own commits (`b952095`, `fc423f9`, `02015b0`). Nothing lost, attribution wrong; read the run by diff. Next run: one worktree per lane.

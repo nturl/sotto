@@ -16,12 +16,12 @@ server.
 With a key stored, the app runs the same four-stage tutor cascade every
 other path runs, but from the page itself:
 
-| Stage          | Endpoint                               | Model                    |
-| -------------- | -------------------------------------- | ------------------------ |
-| Speech to text | `POST /v1/audio/transcriptions`        | `gpt-transcribe`         |
-| Tutor replies  | `POST /v1/chat/completions` (streamed) | `gpt-5.6-terra`          |
-| Tutor speech   | `POST /v1/audio/speech`                | `gpt-4o-mini-tts`        |
-| Key check      | `GET /v1/models`                       | —                        |
+| Stage          | Endpoint                               | Model             |
+| -------------- | -------------------------------------- | ----------------- |
+| Speech to text | `POST /v1/audio/transcriptions`        | `gpt-transcribe`  |
+| Tutor replies  | `POST /v1/chat/completions` (streamed) | `gpt-5.6-terra`   |
+| Tutor speech   | `POST /v1/audio/speech`                | `gpt-4o-mini-tts` |
+| Key check      | `GET /v1/models`                       | —                 |
 
 The tutor's prompt, its seven tools (save a word, move the reading
 position, show an explanation, …) and its four modes are identical to the

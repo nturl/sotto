@@ -764,25 +764,68 @@
           <div class="book-col">
             <div class="book-wrap">
               <ul class="tabs" role="tablist" aria-label="Scenes">
-                <li><a class="tab" role="tab" href="#scene-read" data-state="read" aria-selected="true"><b>01</b> Read</a></li>
-                <li><a class="tab" role="tab" href="#scene-tap" data-state="tap" aria-selected="false"><b>02</b> Tap</a></li>
-                <li><a class="tab" role="tab" href="#scene-listen" data-state="listen" aria-selected="false"><b>03</b> Listen</a></li>
-                <li><a class="tab" role="tab" href="#scene-speak" data-state="speak" aria-selected="false"><b>04</b> Speak</a></li>
-                <li><a class="tab" role="tab" href="#scene-power" data-state="power" aria-selected="false"><b>05</b> Power</a></li>
+                <li>
+                  <a
+                    class="tab"
+                    role="tab"
+                    href="#scene-read"
+                    data-state="read"
+                    aria-selected="true"
+                    ><b>01</b> Read</a
+                  >
+                </li>
+                <li>
+                  <a class="tab" role="tab" href="#scene-tap" data-state="tap" aria-selected="false"
+                    ><b>02</b> Tap</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="tab"
+                    role="tab"
+                    href="#scene-listen"
+                    data-state="listen"
+                    aria-selected="false"
+                    ><b>03</b> Listen</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="tab"
+                    role="tab"
+                    href="#scene-speak"
+                    data-state="speak"
+                    aria-selected="false"
+                    ><b>04</b> Speak</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="tab"
+                    role="tab"
+                    href="#scene-power"
+                    data-state="power"
+                    aria-selected="false"
+                    ><b>05</b> Power</a
+                  >
+                </li>
               </ul>
 
               <div class="book" id="book" data-state="read">
                 <div class="page left">
                   <span class="meta">Chapitre un · Français · A2</span>
                   <p class="passage" id="passage" lang="fr">
-                    <span class="w">Sotto</span> <span class="w">est</span> <span class="w">un</span>
-                    <span class="w">livre</span> <span class="w">gratuit</span> <span class="w">et</span>
+                    <span class="w">Sotto</span> <span class="w">est</span>
+                    <span class="w">un</span> <span class="w">livre</span>
+                    <span class="w">gratuit</span> <span class="w">et</span>
                     <span class="w" data-word="adapte">adapté</span>. <span class="w">Vous</span>
-                    <span class="w">choisissez</span> <span class="w">une</span> <span class="w">langue</span>
-                    <span class="w">et</span> <span class="w">un</span> <span class="w mark">niveau</span>,
-                    <span class="w">puis</span> <span class="w">vous</span> <span class="w">lisez</span>.
-                    <span class="w">Touchez</span> <span class="w">un</span> <span class="w">mot</span>
-                    <span class="w">pour</span> <span class="w">le</span> <span class="w">traduire</span>.
+                    <span class="w">choisissez</span> <span class="w">une</span>
+                    <span class="w">langue</span> <span class="w">et</span>
+                    <span class="w">un</span> <span class="w mark">niveau</span>,
+                    <span class="w">puis</span> <span class="w">vous</span>
+                    <span class="w">lisez</span>. <span class="w">Touchez</span>
+                    <span class="w">un</span> <span class="w">mot</span> <span class="w">pour</span>
+                    <span class="w">le</span> <span class="w">traduire</span>.
                   </p>
                 </div>
                 <div class="page right">
@@ -835,7 +878,9 @@
                     <fieldset class="power">
                       <legend class="meta">Where the tutor runs</legend>
                       <label
-                        ><input type="radio" name="pw" value="device" checked /><span class="ind"></span
+                        ><input type="radio" name="pw" value="device" checked /><span
+                          class="ind"
+                        ></span
                         ><span>On this device.</span></label
                       >
                       <label
@@ -865,10 +910,11 @@
                 </p>
                 <p data-for="plan">
                   <b>Through Sotto's server.</b> The plan: the hosted tutor with nothing to set up.
-                  $9.99 a month or $79 a year after a 3-day trial, at a separate sign-in
-                  (<a href="https://app.readsotto.app/account">app.readsotto.app</a>). Your voice
-                  goes to OpenAI through Sotto's server; no transcripts or recordings are stored,
-                  only usage minutes and billing.
+                  $9.99 a month or $79 a year after a 3-day trial, at a separate sign-in (<a
+                    href="https://app.readsotto.app/account"
+                    >app.readsotto.app</a
+                  >). Your voice goes to OpenAI through Sotto's server; no transcripts or recordings
+                  are stored, only usage minutes and billing.
                 </p>
                 <p data-for="key">
                   <b>With your own key.</b> Works with or without the plan. Paste an OpenAI key in
@@ -877,7 +923,8 @@
                   <a href="https://github.com/nturl/sotto/blob/main/docs/byok.md">How it works</a>
                 </p>
                 <p data-for="self">
-                  <b>On your own machine.</b> Free, on your own hardware. <code>docker compose up</code>
+                  <b>On your own machine.</b> Free, on your own hardware.
+                  <code>docker compose up</code>
                   serves the app and the tutor from one origin, with local models or your own key.
                   <a href="https://github.com/nturl/sotto/blob/main/docs/self-hosting.md"
                     >Self-hosting guide</a
@@ -899,7 +946,9 @@
           </div>
           <div class="scene" id="scene-speak" data-scene="speak">
             <p class="meta">04 · Speak</p>
-            <p class="line">Talk about the passage with a voice tutor that already knows what you read.</p>
+            <p class="line">
+              Talk about the passage with a voice tutor that already knows what you read.
+            </p>
             <p class="body">Say what you think out loud.</p>
           </div>
           <div class="scene" id="scene-power" data-scene="power">
@@ -950,10 +999,40 @@
               <svg viewBox="0 0 200 264">
                 <rect x="0" y="0" width="200" height="264" rx="2" fill="#1F4F57" />
                 <rect x="20" y="30" width="160" height="1.5" fill="#F2C8B4" />
-                <text x="100" y="118" text-anchor="middle" fill="#FBF6EC" font-family="Fraunces, 'Iowan Old Style', Georgia, serif" font-weight="300" font-size="34">Sotto</text>
-                <text x="100" y="142" text-anchor="middle" fill="#F2C8B4" font-family="Fraunces, 'Iowan Old Style', Georgia, serif" font-size="12" font-style="italic">un livre adapté</text>
+                <text
+                  x="100"
+                  y="118"
+                  text-anchor="middle"
+                  fill="#FBF6EC"
+                  font-family="Fraunces, 'Iowan Old Style', Georgia, serif"
+                  font-weight="300"
+                  font-size="34"
+                >
+                  Sotto
+                </text>
+                <text
+                  x="100"
+                  y="142"
+                  text-anchor="middle"
+                  fill="#F2C8B4"
+                  font-family="Fraunces, 'Iowan Old Style', Georgia, serif"
+                  font-size="12"
+                  font-style="italic"
+                >
+                  un livre adapté
+                </text>
                 <rect x="20" y="216" width="160" height="1.5" fill="#F2C8B4" />
-                <text x="100" y="240" text-anchor="middle" fill="#FBF6EC" font-family="ui-monospace, Menlo, monospace" font-size="9" letter-spacing="1.5">FRANÇAIS · A2</text>
+                <text
+                  x="100"
+                  y="240"
+                  text-anchor="middle"
+                  fill="#FBF6EC"
+                  font-family="ui-monospace, Menlo, monospace"
+                  font-size="9"
+                  letter-spacing="1.5"
+                >
+                  FRANÇAIS · A2
+                </text>
               </svg>
             </div>
             <div>
@@ -994,9 +1073,15 @@
       <div class="col">
         <nav>
           <a class="tap-link" href="https://github.com/nturl/sotto">GitHub</a>
-          <a class="tap-link" href="https://github.com/nturl/sotto/blob/main/docs/self-hosting.md">Self-hosting</a>
-          <a class="tap-link" href="https://github.com/nturl/sotto/blob/main/docs/byok.md">Your own key</a>
-          <a class="tap-link" href="https://github.com/nturl/sotto/blob/main/docs/adding-a-book.md">Add a book</a>
+          <a class="tap-link" href="https://github.com/nturl/sotto/blob/main/docs/self-hosting.md"
+            >Self-hosting</a
+          >
+          <a class="tap-link" href="https://github.com/nturl/sotto/blob/main/docs/byok.md"
+            >Your own key</a
+          >
+          <a class="tap-link" href="https://github.com/nturl/sotto/blob/main/docs/adding-a-book.md"
+            >Add a book</a
+          >
         </nav>
         <p>
           Code Apache-2.0. Stories CC BY-SA 4.0. The books are machine-adapted drafts and their
@@ -1044,7 +1129,7 @@
             fillTimers.push(
               setTimeout(function () {
                 w.classList.add('said');
-              }, i * 60)
+              }, i * 60),
             );
           });
         }
@@ -1090,7 +1175,7 @@
                   if (en.isIntersecting) setState(en.target.getAttribute('data-scene'));
                 });
               },
-              { threshold: 0.5, rootMargin: '-30% 0px -30% 0px' }
+              { threshold: 0.5, rootMargin: '-30% 0px -30% 0px' },
             );
             scenes.forEach(function (s) {
               observer.observe(s);

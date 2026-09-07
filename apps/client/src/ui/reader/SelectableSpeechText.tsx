@@ -34,7 +34,7 @@ import { colors as lightColors, motion, radius, type schemes } from '@sotto/core
 // base color follows the active scheme too — see
 // ui/theme/ThemedText.tsx's doc comment.
 import { ThemedText as Text, useTheme } from '../theme';
-import { peachSelection } from '../tokens';
+import { peachSelection, peachSelectionOpaque } from '../tokens';
 import { useReducedMotion } from '../useReducedMotion';
 import type { SpeechSentence, SpeechToken } from '../SpeechFillText';
 
@@ -124,6 +124,10 @@ function SpeechWord({
   // them comes from the light palette too. In dark, the active `colors.ink`
   // is cream and measured 2.95:1 on the mark.
   const scheme = filled || saved ? lightColors : colors;
+  // On a dark ground the 55% fill composites to a muddy grey, so the
+  // selection uses the opaque equivalent there (see ui/tokens.ts).
+  const selectionFill =
+    colors.canvas === lightColors.canvas ? peachSelection : peachSelectionOpaque;
   const color = fill.interpolate({ inputRange: [0, 1], outputRange: [scheme.quiet, scheme.ink] });
 
   return (
@@ -137,7 +141,7 @@ function SpeechWord({
       style={[
         {
           color,
-          backgroundColor: filled ? peachSelection : 'transparent',
+          backgroundColor: filled ? selectionFill : 'transparent',
           borderRadius: radius.sm,
         },
         saved && !filled ? savedStyle : null,

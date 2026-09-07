@@ -19,6 +19,21 @@ export function withAlpha(hexToken: string, alpha: number): string {
  * is `rgba(242,200,180,.55)`). */
 export const peachSelection = withAlpha(colors.peach, 0.55);
 
+/** The same fill, flattened against the light canvas it was measured on.
+ * A 55% peach over the *dark* canvas composites to a muddy grey (ink on it
+ * measures 3.95:1), so on a dark ground the selection uses this opaque
+ * equivalent and keeps the mockup's appearance and its ink text. */
+export const peachSelectionOpaque = flattenOnCanvas(colors.peach, 0.55);
+
+function flattenOnCanvas(hexToken: string, alpha: number): string {
+  const channel = (hex: string, index: number) =>
+    parseInt(hex.replace('#', '').slice(index * 2, index * 2 + 2), 16);
+  const mixed = [0, 1, 2].map((i) =>
+    Math.round(alpha * channel(hexToken, i) + (1 - alpha) * channel(colors.canvas, i)),
+  );
+  return `rgb(${mixed[0]},${mixed[1]},${mixed[2]})`;
+}
+
 /** Dotted word underline: peach at 35%. Run 8 removes the underline from the
  * reader (decision 7: "No dotted underline on any token"), but the voice
  * screen's SpeechFillText.tsx — not this lane's file — still reads it, so the

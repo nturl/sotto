@@ -20,7 +20,7 @@ import { Animated, Easing, Platform, Text as RNText, type TextStyle } from 'reac
 import { colors as lightColors, motion, radius } from '@sotto/core/theme';
 import { Text } from './Text';
 import { useTheme } from './theme';
-import { peachSelection, peachUnderline } from './tokens';
+import { peachSelection, peachSelectionOpaque, peachUnderline } from './tokens';
 import { useReducedMotion } from './useReducedMotion';
 
 /**
@@ -109,6 +109,10 @@ function SpeechWord({
   // both schemes (ui/tokens.ts derives `peachSelection` from the light
   // palette), so the text on them reads from the light palette too.
   const scheme = selected || saved ? lightColors : colors;
+  // On a dark ground the 55% fill composites to a muddy grey, so the
+  // selection uses the opaque equivalent there (see ui/tokens.ts).
+  const selectionFill =
+    colors.canvas === lightColors.canvas ? peachSelection : peachSelectionOpaque;
   const color = fill.interpolate({ inputRange: [0, 1], outputRange: [scheme.quiet, scheme.ink] });
 
   return (
@@ -118,7 +122,7 @@ function SpeechWord({
       style={[
         {
           color,
-          backgroundColor: selected ? peachSelection : 'transparent',
+          backgroundColor: selected ? selectionFill : 'transparent',
           borderRadius: radius.sm,
         },
         saved && !selected ? savedStyle : null,

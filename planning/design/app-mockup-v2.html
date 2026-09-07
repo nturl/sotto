@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sotto app UI v2</title>
+<style>
+:root{
+  --bg:#ECE9E1; --canvas:#F4ECDF; --surface:#FBF6EC; --surface2:#EFE4D2;
+  --ink:#221E1B; --ink2:#6E6459; --ink3:#9C9287; --hair:rgba(34,30,27,.12); --hair2:rgba(34,30,27,.2);
+  --accent:#E4572E; --peach:#F2C8B4; --mark:#FFD8A8; --quiet:#B5AB9F;
+  --sand:#E8D6B8; --teal:#1F4F57; --sage:#6E9A7C; --brick:#8C3B2E; --slate:#2B2A28;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:Inter,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--sans)}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:clamp(20px,4vw,56px)}
+.eyebrow{font:400 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+h1{font:300 clamp(34px,2.4rem + 1.6vw,56px)/1.02 var(--serif);letter-spacing:-.02em;margin:10px 0 14px;max-width:18ch}
+.lede{max-width:38rem;color:var(--ink2);font-size:17px;line-height:1.55;margin:0 0 8px}
+.changes{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px 32px;margin:36px 0 0;padding:28px 0 0;border-top:1px solid var(--hair2);list-style:none}
+.changes li{font-size:14.5px;line-height:1.5;color:var(--ink2)}
+.changes b{display:block;color:var(--ink);font-weight:500;margin-bottom:2px}
+section.item{margin-top:64px}
+section.item>header{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--hair2);padding-bottom:10px;margin-bottom:18px;gap:16px;flex-wrap:wrap}
+section.item h2{font:300 28px/1.1 var(--serif);letter-spacing:-.01em;margin:0}
+section.item p.note{margin:0;font-size:14px;color:var(--ink2);max-width:52rem}
+.scroller{overflow-x:auto;padding-bottom:8px}
+.frame{width:1100px;background:var(--canvas);border:1px solid var(--hair2);border-radius:10px;overflow:hidden;color:var(--ink)}
+.phones{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start}
+.phone{width:390px;max-width:100%;height:820px;background:var(--canvas);border:1px solid var(--hair2);border-radius:28px;overflow:hidden;position:relative;display:flex;flex-direction:column}
+/* app chrome */
+.app{display:grid;grid-template-columns:220px 1fr;min-height:720px}
+.side{background:var(--surface);border-right:1px solid var(--hair);padding:24px 20px;display:flex;flex-direction:column}
+.wordmark{font:300 26px/1 var(--serif);letter-spacing:-.01em;margin:0 0 28px}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav a{text-decoration:none;padding:9px 12px;border-radius:10px;font-size:15px;color:var(--ink2)}
+.nav a.on{background:var(--surface2);color:var(--ink);font-weight:500}
+.nav.bottom{margin-top:auto}
+.main{padding:40px 48px 48px}
+.titlerow{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.display{font:300 34px/1.05 var(--serif);letter-spacing:-.015em;margin:0}
+.icons{display:flex;gap:6px}
+.ib{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;color:var(--ink);background:transparent;border:0}
+.ib svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.h2{font:400 22px/1.15 var(--serif);letter-spacing:-.01em;margin:0}
+.rail{margin-top:40px}
+.railhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.seeall{font-size:14px;font-weight:500;color:var(--ink2);text-decoration:none;display:inline-flex;align-items:center;min-height:40px;padding:0 4px}
+.shelf{display:flex;gap:24px;align-items:flex-end;padding:0 0 12px;border-bottom:1.5px solid var(--hair2);position:relative}
+.book{width:120px;flex:none;text-decoration:none;color:inherit;position:relative}
+.book .tt{margin:12px 0 0;font:400 14px/1.3 var(--serif);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.book .au{margin:2px 0 0;font-size:12.5px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.book .pg{margin:2px 0 0;font:400 11px/1 var(--mono);letter-spacing:.06em;color:var(--ink2);text-transform:uppercase}
+/* cover */
+.cv{width:120px;height:180px;border-radius:2px;position:relative;box-shadow:6px 6px 0 0 var(--peach);display:flex;flex-direction:column;justify-content:flex-end;padding:12px 12px 12px 15px;overflow:hidden}
+.cv:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:rgba(0,0,0,.22)}
+.cv .g{position:absolute;top:16px;left:15px;right:12px;font:300 64px/1 var(--serif);letter-spacing:-.04em}
+.cv .g.sym{font-size:44px;top:22px}
+.cv .t{font:300 13px/1.2 var(--serif);margin:0;position:relative;padding-right:6px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.cv .a{font:400 8px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;margin:6px 0 0;position:relative;padding-right:30px}
+.cv .lv{position:absolute;right:8px;bottom:8px;font:400 9px/1 var(--mono);letter-spacing:.08em;padding:3px 4px;border:1px solid currentColor;border-radius:2px}
+.cv.sand{background:var(--sand);color:var(--ink)}
+.cv.teal{background:var(--teal);color:#F4ECDF}
+.cv.sage{background:var(--sage);color:var(--ink)}
+.cv.brick{background:var(--brick);color:#F4ECDF}
+.cv.peach{background:var(--peach);color:var(--ink)}
+.cv.slate{background:var(--slate);color:#F4ECDF}
+.ribbon{position:absolute;top:-6px;right:14px;width:12px;height:44px;background:var(--accent);z-index:2}
+.ribbon:after{content:"";position:absolute;left:0;bottom:-6px;border-left:6px solid var(--accent);border-right:6px solid var(--accent);border-bottom:6px solid transparent}
+/* spread */
+.spread{display:grid;grid-template-columns:184px 1fr;gap:0;background:var(--surface);border:1px solid var(--hair);border-radius:10px;overflow:hidden}
+.spread .l{background:var(--surface2);display:grid;place-items:center;padding:28px 24px 28px 24px;border-right:1px solid var(--hair)}
+.spread .r{padding:28px 32px}
+.spread h3{font:300 30px/1.1 var(--serif);letter-spacing:-.015em;margin:8px 0 6px}
+.meta{font:400 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.spread p.syn{font-size:15px;line-height:1.5;color:var(--ink2);max-width:46ch;margin:12px 0 20px}
+.btns{display:flex;gap:12px;align-items:center}
+.btn{font:500 15px/1 var(--sans);padding:13px 18px;min-height:44px;border-radius:10px;border:0;cursor:pointer}
+.btn.cta{background:var(--accent);color:#161311;box-shadow:4px 4px 0 0 var(--ink)}
+.btn.sec{background:var(--surface2);color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink2);padding-left:6px}
+/* library controls */
+.controls{display:flex;gap:28px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.scale{display:inline-flex;border:1px solid var(--hair2);border-radius:10px;overflow:hidden}
+.scale span{padding:8px 13px;font:400 12px/1 var(--mono);letter-spacing:.06em;border-right:1px solid var(--hair2);color:var(--ink2)}
+.scale span:last-child{border-right:0}
+.scale span.on{background:var(--ink);color:var(--surface)}
+.coll{display:flex;gap:18px;font-size:14px}
+.coll a{text-decoration:none;color:var(--ink2);display:inline-flex;align-items:center;min-height:40px;padding:0 2px}
+.coll a.on{color:var(--ink);box-shadow:inset 0 -1.5px 0 var(--ink)}
+.search{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--surface2);border-radius:10px;padding:9px 12px;width:240px;color:var(--ink2);font-size:14px}
+.search svg{width:16px;height:16px;stroke:var(--ink2);fill:none;stroke-width:1.6}
+/* reader */
+.reader{display:grid;grid-template-columns:1fr 360px;min-height:720px}
+.rd{padding:28px 48px 24px;position:relative}
+.rd .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}
+.rd .chap{font:400 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.passage{max-width:640px;margin:0 auto;font:400 20px/1.55 var(--serif);color:var(--ink)}
+.passage p{margin:0 0 1em}
+.w{border-radius:2px;padding:0 1px}
+.w.sel{background:rgba(242,200,180,.55)}
+.w.saved{background:linear-gradient(transparent 62%,var(--mark) 62%,var(--mark) 92%,transparent 92%)}
+.transport{max-width:640px;margin:28px auto 0;border-top:1px solid var(--hair);padding-top:14px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px}
+.transport .mono{font:400 11px/1 var(--mono);letter-spacing:.06em;color:var(--ink2)}
+.transport .tc{display:flex;gap:18px;align-items:center;justify-content:center}
+.play{width:44px;height:44px;border-radius:9999px;border:2px solid var(--accent);display:grid;place-items:center}
+.play:after{content:"";border-left:12px solid var(--accent);border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
+.tc svg{width:18px;height:18px;stroke:var(--ink);fill:none;stroke-width:1.6}
+.segs{display:flex;gap:4px;margin-top:12px;max-width:640px;margin-left:auto;margin-right:auto}
+.segs i{flex:1;height:3px;background:var(--surface2);border-radius:2px}
+.segs i.d{background:var(--ink)}
+.panel{background:var(--surface);border-left:1px solid var(--hair);padding:28px 28px 24px;display:flex;flex-direction:column}
+.panel .word{font:400 28px/1.1 var(--serif);margin:0}
+.panel .gl{font-size:16px;color:var(--ink2);margin:6px 0 0}
+.panel .ph{font:400 12px/1 var(--mono);letter-spacing:.04em;color:var(--ink2);margin:6px 0 0}
+.spk{width:44px;height:44px;border-radius:9999px;border:2px solid var(--accent);display:grid;place-items:center;margin-left:auto}
+.spk svg{width:18px;height:18px;stroke:var(--accent);fill:none;stroke-width:1.8}
+.pactions{display:flex;gap:14px;align-items:center;margin-top:18px}
+.save{display:inline-flex;gap:8px;align-items:center;font:500 14px/1 var(--sans);padding:11px 14px;border-radius:10px;background:var(--surface2)}
+.save.done{background:var(--mark);border:1.5px solid var(--ink);box-shadow:4px 4px 0 0 var(--ink)}
+.save svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8}
+.cap{font-size:13px;color:var(--ink2)}
+.ex{margin-top:26px;padding-top:18px;border-top:1px solid var(--hair)}
+.ex .eyebrow{margin-bottom:8px}
+.ex p{margin:0;font:400 15px/1.5 var(--serif);color:var(--ink)}
+.ex p em{font-style:normal;background:linear-gradient(transparent 62%,var(--mark) 62%,var(--mark) 92%,transparent 92%)}
+.talk{margin-top:auto;display:flex;gap:10px;align-items:center;justify-content:center;background:var(--surface2);border-radius:10px;padding:14px;font:500 15px/1 var(--sans)}
+.talk svg{width:18px;height:18px;stroke:var(--ink);fill:none;stroke-width:1.6}
+/* phone */
+.pmain{padding:22px 20px 0;flex:1;overflow:hidden}
+.pmain .titlerow{margin-bottom:18px}
+.pmain .display{font-size:32px}
+.pmain .rail{margin-top:28px}
+.pmain .shelf{gap:18px;overflow:hidden}
+.pmain .book{width:104px}
+.pmain .cv{width:104px;height:156px;padding:10px 10px 10px 13px}
+.pmain .cv .g{font-size:54px;top:14px}
+.pmain .cv .g.sym{font-size:38px;top:18px}
+.pmain .spread{grid-template-columns:132px 1fr}
+.pmain .spread .l{padding:18px 14px}
+.pmain .spread .r{padding:16px 16px 18px}
+.pmain .spread h3{font-size:22px;margin:6px 0 4px}
+.pmain .spread p.syn{display:none}
+.pmain .btn{padding:11px 14px;font-size:14px}
+.tabs{margin-top:auto;background:var(--surface);border-top:1px solid var(--hair);display:grid;grid-template-columns:repeat(4,1fr);padding:10px 8px 22px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--ink2);text-decoration:none}
+.tab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.tab.on{color:var(--accent);font-weight:500}
+.pmain .controls{gap:14px}
+.pmain .scale span{padding:8px 9px;font-size:11px}
+.pmain .search{width:100%;margin:0 0 14px}
+/* phone reader */
+.prd{padding:18px 20px 0;flex:1;position:relative;overflow:hidden}
+.prd .passage{font-size:19px;line-height:1.55}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--hair);border-radius:10px 10px 0 0;padding:10px 20px 22px}
+.handle{width:36px;height:4px;border-radius:2px;background:var(--ink3);margin:0 auto 14px;opacity:.6}
+.sheet .row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.sheet .word{font:400 24px/1.1 var(--serif);margin:0}
+.sheet .gl{font-size:15px;color:var(--ink2);margin:4px 0 0}
+.sheet .pactions{margin-top:14px}
+.sheet .talk{margin-top:14px;padding:12px}
+.fade{position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(rgba(244,236,223,0),var(--canvas));pointer-events:none}
+.legend{margin-top:64px;padding-top:24px;border-top:1px solid var(--hair2);display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px 32px;font-size:13.5px;color:var(--ink2)}
+.legend b{color:var(--ink);font-weight:500}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-1px;margin-right:8px;border:1px solid var(--hair2)}
+footer{margin-top:56px;font:400 11px/1.6 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+@media (max-width:640px){
+  .phone{height:760px}
+  .changes{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Sotto · app UI · v2 mockup · 2026-09-06</p>
+  <h1>Books that look like books, on shelves that hold them.</h1>
+  <p class="lede">Same paper, sharper edges. The covers become a typographic system instead of one repeated motif, every rail rests on a shelf, and the one coral ribbon marks the book you are in. Chrome that was not helping a reader choose, read, or continue is gone.</p>
+  <ul class="changes">
+    <li><b>Cover system</b>Six paper colours by collection, a 3px spine, one initial or one glyph, title in the display face, author in small caps, level stamped in mono. No more moon-and-triangle set.</li>
+    <li><b>The shelf</b>Rails sit on a 1.5px hairline. It replaces the stray progress underline and the second shadow under every tile.</li>
+    <li><b>The ribbon</b>Accent's job widens from "CTA and active tab" to "where you are": the book you are reading wears a coral ribbon; progress reads as "p. 12 of 40" in mono, not a bar.</li>
+    <li><b>Home order</b>Continue reading first, then Today's story as a spread with Read and Listen, then Recommended. The plan nag leaves Home for Settings.</li>
+    <li><b>Library controls</b>One hairline-segmented level scale and plain collection links. No pills anywhere; "See all" is a text link.</li>
+    <li><b>Reader</b>Passage column 640 centered with a quiet transport under it; plain tokens (no dotted underline) with peach only on the selected word; the panel keeps word, gloss, speaker, Save, and ends with "Talk about this passage".</li>
+  </ul>
+
+  <!-- 1. Desktop Home -->
+  <section class="item">
+    <header><h2>Desktop · For you</h2><p class="note">Continue reading leads. Today's story is a spread, not a gradient card. Nothing between the reader and the books.</p></header>
+    <div class="scroller"><div class="frame"><div class="app">
+      <aside class="side">
+        <p class="wordmark">Sotto</p>
+        <nav class="nav"><a class="on" href="#">For you</a><a href="#">Library</a><a href="#">Vocabulary</a></nav>
+        <nav class="nav bottom"><a href="#">Settings</a></nav>
+      </aside>
+      <div class="main">
+        <div class="titlerow"><h1 class="display">For you</h1>
+          <div class="icons">
+            <span class="ib" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+            <span class="ib" aria-label="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></span>
+          </div>
+        </div>
+
+        <div class="rail" style="margin-top:0">
+          <div class="railhead"><h2 class="h2">Continue reading</h2></div>
+          <div class="shelf">
+            <a class="book" href="#"><span class="ribbon"></span><div class="cv sand"><span class="g">C</span><p class="t">La Chèvre de M. Seguin</p><p class="a">Alphonse Daudet</p><span class="lv">A2</span></div><p class="tt">La Chèvre de M. Seguin</p><p class="au">Alphonse Daudet</p><p class="pg">p. 12 of 40</p></a>
+            <a class="book" href="#"><div class="cv teal"><span class="g">F</span><p class="t">Trois fables de La Fontaine</p><p class="a">Jean de La Fontaine</p><span class="lv">A1</span></div><p class="tt">Trois fables</p><p class="au">Jean de La Fontaine</p><p class="pg">p. 3 of 18</p></a>
+          </div>
+        </div>
+
+        <div class="rail">
+          <div class="railhead"><h2 class="h2">Today's story</h2><span class="meta">Changes at midnight</span></div>
+          <div class="spread">
+            <div class="l"><div class="cv brick"><span class="g sym">✶</span><p class="t">Le Petit Chaperon rouge</p><p class="a">Charles Perrault</p><span class="lv">A1</span></div></div>
+            <div class="r">
+              <p class="meta">7 min · A1 · French</p>
+              <h3>Le Petit Chaperon rouge</h3>
+              <p class="syn">A girl, a basket, a wood, and a wolf who talks too much. Adapted to A1 in short sentences with the whole story narrated.</p>
+              <div class="btns"><button class="btn cta">Read</button><button class="btn sec">Listen</button><button class="btn ghost">About this book</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rail">
+          <div class="railhead"><h2 class="h2">Recommended for A2</h2><a class="seeall" href="#">See all</a></div>
+          <div class="shelf">
+            <a class="book" href="#"><div class="cv sage"><span class="g">V</span><p class="t">Le Tour du monde en quatre-vingts jours</p><p class="a">Jules Verne</p><span class="lv">A2</span></div><p class="tt">Le Tour du monde</p><p class="au">Jules Verne</p><p class="pg">42 min</p></a>
+            <a class="book" href="#"><div class="cv peach"><span class="g">B</span><p class="t">Le Chat botté</p><p class="a">Charles Perrault</p><span class="lv">A2</span></div><p class="tt">Le Chat botté</p><p class="au">Charles Perrault</p><p class="pg">9 min</p></a>
+            <a class="book" href="#"><div class="cv slate"><span class="g sym">◐</span><p class="t">Cendrillon</p><p class="a">Charles Perrault</p><span class="lv">A2</span></div><p class="tt">Cendrillon</p><p class="au">Charles Perrault</p><p class="pg">11 min</p></a>
+            <a class="book" href="#"><div class="cv sand"><span class="g">M</span><p class="t">Lettres de mon moulin</p><p class="a">Alphonse Daudet</p><span class="lv">B1</span></div><p class="tt">Lettres de mon moulin</p><p class="au">Alphonse Daudet</p><p class="pg">25 min</p></a>
+            <a class="book" href="#"><div class="cv teal"><span class="g sym">△</span><p class="t">Vingt mille lieues sous les mers</p><p class="a">Jules Verne</p><span class="lv">B1</span></div><p class="tt">Vingt mille lieues</p><p class="au">Jules Verne</p><p class="pg">58 min</p></a>
+          </div>
+        </div>
+      </div>
+    </div></div></div>
+  </section>
+
+  <!-- 2. Desktop Library -->
+  <section class="item">
+    <header><h2>Desktop · Library</h2><p class="note">One level scale, plain collection links, a search field where the eye expects it. Shelves carry the books; nothing else decorates them.</p></header>
+    <div class="scroller"><div class="frame"><div class="app">
+      <aside class="side">
+        <p class="wordmark">Sotto</p>
+        <nav class="nav"><a href="#">For you</a><a class="on" href="#">Library</a><a href="#">Vocabulary</a></nav>
+        <nav class="nav bottom"><a href="#">Settings</a></nav>
+      </aside>
+      <div class="main">
+        <div class="titlerow"><h1 class="display">Library</h1><span class="meta">French · 23 books</span></div>
+        <div class="controls">
+          <div class="scale" role="group" aria-label="Level"><span>All</span><span>A0</span><span>A1</span><span class="on">A2</span><span>B1</span><span>B2</span><span>C1</span></div>
+          <div class="coll"><a class="on" href="#">Everything</a><a href="#">Fables</a><a href="#">Travel</a><a href="#">Classics</a><a href="#">Your imports</a></div>
+          <div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Search titles and authors</div>
+        </div>
+
+        <div class="rail" style="margin-top:28px">
+          <div class="railhead"><h2 class="h2">Animal fables</h2><a class="seeall" href="#">See all 6</a></div>
+          <div class="shelf">
+            <a class="book" href="#"><span class="ribbon"></span><div class="cv sand"><span class="g">C</span><p class="t">La Chèvre de M. Seguin</p><p class="a">Alphonse Daudet</p><span class="lv">A2</span></div><p class="tt">La Chèvre de M. Seguin</p><p class="au">Alphonse Daudet</p><p class="pg">p. 12 of 40</p></a>
+            <a class="book" href="#"><div class="cv teal"><span class="g">F</span><p class="t">Trois fables de La Fontaine</p><p class="a">Jean de La Fontaine</p><span class="lv">A1</span></div><p class="tt">Trois fables</p><p class="au">Jean de La Fontaine</p><p class="pg">14 min</p></a>
+            <a class="book" href="#"><div class="cv peach"><span class="g">R</span><p class="t">Le Corbeau et le Renard</p><p class="a">Jean de La Fontaine</p><span class="lv">A2</span></div><p class="tt">Le Corbeau et le Renard</p><p class="au">Jean de La Fontaine</p><p class="pg">5 min</p></a>
+            <a class="book" href="#"><div class="cv sage"><span class="g sym">◯</span><p class="t">Le Lion et le Rat</p><p class="a">Jean de La Fontaine</p><span class="lv">A2</span></div><p class="tt">Le Lion et le Rat</p><p class="au">Jean de La Fontaine</p><p class="pg">4 min</p></a>
+          </div>
+        </div>
+        <div class="rail">
+          <div class="railhead"><h2 class="h2">Travel</h2><a class="seeall" href="#">See all 4</a></div>
+          <div class="shelf">
+            <a class="book" href="#"><div class="cv sage"><span class="g">V</span><p class="t">Le Tour du monde en quatre-vingts jours</p><p class="a">Jules Verne</p><span class="lv">A2</span></div><p class="tt">Le Tour du monde</p><p class="au">Jules Verne</p><p class="pg">42 min</p></a>
+            <a class="book" href="#"><div class="cv teal"><span class="g sym">△</span><p class="t">Vingt mille lieues sous les mers</p><p class="a">Jules Verne</p><span class="lv">B1</span></div><p class="tt">Vingt mille lieues</p><p class="au">Jules Verne</p><p class="pg">58 min</p></a>
+            <a class="book" href="#"><div class="cv slate"><span class="g">T</span><p class="t">Voyage au centre de la Terre</p><p class="a">Jules Verne</p><span class="lv">B2</span></div><p class="tt">Voyage au centre</p><p class="au">Jules Verne</p><p class="pg">64 min</p></a>
+          </div>
+        </div>
+      </div>
+    </div></div></div>
+  </section>
+
+  <!-- 3. Desktop Reader -->
+  <section class="item">
+    <header><h2>Desktop · Reader</h2><p class="note">The passage gets a real measure. Tokens are plain until touched. The panel ends with the tutor, so talking about the page is one tap from reading it.</p></header>
+    <div class="scroller"><div class="frame"><div class="reader">
+      <div class="rd">
+        <div class="top"><span class="chap">Le Corbeau et le Renard · Chapter 1 of 1</span>
+          <div class="icons"><span class="ib" aria-label="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M4 12h2M18 12h2M12 4v2M12 18v2M6.3 6.3l1.4 1.4M16.3 16.3l1.4 1.4M6.3 17.7l1.4-1.4M16.3 7.7l1.4-1.4"/></svg></span><span class="ib" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></span></div></div>
+        <div class="passage">
+          <p>Un matin, un corbeau <span class="w sel">trouve</span> un beau morceau de fromage. Il le prend dans son bec et vole aussitôt. Il cherche un endroit calme pour manger son repas. Enfin, il se pose sur une <span class="w saved">branche</span> assez haute.</p>
+          <p>Sous cet arbre, un renard marche lentement dans le bois. Il a faim, mais il ne trouve aucun repas. Soudain, une bonne odeur de fromage arrive à son nez. Il lève la tête et voit le corbeau.</p>
+          <p>Le renard regarde aussi le gros morceau jaune. Il veut ce fromage, mais la branche est trop haute. Il ne peut pas monter, et l'oiseau peut partir. Alors, le renard prépare un plan avec des paroles.</p>
+          <p>Il s'assoit sous l'arbre et prend une voix douce. « Bonjour, monsieur Corbeau », dit le renard avec un grand sourire. « Votre <span class="w saved">plumage</span> noir est vraiment magnifique ce matin. » Le corbeau écoute et serre le fromage dans son bec.</p>
+        </div>
+        <div class="transport">
+          <span class="mono">0:00</span>
+          <div class="tc"><svg viewBox="0 0 24 24"><path d="M6 5v14M18 5 8 12l10 7z"/></svg><span class="mono">-10</span><span class="play" aria-label="Play"></span><span class="mono">+10</span><svg viewBox="0 0 24 24"><path d="M18 5v14M6 5l10 7-10 7z"/></svg></div>
+          <span class="mono">-2:06 · 1x</span>
+        </div>
+        <div class="segs"><i class="d"></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <aside class="panel">
+        <div style="display:flex;align-items:flex-start;gap:12px"><div><p class="word">trouve</p><p class="gl">finds</p><p class="ph">trouver · third person, present</p></div><span class="spk" aria-label="Pronounce"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9a4 4 0 0 1 0 6"/></svg></span></div>
+        <div class="pactions"><span class="save"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>Save word</span><span class="cap">Details</span><span class="cap">Report</span></div>
+        <div class="ex"><p class="eyebrow">In this passage</p><p>Un matin, un corbeau <em>trouve</em> un beau morceau de fromage.</p></div>
+        <div class="ex"><p class="eyebrow">Your words in this book</p><p>branche · plumage · fromage</p></div>
+        <div class="talk"><svg viewBox="0 0 24 24"><path d="M12 3a4 4 0 0 1 4 4v5a4 4 0 0 1-8 0V7a4 4 0 0 1 4-4z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Talk about this passage</div>
+      </aside>
+    </div></div></div>
+  </section>
+
+  <!-- 4-6. Phones -->
+  <section class="item">
+    <header><h2>Phone · For you, Library, Reader</h2><p class="note">Same shelves at 104x156. Four tabs with ink glyphs, the active one in accent. The translation sheet scrolls inside itself and ends with the tutor.</p></header>
+    <div class="phones">
+      <div class="phone">
+        <div class="pmain">
+          <div class="titlerow"><h1 class="display">For you</h1><div class="icons"><span class="ib" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span></div></div>
+          <div class="rail" style="margin-top:0">
+            <div class="railhead"><h2 class="h2">Continue reading</h2></div>
+            <div class="shelf">
+              <a class="book" href="#"><span class="ribbon"></span><div class="cv sand"><span class="g">C</span><p class="t">La Chèvre de M. Seguin</p><p class="a">Alphonse Daudet</p><span class="lv">A2</span></div><p class="tt">La Chèvre de M. Seguin</p><p class="au">Alphonse Daudet</p><p class="pg">p. 12 of 40</p></a>
+              <a class="book" href="#"><div class="cv teal"><span class="g">F</span><p class="t">Trois fables de La Fontaine</p><p class="a">Jean de La Fontaine</p><span class="lv">A1</span></div><p class="tt">Trois fables</p><p class="au">Jean de La Fontaine</p><p class="pg">p. 3 of 18</p></a>
+              <a class="book" href="#"><div class="cv peach"><span class="g">B</span><p class="t">Le Chat botté</p><p class="a">Charles Perrault</p><span class="lv">A2</span></div><p class="tt">Le Chat botté</p><p class="au">Charles Perrault</p><p class="pg">9 min</p></a>
+            </div>
+          </div>
+          <div class="rail">
+            <div class="railhead"><h2 class="h2">Today's story</h2></div>
+            <div class="spread">
+              <div class="l"><div class="cv brick" style="width:96px;height:144px"><span class="g sym" style="font-size:34px;top:14px">✶</span><p class="t" style="font-size:12px">Le Petit Chaperon rouge</p><p class="a">Perrault</p><span class="lv">A1</span></div></div>
+              <div class="r"><p class="meta">7 min · A1</p><h3>Le Petit Chaperon rouge</h3><div class="btns"><button class="btn cta">Read</button><button class="btn sec">Listen</button></div></div>
+            </div>
+          </div>
+          <div class="rail">
+            <div class="railhead"><h2 class="h2">Recommended</h2><a class="seeall" href="#">See all</a></div>
+            <div class="shelf">
+              <a class="book" href="#"><div class="cv sage"><span class="g">V</span><p class="t">Le Tour du monde</p><p class="a">Jules Verne</p><span class="lv">A2</span></div><p class="tt">Le Tour du monde</p><p class="au">Jules Verne</p><p class="pg">42 min</p></a>
+              <a class="book" href="#"><div class="cv slate"><span class="g sym">◐</span><p class="t">Cendrillon</p><p class="a">Charles Perrault</p><span class="lv">A2</span></div><p class="tt">Cendrillon</p><p class="au">Charles Perrault</p><p class="pg">11 min</p></a>
+              <a class="book" href="#"><div class="cv sand"><span class="g">M</span><p class="t">Lettres de mon moulin</p><p class="a">Alphonse Daudet</p><span class="lv">B1</span></div><p class="tt">Lettres</p><p class="au">Alphonse Daudet</p><p class="pg">25 min</p></a>
+            </div>
+          </div>
+        </div>
+        <nav class="tabs">
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24"><path d="M4 5h6a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h7z"/></svg>For you</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24"><path d="M4 4h4v16H4zM10 4h4v16h-4zM16.5 5l3.8 1 -3.9 14-3.8-1z"/></svg>Library</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>Vocabulary</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M4 12h2M18 12h2M12 4v2M12 18v2M6.3 6.3l1.4 1.4M16.3 16.3l1.4 1.4M6.3 17.7l1.4-1.4M16.3 7.7l1.4-1.4"/></svg>Settings</a>
+        </nav>
+      </div>
+
+      <div class="phone">
+        <div class="pmain">
+          <div class="titlerow"><h1 class="display">Library</h1><span class="meta">23 books</span></div>
+          <div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Search titles and authors</div>
+          <div class="controls"><div class="scale"><span>All</span><span>A0</span><span>A1</span><span class="on">A2</span><span>B1</span><span>B2</span><span>C1</span></div></div>
+          <div class="coll" style="margin-top:14px"><a class="on" href="#">Everything</a><a href="#">Fables</a><a href="#">Travel</a><a href="#">Classics</a></div>
+          <div class="rail" style="margin-top:24px">
+            <div class="railhead"><h2 class="h2">Animal fables</h2><a class="seeall" href="#">See all 6</a></div>
+            <div class="shelf">
+              <a class="book" href="#"><span class="ribbon"></span><div class="cv sand"><span class="g">C</span><p class="t">La Chèvre de M. Seguin</p><p class="a">Daudet</p><span class="lv">A2</span></div><p class="tt">La Chèvre de M. Seguin</p><p class="au">Alphonse Daudet</p><p class="pg">p. 12 of 40</p></a>
+              <a class="book" href="#"><div class="cv teal"><span class="g">F</span><p class="t">Trois fables</p><p class="a">La Fontaine</p><span class="lv">A1</span></div><p class="tt">Trois fables</p><p class="au">Jean de La Fontaine</p><p class="pg">14 min</p></a>
+              <a class="book" href="#"><div class="cv peach"><span class="g">R</span><p class="t">Le Corbeau et le Renard</p><p class="a">La Fontaine</p><span class="lv">A2</span></div><p class="tt">Le Corbeau et le Renard</p><p class="au">Jean de La Fontaine</p><p class="pg">5 min</p></a>
+            </div>
+          </div>
+          <div class="rail">
+            <div class="railhead"><h2 class="h2">Travel</h2><a class="seeall" href="#">See all 4</a></div>
+            <div class="shelf">
+              <a class="book" href="#"><div class="cv sage"><span class="g">V</span><p class="t">Le Tour du monde</p><p class="a">Jules Verne</p><span class="lv">A2</span></div><p class="tt">Le Tour du monde</p><p class="au">Jules Verne</p><p class="pg">42 min</p></a>
+              <a class="book" href="#"><div class="cv teal"><span class="g sym">△</span><p class="t">Vingt mille lieues</p><p class="a">Jules Verne</p><span class="lv">B1</span></div><p class="tt">Vingt mille lieues</p><p class="au">Jules Verne</p><p class="pg">58 min</p></a>
+              <a class="book" href="#"><div class="cv slate"><span class="g">T</span><p class="t">Voyage au centre de la Terre</p><p class="a">Jules Verne</p><span class="lv">B2</span></div><p class="tt">Voyage au centre</p><p class="au">Jules Verne</p><p class="pg">64 min</p></a>
+            </div>
+          </div>
+        </div>
+        <nav class="tabs">
+          <a class="tab" href="#"><svg viewBox="0 0 24 24"><path d="M4 5h6a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h7z"/></svg>For you</a>
+          <a class="tab on" href="#"><svg viewBox="0 0 24 24"><path d="M4 4h4v16H4zM10 4h4v16h-4zM16.5 5l3.8 1 -3.9 14-3.8-1z"/></svg>Library</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>Vocabulary</a>
+          <a class="tab" href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M4 12h2M18 12h2M12 4v2M12 18v2M6.3 6.3l1.4 1.4M16.3 16.3l1.4 1.4M6.3 17.7l1.4-1.4M16.3 7.7l1.4-1.4"/></svg>Settings</a>
+        </nav>
+      </div>
+
+      <div class="phone">
+        <div class="prd">
+          <div class="rd top" style="padding:0;margin-bottom:18px"><span class="chap">Le Corbeau et le Renard · 1 of 1</span><div class="icons"><span class="ib" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></span></div></div>
+          <div class="passage">
+            <p>Un matin, un corbeau <span class="w sel">trouve</span> un beau morceau de fromage. Il le prend dans son bec et vole aussitôt. Il cherche un endroit calme pour manger son repas. Enfin, il se pose sur une <span class="w saved">branche</span> assez haute.</p>
+            <p>Sous cet arbre, un renard marche lentement dans le bois. Il a faim, mais il ne trouve aucun repas. Soudain, une bonne odeur de fromage arrive à son nez.</p>
+          </div>
+          <div class="fade"></div>
+          <div class="sheet">
+            <div class="handle"></div>
+            <div class="row"><div><p class="word">trouve</p><p class="gl">finds</p><p class="ph">trouver · third person, present</p></div><span class="spk" aria-label="Pronounce"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9a4 4 0 0 1 0 6"/></svg></span></div>
+            <div class="pactions"><span class="save done"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>Saved</span><span class="cap">Details</span></div>
+            <div class="talk"><svg viewBox="0 0 24 24"><path d="M12 3a4 4 0 0 1 4 4v5a4 4 0 0 1-8 0V7a4 4 0 0 1 4-4z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Talk about this passage</div>
+            <div class="transport" style="margin-top:16px;padding-top:12px"><span class="mono">0:00</span><div class="tc"><span class="mono">-10</span><span class="play" aria-label="Play"></span><span class="mono">+10</span></div><span class="mono">-2:06</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="legend">
+    <div><b>Covers</b><br><span class="sw" style="background:#E8D6B8"></span>sand · <span class="sw" style="background:#1F4F57"></span>teal · <span class="sw" style="background:#6E9A7C"></span>sage<br><span class="sw" style="background:#8C3B2E"></span>brick · <span class="sw" style="background:#F2C8B4"></span>peach · <span class="sw" style="background:#2B2A28"></span>slate</div>
+    <div><b>Accent #E4572E</b><br>Primary CTA (ink label: cream on coral is 3.45:1, ink is 5:1), active tab, your ribbon. Speaker and play rings use it as a 2px outline only.</div>
+    <div><b>Cutout</b><br>6px 6px 0 peach on covers; 4px 4px 0 ink on the primary CTA and a saved word. No blurred shadows.</div>
+    <div><b>Type</b><br>Fraunces 300 display 34, 400 heading 22, reading 20/1.55. Inter 16 ui, 13 caption. Mono 11 tracked for levels, times, pages.</div>
+    <div><b>Radius</b><br>2 on covers, 10 on cards, sheets and buttons, 9999 only on the two rings.</div>
+    <div><b>What is not here</b><br>The plan nag (moves to Settings → Account), the countdown, pills, progress bars on covers, the second tile shadow, the dev lightning button.</div>
+  </div>
+  <footer>Spec: planning/design/APP-V2-SPEC.md · tokens: planning/design/DESIGN.md · built 2026-09-06</footer>
+</div>
+</body>
+</html>

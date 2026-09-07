@@ -67,6 +67,15 @@ export type MainToWorker =
   | { t: 'mode'; mode: TutorMode }
   | { t: 'mute'; muted: boolean }
   | { t: 'ptt'; active: boolean }
+  /**
+   * The main thread has finished playing every tutor chunk it was given —
+   * the speakers are silent. Only the main thread can know this (it owns
+   * the AudioContext), and the worker needs it: its half-duplex gate must
+   * stay raised for the whole time the tutor is audible, not only while the
+   * model is generating (run 9 lane R, P1-3). The worker also holds a
+   * safety timeout, so losing this message degrades rather than sticks.
+   */
+  | { t: 'playback_drained' }
   | { t: 'interrupt' }
   | { t: 'replay' }
   | { t: 'text'; text: string }

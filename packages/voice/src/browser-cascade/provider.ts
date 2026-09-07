@@ -123,6 +123,15 @@ export class BrowserCascadeProvider implements VoiceProvider {
    */
   private playbackQueueEndAt = 0;
 
+  /**
+   * Armed whenever tutor audio is queued; fires when the queue has drained
+   * and tells the WORKER so (`playback_drained`). The worker's half-duplex
+   * gate needs the same fact the label does, and had no way to learn it —
+   * so it was lifting the VAD's threshold for exactly the window the tutor
+   * was still audible in (run 9 lane R, P1-3).
+   */
+  private drainTimer: ReturnType<typeof setTimeout> | null = null;
+
   private idleTimer: ReturnType<typeof setTimeout> | null = null;
   private maxDurationTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -219,6 +228,7 @@ export class BrowserCascadeProvider implements VoiceProvider {
   interrupt(): void {
     this.audio.stopPlayback();
     this.playbackQueueEndAt = 0;
+    this.clearDrainNotice();
     this.post({ t: 'interrupt' });
   }
 
@@ -291,7 +301,31 @@ export class BrowserCascadeProvider implements VoiceProvider {
     }, this.limits.idleMs);
   }
 
+  /** Re-arms the drain notice for whatever is queued now. Called on every
+   * `audio` chunk, so a chunk that lands mid-queue pushes the notice out
+   * rather than firing early. */
+  private armDrainNotice(): void {
+    this.clearDrainNotice();
+    this.drainTimer = setTimeout(
+      () => {
+        this.drainTimer = null;
+        if (this.playbackRemainingMs() > 0) {
+          this.armDrainNotice();
+          return;
+        }
+        this.post({ t: 'playback_drained' });
+      },
+      Math.max(0, this.playbackRemainingMs()),
+    );
+  }
+
+  private clearDrainNotice(): void {
+    if (this.drainTimer) clearTimeout(this.drainTimer);
+    this.drainTimer = null;
+  }
+
   private stopEverything(): void {
+    this.clearDrainNotice();
     if (this.idleTimer) clearTimeout(this.idleTimer);
     if (this.maxDurationTimer) clearTimeout(this.maxDurationTimer);
     this.idleTimer = null;
@@ -337,12 +371,14 @@ export class BrowserCascadeProvider implements VoiceProvider {
           this.playbackQueueEndAt = Math.max(Date.now(), this.playbackQueueEndAt) + durationMs;
         }
         this.audio.playPcm(msg.pcm, msg.sampleRate);
+        this.armDrainNotice();
         break;
       }
       case 'audio_end':
         if (msg.cancelled) {
           this.audio.stopPlayback();
           this.playbackQueueEndAt = 0;
+          this.clearDrainNotice();
         }
         break;
       case 'audio_start':

@@ -34,7 +34,9 @@ import {
   measureSegment,
   MIN_SEGMENT_MS,
   NOT_CAUGHT_CAPTION,
+  spokenDurationMs,
 } from './transcript-gate.ts';
+import { announcesListening, PlaybackWindow, releaseAfterMs } from './speaking-window.ts';
 import {
   TutorTurnRunner,
   type ChatMessage,
@@ -282,9 +284,10 @@ class WebLlmEngine implements LlmEngine {
       temperature: 0.4,
       // Per-mode (run 9 lane B, `maxTokensForMode`): 400 tokens is about the
       // size of the five-line list Noel got, and a 2B model fills the room
-      // it is given, so the conversational modes now ask for 160. Only
-      // read_to_me still needs 400, to read several passage sentences
-      // verbatim. `?? 400` keeps the old value for any caller that does not
+      // it is given, so the conversational modes now ask for 240 (160 at
+      // first — see `maxTokensForMode` for why the fenced tool block needs
+      // the extra room). Only read_to_me still needs 400, to read several
+      // passage sentences verbatim. `?? 400` keeps the old value for any caller that does not
       // pass one. `temperature` is unchanged: nothing in the live failure
       // pointed at sampling — the reply was confidently, fluently the wrong
       // SHAPE, which is a prompt-and-post-processing problem.
@@ -332,8 +335,21 @@ class WebLlmEngine implements LlmEngine {
     const toolCallsByIndex = new Map<number, { id: string; name: string; arguments: string }>();
     let text = '';
 
+    // The interrupt has to be AWAITED before this call returns.
+    // `SessionState.currentTurnPromise` exists because starting a second
+    // `chat.completions.create()` on the same MLCEngine before an
+    // interrupted one had unwound hung the session indefinitely (see that
+    // field's comment) — and `currentTurnPromise` can only cover this if
+    // `chat()` does not resolve first. Fire-and-forget was survivable while
+    // only a barge-in aborted; run 9's sentence cap aborts on any reply
+    // longer than three sentences, i.e. routinely (lane R, P1-5).
+    let interrupted: Promise<unknown> | null = null;
     const onAbort = () => {
-      void this.engine.interruptGenerate();
+      try {
+        interrupted = Promise.resolve(this.engine.interruptGenerate()).catch(() => undefined);
+      } catch {
+        interrupted = null;
+      }
     };
     signal.addEventListener('abort', onAbort, { once: true });
     try {
@@ -359,6 +375,7 @@ class WebLlmEngine implements LlmEngine {
       }
     } finally {
       signal.removeEventListener('abort', onAbort);
+      if (interrupted) await interrupted;
     }
 
     let toolCalls: EngineToolCall[] = [...toolCallsByIndex.entries()]
@@ -570,6 +587,13 @@ interface SessionState {
    * the two never race the engine.
    */
   currentTurnPromise: Promise<void> | null;
+  /** How much tutor audio has been handed to the main thread, so the
+   * half-duplex gate can be held for the whole time it is audible. */
+  playback: PlaybackWindow;
+  /** Non-null exactly while generation has ended but the tutor is (as far
+   * as this worker knows) still audible — the drain window. Also the
+   * "am I draining?" flag `interruptSession` needs for P1-4. */
+  drainTimer: ReturnType<typeof setTimeout> | null;
 }
 
 let session: SessionState | null = null;
@@ -595,15 +619,47 @@ function setState(state: VoiceState): void {
  * report. While the tutor's audio is out, the bar to open a turn goes up by
  * `HALF_DUPLEX_THRESHOLD_SCALE`; a real barge-in still clears it easily.
  *
- * Known limitation, not fixed here: `audio_end` is posted when GENERATION
- * ends, not when the main thread has finished playing the audio out, so the
- * gate lifts a little early on a long final sentence. Closing that needs a
- * playback-finished signal from the client, which is lane D's file.
+ * The flag is NOT cleared when generation ends: that is seconds before the
+ * speakers stop, so the gate used to be raised while the tutor talked and
+ * lowered for the drain — backwards (run 9 lane R, P1-3). It is cleared by
+ * `releaseSpeakingWhenDrained` below, on the main thread's
+ * `playback_drained` message or on the safety timeout that message's loss
+ * would otherwise leave hanging.
  */
 function setSpeakingState(s: SessionState, speaking: boolean): void {
   if (s.speaking === speaking) return;
   s.speaking = speaking;
   s.vad.setThresholdScale(speaking ? HALF_DUPLEX_THRESHOLD_SCALE : 1);
+}
+
+/**
+ * Ends the drain window immediately: the tutor is silent (or has been cut
+ * off), so the VAD's bar comes back down.
+ */
+function releaseSpeakingNow(s: SessionState): void {
+  if (s.drainTimer) clearTimeout(s.drainTimer);
+  s.drainTimer = null;
+  s.playback.clear();
+  setSpeakingState(s, false);
+}
+
+/**
+ * Generation has ended. Hold the half-duplex gate until the main thread
+ * says the queue drained (`playback_drained`), or until the audio we handed
+ * it must have finished — see `speaking-window.ts` for why both.
+ */
+function releaseSpeakingWhenDrained(s: SessionState): void {
+  if (s.drainTimer) clearTimeout(s.drainTimer);
+  s.drainTimer = null;
+  const holdMs = s.speaking ? releaseAfterMs(s.playback.remainingMs(Date.now())) : null;
+  if (holdMs === null) {
+    releaseSpeakingNow(s);
+    return;
+  }
+  s.drainTimer = setTimeout(() => {
+    s.drainTimer = null;
+    if (session === s) releaseSpeakingNow(s);
+  }, holdMs);
 }
 
 function pcm16ToFloat32(pcm: Int16Array): Float32Array {
@@ -678,7 +734,11 @@ async function speakSentence(
           pcm16.byteOffset + pcm16.byteLength,
         ) as ArrayBuffer;
         s.currentUtteranceChunks.push(buf);
+        // Measured before the post: `buf` is TRANSFERRED, so its byteLength
+        // is 0 by the time postMessage returns.
+        const queuedBytes = buf.byteLength;
         post({ t: 'audio', utteranceId, pcm: buf, sampleRate: TUTOR_SAMPLE_RATE }, [buf]);
+        s.playback.enqueuePcm(queuedBytes, TUTOR_SAMPLE_RATE, Date.now());
       }
     } catch (err) {
       post({
@@ -732,6 +792,10 @@ function makeTurnRunner(s: SessionState): TutorTurnRunner {
     // is invoked, so it is non-null for the whole lifetime of a turn.
     onSentence: (sentence) => speakSentence(s, sentence, s.currentAbort!),
     onTutorCaption: (text, final) => post({ t: 'caption', speaker: 'tutor', text, final }),
+    // So a capped turn is distinguishable in the log from "the model
+    // stopped on its own" — without it, a cap that hangs the engine looks
+    // exactly like the old 90-second silent stall (lane R, P1-5).
+    onMetric: (name, detail) => post({ t: 'metric', name, ms: 0, detail }),
   });
 }
 
@@ -774,6 +838,13 @@ async function runTutorTurnBody(s: SessionState, learnerText: string): Promise<v
     setState('listening');
     return;
   }
+  // A drain window from the PREVIOUS turn must not lower the half-duplex
+  // gate in the middle of this one. The flag itself stays up; only the
+  // stale timer goes.
+  if (s.drainTimer) {
+    clearTimeout(s.drainTimer);
+    s.drainTimer = null;
+  }
   const abort = new AbortController();
   s.currentAbort = abort;
   s.currentUtteranceId = null;
@@ -795,7 +866,9 @@ async function runTutorTurnBody(s: SessionState, learnerText: string): Promise<v
     post({ t: 'audio_end', utteranceId: s.currentUtteranceId });
     s.lastUtterance = { id: s.currentUtteranceId, chunks: s.currentUtteranceChunks };
   }
-  setSpeakingState(s, false);
+  // Generation is over; the speakers are not. See setSpeakingState.
+  if (abort.signal.aborted) releaseSpeakingNow(s);
+  else releaseSpeakingWhenDrained(s);
   s.currentUtteranceId = null;
   if (s.currentAbort === abort) s.currentAbort = null;
 }
@@ -943,9 +1016,16 @@ function handleFrame(pcm: ArrayBuffer): void {
 /** Cancels any in-flight LLM/TTS work for the current turn — mirrors the
  * server's `bargeIn()`. No-op when nothing is in flight. */
 function interruptSession(s: SessionState): void {
+  // Whether the tutor was mid-DRAIN — generation finished, audio still
+  // playing. That window has no abort controller to cancel, so before P1-4
+  // this function did nothing observable in it: no state event, so no new
+  // epoch on the client, so its armed `holdSpeaking` flush still fired at
+  // the original time and the screen sat in SPEAKING with the speakers
+  // silent and the mic live.
+  const draining = s.drainTimer !== null;
   // The tutor's audio stops here, so the half-duplex gate must lift —
   // otherwise a barge-in would leave the VAD permanently deafened.
-  setSpeakingState(s, false);
+  releaseSpeakingNow(s);
   const hadAbort = !!s.currentAbort;
   s.currentAbort?.abort();
   s.currentAbort = null;
@@ -956,7 +1036,7 @@ function interruptSession(s: SessionState): void {
     s.currentUtteranceId = null;
     s.currentUtteranceChunks = [];
   }
-  if (hadAbort) setState('listening');
+  if (announcesListening({ hadAbort, draining })) setState('listening');
 }
 
 function replayLast(s: SessionState): void {
@@ -1009,6 +1089,8 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
           lastUtterance: null,
           pendingToolResults: new Map(),
           currentTurnPromise: null,
+          playback: new PlaybackWindow(),
+          drainTimer: null,
         };
         session = s;
         try {
@@ -1086,9 +1168,16 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
             // the tutor's own audio.
             session.buffer.start(PTT_PRE_ROLL_MS);
           } else {
+            // Read BEFORE end(): the seed is pre-roll captured before the
+            // learner pressed anything, so it is not part of what they
+            // said. Measuring the seeded segment made a 50ms mis-tap look
+            // like 350ms, which cleared MIN_SEGMENT_MS, ran Whisper over
+            // 300ms of room tone and got the stock hallucination the
+            // `too_short` branch below exists to avoid (lane R, P1-2).
+            const seededMs = session.buffer.seededPreRollMs;
             const segment = session.buffer.end();
             if (segment) {
-              const durationMs = (segment.length / WORKER_SAMPLE_RATE) * 1000;
+              const durationMs = spokenDurationMs(segment.length, WORKER_SAMPLE_RATE, seededMs);
               if (durationMs < MIN_SEGMENT_MS) {
                 // A mis-tap. Dropped without running Whisper at all and
                 // without a caption: the learner knows they fumbled the
@@ -1114,6 +1203,12 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
 
       case 'passage':
         if (session) session.payload.passage = msg.passage;
+        break;
+
+      case 'playback_drained':
+        // The speakers are silent: end the drain window and let the VAD's
+        // threshold come back down. See speaking-window.ts.
+        if (session) releaseSpeakingNow(session);
         break;
 
       case 'interrupt':

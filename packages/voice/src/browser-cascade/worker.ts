@@ -430,22 +430,35 @@ async function loadLlm(llmId: string): Promise<void> {
 let kokoro: KokoroTTS | null = null;
 
 /**
- * Which weights to load per device. This used to be `q8` on both, which is
- * what kokoro-js's README explicitly warns against for WebGPU: "If using
- * 'webgpu', we recommend using dtype='fp32'" (kokoro-js 1.2.1, README.md
- * line 29). Noel's report of gibberish speech came from a WebGPU machine.
+ * Which weights to load per device. This used to be `q8` on BOTH, and q8 on
+ * WebGPU emits noise — which is what Noel heard.
  *
- * Run 9 lane C numbers, Node/cpu round trip (Kokoro -> Whisper base, WER
- * against the sentence asked for; packages/voice/scripts/tts-roundtrip.mjs,
- * full table in planning/run9/C-report.md):
- *   see the report — q8 and fp32 both score well on CPU, so the CPU/wasm
- *   path keeps q8 (a 90 MB download instead of 330 MB). The webgpu entry is
- *   fp32 on the strength of the vendor's own warning plus the browser
- *   matrix in the same report.
+ * Measured, run 9 lane C. Word error rate of Kokoro's output transcribed
+ * back by Whisper base, against the sentence Kokoro was asked to say.
+ * Reference sentence: "The dog was a big native husky, the proper wolf-dog,
+ * gray-coated and without any visible or temperamental difference from its
+ * brother, the wild wolf."
  *
- * `wasm` stays q8 deliberately: it is the fallback path on machines with no
+ *   device  dtype  WER     what it sounds like
+ *   webgpu  q8     4.346   "Shama, Ah, those yorks, yorks, yorks, yorks…"
+ *   webgpu  fp32   0.000   the sentence
+ *   cpu     q8     0.000   the sentence
+ *   cpu     fp32   0.000   the sentence
+ *   cpu     fp16   1.000   all-NaN waveform on this sentence — never use it
+ *
+ * (webgpu rows: the real bundled worker in headless Chromium with
+ * --enable-unsafe-webgpu --use-angle=metal, via the `sample` message. cpu
+ * rows: packages/voice/scripts/tts-roundtrip.mjs. Full tables, and the
+ * before/after WAVs, in planning/run9/C-report.md.)
+ *
+ * kokoro-js's README said so too, in one line nobody had read: "If using
+ * 'webgpu', we recommend using dtype='fp32'" (1.2.1, README.md line 29).
+ *
+ * `wasm` stays q8 deliberately: it is the fallback for machines with no
  * WebGPU at all, which are also the machines least able to afford a 330 MB
- * download and fp32 inference.
+ * download instead of 90 MB — and q8 is clean on the CPU execution path.
+ * Cold-load cost of the change, measured in the same run: 15.8 s for
+ * webgpu/fp32 against 7.2 s for webgpu/q8.
  */
 const TTS_DTYPE: Record<'webgpu' | 'wasm', 'fp32' | 'q8'> = {
   webgpu: 'fp32',

@@ -93,6 +93,33 @@ describe('createListeningGate', () => {
     expect(gate.onProviderState('thinking')).toBe('thinking');
     expect(gate.onCaptureReady()).toBeNull();
   });
+
+  // R-adversarial finding 3: a denied microphone strands the voice screen
+  // on CONNECTING forever. Mechanism: `local-cascade.ts` emits
+  // `{type:'error', code:'mic_denied'}` then `{state:'error'}` as soon as
+  // `getUserMedia` rejects, but the server's one-shot `listening`
+  // announcement (sent at websocket-session creation, independent of
+  // capture) can arrive over the network *after* that — capture is still
+  // not ready, so the gate would downgrade it to 'connecting' and the
+  // caller's unconditional `setVoiceState(mapped)` overwrites 'error' with
+  // it, permanently, since nothing ever re-announces 'listening' on this
+  // path. The gate must never let a late 'listening' erase an error.
+  it('never lets a late "listening" downgrade over an already-reported error', () => {
+    const gate = createListeningGate(() => false);
+    expect(gate.onProviderState('error')).toBe('error');
+    expect(gate.onProviderState('listening')).toBeNull();
+    // A later capture-ready flush (which will never actually come once the
+    // permission is denied, but must be inert even if it somehow did) must
+    // also stay inert rather than resurrect a 'listening' the screen would
+    // show as if nothing had gone wrong.
+    expect(gate.onCaptureReady()).toBeNull();
+  });
+
+  it('still gates and flushes normally when no error has ever been reported', () => {
+    const gate = createListeningGate(() => false);
+    expect(gate.onProviderState('connecting')).toBe('connecting');
+    expect(gate.onProviderState('listening')).toBe('connecting');
+  });
 });
 
 // run7/F1 directive 5: "listening" truthfulness. `createListeningGate` is
@@ -126,7 +153,8 @@ describe('createListeningGate: no provider reports listening before capture is l
         const flushed = gate.onCaptureReady();
         if (flushed) observed.push({ state: flushed, captureReadyAtTime: capture });
       } else {
-        observed.push({ state: gate.onProviderState(ev.state), captureReadyAtTime: capture });
+        const mapped = gate.onProviderState(ev.state);
+        if (mapped !== null) observed.push({ state: mapped, captureReadyAtTime: capture });
       }
     }
     return observed;

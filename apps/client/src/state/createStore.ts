@@ -23,6 +23,7 @@ import {
 } from '@sotto/core';
 import type { Persistence } from '../platform/persistence.types';
 import type { OwnProviderStatus } from '../voice/ownProviderStatus';
+import { hasByokKey } from '../voice/byokKey';
 import { warmBookCache } from '../platform/swCache';
 import { assetUrl, fetchBook, fetchChapter, fetchPacks } from './contentApi';
 import { PRIVATE_INDEX_KEY, privateBookKey, privateChapterKey } from '../import/privateKeys';
@@ -395,6 +396,30 @@ export function createSottoStore(persistence: Persistence): {
         // The final one supersedes — by utterance, not by whole-list — so
         // only the trailing same-speaker, non-final run is dropped.
         let captions = s.captions;
+
+        // R-adversarial finding 2 (regression of the same bug): a
+        // non-final fragment can also arrive AFTER its own final — a
+        // per-sentence caption the server (or a second tool-loop pass)
+        // emits once more once the merged final has already landed. The
+        // dedup above only looks backward from a final; it never catches
+        // a stray fragment that shows up later. If the last caption is
+        // already a final from this same speaker and this fragment is
+        // just part of that sentence (a substring either way), it is that
+        // same stale tail, not a new turn — drop it rather than start a
+        // second, permanent bubble under the reply.
+        if (!entry.final) {
+          const last = captions[captions.length - 1];
+          if (
+            last &&
+            last.final &&
+            last.speaker === entry.speaker &&
+            entry.text.length > 0 &&
+            (last.text.includes(entry.text) || entry.text.includes(last.text))
+          ) {
+            return { captions };
+          }
+        }
+
         if (entry.final) {
           let cut = captions.length;
           while (
@@ -474,13 +499,22 @@ export function createSottoStore(persistence: Persistence): {
 
   // ---- persistence: hydrate once, then auto-persist slices on change ----
   async function hydrate(): Promise<void> {
-    const [prefsRaw, progressRaw, vocabRaw, sessionRaw, privateIndexRaw] = await Promise.all([
-      persistence.getItem(KEYS.preferences),
-      persistence.getItem(KEYS.progress),
-      persistence.getItem(KEYS.vocabulary),
-      persistence.getItem(KEYS.session),
-      persistence.getItem(KEYS.privateIndex),
-    ]);
+    const [prefsRaw, progressRaw, vocabRaw, sessionRaw, privateIndexRaw, ownProviderKeyStored] =
+      await Promise.all([
+        persistence.getItem(KEYS.preferences),
+        persistence.getItem(KEYS.progress),
+        persistence.getItem(KEYS.vocabulary),
+        persistence.getItem(KEYS.session),
+        persistence.getItem(KEYS.privateIndex),
+        // ownProviderStatus itself is never persisted (run7 lane E keeps
+        // this field in-memory-only, sourced only from the guided flow) —
+        // but the setting it describes IS persisted, on-device, by
+        // byokKey.ts. Without this, every reload/new-tab/relaunch starts
+        // the field at its 'disconnected' default while the key is still
+        // there, which is R-adversarial finding 1: the hub goes back to
+        // "Not connected" for a setting that is, in fact, connected.
+        hasByokKey(),
+      ]);
     const preferences = safeParse<UserPreferences>(prefsRaw);
     const progressData = safeParse<{ progress: ReadingProgress[]; completedBooks: string[] }>(
       progressRaw,
@@ -501,6 +535,14 @@ export function createSottoStore(persistence: Persistence): {
       sessionRecord: sessionRecord ?? null,
       privateBooks: privateBooks ?? [],
     });
+
+    // Only override the untouched default. If the guided flow (or a 401
+    // mid-session) already set a status — 'connecting', 'invalid',
+    // 'active', etc. — before hydrate resolved, that is more specific than
+    // "a key exists on disk" and must win.
+    if (ownProviderKeyStored && useStore.getState().ownProviderStatus === 'disconnected') {
+      useStore.setState({ ownProviderStatus: 'connected' });
+    }
 
     let prev = useStore.getState();
     useStore.subscribe((state) => {

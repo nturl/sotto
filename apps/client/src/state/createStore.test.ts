@@ -1,7 +1,22 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Book, ReadingProgress, SavedWord, VoiceSessionRecord } from '@sotto/core';
 import type { Persistence } from '../platform/persistence.types';
 import { bookCacheUrls, createSottoStore, DEFAULT_PREFERENCES } from './createStore';
+import { BYOK_STORAGE_KEY, removeByokKey } from '../voice/byokKey';
+
+function fakeLocalStorage(): Storage {
+  const map = new Map<string, string>();
+  return {
+    get length() {
+      return map.size;
+    },
+    clear: () => map.clear(),
+    getItem: (k: string) => map.get(k) ?? null,
+    key: (i: number) => [...map.keys()][i] ?? null,
+    removeItem: (k: string) => void map.delete(k),
+    setItem: (k: string, v: string) => void map.set(k, v),
+  } as Storage;
+}
 
 function createFakePersistence(): Persistence {
   const map = new Map<string, string>();
@@ -186,6 +201,46 @@ describe('createSottoStore pushCaption', () => {
       { speaker: 'learner', text: 'Je voudrais un mot.', final: true },
     ]);
   });
+
+  it('drops a stray non-final fragment that arrives after its own final (R-adversarial finding 2)', async () => {
+    const persistence = createFakePersistence();
+    const { useStore, hydrate } = createSottoStore(persistence);
+    await hydrate();
+
+    const full =
+      "Oui, la Provence est en France. C'est une région dans le sud. " +
+      "C'est célèbre pour son soleil et ses villages charmants. " +
+      'As-tu envie de visiter la France un jour ?';
+    useStore.getState().pushCaption({ speaker: 'tutor', text: full, final: true });
+    // The server (or a second tool-loop pass) emits one more per-sentence
+    // caption after the merged final — the reviewer's exact repro. It must
+    // not become a second, duplicated tutor bubble.
+    useStore.getState().pushCaption({
+      speaker: 'tutor',
+      text: "C'est célèbre pour son soleil et ses villages charmants.",
+      final: false,
+    });
+
+    const captions = useStore.getState().captions;
+    expect(captions).toHaveLength(1);
+    expect(captions[0]!.final).toBe(true);
+    expect(captions[0]!.text).toBe(full);
+  });
+
+  it('still appends a genuinely new non-final turn from the same speaker after a final', async () => {
+    const persistence = createFakePersistence();
+    const { useStore, hydrate } = createSottoStore(persistence);
+    await hydrate();
+
+    useStore.getState().pushCaption({ speaker: 'tutor', text: 'Bonjour.', final: true });
+    useStore.getState().pushCaption({ speaker: 'tutor', text: 'Comment ç...', final: false });
+
+    const captions = useStore.getState().captions;
+    expect(captions.map((c) => ({ text: c.text, final: c.final }))).toEqual([
+      { text: 'Bonjour.', final: true },
+      { text: 'Comment ç...', final: false },
+    ]);
+  });
 });
 
 describe('private (imported) books', () => {
@@ -299,6 +354,45 @@ describe('createSottoStore ownProviderStatus (run7 lane E, the settings/hub stal
       useStore.getState().setOwnProviderStatus(status);
       expect(useStore.getState().ownProviderStatus).toBe(status);
     }
+  });
+
+  describe('survives reload (R-adversarial finding 1)', () => {
+    let storage: Storage;
+
+    beforeEach(() => {
+      storage = fakeLocalStorage();
+      vi.stubGlobal('localStorage', storage);
+    });
+
+    afterEach(async () => {
+      await removeByokKey();
+      vi.unstubAllGlobals();
+    });
+
+    it('derives connected on hydrate when a key is already stored on this device', async () => {
+      storage.setItem(BYOK_STORAGE_KEY, 'sk-test-stored');
+      const { useStore, hydrate } = createSottoStore(createFakePersistence());
+      // Before hydrate resolves, the field still defaults the same way it
+      // always has — this is not about the initial paint, only reload.
+      await hydrate();
+      expect(useStore.getState().ownProviderStatus).toBe('connected');
+    });
+
+    it('stays disconnected on hydrate when no key is stored', async () => {
+      const { useStore, hydrate } = createSottoStore(createFakePersistence());
+      await hydrate();
+      expect(useStore.getState().ownProviderStatus).toBe('disconnected');
+    });
+
+    it('does not clobber a status the flow already set before hydrate ran', async () => {
+      storage.setItem(BYOK_STORAGE_KEY, 'sk-test-stored');
+      const { useStore, hydrate } = createSottoStore(createFakePersistence());
+      useStore.getState().setOwnProviderStatus('invalid');
+      await hydrate();
+      // A key can be present yet rejected (401) — hydrate must not paper
+      // over that with a bare "a key exists so it's connected" read.
+      expect(useStore.getState().ownProviderStatus).toBe('invalid');
+    });
   });
 });
 

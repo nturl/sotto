@@ -130,21 +130,31 @@ export default function LibraryScreen() {
           ))}
         </View>
       ) : (
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.chips}
-          contentContainerStyle={styles.chipsContent}
-        >
-          {filters.map((item) => (
-            <Chip
-              key={item.value}
-              label={item.label}
-              selected={filter === item.value}
-              onPress={() => setFilter(item.value)}
-            />
-          ))}
-        </ScrollView>
+        // R-adversarial finding 4: with `style={styles.chips}` on the
+        // ScrollView itself, RN Web gave the phone chip row no height cap
+        // at all — after any filter change (any route with `?filter=`,
+        // this run's new deep-link) the row rendered at 342px instead of
+        // 36px. Rail.tsx's own horizontal ScrollView (a working reference
+        // for the same "one scrolling row" shape) never puts a style on
+        // the ScrollView itself, only on an outer wrapper and the content
+        // container — matching that here, plus an explicit `nowrap` on
+        // the content container so nothing can wrap a second line.
+        <View style={styles.chips}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.chipsContent}
+          >
+            {filters.map((item) => (
+              <Chip
+                key={item.value}
+                label={item.label}
+                selected={filter === item.value}
+                onPress={() => setFilter(item.value)}
+              />
+            ))}
+          </ScrollView>
+        </View>
       )}
 
       {banner.kind === 'loading' ? (
@@ -224,6 +234,8 @@ const styles = StyleSheet.create({
     marginBottom: space.xl,
   },
   chipsContent: {
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
     gap: space.sm,
     paddingRight: space.gutter.phone,
   },

@@ -121,12 +121,28 @@ export class VoiceSession {
     this.mode = opts.mode;
     this.learner = opts.learner;
     this.passage = opts.passage;
-    this.bookTitle = opts.bookId;
+    this.bookTitle = opts.bookTitle ?? opts.bookId;
     this.savedWords = [...opts.savedWords];
 
     this.armMaxDurationTimer();
     this.resetIdleTimer();
     this.setState('listening');
+  }
+
+  /**
+   * R-adversarial finding 9: `prompt.ts` has told the model to "open the
+   * session with exactly one short spoken sentence" since run7's prompt
+   * work, but nothing on the local path (the only path this Mac can drive)
+   * ever actually asked the LLM for a turn before the learner spoke — the
+   * only callers of `runLlmTurn` were the learner's own segment/text
+   * handlers. A separate method (rather than firing from the constructor)
+   * so construction stays synchronous and side-effect-free — the caller
+   * (app.ts's websocket handler, right after `new VoiceSession(...)`)
+   * decides when the opening turn actually starts, same as it already
+   * decides when to start relaying audio frames.
+   */
+  beginOpeningTurn(): void {
+    this.runLlmTurn().catch((err) => this.emitError('llm_pipeline_failed', err));
   }
 
   getState(): VoiceState {
@@ -459,9 +475,21 @@ export class VoiceSession {
     }
   }
 
-  private async runLlmTurn(userText: string): Promise<void> {
-    this.history.push({ role: 'user', content: userText });
-    this.trimHistory();
+  /**
+   * R-adversarial finding 9: `prompt.ts` has told the model to "open the
+   * session with exactly one short spoken sentence" since run7's prompt
+   * work, but nothing on the local path (the only path this Mac can drive)
+   * ever actually asked the LLM for a turn before the learner spoke — the
+   * only entry points into `runLlmTurn` were the learner's own segment/text
+   * handlers. `undefined` here means "no learner turn to push", so the
+   * opening call sends only the system prompt (which already carries the
+   * instruction) and nothing invented is added to the transcript.
+   */
+  private async runLlmTurn(userText?: string): Promise<void> {
+    if (userText !== undefined) {
+      this.history.push({ role: 'user', content: userText });
+      this.trimHistory();
+    }
 
     const abort = new AbortController();
     this.currentAbort = abort;

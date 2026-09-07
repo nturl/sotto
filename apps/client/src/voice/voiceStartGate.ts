@@ -51,9 +51,28 @@ export function gateVoiceState(state: VoiceState, captureReady: boolean): VoiceS
  */
 export function createListeningGate(captureReady: () => boolean) {
   let pendingListening = false;
+  // R-adversarial finding 3: a denied microphone strands the voice screen
+  // on CONNECTING forever. The local path's server announces `listening`
+  // exactly once, at websocket-session creation, independent of whether
+  // capture ever starts; if that announcement's network round-trip lands
+  // *after* `getUserMedia` has already rejected and reported `error`, the
+  // gate would downgrade it to `connecting` and the caller's unconditional
+  // `setVoiceState` would overwrite the error with it — permanently, since
+  // nothing on this path ever re-announces `listening`. Once an error has
+  // been reported, this gate goes inert: it neither reports nor queues a
+  // `listening` claim, `error` stays the last word.
+  let erroredOut = false;
   return {
-    /** Call for every provider state event; returns what to actually set. */
-    onProviderState(state: VoiceState): VoiceState {
+    /** Call for every provider state event; returns what to actually set,
+     * or `null` when the event must be ignored entirely (the caller should
+     * skip its own state update for a `null`). */
+    onProviderState(state: VoiceState): VoiceState | null {
+      if (erroredOut) return state === 'error' ? 'error' : null;
+      if (state === 'error') {
+        erroredOut = true;
+        pendingListening = false;
+        return 'error';
+      }
       const gated = gateVoiceState(state, captureReady());
       if (gated === 'connecting' && state === 'listening') pendingListening = true;
       return gated;
@@ -62,7 +81,7 @@ export function createListeningGate(captureReady: () => boolean) {
      * `'listening'` if a report was suppressed waiting for exactly this,
      * otherwise `null` (nothing to flush). */
     onCaptureReady(): VoiceState | null {
-      if (!pendingListening) return null;
+      if (erroredOut || !pendingListening) return null;
       pendingListening = false;
       return 'listening';
     },

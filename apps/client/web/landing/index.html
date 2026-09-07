@@ -601,8 +601,9 @@
                 sign-in (<a class="rowlink" href="https://app.readsotto.app">app.readsotto.app</a>).
               </p>
               <p class="fine">
-                We don't store transcripts or recordings from tutor sessions — only usage minutes
-                and billing.
+                With the plan, your voice goes to OpenAI through Sotto's server, which brokers every
+                tutor turn; we don't store transcripts or recordings from those sessions — only
+                usage minutes and billing.
               </p>
             </div>
           </div>
@@ -719,7 +720,15 @@
         var isIos = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
         var isAndroid = /Android/.test(ua);
         var isChrome = /Chrome\//.test(ua) && !/Edg\/|OPR\//.test(ua);
-        var isSafari = /Safari\//.test(ua) && !/Chrome\//.test(ua);
+        // R-adversarial finding 10: Chrome on iOS identifies as
+        // "CriOS/… Safari/604.1" and Firefox on iOS as "FxiOS/… Safari/…"
+        // — neither contains "Chrome/", so both matched isSafari and got
+        // told to use Safari's share icon, which isn't their own icon.
+        // Every iOS browser is WebKit under the hood and shares the same
+        // "Add to Home Screen" via the Share icon, so route them to the
+        // same steps rather than inventing a separate block.
+        var isIosOtherBrowser = /CriOS\/|FxiOS\//.test(ua);
+        var isSafari = /Safari\//.test(ua) && !/Chrome\//.test(ua) && !isIosOtherBrowser;
 
         var blocks = {
           generic: document.getElementById('stepsGeneric'),
@@ -733,7 +742,7 @@
           });
         }
 
-        if (isIos && isSafari) {
+        if (isIos && (isSafari || isIosOtherBrowser)) {
           show('ios');
         } else if (isAndroid && isChrome) {
           show('android');

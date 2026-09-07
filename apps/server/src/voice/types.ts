@@ -55,6 +55,14 @@ export type LearnerContext = z.infer<typeof learnerContextSchema>;
 /** POST /voice/session request body. */
 export const sessionOptionsSchema = z.object({
   bookId: z.string(),
+  // R-adversarial finding 9: the client (packages/voice/src/provider.ts's
+  // `SessionOptions.bookTitle`, wired in run7/G) has sent the book's real
+  // title in this same JSON body since the local-cascade path started
+  // POSTing it — but this schema never declared the field, so zod's
+  // default unknown-key stripping silently dropped it on every request,
+  // and the tutor's prompt fell back to `bookId` (e.g.
+  // "fr-chevre-de-m-seguin") on the one path that actually runs locally.
+  bookTitle: z.string().optional(),
   chapterId: z.string(),
   mode: tutorModeSchema,
   learner: learnerContextSchema,

@@ -152,6 +152,44 @@ describe('VoiceSession', () => {
     expect(sent[0]).toEqual({ t: 'state', state: 'listening' });
   });
 
+  // R-adversarial finding 9: nothing on the local path ever asked the LLM
+  // for a turn before the learner spoke, even though prompt.ts's system
+  // instruction has told it to "open the session with exactly one short
+  // spoken sentence" since run7. Construction alone must stay silent
+  // (`beginOpeningTurn` is a separate, explicit call — app.ts's websocket
+  // handler makes it right after constructing the session) so this must
+  // not fire on its own.
+  it('does not speak on construction alone', () => {
+    const vad = new ScriptedVad();
+    const { sent } = makeSession(vad, makeFetch({}));
+    expect(sent).toEqual([{ t: 'state', state: 'listening' }]);
+  });
+
+  it('beginOpeningTurn speaks the invitation and appears in the transcript', async () => {
+    const vad = new ScriptedVad();
+    const fetchImpl = makeFetch({
+      llm: () => new Response(sseStream([textDelta('Bienvenue dans la forêt.')]), { status: 200 }),
+      tts: () => new Response(pcmStream(4800), { status: 200 }),
+    });
+    const { session, sent, audioChunks } = makeSession(vad, fetchImpl);
+
+    session.beginOpeningTurn();
+    await flushMicrotasks();
+
+    expect(sent).toContainEqual({
+      t: 'caption',
+      speaker: 'tutor',
+      text: 'Bienvenue dans la forêt.',
+      final: true,
+    });
+    expect(sent.some((m) => m.t === 'audio_start')).toBe(true);
+    expect(audioChunks.length).toBeGreaterThan(0);
+    // No learner turn was ever pushed for this — the opening call must
+    // never invent a "learner" caption or a fake history entry.
+    expect(sent.some((m) => m.t === 'caption' && m.speaker === 'learner')).toBe(false);
+    expect(session.getState()).toBe('listening');
+  });
+
   it('runs a full learner segment through STT -> LLM -> TTS and returns to listening', async () => {
     const vad = new ScriptedVad();
     vad.push([{ type: 'speech_start' }]);
@@ -175,6 +213,97 @@ describe('VoiceSession', () => {
     expect(sent.some((m) => m.t === 'audio_end' && !m.cancelled)).toBe(true);
     expect(audioChunks.length).toBeGreaterThan(0);
     expect(session.getState()).toBe('listening');
+  });
+
+  // R-adversarial finding 9: on the local path (the only path this Mac can
+  // drive), the tutor was told the book's title was its id, e.g.
+  // "fr-chevre-de-m-seguin" — `sessionOptionsSchema` (types.ts) never
+  // declared `bookTitle`, so zod silently stripped it from every request
+  // even though the client has sent the real title since run7/G.
+  it("tells the LLM the book's real title, not its id, when the client sends one", async () => {
+    const vad = new ScriptedVad();
+    vad.push([{ type: 'speech_start' }]);
+    vad.push([{ type: 'speech_end' }]);
+
+    let llmRequestBody: string | undefined;
+    const fetchImpl = vi.fn(async (url: string, init?: RequestInit) => {
+      if (url.includes('/audio/transcriptions')) {
+        return new Response(JSON.stringify({ text: 'Bonjour' }), { status: 200 });
+      }
+      if (url.includes('/chat/completions')) {
+        llmRequestBody = init?.body as string;
+        return new Response(sseStream([textDelta('Salut !')]), { status: 200 });
+      }
+      if (url.includes('/audio/speech')) return new Response(pcmStream(4800), { status: 200 });
+      throw new Error(`unexpected fetch: ${url}`);
+    }) as unknown as typeof fetch;
+
+    const sent: ServerMessage[] = [];
+    const session = new VoiceSession(
+      'sess-title',
+      { ...SESSION_OPTIONS, bookId: 'fr-chevre-de-m-seguin', bookTitle: 'La Chèvre de M. Seguin' },
+      {
+        stt: { url: 'http://stt/v1', fetchImpl },
+        llm: { url: 'http://llm/v1', model: 'test-model', fetchImpl },
+        tts: { url: 'http://tts/v1', fetchImpl },
+        limits: { maxMs: 1_200_000, idleMs: 90_000 },
+      },
+      vad,
+      (msg) => sent.push(msg),
+      () => {},
+      silentLogger,
+      () => {},
+    );
+
+    await session.receiveAudioFrame(new Uint8Array(320));
+    await session.receiveAudioFrame(new Uint8Array(320));
+    await flushMicrotasks();
+
+    expect(llmRequestBody).toBeDefined();
+    expect(llmRequestBody).toContain('La Chèvre de M. Seguin');
+    expect(llmRequestBody).not.toContain('fr-chevre-de-m-seguin');
+  });
+
+  it('falls back to the book id when the client sends no bookTitle', async () => {
+    const vad = new ScriptedVad();
+    vad.push([{ type: 'speech_start' }]);
+    vad.push([{ type: 'speech_end' }]);
+
+    let llmRequestBody: string | undefined;
+    const fetchImpl = vi.fn(async (url: string, init?: RequestInit) => {
+      if (url.includes('/audio/transcriptions')) {
+        return new Response(JSON.stringify({ text: 'Bonjour' }), { status: 200 });
+      }
+      if (url.includes('/chat/completions')) {
+        llmRequestBody = init?.body as string;
+        return new Response(sseStream([textDelta('Salut !')]), { status: 200 });
+      }
+      if (url.includes('/audio/speech')) return new Response(pcmStream(4800), { status: 200 });
+      throw new Error(`unexpected fetch: ${url}`);
+    }) as unknown as typeof fetch;
+
+    const session = new VoiceSession(
+      'sess-no-title',
+      { ...SESSION_OPTIONS, bookId: 'fr-chevre-de-m-seguin' },
+      {
+        stt: { url: 'http://stt/v1', fetchImpl },
+        llm: { url: 'http://llm/v1', model: 'test-model', fetchImpl },
+        tts: { url: 'http://tts/v1', fetchImpl },
+        limits: { maxMs: 1_200_000, idleMs: 90_000 },
+      },
+      vad,
+      () => {},
+      () => {},
+      silentLogger,
+      () => {},
+    );
+
+    await session.receiveAudioFrame(new Uint8Array(320));
+    await session.receiveAudioFrame(new Uint8Array(320));
+    await flushMicrotasks();
+
+    expect(llmRequestBody).toBeDefined();
+    expect(llmRequestBody).toContain('fr-chevre-de-m-seguin');
   });
 
   it('barge-in: cancels in-flight TTS and sends audio_end cancelled:true, returning to listening', async () => {

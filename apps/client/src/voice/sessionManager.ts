@@ -292,6 +292,12 @@ function beginSession(params: StartSessionParams): void {
     const { unsubscribe } = createVoiceController(provider, ctx, {
       onState: (state) => {
         const mapped = isRealtimeAttempt ? state : listeningGate.onProviderState(state);
+        // `null` means the gate is deliberately swallowing this event
+        // (R-adversarial finding 3: a late "listening" the local path's
+        // server re-sends must never downgrade over an error already
+        // reported) — skip the state write entirely rather than let it
+        // erase what is already displayed.
+        if (mapped === null) return;
         // run7/G directive 2: register tutor speech with lane D's
         // audio-arbitration bus (src/platform/audioBus.ts) so it and
         // narration/word-tap audio (src/platform/audio.ts, both already

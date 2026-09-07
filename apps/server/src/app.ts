@@ -255,6 +255,7 @@ export async function buildApp(config: Config): Promise<FastifyInstance> {
           },
         );
         activeSessions.set(sessionId, session);
+        session.beginOpeningTurn();
 
         const onSessionError = (err: unknown, context: string) => {
           app.log.error(

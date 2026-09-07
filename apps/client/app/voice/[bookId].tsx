@@ -27,6 +27,7 @@ import { webCursor } from '../../src/ui/tokens';
 import { useSottoStore } from '../../src/state/store';
 import { buildPassageWindow } from '../../src/voice/passage';
 import { TutorModelsPanel, type TutorModelsPanelState } from '../../src/voice/TutorModelsPanel';
+import { useOwnProviderStatus } from '../../src/voice/ownProviderStatus';
 import { useVoiceSession } from '../../src/voice/useVoiceSession';
 import { ControlCluster, type TurnDetection } from '../../src/voice/ui/ControlCluster';
 import { PassageCard } from '../../src/voice/ui/PassageCard';
@@ -61,6 +62,13 @@ export default function VoiceScreen() {
   const progress = useSottoStore((s) => s.progress);
   const bookLocale = useSottoStore((s) => s.bookLocale);
   const setPreferences = useSottoStore((s) => s.setPreferences);
+  // R-adversarial finding 8: this screen never read `ownProviderStatus` —
+  // Settings ↔ Tutor models agreed with each other, but the tutor screen
+  // itself could still show a byok chip with no hint that the setting
+  // behind it is disconnected/rejected. Same source Settings reads
+  // (src/voice/ownProviderStatus.ts) so the mode row's byok chip and the
+  // hub row always describe the same state.
+  const ownProviderStatus = useOwnProviderStatus();
 
   const session = useVoiceSession({
     bookId: bookId ?? '',
@@ -244,7 +252,11 @@ export default function VoiceScreen() {
               ]}
             >
               <Text role="caption" color={session.activePath === p ? 'surface' : 'ink'}>
-                {p === 'byok' ? t('byok.pathLabel') : t(`voice.path.${p}` as const)}
+                {p === 'byok'
+                  ? // Same `byok.status.*` keys the Settings hub row reads
+                    // (app/settings/index.tsx) — one status, everywhere.
+                    `${t('byok.pathLabel')} — ${t(`byok.status.${ownProviderStatus}` as const)}`
+                  : t(`voice.path.${p}` as const)}
               </Text>
             </Pressable>
           ))}

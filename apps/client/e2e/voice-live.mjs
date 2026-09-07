@@ -46,7 +46,17 @@ const run = promisify(execFile);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CACHE_DIR = path.join(__dirname, '.cache');
 const PROFILE_DIR = path.join(CACHE_DIR, 'voice-live-profile');
-const OUT_DIR = path.resolve(__dirname, '../../../docs/screenshots/web');
+// R-adversarial hygiene item: running this script always dirtied the 12
+// tracked PNGs under docs/screenshots/web/ in the working tree (it
+// overwrites the same filenames the repo already has committed), which is
+// a trap for the next lane that runs `git status` before committing — this
+// run already had one lane accidentally sweep another's staged rename.
+// SOTTO_SCREENSHOT_DIR opts out of writing into the repo at all; unset,
+// this keeps writing to the tracked path so anyone intentionally
+// refreshing those screenshots still gets the old behaviour.
+const OUT_DIR = process.env.SOTTO_SCREENSHOT_DIR
+  ? path.resolve(process.env.SOTTO_SCREENSHOT_DIR)
+  : path.resolve(__dirname, '../../../docs/screenshots/web');
 const BASE_URL = process.env.BASE_URL ?? 'http://localhost:8081';
 const TTS_URL = process.env.SOTTO_TTS_URL ?? 'http://127.0.0.1:8880/v1';
 const BOOK_ID = 'es-fabulas-samaniego';
@@ -55,6 +65,7 @@ const TRAILING_SILENCE_MS = 1500;
 const TARGET_WORD = 'cigarra';
 
 mkdirSync(CACHE_DIR, { recursive: true });
+mkdirSync(OUT_DIR, { recursive: true });
 
 const t0 = Date.now();
 function log(...args) {

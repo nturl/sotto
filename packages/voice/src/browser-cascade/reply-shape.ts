@@ -245,3 +245,114 @@ export class ReplyBudget {
     return true;
   }
 }
+
+// ---------------------------------------------------------------------------
+// The question-only continuation (run 9, lane H2 — P0-2).
+//
+// `discuss`'s contract is "two sentences that answer, then one question", and
+// the compact prompt states it twice, last and most emphatically. The 2B
+// model obeys it about two times in ten: lane B measured 0 questions in 4
+// replies, lane H measured 0 in 8 across four probe runs with the prompt
+// change in and out and the token ceiling at both values. It is an
+// instruction-following ceiling at this size, not a wording problem.
+//
+// So the question is asked for on its own. When a discuss reply comes back
+// without one, `llm-turn.ts` makes ONE more engine call — same system
+// instruction, the history including the reply just given, and the nudge
+// below — in a budget too small to hold anything but a question, and speaks
+// what comes back only if it really is one. Everything here is pure so the
+// decision can be tested without a model; the extra call itself is in
+// `TutorTurnRunner.run`.
+// ---------------------------------------------------------------------------
+
+/** The user-role nudge for the continuation call. Deliberately imperative and
+ * twice-stated ("exactly one", "only the question"), the wording that already
+ * works best on this model in `COMPACT_MODE_GUIDANCE`. */
+export const QUESTION_NUDGE =
+  'Ask the learner exactly one short follow-up question about the passage. ' +
+  'Reply with only the question.';
+
+/** The continuation's generation ceiling. A short question is ~12 tokens;
+ * 32 leaves margin and cannot hold a second sentence worth speaking. */
+export const QUESTION_RETRY_MAX_TOKENS = 32;
+
+/** Trailing wrapping a model puts after its final punctuation — whitespace,
+ * straight and curly quotes, a closing bracket. */
+const TRAILING_WRAP_RE = /[\s"'“”‘’)\]]+$/u;
+const LEADING_WRAP_RE = /^[\s"'“”‘’([]+/u;
+
+/** Sentence-ending punctuation, Latin and CJK. */
+const SENTENCE_END_RE = /[.!?…。！？]/u;
+
+/** Does this reply actually finish on a question? Trailing quotes and
+ * brackets are looked through — `"What does that mean?"` is a question — but
+ * a question mark anywhere earlier is not: the contract is about the LAST
+ * thing the learner hears. */
+export function endsWithQuestion(text: string): boolean {
+  const t = text.replace(TRAILING_WRAP_RE, '');
+  return t.endsWith('?') || t.endsWith('？');
+}
+
+/**
+ * Phrases that only mean "stop" when they open the turn (or are the whole of
+ * it). "Stop" on its own is an instruction; "why did the man stop" is not.
+ */
+const STOP_LEADING = [
+  'stop',
+  'stop it',
+  'stop please',
+  'please stop',
+  'ok stop',
+  'okay stop',
+  'no stop',
+  'be quiet',
+];
+
+/** Phrases unambiguous enough to catch anywhere in the turn. */
+const STOP_ANYWHERE = [
+  'stop asking',
+  'that s enough',
+  'that is enough',
+  'no more questions',
+  'no more question',
+  'do not ask me any more',
+  'don t ask me any more',
+  'stop the questions',
+];
+
+/**
+ * Did the learner ask the tutor to stop? Only used to suppress the
+ * continuation: a learner who has just said "that's enough" should not be
+ * handed one more question by a retry the model did not even want to make.
+ * Deliberately conservative — a false negative costs one unwanted question,
+ * a false positive costs the fix.
+ */
+export function isStopRequest(text: string): boolean {
+  const t = foldApostrophes(text)
+    .toLowerCase()
+    .replace(/[^a-z' ]+/g, ' ')
+    .replace(/'/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!t) return false;
+  if (STOP_LEADING.some((p) => t === p || t.startsWith(`${p} `))) return true;
+  return STOP_ANYWHERE.some((p) => t === p || t.includes(p));
+}
+
+/**
+ * What, if anything, of a continuation reply may be spoken. Normalized by the
+ * same rules as any other tutor text (markdown, emoji, fillers), unwrapped,
+ * and accepted only when it is ONE sentence that ends in a question mark —
+ * so a statement, an empty reply, a two-sentence answer, and a question cut
+ * off by the 32-token ceiling are all dropped rather than spoken.
+ */
+export function questionContinuation(raw: string): string | null {
+  const normalized = normalizeReplyText(raw ?? '');
+  if (!normalized) return null;
+  const text = normalized.replace(LEADING_WRAP_RE, '').replace(TRAILING_WRAP_RE, '').trim();
+  if (!text) return null;
+  if (!(text.endsWith('?') || text.endsWith('？'))) return null;
+  // One sentence: nothing that ends a sentence before the final character.
+  if (SENTENCE_END_RE.test(text.slice(0, -1))) return null;
+  return text;
+}

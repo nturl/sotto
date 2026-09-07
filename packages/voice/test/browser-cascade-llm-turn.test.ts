@@ -14,6 +14,7 @@ import {
   type ToolCallResult,
   type TutorTurnDeps,
 } from '../src/browser-cascade/llm-turn.ts';
+import { QUESTION_RETRY_MAX_TOKENS } from '../src/browser-cascade/reply-shape.ts';
 import type { TutorMode } from '@sotto/core';
 
 /** Scripted engine: each call to `chat()` consumes the next scripted turn. */
@@ -275,8 +276,13 @@ describe('TutorTurnRunner reply contract', () => {
   it('aborts the engine stream when the cap is reached, without marking the turn barged-in', async () => {
     let deltasRequested = 0;
     let sawAbort = false;
+    let calls = 0;
     const engine: LlmEngine = {
       chat: async (_messages, handlers, signal) => {
+        // Only the first call is the reply under test; the second is the
+        // question-only continuation (run 9 lane H2), which this fixture
+        // answers with nothing so the cap stays the only variable.
+        if (++calls > 1) return { text: '', toolCalls: [] };
         let text = '';
         for (const delta of ['Uno. ', 'Dos. ', 'Tres. ', 'Cuatro. ', 'Cinco. ']) {
           if (signal.aborted) {
@@ -308,15 +314,18 @@ describe('TutorTurnRunner reply contract', () => {
   it('records the spoken text (not the truncated remainder) in history', async () => {
     const engine = new ScriptedEngine([
       { deltas: ['Uno. ', 'Dos. ', 'Tres. ', 'Cuatro. '] },
+      // The question-only continuation's call. Not a question, so dropped —
+      // the history entry is the spoken three sentences and nothing else.
       { deltas: ['Cinco.'] },
+      { deltas: ['Seis.'] },
     ]);
     const { runner } = setup(engine, { mode: () => 'discuss' });
 
     await runner.run('hola', new AbortController().signal);
     await runner.run('otra vez', new AbortController().signal);
 
-    const second = engine.calls[1]!;
-    const assistant = second.filter((m) => m.role === 'assistant');
+    const secondTurn = engine.calls[2]!;
+    const assistant = secondTurn.filter((m) => m.role === 'assistant');
     expect(assistant.map((m) => m.content)).toEqual(['Uno. Dos. Tres.']);
   });
 
@@ -331,7 +340,9 @@ describe('TutorTurnRunner reply contract', () => {
     };
     const { runner } = setup(engine, { mode: () => 'discuss', maxTokens: () => 160 });
     await runner.run('hola', new AbortController().signal);
-    expect(seen).toEqual([160]);
+    // 160 for the reply, then 32 for the question-only continuation, which
+    // carries its own ceiling rather than the mode's (run 9 lane H2).
+    expect(seen).toEqual([160, QUESTION_RETRY_MAX_TOKENS]);
   });
 
   it('drops a leading filler sentence before it is ever spoken', async () => {
@@ -354,14 +365,17 @@ describe('the sentence cap is safe to abort on (lane R, P1-5)', () => {
     const capped = new ScriptedEngine([{ deltas: ['Uno. ', 'Dos. ', 'Tres. ', 'Cuatro. '] }]);
     const a = setup(capped, { mode: () => 'discuss', onMetric });
     await a.runner.run('hola', new AbortController().signal);
-    expect(metrics.map((m) => m.name)).toEqual(['llm_capped']);
+    // `llm_question_retry` also fires here — neither reply ends in a
+    // question — so this asserts on the cap's own metric.
+    expect(metrics.filter((m) => m.name === 'llm_capped')).toHaveLength(1);
+    expect(metrics[0]!.name).toBe('llm_capped');
     expect(metrics[0]!.detail).toContain('discuss');
 
     metrics.length = 0;
     const short = new ScriptedEngine([{ deltas: ['Uno. ', 'Dos.'] }]);
     const b = setup(short, { mode: () => 'discuss', onMetric });
     await b.runner.run('hola', new AbortController().signal);
-    expect(metrics).toEqual([]);
+    expect(metrics.filter((m) => m.name === 'llm_capped')).toEqual([]);
   });
 
   it('does not resolve the turn until the capped engine call has actually returned', async () => {
@@ -414,6 +428,211 @@ describe('the sentence cap is safe to abort on (lane R, P1-5)', () => {
     releaseEngine();
     await turn;
     expect(turnResolved).toBe(true);
-    expect(engineCalls).toBe(1);
+    // Two: the capped reply, then the question-only continuation, which this
+    // fixture answers with the same non-question text and which is therefore
+    // dropped without being spoken.
+    expect(engineCalls).toBe(2);
+    expect(sentences).toEqual(['Uno.', 'Dos.', 'Tres.']);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// run 9 lane H2 — the question-only continuation (P0-2).
+//
+// A Discuss reply is supposed to end with one short follow-up question. The
+// 2B model does that about two times in ten (lane B measured 0/4; lane H's
+// four probe runs were 0/8 across both scenarios), and no prompt ordering
+// moved it. The orchestrator's decision: after the main stream finishes with
+// nothing pending, make ONE extra engine call that asks for nothing but the
+// question, and speak it under the same utterance if that is what comes back.
+// ---------------------------------------------------------------------------
+describe('TutorTurnRunner question-only continuation', () => {
+  it('appends and speaks a continuation when the discuss reply does not end in "?"', async () => {
+    const engine = new ScriptedEngine([
+      { deltas: ['The dog was big and grey. ', 'It knew the cold better than the man.'] },
+      { deltas: ['What does that tell you about the dog?'] },
+    ]);
+    const { runner, sentences, captions } = setup(engine, { mode: () => 'discuss' });
+
+    await runner.run('Tell me more about the gray husky dog.', new AbortController().signal);
+
+    expect(engine.calls).toHaveLength(2);
+    // The continuation call carries the same system instruction, the history
+    // so far INCLUDING the reply just given, and a user-role nudge last.
+    const second = engine.calls[1]!;
+    expect(second[0]!.role).toBe('system');
+    expect(second[0]!.content).toBe('system prompt');
+    expect(second.at(-2)).toEqual({
+      role: 'assistant',
+      content: 'The dog was big and grey. It knew the cold better than the man.',
+    });
+    expect(second.at(-1)!.role).toBe('user');
+    expect(second.at(-1)!.content).toContain('exactly one short follow-up question');
+
+    // Spoken as the last sentence of the same turn.
+    expect(sentences).toEqual([
+      'The dog was big and grey.',
+      'It knew the cold better than the man.',
+      'What does that tell you about the dog?',
+    ]);
+    // One final caption, carrying the question.
+    const finals = captions.filter((c) => c.final);
+    expect(finals).toHaveLength(1);
+    expect(finals[0]!.text).toBe(
+      'The dog was big and grey. It knew the cold better than the man. What does that tell you about the dog?',
+    );
+
+    // ONE assistant history entry, not two.
+    await runner.run('otra vez', new AbortController().signal);
+    const nextCall = engine.calls[2]!;
+    const assistants = nextCall.filter((m) => m.role === 'assistant');
+    expect(assistants).toHaveLength(1);
+    expect(assistants[0]!.content).toBe(
+      'The dog was big and grey. It knew the cold better than the man. What does that tell you about the dog?',
+    );
+  });
+
+  it('makes no second call when the reply already ends in a question', async () => {
+    const engine = new ScriptedEngine([
+      { deltas: ['The dog was big and grey. ', 'What does that mean?'] },
+      { deltas: ['Why did it stop?'] }, // must never be consumed
+    ]);
+    const { runner, sentences } = setup(engine, { mode: () => 'discuss' });
+
+    await runner.run('hola', new AbortController().signal);
+
+    expect(engine.calls).toHaveLength(1);
+    expect(sentences).toEqual(['The dog was big and grey.', 'What does that mean?']);
+  });
+
+  it('makes no second call in read_to_me', async () => {
+    const engine = new ScriptedEngine([
+      { deltas: ['He plunged in among the big spruce trees. ', 'The trail was faint.'] },
+      { deltas: ['What do you think?'] }, // must never be consumed
+    ]);
+    const { runner, sentences } = setup(engine, { mode: () => 'read_to_me' });
+
+    await runner.run('lee', new AbortController().signal);
+
+    expect(engine.calls).toHaveLength(1);
+    expect(sentences).toEqual([
+      'He plunged in among the big spruce trees.',
+      'The trail was faint.',
+    ]);
+  });
+
+  it('makes no second call when the learner asked it to stop', async () => {
+    const engine = new ScriptedEngine([
+      { deltas: ['All right, I will stop there.'] },
+      { deltas: ['One more question?'] }, // must never be consumed
+    ]);
+    const { runner, sentences } = setup(engine, { mode: () => 'discuss' });
+
+    await runner.run("That's enough, no more questions.", new AbortController().signal);
+
+    expect(engine.calls).toHaveLength(1);
+    expect(sentences).toEqual(['All right, I will stop there.']);
+  });
+
+  it('drops a continuation that is not a question, silently, with a metric', async () => {
+    const metrics: Array<{ name: string; detail?: string }> = [];
+    const engine = new ScriptedEngine([
+      { deltas: ['The dog was big and grey.'] },
+      { deltas: ['The dog was also very tired.'] },
+    ]);
+    const { runner, sentences, captions } = setup(engine, {
+      mode: () => 'discuss',
+      onMetric: (name, detail) => metrics.push({ name, detail }),
+    });
+
+    await runner.run('hola', new AbortController().signal);
+
+    expect(engine.calls).toHaveLength(2);
+    // Not spoken, not captioned, no error surfaced.
+    expect(sentences).toEqual(['The dog was big and grey.']);
+    expect(captions.filter((c) => c.final).map((c) => c.text)).toEqual([
+      'The dog was big and grey.',
+    ]);
+    expect(metrics).toEqual([{ name: 'llm_question_retry', detail: 'dropped' }]);
+  });
+
+  it('reports llm_question_retry=ok when the continuation lands', async () => {
+    const metrics: Array<{ name: string; detail?: string }> = [];
+    const engine = new ScriptedEngine([
+      { deltas: ['The dog was big and grey.'] },
+      { deltas: ['Why do you think it stopped?'] },
+    ]);
+    const { runner } = setup(engine, {
+      mode: () => 'discuss',
+      onMetric: (name, detail) => metrics.push({ name, detail }),
+    });
+
+    await runner.run('hola', new AbortController().signal);
+
+    expect(metrics).toEqual([{ name: 'llm_question_retry', detail: 'ok' }]);
+  });
+
+  it('makes no continuation when the turn was barged in', async () => {
+    const controller = new AbortController();
+    let calls = 0;
+    const engine: LlmEngine = {
+      chat: async (_messages, handlers, signal) => {
+        calls += 1;
+        let text = '';
+        for (const delta of ['Primero. ', 'Segundo. ', 'Tercero.']) {
+          if (signal.aborted) break;
+          text += delta;
+          await handlers.onTextDelta?.(delta);
+          if (calls === 1 && text.startsWith('Primero')) controller.abort();
+        }
+        return { text, toolCalls: [] };
+      },
+    };
+    const { runner, captions } = setup(engine, { mode: () => 'discuss' });
+
+    await runner.run('hola', controller.signal);
+
+    expect(calls).toBe(1);
+    expect(captions).toEqual([]);
+  });
+
+  it('does not spend the ReplyBudget cap that already fired on the continuation', async () => {
+    // The common live case: the discuss cap of 3 fires mid-stream, so the
+    // reply is three sentences and ends on a statement. The continuation is
+    // a FOURTH spoken sentence — it is not counted against a budget that is
+    // by definition already exhausted, or it could never be spoken at all.
+    const engine = new ScriptedEngine([
+      { deltas: ['Uno. ', 'Dos. ', 'Tres. ', 'Cuatro. ', 'Cinco.'] },
+      { deltas: ['Que piensas tu?'] },
+    ]);
+    const metrics: Array<{ name: string; detail?: string }> = [];
+    const { runner, sentences, captions } = setup(engine, {
+      mode: () => 'discuss',
+      onMetric: (name, detail) => metrics.push({ name, detail }),
+    });
+
+    await runner.run('hola', new AbortController().signal);
+
+    expect(sentences).toEqual(['Uno.', 'Dos.', 'Tres.', 'Que piensas tu?']);
+    expect(captions.filter((c) => c.final).map((c) => c.text)).toEqual([
+      'Uno. Dos. Tres. Que piensas tu?',
+    ]);
+    expect(metrics.map((m) => `${m.name}=${m.detail}`)).toEqual([
+      'llm_capped=discuss 3',
+      'llm_question_retry=ok',
+    ]);
+  });
+
+  it('never makes more than one continuation call per turn', async () => {
+    const engine = new ScriptedEngine([
+      { deltas: ['The dog was big and grey.'] },
+      { deltas: ['Still not a question.'] },
+      { deltas: ['Nor is this.'] },
+    ]);
+    const { runner } = setup(engine, { mode: () => 'discuss' });
+
+    await runner.run('hola', new AbortController().signal);
+
+    expect(engine.calls).toHaveLength(2);
   });
 });

@@ -16,7 +16,15 @@ import { TOOL_NAMES, type ToolName, type TutorMode } from '@sotto/core';
 import type { VoiceState } from '../events.ts';
 import { SentenceChunker } from './chunker.ts';
 import { safeReleaseIndex, stripMarkers } from './markers.ts';
-import { ReplyBudget, ReplyNormalizer } from './reply-shape.ts';
+import {
+  QUESTION_NUDGE,
+  QUESTION_RETRY_MAX_TOKENS,
+  ReplyBudget,
+  ReplyNormalizer,
+  endsWithQuestion,
+  isStopRequest,
+  questionContinuation,
+} from './reply-shape.ts';
 
 export interface ChatMessage {
   role: 'system' | 'user' | 'assistant' | 'tool';
@@ -90,12 +98,16 @@ export interface TutorTurnDeps {
   /** The generation ceiling to ask the engine for, read fresh each turn. */
   maxTokens?: () => number | undefined;
   /**
-   * Diagnostic counter, wired to the worker's `metric` message. Only
-   * `llm_capped` so far: the sentence cap aborts the engine mid-stream on
+   * Diagnostic counter, wired to the worker's `metric` message. Two names
+   * so far. `llm_capped`: the sentence cap aborts the engine mid-stream on
    * any reply longer than the mode's cap, and nothing in the log
    * distinguished that from the model stopping by itself — so if the abort
    * ever does hang the engine it reads as the old silent stall (run 9 lane
-   * R, P1-5). Optional: callers that predate this simply report nothing.
+   * R, P1-5). `llm_question_retry` (detail `ok` / `dropped`): the
+   * question-only continuation ran, and whether its answer was speakable —
+   * the only way to see, in a log, how often the 2B model can be talked
+   * into the one thing the contract asks for (run 9 lane H2, P0-2).
+   * Optional: callers that predate this simply report nothing.
    */
   onMetric?: (name: string, detail?: string) => void;
   maxHistory?: number;
@@ -167,9 +179,24 @@ export class TutorTurnRunner {
     this.deps.onState('thinking');
     let messages = this.buildMessages();
     let finalText = '';
+    // The final caption of the LAST engine call is held until the turn is
+    // really over, because a question-only continuation (below) appends to
+    // it. Earlier iterations — the tool round trip — still caption as they
+    // always did, flushed on the way round the loop.
+    let pendingCaption: string | null = null;
+    // True only if the loop runs out of iterations with tool calls still
+    // outstanding: a turn that ends mid-tool has nothing to follow up on.
+    let toolsUnresolved = false;
+
+    const flushCaption = (): void => {
+      if (pendingCaption === null) return;
+      this.deps.onTutorCaption(pendingCaption, true);
+      pendingCaption = null;
+    };
 
     for (let iteration = 0; iteration < this.maxToolIterations; iteration++) {
       if (signal.aborted) break;
+      toolsUnresolved = false;
 
       const chunker = new SentenceChunker();
       // One normalizer and one budget per engine call: the leading-filler
@@ -243,7 +270,7 @@ export class TutorTurnRunner {
       const turnText = spoken.join(' ');
 
       if (turnText.trim() && !signal.aborted) {
-        this.deps.onTutorCaption(turnText.trim(), true);
+        pendingCaption = turnText.trim();
       }
       finalText += (finalText ? ' ' : '') + turnText.trim();
 
@@ -264,6 +291,8 @@ export class TutorTurnRunner {
           })),
         },
       ];
+      flushCaption();
+      toolsUnresolved = true;
       this.deps.onState('thinking');
 
       for (const tc of toolCalls) {
@@ -288,10 +317,79 @@ export class TutorTurnRunner {
       }
     }
 
+    const continuation = await this.maybeAskQuestion({
+      answered: pendingCaption,
+      learnerText: opts?.skipUserTurn ? '' : userText,
+      toolsUnresolved,
+      signal,
+    });
+    if (continuation) {
+      await this.deps.onSentence(continuation);
+      pendingCaption = `${pendingCaption} ${continuation}`;
+      finalText = `${finalText.trim()} ${continuation}`;
+    }
+    if (!signal.aborted) flushCaption();
+
     if (finalText.trim()) {
       this.history.push({ role: 'assistant', content: finalText.trim() });
       this.trimHistory();
     }
     if (!signal.aborted) this.deps.onState('listening');
+  }
+
+  /**
+   * The question-only continuation (run 9 lane H2, P0-2): ONE extra engine
+   * call, discuss only, when the reply the tutor just gave does not end in a
+   * question. See `reply-shape.ts` for why this exists rather than another
+   * prompt rule.
+   *
+   * Returns the question to speak, or null — including for every reason not
+   * to try at all, so `run()` reads as one condition. Never more than one
+   * call: this is invoked once, after the turn loop.
+   *
+   * Deliberately NOT charged to `ReplyBudget`. The budget is per engine call
+   * and is, in the common live case, exactly what cut the reply off before
+   * it could ask anything; charging the continuation to it would make the
+   * fix unreachable precisely when it is needed.
+   */
+  private async maybeAskQuestion(args: {
+    answered: string | null;
+    learnerText: string;
+    toolsUnresolved: boolean;
+    signal: AbortSignal;
+  }): Promise<string | null> {
+    const { answered, learnerText, toolsUnresolved, signal } = args;
+    // Barged-in turns are the caller's to finish (see the interrupt test):
+    // no caption, no `listening`, and certainly no extra decode.
+    if (signal.aborted) return null;
+    if (this.deps.mode?.() !== 'discuss') return null;
+    if (toolsUnresolved) return null;
+    if (!answered || !answered.trim()) return null;
+    if (endsWithQuestion(answered)) return null;
+    if (isStopRequest(learnerText)) return null;
+
+    let raw = '';
+    try {
+      const result = await this.deps.engine.chat(
+        [
+          ...this.buildMessages(),
+          { role: 'assistant', content: answered },
+          { role: 'user', content: QUESTION_NUDGE },
+        ],
+        {},
+        signal,
+        { maxTokens: QUESTION_RETRY_MAX_TOKENS },
+      );
+      raw = result.text;
+    } catch {
+      raw = '';
+    }
+    // A barge-in during the continuation is a barge-in: say nothing, and do
+    // not report a drop that the learner caused.
+    if (signal.aborted) return null;
+
+    const question = questionContinuation(raw);
+    this.deps.onMetric?.('llm_question_retry', question ? 'ok' : 'dropped');
+    return question;
   }
 }

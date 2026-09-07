@@ -7,10 +7,15 @@
  */
 import { describe, expect, it } from 'vitest';
 import {
+  QUESTION_NUDGE,
+  QUESTION_RETRY_MAX_TOKENS,
   ReplyBudget,
   ReplyNormalizer,
+  endsWithQuestion,
+  isStopRequest,
   maxTokensForMode,
   normalizeReplyText,
+  questionContinuation,
   sentenceCapForMode,
 } from '../src/browser-cascade/reply-shape.ts';
 
@@ -164,5 +169,93 @@ describe('ReplyBudget', () => {
     for (const mode of ['discuss', 'read_with_me', 'pronunciation'] as const) {
       expect(maxTokensForMode(mode)).toBeGreaterThan(THREE_SENTENCES + TOOL_BLOCK);
     }
+  });
+});
+
+// ---------------------------------------------------------------------------
+// run 9 lane H2 — the question-only continuation (P0-2).
+//
+// The 2B model ends a Discuss reply with a question about two times in ten
+// (lane B: 0/4; lane H: 0/8 counting both scenarios of four probe runs). The
+// orchestrator's decision is one extra engine call that asks for nothing but
+// the question. These are the pure halves of that decision.
+// ---------------------------------------------------------------------------
+describe('endsWithQuestion', () => {
+  it('sees a question mark through trailing space, quotes and brackets', () => {
+    expect(endsWithQuestion('What does that mean?')).toBe(true);
+    expect(endsWithQuestion('What does that mean?  ')).toBe(true);
+    expect(endsWithQuestion('"What does that mean?"')).toBe(true);
+    expect(endsWithQuestion('What does that mean?\u201d')).toBe(true);
+    expect(endsWithQuestion('\u4ed6\u4e3a\u4ec0\u4e48\u4e0d\u9ad8\u5174\uff1f')).toBe(true);
+  });
+
+  it('is false for a statement, for an empty reply, and for a mid-text question', () => {
+    expect(endsWithQuestion('The dog is unhappy but loyal.')).toBe(false);
+    expect(endsWithQuestion('')).toBe(false);
+    expect(endsWithQuestion('   ')).toBe(false);
+    expect(endsWithQuestion('Why? Because it was cold.')).toBe(false);
+  });
+});
+
+describe('isStopRequest', () => {
+  it('catches the ways a learner asks the tutor to stop', () => {
+    for (const text of [
+      'stop',
+      'Stop.',
+      'stop please',
+      'please stop',
+      'Stop asking me questions.',
+      "That's enough.",
+      'that is enough for today',
+      'No more questions, please.',
+      'ok stop',
+    ]) {
+      expect(isStopRequest(text), text).toBe(true);
+    }
+  });
+
+  it('does not fire on an ordinary passage question that merely contains the words', () => {
+    for (const text of [
+      'Tell me more about the gray husky dog.',
+      'Why did the man stop at the creek?',
+      'Did he have enough food for the trail?',
+      'What happens next?',
+      '',
+    ]) {
+      expect(isStopRequest(text), text).toBe(false);
+    }
+  });
+});
+
+describe('questionContinuation', () => {
+  it('accepts one short question, normalized, with its wrapping stripped', () => {
+    expect(questionContinuation('What does that tell you about the dog?')).toBe(
+      'What does that tell you about the dog?',
+    );
+    expect(questionContinuation('  **Why do you think the dog stopped?**  ')).toBe(
+      'Why do you think the dog stopped?',
+    );
+    expect(questionContinuation('"How would you feel on that trail?"')).toBe(
+      'How would you feel on that trail?',
+    );
+  });
+
+  it('rejects anything that is not a single trailing question', () => {
+    expect(questionContinuation('')).toBe(null);
+    expect(questionContinuation('   ')).toBe(null);
+    // Not a question at all.
+    expect(questionContinuation('The dog knew the cold better than the man.')).toBe(null);
+    // Two sentences: the tutor would speak an unasked-for statement.
+    expect(questionContinuation('The dog was afraid. What do you think?')).toBe(null);
+    // Truncated by the 32-token ceiling before it could ask anything.
+    expect(questionContinuation('Now, thinking about the way the dog behaved when the')).toBe(null);
+  });
+});
+
+describe('the continuation request itself', () => {
+  it('asks for exactly one question and nothing else, in a tiny budget', () => {
+    expect(QUESTION_RETRY_MAX_TOKENS).toBe(32);
+    expect(QUESTION_NUDGE).toContain('exactly one short follow-up question');
+    expect(QUESTION_NUDGE).toContain('only the question');
   });
 });

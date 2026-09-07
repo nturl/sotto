@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* global process, console, Buffer */
 /**
  * Lane C's objective ear (planning/run9/cards/C-tts-integrity.md, output 1).
  *
@@ -25,19 +26,24 @@
  *     PREPARED=1                      pipe each sentence through
  *                                     `prepareForSpeech` first (the fix),
  *                                     instead of handing Kokoro the raw text
+ *     SCORE_MANIFEST=<file.json>      skip synthesis entirely and score WAVs
+ *                                     someone else captured. The manifest is
+ *                                     an array of { file, expect } relative
+ *                                     to OUT_DIR — this is how the BROWSER
+ *                                     half of the matrix gets the same ear
+ *                                     as the Node half without a second
+ *                                     Whisper copy living somewhere else.
  *
  * NOTE for the orchestrator: `wer()` below is a private copy. Lane E's
  * `apps/client/e2e/lib/*` had not landed on `run9/E` when this was written
  * (`git ls-tree run9/E` showed no e2e/lib), so there was nothing to import.
  * If E's version lands, one of the two should go.
  */
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { homedir } from 'node:os';
 
-const OUT_DIR = resolve(
-  (process.env.OUT_DIR ?? 'tts-out').replace(/^~(?=$|\/)/, homedir()),
-);
+const OUT_DIR = resolve((process.env.OUT_DIR ?? 'tts-out').replace(/^~(?=$|\/)/, homedir()));
 const DTYPES = (process.env.DTYPES ?? 'q8,fp32,fp16').split(',').filter(Boolean);
 const ONLY = process.env.ONLY;
 const PREPARED = process.env.PREPARED === '1';
@@ -82,8 +88,7 @@ const SENTENCES = [
   {
     id: 'symbols',
     text: 'The temperature fell to 50° and 90% of the men & dogs were exhausted.',
-    expect:
-      'The temperature fell to 50 degrees and 90 percent of the men and dogs were exhausted.',
+    expect: 'The temperature fell to 50 degrees and 90 percent of the men and dogs were exhausted.',
   },
 ];
 
@@ -115,10 +120,7 @@ export function wer(reference, hypothesis) {
   for (let i = 1; i <= r.length; i++) {
     const row = [i];
     for (let j = 1; j <= h.length; j++) {
-      row[j] =
-        r[i - 1] === h[j - 1]
-          ? prev[j - 1]
-          : 1 + Math.min(prev[j - 1], prev[j], row[j - 1]);
+      row[j] = r[i - 1] === h[j - 1] ? prev[j - 1] : 1 + Math.min(prev[j - 1], prev[j], row[j - 1]);
     }
     prev = row;
   }
@@ -157,6 +159,64 @@ function rms(float32) {
   let sum = 0;
   for (let i = 0; i < float32.length; i++) sum += float32[i] * float32[i];
   return Math.sqrt(sum / Math.max(1, float32.length));
+}
+
+/** 16-bit mono PCM WAV -> Float32Array. Only the shape `wavFromFloat32`
+ * above writes, which is also what the browser matrix writes. */
+function float32FromWav(buf) {
+  if (buf.toString('ascii', 0, 4) !== 'RIFF') throw new Error('not a RIFF file');
+  let pos = 12;
+  let sampleRate = 24000;
+  while (pos + 8 <= buf.length) {
+    const id = buf.toString('ascii', pos, pos + 4);
+    const size = buf.readUInt32LE(pos + 4);
+    if (id === 'fmt ') sampleRate = buf.readUInt32LE(pos + 12);
+    if (id === 'data') {
+      const n = Math.floor(size / 2);
+      const out = new Float32Array(n);
+      for (let i = 0; i < n; i++) {
+        const v = buf.readInt16LE(pos + 8 + i * 2);
+        out[i] = v / (v < 0 ? 0x8000 : 0x7fff);
+      }
+      return { pcm: out, sampleRate };
+    }
+    pos += 8 + size + (size % 2);
+  }
+  throw new Error('no data chunk');
+}
+
+async function scoreManifest() {
+  const { pipeline } = await import('@huggingface/transformers');
+  const manifest = JSON.parse(readFileSync(process.env.SCORE_MANIFEST, 'utf8'));
+  process.stderr.write('loading whisper-base (cpu)…\n');
+  const asr = await pipeline('automatic-speech-recognition', 'onnx-community/whisper-base', {
+    dtype: { encoder_model: 'fp32', decoder_model_merged: 'q8' },
+    device: 'cpu',
+  });
+  const rows = [];
+  for (const entry of manifest) {
+    if (!entry.file) {
+      rows.push({ ...entry, wer: null });
+      continue;
+    }
+    const { pcm } = float32FromWav(readFileSync(resolve(OUT_DIR, entry.file)));
+    const out = await asr(pcm, { chunk_length_s: 30, stride_length_s: 5 });
+    const heard = (out?.text ?? '').trim();
+    rows.push({
+      ...entry,
+      rms: +rms(pcm).toFixed(4),
+      wer: +wer(entry.expect, heard).toFixed(3),
+      heard,
+    });
+    process.stderr.write(`  ${entry.file}: WER ${rows.at(-1).wer}  "${heard.slice(0, 70)}"\n`);
+  }
+  console.log('\n| sentence | device | dtype | secs | rms | WER | heard | worker metrics |');
+  console.log('|---|---|---|---|---|---|---|---|');
+  for (const r of rows) {
+    console.log(
+      `| ${r.id} | ${r.device ?? '-'} | ${r.dtype} | ${r.secs ?? '-'} | ${r.rms ?? '-'} | ${r.wer ?? 'n/a'} | ${(r.heard ?? r.note ?? '').replace(/\|/g, '/').slice(0, 80)} | ${r.metrics ?? '-'} |`,
+    );
+  }
 }
 
 // ---- main ----
@@ -233,9 +293,7 @@ async function main() {
         heard,
         file: name,
       });
-      process.stderr.write(
-        `  ${s.id}/${dtype}: WER ${rows.at(-1).wer}  "${heard.slice(0, 70)}"\n`,
-      );
+      process.stderr.write(`  ${s.id}/${dtype}: WER ${rows.at(-1).wer}  "${heard.slice(0, 70)}"\n`);
     }
   }
 
@@ -246,12 +304,15 @@ async function main() {
       `| ${r.id} | ${r.dtype} | ${r.pieces ?? '-'} | ${r.secs ?? '-'} | ${r.rms ?? '-'} | ${r.wer ?? 'n/a'} | ${(r.heard ?? r.note ?? '').replace(/\|/g, '/').slice(0, 90)} |`,
     );
   }
-  writeFileSync(resolve(OUT_DIR, `roundtrip${PREPARED ? '-prepared' : ''}.json`), JSON.stringify(rows, null, 2));
+  writeFileSync(
+    resolve(OUT_DIR, `roundtrip${PREPARED ? '-prepared' : ''}.json`),
+    JSON.stringify(rows, null, 2),
+  );
   console.log(`\nWAVs + JSON in ${OUT_DIR}`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch((err) => {
+  (process.env.SCORE_MANIFEST ? scoreManifest() : main()).catch((err) => {
     console.error(err);
     process.exit(1);
   });

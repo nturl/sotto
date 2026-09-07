@@ -29,15 +29,15 @@
 /**
  * Longest run of characters handed to Kokoro in one `generate` call.
  *
- * Kokoro's hard limit is 510 phoneme tokens (see the module note). English
- * text phonemizes to slightly FEWER tokens than it has characters — measured
- * with kokoro-js's own phonemizer over this lane's fixture sentences at
- * 0.80-0.95 phoneme tokens per character (see the "phoneme ratio" section of
- * planning/run9/C-report.md) — but "slightly fewer" is not a guarantee, and a
- * silent truncation is exactly the failure mode we are here to remove. 320
- * characters leaves roughly a 40% margin against the 509-token clamp at the
- * worst ratio observed, and is still long enough that no tutor reply in the
- * fixture set splits at all: the reference husky sentence is 151 characters.
+ * Kokoro's hard limit is 510 phoneme tokens (see the module note), and the
+ * cap here is in characters because that is what a caller can cheaply know.
+ * Measured with kokoro-js's own phonemizer + Kokoro's tokenizer over this
+ * lane's fixture sentences (planning/run9/C-report.md, "phoneme ratio"):
+ * ordinary English prose costs 1.05-1.12 phoneme tokens per character, and
+ * the worst contrived case tried ("aaaaaaaaaa" repeated) 1.28. At 1.28,
+ * 320 characters is 410 tokens — a ~20% margin under the 509 clamp. It is
+ * also long enough that no real tutor sentence splits: the reference husky
+ * line is 149 characters and a two-sentence reply never approaches 320.
  */
 export const MAX_SPEECH_CHARS = 320;
 
@@ -93,11 +93,15 @@ function expandSymbols(input: string): string {
     .replace(/\s*&\s*/g, ' and ');
 }
 
-/** Emoji, pictographs, variation selectors and joiners. */
+/** Emoji, pictographs, variation selectors, zero-width joiners and skin-tone
+ * modifiers. Written with escapes rather than literals so the source stays
+ * greppable and eslint's no-irregular-whitespace rule stays happy. */
 function stripNonSpeech(input: string): string {
   return input
     .replace(/\p{Extended_Pictographic}/gu, '')
-    .replace(/[​-‍︀-️\u{1F3FB}-\u{1F3FF}]/gu, '');
+    .replace(/[\u200B-\u200D]/g, '')
+    .replace(/[\uFE00-\uFE0F]/g, '')
+    .replace(/[\u{1F3FB}-\u{1F3FF}]/gu, '');
 }
 
 function tidy(input: string): string {

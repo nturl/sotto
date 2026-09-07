@@ -28,15 +28,11 @@ describe('prepareForSpeech', () => {
     expect(prepareForSpeech('The **dog** is *loyal*.')).toEqual(['The dog is loyal.']);
     expect(prepareForSpeech('The __dog__ is _loyal_.')).toEqual(['The dog is loyal.']);
     expect(prepareForSpeech('Say `husky` aloud.')).toEqual(['Say husky aloud.']);
-    expect(prepareForSpeech('See [the trail](https://x.test/a).')).toEqual([
-      'See the trail.',
-    ]);
+    expect(prepareForSpeech('See [the trail](https://x.test/a).')).toEqual(['See the trail.']);
   });
 
   it('keeps an apostrophe and an intra-word hyphen', () => {
-    expect(prepareForSpeech("The wolf-dog didn't move.")).toEqual([
-      "The wolf-dog didn't move.",
-    ]);
+    expect(prepareForSpeech("The wolf-dog didn't move.")).toEqual(["The wolf-dog didn't move."]);
   });
 
   it('removes emoji and other non-speech symbols', () => {
@@ -45,12 +41,8 @@ describe('prepareForSpeech', () => {
 
   it('normalizes curly quotes, dashes and ellipses to plain punctuation', () => {
     expect(prepareForSpeech('He said, “we go”.')).toEqual(['He said, "we go".']);
-    expect(prepareForSpeech('It was loyal — but unhappy.')).toEqual([
-      'It was loyal, but unhappy.',
-    ]);
-    expect(prepareForSpeech('It was loyal – but unhappy.')).toEqual([
-      'It was loyal, but unhappy.',
-    ]);
+    expect(prepareForSpeech('It was loyal — but unhappy.')).toEqual(['It was loyal, but unhappy.']);
+    expect(prepareForSpeech('It was loyal – but unhappy.')).toEqual(['It was loyal, but unhappy.']);
     expect(prepareForSpeech('Well… maybe.')).toEqual(['Well. maybe.']);
     expect(prepareForSpeech('It was cold‑‑very cold.')).toEqual(['It was cold, very cold.']);
   });

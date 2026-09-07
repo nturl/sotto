@@ -36,6 +36,10 @@ export function Sidebar() {
       key={row.segment}
       onPress={() => router.push(row.href as Parameters<typeof router.push>[0])}
       accessibilityRole="link"
+      // A link cannot be `aria-selected`; the current page in a set of
+      // navigation links is `aria-current="page"`. Same react-native-web
+      // 0.21 gap as the tab bar and the level scale.
+      aria-current={active ? 'page' : undefined}
       accessibilityState={{ selected: active }}
       style={[styles.row, active && styles.rowActive, webCursor]}
     >

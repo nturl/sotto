@@ -100,6 +100,11 @@ export function TabBar({ state, navigation }: TabBarProps) {
             key={row.key}
             onPress={onPress}
             accessibilityRole="tab"
+            // react-native-web 0.21 dropped the `accessibilityState` ->
+            // `aria-*` mapping (lane C's LevelScale finding, repo-wide), so
+            // without this the DOM tab never reports which one is current.
+            // `accessibilityState` stays for native.
+            aria-selected={focused}
             accessibilityState={{ selected: focused }}
             style={[styles.tab, webCursor]}
           >

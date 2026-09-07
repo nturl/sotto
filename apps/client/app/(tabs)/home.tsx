@@ -93,7 +93,13 @@ export default function HomeScreen() {
         return (
           <Rail
             key={kind}
-            title={t('home.rail.recommended', { level: preferences.level })}
+            /* Mockup phone frame line 337 is a plain "Recommended"; the
+               desktop frame carries the level. */
+            title={
+              isDesktop
+                ? t('home.rail.recommended', { level: preferences.level })
+                : t('home.rail.recommendedPlain')
+            }
             books={library.recommended}
             onPressBook={openBook}
             onSeeAll={() => router.push(`/library?level=${preferences.level}`)}

@@ -82,11 +82,13 @@ export function BookTile({ book, onPress, ribbon = false, caption }: BookTilePro
       <Text role="heading" size={14} style={styles.title} numberOfLines={1}>
         {book.title}
       </Text>
-      <Text role="caption" size={12.5} numberOfLines={1}>
+      {/* PLAN decision 13 / DESIGN.md contrast findings: ink-2, never ink-3
+          (measured 2.61:1 on canvas — it fails at every size). */}
+      <Text role="caption" size={12.5} color="ink2" numberOfLines={1}>
         {book.shortAuthor}
       </Text>
       {resolvedCaption ? (
-        <Text role="caption" size={12.5} color="ink3" numberOfLines={1}>
+        <Text role="caption" size={12.5} color="ink2" numberOfLines={1}>
           {resolvedCaption}
         </Text>
       ) : null}

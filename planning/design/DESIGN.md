@@ -12,7 +12,7 @@ North star: a well-set paperback with one coral ribbon. Books are paper things o
 | surface-2 | #EFE4D2 | secondary buttons, chips, metadata strip, progress track |
 | ink | #221E1B | primary text, primary-button shadow, icon strokes |
 | ink-2 | #6E6459 | secondary text, inactive tab labels |
-| ink-3 | #9C9287 | muted/legal text (4.5:1 on canvas) |
+| ink-3 | #9C9287 | decorative only — 2.61:1 on canvas, never body text at any size |
 | hairline | rgba(34,30,27,0.12) | borders, dividers |
 | hairline2 | rgba(34,30,27,0.20) | the shelf line under a rail, and the level-scale segmented control |
 | accent | #E4572E | ONE job, three places, all of them "where you are": CTA fill, the active tab, and the ribbon on the book you are in. Nowhere else. |
@@ -34,11 +34,11 @@ North star: a well-set paperback with one coral ribbon. Books are paper things o
 
 **Contrast findings (measured, run 8).** These four are rules, not preferences:
 - The CTA label is **ink**, not cream. Cream on accent #E4572E measures 3.45:1 and fails; ink on accent measures 5:1. Every primary cutout button sets its label in ink.
-- **ink-3 is never used for text under 13px.** It clears 4.5:1 on canvas at caption size and no smaller, so the 11px mono metadata (page label, level stamp, eyebrows) uses **ink-2**.
+- **ink-3 is never used for text.** Measured, it is **2.61:1** on canvas — it fails 4.5:1 at every size, not only under 13px. Muted text (the tile's author line, the 11px mono metadata: page label, level stamp, eyebrows) uses **ink-2**; ink-3 is left for decoration.
 - **Sage is #6E9A7C**, lightened from the original #5B8A6B, so that ink text on a sage cover clears 4.5:1. Cream on the old sage failed at 13px.
 - **Every text link carries a 40px hit height** — See all, the collection links, Details, Report, About this book. A text link with no box still needs a target.
 
-Dark mode: not in v1. App is light-only; system bars handled (status bar dark content).
+Dark mode ships: Settings › Appearance offers System / Light / Dark, and every screen reads the active scheme through `useTheme()`. The dark palette is `darkColors` in `packages/core/src/theme.ts` — same token names and roles as the light one, warm charcoal rather than black. The three artwork colourways (the six cover papers, the peach selection fill and the mark band) stay light in both schemes, so text sitting on them is pinned to the light ink.
 
 ### Type
 Two families. Bundled in the app: **Fraunces** (variable, opsz) for display and reading, **Inter** for UI. Sheet previews use Iowan Old Style / Georgia and system sans as stand-ins. Mono: system mono.

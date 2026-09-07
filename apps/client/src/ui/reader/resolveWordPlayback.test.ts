@@ -85,6 +85,9 @@ vi.mock('expo-audio', () => ({
     volume: 1,
   }),
 }));
+vi.mock('../../import/privateAudio', () => ({
+  getAudioAssetUrl: async () => undefined,
+}));
 vi.mock('../../import/useLazyNarration', () => ({
   useLazyNarration: () => ({ narrating: false, narrateChapter: async () => false }),
 }));

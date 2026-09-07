@@ -93,7 +93,7 @@ export default function ImportProgressScreen() {
           }),
       );
       await addPrivateBook(book, chapters);
-      registerImportJob(book.bookId, jobId);
+      await registerImportJob(book.bookId, jobId);
       setStages({
         parsing: { state: 'done', percent: 100 },
         glossing: { state: 'done', percent: 100 },

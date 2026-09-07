@@ -26,7 +26,12 @@ import type { OwnProviderStatus } from '../voice/ownProviderStatus';
 import { hasByokKey } from '../voice/byokKey';
 import { warmBookCache } from '../platform/swCache';
 import { assetUrl, fetchBook, fetchChapter, fetchPacks } from './contentApi';
-import { PRIVATE_INDEX_KEY, privateBookKey, privateChapterKey } from '../import/privateKeys';
+import {
+  PRIVATE_INDEX_KEY,
+  privateBookKey,
+  privateChapterKey,
+  privateImportJobKey,
+} from '../import/privateKeys';
 import {
   type CaptionEntry,
   type LoadStatus,
@@ -322,6 +327,7 @@ export function createSottoStore(persistence: Persistence): {
       const bookRaw = await persistence.getItem(privateBookKey(bookId));
       const book = safeParse<Book>(bookRaw);
       await persistence.removeItem(privateBookKey(bookId));
+      await persistence.removeItem(privateImportJobKey(bookId));
       if (book) {
         await Promise.all(
           book.chapters.map((c) => persistence.removeItem(privateChapterKey(bookId, c.id))),

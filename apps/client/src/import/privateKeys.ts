@@ -16,3 +16,7 @@ export function privateChapterKey(bookId: string, chapterId: string): string {
 export function privateAudioKey(bookId: string, file: string): string {
   return `sotto.private.audio.${bookId}.${file}`;
 }
+
+export function privateImportJobKey(bookId: string): string {
+  return `sotto.private.importJob.${bookId}`;
+}

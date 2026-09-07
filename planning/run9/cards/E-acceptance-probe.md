@@ -1,0 +1,18 @@
+# Lane E — the acceptance probe, and the baseline that reproduces Noel's report
+
+Task: build `apps/client/e2e/discuss-quality.mjs`, a headless proof that the browser cascade's Discuss mode hears an English question, answers inside the contract, and speaks audio a listener can understand; run it against the CURRENT code first and record the failure as the baseline.
+
+Inputs: `apps/client/e2e/browser-tutor.mjs` (copy its Chromium flags, fake-mic WAV synthesis with `say`, `/health` block, download-panel driving, profile cache dir), `apps/client/e2e/audible-probe.mjs` (how playback samples were observed), `packages/voice/src/transports/web-audio.ts` (`playPcm`), `packages/voice/src/browser-cascade/protocol.ts` (worker messages), the book `en-london-build-a-fire` (its first passage is the one in PLAN.md).
+
+Output:
+1. `apps/client/e2e/discuss-quality.mjs`. Flow: static export served on :8095, `/health` blocked so the gate picks the browser path, onboard an en-US learner reading `en-london-build-a-fire` (explanation locale en-US, level B1 or whatever the fixture in browser-tutor.mjs uses), open Discuss, download models, then drive ONE learner turn two ways, as two scenarios: (a) fake mic WAV of "Tell me more about the gray husky dog." via push-to-talk if the fake device delivers frames, else auto mode; (b) the same sentence through `TextFallback` (always runs, isolates LLM+TTS from STT). Capture: every learner and tutor caption, every state transition with timestamps, every `[sotto-tutor]` metric line, and the PCM handed to `playPcm` (monkey-patch it via `page.addInitScript` or an exposed hook; write a 24 kHz mono WAV to `~/Claude/sotto-run9/E/<scenario>.wav`).
+2. Assertions, each reported PASS/FAIL individually, never aborting on the first: learner caption contains "husky" or "dog" (scenario a only); tutor final caption is at most 3 sentences; contains no `-`/`*`/`#` list or emphasis markup; ends with `?`; mentions the dog; audio duration ≥ 1 s and RMS not near zero and no NaN; ROUND TRIP: transcribe the WAV with Whisper in Node (`@huggingface/transformers` pipeline, `onnx-community/whisper-base`, wasm/cpu) and compute word error rate against the tutor caption; PASS at WER ≤ 0.35. Put the WER function and WAV writer in `apps/client/e2e/lib/` with a vitest test for WER (`apps/client/e2e/lib/wer.test.ts` if the client vitest config picks it up; otherwise under `apps/client/src/voice/wer.ts` + test and import from there).
+3. `planning/run9/E-report.md` with the BASELINE run output (expect failures; that is the reproduction), the WAV paths, and your reading of which of PLAN.md's four diagnoses the evidence supports or contradicts. If the fake mic delivers zero frames (audible-probe.mjs saw that once), say so and lean on scenario (b); do not spend more than two attempts on the fake device.
+
+Proof: the script runs end to end with `BASE_URL` unset (it serves its own export) and prints a PASS/FAIL table; the report pastes it. Round-trip WER on a known-good WAV (make one with `say -o` and afconvert to 24 kHz) is ≤ 0.2, proving the scorer itself works.
+
+Permissions: owns `apps/client/e2e/discuss-quality.mjs`, `apps/client/e2e/lib/**`, `planning/run9/E-report.md`, `~/Claude/sotto-run9/E/`. No edits anywhere else; no model or prompt changes.
+
+Stop when: the script exists, the scorer's self-test passes, the baseline has been run at least once to completion (even if every assertion fails) and the report is committed.
+
+Escalate when (write it in the report and stop): WebGPU will not come up headless after two attempts (then run STT on wasm and say WebLLM could not load), or the model download cannot complete.

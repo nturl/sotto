@@ -51,9 +51,32 @@ export interface EnergyVadOptions {
   /** Sustained silence before speech_end fires. */
   silenceEndMs?: number;
   sampleRate?: number;
+  /** Multiplies `rmsThreshold` — see `setThresholdScale`. */
+  thresholdScale?: number;
 }
 
 const SAMPLE_RATE = 16000;
+
+/**
+ * How much higher the bar to open a turn goes while the tutor is speaking
+ * (BUGS-TUTOR-RUN5.md #3: the tutor was barging in on itself, because the
+ * energy VAD hears raw mic frames and the tutor's own voice comes back
+ * through a laptop speaker).
+ *
+ * 2.0 is picked from the numbers, not measured on this machine — no
+ * acoustic measurement was made in run 9, so treat it as a starting point:
+ * the default `rmsThreshold` is 0.02, and speech at a normal distance from
+ * a laptop mic lands around 0.1-0.3 RMS (the test fixtures' 0.4-amplitude
+ * sine is 0.28). Doubling to 0.04 therefore stays roughly an order of
+ * magnitude below a real barge-in while sitting above the residue that
+ * `getUserMedia`'s AEC leaves of the device's own output, which is
+ * attenuated but not silent. A bigger multiplier would start eating quiet
+ * real barge-ins, which is the worse failure: a learner who cannot
+ * interrupt is stuck, whereas a tutor that occasionally interrupts itself
+ * merely repeats. Revisit with a measurement (laptop speaker at normal
+ * volume, mic RMS logged during tutor playback) before changing it.
+ */
+export const HALF_DUPLEX_THRESHOLD_SCALE = 2.0;
 
 export function computeRms(frame: Int16Array): number {
   if (frame.length === 0) return 0;
@@ -74,6 +97,7 @@ export class EnergyVad {
   private readonly silenceEndMs: number;
   private readonly sampleRate: number;
   private readonly evalSamples: number;
+  private thresholdScale: number;
 
   private speaking = false;
   private aboveMs = 0;
@@ -92,6 +116,7 @@ export class EnergyVad {
     this.silenceEndMs = opts.silenceEndMs ?? 1000;
     this.sampleRate = opts.sampleRate ?? SAMPLE_RATE;
     this.evalSamples = Math.max(1, Math.round((this.sampleRate * EVAL_WINDOW_MS) / 1000));
+    this.thresholdScale = opts.thresholdScale ?? 1;
   }
 
   reset(): void {
@@ -100,6 +125,25 @@ export class EnergyVad {
     this.belowMs = 0;
     this.pending = [];
     this.pendingSamples = 0;
+  }
+
+  /**
+   * Half-duplex gate: the caller raises this to
+   * `HALF_DUPLEX_THRESHOLD_SCALE` while the tutor's own audio is playing and
+   * drops it back to 1 when playback ends. Implemented as a scale rather
+   * than a second absolute threshold so any future retuning of
+   * `rmsThreshold` carries through automatically.
+   *
+   * The sustained-speech and sustained-silence counters are cleared on a
+   * change, because they were accumulated against the old bar: a run that
+   * had almost reached `minSpeechMs` under the low threshold must not be
+   * allowed to finish under the high one (or vice versa).
+   */
+  setThresholdScale(scale: number): void {
+    if (scale === this.thresholdScale) return;
+    this.thresholdScale = scale;
+    this.aboveMs = 0;
+    this.belowMs = 0;
   }
 
   get isSpeaking(): boolean {
@@ -145,7 +189,7 @@ export class EnergyVad {
     const rms = computeRms(frame);
     const frameMs = (frame.length / this.sampleRate) * 1000;
 
-    if (rms >= this.rmsThreshold) {
+    if (rms >= this.rmsThreshold * this.thresholdScale) {
       this.aboveMs += frameMs;
       this.belowMs = 0;
     } else {
@@ -172,6 +216,15 @@ export class EnergyVad {
  * utterance, which a live run actually did.
  */
 export const PRE_BUFFER_MS = 1200;
+
+/**
+ * How much of the rolling pre-roll a push-to-talk press keeps. Long enough
+ * to cover the human lag between starting a word and finishing the press
+ * (and the frame-delivery latency in between), short enough that the press
+ * still reads as "start here" rather than "include the last second of the
+ * room". See `SpeechBuffer.start`.
+ */
+export const PTT_PRE_ROLL_MS = 300;
 
 export class SpeechBuffer {
   private pre: Int16Array[] = [];
@@ -204,10 +257,36 @@ export class SpeechBuffer {
     }
   }
 
-  /** Begin an utterance, seeded with whatever pre-roll we have. */
-  start(): void {
+  /**
+   * Begin an utterance, seeded with whatever pre-roll we have.
+   *
+   * `preRollCapMs` trims the seed to the most recent N ms. Push-to-talk
+   * uses it (see `PTT_PRE_ROLL_MS`): before run 9 the `ptt active` handler
+   * called `clear()` first, which threw the pre-roll away entirely and
+   * clipped the first syllables after the press — a learner starts speaking
+   * as they press, not after. Keeping the FULL 1200 ms default would be the
+   * opposite mistake for PTT, since the button is an explicit "from here"
+   * marker and the preceding second may contain the tutor's own audio or a
+   * side conversation. Auto mode keeps the whole pre-roll, because there
+   * the VAD's `minSpeechMs` onset delay means the pre-roll IS the beginning
+   * of the utterance.
+   */
+  start(preRollCapMs?: number): void {
     this.capturing = true;
-    this.speech = [...this.pre];
+    if (preRollCapMs === undefined) {
+      this.speech = [...this.pre];
+      return;
+    }
+    const seed: Int16Array[] = [];
+    let ms = 0;
+    for (let i = this.pre.length - 1; i >= 0; i--) {
+      const f = this.pre[i]!;
+      const frameMs = this.ms(f);
+      if (ms + frameMs > preRollCapMs) break;
+      seed.unshift(f);
+      ms += frameMs;
+    }
+    this.speech = seed;
   }
 
   /** End an utterance and return it as one contiguous buffer (null if empty). */

@@ -3,7 +3,12 @@
  * apps/server/src/voice/vad.test.ts so the port is provably equivalent.
  */
 import { describe, expect, it } from 'vitest';
-import { computeRms, EnergyVad, SpeechBuffer } from '../src/browser-cascade/vad.ts';
+import {
+  computeRms,
+  EnergyVad,
+  HALF_DUPLEX_THRESHOLD_SCALE,
+  SpeechBuffer,
+} from '../src/browser-cascade/vad.ts';
 
 const SAMPLE_RATE = 16000;
 const FRAME_SAMPLES = SAMPLE_RATE / 50; // 20 ms
@@ -111,6 +116,90 @@ describe('SpeechBuffer', () => {
     buf.clear();
     expect(buf.isCapturing).toBe(false);
     buf.start();
+    expect(buf.end()).toBeNull();
+  });
+});
+
+// ---- run 9 lane A: half-duplex + push-to-talk pre-roll ----
+
+describe('EnergyVad half-duplex gate (BUGS-TUTOR-RUN5.md #3)', () => {
+  // The tutor's own voice coming back through a laptop speaker was firing
+  // speech_start and barging the tutor in on itself. While the worker is in
+  // `speaking`, the bar to open a turn goes up.
+  const NEAR_THRESHOLD = frame(0.03); // rms ~0.021: just over the 0.02 default
+
+  it('defaults to a scale of 1 (unchanged behaviour when not speaking)', () => {
+    const vad = new EnergyVad();
+    const events = [];
+    for (let i = 0; i < 16; i++) events.push(...vad.process(NEAR_THRESHOLD));
+    expect(events).toEqual([{ type: 'speech_start' }]);
+  });
+
+  it('a scaled threshold ignores leakage that would otherwise open a turn', () => {
+    const vad = new EnergyVad();
+    vad.setThresholdScale(HALF_DUPLEX_THRESHOLD_SCALE);
+    const events = [];
+    for (let i = 0; i < 50; i++) events.push(...vad.process(NEAR_THRESHOLD));
+    expect(events).toEqual([]);
+  });
+
+  it('barge-in by a real voice still works while scaled', () => {
+    const vad = new EnergyVad();
+    vad.setThresholdScale(HALF_DUPLEX_THRESHOLD_SCALE);
+    const events = [];
+    for (let i = 0; i < 16; i++) events.push(...vad.process(LOUD));
+    expect(events).toEqual([{ type: 'speech_start' }]);
+  });
+
+  it('restoring the scale to 1 restores the normal threshold', () => {
+    const vad = new EnergyVad();
+    vad.setThresholdScale(HALF_DUPLEX_THRESHOLD_SCALE);
+    for (let i = 0; i < 20; i++) vad.process(NEAR_THRESHOLD);
+    vad.setThresholdScale(1);
+    const events = [];
+    for (let i = 0; i < 16; i++) events.push(...vad.process(NEAR_THRESHOLD));
+    expect(events).toEqual([{ type: 'speech_start' }]);
+  });
+
+  it('changing the scale mid-run does not leave a stale sustained-speech count', () => {
+    const vad = new EnergyVad();
+    for (let i = 0; i < 14; i++) vad.process(NEAR_THRESHOLD); // 280ms, nearly there
+    vad.setThresholdScale(HALF_DUPLEX_THRESHOLD_SCALE);
+    const events = [];
+    for (let i = 0; i < 5; i++) events.push(...vad.process(NEAR_THRESHOLD));
+    expect(events).toEqual([]);
+  });
+});
+
+describe('SpeechBuffer.start() pre-roll cap (push-to-talk)', () => {
+  it('keeps the pre-roll by default, so the first syllable is not clipped', () => {
+    const buf = new SpeechBuffer(SAMPLE_RATE, 1000);
+    for (let i = 0; i < 10; i++) buf.push(LOUD); // 200ms of pre-roll
+    buf.start();
+    buf.push(LOUD);
+    expect(buf.end()?.length).toBe(FRAME_SAMPLES * 11);
+  });
+
+  it('caps the pre-roll to the given number of ms when asked', () => {
+    const buf = new SpeechBuffer(SAMPLE_RATE, 1200);
+    for (let i = 0; i < 40; i++) buf.push(LOUD); // 800ms of pre-roll
+    buf.start(300); // PTT: only the run-up to the press is wanted
+    buf.push(LOUD);
+    // 300ms = 15 frames of pre-roll + 1 captured frame.
+    expect(buf.end()?.length).toBe(FRAME_SAMPLES * 16);
+  });
+
+  it('a cap larger than the available pre-roll keeps all of it', () => {
+    const buf = new SpeechBuffer(SAMPLE_RATE, 1200);
+    for (let i = 0; i < 4; i++) buf.push(LOUD); // 80ms
+    buf.start(300);
+    expect(buf.end()?.length).toBe(FRAME_SAMPLES * 4);
+  });
+
+  it('a cap of 0 drops the pre-roll entirely', () => {
+    const buf = new SpeechBuffer(SAMPLE_RATE, 1200);
+    for (let i = 0; i < 10; i++) buf.push(LOUD);
+    buf.start(0);
     expect(buf.end()).toBeNull();
   });
 });

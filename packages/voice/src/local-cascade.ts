@@ -1,3 +1,4 @@
+import { CaptureGate } from './capture-gate.ts';
 /**
  * LocalCascadeProvider: WebSocket VoiceProvider client for apps/server's
  * voice pipeline (planning/CONTRACTS.md §5a/§5b). This is the default
@@ -37,6 +38,7 @@ type ClientMessage =
   | { t: 'mode'; mode: TutorMode }
   | { t: 'mute'; muted: boolean }
   | { t: 'ptt'; active: boolean }
+  | { t: 'turn_detection'; mode: 'auto' | 'push' }
   | { t: 'interrupt' }
   | { t: 'replay' }
   | { t: 'text'; text: string }
@@ -78,6 +80,10 @@ export class LocalCascadeProvider implements VoiceProvider {
   private state: VoiceState = 'idle';
   private reconnectAttempted = false;
   private intentionalDisconnect = false;
+  private input: CaptureGate;
+  private muted = false;
+  private held = false;
+  private turnMode: 'auto' | 'push' = 'auto';
 
   private currentUtteranceId: string | null = null;
   private currentUtteranceChunks: ArrayBuffer[] = [];
@@ -85,6 +91,7 @@ export class LocalCascadeProvider implements VoiceProvider {
   constructor(opts: LocalCascadeOptions) {
     this.serverUrl = opts.serverUrl.replace(/\/$/, '');
     this.audio = opts.audio;
+    this.input = new CaptureGate(this.audio);
     // Storing the bare global `fetch` reference and calling it later as
     // `this.fetchImpl(...)` throws "Illegal invocation" in real browsers —
     // fetch's spec implementation checks its receiver is a Window/Worker
@@ -104,6 +111,16 @@ export class LocalCascadeProvider implements VoiceProvider {
   }
 
   private emit(e: VoiceEvent): void {
+    if (e.type === 'state' && e.state === 'listening') {
+      e = {
+        ...e,
+        state: this.muted
+          ? 'muted'
+          : this.turnMode === 'push' && !this.held
+            ? 'paused'
+            : 'listening',
+      };
+    }
     if (e.type === 'state') this.state = e.state;
     for (const l of this.listeners) l(e);
   }
@@ -111,6 +128,9 @@ export class LocalCascadeProvider implements VoiceProvider {
   async connect(opts: SessionOptions): Promise<void> {
     this.lastOptions = opts;
     this.intentionalDisconnect = false;
+    this.muted = opts.muted ?? false;
+    this.turnMode = opts.turnDetection ?? 'auto';
+    this.held = false;
     // run7/F1 directive 2: same blocked-playback wiring as the byok
     // provider; harmless to call more than once since a real
     // WebAudioAdapter just adds another listener into its de-duped set.
@@ -179,19 +199,29 @@ export class LocalCascadeProvider implements VoiceProvider {
       session = (await res.json()) as SessionCreateResponse;
     }
 
+    if (this.intentionalDisconnect) return;
     const ws = new this.WebSocketImpl(session.wsUrl);
     ws.binaryType = 'arraybuffer';
     this.ws = ws;
 
     ws.addEventListener('open', () => {
-      this.reconnectAttempted = false;
+      if (this.intentionalDisconnect || this.ws !== ws) {
+        ws.close();
+        return;
+      }
+      this.send({ t: 'turn_detection', mode: this.turnMode });
+      this.send({ t: 'mute', muted: this.muted });
       // A capture failure (mic permission denied, no input device, a
       // suspended AudioContext) used to be swallowed here, leaving the
       // session in 'listening' while no audio ever reached the server.
-      this.audio
-        .startCapture((buf) => {
-          if (ws.readyState === ws.OPEN) ws.send(buf);
-        })
+      this.input
+        .start(
+          (buf) => {
+            if (!this.intentionalDisconnect && ws === this.ws && ws.readyState === ws.OPEN)
+              ws.send(buf);
+          },
+          !this.muted && this.turnMode === 'auto',
+        )
         .catch((err: unknown) => {
           // run7/F1 directive 5: distinguish a denied permission and a
           // missing microphone from the generic catch-all, same as the
@@ -211,7 +241,8 @@ export class LocalCascadeProvider implements VoiceProvider {
     });
 
     ws.addEventListener('close', () => {
-      this.audio.stopCapture();
+      if (this.ws !== ws) return;
+      this.input.stop();
       this.audio.stopPlayback();
       if (this.intentionalDisconnect) return;
       if (!this.reconnectAttempted && this.lastOptions) {
@@ -232,6 +263,7 @@ export class LocalCascadeProvider implements VoiceProvider {
   }
 
   private handleServerData(data: string | ArrayBuffer): void {
+    if (this.intentionalDisconnect) return;
     if (typeof data !== 'string') {
       if (this.currentUtteranceId) {
         this.currentUtteranceChunks.push(data);
@@ -300,7 +332,7 @@ export class LocalCascadeProvider implements VoiceProvider {
     this.intentionalDisconnect = true;
     this.lastOptions = null;
     this.send({ t: 'end' });
-    this.audio.stopCapture();
+    this.input.stop();
     this.audio.stopPlayback();
     this.ws?.close();
     this.ws = null;
@@ -311,11 +343,41 @@ export class LocalCascadeProvider implements VoiceProvider {
   }
 
   setMuted(muted: boolean): void {
+    this.muted = muted;
+    if (muted) this.held = false;
+    this.syncCapture();
     this.send({ t: 'mute', muted });
   }
 
   pushToTalk(active: boolean): void {
+    if (this.intentionalDisconnect || this.muted || this.held === active) return;
+    this.turnMode = 'push';
+    this.held = active;
+    this.emit({ type: 'state', state: 'listening' });
     this.send({ t: 'ptt', active });
+    this.syncCapture();
+  }
+
+  setTurnDetection(mode: 'auto' | 'push'): void {
+    this.turnMode = mode;
+    this.held = false;
+    this.send({ t: 'turn_detection', mode });
+    this.syncCapture();
+  }
+
+  private syncCapture(): void {
+    void this.input
+      .setEnabled(
+        !this.intentionalDisconnect && !this.muted && (this.turnMode === 'auto' || this.held),
+      )
+      .catch((err) => {
+        this.emit({
+          type: 'error',
+          code: micErrorCode(err),
+          message: 'Microphone unavailable. Check browser permission.',
+          recoverable: true,
+        });
+      });
   }
 
   interrupt(): void {

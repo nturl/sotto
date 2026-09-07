@@ -133,6 +133,19 @@ function SpeechWord({
   return (
     <Animated.Text
       onPress={onPress}
+      accessibilityRole={isWord ? 'button' : undefined}
+      accessibilityLabel={isWord ? `Look up ${text}` : undefined}
+      {...(Platform.OS === 'web' && isWord
+        ? {
+            tabIndex: 0,
+            onKeyDown: (event: { key: string; preventDefault(): void }) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                onPress?.();
+              }
+            },
+          }
+        : {})}
       // @ts-expect-error -- web-only pointer prop; RN Web forwards it, native ignores unknown props.
       onPointerDown={isWord ? onPointerDown : undefined}
       onPointerEnter={isWord ? onPointerEnter : undefined}

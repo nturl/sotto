@@ -70,9 +70,17 @@ export function Sheet({
 
   return (
     <Animated.View
+      accessibilityElementsHidden={!visible}
+      importantForAccessibility={visible ? 'auto' : 'no-hide-descendants'}
+      aria-hidden={!visible}
       pointerEvents={visible ? 'auto' : 'none'}
       onLayout={(event) => onHeightChange?.(event.nativeEvent.layout.height)}
-      style={[styles.sheet, { bottom: bottomOffset }, style, { transform: [{ translateY }] }]}
+      style={[
+        styles.sheet,
+        { bottom: bottomOffset },
+        style,
+        { transform: [{ translateY }], display: visible ? 'flex' : 'none' },
+      ]}
     >
       <View style={styles.handle} />
       {/* flexShrink lets the ScrollView give up height to the sheet's own

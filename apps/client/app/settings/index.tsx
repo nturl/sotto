@@ -14,7 +14,7 @@
  * and the voice screen), so every reader updates in the same tick.
  */
 import { useMemo, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Linking, Pressable, StyleSheet, View } from 'react-native';
 import { useRouter, type Href } from 'expo-router';
 import { buildExport, parseImport, type TutorMode, type UserPreferences } from '@sotto/core';
 import { radius, space } from '@sotto/core/theme';
@@ -39,7 +39,6 @@ import { useSottoStore } from '../../src/state/store';
 import { deleteAudioAssets } from '../../src/import/privateAudio';
 import { useOwnProviderStatus } from '../../src/voice/ownProviderStatus';
 
-const NARRATION_SPEEDS: UserPreferences['narrationSpeed'][] = [0.75, 1, 1.25];
 const CORRECTION_FREQUENCIES: UserPreferences['correctionFrequency'][] = ['low', 'normal', 'high'];
 const SPEAKING_PACES: UserPreferences['speakingPace'][] = ['slow', 'normal'];
 const TUTOR_MODES: TutorMode[] = ['read_to_me', 'read_with_me', 'pronunciation', 'discuss'];
@@ -76,7 +75,11 @@ export default function SettingsScreen() {
   // src/voice/ownProviderStatus.ts.
   const ownProviderStatus = useOwnProviderStatus();
 
-  const soon = () => setToast(t('settings.comingSoon'));
+  const openPolicy = (page: 'terms' | 'privacy') => {
+    void Linking.openURL(`https://app.readsotto.app/${page}`).catch(() =>
+      setToast('Could not open the page. Please try again.'),
+    );
+  };
   const go = (href: Href) => () => router.push(href);
 
   const deletePrivateBook = async (bookId: string) => {
@@ -111,6 +114,7 @@ export default function SettingsScreen() {
     });
     try {
       await exportJson('sotto-export.json', JSON.stringify(file, null, 2));
+      setToast('Export download requested. Check your browser downloads.');
     } catch {
       setToast(t('settings.export.failed'));
     }
@@ -147,6 +151,11 @@ export default function SettingsScreen() {
     <Shell>
       <BackLink />
 
+      <Text role="caption" color="ink2">
+        Learning language chooses books; explanation language chooses translations and explanations;
+        app language changes menus. Reading progress and keys stay on this device and origin.
+        Sign-in does not sync reading between sites or devices.
+      </Text>
       <View style={styles.groups}>
         {cloud.enabled ? (
           <Group
@@ -208,11 +217,7 @@ export default function SettingsScreen() {
             {
               label: t('settings.narrationSpeed'),
               value: `${preferences.narrationSpeed}x`,
-              onPress: () =>
-                setPreference(
-                  'narrationSpeed',
-                  cycle(NARRATION_SPEEDS, preferences.narrationSpeed),
-                ),
+              onPress: go('/settings/narration-speed'),
             },
             {
               label: t('settings.captions'),
@@ -231,6 +236,15 @@ export default function SettingsScreen() {
         <Group
           eyebrow={t('settings.group.tutor')}
           rows={[
+            ...(me.status === 'signed-in' && me.me.entitlement.plan !== 'free'
+              ? [
+                  {
+                    label: 'Hosted Cloud tutor',
+                    value: 'Included in your Sotto plan',
+                    onPress: go('/usage'),
+                  },
+                ]
+              : []),
             {
               label: t('settings.turnDetection'),
               value: t(`settings.turnDetection.${preferences.turnDetection}` as const),
@@ -266,7 +280,7 @@ export default function SettingsScreen() {
               // ownProviderStatus source rather than a screen-local
               // useState, so it can never go stale the way the old
               // "use own provider" toggle did.
-              label: t('settings.tutorMode'),
+              label: 'Personal OpenAI key',
               value: t(`byok.status.${ownProviderStatus}` as const),
               onPress: go('/settings/openai-key'),
             },
@@ -296,9 +310,9 @@ export default function SettingsScreen() {
         <Group
           eyebrow={t('settings.group.about')}
           rows={[
-            { label: t('settings.privacy'), onPress: soon },
-            { label: t('settings.terms'), onPress: soon },
-            { label: t('settings.feedback'), onPress: soon },
+            { label: t('settings.privacy'), onPress: () => openPolicy('privacy') },
+            { label: t('settings.terms'), onPress: () => openPolicy('terms') },
+            { label: t('settings.feedback'), onPress: go('/settings/feedback') },
             { label: t('settings.licenses'), onPress: go('/settings/licenses') },
           ]}
         />

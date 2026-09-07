@@ -96,6 +96,7 @@ export const clientMessageSchema = z.discriminatedUnion('t', [
   z.object({ t: z.literal('mode'), mode: tutorModeSchema }),
   z.object({ t: z.literal('mute'), muted: z.boolean() }),
   z.object({ t: z.literal('ptt'), active: z.boolean() }),
+  z.object({ t: z.literal('turn_detection'), mode: z.enum(['auto', 'push']) }),
   z.object({ t: z.literal('interrupt') }),
   z.object({ t: z.literal('replay') }),
   z.object({ t: z.literal('text'), text: z.string() }),

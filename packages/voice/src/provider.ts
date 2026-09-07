@@ -14,6 +14,8 @@ export interface SessionLearner {
 }
 
 export interface SessionOptions {
+  turnDetection?: 'auto' | 'push';
+  muted?: boolean;
   bookId: string;
   /** run7/G directive 1(d) — the book's real title, for the prompt's "Book:"
    * line (scout-T-tutor.md §4 found every call site passing `bookId` there
@@ -32,6 +34,7 @@ export interface VoiceProvider {
   disconnect(): Promise<void>;
   setMode(mode: TutorMode): void;
   setMuted(muted: boolean): void;
+  setTurnDetection?(mode: 'auto' | 'push'): void;
   /** Only meaningful when turnDetection = 'push'. */
   pushToTalk(active: boolean): void;
   /** Stop tutor speech now (barge-in). */

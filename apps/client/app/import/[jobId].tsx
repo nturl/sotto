@@ -56,11 +56,11 @@ export default function ImportProgressScreen() {
     if (!jobId) return;
     const unsubscribe = subscribeImportEvents(jobId, (event) => {
       if (event.stage === 'done') {
-        if (event.status === 'error') {
+        if (event.status === 'error' || event.status === 'failed' || event.status === 'cancelled') {
           setFailed(true);
           return;
         }
-        void finish();
+        void finish().catch(() => setFailed(true));
         return;
       }
       const entry = STAGE_ORDER.find((s) => s.eventStage === event.stage);

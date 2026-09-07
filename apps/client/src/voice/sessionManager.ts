@@ -57,18 +57,25 @@ function wrapAudioForGating(
   captureReady: () => boolean;
 } {
   let ready = false;
+  let generation = 0;
   const adapter: AudioAdapter = {
     startCapture: async (onPcm16) => {
+      const attempt = ++generation;
       await inner.startCapture(onPcm16);
+      if (attempt !== generation) return;
       ready = true;
       onCaptureReady();
     },
     stopCapture: () => {
+      ++generation;
       ready = false;
       inner.stopCapture();
     },
     playPcm: (buf, sampleRate) => inner.playPcm(buf, sampleRate),
     stopPlayback: () => inner.stopPlayback(),
+    setOutputMuted: (muted) => inner.setOutputMuted?.(muted),
+    resumePlayback: () => inner.resumePlayback?.() ?? Promise.resolve(),
+    onPlaybackBlocked: (callback) => inner.onPlaybackBlocked?.(callback),
   };
   return { adapter, captureReady: () => ready };
 }
@@ -138,9 +145,8 @@ function pickProvider(
     // credentials (which would fail opaquely on every request — the 401
     // body is unreadable browser-direct, see docs/byok.md).
     const apiKey = cachedByokKey();
-    if (apiKey) {
-      return new OpenAIDirectProvider({ apiKey, audio });
-    }
+    if (!apiKey) throw new Error('Your saved OpenAI key is unavailable. Reconnect it in Settings.');
+    return new OpenAIDirectProvider({ apiKey, audio });
   }
   if (path === 'cloud') {
     // Finding 3 (adversarial review 3): the Realtime path's two
@@ -179,6 +185,7 @@ interface ActiveSession {
 type StartSessionParams = Parameters<typeof startSession>[0];
 
 let active: ActiveSession | null = null;
+let explicitMuted = false;
 // run7/F1 directive 4: remembered so `retry()` can re-enter the exact same
 // book/chapter/mode after a connection failure, without the caller (the
 // voice screen) having to reconstruct `SessionOptions` itself. Cleared by
@@ -231,8 +238,8 @@ export function startSession(params: {
    * meaningful when `path === 'browser'`; defaults to `standard`. */
   tutorTier?: TutorTier;
 }): void {
-  lastStartParams = params;
   if (active) endSession();
+  lastStartParams = params;
   beginSession(params);
 }
 
@@ -269,7 +276,11 @@ function beginSession(params: StartSessionParams): void {
     learner,
     passage,
     savedWords,
+    turnDetection: useSottoStore.getState().preferences.turnDetection,
+    muted: explicitMuted,
   };
+  useSottoStore.getState().setVoiceError(null);
+  if (params.path === 'byok') useSottoStore.getState().setOwnProviderStatus('connected');
   const ctx = createToolContext(
     useSottoStore,
     bookId,
@@ -325,6 +336,8 @@ function beginSession(params: StartSessionParams): void {
       onCaption: (entry) => {
         useSottoStore.getState().pushCaption(entry);
         if (entry.speaker === 'tutor' && entry.final) {
+          if (params.path === 'byok' && !useSottoStore.getState().voiceError)
+            useSottoStore.getState().setOwnProviderStatus('active');
           useSottoStore.getState().patchSessionRecord({ transcriptSummary: entry.text });
         }
       },
@@ -336,6 +349,8 @@ function beginSession(params: StartSessionParams): void {
           message: entry.message,
           recoverable: entry.recoverable,
         });
+        if (params.path === 'byok' && entry.code === 'provider_rejected_setting')
+          useSottoStore.getState().setOwnProviderStatus('invalid');
         // BUGS-TUTOR-RUN5.md #3: a recoverable error (429, network blip)
         // returns the session straight to `listening` with no `isBroken`
         // panel — previously the learner just got silence with no
@@ -345,7 +360,10 @@ function beginSession(params: StartSessionParams): void {
         if (entry.recoverable) {
           useSottoStore.getState().pushCaption({
             speaker: 'tutor',
-            text: 'Sorry, something went wrong there. Please try again.',
+            text:
+              params.path === 'byok'
+                ? entry.message
+                : 'The tutor could not complete that request. Please retry.',
             final: true,
           });
         }
@@ -363,7 +381,8 @@ function beginSession(params: StartSessionParams): void {
       // both surface as a rejected connect() rather than a VoiceEvent.
       // Fall back to the cascade session instead of leaving the learner
       // on a dead connection.
-      if (!isRealtimeAttempt) return;
+      if (!isRealtimeAttempt || active?.provider !== provider) return;
+      void provider.disconnect();
       unsubscribe();
       useSottoStore.getState().pushCaption({
         speaker: 'tutor',
@@ -383,13 +402,24 @@ function beginSession(params: StartSessionParams): void {
     startedAt: new Date().toISOString(),
   });
 
-  const provider = pickProvider(
-    params.path ?? 'local',
-    params.cloudProvider,
-    sessionOptions,
-    gatedAudio?.adapter as AudioAdapter,
-    params.tutorTier ?? DEFAULT_TIER,
-  );
+  let provider: VoiceProvider;
+  try {
+    provider = pickProvider(
+      params.path ?? 'local',
+      params.cloudProvider,
+      sessionOptions,
+      gatedAudio?.adapter as AudioAdapter,
+      params.tutorTier ?? DEFAULT_TIER,
+    );
+  } catch {
+    useSottoStore.getState().setVoiceError({
+      code: 'provider_rejected_setting',
+      message: 'Your saved OpenAI key is unavailable. Reconnect it in Settings.',
+      recoverable: false,
+    });
+    useSottoStore.getState().setVoiceState('error');
+    return;
+  }
   const isRealtimeAttempt = provider instanceof OpenAIRealtimeProvider;
   attach(provider, isRealtimeAttempt);
 }
@@ -411,7 +441,7 @@ export function pauseSession(): void {
     endSession();
     return;
   }
-  useSottoStore.getState().patchSessionRecord({ status: 'paused' });
+  endSession();
 }
 
 /** Called when the voice screen remounts for the same book. */
@@ -426,13 +456,22 @@ export function setMode(mode: TutorMode): void {
   useSottoStore.getState().patchSessionRecord({ mode });
 }
 
+export function isInputMuted(): boolean {
+  return explicitMuted;
+}
+
 export function setMuted(muted: boolean): void {
+  explicitMuted = muted;
   active?.provider.setMuted(muted);
 }
 
 /** run7/G directive 1(a): the speaker/output toggle — mutes tutor playback
  * without ending capture. No-op on a provider that doesn't implement it
  * (Realtime's `<audio>` element, the fake provider). */
+export function setTurnDetection(mode: 'auto' | 'push'): void {
+  active?.provider.setTurnDetection?.(mode);
+}
+
 export function setOutputMuted(muted: boolean): void {
   active?.provider.setOutputMuted?.(muted);
 }
@@ -462,9 +501,12 @@ export function sendText(text: string): void {
 }
 
 export function endSession(): void {
-  if (!active) return;
   teardownActive();
   lastStartParams = null;
   useSottoStore.getState().setSessionRecord(null);
   useSottoStore.getState().clearSessionEphemeral();
+}
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('pagehide', endSession);
 }

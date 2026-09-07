@@ -1,3 +1,4 @@
+import { CaptureGate } from '../capture-gate.ts';
 /**
  * BrowserCascadeProvider — the same four-mode tutor as
  * `LocalCascadeProvider`, with no server: mic -> energy VAD -> whisper ->
@@ -83,6 +84,8 @@ function initPayload(
       explanationLocale: opts.learner.explanationLocale,
     },
     mode: opts.mode,
+    turnDetection: opts.turnDetection,
+    muted: opts.muted,
     // run7/G directive 1(d): the real title, falling back to the id for
     // older SessionOptions/fixtures that don't set it.
     bookTitle: opts.bookTitle ?? opts.bookId,
@@ -105,7 +108,10 @@ export class BrowserCascadeProvider implements VoiceProvider {
   private listeners = new Set<(e: VoiceEvent) => void>();
   private state: VoiceState = 'idle';
   private stages: StageReadiness = { stt: false, llm: false, tts: false };
-  private capturing = false;
+  private input: CaptureGate;
+  private muted = false;
+  private turnMode: 'auto' | 'push' = 'auto';
+  private held = false;
   private ended = false;
 
   private idleTimer: ReturnType<typeof setTimeout> | null = null;
@@ -113,6 +119,7 @@ export class BrowserCascadeProvider implements VoiceProvider {
 
   constructor(opts: BrowserCascadeOptions) {
     this.audio = opts.audio;
+    this.input = new CaptureGate(this.audio);
     this.makeWorker =
       opts.workerFactory ?? defaultWorkerFactory(opts.workerUrl ?? DEFAULT_WORKER_URL);
     this.limits = opts.limits ?? DEFAULT_LIMITS;
@@ -129,6 +136,16 @@ export class BrowserCascadeProvider implements VoiceProvider {
   }
 
   private emit(e: VoiceEvent): void {
+    if (e.type === 'state' && e.state === 'listening') {
+      e = {
+        ...e,
+        state: this.muted
+          ? 'muted'
+          : this.turnMode === 'push' && !this.held
+            ? 'paused'
+            : 'listening',
+      };
+    }
     if (e.type === 'state') this.state = e.state;
     for (const l of this.listeners) l(e);
   }
@@ -140,6 +157,9 @@ export class BrowserCascadeProvider implements VoiceProvider {
 
   async connect(opts: SessionOptions): Promise<void> {
     this.ended = false;
+    this.muted = opts.muted ?? false;
+    this.turnMode = opts.turnDetection ?? 'auto';
+    this.held = false;
     this.emit({ type: 'state', state: 'connecting' });
 
     let worker: WorkerLike;
@@ -164,11 +184,13 @@ export class BrowserCascadeProvider implements VoiceProvider {
     this.armLimits();
 
     try {
-      await this.audio.startCapture((buf) => {
-        if (!this.worker || this.ended) return;
-        this.worker.postMessage({ t: 'audio', pcm: buf }, [buf]);
-      });
-      this.capturing = true;
+      await this.input.start(
+        (buf) => {
+          if (!this.worker || this.ended) return;
+          this.worker.postMessage({ t: 'audio', pcm: buf }, [buf]);
+        },
+        !this.muted && this.turnMode === 'auto',
+      );
     } catch (err) {
       this.emit({
         type: 'error',
@@ -194,11 +216,32 @@ export class BrowserCascadeProvider implements VoiceProvider {
   }
 
   setMuted(muted: boolean): void {
+    this.muted = muted;
+    if (muted) this.held = false;
+    this.syncCapture();
     this.post({ t: 'mute', muted });
   }
 
   pushToTalk(active: boolean): void {
+    if (this.ended || this.muted || this.held === active) return;
+    this.turnMode = 'push';
+    this.held = active;
+    this.emit({ type: 'state', state: 'listening' });
     this.post({ t: 'ptt', active });
+    this.syncCapture();
+  }
+
+  setTurnDetection(mode: 'auto' | 'push'): void {
+    this.turnMode = mode;
+    this.held = false;
+    this.post({ t: 'turn_detection', mode });
+    this.syncCapture();
+  }
+
+  private syncCapture(): void {
+    void this.input
+      .setEnabled(!this.ended && !this.muted && (this.turnMode === 'auto' || this.held))
+      .catch((err) => this.fail('mic_unavailable', err));
   }
 
   interrupt(): void {
@@ -271,16 +314,14 @@ export class BrowserCascadeProvider implements VoiceProvider {
     if (this.maxDurationTimer) clearTimeout(this.maxDurationTimer);
     this.idleTimer = null;
     this.maxDurationTimer = null;
-    if (this.capturing) {
-      this.audio.stopCapture();
-      this.capturing = false;
-    }
+    this.input.stop();
     this.audio.stopPlayback();
     this.worker?.terminate();
     this.worker = null;
   }
 
   private handleWorkerMessage(msg: WorkerToMain): void {
+    if (this.ended) return;
     switch (msg.t) {
       case 'progress':
         this.onProgress?.(msg.progress);

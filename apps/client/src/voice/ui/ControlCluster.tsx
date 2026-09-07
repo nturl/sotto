@@ -15,7 +15,8 @@
  * from capture-mute (the ring/toggle above) and from Stop (one-shot
  * barge-in).
  */
-import { Pressable, StyleSheet, View } from 'react-native';
+import { useEffect, useRef } from 'react';
+import { Platform, Pressable, StyleSheet, View } from 'react-native';
 import type { VoiceState } from '@sotto/voice';
 import { radius, space } from '@sotto/core/theme';
 import type { UserPreferences } from '@sotto/core';
@@ -37,6 +38,7 @@ function ringColor(state: VoiceState, colors: ReturnType<typeof useTheme>['color
 
 export interface ControlClusterProps {
   voiceState: VoiceState;
+  inputMuted: boolean;
   turnDetection: TurnDetection;
   onSetTurnDetection: (next: TurnDetection) => void;
   pttHeld: boolean;
@@ -53,6 +55,7 @@ export interface ControlClusterProps {
 
 export function ControlCluster({
   voiceState,
+  inputMuted,
   turnDetection,
   onSetTurnDetection,
   pttHeld,
@@ -68,7 +71,29 @@ export function ControlCluster({
   const { colors } = useTheme();
   const styles = createStyles(colors);
   const isPush = turnDetection === 'push';
-  const muted = voiceState === 'muted';
+  const muted = inputMuted;
+  const release = useRef(onPushToTalk);
+  release.current = onPushToTalk;
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const stop = () => release.current(false);
+    const hidden = () => {
+      if (document.hidden) stop();
+    };
+    window.addEventListener('blur', stop);
+    window.addEventListener('pointerup', stop);
+    window.addEventListener('pointercancel', stop);
+    window.addEventListener('keyup', stop);
+    document.addEventListener('visibilitychange', hidden);
+    return () => {
+      stop();
+      window.removeEventListener('blur', stop);
+      window.removeEventListener('pointerup', stop);
+      window.removeEventListener('pointercancel', stop);
+      window.removeEventListener('keyup', stop);
+      document.removeEventListener('visibilitychange', hidden);
+    };
+  }, []);
 
   return (
     <View style={styles.root}>
@@ -78,7 +103,8 @@ export function ControlCluster({
             onPress={() => onSetTurnDetection('push')}
             style={[styles.modeChip, isPush && styles.modeChipActive, webCursor]}
             accessibilityRole="radio"
-            accessibilityState={{ selected: isPush }}
+            accessibilityState={{ checked: isPush }}
+            aria-checked={isPush}
           >
             <Text role="caption" color={isPush ? 'surface' : 'ink'}>
               {t('voice.turnDetection.push')}
@@ -88,7 +114,8 @@ export function ControlCluster({
             onPress={() => onSetTurnDetection('auto')}
             style={[styles.modeChip, !isPush && styles.modeChipActive, webCursor]}
             accessibilityRole="radio"
-            accessibilityState={{ selected: !isPush }}
+            accessibilityState={{ checked: !isPush }}
+            aria-checked={!isPush}
           >
             <Text role="caption" color={!isPush ? 'surface' : 'ink'}>
               {t('voice.turnDetection.auto')}
@@ -111,6 +138,25 @@ export function ControlCluster({
 
         {isPush ? (
           <Pressable
+            disabled={muted}
+            accessibilityState={{ disabled: muted }}
+            onBlur={() => onPushToTalk(false)}
+            {...(Platform.OS === 'web'
+              ? {
+                  onKeyDown: (event: { key: string; repeat: boolean; preventDefault(): void }) => {
+                    if ((event.key === ' ' || event.key === 'Enter') && !event.repeat) {
+                      event.preventDefault();
+                      if (!muted) onPushToTalk(true);
+                    }
+                  },
+                  onKeyUp: (event: { key: string; preventDefault(): void }) => {
+                    if (event.key === ' ' || event.key === 'Enter') {
+                      event.preventDefault();
+                      onPushToTalk(false);
+                    }
+                  },
+                }
+              : {})}
             onPressIn={() => onPushToTalk(true)}
             onPressOut={() => onPushToTalk(false)}
             accessibilityRole="button"
@@ -153,6 +199,20 @@ export function ControlCluster({
         />
       </View>
 
+      {isPush ? (
+        <Pressable accessibilityRole="button" onPress={onToggleMute}>
+          <Text role="caption">{muted ? t('voice.unmute') : t('voice.mute')}</Text>
+        </Pressable>
+      ) : null}
+      <Text accessibilityLiveRegion="polite" role="caption" color="ink2">
+        {muted
+          ? 'Microphone off'
+          : isPush && !pttHeld
+            ? 'Microphone off · hold to speak'
+            : voiceState === 'error' || voiceState === 'connecting'
+              ? 'Waiting for microphone permission'
+              : 'Microphone enabled'}
+      </Text>
       <Text role="mono" size={11} color="ink3" style={styles.stateLabel}>
         {t(`voice.state.${voiceState}` as const)}
       </Text>

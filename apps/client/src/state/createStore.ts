@@ -545,8 +545,13 @@ export function createSottoStore(persistence: Persistence): {
       useStore.setState({ ownProviderStatus: 'connected' });
     }
 
+    let externalChange = false;
     let prev = useStore.getState();
     useStore.subscribe((state) => {
+      if (externalChange) {
+        prev = state;
+        return;
+      }
       if (state.preferences !== prev.preferences) {
         void persistence.setItem(KEYS.preferences, JSON.stringify(state.preferences));
       }
@@ -573,6 +578,21 @@ export function createSottoStore(persistence: Persistence): {
         void persistence.setItem(KEYS.privateIndex, JSON.stringify(state.privateBooks));
       }
       prev = state;
+    });
+    persistence.subscribe?.((key) => {
+      if (key !== KEYS.vocabulary) return;
+      const before = useStore.getState().savedWords;
+      void persistence.getItem(key).then((raw) => {
+        if (useStore.getState().savedWords !== before) return;
+        const words = safeParse<SavedWord[]>(raw);
+        if (raw !== null && !Array.isArray(words)) return;
+        externalChange = true;
+        try {
+          useStore.setState({ savedWords: words ?? [] });
+        } finally {
+          externalChange = false;
+        }
+      });
     });
   }
 

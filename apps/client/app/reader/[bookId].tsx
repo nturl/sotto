@@ -410,6 +410,8 @@ export default function ReaderScreen() {
   useEffect(() => {
     lastBlockBottomRef.current = null;
     lastBlockSeenRef.current = false;
+    setSelectedToken(null);
+    setShowSentenceDetail(false);
   }, [chapterId]);
 
   const onScroll = useCallback(
@@ -1040,10 +1042,18 @@ export default function ReaderScreen() {
             ))}
           </ScrollView>
 
+          {isDesktop && !selectedToken ? (
+            <View style={{ padding: space.md, alignItems: 'center' }}>
+              <Text role="caption" color="ink2">
+                Select a word to translate it.
+              </Text>
+              {talkRow}
+            </View>
+          ) : null}
           {isDesktop ? (transportView ?? narratingOnDemandCaption) : null}
         </View>
 
-        {isDesktop ? (
+        {isDesktop && selectedToken ? (
           <ScrollView
             style={styles.desktopPanel}
             contentContainerStyle={styles.desktopPanelContent}

@@ -54,7 +54,7 @@ const dist = path.join(clientDir, 'dist');
 // copies public/ into dist (planning/BROWSER-TUTOR.md).
 execSync('node scripts/build-tutor-worker.mjs', { cwd: clientDir, stdio: 'inherit' });
 
-execSync('npx expo export --platform web --output-dir dist', {
+execSync('npx expo export --platform web --output-dir dist --clear', {
   cwd: clientDir,
   stdio: 'inherit',
   // Empty string => contentApi.serverUrl() resolves to the page's own origin.

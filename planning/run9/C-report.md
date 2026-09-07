@@ -176,12 +176,19 @@ For the *markdown* half of the fix, compare `markdown.q8.wav` (baseline,
 "Astroskastrisk…") against `markdown.q8.prepared.wav` — both in the same
 directory.
 
-### One caveat on this table
+### Two caveats on this table
 
-The browser cells ran the **fixed** worker, so both dtypes already had
-`prepareForSpeech` applied; the markdown row therefore does not show the
-markdown defect (Table 1 does). What the markdown row shows instead is that
-even a short, clean, five-word sentence comes out as noise at webgpu/q8.
+1. The browser cells ran the **fixed** worker, so both dtypes already had
+   `prepareForSpeech` applied; the markdown row therefore does not show the
+   markdown defect (Table 1 does). What the markdown row shows instead is
+   that even a short, clean, five-word sentence comes out as noise at
+   webgpu/q8.
+2. The bundle the matrix ran was built at commit `0bf1f5d`, one commit before
+   `c1d6d98` ("a decoration-only sentence no longer claims SPEAKING"). That
+   later change is inside `speakSentence` and does not touch the `sample`
+   path the matrix drives, nor `loadTts`, nor `prepareForSpeech` — so the
+   numbers stand. Saying so rather than quietly re-running: VERIFIED by
+   reading the diff, not by re-measuring.
 
 ## `playPcm` (card output 4) — VERIFIED
 

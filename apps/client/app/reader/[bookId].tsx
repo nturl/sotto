@@ -666,7 +666,12 @@ export default function ReaderScreen() {
       // has loaded).
       if (bookId && locale && book?.wordAudio) {
         void loadWordAudioIndex(bookId, locale, book.wordAudio.index).then((index) => {
-          playWordAudio({ spriteUri: wordAudioUri, index: index ?? undefined, normalized, fallback });
+          playWordAudio({
+            spriteUri: wordAudioUri,
+            index: index ?? undefined,
+            normalized,
+            fallback,
+          });
         });
       }
       return;
@@ -752,7 +757,10 @@ export default function ReaderScreen() {
               >
                 <View>
                   {isSaved ? (
-                    <View pointerEvents="none" style={[StyleSheet.absoluteFill, styles.saveCutout]} />
+                    <View
+                      pointerEvents="none"
+                      style={[StyleSheet.absoluteFill, styles.saveCutout]}
+                    />
                   ) : null}
                   <View style={[styles.saveButton, isSaved && styles.saveButtonActive]}>
                     <BookmarkGlyph size={15} color={isSaved ? colors.ink : colors.ink2} />
@@ -1120,7 +1128,6 @@ function ReaderBlock({
         sentences={sentences}
         selectedSpanTokenIds={selectedTokenIds}
         cjk={cjk}
-        underline
         onTap={(speechToken, speechSentence) => {
           const sentence = block.sentences.find((s) => s.id === speechSentence.id);
           const token = sentence?.tokens.find((tk) => tk.id === speechToken.id);
@@ -1162,13 +1169,7 @@ function CompletionView({
         />
       </View>
       {book ? (
-        <Cover
-          book={book}
-          width={140}
-          height={210}
-          cutout
-          accessibilityLabel={book.title}
-        />
+        <Cover book={book} width={140} height={210} cutout accessibilityLabel={book.title} />
       ) : null}
       <View style={styles.completionArrow}>
         <HandDrawnArrowGlyph color={colors.ink} />
@@ -1308,7 +1309,10 @@ function createStyles(colors: ThemeColors) {
     saveCutout: {
       backgroundColor: colors.ink,
       borderRadius: radius.md,
-      transform: [{ translateX: shadow.cutoutInk.offsetX }, { translateY: shadow.cutoutInk.offsetY }],
+      transform: [
+        { translateX: shadow.cutoutInk.offsetX },
+        { translateY: shadow.cutoutInk.offsetY },
+      ],
     },
     panelSection: {
       marginTop: 26,

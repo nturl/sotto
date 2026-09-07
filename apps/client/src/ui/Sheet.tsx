@@ -117,7 +117,9 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     handle: {
       width: 36,
       height: 4,
-      borderRadius: radius.full,
+      // Mockup line 161: `.handle{...border-radius:2px}`. radius.full is
+      // reserved for the speaker and play rings.
+      borderRadius: radius.sm,
       backgroundColor: colors.ink3,
       alignSelf: 'center',
       marginBottom: space.xs,

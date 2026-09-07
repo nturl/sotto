@@ -1386,7 +1386,8 @@ function createStyles(colors: ThemeColors) {
     progressSegment: {
       flex: 1,
       backgroundColor: colors.surface2,
-      borderRadius: radius.full,
+      // Mockup line 115: `.segs i{border-radius:2px}` on a 3px bar.
+      borderRadius: radius.sm,
       overflow: 'hidden',
     },
     progressFill: {

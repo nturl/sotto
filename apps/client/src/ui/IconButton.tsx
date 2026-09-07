@@ -1,8 +1,12 @@
 /**
  * IconButton — 44px icon-only button. Variants:
  *  - ghost: bare ink-stroke icon (home header, voice controls).
- *  - ring: the speaker button — accent as a 2px OUTLINE only, radius full
- *    (the accent fill is reserved for the CTA and the active tab).
+ *  - ring: the speaker button and the play ring — accent as a 2px OUTLINE
+ *    only, radius full (the accent fill is reserved for the CTA and the
+ *    active tab).
+ *
+ * Mockup legend line 408: "9999 only on the two rings". Every other icon
+ * button is the mockup's `.ib`, radius 10.
  */
 import { useMemo, useState } from 'react';
 import { Animated, Pressable, StyleSheet, type ViewStyle } from 'react-native';
@@ -64,11 +68,12 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     base: {
       minWidth: space.tapTarget,
       minHeight: space.tapTarget,
-      borderRadius: radius.full,
+      borderRadius: radius.md,
       alignItems: 'center',
       justifyContent: 'center',
     },
     ring: {
+      borderRadius: radius.full,
       borderWidth: 2,
       borderColor: colors.accent,
     },

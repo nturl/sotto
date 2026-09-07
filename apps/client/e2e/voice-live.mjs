@@ -197,7 +197,9 @@ async function runPhase({ name, wavPath, seed, stopWhen, timeoutMs }) {
     args: [
       '--use-fake-device-for-media-stream',
       '--use-fake-ui-for-media-stream',
-      `--use-file-for-fake-audio-capture=${wavPath}`,
+      // %noloop: play the wav once, then silence — otherwise Chromium loops the
+      // file and the tutor keeps re-hearing the question every few seconds.
+      `--use-file-for-fake-audio-capture=${wavPath}%noloop`,
     ],
   });
   const page = context.pages()[0] ?? (await context.newPage());
@@ -265,6 +267,12 @@ async function runPhase({ name, wavPath, seed, stopWhen, timeoutMs }) {
   return { timeline, statesSeen, pageErrors, vocabAfter };
 }
 
+function backToListeningAfterTutor(timeline) {
+  const reply = timeline.find((e) => e.kind === 'caption' && /^Tutor:/.test(e.value));
+  if (!reply) return false;
+  return timeline.some((e) => e.kind === 'state' && e.value === 'listening' && e.t > reply.t);
+}
+
 async function main() {
   log('Synthesizing phase A wav (explain): "¿Qué significa la palabra cigarra?"');
   const wavA = await buildUtteranceWav('¿Qué significa la palabra cigarra?', 'phase-a');
@@ -276,9 +284,11 @@ async function main() {
     wavPath: wavA,
     seed: true,
     timeoutMs: PHASE_TIMEOUT_MS,
-    stopWhen: async ({ timeline }) =>
-      timeline.some((e) => e.kind === 'caption' && /^Tutor:/.test(e.value)) &&
-      timeline.some((e) => e.kind === 'state' && e.value === 'listening' && e.t > timeline[0].t),
+    // Done once the tutor has replied AND the session has come back to
+    // `listening` after that reply (audio_end) — not just any `listening`
+    // after the first state, which the initial connecting -> listening hop
+    // already satisfies while the tutor is still speaking.
+    stopWhen: async ({ timeline }) => backToListeningAfterTutor(timeline),
   });
 
   const phaseB = await runPhase({

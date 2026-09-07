@@ -278,7 +278,13 @@ handler is a no-op until the availability probe resolves, so tap until the
 button clears), and since run7/F2 the transcript renders the speaker label
 ("TUTOR"/"YOU", uppercase via `textTransform`, which `innerText` reflects) on
 its own line above the text, so `^(You|Tutor):` and `=== 'listening'`
-matching never fire.
+matching never fire. Two smaller ones fixed in the same pass: Chromium loops
+the fake-capture file by default, so the tutor re-hears the question every
+few seconds and the learner caption arrives clipped (the scripts now append
+`%noloop` to the flag: one utterance, then silence); and a "back to
+listening" stop condition must look for a `listening` _after_ the tutor
+caption, not after the first state, or the initial connecting -> listening
+hop satisfies it while the tutor is still speaking.
 
 **Silero VAD produced unreliable results in this environment (2026-09-04).**
 The `SileroVad` implementation in `src/voice/vad.ts` was checked byte-for-byte

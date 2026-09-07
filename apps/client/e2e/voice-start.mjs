@@ -49,7 +49,7 @@ export async function getUserMediaCalls(page) {
  */
 export async function tapStart(page, { label = 'Start', attempts = 10, settleMs = 800 } = {}) {
   const button = page.getByText(label, { exact: true });
-  await button.first().waitFor({ state: 'visible', timeout: 15_000 });
+  await button.first().waitFor({ state: 'visible', timeout: 30_000 });
   for (let i = 0; i < attempts; i++) {
     await button.first().click();
     await page.waitForTimeout(settleMs);

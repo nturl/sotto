@@ -162,7 +162,9 @@ async function main() {
     args: [
       '--use-fake-device-for-media-stream',
       '--use-fake-ui-for-media-stream',
-      `--use-file-for-fake-audio-capture=${wavPath}`,
+      // %noloop: play the wav once, then silence — otherwise Chromium loops the
+      // file and the tutor keeps re-hearing the question every few seconds.
+      `--use-file-for-fake-audio-capture=${wavPath}%noloop`,
     ],
   });
   const context = await browser.newContext({
@@ -174,19 +176,37 @@ async function main() {
   await installMicProbe(page);
   page.on('pageerror', (err) => issues.push(`pageerror: ${err.message}`));
   page.on('console', (msg) => {
-    if (msg.type() === 'error') issues.push(`console.error: ${msg.text()}`);
+    if (msg.type() !== 'error') return;
+    // A self-hosted deployment has no cloud broker: the bundle's baked-in
+    // EXPO_PUBLIC_CLOUD_URL `/me` probe is refused and Chromium logs that
+    // as a console error. Expected here, so it doesn't count as an issue.
+    const isCloudMeProbe =
+      /\/me$/.test(msg.location().url ?? '') && /ERR_CONNECTION_REFUSED/.test(msg.text());
+    if (isCloudMeProbe) {
+      log(`(ignored) cloud /me probe refused: ${msg.location().url}`);
+      return;
+    }
+    issues.push(`console.error: ${msg.text()}`);
   });
   page.on('websocket', (ws) => {
     wsUrls.push(ws.url());
     log(`WebSocket opened: ${ws.url()}`);
   });
 
-  // ---- 1. Onboarding: fresh, unseeded profile against the self-hosted origin ----
-  log(`Loading ${BASE_URL} (unseeded — expect onboarding)`);
+  // ---- 1. Landing + onboarding: fresh, unseeded profile against the
+  //         self-hosted origin. Since the landing-page export
+  //         (scripts/build-web.mjs) "/" is the static landing page, whose
+  //         in-app entry is `/start` (app/start.tsx: redirects to
+  //         onboarding until the profile is onboarded). ----
+  log(`Loading ${BASE_URL} (unseeded — expect the static landing page)`);
   await page.goto(BASE_URL, { waitUntil: 'networkidle' });
+  const sawLanding = (await page.title()) === 'Sotto reads with you';
+  log(`Landed on: ${page.url()} (landing=${sawLanding})`);
+  log(`Loading ${BASE_URL}/start (unseeded — expect onboarding)`);
+  await page.goto(`${BASE_URL}/start`, { waitUntil: 'networkidle' });
   const onboardingUrl = page.url();
   const sawOnboarding = /onboarding/.test(onboardingUrl);
-  log(`Landed on: ${onboardingUrl} (onboarding=${sawOnboarding})`);
+  log(`/start routed to: ${onboardingUrl} (onboarding=${sawOnboarding})`);
 
   // ---- 2. Seed an onboarded profile, then reload to route past onboarding ----
   await seedProfile(page);
@@ -253,10 +273,15 @@ async function main() {
       }
     }
 
-    const hasTutorReply = timeline.some((e) => e.kind === 'caption' && /^Tutor:/.test(e.value));
+    // Done once the tutor has replied AND the session has come back to
+    // `listening` after that reply (audio_end) — not just any `listening`
+    // after the first state, which the initial connecting -> listening hop
+    // already satisfies while the tutor is still speaking.
+    const tutorReply = timeline.find((e) => e.kind === 'caption' && /^Tutor:/.test(e.value));
+    const hasTutorReply = !!tutorReply;
     const backToListening =
       hasTutorReply &&
-      timeline.some((e) => e.kind === 'state' && e.value === 'listening' && e.t > timeline[0].t);
+      timeline.some((e) => e.kind === 'state' && e.value === 'listening' && e.t > tutorReply.t);
     if (hasTutorReply && backToListening) {
       log('Stop condition met (tutor replied, session back to listening = audio_end).');
       break;
@@ -286,7 +311,8 @@ async function main() {
 
   console.log('\n===== Assertions =====');
   const results = {
-    'onboarding rendered on first unseeded load': sawOnboarding,
+    'static landing page served at "/"': sawLanding,
+    'unseeded /start routes to onboarding': sawOnboarding,
     'narration audio asset fetched in reader': narrationAssetFetched,
     [`voice/ws opened on the self-hosted origin (${BASE_HOST})`]: wsOnServerOrigin,
     'learner caption heard (fake mic, contains target word)': sawLearnerCaption,

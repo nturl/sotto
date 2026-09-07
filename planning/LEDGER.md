@@ -769,3 +769,14 @@ CARRIED TO RUN 8
 - Voice-screen polish: focus after Start, `accessibilityRole` on the four mode chips, the passage card truncating mid-word at 390.
 - `DELETE /account` with a confirmation token is still unreachable from the UI (pre-existing).
 - CONFIRM 10 (one origin) still parked, and still the only real fix for guest data crossing between the two hostnames.
+
+## Landing V5, The Open Spread (2026-09-06 evening, Fable, Cleo Design mode)
+
+Spec `planning/design/LANDING-V5.md` (direction C of `landing-directions-2.html`, cover face from the Kimi A variant). Register: scrollytelling stage. Source `apps/client/web/landing/index.html`, one file, both V4 screenshots and the four @font-face rules kept, V4's install detection verbatim.
+
+- ~22:00 Spec, band C, Kimi cover, V4, and the Cleo files read; mini-spec check written; page built as one file.
+- ~22:15 `cleo_verify.py` full run: 0 FAIL, 4 WARN (all the CTA's 4px ink cutout, the app's own elevation token). Screenshots read at 1280 and 375. Director's pass, five fixes: stray hairline above every right-page label (the `.pane + .pane` separator hit hidden siblings), marker overrunning the comma after "niveau", H1 orphan at 375 (`text-wrap: balance`), the Speak dot moved from accent to ink (colour rule over scene table), nothing else. Re-verified: same 0 FAIL / 4 WARN.
+- Scene proof (headless Chromium, the Browser pane was hidden so its observer froze): at 1280 the book holds at top 72px through all five scenes, no overlap, panes and footnotes switch on scroll, the four radios rewrite the footnote; at 375 the five tabs drive the same states; reduced motion at 1280 shows the tabs, installs no observer, fills at once; JS off shows all five panes and all five footnotes (parity 1.70); install block under iOS Safari, iOS Chrome (CriOS), Android Chrome, desktop Chrome, Firefox routes to ios / ios / android / desktop / generic. Every href 200 live.
+- `hosted.mjs` headline assertion updated; lane D's `03e51cb` swept it from the shared tree into its own commit, so `f0c5dc4` carries the page alone.
+- Deployed from a clean `git archive HEAD` with `apps/client/.vercel/` copied in: `dpl_48XXxtCDvMgFAYi5pp65S716VENr`, aliased to https://readsotto.app. Live: headline present, four fonts 200, `/start` 200. `node apps/client/e2e/hosted.mjs` against the live origin: RESULT: PASS at 375 and 1440 (landing headline visible, Try a sample, six taps to the reader, narration, saved word survives reload, offline reload served).
+- Not done: `fly deploy` (Noel's).

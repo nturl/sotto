@@ -153,3 +153,35 @@ beyond the one sentence. The plan's privacy sentence is verbatim from the Power 
   Do not `fly deploy` (Noel's).
 - Ledger row + archive entry + rotation state in `~/Claude/Agents/design/LEDGER.md` and
   `log-archive.md`; run entry in `planning/LEDGER.md`; project memory updated.
+
+## Build notes (2026-09-06, shipped as `f0c5dc4`, live at https://readsotto.app)
+
+Where the build read the spec one way rather than another, so the next revision does not guess:
+
+- The Speak scene's "listening" dot is ink, not accent. The scene table says accent, the
+  colour rule says accent on the CTA fill and the play ring only; the colour rule won. The page
+  has exactly two accent uses (`.cta` background, `.ring` border).
+- The closed cover appears once, in the Install block. The optional open-from-cover at first
+  paint was skipped: it is an entrance animation with a fallback to maintain, for one desktop
+  paint.
+- The footnote under the book carries one line in scenes 1 to 4 ("Reading, listening,
+  tap-to-translate, and saved words are free.") and the four Power notes in scene 5. All five
+  paragraphs are in the DOM; JavaScript shows one. The plan note is the spec's wording with one
+  comma turned into a full stop so no sentence reaches 20 words. The hero sentence is the spec's
+  own 21 words, kept verbatim.
+- Tabs are anchor links to the scene blocks (`#scene-tap` and so on), so they work with
+  JavaScript off; the script intercepts them to set `data-state`. Shown under 900px and under
+  reduced motion, hidden otherwise.
+- The Listen fill stops at the 38% point of the passage (9 of 23 words), matching the transport
+  readout; reduced motion renders that final frame at once. The gutter is a flat hairline, not
+  the mockup's gradient.
+- The Power radios cover their whole 44px row (input at opacity 0 over the label; the indicator
+  is a span), so the harness's tap-target check passes without a custom control.
+- The V4 detection script is verbatim, including its one code comment containing an em dash;
+  it is not page text.
+- `hosted.mjs`: the headline assertion was edited in the working tree and swept into run 8 lane
+  D's commit `03e51cb` before the landing commit landed (shared tree). It now sits at line 132;
+  the "Try a sample" locator is untouched. Its failure-message string still names the old
+  headline (line 137, left alone to keep the diff to the assertion).
+- JS-off text parity reads 1.70 (2620 chars visible with JavaScript off against 1538 with it
+  on): every pane and footnote is visible without script, so the page has more text, not less.

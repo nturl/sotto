@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light" />
-    <title>Sotto reads with you</title>
+    <title>Sotto, a free graded reader</title>
     <meta
       name="description"
       content="Sotto is a free, open-source graded reader. Read a story at your level, tap any word for a translation, hear it narrated, talk it over with a voice tutor."
@@ -12,13 +12,14 @@
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
     <!--
-  Cleo landing, run 7 (2026-09-06). Spec: planning/design/LANDING-V4.md.
-  Fonts are Fraunces 300/400 and Inter 400/500, served same-origin from
-  /fonts/ (copied at build from @expo-google-fonts by scripts/build-web.mjs).
-  Product screenshots are embedded as data URIs because build-web.mjs only
-  copies this one file into dist/ for the landing page (no asset pipeline
-  for extra images without a build-script change, out of scope for this
-  lane) — see A-report.md.
+  Cleo landing V5, "The Open Spread" (2026-09-06). Spec: planning/design/LANDING-V5.md.
+  Register: scrollytelling stage. One open book, five scenes (Read, Tap, Listen, Speak,
+  Power) driven by an IntersectionObserver on the copy blocks at 900px and up; a tab row
+  drives the same data-state under 900px and under prefers-reduced-motion. With JavaScript
+  off every pane renders stacked inside the book and the scenes read as sections.
+  Fonts are Fraunces 300/400 and Inter 400/500, served same-origin from /fonts/ (copied at
+  build from @expo-google-fonts by scripts/build-web.mjs). The two product screenshots are
+  embedded as data URIs (build-web.mjs copies only this file; see run 7 A-report.md).
 -->
     <style>
       @font-face {
@@ -51,28 +52,32 @@
       }
 
       :root {
-        /* Sotto's own light "Paper" tokens, DESIGN.md — the app the screenshots below
-           actually look like, not the landing's old dark "paper at night" canvas. */
+        /* DESIGN.md light "Paper" tokens. ink-3 (#9C9287) is 2.6:1 on paper and is
+           deliberately absent: never for text. */
         --canvas: #f4ecdf;
         --surface: #fbf6ec;
         --surface-2: #efe4d2;
         --ink: #221e1b;
         --ink-2: #6e6459;
-        --ink-3: #9c9287;
+        --on-accent: #1a1614;
         --hairline: rgba(34, 30, 27, 0.12);
-        --accent: #e4572e;
         --peach: #f2c8b4;
-        --peach-fill: rgba(228, 87, 46, 0.16);
+        --tap: rgba(242, 200, 180, 0.18);
+        --mark: #ffd8a8;
+        --quiet: #b5ab9f;
+        --accent: #e4572e;
+        --cover: #1f4f57;
 
         --serif: 'Fraunces', 'Iowan Old Style', 'Palatino', Georgia, serif;
         --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
         --mono: ui-monospace, 'SF Mono', Menlo, monospace;
 
-        --measure: 38rem;
-        --wide: 44rem;
+        --measure: 36rem;
+        --wide: 72rem;
         --gutter: 20px;
         --section: 64px;
         --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+        --state: 240ms;
       }
       @media (min-width: 900px) {
         :root {
@@ -87,6 +92,7 @@
       html {
         background: var(--canvas);
         -webkit-font-smoothing: antialiased;
+        scroll-behavior: smooth;
       }
       body {
         margin: 0;
@@ -109,6 +115,9 @@
         outline: 1.5px solid var(--ink);
         outline-offset: 3px;
       }
+      [hidden] {
+        display: none !important;
+      }
 
       .col {
         width: 100%;
@@ -123,7 +132,7 @@
         padding-top: var(--section);
       }
       .meta {
-        font: 400 0.6875rem/1 var(--mono);
+        font: 400 0.6875rem/1.2 var(--mono);
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--ink-2);
@@ -134,9 +143,9 @@
         margin: 0 0 24px;
       }
       .tap-link {
-        display: inline-block;
-        padding: 16px 0;
-        margin: -16px 0;
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
       }
 
       /* 1 Masthead */
@@ -145,16 +154,16 @@
       }
       header .col {
         display: flex;
-        align-items: baseline;
+        align-items: center;
         justify-content: space-between;
-        flex-wrap: wrap;
-        padding-top: 20px;
-        padding-bottom: 20px;
         gap: 16px;
+        padding-top: 12px;
+        padding-bottom: 12px;
       }
       .wordmark {
-        display: inline-block;
-        padding: 10px 0;
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
         font: 300 1.5rem/1 var(--serif);
         letter-spacing: -0.01em;
         color: var(--ink);
@@ -165,60 +174,42 @@
         text-decoration-color: var(--hairline);
       }
 
-      /* 2 Hero */
+      /* 2 Hero + stage */
+      .stage {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 40px;
+        padding-top: 40px;
+      }
+      .scene {
+        max-width: var(--measure);
+      }
+      .scene .meta {
+        display: block;
+        margin: 0 0 12px;
+      }
       h1 {
-        max-width: 20ch;
-        font: 300 clamp(2.25rem, 1.6rem + 3.2vw, 4rem)/1.05 var(--serif);
+        max-width: 14ch;
+        font: 300 clamp(2.75rem, 1.9rem + 3.4vw, 4.5rem) / 1 var(--serif);
         letter-spacing: -0.02em;
         margin: 16px 0 20px;
+        text-wrap: balance;
       }
-      .promise {
+      .lead {
         max-width: var(--measure);
-        font: 400 1.1875rem/1.5 var(--sans);
+        font: 400 1.125rem/1.55 var(--sans);
         color: var(--ink-2);
-        margin: 0 0 40px;
+        margin: 0 0 32px;
       }
-      .sample-label {
-        margin: 0 0 10px;
+      .line {
+        font: 300 1.75rem/1.15 var(--serif);
+        letter-spacing: -0.01em;
+        margin: 0 0 12px;
+        text-wrap: balance;
       }
-      .passage {
-        max-width: var(--measure);
-        font: 300 clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem)/1.5 var(--serif);
-        letter-spacing: -0.005em;
+      .scene p.body {
         margin: 0;
-        padding: 20px 24px;
-        background: var(--surface);
-        border: 1px solid var(--hairline);
-        border-radius: 10px;
-      }
-      .tok {
-        white-space: nowrap;
-        text-decoration: underline dotted rgba(228, 87, 46, 0.55);
-        text-decoration-thickness: 1px;
-        text-underline-offset: 0.14em;
-        border-radius: 2px;
-        cursor: default;
-        transition: background-color 120ms ease;
-      }
-      .tok.on,
-      .tok:hover {
-        background: var(--peach-fill);
-      }
-      .gloss-pop {
-        display: block;
-        margin-top: 10px;
-        font: 400 0.875rem/1.5 var(--sans);
         color: var(--ink-2);
-        max-height: 0;
-        overflow: hidden;
-        opacity: 0;
-        transition:
-          max-height 180ms var(--ease),
-          opacity 180ms var(--ease);
-      }
-      .gloss-pop.on {
-        max-height: 3rem;
-        opacity: 1;
       }
 
       /* CTA: the cutout, the app's own elevation token */
@@ -229,18 +220,14 @@
         min-height: 56px;
         width: 100%;
         background: var(--accent);
-        color: #1a1613;
+        color: var(--on-accent);
         font: 500 1.0625rem/1 var(--sans);
         text-decoration: none;
         border-radius: 10px;
         box-shadow: 4px 4px 0 0 var(--ink);
         transition:
           transform 120ms ease,
-          box-shadow 120ms ease,
-          filter 120ms ease;
-      }
-      .cta:hover {
-        filter: brightness(1.04);
+          box-shadow 120ms ease;
       }
       .cta:active {
         transform: translate(2px, 2px);
@@ -254,12 +241,10 @@
         }
       }
       .cta-row {
-        margin-top: 8px;
-        max-width: var(--measure);
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        gap: 16px;
+        gap: 12px;
       }
       @media (min-width: 600px) {
         .cta-row {
@@ -273,19 +258,363 @@
         gap: 24px;
         font: 500 0.9375rem/1.5 var(--sans);
       }
-      .cta-links a {
-        display: inline-block;
-        padding: 12px 0;
-        margin: -12px 0;
-      }
       .cta-note {
         color: var(--ink-2);
         font-size: 0.8125rem;
         margin: 16px 0 0;
-        max-width: var(--measure);
       }
 
-      /* 3 Product preview: the captioned specimen pair (the signature device) */
+      /* the book column */
+      .book-col {
+        min-width: 0;
+      }
+      .book-wrap {
+        min-width: 0;
+      }
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 0 0 16px;
+        padding: 0;
+        list-style: none;
+      }
+      .tab {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 44px;
+        padding: 0 12px;
+        font: 400 0.6875rem/1 var(--mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-2);
+        text-decoration: none;
+        border: 1px solid var(--hairline);
+        border-radius: 2px;
+        background: transparent;
+        transition:
+          background var(--state) var(--ease),
+          color var(--state) var(--ease);
+      }
+      .tab b {
+        font: 400 0.8125rem/1 var(--serif);
+        letter-spacing: 0;
+      }
+      .tab[aria-selected='true'] {
+        background: var(--ink);
+        color: var(--surface);
+        border-color: var(--ink);
+      }
+
+      .book {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        background: var(--surface);
+        border: 1px solid var(--hairline);
+        border-radius: 2px;
+        box-shadow: 6px 6px 0 0 var(--peach);
+      }
+      .page {
+        min-width: 0;
+        padding: 22px 22px 26px;
+      }
+      .page .meta {
+        display: block;
+        margin: 0 0 14px;
+      }
+      .page.right {
+        border-top: 1px solid var(--hairline);
+      }
+      @media (min-width: 560px) {
+        .book {
+          grid-template-columns: 1fr 1fr;
+        }
+        .book::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 50%;
+          width: 1px;
+          background: var(--hairline);
+        }
+        .page.right {
+          border-top: 0;
+        }
+      }
+
+      .passage {
+        position: relative;
+        z-index: 0;
+        margin: 0;
+        font: 400 clamp(1.1rem, 1rem + 0.5vw, 1.35rem) / 1.5 var(--serif);
+      }
+      .w {
+        border-radius: 2px;
+        padding: 0 2px;
+        margin: 0 -2px;
+        transition:
+          background var(--state) var(--ease),
+          color var(--state) var(--ease);
+      }
+      .book[data-state='tap'] .w[data-word='adapte'],
+      .book[data-state='speak'] .w[data-word='adapte'] {
+        background: var(--tap);
+      }
+      .book[data-state='listen'] .w {
+        color: var(--quiet);
+      }
+      .book[data-state='listen'] .w.said {
+        color: var(--ink);
+      }
+      .mark {
+        position: relative;
+        white-space: nowrap;
+      }
+      .mark::after {
+        content: '';
+        position: absolute;
+        left: -2px;
+        right: 0;
+        bottom: 1px;
+        height: 0.55em;
+        background: var(--mark);
+        z-index: -1;
+        transform: skew(-6deg);
+      }
+
+      /* panes: stacked by default (no JavaScript), one per state once .js is set */
+      .pane + .pane {
+        margin-top: 24px;
+        padding-top: 20px;
+        border-top: 1px solid var(--hairline);
+      }
+      .js .pane {
+        display: none;
+        margin-top: 0;
+        padding-top: 0;
+        border-top: 0;
+      }
+      .js .book[data-state='read'] .pane.read,
+      .js .book[data-state='tap'] .pane.tap,
+      .js .book[data-state='listen'] .pane.listen,
+      .js .book[data-state='speak'] .pane.speak,
+      .js .book[data-state='power'] .pane.power {
+        display: block;
+      }
+
+      .your-book {
+        margin: 0;
+        font: 300 2rem/1.05 var(--serif);
+        letter-spacing: -0.02em;
+      }
+      .your-book small {
+        display: block;
+        margin-top: 10px;
+        font: 400 0.875rem/1.5 var(--sans);
+        color: var(--ink-2);
+        letter-spacing: 0;
+      }
+
+      .gloss {
+        padding: 12px 14px;
+        border: 1px solid var(--hairline);
+        border-radius: 10px;
+        background: var(--canvas);
+      }
+      .gloss .word {
+        margin: 0;
+        font: 400 1.5rem/1.1 var(--serif);
+      }
+      .gloss .def {
+        margin: 4px 0 0;
+        color: var(--ink-2);
+      }
+      .chip {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 6px 12px;
+        font-size: 0.8125rem;
+        border-radius: 9999px;
+        background: var(--surface-2);
+      }
+
+      .transport {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .ring {
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border: 2px solid var(--accent);
+        border-radius: 9999px;
+      }
+      .ring svg {
+        width: 14px;
+        height: 14px;
+        fill: var(--ink);
+      }
+      .track {
+        position: relative;
+        flex: 1;
+        height: 3px;
+        background: var(--surface-2);
+        border-radius: 2px;
+      }
+      .track::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 38%;
+        background: var(--ink);
+        border-radius: 2px;
+      }
+      .readout {
+        font-feature-settings: 'tnum';
+        white-space: nowrap;
+      }
+
+      .talk {
+        display: grid;
+        gap: 12px;
+      }
+      .talk .turn {
+        display: grid;
+        grid-template-columns: 3.4rem minmax(0, 1fr);
+        gap: 8px;
+        align-items: baseline;
+      }
+      .talk .say {
+        margin: 0;
+        font: 400 1.05rem/1.4 var(--serif);
+      }
+      .talk .state {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .talk .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 9999px;
+        background: var(--ink);
+      }
+
+      .power {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        display: grid;
+      }
+      .power legend {
+        padding: 0;
+      }
+      .power label {
+        position: relative;
+        display: grid;
+        grid-template-columns: 18px minmax(0, 1fr);
+        gap: 12px;
+        align-items: center;
+        min-height: 44px;
+        padding: 4px 0;
+        border-bottom: 1px solid var(--hairline);
+        cursor: pointer;
+        font: 500 0.9375rem/1.4 var(--sans);
+      }
+      .power label:last-child {
+        border-bottom: 0;
+      }
+      .power input {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        opacity: 0;
+        cursor: pointer;
+      }
+      .power .ind {
+        width: 18px;
+        height: 18px;
+        border: 1.5px solid var(--ink);
+        border-radius: 9999px;
+        position: relative;
+      }
+      .power input:checked + .ind::after {
+        content: '';
+        position: absolute;
+        inset: 3px;
+        border-radius: 9999px;
+        background: var(--ink);
+      }
+      .power input:focus-visible + .ind {
+        outline: 1.5px solid var(--ink);
+        outline-offset: 3px;
+      }
+
+      .footnote {
+        margin: 22px 0 0;
+        max-width: 38rem;
+        color: var(--ink-2);
+        font-size: 0.875rem;
+      }
+      .footnote p {
+        margin: 0 0 10px;
+      }
+      .footnote b {
+        color: var(--ink);
+        font-weight: 500;
+      }
+      .js .footnote p {
+        display: none;
+      }
+      .js .footnote p.on {
+        display: block;
+      }
+
+      /* 900px and up: two columns, the book sticky */
+      @media (min-width: 900px) {
+        .stage {
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+          gap: 0 56px;
+          padding-top: 48px;
+        }
+        .scene {
+          grid-column: 1;
+          min-height: 70vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 24px 0;
+        }
+        .scene.first {
+          justify-content: flex-start;
+          padding-top: 0;
+        }
+        .book-col {
+          grid-column: 2;
+          grid-row: 1 / span 5;
+        }
+        .book-wrap {
+          position: sticky;
+          top: 72px;
+        }
+        .tabs {
+          display: none;
+        }
+      }
+
+      /* 3 See it working */
       .shots {
         display: grid;
         grid-template-columns: 1fr;
@@ -304,7 +633,7 @@
         display: block;
         width: 100%;
         height: auto;
-        border-radius: 10px;
+        border-radius: 2px;
         border: 1px solid var(--hairline);
         box-shadow: 6px 6px 0 0 var(--peach);
       }
@@ -314,112 +643,48 @@
         color: var(--ink-2);
       }
 
-      /* 4 The loop: three rows, mono numerals */
-      .loop {
-        display: grid;
-        grid-template-columns: 1fr;
-        border-top: 1px solid var(--hairline);
-      }
-      .loop > div {
-        display: grid;
-        grid-template-columns: 2.5rem 1fr;
-        gap: 4px 20px;
-        padding: 22px 0;
-        border-bottom: 1px solid var(--hairline);
-      }
-      .loop .n {
-        font: 300 1.375rem/1.2 var(--serif);
-        color: var(--ink-2);
-      }
-      .loop h3 {
-        font: 500 1.0625rem/1.4 var(--sans);
-        margin: 0 0 4px;
-        color: var(--ink);
-      }
-      .loop p {
-        margin: 0;
-        color: var(--ink-2);
-      }
-
-      /* 5 Free vs the plan */
-      .compare {
+      /* 4 Install */
+      .install {
         display: grid;
         grid-template-columns: 1fr;
         gap: 32px;
         border-top: 1px solid var(--hairline);
         padding-top: 32px;
       }
-      @media (min-width: 700px) {
-        .compare {
-          grid-template-columns: 1fr 1fr;
+      @media (min-width: 600px) {
+        .install {
+          grid-template-columns: 160px minmax(0, 1fr);
           gap: 48px;
         }
       }
-      .compare .cw {
-        font: 400 1.375rem/1.2 var(--serif);
-        margin: 0 0 12px;
-        color: var(--ink);
+      .cover {
+        width: 160px;
+        max-width: 100%;
       }
-      .compare p {
-        margin: 0 0 10px;
-        color: var(--ink-2);
-      }
-      .compare .num {
-        font-feature-settings: 'tnum';
-        color: var(--ink);
-        font-weight: 500;
-      }
-      .compare .fine {
-        font-size: 0.8125rem;
-        color: var(--ink-2);
-      }
-
-      /* 6 Secondary guidance rows */
-      .rows {
-        display: grid;
-        grid-template-columns: 1fr;
-        border-top: 1px solid var(--hairline);
-      }
-      .rows > div {
-        padding: 20px 0;
-        border-bottom: 1px solid var(--hairline);
-      }
-      .rows .rw {
-        display: inline-block;
-        padding: 10px 0;
-        margin: -10px 0;
-        font: 500 1.0625rem/1.4 var(--sans);
-        color: var(--ink);
-      }
-      .rows p {
-        margin: 8px 0 0;
-        color: var(--ink-2);
-      }
-      .rowlink {
-        display: inline-block;
-        padding: 10px 0;
-        margin: -10px 0;
-      }
-
-      /* 7 Install: device-detected steps */
-      .install-block {
-        border-top: 1px solid var(--hairline);
-        padding-top: 8px;
+      .cover svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 2px;
       }
       .steps {
         counter-reset: s;
         margin: 0;
         padding: 0;
         list-style: none;
+        max-width: var(--measure);
       }
       .steps li {
         counter-increment: s;
         display: grid;
         grid-template-columns: 2.5rem 1fr;
         gap: 6px 20px;
-        padding: 16px 0;
+        padding: 14px 0;
         border-bottom: 1px solid var(--hairline);
         color: var(--ink-2);
+      }
+      .steps li:first-child {
+        padding-top: 0;
       }
       .steps li::before {
         content: counter(s);
@@ -431,11 +696,8 @@
         color: var(--ink-2);
         font-size: 0.8125rem;
       }
-      [hidden] {
-        display: none !important;
-      }
 
-      /* 8 Footer */
+      /* 5 Footer */
       footer {
         padding: var(--section) 0 48px;
       }
@@ -443,23 +705,25 @@
         display: flex;
         flex-wrap: wrap;
         gap: 0 24px;
-        padding-top: 12px;
+        padding-top: 4px;
         border-top: 1px solid var(--hairline);
-      }
-      footer nav a {
-        display: inline-block;
-        padding: 12px 0;
       }
       footer p {
         color: var(--ink-2);
         font-size: 0.8125rem;
-        margin: 24px 0 0;
+        margin: 20px 0 0;
         max-width: var(--measure);
       }
 
       @media (prefers-reduced-motion: reduce) {
         * {
           transition: none !important;
+        }
+        html {
+          scroll-behavior: auto;
+        }
+        .tabs {
+          display: flex;
         }
       }
     </style>
@@ -475,37 +739,173 @@
     </header>
 
     <main>
-      <section id="read">
-        <div class="col">
-          <p class="meta">A free graded reader</p>
-          <h1>Sotto reads with you.</h1>
-          <p class="promise">
-            Pick a language and a level, open a book, and read. Tap any word for its meaning, listen
-            to it narrated, and talk about what you read with a voice tutor.
-          </p>
-
-          <p class="meta sample-label">A sample passage · Level A2</p>
-          <p class="passage" id="passage">
-            Sotto est un livre <span class="tok" data-gloss="graded">gratuit et adapté</span>. Vous
-            choisissez une langue et un niveau, puis vous lisez. Touchez un mot pour le traduire.
-          </p>
-          <p class="gloss-pop" id="glossPop">
-            "Adapté" (graded): rewritten at your level. Sotto's books are machine-adapted drafts,
-            and their levels are estimates.
-          </p>
-
-          <div class="start">
+      <section id="read" class="hero">
+        <div class="col stage">
+          <div class="scene first" id="scene-read" data-scene="read">
+            <p class="meta">A free graded reader</p>
+            <h1>Read a page. Then talk about it.</h1>
+            <p class="lead">
+              A short book rewritten to your level. Tap any word, hear it read, then say what you
+              think out loud to a tutor that read the same page.
+            </p>
             <div class="cta-row">
               <a class="cta" href="https://app.readsotto.app/account?intent=start">Start free</a>
               <span class="cta-links">
-                <a href="https://app.readsotto.app/account">Sign in</a>
-                <a href="/start">Try a sample</a>
+                <a class="tap-link" href="https://app.readsotto.app/account">Sign in</a>
+                <a class="tap-link" href="/start">Try a sample</a>
               </span>
             </div>
             <p class="cta-note">
-              No account needed to try it — progress and saved words stay in this browser until you
+              No account needed to try. Progress and saved words stay in this browser until you
               create one.
             </p>
+          </div>
+
+          <div class="book-col">
+            <div class="book-wrap">
+              <ul class="tabs" role="tablist" aria-label="Scenes">
+                <li><a class="tab" role="tab" href="#scene-read" data-state="read" aria-selected="true"><b>01</b> Read</a></li>
+                <li><a class="tab" role="tab" href="#scene-tap" data-state="tap" aria-selected="false"><b>02</b> Tap</a></li>
+                <li><a class="tab" role="tab" href="#scene-listen" data-state="listen" aria-selected="false"><b>03</b> Listen</a></li>
+                <li><a class="tab" role="tab" href="#scene-speak" data-state="speak" aria-selected="false"><b>04</b> Speak</a></li>
+                <li><a class="tab" role="tab" href="#scene-power" data-state="power" aria-selected="false"><b>05</b> Power</a></li>
+              </ul>
+
+              <div class="book" id="book" data-state="read">
+                <div class="page left">
+                  <span class="meta">Chapitre un · Français · A2</span>
+                  <p class="passage" id="passage" lang="fr">
+                    <span class="w">Sotto</span> <span class="w">est</span> <span class="w">un</span>
+                    <span class="w">livre</span> <span class="w">gratuit</span> <span class="w">et</span>
+                    <span class="w" data-word="adapte">adapté</span>. <span class="w">Vous</span>
+                    <span class="w">choisissez</span> <span class="w">une</span> <span class="w">langue</span>
+                    <span class="w">et</span> <span class="w">un</span> <span class="w mark">niveau</span>,
+                    <span class="w">puis</span> <span class="w">vous</span> <span class="w">lisez</span>.
+                    <span class="w">Touchez</span> <span class="w">un</span> <span class="w">mot</span>
+                    <span class="w">pour</span> <span class="w">le</span> <span class="w">traduire</span>.
+                  </p>
+                </div>
+                <div class="page right">
+                  <div class="pane read">
+                    <span class="meta">Your book</span>
+                    <p class="your-book">
+                      Sotto
+                      <small
+                        >Pick a language and a level. The book is rewritten to fit. Books are
+                        machine-adapted drafts and their levels are estimates.</small
+                      >
+                    </p>
+                  </div>
+                  <div class="pane tap">
+                    <span class="meta">Tapped word</span>
+                    <div class="gloss">
+                      <p class="word" lang="fr">adapté</p>
+                      <p class="def">graded: rewritten at your level</p>
+                      <span class="chip">Save for later</span>
+                    </div>
+                  </div>
+                  <div class="pane listen">
+                    <span class="meta">Narration</span>
+                    <div class="transport">
+                      <span class="ring" aria-hidden="true"
+                        ><svg viewBox="0 0 10 10"><path d="M2 1l7 4-7 4z" /></svg
+                      ></span>
+                      <span class="track" aria-hidden="true"></span>
+                      <span class="meta readout" style="margin: 0">0:08 · 0:21</span>
+                    </div>
+                  </div>
+                  <div class="pane speak">
+                    <span class="meta">Talk about it</span>
+                    <div class="talk">
+                      <div class="turn">
+                        <span class="meta" style="margin: 0">Tutor</span>
+                        <p class="say" lang="fr">Pourquoi le livre est-il « adapté » ?</p>
+                      </div>
+                      <div class="turn">
+                        <span class="meta" style="margin: 0">You</span>
+                        <p class="say" lang="fr">Parce qu'il est réécrit pour mon niveau.</p>
+                      </div>
+                      <div class="state">
+                        <span class="dot" aria-hidden="true"></span>
+                        <span class="meta" style="margin: 0">Listening</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pane power">
+                    <fieldset class="power">
+                      <legend class="meta">Where the tutor runs</legend>
+                      <label
+                        ><input type="radio" name="pw" value="device" checked /><span class="ind"></span
+                        ><span>On this device.</span></label
+                      >
+                      <label
+                        ><input type="radio" name="pw" value="plan" /><span class="ind"></span
+                        ><span>Through Sotto's server.</span></label
+                      >
+                      <label
+                        ><input type="radio" name="pw" value="key" /><span class="ind"></span
+                        ><span>With your own key.</span></label
+                      >
+                      <label
+                        ><input type="radio" name="pw" value="self" /><span class="ind"></span
+                        ><span>On your own machine.</span></label
+                      >
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+
+              <div class="footnote" id="footnote">
+                <p data-for="free" class="on">
+                  <b>Reading, listening, tap-to-translate, and saved words are free.</b>
+                </p>
+                <p data-for="device">
+                  <b>On this device.</b> Free. The in-browser tutor runs on on-device models, so
+                  nothing leaves the device.
+                </p>
+                <p data-for="plan">
+                  <b>Through Sotto's server.</b> The plan: the hosted tutor with nothing to set up.
+                  $9.99 a month or $79 a year after a 3-day trial, at a separate sign-in
+                  (<a href="https://app.readsotto.app/account">app.readsotto.app</a>). Your voice
+                  goes to OpenAI through Sotto's server; no transcripts or recordings are stored,
+                  only usage minutes and billing.
+                </p>
+                <p data-for="key">
+                  <b>With your own key.</b> Works with or without the plan. Paste an OpenAI key in
+                  Settings and the page calls OpenAI directly from your browser. The key stays on
+                  this device and OpenAI bills you, not Sotto.
+                  <a href="https://github.com/nturl/sotto/blob/main/docs/byok.md">How it works</a>
+                </p>
+                <p data-for="self">
+                  <b>On your own machine.</b> Free, on your own hardware. <code>docker compose up</code>
+                  serves the app and the tutor from one origin, with local models or your own key.
+                  <a href="https://github.com/nturl/sotto/blob/main/docs/self-hosting.md"
+                    >Self-hosting guide</a
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="scene" id="scene-tap" data-scene="tap">
+            <p class="meta">02 · Tap</p>
+            <p class="line">Tap any word for its meaning.</p>
+            <p class="body">Save it and the mark stays on the page.</p>
+          </div>
+          <div class="scene" id="scene-listen" data-scene="listen">
+            <p class="meta">03 · Listen</p>
+            <p class="line">Hear the story read aloud.</p>
+            <p class="body">Each word fills in as it is spoken.</p>
+          </div>
+          <div class="scene" id="scene-speak" data-scene="speak">
+            <p class="meta">04 · Speak</p>
+            <p class="line">Talk about the passage with a voice tutor that already knows what you read.</p>
+            <p class="body">Say what you think out loud.</p>
+          </div>
+          <div class="scene" id="scene-power" data-scene="power">
+            <p class="meta">05 · Power</p>
+            <p class="line">Where the tutor runs is a footnote, not a tier.</p>
+            <p class="body">Choose one in the book. The footnote under it says what that means.</p>
           </div>
         </div>
       </section>
@@ -542,136 +942,49 @@
         </div>
       </section>
 
-      <section id="loop">
-        <div class="col">
-          <h2>How it works</h2>
-          <div class="loop">
-            <div>
-              <span class="n">01</span>
-              <div>
-                <h3>Read</h3>
-                <p>
-                  Pick a language and a level, then open a book adapted to you. Sotto's books are
-                  machine-adapted drafts and their levels are estimates.
-                </p>
-              </div>
-            </div>
-            <div>
-              <span class="n">02</span>
-              <div>
-                <h3>Understand</h3>
-                <p>
-                  Tap a word for its meaning, hear the story narrated, and save words for later.
-                </p>
-              </div>
-            </div>
-            <div>
-              <span class="n">03</span>
-              <div>
-                <h3>Speak</h3>
-                <p>
-                  Talk about the passage with a voice tutor that already knows what you just read.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="pricing">
-        <div class="col">
-          <h2>Free vs the plan</h2>
-          <div class="compare">
-            <div>
-              <p class="cw">Free</p>
-              <p>
-                Reading, listening, tap-to-translate, and saved vocabulary are always free — no
-                account needed to try, an account to keep them.
-              </p>
-              <p>
-                The in-browser tutor is free too: it runs on on-device models, so nothing leaves
-                this device.
-              </p>
-            </div>
-            <div>
-              <p class="cw">The plan</p>
-              <p>
-                The hosted voice tutor, with nothing to set up: <span class="num">$9.99</span> a
-                month or <span class="num">$79</span> a year, after a 3-day trial, at a separate
-                sign-in (<a class="rowlink" href="https://app.readsotto.app">app.readsotto.app</a>).
-              </p>
-              <p class="fine">
-                With the plan, your voice goes to OpenAI through Sotto's server, which brokers every
-                tutor turn; we don't store transcripts or recordings from those sessions — only
-                usage minutes and billing.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="guidance">
-        <div class="col">
-          <h2>Two other ways to talk to the tutor</h2>
-          <div class="rows">
-            <div>
-              <span class="rw">Use your own key</span>
-              <p>
-                Works with or without the plan. Paste an OpenAI key in Settings and the page calls
-                OpenAI directly from your browser — the key stays on this device, and OpenAI bills
-                you, not us.
-                <a class="rowlink" href="https://github.com/nturl/sotto/blob/main/docs/byok.md"
-                  >How it works</a
-                >
-              </p>
-            </div>
-            <div>
-              <span class="rw">Run it yourself</span>
-              <p>
-                Free on your own hardware. <code>docker compose up</code> serves the app and the
-                tutor from one origin, with local models or your own key.
-                <a
-                  class="rowlink"
-                  href="https://github.com/nturl/sotto/blob/main/docs/self-hosting.md"
-                  >Self-hosting guide</a
-                >
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section id="install">
         <div class="col">
           <h2>Install Sotto</h2>
-          <div class="install-block">
-            <ol class="steps" id="stepsGeneric">
-              <li>Open readsotto.app in Chrome or Safari.</li>
-              <li>
-                Look for an install option in the browser's menu or address bar (often called
-                "Install app" or "Add to Home Screen").
-              </li>
-              <li>Open Sotto from where it installed.</li>
-            </ol>
-            <ol class="steps" id="stepsIos" hidden>
-              <li>In Safari, tap the Share icon.</li>
-              <li>Choose "Add to Home Screen."</li>
-              <li>Open Sotto from your Home Screen.</li>
-            </ol>
-            <ol class="steps" id="stepsAndroid" hidden>
-              <li>In Chrome, open the menu (⋮).</li>
-              <li>Tap "Install app."</li>
-              <li>Open Sotto from your home screen or app drawer.</li>
-            </ol>
-            <ol class="steps" id="stepsDesktop" hidden>
-              <li>
-                In Chrome, click the install icon in the address bar (or the menu → "Install
-                Sotto").
-              </li>
-              <li>Confirm "Install."</li>
-              <li>Sotto opens as its own window.</li>
-            </ol>
-            <p class="install-caption">A book you have opened keeps working offline.</p>
+          <div class="install">
+            <div class="cover" aria-hidden="true">
+              <svg viewBox="0 0 200 264">
+                <rect x="0" y="0" width="200" height="264" rx="2" fill="#1F4F57" />
+                <rect x="20" y="30" width="160" height="1.5" fill="#F2C8B4" />
+                <text x="100" y="118" text-anchor="middle" fill="#FBF6EC" font-family="Fraunces, 'Iowan Old Style', Georgia, serif" font-weight="300" font-size="34">Sotto</text>
+                <text x="100" y="142" text-anchor="middle" fill="#F2C8B4" font-family="Fraunces, 'Iowan Old Style', Georgia, serif" font-size="12" font-style="italic">un livre adapté</text>
+                <rect x="20" y="216" width="160" height="1.5" fill="#F2C8B4" />
+                <text x="100" y="240" text-anchor="middle" fill="#FBF6EC" font-family="ui-monospace, Menlo, monospace" font-size="9" letter-spacing="1.5">FRANÇAIS · A2</text>
+              </svg>
+            </div>
+            <div>
+              <ol class="steps" id="stepsGeneric">
+                <li>Open readsotto.app in Chrome or Safari.</li>
+                <li>
+                  Look for an install option in the browser's menu or address bar ("Install app" or
+                  "Add to Home Screen").
+                </li>
+                <li>Open Sotto from where it installed.</li>
+              </ol>
+              <ol class="steps" id="stepsIos" hidden>
+                <li>In Safari, tap the Share icon.</li>
+                <li>Choose "Add to Home Screen."</li>
+                <li>Open Sotto from your Home Screen.</li>
+              </ol>
+              <ol class="steps" id="stepsAndroid" hidden>
+                <li>In Chrome, open the menu (⋮).</li>
+                <li>Tap "Install app."</li>
+                <li>Open Sotto from your home screen or app drawer.</li>
+              </ol>
+              <ol class="steps" id="stepsDesktop" hidden>
+                <li>
+                  In Chrome, click the install icon in the address bar (or the menu, then "Install
+                  Sotto").
+                </li>
+                <li>Confirm "Install."</li>
+                <li>Sotto opens as its own window.</li>
+              </ol>
+              <p class="install-caption">A book you have opened keeps working offline.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -680,10 +993,10 @@
     <footer>
       <div class="col">
         <nav>
-          <a href="https://github.com/nturl/sotto">GitHub</a>
-          <a href="https://github.com/nturl/sotto/blob/main/docs/self-hosting.md">Self-hosting</a>
-          <a href="https://github.com/nturl/sotto/blob/main/docs/byok.md">Your own key</a>
-          <a href="https://github.com/nturl/sotto/blob/main/docs/adding-a-book.md">Add a book</a>
+          <a class="tap-link" href="https://github.com/nturl/sotto">GitHub</a>
+          <a class="tap-link" href="https://github.com/nturl/sotto/blob/main/docs/self-hosting.md">Self-hosting</a>
+          <a class="tap-link" href="https://github.com/nturl/sotto/blob/main/docs/byok.md">Your own key</a>
+          <a class="tap-link" href="https://github.com/nturl/sotto/blob/main/docs/adding-a-book.md">Add a book</a>
         </nav>
         <p>
           Code Apache-2.0. Stories CC BY-SA 4.0. The books are machine-adapted drafts and their
@@ -693,29 +1006,115 @@
     </footer>
 
     <script>
-      // All device-install content is visible without this script (the generic block
-      // renders by default); this only narrows to the visitor's own device. Also binds
-      // the hero's one demo word (emphasis only, no glossary list to keep in sync).
       (function () {
-        var tok = document.querySelector('.tok');
-        var pop = document.getElementById('glossPop');
-        if (tok && pop) {
-          var toggle = function () {
-            var on = !tok.classList.contains('on');
-            tok.classList.toggle('on', on);
-            pop.classList.toggle('on', on);
-          };
-          tok.addEventListener('click', toggle);
-          tok.addEventListener('mouseenter', function () {
-            tok.classList.add('on');
-            pop.classList.add('on');
-          });
-          tok.addEventListener('mouseleave', function () {
-            tok.classList.remove('on');
-            pop.classList.remove('on');
+        document.documentElement.classList.add('js');
+
+        /* The stage: one book, five states. The copy blocks drive data-state through an
+           IntersectionObserver at 900px and up; under 900px and under reduced motion the
+           tab row drives the same attribute. No looping motion, no entrance animation:
+           the only motion is the state change the visitor caused, plus the one-shot
+           word fill on entering Listen. */
+        var book = document.getElementById('book');
+        var foot = document.getElementById('footnote');
+        var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+        var scenes = Array.prototype.slice.call(document.querySelectorAll('.scene[data-scene]'));
+        var words = Array.prototype.slice.call(book.querySelectorAll('.passage .w'));
+        var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+        var wide = window.matchMedia('(min-width: 900px)');
+        var fillTimers = [];
+
+        function clearFill() {
+          fillTimers.forEach(clearTimeout);
+          fillTimers = [];
+          words.forEach(function (w) {
+            w.classList.remove('said');
           });
         }
+        function runFill() {
+          clearFill();
+          /* fills to the 38% point of the passage, matching the transport readout */
+          var upTo = Math.round(words.length * 0.38);
+          if (reduced.matches) {
+            words.slice(0, upTo).forEach(function (w) {
+              w.classList.add('said');
+            });
+            return;
+          }
+          words.slice(0, upTo).forEach(function (w, i) {
+            fillTimers.push(
+              setTimeout(function () {
+                w.classList.add('said');
+              }, i * 60)
+            );
+          });
+        }
+        function setFoot() {
+          var st = book.getAttribute('data-state');
+          var key = 'free';
+          if (st === 'power') {
+            var checked = book.querySelector('input[name="pw"]:checked');
+            key = checked ? checked.value : 'device';
+          }
+          Array.prototype.forEach.call(foot.querySelectorAll('p'), function (p) {
+            p.classList.toggle('on', p.getAttribute('data-for') === key);
+          });
+        }
+        function setState(st) {
+          if (book.getAttribute('data-state') === st) return;
+          book.setAttribute('data-state', st);
+          tabs.forEach(function (t) {
+            t.setAttribute('aria-selected', t.getAttribute('data-state') === st ? 'true' : 'false');
+          });
+          if (st === 'listen') runFill();
+          else clearFill();
+          setFoot();
+        }
 
+        tabs.forEach(function (t) {
+          t.addEventListener('click', function (e) {
+            e.preventDefault();
+            setState(t.getAttribute('data-state'));
+          });
+        });
+        Array.prototype.forEach.call(book.querySelectorAll('input[name="pw"]'), function (r) {
+          r.addEventListener('change', setFoot);
+        });
+
+        var observer = null;
+        function wire() {
+          var useObserver = wide.matches && !reduced.matches && 'IntersectionObserver' in window;
+          if (useObserver && !observer) {
+            observer = new IntersectionObserver(
+              function (entries) {
+                entries.forEach(function (en) {
+                  if (en.isIntersecting) setState(en.target.getAttribute('data-scene'));
+                });
+              },
+              { threshold: 0.5, rootMargin: '-30% 0px -30% 0px' }
+            );
+            scenes.forEach(function (s) {
+              observer.observe(s);
+            });
+          } else if (!useObserver && observer) {
+            observer.disconnect();
+            observer = null;
+          }
+        }
+        wire();
+        var onChange = function () {
+          wire();
+        };
+        if (wide.addEventListener) {
+          wide.addEventListener('change', onChange);
+          reduced.addEventListener('change', onChange);
+        } else {
+          wide.addListener(onChange);
+          reduced.addListener(onChange);
+        }
+        setFoot();
+
+        // All device-install content is visible without this script (the generic block
+        // renders by default); this only narrows to the visitor's own device.
         var ua = navigator.userAgent || '';
         var isIos = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
         var isAndroid = /Android/.test(ua);

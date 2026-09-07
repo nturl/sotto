@@ -453,9 +453,10 @@ const TTS_DTYPE: Record<'webgpu' | 'wasm', 'fp32' | 'q8'> = {
 };
 
 /**
- * Diagnostic override for the dtype matrix (apps/client/e2e/
- * tts-browser-matrix.mjs). The worker is spawned by URL from
- * `provider.ts`/`sample.ts`, which this lane does not own, so the knob is a
+ * Diagnostic override for the dtype matrix (run 9 lane C; the script is at
+ * ~/Claude/sotto-run9/C/tts-browser-matrix.mjs, kept out of the repo because
+ * the lane owns no file under apps/client/e2e). The worker is spawned by URL
+ * from `provider.ts`/`sample.ts`, which this lane does not own, so the knob is a
  * worker-global rather than a new field on `WorkerInitPayload.debug`: the
  * matrix creates a tiny module-blob worker that sets
  * `self.__SOTTO_TTS_DTYPE__` and then dynamically imports the real bundle.

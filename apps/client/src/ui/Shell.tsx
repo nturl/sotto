@@ -7,6 +7,8 @@
  * reused for a second breakpoint tier):
  *   900-1199: max-width 760, 32px gutters, 32px top padding
  *   >= 1200:  max-width 1040, 48px gutters, 48px top padding
+ * An optional `footer` renders outside the ScrollView, pinned to the bottom
+ * of the viewport (run 10 lane A).
  * Also injects the web-only :focus-visible outline (2px ink, follows the
  * active scheme) and keeps the web <body> background in sync with the
  * active scheme's canvas color (so overscroll/rubber-band never flashes a
@@ -73,6 +75,12 @@ export type ShellProps = {
    * plain canvas screen at every width. Default true for every other Shell
    * caller (book detail, profile, review, search, licences, settings). */
   sidebar?: boolean;
+  /** Rendered outside the ScrollView, pinned to the bottom of the viewport
+   * on canvas with a `space.md` top padding and the phone's safe-area inset
+   * under it (run 10 lane A: onboarding's Continue button has to be
+   * reachable without scrolling a list of languages). Undefined for every
+   * other caller, which keeps their tree exactly as it was. */
+  footer?: React.ReactNode;
 };
 
 export function useLayoutMetrics() {
@@ -96,6 +104,7 @@ export function Shell({
   contentStyle,
   contentBottomPadding = space.xl,
   sidebar = true,
+  footer,
 }: ShellProps) {
   const insets = useSafeAreaInsets();
   const { isDesktop, isWideDesktop, gutter } = useLayoutMetrics();
@@ -113,6 +122,10 @@ export function Shell({
   // to center — an always-full-height box is already "centered" trivially.
   const isCenteredOnboarding = isDesktop && !sidebar;
 
+  // With a pinned footer the content is no longer what sits above the home
+  // indicator, so the safe-area inset moves to the footer.
+  const hasFooter = footer !== undefined && footer !== null;
+
   const content = (
     <View
       style={[
@@ -122,7 +135,7 @@ export function Shell({
           maxWidth: isDesktop ? desktopMaxWidth : undefined,
           paddingHorizontal: gutter,
           paddingTop: isDesktop && sidebar ? desktopTopPadding : space.xl,
-          paddingBottom: contentBottomPadding + (isDesktop ? 0 : insets.bottom),
+          paddingBottom: contentBottomPadding + (isDesktop || hasFooter ? 0 : insets.bottom),
         },
         contentStyle,
       ]}
@@ -131,21 +144,44 @@ export function Shell({
     </View>
   );
 
+  const scrollArea = scroll ? (
+    <ScrollView
+      style={styles.flex}
+      contentContainerStyle={isDesktop && !sidebar ? styles.centerGrow : styles.grow}
+      keyboardShouldPersistTaps="handled"
+    >
+      {content}
+    </ScrollView>
+  ) : (
+    <View style={styles.flex}>{content}</View>
+  );
+
   return (
     <View style={[styles.root, { paddingTop: isDesktop ? 0 : insets.top }]}>
       <FocusOutlineStyle colors={colors} />
       <View style={styles.row}>
         {isDesktop && sidebar ? <Sidebar /> : null}
-        {scroll ? (
-          <ScrollView
-            style={styles.flex}
-            contentContainerStyle={isDesktop && !sidebar ? styles.centerGrow : styles.grow}
-            keyboardShouldPersistTaps="handled"
-          >
-            {content}
-          </ScrollView>
+        {hasFooter ? (
+          <View style={styles.flex}>
+            {scrollArea}
+            <View
+              style={[
+                styles.footer,
+                {
+                  paddingHorizontal: gutter,
+                  paddingBottom: space.lg + (isDesktop ? 0 : insets.bottom),
+                },
+              ]}
+            >
+              <View
+                style={[styles.footerInner, { maxWidth: isDesktop ? desktopMaxWidth : undefined }]}
+              >
+                {footer}
+              </View>
+            </View>
+          </View>
         ) : (
-          <View style={styles.flex}>{content}</View>
+          scrollArea
         )}
       </View>
     </View>
@@ -181,6 +217,14 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     },
     contentAuto: {
       flexGrow: 0,
+    },
+    footer: {
+      backgroundColor: colors.canvas,
+      paddingTop: space.md,
+    },
+    footerInner: {
+      width: '100%',
+      alignSelf: 'center',
     },
   });
 }

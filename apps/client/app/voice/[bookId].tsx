@@ -10,17 +10,20 @@
  * `voiceState`; it's now a real in-place toggle regardless).
  */
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Linking, Platform, Pressable, StyleSheet, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getLanguage, type TutorMode } from '@sotto/core';
 import { space } from '@sotto/core/theme';
+import { modelsForTier, totalSizeMb } from '@sotto/voice';
+import { PAID_ORIGIN } from '../../src/cloud/paidOrigin';
 import { useCloud } from '../../src/cloud/provider';
 import { useT } from '../../src/i18n/useT';
 import { Button } from '../../src/ui/Button';
 import { CloseGlyph, SettingsGlyph } from '../../src/ui/Glyphs';
 import { IconButton } from '../../src/ui/IconButton';
 import type { SpeechSentence } from '../../src/ui/SpeechFillText';
+import { useLayoutMetrics } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
 import { useTheme } from '../../src/ui/theme';
 import { webCursor } from '../../src/ui/tokens';
@@ -45,6 +48,120 @@ const MODES: TutorMode[] = ['read_to_me', 'read_with_me', 'pronunciation', 'disc
 // dims-then-fills while a reading event is actively in flight (for this
 // window after the last one, or until the voice state changes).
 const READING_ACTIVE_WINDOW_MS = 6000;
+
+/**
+ * Where the free build sends someone who wants the tutor without installing
+ * anything. `intent=start` opens the paid client's trial start; `returnTo`
+ * lands them on the paywall afterwards. Same tab on web: this is a handover,
+ * not a side trip, and a popup would be blocked or lost behind the reader.
+ */
+const TRIAL_URL = `${PAID_ORIGIN}/account?intent=start&returnTo=%2Fpaywall`;
+
+function openTrial(): void {
+  const loc = (globalThis as { location?: { assign(url: string): void } }).location;
+  if (Platform.OS === 'web' && loc) {
+    loc.assign(TRIAL_URL);
+    return;
+  }
+  void Linking.openURL(TRIAL_URL).catch(() => {});
+}
+
+/**
+ * run10/B1 — the free build's Discuss gate. readsotto.app has no
+ * CloudAdapter, so tapping "Talk about this passage" used to open straight
+ * onto TutorModelsPanel: a tier picker, three model names and a 1.2 GB
+ * download button, as the first thing a stranger sees on a screen the
+ * landing page reached by selling a three-day trial the app never mentioned.
+ *
+ * It is now a decision list, cheapest commitment first: the trial, then the
+ * in-browser tutor with its real cost stated, then an own key, then reading
+ * alone. The model list is no longer the gate — it only appears once someone
+ * has chosen the browser, and stays collapsed otherwise.
+ */
+function FreeTutorChoices({
+  panelState,
+  onChanged,
+  onOwnKey,
+  onReadAlone,
+}: {
+  panelState: TutorModelsPanelState;
+  onChanged: () => void;
+  onOwnKey: () => void;
+  onReadAlone: () => void;
+}) {
+  const t = useT();
+  const { isDesktop } = useLayoutMetrics();
+  const [showBrowser, setShowBrowser] = useState(false);
+  // The same numbers TutorModelsPanel prints for the standard tier, read
+  // from the same helpers, so the caption can never quote a stale size.
+  const browserSizeMb = useMemo(() => totalSizeMb(modelsForTier('standard')), []);
+
+  return (
+    <View style={[choiceStyles.column, isDesktop && choiceStyles.columnDesktop]}>
+      <View style={choiceStyles.choice}>
+        <Button title={t('voice.trial.cta')} onPress={openTrial} />
+        <Text role="caption" color="ink2">
+          {t('voice.trial.note')}
+        </Text>
+      </View>
+
+      {panelState.kind === 'unsupported' ? (
+        <Text role="caption" color="ink2">
+          {t('voice.browser.noWebgpu')}
+        </Text>
+      ) : (
+        <View style={choiceStyles.choice}>
+          <Button
+            title={t('voice.browser.choice')}
+            variant="secondary"
+            onPress={() => setShowBrowser(true)}
+          />
+          <Text role="caption" color="ink2">
+            {t('voice.browser.choiceNote', { size: browserSizeMb })}
+          </Text>
+        </View>
+      )}
+
+      <Button title={t('byok.row')} variant="secondary" onPress={onOwnKey} />
+
+      <Pressable
+        onPress={onReadAlone}
+        accessibilityRole="button"
+        style={[choiceStyles.readAlone, webCursor]}
+      >
+        <Text role="ui" size={15} color="ink2" style={choiceStyles.readAloneLabel}>
+          {t('voice.readAlone')}
+        </Text>
+      </Pressable>
+
+      {showBrowser ? (
+        <TutorModelsPanel state={panelState} onChanged={onChanged} showRemove={false} />
+      ) : null}
+    </View>
+  );
+}
+
+const choiceStyles = StyleSheet.create({
+  column: {
+    gap: space.md,
+  },
+  columnDesktop: {
+    width: '100%',
+    maxWidth: 480,
+    alignSelf: 'center',
+  },
+  choice: {
+    gap: space.xs,
+  },
+  readAlone: {
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  readAloneLabel: {
+    textDecorationLine: 'underline',
+  },
+});
 
 export default function VoiceScreen() {
   const t = useT();
@@ -280,7 +397,14 @@ export default function VoiceScreen() {
         </View>
       ) : null}
 
-      {panelState ? (
+      {panelState && !cloud.enabled ? (
+        <FreeTutorChoices
+          panelState={panelState}
+          onChanged={session.recheckAvailability}
+          onOwnKey={() => router.push('/settings/openai-key')}
+          onReadAlone={() => router.replace(readSeulPath)}
+        />
+      ) : panelState ? (
         <View style={styles.recovery}>
           <TutorModelsPanel
             state={panelState}

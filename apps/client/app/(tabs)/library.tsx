@@ -15,8 +15,10 @@ import { radius, space } from '@sotto/core/theme';
 import { isFilterEmpty, resolvePacksBanner } from '../../src/state/selectors';
 import { useT, type MessageKey } from '../../src/i18n/useT';
 import { Button } from '../../src/ui/Button';
+import { useCloud } from '../../src/cloud/provider';
 import { useLibrary, usePreferences, type LibraryBook } from '../../src/ui/data';
 import { fonts } from '../../src/ui/fonts';
+import { showImportAffordance } from '../../src/ui/importAffordance';
 import { PlusGlyph, SearchGlyph } from '../../src/ui/Glyphs';
 import { IconButton } from '../../src/ui/IconButton';
 import { languageNameFor } from '../../src/ui/languages';
@@ -115,6 +117,7 @@ export default function LibraryScreen() {
   const router = useRouter();
   const library = useLibrary();
   const preferences = usePreferences();
+  const cloud = useCloud();
   const { sectionGap, isDesktop } = useLayoutMetrics();
   const { colors } = useTheme();
   const themed = useMemo(() => createStyles(colors), [colors]);
@@ -160,12 +163,13 @@ export default function LibraryScreen() {
   const trimmedQuery = query.trim();
 
   // R3-I: free-tier import needs apps/server reachable (local LLM/TTS/STT).
-  // No CloudAdapter exists in this OSS-only build, so "no cloud adapter" is
-  // always true here — the health check alone decides visibility.
+  // On the free web app there is no CloudAdapter either, so the health check
+  // alone decides visibility; `showImportAffordance` holds the whole rule.
   const [serverReachable, setServerReachable] = useState<boolean | undefined>(undefined);
   useEffect(() => {
     void fetchHealth().then((h) => setServerReachable(!!h?.ok));
   }, []);
+  const canImport = showImportAffordance(serverReachable, cloud.enabled);
 
   const openBook = (book: LibraryBook) => router.push(`/book/${book.id}`);
 
@@ -245,7 +249,7 @@ export default function LibraryScreen() {
               ? `${languageNameFor(preferences.learningLocale)} · ${bookCount}`
               : bookCount}
           </Text>
-          {serverReachable ? (
+          {canImport ? (
             <IconButton
               icon={<PlusGlyph size={20} />}
               accessibilityLabel={t('import.library.button')}
@@ -254,11 +258,6 @@ export default function LibraryScreen() {
           ) : null}
         </View>
       </View>
-      {serverReachable === false ? (
-        <Text role="caption" color="ink3" style={styles.offlineCaption}>
-          {t('import.library.captionOffline')}
-        </Text>
-      ) : null}
 
       {isDesktop ? (
         // Mockup `.controls`: one wrapping row, gap 28, the search field
@@ -373,10 +372,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: space.md,
-  },
-  offlineCaption: {
-    marginTop: -space.sm,
-    marginBottom: space.lg,
   },
   controls: {
     flexDirection: 'row',

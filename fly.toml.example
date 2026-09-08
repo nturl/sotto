@@ -16,6 +16,13 @@ primary_region = "iad"
 [env]
   SOTTO_HOST = "0.0.0.0"
   SOTTO_PORT = "8790"
+  # Fly terminates TLS and forwards plain HTTP to this process, so without
+  # this the server sees every request as coming from Fly's proxy over
+  # `http`. Two things break: the per-IP session limiter collapses into one
+  # shared bucket for all callers, and POST /voice/session hands the browser
+  # a `ws://` URL that an https page refuses as mixed content. Only set this
+  # where a trusted proxy really is in front — see config.ts.
+  SOTTO_TRUST_PROXY = "1"
   # Everything else (SOTTO_API_KEY, or the three local-model URLs, plus
   # SOTTO_BASIC_AUTH) is a secret, not plain env — see
   # `fly secrets set` in docs/self-hosting.md's Fly section. A local model

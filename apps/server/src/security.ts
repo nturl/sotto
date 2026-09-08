@@ -23,19 +23,40 @@ export function parseAllowedOrigins(value: string | undefined, fallback: string)
 
 const LOCALHOST_ORIGIN_RE = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
 
+/** Loopback bind addresses. `::` and `0.0.0.0` are NOT loopback: they mean
+ * "every interface", which is exactly the exposed case. */
+const LOOPBACK_HOST_RE = /^(localhost|127(?:\.\d{1,3}){3}|::1|\[::1\])$/;
+
+/**
+ * Whether the server is bound only to the loopback interface, i.e. whether
+ * "a browser on localhost" is necessarily this same machine's own user.
+ */
+export function isLoopbackHost(host: string): boolean {
+  return LOOPBACK_HOST_RE.test(host.trim());
+}
+
 /**
  * Whether `origin` (the browser's `Origin` header) may talk to this server.
  * An absent origin is always allowed: native clients (Expo Go, iOS/Android
  * builds) never send one, only browsers do, so this check only ever
  * constrains browser callers.
+ *
+ * `allowLoopback` blanket-allows any `http(s)://localhost:*` / `127.0.0.1:*`
+ * origin. That is right for a localhost-bound dev server, where such a page
+ * is the developer's own. It is wrong once the server is reachable off-box:
+ * an exposed instance would then accept any page the victim happens to have
+ * open on a localhost port — a dev server, another local app — regardless of
+ * SOTTO_CORS_ORIGINS. app.ts ties it to whether SOTTO_HOST is loopback.
+ * Defaults to true so existing callers and tests keep their old behaviour.
  */
 export function isOriginAllowed(
   origin: string | undefined | null,
   allowedOrigins: readonly string[],
+  allowLoopback = true,
 ): boolean {
   if (!origin) return true;
   if (allowedOrigins.includes(origin)) return true;
-  return LOCALHOST_ORIGIN_RE.test(origin);
+  return allowLoopback && LOCALHOST_ORIGIN_RE.test(origin);
 }
 
 /**

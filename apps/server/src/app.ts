@@ -7,7 +7,13 @@ import cors from '@fastify/cors';
 import fastifyStatic from '@fastify/static';
 import fastifyWebsocket from '@fastify/websocket';
 import type { Config } from './config.js';
-import { RateLimiter, isBasicAuthValid, isOriginAllowed, parseAllowedOrigins } from './security.js';
+import {
+  RateLimiter,
+  isBasicAuthValid,
+  isLoopbackHost,
+  isOriginAllowed,
+  parseAllowedOrigins,
+} from './security.js';
 import { activeVadBackend, createVad } from './voice/vad.js';
 import { clientMessageSchema, sessionOptionsSchema, type ServerMessage } from './voice/types.js';
 import { SessionRegistry } from './voice/registry.js';
@@ -28,7 +34,23 @@ const LIMITS = { maxMs: 1_200_000, idleMs: 90_000 };
  * the thin entrypoint that calls this and then listens.
  */
 export async function buildApp(config: Config): Promise<FastifyInstance> {
-  const app = Fastify({ logger: true });
+  // `trustProxy` is opt-in via SOTTO_TRUST_PROXY (see config.ts for why it is
+  // off by default). It is what makes `request.ip` the real caller behind a
+  // reverse proxy — and therefore what makes the per-IP limiter below mean
+  // anything — and what lets `request.protocol` see the browser's `https`
+  // through a TLS-terminating proxy, so the wsUrl handed back is `wss://`.
+  //
+  // `hop === 0` trusts ONLY the immediate peer, not `true` (trust every hop).
+  // The difference is a spoofing hole, not a style choice: with every hop
+  // trusted, proxy-addr walks the whole `x-forwarded-for` list and returns its
+  // LEFTMOST entry — which the client wrote. A caller sending
+  // `x-forwarded-for: 1.2.3.4` would get a fresh rate-limit bucket per
+  // request. Trusting one hop returns the rightmost entry instead, the one
+  // the proxy itself appended, which the client cannot forge.
+  const app = Fastify({
+    logger: true,
+    trustProxy: config.SOTTO_TRUST_PROXY ? (_address: string, hop: number) => hop === 0 : false,
+  });
 
   // Voice sessions juggle several concurrent in-flight fetches (STT/LLM/TTS)
   // that get aborted on barge-in; Node's undici fetch can surface an abort as
@@ -47,11 +69,16 @@ export async function buildApp(config: Config): Promise<FastifyInstance> {
   const sessionRegistry = new SessionRegistry();
   const activeSessions = new Map<string, VoiceSession>();
   const allowedOrigins = parseAllowedOrigins(config.SOTTO_CORS_ORIGINS, DEFAULT_CORS_ORIGINS);
+  // The blanket "any localhost origin is fine" rule only holds while this
+  // server is loopback-bound. Once SOTTO_HOST is 0.0.0.0 the server is
+  // reachable off-box, and a localhost page is no longer necessarily its
+  // own operator's — so the explicit allowlist becomes the whole rule.
+  const allowLoopbackOrigins = isLoopbackHost(config.SOTTO_HOST);
   const sessionCreateLimiter = new RateLimiter(10, 60_000);
 
   await app.register(cors, {
     origin: (origin, cb) => {
-      if (isOriginAllowed(origin, allowedOrigins)) {
+      if (isOriginAllowed(origin, allowedOrigins, allowLoopbackOrigins)) {
         cb(null, true);
         return;
       }
@@ -191,7 +218,7 @@ export async function buildApp(config: Config): Promise<FastifyInstance> {
       // header — only browsers do. Reject a browser whose origin isn't
       // allowed; an absent origin passes through to the native-client path.
       const origin = request.headers.origin;
-      if (origin && !isOriginAllowed(origin, allowedOrigins)) {
+      if (origin && !isOriginAllowed(origin, allowedOrigins, allowLoopbackOrigins)) {
         socket.close();
         return;
       }

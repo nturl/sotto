@@ -55,6 +55,23 @@ const envSchema = z.object({
   // docs/self-hosting.md). Unset by default (no auth, matching the rest of
   // this server's no-accounts design).
   SOTTO_BASIC_AUTH: z.string().optional(),
+  // Set to 1/true ONLY when this server sits behind a trusted reverse proxy
+  // that terminates TLS (Fly, Tailscale Serve, nginx). It makes Fastify read
+  // `x-forwarded-for` and `x-forwarded-proto`, which two things depend on:
+  //   - `request.ip`, the key for the per-IP session-creation limiter. Without
+  //     it every request carries the proxy's address, so the whole limiter
+  //     collapses into one shared bucket for all callers.
+  //   - `request.protocol`, which decides whether POST /voice/session hands
+  //     back a `ws://` or `wss://` URL. A TLS-terminating proxy speaks plain
+  //     HTTP to this process, so without it an https page is handed a `ws://`
+  //     URL and the browser blocks it as mixed content.
+  // Default OFF: when nothing trustworthy sits in front, honouring
+  // `x-forwarded-for` would let any client spoof its own IP and walk straight
+  // past the rate limiter.
+  SOTTO_TRUST_PROXY: z
+    .enum(['0', '1', 'false', 'true'])
+    .default('0')
+    .transform((v) => v === '1' || v === 'true'),
 });
 
 export type Config = z.infer<typeof envSchema>;

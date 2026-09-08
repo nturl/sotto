@@ -73,3 +73,9 @@ Dead i18n keys (`import.library.captionOffline`, the `onboarding.fast.*` and `on
 Landing, same evening: Noel wanted the two doors side by side as in the lane's preview. The two-column stage now starts at 1240px (grid `1fr / 1.05fr`, copy column 488px, doors at 15px type, 465px together, measured on the live page); from 600 to 1239px the page keeps the single column with the tab strip, where the doors already share a line.
 
 Final tree: `merge/final` = main + run 9 + security + live price + the landing revision; 1099 tests, isolated proof in the lane reports (`MERGE9-report.md`, `MERGESEC-report.md`, `PRICE-report.md`).
+
+## 9. Deployment record, closeout items
+
+- 2026-09-08 17:41 EDT: free origin, `pnpm deploy:web` from a clean `git archive dd870d8` (main), production `dpl_7iCTntw6jgM4sgXv1oCCXK7xvjcQ` (`sotto-ca35sr68t`), aliased to readsotto.app. Live: the landing serves the 1240px stage rule; `node apps/client/e2e/hosted.mjs` against the live origin: RESULT PASS at 375 and 1440, four taps.
+- Gate before it, on the served export of `3389ca8`: hosted smoke PASS (four taps), doors on one line at 700, 1000, 1239 (single column) and 1240, 1280, 1440, 1600 (two columns, 23px spare), walk at 375 and 1280 read, Cleo verify PASS with the four CTA-cutout WARNs. The walk's only console errors were the plans fetch blocked by CORS from the LAN test origin, which the paid origin's `CORS_ORIGINS` change removes for readsotto.app.
+- sotto-cloud `c6ebabb`: vendor pin `dd870d8`, lockfile reconciled (`@fastify/static@10.1.3` for the vendored server), `pnpm check` 408 tests, pushed. Fly deploy and its live checks: see the line below.

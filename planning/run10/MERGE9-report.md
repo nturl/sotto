@@ -228,3 +228,42 @@ not a merge gate. Its last recorded result is run 9's 18/18 ×2 on
    Its comments describe run 9's live large-tier e2e; the code lives only on
    main. Nothing to resolve, but it means the file's history reads as if it
    were run 9 work when the merge is read later.
+
+---
+
+## BLOCKER for the orchestrator — `main` moved while this merge was running
+
+`main` was `3926e4a` when this worktree was created (16:49 reflog:
+`fetch . run10/integration:main: fast-forward`). At **16:56** another session
+fast-forwarded `main` again, to **`b2b65fc`** — "merge: origin/main (PRs #1-#5:
+UX findings, capture gate, service-worker refresh, streamed speech, imported
+narration, parchment covers) onto run 10" — and pushed it to `origin/main`.
+
+`3926e4a` is still an ancestor of `b2b65fc`, so nothing is lost, **but
+`merge/run9` can no longer be fast-forwarded into `main`**: it does not contain
+`b2b65fc`. The plan's last step ("the orchestrator fast-forwards main after
+review") needs a decision.
+
+Dry run of the follow-on merge, `git merge-tree --write-tree merge/run9
+b2b65fc`, reports **two conflicts**, both in files this merge already touched:
+
+- `packages/voice/src/browser-cascade/protocol.ts` — the PRs add
+  `turnDetection`/`muted` to `WorkerInitPayload` and a `turn_detection`
+  message; run 9 added `playback_drained`.
+- `packages/voice/src/browser-cascade/worker.ts` — and this one is a real
+  design overlap, not a textual one. PR "gate tutor capture by explicit mute
+  and push-to-talk intent" rewrites the `ptt` case
+  (`buffer.clear(); buffer.start()`, now guarded by `!session.muted`) and adds
+  an `inputGeneration` epoch plus mute checks inside `transcribeSegment` —
+  which is exactly where run 9 put the PTT pre-roll (`buffer.start(
+  PTT_PRE_ROLL_MS)`, deliberately *without* the `clear()`) and the `too_short`
+  drop. PR "Await streamed speech handlers before completing tutor replies"
+  lands in the same reply pipeline as run 9's sentence cap. Those two want
+  reading against each other, the way this merge read cd326af against run 9.
+
+That is a second merge with its own conflicts and its own judgement calls, and
+it was not in this task's scope, so I stopped here rather than expanding it
+unasked. `merge/run9` is complete and green against the base it was given
+(`3926e4a`), nothing was pushed, and neither `main` nor `run9/integration` was
+touched. Suggested next step: a `merge/run9+prs` lane that merges `b2b65fc`
+into `merge/run9` and re-runs this report's proof list.

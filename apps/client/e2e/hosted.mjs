@@ -10,10 +10,10 @@
  * able to reload an already-opened book while offline.
  *
  * The one-tap fast path this smoke used to click ("Start reading in French")
- * no longer exists: /start now redirects to /onboarding, which asks four
- * questions (app language, I'm learning, your level, explain in) and ends on
- * /onboarding/done with a single recommended book. The run counts and logs
- * the taps it takes to get from the landing page into the reader.
+ * no longer exists: /start now redirects to /onboarding, which asks two
+ * questions (I'm learning, your level) and ends on /onboarding/done with a
+ * single recommended book. The run counts and logs the taps it takes to get
+ * from the landing page into the reader — four, as of run 10.
  *
  * Usage:
  *   node apps/client/e2e/hosted.mjs                # BASE_URL defaults to
@@ -124,10 +124,10 @@ async function runAtWidth({ width, height, label }) {
   log(`${label}: cold visit loaded`);
 
   // Landing page (Cleo spec, planning/design/LANDING-V4.md): / is the static
-  // landing, not the app. Assert the headline, then click "Try a sample"
-  // (href="/start") to enter the app as a guest — the door that needs no
-  // account, as opposed to "Start free"/"Sign in", which go to the paid
-  // origin's account screen.
+  // landing, not the app. Assert the headline, then click "Read free, no
+  // account" (href="/start") to enter the app as a guest — the door that
+  // needs no account, as opposed to "Start free"/"Sign in", which go to the
+  // paid origin's account screen.
   let taps = 0;
   const landingHeadline = page.getByRole('heading', { name: 'Read a page. Then talk about it.' });
   try {
@@ -136,40 +136,38 @@ async function runAtWidth({ width, height, label }) {
   } catch {
     fail(`${label}: landing heading "Sotto reads with you." never became visible`);
   }
-  const startLink = page.getByRole('link', { name: 'Try a sample' });
+  const startLink = page.getByRole('link', { name: 'Read free, no account' });
   try {
     await startLink.waitFor({ state: 'visible', timeout: 5000 });
   } catch {
-    fail(`${label}: landing "Try a sample" link never became visible`);
+    fail(`${label}: landing "Read free, no account" link never became visible`);
     await browser.close();
     return;
   }
   await startLink.click();
   taps += 1;
-  log(`${label}: tap ${taps} — clicked landing "Try a sample" link`);
+  log(`${label}: tap ${taps} — clicked landing "Read free, no account" link`);
 
   // <link rel="manifest"> present (installability check 1/2).
   const hasManifest = await page.evaluate(() => !!document.querySelector('link[rel="manifest"]'));
   if (hasManifest) log(`${label}: manifest link present`);
   else fail(`${label}: no <link rel="manifest"> found`);
 
-  // The four-step onboarding wizard (run 7 lane C, app/onboarding/index.tsx).
-  // /start redirects a guest here. Each step already has its proposal
-  // selected (the old fast path's defaults), so the journey is four
-  // confirmations: "Continue" three times, then "Finish". Titles come from
-  // src/i18n/en.json (onboarding.step.*); the progress line is
-  // onboarding.progress, "Step N of 4".
-  const WIZARD_STEPS = [
-    { title: 'App language' },
-    { title: "I'm learning" },
-    { title: 'Your level' },
-    { title: 'Explain in' },
-  ];
+  // The two-step onboarding wizard (run 7 lane C, halved in run 10,
+  // app/onboarding/index.tsx). /start redirects a guest here. Each step
+  // already has its proposal selected (the fast path's defaults, which also
+  // still supply the interface and explanation languages that are no longer
+  // asked), so the journey is two confirmations: "Continue", then "Finish".
+  // Titles come from src/i18n/en.json (onboarding.step.*); the progress line
+  // is onboarding.progress, "Step N of 2".
+  const WIZARD_STEPS = [{ title: "I'm learning" }, { title: 'Your level' }];
   const progress = page.getByTestId('onboarding-progress');
   try {
     await progress.waitFor({ state: 'visible', timeout: 15000 });
   } catch {
-    fail(`${label}: onboarding wizard never appeared after "Try a sample" (at ${page.url()})`);
+    fail(
+      `${label}: onboarding wizard never appeared after "Read free, no account" (at ${page.url()})`,
+    );
     await browser.close();
     return;
   }
@@ -211,15 +209,6 @@ async function runAtWidth({ width, height, label }) {
       wizardOk = false;
       break;
     }
-    // Step 3 carries the "not sure which level?" helper (the one question a
-    // stranger can't answer from a label); assert it's offered, don't open it
-    // — this walk accepts the proposed level.
-    if (index === 2) {
-      const helper = page.getByRole('button', { name: 'Not sure which level?' });
-      if (await helper.isVisible().catch(() => false))
-        log(`${label}: level step offers the "Not sure which level?" helper`);
-      else fail(`${label}: level step is missing the "Not sure which level?" helper`);
-    }
     const proposed = await selectedOption();
     if (!proposed)
       fail(
@@ -238,7 +227,7 @@ async function runAtWidth({ width, height, label }) {
     await next.click();
     taps += 1;
     log(
-      `${label}: tap ${taps} — step ${index + 1}/4 "${step.title}", kept "${proposed ?? '(none)'}", ${isLast ? 'Finish' : 'Continue'}`,
+      `${label}: tap ${taps} — step ${index + 1}/${WIZARD_STEPS.length} "${step.title}", kept "${proposed ?? '(none)'}", ${isLast ? 'Finish' : 'Continue'}`,
     );
   }
   if (!wizardOk) {

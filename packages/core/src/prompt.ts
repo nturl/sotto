@@ -53,6 +53,21 @@ export interface PromptContext {
   passage: TutorPassageContext;
   savedWords: string[];
   recentSummary?: string;
+  /**
+   * Rewrite the instruction for a small model (run 9, lane B). The browser
+   * cascade runs Qwen3.5-2B in the learner's own tab; at that size the model
+   * reliably loses rules that sit ~2,000 characters above the passage, which
+   * is how Noel's live Discuss turn came back as a filler line plus a
+   * five-line markdown list (planning/run9/PLAN.md). Compact keeps the same
+   * product rules but reorders them — session context first, then the mode,
+   * then short numbered imperatives LAST, where recency puts them in reach —
+   * and states the reply shape and the unusable-turn rule explicitly.
+   *
+   * Set by `packages/voice/src/browser-cascade/worker.ts` and nothing else:
+   * the paid provider and the local server keep sending the prompt below
+   * byte for byte (prompt.test.ts pins all four modes against a fixture).
+   */
+  compact?: boolean;
 }
 
 // Small per-locale dialect/pronunciation notes for the instruction's
@@ -70,6 +85,37 @@ const DIALECT_NOTES: Record<string, string> = {
   'zh-TW': 'Mandarin, traditional script, Taiwan pronunciation norms.',
   'ro-RO': 'Standard Romanian pronunciation.',
   'ca-ES': 'Central Catalan pronunciation.',
+};
+
+/** Compact mode's one-line-per-mode guidance. Deliberately imperative and
+ * concrete; read_to_me keeps the `[[reading:]]` marker, which the worker's
+ * `stripMarkers` needs to highlight the sentences being read. */
+const COMPACT_MODE_GUIDANCE: Record<TutorMode, string> = {
+  read_to_me:
+    'Mode: read_to_me. Read the next 1-3 passage sentences aloud, word for word, then stop. ' +
+    'Begin your reply with the marker [[reading: id1 id2]] listing the ids of the sentences ' +
+    'you are about to read. Add nothing of your own.',
+  read_with_me:
+    'Mode: read_with_me. The learner reads a sentence aloud. Say one short encouraging line, ' +
+    'correct at most one word, then stop.',
+  pronunciation:
+    'Mode: pronunciation. The learner reads the visible sentence aloud. Name the single most ' +
+    'useful pronunciation issue, say the word correctly, and invite one retry.',
+  discuss:
+    "Mode: discuss. Answer the learner's question about the passage above, then ask exactly " +
+    'one short follow-up question about it.',
+};
+
+/** Compact mode's per-mode reply-shape line, rule 6 below. */
+const COMPACT_SHAPE: Record<TutorMode, string> = {
+  read_to_me: 'Say only the passage sentences. Do not add sentences of your own.',
+  read_with_me: 'At most two sentences.',
+  pronunciation: 'At most two sentences. Never state a numeric or percentage accuracy score.',
+  discuss:
+    'Two sentences that answer, then one question. Never more than three sentences. Your ' +
+    'reply is not finished until you have asked the learner one short question about the ' +
+    'passage, so the last character of every reply is a question mark — unless the learner ' +
+    'just asked you to stop.',
 };
 
 const MODE_GUIDANCE: Record<TutorMode, string> = {
@@ -116,8 +162,58 @@ function renderSentence(s: TutorPassageSentence): string {
   return `${head}\n    ${pairs}`;
 }
 
-export function buildSystemInstruction(ctx: PromptContext): string {
+function renderDynamicContext(ctx: PromptContext): string {
   const { learner, passage } = ctx;
+  const sentenceLines = passage.sentences.map(renderSentence).join('\n');
+  return `--- Session context ---
+Book: ${ctx.bookTitle}
+Chapter: ${passage.chapterTitle}
+Learner level: ${learner.level}
+Interface language: ${ctx.interfaceLocale ?? learner.explanationLocale}
+Current reading position (token id): ${passage.positionTokenId ?? 'start of chapter'}
+Visible passage (sentence id: text, then its words as word=tokenId suffix):
+${sentenceLines}
+Saved words this session: ${ctx.savedWords.length > 0 ? ctx.savedWords.join(', ') : '(none)'}
+${ctx.recentSummary ? `Recent turn summary: ${ctx.recentSummary}` : ''}`;
+}
+
+/**
+ * The same product rules as `buildSystemInstruction`'s prose block, rewritten
+ * for a 2B model: the passage comes first, the rules come last and numbered,
+ * and the two things the live failure needed spelled out — "no lists, no
+ * markdown, no emoji, no filler" and "ask for a repeat instead of summarizing
+ * an unusable turn" — are their own rules rather than implications.
+ */
+function buildCompactInstruction(ctx: PromptContext): string {
+  const { learner } = ctx;
+  const head = `You are a patient ${learner.learningLocale} reading tutor. The learner uses ${learner.explanationLocale} for explanations. Everything you say about the story must come from the passage below.`;
+
+  // Rule ORDER is load-bearing, not cosmetic. A 2B model weights the end of
+  // a long prompt most, so the three rules the live failure actually broke —
+  // no markdown, no filler, and the reply's shape — are the last three, with
+  // the shape rule dead last. Measured on the real model (planning/run9/
+  // B-report.md): with the shape rule in the middle, four of four discuss
+  // replies answered in prose but never asked the follow-up question.
+  const rules = `Rules. Follow every one.
+1. Speak ${learner.learningLocale} at level ${learner.level}. ${dialectNote(learner.learningLocale)}
+2. Use only the passage above. If it does not say something, say so plainly. Never invent detail, and never narrate copyrighted text beyond the passage.
+3. Explain in ${learner.explanationLocale} only when a short explanation is needed. If the learner switches language, reply in the language they just used, then offer to return to ${learner.learningLocale}.
+4. Correct at most one thing per turn, and only when it helps comprehension or pronunciation. Most turns have no correction.
+5. To use a tool, copy the tokenId from the word list above: the full id is the sentence id + "." + suffix (b1.s1 with cigarra=t6 gives b1.s1.t6). Never derive a tokenId by counting words. Never claim an action succeeded until its tool returns success.
+6. Three markers exist and no others: [[pace: slow]] and [[pace: normal]], which start your next reply when the learner asks you to slow down or to go at normal speed, and [[reading: ...]], which read_to_me begins its reply with. Never invent a different double-bracket marker.
+7. Before the learner has said anything, open with exactly one short sentence in ${learner.learningLocale} inviting them into the passage, then stop and wait.
+8. Reply in plain sentences only. Never use bullet points, numbered lists, headings, asterisks, or emoji.
+9. Never begin with filler such as "Okay" or "Let's see". No greetings, no praise.
+10. If the learner's message is empty, a single word, or does not make sense, do not summarize the passage; ask them to repeat the question in one sentence.
+11. ${COMPACT_SHAPE[ctx.mode]}`;
+
+  return `${head}\n\n${renderDynamicContext(ctx)}\n\n${COMPACT_MODE_GUIDANCE[ctx.mode]}\n\n${rules}`;
+}
+
+export function buildSystemInstruction(ctx: PromptContext): string {
+  if (ctx.compact) return buildCompactInstruction(ctx);
+
+  const { learner } = ctx;
 
   const stableRules = `You are a patient, concise ${learner.learningLocale} reading tutor for a learner who uses
 ${learner.explanationLocale} for explanations. Use the supplied passage as the source of truth;
@@ -148,20 +244,7 @@ If the learner says "slower" or asks you to slow down, include the marker [[pace
 start of your next reply; if they ask for normal speed again, include [[pace: normal]]. These
 markers are stripped before the learner sees or hears your reply.`;
 
-  const sentenceLines = passage.sentences.map(renderSentence).join('\n');
-
-  const dynamicContext = `--- Session context ---
-Book: ${ctx.bookTitle}
-Chapter: ${passage.chapterTitle}
-Learner level: ${learner.level}
-Interface language: ${ctx.interfaceLocale ?? learner.explanationLocale}
-Current reading position (token id): ${passage.positionTokenId ?? 'start of chapter'}
-Visible passage (sentence id: text, then its words as word=tokenId suffix):
-${sentenceLines}
-Saved words this session: ${ctx.savedWords.length > 0 ? ctx.savedWords.join(', ') : '(none)'}
-${ctx.recentSummary ? `Recent turn summary: ${ctx.recentSummary}` : ''}`;
-
-  return `${stableRules}\n\n${MODE_GUIDANCE[ctx.mode]}\n\n${dynamicContext}`;
+  return `${stableRules}\n\n${MODE_GUIDANCE[ctx.mode]}\n\n${renderDynamicContext(ctx)}`;
 }
 
 /** Short instruction for the one-shot "acknowledge mode change" LLM call. */

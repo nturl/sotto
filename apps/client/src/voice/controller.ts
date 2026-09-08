@@ -5,7 +5,8 @@
  * ToolExecutionContext, feed it a clock, and assert on the callbacks.
  */
 import { executeTool, type ToolExecutionContext, type ToolResult } from '@sotto/core';
-import type { VoiceProvider, VoiceState } from '@sotto/voice';
+import { systemClock, type VoiceClock, type VoiceProvider, type VoiceState } from '@sotto/voice';
+import { holdSpeaking } from './playbackHold';
 
 export interface VoiceControllerCallbacks {
   onState(state: VoiceState): void;
@@ -27,15 +28,57 @@ export interface VoiceControllerCallbacks {
   onUsage?(entry: { secondsUsed: number; remainingSeconds: number }): void;
 }
 
+/**
+ * Run 9 lane D directive 3: a provider that knows how much tutor audio is
+ * still queued for playback. Declared structurally rather than added to
+ * the shared `VoiceProvider` interface (packages/voice is another lane's
+ * file this run) — a provider without it simply never holds a state back.
+ * `BrowserCascadeProvider` implements it.
+ */
+interface PlaybackAware {
+  playbackRemainingMs?(): number;
+}
+
+export interface VoiceControllerOptions {
+  /** Injectable for tests; production passes the real timers. */
+  clock?: VoiceClock;
+}
+
 export function createVoiceController(
   provider: VoiceProvider,
   ctx: ToolExecutionContext,
   callbacks: VoiceControllerCallbacks,
+  options: VoiceControllerOptions = {},
 ): { unsubscribe: () => void } {
+  const clock = options.clock ?? systemClock;
+  const remainingMs = (): number => (provider as PlaybackAware).playbackRemainingMs?.() ?? 0;
+
+  // PLAN.md diagnosis 4: the turn runner posts `listening` when generation
+  // ends, not when the speakers stop, so the label and the audio disagreed
+  // for the length of the last queued sentence. Hold `listening` back
+  // until the queue has drained; `epoch` makes a newer state event win
+  // over a pending flush, so an error or a barge-in is never overwritten
+  // by a stale "listening" landing late.
+  let epoch = 0;
+  const publish = (state: VoiceState): void => {
+    epoch += 1;
+    const mine = epoch;
+    const decide = (candidate: VoiceState): void => {
+      const held = holdSpeaking(candidate, remainingMs());
+      callbacks.onState(held.state);
+      if (held.flushInMs === null) return;
+      clock.setTimeout(() => {
+        if (epoch !== mine) return;
+        decide(candidate);
+      }, held.flushInMs);
+    };
+    decide(state);
+  };
+
   const unsubscribe = provider.on((event) => {
     switch (event.type) {
       case 'state':
-        callbacks.onState(event.state);
+        publish(event.state);
         break;
       case 'caption':
         callbacks.onCaption({

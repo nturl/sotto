@@ -107,6 +107,30 @@ export class BrowserCascadeProvider implements VoiceProvider {
   private stages: StageReadiness = { stt: false, llm: false, tts: false };
   private capturing = false;
   private ended = false;
+  /**
+   * Run 9 lane D directive 3 (PLAN.md diagnosis 4): when the queued tutor
+   * audio handed to `this.audio` is expected to finish, in `Date.now()`
+   * terms. The worker posts `state: listening` as soon as *generation*
+   * ends, several seconds before the speakers stop, so the screen's label
+   * contradicted what the learner could hear (voice-live baseline:
+   * `speaking` t+18.1s -> `listening` t+25.3s with a sentence still
+   * queued). `WebAudioAdapter` already tracks exactly this as its private
+   * `playbackQueueEndAt`, but the shared `AudioAdapter` contract exposes
+   * no drain hook and adding one would change every implementation; this
+   * mirrors the same arithmetic from the PCM this provider forwards, and
+   * `apps/client/src/voice/controller.ts` reads it through
+   * `playbackRemainingMs()` to hold `speaking` until it drains.
+   */
+  private playbackQueueEndAt = 0;
+
+  /**
+   * Armed whenever tutor audio is queued; fires when the queue has drained
+   * and tells the WORKER so (`playback_drained`). The worker's half-duplex
+   * gate needs the same fact the label does, and had no way to learn it —
+   * so it was lifting the VAD's threshold for exactly the window the tutor
+   * was still audible in (run 9 lane R, P1-3).
+   */
+  private drainTimer: ReturnType<typeof setTimeout> | null = null;
 
   private idleTimer: ReturnType<typeof setTimeout> | null = null;
   private maxDurationTimer: ReturnType<typeof setTimeout> | null = null;
@@ -203,7 +227,18 @@ export class BrowserCascadeProvider implements VoiceProvider {
 
   interrupt(): void {
     this.audio.stopPlayback();
+    this.playbackQueueEndAt = 0;
+    this.clearDrainNotice();
     this.post({ t: 'interrupt' });
+  }
+
+  /**
+   * Milliseconds of tutor audio still queued for playback (0 when the
+   * speakers are silent). Read by the client's voice controller — see
+   * `playbackQueueEndAt` above.
+   */
+  playbackRemainingMs(): number {
+    return Math.max(0, this.playbackQueueEndAt - Date.now());
   }
 
   replayLast(): void {
@@ -266,7 +301,31 @@ export class BrowserCascadeProvider implements VoiceProvider {
     }, this.limits.idleMs);
   }
 
+  /** Re-arms the drain notice for whatever is queued now. Called on every
+   * `audio` chunk, so a chunk that lands mid-queue pushes the notice out
+   * rather than firing early. */
+  private armDrainNotice(): void {
+    this.clearDrainNotice();
+    this.drainTimer = setTimeout(
+      () => {
+        this.drainTimer = null;
+        if (this.playbackRemainingMs() > 0) {
+          this.armDrainNotice();
+          return;
+        }
+        this.post({ t: 'playback_drained' });
+      },
+      Math.max(0, this.playbackRemainingMs()),
+    );
+  }
+
+  private clearDrainNotice(): void {
+    if (this.drainTimer) clearTimeout(this.drainTimer);
+    this.drainTimer = null;
+  }
+
   private stopEverything(): void {
+    this.clearDrainNotice();
     if (this.idleTimer) clearTimeout(this.idleTimer);
     if (this.maxDurationTimer) clearTimeout(this.maxDurationTimer);
     this.idleTimer = null;
@@ -303,11 +362,24 @@ export class BrowserCascadeProvider implements VoiceProvider {
       case 'reading':
         this.emit({ type: 'reading', tokenIds: msg.tokenIds });
         break;
-      case 'audio':
+      case 'audio': {
+        // Same scheduling rule WebAudioAdapter.playPcm uses: a chunk that
+        // arrives while the queue is still playing is appended to it,
+        // otherwise it starts a fresh queue from now.
+        const durationMs = (msg.pcm.byteLength / 2 / msg.sampleRate) * 1000;
+        if (durationMs > 0 && Number.isFinite(durationMs)) {
+          this.playbackQueueEndAt = Math.max(Date.now(), this.playbackQueueEndAt) + durationMs;
+        }
         this.audio.playPcm(msg.pcm, msg.sampleRate);
+        this.armDrainNotice();
         break;
+      }
       case 'audio_end':
-        if (msg.cancelled) this.audio.stopPlayback();
+        if (msg.cancelled) {
+          this.audio.stopPlayback();
+          this.playbackQueueEndAt = 0;
+          this.clearDrainNotice();
+        }
         break;
       case 'audio_start':
         break;

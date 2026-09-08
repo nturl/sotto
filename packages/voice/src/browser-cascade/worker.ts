@@ -27,18 +27,29 @@ import { CreateMLCEngine, type MLCEngine } from '@mlc-ai/web-llm';
 import { KokoroTTS } from 'kokoro-js';
 import { buildSystemInstruction, TOOL_DEFINITIONS, type TutorPassageContext } from '@sotto/core';
 import type { VoiceState } from '../events.ts';
-import { EnergyVad, SpeechBuffer } from './vad.ts';
-import { isDegenerateTranscript, SttFallbackTracker } from './stt-fallback.ts';
+import { EnergyVad, HALF_DUPLEX_THRESHOLD_SCALE, PTT_PRE_ROLL_MS, SpeechBuffer } from './vad.ts';
+import { SttFallbackTracker } from './stt-fallback.ts';
+import {
+  classifyTranscript,
+  measureSegment,
+  MIN_SEGMENT_MS,
+  NOT_CAUGHT_CAPTION,
+  spokenDurationMs,
+} from './transcript-gate.ts';
+import { announcesListening, PlaybackWindow, releaseAfterMs } from './speaking-window.ts';
 import {
   TutorTurnRunner,
   type ChatMessage,
   type EngineChatHandlers,
+  type EngineChatOptions,
   type EngineToolCall,
   type LlmEngine,
   type ToolCallResult,
 } from './llm-turn.ts';
 import { TTS_MODEL } from './models.ts';
 import { parseJsonToolBlock, withJsonToolInstruction } from './tool-protocol.ts';
+import { prepareForSpeech } from './tts-text.ts';
+import { maxTokensForMode } from './reply-shape.ts';
 import {
   WORKER_SAMPLE_RATE,
   TUTOR_SAMPLE_RATE,
@@ -215,6 +226,7 @@ class WebLlmEngine implements LlmEngine {
     messages: ChatMessage[],
     handlers: EngineChatHandlers,
     signal: AbortSignal,
+    options?: EngineChatOptions,
   ): Promise<{ text: string; toolCalls: EngineToolCall[] }> {
     // Root cause of run 9's "narrates the save instead of calling the tool"
     // (large tier, assertion 9): the fallback instruction used to be added
@@ -230,7 +242,16 @@ class WebLlmEngine implements LlmEngine {
       messages: toWebLlmMessages(messages),
       stream: true,
       temperature: 0.4,
-      max_tokens: 400,
+      // Per-mode (run 9 lane B, `maxTokensForMode`): 400 tokens is about the
+      // size of the five-line list Noel got, and a 2B model fills the room
+      // it is given, so the conversational modes now ask for 240 (160 at
+      // first — see `maxTokensForMode` for why the fenced tool block needs
+      // the extra room). Only read_to_me still needs 400, to read several
+      // passage sentences verbatim. `?? 400` keeps the old value for any caller that does not
+      // pass one. `temperature` is unchanged: nothing in the live failure
+      // pointed at sampling — the reply was confidently, fluently the wrong
+      // SHAPE, which is a prompt-and-post-processing problem.
+      max_tokens: options?.maxTokens ?? 400,
       // Qwen3 is a reasoning model: left to its default, it prepends a full
       // <think>...</think> block of internal reasoning before the actual
       // reply. The server's llm.ts disables this on llama-server via
@@ -266,7 +287,11 @@ class WebLlmEngine implements LlmEngine {
           detail: err instanceof Error ? err.message : String(err),
         });
         this.supportsTools = false;
-        return this.chat(messages, handlers, signal);
+        // cd326af: the instruction is applied at the TOP of `chat()` whenever
+        // `supportsTools` is false, so the retry must NOT wrap `messages`
+        // again — that would append it twice. `options` still rides along
+        // (run 9): the retry has to keep this mode's `max_tokens`.
+        return this.chat(messages, handlers, signal, options);
       }
       throw err;
     }
@@ -275,8 +300,21 @@ class WebLlmEngine implements LlmEngine {
     let text = '';
     const started = Date.now();
 
+    // The interrupt has to be AWAITED before this call returns.
+    // `SessionState.currentTurnPromise` exists because starting a second
+    // `chat.completions.create()` on the same MLCEngine before an
+    // interrupted one had unwound hung the session indefinitely (see that
+    // field's comment) — and `currentTurnPromise` can only cover this if
+    // `chat()` does not resolve first. Fire-and-forget was survivable while
+    // only a barge-in aborted; run 9's sentence cap aborts on any reply
+    // longer than three sentences, i.e. routinely (lane R, P1-5).
+    let interrupted: Promise<unknown> | null = null;
     const onAbort = () => {
-      void this.engine.interruptGenerate();
+      try {
+        interrupted = Promise.resolve(this.engine.interruptGenerate()).catch(() => undefined);
+      } catch {
+        interrupted = null;
+      }
     };
     signal.addEventListener('abort', onAbort, { once: true });
     try {
@@ -315,6 +353,7 @@ class WebLlmEngine implements LlmEngine {
       }
     } finally {
       signal.removeEventListener('abort', onAbort);
+      if (interrupted) await interrupted;
     }
 
     let toolCalls: EngineToolCall[] = [...toolCallsByIndex.entries()]
@@ -411,20 +450,80 @@ async function loadLlm(llmId: string): Promise<void> {
 // docs say so explicitly rather than silently going quiet.
 let kokoro: KokoroTTS | null = null;
 
+/**
+ * Which weights to load per device. This used to be `q8` on BOTH, and q8 on
+ * WebGPU emits noise — which is what Noel heard.
+ *
+ * Measured, run 9 lane C. Word error rate of Kokoro's output transcribed
+ * back by Whisper base, against the sentence Kokoro was asked to say.
+ * Reference sentence: "The dog was a big native husky, the proper wolf-dog,
+ * gray-coated and without any visible or temperamental difference from its
+ * brother, the wild wolf."
+ *
+ *   device  dtype  WER     what it sounds like
+ *   webgpu  q8     4.346   "Shama, Ah, those yorks, yorks, yorks, yorks…"
+ *   webgpu  fp32   0.000   the sentence
+ *   cpu     q8     0.000   the sentence
+ *   cpu     fp32   0.000   the sentence
+ *   cpu     fp16   1.000   all-NaN waveform on this sentence — never use it
+ *
+ * (webgpu rows: the real bundled worker in headless Chromium with
+ * --enable-unsafe-webgpu --use-angle=metal, via the `sample` message. cpu
+ * rows: packages/voice/scripts/tts-roundtrip.mjs. Full tables, and the
+ * before/after WAVs, in planning/run9/C-report.md.)
+ *
+ * kokoro-js's README said so too, in one line nobody had read: "If using
+ * 'webgpu', we recommend using dtype='fp32'" (1.2.1, README.md line 29).
+ *
+ * `wasm` stays q8 deliberately: it is the fallback for machines with no
+ * WebGPU at all, which are also the machines least able to afford a 330 MB
+ * download instead of 90 MB — and q8 is clean on the CPU execution path.
+ * Cold-load cost of the change, measured in the same run: 15.8 s for
+ * webgpu/fp32 against 7.2 s for webgpu/q8.
+ */
+const TTS_DTYPE: Record<'webgpu' | 'wasm', 'fp32' | 'q8'> = {
+  webgpu: 'fp32',
+  wasm: 'q8',
+};
+
+/**
+ * Diagnostic override for the dtype matrix (run 9 lane C; the script is at
+ * ~/Claude/sotto-run9/C/tts-browser-matrix.mjs, kept out of the repo because
+ * the lane owns no file under apps/client/e2e). The worker is spawned by URL
+ * from `provider.ts`/`sample.ts`, which this lane does not own, so the knob is a
+ * worker-global rather than a new field on `WorkerInitPayload.debug`: the
+ * matrix creates a tiny module-blob worker that sets
+ * `self.__SOTTO_TTS_DTYPE__` and then dynamically imports the real bundle.
+ * Never set by the app.
+ */
+function debugTtsDtype(): 'fp32' | 'fp16' | 'q8' | 'q4' | 'q4f16' | null {
+  const v = (globalThis as { __SOTTO_TTS_DTYPE__?: unknown }).__SOTTO_TTS_DTYPE__;
+  return typeof v === 'string' && ['fp32', 'fp16', 'q8', 'q4', 'q4f16'].includes(v)
+    ? (v as 'fp32')
+    : null;
+}
+
 async function loadTts(): Promise<void> {
   if (kokoro) return;
   const started = Date.now();
   const attempts: Array<'webgpu' | 'wasm'> =
     typeof navigator !== 'undefined' && 'gpu' in navigator ? ['webgpu', 'wasm'] : ['wasm'];
+  const override = debugTtsDtype();
   let lastError: unknown = null;
   for (const device of attempts) {
+    const dtype = override ?? TTS_DTYPE[device];
     try {
       kokoro = await KokoroTTS.from_pretrained(TTS_MODEL.id, {
-        dtype: 'q8',
+        dtype,
         device,
         progress_callback: progressReporter(TTS_MODEL.id) as never,
       });
-      post({ t: 'metric', name: 'tts_load_ms', ms: Date.now() - started, detail: device });
+      post({
+        t: 'metric',
+        name: 'tts_load_ms',
+        ms: Date.now() - started,
+        detail: `${device}/${dtype}`,
+      });
       return;
     } catch (err) {
       lastError = err;
@@ -449,6 +548,12 @@ interface SessionState {
   vad: EnergyVad;
   buffer: SpeechBuffer;
   muted: boolean;
+  /**
+   * True between the first sentence of a tutor turn actually producing
+   * audio and that utterance's `audio_end`. Drives the half-duplex gate:
+   * see `setSpeakingState`.
+   */
+  speaking: boolean;
   turnMode: 'auto' | 'push';
   pace: 'slow' | 'normal';
   turnRunner: TutorTurnRunner;
@@ -475,6 +580,13 @@ interface SessionState {
    * the two never race the engine.
    */
   currentTurnPromise: Promise<void> | null;
+  /** How much tutor audio has been handed to the main thread, so the
+   * half-duplex gate can be held for the whole time it is audible. */
+  playback: PlaybackWindow;
+  /** Non-null exactly while generation has ended but the tutor is (as far
+   * as this worker knows) still audible — the drain window. Also the
+   * "am I draining?" flag `interruptSession` needs for P1-4. */
+  drainTimer: ReturnType<typeof setTimeout> | null;
 }
 
 let session: SessionState | null = null;
@@ -489,6 +601,58 @@ const MAX_HISTORY_MESSAGES = 24;
 
 function setState(state: VoiceState): void {
   post({ t: 'state', state });
+}
+
+/**
+ * Half-duplex gate (BUGS-TUTOR-RUN5.md #3). The energy VAD hears raw mic
+ * frames, so the tutor's own voice leaking back through a laptop speaker
+ * was firing `speech_start` and barging the tutor in on itself — which
+ * `TutorTurnRunner` then drops from both the transcript and the model's
+ * history, producing the "three learner turns with no tutor reply" in that
+ * report. While the tutor's audio is out, the bar to open a turn goes up by
+ * `HALF_DUPLEX_THRESHOLD_SCALE`; a real barge-in still clears it easily.
+ *
+ * The flag is NOT cleared when generation ends: that is seconds before the
+ * speakers stop, so the gate used to be raised while the tutor talked and
+ * lowered for the drain — backwards (run 9 lane R, P1-3). It is cleared by
+ * `releaseSpeakingWhenDrained` below, on the main thread's
+ * `playback_drained` message or on the safety timeout that message's loss
+ * would otherwise leave hanging.
+ */
+function setSpeakingState(s: SessionState, speaking: boolean): void {
+  if (s.speaking === speaking) return;
+  s.speaking = speaking;
+  s.vad.setThresholdScale(speaking ? HALF_DUPLEX_THRESHOLD_SCALE : 1);
+}
+
+/**
+ * Ends the drain window immediately: the tutor is silent (or has been cut
+ * off), so the VAD's bar comes back down.
+ */
+function releaseSpeakingNow(s: SessionState): void {
+  if (s.drainTimer) clearTimeout(s.drainTimer);
+  s.drainTimer = null;
+  s.playback.clear();
+  setSpeakingState(s, false);
+}
+
+/**
+ * Generation has ended. Hold the half-duplex gate until the main thread
+ * says the queue drained (`playback_drained`), or until the audio we handed
+ * it must have finished — see `speaking-window.ts` for why both.
+ */
+function releaseSpeakingWhenDrained(s: SessionState): void {
+  if (s.drainTimer) clearTimeout(s.drainTimer);
+  s.drainTimer = null;
+  const holdMs = s.speaking ? releaseAfterMs(s.playback.remainingMs(Date.now())) : null;
+  if (holdMs === null) {
+    releaseSpeakingNow(s);
+    return;
+  }
+  s.drainTimer = setTimeout(() => {
+    s.drainTimer = null;
+    if (session === s) releaseSpeakingNow(s);
+  }, holdMs);
 }
 
 function pcm16ToFloat32(pcm: Int16Array): Float32Array {
@@ -538,13 +702,25 @@ async function speakSentence(
   if (abort.signal.aborted) return;
   const base = iso639(s.payload.learner.learningLocale);
 
+  // Never hand Kokoro the model's raw text: markdown decoration is
+  // pronounced ("Astroskastrisk the dog Astroskastrisk…" — measured, run 9
+  // lane C) and anything past ~510 phoneme tokens is silently truncated.
+  // `prepareForSpeech` cleans it and splits it. It returns NO pieces when a
+  // "sentence" was pure decoration (a lone emoji, a stray `**`), which is
+  // treated the same way a non-English locale is: caption only, no utterance
+  // opened, no `speaking` claimed. Same doctrine as the comment below.
+  const pieces = base === 'en' ? prepareForSpeech(sentence) : [];
+
   // Only enter `speaking` / open an utterance when audio is actually about
   // to play. For every other locale this turn stays caption-only — no
   // audio_start/audio_end pair is ever sent, so the provider never fakes a
   // "spoke but produced nothing" utterance (the honest label above
   // `loadTts` explains why).
-  if (base === 'en') {
+  if (pieces.length > 0) {
     setState('speaking');
+    // Lane A's single line in this function: raise the VAD's bar while the
+    // tutor's own audio is out. See setSpeakingState.
+    setSpeakingState(s, true);
     if (!s.currentUtteranceId) {
       s.currentUtteranceId = randomId();
       s.currentUtteranceChunks = [];
@@ -554,15 +730,23 @@ async function speakSentence(
     try {
       if (!kokoro) await loadTts();
       const speed = s.pace === 'slow' ? 0.85 : 1.0;
-      const audio = await kokoro!.generate(sentence, { voice: 'af_heart', speed });
-      if (abort.signal.aborted || s.currentUtteranceId !== utteranceId) return;
-      const pcm16 = floatToPcm16(audio.audio);
-      const buf = pcm16.buffer.slice(
-        pcm16.byteOffset,
-        pcm16.byteOffset + pcm16.byteLength,
-      ) as ArrayBuffer;
-      s.currentUtteranceChunks.push(buf);
-      post({ t: 'audio', utteranceId, pcm: buf, sampleRate: TUTOR_SAMPLE_RATE }, [buf]);
+      // The pieces stay inside the SAME utterance id, so `audio_end`,
+      // barge-in and `replay` behave exactly as they did for one call.
+      for (const piece of pieces) {
+        const audio = await kokoro!.generate(piece, { voice: 'af_heart', speed });
+        if (abort.signal.aborted || s.currentUtteranceId !== utteranceId) return;
+        const pcm16 = floatToPcm16(audio.audio);
+        const buf = pcm16.buffer.slice(
+          pcm16.byteOffset,
+          pcm16.byteOffset + pcm16.byteLength,
+        ) as ArrayBuffer;
+        s.currentUtteranceChunks.push(buf);
+        // Measured before the post: `buf` is TRANSFERRED, so its byteLength
+        // is 0 by the time postMessage returns.
+        const queuedBytes = buf.byteLength;
+        post({ t: 'audio', utteranceId, pcm: buf, sampleRate: TUTOR_SAMPLE_RATE }, [buf]);
+        s.playback.enqueuePcm(queuedBytes, TUTOR_SAMPLE_RATE, Date.now());
+      }
     } catch (err) {
       post({
         t: 'metric',
@@ -583,8 +767,18 @@ function makeTurnRunner(s: SessionState): TutorTurnRunner {
     engine: llmEngine!,
     maxHistory: MAX_HISTORY_MESSAGES,
     maxToolIterations: MAX_TOOL_ITERATIONS,
+    // The session's mode, read fresh: it changes mid-session (the `mode`
+    // message below) and drives both the spoken-sentence cap and the
+    // generation ceiling.
+    mode: () => s.payload.mode,
+    maxTokens: () => maxTokensForMode(s.payload.mode),
     buildSystemInstruction: () =>
       buildSystemInstruction({
+        // The in-browser model is Qwen3.5-2B. `compact` reorders the prompt
+        // for it (context first, short numbered rules last) and is set HERE
+        // and nowhere else — the paid provider and the local server keep
+        // today's prompt byte for byte (packages/core prompt.test.ts).
+        compact: true,
         mode: s.payload.mode,
         // `level` is a free string on the wire (WorkerInitPayload) but a
         // BookLevel enum in the prompt builder's types; the value always
@@ -605,6 +799,10 @@ function makeTurnRunner(s: SessionState): TutorTurnRunner {
     // is invoked, so it is non-null for the whole lifetime of a turn.
     onSentence: (sentence) => speakSentence(s, sentence, s.currentAbort!),
     onTutorCaption: (text, final) => post({ t: 'caption', speaker: 'tutor', text, final }),
+    // So a capped turn is distinguishable in the log from "the model
+    // stopped on its own" — without it, a cap that hangs the engine looks
+    // exactly like the old 90-second silent stall (lane R, P1-5).
+    onMetric: (name, detail) => post({ t: 'metric', name, ms: 0, detail }),
   });
 }
 
@@ -647,6 +845,13 @@ async function runTutorTurnBody(s: SessionState, learnerText: string): Promise<v
     setState('listening');
     return;
   }
+  // A drain window from the PREVIOUS turn must not lower the half-duplex
+  // gate in the middle of this one. The flag itself stays up; only the
+  // stale timer goes.
+  if (s.drainTimer) {
+    clearTimeout(s.drainTimer);
+    s.drainTimer = null;
+  }
   const abort = new AbortController();
   s.currentAbort = abort;
   s.currentUtteranceId = null;
@@ -668,12 +873,19 @@ async function runTutorTurnBody(s: SessionState, learnerText: string): Promise<v
     post({ t: 'audio_end', utteranceId: s.currentUtteranceId });
     s.lastUtterance = { id: s.currentUtteranceId, chunks: s.currentUtteranceChunks };
   }
+  // Generation is over; the speakers are not. See setSpeakingState.
+  if (abort.signal.aborted) releaseSpeakingNow(s);
+  else releaseSpeakingWhenDrained(s);
   s.currentUtteranceId = null;
   if (s.currentAbort === abort) s.currentAbort = null;
 }
 
 async function transcribeSegment(segment: Int16Array): Promise<void> {
   if (!session || !sttPipeline) return;
+  // Measured before transcription so the gate can weigh what Whisper says
+  // against what was actually captured — a confident transcript over a
+  // segment that never reached speech energy is exactly the run-8 failure.
+  const stats = measureSegment(segment, WORKER_SAMPLE_RATE);
   setState('thinking');
   const started = Date.now();
   try {
@@ -736,10 +948,31 @@ async function transcribeSegment(segment: Int16Array): Promise<void> {
       if (note) post({ t: 'caption', speaker: 'tutor', text: note, final: true });
     }
 
-    // A fallback-triggering degenerate transcript is discarded rather than
-    // sent to the LLM as if it were a real question — the learner just
-    // needs to repeat themselves, now on the more reliable device.
-    if (!text || (tripped && isDegenerateTranscript(text))) {
+    // The gate (transcript-gate.ts): nothing the learner did not say gets
+    // to be a learner turn. This subsumes the old `!text || (tripped &&
+    // isDegenerateTranscript(text))` check — the degenerate case is folded
+    // into the gate's `hallucination` verdict and is now rejected whether
+    // or not it also tripped the wasm fallback, since a decoder collapse is
+    // never a question regardless of which device produced it.
+    const verdict = classifyTranscript(text, {
+      durationMs: stats.durationMs,
+      rms: stats.peakRms,
+      locale: session.payload.learner.learningLocale,
+    });
+    if (verdict.verdict !== 'ok') {
+      post({
+        t: 'metric',
+        name: 'stt_rejected',
+        ms: elapsedMs,
+        detail: `${verdict.verdict} ${verdict.reason} ${JSON.stringify(text.slice(0, 40))}`,
+      });
+      // `too_short` is a fumbled push-to-talk press, not a misheard
+      // sentence: asking the learner to repeat something they know they
+      // never finished saying is noise. Every other rejection gets the
+      // line, so the screen is never silent about having dropped a turn.
+      if (verdict.verdict !== 'too_short') {
+        post({ t: 'caption', speaker: 'tutor', text: NOT_CAUGHT_CAPTION, final: true });
+      }
       setState('listening');
       return;
     }
@@ -790,6 +1023,16 @@ function handleFrame(pcm: ArrayBuffer): void {
 /** Cancels any in-flight LLM/TTS work for the current turn — mirrors the
  * server's `bargeIn()`. No-op when nothing is in flight. */
 function interruptSession(s: SessionState): void {
+  // Whether the tutor was mid-DRAIN — generation finished, audio still
+  // playing. That window has no abort controller to cancel, so before P1-4
+  // this function did nothing observable in it: no state event, so no new
+  // epoch on the client, so its armed `holdSpeaking` flush still fired at
+  // the original time and the screen sat in SPEAKING with the speakers
+  // silent and the mic live.
+  const draining = s.drainTimer !== null;
+  // The tutor's audio stops here, so the half-duplex gate must lift —
+  // otherwise a barge-in would leave the VAD permanently deafened.
+  releaseSpeakingNow(s);
   const hadAbort = !!s.currentAbort;
   s.currentAbort?.abort();
   s.currentAbort = null;
@@ -800,7 +1043,7 @@ function interruptSession(s: SessionState): void {
     s.currentUtteranceId = null;
     s.currentUtteranceChunks = [];
   }
-  if (hadAbort) setState('listening');
+  if (announcesListening({ hadAbort, draining })) setState('listening');
 }
 
 function replayLast(s: SessionState): void {
@@ -843,6 +1086,7 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
           vad: new EnergyVad(),
           buffer: new SpeechBuffer(WORKER_SAMPLE_RATE),
           muted: false,
+          speaking: false,
           turnMode: 'auto',
           pace: 'normal',
           turnRunner: null as unknown as TutorTurnRunner, // set below, needs `s` for the closure
@@ -852,6 +1096,8 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
           lastUtterance: null,
           pendingToolResults: new Map(),
           currentTurnPromise: null,
+          playback: new PlaybackWindow(),
+          drainTimer: null,
         };
         session = s;
         try {
@@ -918,11 +1164,42 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
         if (session) {
           session.turnMode = 'push';
           if (msg.active) {
-            session.buffer.clear();
-            session.buffer.start();
+            // No `clear()` before this any more. Clearing threw away the
+            // rolling pre-roll, so the first syllables after the press were
+            // lost — a learner starts saying the word as they press the
+            // button, not after it lands, and losing that opening is one of
+            // the ways a real question decays into something Whisper
+            // answers with "you". The seed is capped at PTT_PRE_ROLL_MS
+            // rather than the full 1200 ms default because the press is an
+            // explicit "from here" marker and the preceding second may hold
+            // the tutor's own audio.
+            session.buffer.start(PTT_PRE_ROLL_MS);
           } else {
+            // Read BEFORE end(): the seed is pre-roll captured before the
+            // learner pressed anything, so it is not part of what they
+            // said. Measuring the seeded segment made a 50ms mis-tap look
+            // like 350ms, which cleared MIN_SEGMENT_MS, ran Whisper over
+            // 300ms of room tone and got the stock hallucination the
+            // `too_short` branch below exists to avoid (lane R, P1-2).
+            const seededMs = session.buffer.seededPreRollMs;
             const segment = session.buffer.end();
-            if (segment) void transcribeSegment(segment);
+            if (segment) {
+              const durationMs = spokenDurationMs(segment.length, WORKER_SAMPLE_RATE, seededMs);
+              if (durationMs < MIN_SEGMENT_MS) {
+                // A mis-tap. Dropped without running Whisper at all and
+                // without a caption: the learner knows they fumbled the
+                // button, and there is nothing for them to repeat.
+                post({
+                  t: 'metric',
+                  name: 'stt_rejected',
+                  ms: 0,
+                  detail: `too_short duration_${Math.round(durationMs)}ms ptt`,
+                });
+                setState('listening');
+              } else {
+                void transcribeSegment(segment);
+              }
+            }
           }
         }
         break;
@@ -933,6 +1210,12 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
 
       case 'passage':
         if (session) session.payload.passage = msg.passage;
+        break;
+
+      case 'playback_drained':
+        // The speakers are silent: end the drain window and let the VAD's
+        // threshold come back down. See speaking-window.ts.
+        if (session) releaseSpeakingNow(session);
         break;
 
       case 'interrupt':
@@ -981,11 +1264,21 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
         }
         try {
           if (!kokoro) await loadTts();
-          const audio = await kokoro!.generate(msg.text, { voice: 'af_heart', speed: 1.0 });
-          const buf = audio.audio.buffer.slice(
-            audio.audio.byteOffset,
-            audio.audio.byteOffset + audio.audio.byteLength,
-          ) as ArrayBuffer;
+          // Same cleaning as `speakSentence`; the pieces are concatenated
+          // because `sample_result` is a single one-shot buffer.
+          const parts: Float32Array[] = [];
+          for (const piece of prepareForSpeech(msg.text)) {
+            const audio = await kokoro!.generate(piece, { voice: 'af_heart', speed: 1.0 });
+            parts.push(audio.audio);
+          }
+          const total = parts.reduce((n, p) => n + p.length, 0);
+          const pcm = new Float32Array(total);
+          let offset = 0;
+          for (const p of parts) {
+            pcm.set(p, offset);
+            offset += p.length;
+          }
+          const buf = pcm.buffer as ArrayBuffer;
           post({ t: 'sample_result', pcm: buf, sampleRate: TUTOR_SAMPLE_RATE }, [buf]);
         } catch (err) {
           post({

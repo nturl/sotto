@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { FakeVoiceProvider, type VoiceClock } from '@sotto/voice';
+import { FakeVoiceProvider, type VoiceClock, type VoiceEvent } from '@sotto/voice';
 import type {
   OkResult,
   SaveVocabularyResult,
@@ -170,5 +170,104 @@ describe('createVoiceController + FakeVoiceProvider (CONTRACTS §5a, TASK §F)',
     runAll();
 
     expect(toolEvents[0]!.result).toEqual({ ok: false, error: 'unknown tokenId' });
+  });
+});
+
+/**
+ * Run 9 lane D directive 3 (PLAN.md diagnosis 4): the browser cascade's
+ * worker posts `state: listening` when generation ends, not when the
+ * speakers stop. The controller holds that back while the provider still
+ * reports queued playback.
+ */
+describe('createVoiceController: `speaking` holds until playback drains', () => {
+  function playbackAwareProvider(remaining: () => number) {
+    const listeners = new Set<(e: VoiceEvent) => void>();
+    return {
+      provider: {
+        on: (fn: (e: VoiceEvent) => void) => {
+          listeners.add(fn);
+          return () => listeners.delete(fn);
+        },
+        connect: async () => undefined,
+        disconnect: async () => undefined,
+        setMode: () => undefined,
+        setMuted: () => undefined,
+        pushToTalk: () => undefined,
+        interrupt: () => undefined,
+        replayLast: () => undefined,
+        sendText: () => undefined,
+        respondTool: () => undefined,
+        playbackRemainingMs: remaining,
+      } as unknown as Parameters<typeof createVoiceController>[0],
+      emit: (e: VoiceEvent) => listeners.forEach((l) => l(e)),
+    };
+  }
+
+  const noopCtx: ToolExecutionContext = {
+    getPassage: () => ({ chapterTitle: '', sentences: [], positionTokenId: null }),
+    setPosition: () => ({ ok: true }) as OkResult,
+    saveWord: () => ({ ok: true, word: 'x' }) as unknown as SaveVocabularyResult,
+    removeWord: () => ({ ok: true }) as OkResult,
+    showExplanation: () => ({ ok: true }) as OkResult,
+    setMode: () => ({ ok: true }) as OkResult,
+    markComplete: () => ({ ok: true, advanced: false }),
+  };
+
+  it('keeps reporting `speaking` while tutor audio is still queued, then flushes `listening`', () => {
+    const { clock, runAll } = createManualClock();
+    let remaining = 1_500;
+    const { provider, emit } = playbackAwareProvider(() => remaining);
+    const { callbacks, states } = collectingCallbacks();
+
+    createVoiceController(provider, noopCtx, callbacks, { clock });
+    emit({ type: 'state', state: 'speaking' });
+    emit({ type: 'state', state: 'listening' });
+
+    expect(states).toEqual(['speaking', 'speaking']);
+
+    remaining = 0;
+    runAll();
+    expect(states).toEqual(['speaking', 'speaking', 'listening']);
+  });
+
+  it('lets `listening` through immediately once the queue is empty', () => {
+    const { clock } = createManualClock();
+    const { provider, emit } = playbackAwareProvider(() => 0);
+    const { callbacks, states } = collectingCallbacks();
+
+    createVoiceController(provider, noopCtx, callbacks, { clock });
+    emit({ type: 'state', state: 'listening' });
+
+    expect(states).toEqual(['listening']);
+  });
+
+  it('never lets a pending flush overwrite a newer state (a barge-in or an error)', () => {
+    const { clock, runAll } = createManualClock();
+    const { provider, emit } = playbackAwareProvider(() => 1_500);
+    const { callbacks, states } = collectingCallbacks();
+
+    createVoiceController(provider, noopCtx, callbacks, { clock });
+    emit({ type: 'state', state: 'listening' });
+    emit({ type: 'state', state: 'error' });
+    runAll();
+
+    expect(states).toEqual(['speaking', 'error']);
+  });
+
+  it('a provider with no playback knowledge is unaffected', () => {
+    const { clock } = createManualClock();
+    const listeners = new Set<(e: VoiceEvent) => void>();
+    const provider = {
+      on: (fn: (e: VoiceEvent) => void) => {
+        listeners.add(fn);
+        return () => listeners.delete(fn);
+      },
+    } as unknown as Parameters<typeof createVoiceController>[0];
+    const { callbacks, states } = collectingCallbacks();
+
+    createVoiceController(provider, noopCtx, callbacks, { clock });
+    listeners.forEach((l) => l({ type: 'state', state: 'listening' }));
+
+    expect(states).toEqual(['listening']);
   });
 });

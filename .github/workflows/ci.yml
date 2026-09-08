@@ -15,9 +15,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Read the exact pnpm version from package.json; a second version conflicts.
       - uses: pnpm/action-setup@v4
-        with:
-          version: 11
 
       - uses: actions/setup-node@v4
         with:

@@ -64,6 +64,7 @@ export default function PaywallScreen() {
   const { colors } = useTheme();
   const styles = useMemo(() => createStyles(), []);
 
+  const [trial, setTrial] = useState<{ eligible: boolean; trialDays: number } | null>(null);
   const [plans, setPlans] = useState<PlanOffer[] | null>(null);
   const [interval, setInterval] = useState<BillingInterval>('month');
   const [busy, setBusy] = useState(false);
@@ -91,6 +92,22 @@ export default function PaywallScreen() {
       cancelled = true;
     };
   }, [cloud]);
+
+  useEffect(() => {
+    if (me.status !== 'signed-in' || !cloud.trialEligibility) return;
+    let cancelled = false;
+    void cloud
+      .trialEligibility()
+      .then((result) => {
+        if (!cancelled) setTrial(result);
+      })
+      .catch(() => {
+        if (!cancelled) setTrial(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [cloud, me.status]);
 
   if (!cloud.enabled) {
     return (
@@ -163,7 +180,9 @@ export default function PaywallScreen() {
 
   const openWeb = () => {
     if (!selected) return;
-    void Linking.openURL(`https://sotto.dev/subscribe?plan=${encodeURIComponent(selected.id)}`);
+    void Linking.openURL(
+      `https://app.readsotto.app/paywall?plan=${encodeURIComponent(selected.id)}`,
+    );
   };
 
   return (
@@ -204,7 +223,8 @@ export default function PaywallScreen() {
                           onPress={() => setInterval(iv)}
                           disabled={busy}
                           accessibilityRole="radio"
-                          accessibilityState={{ selected: isSelected, disabled: busy }}
+                          aria-checked={isSelected}
+                          accessibilityState={{ checked: isSelected, disabled: busy }}
                           style={[
                             styles.intervalOption,
                             {
@@ -228,6 +248,12 @@ export default function PaywallScreen() {
                     <Text role="caption" color="ink2">
                       — {t('paywall.plan.imports', { count: selected.importBooksCap })}
                     </Text>
+                    {selected.narratedMinutesCap ? (
+                      <Text role="caption" color="ink2">
+                        — {selected.narratedMinutesCap} narration minutes listed in the plan (not
+                        yet metered)
+                      </Text>
+                    ) : null}
                     <Text role="caption" color="ink2">
                       — {t('paywall.plan.voice.standard')}
                     </Text>
@@ -236,6 +262,16 @@ export default function PaywallScreen() {
               ) : null}
             </View>
 
+            <Text role="caption" color="ink2" accessibilityLiveRegion="polite">
+              {trial
+                ? trial.eligible && trial.trialDays > 0
+                  ? `${trial.trialDays}-day introductory trial, then ${selected ? priceLabel(selected, interval, t) : ''} plus applicable tax unless canceled.`
+                  : `Your introductory trial has already been used, or no trial is available. Subscribe at ${selected ? priceLabel(selected, interval, t) : ''} plus applicable tax; review and confirm the charge in Stripe.`
+                : 'Trial eligibility is checked for your account. Review the trial or immediate payment amount in Stripe before confirming.'}
+              {
+                ' Checkout opens Stripe; return to Account afterward. Manage subscription is on Account. Checkout may display the merchant name NT Sites. Reading progress and keys remain separate on each device and site.'
+              }
+            </Text>
             <Button
               title={
                 busy

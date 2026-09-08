@@ -4,6 +4,7 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
   authoredCoverInk,
+  authoredCoverFileName,
   authoredCoverPath,
   readAuthoredCovers,
   writeCover,
@@ -26,6 +27,14 @@ describe('authored covers', () => {
     const dir = tempCoversDir();
     expect(authoredCoverPath('en-drawn', dir)).toBe(path.join(dir, 'en-drawn.svg'));
     expect(authoredCoverPath('en-not-drawn', dir)).toBeUndefined();
+  });
+
+  it('prefers optimized WebP over PNG and SVG source art', () => {
+    const dir = tempCoversDir();
+    writeFileSync(path.join(dir, 'en-drawn.png'), 'png bytes', 'utf8');
+    writeFileSync(path.join(dir, 'en-drawn.webp'), 'webp bytes', 'utf8');
+    expect(authoredCoverPath('en-drawn', dir)).toBe(path.join(dir, 'en-drawn.webp'));
+    expect(authoredCoverFileName('en-drawn', dir)).toBe('cover.webp');
   });
 
   it('reads the ink from covers.json, and nothing for an undrawn book', () => {
@@ -58,21 +67,21 @@ describe('writeCover', () => {
 
   it('generates a cover for a book with no authored art, then keeps it', () => {
     const dir = mkdtempSync(path.join(tmpdir(), 'sotto-book-'));
-    expect(writeCover(dir, input)).toBe('generated');
-    expect(writeCover(dir, input)).toBe('kept');
+    expect(writeCover(dir, input)).toEqual({ kind: 'generated', file: 'cover.svg' });
+    expect(writeCover(dir, input)).toEqual({ kind: 'kept', file: 'cover.svg' });
     expect(readFileSync(path.join(dir, 'cover.svg'), 'utf8')).toContain('viewBox="0 0 220 330"');
   });
 
   it('copies the authored art over an already-generated cover', () => {
     // Uses a real authored book so the test tracks the shipped covers/ dir.
-    const [artBookId] = Object.keys(readAuthoredCovers());
-    expect(artBookId).toBeTruthy();
+    const artBookId = Object.keys(readAuthoredCovers())[0];
+    if (!artBookId) throw new Error('expected a real authored cover');
     const dir = mkdtempSync(path.join(tmpdir(), 'sotto-book-'));
     mkdirSync(dir, { recursive: true });
     writeCover(dir, input);
-    expect(writeCover(dir, input, artBookId)).toBe('authored');
-    expect(readFileSync(path.join(dir, 'cover.svg'), 'utf8')).toBe(
-      readFileSync(path.join(COVERS_DIR, `${artBookId}.svg`), 'utf8'),
-    );
+    const source = authoredCoverPath(artBookId, COVERS_DIR)!;
+    const file = authoredCoverFileName(artBookId, COVERS_DIR)!;
+    expect(writeCover(dir, input, artBookId)).toEqual({ kind: 'authored', file });
+    expect(readFileSync(path.join(dir, file))).toEqual(readFileSync(source));
   });
 });

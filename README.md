@@ -20,7 +20,7 @@ browser and a book you've opened keeps working offline.
 
 | Way                     | What it costs                | How                                                                                                                                                        |
 | ----------------------- | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Hosted PWA**          | Free, no account             | Open [readsotto.app](https://readsotto.app) — nothing leaves your device.                                                                                  |
+| **Hosted PWA**          | Free, no account             | Open [readsotto.app](https://readsotto.app) — reading data stays on this origin/device; downloads and optional online tutors require network access.       |
 | **Your own OpenAI key** | You pay OpenAI directly      | Profile → Tutor preferences → **Use your own OpenAI key**, or straight from the voice screen when no tutor is available. See [docs/byok.md](docs/byok.md). |
 | **Your own server**     | Free (your hardware/hosting) | `docker compose up`. See [docs/self-hosting.md](docs/self-hosting.md).                                                                                     |
 

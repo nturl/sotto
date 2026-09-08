@@ -25,11 +25,12 @@ import { startImportJob } from '../../src/import/api';
 import { canImportLocally } from '../../src/import/canImportLocally';
 import { pickImportFile, type PickedFile } from '../../src/import/pickFile';
 import { buildPreview, ImportError, type ImportPreview } from '../../src/import/preview';
+import { CloudError } from '../../src/cloud/types';
 import { useCloud } from '../../src/cloud/provider';
 import { useMe } from '../../src/cloud/useMe';
 
-type Step = 'pick' | 'preview' | 'failure' | 'hostedQueued';
-type FailureKind = 'drm' | 'unsupported' | 'modelsDown' | 'localOnly';
+type Step = 'pick' | 'preview' | 'failure';
+type FailureKind = 'drm' | 'unsupported' | 'modelsDown' | 'localOnly' | 'request';
 
 export default function ImportEntryScreen() {
   const t = useT();
@@ -59,7 +60,11 @@ export default function ImportEntryScreen() {
   const [preview, setPreview] = useState<ImportPreview | null>(null);
   const [locale, setLocale] = useState<string>(preferences.learningLocale);
   const [localeSheetOpen, setLocaleSheetOpen] = useState(false);
-  const [failure, setFailure] = useState<{ kind: FailureKind; service?: string } | null>(null);
+  const [failure, setFailure] = useState<{
+    kind: FailureKind;
+    service?: string;
+    message?: string;
+  } | null>(null);
   const [health, setHealth] = useState<Health | null | undefined>(undefined);
   const [submitting, setSubmitting] = useState(false);
 
@@ -91,10 +96,19 @@ export default function ImportEntryScreen() {
     setSubmitting(true);
     try {
       const blob = new Blob([file.bytes as unknown as BlobPart]);
-      await cloud.importBook(blob, { bookTitle: file.filename, sourceLocale: locale });
-      setStep('hostedQueued');
-    } catch {
-      setFailure({ kind: 'unsupported' });
+      const result = await cloud.importBook(blob, {
+        bookTitle: file.filename,
+        sourceLocale: locale,
+      });
+      router.replace(`/import/${result.jobId}`);
+    } catch (error) {
+      setFailure({
+        kind: 'request',
+        message:
+          error instanceof CloudError && error.status === 402
+            ? 'Your hosted import allowance is used up. Check Usage for your plan limits.'
+            : 'Could not start the hosted import. Check your connection and account, then try again.',
+      });
       setStep('failure');
     } finally {
       setSubmitting(false);
@@ -103,7 +117,7 @@ export default function ImportEntryScreen() {
 
   const startImport = async (): Promise<void> => {
     if (!file) return;
-    if (!localImportAllowed) {
+    if (cloud.enabled || !localImportAllowed) {
       if (hostedAvailable) {
         await startHostedImport();
       } else {
@@ -147,28 +161,6 @@ export default function ImportEntryScreen() {
     setStep('pick');
   };
 
-  if (step === 'hostedQueued') {
-    return (
-      <Shell>
-        <View style={styles.failureWrap}>
-          <Card style={styles.failureCard}>
-            <Text role="heading" size={20} style={styles.center}>
-              {t('import.hosted.queued.heading')}
-            </Text>
-            <Text role="caption" color="ink2" style={styles.center}>
-              {t('import.hosted.queued.body')}
-            </Text>
-            <Button
-              variant="secondary"
-              title={t('common.continue')}
-              onPress={() => router.replace('/(tabs)/library')}
-            />
-          </Card>
-        </View>
-      </Shell>
-    );
-  }
-
   if (step === 'failure' && failure) {
     return (
       <Shell>
@@ -176,16 +168,22 @@ export default function ImportEntryScreen() {
         <View style={styles.failureWrap}>
           <Card style={styles.failureCard}>
             <Text role="heading" size={20} style={styles.center}>
-              {t(`import.failure.${failure.kind}.heading` as const)}
+              {failure.kind === 'request'
+                ? 'Import could not start'
+                : t(`import.failure.${failure.kind}.heading` as const)}
             </Text>
             <Text role="ui" size={16} color="warn" style={styles.center}>
-              {t(
-                `import.failure.${failure.kind}.warn` as const,
-                failure.service ? { service: failure.service } : undefined,
-              )}
+              {failure.kind === 'request'
+                ? failure.message
+                : t(
+                    `import.failure.${failure.kind}.warn` as const,
+                    failure.service ? { service: failure.service } : undefined,
+                  )}
             </Text>
             <Text role="caption" color="ink2" style={styles.center}>
-              {t(`import.failure.${failure.kind}.hint` as const)}
+              {failure.kind === 'request'
+                ? 'Your original file is unchanged.'
+                : t(`import.failure.${failure.kind}.hint` as const)}
             </Text>
             <Button
               variant="secondary"

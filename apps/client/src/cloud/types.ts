@@ -36,6 +36,14 @@ export interface Entitlement {
 }
 
 export interface Me {
+  hostedSessions?: {
+    id: string;
+    startedAt: number;
+    endedAt: number;
+    audioSeconds: number;
+    provider: string;
+    status: string;
+  }[];
   user: CloudUser;
   entitlement: Entitlement;
 }
@@ -75,6 +83,7 @@ export interface PlanOffer {
 export type BillingInterval = 'month' | 'year';
 
 export interface PlansResponse {
+  trialDays?: number;
   plans: PlanOffer[];
   billing: 'stripe' | 'stub';
 }
@@ -136,6 +145,7 @@ export class CloudError extends Error {
 export interface CloudAdapter {
   readonly enabled: boolean;
   me(): Promise<Me | null>;
+  trialEligibility?(): Promise<{ eligible: boolean; trialDays: number }>;
   signInWithApple(identityToken: string, kind: 'native' | 'web'): Promise<Me>;
   /** Which sign-in methods to offer. Never rejects: an unreachable or older
    * server answers `MAGIC_LINK_ONLY`. */
@@ -167,6 +177,7 @@ export interface CloudAdapter {
     callId: string,
     report: { audioSecondsIn: number; audioSecondsOut: number },
   ): Promise<void>;
+  importResource?(path: string, init?: RequestInit): Promise<Response>;
   importBook(
     file: Blob,
     opts: ImportOptions,

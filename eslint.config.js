@@ -58,6 +58,7 @@ export default tseslint.config(
       'apps/client/e2e/**/*.mjs',
       'apps/client/scripts/**/*.mjs',
       'packages/content/scripts/**/*.mjs',
+      'planning/design/launch-cards/*.mjs',
     ],
     languageOptions: {
       globals: {
@@ -69,6 +70,8 @@ export default tseslint.config(
         document: 'readonly',
         navigator: 'readonly',
         window: 'readonly',
+        localStorage: 'readonly',
+        Event: 'readonly',
         caches: 'readonly',
         setTimeout: 'readonly',
         URL: 'readonly',

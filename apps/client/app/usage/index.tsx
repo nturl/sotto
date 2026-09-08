@@ -174,13 +174,10 @@ export default function UsageScreen() {
               than a misleading zero. */}
           {typeof entitlement.narratedMinutesCap === 'number' &&
           entitlement.narratedMinutesCap > 0 ? (
-            <StatBlock
-              label={t('usage.narrated.label')}
-              used={0}
-              cap={entitlement.narratedMinutesCap}
-              unit={t('usage.narrated.unit')}
-              resetLabel={resetLabel}
-            />
+            <Text role="caption" color="ink2">
+              {entitlement.narratedMinutesCap} narration minutes listed in your plan. Narration
+              usage is not yet metered.
+            </Text>
           ) : null}
         </View>
 
@@ -189,7 +186,19 @@ export default function UsageScreen() {
         </Text>
         <Card padding={0} style={styles.sessionsCard}>
           <Text role="caption" color="ink3" style={styles.sessionsEmpty}>
-            {t('usage.sessions.empty')}
+            {me.me.hostedSessions === undefined
+              ? 'Session history is unavailable from this server.'
+              : me.me.hostedSessions.length === 0
+                ? t('usage.sessions.empty')
+                : me.me.hostedSessions
+                    .map(
+                      (item) =>
+                        `${new Date(item.startedAt).toLocaleString()} · ${item.audioSeconds} seconds of hosted audio · ${item.status}`,
+                    )
+                    .join('\n')}
+            {
+              '\nOnly completed hosted sessions are shown (up to 30). Browser and personal-key sessions are not billed by Sotto and are not included.'
+            }
           </Text>
         </Card>
 

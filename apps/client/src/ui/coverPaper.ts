@@ -49,10 +49,10 @@ export function coverArt(book: Pick<CoverSource, 'svgUrl' | 'coverInk'>): CoverA
   return { kind: 'typographic' };
 }
 
-/** The fraction of the cover's height the authored band occupies: the art is
- * drawn in a 220x330 viewBox with the band running from y 232 to the foot. */
-export const BAND_TOP = 232 / 330;
-export const BAND_HEIGHT = 98 / 330;
+/** The fraction of the cover's height the authored parchment band occupies.
+ * The generated masters begin their text-safe band at roughly 63% height. */
+export const BAND_TOP = 0.63;
+export const BAND_HEIGHT = 0.37;
 
 /** PLAN decision 3: paper per collection, variation by id. */
 export const PAPER_BY_CATEGORY: Record<BookCategory, readonly PaperName[]> = {

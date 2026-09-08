@@ -2,7 +2,7 @@
  * Review — DESIGN.md "Review". CONTRACTS §6 route: /review?bookId=.
  */
 import { useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import type { ReviewRating } from '@sotto/core';
 import { radius, space } from '@sotto/core/theme';
@@ -166,31 +166,36 @@ export default function ReviewScreen() {
         </View>
 
         {revealed ? (
-          <Text role="ui" size={17} style={styles.translation}>
+          <Text accessibilityLiveRegion="polite" role="ui" size={17} style={styles.translation}>
             {current!.translation}
           </Text>
         ) : (
-          <Text
-            role="uiButton"
-            color="accent"
-            style={[styles.reveal, webCursor]}
+          <Pressable
+            accessibilityRole="button"
             onPress={() => setRevealed(true)}
+            style={[styles.reveal, webCursor]}
           >
-            {t('review.reveal')}
-          </Text>
+            <Text role="uiButton" color="accent">
+              {t('review.reveal')}
+            </Text>
+          </Pressable>
         )}
       </View>
 
       <View style={styles.ratings}>
         {RATINGS.map((r) => (
-          <Text
+          <Pressable
             key={r.key}
-            role="uiButton"
+            accessibilityRole="button"
+            disabled={!revealed}
+            accessibilityState={{ disabled: !revealed }}
             onPress={() => rate(r.value)}
-            style={[styles.ratingButton, webCursor]}
+            style={[styles.ratingButton, webCursor, !revealed && { opacity: 0.45 }]}
           >
-            {t(`review.rating.${r.key}` as const)}
-          </Text>
+            <Text role="uiButton" style={{ textAlign: 'center' }}>
+              {t(`review.rating.${r.key}` as const)}
+            </Text>
+          </Pressable>
         ))}
       </View>
 
@@ -287,7 +292,6 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     },
     ratingButton: {
       flex: 1,
-      textAlign: 'center',
       backgroundColor: colors.surface2,
       borderRadius: radius.md,
       paddingVertical: space.md,

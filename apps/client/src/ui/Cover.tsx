@@ -63,6 +63,10 @@ const BASE_WIDTH = 120;
  * type, so they are dropped rather than printed as smudges (run 8 P1-10). */
 const MIN_TYPOGRAPHIC_WIDTH = 72;
 
+function isRasterCoverUrl(url: string): boolean {
+  return /\.(png|jpe?g|webp)(?:$|\?)/i.test(url);
+}
+
 export function Cover({
   book,
   width,
@@ -104,7 +108,7 @@ export function Cover({
         {shadow}
         <View style={[styles.face, { backgroundColor: paper.sand }]}>
           {book.svgUrl ? (
-            Platform.OS === 'web' ? (
+            Platform.OS === 'web' || isRasterCoverUrl(book.svgUrl) ? (
               <Image source={{ uri: book.svgUrl }} style={{ width, height }} resizeMode="contain" />
             ) : (
               <SvgUri uri={book.svgUrl} width={width} height={height} />
@@ -142,7 +146,7 @@ export function Cover({
       >
         {shadow}
         <View style={styles.face}>
-          {Platform.OS === 'web' ? (
+          {Platform.OS === 'web' || isRasterCoverUrl(art.svgUrl) ? (
             <Image source={{ uri: art.svgUrl }} style={{ width, height }} resizeMode="cover" />
           ) : (
             <SvgUri uri={art.svgUrl} width={width} height={height} />
@@ -329,12 +333,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   /**
-   * The artwork's own text zone: y 232 to 330 of the 220x330 viewBox, so the
-   * type sits on the solid band the artist drew rather than on the scene.
+   * The artwork's own text zone: the lower 37% of the generated masters, so
+   * the type sits on the solid parchment band rather than on the scene.
    * Bottom-anchored inside it, like the typographic cover.
    *
    * Its padding is tighter than the typographic cover's 12: the band is only
-   * 98 of 330 units, which is ~53px on a 120-wide tile, and a two-line title
+   * roughly 37% of the artwork height, and a two-line title
    * plus the author line plus the stamp does not fit inside 12 of padding
    * with a 1.2 line-height (verified on the rendered Library grid — the
    * author was pushed out of the cover entirely and the title ran under the

@@ -17,13 +17,16 @@
       content="Read a page at your level, tap any word, hear it read, then talk it over with a voice tutor. Free and open source."
     />
     <meta property="og:url" content="https://readsotto.app/" />
-    <meta property="og:image" content="https://readsotto.app/og.png" />
+    <meta property="og:image" content="https://readsotto.app/og.png?v=2" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Sotto: Read a page. Then talk about it." />
+    <meta
+      property="og:image:alt"
+      content="A Sotto book, Le Chat botté, beside the line Read a page. Then talk about it."
+    />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Sotto, a free graded reader" />
-    <meta name="twitter:image" content="https://readsotto.app/og.png" />
+    <meta name="twitter:image" content="https://readsotto.app/og.png?v=2" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
     <!--
@@ -187,6 +190,31 @@
       .meta a {
         color: var(--ink-2);
         text-decoration-color: var(--hairline);
+      }
+      /* The one door for a returning subscriber: lit, not shouted. Peach fill with a
+         peach halo (brand-tinted, never neutral); coral only on hover. */
+      .signin {
+        display: inline-flex;
+        align-items: center;
+        min-height: 40px;
+        padding: 0 16px;
+        border-radius: 999px;
+        background: var(--peach);
+        color: var(--on-accent);
+        font: 500 0.875rem/1 var(--sans);
+        text-decoration: none;
+        box-shadow: 0 0 0 5px rgba(242, 200, 180, 0.42);
+        transition:
+          background var(--state) var(--ease),
+          color var(--state) var(--ease),
+          box-shadow var(--state) var(--ease);
+      }
+      .signin:hover,
+      .signin:focus-visible {
+        background: var(--accent);
+        color: var(--surface);
+        box-shadow: 0 0 0 5px rgba(228, 87, 46, 0.22);
+        outline: none;
       }
 
       /* 2 Hero + stage */
@@ -743,6 +771,15 @@
         width: 160px;
         max-width: 100%;
       }
+      /* The tile that actually lands on the home screen, at the size iOS draws it. */
+      .cover .tile {
+        display: block;
+        width: 120px;
+        height: 120px;
+        border-radius: 22.37%;
+        /* The tile is the same paper as this page, so a hairline gives it an edge. */
+        box-shadow: 0 0 0 1px var(--hairline);
+      }
       .cover svg {
         display: block;
         width: 100%;
@@ -814,9 +851,7 @@
     <header>
       <div class="col">
         <a class="wordmark" href="/">Sotto</a>
-        <span class="meta"
-          ><a class="tap-link" href="https://app.readsotto.app/account">Sign in</a></span
-        >
+        <a class="signin" href="https://app.readsotto.app/account">Sign in</a>
       </div>
     </header>
 
@@ -1094,44 +1129,14 @@
           <h2>Install Sotto</h2>
           <div class="install">
             <div class="cover" aria-hidden="true">
-              <svg viewBox="0 0 200 264">
-                <rect x="0" y="0" width="200" height="264" rx="2" fill="#1F4F57" />
-                <rect x="20" y="30" width="160" height="1.5" fill="#F2C8B4" />
-                <text
-                  x="100"
-                  y="118"
-                  text-anchor="middle"
-                  fill="#FBF6EC"
-                  font-family="Fraunces, 'Iowan Old Style', Georgia, serif"
-                  font-weight="300"
-                  font-size="34"
-                >
-                  Sotto
-                </text>
-                <text
-                  x="100"
-                  y="142"
-                  text-anchor="middle"
-                  fill="#F2C8B4"
-                  font-family="Fraunces, 'Iowan Old Style', Georgia, serif"
-                  font-size="12"
-                  font-style="italic"
-                >
-                  un livre adapté
-                </text>
-                <rect x="20" y="216" width="160" height="1.5" fill="#F2C8B4" />
-                <text
-                  x="100"
-                  y="240"
-                  text-anchor="middle"
-                  fill="#FBF6EC"
-                  font-family="ui-monospace, Menlo, monospace"
-                  font-size="9"
-                  letter-spacing="1.5"
-                >
-                  FRANÇAIS · A2
-                </text>
-              </svg>
+              <img
+                class="tile"
+                src="/icons/icon-192.png"
+                width="120"
+                height="120"
+                alt=""
+                decoding="async"
+              />
             </div>
             <div>
               <ol class="steps" id="stepsGeneric">

@@ -29,8 +29,8 @@
     <!--
   Cleo landing V5, "The Open Spread" (2026-09-06). Spec: planning/design/LANDING-V5.md.
   Register: scrollytelling stage. One open book, five scenes (Read, Tap, Listen, Speak,
-  Power) driven by an IntersectionObserver on the copy blocks at 900px and up; a tab row
-  drives the same data-state under 900px and under prefers-reduced-motion. With JavaScript
+  Power) driven by an IntersectionObserver on the copy blocks at 1240px and up; a tab row
+  drives the same data-state under 1240px and under prefers-reduced-motion. With JavaScript
   off every pane renders stacked inside the book and the scenes read as sections.
   Fonts are Fraunces 300/400 and Inter 400/500, served same-origin from /fonts/ (copied at
   build from @expo-google-fonts by scripts/build-web.mjs). The two product screenshots are
@@ -1193,7 +1193,7 @@
         document.documentElement.classList.add('js');
 
         /* The stage: one book, five states. The copy blocks drive data-state through an
-           IntersectionObserver at 900px and up; under 900px and under reduced motion the
+           IntersectionObserver at 1240px and up; under 1240px and under reduced motion the
            tab row drives the same attribute. No looping motion, no entrance animation:
            the only motion is the state change the visitor caused, plus the one-shot
            word fill on entering Listen. */

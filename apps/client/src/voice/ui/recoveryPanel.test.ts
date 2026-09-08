@@ -43,6 +43,14 @@ describe('recoveryPanelFor', () => {
     const b = recoveryPanelFor(input({ code: 'byok_rate_limited' }));
     expect(a.messageKey).toBe('voice.recovery.quota');
     expect(b.messageKey).toBe('voice.recovery.quota');
+    expect(a.buttons).toEqual(['settings', 'readAlone']);
+  });
+
+  it('quota exceeded on the paid origin: plan and usage, never a personal key', () => {
+    const spec = recoveryPanelFor(input({ code: 'quota_exceeded', cloudEnabled: true }));
+    expect(spec.messageKey).toBe('voice.recovery.quotaCloud');
+    expect(spec.hintKey).toBe('voice.recovery.quotaCloudHint');
+    expect(spec.buttons).toEqual(['usage', 'readAlone']);
   });
 
   it('blocked playback: offers a resume action, not a session retry', () => {
@@ -79,5 +87,11 @@ describe('recoveryPanelFor', () => {
   it('existing generic mic_unavailable keeps its settings link (pre-F1-split behavior)', () => {
     const spec = recoveryPanelFor(input({ code: 'mic_unavailable' }));
     expect(spec.buttons).toEqual(['tryAgain', 'settings', 'readAlone']);
+  });
+
+  it('mic unavailable on the paid origin: retry and read alone, no key settings link', () => {
+    const spec = recoveryPanelFor(input({ code: 'mic_unavailable', cloudEnabled: true }));
+    expect(spec.messageKey).toBe('voice.micUnavailable');
+    expect(spec.buttons).toEqual(['tryAgain', 'readAlone']);
   });
 });

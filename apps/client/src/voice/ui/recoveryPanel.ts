@@ -19,7 +19,14 @@
 import type { VoiceState } from '@sotto/voice';
 
 export type RecoveryButton =
-  'tryAgain' | 'continue' | 'newSession' | 'settings' | 'plans' | 'readAlone' | 'resumePlayback';
+  | 'tryAgain'
+  | 'continue'
+  | 'newSession'
+  | 'settings'
+  | 'plans'
+  | 'usage'
+  | 'readAlone'
+  | 'resumePlayback';
 
 export interface RecoverySpec {
   /** i18n key for the main message. */
@@ -34,7 +41,10 @@ export interface RecoveryInput {
   limitReason: 'max_duration' | 'idle' | 'cap' | null;
   voiceState: VoiceState;
   /** Cloud-path "See plans" is only meaningful when a paid plan exists to
-   * upgrade to (CloudAdapter present) — R3-S's existing `cloud.enabled` gate. */
+   * upgrade to (CloudAdapter present) — R3-S's existing `cloud.enabled` gate.
+   * The same flag removes the `settings` (personal OpenAI key) exit: the
+   * paid origin never offers one (commit 55347de did the same for the
+   * voice screen's other panels). */
   cloudEnabled: boolean;
 }
 
@@ -76,7 +86,7 @@ export function recoveryPanelFor(input: RecoveryInput): RecoverySpec {
       return {
         messageKey: 'voice.micUnavailable',
         hintKey: 'voice.micUnavailableHint',
-        buttons: ['tryAgain', 'settings', 'readAlone'],
+        buttons: cloudEnabled ? ['tryAgain', 'readAlone'] : ['tryAgain', 'settings', 'readAlone'],
       };
     case 'playback_blocked':
       return {
@@ -91,6 +101,16 @@ export function recoveryPanelFor(input: RecoveryInput): RecoverySpec {
       };
     case 'quota_exceeded':
     case 'byok_rate_limited':
+      // On the paid origin a spent quota is the plan's tutor minutes, not
+      // an OpenAI account: point at Plan & usage (reset date, higher plans)
+      // rather than at a personal key.
+      if (cloudEnabled && code === 'quota_exceeded') {
+        return {
+          messageKey: 'voice.recovery.quotaCloud',
+          hintKey: 'voice.recovery.quotaCloudHint',
+          buttons: ['usage', 'readAlone'],
+        };
+      }
       return {
         messageKey: 'voice.recovery.quota',
         hintKey: 'voice.recovery.quotaHint',

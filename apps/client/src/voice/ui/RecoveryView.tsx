@@ -64,6 +64,12 @@ export function RecoveryView({
           onPress: () => router.push('/paywall'),
           variant: 'primary' as const,
         };
+      case 'usage':
+        return {
+          title: t('account.usageRow'),
+          onPress: () => router.push('/usage'),
+          variant: 'primary' as const,
+        };
       case 'readAlone':
         return { title: t('voice.readAlone'), onPress: onReadAlone, variant: 'secondary' as const };
     }

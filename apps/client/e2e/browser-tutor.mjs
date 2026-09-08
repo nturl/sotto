@@ -540,6 +540,18 @@ async function main() {
     log(`Opening /voice/${BOOK_ID}`);
     await page.goto(`${BASE_URL}/voice/${BOOK_ID}`, { waitUntil: 'domcontentloaded' });
 
+    // run 10 (B1): on the free build the download panel sits behind the
+    // "Run it in this browser" choice on the Discuss gate; open it first so
+    // the download CTA below is reachable. A warm profile has no such button.
+    const browserChoice = page.getByRole('button', { name: 'Run it in this browser' }).first();
+    try {
+      await browserChoice.waitFor({ timeout: 15_000 });
+      await browserChoice.click();
+      log('Opened "Run it in this browser"');
+    } catch {
+      /* no gate: models already installed, or a build with a server */
+    }
+
     // ---- The opt-in. Nothing downloads until this tap. ----
     const cta = page.getByText('Download tutor models', { exact: false }).first();
     let alreadyInstalled = false;

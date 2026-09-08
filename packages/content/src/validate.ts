@@ -14,7 +14,7 @@ import {
 } from '@sotto/core';
 import { CLIENT_I18N_DIR, PACKS_DIR, SOURCE_DIR, TEST_FIXTURES_DIR } from './paths.ts';
 import { GLOSS_LOCALES } from './gloss-fill.ts';
-import { COVERS_DIR, readAuthoredCovers } from './covers.ts';
+import { authoredCoverPath, readAuthoredCovers } from './covers.ts';
 
 export type IssueSeverity = 'error' | 'warning';
 
@@ -654,19 +654,19 @@ function groupByScope(issues: ValidationIssue[]): Map<string, ValidationIssue[]>
 /**
  * The hand-authored cover manifest (packages/content/covers/covers.json) is
  * the direction-B source of truth: every book it names must actually have a
- * drawn `<bookId>.svg` beside it, or `content:build` would silently fall
+ * drawn WebP, PNG, or SVG beside it, or `content:build` would silently fall
  * back to the generated cover while the manifest claims otherwise.
  */
 export function validateAuthoredCovers(): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
   const manifest = readAuthoredCovers();
   for (const [bookId, entry] of Object.entries(manifest)) {
-    if (!existsSync(path.join(COVERS_DIR, `${bookId}.svg`))) {
+    if (!authoredCoverPath(bookId)) {
       issues.push(
         issue(
           'covers',
           'missing-asset',
-          `covers.json names ${bookId} but ${bookId}.svg is missing`,
+          `covers.json names ${bookId} but no authored cover asset is present`,
         ),
       );
     }

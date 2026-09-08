@@ -1,3 +1,4 @@
+import { CaptureGate } from '../capture-gate.ts';
 /**
  * OpenAIDirectProvider — the bring-your-own-key tutor (lane R4-B2).
  *
@@ -87,7 +88,10 @@ export class OpenAIDirectProvider implements VoiceProvider {
   private buffer = new SpeechBuffer(CAPTURE_SAMPLE_RATE);
 
   private ended = true;
-  private capturing = false;
+  private input: CaptureGate;
+  private held = false;
+  private transcriptionGeneration = 0;
+  private transcriptionAbort: AbortController | null = null;
   private muted = false;
   private turnMode: 'auto' | 'push' = 'auto';
   private pace: 'slow' | 'normal' = 'normal';
@@ -108,6 +112,7 @@ export class OpenAIDirectProvider implements VoiceProvider {
   constructor(options: OpenAIDirectOptions) {
     this.apiKey = options.apiKey;
     this.audio = options.audio;
+    this.input = new CaptureGate(this.audio);
     // Same receiver hazard LocalCascadeProvider documents.
     this.fetchImpl = options.fetch ?? fetch.bind(globalThis);
     this.baseUrl = options.baseUrl;
@@ -125,8 +130,9 @@ export class OpenAIDirectProvider implements VoiceProvider {
   async connect(opts: SessionOptions): Promise<void> {
     this.opts = opts;
     this.ended = false;
-    this.muted = false;
-    this.turnMode = 'auto';
+    this.muted = opts.muted ?? false;
+    this.turnMode = opts.turnDetection ?? 'auto';
+    this.held = false;
     this.pace = 'normal';
     this.vad = new EnergyVad();
     this.buffer = new SpeechBuffer(CAPTURE_SAMPLE_RATE);
@@ -154,8 +160,11 @@ export class OpenAIDirectProvider implements VoiceProvider {
     });
 
     try {
-      await this.audio.startCapture((buf) => this.handleFrame(buf));
-      this.capturing = true;
+      await this.input.start(
+        (buf) => this.handleFrame(buf),
+        !this.muted && this.turnMode === 'auto',
+      );
+      if (this.ended) return;
     } catch (err) {
       this.emit({
         type: 'error',
@@ -195,6 +204,12 @@ export class OpenAIDirectProvider implements VoiceProvider {
   setMuted(muted: boolean): void {
     this.muted = muted;
     if (muted) {
+      this.held = false;
+      this.transcriptionGeneration++;
+      this.transcriptionAbort?.abort();
+    }
+    this.syncCapture();
+    if (muted) {
       this.buffer.clear();
       this.vad.reset();
       this.emit({ type: 'state', state: 'muted' });
@@ -204,14 +219,44 @@ export class OpenAIDirectProvider implements VoiceProvider {
   }
 
   pushToTalk(active: boolean): void {
+    if (this.ended || this.muted) return;
     this.turnMode = 'push';
+    if (active === this.held) return;
+    this.held = active;
+    this.syncCapture();
     if (active) {
       this.buffer.clear();
       this.buffer.start();
+      this.emit({ type: 'state', state: 'listening' });
       return;
     }
     const segment = this.buffer.end();
     if (segment) void this.transcribeSegment(segment);
+    else this.emit({ type: 'state', state: 'listening' });
+  }
+
+  setTurnDetection(mode: 'auto' | 'push'): void {
+    this.turnMode = mode;
+    this.held = false;
+    this.buffer.clear();
+    this.vad.reset();
+    this.transcriptionGeneration++;
+    this.transcriptionAbort?.abort();
+    this.syncCapture();
+    this.emit({ type: 'state', state: 'listening' });
+  }
+
+  private syncCapture(): void {
+    void this.input
+      .setEnabled(!this.ended && !this.muted && (this.turnMode === 'auto' || this.held))
+      .catch((err) => {
+        this.emit({
+          type: 'error',
+          code: micErrorCode(err),
+          message: 'Microphone unavailable. Check browser permission.',
+          recoverable: true,
+        });
+      });
   }
 
   interrupt(): void {
@@ -245,7 +290,7 @@ export class OpenAIDirectProvider implements VoiceProvider {
    * learner taps Replay. No caption is (re-)emitted: the sentence's text is
    * already in the transcript from when it first failed. */
   replaySentence(text: string): void {
-    if (!this.opts) return;
+    if (!this.opts || this.ended) return;
     const abort = new AbortController();
     void speak({
       apiKey: this.apiKey,
@@ -257,7 +302,9 @@ export class OpenAIDirectProvider implements VoiceProvider {
       ...(this.baseUrl ? { baseUrl: this.baseUrl } : {}),
       ...(this.models.tts ? { model: this.models.tts } : {}),
     })
-      .then((pcm) => this.audio.playPcm(pcm, TUTOR_SAMPLE_RATE))
+      .then((pcm) => {
+        if (!this.ended) this.audio.playPcm(pcm, TUTOR_SAMPLE_RATE);
+      })
       .catch((err) => {
         const mapped = byokError(err, { stage: 'speech' });
         this.diagnostic('tts_failed', `replay ${mapped.code}`);
@@ -290,6 +337,16 @@ export class OpenAIDirectProvider implements VoiceProvider {
   // ---- internals ----
 
   private emit(e: VoiceEvent): void {
+    if (e.type === 'state' && e.state === 'listening') {
+      e = {
+        ...e,
+        state: this.muted
+          ? 'muted'
+          : this.turnMode === 'push' && !this.held
+            ? 'paused'
+            : 'listening',
+      };
+    }
     if (e.type === 'state') this.state = e.state;
     for (const l of this.listeners) l(e);
   }
@@ -335,10 +392,9 @@ export class OpenAIDirectProvider implements VoiceProvider {
       pending.resolve({ ok: false, error: 'session ended' });
     }
     this.pendingToolResults.clear();
-    if (this.capturing) {
-      this.audio.stopCapture();
-      this.capturing = false;
-    }
+    this.transcriptionGeneration++;
+    this.transcriptionAbort?.abort();
+    this.input.stop();
     this.audio.stopPlayback();
   }
 
@@ -387,18 +443,24 @@ export class OpenAIDirectProvider implements VoiceProvider {
   }
 
   private async transcribeSegment(segment: Int16Array): Promise<void> {
-    if (this.ended || !this.opts) return;
+    if (this.ended || this.muted || !this.opts) return;
+    const generation = this.transcriptionGeneration;
+    this.transcriptionAbort?.abort();
+    const abort = new AbortController();
+    this.transcriptionAbort = abort;
     this.emit({ type: 'state', state: 'thinking' });
     const started = Date.now();
     try {
       const text = await transcribe({
         apiKey: this.apiKey,
         pcm: segment,
+        signal: abort.signal,
         prompt: sttLanguageHint(this.opts.learner),
         fetch: this.fetchImpl,
         ...(this.baseUrl ? { baseUrl: this.baseUrl } : {}),
         ...(this.models.stt ? { model: this.models.stt } : {}),
       });
+      if (this.ended || this.muted || generation !== this.transcriptionGeneration) return;
       this.diagnostic('stt_ms', String(Date.now() - started));
       if (!text) {
         if (!this.ended) this.emit({ type: 'state', state: 'listening' });
@@ -408,7 +470,7 @@ export class OpenAIDirectProvider implements VoiceProvider {
       this.resetIdleTimer();
       await this.runTurn(text);
     } catch (err) {
-      this.failTurn(err);
+      if (!abort.signal.aborted) this.failTurn(err);
     }
   }
 

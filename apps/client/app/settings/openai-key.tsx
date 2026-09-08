@@ -90,8 +90,8 @@ export default function OpenAIKeyScreen() {
     const verdict = await validateOpenAIKey(key);
     if (!verdict.ok) {
       setBusy(false);
-      setOwnProviderStatus('invalid');
-      setError(verdict.reason === 'network' ? t('byok.networkError') : t('byok.invalid'));
+      setOwnProviderStatus(stored ? 'connected' : 'disconnected');
+      setError(verdict.message);
       return;
     }
     await setByokKey(key);
@@ -114,7 +114,7 @@ export default function OpenAIKeyScreen() {
   };
 
   const testTheTutor = () => {
-    if (testBookId) router.push(`/voice/${testBookId}`);
+    if (testBookId) router.push(`/voice/${testBookId}?provider=byok`);
   };
 
   const showForm = editing || !stored;
@@ -198,7 +198,8 @@ export default function OpenAIKeyScreen() {
             {t('byok.stored', { masked: stored ?? '' })}
           </Text>
           <Text role="caption" size={14} color="ink2">
-            {t(`byok.status.${status}` as const)}
+            {t(`byok.status.${status}` as const)} · Saved on this device. The connection check
+            verifies model-list access; use Test the tutor to verify an actual reply.
           </Text>
           <View style={styles.actions}>
             <Button
@@ -251,6 +252,14 @@ export default function OpenAIKeyScreen() {
         {t('byok.docsLink')}
       </Text>
 
+      <Text
+        accessibilityRole="link"
+        role="caption"
+        onPress={() => void Linking.openURL('https://app.readsotto.app/privacy')}
+      >
+        Privacy: your key stays on this device; tutor audio, text and passages go directly to
+        OpenAI.
+      </Text>
       <Toast message={toast} onHide={() => setToast(null)} />
     </Shell>
   );

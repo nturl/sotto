@@ -549,6 +549,14 @@ interface SessionState {
   buffer: SpeechBuffer;
   muted: boolean;
   /**
+   * Capture epoch. Bumped by every explicit change of capture intent —
+   * mute, and a turn-detection switch — so a `transcribeSegment` that was
+   * already in flight when the learner muted cannot post its result into
+   * the new epoch (`current()` below). Privacy, not tidiness: the segment
+   * is dropped rather than transcribed.
+   */
+  inputGeneration: number;
+  /**
    * True between the first sentence of a tutor turn actually producing
    * audio and that utterance's `audio_end`. Drives the half-duplex gate:
    * see `setSpeakingState`.
@@ -600,7 +608,7 @@ const MAX_TOOL_ITERATIONS = 4;
 const MAX_HISTORY_MESSAGES = 24;
 
 function setState(state: VoiceState): void {
-  post({ t: 'state', state });
+  post({ t: 'state', state: state === 'listening' && session?.muted ? 'muted' : state });
 }
 
 /**
@@ -881,7 +889,13 @@ async function runTutorTurnBody(s: SessionState, learnerText: string): Promise<v
 }
 
 async function transcribeSegment(segment: Int16Array): Promise<void> {
-  if (!session || !sttPipeline) return;
+  // The mute check comes first and before any measurement: a segment that
+  // reaches here after the learner muted is never inspected, let alone
+  // transcribed.
+  if (!session || session.muted || !sttPipeline) return;
+  const s = session;
+  const generation = s.inputGeneration;
+  const current = () => session === s && !s.muted && generation === s.inputGeneration;
   // Measured before transcription so the gate can weigh what Whisper says
   // against what was actually captured — a confident transcript over a
   // segment that never reached speech energy is exactly the run-8 failure.
@@ -910,6 +924,7 @@ async function transcribeSegment(segment: Int16Array): Promise<void> {
       no_repeat_ngram_size: 3,
       max_new_tokens: 128,
     } as never)) as { text?: string } | Array<{ text?: string }>;
+    if (!current()) return;
     const text = (Array.isArray(result) ? (result[0]?.text ?? '') : (result.text ?? '')).trim();
     const elapsedMs = Date.now() - started;
     const deviceAtAttempt = sttDevice ?? 'webgpu';
@@ -935,7 +950,8 @@ async function transcribeSegment(segment: Int16Array): Promise<void> {
       sttPipeline = null;
       sttDevice = null;
       try {
-        await loadStt(session.payload.stt, 'wasm');
+        await loadStt(s.payload.stt, 'wasm');
+        if (!current()) return;
       } catch (err) {
         post({
           t: 'metric',
@@ -979,6 +995,7 @@ async function transcribeSegment(segment: Int16Array): Promise<void> {
     post({ t: 'caption', speaker: 'learner', text, final: true });
     await runTutorTurn(text);
   } catch (err) {
+    if (!current()) return;
     post({
       t: 'error',
       code: 'stt_failed',
@@ -1085,9 +1102,10 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
           payload: msg.payload,
           vad: new EnergyVad(),
           buffer: new SpeechBuffer(WORKER_SAMPLE_RATE),
-          muted: false,
+          muted: msg.payload.muted ?? false,
+          inputGeneration: 0,
           speaking: false,
-          turnMode: 'auto',
+          turnMode: msg.payload.turnDetection ?? 'auto',
           pace: 'normal',
           turnRunner: null as unknown as TutorTurnRunner, // set below, needs `s` for the closure
           currentAbort: null,
@@ -1151,6 +1169,7 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
         if (session) {
           session.muted = msg.muted;
           if (msg.muted) {
+            session.inputGeneration++;
             session.buffer.clear();
             session.vad.reset();
             setState('muted');
@@ -1160,8 +1179,18 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
         }
         break;
 
-      case 'ptt':
+      case 'turn_detection':
         if (session) {
+          session.inputGeneration++;
+          session.turnMode = msg.mode;
+          session.buffer.clear();
+          session.vad.reset();
+          setState('listening');
+        }
+        break;
+
+      case 'ptt':
+        if (session && !session.muted) {
           session.turnMode = 'push';
           if (msg.active) {
             // No `clear()` before this any more. Clearing threw away the
@@ -1173,6 +1202,20 @@ ctx.onmessage = (ev: MessageEvent<MainToWorker>) => {
             // rather than the full 1200 ms default because the press is an
             // explicit "from here" marker and the preceding second may hold
             // the tutor's own audio.
+            //
+            // Dropping the `clear()` does NOT widen what the capture gate
+            // admits, which is why it survives the merge with it. The
+            // pre-roll can only replay frames that reached `handleFrame`,
+            // and three independent gates keep muted audio out of it:
+            // `CaptureGate` never invokes its callback while capture is
+            // disabled (capture-gate.ts) and the provider disables capture
+            // whenever `muted` (provider.ts `syncCapture`); `handleFrame`
+            // returns early on `session.muted`; and the `mute` case below
+            // calls `buffer.clear()` on the way in. So at the first press
+            // after unmuting the ring is empty and the pre-roll is simply
+            // empty too. The only audio it can ever seed is audio captured
+            // while unmuted, in auto mode — which the VAD would have sent
+            // to Whisper regardless.
             session.buffer.start(PTT_PRE_ROLL_MS);
           } else {
             // Read BEFORE end(): the seed is pre-roll captured before the

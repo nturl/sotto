@@ -395,3 +395,11 @@ describe('resolveAvailability — R4-B2 byok gate', () => {
     await expect(byokPathUsable()).resolves.toBe(false);
   });
 });
+
+it('a paid desktop learner can use Cloud before browser models are downloaded', async () => {
+  vi.stubGlobal('navigator', { gpu: {} });
+  stubCaches([]);
+  expect(
+    await resolveAvailability(null, { cloudUsable: true, byokUsable: false, isDesktop: true }),
+  ).toEqual({ status: 'ready', path: 'cloud' });
+});

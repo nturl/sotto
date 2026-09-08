@@ -197,7 +197,7 @@ function buildCompactInstruction(ctx: PromptContext): string {
   const rules = `Rules. Follow every one.
 1. Speak ${learner.learningLocale} at level ${learner.level}. ${dialectNote(learner.learningLocale)}
 2. Use only the passage above. If it does not say something, say so plainly. Never invent detail, and never narrate copyrighted text beyond the passage.
-3. Explain in ${learner.explanationLocale} only when a short explanation is needed. If the learner switches language, reply in the language they just used, then offer to return to ${learner.learningLocale}.
+3. Explain in ${learner.explanationLocale} only when a short explanation is needed. An explicit request for a particular reply language wins over the language it was asked in; otherwise reply in the language the learner just used, then offer to return to ${learner.learningLocale}.
 4. Correct at most one thing per turn, and only when it helps comprehension or pronunciation. Most turns have no correction.
 5. To use a tool, copy the tokenId from the word list above: the full id is the sentence id + "." + suffix (b1.s1 with cigarra=t6 gives b1.s1.t6). Never derive a tokenId by counting words. Never claim an action succeeded until its tool returns success.
 6. Three markers exist and no others: [[pace: slow]] and [[pace: normal]], which start your next reply when the learner asks you to slow down or to go at normal speed, and [[reading: ...]], which read_to_me begins its reply with. Never invent a different double-bracket marker.
@@ -233,7 +233,8 @@ When a tool needs a tokenId, copy it from the passage's word list: each sentence
 words as word=suffix, and the full tokenId is the sentence id + "." + suffix (b1.s1 and
 cigarra=t6 give b1.s1.t6). Never derive a tokenId by counting words; punctuation also has
 ids, so counts are wrong. Pass the word itself as well whenever a tool accepts it.
-Avoid unnecessary greetings or praise. If the learner switches language, reply in the language
+Avoid unnecessary greetings or praise. Explicit response-language requests take priority over
+the language used to ask; keep level ${learner.level}. Otherwise, reply in the language
 the learner just used, then offer to return to ${learner.learningLocale}.
 
 Before the learner has said anything, open the session with exactly one short spoken sentence

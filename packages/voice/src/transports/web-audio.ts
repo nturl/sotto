@@ -47,6 +47,7 @@ registerProcessor('capture-processor', CaptureProcessor);
 `;
 
 export class WebAudioAdapter implements AudioAdapter {
+  private captureGeneration = 0;
   private context: AudioContext | null = null;
   private workletNode: AudioWorkletNode | null = null;
   private sourceNode: MediaStreamAudioSourceNode | null = null;
@@ -74,22 +75,33 @@ export class WebAudioAdapter implements AudioAdapter {
       throw new Error('WebAudioAdapter.startCapture requires a browser environment');
     }
 
-    this.stream = await navigator.mediaDevices.getUserMedia({
+    this.stopCapture();
+    const generation = this.captureGeneration;
+    const stream = await navigator.mediaDevices.getUserMedia({
       audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
     });
+    if (generation !== this.captureGeneration) {
+      stream.getTracks().forEach((track) => track.stop());
+      return;
+    }
+    this.stream = stream;
     this.context = new AudioContext();
     // Browsers create the context suspended when no user gesture is on
     // record (the session starts on screen mount, not on a tap); a suspended
     // context never runs the worklet, so the tutor "listens" to nothing.
     if (this.context.state === 'suspended') await this.context.resume();
+    if (generation !== this.captureGeneration) return;
 
     const blob = new Blob([WORKLET_SOURCE], { type: 'application/javascript' });
     this.workletUrl = URL.createObjectURL(blob);
     await this.context.audioWorklet.addModule(this.workletUrl);
+    if (generation !== this.captureGeneration) return;
 
     this.sourceNode = this.context.createMediaStreamSource(this.stream);
     this.workletNode = new AudioWorkletNode(this.context, 'capture-processor');
-    this.workletNode.port.onmessage = (ev: MessageEvent<ArrayBuffer>) => onPcm16(ev.data);
+    this.workletNode.port.onmessage = (ev: MessageEvent<ArrayBuffer>) => {
+      if (generation === this.captureGeneration) onPcm16(ev.data);
+    };
     this.sourceNode.connect(this.workletNode);
     // The render graph is only pulled from the destination: a worklet with
     // no path to it is not guaranteed to process. Sink it through a muted
@@ -106,6 +118,7 @@ export class WebAudioAdapter implements AudioAdapter {
   }
 
   stopCapture(): void {
+    ++this.captureGeneration;
     this.workletNode?.disconnect();
     this.sourceNode?.disconnect();
     this.sinkNode?.disconnect();

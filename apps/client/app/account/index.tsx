@@ -133,19 +133,31 @@ export default function AccountScreen() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.session]);
 
-  // Checkout's successUrl lands back here with ?paid=1 (there is no
-  // apps/client/app/billing/ route for it to go to) — refresh the
-  // entitlement once, confirm with a toast, then drop the query param so a
-  // reload doesn't re-fire it.
+  // A return from Stripe can precede its entitlement webhook. Poll briefly,
+  // and only announce activation after /me confirms it.
+  const paid = Array.isArray(params.paid) ? params.paid[0] : params.paid;
   useEffect(() => {
-    const paid = Array.isArray(params.paid) ? params.paid[0] : params.paid;
-    if (paid === '1') {
+    if (paid !== '1') return;
+    let attempts = 0;
+    setToast('Checking your subscription…');
+    me.refresh();
+    const timer = setInterval(() => {
+      if (++attempts >= 15) {
+        clearInterval(timer);
+        setToast('Confirmation is taking longer. Return here shortly to check your plan.');
+        return;
+      }
       me.refresh();
+    }, 2000);
+    return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [paid]);
+  useEffect(() => {
+    if (paid === '1' && me.status === 'signed-in' && me.me.entitlement.plan !== 'free') {
       setToast(t('account.paid.success'));
       router.replace('/account');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.paid]);
+  }, [paid, me.status, me.status === 'signed-in' ? me.me.entitlement.plan : null, router, t]);
 
   // Ask the server which sign-in methods it actually has. `authConfig` never
   // rejects; an older or unreachable server answers magic-link-only, so a

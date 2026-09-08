@@ -176,7 +176,8 @@ export default function VoiceScreen() {
     bookId,
     mode: modeParam,
     review,
-  } = useLocalSearchParams<{ bookId: string; mode?: string; review?: string }>();
+    provider: providerParam,
+  } = useLocalSearchParams<{ bookId: string; mode?: string; review?: string; provider?: string }>();
   const preferences = useSottoStore((s) => s.preferences);
   const progress = useSottoStore((s) => s.progress);
   const bookLocale = useSottoStore((s) => s.bookLocale);
@@ -193,6 +194,10 @@ export default function VoiceScreen() {
     bookId: bookId ?? '',
     mode: (modeParam as TutorMode | undefined) ?? undefined,
     reviewOnly: review === '1',
+    requestedPath:
+      providerParam === 'byok' || providerParam === 'cloud' || providerParam === 'browser'
+        ? providerParam
+        : undefined,
   });
 
   const [pttHeld, setPttHeld] = useState(false);
@@ -327,7 +332,10 @@ export default function VoiceScreen() {
         <IconButton
           icon={<CloseGlyph size={20} />}
           accessibilityLabel={t('common.close')}
-          onPress={() => router.back()}
+          onPress={() => {
+            session.end();
+            router.back();
+          }}
         />
         <IconButton
           icon={<SettingsGlyph size={20} />}
@@ -350,6 +358,9 @@ export default function VoiceScreen() {
         <View style={styles.modeRow}>
           {MODES.map((m) => (
             <Pressable
+              accessibilityRole="radio"
+              aria-checked={session.mode === m}
+              accessibilityState={{ checked: session.mode === m }}
               key={m}
               onPress={() => session.setMode(m)}
               style={[styles.modeChip, session.mode === m && styles.modeChipActive, webCursor]}
@@ -370,6 +381,9 @@ export default function VoiceScreen() {
         <View style={styles.modeRow}>
           {availability.alternatives!.map((p) => (
             <Pressable
+              accessibilityRole="radio"
+              aria-checked={session.activePath === p}
+              accessibilityState={{ checked: session.activePath === p }}
               key={p}
               onPress={() => session.switchPath(p)}
               style={[
@@ -390,6 +404,27 @@ export default function VoiceScreen() {
         </View>
       ) : null}
 
+      {session.activePath ? (
+        <Text role="caption" color="ink2" accessibilityLiveRegion="polite">
+          {session.activePath === 'byok'
+            ? 'Your OpenAI key · billed directly by OpenAI. A saved key is not proof that tutoring works.'
+            : session.activePath === 'cloud'
+              ? 'Cloud · uses your included Sotto tutor minutes.'
+              : session.activePath === 'browser'
+                ? 'Browser · free local processing. Spoken replies are English-only; other languages use text. Saving words by voice is unfinished. Language instructions may not always be followed.'
+                : 'Your server · uses your server configuration.'}
+        </Text>
+      ) : !isChecking && providerParam ? (
+        <Text role="caption" color="warn">
+          The requested provider is unavailable. Reconnect it in Settings or explicitly choose
+          another provider.
+        </Text>
+      ) : null}
+      {providerParam === 'byok' && ownProviderStatus === 'active' ? (
+        <Text accessibilityLiveRegion="polite" role="caption">
+          Key tutor test succeeded in this session.
+        </Text>
+      ) : null}
       {!isUnavailable ? (
         <Transcript
           captions={session.captions}
@@ -499,14 +534,24 @@ export default function VoiceScreen() {
         // from this press handler, synchronously, so the tap's user
         // activation survives into the capture call.
         <View style={styles.startRow}>
-          <Button title={t('voice.start')} onPress={session.start} style={styles.recoveryButton} />
+          <Button
+            disabled={!session.activePath}
+            title={t('voice.start')}
+            onPress={session.start}
+            style={styles.recoveryButton}
+          />
         </View>
       ) : session.startControl === 'active' ? (
         <>
           <ControlCluster
             voiceState={session.voiceState}
+            inputMuted={session.inputMuted}
             turnDetection={preferences.turnDetection}
-            onSetTurnDetection={(next: TurnDetection) => setPreferences({ turnDetection: next })}
+            onSetTurnDetection={(next: TurnDetection) => {
+              setPttHeld(false);
+              session.setTurnDetection(next);
+              setPreferences({ turnDetection: next });
+            }}
             pttHeld={pttHeld}
             onPushToTalk={(active) => {
               // Run 9 lane D directive 1: pressing the mic while the tutor
@@ -519,7 +564,7 @@ export default function VoiceScreen() {
               setPttHeld(active);
               session.pushToTalk(active);
             }}
-            onToggleMute={() => session.setMuted(session.voiceState !== 'muted')}
+            onToggleMute={() => session.setMuted(!session.inputMuted)}
             onReplay={session.replayLast}
             onInterrupt={session.interrupt}
             outputMuted={outputMuted}

@@ -231,7 +231,6 @@ describe('BrowserCascadeProvider controls', () => {
     expect(worker.sent).toEqual([
       { t: 'mode', mode: 'pronunciation' },
       { t: 'mute', muted: true },
-      { t: 'ptt', active: true },
       { t: 'interrupt' },
       { t: 'replay' },
       { t: 'text', text: 'hola' },
@@ -357,5 +356,23 @@ describe('downloadTutorModels', () => {
     });
     await expect(handle.done).rejects.toThrow('model_download_failed: offline');
     expect(worker.terminated).toBe(1);
+  });
+});
+
+describe('microphone privacy regressions', () => {
+  it('does not forward audio after mute, typed send, mode change or a late listening event', async () => {
+    const { audio, events, provider } = setup();
+    await provider.connect(OPTS);
+    const worker = lastWorker();
+    provider.setMuted(true);
+    const count = worker.sent.filter((m) => m.t === 'audio').length;
+    provider.sendText('Explain this sentence');
+    provider.setMode('pronunciation');
+    worker.emit({ t: 'state', state: 'listening' });
+    audio.onPcm?.(new ArrayBuffer(640));
+    expect(worker.sent.filter((m) => m.t === 'audio')).toHaveLength(count);
+    expect(events.at(-1)).toEqual({ type: 'state', state: 'muted' });
+    expect(audio.stopCaptureCalls).toBeGreaterThan(0);
+    await provider.disconnect();
   });
 });

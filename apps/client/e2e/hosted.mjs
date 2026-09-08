@@ -2,7 +2,7 @@
 /**
  * "First contact on the hosted link" smoke test (O2-A, OVERNIGHT-2.md Lane
  * A): a stranger opening BASE_URL lands on the static landing page (Cleo
- * spec, planning/design/LANDING-V4.md), clicks "Try a sample" (run 7 lane A),
+ * spec, planning/design/LANDING-V4.md), clicks "Read free, no account" (run 7 lane A),
  * walks the four-step onboarding wizard (run 7 lane C) accepting each step's
  * proposed default, opens the book the last screen recommends, and should
  * then be reading a narrated story at both a phone and a desktop width, be
@@ -60,7 +60,8 @@ function fail(message) {
 
 function attachErrorCollectors(page, label) {
   page.on('console', (msg) => {
-    if (msg.type() === 'error') consoleErrors.push(`[${label}] ${msg.text()}`);
+    if (msg.type() === 'error')
+      consoleErrors.push(`[${label}] ${msg.text()} ${msg.location().url}`);
   });
   page.on('pageerror', (err) => pageErrors.push(`[${label}] ${err.message}`));
 }
@@ -102,7 +103,7 @@ async function firstWordCenter(page) {
     // emits as the DOM attribute `data-token-id` (hyphenated — verified in
     // a live Metro page, not `data-tokenid` as RECON.md §8 guessed), and
     // only `isWord` tokens get it, so this still lands on a tappable word.
-    const spans = [...document.querySelectorAll('span[data-token-id]')];
+    const spans = [...document.querySelectorAll('[data-token-id]')];
     for (const span of spans) {
       const rect = span.getBoundingClientRect();
       if (rect.width > 0 && rect.height > 0 && rect.top > 0) {
@@ -124,29 +125,33 @@ async function runAtWidth({ width, height, label }) {
   log(`${label}: cold visit loaded`);
 
   // Landing page (Cleo spec, planning/design/LANDING-V4.md): / is the static
-  // landing, not the app. Assert the headline, then click "Read free, no
-  // account" (href="/start") to enter the app as a guest — the door that
-  // needs no account, as opposed to "Start free"/"Sign in", which go to the
-  // paid origin's account screen.
+  // landing, not the app. Assert the headline, then click "Read free, no account"
+  // (href="/start") to enter the app as a guest — the door that needs no
+  // account, as opposed to "Start free"/"Sign in", which go to the paid
+  // origin's account screen.
   let taps = 0;
-  const landingHeadline = page.getByRole('heading', { name: 'Read a page. Then talk about it.' });
-  try {
-    await landingHeadline.waitFor({ state: 'visible', timeout: 15000 });
-    log(`${label}: landing headline visible`);
-  } catch {
-    fail(`${label}: landing heading "Sotto reads with you." never became visible`);
+  if (process.env.HOSTED_APP === '1') {
+    await page.goto(BASE_URL + '/onboarding');
+  } else {
+    const landingHeadline = page.getByRole('heading', { name: 'Read a page. Then talk about it.' });
+    try {
+      await landingHeadline.waitFor({ state: 'visible', timeout: 15000 });
+      log(`${label}: landing headline visible`);
+    } catch {
+      fail(`${label}: landing heading "Sotto reads with you." never became visible`);
+    }
+    const startLink = page.getByRole('link', { name: 'Read free, no account' });
+    try {
+      await startLink.waitFor({ state: 'visible', timeout: 5000 });
+    } catch {
+      fail(`${label}: landing "Read free, no account" link never became visible`);
+      await browser.close();
+      return;
+    }
+    await startLink.click();
+    taps += 1;
+    log(`${label}: tap ${taps} — clicked landing "Read free, no account" link`);
   }
-  const startLink = page.getByRole('link', { name: 'Read free, no account' });
-  try {
-    await startLink.waitFor({ state: 'visible', timeout: 5000 });
-  } catch {
-    fail(`${label}: landing "Read free, no account" link never became visible`);
-    await browser.close();
-    return;
-  }
-  await startLink.click();
-  taps += 1;
-  log(`${label}: tap ${taps} — clicked landing "Read free, no account" link`);
 
   // <link rel="manifest"> present (installability check 1/2).
   const hasManifest = await page.evaluate(() => !!document.querySelector('link[rel="manifest"]'));

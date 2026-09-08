@@ -1,3 +1,4 @@
+import { selectedPath, rememberedVoicePath, rememberVoicePath } from './selectedPath';
 /**
  * Voice session hook (CONTRACTS §5, TASK §E). A thin wrapper around
  * `sessionManager` (the actual connection lives there so it survives the
@@ -27,9 +28,15 @@ export interface UseVoiceSessionArgs {
   bookId: string;
   mode?: TutorMode;
   reviewOnly?: boolean;
+  requestedPath?: VoicePath;
 }
 
-export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoiceSessionArgs) {
+export function useVoiceSession({
+  bookId,
+  mode: modeParam,
+  reviewOnly,
+  requestedPath,
+}: UseVoiceSessionArgs) {
   const preferences = useSottoStore((s) => s.preferences);
   const books = useSottoStore((s) => s.books);
   const chapters = useSottoStore((s) => s.chapters);
@@ -58,14 +65,17 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
   const cloudUsable = cloudPathUsable(me);
   const { width } = useWindowDimensions();
   const isDesktop = width >= DESKTOP_BREAKPOINT;
-  const [pathChoice, setPathChoice] = useState<VoicePath | null>(null);
+  const [pathChoice, setPathChoice] = useState<VoicePath | null>(
+    requestedPath ?? rememberedVoicePath(),
+  );
 
   const book = books[bookId];
   const chapterId = progress[bookId]?.chapterId ?? book?.chapters[0]?.id;
   const chapterSummary = book?.chapters.find((c) => c.id === chapterId);
   const chapter = chapterId ? chapters[`${bookId}:${chapterId}`] : undefined;
   const locale = bookLocale(bookId) ?? preferences.learningLocale;
-  const mode = sessionRecord?.mode ?? modeParam ?? preferences.defaultTutorMode;
+  const [modeChoice, setModeChoice] = useState<TutorMode | null>(null);
+  const mode = sessionRecord?.mode ?? modeChoice ?? modeParam ?? preferences.defaultTutorMode;
 
   useEffect(() => {
     // Unlike the reader/library/home screens, the voice screen never calls
@@ -119,14 +129,7 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
     };
   }, [bookId, isFakeProvider, gateNonce, cloudUsable, isDesktop, tier]);
 
-  // Reset a desktop chip choice whenever the underlying gate re-runs with a
-  // different verdict, so a stale choice from a previous book doesn't leak.
-  useEffect(() => {
-    setPathChoice(null);
-  }, [availability.status, bookId]);
-
-  const activePath: VoicePath | undefined =
-    availability.status === 'ready' ? (pathChoice ?? availability.path) : undefined;
+  const activePath = selectedPath(availability, pathChoice ?? requestedPath);
 
   const bookWords = useMemo(
     () => selectVocabularyForBook(savedWords, bookId),
@@ -158,7 +161,7 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
       if (sessionManager.isSessionActiveFor(bookId)) sessionManager.pauseSession();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookId, chapterId, !!chapter, pathChoice]);
+  }, [bookId, chapterId, !!chapter]);
 
   const beginSession = (path: VoicePath): void => {
     if (!chapter || !chapterId) return;
@@ -206,9 +209,13 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
       if (activePath) beginSession(activePath);
     },
     voiceState,
+    inputMuted: sessionManager.isInputMuted(),
     captions,
     mode,
-    setMode: (next: TutorMode) => sessionManager.setMode(next),
+    setMode: (next: TutorMode) => {
+      setModeChoice(next);
+      sessionManager.setMode(next);
+    },
     readingTokenIds,
     explanation,
     dismissExplanation: () => setExplanation(null),
@@ -220,6 +227,7 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
      * offered `availability.alternatives` entry (desktop only — phones
      * never get more than one path to choose from). */
     switchPath: (path: VoicePath) => {
+      rememberVoicePath(path);
       setPathChoice(path);
       // A chip tap is itself a user gesture, and if a session is already
       // running the learner is deliberately swapping tutors mid-session —
@@ -230,6 +238,7 @@ export function useVoiceSession({ bookId, mode: modeParam, reviewOnly }: UseVoic
     chapter,
     chapterTitle: chapterSummary?.title,
     setMuted: (muted: boolean) => sessionManager.setMuted(muted),
+    setTurnDetection: (mode: 'auto' | 'push') => sessionManager.setTurnDetection(mode),
     /** run7/G directive 1(a): the speaker/output toggle — silences tutor
      * playback without ending capture. */
     setOutputMuted: (muted: boolean) => sessionManager.setOutputMuted(muted),

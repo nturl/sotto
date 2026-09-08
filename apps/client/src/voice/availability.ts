@@ -213,9 +213,9 @@ export async function resolveAvailability(
       : { status: 'ready', path: 'byok' };
   }
 
-  if (browser.status !== 'unavailable') return browser;
-
   if (cloudUsable) return { status: 'ready', path: 'cloud' };
+
+  if (browser.status !== 'unavailable') return browser;
 
   // Neither local/browser path, no key, and no usable cloud path either.
   // Prefer the more specific message: if a server answered and named which

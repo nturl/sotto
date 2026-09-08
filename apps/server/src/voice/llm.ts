@@ -23,7 +23,7 @@ export interface StreamedToolCall {
 }
 
 export interface LlmStreamHandlers {
-  onTextDelta?: (delta: string) => void;
+  onTextDelta?: (delta: string) => void | Promise<void>;
   onToolCalls?: (calls: StreamedToolCall[]) => void;
 }
 
@@ -121,7 +121,7 @@ export async function streamChatCompletion(
 
         if (typeof delta.content === 'string' && delta.content.length > 0) {
           text += delta.content;
-          handlers.onTextDelta?.(delta.content);
+          await handlers.onTextDelta?.(delta.content);
         }
 
         const rawToolCalls = delta.tool_calls as RawStreamToolCall[] | undefined;

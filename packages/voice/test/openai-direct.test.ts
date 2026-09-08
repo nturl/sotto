@@ -115,14 +115,14 @@ describe('api helpers', () => {
     expect(wav.byteLength).toBe(44 + 8);
   });
 
-  it('maps 401/403 to a non-recoverable provider_rejected_setting and 429 to a recoverable one', () => {
+  it('distinguishes rejected credentials, permissions, and rate limits', () => {
     expect(byokError(new OpenAIHttpError(401, 'HTTP 401'))).toMatchObject({
       code: 'provider_rejected_setting',
       recoverable: false,
     });
     expect(byokError(new OpenAIHttpError(403, 'HTTP 403'))).toMatchObject({
-      code: 'provider_rejected_setting',
-      recoverable: false,
+      code: 'byok_permission_denied',
+      recoverable: true,
     });
     expect(byokError(new OpenAIHttpError(429, 'HTTP 429'))).toMatchObject({
       code: 'byok_rate_limited',
@@ -140,9 +140,9 @@ describe('api helpers', () => {
   // run7/F1 directive 3: a 429 during speech synthesis gets its own code so
   // the caption's "not spoken" marker (provider.ts's speakSentence) pairs
   // with a message the learner can tell apart from a generic rate limit.
-  it('maps a 429 during the speech stage to quota_exceeded', () => {
+  it('does not guess quota from the speech stage alone', () => {
     expect(byokError(new OpenAIHttpError(429, 'HTTP 429'), { stage: 'speech' })).toMatchObject({
-      code: 'quota_exceeded',
+      code: 'byok_rate_limited',
       recoverable: true,
     });
     // Every other stage (STT, LLM) keeps the generic code.
@@ -245,6 +245,31 @@ describe('OpenAIDirectProvider', () => {
     provider.on((e) => events.push(e));
   }
 
+  it('keeps an explicit mute after a typed reply and releases capture', async () => {
+    const fakeFetch = vi.fn(async (input: string) =>
+      input.endsWith('/audio/speech')
+        ? pcmResponse()
+        : new Response(sse([textChunk('Hola.')]), { status: 200 }),
+    );
+    const provider = new OpenAIDirectProvider({
+      apiKey: KEY,
+      audio,
+      fetch: fakeFetch as unknown as typeof fetch,
+    });
+    collect(provider);
+    await provider.connect(SESSION);
+    provider.setMuted(true);
+    provider.sendText('Explain');
+    await vi.waitFor(() =>
+      expect(events.some((e) => e.type === 'caption' && e.speaker === 'tutor' && e.final)).toBe(
+        true,
+      ),
+    );
+    expect(provider.currentState).toBe('muted');
+    expect(audio.stopCaptureCalls).toBeGreaterThan(0);
+    await provider.disconnect();
+  });
+
   it('runs one full turn: STT -> streamed tool call -> respondTool -> continuation -> TTS', async () => {
     const hosts: string[] = [];
     const chatBodies: string[] = [];
@@ -346,7 +371,7 @@ describe('OpenAIDirectProvider', () => {
     const states = events.filter((e) => e.type === 'state').map((e) => e.state);
     expect(states).toContain('thinking');
     expect(states).toContain('speaking');
-    expect(states[states.length - 1]).toBe('listening');
+    expect(states[states.length - 1]).toBe('paused');
 
     await provider.disconnect();
   });
@@ -465,7 +490,7 @@ describe('OpenAIDirectProvider', () => {
     await provider.disconnect();
   });
 
-  it('reports a 429 during speech synthesis as quota_exceeded, not byok_rate_limited', async () => {
+  it('reports a speech rate limit without guessing that billing is exhausted', async () => {
     const fakeFetch = vi.fn(async (input: string) => {
       if (input.endsWith('/chat/completions')) {
         return new Response(sse([textChunk('Hola.')]), {
@@ -487,7 +512,7 @@ describe('OpenAIDirectProvider', () => {
     provider.sendText('hola');
     await vi.waitFor(() => expect(events.some((e) => e.type === 'error')).toBe(true));
     expect(events.find((e) => e.type === 'error')).toMatchObject({
-      code: 'quota_exceeded',
+      code: 'byok_rate_limited',
       recoverable: true,
     });
 
@@ -729,4 +754,15 @@ describe('OpenAIDirectProvider', () => {
 
     await provider.disconnect();
   });
+});
+
+it('redacts provider response text and distinguishes an explicit quota code', () => {
+  const error = byokError(
+    new OpenAIHttpError(429, 'sensitive provider response', 'insufficient_quota'),
+  );
+  expect(error.code).toBe('quota_exceeded');
+  expect(error.message).not.toContain('sensitive');
+  expect(byokError(new OpenAIHttpError(500, 'sensitive provider response')).message).not.toContain(
+    'sensitive',
+  );
 });

@@ -210,6 +210,16 @@ describe('sttLanguageHint', () => {
  * is behind a flag the browser worker sets; the paid and local-server
  * providers must keep sending today's prompt byte for byte, and this fixture
  * is what proves it. Regenerate ONLY with a deliberate prompt change.
+ *
+ * Regenerated once, on the merge of origin/main's PRs #1-#5 into the run 9
+ * line: 3669ff5 ("gate tutor capture by explicit mute and push-to-talk
+ * intent") deliberately rewrote the response-language sentence so that an
+ * explicit request for a reply language outranks the language the learner
+ * happened to ask in (docs/ux-findings-2026-09-07.md, "Browser language
+ * limitations"). That is exactly the deliberate change this fixture asks to
+ * be regenerated for — the guard did its job by failing. The same rule is
+ * carried into compact rule 3 in prompt.ts so the in-browser tutor, the only
+ * caller of the compact prompt, keeps 3669ff5's behaviour too.
  */
 const GOLDEN_NON_COMPACT: Record<TutorMode, string> = {
   read_to_me: `You are a patient, concise es-419 reading tutor for a learner who uses
@@ -230,7 +240,8 @@ When a tool needs a tokenId, copy it from the passage's word list: each sentence
 words as word=suffix, and the full tokenId is the sentence id + "." + suffix (b1.s1 and
 cigarra=t6 give b1.s1.t6). Never derive a tokenId by counting words; punctuation also has
 ids, so counts are wrong. Pass the word itself as well whenever a tool accepts it.
-Avoid unnecessary greetings or praise. If the learner switches language, reply in the language
+Avoid unnecessary greetings or praise. Explicit response-language requests take priority over
+the language used to ask; keep level A1. Otherwise, reply in the language
 the learner just used, then offer to return to es-419.
 
 Before the learner has said anything, open the session with exactly one short spoken sentence
@@ -272,7 +283,8 @@ When a tool needs a tokenId, copy it from the passage's word list: each sentence
 words as word=suffix, and the full tokenId is the sentence id + "." + suffix (b1.s1 and
 cigarra=t6 give b1.s1.t6). Never derive a tokenId by counting words; punctuation also has
 ids, so counts are wrong. Pass the word itself as well whenever a tool accepts it.
-Avoid unnecessary greetings or praise. If the learner switches language, reply in the language
+Avoid unnecessary greetings or praise. Explicit response-language requests take priority over
+the language used to ask; keep level A1. Otherwise, reply in the language
 the learner just used, then offer to return to es-419.
 
 Before the learner has said anything, open the session with exactly one short spoken sentence
@@ -314,7 +326,8 @@ When a tool needs a tokenId, copy it from the passage's word list: each sentence
 words as word=suffix, and the full tokenId is the sentence id + "." + suffix (b1.s1 and
 cigarra=t6 give b1.s1.t6). Never derive a tokenId by counting words; punctuation also has
 ids, so counts are wrong. Pass the word itself as well whenever a tool accepts it.
-Avoid unnecessary greetings or praise. If the learner switches language, reply in the language
+Avoid unnecessary greetings or praise. Explicit response-language requests take priority over
+the language used to ask; keep level A1. Otherwise, reply in the language
 the learner just used, then offer to return to es-419.
 
 Before the learner has said anything, open the session with exactly one short spoken sentence
@@ -356,7 +369,8 @@ When a tool needs a tokenId, copy it from the passage's word list: each sentence
 words as word=suffix, and the full tokenId is the sentence id + "." + suffix (b1.s1 and
 cigarra=t6 give b1.s1.t6). Never derive a tokenId by counting words; punctuation also has
 ids, so counts are wrong. Pass the word itself as well whenever a tool accepts it.
-Avoid unnecessary greetings or praise. If the learner switches language, reply in the language
+Avoid unnecessary greetings or praise. Explicit response-language requests take priority over
+the language used to ask; keep level A1. Otherwise, reply in the language
 the learner just used, then offer to return to es-419.
 
 Before the learner has said anything, open the session with exactly one short spoken sentence

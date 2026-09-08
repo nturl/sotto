@@ -153,9 +153,9 @@ describe('coverArt', () => {
     expect(coverArt(source({ id: 'x', coverInk: 'ink', svgUrl: '' })).kind).toBe('typographic');
   });
 
-  it('places the band over the artwork\u2019s own text zone (y 232 of 330)', () => {
-    expect(BAND_TOP).toBeCloseTo(232 / 330);
-    expect(BAND_HEIGHT).toBeCloseTo(98 / 330);
+  it('places the band over the generated artwork parchment zone', () => {
+    expect(BAND_TOP).toBeCloseTo(0.63);
+    expect(BAND_HEIGHT).toBeCloseTo(0.37);
     expect(BAND_TOP + BAND_HEIGHT).toBeCloseTo(1);
   });
 });

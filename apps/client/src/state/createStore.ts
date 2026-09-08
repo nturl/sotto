@@ -26,7 +26,12 @@ import type { OwnProviderStatus } from '../voice/ownProviderStatus';
 import { hasByokKey } from '../voice/byokKey';
 import { warmBookCache } from '../platform/swCache';
 import { assetUrl, fetchBook, fetchChapter, fetchPacks } from './contentApi';
-import { PRIVATE_INDEX_KEY, privateBookKey, privateChapterKey } from '../import/privateKeys';
+import {
+  PRIVATE_INDEX_KEY,
+  privateBookKey,
+  privateChapterKey,
+  privateImportJobKey,
+} from '../import/privateKeys';
 import {
   type CaptionEntry,
   type LoadStatus,
@@ -322,6 +327,7 @@ export function createSottoStore(persistence: Persistence): {
       const bookRaw = await persistence.getItem(privateBookKey(bookId));
       const book = safeParse<Book>(bookRaw);
       await persistence.removeItem(privateBookKey(bookId));
+      await persistence.removeItem(privateImportJobKey(bookId));
       if (book) {
         await Promise.all(
           book.chapters.map((c) => persistence.removeItem(privateChapterKey(bookId, c.id))),
@@ -545,8 +551,13 @@ export function createSottoStore(persistence: Persistence): {
       useStore.setState({ ownProviderStatus: 'connected' });
     }
 
+    let externalChange = false;
     let prev = useStore.getState();
     useStore.subscribe((state) => {
+      if (externalChange) {
+        prev = state;
+        return;
+      }
       if (state.preferences !== prev.preferences) {
         void persistence.setItem(KEYS.preferences, JSON.stringify(state.preferences));
       }
@@ -573,6 +584,21 @@ export function createSottoStore(persistence: Persistence): {
         void persistence.setItem(KEYS.privateIndex, JSON.stringify(state.privateBooks));
       }
       prev = state;
+    });
+    persistence.subscribe?.((key) => {
+      if (key !== KEYS.vocabulary) return;
+      const before = useStore.getState().savedWords;
+      void persistence.getItem(key).then((raw) => {
+        if (useStore.getState().savedWords !== before) return;
+        const words = safeParse<SavedWord[]>(raw);
+        if (raw !== null && !Array.isArray(words)) return;
+        externalChange = true;
+        try {
+          useStore.setState({ savedWords: words ?? [] });
+        } finally {
+          externalChange = false;
+        }
+      });
     });
   }
 

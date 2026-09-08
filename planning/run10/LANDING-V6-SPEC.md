@@ -79,3 +79,9 @@ CTA, and the two screenshot frames only.
   job; both doors still land above the fold. To reach one row in the 600 to 899 band the secondary
   takes `padding: 0 24px` at 600px and up, 32px less than the primary. Without it the pair needs
   580px against a 576px measure cap and never shares a line.
+- **Director's revision, 2026-09-08 evening (Noel: the doors should sit side by side, as in the
+  lane's preview).** The two-column stage now begins at 1240px instead of 900px, with the grid
+  `minmax(0, 1fr) minmax(0, 1.05fr)` (copy column 488px, book 512px at the 72rem cap) and the
+  doors at 15px type, paddings 28px and 20px, `flex-wrap: nowrap` (measured 465px together).
+  From 600px to 1239px the page keeps the single column with the tab strip and the doors in one
+  row at full size. The scene observer's media query moves with the breakpoint.

@@ -649,10 +649,12 @@
         display: block;
       }
 
-      /* 900px and up: two columns, the book sticky */
-      @media (min-width: 900px) {
+      /* 1240px and up: two columns, the book sticky. The split waits until both
+         doors fit beside the book on one line; below it the page keeps the
+         single column with the tab strip. */
+      @media (min-width: 1240px) {
         .stage {
-          grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
           gap: 0 56px;
           padding-top: 48px;
         }
@@ -679,17 +681,18 @@
         .tabs {
           display: none;
         }
-        /* The copy column is 332 to 444px here, too narrow for both doors on one
-           line, so they stack as two equal-width buttons instead of a ragged pair. */
+        /* The copy column is 488px here; at 15px type with these paddings the two
+           doors measure about 465px together, so they hold one line. */
         .cta-row {
-          flex-direction: column;
-          align-items: stretch;
+          flex-wrap: nowrap;
           gap: 12px;
-          max-width: 24rem;
         }
-        .cta,
+        .cta {
+          font-size: 0.9375rem;
+          padding: 0 28px;
+        }
         .cta.secondary {
-          padding: 0 24px;
+          padding: 0 20px;
         }
       }
 
@@ -1200,7 +1203,7 @@
         var scenes = Array.prototype.slice.call(document.querySelectorAll('.scene[data-scene]'));
         var words = Array.prototype.slice.call(book.querySelectorAll('.passage .w'));
         var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-        var wide = window.matchMedia('(min-width: 900px)');
+        var wide = window.matchMedia('(min-width: 1240px)');
         var fillTimers = [];
 
         /* Narration: the ring plays a real Kokoro clip of the passage (the same

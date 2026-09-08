@@ -382,7 +382,10 @@ export default function VoiceScreen() {
 
       {!isUnavailable ? (
         <Transcript captions={session.captions} onReplaySentence={session.replaySentence} />
-      ) : (
+      ) : panelState && !cloud.enabled ? null : (
+        // The free app's decision list (below) sits directly under the
+        // passage; the spacer would push it to the bottom of the screen and
+        // leave a blank band where a stranger expects the next step.
         <View style={styles.spacer} />
       )}
 

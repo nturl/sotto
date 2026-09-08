@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* global console, process, URL */
 // Re-embed the two product screenshots in the landing page.
 //
 //   node planning/run10/embed-shots.mjs <reader.jpg> <library.jpg>

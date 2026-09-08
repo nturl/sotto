@@ -93,3 +93,94 @@ describe('pickDailyBook', () => {
     expect(daily!.id).toBe('b');
   });
 });
+
+describe("pickDailyBook at the learner's level", () => {
+  const jan1 = new Date(2026, 0, 1);
+  const jan2 = new Date(2026, 0, 2);
+  const jan3 = new Date(2026, 0, 3);
+
+  it("offers a book at the learner's own level over any other", () => {
+    const shelf = [
+      { id: 'b1', level: 'B1' as const },
+      { id: 'a1', level: 'A1' as const },
+      { id: 'c1', level: 'C1' as const },
+    ];
+    // Level-blind, Jan 1 lands on 'a1' and Jan 2 on 'c1'; at A1 both days
+    // stay on the one book the learner can actually read.
+    expect(pickDailyBook(shelf, new Set(), jan1, 'A1')!.id).toBe('a1');
+    expect(pickDailyBook(shelf, new Set(), jan2, 'A1')!.id).toBe('a1');
+  });
+
+  it('rotates within the level when several books sit at it', () => {
+    const shelf = [
+      { id: 'a1-one', level: 'A1' as const },
+      { id: 'a1-two', level: 'A1' as const },
+      { id: 'b2', level: 'B2' as const },
+    ];
+    expect(pickDailyBook(shelf, new Set(), jan1, 'A1')!.id).toBe('a1-two');
+    expect(pickDailyBook(shelf, new Set(), jan2, 'A1')!.id).toBe('a1-one');
+  });
+
+  it('reaches one level easier before one level harder at equal distance', () => {
+    // Level-blind, Jan 1 lands on 'a2'. Both are one step from A1, and the
+    // easier one wins.
+    const shelf = [
+      { id: 'a0', level: 'A0' as const },
+      { id: 'a2', level: 'A2' as const },
+    ];
+    expect(pickDailyBook(shelf, new Set(), jan1, 'A2')!.id).toBe('a2');
+    expect(pickDailyBook(shelf, new Set(), jan1, 'A1')!.id).toBe('a0');
+  });
+
+  it('widens outward a step at a time rather than jumping to the far end', () => {
+    // An A2 learner: B1 is one step harder, C1 is three. Level-blind, Jan 1
+    // lands on 'c1'.
+    const shelf = [
+      { id: 'b1', level: 'B1' as const },
+      { id: 'c1', level: 'C1' as const },
+    ];
+    expect(pickDailyBook(shelf, new Set(), jan1, 'A2')!.id).toBe('b1');
+  });
+
+  it('never offers an in-progress book just because it is at the right level', () => {
+    const shelf = [
+      { id: 'a1-one', level: 'A1' as const },
+      { id: 'a1-two', level: 'A1' as const },
+      { id: 'a2', level: 'A2' as const },
+    ];
+    // Level-blind, dropping 'a1-one' leaves two books and Jan 1 lands on
+    // 'a2'; the level pool still has an A1 book to offer instead.
+    expect(pickDailyBook(shelf, new Set(['a1-one']), jan1, 'A1')!.id).toBe('a1-two');
+  });
+
+  it('falls back to the whole shelf when every book is in progress', () => {
+    const shelf = [
+      { id: 'a1', level: 'A1' as const },
+      { id: 'b2', level: 'B2' as const },
+      { id: 'c1', level: 'C1' as const },
+    ];
+    // The last resort is the shelf as it stands, not the shelf filtered by
+    // level again — that would pin an A1 learner to 'a1' forever.
+    expect(pickDailyBook(shelf, new Set(['a1', 'b2', 'c1']), jan1, 'A1')!.id).toBe('b2');
+  });
+
+  it('falls back to every unstarted book when none of them carries a level', () => {
+    const shelf = [{ id: 'a' }, { id: 'b' }, { id: 'c' }];
+    expect(pickDailyBook(shelf, new Set(), jan1, 'A1')!.id).toBe('b');
+  });
+
+  it('keeps the same book all day and moves on the next one', () => {
+    const shelf = [
+      { id: 'a1-one', level: 'A1' as const },
+      { id: 'b2', level: 'B2' as const },
+      { id: 'a1-two', level: 'A1' as const },
+      { id: 'c1', level: 'C1' as const },
+    ];
+    const morning = new Date(2026, 0, 3, 7, 5);
+    const evening = new Date(2026, 0, 3, 23, 40);
+    expect(pickDailyBook(shelf, new Set(), morning, 'A1')!.id).toBe('a1-two');
+    expect(pickDailyBook(shelf, new Set(), evening, 'A1')!.id).toBe('a1-two');
+    expect(pickDailyBook(shelf, new Set(), jan2, 'A1')!.id).toBe('a1-one');
+    expect(pickDailyBook(shelf, new Set(), jan3, 'A1')!.id).toBe('a1-two');
+  });
+});

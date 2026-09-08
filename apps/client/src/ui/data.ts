@@ -11,6 +11,7 @@
  * metadata by `Cover`/`coverPaper`. `dev/fixtures.ts` stays for tests only.
  */
 import { useEffect, useMemo } from 'react';
+import { BOOK_LEVELS } from '@sotto/core';
 import type {
   BookCategory,
   BookSummary,
@@ -111,20 +112,59 @@ function dayOfYear(date: Date): number {
 }
 
 /**
+ * The levels to try, nearest first, and easier before harder at equal
+ * distance: an A1 learner is offered an A0 book before a B1 one. Being read
+ * something slightly too easy costs a few minutes; being handed something
+ * too hard on day one costs the habit.
+ */
+function levelSearchOrder(home: number): number[] {
+  const order = [home];
+  for (let step = 1; step < BOOK_LEVELS.length; step += 1) {
+    order.push(home - step, home + step);
+  }
+  return order.filter((index) => index >= 0 && index < BOOK_LEVELS.length);
+}
+
+/** The nearest non-empty level ring to `level`, or nothing if no book in
+ * `books` carries a level at all. */
+function booksNearLevel<T extends { level?: BookLevel }>(
+  books: readonly T[],
+  level: BookLevel,
+): readonly T[] {
+  const home = BOOK_LEVELS.indexOf(level);
+  if (home < 0) return [];
+  for (const index of levelSearchOrder(home)) {
+    const ring = books.filter((b) => b.level !== undefined && b.level === BOOK_LEVELS[index]);
+    if (ring.length > 0) return ring;
+  }
+  return [];
+}
+
+/**
  * Today's story (mockup frame 1): a book to *start*, so it is never one the
  * learner is already part-way through — the spread and the Continue-reading
  * shelf carried the same book before this. Excluding the in-progress set can
  * empty the pool on a one-book shelf, so we fall back to the whole shelf
  * rather than render nothing.
+ *
+ * run10/B3: it is also no longer level-blind. It used to hand an A1 learner
+ * whatever the day's index landed on — "The Stars", B1, 12 minutes, as the
+ * hero of their first Home screen. With `level`, the pool narrows to the
+ * learner's own level and widens one step at a time only when it has to.
+ * The choice within the pool is still the day-of-year index, so today's
+ * story stays the same book all day.
  */
-export function pickDailyBook<T extends { id: string }>(
+export function pickDailyBook<T extends { id: string; level?: BookLevel }>(
   books: readonly T[],
   continueIds: ReadonlySet<string>,
   date: Date,
+  level?: BookLevel,
 ): T | undefined {
   if (books.length === 0) return undefined;
   const unstarted = books.filter((b) => !continueIds.has(b.id));
-  const pool = unstarted.length > 0 ? unstarted : books;
+  const atLevel = level ? booksNearLevel(unstarted, level) : [];
+  const pool =
+    atLevel.length > 0 ? atLevel : unstarted.length > 0 ? unstarted : (books as readonly T[]);
   return pool[dayOfYear(date) % pool.length];
 }
 
@@ -212,7 +252,7 @@ export function useLibrary(): Library {
     const books = [...seededBooks, ...yourBooks];
 
     const daily =
-      pickDailyBook(seededBooks, continueIds, new Date()) ??
+      pickDailyBook(seededBooks, continueIds, new Date(), preferences.level) ??
       ({
         id: '',
         contentLocale: '',

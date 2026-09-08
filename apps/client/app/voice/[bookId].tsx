@@ -19,6 +19,7 @@ import { modelsForTier, totalSizeMb } from '@sotto/voice';
 import { PAID_ORIGIN } from '../../src/cloud/paidOrigin';
 import { useCloud } from '../../src/cloud/provider';
 import { useTrialOffer } from '../../src/cloud/trialOffer';
+import { useMe } from '../../src/cloud/useMe';
 import { useT } from '../../src/i18n/useT';
 import { Button } from '../../src/ui/Button';
 import { CloseGlyph, SettingsGlyph } from '../../src/ui/Glyphs';
@@ -60,13 +61,20 @@ const READING_ACTIVE_WINDOW_MS = 6000;
  */
 const TRIAL_URL = `${PAID_ORIGIN}/account?intent=start&returnTo=%2Fpaywall`;
 
-function openTrial(): void {
+/**
+ * Where a reader who already pays goes when they open the free origin out
+ * of habit. Their tutor lives on the paid client and nothing on this page
+ * can reach it, so the only useful thing this build can offer is the door.
+ */
+const PAID_ACCOUNT_URL = `${PAID_ORIGIN}/account`;
+
+function openPaidClient(url: string): void {
   const loc = (globalThis as { location?: { assign(url: string): void } }).location;
   if (Platform.OS === 'web' && loc) {
-    loc.assign(TRIAL_URL);
+    loc.assign(url);
     return;
   }
-  void Linking.openURL(TRIAL_URL).catch(() => {});
+  void Linking.openURL(url).catch(() => {});
 }
 
 /**
@@ -106,7 +114,10 @@ function FreeTutorChoices({
   return (
     <View style={[choiceStyles.column, isDesktop && choiceStyles.columnDesktop]}>
       <View style={choiceStyles.choice}>
-        <Button title={t('voice.trial.cta', { days: trial.days })} onPress={openTrial} />
+        <Button
+          title={t('voice.trial.cta', { days: trial.days })}
+          onPress={() => openPaidClient(TRIAL_URL)}
+        />
         <Text role="caption" color="ink2">
           {t('voice.trial.note', { monthly: trial.monthly, yearly: trial.yearly })}
         </Text>
@@ -138,6 +149,18 @@ function FreeTutorChoices({
       >
         <Text role="ui" size={15} color="ink2" style={choiceStyles.readAloneLabel}>
           {t('voice.readAlone')}
+        </Text>
+      </Pressable>
+
+      {/* The one thing this list was missing: a way out for someone who
+          already bought the tutor and typed the free address by habit. */}
+      <Pressable
+        onPress={() => openPaidClient(PAID_ACCOUNT_URL)}
+        accessibilityRole="link"
+        style={[choiceStyles.readAlone, webCursor]}
+      >
+        <Text role="caption" color="ink3" style={choiceStyles.readAloneLabel}>
+          {t('voice.trial.haveIt')}
         </Text>
       </Pressable>
 
@@ -174,6 +197,10 @@ export default function VoiceScreen() {
   const t = useT();
   const router = useRouter();
   const cloud = useCloud();
+  // Read here as well as in useVoiceSession: the gate only needs "is the
+  // cloud path usable", this screen needs to tell "no plan" apart from "no
+  // answer" so it can stop selling a subscription to a subscriber.
+  const me = useMe();
   const insets = useSafeAreaInsets();
   const { colors } = useTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
@@ -307,6 +334,12 @@ export default function VoiceScreen() {
   // Everything that used to be hidden behind "unavailable" stays hidden for
   // both flavours: no mode chips, transcript or controls until a tutor can run.
   const isUnavailable = isServerUnavailable || panelState !== null;
+  // `/me` failed for something other than a 401 (src/cloud/useMe.ts), so the
+  // cloud path was ruled out by a connection problem rather than by a real
+  // answer about this reader's plan. Only replaces the panels below — a
+  // tutor that can run (local server, downloaded browser models) still runs.
+  const cloudUnreachable =
+    cloud.enabled && isUnavailable && me.status === 'signed-out' && me.reason === 'unreachable';
   const unavailableMessage =
     availability.status === 'unavailable' && availability.reason === 'server'
       ? t('voice.unavailableServer')
@@ -464,6 +497,24 @@ export default function VoiceScreen() {
           onOwnKey={() => router.push('/settings/openai-key')}
           onReadAlone={() => router.replace(readSeulPath)}
         />
+      ) : cloudUnreachable ? (
+        // The paid origin, with no answer from /me. Until that request
+        // succeeds we do not know whether this reader has a plan, so
+        // neither "Subscribe" nor a personal key is the honest next step:
+        // say what actually went wrong and leave the book readable.
+        <View style={styles.recovery}>
+          <Text role="caption" color="warn" style={styles.recoveryText}>
+            Could not reach Sotto&apos;s server. Check your connection and try again.
+          </Text>
+          <View style={styles.recoveryButtons}>
+            <Button
+              title={t('voice.readAlone')}
+              variant="secondary"
+              onPress={() => router.replace(readSeulPath)}
+              style={styles.recoveryButton}
+            />
+          </View>
+        </View>
       ) : panelState ? (
         <View style={styles.recovery}>
           <TutorModelsPanel
@@ -471,18 +522,14 @@ export default function VoiceScreen() {
             onChanged={session.recheckAvailability}
             showRemove={false}
           />
+          {/* No byok button here: this branch only runs when `cloud.enabled`
+              (the free build took the FreeTutorChoices branch above), and on
+              the paid origin the answer to "no entitlement detected" is
+              Subscribe or read alone, never a personal OpenAI key. */}
           <View style={styles.recoveryButtons}>
-            {cloud.enabled ? (
-              <Button
-                title={t('voice.subscribe')}
-                onPress={() => router.push('/paywall')}
-                style={styles.recoveryButton}
-              />
-            ) : null}
             <Button
-              title={t('byok.row')}
-              variant="secondary"
-              onPress={() => router.push('/settings/openai-key')}
+              title={t('voice.subscribe')}
+              onPress={() => router.push('/paywall')}
               style={styles.recoveryButton}
             />
             <Button
@@ -508,13 +555,17 @@ export default function VoiceScreen() {
                 onPress={() => router.push('/paywall')}
                 style={styles.recoveryButton}
               />
-            ) : null}
-            <Button
-              title={t('byok.row')}
-              variant="secondary"
-              onPress={() => router.push('/settings/openai-key')}
-              style={styles.recoveryButton}
-            />
+            ) : (
+              // Free build only, same rule as the panel above: a personal
+              // key is an answer for someone with no plan to fall back on,
+              // not for a subscriber the paid origin failed to recognise.
+              <Button
+                title={t('byok.row')}
+                variant="secondary"
+                onPress={() => router.push('/settings/openai-key')}
+                style={styles.recoveryButton}
+              />
+            )}
             <Button
               title={t('voice.readAlone')}
               variant="secondary"

@@ -30,7 +30,12 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { radius, space } from '@sotto/core/theme';
 import { signInWithAppleWeb } from '../../src/cloud/appleWeb';
-import { resolveSignedInDestination } from '../../src/cloud/destination';
+import {
+  HOME,
+  resolveAccountLanding,
+  resolveRootDestination,
+  resolveSignedInDestination,
+} from '../../src/cloud/destination';
 import { useCloud } from '../../src/cloud/provider';
 import { safeReturnPath, signInReturnTo } from '../../src/cloud/returnTo';
 import { CloudError, MAGIC_LINK_ONLY, type AuthConfig } from '../../src/cloud/types';
@@ -99,6 +104,9 @@ export default function AccountScreen() {
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   const [toast, setToast] = useState<string | null>(null);
+  // Latched, because the `paid=1` param is cleared as soon as the entitlement
+  // lands: the confirmation below is the landing, not a flash.
+  const [paidLanded, setPaidLanded] = useState(false);
   const [email, setEmail] = useState('');
   const [send, setSend] = useState<SendState>({ phase: 'idle' });
   const [busy, setBusy] = useState(false);
@@ -116,6 +124,7 @@ export default function AccountScreen() {
   const intent = Array.isArray(params.intent) ? params.intent[0] : params.intent;
   const creating = intent === 'start';
   const returnTo = safeReturnPath(params.returnTo ?? null);
+  const sessionToken = Array.isArray(params.session) ? params.session[0] : params.session;
 
   // CLOUD-API.md: native's magic-link redirect is `sotto://account?session=`
   // — this is the literal deep-link target, so forward straight to the
@@ -123,15 +132,27 @@ export default function AccountScreen() {
   // completion logic here. `returnTo` rides along so that screen can honour
   // it after the token exchange.
   useEffect(() => {
-    const token = Array.isArray(params.session) ? params.session[0] : params.session;
-    if (token) {
+    if (sessionToken) {
       router.replace({
         pathname: '/account/magic',
-        params: returnTo ? { session: token, returnTo } : { session: token },
+        params: returnTo ? { session: sessionToken, returnTo } : { session: sessionToken },
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.session]);
+  }, [sessionToken]);
+
+  // Someone who is already signed in has nothing to do on this screen, so an
+  // explicit destination wins over it: the free build sells the tutor with
+  // `/account?intent=start&returnTo=%2Fpaywall`, and a signed-in learner
+  // following it used to land in settings instead of on the paywall.
+  const landing = resolveAccountLanding({
+    me: me.status,
+    returnTo,
+    hasSessionToken: Boolean(sessionToken),
+  });
+  useEffect(() => {
+    if (landing) router.replace(landing);
+  }, [landing, router]);
 
   // A return from Stripe can precede its entitlement webhook. Poll briefly,
   // and only announce activation after /me confirms it.
@@ -139,6 +160,7 @@ export default function AccountScreen() {
   useEffect(() => {
     if (paid !== '1') return;
     let attempts = 0;
+    setPaidLanded(true);
     setToast('Checking your subscription…');
     me.refresh();
     const timer = setInterval(() => {
@@ -291,6 +313,18 @@ export default function AccountScreen() {
     }
   };
 
+  /** The one next step after paying. Onboarding for someone who never set the
+   * app up, home for everyone else — `/`'s rule, asked rather than restated. */
+  const startReading = () => {
+    router.replace(
+      resolveRootDestination({
+        cloudEnabled: cloud.enabled,
+        me: me.status,
+        onboarded: preferences.onboarded,
+      }) ?? HOME,
+    );
+  };
+
   // Same treatment as the paywall/usage screens: no CloudAdapter means no
   // live entry point to this screen at all (ACCOUNT.md §0/PAYWALL.md §4),
   // but show the short "not available" line rather than an empty canvas in
@@ -306,7 +340,8 @@ export default function AccountScreen() {
     );
   }
 
-  if (me.status === 'loading') {
+  // `landing` is a redirect already in flight; settings would only flash.
+  if (me.status === 'loading' || landing) {
     return (
       <Shell>
         <BackLink />
@@ -327,6 +362,23 @@ export default function AccountScreen() {
         <Text role="display" size={28} style={styles.title}>
           {t('account.title')}
         </Text>
+
+        {/* A return from Stripe used to land on the settings list with a
+            toast that was gone in four seconds, leaving a brand-new
+            subscriber to work out what they had bought and where to go.
+            The confirmation and the one next step come first instead, and
+            they do not wait on the entitlement webhook to be drawn. */}
+        {paidLanded ? (
+          <Card style={styles.paidCard}>
+            <Text role="heading" size={22}>
+              {t('account.paid.title')}
+            </Text>
+            <Text role="ui" size={15} color="ink2">
+              {t('account.paid.body')}
+            </Text>
+            <Button title={t('account.paid.startReading')} onPress={startReading} />
+          </Card>
+        ) : null}
 
         <View style={styles.groups}>
           {/* The email gets its own card rather than a Group row: `Row` lays
@@ -682,6 +734,10 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     },
     identityCard: {
       gap: 2,
+    },
+    paidCard: {
+      marginTop: space.lg,
+      gap: space.sm,
     },
     dataNote: {
       marginTop: -space.sm,

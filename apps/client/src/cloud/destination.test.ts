@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { resolveRootDestination, resolveSignedInDestination } from './destination';
+import {
+  resolveAccountLanding,
+  resolveRootDestination,
+  resolveSignedInDestination,
+} from './destination';
 
 /**
  * Run 7 lane C, ground truth 4: the paid origin's root redirected on a local
@@ -93,5 +97,43 @@ describe('resolveSignedInDestination', () => {
     expect(resolveSignedInDestination({ onboarded: true, returnTo: '/account/magic' })).toBe(
       '/(tabs)/home',
     );
+  });
+});
+
+/**
+ * A visit to `/account` that carries a destination. The landing page sells
+ * the tutor with "Try the tutor free for 3 days", a link at
+ * `/account?intent=start&returnTo=%2Fpaywall`: for a signed-out stranger the
+ * account screen is the next step, but for someone already signed in it is a
+ * dead end, and they were landing in settings instead of on the paywall.
+ */
+describe('resolveAccountLanding', () => {
+  it('sends a signed-in learner on to the destination they carried', () => {
+    expect(resolveAccountLanding({ me: 'signed-in', returnTo: '/paywall' })).toBe('/paywall');
+  });
+
+  it('stays on the account screen when there is no destination', () => {
+    expect(resolveAccountLanding({ me: 'signed-in' })).toBe(null);
+  });
+
+  /** Signing in is the next step for them, and the screen is where it happens. */
+  it('keeps a signed-out visitor on the account screen', () => {
+    expect(resolveAccountLanding({ me: 'signed-out', returnTo: '/paywall' })).toBe(null);
+    expect(resolveAccountLanding({ me: 'loading', returnTo: '/paywall' })).toBe(null);
+    expect(resolveAccountLanding({ me: 'no-cloud', returnTo: '/paywall' })).toBe(null);
+  });
+
+  it('refuses a destination that would leave this origin', () => {
+    expect(resolveAccountLanding({ me: 'signed-in', returnTo: 'https://evil.example' })).toBe(null);
+    expect(resolveAccountLanding({ me: 'signed-in', returnTo: '//evil.example' })).toBe(null);
+    expect(resolveAccountLanding({ me: 'signed-in', returnTo: 'paywall' })).toBe(null);
+  });
+
+  /** `?session=` belongs to the magic-link handler; two redirects racing for
+   * the same visit is how a completed sign-in loses its destination. */
+  it('leaves a magic-link arrival to the handler that owns it', () => {
+    expect(
+      resolveAccountLanding({ me: 'signed-in', returnTo: '/paywall', hasSessionToken: true }),
+    ).toBe(null);
   });
 });

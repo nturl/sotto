@@ -138,7 +138,13 @@ export default function PaywallScreen() {
         afterEntitlement();
       } else {
         const { url } = await cloud.checkout(selected.id, interval);
-        await Linking.openURL(url);
+        // Same tab on web: this is a handover, not a side trip (the free
+        // build's trial link does the same). `Linking.openURL` is
+        // `window.open(url, '_blank')` there, so Stripe opened in a second
+        // tab and the tab they started from sat on "Subscribe" forever.
+        const loc = (globalThis as { location?: { assign(url: string): void } }).location;
+        if (Platform.OS === 'web' && loc) loc.assign(url);
+        else await Linking.openURL(url);
       }
     } catch (err) {
       setError(err instanceof CloudError ? err.message : t('paywall.purchaseFailed'));

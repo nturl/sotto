@@ -66,3 +66,31 @@ export function resolveSignedInDestination({
   if (explicit && explicit !== DEFAULT_RETURN_TO) return explicit;
   return onboarded ? HOME : ONBOARDING;
 }
+
+export interface AccountLandingInput {
+  me: MeStatus;
+  returnTo?: string | string[] | null;
+  /** `?session=` — this visit belongs to the magic-link handler. */
+  hasSessionToken?: boolean;
+}
+
+/**
+ * Where a visit to `/account` should go before the screen is drawn, or null
+ * to stay. The landing page sells the tutor with a link at
+ * `/account?intent=start&returnTo=%2Fpaywall`: the right first screen for a
+ * stranger, a dead end for someone already signed in, who was landing in
+ * settings instead of on the paywall they were promised.
+ */
+export function resolveAccountLanding({
+  me,
+  returnTo,
+  hasSessionToken,
+}: AccountLandingInput): string | null {
+  // Two redirects racing for one visit is how a completed sign-in loses its
+  // destination; app/account/magic.tsx honours `returnTo` itself.
+  if (hasSessionToken) return null;
+  // Signed out, still loading, no accounts here: this screen is the next
+  // step, not a stop on the way to somewhere else.
+  if (me !== 'signed-in') return null;
+  return safeReturnPath(returnTo ?? null);
+}

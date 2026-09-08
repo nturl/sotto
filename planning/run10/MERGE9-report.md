@@ -267,3 +267,310 @@ unasked. `merge/run9` is complete and green against the base it was given
 (`3926e4a`), nothing was pushed, and neither `main` nor `run9/integration` was
 touched. Suggested next step: a `merge/run9+prs` lane that merges `b2b65fc`
 into `merge/run9` and re-runs this report's proof list.
+
+---
+
+## Second merge: main b2b65fc
+
+The blocker above is cleared. `git merge --no-ff main` on `merge/run9`
+(1014247 + report 7b1b5ed) with `main` at **b2b65fc** — origin/main's PRs
+#1-#5 merged onto run 10 — produced the merge commit **c6eb248**
+(`merge: main (origin PRs #1-#5 and run 10) into the run 9 line`, parents
+`7b1b5ed b2b65fc`). Merge base: `3926e4a`, the base the first merge was cut
+from, so main's side of this merge is exactly the thirteen commits
+`3926e4a..b2b65fc`. `main` was not touched, nothing was pushed, nothing was
+checked out, reset, stashed or deleted; only the four resolved paths were
+`git add`ed by name.
+
+Git reported **two** conflicted files, both predicted by the blocker note.
+The test suite found a **third**, semantic, conflict that git could not see
+(`packages/core/src/prompt.ts` vs run 9's golden fixture). All three are
+below.
+
+---
+
+## Conflict 1 — `packages/voice/src/browser-cascade/protocol.ts`
+
+One hunk, at the same position in the `MainToWorker` union: both sides
+appended a member immediately after `| { t: 'ptt'; active: boolean }`.
+
+**main** (3669ff5):
+
+```ts
+  | { t: 'turn_detection'; mode: 'auto' | 'push' }
+```
+
+**run 9**: `| { t: 'playback_drained' }` with its eight-line comment (the
+main thread owns the AudioContext, so only it can say the speakers went
+silent; the worker's half-duplex gate needs that, and holds a safety timeout
+in case the message is lost).
+
+**Merged** (lines 72-82): both, main's one-liner first, then run 9's
+commented member. Nothing else. The other half of 3669ff5's protocol change —
+`turnDetection?: 'auto' | 'push'` and `muted?: boolean` on
+`WorkerInitPayload` (lines 33-34) — auto-merged; run 9 never touched that
+interface.
+
+---
+
+## Conflict 2 — `packages/voice/src/browser-cascade/worker.ts`
+
+Three hunks conflicted. The fourth region the blocker note warned about —
+the `ptt` case itself — auto-merged into exactly the right shape, which is
+worth stating explicitly because it is the one place the two PRs genuinely
+overlap.
+
+### 2a. `SessionState` (worker.ts:552-565)
+
+main added `inputGeneration: number;`, run 9 added the documented
+`speaking: boolean;`, both between `muted` and `turnMode`. Kept both, main's
+first, and gave `inputGeneration` the doc comment it did not have — with two
+epoch-ish fields now adjacent, an undocumented one is a trap:
+
+```ts
+  /**
+   * Capture epoch. Bumped by every explicit change of capture intent —
+   * mute, and a turn-detection switch — so a `transcribeSegment` that was
+   * already in flight when the learner muted cannot post its result into
+   * the new epoch (`current()` below). Privacy, not tidiness: the segment
+   * is dropped rather than transcribed.
+   */
+  inputGeneration: number;
+```
+
+### 2b. `transcribeSegment` head (worker.ts:891-903)
+
+**main wanted** the privacy bail and the epoch capture:
+
+```ts
+  if (!session || session.muted || !sttPipeline) return;
+  const s = session;
+  const generation = s.inputGeneration;
+  const current = () => session === s && !s.muted && generation === s.inputGeneration;
+```
+
+**run 9 wanted** the pre-transcription measurement its gate weighs the
+transcript against:
+
+```ts
+  if (!session || !sttPipeline) return;
+  const stats = measureSegment(segment, WORKER_SAMPLE_RATE);
+```
+
+**Merged**: main's guard and epoch capture **first**, then run 9's
+`measureSegment`. Order is the point, not taste — a segment that arrives
+after the learner muted is now not even measured, let alone transcribed. The
+three `if (!current()) return;` guards main added downstream (lines 924, 951,
+995) and its `await loadStt(s.payload.stt, 'wasm')` auto-merged; all four
+were read and are present. So is run 9's transcript gate
+(`classifyTranscript`, lines 970-990) with its `too_short` branch and
+`NOT_CAUGHT_CAPTION`.
+
+### 2c. `init` (worker.ts:1104-1107)
+
+```ts
+          muted: msg.payload.muted ?? false,
+          inputGeneration: 0,
+          speaking: false,
+          turnMode: msg.payload.turnDetection ?? 'auto',
+```
+
+main's three lines plus run 9's `speaking: false`. A session that starts
+muted, or starts in push mode, now begins that way in the worker too, and
+run 9's half-duplex flag still initialises.
+
+### 2d. The `ptt` case (worker.ts:1192-1246) — auto-merged, and why it is right
+
+Git composed main's guard and run 9's body without a conflict:
+
+```ts
+      case 'ptt':
+        if (session && !session.muted) {
+          session.turnMode = 'push';
+          if (msg.active) {
+            ...
+            session.buffer.start(PTT_PRE_ROLL_MS);
+          } else {
+            const seededMs = session.buffer.seededPreRollMs;
+            const segment = session.buffer.end();
+            ...  // run 9's too_short drop
+```
+
+That is main's `!session.muted` guard (a press while muted is ignored
+entirely) wrapped around run 9's `start(PTT_PRE_ROLL_MS)` **without**
+`clear()`, and run 9's mis-tap drop on release. main's `turn_detection` case
+(1182-1190), which bumps the epoch and clears the buffer on an auto↔push
+switch, sits directly above it.
+
+**Which privacy case applied: the first — the gate guarantees the buffer
+holds no audio recorded while muted, so `buffer.start(PTT_PRE_ROLL_MS)`
+stays without the `clear()`.** The proving line, and the belt-and-braces
+behind it:
+
+- `worker.ts:1010` — `handleFrame`'s first statement is
+  `if (!session || session.muted) return;`. Every path that can reach
+  `SpeechBuffer.push` goes through `handleFrame`, so no frame recorded while
+  muted is ever pushed into `pre` (the ring the pre-roll seeds from) or
+  `speech`. **This is the line that decides the case.**
+- `provider.ts:265-269` — `syncCapture()` calls
+  `input.setEnabled(!this.ended && !this.muted && (this.turnMode === 'auto' || this.held))`,
+  and `setMuted` (242-247) calls it before posting the mute. The mic is
+  stopped, so in push mode no frame is captured at all between presses.
+- `capture-gate.ts:29` — even a late worklet callback is dropped:
+  `if (this.enabled && generation === this.generation) this.callback?.(pcm)`.
+- `worker.ts:1170-1180` — the `mute` case calls `session.buffer.clear()`
+  (and bumps `inputGeneration`) on the way in, so anything already in the
+  ring when the mute lands is discarded.
+
+Consequence, stated the way the instruction asks: the first press after
+unmuting has an **empty** pre-roll, because the ring was cleared at mute and
+nothing was admitted while muted. The only audio the pre-roll can ever seed
+is audio captured while unmuted in auto mode — audio the VAD would have sent
+to Whisper anyway. Adding `clear()` back would therefore buy no privacy and
+would cost exactly the first-syllable clipping run 9 removed it to fix. The
+reasoning is recorded in a comment at the call site (worker.ts:1206-1218) so
+the next reader does not have to re-derive it.
+
+`packages/voice/test/capture-privacy.test.ts` (4 tests) and 3669ff5's new
+"microphone privacy regressions" case in `browser-cascade.test.ts` both pass
+unchanged; so do run 9's `browser-cascade-transcript-gate` (59) and
+`browser-cascade-vad` (19). No test had to be traded off.
+
+### 2e. Streamed speech vs the sentence cap — checked, nothing to resolve
+
+ff9560e ("Await streamed speech handlers before completing tutor replies")
+touches only `apps/server/src/voice/llm.ts` (`onTextDelta?: (delta: string)
+=> void | Promise<void>` and `await handlers.onTextDelta?.(...)`) plus its
+test. run 9 made **no** change anywhere under `apps/server`
+(`git diff --stat 3926e4a merge/run9 -- apps/server` is empty), so that PR
+came in clean, along with 3669ff5's `session.ts` transcription-abort work.
+
+The browser worker's own copy of the same contract was already awaited on
+both sides (`await handlers.onTextDelta?.(delta.content)`,
+worker.ts:341 here, identical on 3926e4a and b2b65fc), and
+`llm-turn.ts:60` already types the handler `void | Promise<void>`. So the
+composition the task warns about is the one the first merge already built
+and this merge leaves intact: run 9's cap fires inside `onTextDelta` ->
+`speak()` -> `capAbort.abort()` (llm-turn.ts:227-230); the worker's
+`onAbort` calls `interruptGenerate()`; the `for await` loop keeps draining
+(`if (signal.aborted) continue`) so WebLLM 0.2.84 reaches `lock.release()`;
+and the `finally` does `if (interrupted) await interrupted;` before `chat()`
+resolves. The cap does not skip the await, and the await does not resurrect
+the lock leak.
+
+---
+
+## Conflict 3 — `packages/core/src/prompt.ts` + `prompt.test.ts` (semantic; git saw no conflict)
+
+`prompt.ts` auto-merged and `pnpm typecheck` was clean, but `pnpm test` came
+back **8 failed** — four modes × two assertions in
+`packages/core/src/prompt.test.ts`.
+
+**What happened.** 3669ff5 (the capture-gate PR — the prompt edit is inside
+it, not inside PR #1's UI commit) deliberately rewrote one sentence of the
+non-compact prompt:
+
+```
+- Avoid unnecessary greetings or praise. If the learner switches language, reply in the language
++ Avoid unnecessary greetings or praise. Explicit response-language requests take priority over
++ the language used to ask; keep level ${learner.level}. Otherwise, reply in the language
+  the learner just used, then offer to return to ${learner.learningLocale}.
+```
+
+backed by `docs/ux-findings-2026-09-07.md` ("Browser language limitations":
+*Explicit language requests override input language in shared prompt*).
+run 9 lane B, meanwhile, added `GOLDEN_NON_COMPACT` — the exact non-compact
+bytes for all four modes — precisely so that the paid and local-server
+prompt cannot drift while the compact rewrite lands. Two correct changes,
+mutually exclusive as written.
+
+**Resolved two ways, both required.**
+
+1. **Regenerated the fixture** (prompt.test.ts, the four golden strings at
+   lines 233, 275, 317, 359) to main's wording. Its own docstring says
+   "Regenerate ONLY with a deliberate prompt change" — this is that case,
+   and the guard did its job by failing. Recorded in the docstring with the
+   commit that caused it, so the regeneration is not mistaken for drift.
+2. **Carried the rule into compact rule 3** (prompt.ts:200), because the
+   compact prompt exists only on the run 9 side and 3669ff5's author never
+   saw it:
+
+   ```
+   3. Explain in ${learner.explanationLocale} only when a short explanation is needed. An explicit
+   request for a particular reply language wins over the language it was asked in; otherwise reply
+   in the language the learner just used, then offer to return to ${learner.learningLocale}.
+   ```
+
+   Without this, merging run 9 would have silently reverted 3669ff5's fix
+   for the in-browser tutor — the only caller of the compact prompt — which
+   is exactly the "one side's behaviour lost" failure this merge exists to
+   avoid. Rule ORDER and the rule COUNT (11) are unchanged, so lane B's
+   measured ordering result stands; "keep level A1" is not repeated because
+   compact rule 1 already sets the level. The compact tests are `toContain`
+   assertions, not byte-golden, and all still pass.
+
+---
+
+## Proof
+
+| Check | Result |
+|---|---|
+| `pnpm typecheck` (root) | clean — all 5 projects, no output |
+| `pnpm test` (root) | **105 files, 1062 tests, 1062 passed, 0 failed** (merge/run9 alone 1046, main alone 856; +16 from main's PRs) |
+| `pnpm --filter @sotto/voice test` | **18 files, 299 tests, all green** |
+| `pnpm --filter @sotto/client test` | **48 files, 459 tests, all green** |
+| `npx eslint` on the four resolved files | **0 errors, 0 warnings** |
+| `pnpm lint` (whole tree) | **0 errors**, 27 warnings — the 6 `shots2x.mjs` errors the first merge recorded are gone, fixed by main's `eslint.config.js` change in PR #1 |
+| `npx prettier --check` on the four resolved files | "All matched files use Prettier code style" |
+| `pnpm content:validate` | **0 errors, 223 warnings** — identical to the first merge's baseline, and unchanged by the 39 new parchment covers |
+| `pnpm --filter @sotto/client web:export` | exit 0, 9 packs + landing + PWA manifest (`v1788901955162.7708`) |
+| `BASE_URL=http://localhost:8091 node e2e/hosted.mjs` | **RESULT: PASS**, `TAPS landing -> reader = 4` at **375 and 1440**, offline reload honoured at both. Run twice, same result. |
+| Playwright 375×812, `/voice/fr-cendrillon?mode=discuss`, seeded onboarded fr-FR profile | passage card, then **Try the tutor free for 3 days** / "$9.99 a month or $79 a year after the trial. Nothing to install." / **Run it in this browser** / "About 1462 MB, downloaded once. Slower than the plan." / **Use your own OpenAI key** / **Read alone** — the trial-first list directly under the passage, no blank spacer band, no page errors |
+
+Both sides' suites are present and green side by side: main's
+`capture-privacy.test.ts` (4) and its `browser-cascade.test.ts` privacy
+regression (file now 16), `selectedPath.test.ts` (2), the widened
+`availability.test.ts` (43) and `sessionManager.test.ts` (18), the server's
+new `llm.test.ts` streamed-speech cases and
+`lazyNarrationRegistry.test.ts` (2) — alongside run 9's
+`browser-cascade-transcript-gate` (59), `-reply-shape` (24), `-llm-turn`
+(26), `-vad` (19), `-speaking-window` (11), `-tts-text` (12), `-markers`
+(23), `-tool-protocol` (10), and the client's `playbackHold` (8),
+`captionCorrection` (8), `micPress` (4), `didNotCatch` (4).
+**Nothing was escalated: no capture-privacy test and run 9 test could not
+both pass.**
+
+The static server on :8091 was started for the smoke and stopped afterwards
+(port confirmed free). As in the first merge, `discuss-quality.mjs` was not
+run: it is a live-model probe, not a merge gate.
+
+## Uncertain / worth a second pair of eyes
+
+1. **Compact rule 3 is my wording, not either PR's.** The behaviour is
+   3669ff5's and the necessity is real (otherwise the browser tutor loses
+   it), but the exact sentence was written here and has never been put in
+   front of the 2B model. run 9 lane B's evidence is that this prompt's rule
+   *order* is load-bearing; order is unchanged, but rule 3 is now ~90
+   characters longer, and that has not been measured live. If the
+   orchestrator would rather ship the merge with run 9's rule 3 untouched,
+   reverting that one line is safe and self-contained — the cost is that the
+   in-browser tutor keeps ignoring explicit reply-language requests, which
+   the UX findings row flags as already imperfect even on the large model.
+2. **Still no test covers `worker.ts`.** Carried over from the first merge:
+   all three resolved hunks are in a Worker entry point with no unit test on
+   any branch. The privacy claim above is argued from four read lines
+   (`handleFrame`, `syncCapture`, `CaptureGate`'s callback guard, the `mute`
+   case), not from a test that would catch a mistake. `e2e/mic-privacy.mjs`
+   arrived with PR #1 and is the thing that would actually prove it in a
+   browser; it was not run here (it needs a live mic-permission context, and
+   the task's proof list did not ask for it). Worth one run before this is
+   fast-forwarded into `main`.
+3. **`inputGeneration` is not bumped by `ptt`.** That is main's behaviour,
+   kept as-is rather than invented on: a PTT press mid-transcription does
+   not cancel the in-flight segment. It is not a privacy hole (that audio
+   was captured with intent, while unmuted) but it is the one asymmetry
+   between the three epoch bump sites, and it is deliberate on main's part,
+   not an artifact of this merge.
+4. **The regenerated golden now pins main's wording.** If PR #1's prompt
+   sentence is itself revisited, the fixture will fail again — by design.
+   The docstring now says which commit it was regenerated for.

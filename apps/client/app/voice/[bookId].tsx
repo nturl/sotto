@@ -18,6 +18,7 @@ import { space } from '@sotto/core/theme';
 import { modelsForTier, totalSizeMb } from '@sotto/voice';
 import { PAID_ORIGIN } from '../../src/cloud/paidOrigin';
 import { useCloud } from '../../src/cloud/provider';
+import { useTrialOffer } from '../../src/cloud/trialOffer';
 import { useT } from '../../src/i18n/useT';
 import { Button } from '../../src/ui/Button';
 import { CloseGlyph, SettingsGlyph } from '../../src/ui/Glyphs';
@@ -97,13 +98,17 @@ function FreeTutorChoices({
   // The same numbers TutorModelsPanel prints for the standard tier, read
   // from the same helpers, so the caption can never quote a stale size.
   const browserSizeMb = useMemo(() => totalSizeMb(modelsForTier('standard')), []);
+  // Trial length and prices come from the paid service's own plan table
+  // (src/cloud/trialOffer.ts), falling back to today's numbers offline, so
+  // this screen cannot go on quoting a price checkout no longer charges.
+  const trial = useTrialOffer();
 
   return (
     <View style={[choiceStyles.column, isDesktop && choiceStyles.columnDesktop]}>
       <View style={choiceStyles.choice}>
-        <Button title={t('voice.trial.cta')} onPress={openTrial} />
+        <Button title={t('voice.trial.cta', { days: trial.days })} onPress={openTrial} />
         <Text role="caption" color="ink2">
-          {t('voice.trial.note')}
+          {t('voice.trial.note', { monthly: trial.monthly, yearly: trial.yearly })}
         </Text>
       </View>
 

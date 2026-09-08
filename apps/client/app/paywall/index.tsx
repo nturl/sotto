@@ -10,6 +10,7 @@ import { Linking, Platform, Pressable, StyleSheet, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { space } from '@sotto/core/theme';
 import { purchaseWithAppleIap, restoreApplePurchases } from '../../src/cloud/iap';
+import { formatUsd } from '../../src/cloud/priceFormat';
 import { useCloud } from '../../src/cloud/provider';
 import type { BillingInterval, PlanOffer } from '../../src/cloud/types';
 import { CloudError } from '../../src/cloud/types';
@@ -40,18 +41,16 @@ const isTestBuild =
 /** Formats a plan's price for the current interface locale and billing
  * interval (adversarial review 3 coordinator note: this used to hardcode the
  * French "/mois" suffix regardless of the interface language). The amount
- * itself is locale-formatted via Intl.NumberFormat; the "/mo" / "/yr" suffix
- * comes from the `paywall.perMonth` / `paywall.perYear` catalog keys. */
+ * itself is locale-formatted by `formatUsd` (src/cloud/priceFormat.ts, shared
+ * with the free build's trial gate); the "/mo" / "/yr" suffix comes from the
+ * `paywall.perMonth` / `paywall.perYear` catalog keys. */
 function priceLabel(
   plan: PlanOffer,
   interval: BillingInterval,
   t: (key: MessageKey, values?: MessageValues) => string,
 ): string {
   const value = interval === 'year' ? plan.yearlyPriceUsd : plan.priceUsd;
-  const amount = new Intl.NumberFormat(getUiCatalog(), {
-    style: 'currency',
-    currency: 'USD',
-  }).format(value);
+  const amount = formatUsd(value, getUiCatalog());
   return `${amount}${t(interval === 'year' ? 'paywall.perYear' : 'paywall.perMonth')}`;
 }
 

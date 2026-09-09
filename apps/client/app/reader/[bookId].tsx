@@ -998,7 +998,7 @@ export default function ReaderScreen() {
                 size={40}
                 icon={<CloseGlyph size={20} color={colors.ink} />}
                 accessibilityLabel={t('common.close')}
-                onPress={() => router.back()}
+                onPress={() => router.replace('/(tabs)/home')}
               />
             </View>
           </View>

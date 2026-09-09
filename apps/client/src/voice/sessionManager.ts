@@ -477,7 +477,16 @@ export function setOutputMuted(muted: boolean): void {
 }
 
 export function pushToTalk(activeState: boolean): void {
-  active?.provider.pushToTalk(activeState);
+  const provider = active?.provider;
+  if (!provider) return;
+  // Providers intentionally ignore a held press while muted. A new press is
+  // an explicit request to speak, so restore capture before forwarding it.
+  // Releasing is never a request to open the microphone.
+  if (activeState && explicitMuted) {
+    explicitMuted = false;
+    provider.setMuted(false);
+  }
+  provider.pushToTalk(activeState);
 }
 
 export function interrupt(): void {

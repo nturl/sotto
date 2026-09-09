@@ -342,6 +342,92 @@ describe('sessionManager.setOutputMuted', () => {
   });
 });
 
+describe('sessionManager.pushToTalk', () => {
+  afterEach(async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.endSession();
+    sessionManager.setMuted(false);
+  });
+
+  it('unmutes an explicit mute before starting capture for the same press', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+    sessionManager.setMuted(true);
+
+    const provider = sessionManager.getProvider() as unknown as {
+      setMuted: (muted: boolean) => void;
+      pushToTalk: (active: boolean) => void;
+    };
+    const calls: Array<['mute', boolean] | ['push', boolean]> = [];
+    provider.setMuted = (muted) => calls.push(['mute', muted]);
+    provider.pushToTalk = (active) => calls.push(['push', active]);
+
+    sessionManager.pushToTalk(true);
+
+    expect(calls).toEqual([
+      ['mute', false],
+      ['push', true],
+    ]);
+    expect(sessionManager.isInputMuted()).toBe(false);
+  });
+
+  it('does not unmute on release and keeps later holds as ordinary pushes', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+
+    const provider = sessionManager.getProvider() as unknown as {
+      setMuted: (muted: boolean) => void;
+      pushToTalk: (active: boolean) => void;
+    };
+    const calls: Array<['mute', boolean] | ['push', boolean]> = [];
+    provider.setMuted = (muted) => calls.push(['mute', muted]);
+    provider.pushToTalk = (active) => calls.push(['push', active]);
+
+    sessionManager.setMuted(true);
+    calls.length = 0;
+    sessionManager.pushToTalk(false);
+
+    expect(calls).toEqual([['push', false]]);
+    expect(sessionManager.isInputMuted()).toBe(true);
+
+    sessionManager.pushToTalk(true);
+    sessionManager.pushToTalk(false);
+    sessionManager.pushToTalk(true);
+
+    expect(calls).toEqual([
+      ['push', false],
+      ['mute', false],
+      ['push', true],
+      ['push', false],
+      ['push', true],
+    ]);
+  });
+
+  it('does not clear an explicit mute when no session is active', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.endSession();
+    sessionManager.setMuted(true);
+
+    sessionManager.pushToTalk(true);
+
+    expect(sessionManager.isInputMuted()).toBe(true);
+  });
+});
+
 // run7/G directive 1(b): the Replay action on a `notSpoken` transcript turn.
 describe('sessionManager.replaySentence', () => {
   afterEach(async () => {

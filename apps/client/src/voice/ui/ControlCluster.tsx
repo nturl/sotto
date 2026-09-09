@@ -24,7 +24,7 @@
  * barge-in).
  */
 import { useEffect, useRef } from 'react';
-import { Platform, Pressable, StyleSheet, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, View, type ViewStyle } from 'react-native';
 import type { VoiceState } from '@sotto/voice';
 import { radius, space } from '@sotto/core/theme';
 import type { UserPreferences } from '@sotto/core';
@@ -36,6 +36,15 @@ import { useTheme } from '../../ui/theme';
 import { webCursor } from '../../ui/tokens';
 
 export type TurnDetection = UserPreferences['turnDetection'];
+
+// iOS otherwise treats a held control label as selectable page text and
+// opens its Copy/Look Up menu, cancelling the microphone gesture.
+const webControls = (
+  Platform.OS === 'web'
+    ? { userSelect: 'none', WebkitUserSelect: 'none', WebkitTouchCallout: 'none' }
+    : {}
+) as ViewStyle;
+const webHold = (Platform.OS === 'web' ? { touchAction: 'none' } : {}) as ViewStyle;
 
 function ringColor(state: VoiceState, colors: ReturnType<typeof useTheme>['colors']): string {
   if (state === 'listening') return colors.accent;
@@ -91,14 +100,12 @@ export function ControlCluster({
     window.addEventListener('blur', stop);
     window.addEventListener('pointerup', stop);
     window.addEventListener('pointercancel', stop);
-    window.addEventListener('keyup', stop);
     document.addEventListener('visibilitychange', hidden);
     return () => {
       stop();
       window.removeEventListener('blur', stop);
       window.removeEventListener('pointerup', stop);
       window.removeEventListener('pointercancel', stop);
-      window.removeEventListener('keyup', stop);
       document.removeEventListener('visibilitychange', hidden);
     };
   }, []);
@@ -115,10 +122,16 @@ export function ControlCluster({
     // The text fallback sits right under this cluster: a space typed into
     // it (or into any other field/button) is a space, not a mic press.
     const isTyping = (target: EventTarget | null): boolean => {
-      const el = target as { tagName?: string; isContentEditable?: boolean } | null;
+      const el = target as HTMLElement | null;
       if (!el) return false;
       const tag = el.tagName?.toUpperCase();
-      return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'BUTTON' || !!el.isContentEditable;
+      return (
+        tag === 'INPUT' ||
+        tag === 'TEXTAREA' ||
+        tag === 'BUTTON' ||
+        !!el.isContentEditable ||
+        !!el.closest?.('[role="button"], [role="radio"], a, select')
+      );
     };
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.code !== 'Space' || e.repeat || held || isTyping(e.target)) return;
@@ -132,17 +145,34 @@ export function ControlCluster({
       held = false;
       pushRef.current(false);
     };
+    const cancel = () => {
+      if (!held) return;
+      held = false;
+      pushRef.current(false);
+    };
+    const hidden = () => {
+      if (document.hidden) cancel();
+    };
     window.addEventListener('keydown', onKeyDown);
     window.addEventListener('keyup', onKeyUp);
+    window.addEventListener('blur', cancel);
+    document.addEventListener('visibilitychange', hidden);
     return () => {
       window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('keyup', onKeyUp);
-      if (held) pushRef.current(false);
+      window.removeEventListener('blur', cancel);
+      document.removeEventListener('visibilitychange', hidden);
+      cancel();
     };
   }, [isPush]);
 
   return (
-    <View style={styles.root}>
+    <View
+      style={[styles.root, webControls]}
+      {...(Platform.OS === 'web'
+        ? { onContextMenu: (event: { preventDefault(): void }) => event.preventDefault() }
+        : {})}
+    >
       <View style={styles.modeToggleRow}>
         <View style={styles.modeToggle}>
           <Pressable
@@ -152,7 +182,7 @@ export function ControlCluster({
             accessibilityState={{ checked: isPush }}
             aria-checked={isPush}
           >
-            <Text role="caption" color={isPush ? 'surface' : 'ink'}>
+            <Text role="caption" color={isPush ? 'surface' : 'ink'} style={styles.controlText}>
               {t('voice.turnDetection.push')}
             </Text>
           </Pressable>
@@ -163,12 +193,12 @@ export function ControlCluster({
             accessibilityState={{ checked: !isPush }}
             aria-checked={!isPush}
           >
-            <Text role="caption" color={!isPush ? 'surface' : 'ink'}>
+            <Text role="caption" color={!isPush ? 'surface' : 'ink'} style={styles.controlText}>
               {t('voice.turnDetection.auto')}
             </Text>
           </Pressable>
         </View>
-        <Text role="caption" color="ink2" style={styles.modeInstruction}>
+        <Text role="caption" color="ink2" style={[styles.controlText, styles.modeInstruction]}>
           {isPush
             ? t('voice.turnDetection.instructionPush')
             : t('voice.turnDetection.instructionAuto')}
@@ -184,25 +214,7 @@ export function ControlCluster({
 
         {isPush ? (
           <Pressable
-            disabled={muted}
-            accessibilityState={{ disabled: muted }}
             onBlur={() => onPushToTalk(false)}
-            {...(Platform.OS === 'web'
-              ? {
-                  onKeyDown: (event: { key: string; repeat: boolean; preventDefault(): void }) => {
-                    if ((event.key === ' ' || event.key === 'Enter') && !event.repeat) {
-                      event.preventDefault();
-                      if (!muted) onPushToTalk(true);
-                    }
-                  },
-                  onKeyUp: (event: { key: string; preventDefault(): void }) => {
-                    if (event.key === ' ' || event.key === 'Enter') {
-                      event.preventDefault();
-                      onPushToTalk(false);
-                    }
-                  },
-                }
-              : {})}
             onPressIn={() => onPushToTalk(true)}
             onPressOut={() => onPushToTalk(false)}
             accessibilityRole="button"
@@ -210,6 +222,7 @@ export function ControlCluster({
             accessibilityHint={t('voice.holdToTalkHint')}
             style={[
               styles.ring,
+              webHold,
               { borderColor: ringColor(voiceState, colors) },
               pttHeld && { backgroundColor: colors.accent },
               webCursor,
@@ -247,11 +260,17 @@ export function ControlCluster({
       </View>
 
       {isPush ? (
-        <Pressable accessibilityRole="button" onPress={onToggleMute}>
-          <Text role="caption">{muted ? t('voice.unmute') : t('voice.mute')}</Text>
+        <Pressable
+          accessibilityRole="button"
+          onPress={onToggleMute}
+          style={[styles.muteButton, webCursor]}
+        >
+          <Text role="caption" style={styles.controlText}>
+            {muted ? t('voice.unmute') : t('voice.mute')}
+          </Text>
         </Pressable>
       ) : null}
-      <Text accessibilityLiveRegion="polite" role="caption" color="ink2">
+      <Text accessibilityLiveRegion="polite" role="caption" color="ink2" style={styles.controlText}>
         {muted
           ? 'Microphone off'
           : isPush && !pttHeld
@@ -260,7 +279,7 @@ export function ControlCluster({
               ? 'Waiting for microphone permission'
               : 'Microphone enabled'}
       </Text>
-      <Text role="mono" size={11} color="ink3" style={styles.stateLabel}>
+      <Text role="mono" size={11} color="ink3" style={[styles.controlText, styles.stateLabel]}>
         {t(`voice.state.${voiceState}` as const)}
       </Text>
 
@@ -283,6 +302,16 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     modeToggleRow: {
       alignItems: 'center',
       gap: space.xs,
+    },
+    controlText: {
+      userSelect: 'none',
+    },
+    muteButton: {
+      minHeight: space.tapTarget,
+      minWidth: space.tapTarget * 2,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingHorizontal: space.md,
     },
     modeToggle: {
       flexDirection: 'row',

@@ -7,9 +7,9 @@
  * src/ui/Cover.tsx prints it), and a headline that names the language, the named word
  * sitting on the reader's saved-word marker (the landing's .mark). Run from the repo root:
  *
- *   node planning/design/og-card.mjs                        # renders the shipped card (Le Chat botté, "Read a page of French.")
+ *   node planning/design/og-card.mjs                        # renders the shipped card (Le Chat botté, "Learn a language by reading it.")
  *   node planning/design/og-card.mjs fr-cendrillon          # any bookId with a cover in packages/content/covers
- *   node planning/design/og-card.mjs fr-chat-botte generic  # an alternate headline; see HEADLINES
+ *   node planning/design/og-card.mjs fr-chat-botte french-page  # an alternate headline; see HEADLINES
  *
  * Writes planning/design/og-<bookId>[-<variant>].png always, and apps/client/public/og.png
  * only for the default variant. Titles, authors and levels come from the pack's book.json.
@@ -22,9 +22,10 @@ import { createRequire } from 'node:module';
 
 const W = process.cwd();
 const bookId = process.argv[2] || 'fr-chat-botte';
-const DEFAULT_VARIANT = 'french-page';
+const DEFAULT_VARIANT = 'generic';
 const variant = process.argv[3] || DEFAULT_VARIANT;
 // Lines of the headline; <m>word</m> puts the word on the marker. `size` is the px size at 1200 wide.
+// Noel picked `generic` off the bubble-size sheet (2026-09-08); the French ones stay as alternates.
 const HEADLINES = {
   'french-page': { size: 88, top: 104, lines: ['Read a page', 'of <m>French</m>.', 'Then talk', 'about it.'] },
   'french-short': { size: 96, top: 120, lines: ['Read <m>French</m>.', 'Then talk', 'about it.'] },

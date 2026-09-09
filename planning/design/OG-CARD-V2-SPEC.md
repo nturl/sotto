@@ -13,3 +13,5 @@ File: `apps/client/public/og.png` (1200 x 630), rendered by `planning/design/og-
 **Ban list.** No kicker line above the headline (invisible at 300px). No gloss pop invented on the cover. No flag, no globe. No second hue beyond the marker.
 
 **Definition of done.** Card read at 1200 and inside a 300px bubble mock with its caption; marker legible at 300px; ink on marker and ink on canvas above 4.5:1; generator reproduces the shipped PNG; live og.png byte-identical after deploy.
+
+**Noel's pick (2026-09-08, 21:30).** "C is the best." C ships: "Learn a language by reading it. Then talk about it." at 84px, "language" on the marker. With the headline carrying the category, the caption goes back to "Sotto, a free graded reader" (adds free and the category term instead of repeating the headline); og:image:alt follows C; image URL `?v=4`. A and B stay in the generator as `french-page` and `french-short`.

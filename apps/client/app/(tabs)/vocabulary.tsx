@@ -252,7 +252,10 @@ export default function VocabularyScreen() {
           <WordCard
             key={word.id}
             word={word}
-            hasAudio={!!book?.chapters.find((c) => c.id === word.chapterId)?.audio}
+            hasAudio={
+              !word.tokenId.startsWith('tutor:') &&
+              !!book?.chapters.find((c) => c.id === word.chapterId)?.audio
+            }
             onPlay={() => playWord(word)}
             onDelete={() => deleteWord(word)}
           />

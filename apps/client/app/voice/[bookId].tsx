@@ -54,6 +54,11 @@ import {
 } from '../../src/voice/ui/recoveryPanel';
 import { TextFallback } from '../../src/voice/ui/TextFallback';
 import { Transcript } from '../../src/voice/ui/Transcript';
+import { TutorWordSheet } from '../../src/voice/ui/TutorWordSheet';
+import {
+  normalizeTranscriptWord,
+  type TranscriptWordSegment,
+} from '../../src/voice/transcriptVocabulary';
 
 const MODES: TutorMode[] = ['read_to_me', 'read_with_me', 'pronunciation', 'discuss'];
 
@@ -253,6 +258,8 @@ export default function VoiceScreen() {
     provider: providerParam,
   } = useLocalSearchParams<{ bookId: string; mode?: string; review?: string; provider?: string }>();
   const preferences = useSottoStore((s) => s.preferences);
+  const savedWords = useSottoStore((s) => s.savedWords);
+  const [selectedWord, setSelectedWord] = useState<TranscriptWordSegment | null>(null);
   const progress = useSottoStore((s) => s.progress);
   const bookLocale = useSottoStore((s) => s.bookLocale);
   const setPreferences = useSottoStore((s) => s.setPreferences);
@@ -292,6 +299,17 @@ export default function VoiceScreen() {
     ? (bookLocale(bookId) ?? preferences.learningLocale)
     : preferences.learningLocale;
   const cjk = locale ? getLanguage(locale).typography === 'cjk' : false;
+  const savedTranscriptWords = useMemo(
+    () =>
+      new Set(
+        savedWords
+          .filter((word) => word.bookId === bookId)
+          .map((word) => normalizeTranscriptWord(word.sourceWord)),
+      ),
+    [savedWords, bookId],
+  );
+
+  useEffect(() => setSelectedWord(null), [bookId, session.chapter?.id]);
 
   const passage = useMemo(() => {
     if (!session.chapter) return null;
@@ -575,6 +593,9 @@ export default function VoiceScreen() {
       {!isUnavailable ? (
         <Transcript
           captions={session.captions}
+          sourceLocale={locale}
+          onWordPress={session.chapter ? setSelectedWord : undefined}
+          isWordSaved={(word) => savedTranscriptWords.has(word.normalized)}
           onReplaySentence={session.replaySentence}
           correctableId={correctableCaptionId(session.captions, session.activePath)}
           onCorrectCaption={(text) =>
@@ -795,6 +816,17 @@ export default function VoiceScreen() {
             <TextFallback onSend={session.sendText} prefill={correctionPrefill} />
           </View>
         </>
+      ) : null}
+      {selectedWord && session.chapter && bookId ? (
+        <TutorWordSheet
+          key={`${selectedWord.contextSentence}:${selectedWord.start}`}
+          selection={selectedWord}
+          chapter={session.chapter}
+          bookId={bookId}
+          sourceLocale={locale}
+          explanationLocale={preferences.explanationLocale}
+          onClose={() => setSelectedWord(null)}
+        />
       ) : null}
     </View>
   );

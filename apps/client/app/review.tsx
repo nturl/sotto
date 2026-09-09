@@ -157,12 +157,14 @@ export default function ReviewScreen() {
           <Text role="display" size={30}>
             {current!.sourceWord}
           </Text>
-          <IconButton
-            variant="ring"
-            icon={<SpeakerGlyph size={18} color={colors.accent} />}
-            accessibilityLabel={t('book.a11y.playNarration')}
-            onPress={playCurrent}
-          />
+          {!current!.tokenId.startsWith('tutor:') ? (
+            <IconButton
+              variant="ring"
+              icon={<SpeakerGlyph size={18} color={colors.accent} />}
+              accessibilityLabel={t('book.a11y.playNarration')}
+              onPress={playCurrent}
+            />
+          ) : null}
         </View>
 
         {revealed ? (

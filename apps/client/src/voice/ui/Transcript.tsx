@@ -19,7 +19,7 @@
  * `session.replaySentence` in `app/voice/[bookId].tsx`, which
  * re-synthesizes and plays that exact sentence).
  */
-import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Platform, Pressable, ScrollView, StyleSheet, View, type TextStyle } from 'react-native';
 import { useEffect, useRef } from 'react';
 import { radius, space } from '@sotto/core/theme';
 import { useT } from '../../i18n/useT';
@@ -29,6 +29,7 @@ import { useTheme } from '../../ui/theme';
 import { webCursor } from '../../ui/tokens';
 import type { CaptionEntry } from '../../state/types';
 import { isDidNotCatchCaption } from '../didNotCatch';
+import { segmentTranscriptWords, type TranscriptWordSegment } from '../transcriptVocabulary';
 
 export interface TranscriptProps {
   captions: CaptionEntry[];
@@ -41,6 +42,9 @@ export interface TranscriptProps {
   correctableId?: string | null;
   /** Called with that caption's text when the affordance is pressed. */
   onCorrectCaption?: (text: string) => void;
+  sourceLocale?: string;
+  onWordPress?: (word: TranscriptWordSegment) => void;
+  isWordSaved?: (word: TranscriptWordSegment) => boolean;
 }
 
 export function Transcript({
@@ -48,6 +52,9 @@ export function Transcript({
   onReplaySentence,
   correctableId,
   onCorrectCaption,
+  sourceLocale = 'en-US',
+  onWordPress,
+  isWordSaved,
 }: TranscriptProps) {
   const t = useT();
   const { colors } = useTheme();
@@ -73,6 +80,11 @@ export function Transcript({
 
   return (
     <ScrollView ref={scrollRef} style={styles.scroll} contentContainerStyle={styles.content}>
+      {onWordPress ? (
+        <Text role="caption" size={11} color="ink3">
+          {t('voice.vocabulary.hint')}
+        </Text>
+      ) : null}
       {captions.map((c) => (
         <View
           key={c.id}
@@ -81,10 +93,47 @@ export function Transcript({
           <Text role="mono" size={11} color="ink3" style={styles.speakerLabel}>
             {c.speaker === 'tutor' ? t('voice.tutorLabel') : t('voice.learnerLabel')}
           </Text>
-          <Text role="ui" color="ink" style={styles.turnText}>
+          <Text role="ui" color="ink" style={styles.turnText} testID={`transcript-caption-${c.id}`}>
             {c.speaker === 'tutor' && isDidNotCatchCaption(c.text)
               ? t('voice.didNotCatch')
-              : c.text}
+              : c.final && onWordPress
+                ? segmentTranscriptWords(c.text, sourceLocale).map((word) => (
+                    <Text
+                      key={word.start}
+                      role="ui"
+                      selectable={false}
+                      accessibilityRole={word.isWord ? 'button' : undefined}
+                      accessibilityLabel={
+                        word.isWord ? t('voice.vocabulary.select', { word: word.text }) : undefined
+                      }
+                      onPress={word.isWord ? () => onWordPress(word) : undefined}
+                      {...(Platform.OS === 'web' && word.isWord
+                        ? {
+                            tabIndex: 0,
+                            onKeyDown: (event: { key: string; preventDefault(): void }) => {
+                              if (event.key === 'Enter' || event.key === ' ') {
+                                event.preventDefault();
+                                onWordPress(word);
+                              }
+                            },
+                          }
+                        : {})}
+                      style={[
+                        styles.turnText,
+                        word.isWord && webCursor,
+                        word.isWord &&
+                          isWordSaved?.(word) && {
+                            textDecorationLine: 'underline',
+                            textDecorationColor: colors.accent,
+                          },
+                        Platform.OS === 'web' &&
+                          ({ userSelect: 'none', WebkitTouchCallout: 'none' } as TextStyle),
+                      ]}
+                    >
+                      {word.text}
+                    </Text>
+                  ))
+                : c.text}
           </Text>
           {c.id === correctableId && onCorrectCaption ? (
             <Pressable

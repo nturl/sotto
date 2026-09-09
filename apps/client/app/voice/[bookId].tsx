@@ -366,6 +366,7 @@ export default function VoiceScreen() {
             text: tk.text,
             spaceBefore: tk.spaceBefore,
             isWord: tk.isWord,
+            saved: savedTranscriptWords.has(normalizeTranscriptWord(tk.text)),
             spoken: !readingActive || (currentIndex >= 0 && flatTokens.indexOf(tk) <= currentIndex),
           })),
       }))
@@ -486,8 +487,23 @@ export default function VoiceScreen() {
         sentences={passageSentences}
         hasPassage={hasPassage}
         isLoading={isChecking}
-        selectedId={session.explanation?.tokenId}
+        selectedId={selectedWord?.chapterTokenId ?? session.explanation?.tokenId}
         cjk={cjk}
+        onPressToken={(token, sentence) => {
+          const sourceSentence = session.chapter?.blocks
+            .flatMap((block) => block.sentences)
+            .find((entry) => entry.id === sentence.id);
+          if (!sourceSentence) return;
+          setSelectedWord({
+            text: token.text,
+            normalized: normalizeTranscriptWord(token.text),
+            chapterTokenId: token.id,
+            isWord: true,
+            start: 0,
+            end: token.text.length,
+            contextSentence: sourceSentence.text,
+          });
+        }}
         onChangePassage={() => router.replace(readSeulPath)}
       />
 
@@ -819,7 +835,9 @@ export default function VoiceScreen() {
       ) : null}
       {selectedWord && session.chapter && bookId ? (
         <TutorWordSheet
-          key={`${selectedWord.contextSentence}:${selectedWord.start}`}
+          key={
+            selectedWord.chapterTokenId ?? `${selectedWord.contextSentence}:${selectedWord.start}`
+          }
           selection={selectedWord}
           chapter={session.chapter}
           bookId={bookId}

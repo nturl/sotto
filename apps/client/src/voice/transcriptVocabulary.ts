@@ -20,6 +20,8 @@ export interface TranscriptWordSegment {
   end: number;
   isWord: true;
   normalized: string;
+  /** Passage taps retain the exact occurrence, including its contextual gloss. */
+  chapterTokenId?: string;
   /** The selected word's sentence, kept small even when a caption has several turns. */
   contextSentence: string;
 }
@@ -238,12 +240,15 @@ export function segmentTranscriptWords(caption: string, sourceLocale: string): T
 function findChapterWord(
   chapter: Chapter,
   normalized: string,
+  tokenId?: string,
 ): { token: Token; sentence: Sentence } | undefined {
   const wanted = normalizeTranscriptWord(normalized);
   for (const block of chapter.blocks) {
     for (const sentence of block.sentences) {
       const token = sentence.tokens.find(
-        (entry) => entry.isWord && normalizeTranscriptWord(entry.normalized) === wanted,
+        (entry) =>
+          entry.isWord &&
+          (tokenId ? entry.id === tokenId : normalizeTranscriptWord(entry.normalized) === wanted),
       );
       if (token) return { token, sentence };
     }
@@ -272,7 +277,11 @@ export function buildTranscriptSavedWord(params: {
   now?: Date;
 }): TranscriptVocabularyResult {
   const explicitMeaning = meaningful(params.meaning);
-  const found = findChapterWord(params.chapter, params.selection.normalized);
+  const found = findChapterWord(
+    params.chapter,
+    params.selection.normalized,
+    params.selection.chapterTokenId,
+  );
 
   if (found) {
     const suggestedMeaning =

@@ -9,7 +9,11 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { radius, space } from '@sotto/core/theme';
 import { useT } from '../../i18n/useT';
-import { SpeechFillText, type SpeechSentence } from '../../ui/SpeechFillText';
+import {
+  SpeechFillText,
+  type SpeechSentence,
+  type SpeechFillTextProps,
+} from '../../ui/SpeechFillText';
 import { Text } from '../../ui/Text';
 import { useTheme } from '../../ui/theme';
 import { webCursor } from '../../ui/tokens';
@@ -22,6 +26,7 @@ export interface PassageCardProps {
   selectedId?: string;
   cjk: boolean;
   onChangePassage: () => void;
+  onPressToken?: SpeechFillTextProps['onPressToken'];
 }
 
 export function PassageCard({
@@ -32,6 +37,7 @@ export function PassageCard({
   selectedId,
   cjk,
   onChangePassage,
+  onPressToken,
 }: PassageCardProps) {
   const t = useT();
   const { colors } = useTheme();
@@ -56,7 +62,13 @@ export function PassageCard({
       </View>
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
         {!isLoading && hasPassage ? (
-          <SpeechFillText sentences={sentences} selectedId={selectedId} cjk={cjk} />
+          <SpeechFillText
+            sentences={sentences}
+            selectedId={selectedId}
+            cjk={cjk}
+            underline={!!onPressToken}
+            onPressToken={onPressToken}
+          />
         ) : (
           <Text role="caption" color="ink3">
             {t('voice.loading')}

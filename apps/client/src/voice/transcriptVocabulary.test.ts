@@ -174,6 +174,38 @@ describe('segmentTranscriptWords', () => {
 });
 
 describe('buildTranscriptSavedWord', () => {
+  it('saves the tapped passage occurrence rather than an earlier word with the same spelling', () => {
+    const chapter = structuredClone(CHAPTER);
+    chapter.blocks[0]!.sentences.push({
+      id: 'later',
+      text: 'Otra cigarra.',
+      translations: {},
+      tokens: [
+        {
+          id: 'later-word',
+          text: 'cigarra',
+          normalized: 'cigarra',
+          isWord: true,
+          spaceBefore: true,
+          glosses: { en: 'a cicada' },
+        },
+      ],
+    });
+    const selection = {
+      ...selected('Otra cigarra.', 'es-419', 'cigarra'),
+      chapterTokenId: 'later-word',
+    };
+    expect(buildTranscriptSavedWord({ ...params(selection), chapter })).toMatchObject({
+      kind: 'ready',
+      word: {
+        tokenId: 'later-word',
+        sentenceId: 'later',
+        translation: 'a cicada',
+        contextSentence: 'Otra cigarra.',
+      },
+    });
+  });
+
   it('reuses the exact chapter token, gloss, sentence, and initial review for a matched word', () => {
     const result = buildTranscriptSavedWord(params(selected('¿Cigarra?', 'es-419', 'Cigarra')));
 

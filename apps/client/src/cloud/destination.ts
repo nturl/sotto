@@ -72,6 +72,8 @@ export interface AccountLandingInput {
   returnTo?: string | string[] | null;
   /** `?session=` — this visit belongs to the magic-link handler. */
   hasSessionToken?: boolean;
+  /** `?paid=1` — this visit belongs to the checkout-return account UI. */
+  hasCheckoutReturn?: boolean;
 }
 
 /**
@@ -85,10 +87,11 @@ export function resolveAccountLanding({
   me,
   returnTo,
   hasSessionToken,
+  hasCheckoutReturn,
 }: AccountLandingInput): string | null {
   // Two redirects racing for one visit is how a completed sign-in loses its
   // destination; app/account/magic.tsx honours `returnTo` itself.
-  if (hasSessionToken) return null;
+  if (hasSessionToken || hasCheckoutReturn) return null;
   // Signed out, still loading, no accounts here: this screen is the next
   // step, not a stop on the way to somewhere else.
   if (me !== 'signed-in') return null;

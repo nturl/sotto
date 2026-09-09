@@ -136,4 +136,14 @@ describe('resolveAccountLanding', () => {
       resolveAccountLanding({ me: 'signed-in', returnTo: '/paywall', hasSessionToken: true }),
     ).toBe(null);
   });
+
+  it('leaves a checkout return on Account so its reading CTA remains visible', () => {
+    expect(
+      resolveAccountLanding({
+        me: 'signed-in',
+        returnTo: '/read/es-palma-tradiciones',
+        hasCheckoutReturn: true,
+      }),
+    ).toBe(null);
+  });
 });

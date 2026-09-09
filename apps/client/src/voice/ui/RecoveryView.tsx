@@ -24,6 +24,7 @@ export interface RecoveryViewProps {
   onNewSession: () => void;
   onResumePlayback: () => void;
   onReadAlone: () => void;
+  onSeePlans?: () => void;
   message?: string;
 }
 
@@ -33,6 +34,7 @@ export function RecoveryView({
   onNewSession,
   onResumePlayback,
   onReadAlone,
+  onSeePlans,
   message,
 }: RecoveryViewProps) {
   const t = useT();
@@ -61,7 +63,7 @@ export function RecoveryView({
       case 'plans':
         return {
           title: t('voice.seePlans'),
-          onPress: () => router.push('/paywall'),
+          onPress: onSeePlans ?? (() => router.push('/paywall')),
           variant: 'primary' as const,
         };
       case 'usage':

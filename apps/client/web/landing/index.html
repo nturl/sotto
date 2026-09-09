@@ -28,7 +28,17 @@
     <meta name="twitter:title" content="Sotto, a free graded reader" />
     <meta name="twitter:image" content="https://readsotto.app/og.png?v=2" />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Sotto" />
+    <script id="installed-app-entry">
+      // Older home-screen shortcuts saved the landing URL before it had a manifest.
+      if (navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) {
+        window.location.replace('/start');
+      }
+    </script>
     <!--
   Cleo landing V5, "The Open Spread" (2026-09-06). Spec: planning/design/LANDING-V5.md.
   Register: scrollytelling stage. One open book, five scenes (Read, Tap, Listen, Speak,

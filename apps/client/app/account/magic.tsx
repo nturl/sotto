@@ -20,7 +20,7 @@
  */
 import { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useRoute, useRouter } from 'expo-router';
 import { space } from '@sotto/core/theme';
 import { resolveSignedInDestination } from '../../src/cloud/destination';
 import { useCloud } from '../../src/cloud/provider';
@@ -36,10 +36,10 @@ export default function AccountMagicScreen() {
   const cloud = useCloud();
   const me = useMe();
   const preferences = usePreferences();
-  const params = useLocalSearchParams<{
+  const params = (useRoute().params ?? {}) as {
     session?: string | string[];
     returnTo?: string | string[];
-  }>();
+  };
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {

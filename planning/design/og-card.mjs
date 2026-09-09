@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* global process, document, console */
 /**
  * Renders the Open Graph link card (apps/client/public/og.png, 1200 x 630) from a
  * real cover on the shelf: the card is direction A of planning/design/og-icon-directions.html

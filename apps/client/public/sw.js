@@ -365,14 +365,17 @@ self.addEventListener('fetch', (event) => {
     return; // pass through, untouched — same treatment as a cross-origin request
   }
 
-  // App shell: cache-first, network fallback. Navigation requests
-  // (`mode: 'navigate'`, e.g. a hard reload on /reader/<id>) fall back to
-  // the cached app.html when offline, since this is a client-routed SPA.
+  // Navigations check the network so an installed app gets the current
+  // screens on launch, including checkout returns. Hashed assets remain
+  // cache-first. Offline routes fall back to the saved app shell.
   event.respondWith(
     (async () => {
       const shellCache = await resolveCacheName(SHELL_CACHE_PREFIX);
       try {
-        return await cacheFirst(event.request, shellCache);
+        return await (event.request.mode === 'navigate' ? networkFirst : cacheFirst)(
+          event.request,
+          shellCache,
+        );
       } catch (err) {
         if (event.request.mode === 'navigate') {
           const cache = await caches.open(shellCache);

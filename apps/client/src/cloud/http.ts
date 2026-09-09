@@ -36,6 +36,7 @@ import type {
   CloudVoiceSession,
 } from './types';
 import { CloudError, MAGIC_LINK_ONLY } from './types';
+import { safeReturnPath } from './returnTo';
 
 const SESSION_KEY = 'sotto.cloud.session';
 
@@ -213,13 +214,21 @@ export class HttpCloudAdapter implements CloudAdapter {
     return this.request<PlansResponse>('/billing/plans');
   }
 
-  async checkout(plan: string, interval?: BillingInterval): Promise<{ url: string }> {
+  async checkout(
+    plan: string,
+    interval?: BillingInterval,
+    returnTo?: string,
+  ): Promise<{ url: string }> {
+    const success = new URL('/account', this.baseUrl);
+    success.searchParams.set('paid', '1');
+    const destination = safeReturnPath(returnTo);
+    if (destination) success.searchParams.set('returnTo', destination);
     return this.request('/billing/checkout', {
       method: 'POST',
       body: JSON.stringify({
         plan,
         interval,
-        successUrl: `${this.baseUrl}/account?paid=1`,
+        successUrl: success.toString(),
         cancelUrl: `${this.baseUrl}/account`,
       }),
     });

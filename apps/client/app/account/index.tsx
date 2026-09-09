@@ -26,16 +26,12 @@
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Linking, Platform, StyleSheet, TextInput, View } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useRoute, useRouter } from 'expo-router';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { radius, space } from '@sotto/core/theme';
 import { signInWithAppleWeb } from '../../src/cloud/appleWeb';
-import {
-  HOME,
-  resolveAccountLanding,
-  resolveRootDestination,
-  resolveSignedInDestination,
-} from '../../src/cloud/destination';
+import { resolveAccountLanding, resolveSignedInDestination } from '../../src/cloud/destination';
+import { readingDestination, shouldPollCheckoutConfirmation } from '../../src/cloud/paidJourney';
 import { useCloud } from '../../src/cloud/provider';
 import { safeReturnPath, signInReturnTo } from '../../src/cloud/returnTo';
 import { CloudError, MAGIC_LINK_ONLY, type AuthConfig } from '../../src/cloud/types';
@@ -104,9 +100,6 @@ export default function AccountScreen() {
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   const [toast, setToast] = useState<string | null>(null);
-  // Latched, because the `paid=1` param is cleared as soon as the entitlement
-  // lands: the confirmation below is the landing, not a flash.
-  const [paidLanded, setPaidLanded] = useState(false);
   const [email, setEmail] = useState('');
   const [send, setSend] = useState<SendState>({ phase: 'idle' });
   const [busy, setBusy] = useState(false);
@@ -115,16 +108,21 @@ export default function AccountScreen() {
   const [providers, setProviders] = useState<AuthConfig>(MAGIC_LINK_ONLY);
   const [cooldown, setCooldown] = useState(0);
 
-  const params = useLocalSearchParams<{
+  // Expo Router's route parser has already decoded route.params once. Both
+  // search-param hooks decode them again in v57, which exposes the ampersands
+  // inside a nested paywall/reader returnTo before navigation.
+  const params = (useRoute().params ?? {}) as {
     session?: string | string[];
     paid?: string | string[];
     intent?: string | string[];
     returnTo?: string | string[];
-  }>();
+  };
   const intent = Array.isArray(params.intent) ? params.intent[0] : params.intent;
   const creating = intent === 'start';
   const returnTo = safeReturnPath(params.returnTo ?? null);
   const sessionToken = Array.isArray(params.session) ? params.session[0] : params.session;
+  const paidParam = Array.isArray(params.paid) ? params.paid[0] : params.paid;
+  const confirmedPlan = me.status === 'signed-in' ? me.me.entitlement.plan : null;
 
   // CLOUD-API.md: native's magic-link redirect is `sotto://account?session=`
   // — this is the literal deep-link target, so forward straight to the
@@ -149,6 +147,7 @@ export default function AccountScreen() {
     me: me.status,
     returnTo,
     hasSessionToken: Boolean(sessionToken),
+    hasCheckoutReturn: paidParam === '1',
   });
   useEffect(() => {
     if (landing) router.replace(landing);
@@ -156,11 +155,9 @@ export default function AccountScreen() {
 
   // A return from Stripe can precede its entitlement webhook. Poll briefly,
   // and only announce activation after /me confirms it.
-  const paid = Array.isArray(params.paid) ? params.paid[0] : params.paid;
   useEffect(() => {
-    if (paid !== '1') return;
+    if (!shouldPollCheckoutConfirmation(paidParam, confirmedPlan)) return;
     let attempts = 0;
-    setPaidLanded(true);
     setToast('Checking your subscription…');
     me.refresh();
     const timer = setInterval(() => {
@@ -173,13 +170,12 @@ export default function AccountScreen() {
     }, 2000);
     return () => clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [paid]);
+  }, [paidParam, confirmedPlan]);
   useEffect(() => {
-    if (paid === '1' && me.status === 'signed-in' && me.me.entitlement.plan !== 'free') {
+    if (paidParam === '1' && confirmedPlan && confirmedPlan !== 'free') {
       setToast(t('account.paid.success'));
-      router.replace('/account');
     }
-  }, [paid, me.status, me.status === 'signed-in' ? me.me.entitlement.plan : null, router, t]);
+  }, [paidParam, confirmedPlan, t]);
 
   // Ask the server which sign-in methods it actually has. `authConfig` never
   // rejects; an older or unreachable server answers magic-link-only, so a
@@ -313,16 +309,10 @@ export default function AccountScreen() {
     }
   };
 
-  /** The one next step after paying. Onboarding for someone who never set the
-   * app up, home for everyone else — `/`'s rule, asked rather than restated. */
+  /** Continue the book carried from the free origin. With no carried book,
+   * finish local setup first or return to this origin's home. */
   const startReading = () => {
-    router.replace(
-      resolveRootDestination({
-        cloudEnabled: cloud.enabled,
-        me: me.status,
-        onboarded: preferences.onboarded,
-      }) ?? HOME,
-    );
+    router.replace(readingDestination(returnTo, preferences.onboarded));
   };
 
   // Same treatment as the paywall/usage screens: no CloudAdapter means no
@@ -332,7 +322,7 @@ export default function AccountScreen() {
   if (!cloud.enabled || me.status === 'no-cloud') {
     return (
       <Shell>
-        <BackLink />
+        <BackLink onPress={paidParam === '1' ? startReading : undefined} />
         <Text role="ui" size={15} color="ink2" style={styles.notAvailable}>
           {t('paywall.notAvailable')}
         </Text>
@@ -344,7 +334,7 @@ export default function AccountScreen() {
   if (me.status === 'loading' || landing) {
     return (
       <Shell>
-        <BackLink />
+        <BackLink onPress={paidParam === '1' ? startReading : undefined} />
         <Text role="ui" size={15} color="ink2" style={styles.notAvailable}>
           {t('common.loading')}
         </Text>
@@ -358,17 +348,15 @@ export default function AccountScreen() {
     const free = entitlement.plan === 'free';
     return (
       <Shell>
-        <BackLink />
+        <BackLink onPress={paidParam === '1' ? startReading : undefined} />
         <Text role="display" size={28} style={styles.title}>
           {t('account.title')}
         </Text>
 
-        {/* A return from Stripe used to land on the settings list with a
-            toast that was gone in four seconds, leaving a brand-new
-            subscriber to work out what they had bought and where to go.
-            The confirmation and the one next step come first instead, and
-            they do not wait on the entitlement webhook to be drawn. */}
-        {paidLanded ? (
+        {/* Entitlement, rather than a query flag, owns this durable next
+            step. That keeps it on every later account visit and avoids
+            claiming activation while Stripe's webhook is still pending. */}
+        {!free ? (
           <Card style={styles.paidCard}>
             <Text role="heading" size={22}>
               {t('account.paid.title')}
@@ -376,7 +364,10 @@ export default function AccountScreen() {
             <Text role="ui" size={15} color="ink2">
               {t('account.paid.body')}
             </Text>
-            <Button title={t('account.paid.startReading')} onPress={startReading} />
+            <Button
+              title={t(preferences.onboarded ? 'home.rail.continue' : 'account.paid.startReading')}
+              onPress={startReading}
+            />
           </Card>
         ) : null}
 

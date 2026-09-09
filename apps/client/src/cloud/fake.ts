@@ -128,7 +128,11 @@ export class FakeCloudAdapter implements CloudAdapter {
     return { plans: PLANS, billing: 'stub' };
   }
 
-  async checkout(plan: string, interval?: BillingInterval): Promise<{ url: string }> {
+  async checkout(
+    plan: string,
+    interval?: BillingInterval,
+    _returnTo?: string,
+  ): Promise<{ url: string }> {
     return {
       url: `https://checkout.fake.sotto.dev/session?plan=${encodeURIComponent(plan)}&interval=${interval ?? 'month'}`,
     };

@@ -7,11 +7,18 @@
  */
 import { useEffect, useMemo, useState } from 'react';
 import { Linking, Platform, Pressable, StyleSheet, View } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRoute, useRouter } from 'expo-router';
 import { space } from '@sotto/core/theme';
 import { purchaseWithAppleIap, restoreApplePurchases } from '../../src/cloud/iap';
 import { formatUsd } from '../../src/cloud/priceFormat';
+import {
+  billingConfirmsSubscription,
+  buildHostedPaywallUrl,
+  paidJourneyState,
+  readingDestination,
+} from '../../src/cloud/paidJourney';
 import { useCloud } from '../../src/cloud/provider';
+import { safeReturnPath } from '../../src/cloud/returnTo';
 import type { BillingInterval, PlanOffer } from '../../src/cloud/types';
 import { CloudError } from '../../src/cloud/types';
 import { useMe } from '../../src/cloud/useMe';
@@ -19,6 +26,7 @@ import { getUiCatalog, useT, type MessageKey, type MessageValues } from '../../s
 import { BackLink } from '../../src/ui/BackLink';
 import { Button } from '../../src/ui/Button';
 import { Card } from '../../src/ui/Card';
+import { usePreferences } from '../../src/ui/data';
 import { SectionEyebrow } from '../../src/ui/SectionEyebrow';
 import { Shell, useLayoutMetrics } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
@@ -59,6 +67,9 @@ export default function PaywallScreen() {
   const router = useRouter();
   const cloud = useCloud();
   const me = useMe();
+  const preferences = usePreferences();
+  const params = (useRoute().params ?? {}) as { returnTo?: string | string[] };
+  const returnTo = safeReturnPath(params.returnTo ?? null);
   const { isDesktop } = useLayoutMetrics();
   const { colors } = useTheme();
   const styles = useMemo(() => createStyles(), []);
@@ -68,6 +79,7 @@ export default function PaywallScreen() {
   const [interval, setInterval] = useState<BillingInterval>('month');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [billingConfirmed, setBillingConfirmed] = useState(false);
 
   useEffect(() => {
     if (!cloud.enabled) return;
@@ -122,14 +134,28 @@ export default function PaywallScreen() {
   // PAYWALL.md's card-pair spec predates the trim to one paid plan
   // (sotto-cloud R4-D1: free + standard); one card, month/year toggle.
   const selected = plans?.[0] ?? null;
+  const journey = paidJourneyState(
+    me.status,
+    me.status === 'signed-in' ? me.me.entitlement.plan : undefined,
+    me.status === 'signed-out' ? me.reason : undefined,
+    billingConfirmed,
+  );
+  const continueReading = () => router.replace(readingDestination(returnTo, preferences.onboarded));
 
   const afterEntitlement = () => {
     me.refresh();
-    router.back();
+    continueReading();
   };
 
   const subscribe = async () => {
-    if (!selected || busy) return;
+    if (journey === 'sign-in') {
+      const paywallReturn = returnTo
+        ? `/paywall?returnTo=${encodeURIComponent(returnTo)}`
+        : '/paywall';
+      router.push(`/account?returnTo=${encodeURIComponent(paywallReturn)}`);
+      return;
+    }
+    if (journey !== 'available' || !selected || busy) return;
     setBusy(true);
     setError(null);
     try {
@@ -137,7 +163,7 @@ export default function PaywallScreen() {
         await purchaseWithAppleIap(cloud, selected.appleProductId);
         afterEntitlement();
       } else {
-        const { url } = await cloud.checkout(selected.id, interval);
+        const { url } = await cloud.checkout(selected.id, interval, returnTo ?? undefined);
         // Same tab on web: this is a handover, not a side trip (the free
         // build's trial link does the same). `Linking.openURL` is
         // `window.open(url, '_blank')` there, so Stripe opened in a second
@@ -147,7 +173,15 @@ export default function PaywallScreen() {
         else await Linking.openURL(url);
       }
     } catch (err) {
-      setError(err instanceof CloudError ? err.message : t('paywall.purchaseFailed'));
+      if (billingConfirmsSubscription(err)) {
+        // Billing is authoritative when a just-refreshed /me response still
+        // lags the subscription row. Switch to the safe subscriber UI now
+        // and refresh entitlement in the background.
+        setBillingConfirmed(true);
+        me.refresh();
+      } else {
+        setError(err instanceof CloudError ? err.message : t('paywall.purchaseFailed'));
+      }
     } finally {
       setBusy(false);
     }
@@ -185,10 +219,58 @@ export default function PaywallScreen() {
 
   const openWeb = () => {
     if (!selected) return;
-    void Linking.openURL(
-      `https://app.readsotto.app/paywall?plan=${encodeURIComponent(selected.id)}`,
-    );
+    void Linking.openURL(buildHostedPaywallUrl(selected.id, returnTo));
   };
+
+  if (journey === 'pending') {
+    return (
+      <Shell>
+        <BackLink />
+        <Text role="ui" size={15} color="ink2" style={styles.notAvailable}>
+          {t('common.loading')}
+        </Text>
+      </Shell>
+    );
+  }
+
+  if (journey === 'unreachable') {
+    return (
+      <Shell>
+        <BackLink />
+        <Text role="ui" size={15} color="ink2" style={styles.notAvailable}>
+          {t('account.error.offline')}
+        </Text>
+        <Button title={t('packs.status.retry')} onPress={me.refresh} style={styles.retry} />
+      </Shell>
+    );
+  }
+
+  if (journey === 'subscribed') {
+    return (
+      <Shell>
+        <BackLink onPress={continueReading} />
+        <View style={[styles.measure, !isDesktop && styles.measurePhone]}>
+          <Card padding={space.lg} style={styles.subscribedCard}>
+            <Text role="heading" size={22}>
+              {t('account.paid.title')}
+            </Text>
+            <Text role="ui" size={15} color="ink2">
+              {t('account.paid.body')}
+            </Text>
+            <Button title={t('home.rail.continue')} onPress={continueReading} />
+            <Text
+              role="caption"
+              color="ink2"
+              onPress={() => router.replace('/account')}
+              style={styles.restore}
+            >
+              {t('account.managePlan')}
+            </Text>
+          </Card>
+        </View>
+      </Shell>
+    );
+  }
 
   return (
     <Shell>
@@ -281,11 +363,13 @@ export default function PaywallScreen() {
               title={
                 busy
                   ? '···'
-                  : t('paywall.subscribe', {
-                      price: selected ? priceLabel(selected, interval, t) : '',
-                    })
+                  : journey === 'sign-in'
+                    ? t('account.signIn')
+                    : t('paywall.subscribe', {
+                        price: selected ? priceLabel(selected, interval, t) : '',
+                      })
               }
-              disabled={busy || !selected}
+              disabled={busy || !selected || (journey !== 'available' && journey !== 'sign-in')}
               onPress={() => void subscribe()}
               style={styles.cta}
             />
@@ -354,6 +438,9 @@ function createStyles() {
     notAvailable: {
       marginTop: space.xl,
     },
+    retry: {
+      marginTop: space.md,
+    },
     measure: {
       width: '100%',
       maxWidth: 480,
@@ -384,6 +471,9 @@ function createStyles() {
     },
     planCard: {
       width: '100%',
+    },
+    subscribedCard: {
+      gap: space.md,
     },
     planPrice: {
       marginTop: space.xs,

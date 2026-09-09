@@ -160,7 +160,7 @@ export interface CloudAdapter {
   signOut(): Promise<void>;
   deleteAccount(): Promise<void>;
   plans(): Promise<PlansResponse>;
-  checkout(plan: string, interval?: BillingInterval): Promise<{ url: string }>;
+  checkout(plan: string, interval?: BillingInterval, returnTo?: string): Promise<{ url: string }>;
   portal(): Promise<{ url: string }>;
   submitAppleTransaction(jws: string): Promise<Entitlement>;
   /** Staging only; NullCloud/production HTTP throws `no_cloud`/404. */

@@ -10,42 +10,116 @@
  * - Unknown bookId (bad link, or packs failed to load): fall back to
  *   onboarding/home rather than getting stuck on a blank screen.
  */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { Redirect, useLocalSearchParams } from 'expo-router';
+import { mergeReaderHandoffPreferences, parseReaderHandoff } from '../../src/cloud/paidJourney';
 import { setUiCatalog } from '../../src/i18n/useT';
-import { setPreference, usePreferences } from '../../src/ui/data';
+import { usePreferences } from '../../src/ui/data';
 import { useTheme } from '../../src/ui/theme';
 import { useSottoStore } from '../../src/state/store';
 import { detectBrowserLanguage, fastPathDefaultsFor } from '../../src/onboarding/fastPathDefaults';
 
 export default function ReadDeepLinkScreen() {
-  const { bookId } = useLocalSearchParams<{ bookId: string }>();
+  const params = useLocalSearchParams<{
+    bookId: string;
+    learning?: string | string[];
+    interface?: string | string[];
+    explain?: string | string[];
+    level?: string | string[];
+    chapter?: string | string[];
+    token?: string | string[];
+    to?: string | string[];
+  }>();
+  const { bookId } = params;
   const id = typeof bookId === 'string' ? bookId : '';
+  const handoff = parseReaderHandoff(id, params);
+  const carriesHandoff = Boolean(
+    handoff.learningLocale ||
+    handoff.interfaceLocale ||
+    handoff.explanationLocale ||
+    handoff.level ||
+    handoff.chapterId ||
+    handoff.openTutor,
+  );
+  const [handoffApplied, setHandoffApplied] = useState(!carriesHandoff);
   const preferences = usePreferences();
   const packsStatus = useSottoStore((s) => s.packsStatus);
   const loadPacks = useSottoStore((s) => s.loadPacks);
   const bookLocale = useSottoStore((s) => s.bookLocale);
+  const setPreferences = useSottoStore((s) => s.setPreferences);
+  const setProgress = useSottoStore((s) => s.setProgress);
   const { colors } = useTheme();
 
   useEffect(() => {
-    if (!preferences.onboarded && packsStatus === 'idle') void loadPacks();
-  }, [preferences.onboarded, packsStatus, loadPacks]);
+    if ((!preferences.onboarded || carriesHandoff) && packsStatus === 'idle') void loadPacks();
+  }, [preferences.onboarded, carriesHandoff, packsStatus, loadPacks]);
 
   const locale = packsStatus === 'ready' ? bookLocale(id) : undefined;
 
   useEffect(() => {
-    if (preferences.onboarded || !locale) return;
+    if (!locale || (preferences.onboarded && (!carriesHandoff || handoffApplied))) return;
     const defaults = fastPathDefaultsFor(detectBrowserLanguage());
-    setPreference('interfaceLocale', defaults.interfaceLocale);
-    setPreference('explanationLocale', defaults.explanationLocale);
-    setPreference('learningLocale', locale);
-    setPreference('level', defaults.level);
-    setPreference('onboarded', true);
-    setUiCatalog(defaults.interfaceLocale);
-  }, [preferences.onboarded, locale]);
+    const merged = mergeReaderHandoffPreferences({
+      current: {
+        onboarded: preferences.onboarded,
+        learningLocale: preferences.learningLocale,
+        interfaceLocale: preferences.interfaceLocale,
+        explanationLocale: preferences.explanationLocale,
+        level: preferences.level,
+      },
+      defaults,
+      handoff: {
+        learningLocale: handoff.learningLocale,
+        interfaceLocale: handoff.interfaceLocale,
+        explanationLocale: handoff.explanationLocale,
+        level: handoff.level,
+        chapterId: handoff.chapterId,
+        tokenId: handoff.tokenId,
+        openTutor: handoff.openTutor,
+      },
+      bookLocale: locale,
+    });
+    setPreferences({
+      ...merged,
+      onboarded: true,
+    });
+    if (handoff.chapterId) {
+      setProgress({
+        bookId: id,
+        chapterId: handoff.chapterId,
+        ...(handoff.tokenId ? { tokenId: handoff.tokenId } : {}),
+        audioPositionMs: 0,
+        percentComplete: 0,
+        updatedAt: new Date().toISOString(),
+      });
+    }
+    setUiCatalog(merged.interfaceLocale);
+    setHandoffApplied(true);
+  }, [
+    preferences.onboarded,
+    preferences.learningLocale,
+    preferences.interfaceLocale,
+    preferences.explanationLocale,
+    preferences.level,
+    carriesHandoff,
+    handoffApplied,
+    handoff.interfaceLocale,
+    handoff.explanationLocale,
+    handoff.learningLocale,
+    handoff.level,
+    handoff.chapterId,
+    handoff.tokenId,
+    handoff.openTutor,
+    locale,
+    id,
+    setPreferences,
+    setProgress,
+  ]);
 
-  if (preferences.onboarded) return <Redirect href={`/reader/${id}`} />;
+  if (preferences.onboarded && (!carriesHandoff || handoffApplied)) {
+    return <Redirect href={handoff.openTutor ? `/voice/${id}?mode=discuss` : `/reader/${id}`} />;
+  }
 
   if (packsStatus === 'error' || (packsStatus === 'ready' && !locale)) {
     return <Redirect href="/onboarding" />;

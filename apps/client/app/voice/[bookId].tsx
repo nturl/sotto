@@ -16,8 +16,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getLanguage, type TutorMode } from '@sotto/core';
 import { space } from '@sotto/core/theme';
 import { modelsForTier, totalSizeMb } from '@sotto/voice';
-import { PAID_ORIGIN } from '../../src/cloud/paidOrigin';
+import {
+  buildPaidAccountUrl,
+  buildPaidTrialUrl,
+  paidJourneyState,
+  type PaidReaderHandoff,
+} from '../../src/cloud/paidJourney';
 import { useCloud } from '../../src/cloud/provider';
+import { usePaidAccess } from '../../src/cloud/paidAccess';
 import { useTrialOffer } from '../../src/cloud/trialOffer';
 import { useMe } from '../../src/cloud/useMe';
 import { useT } from '../../src/i18n/useT';
@@ -53,25 +59,13 @@ const MODES: TutorMode[] = ['read_to_me', 'read_with_me', 'pronunciation', 'disc
 // window after the last one, or until the voice state changes).
 const READING_ACTIVE_WINDOW_MS = 6000;
 
-/**
- * Where the free build sends someone who wants the tutor without installing
- * anything. `intent=start` opens the paid client's trial start; `returnTo`
- * lands them on the paywall afterwards. Same tab on web: this is a handover,
- * not a side trip, and a popup would be blocked or lost behind the reader.
- */
-const TRIAL_URL = `${PAID_ORIGIN}/account?intent=start&returnTo=%2Fpaywall`;
-
-/**
- * Where a reader who already pays goes when they open the free origin out
- * of habit. Their tutor lives on the paid client and nothing on this page
- * can reach it, so the only useful thing this build can offer is the door.
- */
-const PAID_ACCOUNT_URL = `${PAID_ORIGIN}/account`;
-
-function openPaidClient(url: string): void {
-  const loc = (globalThis as { location?: { assign(url: string): void } }).location;
+function openPaidClient(url: string, replace = false): void {
+  const loc = (
+    globalThis as { location?: { assign(url: string): void; replace(url: string): void } }
+  ).location;
   if (Platform.OS === 'web' && loc) {
-    loc.assign(url);
+    if (replace) loc.replace(url);
+    else loc.assign(url);
     return;
   }
   void Linking.openURL(url).catch(() => {});
@@ -90,11 +84,13 @@ function openPaidClient(url: string): void {
  * has chosen the browser, and stays collapsed otherwise.
  */
 function FreeTutorChoices({
+  handoff,
   panelState,
   onChanged,
   onOwnKey,
   onReadAlone,
 }: {
+  handoff: PaidReaderHandoff;
   panelState: TutorModelsPanelState;
   onChanged: () => void;
   onOwnKey: () => void;
@@ -103,6 +99,9 @@ function FreeTutorChoices({
   const t = useT();
   const { isDesktop } = useLayoutMetrics();
   const [showBrowser, setShowBrowser] = useState(false);
+  const trialUrl = useMemo(() => buildPaidTrialUrl(handoff), [handoff]);
+  const paidAccountUrl = useMemo(() => buildPaidAccountUrl(handoff), [handoff]);
+  const paidAccess = usePaidAccess(Platform.OS === 'web');
   // The same numbers TutorModelsPanel prints for the standard tier, read
   // from the same helpers, so the caption can never quote a stale size.
   const browserSizeMb = useMemo(() => totalSizeMb(modelsForTier('standard')), []);
@@ -111,17 +110,64 @@ function FreeTutorChoices({
   // this screen cannot go on quoting a price checkout no longer charges.
   const trial = useTrialOffer();
 
+  useEffect(() => {
+    if (paidAccess.status === 'subscribed') openPaidClient(paidAccountUrl, true);
+  }, [paidAccess.status, paidAccountUrl]);
+
+  if (paidAccess.status === 'checking' || paidAccess.status === 'subscribed') {
+    return (
+      <Text role="ui" color="ink2">
+        {t('common.loading')}
+      </Text>
+    );
+  }
+
+  if (paidAccess.status === 'signed-out') {
+    return (
+      <View style={[choiceStyles.column, isDesktop && choiceStyles.columnDesktop]}>
+        <Text role="ui" color="ink2">
+          {t('voice.signInToContinue')}
+        </Text>
+        <Button title={t('account.signIn')} onPress={() => openPaidClient(paidAccountUrl)} />
+        <Button title={t('voice.readAlone')} variant="secondary" onPress={onReadAlone} />
+      </View>
+    );
+  }
+
+  if (paidAccess.status === 'unreachable') {
+    return (
+      <View style={[choiceStyles.column, isDesktop && choiceStyles.columnDesktop]}>
+        <Text role="ui" color="ink2">
+          {t('account.error.offline')}
+        </Text>
+        <Button title={t('packs.status.retry')} onPress={paidAccess.refresh} />
+        <Button
+          title={t('voice.trial.haveIt')}
+          variant="secondary"
+          onPress={() => openPaidClient(paidAccountUrl)}
+        />
+        <Button title={t('voice.readAlone')} variant="secondary" onPress={onReadAlone} />
+      </View>
+    );
+  }
+
   return (
     <View style={[choiceStyles.column, isDesktop && choiceStyles.columnDesktop]}>
       <View style={choiceStyles.choice}>
         <Button
           title={t('voice.trial.cta', { days: trial.days })}
-          onPress={() => openPaidClient(TRIAL_URL)}
+          onPress={() => openPaidClient(trialUrl)}
         />
         <Text role="caption" color="ink2">
           {t('voice.trial.note', { monthly: trial.monthly, yearly: trial.yearly })}
         </Text>
       </View>
+
+      <Button
+        title={t('voice.trial.haveIt')}
+        variant="secondary"
+        onPress={() => openPaidClient(paidAccountUrl)}
+      />
 
       {panelState.kind === 'unsupported' ? (
         <Text role="caption" color="ink2">
@@ -149,18 +195,6 @@ function FreeTutorChoices({
       >
         <Text role="ui" size={15} color="ink2" style={choiceStyles.readAloneLabel}>
           {t('voice.readAlone')}
-        </Text>
-      </Pressable>
-
-      {/* The one thing this list was missing: a way out for someone who
-          already bought the tutor and typed the free address by habit. */}
-      <Pressable
-        onPress={() => openPaidClient(PAID_ACCOUNT_URL)}
-        accessibilityRole="link"
-        style={[choiceStyles.readAlone, webCursor]}
-      >
-        <Text role="caption" color="ink3" style={choiceStyles.readAloneLabel}>
-          {t('voice.trial.haveIt')}
         </Text>
       </Pressable>
 
@@ -313,6 +347,36 @@ export default function VoiceScreen() {
   const hasPassage = passageSentences.some((s) => s.tokens.length > 0);
 
   const readSeulPath = `/reader/${bookId}` as const;
+  const currentProgress = progress[bookId ?? ''];
+  const paidHandoff = useMemo<PaidReaderHandoff>(
+    () => ({
+      bookId: bookId ?? '',
+      learningLocale: locale,
+      interfaceLocale: preferences.interfaceLocale,
+      explanationLocale: preferences.explanationLocale,
+      level: preferences.level,
+      chapterId: currentProgress?.chapterId ?? session.chapter?.id,
+      // Reader scroll progress does not always carry a token id. In that
+      // case, the first token in the passage card is the precise visible
+      // place to hand to the other origin.
+      tokenId: currentProgress?.tokenId ?? passage?.sentences[0]?.tokenIds[0],
+      openTutor: true,
+    }),
+    [
+      bookId,
+      locale,
+      preferences.interfaceLocale,
+      preferences.explanationLocale,
+      preferences.level,
+      currentProgress?.chapterId,
+      currentProgress?.tokenId,
+      passage?.sentences,
+      session.chapter?.id,
+    ],
+  );
+  const paywallPath = `/paywall?returnTo=${encodeURIComponent(
+    `/voice/${bookId ?? ''}?mode=${session.mode}`,
+  )}` as const;
   const isBroken =
     session.voiceState === 'error' ||
     session.voiceState === 'reconnecting' ||
@@ -340,6 +404,11 @@ export default function VoiceScreen() {
   // tutor that can run (local server, downloaded browser models) still runs.
   const cloudUnreachable =
     cloud.enabled && isUnavailable && me.status === 'signed-out' && me.reason === 'unreachable';
+  const hostedAccess = paidJourneyState(
+    me.status,
+    me.status === 'signed-in' ? me.me.entitlement.plan : undefined,
+    me.status === 'signed-out' ? me.reason : undefined,
+  );
   const unavailableMessage =
     availability.status === 'unavailable' && availability.reason === 'server'
       ? t('voice.unavailableServer')
@@ -492,11 +561,55 @@ export default function VoiceScreen() {
 
       {panelState && !cloud.enabled ? (
         <FreeTutorChoices
+          handoff={paidHandoff}
           panelState={panelState}
           onChanged={session.recheckAvailability}
           onOwnKey={() => router.push('/settings/openai-key')}
           onReadAlone={() => router.replace(readSeulPath)}
         />
+      ) : cloud.enabled && isUnavailable && hostedAccess === 'pending' ? (
+        <Text role="ui" color="ink2">
+          {t('common.loading')}
+        </Text>
+      ) : cloud.enabled && isUnavailable && hostedAccess === 'sign-in' ? (
+        <View style={styles.recovery}>
+          <Text role="ui" color="ink2">
+            {t('voice.signInToContinue')}
+          </Text>
+          <Button
+            title={t('account.signIn')}
+            onPress={() =>
+              router.push(
+                `/account?returnTo=${encodeURIComponent(`/voice/${bookId ?? ''}?mode=${session.mode}`)}`,
+              )
+            }
+          />
+          <Button
+            title={t('voice.readAlone')}
+            variant="secondary"
+            onPress={() => router.replace(readSeulPath)}
+          />
+        </View>
+      ) : cloud.enabled && isUnavailable && hostedAccess === 'subscribed' ? (
+        <View style={styles.recovery}>
+          <Button
+            title={t('packs.status.retry')}
+            onPress={() => {
+              me.refresh();
+              session.recheckAvailability();
+            }}
+          />
+          <Button
+            title={t('account.usageRow')}
+            variant="secondary"
+            onPress={() => router.push('/usage')}
+          />
+          <Button
+            title={t('voice.readAlone')}
+            variant="secondary"
+            onPress={() => router.replace(readSeulPath)}
+          />
+        </View>
       ) : cloudUnreachable ? (
         // The paid origin, with no answer from /me. Until that request
         // succeeds we do not know whether this reader has a plan, so
@@ -529,7 +642,7 @@ export default function VoiceScreen() {
           <View style={styles.recoveryButtons}>
             <Button
               title={t('voice.subscribe')}
-              onPress={() => router.push('/paywall')}
+              onPress={() => router.push(paywallPath)}
               style={styles.recoveryButton}
             />
             <Button
@@ -552,7 +665,7 @@ export default function VoiceScreen() {
             {cloud.enabled ? (
               <Button
                 title={t('voice.subscribe')}
-                onPress={() => router.push('/paywall')}
+                onPress={() => router.push(paywallPath)}
                 style={styles.recoveryButton}
               />
             ) : (
@@ -582,6 +695,7 @@ export default function VoiceScreen() {
           onNewSession={session.start}
           onResumePlayback={session.resumePlayback}
           onReadAlone={() => router.replace(readSeulPath)}
+          onSeePlans={() => router.push(paywallPath)}
         />
       ) : session.startControl === 'start' ? (
         // R6-B3: the tutor starts from a tap, not on mount — the

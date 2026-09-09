@@ -172,6 +172,35 @@ describe('HttpCloudAdapter — sign-in surface', () => {
   });
 });
 
+describe('HttpCloudAdapter — checkout return', () => {
+  it('carries a validated reading destination through Stripe success', async () => {
+    const fetchMock = vi.fn(async () => jsonResponse(200, { url: 'https://checkout.test/1' }));
+    const cloud = new HttpCloudAdapter('https://app.readsotto.app', {
+      fetch: fetchMock as unknown as typeof fetch,
+    });
+    const destination =
+      '/read/es-palma-tradiciones?learning=es-419&interface=en&explain=fr&level=B1&chapter=es-palma-tradiciones-03&token=b2.s1.t1&to=tutor';
+    await cloud.checkout('standard', 'month', destination);
+    const [, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
+    const body = JSON.parse(init.body as string);
+    const success = new URL(body.successUrl);
+    expect(success.pathname).toBe('/account');
+    expect(success.searchParams.get('paid')).toBe('1');
+    expect(success.searchParams.get('returnTo')).toBe(destination);
+  });
+
+  it('drops an off-origin checkout destination', async () => {
+    const fetchMock = vi.fn(async () => jsonResponse(200, { url: 'https://checkout.test/1' }));
+    const cloud = new HttpCloudAdapter('https://app.readsotto.app', {
+      fetch: fetchMock as unknown as typeof fetch,
+    });
+    await cloud.checkout('standard', 'month', 'https://evil.example');
+    const [, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
+    const body = JSON.parse(init.body as string);
+    expect(new URL(body.successUrl).searchParams.has('returnTo')).toBe(false);
+  });
+});
+
 it('hosted import preserves the filename and sends the server locale field', async () => {
   const fetchMock = vi.fn(async (_url: string, init?: RequestInit) => {
     const form = init!.body as FormData;

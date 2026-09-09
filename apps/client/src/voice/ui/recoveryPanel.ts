@@ -48,6 +48,39 @@ export interface RecoveryInput {
   cloudEnabled: boolean;
 }
 
+export interface RecoveryMessageInput {
+  code: string | undefined;
+  message: string | undefined;
+  limitReason: RecoveryInput['limitReason'];
+  /** True only when this failed session actually used Sotto's hosted tutor.
+   * A paid build can still run a browser or custom-server tutor, whose raw
+   * provider text is not safe to show. */
+  hosted: boolean;
+}
+
+const LEARNER_FACING_HOSTED_CODES = new Set([
+  'invalid_request',
+  'rate_limited',
+  'session_open',
+  'unauthorized',
+]);
+
+/** Returns server copy only for the hosted API responses whose contract
+ * guarantees a learner-facing message. Unknown/provider text stays behind
+ * the localized recoveryPanelFor fallback. */
+export function recoveryMessageFor({
+  code,
+  message,
+  limitReason,
+  hosted,
+}: RecoveryMessageInput): string | undefined {
+  if (!hosted || !message) return undefined;
+  if (limitReason === 'cap' || code === 'cap_exhausted' || code === 'plan_required') {
+    return message;
+  }
+  return code && LEARNER_FACING_HOSTED_CODES.has(code) ? message : undefined;
+}
+
 export function recoveryPanelFor(input: RecoveryInput): RecoverySpec {
   const { code, limitReason, cloudEnabled } = input;
 

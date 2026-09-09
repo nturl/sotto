@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { recoveryPanelFor } from './recoveryPanel';
+import { recoveryMessageFor, recoveryPanelFor } from './recoveryPanel';
 
 function input(overrides: Partial<Parameters<typeof recoveryPanelFor>[0]> = {}) {
   return {
@@ -93,5 +93,56 @@ describe('recoveryPanelFor', () => {
     const spec = recoveryPanelFor(input({ code: 'mic_unavailable', cloudEnabled: true }));
     expect(spec.messageKey).toBe('voice.micUnavailable');
     expect(spec.buttons).toEqual(['tryAgain', 'readAlone']);
+  });
+});
+
+describe('recoveryMessageFor', () => {
+  it.each([
+    ['invalid_request', 'That request was not valid.'],
+    ['rate_limited', 'Too many attempts. Try again in a minute.'],
+    ['session_open', 'You already have a tutor session open. End it before starting another.'],
+    ['unauthorized', 'Sign in to continue.'],
+  ])('keeps the hosted learner-facing %s message', (code, message) => {
+    expect(
+      recoveryMessageFor({
+        code,
+        message,
+        limitReason: null,
+        hosted: true,
+      }),
+    ).toBe(message);
+  });
+
+  it('keeps the existing hosted plan and cap messages', () => {
+    expect(
+      recoveryMessageFor({
+        code: 'cap_exhausted',
+        message: 'Your tutor minutes are used up.',
+        limitReason: 'cap',
+        hosted: true,
+      }),
+    ).toBe('Your tutor minutes are used up.');
+  });
+
+  it('never exposes an unknown hosted error message', () => {
+    expect(
+      recoveryMessageFor({
+        code: 'provider_failed',
+        message: 'Provider rejected sk-secret-value in account internal@example.com.',
+        limitReason: null,
+        hosted: true,
+      }),
+    ).toBeUndefined();
+  });
+
+  it('never trusts server text from a non-hosted tutor path', () => {
+    expect(
+      recoveryMessageFor({
+        code: 'invalid_request',
+        message: 'Request included secret local-provider-detail.',
+        limitReason: null,
+        hosted: false,
+      }),
+    ).toBeUndefined();
   });
 });

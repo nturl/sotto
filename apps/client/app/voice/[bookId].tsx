@@ -45,7 +45,7 @@ import { useVoiceSession } from '../../src/voice/useVoiceSession';
 import { ControlCluster, type TurnDetection } from '../../src/voice/ui/ControlCluster';
 import { PassageCard } from '../../src/voice/ui/PassageCard';
 import { RecoveryView } from '../../src/voice/ui/RecoveryView';
-import { recoveryPanelFor } from '../../src/voice/ui/recoveryPanel';
+import { recoveryMessageFor, recoveryPanelFor } from '../../src/voice/ui/recoveryPanel';
 import { TextFallback } from '../../src/voice/ui/TextFallback';
 import { Transcript } from '../../src/voice/ui/Transcript';
 
@@ -426,12 +426,12 @@ export default function VoiceScreen() {
         cloudEnabled: cloud.enabled,
       })
     : null;
-  const recoveryMessage =
-    session.limitReason === 'cap'
-      ? (session.error?.message ?? undefined)
-      : session.error?.code === 'cap_exhausted' || session.error?.code === 'plan_required'
-        ? session.error.message
-        : undefined;
+  const recoveryMessage = recoveryMessageFor({
+    code: session.error?.code,
+    message: session.error?.message,
+    limitReason: session.limitReason,
+    hosted: session.activePath === 'cloud',
+  });
 
   return (
     <View style={[styles.root, { paddingBottom: space.xl + insets.bottom }]}>

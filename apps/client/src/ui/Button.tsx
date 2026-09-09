@@ -13,6 +13,7 @@ import { colors as lightColors, motion, radius, shadow, space } from '@sotto/cor
 import { themeColors as colors } from './theme';
 import { Text } from './Text';
 import { webCursor } from './tokens';
+import { webPressFeedback } from './webPressFeedback';
 import { useReducedMotion } from './useReducedMotion';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost';
@@ -84,6 +85,7 @@ export function Button({
 
   return (
     <Pressable
+      {...webPressFeedback}
       onPress={onPress}
       disabled={disabled}
       accessibilityRole="button"

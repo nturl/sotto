@@ -34,6 +34,7 @@ import { IconButton } from '../../ui/IconButton';
 import { Text } from '../../ui/Text';
 import { useTheme } from '../../ui/theme';
 import { webCursor } from '../../ui/tokens';
+import { webPressFeedback } from '../../ui/webPressFeedback';
 
 export type TurnDetection = UserPreferences['turnDetection'];
 
@@ -53,6 +54,25 @@ function ringColor(state: VoiceState, colors: ReturnType<typeof useTheme>['color
   return colors.ink2;
 }
 
+function compactStatusKey(
+  voiceState: VoiceState,
+  isPush: boolean,
+  pttHeld: boolean,
+  muted: boolean,
+) {
+  if (
+    voiceState === 'speaking' ||
+    voiceState === 'thinking' ||
+    voiceState === 'connecting' ||
+    voiceState === 'reconnecting' ||
+    voiceState === 'error' ||
+    voiceState === 'ended'
+  )
+    return `voice.state.${voiceState}` as const;
+  if (isPush && !pttHeld) return 'voice.turnDetection.instructionPush' as const;
+  return muted ? ('voice.state.muted' as const) : (`voice.state.${voiceState}` as const);
+}
+
 export interface ControlClusterProps {
   voiceState: VoiceState;
   inputMuted: boolean;
@@ -68,6 +88,8 @@ export interface ControlClusterProps {
    * silenced (capture keeps running either way). */
   outputMuted: boolean;
   onToggleOutputMuted: () => void;
+  /** Keeps the tutor controls within the small mobile viewport. */
+  compact?: boolean;
 }
 
 export function ControlCluster({
@@ -83,6 +105,7 @@ export function ControlCluster({
   onEnd,
   outputMuted,
   onToggleOutputMuted,
+  compact = false,
 }: ControlClusterProps) {
   const t = useT();
   const { colors } = useTheme();
@@ -166,6 +189,158 @@ export function ControlCluster({
     };
   }, [isPush]);
 
+  const microphone = isPush ? (
+    <Pressable
+      {...webPressFeedback}
+      onBlur={() => onPushToTalk(false)}
+      onPressIn={() => onPushToTalk(true)}
+      onPressOut={() => onPushToTalk(false)}
+      accessibilityRole="button"
+      accessibilityLabel={t('voice.holdToTalk')}
+      accessibilityHint={t('voice.holdToTalkHint')}
+      style={({ pressed }) => [
+        styles.ring,
+        compact && styles.compactRing,
+        webHold,
+        { borderColor: ringColor(voiceState, colors) },
+        pttHeld && { backgroundColor: colors.accent },
+        webCursor,
+        pressed && { opacity: 0.72 },
+      ]}
+    >
+      <MicGlyph
+        size={compact ? 24 : 28}
+        color={pttHeld ? colors.surface : ringColor(voiceState, colors)}
+      />
+    </Pressable>
+  ) : (
+    <Pressable
+      {...webPressFeedback}
+      onPress={onToggleMute}
+      accessibilityRole="button"
+      accessibilityLabel={muted ? t('voice.unmute') : t('voice.mute')}
+      style={({ pressed }) => [
+        styles.ring,
+        compact && styles.compactRing,
+        { borderColor: ringColor(voiceState, colors) },
+        muted && styles.ringMuted,
+        webCursor,
+        pressed && { opacity: 0.72 },
+      ]}
+    >
+      <MicGlyph size={compact ? 24 : 28} color={ringColor(voiceState, colors)} />
+    </Pressable>
+  );
+
+  if (compact) {
+    return (
+      <View
+        style={[styles.root, styles.compactRoot, webControls]}
+        {...(Platform.OS === 'web'
+          ? { onContextMenu: (event: { preventDefault(): void }) => event.preventDefault() }
+          : {})}
+      >
+        <View style={styles.compactModeRow}>
+          <View style={[styles.modeToggle, styles.compactModeToggle]}>
+            <Pressable
+              {...webPressFeedback}
+              onPress={() => onSetTurnDetection('push')}
+              style={({ pressed }) => [
+                styles.modeChip,
+                styles.compactModeChip,
+                isPush && styles.modeChipActive,
+                webCursor,
+                pressed && { opacity: 0.72 },
+              ]}
+              accessibilityRole="radio"
+              accessibilityState={{ checked: isPush }}
+              aria-checked={isPush}
+            >
+              <Text
+                role="caption"
+                color={isPush ? 'surface' : 'ink'}
+                style={[styles.controlText, styles.compactControlText]}
+              >
+                {t('voice.turnDetection.push')}
+              </Text>
+            </Pressable>
+            <Pressable
+              {...webPressFeedback}
+              onPress={() => onSetTurnDetection('auto')}
+              style={({ pressed }) => [
+                styles.modeChip,
+                styles.compactModeChip,
+                !isPush && styles.modeChipActive,
+                webCursor,
+                pressed && { opacity: 0.72 },
+              ]}
+              accessibilityRole="radio"
+              accessibilityState={{ checked: !isPush }}
+              aria-checked={!isPush}
+            >
+              <Text
+                role="caption"
+                color={!isPush ? 'surface' : 'ink'}
+                style={[styles.controlText, styles.compactControlText]}
+              >
+                {t('voice.turnDetection.auto')}
+              </Text>
+            </Pressable>
+          </View>
+          {isPush ? (
+            <Pressable
+              {...webPressFeedback}
+              accessibilityRole="button"
+              accessibilityLabel={muted ? t('voice.unmute') : t('voice.mute')}
+              onPress={onToggleMute}
+              style={({ pressed }) => [
+                styles.muteButton,
+                styles.compactMuteButton,
+                webCursor,
+                pressed && { opacity: 0.72 },
+              ]}
+            >
+              <Text role="caption" style={[styles.controlText, styles.compactControlText]}>
+                {muted ? t('voice.unmute') : t('voice.mute')}
+              </Text>
+            </Pressable>
+          ) : null}
+        </View>
+        <Text
+          accessibilityLiveRegion="polite"
+          role="caption"
+          color="ink2"
+          style={[styles.controlText, styles.compactStatus]}
+        >
+          {t(compactStatusKey(voiceState, isPush, pttHeld, muted))}
+        </Text>
+        <View style={styles.compactRingRow}>
+          <IconButton
+            icon={<ReplayGlyph size={20} />}
+            accessibilityLabel={t('voice.replay')}
+            onPress={onReplay}
+          />
+          {microphone}
+          <IconButton
+            icon={<StopGlyph size={20} />}
+            accessibilityLabel={t('voice.interrupt')}
+            onPress={onInterrupt}
+          />
+          <IconButton
+            icon={<SpeakerGlyph size={20} color={outputMuted ? colors.ink3 : colors.ink} />}
+            accessibilityLabel={outputMuted ? t('voice.unmuteSpeaker') : t('voice.muteSpeaker')}
+            onPress={onToggleOutputMuted}
+          />
+          <IconButton
+            icon={<CloseGlyph size={20} />}
+            accessibilityLabel={t('voice.end')}
+            onPress={onEnd}
+          />
+        </View>
+      </View>
+    );
+  }
+
   return (
     <View
       style={[styles.root, webControls]}
@@ -176,8 +351,14 @@ export function ControlCluster({
       <View style={styles.modeToggleRow}>
         <View style={styles.modeToggle}>
           <Pressable
+            {...webPressFeedback}
             onPress={() => onSetTurnDetection('push')}
-            style={[styles.modeChip, isPush && styles.modeChipActive, webCursor]}
+            style={({ pressed }) => [
+              styles.modeChip,
+              isPush && styles.modeChipActive,
+              webCursor,
+              pressed && { opacity: 0.72 },
+            ]}
             accessibilityRole="radio"
             accessibilityState={{ checked: isPush }}
             aria-checked={isPush}
@@ -187,8 +368,14 @@ export function ControlCluster({
             </Text>
           </Pressable>
           <Pressable
+            {...webPressFeedback}
             onPress={() => onSetTurnDetection('auto')}
-            style={[styles.modeChip, !isPush && styles.modeChipActive, webCursor]}
+            style={({ pressed }) => [
+              styles.modeChip,
+              !isPush && styles.modeChipActive,
+              webCursor,
+              pressed && { opacity: 0.72 },
+            ]}
             accessibilityRole="radio"
             accessibilityState={{ checked: !isPush }}
             aria-checked={!isPush}
@@ -212,39 +399,7 @@ export function ControlCluster({
           onPress={onReplay}
         />
 
-        {isPush ? (
-          <Pressable
-            onBlur={() => onPushToTalk(false)}
-            onPressIn={() => onPushToTalk(true)}
-            onPressOut={() => onPushToTalk(false)}
-            accessibilityRole="button"
-            accessibilityLabel={t('voice.holdToTalk')}
-            accessibilityHint={t('voice.holdToTalkHint')}
-            style={[
-              styles.ring,
-              webHold,
-              { borderColor: ringColor(voiceState, colors) },
-              pttHeld && { backgroundColor: colors.accent },
-              webCursor,
-            ]}
-          >
-            <MicGlyph size={28} color={pttHeld ? colors.surface : ringColor(voiceState, colors)} />
-          </Pressable>
-        ) : (
-          <Pressable
-            onPress={onToggleMute}
-            accessibilityRole="button"
-            accessibilityLabel={muted ? t('voice.unmute') : t('voice.mute')}
-            style={[
-              styles.ring,
-              { borderColor: ringColor(voiceState, colors) },
-              muted && styles.ringMuted,
-              webCursor,
-            ]}
-          >
-            <MicGlyph size={28} color={ringColor(voiceState, colors)} />
-          </Pressable>
-        )}
+        {microphone}
 
         <IconButton
           icon={<StopGlyph size={20} />}
@@ -261,9 +416,10 @@ export function ControlCluster({
 
       {isPush ? (
         <Pressable
+          {...webPressFeedback}
           accessibilityRole="button"
           onPress={onToggleMute}
-          style={[styles.muteButton, webCursor]}
+          style={({ pressed }) => [styles.muteButton, webCursor, pressed && { opacity: 0.72 }]}
         >
           <Text role="caption" style={styles.controlText}>
             {muted ? t('voice.unmute') : t('voice.mute')}
@@ -298,6 +454,10 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     root: {
       alignItems: 'center',
       gap: space.sm,
+    },
+    compactRoot: {
+      gap: space.xs,
+      width: '100%',
     },
     modeToggleRow: {
       alignItems: 'center',
@@ -342,6 +502,53 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
       borderWidth: 2,
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    compactRing: {
+      width: 56,
+      height: 56,
+    },
+    compactModeRow: {
+      minHeight: space.tapTarget,
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: space.xs,
+    },
+    compactModeToggle: {
+      padding: 0,
+      minHeight: space.tapTarget,
+      minWidth: 0,
+      maxWidth: '100%',
+      flexShrink: 1,
+    },
+    compactModeChip: {
+      minHeight: space.tapTarget,
+      minWidth: space.tapTarget,
+      flexShrink: 1,
+      justifyContent: 'center',
+      paddingVertical: 0,
+      paddingHorizontal: space.sm,
+    },
+    compactMuteButton: {
+      minHeight: space.tapTarget,
+      minWidth: space.tapTarget,
+      paddingHorizontal: space.sm,
+    },
+    compactControlText: {
+      fontSize: 12,
+      textAlign: 'center',
+    },
+    compactStatus: {
+      minHeight: 16,
+      textAlign: 'center',
+      fontSize: 12,
+    },
+    compactRingRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: space.xs,
     },
     ringMuted: {
       opacity: 0.5,

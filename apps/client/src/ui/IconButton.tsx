@@ -14,6 +14,7 @@ import { radius, space } from '@sotto/core/theme';
 import { useTheme } from './theme';
 import { usePressAnimation } from './Button';
 import { webCursor } from './tokens';
+import { webPressFeedback } from './webPressFeedback';
 
 export type IconButtonProps = {
   icon: React.ReactNode;
@@ -41,6 +42,7 @@ export function IconButton({
 
   return (
     <Pressable
+      {...webPressFeedback}
       onPress={onPress}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel}

@@ -5,7 +5,7 @@ import { selectedPath, rememberedVoicePath, rememberVoicePath } from './selected
  * screen unmounting) that resolves book/chapter data, starts or resumes the
  * session, and reads all live state from the store.
  */
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import { useWindowDimensions } from 'react-native';
 import type { TutorMode } from '@sotto/core';
 import { resolveTier } from '@sotto/voice';
@@ -57,6 +57,11 @@ export function useVoiceSession({
   const limitReason = useSottoStore((s) => s.limitReason);
   const remainingSeconds = useSottoStore((s) => s.remainingSeconds);
   const setExplanation = useSottoStore((s) => s.setExplanation);
+  const inputMuted = useSyncExternalStore(
+    sessionManager.subscribeInputMuted,
+    sessionManager.isInputMuted,
+    sessionManager.isInputMuted,
+  );
 
   // R3-S cloud gate: signed-in + a paid plan with minutes left. `useMe()`
   // is a no-op ('no-cloud') when there's no CloudAdapter, so this adds
@@ -209,7 +214,7 @@ export function useVoiceSession({
       if (activePath) beginSession(activePath);
     },
     voiceState,
-    inputMuted: sessionManager.isInputMuted(),
+    inputMuted,
     captions,
     mode,
     setMode: (next: TutorMode) => {

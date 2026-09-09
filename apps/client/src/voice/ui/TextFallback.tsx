@@ -12,6 +12,7 @@ import { useT } from '../../i18n/useT';
 import { Text } from '../../ui/Text';
 import { useTheme } from '../../ui/theme';
 import { webCursor } from '../../ui/tokens';
+import { webPressFeedback } from '../../ui/webPressFeedback';
 
 export interface TextFallbackProps {
   onSend: (text: string) => void;
@@ -63,11 +64,17 @@ export function TextFallback({ onSend, prefill }: TextFallbackProps) {
         accessibilityLabel={t('voice.textFallbackPlaceholder')}
       />
       <Pressable
+        {...webPressFeedback}
         onPress={send}
         disabled={!value.trim()}
         accessibilityRole="button"
         accessibilityLabel={t('voice.textFallbackSend')}
-        style={[styles.sendButton, !value.trim() && styles.sendButtonDisabled, webCursor]}
+        style={({ pressed }) => [
+          styles.sendButton,
+          !value.trim() && styles.sendButtonDisabled,
+          webCursor,
+          pressed && { opacity: 0.72 },
+        ]}
       >
         <Text role="ui" size={14} color="surface">
           {t('voice.textFallbackSend')}

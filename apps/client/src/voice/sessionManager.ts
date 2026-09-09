@@ -186,6 +186,7 @@ type StartSessionParams = Parameters<typeof startSession>[0];
 
 let active: ActiveSession | null = null;
 let explicitMuted = false;
+const inputMuteListeners = new Set<() => void>();
 // run7/F1 directive 4: remembered so `retry()` can re-enter the exact same
 // book/chapter/mode after a connection failure, without the caller (the
 // voice screen) having to reconstruct `SessionOptions` itself. Cleared by
@@ -460,8 +461,19 @@ export function isInputMuted(): boolean {
   return explicitMuted;
 }
 
-export function setMuted(muted: boolean): void {
+export function subscribeInputMuted(listener: () => void): () => void {
+  inputMuteListeners.add(listener);
+  return () => inputMuteListeners.delete(listener);
+}
+
+function updateExplicitMuted(muted: boolean): void {
+  if (explicitMuted === muted) return;
   explicitMuted = muted;
+  inputMuteListeners.forEach((listener) => listener());
+}
+
+export function setMuted(muted: boolean): void {
+  updateExplicitMuted(muted);
   active?.provider.setMuted(muted);
 }
 
@@ -483,8 +495,7 @@ export function pushToTalk(activeState: boolean): void {
   // an explicit request to speak, so restore capture before forwarding it.
   // Releasing is never a request to open the microphone.
   if (activeState && explicitMuted) {
-    explicitMuted = false;
-    provider.setMuted(false);
+    setMuted(false);
   }
   provider.pushToTalk(activeState);
 }

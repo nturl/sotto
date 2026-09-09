@@ -428,6 +428,74 @@ describe('sessionManager.pushToTalk', () => {
   });
 });
 
+describe('sessionManager input mute snapshot', () => {
+  afterEach(async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.endSession();
+    sessionManager.setMuted(false);
+  });
+
+  it('publishes immediate snapshots even when the provider emits no state events', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+    const provider = sessionManager.getProvider() as unknown as {
+      setMuted: (muted: boolean) => void;
+    };
+    provider.setMuted = () => {};
+    const snapshots: boolean[] = [];
+    const unsubscribe = sessionManager.subscribeInputMuted(() =>
+      snapshots.push(sessionManager.isInputMuted()),
+    );
+
+    sessionManager.setMuted(true);
+    sessionManager.setMuted(false);
+    sessionManager.setMuted(true);
+
+    expect(snapshots).toEqual([true, false, true]);
+
+    unsubscribe();
+    sessionManager.setMuted(false);
+
+    expect(snapshots).toEqual([true, false, true]);
+  });
+
+  it('publishes the push-to-talk recovery before forwarding that press', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+    const provider = sessionManager.getProvider() as unknown as {
+      setMuted: (muted: boolean) => void;
+      pushToTalk: (active: boolean) => void;
+    };
+    const calls: string[] = [];
+    provider.setMuted = (muted) => calls.push(`mute:${muted}`);
+    provider.pushToTalk = (active) => calls.push(`push:${active}`);
+    sessionManager.setMuted(true);
+    calls.length = 0;
+    const unsubscribe = sessionManager.subscribeInputMuted(() =>
+      calls.push(`snapshot:${sessionManager.isInputMuted()}`),
+    );
+
+    sessionManager.pushToTalk(true);
+
+    expect(calls).toEqual(['snapshot:false', 'mute:false', 'push:true']);
+    unsubscribe();
+  });
+});
+
 // run7/G directive 1(b): the Replay action on a `notSpoken` transcript turn.
 describe('sessionManager.replaySentence', () => {
   afterEach(async () => {

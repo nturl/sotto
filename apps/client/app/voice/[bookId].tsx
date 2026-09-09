@@ -35,6 +35,7 @@ import { useLayoutMetrics } from '../../src/ui/Shell';
 import { Text } from '../../src/ui/Text';
 import { useTheme } from '../../src/ui/theme';
 import { webCursor } from '../../src/ui/tokens';
+import { webPressFeedback } from '../../src/ui/webPressFeedback';
 import { useSottoStore } from '../../src/state/store';
 import { buildPassageWindow } from '../../src/voice/passage';
 import { correctableCaptionId } from '../../src/voice/captionCorrection';
@@ -189,9 +190,10 @@ function FreeTutorChoices({
       <Button title={t('byok.row')} variant="secondary" onPress={onOwnKey} />
 
       <Pressable
+        {...webPressFeedback}
         onPress={onReadAlone}
         accessibilityRole="button"
-        style={[choiceStyles.readAlone, webCursor]}
+        style={({ pressed }) => [choiceStyles.readAlone, webCursor, pressed && { opacity: 0.72 }]}
       >
         <Text role="ui" size={15} color="ink2" style={choiceStyles.readAloneLabel}>
           {t('voice.readAlone')}
@@ -236,6 +238,7 @@ export default function VoiceScreen() {
   // answer" so it can stop selling a subscription to a subscriber.
   const me = useMe();
   const insets = useSafeAreaInsets();
+  const { isDesktop } = useLayoutMetrics();
   const { colors } = useTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
   const {
@@ -434,7 +437,13 @@ export default function VoiceScreen() {
   });
 
   return (
-    <View style={[styles.root, { paddingBottom: space.xl + insets.bottom }]}>
+    <View
+      style={[
+        styles.root,
+        !isDesktop && styles.rootCompact,
+        { paddingBottom: (isDesktop ? space.xl : space.sm) + insets.bottom },
+      ]}
+    >
       <View style={styles.header}>
         <IconButton
           icon={<CloseGlyph size={20} />}
@@ -465,16 +474,36 @@ export default function VoiceScreen() {
         <View style={styles.modeRow}>
           {MODES.map((m) => (
             <Pressable
+              {...webPressFeedback}
               accessibilityRole="radio"
               aria-checked={session.mode === m}
               accessibilityState={{ checked: session.mode === m }}
               key={m}
               onPress={() => session.setMode(m)}
-              style={[styles.modeChip, session.mode === m && styles.modeChipActive, webCursor]}
+              accessibilityLabel={t(`voice.mode.${m}` as const)}
+              style={({ pressed }) => [
+                isDesktop ? styles.modeChip : styles.modeTargetCompact,
+                isDesktop && session.mode === m && styles.modeChipActive,
+                webCursor,
+                pressed && { opacity: 0.72 },
+              ]}
             >
-              <Text role="caption" color={session.mode === m ? 'surface' : 'ink'}>
-                {t(`voice.mode.${m}` as const)}
-              </Text>
+              <View
+                style={
+                  isDesktop
+                    ? undefined
+                    : [styles.modeFaceCompact, session.mode === m && styles.modeChipActive]
+                }
+              >
+                <Text
+                  role="caption"
+                  size={isDesktop ? undefined : 12}
+                  color={session.mode === m ? 'surface' : 'ink'}
+                  style={styles.modeLabel}
+                >
+                  {t(`voice.mode.${m}` as const)}
+                </Text>
+              </View>
             </Pressable>
           ))}
         </View>
@@ -488,15 +517,17 @@ export default function VoiceScreen() {
         <View style={styles.modeRow}>
           {availability.alternatives!.map((p) => (
             <Pressable
+              {...webPressFeedback}
               accessibilityRole="radio"
               aria-checked={session.activePath === p}
               accessibilityState={{ checked: session.activePath === p }}
               key={p}
               onPress={() => session.switchPath(p)}
-              style={[
+              style={({ pressed }) => [
                 styles.modeChip,
                 session.activePath === p && styles.modeChipActive,
                 webCursor,
+                pressed && { opacity: 0.72 },
               ]}
             >
               <Text role="caption" color={session.activePath === p ? 'surface' : 'ink'}>
@@ -714,6 +745,7 @@ export default function VoiceScreen() {
       ) : session.startControl === 'active' ? (
         <>
           <ControlCluster
+            compact={!isDesktop}
             voiceState={session.voiceState}
             inputMuted={session.inputMuted}
             turnDetection={preferences.turnDetection}
@@ -766,6 +798,10 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
       paddingBottom: space.xl,
       gap: space.md,
     },
+    rootCompact: {
+      paddingTop: space.sm,
+      gap: space.sm,
+    },
     header: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -784,6 +820,24 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     },
     modeChipActive: {
       backgroundColor: colors.ink,
+    },
+    modeTargetCompact: {
+      flex: 1,
+      minWidth: 0,
+      minHeight: space.tapTarget,
+      justifyContent: 'center',
+    },
+    modeFaceCompact: {
+      backgroundColor: colors.surface2,
+      borderRadius: 8,
+      paddingHorizontal: space.xs,
+      paddingVertical: space.xs,
+      alignItems: 'center',
+    },
+    modeLabel: {
+      maxWidth: '100%',
+      textAlign: 'center',
+      userSelect: 'none',
     },
     spacer: {
       flex: 1,

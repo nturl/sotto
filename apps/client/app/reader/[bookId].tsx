@@ -242,6 +242,10 @@ export default function ReaderScreen() {
   const [transportHeight, setTransportHeight] = useState(0);
   const [sheetHeight, setSheetHeight] = useState(0);
   const scrollThrottle = useRef(0);
+  const dismissDefinition = useCallback(() => {
+    setShowSentenceDetail(false);
+    setSelectedToken(null);
+  }, []);
 
   useEffect(() => {
     // Deep-linking straight to /reader/[bookId] (a full page load, or this
@@ -1098,6 +1102,10 @@ export default function ReaderScreen() {
           // outside the scrolling body, so Play stays reachable whether or
           // not a word is selected and however far the panel has scrolled.
           visible
+          compact={!selectedToken}
+          onDismiss={dismissDefinition}
+          dismissKey={selectedToken}
+          dismissAccessibilityLabel={t('common.close')}
           style={styles.mobileSheet}
           footer={transportView ?? narratingOnDemandCaption}
           onHeightChange={setSheetHeight}

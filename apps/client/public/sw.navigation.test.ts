@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { URL } from 'node:url';
 import vm from 'node:vm';
 import { describe, expect, it } from 'vitest';
 

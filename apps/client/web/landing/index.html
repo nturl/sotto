@@ -197,9 +197,28 @@
         color: var(--ink);
         text-decoration: none;
       }
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+      }
       .meta a {
         color: var(--ink-2);
         text-decoration-color: var(--hairline);
+      }
+      .install-action {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 0 10px;
+        color: var(--ink);
+        font: 500 0.8125rem/1 var(--sans);
+        text-decoration: none;
+      }
+      .install-action:hover {
+        text-decoration: underline;
+        text-decoration-color: var(--ink);
       }
       /* The one door for a returning subscriber: lit, not shouted. Peach fill with a
          peach halo (brand-tinted, never neutral); coral only on hover. */
@@ -225,6 +244,11 @@
         color: var(--surface);
         box-shadow: 0 0 0 5px rgba(228, 87, 46, 0.22);
         outline: none;
+      }
+      @media (display-mode: standalone) {
+        .install-action {
+          display: none;
+        }
       }
 
       /* 2 Hero + stage */
@@ -861,7 +885,10 @@
     <header>
       <div class="col">
         <a class="wordmark" href="/">Sotto</a>
-        <a class="signin" href="https://app.readsotto.app/account">Sign in</a>
+        <div class="header-actions">
+          <a class="signin" href="https://app.readsotto.app/account">Sign in</a>
+          <a class="install-action" href="#install" aria-label="Add to Home Screen">Add app</a>
+        </div>
       </div>
     </header>
 
@@ -1158,8 +1185,14 @@
                 <li>Open Sotto from where it installed.</li>
               </ol>
               <ol class="steps" id="stepsIos" hidden>
-                <li>In Safari, tap the Share icon.</li>
-                <li>Choose "Add to Home Screen."</li>
+                <li>
+                  Open readsotto.app in Safari. Tap More, then Share (or tap Share directly if it is
+                  visible).
+                </li>
+                <li>
+                  Scroll to "Add to Home Screen." Turn on "Open as Web App" if it appears, then tap
+                  "Add."
+                </li>
                 <li>Open Sotto from your Home Screen.</li>
               </ol>
               <ol class="steps" id="stepsAndroid" hidden>
@@ -1388,23 +1421,19 @@
           reduced.addListener(onChange);
         }
         setFoot();
-
+      })();
+    </script>
+    <script id="install-guidance">
+      (function () {
         // All device-install content is visible without this script (the generic block
         // renders by default); this only narrows to the visitor's own device.
         var ua = navigator.userAgent || '';
-        var isIos = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+        // iPadOS desktop mode identifies itself as Macintosh; touch points distinguish it
+        // from macOS so it still receives Safari's current Home Screen instructions.
+        var isIpadDesktop = /Macintosh/.test(ua) && navigator.maxTouchPoints > 1;
+        var isIos = (/iPad|iPhone|iPod/.test(ua) || isIpadDesktop) && !window.MSStream;
         var isAndroid = /Android/.test(ua);
         var isChrome = /Chrome\//.test(ua) && !/Edg\/|OPR\//.test(ua);
-        // R-adversarial finding 10: Chrome on iOS identifies as
-        // "CriOS/… Safari/604.1" and Firefox on iOS as "FxiOS/… Safari/…"
-        // — neither contains "Chrome/", so both matched isSafari and got
-        // told to use Safari's share icon, which isn't their own icon.
-        // Every iOS browser is WebKit under the hood and shares the same
-        // "Add to Home Screen" via the Share icon, so route them to the
-        // same steps rather than inventing a separate block.
-        var isIosOtherBrowser = /CriOS\/|FxiOS\//.test(ua);
-        var isSafari = /Safari\//.test(ua) && !/Chrome\//.test(ua) && !isIosOtherBrowser;
-
         var blocks = {
           generic: document.getElementById('stepsGeneric'),
           ios: document.getElementById('stepsIos'),
@@ -1417,11 +1446,11 @@
           });
         }
 
-        if (isIos && (isSafari || isIosOtherBrowser)) {
+        if (isIos) {
           show('ios');
         } else if (isAndroid && isChrome) {
           show('android');
-        } else if (!isIos && !isAndroid && isChrome) {
+        } else if (!isAndroid && isChrome) {
           show('desktop');
         }
         // Any other browser (Firefox, other mobile browsers) keeps the generic block.

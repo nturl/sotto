@@ -29,6 +29,7 @@ function fakePersistence(): Persistence {
 }
 
 const testStore = createSottoStore(fakePersistence());
+const createdAudioAdapters: Array<{ setOutputMuted: ReturnType<typeof vi.fn> }> = [];
 
 vi.mock('../state/store', () => ({
   useSottoStore: testStore.useStore,
@@ -39,18 +40,24 @@ vi.mock('../state/store', () => ({
 // defined`) outside a real Expo/RN host. EXPO_PUBLIC_VOICE=fake means this
 // factory is never actually called, so a stub is enough.
 vi.mock('../platform/audio-adapter', () => ({
-  createAudioAdapter: () => ({
-    startCapture: async () => {},
-    stopCapture: async () => {},
-    playPcm: () => {},
-    stopPlayback: () => {},
-  }),
+  createAudioAdapter: () => {
+    const adapter = {
+      startCapture: async () => {},
+      stopCapture: async () => {},
+      playPcm: () => {},
+      stopPlayback: () => {},
+      setOutputMuted: vi.fn(),
+    };
+    createdAudioAdapters.push(adapter);
+    return adapter;
+  },
 }));
 
 const ORIGINAL_VOICE_ENV = process.env.EXPO_PUBLIC_VOICE;
 
 beforeEach(() => {
   process.env.EXPO_PUBLIC_VOICE = 'fake';
+  createdAudioAdapters.length = 0;
 });
 
 afterEach(() => {
@@ -156,6 +163,38 @@ describe('sessionManager onError', () => {
     });
 
     expect(testStore.useStore.getState().captions.length).toBe(captionsBefore);
+  });
+
+  it('keeps the transcript unchanged for playback_blocked because recovery renders its own action', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+
+    const provider = sessionManager.getProvider() as unknown as {
+      emit: (e: { type: 'error'; code: string; message: string; recoverable: boolean }) => void;
+    };
+    testStore.useStore
+      .getState()
+      .pushCaption({ speaker: 'tutor', text: 'A completed reply.', final: true });
+    const captionsBefore = testStore.useStore.getState().captions.length;
+
+    provider.emit({
+      type: 'error',
+      code: 'playback_blocked',
+      message: 'Playback is blocked; tap to resume.',
+      recoverable: true,
+    });
+
+    const state = testStore.useStore.getState();
+    expect(state.voiceError).toMatchObject({ code: 'playback_blocked', recoverable: true });
+    expect(state.captions).toHaveLength(captionsBefore);
+    expect(state.captions.at(-1)).toMatchObject({ text: 'A completed reply.' });
   });
 });
 
@@ -279,7 +318,7 @@ describe('sessionManager.resumePlayback', () => {
     sessionManager.endSession();
   });
 
-  it('delegates to the active provider', async () => {
+  it('clears only a verified playback-block error from the active provider', async () => {
     const sessionManager = await import('./sessionManager');
     sessionManager.startSession({
       bookId: 'fr-chat-botte',
@@ -289,15 +328,79 @@ describe('sessionManager.resumePlayback', () => {
       passage: PASSAGE,
       savedWords: [],
     });
-    const provider = sessionManager.getProvider() as unknown as { resumePlayback?: () => void };
-    let calls = 0;
-    provider.resumePlayback = () => {
-      calls += 1;
+    const provider = sessionManager.getProvider() as unknown as {
+      resumePlayback?: () => Promise<boolean>;
     };
+    let calls = 0;
+    provider.resumePlayback = async () => {
+      calls += 1;
+      return true;
+    };
+    testStore.useStore.getState().setVoiceError({
+      code: 'playback_blocked',
+      message: 'Playback is blocked; tap to resume.',
+      recoverable: true,
+    });
 
     sessionManager.resumePlayback();
+    await vi.waitFor(() => expect(testStore.useStore.getState().voiceError).toBeNull());
 
     expect(calls).toBe(1);
+  });
+
+  it('keeps the blocked-playback error when resume cannot verify running audio', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+    const provider = sessionManager.getProvider() as unknown as {
+      resumePlayback?: () => Promise<boolean>;
+    };
+    provider.resumePlayback = async () => false;
+    testStore.useStore.getState().setVoiceError({
+      code: 'playback_blocked',
+      message: 'Playback is blocked; tap to resume.',
+      recoverable: true,
+    });
+
+    sessionManager.resumePlayback();
+    await Promise.resolve();
+
+    expect(testStore.useStore.getState().voiceError?.code).toBe('playback_blocked');
+  });
+
+  it('keeps the blocked-playback error when a provider resume rejects', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+    const provider = sessionManager.getProvider() as unknown as {
+      resumePlayback?: () => Promise<boolean>;
+    };
+    provider.resumePlayback = async () => {
+      throw new Error('resume rejected');
+    };
+    testStore.useStore.getState().setVoiceError({
+      code: 'playback_blocked',
+      message: 'Playback is blocked; tap to resume.',
+      recoverable: true,
+    });
+
+    sessionManager.resumePlayback();
+    await Promise.resolve();
+    await Promise.resolve();
+
+    expect(testStore.useStore.getState().voiceError?.code).toBe('playback_blocked');
   });
 
   it('does nothing when there is no active session', async () => {
@@ -339,6 +442,55 @@ describe('sessionManager.setOutputMuted', () => {
     const sessionManager = await import('./sessionManager');
     sessionManager.endSession();
     expect(() => sessionManager.setOutputMuted(true)).not.toThrow();
+  });
+
+  it('keeps the current screen speaker mute through a retry-created adapter', async () => {
+    const sessionManager = await import('./sessionManager');
+    const originalFetch = globalThis.fetch;
+    process.env.EXPO_PUBLIC_VOICE = 'local';
+    globalThis.fetch = vi.fn(async () => {
+      throw new Error('offline test transport');
+    });
+    try {
+      sessionManager.startSession({
+        bookId: 'fr-chat-botte',
+        chapterId: 'fr-chat-botte-01',
+        mode: 'discuss',
+        learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+        passage: PASSAGE,
+        savedWords: [],
+      });
+      sessionManager.setOutputMuted(true);
+      sessionManager.retry();
+
+      expect(createdAudioAdapters).toHaveLength(2);
+      expect(createdAudioAdapters[1]!.setOutputMuted).toHaveBeenCalledWith(true);
+
+      sessionManager.startSession({
+        bookId: 'fr-chat-botte',
+        chapterId: 'fr-chat-botte-01',
+        mode: 'discuss',
+        learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+        passage: PASSAGE,
+        savedWords: [],
+      });
+      expect(createdAudioAdapters).toHaveLength(3);
+      expect(createdAudioAdapters[2]!.setOutputMuted).toHaveBeenCalledWith(true);
+
+      sessionManager.endSession();
+      sessionManager.startSession({
+        bookId: 'fr-chat-botte',
+        chapterId: 'fr-chat-botte-01',
+        mode: 'discuss',
+        learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+        passage: PASSAGE,
+        savedWords: [],
+      });
+      expect(createdAudioAdapters).toHaveLength(4);
+      expect(createdAudioAdapters[3]!.setOutputMuted).toHaveBeenCalledWith(false);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
   });
 });
 
@@ -424,6 +576,39 @@ describe('sessionManager.pushToTalk', () => {
 
     sessionManager.pushToTalk(true);
 
+    expect(sessionManager.isInputMuted()).toBe(true);
+  });
+});
+
+describe('sessionManager backgrounding', () => {
+  afterEach(async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.endSession();
+    sessionManager.setMuted(false);
+  });
+
+  it('stops capture and playback without restarting the active tutor session', async () => {
+    const sessionManager = await import('./sessionManager');
+    sessionManager.startSession({
+      bookId: 'fr-chat-botte',
+      chapterId: 'fr-chat-botte-01',
+      mode: 'discuss',
+      learner: { level: 'A1', learningLocale: 'fr-FR', explanationLocale: 'en-US' },
+      passage: PASSAGE,
+      savedWords: [],
+    });
+    const provider = sessionManager.getProvider() as unknown as {
+      setMuted: (muted: boolean) => void;
+      interrupt: () => void;
+    };
+    const calls: string[] = [];
+    provider.setMuted = (muted) => calls.push(`mute:${muted}`);
+    provider.interrupt = () => calls.push('interrupt');
+
+    sessionManager.suspendForBackground();
+
+    expect(calls).toEqual(['interrupt', 'mute:true']);
+    expect(sessionManager.getProvider()).toBe(provider);
     expect(sessionManager.isInputMuted()).toBe(true);
   });
 });

@@ -29,7 +29,9 @@ export interface MicPressAction {
 const TUTOR_HAS_FLOOR: ReadonlySet<VoiceState> = new Set<VoiceState>(['speaking', 'thinking']);
 const DEAD: ReadonlySet<VoiceState> = new Set<VoiceState>(['error', 'ended']);
 
-export function micPressAction(voiceState: VoiceState): MicPressAction {
+export function micPressAction(voiceState: VoiceState, held = true): MicPressAction {
+  // A release must reach the provider even if an error replaced the controls.
+  if (!held) return { interruptFirst: false, capture: true };
   if (DEAD.has(voiceState)) return { interruptFirst: false, capture: false };
   return { interruptFirst: TUTOR_HAS_FLOOR.has(voiceState), capture: true };
 }

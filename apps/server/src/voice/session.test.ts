@@ -458,6 +458,98 @@ describe('VoiceSession', () => {
     expect(session.getState()).toBe('listening');
   });
 
+  it('keeps an in-flight tutor turn active when turn detection changes', async () => {
+    const vad = new ScriptedVad();
+    let resolveLlm!: (response: Response) => void;
+    const fetchImpl = vi.fn((url: string) => {
+      if (url.includes('/chat/completions'))
+        return new Promise<Response>((resolve) => {
+          resolveLlm = resolve;
+        });
+      if (url.includes('/audio/speech')) return Promise.resolve(new Response(pcmStream(4800)));
+      throw new Error(`unexpected fetch: ${url}`);
+    }) as unknown as typeof fetch;
+    const { session, sent } = makeSession(vad, fetchImpl);
+
+    void session.receiveMessage({ t: 'text', text: 'Explain this sentence.' });
+    await flushMicrotasks();
+    expect(session.getState()).toBe('thinking');
+
+    await session.receiveMessage({ t: 'turn_detection', mode: 'push' });
+    expect(session.getState()).toBe('thinking');
+
+    resolveLlm(new Response(sseStream([textDelta('Voici une explication.')]), { status: 200 }));
+    await flushMicrotasks();
+
+    expect(sent).toContainEqual({
+      t: 'caption',
+      speaker: 'tutor',
+      text: 'Voici une explication.',
+      final: true,
+    });
+    expect(session.getState()).toBe('listening');
+  });
+
+  it('keeps a completed learner segment running through STT when turn detection changes', async () => {
+    const vad = new ScriptedVad();
+    vad.push([{ type: 'speech_start' }]);
+    vad.push([{ type: 'speech_end' }]);
+    let resolveStt!: (response: Response) => void;
+    const fetchImpl = vi.fn((url: string) => {
+      if (url.includes('/audio/transcriptions'))
+        return new Promise<Response>((resolve) => {
+          resolveStt = resolve;
+        });
+      if (url.includes('/chat/completions'))
+        return Promise.resolve(
+          new Response(sseStream([textDelta('Oui, exactement.')]), { status: 200 }),
+        );
+      if (url.includes('/audio/speech')) return Promise.resolve(new Response(pcmStream(4800)));
+      throw new Error(`unexpected fetch: ${url}`);
+    }) as unknown as typeof fetch;
+    const { session, sent } = makeSession(vad, fetchImpl);
+
+    await session.receiveAudioFrame(new Uint8Array(320));
+    await session.receiveAudioFrame(new Uint8Array(320));
+    await flushMicrotasks();
+    expect(session.getState()).toBe('thinking');
+
+    await session.receiveMessage({ t: 'turn_detection', mode: 'push' });
+    expect(session.getState()).toBe('thinking');
+
+    resolveStt(new Response(JSON.stringify({ text: 'Explique cette phrase.' }), { status: 200 }));
+    await flushMicrotasks();
+
+    expect(sent).toContainEqual({
+      t: 'caption',
+      speaker: 'learner',
+      text: 'Explique cette phrase.',
+      final: true,
+    });
+    expect(sent).toContainEqual({
+      t: 'caption',
+      speaker: 'tutor',
+      text: 'Oui, exactement.',
+      final: true,
+    });
+    expect(session.getState()).toBe('listening');
+  });
+
+  it('discards an unfinished detector capture when turn detection changes', async () => {
+    const vad = new ScriptedVad();
+    vad.push([{ type: 'speech_start' }]);
+    const fetchImpl = makeFetch({});
+    const { session } = makeSession(vad, fetchImpl);
+
+    await session.receiveAudioFrame(new Uint8Array(320));
+    await session.receiveMessage({ t: 'turn_detection', mode: 'push' });
+    await session.receiveMessage({ t: 'ptt', active: false });
+    await flushMicrotasks();
+
+    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(session.getState()).toBe('listening');
+  });
+
   it('emits a recoverable error and returns to listening when STT fails', async () => {
     const vad = new ScriptedVad();
     vad.push([{ type: 'speech_start' }]);

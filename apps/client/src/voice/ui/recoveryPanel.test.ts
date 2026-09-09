@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { recoveryMessageFor, recoveryPanelFor } from './recoveryPanel';
+import { needsRecovery, recoveryMessageFor, recoveryPanelFor } from './recoveryPanel';
 
 function input(overrides: Partial<Parameters<typeof recoveryPanelFor>[0]> = {}) {
   return {
@@ -144,5 +144,17 @@ describe('recoveryMessageFor', () => {
         hosted: false,
       }),
     ).toBeUndefined();
+  });
+});
+
+describe('needsRecovery', () => {
+  it.each(['listening', 'speaking', 'paused'] as const)(
+    'shows blocked playback recovery during %s',
+    (voiceState) => {
+      expect(needsRecovery(input({ code: 'playback_blocked', voiceState }))).toBe(true);
+    },
+  );
+  it('keeps ordinary listening controls available', () => {
+    expect(needsRecovery(input({ voiceState: 'listening' }))).toBe(false);
   });
 });

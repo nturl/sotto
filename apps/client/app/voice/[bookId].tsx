@@ -10,7 +10,7 @@
  * `voiceState`; it's now a real in-place toggle regardless).
  */
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Linking, Platform, Pressable, StyleSheet, View } from 'react-native';
+import { Linking, Platform, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getLanguage, type TutorMode } from '@sotto/core';
@@ -40,13 +40,18 @@ import { useSottoStore } from '../../src/state/store';
 import { buildPassageWindow } from '../../src/voice/passage';
 import { correctableCaptionId } from '../../src/voice/captionCorrection';
 import { micPressAction } from '../../src/voice/micPress';
+import { exitTutor } from '../../src/voice/exitTutor';
 import { TutorModelsPanel, type TutorModelsPanelState } from '../../src/voice/TutorModelsPanel';
 import { useOwnProviderStatus } from '../../src/voice/ownProviderStatus';
 import { useVoiceSession } from '../../src/voice/useVoiceSession';
 import { ControlCluster, type TurnDetection } from '../../src/voice/ui/ControlCluster';
 import { PassageCard } from '../../src/voice/ui/PassageCard';
 import { RecoveryView } from '../../src/voice/ui/RecoveryView';
-import { recoveryMessageFor, recoveryPanelFor } from '../../src/voice/ui/recoveryPanel';
+import {
+  needsRecovery,
+  recoveryMessageFor,
+  recoveryPanelFor,
+} from '../../src/voice/ui/recoveryPanel';
 import { TextFallback } from '../../src/voice/ui/TextFallback';
 import { Transcript } from '../../src/voice/ui/Transcript';
 
@@ -380,10 +385,11 @@ export default function VoiceScreen() {
   const paywallPath = `/paywall?returnTo=${encodeURIComponent(
     `/voice/${bookId ?? ''}?mode=${session.mode}`,
   )}` as const;
-  const isBroken =
-    session.voiceState === 'error' ||
-    session.voiceState === 'reconnecting' ||
-    !!session.limitReason;
+  const isBroken = needsRecovery({
+    voiceState: session.voiceState,
+    limitReason: session.limitReason,
+    code: session.error?.code,
+  });
   const availability = session.availability;
   const isChecking = availability.status === 'checking';
   // O2-B: the old two-state gate (checking / unavailable) is now three-state.
@@ -448,10 +454,7 @@ export default function VoiceScreen() {
         <IconButton
           icon={<CloseGlyph size={20} />}
           accessibilityLabel={t('common.close')}
-          onPress={() => {
-            session.end();
-            router.back();
-          }}
+          onPress={() => exitTutor(session.end, router, bookId)}
         />
         <IconButton
           icon={<SettingsGlyph size={20} />}
@@ -471,7 +474,12 @@ export default function VoiceScreen() {
       />
 
       {!isChecking && !isUnavailable ? (
-        <View style={styles.modeRow}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.modeScroll}
+          contentContainerStyle={styles.modeRow}
+        >
           {MODES.map((m) => (
             <Pressable
               {...webPressFeedback}
@@ -500,13 +508,14 @@ export default function VoiceScreen() {
                   size={isDesktop ? undefined : 12}
                   color={session.mode === m ? 'surface' : 'ink'}
                   style={styles.modeLabel}
+                  numberOfLines={1}
                 >
                   {t(`voice.mode.${m}` as const)}
                 </Text>
               </View>
             </Pressable>
           ))}
-        </View>
+        </ScrollView>
       ) : null}
 
       {/* R3-S: desktop-only chip row offering a choice between the local/
@@ -719,15 +728,20 @@ export default function VoiceScreen() {
           </View>
         </View>
       ) : isBroken && recoverySpec ? (
-        <RecoveryView
-          spec={recoverySpec}
-          message={recoveryMessage}
-          onTryAgain={session.retry}
-          onNewSession={session.start}
-          onResumePlayback={session.resumePlayback}
-          onReadAlone={() => router.replace(readSeulPath)}
-          onSeePlans={() => router.push(paywallPath)}
-        />
+        <>
+          <RecoveryView
+            spec={recoverySpec}
+            message={recoveryMessage}
+            onTryAgain={session.retry}
+            onNewSession={session.start}
+            onResumePlayback={session.resumePlayback}
+            onReadAlone={() => router.replace(readSeulPath)}
+            onSeePlans={() => router.push(paywallPath)}
+          />
+          {session.error?.code === 'playback_blocked' ? (
+            <TextFallback onSend={session.sendText} prefill={correctionPrefill} />
+          ) : null}
+        </>
       ) : session.startControl === 'start' ? (
         // R6-B3: the tutor starts from a tap, not on mount — the
         // availability probe may already have resolved (this button only
@@ -760,7 +774,7 @@ export default function VoiceScreen() {
               // holds the audio floor is a barge-in first — otherwise the
               // tutor keeps playing over the learner and the cascade hears
               // its own output back through the speakers.
-              const action = micPressAction(session.voiceState);
+              const action = micPressAction(session.voiceState, active);
               if (!action.capture) return;
               if (active && action.interruptFirst) session.interrupt();
               setPttHeld(active);
@@ -775,10 +789,7 @@ export default function VoiceScreen() {
               setOutputMuted(next);
               session.setOutputMuted(next);
             }}
-            onEnd={() => {
-              session.end();
-              router.back();
-            }}
+            onEnd={() => exitTutor(session.end, router, bookId)}
           />
           <View style={styles.textFallback}>
             <TextFallback onSend={session.sendText} prefill={correctionPrefill} />
@@ -807,12 +818,19 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
       alignItems: 'center',
       justifyContent: 'space-between',
     },
+    modeScroll: {
+      flexGrow: 0,
+      flexShrink: 0,
+    },
     modeRow: {
+      flexGrow: 1,
       flexDirection: 'row',
       gap: space.sm,
     },
     modeChip: {
       flex: 1,
+      minHeight: space.tapTarget,
+      justifyContent: 'center',
       backgroundColor: colors.surface2,
       borderRadius: 10,
       paddingVertical: space.sm,
@@ -822,8 +840,9 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
       backgroundColor: colors.ink,
     },
     modeTargetCompact: {
-      flex: 1,
-      minWidth: 0,
+      flexGrow: 1,
+      flexShrink: 0,
+      minWidth: space.tapTarget,
       minHeight: space.tapTarget,
       justifyContent: 'center',
     },

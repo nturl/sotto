@@ -154,14 +154,17 @@ export default function VocabularyScreen() {
   const [selectedBookId, setSelectedBookId] = useState<string | undefined>(bookIds[0]);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [pendingUndo, setPendingUndo] = useState<SavedWord | null>(null);
+  const activeBookId =
+    selectedBookId && bookIds.includes(selectedBookId) ? selectedBookId : bookIds[0];
 
   useEffect(() => {
-    if (!selectedBookId && bookIds[0]) setSelectedBookId(bookIds[0]);
-  }, [bookIds, selectedBookId]);
+    if (activeBookId !== selectedBookId) setSelectedBookId(activeBookId);
+    if (!activeBookId) setPickerOpen(false);
+  }, [activeBookId, selectedBookId]);
 
   useEffect(() => {
-    if (selectedBookId) void loadBook(selectedBookId);
-  }, [selectedBookId, loadBook]);
+    if (activeBookId) void loadBook(activeBookId);
+  }, [activeBookId, loadBook]);
 
   useEffect(() => {
     if (!pendingUndo) return undefined;
@@ -169,11 +172,11 @@ export default function VocabularyScreen() {
     return () => clearTimeout(timer);
   }, [pendingUndo]);
 
-  const words = selectedBookId ? selectVocabularyForBook(savedWords, selectedBookId) : [];
+  const words = activeBookId ? selectVocabularyForBook(savedWords, activeBookId) : [];
   const dueWords = selectDueWords(words);
   const reviewCount = dueWords.length > 0 ? dueWords.length : words.length;
-  const selectedBook = selectedBookId ? library.byId(selectedBookId) : undefined;
-  const book = selectedBookId ? books[selectedBookId] : undefined;
+  const selectedBook = activeBookId ? library.byId(activeBookId) : undefined;
+  const book = activeBookId ? books[activeBookId] : undefined;
 
   const playWord = (word: SavedWord) => {
     const locale = bookLocale(word.bookId);
@@ -256,7 +259,7 @@ export default function VocabularyScreen() {
         )}
       />
 
-      {selectedBookId && words.length > 0 ? (
+      {activeBookId && words.length > 0 ? (
         <View style={[styles.ctaWrap, isDesktop && styles.ctaWrapDesktop]}>
           {dueWords.length === 0 ? (
             <Text role="caption" color="ink3" style={styles.ctaCaption}>
@@ -265,12 +268,12 @@ export default function VocabularyScreen() {
           ) : null}
           <Button
             title={t('vocabulary.startReview', { count: reviewCount })}
-            onPress={() => router.push(`/review?bookId=${selectedBookId}`)}
+            onPress={() => router.push(`/review?bookId=${activeBookId}`)}
           />
         </View>
       ) : null}
 
-      <Sheet visible={pickerOpen}>
+      <Sheet visible={pickerOpen && bookIds.length > 0}>
         <View style={styles.pickerList}>
           {bookIds.map((id) => {
             const b = library.byId(id);

@@ -173,6 +173,19 @@ describe('HttpCloudAdapter — sign-in surface', () => {
 });
 
 describe('HttpCloudAdapter — checkout return', () => {
+  it('requests provider reconciliation after returning from the billing portal', async () => {
+    const entitlement = { plan: 'standard' };
+    const fetchMock = vi.fn(async () => jsonResponse(200, { entitlement }));
+    const cloud = new HttpCloudAdapter('https://app.readsotto.app', {
+      fetch: fetchMock as unknown as typeof fetch,
+    });
+    await expect(cloud.refreshBilling()).resolves.toEqual(entitlement);
+    expect(fetchMock).toHaveBeenCalledWith(
+      'https://app.readsotto.app/billing/refresh',
+      expect.objectContaining({ method: 'POST', body: '{}', credentials: 'include' }),
+    );
+  });
+
   it('carries a validated reading destination through Stripe success', async () => {
     const fetchMock = vi.fn(async () => jsonResponse(200, { url: 'https://checkout.test/1' }));
     const cloud = new HttpCloudAdapter('https://app.readsotto.app', {

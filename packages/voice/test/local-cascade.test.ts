@@ -76,7 +76,7 @@ class FakeAudioAdapter implements AudioAdapter {
   stopCaptureCalls = 0;
   stopPlaybackCalls = 0;
   onPlaybackBlocked?: (cb: () => void) => void;
-  resumePlayback?: () => Promise<void>;
+  resumePlayback?: () => Promise<boolean>;
 
   async startCapture(onPcm16: (buf: ArrayBuffer) => void): Promise<void> {
     this.onPcm16 = onPcm16;
@@ -157,6 +157,48 @@ describe('LocalCascadeProvider', () => {
     const frame = new ArrayBuffer(4);
     audio.onPcm16!(frame);
     expect(ws.sent).toContain(frame);
+  });
+
+  it('reports the actual capture state immediately through rapid hold/mute changes', async () => {
+    const { provider, events, ws } = await connectFixture();
+    ws.simulateMessage(JSON.stringify({ t: 'state', state: 'listening' }));
+
+    provider.setTurnDetection('push');
+    expect(events.at(-1)).toEqual({ type: 'state', state: 'paused' });
+
+    provider.pushToTalk(true);
+    expect(events.at(-1)).toEqual({ type: 'state', state: 'listening' });
+
+    provider.pushToTalk(false);
+    expect(events.at(-1)).toEqual({ type: 'state', state: 'paused' });
+
+    provider.setMuted(true);
+    expect(events.at(-1)).toEqual({ type: 'state', state: 'muted' });
+
+    provider.setMuted(false);
+    provider.setTurnDetection('auto');
+    provider.setTurnDetection('push');
+    expect(events.at(-1)).toEqual({ type: 'state', state: 'paused' });
+    // Capture changes are local control changes. They must never create a
+    // second tutor session or discard the connection's conversation state.
+    expect(FakeWebSocket.instances).toHaveLength(1);
+  });
+
+  it('preserves an in-flight turn or error while mic controls change', async () => {
+    const { provider, events, ws } = await connectFixture();
+    ws.simulateMessage(JSON.stringify({ t: 'state', state: 'thinking' }));
+    provider.setTurnDetection('push');
+    provider.setMuted(true);
+    expect(events.at(-1)).toEqual({ type: 'state', state: 'thinking' });
+    expect(FakeWebSocket.instances).toHaveLength(1);
+    expect(
+      ws.sent.map((message) => (typeof message === 'string' ? JSON.parse(message).t : null)),
+    ).not.toContain('interrupt');
+
+    ws.simulateMessage(JSON.stringify({ t: 'state', state: 'error' }));
+    provider.setMuted(false);
+    provider.setTurnDetection('auto');
+    expect(events.at(-1)).toEqual({ type: 'state', state: 'error' });
   });
 
   it('maps server JSON events to VoiceEvent (state, caption, reading, limit, error)', async () => {
@@ -338,6 +380,7 @@ describe('LocalCascadeProvider', () => {
     };
     audio.resumePlayback = async () => {
       resumeCalls += 1;
+      return true;
     };
     const events: VoiceEvent[] = [];
     const provider = new LocalCascadeProvider({
@@ -356,7 +399,7 @@ describe('LocalCascadeProvider', () => {
       recoverable: true,
     });
 
-    provider.resumePlayback!();
+    await expect(provider.resumePlayback!()).resolves.toBe(true);
     expect(resumeCalls).toBe(1);
   });
 });

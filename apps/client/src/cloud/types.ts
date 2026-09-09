@@ -11,6 +11,7 @@
 import type { SessionOptions } from '@sotto/voice';
 
 export type Plan = 'free' | 'standard' | 'plus';
+export type BillingStatus = 'active' | 'trialing' | 'canceling' | 'expired';
 
 export type CloudProviderId =
   'none' | 'cascade-openai' | 'cascade-open' | 'realtime-mini' | 'realtime';
@@ -32,6 +33,9 @@ export interface Entitlement {
    * only renders the narrated block when this is a positive number. */
   narratedMinutesCap?: number;
   renewsAt: string | null;
+  /** Explicit billing copy from newer servers; optional for compatibility. */
+  billingEndsAt?: string | null;
+  billingStatus?: BillingStatus | null;
   provider: CloudProviderId;
 }
 
@@ -162,6 +166,8 @@ export interface CloudAdapter {
   plans(): Promise<PlansResponse>;
   checkout(plan: string, interval?: BillingInterval, returnTo?: string): Promise<{ url: string }>;
   portal(): Promise<{ url: string }>;
+  /** Reconcile Stripe after returning from the customer portal. */
+  refreshBilling?(): Promise<Entitlement>;
   submitAppleTransaction(jws: string): Promise<Entitlement>;
   /** Staging only; NullCloud/production HTTP throws `no_cloud`/404. */
   stubSubscribe(plan: string): Promise<Entitlement>;

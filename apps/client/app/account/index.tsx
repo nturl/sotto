@@ -25,11 +25,13 @@
  * sign-in form that could never work.
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Linking, Platform, StyleSheet, TextInput, View } from 'react-native';
+import { AppState, Linking, Platform, StyleSheet, TextInput, View } from 'react-native';
 import { useRoute, useRouter } from 'expo-router';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { radius, space } from '@sotto/core/theme';
 import { signInWithAppleWeb } from '../../src/cloud/appleWeb';
+import { accountBillingRow } from '../../src/cloud/billingDisplay';
+import { refreshBillingState } from '../../src/cloud/billingRefresh';
 import { resolveAccountLanding, resolveSignedInDestination } from '../../src/cloud/destination';
 import { readingDestination, shouldPollCheckoutConfirmation } from '../../src/cloud/paidJourney';
 import { useCloud } from '../../src/cloud/provider';
@@ -116,12 +118,14 @@ export default function AccountScreen() {
     paid?: string | string[];
     intent?: string | string[];
     returnTo?: string | string[];
+    billing?: string | string[];
   };
   const intent = Array.isArray(params.intent) ? params.intent[0] : params.intent;
   const creating = intent === 'start';
   const returnTo = safeReturnPath(params.returnTo ?? null);
   const sessionToken = Array.isArray(params.session) ? params.session[0] : params.session;
   const paidParam = Array.isArray(params.paid) ? params.paid[0] : params.paid;
+  const billingParam = Array.isArray(params.billing) ? params.billing[0] : params.billing;
   const confirmedPlan = me.status === 'signed-in' ? me.me.entitlement.plan : null;
 
   // CLOUD-API.md: native's magic-link redirect is `sotto://account?session=`
@@ -176,6 +180,47 @@ export default function AccountScreen() {
       setToast(t('account.paid.success'));
     }
   }, [paidParam, confirmedPlan, t]);
+
+  // Account entry and foregrounding reconcile the provider's display state.
+  // This also backfills cancellations made through portal links issued before
+  // the explicit `?billing=return` marker shipped. Marked returns get two
+  // bounded retries to cover a briefly stale provider response.
+  useEffect(() => {
+    if (!cloud.enabled || me.status !== 'signed-in') return undefined;
+    let cancelled = false;
+    const refresh = async () => {
+      if (!cancelled) await refreshBillingState(cloud, me.refresh);
+    };
+    void refresh();
+    const timers =
+      billingParam === 'return'
+        ? [1500, 4000].map((delay) => setTimeout(() => void refresh(), delay))
+        : [];
+    const foreground = () => void refresh();
+    const visible = () => {
+      if (!document.hidden) foreground();
+    };
+    const appState =
+      Platform.OS === 'web'
+        ? null
+        : AppState.addEventListener('change', (state) => {
+            if (state === 'active') foreground();
+          });
+    if (Platform.OS === 'web') {
+      window.addEventListener('focus', foreground);
+      document.addEventListener('visibilitychange', visible);
+    }
+    return () => {
+      cancelled = true;
+      timers.forEach(clearTimeout);
+      appState?.remove();
+      if (Platform.OS === 'web') {
+        window.removeEventListener('focus', foreground);
+        document.removeEventListener('visibilitychange', visible);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [billingParam, cloud, me.status]);
 
   // Ask the server which sign-in methods it actually has. `authConfig` never
   // rejects; an older or unreachable server answers magic-link-only, so a
@@ -344,6 +389,7 @@ export default function AccountScreen() {
 
   if (me.status === 'signed-in') {
     const { user, entitlement } = me.me;
+    const billingRow = accountBillingRow(entitlement);
     const confirmWord = t('account.delete.confirmWord');
     const free = entitlement.plan === 'free';
     return (
@@ -397,16 +443,16 @@ export default function AccountScreen() {
                   : t(`account.plan.${entitlement.plan}` as const),
                 onPress: () => router.push('/usage'),
               },
-              ...(free
-                ? []
-                : [
+              ...(billingRow
+                ? [
                     {
-                      label: t('account.renewalRow'),
-                      value: entitlement.renewsAt
-                        ? formatDate(entitlement.renewsAt)
+                      label: t(billingRow.labelKey),
+                      value: billingRow.at
+                        ? formatDate(billingRow.at)
                         : t('account.renewalRow.none'),
                     },
-                  ]),
+                  ]
+                : []),
               // A free account has nothing to manage; the honest action there
               // is "see what a plan adds", and it goes to the paywall rather
               // than to a Stripe portal that would open empty.

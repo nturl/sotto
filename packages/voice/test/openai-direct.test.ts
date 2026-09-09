@@ -55,7 +55,7 @@ class FakeAudio implements AudioAdapter {
   // run7/F1: optional on the real interface; left undefined unless a test
   // installs one, same as a native AudioAdapter that doesn't implement them.
   onPlaybackBlocked?: (cb: () => void) => void;
-  resumePlayback?: () => Promise<void>;
+  resumePlayback?: () => Promise<boolean>;
   setOutputMuted?: (muted: boolean) => void;
 
   async startCapture(onPcm16: (buf: ArrayBuffer) => void): Promise<void> {
@@ -566,6 +566,7 @@ describe('OpenAIDirectProvider', () => {
     };
     blockableAudio.resumePlayback = async () => {
       resumeCalls += 1;
+      return true;
     };
 
     const provider = new OpenAIDirectProvider({ apiKey: KEY, audio: blockableAudio });
@@ -579,7 +580,7 @@ describe('OpenAIDirectProvider', () => {
       recoverable: true,
     });
 
-    provider.resumePlayback!();
+    await expect(provider.resumePlayback!()).resolves.toBe(true);
     expect(resumeCalls).toBe(1);
 
     await provider.disconnect();

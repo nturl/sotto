@@ -82,3 +82,110 @@ describe('installing from the landing page', () => {
     else expect(replace).not.toHaveBeenCalled();
   });
 });
+
+describe('returning subscribers on the landing page', () => {
+  const html = readFileSync(new URL('./index.html', import.meta.url), 'utf8');
+  const script = html.match(/<script id="subscriber-handoff">([\s\S]*?)<\/script>/)?.[1];
+
+  function element(text: string, href: string) {
+    return {
+      textContent: text,
+      href,
+      getAttribute(name: string) {
+        return name === 'href' ? this.href : null;
+      },
+      setAttribute(name: string, value: string) {
+        if (name === 'href') this.href = value;
+      },
+    };
+  }
+
+  async function run(fetchImpl: ReturnType<typeof vi.fn>) {
+    const signin = element('Sign in', 'https://app.readsotto.app/account');
+    const offer = element(
+      'Try the tutor free for 3 days',
+      'https://app.readsotto.app/account?intent=start&returnTo=%2Fpaywall',
+    );
+    const listeners: Record<string, () => void> = {};
+    const sandbox = {
+      AbortController,
+      clearTimeout,
+      setTimeout,
+      window: {
+        fetch: fetchImpl,
+        addEventListener: (name: string, listener: () => void) => {
+          listeners[name] = listener;
+        },
+      },
+      document: {
+        hidden: false,
+        querySelector: () => signin,
+        querySelectorAll: () => [offer],
+        addEventListener: (name: string, listener: () => void) => {
+          listeners[name] = listener;
+        },
+      },
+    };
+    vm.runInNewContext(script!, sandbox);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    return { signin, offer, listeners };
+  }
+
+  it('uses the paid origin cookie to replace checkout offers for a subscriber', async () => {
+    expect(script).toBeDefined();
+    const fetchMock = vi.fn(async () => Response.json({ entitlement: { plan: 'standard' } }));
+    const { signin, offer } = await run(fetchMock);
+    expect(fetchMock).toHaveBeenCalledWith(
+      'https://app.readsotto.app/me',
+      expect.objectContaining({ credentials: 'include', cache: 'no-store' }),
+    );
+    expect(signin).toMatchObject({
+      textContent: 'Continue reading',
+      href: 'https://app.readsotto.app/home',
+    });
+    expect(offer).toMatchObject({
+      textContent: 'Continue reading',
+      href: 'https://app.readsotto.app/home',
+    });
+  });
+
+  it('keeps the visitor and sign-in routes for a browser with no paid session', async () => {
+    const { signin, offer } = await run(vi.fn(async () => new Response(null, { status: 401 })));
+    expect(signin).toMatchObject({
+      textContent: 'Sign in',
+      href: 'https://app.readsotto.app/account',
+    });
+    expect(offer.textContent).toContain('Try the tutor');
+  });
+
+  it('rechecks on focus and ignores an older response that settles last', async () => {
+    let settleFirst!: (response: Response) => void;
+    const first = new Promise<Response>((resolve) => {
+      settleFirst = resolve;
+    });
+    const fetchMock = vi
+      .fn()
+      .mockImplementationOnce(() => first)
+      .mockResolvedValueOnce(Response.json({ entitlement: { plan: 'standard' } }));
+    const { signin, listeners } = await run(fetchMock);
+    listeners.focus();
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(signin.textContent).toBe('Continue reading');
+    settleFirst(Response.json({ entitlement: { plan: 'free' } }));
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(signin.textContent).toBe('Continue reading');
+  });
+
+  it('restores visitor routes after a recognized subscriber signs out elsewhere', async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(Response.json({ entitlement: { plan: 'standard' } }))
+      .mockResolvedValueOnce(new Response(null, { status: 401 }));
+    const { signin, offer, listeners } = await run(fetchMock);
+    expect(signin.textContent).toBe('Continue reading');
+    listeners.focus();
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(signin.textContent).toBe('Sign in');
+    expect(offer.textContent).toContain('Try the tutor');
+  });
+});

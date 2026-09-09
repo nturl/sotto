@@ -39,6 +39,7 @@ import { cachedByokKey } from './byokKey';
 import { createVoiceController } from './controller';
 import { createToolContext } from './toolContext';
 import { createListeningGate } from './voiceStartGate';
+import { createVoiceSessionTiming, type VoiceSessionTiming } from './sessionTiming';
 
 /**
  * R6-B3: wraps the real `AudioAdapter` so `startSession` can tell whether
@@ -52,6 +53,7 @@ import { createListeningGate } from './voiceStartGate';
 function wrapAudioForGating(
   inner: AudioAdapter,
   onCaptureReady: () => void,
+  timing: VoiceSessionTiming,
 ): {
   adapter: AudioAdapter;
   captureReady: () => boolean;
@@ -61,9 +63,11 @@ function wrapAudioForGating(
   const adapter: AudioAdapter = {
     startCapture: async (onPcm16) => {
       const attempt = ++generation;
+      timing.captureRequested();
       await inner.startCapture(onPcm16);
       if (attempt !== generation) return;
       ready = true;
+      timing.captureReady();
       onCaptureReady();
     },
     stopCapture: () => {
@@ -71,10 +75,13 @@ function wrapAudioForGating(
       ready = false;
       inner.stopCapture();
     },
-    playPcm: (buf, sampleRate) => inner.playPcm(buf, sampleRate),
+    playPcm: (buf, sampleRate) => {
+      inner.playPcm(buf, sampleRate);
+      timing.playbackAccepted();
+    },
     stopPlayback: () => inner.stopPlayback(),
     setOutputMuted: (muted) => inner.setOutputMuted?.(muted),
-    resumePlayback: () => inner.resumePlayback?.() ?? Promise.resolve(),
+    resumePlayback: () => inner.resumePlayback?.() ?? Promise.resolve(false),
     onPlaybackBlocked: (callback) => inner.onPlaybackBlocked?.(callback),
   };
   return { adapter, captureReady: () => ready };
@@ -186,6 +193,10 @@ type StartSessionParams = Parameters<typeof startSession>[0];
 
 let active: ActiveSession | null = null;
 let explicitMuted = false;
+// Output mute follows the mounted voice screen's active/retry lifecycle so a
+// newly created adapter agrees with its still-visible speaker control. It is
+// reset by a deliberate end and is never stored as a cross-session preference.
+let outputMuted = false;
 const inputMuteListeners = new Set<() => void>();
 // run7/F1 directive 4: remembered so `retry()` can re-enter the exact same
 // book/chapter/mode after a connection failure, without the caller (the
@@ -217,7 +228,8 @@ export function getProvider(): VoiceProvider | null {
   return active?.provider ?? null;
 }
 
-/** Starts a new session, ending any previous one first. */
+/** Starts a new session, replacing any active provider without resetting the
+ * screen-local input/output control state. */
 export function startSession(params: {
   bookId: string;
   /** run7/G directive 1(d): the book's real title (scout-T-tutor.md §4's
@@ -239,7 +251,11 @@ export function startSession(params: {
    * meaningful when `path === 'browser'`; defaults to `standard`. */
   tutorTier?: TutorTier;
 }): void {
-  if (active) endSession();
+  if (active) {
+    teardownActive();
+    useSottoStore.getState().setSessionRecord(null);
+    useSottoStore.getState().clearSessionEphemeral();
+  }
   lastStartParams = params;
   beginSession(params);
 }
@@ -264,7 +280,24 @@ export function retry(): void {
 
 /** run7/F1: the tap action for a `playback_blocked` error event. */
 export function resumePlayback(): void {
-  active?.provider.resumePlayback?.();
+  const provider = active?.provider;
+  if (!provider?.resumePlayback) return;
+  void provider
+    .resumePlayback()
+    .then((resumed) => {
+      // A late resolution from a previous provider must never erase a newer
+      // session's error. Clear only the specific recoverable error this action
+      // has verified it recovered from.
+      if (
+        resumed &&
+        active?.provider === provider &&
+        useSottoStore.getState().voiceError?.code === 'playback_blocked'
+      )
+        useSottoStore.getState().setVoiceError(null);
+    })
+    // A transport outside WebAudioAdapter may reject instead of returning
+    // false. Its existing recovery state remains visible in either case.
+    .catch(() => undefined);
 }
 
 function beginSession(params: StartSessionParams): void {
@@ -301,13 +334,24 @@ function beginSession(params: StartSessionParams): void {
   // to `listening` the moment `startCapture` actually resolves, rather
   // than leaving the screen stuck at `connecting` forever.
   const isFakeProvider = process.env.EXPO_PUBLIC_VOICE === 'fake';
+  // Reuse the existing debug switch that browser-tutor e2e sets before page
+  // load. These marks stay in the local console and carry no learner audio,
+  // text, provider settings, or telemetry.
+  const timing = createVoiceSessionTiming({ enabled: debugOverride() !== undefined });
   const listeningGate = createListeningGate(() => gatedAudio?.captureReady() ?? true);
   const gatedAudio: ReturnType<typeof wrapAudioForGating> | null = isFakeProvider
     ? null
-    : wrapAudioForGating(createAudioAdapter(), () => {
-        const flushed = listeningGate.onCaptureReady();
-        if (flushed) useSottoStore.getState().setVoiceState(flushed);
-      });
+    : wrapAudioForGating(
+        createAudioAdapter(),
+        () => {
+          const flushed = listeningGate.onCaptureReady();
+          if (flushed) {
+            timing.connectionReady();
+            useSottoStore.getState().setVoiceState(flushed);
+          }
+        },
+        timing,
+      );
 
   const attach = (provider: VoiceProvider, isRealtimeAttempt: boolean): void => {
     const { unsubscribe } = createVoiceController(provider, ctx, {
@@ -332,6 +376,7 @@ function beginSession(params: StartSessionParams): void {
         // wasn't the current owner).
         if (mapped === 'speaking') claimAudio('tutor', () => provider.interrupt());
         else releaseAudio('tutor');
+        if (mapped === 'listening') timing.connectionReady();
         useSottoStore.getState().setVoiceState(mapped);
       },
       onCaption: (entry) => {
@@ -345,6 +390,7 @@ function beginSession(params: StartSessionParams): void {
       onReading: (tokenIds) => useSottoStore.getState().setReadingTokenIds(tokenIds),
       onLimit: (reason) => useSottoStore.getState().setLimitReason(reason),
       onError: (entry) => {
+        if (entry.code === 'playback_blocked') timing.playbackBlocked();
         useSottoStore.getState().setVoiceError({
           code: entry.code,
           message: entry.message,
@@ -358,7 +404,7 @@ function beginSession(params: StartSessionParams): void {
         // indication anything happened. The non-recoverable case still
         // gets its own dedicated panel (voice screen's `isBroken`), so it
         // does not need a caption too.
-        if (entry.recoverable) {
+        if (entry.recoverable && entry.code !== 'playback_blocked') {
           useSottoStore.getState().pushCaption({
             speaker: 'tutor',
             text:
@@ -422,6 +468,7 @@ function beginSession(params: StartSessionParams): void {
     return;
   }
   const isRealtimeAttempt = provider instanceof OpenAIRealtimeProvider;
+  provider.setOutputMuted?.(outputMuted);
   attach(provider, isRealtimeAttempt);
 }
 
@@ -477,6 +524,18 @@ export function setMuted(muted: boolean): void {
   active?.provider.setMuted(muted);
 }
 
+/**
+ * The browser can keep a page's websocket alive while its microphone and
+ * AudioContexts are suspended in the background. Stop both local media paths
+ * immediately, but retain the provider connection and transcript so a learner
+ * can deliberately resume with the existing mute/hold controls on return.
+ */
+export function suspendForBackground(): void {
+  if (!active) return;
+  active.provider.interrupt();
+  setMuted(true);
+}
+
 /** run7/G directive 1(a): the speaker/output toggle — mutes tutor playback
  * without ending capture. No-op on a provider that doesn't implement it
  * (Realtime's `<audio>` element, the fake provider). */
@@ -485,6 +544,7 @@ export function setTurnDetection(mode: 'auto' | 'push'): void {
 }
 
 export function setOutputMuted(muted: boolean): void {
+  outputMuted = muted;
   active?.provider.setOutputMuted?.(muted);
 }
 
@@ -523,10 +583,16 @@ export function sendText(text: string): void {
 export function endSession(): void {
   teardownActive();
   lastStartParams = null;
+  outputMuted = false;
   useSottoStore.getState().setSessionRecord(null);
   useSottoStore.getState().clearSessionEphemeral();
 }
 
 if (typeof window !== 'undefined') {
+  if (typeof document !== 'undefined') {
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') suspendForBackground();
+    });
+  }
   window.addEventListener('pagehide', endSession);
 }

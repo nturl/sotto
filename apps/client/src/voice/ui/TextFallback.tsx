@@ -93,6 +93,7 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
     },
     input: {
       flex: 1,
+      minHeight: space.tapTarget,
       backgroundColor: colors.surface2,
       borderRadius: radius.md,
       paddingHorizontal: space.md,
@@ -101,6 +102,9 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors']) {
       fontSize: 15,
     },
     sendButton: {
+      minHeight: space.tapTarget,
+      minWidth: space.tapTarget,
+      justifyContent: 'center',
       backgroundColor: colors.ink,
       borderRadius: radius.md,
       paddingHorizontal: space.md,

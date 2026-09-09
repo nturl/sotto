@@ -89,8 +89,12 @@ export class WebAudioAdapter implements AudioAdapter {
     // Browsers create the context suspended when no user gesture is on
     // record (the session starts on screen mount, not on a tap); a suspended
     // context never runs the worklet, so the tutor "listens" to nothing.
-    if (this.context.state === 'suspended') await this.context.resume();
+    if (this.context.state !== 'running') await this.context.resume();
     if (generation !== this.captureGeneration) return;
+    if (this.context.state !== 'running') {
+      this.stopCapture();
+      throw new Error('Microphone audio context did not become ready.');
+    }
 
     const blob = new Blob([WORKLET_SOURCE], { type: 'application/javascript' });
     this.workletUrl = URL.createObjectURL(blob);
@@ -146,7 +150,7 @@ export class WebAudioAdapter implements AudioAdapter {
     ctx
       .resume()
       .then(() => {
-        if (ctx.state !== 'suspended') this.reportedBlocked = false;
+        if (ctx.state === 'running') this.reportedBlocked = false;
         else this.reportBlocked();
       })
       .catch(() => this.reportBlocked());
@@ -162,10 +166,19 @@ export class WebAudioAdapter implements AudioAdapter {
     this.blockedListeners.add(cb);
   }
 
-  async resumePlayback(): Promise<void> {
-    if (!this.playbackContext) return;
-    await this.playbackContext.resume();
-    if (this.playbackContext.state !== 'suspended') this.reportedBlocked = false;
+  async resumePlayback(): Promise<boolean> {
+    if (!this.playbackContext) return false;
+    try {
+      await this.playbackContext.resume();
+      if (this.playbackContext.state === 'running') {
+        this.reportedBlocked = false;
+        return true;
+      }
+      this.reportBlocked();
+    } catch {
+      this.reportBlocked();
+    }
+    return false;
   }
 
   playPcm(buf: ArrayBuffer, sampleRate: number = PLAYBACK_SAMPLE_RATE): void {
@@ -175,7 +188,7 @@ export class WebAudioAdapter implements AudioAdapter {
       this.playbackQueueEndAt = this.playbackContext.currentTime;
     }
     const ctx = this.playbackContext;
-    if (ctx.state === 'suspended') this.tryResume(ctx);
+    if (ctx.state !== 'running') this.tryResume(ctx);
     if (!this.playbackGain) {
       this.playbackGain = ctx.createGain();
       this.playbackGain.gain.value = this.outputMuted ? 0 : 1;

@@ -238,6 +238,14 @@ export class HttpCloudAdapter implements CloudAdapter {
     return this.request('/billing/portal');
   }
 
+  async refreshBilling(): Promise<Entitlement> {
+    const response = await this.request<{ entitlement: Entitlement }>('/billing/refresh', {
+      method: 'POST',
+      body: '{}',
+    });
+    return response.entitlement;
+  }
+
   async submitAppleTransaction(jws: string): Promise<Entitlement> {
     const res = await this.request<{ entitlement: Entitlement }>('/billing/apple/transaction', {
       method: 'POST',

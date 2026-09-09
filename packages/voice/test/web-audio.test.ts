@@ -6,7 +6,7 @@
  * records the gain node `playPcm` creates, so the test can assert on its
  * `gain.value` without reaching into `WebAudioAdapter`'s private fields.
  */
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { WebAudioAdapter } from '../src/transports/web-audio.ts';
 
 class FakeGainNode {
@@ -180,5 +180,51 @@ describe('WebAudioAdapter.playPcm conversion', () => {
     const [a, b] = lastContext!.sources;
     expect(a!.startedAt).toBe(0);
     expect(b!.startedAt).toBeCloseTo(0.1, 6);
+  });
+});
+
+describe('WebAudioAdapter playback recovery', () => {
+  it('reports an interrupted context that stays unavailable after a resume attempt', async () => {
+    class InterruptedContext extends FakeAudioContext {
+      state = 'interrupted' as unknown as 'running';
+      resume(): Promise<void> {
+        return Promise.resolve();
+      }
+    }
+    (globalThis as unknown as { window: unknown }).window = globalThis;
+    (globalThis as unknown as { AudioContext: unknown }).AudioContext = InterruptedContext;
+
+    const adapter = new WebAudioAdapter();
+    const blocked = vi.fn();
+    adapter.onPlaybackBlocked(blocked);
+    adapter.playPcm(new Int16Array(2400).buffer as ArrayBuffer, 24000);
+
+    await Promise.resolve();
+    expect(blocked).toHaveBeenCalledOnce();
+    await expect(adapter.resumePlayback()).resolves.toBe(false);
+    expect(blocked).toHaveBeenCalledOnce();
+  });
+
+  it('returns true only after a blocked context becomes running', async () => {
+    class DelayedResumeContext extends FakeAudioContext {
+      state = 'suspended' as unknown as 'running';
+      private attempts = 0;
+      resume(): Promise<void> {
+        this.attempts += 1;
+        if (this.attempts > 1) this.state = 'running';
+        return Promise.resolve();
+      }
+    }
+    (globalThis as unknown as { window: unknown }).window = globalThis;
+    (globalThis as unknown as { AudioContext: unknown }).AudioContext = DelayedResumeContext;
+
+    const adapter = new WebAudioAdapter();
+    const blocked = vi.fn();
+    adapter.onPlaybackBlocked(blocked);
+    adapter.playPcm(new Int16Array(2400).buffer as ArrayBuffer, 24000);
+    await Promise.resolve();
+    expect(blocked).toHaveBeenCalledOnce();
+
+    await expect(adapter.resumePlayback()).resolves.toBe(true);
   });
 });

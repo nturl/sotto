@@ -277,13 +277,17 @@ export class VoiceSession {
         }
         break;
       case 'turn_detection':
-        this.transcriptionAbort?.abort();
         this.turnMode = msg.mode;
         this.capturingSpeech = false;
         this.speechFrames = [];
         this.preBuffer = [];
         this.preBufferMs = 0;
-        this.setState(this.muted ? 'muted' : 'listening');
+        // Changing how the next learner turn is captured must not relabel an
+        // LLM/TTS turn already in flight. That turn keeps streaming through
+        // `currentAbort`; emitting `listening` here made the client release
+        // tutor playback while the server still sent audio.
+        if (this.state !== 'thinking' && this.state !== 'speaking')
+          this.setState(this.muted ? 'muted' : 'listening');
         break;
       case 'ptt':
         this.handlePtt(msg.active);

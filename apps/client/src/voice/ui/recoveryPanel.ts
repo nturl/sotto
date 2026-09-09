@@ -81,6 +81,18 @@ export function recoveryMessageFor({
   return code && LEARNER_FACING_HOSTED_CODES.has(code) ? message : undefined;
 }
 
+/** Recoverable playback errors still require a visible gesture to resume audio. */
+export function needsRecovery(
+  input: Pick<RecoveryInput, 'code' | 'limitReason' | 'voiceState'>,
+): boolean {
+  return (
+    input.voiceState === 'error' ||
+    input.voiceState === 'reconnecting' ||
+    !!input.limitReason ||
+    input.code === 'playback_blocked'
+  );
+}
+
 export function recoveryPanelFor(input: RecoveryInput): RecoverySpec {
   const { code, limitReason, cloudEnabled } = input;
 

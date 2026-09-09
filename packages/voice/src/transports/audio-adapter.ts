@@ -26,7 +26,8 @@ export interface AudioAdapter {
   /** Attempts to resume blocked playback — the action the UI calls from a
    * tap after a `playback_blocked` error event. Optional for the same
    * reason as `onPlaybackBlocked`. */
-  resumePlayback?(): Promise<void>;
+  /** Resolves true only once playback is actually running again. */
+  resumePlayback?(): Promise<boolean>;
   /**
    * run7/G directive 1(a): silences (or restores) tutor speech playback
    * without touching capture — a standing "speaker off" the learner can

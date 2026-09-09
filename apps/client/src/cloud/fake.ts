@@ -142,6 +142,10 @@ export class FakeCloudAdapter implements CloudAdapter {
     return { url: 'https://billing.fake.sotto.dev/portal' };
   }
 
+  async refreshBilling(): Promise<Entitlement> {
+    return this.entitlement;
+  }
+
   async submitAppleTransaction(_jws: string): Promise<Entitlement> {
     const plan = PLANS[0]!;
     this.entitlement = entitlementFor(plan);

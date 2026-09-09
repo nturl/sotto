@@ -250,6 +250,14 @@
           display: none;
         }
       }
+      @media (max-width: 359px) {
+        .header-actions {
+          gap: 6px;
+        }
+        .signin {
+          padding-inline: 8px;
+        }
+      }
 
       /* 2 Hero + stage */
       .stage {
@@ -1421,6 +1429,81 @@
           reduced.addListener(onChange);
         }
         setFoot();
+      })();
+    </script>
+    <script id="subscriber-handoff">
+      (function () {
+        var signIn = document.querySelector('.signin');
+        var offers = Array.prototype.slice.call(
+          document.querySelectorAll('a[href^="https://app.readsotto.app/account?intent=start"]'),
+        );
+        if (!signIn || !offers.length || !window.fetch) return;
+
+        var originalSignIn = { text: signIn.textContent, href: signIn.getAttribute('href') };
+        var originalOffers = offers.map(function (offer) {
+          return { text: offer.textContent, href: offer.getAttribute('href') };
+        });
+        var requestNumber = 0;
+        var controller = null;
+
+        function renderSubscriber(subscribed) {
+          signIn.textContent = subscribed ? 'Continue reading' : originalSignIn.text;
+          signIn.setAttribute(
+            'href',
+            subscribed ? 'https://app.readsotto.app/home' : originalSignIn.href,
+          );
+          offers.forEach(function (offer, index) {
+            offer.textContent = subscribed ? 'Continue reading' : originalOffers[index].text;
+            offer.setAttribute(
+              'href',
+              subscribed ? 'https://app.readsotto.app/home' : originalOffers[index].href,
+            );
+          });
+        }
+
+        function checkSubscriber() {
+          var mine = ++requestNumber;
+          if (controller) controller.abort();
+          var attemptController = new AbortController();
+          controller = attemptController;
+          var timeout = setTimeout(function () {
+            attemptController.abort();
+          }, 4000);
+          window
+            .fetch('https://app.readsotto.app/me', {
+              credentials: 'include',
+              cache: 'no-store',
+              signal: attemptController.signal,
+            })
+            .then(function (response) {
+              if (response.status === 401) return { signedOut: true };
+              if (!response.ok) return null;
+              return response.json();
+            })
+            .then(function (body) {
+              if (mine !== requestNumber || !body) return;
+              if (body.signedOut) {
+                renderSubscriber(false);
+                return;
+              }
+              var plan = body.entitlement && body.entitlement.plan;
+              renderSubscriber(plan === 'standard' || plan === 'plus');
+            })
+            .catch(function () {
+              // Keep the public visitor copy when the paid origin cannot be
+              // reached. A network failure is not evidence of entitlement.
+            })
+            .finally(function () {
+              clearTimeout(timeout);
+            });
+        }
+
+        checkSubscriber();
+        window.addEventListener('focus', checkSubscriber);
+        window.addEventListener('pageshow', checkSubscriber);
+        document.addEventListener('visibilitychange', function () {
+          if (!document.hidden) checkSubscriber();
+        });
       })();
     </script>
     <script id="install-guidance">

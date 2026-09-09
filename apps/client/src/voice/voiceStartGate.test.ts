@@ -82,6 +82,15 @@ describe('createListeningGate', () => {
     expect(gate.onCaptureReady()).toBeNull();
   });
 
+  it('does not flush a stale listening report over a turn that has started', () => {
+    let ready = false;
+    const gate = createListeningGate(() => ready);
+    expect(gate.onProviderState('listening')).toBe('connecting');
+    expect(gate.onProviderState('thinking')).toBe('thinking');
+    ready = true;
+    expect(gate.onCaptureReady()).toBeNull();
+  });
+
   it('does not flush when capture was already ready before "listening" arrived', () => {
     const gate = createListeningGate(() => true);
     expect(gate.onProviderState('listening')).toBe('listening');

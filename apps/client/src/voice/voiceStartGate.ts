@@ -73,6 +73,12 @@ export function createListeningGate(captureReady: () => boolean) {
         pendingListening = false;
         return 'error';
       }
+      // A server/worker state after the provisional listening report wins.
+      // In particular, never flush an old listening claim over a turn that
+      // became thinking/speaking while capture was still starting. Keep a
+      // connecting event neutral: it is part of initial startup and the
+      // local server may still have no later listening event to send.
+      if (state !== 'listening' && state !== 'connecting') pendingListening = false;
       const gated = gateVoiceState(state, captureReady());
       if (gated === 'connecting' && state === 'listening') pendingListening = true;
       return gated;

@@ -360,6 +360,42 @@ describe('downloadTutorModels', () => {
 });
 
 describe('microphone privacy regressions', () => {
+  it('updates hold and mute status without waiting for a worker state echo', async () => {
+    const { events, provider } = setup();
+    await provider.connect(OPTS);
+    lastWorker().emit({ t: 'state', state: 'listening' });
+
+    provider.setTurnDetection('push');
+    expect(events.at(-1)).toEqual({ type: 'state', state: 'paused' });
+
+    provider.pushToTalk(true);
+    expect(events.at(-1)).toEqual({ type: 'state', state: 'listening' });
+
+    provider.pushToTalk(false);
+    expect(events.at(-1)).toEqual({ type: 'state', state: 'paused' });
+
+    provider.setMuted(true);
+    expect(events.at(-1)).toEqual({ type: 'state', state: 'muted' });
+    await provider.disconnect();
+  });
+
+  it('preserves an in-flight worker turn or error while mic controls change', async () => {
+    const { events, provider } = setup();
+    await provider.connect(OPTS);
+    const worker = lastWorker();
+    worker.emit({ t: 'state', state: 'speaking' });
+    provider.setTurnDetection('push');
+    provider.setMuted(true);
+    expect(events.at(-1)).toEqual({ type: 'state', state: 'speaking' });
+    expect(worker.sent.some((message) => message.t === 'interrupt')).toBe(false);
+
+    worker.emit({ t: 'state', state: 'error' });
+    provider.setMuted(false);
+    provider.setTurnDetection('auto');
+    expect(events.at(-1)).toEqual({ type: 'state', state: 'error' });
+    await provider.disconnect();
+  });
+
   it('does not forward audio after mute, typed send, mode change or a late listening event', async () => {
     const { audio, events, provider } = setup();
     await provider.connect(OPTS);

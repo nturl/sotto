@@ -10,6 +10,12 @@ import { describe, expect, it } from 'vitest';
 import { micPressAction } from './micPress';
 
 describe('micPressAction', () => {
+  it.each(['error', 'ended', 'thinking', 'speaking'] as const)(
+    'always releases an existing hold even after state changes to %s',
+    (state) => {
+      expect(micPressAction(state, false)).toEqual({ interruptFirst: false, capture: true });
+    },
+  );
   it('interrupts before capturing when the tutor is speaking', () => {
     expect(micPressAction('speaking')).toEqual({ interruptFirst: true, capture: true });
   });

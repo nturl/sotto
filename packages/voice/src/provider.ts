@@ -45,7 +45,8 @@ export interface VoiceProvider {
    * `WebAudioAdapter`-shaped transport (local/browser/byok cascades) have
    * anything to resume; Realtime's `<audio>` element and the fake provider
    * don't implement it. */
-  resumePlayback?(): void;
+  /** Resolves true only after the transport verified playback resumed. */
+  resumePlayback?(): Promise<boolean>;
   /**
    * run7/G directive 1(a): silences or restores tutor speech playback for
    * the rest of the session without ending capture — distinct from

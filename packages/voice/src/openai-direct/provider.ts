@@ -273,8 +273,8 @@ export class OpenAIDirectProvider implements VoiceProvider {
   }
 
   /** run7/F1: the tap action for a `playback_blocked` error event. */
-  resumePlayback(): void {
-    void this.audio.resumePlayback?.();
+  resumePlayback(): Promise<boolean> {
+    return this.audio.resumePlayback?.() ?? Promise.resolve(false);
   }
 
   /** run7/G directive 1(a): the speaker/output toggle — silences tutor

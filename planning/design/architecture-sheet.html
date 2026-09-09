@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sotto architecture sheet</title>
+<style>
+:root{
+  --navy:#0B1026; --panel:#121736; --ink:#DCD4BC; --mute:#9B9583; --rule:rgba(220,212,188,.14); --rule2:rgba(220,212,188,.28);
+  --amber:#F2B840;
+  --sans:-apple-system,"Helvetica Neue",Inter,Arial,sans-serif;
+  --mono:"SF Mono",Menlo,Consolas,monospace;
+  --gut:48px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--navy)}
+body{background-color:var(--navy);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  background-image:
+    linear-gradient(rgba(220,212,188,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(220,212,188,.08) 1px, transparent 1px),
+    linear-gradient(rgba(220,212,188,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(220,212,188,.04) 1px, transparent 1px);
+  background-size:100px 100px,100px 100px,20px 20px,20px 20px;}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-variant-numeric:tabular-nums}
+a{color:inherit}
+code{font-family:var(--mono);font-size:12px;color:var(--ink)}
+
+/* title block */
+.tb{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--rule2);border-bottom:1px solid var(--rule2);background:var(--navy)}
+.tb > div{padding:10px 14px;border-right:1px solid var(--rule);display:grid;gap:2px}
+.tb > div:last-child{border-right:0}
+.tb b{font-weight:400;font-size:13px;color:var(--ink);font-family:var(--mono);letter-spacing:.02em;overflow-wrap:anywhere;min-width:0}
+.head{padding:36px var(--gut) 28px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:32px;align-items:end;border-bottom:1px solid var(--rule2)}
+.head h1{font-weight:300;font-size:clamp(44px, 5.2vw, 64px);line-height:1;letter-spacing:-.02em;color:var(--ink)}
+.head h1 span{color:var(--mute)}
+.head p{color:var(--mute);max-width:40rem;margin-top:14px}
+.head .leg{display:grid;gap:6px;font-size:13px;color:var(--mute)}
+.head .leg i{display:inline-block;width:22px;height:1px;background:var(--amber);vertical-align:middle;margin-right:8px;position:relative}
+.head .leg i::before,.head .leg i::after{content:"";position:absolute;top:-3px;width:1px;height:7px;background:var(--amber)}
+.head .leg i::before{left:0}.head .leg i::after{right:0}
+.head .leg em{font-style:normal;display:inline-block;width:12px;height:12px;border-left:1px solid var(--amber);border-top:1px solid var(--amber);vertical-align:middle;margin-right:14px}
+
+/* figure */
+.fig{padding:32px var(--gut);border-bottom:1px solid var(--rule2)}
+.fig header{display:flex;justify-content:space-between;gap:16px;align-items:baseline;margin-bottom:14px;flex-wrap:wrap}
+.fig h2{font-weight:400;font-size:20px;letter-spacing:-.01em}
+.fig svg{width:100%;height:auto;display:block}
+.fig .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.fig svg text{font-family:var(--mono);font-size:11px;letter-spacing:.06em;fill:var(--mute)}
+.fig svg text.n{font-family:var(--sans);font-size:20px;letter-spacing:-.01em;fill:var(--ink)}
+.fig svg text.s{font-size:11.5px;letter-spacing:.01em;fill:var(--mute)}
+.fig svg text.d{fill:var(--amber);letter-spacing:.1em;text-transform:uppercase}
+.fig svg text.w{fill:var(--ink);letter-spacing:.02em;font-size:12px}
+.fig svg .box{fill:var(--panel)}
+.fig svg .tick{stroke:var(--amber);stroke-width:1;fill:none}
+.fig svg .dim{stroke:var(--amber);stroke-width:1;fill:none}
+.fig svg .dep{stroke:var(--rule2);stroke-width:1;fill:none}
+.fig svg .wire{stroke:var(--ink);stroke-width:1;fill:none}
+.fig svg a:hover .box{fill:rgba(242,184,64,.08)}
+.fig svg a:focus-visible .box{fill:rgba(242,184,64,.12)}
+.fig .cap{margin-top:12px;color:var(--mute);font-size:13px;max-width:64ch}
+
+/* spec panels */
+.specs{padding:32px var(--gut);display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:24px;border-bottom:1px solid var(--rule2)}
+.panel{position:relative;padding:20px 22px 22px;background:var(--panel);scroll-margin-top:16px}
+.panel::before,.panel::after{content:"";position:absolute;width:12px;height:12px;border-color:var(--amber);border-style:solid}
+.panel::before{left:0;top:0;border-width:1px 0 0 1px}
+.panel::after{right:0;bottom:0;border-width:0 1px 1px 0}
+.panel h3{font-weight:400;font-size:20px;letter-spacing:-.01em;margin:4px 0 14px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.panel h3 span{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.panel dl{display:grid;grid-template-columns:1fr;gap:2px 0;font-size:14px}
+.panel dt{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);padding-top:12px;border-top:1px solid var(--rule)}
+.panel dt:first-child{padding-top:0;border-top:0}
+.panel dd{color:var(--ink);max-width:62ch;padding-bottom:12px;overflow-wrap:anywhere}
+.panel dd small{display:block;color:var(--mute);font-size:12.5px}
+
+/* pipeline strip */
+.strip{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.strip > div{background:var(--navy);padding:16px 14px 18px;display:grid;grid-template-rows:auto auto 1fr;gap:8px;min-height:150px}
+.strip b{font-weight:400;font-size:15px;color:var(--ink)}
+.strip p{font-size:12.5px;color:var(--mute);line-height:1.45}
+.strip .k{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--amber)}
+
+/* notes */
+.notes{padding:32px var(--gut) 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px 40px;border-bottom:1px solid var(--rule2)}
+.notes h3{font-weight:400;font-size:16px;margin-bottom:8px}
+.notes p{font-size:13.5px;color:var(--mute)}
+.notes p b{font-weight:400;color:var(--ink)}
+footer{padding:20px var(--gut) 40px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  :root{--gut:20px}
+  .specs{grid-template-columns:1fr}
+  .notes{grid-template-columns:1fr}
+  .tb{grid-template-columns:repeat(3,1fr)}
+  .tb > div:nth-child(3){border-right:0}
+  .tb > div:nth-child(-n+3){border-bottom:1px solid var(--rule)}
+  .head{grid-template-columns:1fr}
+  .strip{grid-template-columns:1fr 1fr}
+  .strip > div{min-height:0}
+  .fig svg{min-width:900px}
+  .fig .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<section class="tb" aria-label="Title block">
+  <div><span class="mono">Sheet</span><b>01 of 01</b></div>
+  <div><span class="mono">Title</span><b>Sotto · system architecture</b></div>
+  <div><span class="mono">Rev</span><b>2026-09-08</b></div>
+  <div><span class="mono">Source</span><b>docs/architecture.md · WS-6</b></div>
+  <div><span class="mono">Scale</span><b>n.t.s.</b></div>
+  <div><span class="mono">Drawn</span><b>Cleo · checked against the tree</b></div>
+</section>
+
+<header class="head">
+  <div>
+    <h1>Sotto, as built<span>.</span></h1>
+    <p>A voice-first graded reader: two apps and three packages in one pnpm workspace, TypeScript strict, ESM, Node 26. Everything a reader does lives on the device; the server only serves packs and relays voice.</p>
+  </div>
+  <div class="leg">
+    <span><i></i>Dimension line: a count taken from the tree</span>
+    <span><em></em>Corner ticks: a node; click one to jump to its panel</span>
+  </div>
+</header>
+
+<section class="fig" aria-labelledby="f1">
+  <header><h2 id="f1">Figure 1 · Workspace and wires</h2><span class="mono">apps/ and packages/ · arrows point at what is depended on</span></header>
+  <div class="scroll">
+  <svg viewBox="0 0 1180 620" role="img" aria-label="Dependency figure: client and server depend on core, content and voice; client and server talk over HTTP and a WebSocket">
+    <defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0.5 L7 4 L0 7.5" fill="none" stroke="#DCD4BC" stroke-opacity=".55" stroke-width="1"/></marker></defs>
+
+    <!-- top dimension -->
+    <g class="dim"><path d="M40 34 V46 M1140 34 V46 M40 40 H1140"/></g>
+    <text class="d" x="590" y="24" text-anchor="middle">One monorepo · pnpm workspaces · TypeScript strict · ESM · Node 26</text>
+
+    <!-- left dimensions -->
+    <g class="dim"><path d="M14 96 H26 M14 256 H26 M20 96 V256"/></g>
+    <text class="d" transform="translate(12 176) rotate(-90)" text-anchor="middle">2 apps</text>
+    <g class="dim"><path d="M14 416 H26 M14 536 H26 M20 416 V536"/></g>
+    <text class="d" transform="translate(12 476) rotate(-90)" text-anchor="middle">3 packages</text>
+
+    <!-- CLIENT -->
+    <a href="#p-client"><g>
+      <rect class="box" x="40" y="96" width="380" height="160"/>
+      <path class="tick" d="M40 108 V96 H52 M408 96 H420 V108 M40 244 V256 H52 M408 256 H420 V244"/>
+      <text class="n" x="60" y="130">apps/client</text>
+      <text class="s" x="60" y="156">Expo SDK 57 · Expo Router · React Native Web</text>
+      <text class="s" x="60" y="176">iOS and web from one tree · PWA at readsotto.app</text>
+      <text class="s" x="60" y="196">Zustand, 6 slices · idb-keyval / expo-sqlite</text>
+      <text class="s" x="60" y="216">Runs the tutor's 7 tools against the store</text>
+      <text x="60" y="240">:8081 in dev</text>
+    </g></a>
+
+    <!-- SERVER -->
+    <a href="#p-server"><g>
+      <rect class="box" x="760" y="96" width="380" height="160"/>
+      <path class="tick" d="M760 108 V96 H772 M1128 96 H1140 V108 M760 244 V256 H772 M1128 256 H1140 V244"/>
+      <text class="n" x="780" y="130">apps/server</text>
+      <text class="s" x="780" y="156">Fastify · content API · voice orchestrator</text>
+      <text class="s" x="780" y="176">8 routes: health, content, voice session, import</text>
+      <text class="s" x="780" y="196">voice/: chunker · vad · stt · llm · markers · tts</text>
+      <text class="s" x="780" y="216">Relays tool calls, never fabricates a result</text>
+      <text x="780" y="240">:8790 in dev</text>
+    </g></a>
+
+    <!-- wires client <-> server -->
+    <g class="wire"><path d="M420 150 H760"/><path d="M420 200 H760"/></g>
+    <path class="tick" d="M426 144 L420 150 L426 156 M754 144 L760 150 L754 156 M426 194 L420 200 L426 206 M754 194 L760 200 L754 206"/>
+    <text class="w" x="590" y="142" text-anchor="middle">GET /content/packs · POST /voice/session</text>
+    <text x="590" y="166" text-anchor="middle">HTTP, JSON</text>
+    <text class="w" x="590" y="192" text-anchor="middle">→ PCM16 mono 16 kHz · ← JSON VoiceEvent</text>
+    <text x="590" y="216" text-anchor="middle">ws://host:8790/voice/ws?session=id</text>
+    <text class="d" x="590" y="246" text-anchor="middle">WebRTC deferred to v2</text>
+
+    <!-- deps from apps to packages -->
+    <g class="dep">
+      <path d="M180 256 L250 416" marker-end="url(#ah)"/>
+      <path d="M230 256 L560 416" marker-end="url(#ah)"/>
+      <path d="M300 256 L860 416" marker-end="url(#ah)"/>
+      <path d="M880 256 L330 416" marker-end="url(#ah)"/>
+      <path d="M950 256 L640 416" marker-end="url(#ah)"/>
+    </g>
+
+    <!-- CORE -->
+    <a href="#p-core"><g>
+      <rect class="box" x="120" y="416" width="290" height="120"/>
+      <path class="tick" d="M120 428 V416 H132 M398 416 H410 V428 M120 524 V536 H132 M398 536 H410 V524"/>
+      <text class="n" x="140" y="448">packages/core</text>
+      <text class="s" x="140" y="474">models · languages · review scheduler</text>
+      <text class="s" x="140" y="494">theme tokens · tokenize · export</text>
+      <text class="s" x="140" y="514">7 tool schemas in zod</text>
+    </g></a>
+    <!-- CONTENT -->
+    <a href="#p-content"><g>
+      <rect class="box" x="445" y="416" width="290" height="120"/>
+      <path class="tick" d="M445 428 V416 H457 M723 416 H735 V428 M445 524 V536 H457 M723 536 H735 V524"/>
+      <text class="n" x="465" y="448">packages/content</text>
+      <text class="s" x="465" y="474">39 source bundles → 9 locale packs</text>
+      <text class="s" x="465" y="494">127 chapters · 41 covers · narration</text>
+      <text class="s" x="465" y="514">CLI: new · build · validate · narrate</text>
+    </g></a>
+    <!-- VOICE -->
+    <a href="#p-voice"><g>
+      <rect class="box" x="770" y="416" width="290" height="120"/>
+      <path class="tick" d="M770 428 V416 H782 M1048 416 H1060 V428 M770 524 V536 H782 M1048 536 H1060 V524"/>
+      <text class="n" x="790" y="448">packages/voice</text>
+      <text class="s" x="790" y="474">VoiceProvider · Fake · LocalCascade</text>
+      <text class="s" x="790" y="494">openai-direct · browser-cascade</text>
+      <text class="s" x="790" y="514">web-audio · webrtc · openai-realtime</text>
+    </g></a>
+
+    <!-- content -> core, voice -> core -->
+    <g class="dep"><path d="M445 476 L410 476" marker-end="url(#ah)"/><path d="M770 496 L735 496" marker-end="url(#ah)"/></g>
+
+    <!-- bottom dimension -->
+    <g class="dim"><path d="M120 566 V578 M1060 566 V578 M120 572 H1060"/></g>
+    <text class="d" x="590" y="600" text-anchor="middle">Every package depends on core and nothing else · zod is the only shared runtime dependency</text>
+  </svg>
+  </div>
+  <p class="cap">Counts are from the tree on 2026-09-08: 8 server routes in apps/server/src, 7 tools in packages/core/src/tools.ts, 6 Zustand slices per docs/architecture.md, 39 bundles in packages/content/source, 9 pack directories, 127 chapters, 41 covers.</p>
+</section>
+
+<section class="specs" aria-label="Specification">
+  <div class="panel" id="p-client">
+    <h3>apps/client<span>Expo · iOS + web</span></h3>
+    <dl>
+      <dt>Navigation</dt><dd>Expo Router, file-based. Three tabs (home, library, vocabulary); onboarding, book, reader, voice, review, profile and settings are stack screens with the tab bar hidden.</dd>
+      <dt>State</dt><dd>Zustand slices: preferences, library, progress, vocabulary, session, ui.<small>One Persistence adapter: idb-keyval on web, expo-sqlite as key-value on native.</small></dd>
+      <dt>Persistence</dt><dd>Everything on-device, no accounts. Export and import is one JSON document, <code>{ format: 'sotto-export', version: 1 }</code>.</dd>
+      <dt>Tools</dt><dd>The tutor's tools run here, validated with zod, against the store.<small>get_current_passage · set_reading_position · save_vocabulary · remove_vocabulary · show_explanation · set_session_mode · mark_section_complete</small></dd>
+      <dt>Type</dt><dd>Fraunces 300 and 400 via @expo-google-fonts; Inter for UI; catalogs in src/i18n/*.json through useT().</dd>
+    </dl>
+  </div>
+  <div class="panel" id="p-server">
+    <h3>apps/server<span>Fastify · :8790</span></h3>
+    <dl>
+      <dt>Routes</dt><dd><code>GET /health</code> · <code>GET /content/packs</code> · <code>GET /content/packs/:locale/*</code> · <code>POST /voice/session</code> · <code>POST /import</code> · <code>GET /import/:jobId/events</code> · <code>GET /import/:jobId/result</code> · <code>POST /import/:jobId/narrate/:chapterIndex</code></dd>
+      <dt>Voice</dt><dd>Creates a session and returns a WebSocket URL; relays audio in and JSON events out.<small>src/voice: chunker, vad, stt, llm, prompt, markers, tts, wav, session, registry, tools.</small></dd>
+      <dt>Wire</dt><dd>Client audio: PCM16 mono 16 kHz frames as binary messages. Server: JSON mirroring the VoiceEvent union, so FakeVoiceProvider emits the same shape from fixtures.</dd>
+      <dt>Import</dt><dd>DRM-free EPUB, TXT or Markdown become a private pack on your own server, with per-chapter narration on request.</dd>
+      <dt>Security</dt><dd>src/security.ts; hardening branch in flight (security/hardening-2026-09-07).</dd>
+    </dl>
+  </div>
+  <div class="panel" id="p-core">
+    <h3>packages/core<span>Domain</span></h3>
+    <dl>
+      <dt>Models</dt><dd>Book, chapter, token, saved word, session; language definitions and catalog resolution (catalogFor).</dd>
+      <dt>Review</dt><dd>The spaced-repetition scheduler behind the review deck.</dd>
+      <dt>Theme</dt><dd>Light and dark token sets (darkColors is warm charcoal, never black); the six cover papers stay light in both.</dd>
+      <dt>Tools</dt><dd>The seven tool schemas in zod, shared by client, server and voice.</dd>
+    </dl>
+  </div>
+  <div class="panel" id="p-content">
+    <h3>packages/content<span>Packs · CLI</span></h3>
+    <dl>
+      <dt>Authoring</dt><dd><code>source/*.bundle.json</code>: title, author, level, premise, chapters as sentences with translations, glossary, tutor notes, comprehension, license.</dd>
+      <dt>Build</dt><dd><code>pnpm content:build</code> compiles to <code>packs/&lt;locale&gt;/</code>: pack.json, per-book metadata, per-chapter token JSON, cover SVGs, narration audio and timings, attribution.</dd>
+      <dt>Validate</dt><dd><code>pnpm content:validate</code> enforces the pack contract and catalog key parity against en.json.</dd>
+      <dt>Coverage</dt><dd>es-419 13 · fr-FR 13 · en-US 6 · it-IT 2 · pt-BR 2 · ca-ES 1 · ro-RO 1 · zh-CN 1 (zh-TW pack from the same source).<small>Levels: A1 14, A2 4, B1 9, B2 11, C1 1. 278 estimated minutes.</small></dd>
+    </dl>
+  </div>
+  <div class="panel" id="p-voice">
+    <h3>packages/voice<span>Providers · transports</span></h3>
+    <dl>
+      <dt>Interface</dt><dd>VoiceProvider: one event union the UI consumes regardless of where the tutor runs.</dd>
+      <dt>Providers</dt><dd>Fake (fixtures) · LocalCascade (server, local models) · openai-direct (your own key, from the browser) · browser-cascade (WebGPU, in progress).</dd>
+      <dt>Transports</dt><dd>web-audio · webrtc · openai-realtime, with an audio adapter and mic-error handling.</dd>
+      <dt>Tiers</dt><dd>Hosted PWA reads free; the tutor runs via your key, on the device, or on your own machine with <code>docker compose up</code>.</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="fig" aria-labelledby="f2">
+  <header><h2 id="f2">Figure 2 · Narration pipeline, one chapter</h2><span class="mono">pnpm content:narrate · CONTRACTS §2c</span></header>
+  <div class="strip">
+    <div><span class="k">01</span><b>bundle.json</b><p>Sentences with translations, written by an author or adapted from a public-domain text.</p></div>
+    <div><span class="k">02</span><b>content:build</b><p>Tokenizes every sentence; writes pack.json and per-chapter token JSON.</p></div>
+    <div><span class="k">03</span><b>Kokoro TTS</b><p>Local endpoint renders the chapter to audio, one voice per locale (ff_siwis, ef_dora, af_heart…).</p></div>
+    <div><span class="k">04</span><b>Transcribe</b><p>The generated audio is transcribed with word-level timestamps.</p></div>
+    <div><span class="k">05</span><b>Align</b><p>Timestamped words are aligned back onto the pack's pre-tokenized text.</p></div>
+    <div><span class="k">06</span><b>Write</b><p>An mp3 plus per-token startMs and endMs in the chapter JSON, with caching and fallback rules.</p></div>
+    <div><span class="k">07</span><b>Speech fill</b><p>In the reader each word turns from quiet to ink as the narrator reaches it, 60ms stagger.</p></div>
+  </div>
+</section>
+
+<section class="notes" aria-label="Notes">
+  <div><h3>Decisions held</h3><p><b>No accounts, no analytics.</b> Everything runs in the browser; a book you have opened keeps working offline. <b>WebRTC deferred:</b> PCM over WebSocket for v1. <b>Tools execute client-side:</b> the server relays and never fabricates a successful result.</p></div>
+  <div><h3>Stale on purpose</h3><p><b>docs/contracts.md</b> is an early verbatim copy; <b>planning/CONTRACTS.md</b> is the one that stayed current. The client's <b>src/i18n/</b> is the only live catalog location.</p></div>
+  <div><h3>Honest caveats</h3><p>Books are machine-adapted drafts and their levels are estimates (docs/content-qa.md). The in-browser WebGPU tutor is still being finished (docs/browser-tutor.md). What is verified is tracked in docs/verification.md.</p></div>
+</section>
+
+<footer>
+  <span class="mono">Sotto · planning/design/architecture-sheet.html</span>
+  <span class="mono">Sheet 01 of 01 · rev 2026-09-08</span>
+</footer>
+
+</body>
+</html>

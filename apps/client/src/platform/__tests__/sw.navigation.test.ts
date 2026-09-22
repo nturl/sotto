@@ -147,6 +147,17 @@ describe('a missing file answered with the app shell', () => {
     expect(sw.stored.has(`https://sotto.test${book}`)).toBe(true);
   });
 
+  // A pack URL pasted into the address bar is a navigation, so it carries
+  // destination 'document' — but the fetch handler routes /content/packs/**
+  // to cacheFirst before it ever looks at the mode, so the exemption would
+  // have frozen the app shell under that pack's own URL.
+  it('is not saved when a pack URL is opened in the address bar', async () => {
+    const sw = worker(missing);
+    const chapter = '/content/packs/fr-FR/books/fr-chat-botte/chapters/01.json';
+    await sw.load(chapter);
+    expect(sw.stored.has(`https://sotto.test${chapter}`)).toBe(false);
+  });
+
   it('still saves the shell a navigation returns, which is HTML by definition', async () => {
     const sw = worker(missing);
     await sw.load('/library');

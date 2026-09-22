@@ -99,12 +99,18 @@ export function TabBar({ state, navigation }: TabBarProps) {
           <Pressable
             key={row.key}
             onPress={onPress}
-            accessibilityRole="tab"
+            // Settings is a push route, not a Tabs.Screen: entering it drops
+            // the bar entirely, so announcing it as a tab promised behaviour
+            // it does not have (audit 2026-09-21). A link, like the same row
+            // in Sidebar.tsx. A link also carries no selected state, which
+            // clears the two-tabs-selected-at-once the stale bar reported on
+            // /settings.
+            accessibilityRole={row.isSettings ? 'link' : 'tab'}
             // react-native-web 0.21 dropped the `accessibilityState` ->
             // `aria-*` mapping (lane C's LevelScale finding, repo-wide), so
             // without this the DOM tab never reports which one is current.
             // `accessibilityState` stays for native.
-            aria-selected={focused}
+            aria-selected={row.isSettings ? undefined : focused}
             accessibilityState={{ selected: focused }}
             style={[styles.tab, webCursor]}
           >

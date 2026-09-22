@@ -16,6 +16,18 @@ describe('the landing page for a keyboard', () => {
     expect(signin).toBeDefined();
     expect(signin).not.toContain('outline');
   });
+
+  it('keeps the sign-in label legible on the coral it lands on', () => {
+    // --surface on --accent is 3.42:1, under the 4.5:1 of WCAG 1.4.3 AA, and the
+    // hover rule also fires on :focus-visible — so the link was least legible
+    // exactly when a keyboard user was on it. No colour override here means the
+    // resting --on-accent applies, which is 4.88:1 (2026-09-21).
+    const signin = html.match(/\.signin:hover,\s*\.signin:focus-visible \{([^}]*)\}/)?.[1];
+    expect(signin).toBeDefined();
+    expect(signin).not.toMatch(/(^|[;\s])color:/);
+    const base = html.match(/\n\s*\.signin \{([^}]*)\}/)?.[1];
+    expect(base).toContain('color: var(--on-accent);');
+  });
 });
 
 describe('the scene tab strip as a screen reader reads it', () => {

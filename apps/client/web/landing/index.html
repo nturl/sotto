@@ -268,12 +268,13 @@
           color var(--state) var(--ease),
           box-shadow var(--state) var(--ease);
       }
-      /* No outline reset here: the fill change alone is a 2.4:1 focus indicator, so
-         the page-wide :focus-visible ring has to survive this rule (2026-09-21). */
+      /* No outline reset and no colour override here: the fill change alone is a
+         2.4:1 focus indicator, so the page-wide :focus-visible ring has to survive
+         this rule, and --surface on coral read 3.42:1 where the resting --on-accent
+         above reads 4.88:1 (2026-09-21). */
       .signin:hover,
       .signin:focus-visible {
         background: var(--accent);
-        color: var(--surface);
         box-shadow: 0 0 0 5px rgba(228, 87, 46, 0.22);
       }
       @media (display-mode: standalone) {

@@ -6,15 +6,15 @@
   "framework": null,
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/:path(.*)",
       "has": [{ "type": "host", "value": "www.readsotto.app" }],
-      "destination": "https://readsotto.app/:path*",
+      "destination": "https://readsotto.app/:path",
       "permanent": true
     },
     {
-      "source": "/:path*",
+      "source": "/:path(.*)",
       "has": [{ "type": "host", "value": "sotto-steel.vercel.app" }],
-      "destination": "https://readsotto.app/:path*",
+      "destination": "https://readsotto.app/:path",
       "permanent": true
     }
   ],

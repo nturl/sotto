@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router';
 import { setPreference, usePreferences } from '../../src/ui/data';
+import { goBackOr } from '../../src/ui/goBackOr';
 import { LanguageListScreen } from '../../src/ui/LanguageListScreen';
 import { LEARNING_LANGUAGES } from '../../src/ui/languages';
 
@@ -13,7 +14,7 @@ export default function LearningLanguageScreen() {
       selectedCode={preferences.learningLocale}
       onSelect={(code) => {
         setPreference('learningLocale', code);
-        router.back();
+        goBackOr(router, '/settings');
       }}
     />
   );

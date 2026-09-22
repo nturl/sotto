@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { setUiCatalog } from '../../src/i18n/useT';
 import { setPreference, usePreferences } from '../../src/ui/data';
+import { goBackOr } from '../../src/ui/goBackOr';
 import { LanguageListScreen } from '../../src/ui/LanguageListScreen';
 import { APP_LANGUAGES } from '../../src/ui/languages';
 
@@ -15,7 +16,7 @@ export default function AppLanguageScreen() {
       onSelect={(code) => {
         setPreference('interfaceLocale', code);
         setUiCatalog(code);
-        router.back();
+        goBackOr(router, '/settings');
       }}
     />
   );

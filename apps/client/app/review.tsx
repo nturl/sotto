@@ -10,6 +10,7 @@ import { useT } from '../src/i18n/useT';
 import { Button } from '../src/ui/Button';
 import { IconButton } from '../src/ui/IconButton';
 import { CloseGlyph, SpeakerGlyph } from '../src/ui/Glyphs';
+import { goBackOr } from '../src/ui/goBackOr';
 import { Shell, useLayoutMetrics } from '../src/ui/Shell';
 import { Text } from '../src/ui/Text';
 import { useTheme } from '../src/ui/theme';
@@ -79,6 +80,12 @@ export default function ReviewScreen() {
     setIndex((i) => i + 1);
   };
 
+  // /review is a shareable, noindexed URL outside the tab group: cold-loaded
+  // there is no tab bar and nothing to pop, so an unguarded back() left Close
+  // as the only control and it did nothing (audit 2026-09-21). Vocabulary is
+  // the only screen that pushes here.
+  const close = () => goBackOr(router, '/(tabs)/vocabulary');
+
   const restart = () => {
     setSessionKey((k) => k + 1);
     setIndex(0);
@@ -94,7 +101,7 @@ export default function ReviewScreen() {
           <IconButton
             icon={<CloseGlyph size={20} />}
             accessibilityLabel={t('common.close')}
-            onPress={() => router.back()}
+            onPress={close}
           />
         </View>
         <Text role="heading" style={styles.centerText}>
@@ -128,7 +135,7 @@ export default function ReviewScreen() {
               <IconButton
                 icon={<CloseGlyph size={20} />}
                 accessibilityLabel={t('common.close')}
-                onPress={() => router.back()}
+                onPress={close}
               />
             </View>
             <View style={styles.desktopCenter}>{summary}</View>
@@ -140,7 +147,7 @@ export default function ReviewScreen() {
               <IconButton
                 icon={<CloseGlyph size={20} />}
                 accessibilityLabel={t('common.close')}
-                onPress={() => router.back()}
+                onPress={close}
               />
             </View>
             {summary}
@@ -223,7 +230,7 @@ export default function ReviewScreen() {
           <IconButton
             icon={<CloseGlyph size={20} />}
             accessibilityLabel={t('common.close')}
-            onPress={() => router.back()}
+            onPress={close}
           />
         </View>
         <View style={styles.desktopCenter}>
@@ -245,7 +252,7 @@ export default function ReviewScreen() {
         <IconButton
           icon={<CloseGlyph size={20} />}
           accessibilityLabel={t('common.close')}
-          onPress={() => router.back()}
+          onPress={close}
         />
       </View>
 

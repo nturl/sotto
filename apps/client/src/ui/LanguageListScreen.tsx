@@ -31,7 +31,7 @@ export function LanguageListScreen({
   const styles = useMemo(() => createStyles(colors), [colors]);
   return (
     <Shell>
-      <BackLink />
+      <BackLink fallback="/settings" />
       <Text role="display" style={styles.title}>
         {t(titleKey)}
       </Text>

@@ -783,6 +783,13 @@ export default function ReaderScreen() {
                 testID="reader-panel-word"
                 role={isWholeSentenceSelection ? 'reading' : 'heading'}
                 size={isWholeSentenceSelection ? undefined : 28}
+                // 2026-09-21: the tapped word or sentence, i.e. the string a
+                // learner is most likely to have read aloud to them. It sits
+                // outside the passage's `lang`, so it needs its own; the
+                // gloss below it is English and correctly keeps the
+                // document's.
+                // @ts-expect-error -- web-only prop; RN Web forwards it, native ignores unknown props.
+                lang={locale}
               >
                 {headword}
               </Text>

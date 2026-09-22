@@ -957,46 +957,61 @@
           <div class="book-col">
             <div class="book-wrap">
               <ul class="tabs" role="tablist" aria-label="Scenes">
-                <li>
+                <li role="presentation">
                   <a
                     class="tab"
                     role="tab"
+                    id="tab-read"
                     href="#scene-read"
+                    aria-controls="book"
                     data-state="read"
                     aria-selected="true"
                     ><b>01</b> Read</a
                   >
                 </li>
-                <li>
-                  <a class="tab" role="tab" href="#scene-tap" data-state="tap" aria-selected="false"
-                    ><b>02</b> Tap</a
-                  >
-                </li>
-                <li>
+                <li role="presentation">
                   <a
                     class="tab"
                     role="tab"
+                    id="tab-tap"
+                    href="#scene-tap"
+                    aria-controls="book"
+                    data-state="tap"
+                    aria-selected="false"
+                    ><b>02</b> Tap</a
+                  >
+                </li>
+                <li role="presentation">
+                  <a
+                    class="tab"
+                    role="tab"
+                    id="tab-listen"
                     href="#scene-listen"
+                    aria-controls="book"
                     data-state="listen"
                     aria-selected="false"
                     ><b>03</b> Listen</a
                   >
                 </li>
-                <li>
+                <li role="presentation">
                   <a
                     class="tab"
                     role="tab"
+                    id="tab-speak"
                     href="#scene-speak"
+                    aria-controls="book"
                     data-state="speak"
                     aria-selected="false"
                     ><b>04</b> Speak</a
                   >
                 </li>
-                <li>
+                <li role="presentation">
                   <a
                     class="tab"
                     role="tab"
+                    id="tab-power"
                     href="#scene-power"
+                    aria-controls="book"
                     data-state="power"
                     aria-selected="false"
                     ><b>05</b> Power</a
@@ -1004,7 +1019,13 @@
                 </li>
               </ul>
 
-              <div class="book" id="book" data-state="read">
+              <div
+                class="book"
+                id="book"
+                data-state="read"
+                role="tabpanel"
+                aria-labelledby="tab-read"
+              >
                 <div class="page left">
                   <span class="meta">Chapitre un · Français · A2</span>
                   <p class="passage" id="passage" lang="fr">
@@ -1403,12 +1424,22 @@
             p.classList.toggle('on', p.getAttribute('data-for') === key);
           });
         }
+        /* The strip is one tab stop, arrows move within it, and #book takes its
+           accessible name from whichever tab is selected. tabindex is set here and
+           never in the markup: with JavaScript off the five tabs are real in-page
+           links to the scene copy, and -1 would strand four of them (2026-09-21). */
+        function syncTabs(st) {
+          tabs.forEach(function (t) {
+            var on = t.getAttribute('data-state') === st;
+            t.setAttribute('aria-selected', on ? 'true' : 'false');
+            t.setAttribute('tabindex', on ? '0' : '-1');
+          });
+          book.setAttribute('aria-labelledby', 'tab-' + st);
+        }
         function setState(st) {
           if (book.getAttribute('data-state') === st) return;
           book.setAttribute('data-state', st);
-          tabs.forEach(function (t) {
-            t.setAttribute('aria-selected', t.getAttribute('data-state') === st ? 'true' : 'false');
-          });
+          syncTabs(st);
           if (st === 'listen') runFill();
           else {
             stopNarration(true);
@@ -1417,10 +1448,19 @@
           setFoot();
         }
 
-        tabs.forEach(function (t) {
+        syncTabs(book.getAttribute('data-state'));
+        tabs.forEach(function (t, i) {
           t.addEventListener('click', function (e) {
             e.preventDefault();
             setState(t.getAttribute('data-state'));
+          });
+          t.addEventListener('keydown', function (e) {
+            var step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+            var next = e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : i + step;
+            if (next === i || next < 0 || next >= tabs.length) return;
+            e.preventDefault();
+            setState(tabs[next].getAttribute('data-state'));
+            tabs[next].focus();
           });
         });
         Array.prototype.forEach.call(book.querySelectorAll('input[name="pw"]'), function (r) {

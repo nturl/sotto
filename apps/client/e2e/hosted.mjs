@@ -453,20 +453,25 @@ async function runAtWidth({ width, height, label }) {
     const names = await caches.keys();
     const shellName = names.find((n) => n.startsWith('sotto-shell-'));
     const contentName = names.find((n) => n.startsWith('sotto-content-'));
-    const shellHasIndex = shellName
-      ? !!(await (await caches.open(shellName)).match('/index.html'))
+    // /app.html, not /index.html: the offline navigate fallback in
+    // public/sw.js reads '/app.html', and /index.html (the landing page)
+    // stopped being precached on 2026-09-21 because nothing could ever
+    // match it — cache.add keys it under '/index.html' while a navigation
+    // to '/' asks for '/'.
+    const shellHasAppShell = shellName
+      ? !!(await (await caches.open(shellName)).match('/app.html'))
       : false;
     let contentCachedCount = 0;
     if (contentName) {
       const keys = await (await caches.open(contentName)).keys();
       contentCachedCount = keys.filter((r) => r.url.includes(bookPath)).length;
     }
-    return { shellName, shellHasIndex, contentName, contentCachedCount };
+    return { shellName, shellHasAppShell, contentName, contentCachedCount };
   }, '/content/packs/');
 
-  if (cacheState.shellHasIndex)
-    log(`${label}: shell cache (${cacheState.shellName}) has index.html`);
-  else fail(`${label}: shell cache is missing index.html — offline reload would not work`);
+  if (cacheState.shellHasAppShell)
+    log(`${label}: shell cache (${cacheState.shellName}) has app.html`);
+  else fail(`${label}: shell cache is missing app.html — offline reload would not work`);
 
   const sameOriginContent =
     new URL(BASE_URL).hostname !== 'localhost' &&
@@ -511,7 +516,7 @@ async function runAtWidth({ width, height, label }) {
           }
         };
         return {
-          indexStatus: await statusOf('/index.html'),
+          appShellStatus: await statusOf('/app.html'),
           chapterStatus: await statusOf(chapterUrl),
           audioStatus: await statusOf(audioUrl, { headers: { range: 'bytes=0-1' } }),
         };
@@ -520,8 +525,9 @@ async function runAtWidth({ width, height, label }) {
     );
     await context.setOffline(false);
 
-    if (offlineFetches.indexStatus === 200) log(`${label}: offline fetch('/index.html') -> 200`);
-    else fail(`${label}: offline fetch('/index.html') -> ${offlineFetches.indexStatus} (want 200)`);
+    if (offlineFetches.appShellStatus === 200) log(`${label}: offline fetch('/app.html') -> 200`);
+    else
+      fail(`${label}: offline fetch('/app.html') -> ${offlineFetches.appShellStatus} (want 200)`);
 
     if (offlineFetches.chapterStatus === 200) log(`${label}: offline fetch(chapter json) -> 200`);
     else

@@ -4,12 +4,14 @@
  * bundler — plain JS so it can sit in public/ untouched by the Expo web
  * export and be registered as-is from app/_layout.tsx.
  *
- * - Precaches the app shell (app.html, index.html + the hashed /_expo/static JS/CSS
+ * - Precaches the app shell (app.html + the hashed /_expo/static JS/CSS
  *   files) using the file list build-web.mjs writes to /sw-manifest.json
  *   after each export. The manifest's `version` names the shell cache, so
  *   a new deploy gets a fresh cache and the old one is dropped on activate.
- *   The offline navigate fallback below serves /app.html (the app shell;
- *   / is the static landing page, which the SW's shell cache also has).
+ *   The offline navigate fallback below serves /app.html (the app shell).
+ *   / is the static landing page; it is no longer precached (2026-09-21),
+ *   so it is in the shell cache only once someone has navigated to it
+ *   online, which networkFirst then stores under the key '/'.
  * - Runtime-caches same-origin /content/packs/** the first time a file is
  *   requested (cache-first), so a book already opened once keeps working
  *   offline — including its audio. That cache is named by the manifest's
@@ -225,7 +227,11 @@ async function cacheFirst(request, cacheName) {
   const cached = await cache.match(request);
   if (cached) return cached;
   const response = await fetch(request);
-  if (cacheable(response, request.destination)) await cache.put(request, response.clone());
+  // No destination is exempt here: cacheFirst is only ever right for
+  // subresources, and a direct navigation to a /content/packs/** URL reaches
+  // it with destination 'document' (see the fetch handler below), which would
+  // otherwise freeze the app shell under a pack URL (C39, 2026-09-21).
+  if (cacheable(response, '')) await cache.put(request, response.clone());
   return response;
 }
 

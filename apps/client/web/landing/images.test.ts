@@ -30,7 +30,7 @@ describe('the landing page screenshots', () => {
     expect(bytes.subarray(-2).toString('hex')).toBe('ffd9');
   });
 
-  it.each(shots)('defers %s at its intrinsic size, which a data URI could not do', (name) => {
+  it.each(shots)('requests %s as a file, lazily and at its intrinsic size', (name) => {
     const tag = preview
       .split('<img')
       .map((chunk) => chunk.slice(0, chunk.indexOf('>')))

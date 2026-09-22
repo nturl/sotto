@@ -32,7 +32,8 @@ describe('the landing page for a keyboard', () => {
 
 describe('the scene tab strip as a screen reader reads it', () => {
   const html = readFileSync(new URL('./index.html', import.meta.url), 'utf8');
-  const tablist = html.slice(html.indexOf('<ul class="tabs"'), html.indexOf('</ul>'));
+  const open = html.indexOf('<ul class="tabs"');
+  const tablist = html.slice(open, html.indexOf('</ul>', open));
   const scenes = ['read', 'tap', 'listen', 'speak', 'power'];
 
   it('owns its tabs directly: the listitems in between are presentational', () => {
@@ -43,8 +44,14 @@ describe('the scene tab strip as a screen reader reads it', () => {
   });
 
   it.each(scenes)('points the %s tab at the panel it swaps', (scene) => {
-    expect(tablist).toContain(`id="tab-${scene}"`);
-    expect(tablist).toContain('aria-controls="book"');
+    // Per tab, not per strip: a whole-strip match would still pass with one tab
+    // having lost its aria-controls.
+    const tag = tablist
+      .split('<a')
+      .map((chunk) => chunk.slice(0, chunk.indexOf('>')))
+      .find((attrs) => attrs.includes(`id="tab-${scene}"`));
+    expect(tag).toBeDefined();
+    expect(tag).toContain('aria-controls="book"');
   });
 
   it('names the panel after whichever tab is selected', () => {
@@ -60,5 +67,7 @@ describe('the scene tab strip as a screen reader reads it', () => {
     expect(html).toContain("e.key === 'ArrowLeft'");
     expect(html).toContain("e.key === 'Home'");
     expect(html).toContain("e.key === 'End'");
+    // The pattern wraps: ArrowRight off the last tab lands on the first, not nowhere.
+    expect(html).toContain('next = (next + tabs.length) % tabs.length;');
   });
 });

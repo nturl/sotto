@@ -1459,7 +1459,10 @@
           t.addEventListener('keydown', function (e) {
             var step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
             var next = e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : i + step;
-            if (next === i || next < 0 || next >= tabs.length) return;
+            /* Wraps at both ends: the tabs pattern moves off the last tab onto the
+               first rather than leaving focus stranded there (2026-09-21). */
+            next = (next + tabs.length) % tabs.length;
+            if (next === i) return;
             e.preventDefault();
             setState(tabs[next].getAttribute('data-state'));
             tabs[next].focus();

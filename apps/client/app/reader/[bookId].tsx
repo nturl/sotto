@@ -921,7 +921,12 @@ export default function ReaderScreen() {
               if (prev) setChapterId(prev.id);
             }}
           />
-          <Pressable onPress={() => narration.seekBy(-10)} style={webCursor}>
+          <Pressable
+            onPress={() => narration.seekBy(-10)}
+            accessibilityRole="button"
+            accessibilityLabel={t('reader.transport.back10')}
+            style={[webCursor, styles.transportButton]}
+          >
             <Text role="mono">-10</Text>
           </Pressable>
           <IconButton
@@ -937,7 +942,12 @@ export default function ReaderScreen() {
             accessibilityLabel={narration.playing ? t('reader.pause') : t('reader.play')}
             onPress={() => (narration.playing ? narration.pause() : narration.play())}
           />
-          <Pressable onPress={() => narration.seekBy(10)} style={webCursor}>
+          <Pressable
+            onPress={() => narration.seekBy(10)}
+            accessibilityRole="button"
+            accessibilityLabel={t('reader.transport.forward10')}
+            style={[webCursor, styles.transportButton]}
+          >
             <Text role="mono">+10</Text>
           </Pressable>
           <IconButton
@@ -962,7 +972,14 @@ export default function ReaderScreen() {
               const next = SPEEDS[(idx + 1) % SPEEDS.length]!;
               useSottoStore.getState().setPreference('narrationSpeed', next);
             }}
-            style={webCursor}
+            accessibilityRole="button"
+            // The label carries the rate: an accessibilityLabel overrides the
+            // inner text, so a bare "Playback speed" would stop screen readers
+            // announcing which speed is active (2026-09-21).
+            accessibilityLabel={t('reader.transport.speed', {
+              speed: preferences.narrationSpeed,
+            })}
+            style={[webCursor, styles.transportButton]}
           >
             <Text role="mono" color="ink2">
               {preferences.narrationSpeed}x
@@ -1522,7 +1539,22 @@ function createStyles(colors: ThemeColors) {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: space.md,
+      // 2026-09-21: tightened from space.md to pay for transportButton's
+      // horizontal padding — the row's five controls were already wider
+      // than this slot at 375, so the widening has to come out of the gap
+      // rather than out of the clock labels either side.
+      gap: space.xs,
+    },
+    // 2026-09-21: -10 / +10 / the speed toggle were bare 23x11 and 15x11
+    // text sitting between 44x44 IconButtons, with ~11px of dead pixels
+    // either side, so a miss landed on "Previous chapter" and jumped the
+    // chapter. The row is already 44 tall, so the height costs no layout;
+    // the width stays modest deliberately (a full 44 each overflows the
+    // row at 375 — see the gap note above).
+    transportButton: {
+      minHeight: space.tapTarget,
+      justifyContent: 'center',
+      paddingHorizontal: space.xs,
     },
     transportMeta: {
       flexDirection: 'row',

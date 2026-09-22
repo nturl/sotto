@@ -20,6 +20,7 @@ import { getLanguage, type Block, type Chapter, type Sentence, type Token } from
 import { radius, shadow, space, type schemes } from '@sotto/core/theme';
 import { useTheme } from '../../src/ui/theme';
 import { useT } from '../../src/i18n/useT';
+import { BackLink } from '../../src/ui/BackLink';
 import { BookTile } from '../../src/ui/BookTile';
 import { Cover } from '../../src/ui/Cover';
 import { bookAssetUrl, useLibrary } from '../../src/ui/data';
@@ -57,7 +58,7 @@ import {
   sentenceHighlight,
   type PanelRowId,
 } from '../../src/ui/reader/readerPanel';
-import { DESKTOP_BREAKPOINT } from '../../src/ui/Shell';
+import { DESKTOP_BREAKPOINT, Shell } from '../../src/ui/Shell';
 import { webCursor } from '../../src/ui/tokens';
 import {
   playAudioSlice,
@@ -569,6 +570,26 @@ export default function ReaderScreen() {
   };
 
   if (!bookId) return null;
+
+  // 2026-09-21: /reader/<unknown-id> used to render a fully chromed but
+  // empty reading surface (live "Talk about this passage" and all), where
+  // the sibling /book/<unknown-id> already says so — reachable from a stale
+  // bookmark, a typo'd share link, or a book dropped from a pack. Gated on
+  // packsStatus because `library.byId` resolves against the loaded packs and
+  // is empty during the cold-load window a deep link always hits, so an
+  // ungated check would flash "Book not found." for valid books too.
+  // 'error' deliberately stays out: a failed packs fetch is a network
+  // problem, not a missing book.
+  if (packsStatus === 'ready' && !library.byId(bookId)) {
+    return (
+      <Shell>
+        <BackLink />
+        <Text role="caption" color="ink3" style={styles.notFound}>
+          {t('book.notFound')}
+        </Text>
+      </Shell>
+    );
+  }
 
   if (showCompletion) {
     return (
@@ -1258,6 +1279,10 @@ function createStyles(colors: ThemeColors) {
       backgroundColor: colors.canvas,
     },
     flex: { flex: 1 },
+    notFound: {
+      marginTop: space.xxxl,
+      textAlign: 'center',
+    },
     header: {
       flexDirection: 'row',
       alignItems: 'center',

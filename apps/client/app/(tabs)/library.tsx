@@ -315,11 +315,14 @@ export default function LibraryScreen() {
       ) : banner.kind === 'emptyLevel' ? (
         <View style={styles.banner}>
           <Text role="caption" color="ink2">
-            {`No catalog is currently available for ${languageNameFor(preferences.learningLocale)}. Active level: ${filters.level ?? 'All'}.`}
+            {t('packs.status.emptyLevel', {
+              language: languageNameFor(preferences.learningLocale),
+              level: preferences.level,
+            })}
           </Text>
           <Button
             variant="secondary"
-            title="Change language"
+            title={t('packs.status.changeLevel')}
             onPress={() => router.push('/settings/learning-language')}
           />
         </View>

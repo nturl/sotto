@@ -337,8 +337,10 @@ export default function PaywallScreen() {
                     </Text>
                     {selected.narratedMinutesCap ? (
                       <Text role="caption" color="ink2">
-                        — {selected.narratedMinutesCap} narration minutes listed in the plan (not
-                        yet metered)
+                        —{' '}
+                        {t('paywall.plan.narrationMinutes', {
+                          count: selected.narratedMinutesCap,
+                        })}
                       </Text>
                     ) : null}
                     <Text role="caption" color="ink2">
@@ -352,12 +354,15 @@ export default function PaywallScreen() {
             <Text role="caption" color="ink2" accessibilityLiveRegion="polite">
               {trial
                 ? trial.eligible && trial.trialDays > 0
-                  ? `${trial.trialDays}-day introductory trial, then ${selected ? priceLabel(selected, interval, t) : ''} plus applicable tax unless canceled.`
-                  : `Your introductory trial has already been used, or no trial is available. Subscribe at ${selected ? priceLabel(selected, interval, t) : ''} plus applicable tax; review and confirm the charge in Stripe.`
-                : 'Trial eligibility is checked for your account. Review the trial or immediate payment amount in Stripe before confirming.'}
-              {
-                ' Checkout opens Stripe; return to Account afterward. Manage subscription is on Account. Checkout may display the merchant name NT Sites. Reading progress and keys remain separate on each device and site.'
-              }
+                  ? t('paywall.trial.eligible', {
+                      days: trial.trialDays,
+                      price: selected ? priceLabel(selected, interval, t) : '',
+                    })
+                  : t('paywall.trial.used', {
+                      price: selected ? priceLabel(selected, interval, t) : '',
+                    })
+                : t('paywall.trial.unknown')}
+              {` ${t('paywall.checkout.stripe')} ${t('paywall.checkout.merchant')} ${t('paywall.checkout.devices')}`}
             </Text>
             <Button
               title={

@@ -152,9 +152,7 @@ export default function SettingsScreen() {
       <BackLink />
 
       <Text role="caption" color="ink2">
-        Learning language chooses books; explanation language chooses translations and explanations;
-        app language changes menus. Reading progress and keys stay on this device and origin.
-        Sign-in does not sync reading between sites or devices.
+        {t('settings.intro')}
       </Text>
       <View style={styles.groups}>
         {cloud.enabled ? (
@@ -239,8 +237,8 @@ export default function SettingsScreen() {
             ...(me.status === 'signed-in' && me.me.entitlement.plan !== 'free'
               ? [
                   {
-                    label: 'Hosted Cloud tutor',
-                    value: 'Included in your Sotto plan',
+                    label: t('settings.cloudTutor'),
+                    value: t('settings.cloudTutorValue'),
                     onPress: go('/usage'),
                   },
                 ]
@@ -280,7 +278,7 @@ export default function SettingsScreen() {
               // ownProviderStatus source rather than a screen-local
               // useState, so it can never go stale the way the old
               // "use own provider" toggle did.
-              label: 'Personal OpenAI key',
+              label: t('settings.openaiKey'),
               value: t(`byok.status.${ownProviderStatus}` as const),
               onPress: go('/settings/openai-key'),
             },

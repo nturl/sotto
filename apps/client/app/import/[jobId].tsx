@@ -9,6 +9,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { space } from '@sotto/core/theme';
 import type { Book, Chapter } from '@sotto/core';
 import { useT, type MessageKey } from '../../src/i18n/useT';
+import { BackLink } from '../../src/ui/BackLink';
 import { Button } from '../../src/ui/Button';
 import { Card } from '../../src/ui/Card';
 import { Shell } from '../../src/ui/Shell';
@@ -127,6 +128,13 @@ export default function ImportProgressScreen() {
 
   return (
     <Shell>
+      {/* Until this landed the progress screen had no control at all: below
+          the 900px sidebar breakpoint a job that never reports (a reload
+          after the 30-minute job TTL, a restarted server) left every stage on
+          "Waiting" with no way out (audit 2026-09-21). index.tsx arrives here
+          via router.replace, so back() would skip /import — name it, the way
+          the failure card above does. */}
+      <BackLink onPress={() => router.replace('/import')} />
       <View style={styles.stageCard}>
         {STAGE_ORDER.map((entry, index) => (
           <View

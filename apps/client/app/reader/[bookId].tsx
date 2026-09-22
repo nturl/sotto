@@ -1094,6 +1094,16 @@ export default function ReaderScreen() {
           </View>
 
           <ScrollView
+            // 2026-09-21: WCAG 3.1.2. The passage is the target language but
+            // the document is lang="en", so VoiceOver/NVDA read French,
+            // Spanish and Chinese stories with English phonetics — the one
+            // a11y failure that breaks the actual product. `lang` inherits
+            // through the DOM, so this covers every block and word token
+            // below it; it deliberately sits on the ScrollView, not on
+            // styles.passageWrapper, which also holds the English chapter
+            // label.
+            // @ts-expect-error -- web-only prop; RN Web forwards it, native ignores unknown props.
+            lang={locale}
             style={[styles.flex, isDesktop && styles.passageCapped]}
             contentContainerStyle={[
               styles.scrollContent,

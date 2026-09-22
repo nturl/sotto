@@ -84,16 +84,14 @@ describe('recoveryPanelFor', () => {
     expect(spec.buttons).toEqual(['tryAgain', 'readAlone']);
   });
 
-  it('existing generic mic_unavailable keeps its settings link (pre-F1-split behavior)', () => {
-    const spec = recoveryPanelFor(input({ code: 'mic_unavailable' }));
-    expect(spec.buttons).toEqual(['tryAgain', 'settings', 'readAlone']);
-  });
-
-  it('mic unavailable on the paid origin: retry and read alone, no key settings link', () => {
-    const spec = recoveryPanelFor(input({ code: 'mic_unavailable', cloudEnabled: true }));
-    expect(spec.messageKey).toBe('voice.micUnavailable');
-    expect(spec.buttons).toEqual(['tryAgain', 'readAlone']);
-  });
+  it.each([false, true])(
+    'mic unavailable: retry and read alone, never a key settings link (cloud: %s)',
+    (cloudEnabled) => {
+      const spec = recoveryPanelFor(input({ code: 'mic_unavailable', cloudEnabled }));
+      expect(spec.messageKey).toBe('voice.micUnavailable');
+      expect(spec.buttons).toEqual(['tryAgain', 'readAlone']);
+    },
+  );
 });
 
 describe('recoveryMessageFor', () => {

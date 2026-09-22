@@ -128,10 +128,13 @@ export function recoveryPanelFor(input: RecoveryInput): RecoverySpec {
         buttons: ['tryAgain', 'readAlone'],
       };
     case 'mic_unavailable':
+      // The free origin used to offer 'settings' here, which renders as "Use
+      // your own OpenAI key" — no key can grant a browser microphone, and the
+      // BYOK path opens the same mic (audit 2026-09-21). Matches mic_denied.
       return {
         messageKey: 'voice.micUnavailable',
         hintKey: 'voice.micUnavailableHint',
-        buttons: cloudEnabled ? ['tryAgain', 'readAlone'] : ['tryAgain', 'settings', 'readAlone'],
+        buttons: ['tryAgain', 'readAlone'],
       };
     case 'playback_blocked':
       return {

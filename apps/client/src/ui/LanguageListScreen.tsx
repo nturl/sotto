@@ -35,7 +35,7 @@ export function LanguageListScreen({
       <Text role="display" style={styles.title}>
         {t(titleKey)}
       </Text>
-      <View style={styles.list}>
+      <View accessibilityRole="radiogroup" accessibilityLabel={t(titleKey)} style={styles.list}>
         {options.map((option) => (
           <OptionRow
             key={option.code}

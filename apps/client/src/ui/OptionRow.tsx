@@ -24,8 +24,14 @@ export function OptionRow({ nativeName, localizedName, selected, onPress }: Opti
   return (
     <Pressable
       onPress={onPress}
-      accessibilityRole="button"
-      accessibilityState={{ selected }}
+      accessibilityRole="radio"
+      // react-native-web 0.21 dropped the `accessibilityState` -> `aria-*`
+      // mapping, so the only selection signal reaching the DOM was the 3px
+      // accent bar and every option announced identically (audit 2026-09-21).
+      // Same shape as LevelScale/VariantSegments; `accessibilityState` stays
+      // for native.
+      aria-checked={selected}
+      accessibilityState={{ selected, checked: selected }}
       style={[styles.row, selected && styles.selected, webCursor]}
     >
       <View>

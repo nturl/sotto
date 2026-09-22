@@ -204,7 +204,14 @@ export default function OnboardingScreen() {
 
       {step === 'learningLocale' ? (
         <>
-          <View style={styles.list}>
+          {/* The variant control inside a selected row is its own radiogroup;
+              it stays nested rather than being hoisted out of the row it
+              belongs to. */}
+          <View
+            accessibilityRole="radiogroup"
+            accessibilityLabel={t(STEP_TITLES.learningLocale)}
+            style={styles.list}
+          >
             {families.map((family) => {
               const selected = family.id === selectedFamily.id;
               const variants = selected ? variantsFor(family) : null;
@@ -263,7 +270,11 @@ export default function OnboardingScreen() {
           <Text role="caption" color="ink2" style={styles.hint}>
             {t('onboarding.level.samplesHint')}
           </Text>
-          <View style={styles.list}>
+          <View
+            accessibilityRole="radiogroup"
+            accessibilityLabel={t(STEP_TITLES.level)}
+            style={styles.list}
+          >
             {LEVELS.map((value) => (
               <OptionRow
                 key={value}

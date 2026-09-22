@@ -177,13 +177,14 @@ async function runAtWidth({ width, height, label }) {
     return;
   }
 
-  /** The option row the step arrives with already chosen. react-native-web
-   * drops accessibilityState.selected for role="button", so the selection is
-   * read the way a learner sees it: OptionRow's selected style is the 3px
-   * accent bar down the left edge (src/ui/OptionRow.tsx). */
+  /** The option row the step arrives with already chosen. OptionRow rows are
+   * radios as of the 2026-09-21 audit; the selection is still read the way a
+   * learner sees it — the 3px accent bar down the left edge
+   * (src/ui/OptionRow.tsx) — so this keeps working if the bar ever moves to a
+   * row that is not the checked one. */
   const selectedOption = () =>
     page.evaluate(() => {
-      const rows = [...document.querySelectorAll('[role="button"]')].filter(
+      const rows = [...document.querySelectorAll('[role="radio"]')].filter(
         (el) => getComputedStyle(el).borderLeftWidth === '3px',
       );
       if (rows.length !== 1) return null;

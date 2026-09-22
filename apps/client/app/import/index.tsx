@@ -306,7 +306,11 @@ export default function ImportEntryScreen() {
             accessibilityLabel={t('common.cancel')}
           >
             <Pressable style={styles.modalCard} onPress={(e) => e.stopPropagation()}>
-              <View style={styles.sheetList}>
+              <View
+                accessibilityRole="radiogroup"
+                accessibilityLabel={t('import.preview.detectedLanguage')}
+                style={styles.sheetList}
+              >
                 {LEARNING_LANGUAGES.map((option) => (
                   <OptionRow
                     key={option.code}

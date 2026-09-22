@@ -10,6 +10,8 @@ function worker(respond: () => Response = () => new Response('current app')) {
     new URL(typeof request === 'string' ? request : request.url, 'https://sotto.test').href;
   let online = true;
   let requests = 0;
+  const cacheNames = new Set(['sotto-shell-100']);
+  const opened: string[] = [];
   const cache = {
     match: async (request: string | { url: string }) => stored.get(key(request))?.clone(),
     put: async (request: string | { url: string }, response: Response) => {
@@ -23,8 +25,17 @@ function worker(respond: () => Response = () => new Response('current app')) {
       addEventListener: (name: string, handler: (event: unknown) => void) => {
         handlers.set(name, handler);
       },
+      clients: { claim: async () => {} },
     },
-    caches: { keys: async () => ['sotto-shell-100'], open: async () => cache },
+    caches: {
+      keys: async () => [...cacheNames],
+      open: async (name: string) => {
+        cacheNames.add(name);
+        opened.push(name);
+        return cache;
+      },
+      delete: async (name: string) => cacheNames.delete(name),
+    },
     fetch: async () => {
       requests++;
       if (!online) throw new Error('offline');
@@ -36,12 +47,22 @@ function worker(respond: () => Response = () => new Response('current app')) {
     console,
   });
   vm.runInContext(readFileSync(new URL('../../../public/sw.js', import.meta.url), 'utf8'), context);
+  const drain = async (name: string, event: Record<string, unknown>) => {
+    const waited: Promise<unknown>[] = [];
+    handlers.get(name)!({ ...event, waitUntil: (p: Promise<unknown>) => waited.push(p) });
+    await Promise.all(waited);
+  };
   return {
     stored,
     offline: () => {
       online = false;
     },
     requests: () => requests,
+    cacheNames: () => [...cacheNames].sort(),
+    opened: () => opened,
+    seed: (name: string) => cacheNames.add(name),
+    activate: () => drain('activate', {}),
+    cacheBook: (urls: string[]) => drain('message', { data: { type: 'cache-book', urls } }),
     load: (pathname: string, mode = 'navigate') => {
       let result: Promise<Response> | undefined;
       handlers.get('fetch')!({
@@ -130,5 +151,39 @@ describe('a missing file answered with the app shell', () => {
     const sw = worker(missing);
     await sw.load('/library');
     expect(sw.stored.has('https://sotto.test/library')).toBe(true);
+  });
+});
+
+// The content cache was named with the SHELL build version, so a deploy that
+// touched no book still evicted every chapter and mp3 a reader had available
+// offline (C40, 2026-09-21).
+describe('a deploy that changes no content', () => {
+  const manifest = (version: string, contentVersion: number) => () =>
+    Response.json({ version, contentVersion });
+
+  it('keeps the content cache when only the shell version moved', async () => {
+    const sw = worker(manifest('200', 7));
+    sw.seed('sotto-content-7');
+    await sw.activate();
+    expect(sw.cacheNames()).toEqual(['sotto-content-7']);
+  });
+
+  it('drops the old content cache once the packs themselves change', async () => {
+    const sw = worker(manifest('200', 9));
+    sw.seed('sotto-content-7');
+    await sw.activate();
+    expect(sw.cacheNames()).toEqual([]);
+  });
+
+  it('caches a book under the content version, not the shell one', async () => {
+    const sw = worker();
+    sw.stored.set(
+      'https://sotto.test/sw-manifest.json',
+      Response.json({ version: '100', contentVersion: 7 }),
+    );
+    await sw.load('/content/packs/fr-FR/books/fr-chat-botte/book.json', 'cors');
+    await sw.cacheBook(['/content/packs/fr-FR/books/fr-chat-botte/chapters/01.json']);
+    expect(sw.opened()).toContain('sotto-content-7');
+    expect(sw.opened()).not.toContain('sotto-content-100');
   });
 });

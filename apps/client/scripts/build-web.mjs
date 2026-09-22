@@ -40,6 +40,7 @@ import {
   writeFileSync,
 } from 'node:fs';
 import { execSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -230,7 +231,24 @@ for (const f of distFiles) {
 // files — stable across re-running this script on the same export, but
 // changes on every real rebuild (new bundle hash => new mtimes).
 const version = String(Math.max(...shellFiles.map((f) => statSync(path.join(dist, f)).mtimeMs)));
-writeFileSync(path.join(dist, 'sw-manifest.json'), JSON.stringify({ version, files: shellFiles }));
+// public/sw.js names the content cache by this instead of by `version`, so a
+// code-only deploy stops evicting every book a reader has offline (C40,
+// 2026-09-21). It has to come from the packs' bytes rather than their mtimes:
+// the cpSync above rewrites those on every single build.
+const packDigest = createHash('sha1');
+for (const f of walk(outPacks).sort()) {
+  packDigest.update(f);
+  packDigest.update(
+    createHash('sha1')
+      .update(readFileSync(path.join(outPacks, f)))
+      .digest(),
+  );
+}
+const contentVersion = Number.parseInt(packDigest.digest('hex').slice(0, 13), 16);
+writeFileSync(
+  path.join(dist, 'sw-manifest.json'),
+  JSON.stringify({ version, contentVersion, files: shellFiles }),
+);
 // A changed manifest alone does not trigger a browser's byte-for-byte worker update.
 // Stamp each export so returning clients install its matching offline shell.
 writeFileSync(
@@ -238,5 +256,5 @@ writeFileSync(
   `${readFileSync(path.join(clientDir, 'public/sw.js'), 'utf-8')}\n// Sotto build: ${version}\n`,
 );
 console.log(
-  `web build: PWA manifest + sw-manifest.json written (${shellFiles.length} shell files, v${version})`,
+  `web build: PWA manifest + sw-manifest.json written (${shellFiles.length} shell files, v${version}, content v${contentVersion})`,
 );

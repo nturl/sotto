@@ -12,7 +12,9 @@
  *   / is the static landing page, which the SW's shell cache also has).
  * - Runtime-caches same-origin /content/packs/** the first time a file is
  *   requested (cache-first), so a book already opened once keeps working
- *   offline — including its audio.
+ *   offline — including its audio. That cache is named by the manifest's
+ *   `contentVersion` — a digest of the packs themselves, not the shell build —
+ *   so a deploy that ships only code leaves every offline book in place.
  * - /content/packs/index.json is network-first (new books shouldn't need a
  *   fresh deploy to show up), falling back to the cache when offline.
  * - Every cross-origin request (Lane B's model downloads included) is left
@@ -116,13 +118,27 @@ async function newestCacheName(prefix) {
   return matching[0] ?? null;
 }
 
+// C40 (2026-09-21): the content cache used to carry the shell build version,
+// so every deploy evicted every book a reader had offline. It is named by the
+// packs' own digest now. A manifest read out of a previous deploy's shell
+// cache predates the field — fall back to the shell version there rather than
+// naming a cache 'sotto-content-undefined'.
+function contentVersionOf(manifest) {
+  return manifest.contentVersion ?? manifest.version;
+}
+
 // Resolves the shell/content cache name to use for a request. Prefers the
 // manifest's version; when no manifest is available at all, falls back to
 // the newest already-existing versioned cache rather than a 'dev' cache
-// that (once any real deploy has ever precached) will not exist.
+// that (once any real deploy has ever precached) will not exist. That
+// fallback sorts on the numeric suffix, and a contentVersion is a digest
+// rather than a clock, so for content caches it is best-effort.
 async function resolveCacheName(prefix) {
   const manifest = await getManifest();
-  if (manifest) return prefix + manifest.version;
+  if (manifest) {
+    const version = prefix === CONTENT_CACHE_PREFIX ? contentVersionOf(manifest) : manifest.version;
+    return prefix + version;
+  }
   const newest = await newestCacheName(prefix);
   return newest ?? prefix + 'dev';
 }
@@ -173,7 +189,7 @@ self.addEventListener('activate', (event) => {
       const manifest = await fetchManifestFromNetwork();
       if (manifest) memoryManifest = manifest;
       const currentShell = manifest ? SHELL_CACHE_PREFIX + manifest.version : null;
-      const currentContent = manifest ? CONTENT_CACHE_PREFIX + manifest.version : null;
+      const currentContent = manifest ? CONTENT_CACHE_PREFIX + contentVersionOf(manifest) : null;
       const names = await caches.keys();
       await Promise.all(
         names

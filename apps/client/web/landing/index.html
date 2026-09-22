@@ -9,7 +9,15 @@
       name="description"
       content="Sotto is a free, open-source graded reader for language learners. Read a story in French, Spanish, Italian, Portuguese and more at your level, tap any word for a translation, hear it narrated, talk it over with a voice tutor."
     />
+    <!--
+  Search engines (2026-09-21): this page, on this origin, is the one result
+  Sotto should have. www.readsotto.app and sotto-steel.vercel.app redirect
+  here (vercel.json), the app shell carries noindex (scripts/build-web.mjs),
+  and the paid origin app.readsotto.app answers X-Robots-Tag: noindex.
+-->
+    <link rel="canonical" href="https://readsotto.app/" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Sotto" />
     <meta property="og:title" content="Sotto, a free graded reader" />
     <meta
@@ -26,7 +34,28 @@
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Sotto, a free graded reader" />
+    <meta
+      name="twitter:description"
+      content="Read a page of French, Spanish, Italian, Portuguese and more at your level, tap any word, hear it read, then talk it over with a voice tutor. Free and open source."
+    />
     <meta name="twitter:image" content="https://readsotto.app/og.png?v=4" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Sotto",
+        "url": "https://readsotto.app/",
+        "description": "A free, open-source graded reader for language learners: stories in French, Spanish, Italian, Portuguese, Catalan, Romanian and Chinese at your level, with narration, tap-to-translate, vocabulary review and a voice tutor.",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "image": "https://readsotto.app/og.png?v=4",
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "sameAs": ["https://github.com/nturl/sotto"]
+      }
+    </script>
     <link rel="icon" href="/favicon.ico" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />

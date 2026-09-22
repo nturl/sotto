@@ -4,6 +4,20 @@
   "installCommand": "",
   "outputDirectory": "dist",
   "framework": null,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.readsotto.app" }],
+      "destination": "https://readsotto.app/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "sotto-steel.vercel.app" }],
+      "destination": "https://readsotto.app/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/content/packs", "destination": "/content/packs/index.json" },
     { "source": "/(.*)", "destination": "/app.html" }

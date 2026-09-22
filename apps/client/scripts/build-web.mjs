@@ -43,6 +43,7 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { colors } from '@sotto/core/theme';
+import { injectNoindex, isPaidClientBuild, robotsTxt, sitemapXml } from './seo.mjs';
 
 const require = createRequire(import.meta.url);
 
@@ -136,6 +137,22 @@ if (!html.includes('__SOTTO_STATIC__')) {
   writeFileSync(indexPath, html);
 }
 
+// --- Search engines (scripts/seo.mjs) ---------------------------------------
+// The app shell answers every client-side route on both origins with no
+// server-rendered content, so it is noindex; the landing page at / is the one
+// page meant to rank. robots.txt and sitemap.xml are real files here so they
+// no longer fall through vercel.json's catch-all rewrite onto app.html. The
+// paid client build (EXPO_PUBLIC_CLOUD_URL set) closes its origin instead.
+html = readFileSync(indexPath, 'utf-8');
+writeFileSync(indexPath, injectNoindex(html));
+const paid = isPaidClientBuild();
+writeFileSync(path.join(dist, 'robots.txt'), robotsTxt({ paid }));
+if (!paid) {
+  const lastmod = new Date().toISOString().slice(0, 10);
+  writeFileSync(path.join(dist, 'sitemap.xml'), sitemapXml({ lastmod }));
+}
+console.log(`web build: robots.txt${paid ? ' (paid origin, closed)' : ' + sitemap.xml'} written`);
+
 // --- Landing page: copy source to dist/index.html, fonts to dist/fonts/ ----
 copyFileSync(path.join(clientDir, 'web/landing/index.html'), path.join(dist, 'index.html'));
 const fontsDir = path.join(dist, 'fonts');
@@ -186,6 +203,9 @@ const shellFiles = walk(dist).filter(
     !f.startsWith('/tutor/') &&
     f !== '/sw.js' &&
     f !== '/sw-manifest.json' &&
+    // Crawler files, never requested by the app.
+    f !== '/robots.txt' &&
+    f !== '/sitemap.xml' &&
     !isUnusedFont(f),
 );
 // Version the shell/content caches by the newest mtime among the exported

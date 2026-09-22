@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
     "models:fetch": "tsx scripts/fetch-models.ts",
     "smoke": "tsx scripts/voice-smoke.ts"
   },

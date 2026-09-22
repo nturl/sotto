@@ -13,6 +13,7 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
     "import": "node src/cli.ts import",
     "new": "node src/cli.ts new",
     "build": "node src/cli.ts build",

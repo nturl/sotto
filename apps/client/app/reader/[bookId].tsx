@@ -1004,6 +1004,45 @@ export default function ReaderScreen() {
       </View>
     ) : null;
 
+  // 2026-09-21: chapter stepping lived only inside `transportView`, which is
+  // gated on `audioUri` — so the ro-RO and ca-ES books, which ship without
+  // narration by design (CONTRACTS §2c), had no way to reach chapter 2 while
+  // the header still advertised "Chapter 1 of 2". Additive on purpose:
+  // narrated books keep the controls grouped with narration where BRIEF.md
+  // puts them, and this row renders only when the transport does not, so
+  // there is never a second "Next chapter" button on screen. It carries the
+  // transport's own onLayout because the desktop passage reserves
+  // `transportHeight` as bottom padding — without it the passage's last
+  // lines would render under this row.
+  const chapterOnlyView =
+    !audioUri && (book?.chapters.length ?? 0) > 1 ? (
+      <View
+        style={[styles.transport, isDesktop && styles.transportDesktop]}
+        onLayout={(e) => setTransportHeight(e.nativeEvent.layout.height)}
+      >
+        <View style={styles.transportRow}>
+          <View style={styles.transportControls}>
+            <IconButton
+              icon={<SkipPrevGlyph size={18} color={colors.ink} />}
+              accessibilityLabel={t('reader.prevChapter')}
+              onPress={() => {
+                const prev = book?.chapters[chapterIndex - 1];
+                if (prev) setChapterId(prev.id);
+              }}
+            />
+            <IconButton
+              icon={<SkipNextGlyph size={18} color={colors.ink} />}
+              accessibilityLabel={t('reader.nextChapter')}
+              onPress={() => {
+                const next = book?.chapters[chapterIndex + 1];
+                if (next) setChapterId(next.id);
+              }}
+            />
+          </View>
+        </View>
+      </View>
+    ) : null;
+
   return (
     <View style={styles.root} onLayout={(e) => setWidth(e.nativeEvent.layout.width)}>
       <View style={styles.body}>
@@ -1108,7 +1147,7 @@ export default function ReaderScreen() {
               {talkRow}
             </View>
           ) : null}
-          {isDesktop ? (transportView ?? narratingOnDemandCaption) : null}
+          {isDesktop ? (transportView ?? narratingOnDemandCaption ?? chapterOnlyView) : null}
         </View>
 
         {isDesktop && selectedToken ? (
@@ -1137,7 +1176,7 @@ export default function ReaderScreen() {
           dismissKey={selectedToken}
           dismissAccessibilityLabel={t('common.close')}
           style={styles.mobileSheet}
-          footer={transportView ?? narratingOnDemandCaption}
+          footer={transportView ?? narratingOnDemandCaption ?? chapterOnlyView}
           onHeightChange={setSheetHeight}
         >
           {translationPanel}

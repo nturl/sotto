@@ -257,7 +257,16 @@ export default function ReaderScreen() {
   }, [bookId, loadBook, packsStatus]);
 
   useEffect(() => {
-    if (book && !chapterId) setChapterId(book.chapters[0]?.id);
+    // 2026-09-21: repair an id the loaded book does not actually have, not
+    // just a missing one. A `?chapter=` handoff is persisted after a shape
+    // + book-prefix check only (cloud/paidJourney.ts), so a hand-edited or
+    // stale link (chapter ids have been rewritten by a content rebuild
+    // before) leaves a bogus id here; the old falsy-only guard never
+    // cleared it, `chapterSummary` stayed undefined, the chapter never
+    // loaded, and the reader rendered blank on every later visit too. This
+    // runs on every mount, so it also unbricks an already-poisoned device.
+    if (book && (!chapterId || !book.chapters?.some((c) => c.id === chapterId)))
+      setChapterId(book.chapters[0]?.id);
   }, [book, chapterId]);
 
   const chapterSummary = book?.chapters.find((c) => c.id === chapterId);

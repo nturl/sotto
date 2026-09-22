@@ -22,6 +22,7 @@ import { useTheme } from '../../src/ui/theme';
 import { useT } from '../../src/i18n/useT';
 import { BackLink } from '../../src/ui/BackLink';
 import { BookTile } from '../../src/ui/BookTile';
+import { Button } from '../../src/ui/Button';
 import { Cover } from '../../src/ui/Cover';
 import { bookAssetUrl, useLibrary } from '../../src/ui/data';
 import { getAudioAssetUrl } from '../../src/import/privateAudio';
@@ -583,10 +584,23 @@ export default function ReaderScreen() {
   if (packsStatus === 'ready' && !library.byId(bookId)) {
     return (
       <Shell>
-        <BackLink />
+        {/* The trigger for this screen is a cold deep link, which has no
+            history to pop, so a bare `router.back()` would strand the
+            learner here — guard it the way src/voice/exitTutor.ts does and
+            offer the Library escape app/+not-found.tsx offers (2026-09-21). */}
+        <BackLink
+          onPress={() => (router.canGoBack() ? router.back() : router.replace('/(tabs)/library'))}
+        />
         <Text role="caption" color="ink3" style={styles.notFound}>
           {t('book.notFound')}
         </Text>
+        <View style={styles.notFoundActions}>
+          <Button
+            variant="secondary"
+            title={t('notFound.toLibrary')}
+            onPress={() => router.replace('/(tabs)/library')}
+          />
+        </View>
       </Shell>
     );
   }
@@ -1348,6 +1362,10 @@ function createStyles(colors: ThemeColors) {
     notFound: {
       marginTop: space.xxxl,
       textAlign: 'center',
+    },
+    notFoundActions: {
+      marginTop: space.lg,
+      alignItems: 'center',
     },
     header: {
       flexDirection: 'row',

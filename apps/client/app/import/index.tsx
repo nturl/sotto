@@ -21,7 +21,7 @@ import { useTheme } from '../../src/ui/theme';
 import { webCursor, withAlpha } from '../../src/ui/tokens';
 import { fetchHealth, serverUrl, type Health } from '../../src/state/contentApi';
 import { usePreferences } from '../../src/ui/data';
-import { startImportJob } from '../../src/import/api';
+import { startImportJob, type StartImportResult } from '../../src/import/api';
 import { canImportLocally } from '../../src/import/canImportLocally';
 import { pickImportFile, type PickedFile } from '../../src/import/pickFile';
 import { buildPreview, ImportError, type ImportPreview } from '../../src/import/preview';
@@ -133,25 +133,40 @@ export default function ImportEntryScreen() {
       return;
     }
     setSubmitting(true);
+    let result: StartImportResult;
     try {
-      const result = await startImportJob(file, {
+      // The health gate above only re-checks on mount, and api.ts's bare
+      // fetch rejects outright on a dropped connection — without this the
+      // button just re-enabled and the preview step sat there, while the
+      // hosted sibling above showed the failure card (audit 2026-09-21).
+      // Kept tight around the request so a throw from router.replace below
+      // is not mislabelled a request failure.
+      result = await startImportJob(file, {
         locale,
         narrate: 'first',
         level: preferences.level,
       });
-      if (!result.jobId) {
-        if (result.error === 'drm') {
-          setFailure({ kind: 'drm' });
-        } else {
-          setFailure({ kind: 'unsupported' });
-        }
-        setStep('failure');
-        return;
-      }
-      router.replace(`/import/${result.jobId}`);
+    } catch {
+      setFailure({
+        kind: 'request',
+        message:
+          'Could not start the import. Check that the Sotto server is running, then try again.',
+      });
+      setStep('failure');
+      return;
     } finally {
       setSubmitting(false);
     }
+    if (!result.jobId) {
+      if (result.error === 'drm') {
+        setFailure({ kind: 'drm' });
+      } else {
+        setFailure({ kind: 'unsupported' });
+      }
+      setStep('failure');
+      return;
+    }
+    router.replace(`/import/${result.jobId}`);
   };
 
   const retryToPick = (): void => {

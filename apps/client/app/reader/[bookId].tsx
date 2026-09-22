@@ -995,7 +995,7 @@ export default function ReaderScreen() {
             }}
             accessibilityRole="button"
             // The label carries the rate: an accessibilityLabel overrides the
-            // inner text, so a bare "Playback speed" would stop screen readers
+            // inner text, so a bare "Narration speed" would stop screen readers
             // announcing which speed is active (2026-09-21).
             accessibilityLabel={t('reader.transport.speed', {
               speed: preferences.narrationSpeed,

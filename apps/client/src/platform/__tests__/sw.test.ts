@@ -123,7 +123,7 @@ function createSandbox() {
     console,
   };
   vm.createContext(sandbox);
-  const source = readFileSync(join(__dirname, 'sw.js'), 'utf8');
+  const source = readFileSync(join(__dirname, '../../../public/sw.js'), 'utf8');
   vm.runInContext(source, sandbox, { filename: 'sw.js' });
   return { sandbox, store, fetchCalls, FULL_BODY, FakeHeaders };
 }

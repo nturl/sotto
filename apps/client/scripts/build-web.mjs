@@ -36,6 +36,7 @@ import {
   readFileSync,
   renameSync,
   statSync,
+  unlinkSync,
   writeFileSync,
 } from 'node:fs';
 import { execSync } from 'node:child_process';
@@ -171,7 +172,8 @@ console.log(`web build: landing page + ${landingFonts.length} fonts copied to di
 
 // --- A3: service-worker precache manifest -----------------------------------
 // Every file the export produced outside of dist/content (the packs are
-// runtime-cached instead, see public/sw.js) plus index.html itself.
+// runtime-cached instead, see public/sw.js) and outside the landing page's
+// own assets.
 function walk(dir, base = dir) {
   const files = [];
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
@@ -197,7 +199,8 @@ function isUnusedFont(f) {
   const basename = path.basename(f).split('.')[0];
   return !usedFontBasenames.has(basename);
 }
-const shellFiles = walk(dist).filter(
+const distFiles = walk(dist);
+const shellFiles = distFiles.filter(
   (f) =>
     !f.startsWith('/content/packs/') &&
     !f.startsWith('/tutor/') &&
@@ -206,8 +209,23 @@ const shellFiles = walk(dist).filter(
     // Crawler files, never requested by the app.
     f !== '/robots.txt' &&
     f !== '/sitemap.xml' &&
+    // Landing-page bytes the app never loads (2026-09-21): og.png is an Open
+    // Graph card only crawlers fetch, /index.html is precached under a key the
+    // offline navigate fallback ('/app.html') can never match, and /landing/**
+    // is the landing's own media. All three are still served; none is worth a
+    // first-visit download.
+    f !== '/og.png' &&
+    f !== '/index.html' &&
+    !f.startsWith('/landing/') &&
     !isUnusedFont(f),
 );
+// isUnusedFont already names the ~30 TTFs the app never requests, but until
+// now it only kept them out of the precache — they still shipped (2026-09-21).
+// Unlink them so they are not deployed either. The /tutor/ guard keeps this
+// predicate off that independently built bundle.
+for (const f of distFiles) {
+  if (!f.startsWith('/tutor/') && isUnusedFont(f)) unlinkSync(path.join(dist, f));
+}
 // Version the shell/content caches by the newest mtime among the exported
 // files — stable across re-running this script on the same export, but
 // changes on every real rebuild (new bundle hash => new mtimes).

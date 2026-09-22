@@ -35,7 +35,7 @@ function worker() {
     Headers,
     console,
   });
-  vm.runInContext(readFileSync(new URL('./sw.js', import.meta.url), 'utf8'), context);
+  vm.runInContext(readFileSync(new URL('../../../public/sw.js', import.meta.url), 'utf8'), context);
   return {
     stored,
     offline: () => {

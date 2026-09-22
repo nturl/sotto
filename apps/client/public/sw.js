@@ -191,12 +191,25 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// C39 (2026-09-21): vercel.json rewrites every unmatched path onto
+// /app.html, so a file that is really missing answers 200 text/html rather
+// than 404 and nothing below would notice. Every write of a fetched response
+// into a cache goes through here, so that HTML can never be frozen under a
+// .js/.json/.mp3 URL — only a document navigation legitimately caches an HTML
+// body. Takes the request's `destination` rather than the request itself,
+// because `fillCacheFromNetwork` below only ever has a URL string.
+function cacheable(response, destination) {
+  if (!response.ok || response.status !== 200) return false;
+  const contentType = response.headers.get('content-type') || '';
+  return !contentType.includes('text/html') || destination === 'document';
+}
+
 async function cacheFirst(request, cacheName) {
   const cache = await caches.open(cacheName);
   const cached = await cache.match(request);
   if (cached) return cached;
   const response = await fetch(request);
-  if (response.ok) await cache.put(request, response.clone());
+  if (cacheable(response, request.destination)) await cache.put(request, response.clone());
   return response;
 }
 
@@ -204,7 +217,7 @@ async function networkFirst(request, cacheName) {
   const cache = await caches.open(cacheName);
   try {
     const response = await fetch(request);
-    if (response.ok) await cache.put(request, response.clone());
+    if (cacheable(response, request.destination)) await cache.put(request, response.clone());
     return response;
   } catch (err) {
     const cached = await cache.match(request);
@@ -233,8 +246,7 @@ self.addEventListener('message', (event) => {
             const existing = await cache.match(url);
             if (existing) return;
             const response = await fetch(url);
-            const contentType = response.headers.get('content-type') || '';
-            if (!response.ok || contentType.includes('text/html')) return;
+            if (!cacheable(response, '')) return;
             await cache.put(url, response);
           } catch {
             // Best-effort, per-URL: one failed asset must never abort the
@@ -261,7 +273,7 @@ const fillsInFlight = new Set();
 async function fillCacheFromNetwork(url, cacheName) {
   try {
     const response = await fetch(url);
-    if (!response.ok || response.status !== 200) return;
+    if (!cacheable(response, '')) return;
     const cache = await caches.open(cacheName);
     await cache.put(url, response);
   } catch {

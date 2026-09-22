@@ -3,7 +3,7 @@ import { URL } from 'node:url';
 import vm from 'node:vm';
 import { describe, expect, it } from 'vitest';
 
-function worker() {
+function worker(respond: () => Response = () => new Response('current app')) {
   const handlers = new Map<string, (event: unknown) => void>();
   const stored = new Map<string, Response>();
   const key = (request: string | { url: string }) =>
@@ -28,7 +28,7 @@ function worker() {
     fetch: async () => {
       requests++;
       if (!online) throw new Error('offline');
-      return new Response('current app');
+      return respond();
     },
     URL,
     Response,
@@ -49,6 +49,9 @@ function worker() {
           url: `https://sotto.test${pathname}`,
           method: 'GET',
           mode,
+          // A real navigation's destination is 'document' and a subresource's
+          // is not; sw.js's cacheable() reads it, so the fake must carry it.
+          destination: mode === 'navigate' ? 'document' : '',
           headers: new Headers(),
         },
         respondWith: (response: Promise<Response>) => {
@@ -83,5 +86,49 @@ describe('installed app navigation', () => {
     expect(await (await sw.load('/_expo/static/app-123.js', 'cors'))!.text()).toBe('saved script');
     expect(sw.requests()).toBe(0);
     expect(sw.load('/me', 'cors')).toBeUndefined();
+  });
+});
+
+// vercel.json rewrites every unmatched path onto /app.html, so a file that is
+// really missing answers 200 text/html instead of 404 and the cache-first
+// handlers would freeze that HTML under the asset's own URL (C39, 2026-09-21).
+describe('a missing file answered with the app shell', () => {
+  const missing = () =>
+    new Response('<!DOCTYPE html>', { headers: { 'content-type': 'text/html; charset=utf-8' } });
+
+  it('is not saved under the hashed asset URL that asked for it', async () => {
+    const sw = worker(missing);
+    const body = await (await sw.load('/_expo/static/app-999.js', 'cors'))!.text();
+    expect(body).toContain('<!DOCTYPE html>');
+    expect(sw.stored.has('https://sotto.test/_expo/static/app-999.js')).toBe(false);
+  });
+
+  it('is not saved under the chapter URL that asked for it', async () => {
+    const sw = worker(missing);
+    const chapter = '/content/packs/fr-FR/books/fr-chat-botte/chapters/99.json';
+    await sw.load(chapter, 'cors');
+    expect(sw.stored.has(`https://sotto.test${chapter}`)).toBe(false);
+  });
+
+  it('is not saved when the origin does answer a real 404', async () => {
+    const sw = worker(() => new Response('gone', { status: 404 }));
+    await sw.load('/_expo/static/app-999.js', 'cors');
+    expect(sw.stored.has('https://sotto.test/_expo/static/app-999.js')).toBe(false);
+  });
+
+  it('leaves a real content response cached as before', async () => {
+    const sw = worker(
+      () =>
+        new Response('{"id":"fr-chat-botte"}', { headers: { 'content-type': 'application/json' } }),
+    );
+    const book = '/content/packs/fr-FR/books/fr-chat-botte/book.json';
+    await sw.load(book, 'cors');
+    expect(sw.stored.has(`https://sotto.test${book}`)).toBe(true);
+  });
+
+  it('still saves the shell a navigation returns, which is HTML by definition', async () => {
+    const sw = worker(missing);
+    await sw.load('/library');
+    expect(sw.stored.has('https://sotto.test/library')).toBe(true);
   });
 });

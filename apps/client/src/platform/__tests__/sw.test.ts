@@ -36,7 +36,7 @@ function fakeResponse(
   };
 }
 
-function createSandbox() {
+function createSandbox(respond?: (url: string) => FakeResponse) {
   const store = new Map<string, FakeResponse>();
   const fetchCalls: Array<{ url: string; range: string | null }> = [];
 
@@ -67,7 +67,7 @@ function createSandbox() {
     const url = typeof input === 'string' ? input : input.url;
     const range = typeof input === 'string' ? null : input.headers.get('range');
     fetchCalls.push({ url, range });
-    return fakeResponse(200, FULL_BODY, { 'content-type': 'audio/mpeg' });
+    return respond ? respond(url) : fakeResponse(200, FULL_BODY, { 'content-type': 'audio/mpeg' });
   };
 
   class FakeHeaders {
@@ -227,5 +227,34 @@ describe('rangeFromCache pass-through fill (R6-C2 commit 3)', () => {
 
     const fillCalls = fetchCalls.filter((c) => c.range === null);
     expect(fillCalls).toHaveLength(1);
+  });
+});
+
+// The background fill is the third place this worker writes a fetched response
+// into a cache, and a missing audio file answers 200 text/html rather than 404
+// because of vercel.json's catch-all rewrite (C39, 2026-09-21).
+describe('rangeFromCache background fill of a missing file', () => {
+  it('does not store the app shell under the audio URL', async () => {
+    const { sandbox, store, FakeHeaders } = createSandbox(() =>
+      fakeResponse(200, '<!DOCTYPE html>', { 'content-type': 'text/html; charset=utf-8' }),
+    );
+    const rangeFromCache = sandbox.rangeFromCache as (
+      request: unknown,
+      cacheName: string,
+      event: { waitUntil: (p: Promise<unknown>) => void },
+    ) => Promise<{ status: number }>;
+
+    const url = 'https://sotto.test/content/packs/fr/book/audio/99.mp3';
+    const waited: Promise<unknown>[] = [];
+    await rangeFromCache(
+      { url, headers: new FakeHeaders({ range: 'bytes=0-4' }) },
+      'sotto-content-v1',
+      {
+        waitUntil: (p) => waited.push(p),
+      },
+    );
+    await Promise.all(waited);
+
+    expect(store.has(url)).toBe(false);
   });
 });

@@ -11,8 +11,10 @@
  * `useT()` and `resolveCatalogCode` both fall back to `en` for any catalog
  * name that is not present.
  *
- * Supports {var} interpolation and a minimal ICU plural form:
+ * Supports {var} interpolation and ICU plurals with any set of CLDR
+ * category arms plus `=N` exact matches, selected via Intl.PluralRules:
  *   "{count, plural, one {# mot} other {# mots}}"
+ *   "{count, plural, one {# cuvânt} few {# cuvinte} other {# de cuvinte}}"
  */
 import { useSyncExternalStore } from 'react';
 import { catalogFor } from '@sotto/core';
@@ -94,6 +96,11 @@ export function getUiCatalog(): string {
  * locale (resolved via `catalogFor`); unresolvable codes fall back to en. */
 export function setUiCatalog(catalog: string): void {
   const resolved = resolveCatalogCode(catalog);
+  // Ahead of the early return, deliberately: a store that hydrated before
+  // this module evaluated resolves to the catalog already set, and the
+  // document would keep Expo's <html lang="en"> forever — a screen reader
+  // then speaks every locale with English phonemes (2026-09-21).
+  if (typeof document !== 'undefined') document.documentElement.lang = resolved;
   if (resolved === currentCatalog) return;
   currentCatalog = resolved;
   listeners.forEach((listener) => listener());
@@ -104,19 +111,57 @@ function subscribe(listener: () => void): () => void {
   return () => listeners.delete(listener);
 }
 
-const PLURAL_RE = /\{(\w+),\s*plural,\s*one\s*\{([^{}]*)\}\s*other\s*\{([^{}]*)\}\}/g;
+const PLURAL_CATEGORY = '=\\d+|zero|one|two|few|many|other';
+const PLURAL_RE = new RegExp(
+  `\\{(\\w+),\\s*plural,\\s*((?:(?:${PLURAL_CATEGORY})\\s*\\{[^{}]*\\}\\s*)+)\\}`,
+  'g',
+);
+const PLURAL_ARM_RE = new RegExp(`(${PLURAL_CATEGORY})\\s*\\{([^{}]*)\\}`, 'g');
 const VAR_RE = /\{(\w+)\}/g;
 
-function formatMessage(message: string, values?: MessageValues): string {
+// One Intl.PluralRules per catalog: formatMessage runs on every render of
+// every translated string. Same shape as cloud/priceFormat.ts — a runtime
+// without the constructor (Hermes ships partial Intl) is not a reason to
+// print raw ICU source, so fall back to the one/other split.
+const pluralRules = new Map<string, Intl.PluralRules | null>();
+
+function pluralCategory(count: number, catalogName: string): string {
+  if (!pluralRules.has(catalogName)) {
+    try {
+      pluralRules.set(catalogName, new Intl.PluralRules(catalogName));
+    } catch {
+      pluralRules.set(catalogName, null);
+    }
+  }
+  const rules = pluralRules.get(catalogName);
+  return rules ? rules.select(count) : count === 1 ? 'one' : 'other';
+}
+
+/**
+ * Exported for the catalog test only. Outside Metro just `en` is loaded
+ * (see loadCatalogs), so the plural rules have to be aimed at a catalog
+ * explicitly rather than read off the active one.
+ */
+export function formatMessage(
+  message: string,
+  values?: MessageValues,
+  catalogName: string = currentCatalog,
+): string {
   if (!values) return message;
-  const withPlurals = message.replace(
-    PLURAL_RE,
-    (_match, name: string, one: string, other: string) => {
-      const raw = values[name];
-      const form = Number(raw) === 1 ? one : other;
-      return form.replace(/#/g, String(raw ?? ''));
-    },
-  );
+  const withPlurals = message.replace(PLURAL_RE, (_match, name: string, source: string) => {
+    const raw = values[name];
+    const count = Number(raw);
+    const arms = new Map<string, string>();
+    for (const [, category, body] of source.matchAll(PLURAL_ARM_RE)) {
+      if (category && body !== undefined && !arms.has(category)) arms.set(category, body);
+    }
+    // Exact match first, then the catalog's CLDR category; `other` is the
+    // last resort because a key missing from a catalog pairs an English
+    // message with that catalog's rules (see useT's `catalog[key] ?? en[key]`).
+    const form =
+      arms.get(`=${count}`) ?? arms.get(pluralCategory(count, catalogName)) ?? arms.get('other');
+    return (form ?? '').replace(/#/g, String(raw ?? ''));
+  });
   return withPlurals.replace(VAR_RE, (match, name: string) =>
     name in values ? String(values[name]) : match,
   );
@@ -126,5 +171,5 @@ export function useT(): (key: MessageKey, values?: MessageValues) => string {
   const catalogName = useSyncExternalStore(subscribe, getUiCatalog);
   const catalog = catalogs[catalogName] ?? en;
   return (key: MessageKey, values?: MessageValues) =>
-    formatMessage(catalog[key] ?? en[key] ?? key, values);
+    formatMessage(catalog[key] ?? en[key] ?? key, values, catalogName);
 }

@@ -325,11 +325,16 @@ export default function AccountScreen() {
     }
   };
 
+  // HttpCloudAdapter.signOut() throws before it clears the token, so a failed
+  // request leaves the session intact. Refreshing anyway said nothing and,
+  // offline, flipped the screen to the signed-out view — a false success
+  // (audit 2026-09-21). Say it instead, and leave the screen as it was.
   const signOut = async () => {
     try {
       await cloud.signOut();
-    } finally {
       me.refresh();
+    } catch {
+      setToast(t('account.error.offline'));
     }
   };
 

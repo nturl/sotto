@@ -381,6 +381,12 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // The same Range rule, outside the packs: cacheFirst below would answer a
+  // media element with any whole copy it holds (opening a file in a tab of its
+  // own stores one), and nothing out here is worth serving ranges from a cache.
+  // Since 2026-09-24 that means the landing's explainer video.
+  if (event.request.headers.has('range')) return; // pass through, untouched
+
   // Without this, the app-shell handler below (cache-first) would treat
   // every same-origin API GET as a shell asset and freeze it at its first
   // response — e.g. still "free" right after a real subscribe.

@@ -63,7 +63,7 @@ function worker(respond: () => Response = () => new Response('current app')) {
     seed: (name: string) => cacheNames.add(name),
     activate: () => drain('activate', {}),
     cacheBook: (urls: string[]) => drain('message', { data: { type: 'cache-book', urls } }),
-    load: (pathname: string, mode = 'navigate') => {
+    load: (pathname: string, mode = 'navigate', headers: Record<string, string> = {}) => {
       let result: Promise<Response> | undefined;
       handlers.get('fetch')!({
         request: {
@@ -73,7 +73,7 @@ function worker(respond: () => Response = () => new Response('current app')) {
           // A real navigation's destination is 'document' and a subresource's
           // is not; sw.js's cacheable() reads it, so the fake must carry it.
           destination: mode === 'navigate' ? 'document' : '',
-          headers: new Headers(),
+          headers: new Headers(headers),
         },
         respondWith: (response: Promise<Response>) => {
           result = response;
@@ -107,6 +107,18 @@ describe('installed app navigation', () => {
     expect(await (await sw.load('/_expo/static/app-123.js', 'cors'))!.text()).toBe('saved script');
     expect(sw.requests()).toBe(0);
     expect(sw.load('/me', 'cors')).toBeUndefined();
+  });
+});
+
+// The landing's explainer video (2026-09-24) is the first media file outside
+// /content/packs. A media element asks for byte ranges and rejects a whole 200
+// in reply, which is what cacheFirst hands back once any full copy of the file
+// is in the shell cache (opening the .mp4 in a tab of its own stores one).
+describe('the landing video', () => {
+  it('leaves its byte-range requests to the network, untouched', () => {
+    const sw = worker();
+    sw.stored.set('https://sotto.test/landing/explainer.mp4', new Response('whole file'));
+    expect(sw.load('/landing/explainer.mp4', 'no-cors', { range: 'bytes=0-' })).toBeUndefined();
   });
 });
 

@@ -799,6 +799,9 @@
       }
 
       /* 3 See it working */
+      .film {
+        margin: 0 0 40px;
+      }
       .shots {
         display: grid;
         grid-template-columns: 1fr;
@@ -813,7 +816,8 @@
       .shot figure {
         margin: 0;
       }
-      .shot img {
+      .shot img,
+      .film video {
         display: block;
         width: 100%;
         height: auto;
@@ -821,7 +825,12 @@
         border: 1px solid var(--hairline);
         box-shadow: 6px 6px 0 0 var(--peach);
       }
-      .shot figcaption {
+      /* preload="none" fetches no metadata, so the box takes its shape from here. */
+      .film video {
+        aspect-ratio: 16 / 9;
+      }
+      .shot figcaption,
+      .film figcaption {
         margin-top: 14px;
         font: 400 0.9375rem/1.5 var(--sans);
         color: var(--ink-2);
@@ -1193,6 +1202,24 @@
       <section id="preview">
         <div class="col">
           <h2>See it working</h2>
+          <!--
+  One-minute explainer (2026-09-24), rendered outside this repo from live screenshots, with the
+  tutor panel re-created from the app's own screen. It shows the app and this page's prices, so
+  re-render it after a visible change to either, as with the screenshots below.
+-->
+          <figure class="film">
+            <video
+              controls
+              preload="none"
+              poster="/landing/explainer.jpg"
+              width="1920"
+              height="1080"
+            >
+              <source src="/landing/explainer.mp4" type="video/mp4" />
+              <track kind="captions" src="/landing/explainer.en.vtt" srclang="en" label="English" />
+            </video>
+            <figcaption>A first visit in one minute: read, tap, listen, speak.</figcaption>
+          </figure>
           <div class="shots">
             <div class="shot">
               <figure>

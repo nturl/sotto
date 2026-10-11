@@ -439,7 +439,7 @@ export async function runTranslateSentencesCommand(
       `\n${touchedBookIds.length} source bundle(s) updated — rebuilding affected packs...`,
     );
     for (const bookId of touchedBookIds) {
-      await runBuildCommand({ only: bookId });
+      await runBuildCommand({ only: [bookId] });
     }
   } else if (opts.dryRun || !willCallLlm) {
     console.log('\n(dry-run / LLM unreachable — no source bundles were modified)');

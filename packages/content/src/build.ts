@@ -24,6 +24,7 @@ import {
 import {
   SourceBundleSchema,
   type AttributionFile,
+  type GlossaryEntry,
   type MissingGlossesFile,
   type SourceBundle,
 } from './types.ts';
@@ -33,9 +34,11 @@ import {
   DEFAULT_LLM_MODEL,
   DEFAULT_LLM_URL,
   GLOSS_FILL_BATCH_SIZE,
+  GLOSS_GRAMMAR_FILL_BATCH_SIZE,
   chunk,
   deepseekGlossUsage,
   fillGlossesBatch,
+  fillGrammarBatch,
   isLlmReachable,
   OWN_GLOSS_LOCALE,
   type GlossFillWord,
@@ -44,8 +47,14 @@ import {
 
 export interface BuildOptions {
   fill?: boolean;
-  /** Build only this bookId (matches the source filename minus `.bundle.json`). */
-  only?: string;
+  /** Build only these bookIds (each matches a source filename minus `.bundle.json`). */
+  only?: string[];
+  /**
+   * Backfill `lemma` + `grammar` onto glossary entries that have glosses but
+   * no grammar yet, without touching the glosses. Resumable: writes the
+   * bundle after every batch and skips entries that already have grammar.
+   */
+  fillGrammar?: boolean;
 }
 
 interface BuildRow {
@@ -58,7 +67,26 @@ interface BuildRow {
   missingAfter: number;
 }
 
-type GlossaryMap = Record<string, Record<string, string>>;
+type GlossaryMap = Record<string, GlossaryEntry>;
+
+/**
+ * The lemma/grammar fields a token gets from its glossary entry. `lemma` is
+ * omitted when it only repeats the word (case-insensitive), so the app can
+ * show it only when it adds something.
+ */
+export function tokenGrammarFields(
+  entry: Pick<GlossaryEntry, 'lemma' | 'grammar'>,
+  normalized: string,
+): Pick<Token, 'lemma' | 'grammar'> {
+  const lemma =
+    entry.lemma && entry.lemma.toLocaleLowerCase() !== normalized.toLocaleLowerCase()
+      ? entry.lemma
+      : undefined;
+  return {
+    ...(lemma ? { lemma } : {}),
+    ...(entry.grammar && Object.keys(entry.grammar).length > 0 ? { grammar: entry.grammar } : {}),
+  };
+}
 
 // ---- token/sentence assembly -------------------------------------------
 
@@ -81,14 +109,17 @@ function buildTokens(
       missing.push(d.normalized);
       return { text: d.text, normalized: d.normalized, isWord: true, spaceBefore: d.spaceBefore };
     }
+    const { lemma, grammar, ...strings } = entry;
+    const extras = tokenGrammarFields({ lemma, grammar }, d.normalized);
     if (needsPinyin) {
-      const { pinyin, ...glosses } = entry;
+      const { pinyin, ...glosses } = strings;
       return {
         text: d.text,
         normalized: d.normalized,
         isWord: true,
         spaceBefore: d.spaceBefore,
         glosses,
+        ...extras,
         pinyin,
       };
     }
@@ -97,7 +128,8 @@ function buildTokens(
       normalized: d.normalized,
       isWord: true,
       spaceBefore: d.spaceBefore,
-      glosses: entry,
+      glosses: strings,
+      ...extras,
     };
   });
   return { tokens, missing };
@@ -460,7 +492,8 @@ async function fillMissingGlosses(
   // Pinyin batches carry 10 fields/word (vs 9) plus verbose zh proper-noun
   // glosses; a full 40-word batch can exceed DeepSeek's max_tokens ceiling
   // mid-response (observed finish_reason: "length" at 8000 tokens).
-  const batchSize = needsPinyin ? 5 : GLOSS_FILL_BATCH_SIZE;
+  // Lemma + grammar ride along in the same call, so latin batches are halved.
+  const batchSize = needsPinyin ? 5 : GLOSS_GRAMMAR_FILL_BATCH_SIZE;
   const batches = chunk(missingWords, batchSize);
   let filled = 0;
   for (const batch of batches) {
@@ -474,13 +507,15 @@ async function fillMissingGlosses(
       needsPinyin,
       contentLanguageName: languageName,
       backend,
+      withGrammar: true,
     });
     const ownLocale = OWN_GLOSS_LOCALE[bundle.contentLocale];
     for (const word of batch) {
       const entry = result[word];
       if (entry) {
-        if (ownLocale) entry[ownLocale] = word;
-        bundle.glossary[word] = entry;
+        const glosses = { ...entry.glosses };
+        if (ownLocale) glosses[ownLocale] = word;
+        bundle.glossary[word] = makeGlossaryEntry(glosses, entry.lemma, entry.grammar);
         filled += 1;
       }
     }
@@ -488,12 +523,100 @@ async function fillMissingGlosses(
   return { filled };
 }
 
+/**
+ * Assembles a glossary entry. zod's catchall type makes every extra key a
+ * string, which TS cannot reconcile with the `grammar` object, hence the cast.
+ */
+function makeGlossaryEntry(
+  strings: Record<string, string>,
+  lemma: string | undefined,
+  grammar: Record<string, string> | undefined,
+): GlossaryEntry {
+  return {
+    ...strings,
+    ...(lemma ? { lemma } : {}),
+    ...(grammar ? { grammar } : {}),
+  } as GlossaryEntry;
+}
+
+/** Words used in the text whose glossary entry exists but has no grammar yet. */
+export function wordsMissingGrammar(
+  bundle: SourceBundle,
+  strategy: 'latin' | 'presegmented',
+): string[] {
+  const out = new Set<string>();
+  for (const chapter of bundle.chapters) {
+    for (const paragraph of chapter.paragraphs) {
+      for (const sentence of paragraph.sentences) {
+        for (const t of tokenizeSentence(sentence.text, strategy)) {
+          const entry = bundle.glossary[t.normalized];
+          if (t.isWord && entry && !entry.grammar) out.add(t.normalized);
+        }
+      }
+    }
+  }
+  return [...out];
+}
+
+/**
+ * Backfills lemma + grammar onto existing glossary entries (glosses are
+ * left untouched). Calls `save` after every batch so an interrupted run
+ * keeps its progress; entries the model answered badly stay without
+ * grammar and are retried on the next run.
+ */
+export async function fillMissingGrammar(
+  bundle: SourceBundle,
+  opts: { llmUrl: string; llmModel: string; backend: LlmBackend },
+  save: () => void,
+  batchFn: typeof fillGrammarBatch = fillGrammarBatch,
+): Promise<{ filled: number; attempted: number }> {
+  const language = getLanguage(bundle.contentLocale);
+  const missing = wordsMissingGrammar(bundle, language.tokenizer);
+  if (missing.length === 0) return { filled: 0, attempted: 0 };
+  const sentenceByWord = firstContextSentencePerWord(bundle, language.tokenizer, new Set(missing));
+  let filled = 0;
+  for (const batch of chunk(missing, GLOSS_FILL_BATCH_SIZE)) {
+    const result = await batchFn(
+      batch.map((word) => ({ word, contextSentence: sentenceByWord.get(word) ?? word })),
+      {
+        baseUrl: opts.llmUrl,
+        model: opts.llmModel,
+        contentLanguageName: language.localizedNames.en,
+        backend: opts.backend,
+      },
+    );
+    let changed = false;
+    for (const word of batch) {
+      const extra = result[word];
+      const entry = bundle.glossary[word];
+      if (!extra || !entry || !extra.grammar) continue;
+      // entry has no grammar (that is why it was picked), so the rest is all strings.
+      const { lemma, ...strings } = entry;
+      bundle.glossary[word] = makeGlossaryEntry(
+        strings as Record<string, string>,
+        extra.lemma ?? lemma,
+        extra.grammar,
+      );
+      filled += 1;
+      changed = true;
+    }
+    if (changed) save();
+  }
+  return { filled, attempted: missing.length };
+}
+
 // ---- one bundle -> one (or two, for zh) built book ------------------------
 
 async function buildOneBundle(
   bundle: SourceBundle,
   sourceFilePath: string,
-  opts: { llmUrl: string; llmModel: string; shouldTryFill: boolean; backend: LlmBackend },
+  opts: {
+    llmUrl: string;
+    llmModel: string;
+    shouldTryFill: boolean;
+    backend: LlmBackend;
+    fillGrammar?: boolean;
+  },
 ): Promise<{ rows: BuildRow[]; touchedLocales: Set<string> }> {
   const touchedLocales = new Set<string>();
   const rows: BuildRow[] = [];
@@ -519,6 +642,15 @@ async function buildOneBundle(
     if (filled > 0) {
       writeFileSync(sourceFilePath, JSON.stringify(bundle, null, 1) + '\n', 'utf8');
     }
+  }
+
+  if (opts.fillGrammar) {
+    const { filled: grammarFilled, attempted } = await fillMissingGrammar(bundle, opts, () =>
+      writeFileSync(sourceFilePath, JSON.stringify(bundle, null, 1) + '\n', 'utf8'),
+    );
+    console.log(
+      `sotto-content build: ${bundle.bookId} lemma/grammar backfill: ${grammarFilled} of ${attempted} words filled`,
+    );
   }
 
   // Pass 2: assemble the real chapter structures against the (possibly now-filled) glossary.
@@ -770,7 +902,7 @@ export async function runBuildCommand(opts: BuildOptions = {}): Promise<void> {
 
   for (const file of files) {
     const bundleId = file.replace(/\.bundle\.json$/, '');
-    if (opts.only && opts.only !== bundleId) continue;
+    if (opts.only && opts.only.length > 0 && !opts.only.includes(bundleId)) continue;
 
     const sourceFilePath = path.join(SOURCE_DIR, file);
     const raw = JSON.parse(readFileSync(sourceFilePath, 'utf8'));
@@ -798,6 +930,7 @@ export async function runBuildCommand(opts: BuildOptions = {}): Promise<void> {
         llmModel,
         shouldTryFill,
         backend,
+        fillGrammar: opts.fillGrammar,
       },
     );
     rows.push(...bundleRows);

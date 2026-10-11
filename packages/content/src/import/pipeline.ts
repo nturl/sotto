@@ -244,7 +244,7 @@ async function fillAllGlosses(
     );
     for (const word of batch) {
       const entry = result[word];
-      if (entry) glossary.set(word, entry);
+      if (entry) glossary.set(word, entry.glosses);
     }
     done += 1;
     report(done, batches.length);

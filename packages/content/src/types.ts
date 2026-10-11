@@ -58,8 +58,19 @@ export const TutorNotesBlockSchema = z
   })
   .strict();
 
-/** A glossary entry: gloss-locale -> translation, plus optional zh pinyin. */
-export const GlossaryEntrySchema = z.record(z.string(), z.string());
+/**
+ * A glossary entry: gloss-locale -> translation, plus optional zh pinyin,
+ * plus optional `lemma` (dictionary form) and `grammar` (gloss-locale ->
+ * short grammatical tag). Build copies lemma/grammar onto every token.
+ */
+export const GlossaryEntrySchema = z
+  .object({
+    lemma: z.string().min(1).optional(),
+    grammar: GlossMap.optional(),
+  })
+  .catchall(z.string());
+
+export type GlossaryEntry = z.infer<typeof GlossaryEntrySchema>;
 
 export const SourceBundleSchema = z
   .object({

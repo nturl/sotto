@@ -21,6 +21,7 @@ async function main(): Promise<void> {
     allowPositionals: true,
     options: {
       fill: { type: 'boolean', default: false },
+      'fill-grammar': { type: 'boolean', default: false },
       force: { type: 'boolean', default: false },
       fixtures: { type: 'boolean', default: false },
       locale: { type: 'string' },
@@ -56,7 +57,11 @@ async function main(): Promise<void> {
       });
       break;
     case 'build':
-      await runBuildCommand({ fill: values.fill, only: bookId });
+      await runBuildCommand({
+        fill: values.fill,
+        fillGrammar: values['fill-grammar'],
+        only: positionals.slice(1),
+      });
       break;
     case 'validate':
       if (values.fixtures) {
@@ -88,7 +93,7 @@ async function main(): Promise<void> {
       break;
     default:
       console.error(
-        'usage: sotto-content <import|new|build|validate|narrate|word-audio|covers|align|translate-sentences> [bookId] [--fill] [--force] [--fixtures] [--locale xx] [--book id] [--dry-run] [--title ...] [--author ...] [--from file] [--level A0|A1|A2|B1|B2|C1] [--out dir] [--narrate none|first|all]',
+        'usage: sotto-content <import|new|build|validate|narrate|word-audio|covers|align|translate-sentences> [bookId] [--fill] [--fill-grammar] [--force] [--fixtures] [--locale xx] [--book id] [--dry-run] [--title ...] [--author ...] [--from file] [--level A0|A1|A2|B1|B2|C1] [--out dir] [--narrate none|first|all]',
       );
       process.exitCode = 1;
   }

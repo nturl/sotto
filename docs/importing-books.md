@@ -2,7 +2,9 @@
 
 Sotto can turn a book you already own into a private, fully-interactive
 reader: tap-to-translate glosses, sentence translations, and narration,
-all generated the same way the seeded library is built.
+all generated the same way the seeded library is built. The book's text is
+kept verbatim: the import does not simplify it to a CEFR level. The level
+you pick only labels the book.
 
 ## Formats
 
@@ -62,7 +64,7 @@ number.
 
 ## Importing on the hosted PWA
 
-Import runs on a machine that can execute the pipeline, not in the browser. `importBook` in `@sotto/content` reads and writes temporary files and uses Node's `fs`, `os`, `crypto` and `path` modules, so it cannot run inside a web worker, even with your own OpenAI key entered in Settings. On the hosted PWA (the Vercel build) the import screen therefore needs one of two things: the local stack (`pnpm dev` on your Mac with the local model servers, see [Local models](local-models.md)) or your own server from [Self-hosting](self-hosting.md), which runs the same pipeline against your key. A bring-your-own-key tutor session does not change this; it covers speaking with the tutor about books that are already in the library or already imported.
+Import runs on a machine that can execute the pipeline, not in the browser. `importBook` in `@sotto/content` reads and writes temporary files and uses Node's `fs`, `os`, `crypto` and `path` modules, so it cannot run inside a web worker, even with your own OpenAI key entered in Settings. On app.readsotto.app (the hosted PWA, where cloud is enabled), the import screen does not use the local stack. Signed-in subscribers with imports left use the hosted import, which counts against the plan's import allowance. Everyone else sees a local-only message. Outside the hosted build, the import runs on the local stack (`pnpm dev` on your Mac with the local model servers, see [Local models](local-models.md)) or on your own server from [Self-hosting](self-hosting.md), which runs the same pipeline against your key. A bring-your-own-key tutor session does not change this; it covers speaking with the tutor about books that are already in the library or already imported.
 
 ## Where private books live
 
@@ -78,7 +80,7 @@ document-directory file for audio on native). It is:
   glosses, translations, and narration — no cross-user sharing of
   derived content.
 - **Deleted with your account** on the hosted tier, or immediately when
-  you delete it yourself (Profile → "Vos livres importés" → the delete
+  you delete it yourself (Settings → "Vos livres importés" → the trash
   icon next to a book) on the free tier.
 
 The word translations, sentence translations, and narration are AI-

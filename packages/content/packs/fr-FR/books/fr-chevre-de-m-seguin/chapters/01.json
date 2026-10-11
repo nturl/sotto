@@ -38,6 +38,18 @@
                 "ro": "domnul",
                 "ca": "Sr."
               },
+              "lemma": "monsieur",
+              "grammar": {
+                "en": "abbreviation · title",
+                "fr": "abréviation · titre",
+                "es": "abreviatura · título",
+                "pt": "abreviatura · título",
+                "it": "abbreviazione · titolo",
+                "zh-Hans": "缩写 · 称谓",
+                "zh-Hant": "縮寫 · 稱謂",
+                "ro": "abreviere · titlu",
+                "ca": "abreviatura · títol"
+              },
               "id": "b1.s1.t1",
               "startMs": 50,
               "endMs": 250
@@ -65,6 +77,17 @@
                 "ro": "Seguin",
                 "ca": "Seguin"
               },
+              "grammar": {
+                "en": "proper noun · surname",
+                "fr": "nom propre · nom de famille",
+                "es": "nombre propio · apellido",
+                "pt": "nome próprio · sobrenome",
+                "it": "nome proprio · cognome",
+                "zh-Hans": "专有名词 · 姓氏",
+                "zh-Hant": "專有名詞 · 姓氏",
+                "ro": "nume propriu · nume de familie",
+                "ca": "nom propi · cognom"
+              },
               "id": "b1.s1.t3",
               "startMs": 250,
               "endMs": 610
@@ -84,6 +107,18 @@
                 "zh-Hant": "居住",
                 "ro": "locuia",
                 "ca": "vivia"
+              },
+              "lemma": "habiter",
+              "grammar": {
+                "en": "verb · imparfait · 3rd sing.",
+                "fr": "verbe · imparfait · 3e pers. sing.",
+                "es": "verbo · imperfecto · 3.ª pers. sing.",
+                "pt": "verbo · imperfeito · 3.ª pess. sing.",
+                "it": "verbo · imperfetto · 3ª pers. sing.",
+                "zh-Hans": "动词 · 未完成过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 未完成過去時 · 第三人稱單數",
+                "ro": "verb · imperfect · pers. a 3-a sing.",
+                "ca": "verb · imperfet · 3a pers. sing."
               },
               "id": "b1.s1.t4",
               "startMs": 690,
@@ -105,6 +140,17 @@
                 "ro": "în",
                 "ca": "en"
               },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
+              },
               "id": "b1.s1.t5",
               "startMs": 1130,
               "endMs": 1390
@@ -124,6 +170,18 @@
                 "zh-Hant": "一個",
                 "ro": "o",
                 "ca": "una"
+              },
+              "lemma": "un",
+              "grammar": {
+                "en": "article · fem. sing.",
+                "fr": "article · fém. sing.",
+                "es": "artículo · fem. sing.",
+                "pt": "artigo · fem. sing.",
+                "it": "articolo · femm. sing.",
+                "zh-Hans": "冠词 · 阴性单数",
+                "zh-Hant": "冠詞 · 陰性單數",
+                "ro": "articol · fem. sing.",
+                "ca": "article · fem. sing."
               },
               "id": "b1.s1.t6",
               "startMs": 1390,
@@ -145,6 +203,18 @@
                 "ro": "mică",
                 "ca": "petita"
               },
+              "lemma": "petit",
+              "grammar": {
+                "en": "adjective · fem. sing.",
+                "fr": "adjectif · fém. sing.",
+                "es": "adjetivo · fem. sing.",
+                "pt": "adjetivo · fem. sing.",
+                "it": "aggettivo · femm. sing.",
+                "zh-Hans": "形容词 · 阴性单数",
+                "zh-Hant": "形容詞 · 陰性單數",
+                "ro": "adjectiv · fem. sing.",
+                "ca": "adjectiu · fem. sing."
+              },
               "id": "b1.s1.t7",
               "startMs": 1580,
               "endMs": 1940
@@ -165,6 +235,17 @@
                 "ro": "casă",
                 "ca": "casa"
               },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
+              },
               "id": "b1.s1.t8",
               "startMs": 2040,
               "endMs": 2340
@@ -184,6 +265,18 @@
                 "zh-Hant": "白色的",
                 "ro": "albă",
                 "ca": "blanca"
+              },
+              "lemma": "blanc",
+              "grammar": {
+                "en": "adjective · fem. sing.",
+                "fr": "adjectif · fém. sing.",
+                "es": "adjetivo · fem. sing.",
+                "pt": "adjetivo · fem. sing.",
+                "it": "aggettivo · femm. sing.",
+                "zh-Hans": "形容词 · 阴性单数",
+                "zh-Hant": "形容詞 · 陰性單數",
+                "ro": "adjectiv · fem. sing.",
+                "ca": "adjectiu · fem. sing."
               },
               "id": "b1.s1.t9",
               "startMs": 2340,
@@ -212,6 +305,17 @@
                 "ro": "la",
                 "ca": "al"
               },
+              "grammar": {
+                "en": "contraction · à + le",
+                "fr": "contraction · à + le",
+                "es": "contracción · a + el",
+                "pt": "contração · a + o",
+                "it": "contrazione · a + il",
+                "zh-Hans": "缩合冠词 · à + le",
+                "zh-Hant": "縮合冠詞 · à + le",
+                "ro": "contracție · la + cel",
+                "ca": "contracció · a + el"
+              },
               "id": "b1.s1.t11",
               "startMs": 2850,
               "endMs": 2930
@@ -231,6 +335,17 @@
                 "zh-Hant": "邊緣",
                 "ro": "margine",
                 "ca": "costat"
+              },
+              "grammar": {
+                "en": "noun · masc. sing.",
+                "fr": "nom · masc. sing.",
+                "es": "sustantivo · masc. sing.",
+                "pt": "substantivo · masc. sing.",
+                "it": "sostantivo · masch. sing.",
+                "zh-Hans": "名词 · 阳性单数",
+                "zh-Hant": "名詞 · 陽性單數",
+                "ro": "substantiv · masc. sing.",
+                "ca": "substantiu · masc. sing."
               },
               "id": "b1.s1.t12",
               "startMs": 3250,
@@ -252,6 +367,18 @@
                 "ro": "de",
                 "ca": "de"
               },
+              "lemma": "de",
+              "grammar": {
+                "en": "preposition · elided",
+                "fr": "préposition · élidée",
+                "es": "preposición · elidida",
+                "pt": "preposição · elidida",
+                "it": "preposizione · elisa",
+                "zh-Hans": "介词 · 省音",
+                "zh-Hant": "介詞 · 省音",
+                "ro": "prepoziție · elidată",
+                "ca": "preposició · elidida"
+              },
               "id": "b1.s1.t13",
               "startMs": 3290,
               "endMs": 3430
@@ -271,6 +398,17 @@
                 "zh-Hant": "一個",
                 "ro": "un",
                 "ca": "un"
+              },
+              "grammar": {
+                "en": "article · masc. sing.",
+                "fr": "article · masc. sing.",
+                "es": "artículo · masc. sing.",
+                "pt": "artigo · masc. sing.",
+                "it": "articolo · masch. sing.",
+                "zh-Hans": "冠词 · 阳性单数",
+                "zh-Hant": "冠詞 · 陽性單數",
+                "ro": "articol · masc. sing.",
+                "ca": "article · masc. sing."
               },
               "id": "b1.s1.t14",
               "startMs": 3430,
@@ -292,6 +430,17 @@
                 "ro": "încântător",
                 "ca": "encantador"
               },
+              "grammar": {
+                "en": "adjective · masc. sing.",
+                "fr": "adjectif · masc. sing.",
+                "es": "adjetivo · masc. sing.",
+                "pt": "adjetivo · masc. sing.",
+                "it": "aggettivo · masch. sing.",
+                "zh-Hans": "形容词 · 阳性单数",
+                "zh-Hant": "形容詞 · 陽性單數",
+                "ro": "adjectiv · masc. sing.",
+                "ca": "adjectiu · masc. sing."
+              },
               "id": "b1.s1.t15",
               "startMs": 3570,
               "endMs": 4140
@@ -311,6 +460,17 @@
                 "zh-Hant": "村莊",
                 "ro": "sat",
                 "ca": "poble"
+              },
+              "grammar": {
+                "en": "noun · masc. sing.",
+                "fr": "nom · masc. sing.",
+                "es": "sustantivo · masc. sing.",
+                "pt": "substantivo · masc. sing.",
+                "it": "sostantivo · masch. sing.",
+                "zh-Hans": "名词 · 阳性单数",
+                "zh-Hant": "名詞 · 陽性單數",
+                "ro": "substantiv · masc. sing.",
+                "ca": "substantiu · masc. sing."
               },
               "id": "b1.s1.t16",
               "startMs": 4140,
@@ -332,6 +492,17 @@
                 "ro": "din",
                 "ca": "de"
               },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
+              },
               "id": "b1.s1.t17",
               "startMs": 4650,
               "endMs": 4790
@@ -351,6 +522,17 @@
                 "zh-Hant": "普羅旺斯",
                 "ro": "Provence",
                 "ca": "Provença"
+              },
+              "grammar": {
+                "en": "proper noun · region",
+                "fr": "nom propre · région",
+                "es": "nombre propio · región",
+                "pt": "nome próprio · região",
+                "it": "nome proprio · regione",
+                "zh-Hans": "专有名词 · 地区",
+                "zh-Hant": "專有名詞 · 地區",
+                "ro": "nume propriu · regiune",
+                "ca": "nom propi · regió"
               },
               "id": "b1.s1.t18",
               "startMs": 4790,
@@ -396,6 +578,18 @@
                 "ro": "domnul",
                 "ca": "Sr."
               },
+              "lemma": "monsieur",
+              "grammar": {
+                "en": "abbreviation · title",
+                "fr": "abréviation · titre",
+                "es": "abreviatura · título",
+                "pt": "abreviatura · título",
+                "it": "abbreviazione · titolo",
+                "zh-Hans": "缩写 · 称谓",
+                "zh-Hant": "縮寫 · 稱謂",
+                "ro": "abreviere · titlu",
+                "ca": "abreviatura · títol"
+              },
               "id": "b1.s2.t1",
               "startMs": 6285,
               "endMs": 6485
@@ -423,6 +617,17 @@
                 "ro": "Seguin",
                 "ca": "Seguin"
               },
+              "grammar": {
+                "en": "proper noun · surname",
+                "fr": "nom propre · nom de famille",
+                "es": "nombre propio · apellido",
+                "pt": "nome próprio · sobrenome",
+                "it": "nome proprio · cognome",
+                "zh-Hans": "专有名词 · 姓氏",
+                "zh-Hant": "專有名詞 · 姓氏",
+                "ro": "nume propriu · nume de familie",
+                "ca": "nom propi · cognom"
+              },
               "id": "b1.s2.t3",
               "startMs": 6485,
               "endMs": 6825
@@ -442,6 +647,18 @@
                 "zh-Hant": "不",
                 "ro": "nu",
                 "ca": "no"
+              },
+              "lemma": "ne",
+              "grammar": {
+                "en": "adverb · negation · elided",
+                "fr": "adverbe · négation · élidé",
+                "es": "adverbio · negación · elidido",
+                "pt": "advérbio · negação · elidido",
+                "it": "avverbio · negazione · eliso",
+                "zh-Hans": "副词 · 否定 · 省音",
+                "zh-Hant": "副詞 · 否定 · 省音",
+                "ro": "adverb · negație · elidat",
+                "ca": "adverbi · negació · elidit"
               },
               "id": "b1.s2.t4",
               "startMs": 6885,
@@ -463,6 +680,18 @@
                 "ro": "avusese",
                 "ca": "havia"
               },
+              "lemma": "avoir",
+              "grammar": {
+                "en": "verb · imparfait · 3rd sing.",
+                "fr": "verbe · imparfait · 3e pers. sing.",
+                "es": "verbo · imperfecto · 3.ª pers. sing.",
+                "pt": "verbo · imperfeito · 3.ª pess. sing.",
+                "it": "verbo · imperfetto · 3ª pers. sing.",
+                "zh-Hans": "动词 · 未完成过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 未完成過去時 · 第三人稱單數",
+                "ro": "verb · imperfect · pers. a 3-a sing.",
+                "ca": "verb · imperfet · 3a pers. sing."
+              },
               "id": "b1.s2.t5",
               "startMs": 7005,
               "endMs": 7305
@@ -482,6 +711,17 @@
                 "zh-Hant": "從未",
                 "ro": "niciodată",
                 "ca": "mai"
+              },
+              "grammar": {
+                "en": "adverb · negation",
+                "fr": "adverbe · négation",
+                "es": "adverbio · negación",
+                "pt": "advérbio · negação",
+                "it": "avverbio · negazione",
+                "zh-Hans": "副词 · 否定",
+                "zh-Hant": "副詞 · 否定",
+                "ro": "adverb · negație",
+                "ca": "adverbi · negació"
               },
               "id": "b1.s2.t6",
               "startMs": 7315,
@@ -503,6 +743,18 @@
                 "ro": "avut",
                 "ca": "tingut"
               },
+              "lemma": "avoir",
+              "grammar": {
+                "en": "verb · past participle",
+                "fr": "verbe · participe passé",
+                "es": "verbo · participio pasado",
+                "pt": "verbo · particípio passado",
+                "it": "verbo · participio passato",
+                "zh-Hans": "动词 · 过去分词",
+                "zh-Hant": "動詞 · 過去分詞",
+                "ro": "verb · participiu trecut",
+                "ca": "verb · participi passat"
+              },
               "id": "b1.s2.t7",
               "startMs": 7705,
               "endMs": 7755
@@ -522,6 +774,17 @@
                 "zh-Hant": "的",
                 "ro": "din",
                 "ca": "de"
+              },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
               },
               "id": "b1.s2.t8",
               "startMs": 7905,
@@ -543,6 +806,17 @@
                 "ro": "noroc",
                 "ca": "sort"
               },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
+              },
               "id": "b1.s2.t9",
               "startMs": 7965,
               "endMs": 8365
@@ -562,6 +836,17 @@
                 "zh-Hant": "和",
                 "ro": "cu",
                 "ca": "amb"
+              },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
               },
               "id": "b1.s2.t10",
               "startMs": 8425,
@@ -583,6 +868,18 @@
                 "ro": "sale",
                 "ca": "seves"
               },
+              "lemma": "son",
+              "grammar": {
+                "en": "possessive adjective · pl.",
+                "fr": "adjectif possessif · plur.",
+                "es": "adjetivo posesivo · pl.",
+                "pt": "adjetivo possessivo · pl.",
+                "it": "aggettivo possessivo · pl.",
+                "zh-Hans": "主有形容词 · 复数",
+                "zh-Hant": "主有形容詞 · 複數",
+                "ro": "adjectiv posesiv · pl.",
+                "ca": "adjectiu possessiu · pl."
+              },
               "id": "b1.s2.t11",
               "startMs": 8585,
               "endMs": 8715
@@ -602,6 +899,18 @@
                 "zh-Hant": "山羊",
                 "ro": "capre",
                 "ca": "cabres"
+              },
+              "lemma": "chèvre",
+              "grammar": {
+                "en": "noun · fem. pl.",
+                "fr": "nom · fém. plur.",
+                "es": "sustantivo · fem. pl.",
+                "pt": "substantivo · fem. pl.",
+                "it": "sostantivo · femm. pl.",
+                "zh-Hans": "名词 · 阴性复数",
+                "zh-Hant": "名詞 · 陰性複數",
+                "ro": "substantiv · fem. pl.",
+                "ca": "substantiu · fem. pl."
               },
               "id": "b1.s2.t12",
               "startMs": 8725,
@@ -647,6 +956,17 @@
                 "ro": "el",
                 "ca": "ell"
               },
+              "grammar": {
+                "en": "pronoun · 3rd sing. masc.",
+                "fr": "pronom · 3e pers. sing. masc.",
+                "es": "pronombre · 3.ª pers. sing. masc.",
+                "pt": "pronome · 3.ª pess. sing. masc.",
+                "it": "pronome · 3ª pers. sing. masch.",
+                "zh-Hans": "代词 · 第三人称单数阳性",
+                "zh-Hant": "代詞 · 第三人稱單數陽性",
+                "ro": "pronume · pers. a 3-a sing. masc.",
+                "ca": "pronom · 3a pers. sing. masc."
+              },
               "id": "b1.s3.t1",
               "startMs": 10161,
               "endMs": 10241
@@ -666,6 +986,17 @@
                 "zh-Hant": "其中",
                 "ro": "dintre ele",
                 "ca": "en"
+              },
+              "grammar": {
+                "en": "pronoun · adverb",
+                "fr": "pronom · adverbe",
+                "es": "pronombre · adverbio",
+                "pt": "pronome · advérbio",
+                "it": "pronome · avverbio",
+                "zh-Hans": "代词 · 副词",
+                "zh-Hant": "代詞 · 副詞",
+                "ro": "pronume · adverb",
+                "ca": "pronom · adverbi"
               },
               "id": "b1.s3.t2",
               "startMs": 10241,
@@ -687,6 +1018,18 @@
                 "ro": "avusese",
                 "ca": "havia"
               },
+              "lemma": "avoir",
+              "grammar": {
+                "en": "verb · imparfait · 3rd sing.",
+                "fr": "verbe · imparfait · 3e pers. sing.",
+                "es": "verbo · imperfecto · 3.ª pers. sing.",
+                "pt": "verbo · imperfeito · 3.ª pess. sing.",
+                "it": "verbo · imperfetto · 3ª pers. sing.",
+                "zh-Hans": "动词 · 未完成过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 未完成過去時 · 第三人稱單數",
+                "ro": "verb · imperfect · pers. a 3-a sing.",
+                "ca": "verb · imperfet · 3a pers. sing."
+              },
               "id": "b1.s3.t3",
               "startMs": 10371,
               "endMs": 10671
@@ -707,6 +1050,18 @@
                 "ro": "pierdut",
                 "ca": "perdut"
               },
+              "lemma": "perdre",
+              "grammar": {
+                "en": "verb · past participle",
+                "fr": "verbe · participe passé",
+                "es": "verbo · participio pasado",
+                "pt": "verbo · particípio passado",
+                "it": "verbo · participio passato",
+                "zh-Hans": "动词 · 过去分词",
+                "zh-Hant": "動詞 · 過去分詞",
+                "ro": "verb · participiu trecut",
+                "ca": "verb · participi passat"
+              },
               "id": "b1.s3.t4",
               "startMs": 10741,
               "endMs": 11051
@@ -726,6 +1081,17 @@
                 "zh-Hant": "六",
                 "ro": "șase",
                 "ca": "sis"
+              },
+              "grammar": {
+                "en": "numeral · cardinal",
+                "fr": "adjectif numéral · cardinal",
+                "es": "numeral · cardinal",
+                "pt": "numeral · cardinal",
+                "it": "numerale · cardinale",
+                "zh-Hans": "数词 · 基数词",
+                "zh-Hant": "數詞 · 基數詞",
+                "ro": "numeral · cardinal",
+                "ca": "numeral · cardinal"
               },
               "id": "b1.s3.t5",
               "startMs": 11051,
@@ -754,6 +1120,18 @@
                 "ro": "toate",
                 "ca": "totes"
               },
+              "lemma": "tout",
+              "grammar": {
+                "en": "indefinite adjective · fem. pl.",
+                "fr": "adjectif indéfini · fém. plur.",
+                "es": "adjetivo indefinido · fem. pl.",
+                "pt": "adjetivo indefinido · fem. pl.",
+                "it": "aggettivo indefinito · femm. pl.",
+                "zh-Hans": "不定形容词 · 阴性复数",
+                "zh-Hant": "不定形容詞 · 陰性複數",
+                "ro": "adjectiv nehotărât · fem. pl.",
+                "ca": "adjectiu indefinit · fem. pl."
+              },
               "id": "b1.s3.t7",
               "startMs": 11411,
               "endMs": 11731
@@ -773,6 +1151,18 @@
                 "zh-Hant": "被吃",
                 "ro": "mâncate",
                 "ca": "menjades"
+              },
+              "lemma": "manger",
+              "grammar": {
+                "en": "verb · past participle · fem. pl.",
+                "fr": "verbe · participe passé · fém. plur.",
+                "es": "verbo · participio pasado · fem. pl.",
+                "pt": "verbo · particípio passado · fem. pl.",
+                "it": "verbo · participio passato · femm. pl.",
+                "zh-Hans": "动词 · 过去分词 · 阴性复数",
+                "zh-Hant": "動詞 · 過去分詞 · 陰性複數",
+                "ro": "verb · participiu trecut · fem. pl.",
+                "ca": "verb · participi passat · fem. pl."
               },
               "id": "b1.s3.t8",
               "startMs": 11751,
@@ -794,6 +1184,17 @@
                 "ro": "de",
                 "ca": "per"
               },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
+              },
               "id": "b1.s3.t9",
               "startMs": 12131,
               "endMs": 12261
@@ -813,6 +1214,17 @@
                 "zh-Hant": "這",
                 "ro": "l",
                 "ca": "el"
+              },
+              "grammar": {
+                "en": "article · masc. sing.",
+                "fr": "article · masc. sing.",
+                "es": "artículo · masc. sing.",
+                "pt": "artigo · masc. sing.",
+                "it": "articolo · masch. sing.",
+                "zh-Hans": "冠词 · 阳性单数",
+                "zh-Hant": "冠詞 · 陽性單數",
+                "ro": "articol · masc. sing.",
+                "ca": "article · masc. sing."
               },
               "id": "b1.s3.t10",
               "startMs": 12341,
@@ -834,6 +1246,17 @@
                 "ro": "lup",
                 "ca": "llop"
               },
+              "grammar": {
+                "en": "noun · masc. sing.",
+                "fr": "nom · masc. sing.",
+                "es": "sustantivo · masc. sing.",
+                "pt": "substantivo · masc. sing.",
+                "it": "sostantivo · masch. sing.",
+                "zh-Hans": "名词 · 阳性单数",
+                "zh-Hant": "名詞 · 陽性單數",
+                "ro": "substantiv · masc. sing.",
+                "ca": "substantiu · masc. sing."
+              },
               "id": "b1.s3.t11",
               "startMs": 12381,
               "endMs": 12581
@@ -853,6 +1276,17 @@
                 "zh-Hant": "的",
                 "ro": "din",
                 "ca": "de"
+              },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
               },
               "id": "b1.s3.t12",
               "startMs": 12581,
@@ -874,6 +1308,18 @@
                 "ro": "a",
                 "ca": "la"
               },
+              "lemma": "le",
+              "grammar": {
+                "en": "article · fem. sing.",
+                "fr": "article · fém. sing.",
+                "es": "artículo · fem. sing.",
+                "pt": "artigo · fem. sing.",
+                "it": "articolo · femm. sing.",
+                "zh-Hans": "冠词 · 阴性单数",
+                "zh-Hant": "冠詞 · 陰性單數",
+                "ro": "articol · fem. sing.",
+                "ca": "article · fem. sing."
+              },
               "id": "b1.s3.t13",
               "startMs": 12681,
               "endMs": 12781
@@ -893,6 +1339,17 @@
                 "zh-Hant": "山",
                 "ro": "munte",
                 "ca": "muntanya"
+              },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
               },
               "id": "b1.s3.t14",
               "startMs": 12781,
@@ -938,6 +1395,17 @@
                 "ro": "un",
                 "ca": "un"
               },
+              "grammar": {
+                "en": "article · masc. sing.",
+                "fr": "article · masc. sing.",
+                "es": "artículo · masc. sing.",
+                "pt": "artigo · masc. sing.",
+                "it": "articolo · masch. sing.",
+                "zh-Hans": "冠词 · 阳性单数",
+                "zh-Hant": "冠詞 · 陽性單數",
+                "ro": "articol · masc. sing.",
+                "ca": "article · masc. sing."
+              },
               "id": "b1.s4.t1",
               "startMs": 14204,
               "endMs": 14264
@@ -957,6 +1425,17 @@
                 "zh-Hant": "天",
                 "ro": "zi",
                 "ca": "dia"
+              },
+              "grammar": {
+                "en": "noun · masc. sing.",
+                "fr": "nom · masc. sing.",
+                "es": "sustantivo · masc. sing.",
+                "pt": "substantivo · masc. sing.",
+                "it": "sostantivo · masch. sing.",
+                "zh-Hans": "名词 · 阳性单数",
+                "zh-Hant": "名詞 · 陽性單數",
+                "ro": "substantiv · masc. sing.",
+                "ca": "substantiu · masc. sing."
               },
               "id": "b1.s4.t2",
               "startMs": 14264,
@@ -985,6 +1464,17 @@
                 "ro": "el",
                 "ca": "ell"
               },
+              "grammar": {
+                "en": "pronoun · 3rd sing. masc.",
+                "fr": "pronom · 3e pers. sing. masc.",
+                "es": "pronombre · 3.ª pers. sing. masc.",
+                "pt": "pronome · 3.ª pess. sing. masc.",
+                "it": "pronome · 3ª pers. sing. masch.",
+                "zh-Hans": "代词 · 第三人称单数阳性",
+                "zh-Hant": "代詞 · 第三人稱單數陽性",
+                "ro": "pronume · pers. a 3-a sing. masc.",
+                "ca": "pronom · 3a pers. sing. masc."
+              },
               "id": "b1.s4.t4",
               "startMs": 14594,
               "endMs": 14704
@@ -1004,6 +1494,18 @@
                 "zh-Hant": "有",
                 "ro": "a",
                 "ca": "ha"
+              },
+              "lemma": "avoir",
+              "grammar": {
+                "en": "verb · passé composé · 3rd sing.",
+                "fr": "verbe · passé composé · 3e pers. sing.",
+                "es": "verbo · pretérito perfecto · 3.ª pers. sing.",
+                "pt": "verbo · pretérito perfeito · 3.ª pess. sing.",
+                "it": "verbo · passato prossimo · 3ª pers. sing.",
+                "zh-Hans": "动词 · 复合过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 複合過去時 · 第三人稱單數",
+                "ro": "verb · perfect compus · pers. a 3-a sing.",
+                "ca": "verb · perfet perifràstic · 3a pers. sing."
               },
               "id": "b1.s4.t5",
               "startMs": 14704,
@@ -1025,6 +1527,18 @@
                 "ro": "cumpărat",
                 "ca": "comprat"
               },
+              "lemma": "acheter",
+              "grammar": {
+                "en": "verb · past participle",
+                "fr": "verbe · participe passé",
+                "es": "verbo · participio pasado",
+                "pt": "verbo · particípio passado",
+                "it": "verbo · participio passato",
+                "zh-Hans": "动词 · 过去分词",
+                "zh-Hant": "動詞 · 過去分詞",
+                "ro": "verb · participiu trecut",
+                "ca": "verb · participi passat"
+              },
               "id": "b1.s4.t6",
               "startMs": 14754,
               "endMs": 15134
@@ -1044,6 +1558,18 @@
                 "zh-Hant": "一個",
                 "ro": "o",
                 "ca": "una"
+              },
+              "lemma": "un",
+              "grammar": {
+                "en": "article · fem. sing.",
+                "fr": "article · fém. sing.",
+                "es": "artículo · fem. sing.",
+                "pt": "artigo · fem. sing.",
+                "it": "articolo · femm. sing.",
+                "zh-Hans": "冠词 · 阴性单数",
+                "zh-Hant": "冠詞 · 陰性單數",
+                "ro": "articol · fem. sing.",
+                "ca": "article · fem. sing."
               },
               "id": "b1.s4.t7",
               "startMs": 15134,
@@ -1065,6 +1591,17 @@
                 "ro": "a șaptea",
                 "ca": "setena"
               },
+              "grammar": {
+                "en": "ordinal adjective · sing.",
+                "fr": "adjectif ordinal · sing.",
+                "es": "adjetivo ordinal · sing.",
+                "pt": "adjetivo ordinal · sing.",
+                "it": "aggettivo ordinale · sing.",
+                "zh-Hans": "序数形容词 · 单数",
+                "zh-Hant": "序數形容詞 · 單數",
+                "ro": "adjectiv ordinal · sing.",
+                "ca": "adjectiu ordinal · sing."
+              },
               "id": "b1.s4.t8",
               "startMs": 15304,
               "endMs": 15784
@@ -1084,6 +1621,17 @@
                 "zh-Hant": "山羊",
                 "ro": "capră",
                 "ca": "cabra"
+              },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
               },
               "id": "b1.s4.t9",
               "startMs": 15784,
@@ -1112,6 +1660,18 @@
                 "ro": "toate",
                 "ca": "totes"
               },
+              "lemma": "tout",
+              "grammar": {
+                "en": "adverb · intensive",
+                "fr": "adverbe · intensif",
+                "es": "adverbio · intensivo",
+                "pt": "advérbio · intensivo",
+                "it": "avverbio · intensivo",
+                "zh-Hans": "副词 · 强调",
+                "zh-Hant": "副詞 · 強調",
+                "ro": "adverb · intensiv",
+                "ca": "adverbi · intensiu"
+              },
               "id": "b1.s4.t11",
               "startMs": 16314,
               "endMs": 16384
@@ -1131,6 +1691,17 @@
                 "zh-Hant": "年輕的",
                 "ro": "tânără",
                 "ca": "jove"
+              },
+              "grammar": {
+                "en": "adjective · fem. sing.",
+                "fr": "adjectif · fém. sing.",
+                "es": "adjetivo · fem. sing.",
+                "pt": "adjetivo · fem. sing.",
+                "it": "aggettivo · femm. sing.",
+                "zh-Hans": "形容词 · 阴性单数",
+                "zh-Hant": "形容詞 · 陰性單數",
+                "ro": "adjectiv · fem. sing.",
+                "ca": "adjectiu · fem. sing."
               },
               "id": "b1.s4.t12",
               "startMs": 16664,
@@ -1152,6 +1723,17 @@
                 "ro": "și",
                 "ca": "i"
               },
+              "grammar": {
+                "en": "conjunction",
+                "fr": "conjonction",
+                "es": "conjunción",
+                "pt": "conjunção",
+                "it": "congiunzione",
+                "zh-Hans": "连词",
+                "zh-Hant": "連詞",
+                "ro": "conjuncție",
+                "ca": "conjunció"
+              },
               "id": "b1.s4.t13",
               "startMs": 16834,
               "endMs": 16934
@@ -1172,6 +1754,17 @@
                 "ro": "foarte",
                 "ca": "molt"
               },
+              "grammar": {
+                "en": "adverb",
+                "fr": "adverbe",
+                "es": "adverbio",
+                "pt": "advérbio",
+                "it": "avverbio",
+                "zh-Hans": "副词",
+                "zh-Hant": "副詞",
+                "ro": "adverb",
+                "ca": "adverbi"
+              },
               "id": "b1.s4.t14",
               "startMs": 16934,
               "endMs": 17124
@@ -1191,6 +1784,18 @@
                 "zh-Hant": "漂亮的",
                 "ro": "frumoasă",
                 "ca": "bonica"
+              },
+              "lemma": "joli",
+              "grammar": {
+                "en": "adjective · fem. sing.",
+                "fr": "adjectif · fém. sing.",
+                "es": "adjetivo · fem. sing.",
+                "pt": "adjetivo · fem. sing.",
+                "it": "aggettivo · femm. sing.",
+                "zh-Hans": "形容词 · 阴性单数",
+                "zh-Hant": "形容詞 · 陰性單數",
+                "ro": "adjectiv · fem. sing.",
+                "ca": "adjectiu · fem. sing."
               },
               "id": "b1.s4.t15",
               "startMs": 17204,
@@ -1236,6 +1841,17 @@
                 "ro": "el",
                 "ca": "ell"
               },
+              "grammar": {
+                "en": "pronoun · 3rd sing. masc.",
+                "fr": "pronom · 3e pers. sing. masc.",
+                "es": "pronombre · 3.ª pers. sing. masc.",
+                "pt": "pronome · 3.ª pess. sing. masc.",
+                "it": "pronome · 3ª pers. sing. masch.",
+                "zh-Hans": "代词 · 第三人称单数阳性",
+                "zh-Hant": "代詞 · 第三人稱單數陽性",
+                "ro": "pronume · pers. a 3-a sing. masc.",
+                "ca": "pronom · 3a pers. sing. masc."
+              },
               "id": "b1.s5.t1",
               "startMs": 18520,
               "endMs": 18570
@@ -1255,6 +1871,18 @@
                 "zh-Hant": "她",
                 "ro": "o",
                 "ca": "la"
+              },
+              "lemma": "le",
+              "grammar": {
+                "en": "pronoun · 3rd sing. fem. obj.",
+                "fr": "pronom · 3e pers. sing. fém. COD",
+                "es": "pronombre · 3ª pers. sing. fem. CD",
+                "pt": "pronome · 3ª pess. sing. fem. OD",
+                "it": "pronome · 3ª pers. sing. fem. ogg.",
+                "zh-Hans": "代词 · 第三人称单数阴性宾格",
+                "zh-Hant": "代詞 · 第三人稱單數陰性賓格",
+                "ro": "pronume · pers. 3 sg. fem. acuz.",
+                "ca": "pronom · 3a pers. sing. fem. CD"
               },
               "id": "b1.s5.t2",
               "startMs": 18570,
@@ -1276,6 +1904,18 @@
                 "ro": "a",
                 "ca": "ha"
               },
+              "lemma": "avoir",
+              "grammar": {
+                "en": "verb · passé composé · 3rd sing.",
+                "fr": "verbe · passé composé · 3e pers. sing.",
+                "es": "verbo · pretérito perfecto · 3.ª pers. sing.",
+                "pt": "verbo · pretérito perfeito · 3.ª pess. sing.",
+                "it": "verbo · passato prossimo · 3ª pers. sing.",
+                "zh-Hans": "动词 · 复合过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 複合過去時 · 第三人稱單數",
+                "ro": "verb · perfect compus · pers. a 3-a sing.",
+                "ca": "verb · perfet perifràstic · 3a pers. sing."
+              },
               "id": "b1.s5.t3",
               "startMs": 18670,
               "endMs": 18720
@@ -1296,6 +1936,18 @@
                 "ro": "numită",
                 "ca": "anomenada"
               },
+              "lemma": "appeler",
+              "grammar": {
+                "en": "verb · past participle · fem. sing.",
+                "fr": "verbe · participe passé · fém. sing.",
+                "es": "verbo · participio pasado · fem. sing.",
+                "pt": "verbo · particípio passado · fem. sing.",
+                "it": "verbo · participio passato · femm. sing.",
+                "zh-Hans": "动词 · 过去分词 · 阴性单数",
+                "zh-Hant": "動詞 · 過去分詞 · 陰性單數",
+                "ro": "verb · participiu trecut · fem. sing.",
+                "ca": "verb · participi passat · fem. sing."
+              },
               "id": "b1.s5.t4",
               "startMs": 18720,
               "endMs": 19160
@@ -1315,6 +1967,17 @@
                 "zh-Hant": "布朗凱特",
                 "ro": "Blanquette",
                 "ca": "Blanquette"
+              },
+              "grammar": {
+                "en": "proper noun · fem. sing.",
+                "fr": "nom propre · fém. sing.",
+                "es": "nombre propio · fem. sing.",
+                "pt": "nome próprio · fem. sing.",
+                "it": "nome proprio · femm. sing.",
+                "zh-Hans": "专有名词 · 阴性单数",
+                "zh-Hant": "專有名詞 · 陰性單數",
+                "ro": "nume propriu · fem. sing.",
+                "ca": "nom propi · fem. sing."
               },
               "id": "b1.s5.t5",
               "startMs": 19160,
@@ -1343,6 +2006,17 @@
                 "ro": "din",
                 "ca": "a"
               },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
+              },
               "id": "b1.s5.t7",
               "startMs": 19750,
               "endMs": 19860
@@ -1362,6 +2036,17 @@
                 "zh-Hant": "原因",
                 "ro": "cauză",
                 "ca": "causa"
+              },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
               },
               "id": "b1.s5.t8",
               "startMs": 20030,
@@ -1383,6 +2068,17 @@
                 "ro": "din",
                 "ca": "de"
               },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
+              },
               "id": "b1.s5.t9",
               "startMs": 20260,
               "endMs": 20270
@@ -1402,6 +2098,18 @@
                 "zh-Hant": "她的",
                 "ro": "său",
                 "ca": "seva"
+              },
+              "lemma": "son",
+              "grammar": {
+                "en": "possessive adjective · fem. sing.",
+                "fr": "adjectif possessif · fém. sing.",
+                "es": "adjetivo posesivo · fem. sing.",
+                "pt": "adjetivo possessivo · fem. sing.",
+                "it": "aggettivo possessivo · femm. sing.",
+                "zh-Hans": "所有格形容词 · 阴性单数",
+                "zh-Hant": "所有格形容詞 · 陰性單數",
+                "ro": "adjectiv posesiv · fem. sing.",
+                "ca": "adjectiu possessiu · fem. sing."
               },
               "id": "b1.s5.t10",
               "startMs": 20270,
@@ -1423,6 +2131,18 @@
                 "ro": "frumoasă",
                 "ca": "bella"
               },
+              "lemma": "beau",
+              "grammar": {
+                "en": "adjective · fem. sing.",
+                "fr": "adjectif · fém. sing.",
+                "es": "adjetivo · fem. sing.",
+                "pt": "adjetivo · fem. sing.",
+                "it": "aggettivo · femm. sing.",
+                "zh-Hans": "形容词 · 阴性单数",
+                "zh-Hant": "形容詞 · 陰性單數",
+                "ro": "adjectiv · fem. sing.",
+                "ca": "adjectiu · fem. sing."
+              },
               "id": "b1.s5.t11",
               "startMs": 20380,
               "endMs": 20670
@@ -1443,6 +2163,17 @@
                 "ro": "blană",
                 "ca": "pell"
               },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
+              },
               "id": "b1.s5.t12",
               "startMs": 20670,
               "endMs": 21120
@@ -1462,6 +2193,18 @@
                 "zh-Hant": "白色的",
                 "ro": "albă",
                 "ca": "blanca"
+              },
+              "lemma": "blanc",
+              "grammar": {
+                "en": "adjective · fem. sing.",
+                "fr": "adjectif · fém. sing.",
+                "es": "adjetivo · fem. sing.",
+                "pt": "adjetivo · fem. sing.",
+                "it": "aggettivo · femm. sing.",
+                "zh-Hans": "形容词 · 阴性单数",
+                "zh-Hant": "形容詞 · 陰性單數",
+                "ro": "adjectiv · fem. sing.",
+                "ca": "adjectiu · fem. sing."
               },
               "id": "b1.s5.t13",
               "startMs": 21120,
@@ -1507,6 +2250,18 @@
                 "ro": "domnul",
                 "ca": "Sr."
               },
+              "lemma": "monsieur",
+              "grammar": {
+                "en": "abbreviation · title",
+                "fr": "abréviation · titre",
+                "es": "abreviatura · título",
+                "pt": "abreviatura · título",
+                "it": "abbreviazione · titolo",
+                "zh-Hans": "缩写 · 称谓",
+                "zh-Hant": "縮寫 · 稱謂",
+                "ro": "abreviere · titlu",
+                "ca": "abreviatura · títol"
+              },
               "id": "b1.s6.t1",
               "startMs": 22674,
               "endMs": 22844
@@ -1534,6 +2289,17 @@
                 "ro": "Seguin",
                 "ca": "Seguin"
               },
+              "grammar": {
+                "en": "proper noun · surname",
+                "fr": "nom propre · nom de famille",
+                "es": "nombre propio · apellido",
+                "pt": "nome próprio · sobrenome",
+                "it": "nome proprio · cognome",
+                "zh-Hans": "专有名词 · 姓氏",
+                "zh-Hant": "專有名詞 · 姓氏",
+                "ro": "nume propriu · nume de familie",
+                "ca": "nom propi · cognom"
+              },
               "id": "b1.s6.t3",
               "startMs": 22844,
               "endMs": 23284
@@ -1553,6 +2319,18 @@
                 "zh-Hant": "她",
                 "ro": "o",
                 "ca": "la"
+              },
+              "lemma": "le",
+              "grammar": {
+                "en": "pronoun · 3rd sing. fem. obj.",
+                "fr": "pronom · 3e pers. sing. fém. COD",
+                "es": "pronombre · 3ª pers. sing. fem. CD",
+                "pt": "pronome · 3ª pess. sing. fem. OD",
+                "it": "pronome · 3ª pers. sing. fem. ogg.",
+                "zh-Hans": "代词 · 第三人称单数阴性宾格",
+                "zh-Hant": "代詞 · 第三人稱單數陰性賓格",
+                "ro": "pronume · pers. 3 sg. fem. acuz.",
+                "ca": "pronom · 3a pers. sing. fem. CD"
               },
               "id": "b1.s6.t4",
               "startMs": 23294,
@@ -1574,6 +2352,18 @@
                 "ro": "a",
                 "ca": "ha"
               },
+              "lemma": "avoir",
+              "grammar": {
+                "en": "verb · passé composé · 3rd sing.",
+                "fr": "verbe · passé composé · 3e pers. sing.",
+                "es": "verbo · pretérito perfecto · 3.ª pers. sing.",
+                "pt": "verbo · pretérito perfeito · 3.ª pess. sing.",
+                "it": "verbo · passato prossimo · 3ª pers. sing.",
+                "zh-Hans": "动词 · 复合过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 複合過去時 · 第三人稱單數",
+                "ro": "verb · perfect compus · pers. a 3-a sing.",
+                "ca": "verb · perfet perifràstic · 3a pers. sing."
+              },
               "id": "b1.s6.t5",
               "startMs": 23434,
               "endMs": 23504
@@ -1593,6 +2383,18 @@
                 "zh-Hant": "綁著",
                 "ro": "legată",
                 "ca": "lligada"
+              },
+              "lemma": "attacher",
+              "grammar": {
+                "en": "verb · past participle · fem. sing.",
+                "fr": "verbe · participe passé · fém. sing.",
+                "es": "verbo · participio pasado · fem. sing.",
+                "pt": "verbo · particípio passado · fem. sing.",
+                "it": "verbo · participio passato · femm. sing.",
+                "zh-Hans": "动词 · 过去分词 · 阴性单数",
+                "zh-Hant": "動詞 · 過去分詞 · 陰性單數",
+                "ro": "verb · participiu trecut · fem. sing.",
+                "ca": "verb · participi passat · fem. sing."
               },
               "id": "b1.s6.t6",
               "startMs": 23504,
@@ -1614,6 +2416,17 @@
                 "ro": "cu",
                 "ca": "amb"
               },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
+              },
               "id": "b1.s6.t7",
               "startMs": 24404,
               "endMs": 24564
@@ -1633,6 +2446,18 @@
                 "zh-Hant": "一個",
                 "ro": "o",
                 "ca": "una"
+              },
+              "lemma": "un",
+              "grammar": {
+                "en": "article · fem. sing.",
+                "fr": "article · fém. sing.",
+                "es": "artículo · fem. sing.",
+                "pt": "artigo · fem. sing.",
+                "it": "articolo · femm. sing.",
+                "zh-Hans": "冠词 · 阴性单数",
+                "zh-Hant": "冠詞 · 陰性單數",
+                "ro": "articol · fem. sing.",
+                "ca": "article · fem. sing."
               },
               "id": "b1.s6.t8",
               "startMs": 24564,
@@ -1654,6 +2479,18 @@
                 "ro": "lungă",
                 "ca": "llarga"
               },
+              "lemma": "long",
+              "grammar": {
+                "en": "adjective · fem. sing.",
+                "fr": "adjectif · fém. sing.",
+                "es": "adjetivo · fem. sing.",
+                "pt": "adjetivo · fem. sing.",
+                "it": "aggettivo · femm. sing.",
+                "zh-Hans": "形容词 · 阴性单数",
+                "zh-Hant": "形容詞 · 陰性單數",
+                "ro": "adjectiv · fem. sing.",
+                "ca": "adjectiu · fem. sing."
+              },
               "id": "b1.s6.t9",
               "startMs": 24774,
               "endMs": 25074
@@ -1673,6 +2510,17 @@
                 "zh-Hant": "繩子",
                 "ro": "frânghie",
                 "ca": "corda"
+              },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
               },
               "id": "b1.s6.t10",
               "startMs": 25194,
@@ -1694,6 +2542,17 @@
                 "ro": "lângă",
                 "ca": "prop"
               },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
+              },
               "id": "b1.s6.t11",
               "startMs": 25634,
               "endMs": 25824
@@ -1713,6 +2572,17 @@
                 "zh-Hant": "的",
                 "ro": "din",
                 "ca": "de"
+              },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
               },
               "id": "b1.s6.t12",
               "startMs": 25824,
@@ -1734,6 +2604,18 @@
                 "ro": "său",
                 "ca": "seva"
               },
+              "lemma": "son",
+              "grammar": {
+                "en": "possessive adjective · fem. sing.",
+                "fr": "adjectif possessif · fém. sing.",
+                "es": "adjetivo posesivo · fem. sing.",
+                "pt": "adjetivo possessivo · fem. sing.",
+                "it": "aggettivo possessivo · femm. sing.",
+                "zh-Hans": "所有格形容词 · 阴性单数",
+                "zh-Hant": "所有格形容詞 · 陰性單數",
+                "ro": "adjectiv posesiv · fem. sing.",
+                "ca": "adjectiu possessiu · fem. sing."
+              },
               "id": "b1.s6.t13",
               "startMs": 25924,
               "endMs": 25984
@@ -1754,6 +2636,18 @@
                 "ro": "mică",
                 "ca": "petita"
               },
+              "lemma": "petit",
+              "grammar": {
+                "en": "adjective · fem. sing.",
+                "fr": "adjectif · fém. sing.",
+                "es": "adjetivo · fem. sing.",
+                "pt": "adjetivo · fem. sing.",
+                "it": "aggettivo · femm. sing.",
+                "zh-Hans": "形容词 · 阴性单数",
+                "zh-Hant": "形容詞 · 陰性單數",
+                "ro": "adjectiv · fem. sing.",
+                "ca": "adjectiu · fem. sing."
+              },
               "id": "b1.s6.t14",
               "startMs": 26064,
               "endMs": 26274
@@ -1773,6 +2667,17 @@
                 "zh-Hant": "房子",
                 "ro": "casă",
                 "ca": "casa"
+              },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
               },
               "id": "b1.s6.t15",
               "startMs": 26354,
@@ -1818,6 +2723,17 @@
                 "ro": "el",
                 "ca": "ell"
               },
+              "grammar": {
+                "en": "pronoun · 3rd sing. masc.",
+                "fr": "pronom · 3e pers. sing. masc.",
+                "es": "pronombre · 3.ª pers. sing. masc.",
+                "pt": "pronome · 3.ª pess. sing. masc.",
+                "it": "pronome · 3ª pers. sing. masch.",
+                "zh-Hans": "代词 · 第三人称单数阳性",
+                "zh-Hant": "代詞 · 第三人稱單數陽性",
+                "ro": "pronume · pers. a 3-a sing. masc.",
+                "ca": "pronom · 3a pers. sing. masc."
+              },
               "id": "b1.s7.t1",
               "startMs": 27549,
               "endMs": 27609
@@ -1837,6 +2753,18 @@
                 "zh-Hant": "想要",
                 "ro": "voia",
                 "ca": "volia"
+              },
+              "lemma": "vouloir",
+              "grammar": {
+                "en": "verb · imparfait · 3rd sing.",
+                "fr": "verbe · imparfait · 3e pers. sing.",
+                "es": "verbo · imperfecto · 3ª pers. sing.",
+                "pt": "verbo · imperfeito · 3ª pess. sing.",
+                "it": "verbo · imperfetto · 3ª pers. sing.",
+                "zh-Hans": "动词 · 未完成过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 未完成過去時 · 第三人稱單數",
+                "ro": "verb · imperfect · pers. 3 sg.",
+                "ca": "verb · imperfet · 3a pers. sing."
               },
               "id": "b1.s7.t2",
               "startMs": 27609,
@@ -1858,6 +2786,18 @@
                 "ro": "a",
                 "ca": "la"
               },
+              "lemma": "le",
+              "grammar": {
+                "en": "article · fem. sing.",
+                "fr": "article · fém. sing.",
+                "es": "artículo · fem. sing.",
+                "pt": "artigo · fem. sing.",
+                "it": "articolo · femm. sing.",
+                "zh-Hans": "冠词 · 阴性单数",
+                "zh-Hant": "冠詞 · 陰性單數",
+                "ro": "articol · fem. sing.",
+                "ca": "article · fem. sing."
+              },
               "id": "b1.s7.t3",
               "startMs": 28029,
               "endMs": 28149
@@ -1877,6 +2817,17 @@
                 "zh-Hant": "保護",
                 "ro": "păstra",
                 "ca": "guardar"
+              },
+              "grammar": {
+                "en": "verb · infinitive",
+                "fr": "verbe · infinitif",
+                "es": "verbo · infinitivo",
+                "pt": "verbo · infinitivo",
+                "it": "verbo · infinito",
+                "zh-Hans": "动词 · 不定式",
+                "zh-Hant": "動詞 · 不定式",
+                "ro": "verb · infinitiv",
+                "ca": "verb · infinitiu"
               },
               "id": "b1.s7.t4",
               "startMs": 28149,
@@ -1898,6 +2849,17 @@
                 "ro": "dintre ele",
                 "ca": "en"
               },
+              "grammar": {
+                "en": "pronoun · adverb",
+                "fr": "pronom · adverbe",
+                "es": "pronombre · adverbio",
+                "pt": "pronome · advérbio",
+                "it": "pronome · avverbio",
+                "zh-Hans": "代词 · 副词",
+                "zh-Hant": "代詞 · 副詞",
+                "ro": "pronume · adverb",
+                "ca": "pronom · adverbi"
+              },
               "id": "b1.s7.t5",
               "startMs": 28499,
               "endMs": 28629
@@ -1917,6 +2879,17 @@
                 "zh-Hant": "安全",
                 "ro": "siguranță",
                 "ca": "seguretat"
+              },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
               },
               "id": "b1.s7.t6",
               "startMs": 28629,
@@ -1945,6 +2918,17 @@
                 "ro": "departe",
                 "ca": "lluny"
               },
+              "grammar": {
+                "en": "adverb",
+                "fr": "adverbe",
+                "es": "adverbio",
+                "pt": "advérbio",
+                "it": "avverbio",
+                "zh-Hans": "副词",
+                "zh-Hant": "副詞",
+                "ro": "adverb",
+                "ca": "adverbi"
+              },
               "id": "b1.s7.t8",
               "startMs": 29369,
               "endMs": 29499
@@ -1964,6 +2948,17 @@
                 "zh-Hant": "的",
                 "ro": "din",
                 "ca": "de"
+              },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
               },
               "id": "b1.s7.t9",
               "startMs": 29759,
@@ -1985,6 +2980,18 @@
                 "ro": "a",
                 "ca": "la"
               },
+              "lemma": "le",
+              "grammar": {
+                "en": "article · fem. sing.",
+                "fr": "article · fém. sing.",
+                "es": "artículo · fem. sing.",
+                "pt": "artigo · fem. sing.",
+                "it": "articolo · femm. sing.",
+                "zh-Hans": "冠词 · 阴性单数",
+                "zh-Hant": "冠詞 · 陰性單數",
+                "ro": "articol · fem. sing.",
+                "ca": "article · fem. sing."
+              },
               "id": "b1.s7.t10",
               "startMs": 29799,
               "endMs": 29889
@@ -2005,6 +3012,17 @@
                 "ro": "munte",
                 "ca": "muntanya"
               },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
+              },
               "id": "b1.s7.t11",
               "startMs": 29889,
               "endMs": 30409
@@ -2024,6 +3042,18 @@
                 "zh-Hant": "危險的",
                 "ro": "periculoasă",
                 "ca": "perillosa"
+              },
+              "lemma": "dangereux",
+              "grammar": {
+                "en": "adjective · fem. sing.",
+                "fr": "adjectif · fém. sing.",
+                "es": "adjetivo · fem. sing.",
+                "pt": "adjetivo · fem. sing.",
+                "it": "aggettivo · femm. sing.",
+                "zh-Hans": "形容词 · 阴性单数",
+                "zh-Hant": "形容詞 · 陰性單數",
+                "ro": "adjectiv · fem. sing.",
+                "ca": "adjectiu · fem. sing."
               },
               "id": "b1.s7.t12",
               "startMs": 30409,
@@ -2069,6 +3099,17 @@
                 "ro": "dar",
                 "ca": "però"
               },
+              "grammar": {
+                "en": "conjunction",
+                "fr": "conjonction",
+                "es": "conjunción",
+                "pt": "conjunção",
+                "it": "congiunzione",
+                "zh-Hans": "连词",
+                "zh-Hant": "連詞",
+                "ro": "conjuncție",
+                "ca": "conjunció"
+              },
               "id": "b1.s8.t1",
               "startMs": 32193,
               "endMs": 32353
@@ -2088,6 +3129,17 @@
                 "zh-Hant": "布朗凱特",
                 "ro": "Blanquette",
                 "ca": "Blanquette"
+              },
+              "grammar": {
+                "en": "proper noun · fem. sing.",
+                "fr": "nom propre · fém. sing.",
+                "es": "nombre propio · fem. sing.",
+                "pt": "nome próprio · fem. sing.",
+                "it": "nome proprio · femm. sing.",
+                "zh-Hans": "专有名词 · 阴性单数",
+                "zh-Hant": "專有名詞 · 陰性單數",
+                "ro": "nume propriu · fem. sing.",
+                "ca": "nom propi · fem. sing."
               },
               "id": "b1.s8.t2",
               "startMs": 32353,
@@ -2109,6 +3161,18 @@
                 "ro": "visează",
                 "ca": "somiava"
               },
+              "lemma": "rêver",
+              "grammar": {
+                "en": "verb · imparfait · 3rd sing.",
+                "fr": "verbe · imparfait · 3e pers. sing.",
+                "es": "verbo · imperfecto · 3ª pers. sing.",
+                "pt": "verbo · imperfeito · 3ª pess. sing.",
+                "it": "verbo · imperfetto · 3ª pers. sing.",
+                "zh-Hans": "动词 · 未完成过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 未完成過去時 · 第三人稱單數",
+                "ro": "verb · imperfect · pers. 3 sg.",
+                "ca": "verb · imperfet · 3a pers. sing."
+              },
               "id": "b1.s8.t3",
               "startMs": 32943,
               "endMs": 33233
@@ -2128,6 +3192,17 @@
                 "zh-Hant": "的",
                 "ro": "din",
                 "ca": "de"
+              },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
               },
               "id": "b1.s8.t4",
               "startMs": 33233,
@@ -2149,6 +3224,17 @@
                 "ro": "libertate",
                 "ca": "llibertat"
               },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
+              },
               "id": "b1.s8.t5",
               "startMs": 33333,
               "endMs": 33803
@@ -2168,6 +3254,17 @@
                 "zh-Hant": "和",
                 "ro": "și",
                 "ca": "i"
+              },
+              "grammar": {
+                "en": "conjunction",
+                "fr": "conjonction",
+                "es": "conjunción",
+                "pt": "conjunção",
+                "it": "congiunzione",
+                "zh-Hans": "连词",
+                "zh-Hant": "連詞",
+                "ro": "conjuncție",
+                "ca": "conjunció"
               },
               "id": "b1.s8.t6",
               "startMs": 33803,
@@ -2189,6 +3286,18 @@
                 "ro": "privea",
                 "ca": "mirava"
               },
+              "lemma": "regarder",
+              "grammar": {
+                "en": "verb · imparfait · 3rd sing.",
+                "fr": "verbe · imparfait · 3e pers. sing.",
+                "es": "verbo · imperfecto · 3ª pers. sing.",
+                "pt": "verbo · imperfeito · 3ª pess. sing.",
+                "it": "verbo · imperfetto · 3ª pers. sing.",
+                "zh-Hans": "动词 · 未完成过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 未完成過去時 · 第三人稱單數",
+                "ro": "verb · imperfect · pers. 3 sg.",
+                "ca": "verb · imperfet · 3a pers. sing."
+              },
               "id": "b1.s8.t7",
               "startMs": 34163,
               "endMs": 34463
@@ -2208,6 +3317,17 @@
                 "zh-Hant": "經常",
                 "ro": "adesea",
                 "ca": "sovint"
+              },
+              "grammar": {
+                "en": "adverb",
+                "fr": "adverbe",
+                "es": "adverbio",
+                "pt": "advérbio",
+                "it": "avverbio",
+                "zh-Hans": "副词",
+                "zh-Hant": "副詞",
+                "ro": "adverb",
+                "ca": "adverbi"
               },
               "id": "b1.s8.t8",
               "startMs": 34463,
@@ -2229,6 +3349,18 @@
                 "ro": "a",
                 "ca": "la"
               },
+              "lemma": "le",
+              "grammar": {
+                "en": "article · fem. sing.",
+                "fr": "article · fém. sing.",
+                "es": "artículo · fem. sing.",
+                "pt": "artigo · fem. sing.",
+                "it": "articolo · femm. sing.",
+                "zh-Hans": "冠词 · 阴性单数",
+                "zh-Hant": "冠詞 · 陰性單數",
+                "ro": "articol · fem. sing.",
+                "ca": "article · fem. sing."
+              },
               "id": "b1.s8.t9",
               "startMs": 34893,
               "endMs": 35003
@@ -2248,6 +3380,17 @@
                 "zh-Hant": "山",
                 "ro": "munte",
                 "ca": "muntanya"
+              },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
               },
               "id": "b1.s8.t10",
               "startMs": 35003,
@@ -2293,6 +3436,17 @@
                 "ro": "ea",
                 "ca": "ella"
               },
+              "grammar": {
+                "en": "pronoun · 3rd sing. fem. subj.",
+                "fr": "pronom · 3e pers. sing. fém. sujet",
+                "es": "pronombre · 3ª pers. sing. fem. sujeto",
+                "pt": "pronome · 3ª pess. sing. fem. sujeito",
+                "it": "pronome · 3ª pers. sing. fem. soggetto",
+                "zh-Hans": "代词 · 第三人称单数阴性主格",
+                "zh-Hant": "代詞 · 第三人稱單數陰性主格",
+                "ro": "pronume · pers. 3 sg. fem. subiect",
+                "ca": "pronom · 3a pers. sing. fem. subjecte"
+              },
               "id": "b1.s9.t1",
               "startMs": 36513,
               "endMs": 36703
@@ -2312,6 +3466,18 @@
                 "zh-Hant": "覺得",
                 "ro": "găsea",
                 "ca": "trobava"
+              },
+              "lemma": "trouver",
+              "grammar": {
+                "en": "verb · imparfait · 3rd sing.",
+                "fr": "verbe · imparfait · 3e pers. sing.",
+                "es": "verbo · imperfecto · 3ª pers. sing.",
+                "pt": "verbo · imperfeito · 3ª pess. sing.",
+                "it": "verbo · imperfetto · 3ª pers. sing.",
+                "zh-Hans": "动词 · 未完成过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 未完成過去時 · 第三人稱單數",
+                "ro": "verb · imperfect · pers. 3 sg.",
+                "ca": "verb · imperfet · 3a pers. sing."
               },
               "id": "b1.s9.t2",
               "startMs": 36703,
@@ -2333,6 +3499,18 @@
                 "ro": "său",
                 "ca": "seva"
               },
+              "lemma": "son",
+              "grammar": {
+                "en": "possessive adjective · fem. sing.",
+                "fr": "adjectif possessif · fém. sing.",
+                "es": "adjetivo posesivo · fem. sing.",
+                "pt": "adjetivo possessivo · fem. sing.",
+                "it": "aggettivo possessivo · femm. sing.",
+                "zh-Hans": "所有格形容词 · 阴性单数",
+                "zh-Hant": "所有格形容詞 · 陰性單數",
+                "ro": "adjectiv posesiv · fem. sing.",
+                "ca": "adjectiu possessiu · fem. sing."
+              },
               "id": "b1.s9.t3",
               "startMs": 37183,
               "endMs": 37263
@@ -2352,6 +3530,17 @@
                 "zh-Hant": "繩子",
                 "ro": "frânghie",
                 "ca": "corda"
+              },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
               },
               "id": "b1.s9.t4",
               "startMs": 37353,
@@ -2373,6 +3562,17 @@
                 "ro": "prea",
                 "ca": "massa"
               },
+              "grammar": {
+                "en": "adverb",
+                "fr": "adverbe",
+                "es": "adverbio",
+                "pt": "advérbio",
+                "it": "avverbio",
+                "zh-Hans": "副词",
+                "zh-Hant": "副詞",
+                "ro": "adverb",
+                "ca": "adverbi"
+              },
               "id": "b1.s9.t5",
               "startMs": 37603,
               "endMs": 37843
@@ -2392,6 +3592,18 @@
                 "zh-Hant": "短的",
                 "ro": "scurtă",
                 "ca": "curta"
+              },
+              "lemma": "court",
+              "grammar": {
+                "en": "adjective · fem. sing.",
+                "fr": "adjectif · fém. sing.",
+                "es": "adjetivo · fem. sing.",
+                "pt": "adjetivo · fem. sing.",
+                "it": "aggettivo · femm. sing.",
+                "zh-Hans": "形容词 · 阴性单数",
+                "zh-Hant": "形容詞 · 陰性單數",
+                "ro": "adjectiv · fem. sing.",
+                "ca": "adjectiu · fem. sing."
               },
               "id": "b1.s9.t6",
               "startMs": 37843,
@@ -2413,6 +3625,17 @@
                 "ro": "și",
                 "ca": "i"
               },
+              "grammar": {
+                "en": "conjunction",
+                "fr": "conjonction",
+                "es": "conjunción",
+                "pt": "conjunção",
+                "it": "congiunzione",
+                "zh-Hans": "连词",
+                "zh-Hant": "連詞",
+                "ro": "conjuncție",
+                "ca": "conjunció"
+              },
               "id": "b1.s9.t7",
               "startMs": 38263,
               "endMs": 38323
@@ -2432,6 +3655,18 @@
                 "zh-Hant": "她的",
                 "ro": "său",
                 "ca": "seva"
+              },
+              "lemma": "son",
+              "grammar": {
+                "en": "possessive adjective · fem. sing.",
+                "fr": "adjectif possessif · fém. sing.",
+                "es": "adjetivo posesivo · fem. sing.",
+                "pt": "adjetivo possessivo · fem. sing.",
+                "it": "aggettivo possessivo · femm. sing.",
+                "zh-Hans": "所有格形容词 · 阴性单数",
+                "zh-Hant": "所有格形容詞 · 陰性單數",
+                "ro": "adjectiv posesiv · fem. sing.",
+                "ca": "adjectiu possessiu · fem. sing."
               },
               "id": "b1.s9.t8",
               "startMs": 38323,
@@ -2453,6 +3688,17 @@
                 "ro": "viață",
                 "ca": "vida"
               },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
+              },
               "id": "b1.s9.t9",
               "startMs": 38433,
               "endMs": 38573
@@ -2473,6 +3719,17 @@
                 "ro": "prea",
                 "ca": "massa"
               },
+              "grammar": {
+                "en": "adverb",
+                "fr": "adverbe",
+                "es": "adverbio",
+                "pt": "advérbio",
+                "it": "avverbio",
+                "zh-Hans": "副词",
+                "zh-Hant": "副詞",
+                "ro": "adverb",
+                "ca": "adverbi"
+              },
               "id": "b1.s9.t10",
               "startMs": 38573,
               "endMs": 38653
@@ -2492,6 +3749,17 @@
                 "zh-Hant": "平靜的",
                 "ro": "liniștită",
                 "ca": "tranquil·la"
+              },
+              "grammar": {
+                "en": "adjective · fem. sing.",
+                "fr": "adjectif · fém. sing.",
+                "es": "adjetivo · fem. sing.",
+                "pt": "adjetivo · fem. sing.",
+                "it": "aggettivo · femm. sing.",
+                "zh-Hans": "形容词 · 阴性单数",
+                "zh-Hant": "形容詞 · 陰性單數",
+                "ro": "adjectiv · fem. sing.",
+                "ca": "adjectiu · fem. sing."
               },
               "id": "b1.s9.t11",
               "startMs": 38763,
@@ -2537,6 +3805,17 @@
                 "ro": "un",
                 "ca": "un"
               },
+              "grammar": {
+                "en": "article · masc. sing.",
+                "fr": "article · masc. sing.",
+                "es": "artículo · masc. sing.",
+                "pt": "artigo · masc. sing.",
+                "it": "articolo · masch. sing.",
+                "zh-Hans": "冠词 · 阳性单数",
+                "zh-Hant": "冠詞 · 陽性單數",
+                "ro": "articol · masc. sing.",
+                "ca": "article · masc. sing."
+              },
               "id": "b1.s10.t1",
               "startMs": 40351,
               "endMs": 40431
@@ -2556,6 +3835,17 @@
                 "zh-Hant": "早晨",
                 "ro": "dimineață",
                 "ca": "matí"
+              },
+              "grammar": {
+                "en": "noun · masc. sing.",
+                "fr": "nom · masc. sing.",
+                "es": "sustantivo · masc. sing.",
+                "pt": "substantivo · masc. sing.",
+                "it": "sostantivo · masch. sing.",
+                "zh-Hans": "名词 · 阳性单数",
+                "zh-Hant": "名詞 · 陽性單數",
+                "ro": "substantiv · masc. sing.",
+                "ca": "substantiu · masc. sing."
               },
               "id": "b1.s10.t2",
               "startMs": 40431,
@@ -2584,6 +3874,17 @@
                 "ro": "ea",
                 "ca": "ella"
               },
+              "grammar": {
+                "en": "pronoun · 3rd sing. fem. subj.",
+                "fr": "pronom · 3e pers. sing. fém. sujet",
+                "es": "pronombre · 3ª pers. sing. fem. sujeto",
+                "pt": "pronome · 3ª pess. sing. fem. sujeito",
+                "it": "pronome · 3ª pers. sing. fem. soggetto",
+                "zh-Hans": "代词 · 第三人称单数阴性主格",
+                "zh-Hant": "代詞 · 第三人稱單數陰性主格",
+                "ro": "pronume · pers. 3 sg. fem. subiect",
+                "ca": "pronom · 3a pers. sing. fem. subjecte"
+              },
               "id": "b1.s10.t4",
               "startMs": 40881,
               "endMs": 41141
@@ -2603,6 +3904,18 @@
                 "zh-Hant": "有",
                 "ro": "a",
                 "ca": "ha"
+              },
+              "lemma": "avoir",
+              "grammar": {
+                "en": "verb · passé composé · 3rd sing.",
+                "fr": "verbe · passé composé · 3e pers. sing.",
+                "es": "verbo · pretérito perfecto · 3.ª pers. sing.",
+                "pt": "verbo · pretérito perfeito · 3.ª pess. sing.",
+                "it": "verbo · passato prossimo · 3ª pers. sing.",
+                "zh-Hans": "动词 · 复合过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 複合過去時 · 第三人稱單數",
+                "ro": "verb · perfect compus · pers. a 3-a sing.",
+                "ca": "verb · perfet perifràstic · 3a pers. sing."
               },
               "id": "b1.s10.t5",
               "startMs": 41141,
@@ -2624,6 +3937,18 @@
                 "ro": "refuzat",
                 "ca": "rebutjat"
               },
+              "lemma": "refuser",
+              "grammar": {
+                "en": "verb · past participle · masc. sing.",
+                "fr": "verbe · participe passé · masc. sing.",
+                "es": "verbo · participio pasado · masc. sing.",
+                "pt": "verbo · particípio passado · masc. sing.",
+                "it": "verbo · participio passato · masch. sing.",
+                "zh-Hans": "动词 · 过去分词 · 阳性单数",
+                "zh-Hant": "動詞 · 過去分詞 · 陽性單數",
+                "ro": "verb · participiu trecut · masc. sing.",
+                "ca": "verb · participi passat · masc. sing."
+              },
               "id": "b1.s10.t6",
               "startMs": 41201,
               "endMs": 41651
@@ -2643,6 +3968,17 @@
                 "zh-Hant": "的",
                 "ro": "din",
                 "ca": "de"
+              },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
               },
               "id": "b1.s10.t7",
               "startMs": 41651,
@@ -2664,6 +4000,17 @@
                 "ro": "mânca",
                 "ca": "menjar"
               },
+              "grammar": {
+                "en": "verb · infinitive",
+                "fr": "verbe · infinitif",
+                "es": "verbo · infinitivo",
+                "pt": "verbo · infinitivo",
+                "it": "verbo · infinito",
+                "zh-Hans": "动词 · 不定式",
+                "zh-Hant": "動詞 · 不定式",
+                "ro": "verb · infinitiv",
+                "ca": "verb · infinitiu"
+              },
               "id": "b1.s10.t8",
               "startMs": 41781,
               "endMs": 42201
@@ -2683,6 +4030,17 @@
                 "zh-Hant": "她的",
                 "ro": "său",
                 "ca": "seva"
+              },
+              "grammar": {
+                "en": "possessive adjective · masc. sing.",
+                "fr": "adjectif possessif · masc. sing.",
+                "es": "adjetivo posesivo · masc. sing.",
+                "pt": "adjetivo possessivo · masc. sing.",
+                "it": "aggettivo possessivo · masch. sing.",
+                "zh-Hans": "所有格形容词 · 阳性单数",
+                "zh-Hant": "所有格形容詞 · 陽性單數",
+                "ro": "adjectiv posesiv · masc. sing.",
+                "ca": "adjectiu possessiu · masc. sing."
               },
               "id": "b1.s10.t9",
               "startMs": 42201,
@@ -2704,6 +4062,17 @@
                 "ro": "iarbă",
                 "ca": "herba"
               },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
+              },
               "id": "b1.s10.t10",
               "startMs": 42391,
               "endMs": 42631
@@ -2723,6 +4092,18 @@
                 "zh-Hant": "平常的",
                 "ro": "obișnuită",
                 "ca": "habitual"
+              },
+              "lemma": "habituel",
+              "grammar": {
+                "en": "adjective · fem. sing.",
+                "fr": "adjectif · fém. sing.",
+                "es": "adjetivo · fem. sing.",
+                "pt": "adjetivo · fem. sing.",
+                "it": "aggettivo · femm. sing.",
+                "zh-Hans": "形容词 · 阴性单数",
+                "zh-Hant": "形容詞 · 陰性單數",
+                "ro": "adjectiv · fem. sing.",
+                "ca": "adjectiu · fem. sing."
               },
               "id": "b1.s10.t11",
               "startMs": 42631,
@@ -2775,6 +4156,18 @@
                 "ro": "ce",
                 "ca": "que"
               },
+              "lemma": "que",
+              "grammar": {
+                "en": "pronoun · interrogative",
+                "fr": "pronom · interrogatif",
+                "es": "pronombre · interrogativo",
+                "pt": "pronome · interrogativo",
+                "it": "pronome · interrogativo",
+                "zh-Hans": "代词 · 疑问",
+                "zh-Hant": "代詞 · 疑問",
+                "ro": "pronume · interogativ",
+                "ca": "pronom · interrogatiu"
+              },
               "id": "b1.s11.t2",
               "startMs": 44305,
               "endMs": 44455
@@ -2794,6 +4187,17 @@
                 "zh-Hant": "是什麼",
                 "ro": "este",
                 "ca": "és que"
+              },
+              "grammar": {
+                "en": "interrogative phrase",
+                "fr": "locution interrogative",
+                "es": "locución interrogativa",
+                "pt": "locução interrogativa",
+                "it": "locuzione interrogativa",
+                "zh-Hans": "疑问短语",
+                "zh-Hant": "疑問短語",
+                "ro": "locuțiune interogativă",
+                "ca": "locució interrogativa"
               },
               "id": "b1.s11.t3",
               "startMs": 44455,
@@ -2815,6 +4219,17 @@
                 "ro": "care",
                 "ca": "que"
               },
+              "grammar": {
+                "en": "interrogative pronoun",
+                "fr": "pronom interrogatif",
+                "es": "pronombre interrogativo",
+                "pt": "pronome interrogativo",
+                "it": "pronome interrogativo",
+                "zh-Hans": "疑问代词",
+                "zh-Hant": "疑問代詞",
+                "ro": "pronume interogativ",
+                "ca": "pronom interrogatiu"
+              },
               "id": "b1.s11.t4",
               "startMs": 44755,
               "endMs": 44905
@@ -2834,6 +4249,17 @@
                 "zh-Hant": "不",
                 "ro": "nu",
                 "ca": "no"
+              },
+              "grammar": {
+                "en": "adverb · negation",
+                "fr": "adverbe · négation",
+                "es": "adverbio · negación",
+                "pt": "advérbio · negação",
+                "it": "avverbio · negazione",
+                "zh-Hans": "副词 · 否定",
+                "zh-Hant": "副詞 · 否定",
+                "ro": "adverb · negație",
+                "ca": "adverbi · negació"
               },
               "id": "b1.s11.t5",
               "startMs": 44905,
@@ -2855,6 +4281,18 @@
                 "ro": "merge",
                 "ca": "va"
               },
+              "lemma": "aller",
+              "grammar": {
+                "en": "verb · present · 3rd sing.",
+                "fr": "verbe · présent · 3e pers. sing.",
+                "es": "verbo · presente · 3.ª pers. sing.",
+                "pt": "verbo · presente · 3.ª pess. sing.",
+                "it": "verbo · presente · 3ª pers. sing.",
+                "zh-Hans": "动词 · 现在时 · 第三人称单数",
+                "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+                "ro": "verb · prezent · pers. a 3-a sing.",
+                "ca": "verb · present · 3a pers. sing."
+              },
               "id": "b1.s11.t6",
               "startMs": 45025,
               "endMs": 45105
@@ -2874,6 +4312,17 @@
                 "zh-Hant": "不",
                 "ro": "nu",
                 "ca": "no"
+              },
+              "grammar": {
+                "en": "adverb · negation",
+                "fr": "adverbe · négation",
+                "es": "adverbio · negación",
+                "pt": "advérbio · negação",
+                "it": "avverbio · negazione",
+                "zh-Hans": "副词 · 否定",
+                "zh-Hant": "副詞 · 否定",
+                "ro": "adverb · negație",
+                "ca": "adverbi · negació"
               },
               "id": "b1.s11.t7",
               "startMs": 45105,
@@ -2902,6 +4351,18 @@
                 "ro": "mea",
                 "ca": "la meva"
               },
+              "lemma": "mon",
+              "grammar": {
+                "en": "possessive adjective · fem. sing.",
+                "fr": "adjectif possessif · fém. sing.",
+                "es": "adjetivo posesivo · fem. sing.",
+                "pt": "adjetivo possessivo · fem. sing.",
+                "it": "aggettivo possessivo · femm. sing.",
+                "zh-Hans": "所有格形容词 · 阴性单数",
+                "zh-Hant": "所有格形容詞 · 陰性單數",
+                "ro": "adjectiv posesiv · fem. sing.",
+                "ca": "adjectiu possessiu · fem. sing."
+              },
               "id": "b1.s11.t9",
               "startMs": 45415,
               "endMs": 45455
@@ -2922,6 +4383,18 @@
                 "ro": "mică",
                 "ca": "petita"
               },
+              "lemma": "petit",
+              "grammar": {
+                "en": "adjective · fem. sing.",
+                "fr": "adjectif · fém. sing.",
+                "es": "adjetivo · fem. sing.",
+                "pt": "adjetivo · fem. sing.",
+                "it": "aggettivo · femm. sing.",
+                "zh-Hans": "形容词 · 阴性单数",
+                "zh-Hant": "形容詞 · 陰性單數",
+                "ro": "adjectiv · fem. sing.",
+                "ca": "adjectiu · fem. sing."
+              },
               "id": "b1.s11.t10",
               "startMs": 45455,
               "endMs": 45765
@@ -2941,6 +4414,17 @@
                 "zh-Hant": "山羊",
                 "ro": "capră",
                 "ca": "cabra"
+              },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
               },
               "id": "b1.s11.t11",
               "startMs": 45765,
@@ -2976,6 +4460,18 @@
                 "ro": "a",
                 "ca": "ha"
               },
+              "lemma": "avoir",
+              "grammar": {
+                "en": "verb · passé composé · 3rd sing.",
+                "fr": "verbe · passé composé · 3e pers. sing.",
+                "es": "verbo · pretérito perfecto · 3.ª pers. sing.",
+                "pt": "verbo · pretérito perfeito · 3.ª pess. sing.",
+                "it": "verbo · passato prossimo · 3ª pers. sing.",
+                "zh-Hans": "动词 · 复合过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 複合過去時 · 第三人稱單數",
+                "ro": "verb · perfect compus · pers. a 3-a sing.",
+                "ca": "verb · perfet perifràstic · 3a pers. sing."
+              },
               "id": "b1.s11.t14",
               "startMs": 46505,
               "endMs": 46555
@@ -2996,6 +4492,18 @@
                 "ro": "întrebat",
                 "ca": "preguntat"
               },
+              "lemma": "demander",
+              "grammar": {
+                "en": "verb · past participle",
+                "fr": "verbe · participe passé",
+                "es": "verbo · participio pasado",
+                "pt": "verbo · particípio passado",
+                "it": "verbo · participio passato",
+                "zh-Hans": "动词 · 过去分词",
+                "zh-Hant": "動詞 · 過去分詞",
+                "ro": "verb · participiu trecut",
+                "ca": "verb · participi passat"
+              },
               "id": "b1.s11.t15",
               "startMs": 46555,
               "endMs": 47125
@@ -3015,6 +4523,18 @@
                 "zh-Hant": "先生",
                 "ro": "domnul",
                 "ca": "Sr."
+              },
+              "lemma": "monsieur",
+              "grammar": {
+                "en": "abbreviation · title",
+                "fr": "abréviation · titre",
+                "es": "abreviatura · título",
+                "pt": "abreviatura · título",
+                "it": "abbreviazione · titolo",
+                "zh-Hans": "缩写 · 称谓",
+                "zh-Hant": "縮寫 · 稱謂",
+                "ro": "abreviere · titlu",
+                "ca": "abreviatura · títol"
               },
               "id": "b1.s11.t16",
               "startMs": 47125,
@@ -3043,6 +4563,17 @@
                 "ro": "Seguin",
                 "ca": "Seguin"
               },
+              "grammar": {
+                "en": "proper noun · surname",
+                "fr": "nom propre · nom de famille",
+                "es": "nombre propio · apellido",
+                "pt": "nome próprio · sobrenome",
+                "it": "nome proprio · cognome",
+                "zh-Hans": "专有名词 · 姓氏",
+                "zh-Hant": "專有名詞 · 姓氏",
+                "ro": "nume propriu · nume de familie",
+                "ca": "nom propi · cognom"
+              },
               "id": "b1.s11.t18",
               "startMs": 47345,
               "endMs": 47695
@@ -3069,6 +4600,17 @@
                 "zh-Hant": "擔心的",
                 "ro": "îngrijorat",
                 "ca": "preocupat"
+              },
+              "grammar": {
+                "en": "adjective · masc. sing.",
+                "fr": "adjectif · masc. sing.",
+                "es": "adjetivo · masc. sing.",
+                "pt": "adjetivo · masc. sing.",
+                "it": "aggettivo · masch. sing.",
+                "zh-Hans": "形容词 · 阳性单数",
+                "zh-Hant": "形容詞 · 陽性單數",
+                "ro": "adjectiv · masc. sing.",
+                "ca": "adjectiu · masc. sing."
               },
               "id": "b1.s11.t20",
               "startMs": 47695,
@@ -3121,6 +4663,17 @@
                 "ro": "eu",
                 "ca": "jo"
               },
+              "grammar": {
+                "en": "personal pronoun · 1st sing.",
+                "fr": "pronom personnel · 1re pers. sing.",
+                "es": "pronombre personal · 1.ª pers. sing.",
+                "pt": "pronome pessoal · 1.ª pess. sing.",
+                "it": "pronome personale · 1ª pers. sing.",
+                "zh-Hans": "人称代词 · 第一人称单数",
+                "zh-Hant": "人稱代詞 · 第一人稱單數",
+                "ro": "pronume personal · pers. 1 sing.",
+                "ca": "pronom personal · 1a pers. sing."
+              },
               "id": "b1.s12.t2",
               "startMs": 49188,
               "endMs": 49308
@@ -3140,6 +4693,18 @@
                 "zh-Hant": "想要",
                 "ro": "vreau",
                 "ca": "vull"
+              },
+              "lemma": "vouloir",
+              "grammar": {
+                "en": "verb · present · 1st sing.",
+                "fr": "verbe · présent · 1re pers. sing.",
+                "es": "verbo · presente · 1.ª pers. sing.",
+                "pt": "verbo · presente · 1.ª pess. sing.",
+                "it": "verbo · presente · 1ª pers. sing.",
+                "zh-Hans": "动词 · 现在时 · 第一人称单数",
+                "zh-Hant": "動詞 · 現在時 · 第一人稱單數",
+                "ro": "verb · prezent · pers. 1 sing.",
+                "ca": "verb · present · 1a pers. sing."
               },
               "id": "b1.s12.t3",
               "startMs": 49308,
@@ -3161,6 +4726,17 @@
                 "ro": "merge",
                 "ca": "anar"
               },
+              "grammar": {
+                "en": "verb · infinitive",
+                "fr": "verbe · infinitif",
+                "es": "verbo · infinitivo",
+                "pt": "verbo · infinitivo",
+                "it": "verbo · infinito",
+                "zh-Hans": "动词 · 不定式",
+                "zh-Hant": "動詞 · 不定式",
+                "ro": "verb · infinitiv",
+                "ca": "verb · infinitiu"
+              },
               "id": "b1.s12.t4",
               "startMs": 49558,
               "endMs": 49858
@@ -3180,6 +4756,17 @@
                 "zh-Hant": "跑",
                 "ro": "alerga",
                 "ca": "córrer"
+              },
+              "grammar": {
+                "en": "verb · infinitive",
+                "fr": "verbe · infinitif",
+                "es": "verbo · infinitivo",
+                "pt": "verbo · infinitivo",
+                "it": "verbo · infinito",
+                "zh-Hans": "动词 · 不定式",
+                "zh-Hant": "動詞 · 不定式",
+                "ro": "verb · infinitiv",
+                "ca": "verb · infinitiu"
               },
               "id": "b1.s12.t5",
               "startMs": 49868,
@@ -3201,6 +4788,17 @@
                 "ro": "pe",
                 "ca": "sobre"
               },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
+              },
               "id": "b1.s12.t6",
               "startMs": 50278,
               "endMs": 50428
@@ -3221,6 +4819,18 @@
                 "ro": "a",
                 "ca": "la"
               },
+              "lemma": "le",
+              "grammar": {
+                "en": "article · fem. sing.",
+                "fr": "article · fém. sing.",
+                "es": "artículo · fem. sing.",
+                "pt": "artigo · fem. sing.",
+                "it": "articolo · femm. sing.",
+                "zh-Hans": "冠词 · 阴性单数",
+                "zh-Hant": "冠詞 · 陰性單數",
+                "ro": "articol · fem. sing.",
+                "ca": "article · fem. sing."
+              },
               "id": "b1.s12.t7",
               "startMs": 50428,
               "endMs": 50548
@@ -3240,6 +4850,17 @@
                 "zh-Hant": "山",
                 "ro": "munte",
                 "ca": "muntanya"
+              },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
               },
               "id": "b1.s12.t8",
               "startMs": 50548,
@@ -3275,6 +4896,18 @@
                 "ro": "a",
                 "ca": "ha"
               },
+              "lemma": "avoir",
+              "grammar": {
+                "en": "verb · passé composé · 3rd sing.",
+                "fr": "verbe · passé composé · 3e pers. sing.",
+                "es": "verbo · pretérito perfecto · 3.ª pers. sing.",
+                "pt": "verbo · pretérito perfeito · 3.ª pess. sing.",
+                "it": "verbo · passato prossimo · 3ª pers. sing.",
+                "zh-Hans": "动词 · 复合过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 複合過去時 · 第三人稱單數",
+                "ro": "verb · perfect compus · pers. a 3-a sing.",
+                "ca": "verb · perfet perifràstic · 3a pers. sing."
+              },
               "id": "b1.s12.t11",
               "startMs": 51408,
               "endMs": 51418
@@ -3295,6 +4928,18 @@
                 "ro": "răspuns",
                 "ca": "respost"
               },
+              "lemma": "répondre",
+              "grammar": {
+                "en": "verb · past participle",
+                "fr": "verbe · participe passé",
+                "es": "verbo · participio pasado",
+                "pt": "verbo · particípio passado",
+                "it": "verbo · participio passato",
+                "zh-Hans": "动词 · 过去分词",
+                "zh-Hant": "動詞 · 過去分詞",
+                "ro": "verb · participiu trecut",
+                "ca": "verb · participi passat"
+              },
               "id": "b1.s12.t12",
               "startMs": 51418,
               "endMs": 51848
@@ -3314,6 +4959,17 @@
                 "zh-Hant": "布朗凱特",
                 "ro": "Blanquette",
                 "ca": "Blanquette"
+              },
+              "grammar": {
+                "en": "proper noun · fem. sing.",
+                "fr": "nom propre · fém. sing.",
+                "es": "nombre propio · fem. sing.",
+                "pt": "nome próprio · fem. sing.",
+                "it": "nome proprio · femm. sing.",
+                "zh-Hans": "专有名词 · 阴性单数",
+                "zh-Hant": "專有名詞 · 陰性單數",
+                "ro": "nume propriu · fem. sing.",
+                "ca": "nom propi · fem. sing."
               },
               "id": "b1.s12.t13",
               "startMs": 51848,
@@ -3359,6 +5015,18 @@
                 "ro": "domnul",
                 "ca": "Sr."
               },
+              "lemma": "monsieur",
+              "grammar": {
+                "en": "abbreviation · title",
+                "fr": "abréviation · titre",
+                "es": "abreviatura · título",
+                "pt": "abreviatura · título",
+                "it": "abbreviazione · titolo",
+                "zh-Hans": "缩写 · 称谓",
+                "zh-Hant": "縮寫 · 稱謂",
+                "ro": "abreviere · titlu",
+                "ca": "abreviatura · títol"
+              },
               "id": "b1.s13.t1",
               "startMs": 53447,
               "endMs": 53567
@@ -3386,6 +5054,17 @@
                 "ro": "Seguin",
                 "ca": "Seguin"
               },
+              "grammar": {
+                "en": "proper noun · surname",
+                "fr": "nom propre · nom de famille",
+                "es": "nombre propio · apellido",
+                "pt": "nome próprio · sobrenome",
+                "it": "nome proprio · cognome",
+                "zh-Hans": "专有名词 · 姓氏",
+                "zh-Hant": "專有名詞 · 姓氏",
+                "ro": "nume propriu · nume de familie",
+                "ca": "nom propi · cognom"
+              },
               "id": "b1.s13.t3",
               "startMs": 53567,
               "endMs": 53807
@@ -3405,6 +5084,18 @@
                 "zh-Hant": "是",
                 "ro": "este",
                 "ca": "és"
+              },
+              "lemma": "être",
+              "grammar": {
+                "en": "verb · present · 3rd sing.",
+                "fr": "verbe · présent · 3e pers. sing.",
+                "es": "verbo · presente · 3.ª pers. sing.",
+                "pt": "verbo · presente · 3.ª pess. sing.",
+                "it": "verbo · presente · 3ª pers. sing.",
+                "zh-Hans": "动词 · 现在时 · 第三人称单数",
+                "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+                "ro": "verb · prezent · pers. a 3-a sing.",
+                "ca": "verb · present · 3a pers. sing."
               },
               "id": "b1.s13.t4",
               "startMs": 53937,
@@ -3426,6 +5117,18 @@
                 "ro": "devenit",
                 "ca": "convertit"
               },
+              "lemma": "devenir",
+              "grammar": {
+                "en": "verb · past participle",
+                "fr": "verbe · participe passé",
+                "es": "verbo · participio pasado",
+                "pt": "verbo · particípio passado",
+                "it": "verbo · participio passato",
+                "zh-Hans": "动词 · 过去分词",
+                "zh-Hant": "動詞 · 過去分詞",
+                "ro": "verb · participiu trecut",
+                "ca": "verb · participi passat"
+              },
               "id": "b1.s13.t5",
               "startMs": 54107,
               "endMs": 54447
@@ -3445,6 +5148,17 @@
                 "zh-Hant": "非常",
                 "ro": "foarte",
                 "ca": "molt"
+              },
+              "grammar": {
+                "en": "adverb",
+                "fr": "adverbe",
+                "es": "adverbio",
+                "pt": "advérbio",
+                "it": "avverbio",
+                "zh-Hans": "副词",
+                "zh-Hant": "副詞",
+                "ro": "adverb",
+                "ca": "adverbi"
               },
               "id": "b1.s13.t6",
               "startMs": 54477,
@@ -3466,6 +5180,17 @@
                 "ro": "serios",
                 "ca": "seriós"
               },
+              "grammar": {
+                "en": "adjective · masc. sing.",
+                "fr": "adjectif · masc. sing.",
+                "es": "adjetivo · masc. sing.",
+                "pt": "adjetivo · masc. sing.",
+                "it": "aggettivo · masch. sing.",
+                "zh-Hans": "形容词 · 阳性单数",
+                "zh-Hant": "形容詞 · 陽性單數",
+                "ro": "adjectiv · masc. sing.",
+                "ca": "adjectiu · masc. sing."
+              },
               "id": "b1.s13.t7",
               "startMs": 54847,
               "endMs": 55347
@@ -3485,6 +5210,17 @@
                 "zh-Hant": "和",
                 "ro": "și",
                 "ca": "i"
+              },
+              "grammar": {
+                "en": "conjunction",
+                "fr": "conjonction",
+                "es": "conjunción",
+                "pt": "conjunção",
+                "it": "congiunzione",
+                "zh-Hans": "连词",
+                "zh-Hant": "連詞",
+                "ro": "conjuncție",
+                "ca": "conjunció"
               },
               "id": "b1.s13.t8",
               "startMs": 55347,
@@ -3506,6 +5242,17 @@
                 "ro": "un",
                 "ca": "un"
               },
+              "grammar": {
+                "en": "article · masc. sing.",
+                "fr": "article · masc. sing.",
+                "es": "artículo · masc. sing.",
+                "pt": "artigo · masc. sing.",
+                "it": "articolo · masch. sing.",
+                "zh-Hans": "冠词 · 阳性单数",
+                "zh-Hant": "冠詞 · 陽性單數",
+                "ro": "articol · masc. sing.",
+                "ca": "article · masc. sing."
+              },
               "id": "b1.s13.t9",
               "startMs": 55437,
               "endMs": 55517
@@ -3526,6 +5273,17 @@
                 "ro": "puțin",
                 "ca": "poc"
               },
+              "grammar": {
+                "en": "adverb",
+                "fr": "adverbe",
+                "es": "adverbio",
+                "pt": "advérbio",
+                "it": "avverbio",
+                "zh-Hans": "副词",
+                "zh-Hant": "副詞",
+                "ro": "adverb",
+                "ca": "adverbi"
+              },
               "id": "b1.s13.t10",
               "startMs": 55587,
               "endMs": 55657
@@ -3545,6 +5303,17 @@
                 "zh-Hant": "悲傷的",
                 "ro": "trist",
                 "ca": "trist"
+              },
+              "grammar": {
+                "en": "adjective · masc. sing.",
+                "fr": "adjectif · masc. sing.",
+                "es": "adjetivo · masc. sing.",
+                "pt": "adjetivo · masc. sing.",
+                "it": "aggettivo · masch. sing.",
+                "zh-Hans": "形容词 · 阳性单数",
+                "zh-Hant": "形容詞 · 陽性單數",
+                "ro": "adjectiv · masc. sing.",
+                "ca": "adjectiu · masc. sing."
               },
               "id": "b1.s13.t11",
               "startMs": 55717,
@@ -3597,6 +5366,17 @@
                 "ro": "l",
                 "ca": "el"
               },
+              "grammar": {
+                "en": "article · masc. sing.",
+                "fr": "article · masc. sing.",
+                "es": "artículo · masc. sing.",
+                "pt": "artigo · masc. sing.",
+                "it": "articolo · masch. sing.",
+                "zh-Hans": "冠词 · 阳性单数",
+                "zh-Hant": "冠詞 · 陽性單數",
+                "ro": "articol · masc. sing.",
+                "ca": "article · masc. sing."
+              },
               "id": "b1.s14.t2",
               "startMs": 57077,
               "endMs": 57187
@@ -3616,6 +5396,17 @@
                 "zh-Hant": "狼",
                 "ro": "lup",
                 "ca": "llop"
+              },
+              "grammar": {
+                "en": "noun · masc. sing.",
+                "fr": "nom · masc. sing.",
+                "es": "sustantivo · masc. sing.",
+                "pt": "substantivo · masc. sing.",
+                "it": "sostantivo · masch. sing.",
+                "zh-Hans": "名词 · 阳性单数",
+                "zh-Hant": "名詞 · 陽性單數",
+                "ro": "substantiv · masc. sing.",
+                "ca": "substantiu · masc. sing."
               },
               "id": "b1.s14.t3",
               "startMs": 57187,
@@ -3637,6 +5428,18 @@
                 "ro": "mănâncă",
                 "ca": "menja"
               },
+              "lemma": "manger",
+              "grammar": {
+                "en": "verb · present · 3rd sing.",
+                "fr": "verbe · présent · 3e pers. sing.",
+                "es": "verbo · presente · 3.ª pers. sing.",
+                "pt": "verbo · presente · 3.ª pess. sing.",
+                "it": "verbo · presente · 3ª pers. sing.",
+                "zh-Hans": "动词 · 现在时 · 第三人称单数",
+                "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+                "ro": "verb · prezent · pers. a 3-a sing.",
+                "ca": "verb · present · 3a pers. sing."
+              },
               "id": "b1.s14.t4",
               "startMs": 57397,
               "endMs": 57647
@@ -3656,6 +5459,18 @@
                 "zh-Hant": "全部",
                 "ro": "toate",
                 "ca": "totes"
+              },
+              "lemma": "tout",
+              "grammar": {
+                "en": "indefinite adjective · fem. pl.",
+                "fr": "adjectif indéfini · fém. plur.",
+                "es": "adjetivo indefinido · fem. pl.",
+                "pt": "adjetivo indefinido · fem. pl.",
+                "it": "aggettivo indefinito · femm. pl.",
+                "zh-Hans": "不定形容词 · 阴性复数",
+                "zh-Hant": "不定形容詞 · 陰性複數",
+                "ro": "adjectiv nehotărât · fem. pl.",
+                "ca": "adjectiu indefinit · fem. pl."
               },
               "id": "b1.s14.t5",
               "startMs": 57647,
@@ -3677,6 +5492,18 @@
                 "ro": "mele",
                 "ca": "les meves"
               },
+              "lemma": "mon",
+              "grammar": {
+                "en": "possessive adjective · fem. pl.",
+                "fr": "adjectif possessif · fém. pl.",
+                "es": "adjetivo posesivo · fem. pl.",
+                "pt": "adjetivo possessivo · fem. pl.",
+                "it": "aggettivo possessivo · femm. pl.",
+                "zh-Hans": "所有格形容词 · 阴性复数",
+                "zh-Hant": "所有格形容詞 · 陰性複數",
+                "ro": "adjectiv posesiv · fem. pl.",
+                "ca": "adjectiu possessiu · fem. pl."
+              },
               "id": "b1.s14.t6",
               "startMs": 58077,
               "endMs": 58157
@@ -3696,6 +5523,18 @@
                 "zh-Hant": "山羊",
                 "ro": "capre",
                 "ca": "cabres"
+              },
+              "lemma": "chèvre",
+              "grammar": {
+                "en": "noun · fem. pl.",
+                "fr": "nom · fém. plur.",
+                "es": "sustantivo · fem. pl.",
+                "pt": "substantivo · fem. pl.",
+                "it": "sostantivo · femm. pl.",
+                "zh-Hans": "名词 · 阴性复数",
+                "zh-Hant": "名詞 · 陰性複數",
+                "ro": "substantiv · fem. pl.",
+                "ca": "substantiu · fem. pl."
               },
               "id": "b1.s14.t7",
               "startMs": 58157,
@@ -3717,6 +5556,17 @@
                 "ro": "care",
                 "ca": "que"
               },
+              "grammar": {
+                "en": "interrogative pronoun",
+                "fr": "pronom interrogatif",
+                "es": "pronombre interrogativo",
+                "pt": "pronome interrogativo",
+                "it": "pronome interrogativo",
+                "zh-Hans": "疑问代词",
+                "zh-Hant": "疑問代詞",
+                "ro": "pronume interogativ",
+                "ca": "pronom interrogatiu"
+              },
               "id": "b1.s14.t8",
               "startMs": 58627,
               "endMs": 58777
@@ -3736,6 +5586,18 @@
                 "zh-Hant": "去",
                 "ro": "merg",
                 "ca": "van"
+              },
+              "lemma": "aller",
+              "grammar": {
+                "en": "verb · present · 3rd pl.",
+                "fr": "verbe · présent · 3e pers. pl.",
+                "es": "verbo · presente · 3.ª pers. pl.",
+                "pt": "verbo · presente · 3.ª pess. pl.",
+                "it": "verbo · presente · 3ª pers. pl.",
+                "zh-Hans": "动词 · 现在时 · 第三人称复数",
+                "zh-Hant": "動詞 · 現在時 · 第三人稱複數",
+                "ro": "verb · prezent · pers. a 3-a pl.",
+                "ca": "verb · present · 3a pers. pl."
               },
               "id": "b1.s14.t9",
               "startMs": 58777,
@@ -3757,6 +5619,17 @@
                 "ro": "pe",
                 "ca": "sobre"
               },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
+              },
               "id": "b1.s14.t10",
               "startMs": 58977,
               "endMs": 59127
@@ -3777,6 +5650,18 @@
                 "ro": "a",
                 "ca": "la"
               },
+              "lemma": "le",
+              "grammar": {
+                "en": "article · fem. sing.",
+                "fr": "article · fém. sing.",
+                "es": "artículo · fem. sing.",
+                "pt": "artigo · fem. sing.",
+                "it": "articolo · femm. sing.",
+                "zh-Hans": "冠词 · 阴性单数",
+                "zh-Hant": "冠詞 · 陰性單數",
+                "ro": "articol · fem. sing.",
+                "ca": "article · fem. sing."
+              },
               "id": "b1.s14.t11",
               "startMs": 59127,
               "endMs": 59227
@@ -3796,6 +5681,17 @@
                 "zh-Hant": "山",
                 "ro": "munte",
                 "ca": "muntanya"
+              },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
               },
               "id": "b1.s14.t12",
               "startMs": 59227,
@@ -3831,6 +5727,18 @@
                 "ro": "a",
                 "ca": "va"
               },
+              "lemma": "avoir",
+              "grammar": {
+                "en": "verb · present · 3rd sing. · inversion",
+                "fr": "verbe · présent · 3e pers. sing. · inversion",
+                "es": "verbo · presente · 3.ª pers. sing. · inversión",
+                "pt": "verbo · presente · 3.ª pess. sing. · inversão",
+                "it": "verbo · presente · 3ª pers. sing. · inversione",
+                "zh-Hans": "动词 · 现在时 · 第三人称单数 · 倒装",
+                "zh-Hant": "動詞 · 現在時 · 第三人稱單數 · 倒裝",
+                "ro": "verb · prezent · pers. a 3-a sing. · inversiune",
+                "ca": "verb · present · 3a pers. sing. · inversió"
+              },
               "id": "b1.s14.t15",
               "startMs": 59867,
               "endMs": 60087
@@ -3850,6 +5758,18 @@
                 "zh-Hant": "說",
                 "ro": "spus",
                 "ca": "dit"
+              },
+              "lemma": "dire",
+              "grammar": {
+                "en": "verb · past participle",
+                "fr": "verbe · participe passé",
+                "es": "verbo · participio pasado",
+                "pt": "verbo · particípio passado",
+                "it": "verbo · participio passato",
+                "zh-Hans": "动词 · 过去分词",
+                "zh-Hant": "動詞 · 過去分詞",
+                "ro": "verb · participiu trecut",
+                "ca": "verb · participi passat"
               },
               "id": "b1.s14.t16",
               "startMs": 60087,
@@ -3895,6 +5815,17 @@
                 "ro": "Blanquette",
                 "ca": "Blanquette"
               },
+              "grammar": {
+                "en": "proper noun · fem. sing.",
+                "fr": "nom propre · fém. sing.",
+                "es": "nombre propio · fem. sing.",
+                "pt": "nome próprio · fem. sing.",
+                "it": "nome proprio · femm. sing.",
+                "zh-Hans": "专有名词 · 阴性单数",
+                "zh-Hant": "專有名詞 · 陰性單數",
+                "ro": "nume propriu · fem. sing.",
+                "ca": "nom propi · fem. sing."
+              },
               "id": "b1.s15.t1",
               "startMs": 61213,
               "endMs": 61863
@@ -3915,6 +5846,18 @@
                 "ro": "a",
                 "ca": "ha"
               },
+              "lemma": "avoir",
+              "grammar": {
+                "en": "verb · passé composé · 3rd sing.",
+                "fr": "verbe · passé composé · 3e pers. sing.",
+                "es": "verbo · pretérito perfecto · 3.ª pers. sing.",
+                "pt": "verbo · pretérito perfeito · 3.ª pess. sing.",
+                "it": "verbo · passato prossimo · 3ª pers. sing.",
+                "zh-Hans": "动词 · 复合过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 複合過去時 · 第三人稱單數",
+                "ro": "verb · perfect compus · pers. a 3-a sing.",
+                "ca": "verb · perfet perifràstic · 3a pers. sing."
+              },
               "id": "b1.s15.t2",
               "startMs": 61863,
               "endMs": 61933
@@ -3934,6 +5877,18 @@
                 "zh-Hant": "堅持",
                 "ro": "insistat",
                 "ca": "insistit"
+              },
+              "lemma": "insister",
+              "grammar": {
+                "en": "verb · past participle",
+                "fr": "verbe · participe passé",
+                "es": "verbo · participio pasado",
+                "pt": "verbo · particípio passado",
+                "it": "verbo · participio passato",
+                "zh-Hans": "动词 · 过去分词",
+                "zh-Hant": "動詞 · 過去分詞",
+                "ro": "verb · participiu trecut",
+                "ca": "verb · participi passat"
               },
               "id": "b1.s15.t3",
               "startMs": 61933,
@@ -3969,6 +5924,17 @@
                 "ro": "eu",
                 "ca": "jo"
               },
+              "grammar": {
+                "en": "personal pronoun · 1st sing.",
+                "fr": "pronom personnel · 1re pers. sing.",
+                "es": "pronombre personal · 1.ª pers. sing.",
+                "pt": "pronome pessoal · 1.ª pess. sing.",
+                "it": "pronome personale · 1ª pers. sing.",
+                "zh-Hans": "人称代词 · 第一人称单数",
+                "zh-Hant": "人稱代詞 · 第一人稱單數",
+                "ro": "pronume personal · pers. 1 sing.",
+                "ca": "pronom personal · 1a pers. sing."
+              },
               "id": "b1.s15.t6",
               "startMs": 62723,
               "endMs": 62723
@@ -3988,6 +5954,17 @@
                 "zh-Hant": "不",
                 "ro": "nu",
                 "ca": "no"
+              },
+              "grammar": {
+                "en": "adverb · negation",
+                "fr": "adverbe · négation",
+                "es": "adverbio · negación",
+                "pt": "advérbio · negação",
+                "it": "avverbio · negazione",
+                "zh-Hans": "副词 · 否定",
+                "zh-Hant": "副詞 · 否定",
+                "ro": "adverb · negație",
+                "ca": "adverbi · negació"
               },
               "id": "b1.s15.t7",
               "startMs": 62793,
@@ -4009,6 +5986,18 @@
                 "ro": "sunt",
                 "ca": "sóc"
               },
+              "lemma": "être",
+              "grammar": {
+                "en": "verb · present · 1st sing.",
+                "fr": "verbe · présent · 1re pers. sing.",
+                "es": "verbo · presente · 1.ª pers. sing.",
+                "pt": "verbo · presente · 1.ª pess. sing.",
+                "it": "verbo · presente · 1ª pers. sing.",
+                "zh-Hans": "动词 · 现在时 · 第一人称单数",
+                "zh-Hant": "動詞 · 現在時 · 第一人稱單數",
+                "ro": "verb · prezent · pers. 1 sing.",
+                "ca": "verb · present · 1a pers. sing."
+              },
               "id": "b1.s15.t8",
               "startMs": 62823,
               "endMs": 63033
@@ -4028,6 +6017,17 @@
                 "zh-Hant": "不",
                 "ro": "nu",
                 "ca": "no"
+              },
+              "grammar": {
+                "en": "adverb · negation",
+                "fr": "adverbe · négation",
+                "es": "adverbio · negación",
+                "pt": "advérbio · negação",
+                "it": "avverbio · negazione",
+                "zh-Hans": "副词 · 否定",
+                "zh-Hant": "副詞 · 否定",
+                "ro": "adverb · negație",
+                "ca": "adverbi · negació"
               },
               "id": "b1.s15.t9",
               "startMs": 63033,
@@ -4049,6 +6049,17 @@
                 "ro": "ca",
                 "ca": "com"
               },
+              "grammar": {
+                "en": "conjunction",
+                "fr": "conjonction",
+                "es": "conjunción",
+                "pt": "conjunção",
+                "it": "congiunzione",
+                "zh-Hans": "连词",
+                "zh-Hant": "連詞",
+                "ro": "conjuncție",
+                "ca": "conjunció"
+              },
               "id": "b1.s15.t10",
               "startMs": 63193,
               "endMs": 63393
@@ -4069,6 +6080,18 @@
                 "ro": "cei",
                 "ca": "les"
               },
+              "lemma": "le",
+              "grammar": {
+                "en": "definite article · pl.",
+                "fr": "article défini · pl.",
+                "es": "artículo definido · pl.",
+                "pt": "artigo definido · pl.",
+                "it": "articolo determinativo · pl.",
+                "zh-Hans": "定冠词 · 复数",
+                "zh-Hant": "定冠詞 · 複數",
+                "ro": "articol hotărât · pl.",
+                "ca": "article definit · pl."
+              },
               "id": "b1.s15.t11",
               "startMs": 63473,
               "endMs": 63623
@@ -4088,6 +6111,18 @@
                 "zh-Hant": "其他的",
                 "ro": "alții",
                 "ca": "altres"
+              },
+              "lemma": "autre",
+              "grammar": {
+                "en": "indefinite pronoun · pl.",
+                "fr": "pronom indéfini · pl.",
+                "es": "pronombre indefinido · pl.",
+                "pt": "pronome indefinido · pl.",
+                "it": "pronome indefinito · pl.",
+                "zh-Hans": "不定代词 · 复数",
+                "zh-Hant": "不定代詞 · 複數",
+                "ro": "pronume nehotărât · pl.",
+                "ca": "pronom indefinit · pl."
               },
               "id": "b1.s15.t12",
               "startMs": 63623,
@@ -4116,6 +6151,17 @@
                 "ro": "eu",
                 "ca": "jo"
               },
+              "grammar": {
+                "en": "personal pronoun · 1st sing.",
+                "fr": "pronom personnel · 1re pers. sing.",
+                "es": "pronombre personal · 1.ª pers. sing.",
+                "pt": "pronome pessoal · 1.ª pess. sing.",
+                "it": "pronome personale · 1ª pers. sing.",
+                "zh-Hans": "人称代词 · 第一人称单数",
+                "zh-Hant": "人稱代詞 · 第一人稱單數",
+                "ro": "pronume personal · pers. 1 sing.",
+                "ca": "pronom personal · 1a pers. sing."
+              },
               "id": "b1.s15.t14",
               "startMs": 64113,
               "endMs": 64213
@@ -4135,6 +6181,18 @@
                 "zh-Hant": "不",
                 "ro": "nu",
                 "ca": "no"
+              },
+              "lemma": "ne",
+              "grammar": {
+                "en": "adverb · negation · elided",
+                "fr": "adverbe · négation · élidé",
+                "es": "adverbio · negación · elidido",
+                "pt": "advérbio · negação · elidido",
+                "it": "avverbio · negazione · eliso",
+                "zh-Hans": "副词 · 否定 · 省音",
+                "zh-Hant": "副詞 · 否定 · 省音",
+                "ro": "adverb · negație · elidat",
+                "ca": "adverbi · negació · elidit"
               },
               "id": "b1.s15.t15",
               "startMs": 64213,
@@ -4156,6 +6214,18 @@
                 "ro": "am",
                 "ca": "he"
               },
+              "lemma": "avoir",
+              "grammar": {
+                "en": "verb · present · 1st sing.",
+                "fr": "verbe · présent · 1re pers. sing.",
+                "es": "verbo · presente · 1.ª pers. sing.",
+                "pt": "verbo · presente · 1.ª pess. sing.",
+                "it": "verbo · presente · 1ª pers. sing.",
+                "zh-Hans": "动词 · 现在时 · 第一人称单数",
+                "zh-Hant": "動詞 · 現在時 · 第一人稱單數",
+                "ro": "verb · prezent · pers. 1 sing.",
+                "ca": "verb · present · 1a pers. sing."
+              },
               "id": "b1.s15.t16",
               "startMs": 64318,
               "endMs": 64423
@@ -4176,6 +6246,17 @@
                 "ro": "nu",
                 "ca": "no"
               },
+              "grammar": {
+                "en": "adverb · negation",
+                "fr": "adverbe · négation",
+                "es": "adverbio · negación",
+                "pt": "advérbio · negação",
+                "it": "avverbio · negazione",
+                "zh-Hans": "副词 · 否定",
+                "zh-Hant": "副詞 · 否定",
+                "ro": "adverb · negație",
+                "ca": "adverbi · negació"
+              },
               "id": "b1.s15.t17",
               "startMs": 64423,
               "endMs": 64593
@@ -4195,6 +6276,17 @@
                 "zh-Hant": "害怕",
                 "ro": "frică",
                 "ca": "por"
+              },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
               },
               "id": "b1.s15.t18",
               "startMs": 64593,
@@ -4247,6 +6339,18 @@
                 "ro": "domnul",
                 "ca": "Sr."
               },
+              "lemma": "monsieur",
+              "grammar": {
+                "en": "abbreviation · title",
+                "fr": "abréviation · titre",
+                "es": "abreviatura · título",
+                "pt": "abreviatura · título",
+                "it": "abbreviazione · titolo",
+                "zh-Hans": "缩写 · 称谓",
+                "zh-Hant": "縮寫 · 稱謂",
+                "ro": "abreviere · titlu",
+                "ca": "abreviatura · títol"
+              },
               "id": "b1.s16.t1",
               "startMs": 65862,
               "endMs": 66062
@@ -4274,6 +6378,17 @@
                 "ro": "Seguin",
                 "ca": "Seguin"
               },
+              "grammar": {
+                "en": "proper noun · surname",
+                "fr": "nom propre · nom de famille",
+                "es": "nombre propio · apellido",
+                "pt": "nome próprio · sobrenome",
+                "it": "nome proprio · cognome",
+                "zh-Hans": "专有名词 · 姓氏",
+                "zh-Hant": "專有名詞 · 姓氏",
+                "ro": "nume propriu · nume de familie",
+                "ca": "nom propi · cognom"
+              },
               "id": "b1.s16.t3",
               "startMs": 66062,
               "endMs": 66562
@@ -4293,6 +6408,18 @@
                 "zh-Hant": "有",
                 "ro": "a",
                 "ca": "ha"
+              },
+              "lemma": "avoir",
+              "grammar": {
+                "en": "verb · passé composé · 3rd sing.",
+                "fr": "verbe · passé composé · 3e pers. sing.",
+                "es": "verbo · pretérito perfecto · 3.ª pers. sing.",
+                "pt": "verbo · pretérito perfeito · 3.ª pess. sing.",
+                "it": "verbo · passato prossimo · 3ª pers. sing.",
+                "zh-Hans": "动词 · 复合过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 複合過去時 · 第三人稱單數",
+                "ro": "verb · perfect compus · pers. a 3-a sing.",
+                "ca": "verb · perfet perifràstic · 3a pers. sing."
               },
               "id": "b1.s16.t4",
               "startMs": 66572,
@@ -4314,6 +6441,18 @@
                 "ro": "oftat",
                 "ca": "sospirat"
               },
+              "lemma": "soupirer",
+              "grammar": {
+                "en": "verb · past participle",
+                "fr": "verbe · participe passé",
+                "es": "verbo · participio pasado",
+                "pt": "verbo · particípio passado",
+                "it": "verbo · participio passato",
+                "zh-Hans": "动词 · 过去分词",
+                "zh-Hant": "動詞 · 過去分詞",
+                "ro": "verb · participiu trecut",
+                "ca": "verb · participi passat"
+              },
               "id": "b1.s16.t5",
               "startMs": 66652,
               "endMs": 67372
@@ -4333,6 +6472,17 @@
                 "zh-Hant": "和",
                 "ro": "și",
                 "ca": "i"
+              },
+              "grammar": {
+                "en": "conjunction",
+                "fr": "conjonction",
+                "es": "conjunción",
+                "pt": "conjunção",
+                "it": "congiunzione",
+                "zh-Hans": "连词",
+                "zh-Hant": "連詞",
+                "ro": "conjuncție",
+                "ca": "conjunció"
               },
               "id": "b1.s16.t6",
               "startMs": 67372,
@@ -4354,6 +6504,17 @@
                 "ro": "el",
                 "ca": "ell"
               },
+              "grammar": {
+                "en": "pronoun · 3rd sing. masc.",
+                "fr": "pronom · 3e pers. sing. masc.",
+                "es": "pronombre · 3.ª pers. sing. masc.",
+                "pt": "pronome · 3.ª pess. sing. masc.",
+                "it": "pronome · 3ª pers. sing. masch.",
+                "zh-Hans": "代词 · 第三人称单数阳性",
+                "zh-Hant": "代詞 · 第三人稱單數陽性",
+                "ro": "pronume · pers. a 3-a sing. masc.",
+                "ca": "pronom · 3a pers. sing. masc."
+              },
               "id": "b1.s16.t7",
               "startMs": 67612,
               "endMs": 67612
@@ -4373,6 +6534,18 @@
                 "zh-Hant": "有",
                 "ro": "a",
                 "ca": "ha"
+              },
+              "lemma": "avoir",
+              "grammar": {
+                "en": "verb · passé composé · 3rd sing.",
+                "fr": "verbe · passé composé · 3e pers. sing.",
+                "es": "verbo · pretérito perfecto · 3.ª pers. sing.",
+                "pt": "verbo · pretérito perfeito · 3.ª pess. sing.",
+                "it": "verbo · passato prossimo · 3ª pers. sing.",
+                "zh-Hans": "动词 · 复合过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 複合過去時 · 第三人稱單數",
+                "ro": "verb · perfect compus · pers. a 3-a sing.",
+                "ca": "verb · perfet perifràstic · 3a pers. sing."
               },
               "id": "b1.s16.t8",
               "startMs": 67672,
@@ -4394,6 +6567,18 @@
                 "ro": "hotărât",
                 "ca": "decidit"
               },
+              "lemma": "décider",
+              "grammar": {
+                "en": "verb · past participle",
+                "fr": "verbe · participe passé",
+                "es": "verbo · participio pasado",
+                "pt": "verbo · particípio passado",
+                "it": "verbo · participio passato",
+                "zh-Hans": "动词 · 过去分词",
+                "zh-Hant": "動詞 · 過去分詞",
+                "ro": "verb · participiu trecut",
+                "ca": "verb · participi passat"
+              },
               "id": "b1.s16.t9",
               "startMs": 67682,
               "endMs": 68142
@@ -4413,6 +6598,17 @@
                 "zh-Hant": "的",
                 "ro": "din",
                 "ca": "de"
+              },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
               },
               "id": "b1.s16.t10",
               "startMs": 68142,
@@ -4434,6 +6630,18 @@
                 "ro": "o",
                 "ca": "la"
               },
+              "lemma": "le",
+              "grammar": {
+                "en": "pronoun · 3rd sing. fem. obj.",
+                "fr": "pronom · 3e pers. sing. fém. COD",
+                "es": "pronombre · 3ª pers. sing. fem. CD",
+                "pt": "pronome · 3ª pess. sing. fem. OD",
+                "it": "pronome · 3ª pers. sing. fem. ogg.",
+                "zh-Hans": "代词 · 第三人称单数阴性宾格",
+                "zh-Hant": "代詞 · 第三人稱單數陰性賓格",
+                "ro": "pronume · pers. 3 sg. fem. acuz.",
+                "ca": "pronom · 3a pers. sing. fem. CD"
+              },
               "id": "b1.s16.t11",
               "startMs": 68272,
               "endMs": 68392
@@ -4453,6 +6661,17 @@
                 "zh-Hant": "關起來",
                 "ro": "închide",
                 "ca": "tancar"
+              },
+              "grammar": {
+                "en": "verb · infinitive",
+                "fr": "verbe · infinitif",
+                "es": "verbo · infinitivo",
+                "pt": "verbo · infinitivo",
+                "it": "verbo · infinito",
+                "zh-Hans": "动词 · 不定式",
+                "zh-Hant": "動詞 · 不定式",
+                "ro": "verb · infinitiv",
+                "ca": "verb · infinitiu"
               },
               "id": "b1.s16.t12",
               "startMs": 68392,
@@ -4474,6 +6693,17 @@
                 "ro": "în",
                 "ca": "en"
               },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
+              },
               "id": "b1.s16.t13",
               "startMs": 68872,
               "endMs": 69112
@@ -4494,6 +6724,18 @@
                 "ro": "o",
                 "ca": "la"
               },
+              "lemma": "le",
+              "grammar": {
+                "en": "pronoun · 3rd sing. fem. obj.",
+                "fr": "pronom · 3e pers. sing. fém. COD",
+                "es": "pronombre · 3ª pers. sing. fem. CD",
+                "pt": "pronome · 3ª pess. sing. fem. OD",
+                "it": "pronome · 3ª pers. sing. fem. ogg.",
+                "zh-Hans": "代词 · 第三人称单数阴性宾格",
+                "zh-Hant": "代詞 · 第三人稱單數陰性賓格",
+                "ro": "pronume · pers. 3 sg. fem. acuz.",
+                "ca": "pronom · 3a pers. sing. fem. CD"
+              },
               "id": "b1.s16.t14",
               "startMs": 69112,
               "endMs": 69382
@@ -4513,6 +6755,17 @@
                 "zh-Hant": "畜欄",
                 "ro": "grajd",
                 "ca": "estable"
+              },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
               },
               "id": "b1.s16.t15",
               "startMs": 69382,
@@ -4558,6 +6811,17 @@
                 "ro": "fiecare",
                 "ca": "cada"
               },
+              "grammar": {
+                "en": "determiner",
+                "fr": "déterminant",
+                "es": "determinante",
+                "pt": "determinante",
+                "it": "determinante",
+                "zh-Hans": "限定词",
+                "zh-Hant": "限定詞",
+                "ro": "determinant",
+                "ca": "determinant"
+              },
               "id": "b1.s17.t1",
               "startMs": 70597,
               "endMs": 70927
@@ -4577,6 +6841,17 @@
                 "zh-Hant": "早晨",
                 "ro": "dimineață",
                 "ca": "matí"
+              },
+              "grammar": {
+                "en": "noun · masc. sing.",
+                "fr": "nom · masc. sing.",
+                "es": "sustantivo · masc. sing.",
+                "pt": "substantivo · masc. sing.",
+                "it": "sostantivo · masch. sing.",
+                "zh-Hans": "名词 · 阳性单数",
+                "zh-Hant": "名詞 · 陽性單數",
+                "ro": "substantiv · masc. sing.",
+                "ca": "substantiu · masc. sing."
               },
               "id": "b1.s17.t2",
               "startMs": 70927,
@@ -4605,6 +6880,17 @@
                 "ro": "el",
                 "ca": "ell"
               },
+              "grammar": {
+                "en": "pronoun · 3rd sing. masc.",
+                "fr": "pronom · 3e pers. sing. masc.",
+                "es": "pronombre · 3.ª pers. sing. masc.",
+                "pt": "pronome · 3.ª pess. sing. masc.",
+                "it": "pronome · 3ª pers. sing. masch.",
+                "zh-Hans": "代词 · 第三人称单数阳性",
+                "zh-Hant": "代詞 · 第三人稱單數陽性",
+                "ro": "pronume · pers. a 3-a sing. masc.",
+                "ca": "pronom · 3a pers. sing. masc."
+              },
               "id": "b1.s17.t4",
               "startMs": 71367,
               "endMs": 71387
@@ -4624,6 +6910,18 @@
                 "zh-Hant": "給",
                 "ro": "dădea",
                 "ca": "donava"
+              },
+              "lemma": "donner",
+              "grammar": {
+                "en": "verb · imperfect · 3rd sing.",
+                "fr": "verbe · imparfait · 3e pers. sing.",
+                "es": "verbo · imperfecto · 3.ª pers. sing.",
+                "pt": "verbo · imperfeito · 3.ª pess. sing.",
+                "it": "verbo · imperfetto · 3ª pers. sing.",
+                "zh-Hans": "动词 · 未完成过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 未完成過去時 · 第三人稱單數",
+                "ro": "verb · imperfect · pers. a 3-a sing.",
+                "ca": "verb · imperfet · 3a pers. sing."
               },
               "id": "b1.s17.t5",
               "startMs": 71617,
@@ -4645,6 +6943,17 @@
                 "ro": "din",
                 "ca": "a"
               },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
+              },
               "id": "b1.s17.t6",
               "startMs": 71917,
               "endMs": 72037
@@ -4664,6 +6973,17 @@
                 "zh-Hant": "吃",
                 "ro": "mânca",
                 "ca": "menjar"
+              },
+              "grammar": {
+                "en": "verb · infinitive",
+                "fr": "verbe · infinitif",
+                "es": "verbo · infinitivo",
+                "pt": "verbo · infinitivo",
+                "it": "verbo · infinito",
+                "zh-Hans": "动词 · 不定式",
+                "zh-Hant": "動詞 · 不定式",
+                "ro": "verb · infinitiv",
+                "ca": "verb · infinitiu"
               },
               "id": "b1.s17.t7",
               "startMs": 72037,
@@ -4685,6 +7005,17 @@
                 "ro": "din",
                 "ca": "a"
               },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
+              },
               "id": "b1.s17.t8",
               "startMs": 72417,
               "endMs": 72537
@@ -4704,6 +7035,18 @@
                 "zh-Hant": "他的",
                 "ro": "sale",
                 "ca": "seves"
+              },
+              "lemma": "son",
+              "grammar": {
+                "en": "possessive adjective · pl.",
+                "fr": "adjectif possessif · plur.",
+                "es": "adjetivo posesivo · pl.",
+                "pt": "adjetivo possessivo · pl.",
+                "it": "aggettivo possessivo · pl.",
+                "zh-Hans": "主有形容词 · 复数",
+                "zh-Hant": "主有形容詞 · 複數",
+                "ro": "adjectiv posesiv · pl.",
+                "ca": "adjectiu possessiu · pl."
               },
               "id": "b1.s17.t9",
               "startMs": 72537,
@@ -4725,6 +7068,18 @@
                 "ro": "capre",
                 "ca": "cabres"
               },
+              "lemma": "chèvre",
+              "grammar": {
+                "en": "noun · fem. pl.",
+                "fr": "nom · fém. plur.",
+                "es": "sustantivo · fem. pl.",
+                "pt": "substantivo · fem. pl.",
+                "it": "sostantivo · femm. pl.",
+                "zh-Hans": "名词 · 阴性复数",
+                "zh-Hant": "名詞 · 陰性複數",
+                "ro": "substantiv · fem. pl.",
+                "ca": "substantiu · fem. pl."
+              },
               "id": "b1.s17.t10",
               "startMs": 72767,
               "endMs": 73307
@@ -4744,6 +7099,17 @@
                 "zh-Hant": "和",
                 "ro": "cu",
                 "ca": "amb"
+              },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
               },
               "id": "b1.s17.t11",
               "startMs": 73307,
@@ -4765,6 +7131,17 @@
                 "ro": "mult",
                 "ca": "molt"
               },
+              "grammar": {
+                "en": "adverb",
+                "fr": "adverbe",
+                "es": "adverbio",
+                "pt": "advérbio",
+                "it": "avverbio",
+                "zh-Hans": "副词",
+                "zh-Hant": "副詞",
+                "ro": "adverb",
+                "ca": "adverbi"
+              },
               "id": "b1.s17.t12",
               "startMs": 73517,
               "endMs": 73897
@@ -4784,6 +7161,17 @@
                 "zh-Hant": "的",
                 "ro": "din",
                 "ca": "de"
+              },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
               },
               "id": "b1.s17.t13",
               "startMs": 73987,
@@ -4805,6 +7193,17 @@
                 "ro": "tandrețe",
                 "ca": "tendresa"
               },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
+              },
               "id": "b1.s17.t14",
               "startMs": 74007,
               "endMs": 74457
@@ -4824,6 +7223,17 @@
                 "zh-Hant": "和",
                 "ro": "și",
                 "ca": "i"
+              },
+              "grammar": {
+                "en": "conjunction",
+                "fr": "conjonction",
+                "es": "conjunción",
+                "pt": "conjunção",
+                "it": "congiunzione",
+                "zh-Hans": "连词",
+                "zh-Hant": "連詞",
+                "ro": "conjuncție",
+                "ca": "conjunció"
               },
               "id": "b1.s17.t15",
               "startMs": 74457,
@@ -4845,6 +7255,17 @@
                 "ro": "din",
                 "ca": "de"
               },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
+              },
               "id": "b1.s17.t16",
               "startMs": 74557,
               "endMs": 74577
@@ -4864,6 +7285,17 @@
                 "zh-Hant": "耐心",
                 "ro": "răbdare",
                 "ca": "paciència"
+              },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
               },
               "id": "b1.s17.t17",
               "startMs": 74667,
@@ -4909,6 +7341,17 @@
                 "ro": "el",
                 "ca": "ell"
               },
+              "grammar": {
+                "en": "pronoun · 3rd sing. masc.",
+                "fr": "pronom · 3e pers. sing. masc.",
+                "es": "pronombre · 3.ª pers. sing. masc.",
+                "pt": "pronome · 3.ª pess. sing. masc.",
+                "it": "pronome · 3ª pers. sing. masch.",
+                "zh-Hans": "代词 · 第三人称单数阳性",
+                "zh-Hant": "代詞 · 第三人稱單數陽性",
+                "ro": "pronume · pers. a 3-a sing. masc.",
+                "ca": "pronom · 3a pers. sing. masc."
+              },
               "id": "b1.s18.t1",
               "startMs": 76380,
               "endMs": 76450
@@ -4928,6 +7371,18 @@
                 "zh-Hant": "害怕",
                 "ro": "temea",
                 "ca": "témer"
+              },
+              "lemma": "craindre",
+              "grammar": {
+                "en": "verb · imparfait · 3rd sing.",
+                "fr": "verbe · imparfait · 3e pers. sing.",
+                "es": "verbo · imperfecto · 3.ª pers. sing.",
+                "pt": "verbo · imperfeito · 3.ª pess. sing.",
+                "it": "verbo · imperfetto · 3ª pers. sing.",
+                "zh-Hans": "动词 · 未完成过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 未完成過去時 · 第三人稱單數",
+                "ro": "verb · imperfect · pers. a 3-a sing.",
+                "ca": "verb · imperfet · 3a pers. sing."
               },
               "id": "b1.s18.t2",
               "startMs": 76450,
@@ -4949,6 +7404,17 @@
                 "ro": "îngrozitor",
                 "ca": "terriblement"
               },
+              "grammar": {
+                "en": "adverb",
+                "fr": "adverbe",
+                "es": "adverbio",
+                "pt": "advérbio",
+                "it": "avverbio",
+                "zh-Hans": "副词",
+                "zh-Hant": "副詞",
+                "ro": "adverb",
+                "ca": "adverbi"
+              },
               "id": "b1.s18.t3",
               "startMs": 77100,
               "endMs": 77720
@@ -4968,6 +7434,17 @@
                 "zh-Hant": "的",
                 "ro": "din",
                 "ca": "de"
+              },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
               },
               "id": "b1.s18.t4",
               "startMs": 77720,
@@ -4989,6 +7466,17 @@
                 "ro": "pierde",
                 "ca": "perdre"
               },
+              "grammar": {
+                "en": "verb · infinitive",
+                "fr": "verbe · infinitif",
+                "es": "verbo · infinitivo",
+                "pt": "verbo · infinitivo",
+                "it": "verbo · infinito",
+                "zh-Hans": "动词 · 不定式",
+                "zh-Hant": "動詞 · 不定式",
+                "ro": "verb · infinitiv",
+                "ca": "verb · infinitiu"
+              },
               "id": "b1.s18.t5",
               "startMs": 77890,
               "endMs": 78220
@@ -5008,6 +7496,18 @@
                 "zh-Hant": "一個",
                 "ro": "o",
                 "ca": "una"
+              },
+              "lemma": "un",
+              "grammar": {
+                "en": "article · fem. sing.",
+                "fr": "article · fém. sing.",
+                "es": "artículo · fem. sing.",
+                "pt": "artigo · fem. sing.",
+                "it": "articolo · femm. sing.",
+                "zh-Hans": "冠词 · 阴性单数",
+                "zh-Hant": "冠詞 · 陰性單數",
+                "ro": "articol · fem. sing.",
+                "ca": "article · fem. sing."
               },
               "id": "b1.s18.t6",
               "startMs": 78220,
@@ -5029,6 +7529,17 @@
                 "ro": "a șaptea",
                 "ca": "setena"
               },
+              "grammar": {
+                "en": "ordinal adjective · sing.",
+                "fr": "adjectif ordinal · sing.",
+                "es": "adjetivo ordinal · sing.",
+                "pt": "adjetivo ordinal · sing.",
+                "it": "aggettivo ordinale · sing.",
+                "zh-Hans": "序数形容词 · 单数",
+                "zh-Hant": "序數形容詞 · 單數",
+                "ro": "adjectiv ordinal · sing.",
+                "ca": "adjectiu ordinal · sing."
+              },
               "id": "b1.s18.t7",
               "startMs": 78590,
               "endMs": 79070
@@ -5048,6 +7559,17 @@
                 "zh-Hant": "山羊",
                 "ro": "capră",
                 "ca": "cabra"
+              },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
               },
               "id": "b1.s18.t8",
               "startMs": 79070,
@@ -5069,6 +7591,17 @@
                 "ro": "din",
                 "ca": "de"
               },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
+              },
               "id": "b1.s18.t9",
               "startMs": 79590,
               "endMs": 79680
@@ -5088,6 +7621,18 @@
                 "zh-Hant": "這",
                 "ro": "a",
                 "ca": "la"
+              },
+              "lemma": "le",
+              "grammar": {
+                "en": "article · fem. sing.",
+                "fr": "article · fém. sing.",
+                "es": "artículo · fem. sing.",
+                "pt": "artigo · fem. sing.",
+                "it": "articolo · femm. sing.",
+                "zh-Hans": "冠词 · 阴性单数",
+                "zh-Hant": "冠詞 · 陰性單數",
+                "ro": "articol · fem. sing.",
+                "ca": "article · fem. sing."
               },
               "id": "b1.s18.t10",
               "startMs": 79710,
@@ -5109,6 +7654,17 @@
                 "ro": "aceeași",
                 "ca": "mateix"
               },
+              "grammar": {
+                "en": "adjective · fem. sing.",
+                "fr": "adjectif · fém. sing.",
+                "es": "adjetivo · fem. sing.",
+                "pt": "adjetivo · fem. sing.",
+                "it": "aggettivo · femm. sing.",
+                "zh-Hans": "形容词 · 阴性单数",
+                "zh-Hant": "形容詞 · 陰性單數",
+                "ro": "adjectiv · fem. sing.",
+                "ca": "adjectiu · fem. sing."
+              },
               "id": "b1.s18.t11",
               "startMs": 79810,
               "endMs": 80080
@@ -5129,6 +7685,17 @@
                 "ro": "manieră",
                 "ca": "manera"
               },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
+              },
               "id": "b1.s18.t12",
               "startMs": 80080,
               "endMs": 80500
@@ -5148,6 +7715,17 @@
                 "zh-Hant": "悲慘的",
                 "ro": "tragic",
                 "ca": "tràgic"
+              },
+              "grammar": {
+                "en": "adjective · sing.",
+                "fr": "adjectif · sing.",
+                "es": "adjetivo · sing.",
+                "pt": "adjetivo · sing.",
+                "it": "aggettivo · sing.",
+                "zh-Hans": "形容词 · 单数",
+                "zh-Hant": "形容詞 · 單數",
+                "ro": "adjectiv · sing.",
+                "ca": "adjectiu · sing."
               },
               "id": "b1.s18.t13",
               "startMs": 80650,
@@ -5193,6 +7771,17 @@
                 "ro": "dar",
                 "ca": "però"
               },
+              "grammar": {
+                "en": "conjunction",
+                "fr": "conjonction",
+                "es": "conjunción",
+                "pt": "conjunção",
+                "it": "congiunzione",
+                "zh-Hans": "连词",
+                "zh-Hant": "連詞",
+                "ro": "conjuncție",
+                "ca": "conjunció"
+              },
               "id": "b1.s19.t1",
               "startMs": 82012,
               "endMs": 82232
@@ -5212,6 +7801,17 @@
                 "zh-Hant": "布朗凱特",
                 "ro": "Blanquette",
                 "ca": "Blanquette"
+              },
+              "grammar": {
+                "en": "proper noun · fem. sing.",
+                "fr": "nom propre · fém. sing.",
+                "es": "nombre propio · fem. sing.",
+                "pt": "nome próprio · fem. sing.",
+                "it": "nome proprio · femm. sing.",
+                "zh-Hans": "专有名词 · 阴性单数",
+                "zh-Hant": "專有名詞 · 陰性單數",
+                "ro": "nume propriu · fem. sing.",
+                "ca": "nom propi · fem. sing."
               },
               "id": "b1.s19.t2",
               "startMs": 82232,
@@ -5233,6 +7833,18 @@
                 "ro": "a",
                 "ca": "ha"
               },
+              "lemma": "avoir",
+              "grammar": {
+                "en": "verb · passé composé · 3rd sing.",
+                "fr": "verbe · passé composé · 3e pers. sing.",
+                "es": "verbo · pretérito perfecto · 3.ª pers. sing.",
+                "pt": "verbo · pretérito perfeito · 3.ª pess. sing.",
+                "it": "verbo · passato prossimo · 3ª pers. sing.",
+                "zh-Hans": "动词 · 复合过去时 · 第三人称单数",
+                "zh-Hant": "動詞 · 複合過去時 · 第三人稱單數",
+                "ro": "verb · perfect compus · pers. a 3-a sing.",
+                "ca": "verb · perfet perifràstic · 3a pers. sing."
+              },
               "id": "b1.s19.t3",
               "startMs": 82932,
               "endMs": 82962
@@ -5252,6 +7864,18 @@
                 "zh-Hant": "弄斷",
                 "ro": "rupt",
                 "ca": "trencat"
+              },
+              "lemma": "casser",
+              "grammar": {
+                "en": "verb · passé composé · past participle",
+                "fr": "verbe · passé composé · participe passé",
+                "es": "verbo · passé composé · participio pasado",
+                "pt": "verbo · passé composé · particípio passado",
+                "it": "verbo · passé composé · participio passato",
+                "zh-Hans": "动词 · 复合过去时 · 过去分词",
+                "zh-Hant": "動詞 · 複合過去時 · 過去分詞",
+                "ro": "verb · passé composé · participiu trecut",
+                "ca": "verb · passé composé · participi passat"
               },
               "id": "b1.s19.t4",
               "startMs": 83012,
@@ -5273,6 +7897,18 @@
                 "ro": "său",
                 "ca": "seva"
               },
+              "lemma": "son",
+              "grammar": {
+                "en": "possessive adjective · fem. sing.",
+                "fr": "adjectif possessif · fém. sing.",
+                "es": "adjetivo posesivo · fem. sing.",
+                "pt": "adjetivo possessivo · fem. sing.",
+                "it": "aggettivo possessivo · femm. sing.",
+                "zh-Hans": "所有格形容词 · 阴性单数",
+                "zh-Hant": "所有格形容詞 · 陰性單數",
+                "ro": "adjectiv posesiv · fem. sing.",
+                "ca": "adjectiu possessiu · fem. sing."
+              },
               "id": "b1.s19.t5",
               "startMs": 83462,
               "endMs": 83562
@@ -5292,6 +7928,17 @@
                 "zh-Hant": "繩子",
                 "ro": "frânghie",
                 "ca": "corda"
+              },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
               },
               "id": "b1.s19.t6",
               "startMs": 83562,
@@ -5313,6 +7960,17 @@
                 "ro": "și",
                 "ca": "i"
               },
+              "grammar": {
+                "en": "conjunction",
+                "fr": "conjonction",
+                "es": "conjunción",
+                "pt": "conjunção",
+                "it": "congiunzione",
+                "zh-Hans": "连词",
+                "zh-Hant": "連詞",
+                "ro": "conjuncție",
+                "ca": "conjunció"
+              },
               "id": "b1.s19.t7",
               "startMs": 84062,
               "endMs": 84062
@@ -5332,6 +7990,17 @@
                 "zh-Hant": "她",
                 "ro": "ea",
                 "ca": "ella"
+              },
+              "grammar": {
+                "en": "pronoun · 3rd sing. fem. subj.",
+                "fr": "pronom · 3e pers. sing. fém. sujet",
+                "es": "pronombre · 3ª pers. sing. fem. sujeto",
+                "pt": "pronome · 3ª pess. sing. fem. sujeito",
+                "it": "pronome · 3ª pers. sing. fem. soggetto",
+                "zh-Hans": "代词 · 第三人称单数阴性主格",
+                "zh-Hant": "代詞 · 第三人稱單數陰性主格",
+                "ro": "pronume · pers. 3 sg. fem. subiect",
+                "ca": "pronom · 3a pers. sing. fem. subjecte"
               },
               "id": "b1.s19.t8",
               "startMs": 84202,
@@ -5353,6 +8022,18 @@
                 "ro": "s-",
                 "ca": "es"
               },
+              "lemma": "se",
+              "grammar": {
+                "en": "pronoun · reflexive · 3rd sing.",
+                "fr": "pronom · réfléchi · 3e pers. sing.",
+                "es": "pronombre · reflexivo · 3.ª pers. sing.",
+                "pt": "pronome · reflexivo · 3.ª pess. sing.",
+                "it": "pronome · riflessivo · 3ª pers. sing.",
+                "zh-Hans": "代词 · 反身 · 第三人称单数",
+                "zh-Hant": "代詞 · 反身 · 第三人稱單數",
+                "ro": "pronume · reflexiv · pers. a 3-a sing.",
+                "ca": "pronom · reflexiu · 3a pers. sing."
+              },
               "id": "b1.s19.t9",
               "startMs": 84282,
               "endMs": 84386
@@ -5372,6 +8053,18 @@
                 "zh-Hant": "是",
                 "ro": "este",
                 "ca": "és"
+              },
+              "lemma": "être",
+              "grammar": {
+                "en": "verb · present · 3rd sing.",
+                "fr": "verbe · présent · 3e pers. sing.",
+                "es": "verbo · presente · 3.ª pers. sing.",
+                "pt": "verbo · presente · 3.ª pess. sing.",
+                "it": "verbo · presente · 3ª pers. sing.",
+                "zh-Hans": "动词 · 现在时 · 第三人称单数",
+                "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+                "ro": "verb · prezent · pers. a 3-a sing.",
+                "ca": "verb · present · 3a pers. sing."
               },
               "id": "b1.s19.t10",
               "startMs": 84386,
@@ -5393,6 +8086,18 @@
                 "ro": "evadat",
                 "ca": "escapada"
               },
+              "lemma": "s'échapper",
+              "grammar": {
+                "en": "verb · passé composé · past participle · fem. sing.",
+                "fr": "verbe · passé composé · participe passé · fém. sing.",
+                "es": "verbo · passé composé · participio pasado · fem. sing.",
+                "pt": "verbo · passé composé · particípio passado · fem. sing.",
+                "it": "verbo · passé composé · participio passato · femm. sing.",
+                "zh-Hans": "动词 · 复合过去时 · 过去分词 · 阴性单数",
+                "zh-Hant": "動詞 · 複合過去時 · 過去分詞 · 陰性單數",
+                "ro": "verb · passé composé · participiu trecut · fem. sing.",
+                "ca": "verb · passé composé · participi passat · fem. sing."
+              },
               "id": "b1.s19.t11",
               "startMs": 84542,
               "endMs": 85042
@@ -5412,6 +8117,17 @@
                 "zh-Hant": "被",
                 "ro": "de",
                 "ca": "per"
+              },
+              "grammar": {
+                "en": "preposition",
+                "fr": "préposition",
+                "es": "preposición",
+                "pt": "preposição",
+                "it": "preposizione",
+                "zh-Hans": "介词",
+                "zh-Hant": "介詞",
+                "ro": "prepoziție",
+                "ca": "preposició"
               },
               "id": "b1.s19.t12",
               "startMs": 85102,
@@ -5433,6 +8149,18 @@
                 "ro": "a",
                 "ca": "la"
               },
+              "lemma": "le",
+              "grammar": {
+                "en": "article · fem. sing.",
+                "fr": "article · fém. sing.",
+                "es": "artículo · fem. sing.",
+                "pt": "artigo · fem. sing.",
+                "it": "articolo · femm. sing.",
+                "zh-Hans": "冠词 · 阴性单数",
+                "zh-Hant": "冠詞 · 陰性單數",
+                "ro": "articol · fem. sing.",
+                "ca": "article · fem. sing."
+              },
               "id": "b1.s19.t13",
               "startMs": 85242,
               "endMs": 85322
@@ -5452,6 +8180,17 @@
                 "zh-Hant": "窗戶",
                 "ro": "fereastră",
                 "ca": "finestra"
+              },
+              "grammar": {
+                "en": "noun · fem. sing.",
+                "fr": "nom · fém. sing.",
+                "es": "sustantivo · fem. sing.",
+                "pt": "substantivo · fem. sing.",
+                "it": "sostantivo · femm. sing.",
+                "zh-Hans": "名词 · 阴性单数",
+                "zh-Hant": "名詞 · 陰性單數",
+                "ro": "substantiv · fem. sing.",
+                "ca": "substantiu · fem. sing."
               },
               "id": "b1.s19.t14",
               "startMs": 85422,

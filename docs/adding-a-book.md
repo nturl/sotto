@@ -155,6 +155,29 @@ reachable) — asks the LLM to draft glosses for whatever's missing, writing
 them back into the source bundle. It also builds the pack under
 `packages/content/packs/fr-FR/books/fr-my-fable/`.
 
+The same LLM call also returns a `lemma` (dictionary form: infinitive for
+verbs, including reflexive "se lever"; singular for nouns; masculine
+singular for adjectives) and a `grammar` map (one short tag per gloss
+locale, e.g. en "verb · passé composé · 3rd sing.") for each word, judged
+from its first context sentence. Both are stored on the glossary entry and
+copied onto every token; a token's `lemma` is left out when it only
+repeats the word. A malformed answer leaves the fields absent and never
+fails the build.
+
+To add lemma/grammar to a book that already has glosses, without
+regenerating them:
+
+```sh
+SOTTO_LLM_BACKEND=deepseek pnpm content:build fr-my-fable --fill-grammar
+```
+
+`--fill-grammar` takes one or more bookIds (none means every bundle). It
+asks only for lemma + grammar, for glossary entries used in the text that
+have no `grammar` yet, writes the bundle after each 40-word batch, then
+rebuilds the pack. Re-running is safe: filled entries are skipped, so an
+interrupted run resumes, and words the model answered badly are retried.
+Drop `SOTTO_LLM_BACKEND=deepseek` to use the local LLM.
+
 Sentence-level translations (the `translation` map on each sentence, used
 for tap-to-translate) are filled separately:
 

@@ -26,8 +26,7 @@ export interface PanelState {
   hasSelection: boolean;
   /** The selection is exactly one token: only then do Save/Details apply. */
   isSingleWord: boolean;
-  /** The token carries lemma / part-of-speech data. Today's `Token` model
-   * has neither field, so this is always false — see D-report.md. */
+  /** The token carries pinyin, a lemma or a grammar tag. */
   hasForm: boolean;
   /** The selection has playable audio (narration slice or word sprite). */
   hasSpeaker: boolean;

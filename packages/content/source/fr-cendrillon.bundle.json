@@ -1242,7 +1242,19 @@
    "zh-Hans": "一个",
    "zh-Hant": "一個",
    "ro": "o",
-   "ca": "una"
+   "ca": "una",
+   "lemma": "un",
+   "grammar": {
+    "en": "article · fem. sing.",
+    "fr": "article · fém. sing.",
+    "es": "artículo · fem. sing.",
+    "pt": "artigo · fem. sing.",
+    "it": "articolo · femm. sing.",
+    "zh-Hans": "冠词 · 阴性单数",
+    "zh-Hant": "冠詞 · 陰性單數",
+    "ro": "articol · fem. sg.",
+    "ca": "article · fem. sing."
+   }
   },
   "jeune": {
    "en": "young",
@@ -1253,7 +1265,19 @@
    "zh-Hans": "年轻的",
    "zh-Hant": "年輕的",
    "ro": "tânără",
-   "ca": "jove"
+   "ca": "jove",
+   "lemma": "jeune",
+   "grammar": {
+    "en": "adjective · sing.",
+    "fr": "adjectif · sing.",
+    "es": "adjetivo · sing.",
+    "pt": "adjetivo · sing.",
+    "it": "aggettivo · sing.",
+    "zh-Hans": "形容词 · 单数",
+    "zh-Hant": "形容詞 · 單數",
+    "ro": "adjectiv · sg.",
+    "ca": "adjectiu · sing."
+   }
   },
   "fille": {
    "en": "girl",
@@ -1264,7 +1288,19 @@
    "zh-Hans": "女孩",
    "zh-Hant": "女孩",
    "ro": "fată",
-   "ca": "noia"
+   "ca": "noia",
+   "lemma": "fille",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sg.",
+    "ca": "substantiu · fem. sing."
+   }
   },
   "habite": {
    "en": "lives",
@@ -1275,7 +1311,19 @@
    "zh-Hans": "居住",
    "zh-Hant": "居住",
    "ro": "locuiește",
-   "ca": "viu"
+   "ca": "viu",
+   "lemma": "habiter",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3ª sing.",
+    "pt": "verbo · presente · 3ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sg.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "avec": {
    "en": "with",
@@ -1286,7 +1334,19 @@
    "zh-Hans": "和",
    "zh-Hant": "和",
    "ro": "cu",
-   "ca": "amb"
+   "ca": "amb",
+   "lemma": "avec",
+   "grammar": {
+    "en": "preposition",
+    "fr": "préposition",
+    "es": "preposición",
+    "pt": "preposição",
+    "it": "preposizione",
+    "zh-Hans": "介词",
+    "zh-Hant": "介詞",
+    "ro": "prepoziție",
+    "ca": "preposició"
+   }
   },
   "son": {
    "en": "her",
@@ -1297,7 +1357,19 @@
    "zh-Hans": "他的",
    "zh-Hant": "他的",
    "ro": "ei",
-   "ca": "seu"
+   "ca": "seu",
+   "lemma": "son",
+   "grammar": {
+    "en": "possessive adjective · masc. sing.",
+    "fr": "adjectif possessif · masc. sing.",
+    "es": "adjetivo posesivo · masc. sing.",
+    "pt": "adjetivo possessivo · masc. sing.",
+    "it": "aggettivo possessivo · masch. sing.",
+    "zh-Hans": "所有格形容词 · 阳性单数",
+    "zh-Hant": "所有格形容詞 · 陽性單數",
+    "ro": "adjectiv posesiv · masc. sg.",
+    "ca": "adjectiu possessiu · masc. sing."
+   }
   },
   "père": {
    "en": "father",
@@ -1308,7 +1380,19 @@
    "zh-Hans": "父亲",
    "zh-Hant": "父親",
    "ro": "tată",
-   "ca": "pare"
+   "ca": "pare",
+   "lemma": "père",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masch. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sg.",
+    "ca": "substantiu · masc. sing."
+   }
   },
   "et": {
    "en": "and",
@@ -1319,7 +1403,19 @@
    "zh-Hans": "和",
    "zh-Hant": "和",
    "ro": "și",
-   "ca": "i"
+   "ca": "i",
+   "lemma": "et",
+   "grammar": {
+    "en": "conjunction",
+    "fr": "conjonction",
+    "es": "conjunción",
+    "pt": "conjunção",
+    "it": "congiunzione",
+    "zh-Hans": "连词",
+    "zh-Hant": "連詞",
+    "ro": "conjuncție",
+    "ca": "conjunció"
+   }
   },
   "sa": {
    "en": "her",
@@ -1330,7 +1426,19 @@
    "zh-Hans": "她的",
    "zh-Hant": "她的",
    "ro": "ei",
-   "ca": "seva"
+   "ca": "seva",
+   "lemma": "son",
+   "grammar": {
+    "en": "possessive adjective · fem. sing.",
+    "fr": "adjectif possessif · fém. sing.",
+    "es": "adjetivo posesivo · fem. sing.",
+    "pt": "adjetivo possessivo · fem. sing.",
+    "it": "aggettivo possessivo · femm. sing.",
+    "zh-Hans": "所有格形容词 · 阴性单数",
+    "zh-Hant": "所有格形容詞 · 陰性單數",
+    "ro": "adjectiv posesiv · fem. sg.",
+    "ca": "adjectiu possessiu · fem. sing."
+   }
   },
   "belle-mère": {
    "en": "stepmother",
@@ -1341,7 +1449,19 @@
    "zh-Hans": "继母",
    "zh-Hant": "繼母",
    "ro": "mamă vitregă",
-   "ca": "madrastra"
+   "ca": "madrastra",
+   "lemma": "belle-mère",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sg.",
+    "ca": "substantiu · fem. sing."
+   }
   },
   "a": {
    "en": "has",
@@ -1352,7 +1472,19 @@
    "zh-Hans": "有",
    "zh-Hant": "有",
    "ro": "are",
-   "ca": "té"
+   "ca": "té",
+   "lemma": "avoir",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3ª sing.",
+    "pt": "verbo · presente · 3ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sg.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "deux": {
    "en": "two",
@@ -1363,7 +1495,19 @@
    "zh-Hans": "两个",
    "zh-Hant": "兩個",
    "ro": "două",
-   "ca": "dues"
+   "ca": "dues",
+   "lemma": "deux",
+   "grammar": {
+    "en": "numeral · cardinal",
+    "fr": "adjectif numéral · cardinal",
+    "es": "numeral · cardinal",
+    "pt": "numeral · cardinal",
+    "it": "numerale · cardinale",
+    "zh-Hans": "数词 · 基数",
+    "zh-Hant": "數詞 · 基數",
+    "ro": "numeral · cardinal",
+    "ca": "numeral · cardinal"
+   }
   },
   "filles": {
    "en": "girls",
@@ -1374,7 +1518,19 @@
    "zh-Hans": "女儿们",
    "zh-Hant": "女兒們",
    "ro": "fiice",
-   "ca": "filles"
+   "ca": "filles",
+   "lemma": "fille",
+   "grammar": {
+    "en": "noun · fem. pl.",
+    "fr": "nom · fém. pl.",
+    "es": "sustantivo · fem. pl.",
+    "pt": "substantivo · fem. pl.",
+    "it": "sostantivo · femm. pl.",
+    "zh-Hans": "名词 · 阴性复数",
+    "zh-Hant": "名詞 · 陰性複數",
+    "ro": "substantiv · fem. pl.",
+    "ca": "substantiu · fem. pl."
+   }
   },
   "dures": {
    "en": "hard",
@@ -1385,7 +1541,19 @@
    "zh-Hans": "严厉的",
    "zh-Hant": "苛刻的",
    "ro": "dure",
-   "ca": "dures"
+   "ca": "dures",
+   "lemma": "dur",
+   "grammar": {
+    "en": "adjective · fem. pl.",
+    "fr": "adjectif · fém. pl.",
+    "es": "adjetivo · fem. pl.",
+    "pt": "adjetivo · fem. pl.",
+    "it": "aggettivo · femm. pl.",
+    "zh-Hans": "形容词 · 阴性复数",
+    "zh-Hant": "形容詞 · 陰性複數",
+    "ro": "adjectiv · fem. pl.",
+    "ca": "adjectiu · fem. pl."
+   }
   },
   "jalouses": {
    "en": "jealous",
@@ -1396,7 +1564,19 @@
    "zh-Hans": "嫉妒的",
    "zh-Hant": "嫉妒的",
    "ro": "geloase",
-   "ca": "geloses"
+   "ca": "geloses",
+   "lemma": "jaloux",
+   "grammar": {
+    "en": "adjective · fem. pl.",
+    "fr": "adjectif · fém. pl.",
+    "es": "adjetivo · fem. pl.",
+    "pt": "adjetivo · fem. pl.",
+    "it": "aggettivo · femm. pl.",
+    "zh-Hans": "形容词 · 阴性复数",
+    "zh-Hant": "形容詞 · 陰性複數",
+    "ro": "adjectiv · fem. pl.",
+    "ca": "adjectiu · fem. pl."
+   }
   },
   "la": {
    "en": "the",
@@ -1407,7 +1587,19 @@
    "zh-Hans": "这个",
    "zh-Hant": "這",
    "ro": "o",
-   "ca": "la"
+   "ca": "la",
+   "lemma": "le",
+   "grammar": {
+    "en": "article · fem. sing.",
+    "fr": "article · fém. sing.",
+    "es": "artículo · fem. sing.",
+    "pt": "artigo · fem. sing.",
+    "it": "articolo · femm. sing.",
+    "zh-Hans": "冠词 · 阴性单数",
+    "zh-Hant": "冠詞 · 陰性單數",
+    "ro": "articol · fem. sg.",
+    "ca": "article · fem. sing."
+   }
   },
   "mère": {
    "en": "mother",
@@ -1418,7 +1610,19 @@
    "zh-Hans": "母亲",
    "zh-Hant": "母親",
    "ro": "mamă",
-   "ca": "mare"
+   "ca": "mare",
+   "lemma": "mère",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sg.",
+    "ca": "substantiu · fem. sing."
+   }
   },
   "de": {
    "en": "of",
@@ -1429,7 +1633,19 @@
    "zh-Hans": "的",
    "zh-Hant": "的",
    "ro": "a",
-   "ca": "de"
+   "ca": "de",
+   "lemma": "de",
+   "grammar": {
+    "en": "preposition",
+    "fr": "préposition",
+    "es": "preposición",
+    "pt": "preposição",
+    "it": "preposizione",
+    "zh-Hans": "介词",
+    "zh-Hant": "介詞",
+    "ro": "prepoziție",
+    "ca": "preposició"
+   }
   },
   "est": {
    "en": "is",
@@ -1440,7 +1656,19 @@
    "zh-Hans": "是",
    "zh-Hant": "是",
    "ro": "este",
-   "ca": "és"
+   "ca": "és",
+   "lemma": "être",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3ª sing.",
+    "pt": "verbo · presente · 3ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sg.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "morte": {
    "en": "dead",
@@ -1451,7 +1679,19 @@
    "zh-Hans": "死了",
    "zh-Hant": "死了",
    "ro": "murit",
-   "ca": "morta"
+   "ca": "morta",
+   "lemma": "mort",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · femm. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sg.",
+    "ca": "adjectiu · fem. sing."
+   }
   },
   "il": {
    "en": "it",
@@ -1462,7 +1702,19 @@
    "zh-Hans": "它",
    "zh-Hant": "它",
    "ro": "el",
-   "ca": "ell"
+   "ca": "ell",
+   "lemma": "il",
+   "grammar": {
+    "en": "pronoun · 3rd sing. masc.",
+    "fr": "pronom · 3e sing. masc.",
+    "es": "pronombre · 3ª sing. masc.",
+    "pt": "pronome · 3ª sing. masc.",
+    "it": "pronome · 3ª sing. masch.",
+    "zh-Hans": "代词 · 第三人称单数阳性",
+    "zh-Hant": "代詞 · 第三人稱單數陽性",
+    "ro": "pronume · pers. a 3-a sg. masc.",
+    "ca": "pronom · 3a sing. masc."
+   }
   },
   "y": {
    "en": "there",
@@ -1473,7 +1725,19 @@
    "zh-Hans": "那里",
    "zh-Hant": "那裡",
    "ro": "acolo",
-   "ca": "hi"
+   "ca": "hi",
+   "lemma": "y",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "longtemps": {
    "en": "a long time",
@@ -1484,7 +1748,19 @@
    "zh-Hans": "很久",
    "zh-Hant": "很久",
    "ro": "mult timp",
-   "ca": "temps"
+   "ca": "temps",
+   "lemma": "longtemps",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "n'": {
    "en": "not",
@@ -1495,7 +1771,19 @@
    "zh-Hans": "不",
    "zh-Hant": "不",
    "ro": "nu",
-   "ca": "no"
+   "ca": "no",
+   "lemma": "ne",
+   "grammar": {
+    "en": "adverb · negation",
+    "fr": "adverbe · négation",
+    "es": "adverbio · negación",
+    "pt": "advérbio · negação",
+    "it": "avverbio · negazione",
+    "zh-Hans": "副词 · 否定",
+    "zh-Hant": "副詞 · 否定",
+    "ro": "adverb · negație",
+    "ca": "adverbi · negació"
+   }
   },
   "aime": {
    "en": "loves",
@@ -1506,7 +1794,19 @@
    "zh-Hans": "喜欢",
    "zh-Hant": "喜歡",
    "ro": "iubește",
-   "ca": "estima"
+   "ca": "estima",
+   "lemma": "aimer",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3ª sing.",
+    "pt": "verbo · presente · 3ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sg.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "pas": {
    "en": "not",
@@ -1517,7 +1817,19 @@
    "zh-Hans": "不",
    "zh-Hant": "不",
    "ro": "nu",
-   "ca": "pas"
+   "ca": "pas",
+   "lemma": "pas",
+   "grammar": {
+    "en": "adverb · negation",
+    "fr": "adverbe · négation",
+    "es": "adverbio · negación",
+    "pt": "advérbio · negação",
+    "it": "avverbio · negazione",
+    "zh-Hans": "副词 · 否定",
+    "zh-Hant": "副詞 · 否定",
+    "ro": "adverb · negație",
+    "ca": "adverbi · negació"
+   }
   },
   "elle": {
    "en": "she",
@@ -1528,7 +1840,19 @@
    "zh-Hans": "她",
    "zh-Hant": "她",
    "ro": "ea",
-   "ca": "ella"
+   "ca": "ella",
+   "lemma": "elle",
+   "grammar": {
+    "en": "pronoun · 3rd sing. fem.",
+    "fr": "pronom · 3e sing. fém.",
+    "es": "pronombre · 3ª sing. fem.",
+    "pt": "pronome · 3ª sing. fem.",
+    "it": "pronome · 3ª sing. femm.",
+    "zh-Hans": "代词 · 第三人称单数阴性",
+    "zh-Hant": "代詞 · 第三人稱單數陰性",
+    "ro": "pronume · pers. a 3-a sg. fem.",
+    "ca": "pronom · 3a sing. fem."
+   }
   },
   "donne": {
    "en": "gives",
@@ -1539,7 +1863,19 @@
    "zh-Hans": "给",
    "zh-Hant": "給",
    "ro": "dă",
-   "ca": "dona"
+   "ca": "dona",
+   "lemma": "donner",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3ª sing.",
+    "pt": "verbo · presente · 3ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sg.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "tout": {
    "en": "all",
@@ -1550,7 +1886,19 @@
    "zh-Hans": "所有",
    "zh-Hant": "所有",
    "ro": "tot",
-   "ca": "tot"
+   "ca": "tot",
+   "lemma": "tout",
+   "grammar": {
+    "en": "adjective · masc. sing.",
+    "fr": "adjectif · masc. sing.",
+    "es": "adjetivo · masc. sing.",
+    "pt": "adjetivo · masc. sing.",
+    "it": "aggettivo · masch. sing.",
+    "zh-Hans": "形容词 · 阳性单数",
+    "zh-Hant": "形容詞 · 陽性單數",
+    "ro": "adjectiv · masc. sg.",
+    "ca": "adjectiu · masc. sing."
+   }
   },
   "le": {
    "en": "the",
@@ -1561,7 +1909,19 @@
    "zh-Hans": "这个",
    "zh-Hant": "這",
    "ro": "munca",
-   "ca": "el"
+   "ca": "el",
+   "lemma": "le",
+   "grammar": {
+    "en": "article · masc. sing.",
+    "fr": "article · masc. sing.",
+    "es": "artículo · masc. sing.",
+    "pt": "artigo · masc. sing.",
+    "it": "articolo · masch. sing.",
+    "zh-Hans": "冠词 · 阳性单数",
+    "zh-Hant": "冠詞 · 陽性單數",
+    "ro": "articol · masc. sg.",
+    "ca": "article · masc. sing."
+   }
   },
   "travail": {
    "en": "work",
@@ -1572,7 +1932,19 @@
    "zh-Hans": "工作",
    "zh-Hant": "工作",
    "ro": "muncă",
-   "ca": "treball"
+   "ca": "treball",
+   "lemma": "travail",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masch. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sg.",
+    "ca": "substantiu · masc. sing."
+   }
   },
   "maison": {
    "en": "house",
@@ -1583,7 +1955,19 @@
    "zh-Hans": "房子",
    "zh-Hant": "房子",
    "ro": "casă",
-   "ca": "casa"
+   "ca": "casa",
+   "lemma": "maison",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sg.",
+    "ca": "substantiu · fem. sing."
+   }
   },
   "à": {
    "en": "to",
@@ -1594,7 +1978,19 @@
    "zh-Hans": "给",
    "zh-Hant": "給",
    "ro": "la",
-   "ca": "a"
+   "ca": "a",
+   "lemma": "à",
+   "grammar": {
+    "en": "preposition",
+    "fr": "préposition",
+    "es": "preposición",
+    "pt": "preposição",
+    "it": "preposizione",
+    "zh-Hans": "介词",
+    "zh-Hant": "介詞",
+    "ro": "prepoziție",
+    "ca": "preposició"
+   }
   },
   "lave": {
    "en": "washes",
@@ -1605,7 +2001,19 @@
    "zh-Hans": "洗",
    "zh-Hant": "洗",
    "ro": "spală",
-   "ca": "renta"
+   "ca": "renta",
+   "lemma": "laver",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3ª sing.",
+    "pt": "verbo · presente · 3ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sg.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "nettoie": {
    "en": "cleans",
@@ -1616,7 +2024,19 @@
    "zh-Hans": "打扫",
    "zh-Hant": "打掃",
    "ro": "curăță",
-   "ca": "neteja"
+   "ca": "neteja",
+   "lemma": "nettoyer",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3ª sing.",
+    "pt": "verbo · presente · 3ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sg.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "fait": {
    "en": "does",
@@ -1627,7 +2047,19 @@
    "zh-Hans": "做",
    "zh-Hant": "做",
    "ro": "face",
-   "ca": "fa"
+   "ca": "fa",
+   "lemma": "faire",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3ª sing.",
+    "pt": "verbo · presente · 3ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sg.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "cuisine": {
    "en": "cooking",
@@ -1638,7 +2070,19 @@
    "zh-Hans": "烹饪",
    "zh-Hant": "烹飪",
    "ro": "mâncare",
-   "ca": "cuina"
+   "ca": "cuina",
+   "lemma": "cuisine",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sg.",
+    "ca": "substantiu · fem. sing."
+   }
   },
   "toute": {
    "en": "all",
@@ -1649,7 +2093,19 @@
    "zh-Hans": "整个",
    "zh-Hant": "整個",
    "ro": "toată",
-   "ca": "tota"
+   "ca": "tota",
+   "lemma": "tout",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · femm. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sg.",
+    "ca": "adjectiu · fem. sing."
+   }
   },
   "journée": {
    "en": "day",
@@ -1660,7 +2116,19 @@
    "zh-Hans": "一天",
    "zh-Hant": "一天",
    "ro": "zi",
-   "ca": "jornada"
+   "ca": "jornada",
+   "lemma": "journée",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sg.",
+    "ca": "substantiu · fem. sing."
+   }
   },
   "soir": {
    "en": "evening",
@@ -1671,7 +2139,19 @@
    "zh-Hans": "晚上",
    "zh-Hant": "晚上",
    "ro": "seară",
-   "ca": "vespre"
+   "ca": "vespre",
+   "lemma": "soir",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masch. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sg.",
+    "ca": "substantiu · masc. sing."
+   }
   },
   "fatiguée": {
    "en": "tired",
@@ -1682,7 +2162,19 @@
    "zh-Hans": "疲惫的",
    "zh-Hant": "疲憊的",
    "ro": "obosită",
-   "ca": "cansada"
+   "ca": "cansada",
+   "lemma": "fatigué",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · femm. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   }
   },
   "s'": {
    "en": "reflexive pronoun (herself)",
@@ -1693,7 +2185,19 @@
    "zh-Hans": "自己",
    "zh-Hant": "自己",
    "ro": "se",
-   "ca": "es"
+   "ca": "es",
+   "lemma": "se",
+   "grammar": {
+    "en": "pronoun · reflexive · 3rd sing.",
+    "fr": "pronom · réfléchi · 3e sing.",
+    "es": "pronombre · reflexivo · 3.ª sing.",
+    "pt": "pronome · reflexivo · 3.ª sing.",
+    "it": "pronome · riflessivo · 3ª sing.",
+    "zh-Hans": "代词 · 反身 · 第三人称单数",
+    "zh-Hant": "代詞 · 反身 · 第三人稱單數",
+    "ro": "pronume · reflexiv · pers. 3 sg.",
+    "ca": "pronom · reflexiu · 3a sing."
+   }
   },
   "assoit": {
    "en": "sits",
@@ -1704,7 +2208,19 @@
    "zh-Hans": "坐",
    "zh-Hant": "坐",
    "ro": "așază",
-   "ca": "asseu"
+   "ca": "asseu",
+   "lemma": "s'asseoir",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. 3 sg.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "près": {
    "en": "near",
@@ -1715,7 +2231,19 @@
    "zh-Hans": "近",
    "zh-Hant": "靠近",
    "ro": "lângă",
-   "ca": "prop"
+   "ca": "prop",
+   "lemma": "près",
+   "grammar": {
+    "en": "preposition",
+    "fr": "préposition",
+    "es": "preposición",
+    "pt": "preposição",
+    "it": "preposizione",
+    "zh-Hans": "介词",
+    "zh-Hant": "介詞",
+    "ro": "prepoziție",
+    "ca": "preposició"
+   }
   },
   "du": {
    "en": "of the / by the",
@@ -1726,7 +2254,19 @@
    "zh-Hans": "的",
    "zh-Hant": "的",
    "ro": "al",
-   "ca": "del"
+   "ca": "del",
+   "lemma": "du",
+   "grammar": {
+    "en": "article · partitive · masc. sing.",
+    "fr": "article · partitif · masc. sing.",
+    "es": "artículo · partitivo · masc. sing.",
+    "pt": "artigo · partitivo · masc. sing.",
+    "it": "articolo · partitivo · masch. sing.",
+    "zh-Hans": "冠词 · 部分冠词 · 阳性单数",
+    "zh-Hant": "冠詞 · 部分冠詞 · 陽性單數",
+    "ro": "articol · partitiv · masc. sing.",
+    "ca": "article · partitiu · masc. sing."
+   }
   },
   "feu": {
    "en": "fire",
@@ -1737,7 +2277,19 @@
    "zh-Hans": "火",
    "zh-Hant": "火",
    "ro": "foc",
-   "ca": "foc"
+   "ca": "foc",
+   "lemma": "feu",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masch. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "nom · masc. sing."
+   }
   },
   "dort": {
    "en": "sleeps",
@@ -1748,7 +2300,19 @@
    "zh-Hans": "睡",
    "zh-Hant": "睡覺",
    "ro": "doarme",
-   "ca": "dorm"
+   "ca": "dorm",
+   "lemma": "dormir",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. 3 sg.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "souvent": {
    "en": "often",
@@ -1759,7 +2323,19 @@
    "zh-Hans": "经常",
    "zh-Hant": "經常",
    "ro": "adesea",
-   "ca": "sovint"
+   "ca": "sovint",
+   "lemma": "souvent",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "dans": {
    "en": "in",
@@ -1770,7 +2346,19 @@
    "zh-Hans": "在...里",
    "zh-Hant": "在...裡面",
    "ro": "în",
-   "ca": "en"
+   "ca": "en",
+   "lemma": "dans",
+   "grammar": {
+    "en": "preposition",
+    "fr": "préposition",
+    "es": "preposición",
+    "pt": "preposição",
+    "it": "preposizione",
+    "zh-Hans": "介词",
+    "zh-Hant": "介詞",
+    "ro": "prepoziție",
+    "ca": "preposició"
+   }
   },
   "cendre": {
    "en": "ash",
@@ -1781,7 +2369,19 @@
    "zh-Hans": "灰烬",
    "zh-Hant": "灰燼",
    "ro": "cenușă",
-   "ca": "cendra"
+   "ca": "cendra",
+   "lemma": "cendre",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "nom · fem. sing."
+   }
   },
   "alors": {
    "en": "so / then",
@@ -1792,7 +2392,19 @@
    "zh-Hans": "于是",
    "zh-Hant": "所以",
    "ro": "așa că",
-   "ca": "llavors"
+   "ca": "llavors",
+   "lemma": "alors",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "on": {
    "en": "one / people / they",
@@ -1803,7 +2415,19 @@
    "zh-Hans": "人们",
    "zh-Hant": "人們",
    "ro": "se",
-   "ca": "es"
+   "ca": "es",
+   "lemma": "on",
+   "grammar": {
+    "en": "pronoun · indefinite · 3rd sing.",
+    "fr": "pronom · indéfini · 3e sing.",
+    "es": "pronombre · indefinido · 3.ª sing.",
+    "pt": "pronome · indefinido · 3.ª sing.",
+    "it": "pronome · indefinito · 3ª sing.",
+    "zh-Hans": "代词 · 不定 · 第三人称单数",
+    "zh-Hant": "代詞 · 不定 · 第三人稱單數",
+    "ro": "pronume · nehotărât · pers. 3 sg.",
+    "ca": "pronom · indefinit · 3a sing."
+   }
   },
   "l'": {
    "en": "her / it",
@@ -1814,7 +2438,19 @@
    "zh-Hans": "她",
    "zh-Hant": "她",
    "ro": "o",
-   "ca": "la"
+   "ca": "la",
+   "lemma": "le",
+   "grammar": {
+    "en": "pronoun · direct object · 3rd sing.",
+    "fr": "pronom · complément d'objet direct · 3e sing.",
+    "es": "pronombre · objeto directo · 3.ª sing.",
+    "pt": "pronome · objeto direto · 3.ª sing.",
+    "it": "pronome · oggetto diretto · 3ª sing.",
+    "zh-Hans": "代词 · 直接宾语 · 第三人称单数",
+    "zh-Hant": "代詞 · 直接賓語 · 第三人稱單數",
+    "ro": "pronume · complement direct · pers. 3 sg.",
+    "ca": "pronom · objecte directe · 3a sing."
+   }
   },
   "appelle": {
    "en": "calls",
@@ -1825,7 +2461,19 @@
    "zh-Hans": "称呼",
    "zh-Hant": "稱呼",
    "ro": "numește",
-   "ca": "anomena"
+   "ca": "anomena",
+   "lemma": "appeler",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. 3 sg.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "cendrillon": {
    "en": "Cinderella",
@@ -1836,7 +2484,19 @@
    "zh-Hans": "灰姑娘",
    "zh-Hant": "灰姑娘",
    "ro": "Cenușăreasa",
-   "ca": "Cendrillon"
+   "ca": "Cendrillon",
+   "lemma": "Cendrillon",
+   "grammar": {
+    "en": "proper noun · fem. sing.",
+    "fr": "nom propre · fém. sing.",
+    "es": "nombre propio · fem. sing.",
+    "pt": "nome próprio · fem. sing.",
+    "it": "nome proprio · femm. sing.",
+    "zh-Hans": "专有名词 · 阴性单数",
+    "zh-Hant": "專有名詞 · 陰性單數",
+    "ro": "nume propriu · fem. sing.",
+    "ca": "nom propi · fem. sing."
+   }
   },
   "ses": {
    "en": "her",
@@ -1847,7 +2507,19 @@
    "zh-Hans": "她的",
    "zh-Hant": "她的",
    "ro": "ei",
-   "ca": "les seves"
+   "ca": "les seves",
+   "lemma": "son",
+   "grammar": {
+    "en": "determiner · possessive · pl.",
+    "fr": "déterminant · possessif · plur.",
+    "es": "determinante · posesivo · pl.",
+    "pt": "determinante · possessivo · pl.",
+    "it": "determinante · possessivo · pl.",
+    "zh-Hans": "限定词 · 所有格 · 复数",
+    "zh-Hant": "限定詞 · 所有格 · 複數",
+    "ro": "determinant · posesiv · pl.",
+    "ca": "determinant · possessiu · pl."
+   }
   },
   "demi-sœurs": {
    "en": "stepsisters",
@@ -1858,7 +2530,19 @@
    "zh-Hans": "同父异母或同母异父的姐妹",
    "zh-Hant": "同父異母或同母異父的姊妹",
    "ro": "surori vitrege",
-   "ca": "germanastres"
+   "ca": "germanastres",
+   "lemma": "demi-sœur",
+   "grammar": {
+    "en": "noun · fem. pl.",
+    "fr": "nom · fém. plur.",
+    "es": "sustantivo · fem. pl.",
+    "pt": "substantivo · fem. pl.",
+    "it": "sostantivo · femm. pl.",
+    "zh-Hans": "名词 · 阴性复数",
+    "zh-Hant": "名詞 · 陰性複數",
+    "ro": "substantiv · fem. pl.",
+    "ca": "nom · fem. pl."
+   }
   },
   "portent": {
    "en": "wear",
@@ -1869,7 +2553,19 @@
    "zh-Hans": "穿着",
    "zh-Hant": "穿著",
    "ro": "poartă",
-   "ca": "porten"
+   "ca": "porten",
+   "lemma": "porter",
+   "grammar": {
+    "en": "verb · present · 3rd pl.",
+    "fr": "verbe · présent · 3e plur.",
+    "es": "verbo · presente · 3.ª pl.",
+    "pt": "verbo · presente · 3.ª pl.",
+    "it": "verbo · presente · 3ª pl.",
+    "zh-Hans": "动词 · 现在时 · 第三人称复数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱複數",
+    "ro": "verb · prezent · pers. 3 pl.",
+    "ca": "verb · present · 3a pl."
+   }
   },
   "belles": {
    "en": "beautiful",
@@ -1880,7 +2576,19 @@
    "zh-Hans": "漂亮的",
    "zh-Hant": "漂亮的",
    "ro": "frumoase",
-   "ca": "boniques"
+   "ca": "boniques",
+   "lemma": "beau",
+   "grammar": {
+    "en": "adjective · fem. pl.",
+    "fr": "adjectif · fém. plur.",
+    "es": "adjetivo · fem. pl.",
+    "pt": "adjetivo · fem. pl.",
+    "it": "aggettivo · femm. pl.",
+    "zh-Hans": "形容词 · 阴性复数",
+    "zh-Hant": "形容詞 · 陰性複數",
+    "ro": "adjectiv · fem. pl.",
+    "ca": "adjectiu · fem. pl."
+   }
   },
   "robes": {
    "en": "dresses",
@@ -1891,7 +2599,19 @@
    "zh-Hans": "连衣裙",
    "zh-Hant": "連衣裙",
    "ro": "rochii",
-   "ca": "vestits"
+   "ca": "vestits",
+   "lemma": "robe",
+   "grammar": {
+    "en": "noun · fem. pl.",
+    "fr": "nom · fém. plur.",
+    "es": "sustantivo · fem. pl.",
+    "pt": "substantivo · fem. pl.",
+    "it": "sostantivo · femm. pl.",
+    "zh-Hans": "名词 · 阴性复数",
+    "zh-Hant": "名詞 · 陰性複數",
+    "ro": "substantiv · fem. pl.",
+    "ca": "nom · fem. pl."
+   }
   },
   "beaux": {
    "en": "beautiful",
@@ -1902,7 +2622,19 @@
    "zh-Hans": "漂亮的",
    "zh-Hant": "漂亮的",
    "ro": "frumoase",
-   "ca": "bonics"
+   "ca": "bonics",
+   "lemma": "beau",
+   "grammar": {
+    "en": "adjective · masc. pl.",
+    "fr": "adjectif · masc. plur.",
+    "es": "adjetivo · masc. pl.",
+    "pt": "adjetivo · masc. pl.",
+    "it": "aggettivo · masch. pl.",
+    "zh-Hans": "形容词 · 阳性复数",
+    "zh-Hant": "形容詞 · 陽性複數",
+    "ro": "adjectiv · masc. pl.",
+    "ca": "adjectiu · masc. pl."
+   }
   },
   "bijoux": {
    "en": "jewelry",
@@ -1913,7 +2645,19 @@
    "zh-Hans": "珠宝",
    "zh-Hant": "珠寶",
    "ro": "bijuterii",
-   "ca": "joies"
+   "ca": "joies",
+   "lemma": "bijou",
+   "grammar": {
+    "en": "noun · masc. pl.",
+    "fr": "nom · masc. plur.",
+    "es": "sustantivo · masc. pl.",
+    "pt": "substantivo · masc. pl.",
+    "it": "sostantivo · masch. pl.",
+    "zh-Hans": "名词 · 阳性复数",
+    "zh-Hant": "名詞 · 陽性複數",
+    "ro": "substantiv · masc. pl.",
+    "ca": "nom · masc. pl."
+   }
   },
   "porte": {
    "en": "wears",
@@ -1924,7 +2668,19 @@
    "zh-Hans": "穿着",
    "zh-Hant": "穿著",
    "ro": "poartă",
-   "ca": "porta"
+   "ca": "porta",
+   "lemma": "porter",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. 3 sg.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "vieux": {
    "en": "old",
@@ -1935,7 +2691,19 @@
    "zh-Hans": "旧的",
    "zh-Hant": "舊的",
    "ro": "vechi",
-   "ca": "vell"
+   "ca": "vell",
+   "lemma": "vieux",
+   "grammar": {
+    "en": "adjective · masc. pl.",
+    "fr": "adjectif · masc. plur.",
+    "es": "adjetivo · masc. pl.",
+    "pt": "adjetivo · masc. pl.",
+    "it": "aggettivo · masch. pl.",
+    "zh-Hans": "形容词 · 阳性复数",
+    "zh-Hant": "形容詞 · 陽性複數",
+    "ro": "adjectiv · masc. pl.",
+    "ca": "adjectiu · masc. pl."
+   }
   },
   "vêtements": {
    "en": "clothes",
@@ -1946,7 +2714,19 @@
    "zh-Hans": "衣服",
    "zh-Hant": "衣服",
    "ro": "haine",
-   "ca": "roba"
+   "ca": "roba",
+   "lemma": "vêtement",
+   "grammar": {
+    "en": "noun · masc. pl.",
+    "fr": "nom · masc. plur.",
+    "es": "sustantivo · masc. pl.",
+    "pt": "substantivo · masc. pl.",
+    "it": "sostantivo · masch. pl.",
+    "zh-Hans": "名词 · 阳性复数",
+    "zh-Hant": "名詞 · 陽性複數",
+    "ro": "substantiv · masc. pl.",
+    "ca": "nom · masc. pl."
+   }
   },
   "simples": {
    "en": "simple",
@@ -1957,7 +2737,19 @@
    "zh-Hans": "简单的",
    "zh-Hant": "樸素的",
    "ro": "simple",
-   "ca": "senzills"
+   "ca": "senzills",
+   "lemma": "simple",
+   "grammar": {
+    "en": "adjective · pl.",
+    "fr": "adjectif · plur.",
+    "es": "adjetivo · pl.",
+    "pt": "adjetivo · pl.",
+    "it": "aggettivo · pl.",
+    "zh-Hans": "形容词 · 复数",
+    "zh-Hant": "形容詞 · 複數",
+    "ro": "adjectiv · pl.",
+    "ca": "adjectiu · pl."
+   }
   },
   "malgré": {
    "en": "despite",
@@ -1968,7 +2760,19 @@
    "zh-Hans": "尽管",
    "zh-Hant": "儘管",
    "ro": "în ciuda",
-   "ca": "malgrat"
+   "ca": "malgrat",
+   "lemma": "malgré",
+   "grammar": {
+    "en": "preposition",
+    "fr": "préposition",
+    "es": "preposición",
+    "pt": "preposição",
+    "it": "preposizione",
+    "zh-Hans": "介词",
+    "zh-Hant": "介詞",
+    "ro": "prepoziție",
+    "ca": "preposició"
+   }
   },
   "reste": {
    "en": "remains",
@@ -1979,7 +2783,19 @@
    "zh-Hans": "保持",
    "zh-Hant": "保持",
    "ro": "rămâne",
-   "ca": "roman"
+   "ca": "roman",
+   "lemma": "rester",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. 3 sg.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "douce": {
    "en": "sweet / gentle",
@@ -1990,7 +2806,19 @@
    "zh-Hans": "温柔的",
    "zh-Hant": "溫柔的",
    "ro": "blândă",
-   "ca": "dolça"
+   "ca": "dolça",
+   "lemma": "doux",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · femm. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   }
   },
   "gentille": {
    "en": "kind",
@@ -2001,7 +2829,19 @@
    "zh-Hans": "善良的",
    "zh-Hant": "善良的",
    "ro": "bună",
-   "ca": "amable"
+   "ca": "amable",
+   "lemma": "gentil",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · femm. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   }
   },
   "un": {
    "en": "a / one",
@@ -2012,7 +2852,19 @@
    "zh-Hans": "一",
    "zh-Hant": "一個",
    "ro": "un",
-   "ca": "un"
+   "ca": "un",
+   "lemma": "un",
+   "grammar": {
+    "en": "article · indefinite · masc. sing.",
+    "fr": "article · indéfini · masc. sing.",
+    "es": "artículo · indefinido · masc. sing.",
+    "pt": "artigo · indefinido · masc. sing.",
+    "it": "articolo · indeterminativo · masch. sing.",
+    "zh-Hans": "冠词 · 不定冠词 · 阳性单数",
+    "zh-Hant": "冠詞 · 不定冠詞 · 陽性單數",
+    "ro": "articol · nehotărât · masc. sing.",
+    "ca": "article · indefinit · masc. sing."
+   }
   },
   "jour": {
    "en": "day",
@@ -2023,7 +2875,19 @@
    "zh-Hans": "天",
    "zh-Hant": "天",
    "ro": "zi",
-   "ca": "dia"
+   "ca": "dia",
+   "lemma": "jour",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masch. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "nom · masc. sing."
+   }
   },
   "fils": {
    "en": "son",
@@ -2034,7 +2898,19 @@
    "zh-Hans": "儿子",
    "zh-Hant": "兒子",
    "ro": "fiu",
-   "ca": "fill"
+   "ca": "fill",
+   "lemma": "fils",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masch. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "nom · masc. sing."
+   }
   },
   "roi": {
    "en": "king",
@@ -2045,7 +2921,19 @@
    "zh-Hans": "国王",
    "zh-Hant": "國王",
    "ro": "rege",
-   "ca": "rei"
+   "ca": "rei",
+   "lemma": "roi",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masch. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "nom · masc. sing."
+   }
   },
   "organise": {
    "en": "organizes",
@@ -2056,7 +2944,19 @@
    "zh-Hans": "组织",
    "zh-Hant": "舉辦",
    "ro": "organizează",
-   "ca": "organitza"
+   "ca": "organitza",
+   "lemma": "organiser",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. 3 sg.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "grand": {
    "en": "big / grand",
@@ -2067,7 +2967,19 @@
    "zh-Hans": "盛大的",
    "zh-Hant": "盛大的",
    "ro": "mare",
-   "ca": "gran"
+   "ca": "gran",
+   "lemma": "grand",
+   "grammar": {
+    "en": "adjective · masc. sing.",
+    "fr": "adjectif · masc. sing.",
+    "es": "adjetivo · masc. sing.",
+    "pt": "adjetivo · masc. sing.",
+    "it": "aggettivo · masch. sing.",
+    "zh-Hans": "形容词 · 阳性单数",
+    "zh-Hant": "形容詞 · 陽性單數",
+    "ro": "adjectiv · masc. sing.",
+    "ca": "adjectiu · masc. sing."
+   }
   },
   "bal": {
    "en": "ball",
@@ -2078,7 +2990,19 @@
    "zh-Hans": "舞会",
    "zh-Hant": "舞會",
    "ro": "bal",
-   "ca": "ball"
+   "ca": "ball",
+   "lemma": "bal",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masch. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "nom · masc. sing."
+   }
   },
   "prince": {
    "en": "prince",
@@ -2089,7 +3013,19 @@
    "zh-Hans": "王子",
    "zh-Hant": "王子",
    "ro": "prinț",
-   "ca": "príncep"
+   "ca": "príncep",
+   "lemma": "prince",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masch. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "nom · masc. sing."
+   }
   },
   "invite": {
    "en": "invites",
@@ -2100,7 +3036,19 @@
    "zh-Hans": "邀请",
    "zh-Hant": "邀請",
    "ro": "invită",
-   "ca": "convida"
+   "ca": "convida",
+   "lemma": "inviter",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. 3 sg.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "toutes": {
    "en": "all",
@@ -2111,7 +3059,19 @@
    "zh-Hans": "所有的",
    "zh-Hant": "所有的",
    "ro": "toate",
-   "ca": "totes"
+   "ca": "totes",
+   "lemma": "tout",
+   "grammar": {
+    "en": "determiner · fem. pl.",
+    "fr": "déterminant · fém. plur.",
+    "es": "determinante · fem. pl.",
+    "pt": "determinante · fem. pl.",
+    "it": "determinante · femm. pl.",
+    "zh-Hans": "限定词 · 阴性复数",
+    "zh-Hant": "限定詞 · 陰性複數",
+    "ro": "determinant · fem. pl.",
+    "ca": "determinant · fem. pl."
+   }
   },
   "les": {
    "en": "the",
@@ -2122,7 +3082,19 @@
    "zh-Hans": "这些",
    "zh-Hant": "這些",
    "ro": "cele",
-   "ca": "les"
+   "ca": "les",
+   "lemma": "le",
+   "grammar": {
+    "en": "article · fem. pl.",
+    "fr": "article · fém. plur.",
+    "es": "artículo · fem. pl.",
+    "pt": "artigo · fem. pl.",
+    "it": "articolo · fem. pl.",
+    "zh-Hans": "冠词 · 阴性复数",
+    "zh-Hant": "冠詞 · 陰性複數",
+    "ro": "articol · fem. pl.",
+    "ca": "article · fem. pl."
+   }
   },
   "jeunes": {
    "en": "young",
@@ -2133,7 +3105,19 @@
    "zh-Hans": "年轻的",
    "zh-Hant": "年輕的",
    "ro": "tinere",
-   "ca": "joves"
+   "ca": "joves",
+   "lemma": "jeune",
+   "grammar": {
+    "en": "adjective · fem. pl.",
+    "fr": "adjectif · fém. plur.",
+    "es": "adjetivo · fem. pl.",
+    "pt": "adjetivo · fem. pl.",
+    "it": "aggettivo · fem. pl.",
+    "zh-Hans": "形容词 · 阴性复数",
+    "zh-Hant": "形容詞 · 陰性複數",
+    "ro": "adjectiv · fem. pl.",
+    "ca": "adjectiu · fem. pl."
+   }
   },
   "royaume": {
    "en": "kingdom",
@@ -2144,7 +3128,19 @@
    "zh-Hans": "王国",
    "zh-Hant": "王國",
    "ro": "regat",
-   "ca": "regne"
+   "ca": "regne",
+   "lemma": "royaume",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masc. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "substantiu · masc. sing."
+   }
   },
   "sœurs": {
    "en": "sisters",
@@ -2155,7 +3151,19 @@
    "zh-Hans": "姐妹",
    "zh-Hant": "姊妹",
    "ro": "surori",
-   "ca": "germanes"
+   "ca": "germanes",
+   "lemma": "sœur",
+   "grammar": {
+    "en": "noun · fem. pl.",
+    "fr": "nom · fém. plur.",
+    "es": "sustantivo · fem. pl.",
+    "pt": "substantivo · fem. pl.",
+    "it": "sostantivo · fem. pl.",
+    "zh-Hans": "名词 · 阴性复数",
+    "zh-Hant": "名詞 · 陰性複數",
+    "ro": "substantiv · fem. pl.",
+    "ca": "substantiu · fem. pl."
+   }
   },
   "sont": {
    "en": "are",
@@ -2166,7 +3174,19 @@
    "zh-Hans": "是",
    "zh-Hant": "是",
    "ro": "sunt",
-   "ca": "són"
+   "ca": "són",
+   "lemma": "être",
+   "grammar": {
+    "en": "verb · present · 3rd pl.",
+    "fr": "verbe · présent · 3e plur.",
+    "es": "verbo · presente · 3.ª pl.",
+    "pt": "verbo · presente · 3.ª pl.",
+    "it": "verbo · presente · 3ª pl.",
+    "zh-Hans": "动词 · 现在时 · 第三人称复数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱複數",
+    "ro": "verb · prezent · pers. a 3-a pl.",
+    "ca": "verb · present · 3a pl."
+   }
   },
   "très": {
    "en": "very",
@@ -2177,7 +3197,19 @@
    "zh-Hans": "非常",
    "zh-Hant": "非常",
    "ro": "foarte",
-   "ca": "molt"
+   "ca": "molt",
+   "lemma": "très",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "contentes": {
    "en": "happy",
@@ -2188,7 +3220,19 @@
    "zh-Hans": "高兴的",
    "zh-Hant": "高興的",
    "ro": "mulțumite",
-   "ca": "contentes"
+   "ca": "contentes",
+   "lemma": "content",
+   "grammar": {
+    "en": "adjective · fem. pl.",
+    "fr": "adjectif · fém. plur.",
+    "es": "adjetivo · fem. pl.",
+    "pt": "adjetivo · fem. pl.",
+    "it": "aggettivo · fem. pl.",
+    "zh-Hans": "形容词 · 阴性复数",
+    "zh-Hant": "形容詞 · 陰性複數",
+    "ro": "adjectiv · fem. pl.",
+    "ca": "adjectiu · fem. pl."
+   }
   },
   "préparent": {
    "en": "prepare",
@@ -2199,7 +3243,19 @@
    "zh-Hans": "准备",
    "zh-Hant": "準備",
    "ro": "pregătesc",
-   "ca": "preparen"
+   "ca": "preparen",
+   "lemma": "préparer",
+   "grammar": {
+    "en": "verb · present · 3rd pl.",
+    "fr": "verbe · présent · 3e plur.",
+    "es": "verbo · presente · 3.ª pl.",
+    "pt": "verbo · presente · 3.ª pl.",
+    "it": "verbo · presente · 3ª pl.",
+    "zh-Hans": "动词 · 现在时 · 第三人称复数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱複數",
+    "ro": "verb · prezent · pers. a 3-a pl.",
+    "ca": "verb · present · 3a pl."
+   }
   },
   "leurs": {
    "en": "their",
@@ -2210,7 +3266,19 @@
    "zh-Hans": "她们的",
    "zh-Hant": "他們的",
    "ro": "lor",
-   "ca": "seus"
+   "ca": "seus",
+   "lemma": "leur",
+   "grammar": {
+    "en": "possessive adjective · pl.",
+    "fr": "adjectif possessif · plur.",
+    "es": "adjetivo posesivo · pl.",
+    "pt": "adjetivo possessivo · pl.",
+    "it": "aggettivo possessivo · pl.",
+    "zh-Hans": "所有格形容词 · 复数",
+    "zh-Hant": "所有格形容詞 · 複數",
+    "ro": "adjectiv posesiv · pl.",
+    "ca": "adjectiu possessiu · pl."
+   }
   },
   "aide": {
    "en": "helps",
@@ -2221,7 +3289,19 @@
    "zh-Hans": "帮助",
    "zh-Hant": "幫助",
    "ro": "ajută",
-   "ca": "ajuda"
+   "ca": "ajuda",
+   "lemma": "aider",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "se": {
    "en": "themselves",
@@ -2232,7 +3312,19 @@
    "zh-Hans": "自己",
    "zh-Hant": "自己",
    "ro": "se",
-   "ca": "es"
+   "ca": "es",
+   "lemma": "se",
+   "grammar": {
+    "en": "reflexive pronoun · 3rd",
+    "fr": "pronom réfléchi · 3e",
+    "es": "pronombre reflexivo · 3.ª",
+    "pt": "pronome reflexivo · 3.ª",
+    "it": "pronome riflessivo · 3ª",
+    "zh-Hans": "反身代词 · 第三人称",
+    "zh-Hant": "反身代詞 · 第三人稱",
+    "ro": "pronume reflexiv · pers. a 3-a",
+    "ca": "pronom reflexiu · 3a"
+   }
   },
   "préparer": {
    "en": "to prepare",
@@ -2243,7 +3335,19 @@
    "zh-Hans": "准备",
    "zh-Hant": "準備",
    "ro": "pregăti",
-   "ca": "preparar"
+   "ca": "preparar",
+   "lemma": "préparer",
+   "grammar": {
+    "en": "verb · infinitive",
+    "fr": "verbe · infinitif",
+    "es": "verbo · infinitivo",
+    "pt": "verbo · infinitivo",
+    "it": "verbo · infinito",
+    "zh-Hans": "动词 · 不定式",
+    "zh-Hant": "動詞 · 不定式",
+    "ro": "verb · infinitiv",
+    "ca": "verb · infinitiu"
+   }
   },
   "pour": {
    "en": "for",
@@ -2254,7 +3358,19 @@
    "zh-Hans": "为了",
    "zh-Hant": "為了",
    "ro": "pentru",
-   "ca": "per"
+   "ca": "per",
+   "lemma": "pour",
+   "grammar": {
+    "en": "preposition",
+    "fr": "préposition",
+    "es": "preposición",
+    "pt": "preposição",
+    "it": "preposizione",
+    "zh-Hans": "介词",
+    "zh-Hant": "介詞",
+    "ro": "prepoziție",
+    "ca": "preposició"
+   }
   },
   "tu": {
    "en": "you",
@@ -2265,7 +3381,19 @@
    "zh-Hans": "你",
    "zh-Hant": "你",
    "ro": "tu",
-   "ca": "tu"
+   "ca": "tu",
+   "lemma": "tu",
+   "grammar": {
+    "en": "personal pronoun · 2nd sing.",
+    "fr": "pronom personnel · 2e sing.",
+    "es": "pronombre personal · 2.ª sing.",
+    "pt": "pronome pessoal · 2.ª sing.",
+    "it": "pronome personale · 2ª sing.",
+    "zh-Hans": "人称代词 · 第二人称单数",
+    "zh-Hant": "人稱代詞 · 第二人稱單數",
+    "ro": "pronume personal · pers. a 2-a sing.",
+    "ca": "pronom personal · 2a sing."
+   }
   },
   "ne": {
    "en": "not",
@@ -2276,7 +3404,19 @@
    "zh-Hans": "不",
    "zh-Hant": "不",
    "ro": "nu",
-   "ca": "no"
+   "ca": "no",
+   "lemma": "ne",
+   "grammar": {
+    "en": "adverb · negation",
+    "fr": "adverbe · négation",
+    "es": "adverbio · negación",
+    "pt": "advérbio · negação",
+    "it": "avverbio · negazione",
+    "zh-Hans": "副词 · 否定",
+    "zh-Hant": "副詞 · 否定",
+    "ro": "adverb · negație",
+    "ca": "adverbi · negació"
+   }
   },
   "viens": {
    "en": "come",
@@ -2287,7 +3427,19 @@
    "zh-Hans": "来",
    "zh-Hant": "來",
    "ro": "vii",
-   "ca": "véns"
+   "ca": "véns",
+   "lemma": "venir",
+   "grammar": {
+    "en": "verb · present · 2nd sing.",
+    "fr": "verbe · présent · 2e sing.",
+    "es": "verbo · presente · 2.ª sing.",
+    "pt": "verbo · presente · 2.ª sing.",
+    "it": "verbo · presente · 2ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第二人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第二人稱單數",
+    "ro": "verb · prezent · pers. a 2-a sing.",
+    "ca": "verb · present · 2a sing."
+   }
   },
   "nous": {
    "en": "us",
@@ -2298,7 +3450,19 @@
    "zh-Hans": "我们",
    "zh-Hant": "我們",
    "ro": "noi",
-   "ca": "nosaltres"
+   "ca": "nosaltres",
+   "lemma": "nous",
+   "grammar": {
+    "en": "personal pronoun · 1st pl.",
+    "fr": "pronom personnel · 1re plur.",
+    "es": "pronombre personal · 1.ª pl.",
+    "pt": "pronome pessoal · 1.ª pl.",
+    "it": "pronome personale · 1ª pl.",
+    "zh-Hans": "人称代词 · 第一人称复数",
+    "zh-Hant": "人稱代詞 · 第一人稱複數",
+    "ro": "pronume personal · pers. 1 pl.",
+    "ca": "pronom personal · 1a pl."
+   }
   },
   "dit": {
    "en": "says",
@@ -2309,7 +3473,19 @@
    "zh-Hans": "说",
    "zh-Hant": "說",
    "ro": "spune",
-   "ca": "diu"
+   "ca": "diu",
+   "lemma": "dire",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "sœur": {
    "en": "sister",
@@ -2320,7 +3496,19 @@
    "zh-Hans": "姐妹",
    "zh-Hant": "姊妹",
    "ro": "soră",
-   "ca": "germana"
+   "ca": "germana",
+   "lemma": "sœur",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · fem. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "substantiu · fem. sing."
+   }
   },
   "méchamment": {
    "en": "meanly",
@@ -2331,7 +3519,19 @@
    "zh-Hans": "恶意地",
    "zh-Hant": "惡意地",
    "ro": "răutăcios",
-   "ca": "malament"
+   "ca": "malament",
+   "lemma": "méchamment",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "seule": {
    "en": "alone",
@@ -2342,7 +3542,19 @@
    "zh-Hans": "独自",
    "zh-Hant": "孤單的",
    "ro": "singură",
-   "ca": "sola"
+   "ca": "sola",
+   "lemma": "seul",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · fem. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   }
   },
   "pleure": {
    "en": "cries",
@@ -2353,7 +3565,19 @@
    "zh-Hans": "哭",
    "zh-Hant": "哭泣",
    "ro": "plânge",
-   "ca": "plora"
+   "ca": "plora",
+   "lemma": "pleurer",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "rêve": {
    "en": "dreams",
@@ -2364,7 +3588,19 @@
    "zh-Hans": "梦想",
    "zh-Hant": "夢想",
    "ro": "visează",
-   "ca": "somia"
+   "ca": "somia",
+   "lemma": "rêver",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "parfois": {
    "en": "sometimes",
@@ -2375,7 +3611,19 @@
    "zh-Hans": "有时",
    "zh-Hant": "有時",
    "ro": "uneori",
-   "ca": "de vegades"
+   "ca": "de vegades",
+   "lemma": "parfois",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "d'": {
    "en": "of",
@@ -2386,7 +3634,19 @@
    "zh-Hans": "的",
    "zh-Hant": "的",
    "ro": "a",
-   "ca": "de"
+   "ca": "de",
+   "lemma": "de",
+   "grammar": {
+    "en": "preposition · elided",
+    "fr": "préposition · élidée",
+    "es": "preposición · elidida",
+    "pt": "preposição · elidida",
+    "it": "preposizione · elisa",
+    "zh-Hans": "介词 · 省音",
+    "zh-Hant": "介詞 · 省音",
+    "ro": "prepoziție · elidată",
+    "ca": "preposició · elidida"
+   }
   },
   "vie": {
    "en": "life",
@@ -2397,7 +3657,19 @@
    "zh-Hans": "生活",
    "zh-Hant": "生活",
    "ro": "viață",
-   "ca": "vida"
+   "ca": "vida",
+   "lemma": "vie",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · fem. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "substantiu · fem. sing."
+   }
   },
   "meilleure": {
    "en": "better",
@@ -2408,7 +3680,19 @@
    "zh-Hans": "更好的",
    "zh-Hant": "更好的",
    "ro": "mai bună",
-   "ca": "millor"
+   "ca": "millor",
+   "lemma": "meilleur",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · fem. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   }
   },
   "plus": {
    "en": "more",
@@ -2419,7 +3703,19 @@
    "zh-Hans": "更",
    "zh-Hant": "更",
    "ro": "mai",
-   "ca": "més"
+   "ca": "més",
+   "lemma": "plus",
+   "grammar": {
+    "en": "adverb · comparative",
+    "fr": "adverbe · comparatif",
+    "es": "adverbio · comparativo",
+    "pt": "advérbio · comparativo",
+    "it": "avverbio · comparativo",
+    "zh-Hans": "副词 · 比较级",
+    "zh-Hant": "副詞 · 比較級",
+    "ro": "adverb · comparativ",
+    "ca": "adverbi · comparatiu"
+   }
   },
   "heureuse": {
    "en": "happy",
@@ -2430,7 +3726,19 @@
    "zh-Hans": "幸福的",
    "zh-Hant": "幸福的",
    "ro": "fericită",
-   "ca": "feliç"
+   "ca": "feliç",
+   "lemma": "heureux",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · fem. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   }
   },
   "plaint": {
    "en": "complains",
@@ -2441,7 +3749,19 @@
    "zh-Hans": "抱怨",
    "zh-Hant": "抱怨",
    "ro": "plânge",
-   "ca": "queixa"
+   "ca": "queixa",
+   "lemma": "se plaindre",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "jamais": {
    "en": "never",
@@ -2452,7 +3772,19 @@
    "zh-Hans": "从不",
    "zh-Hant": "從不",
    "ro": "niciodată",
-   "ca": "mai"
+   "ca": "mai",
+   "lemma": "jamais",
+   "grammar": {
+    "en": "adverb · negation",
+    "fr": "adverbe · négation",
+    "es": "adverbio · negación",
+    "pt": "advérbio · negação",
+    "it": "avverbio · negazione",
+    "zh-Hans": "副词 · 否定",
+    "zh-Hant": "副詞 · 否定",
+    "ro": "adverb · negație",
+    "ca": "adverbi · negació"
+   }
   },
   "devant": {
    "en": "in front of",
@@ -2463,7 +3795,19 @@
    "zh-Hans": "在...面前",
    "zh-Hant": "在...面前",
    "ro": "în fața",
-   "ca": "davant"
+   "ca": "davant",
+   "lemma": "devant",
+   "grammar": {
+    "en": "preposition",
+    "fr": "préposition",
+    "es": "preposición",
+    "pt": "preposição",
+    "it": "preposizione",
+    "zh-Hans": "介词",
+    "zh-Hant": "介詞",
+    "ro": "prepoziție",
+    "ca": "preposició"
+   }
   },
   "sévère": {
    "en": "strict",
@@ -2474,7 +3818,19 @@
    "zh-Hans": "严厉的",
    "zh-Hant": "嚴厲的",
    "ro": "severă",
-   "ca": "severa"
+   "ca": "severa",
+   "lemma": "sévère",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · fem. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   }
   },
   "soudain": {
    "en": "suddenly",
@@ -2485,7 +3841,19 @@
    "zh-Hans": "突然",
    "zh-Hant": "突然",
    "ro": "deodată",
-   "ca": "de sobte"
+   "ca": "de sobte",
+   "lemma": "soudain",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "lumière": {
    "en": "light",
@@ -2496,7 +3864,19 @@
    "zh-Hans": "光",
    "zh-Hant": "光",
    "ro": "lumină",
-   "ca": "llum"
+   "ca": "llum",
+   "lemma": "lumière",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · fem. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "substantiu · fem. sing."
+   }
   },
   "brillante": {
    "en": "bright",
@@ -2507,7 +3887,19 @@
    "zh-Hans": "明亮的",
    "zh-Hant": "明亮的",
    "ro": "strălucitoare",
-   "ca": "brillant"
+   "ca": "brillant",
+   "lemma": "brillant",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · fem. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   }
   },
   "apparaît": {
    "en": "appears",
@@ -2518,7 +3910,19 @@
    "zh-Hans": "出现",
    "zh-Hant": "出現",
    "ro": "apare",
-   "ca": "apareix"
+   "ca": "apareix",
+   "lemma": "apparaître",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "fée": {
    "en": "fairy",
@@ -2529,7 +3933,19 @@
    "zh-Hans": "仙女",
    "zh-Hant": "仙女",
    "ro": "zână",
-   "ca": "fada"
+   "ca": "fada",
+   "lemma": "fée",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · fem. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "substantiu · fem. sing."
+   }
   },
   "marraine": {
    "en": "godmother",
@@ -2540,7 +3956,19 @@
    "zh-Hans": "教母",
    "zh-Hant": "教母",
    "ro": "nașă",
-   "ca": "padrina"
+   "ca": "padrina",
+   "lemma": "marraine",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · fem. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "substantiu · fem. sing."
+   }
   },
   "arrive": {
    "en": "arrives",
@@ -2551,9 +3979,33 @@
    "zh-Hans": "到达",
    "zh-Hant": "到達",
    "ro": "ajunge",
-   "ca": "arriba"
+   "ca": "arriba",
+   "lemma": "arriver",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "pourquoi": {
+   "lemma": "pourquoi",
+   "grammar": {
+    "en": "adverb · interrogative",
+    "fr": "adverbe · interrogatif",
+    "es": "adverbio · interrogativo",
+    "pt": "advérbio · interrogativo",
+    "it": "avverbio · interrogativo",
+    "zh-Hans": "副词 · 疑问",
+    "zh-Hant": "副詞 · 疑問",
+    "ro": "adverb · interogativ",
+    "ca": "adverbi · interrogatiu"
+   },
    "en": "why",
    "fr": "pourquoi",
    "es": "por qué",
@@ -2565,6 +4017,18 @@
    "ca": "per què"
   },
   "pleures-tu": {
+   "lemma": "pleurer",
+   "grammar": {
+    "en": "verb · present · 2nd sing. · interrogative",
+    "fr": "verbe · présent · 2e pers. sing. · interrogatif",
+    "es": "verbo · presente · 2.ª pers. sing. · interrogativo",
+    "pt": "verbo · presente · 2.ª pess. sing. · interrogativo",
+    "it": "verbo · presente · 2ª pers. sing. · interrogativo",
+    "zh-Hans": "动词 · 现在时 · 第二人称单数 · 疑问",
+    "zh-Hant": "動詞 · 現在時 · 第二人稱單數 · 疑問",
+    "ro": "verb · prezent · pers. a 2-a sing. · interogativ",
+    "ca": "verb · present · 2a pers. sing. · interrogatiu"
+   },
    "en": "are you crying",
    "fr": "pleures-tu",
    "es": "estás llorando",
@@ -2576,6 +4040,18 @@
    "ca": "plores"
   },
   "mon": {
+   "lemma": "mon",
+   "grammar": {
+    "en": "determiner · possessive · masc. sing.",
+    "fr": "déterminant · possessif · masc. sing.",
+    "es": "determinante · posesivo · masc. sing.",
+    "pt": "determinante · possessivo · masc. sing.",
+    "it": "determinante · possessivo · masc. sing.",
+    "zh-Hans": "限定词 · 所有格 · 阳性单数",
+    "zh-Hant": "限定詞 · 所有格 · 陽性單數",
+    "ro": "determinant · posesiv · masc. sing.",
+    "ca": "determinant · possessiu · masc. sing."
+   },
    "en": "my",
    "fr": "mon",
    "es": "mi",
@@ -2587,6 +4063,18 @@
    "ca": "el meu"
   },
   "enfant": {
+   "lemma": "enfant",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masc. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "nom · masc. sing."
+   },
    "en": "child",
    "fr": "enfant",
    "es": "niño",
@@ -2598,6 +4086,18 @@
    "ca": "fill"
   },
   "demande": {
+   "lemma": "demander",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª pers. sing.",
+    "pt": "verbo · presente · 3.ª pess. sing.",
+    "it": "verbo · presente · 3ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a pers. sing."
+   },
    "en": "asks",
    "fr": "demande",
    "es": "pregunta",
@@ -2609,6 +4109,18 @@
    "ca": "pregunta"
   },
   "je": {
+   "lemma": "je",
+   "grammar": {
+    "en": "pronoun · 1st sing.",
+    "fr": "pronom · 1re pers. sing.",
+    "es": "pronombre · 1.ª pers. sing.",
+    "pt": "pronome · 1.ª pess. sing.",
+    "it": "pronome · 1ª pers. sing.",
+    "zh-Hans": "代词 · 第一人称单数",
+    "zh-Hant": "代詞 · 第一人稱單數",
+    "ro": "pronume · pers. 1 sing.",
+    "ca": "pronom · 1a pers. sing."
+   },
    "en": "I",
    "fr": "je",
    "es": "yo",
@@ -2620,6 +4132,18 @@
    "ca": "jo"
   },
   "veux": {
+   "lemma": "vouloir",
+   "grammar": {
+    "en": "verb · present · 1st sing.",
+    "fr": "verbe · présent · 1re pers. sing.",
+    "es": "verbo · presente · 1.ª pers. sing.",
+    "pt": "verbo · presente · 1.ª pess. sing.",
+    "it": "verbo · presente · 1ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第一人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第一人稱單數",
+    "ro": "verb · prezent · pers. 1 sing.",
+    "ca": "verb · present · 1a pers. sing."
+   },
    "en": "want",
    "fr": "veux",
    "es": "quiero",
@@ -2631,6 +4155,18 @@
    "ca": "vull"
   },
   "aller": {
+   "lemma": "aller",
+   "grammar": {
+    "en": "verb · infinitive",
+    "fr": "verbe · infinitif",
+    "es": "verbo · infinitivo",
+    "pt": "verbo · infinitivo",
+    "it": "verbo · infinito",
+    "zh-Hans": "动词 · 不定式",
+    "zh-Hant": "動詞 · 不定式",
+    "ro": "verb · infinitiv",
+    "ca": "verb · infinitiu"
+   },
    "en": "to go",
    "fr": "aller",
    "es": "ir",
@@ -2642,6 +4178,18 @@
    "ca": "anar"
   },
   "au": {
+   "lemma": "au",
+   "grammar": {
+    "en": "preposition · contraction of à + le",
+    "fr": "préposition · contraction de à + le",
+    "es": "preposición · contracción de à + le",
+    "pt": "preposição · contração de à + le",
+    "it": "preposizione · contrazione di à + le",
+    "zh-Hans": "介词 · à + le 缩合",
+    "zh-Hant": "介詞 · à + le 縮合",
+    "ro": "prepoziție · contracție à + le",
+    "ca": "preposició · contracció à + le"
+   },
    "en": "to the",
    "fr": "au",
    "es": "al",
@@ -2653,6 +4201,18 @@
    "ca": "al"
   },
   "mais": {
+   "lemma": "mais",
+   "grammar": {
+    "en": "conjunction",
+    "fr": "conjonction",
+    "es": "conjunción",
+    "pt": "conjunção",
+    "it": "congiunzione",
+    "zh-Hans": "连词",
+    "zh-Hant": "連詞",
+    "ro": "conjuncție",
+    "ca": "conjunció"
+   },
    "en": "but",
    "fr": "mais",
    "es": "pero",
@@ -2664,6 +4224,18 @@
    "ca": "però"
   },
   "ai": {
+   "lemma": "avoir",
+   "grammar": {
+    "en": "verb · present · 1st sing.",
+    "fr": "verbe · présent · 1re pers. sing.",
+    "es": "verbo · presente · 1.ª pers. sing.",
+    "pt": "verbo · presente · 1.ª pess. sing.",
+    "it": "verbo · presente · 1ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第一人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第一人稱單數",
+    "ro": "verb · prezent · pers. 1 sing.",
+    "ca": "verb · present · 1a pers. sing."
+   },
    "en": "have",
    "fr": "ai",
    "es": "tengo",
@@ -2675,6 +4247,18 @@
    "ca": "tinc"
   },
   "rien": {
+   "lemma": "rien",
+   "grammar": {
+    "en": "pronoun · indefinite",
+    "fr": "pronom · indéfini",
+    "es": "pronombre · indefinido",
+    "pt": "pronome · indefinido",
+    "it": "pronome · indefinito",
+    "zh-Hans": "代词 · 不定",
+    "zh-Hant": "代詞 · 不定",
+    "ro": "pronume · nehotărât",
+    "ca": "pronom · indefinit"
+   },
    "en": "nothing",
    "fr": "rien",
    "es": "nada",
@@ -2686,6 +4270,18 @@
    "ca": "res"
   },
   "porter": {
+   "lemma": "porter",
+   "grammar": {
+    "en": "verb · infinitive",
+    "fr": "verbe · infinitif",
+    "es": "verbo · infinitivo",
+    "pt": "verbo · infinitivo",
+    "it": "verbo · infinito",
+    "zh-Hans": "动词 · 不定式",
+    "zh-Hant": "動詞 · 不定式",
+    "ro": "verb · infinitiv",
+    "ca": "verb · infinitiu"
+   },
    "en": "to wear",
    "fr": "porter",
    "es": "llevar puesto",
@@ -2697,6 +4293,18 @@
    "ca": "portar"
   },
   "répond": {
+   "lemma": "répondre",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª pers. sing.",
+    "pt": "verbo · presente · 3.ª pess. sing.",
+    "it": "verbo · presente · 3ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a pers. sing."
+   },
    "en": "replies",
    "fr": "répond",
    "es": "responde",
@@ -2708,6 +4316,18 @@
    "ca": "respon"
   },
   "sourit": {
+   "lemma": "sourire",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª pers. sing.",
+    "pt": "verbo · presente · 3.ª pess. sing.",
+    "it": "verbo · presente · 3ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a pers. sing."
+   },
    "en": "smiles",
    "fr": "sourit",
    "es": "sonríe",
@@ -2719,6 +4339,18 @@
    "ca": "somriu"
   },
   "va": {
+   "lemma": "aller",
+   "grammar": {
+    "en": "verb · imperative · 2nd sing.",
+    "fr": "verbe · impératif · 2e pers. sing.",
+    "es": "verbo · imperativo · 2.ª pers. sing.",
+    "pt": "verbo · imperativo · 2.ª pess. sing.",
+    "it": "verbo · imperativo · 2ª pers. sing.",
+    "zh-Hans": "动词 · 命令式 · 第二人称单数",
+    "zh-Hant": "動詞 · 命令式 · 第二人稱單數",
+    "ro": "verb · imperativ · pers. a 2-a sing.",
+    "ca": "verb · imperatiu · 2a pers. sing."
+   },
    "en": "go",
    "fr": "va",
    "es": "ve",
@@ -2730,6 +4362,18 @@
    "ca": "va"
   },
   "chercher": {
+   "lemma": "chercher",
+   "grammar": {
+    "en": "verb · infinitive",
+    "fr": "verbe · infinitif",
+    "es": "verbo · infinitivo",
+    "pt": "verbo · infinitivo",
+    "it": "verbo · infinito",
+    "zh-Hans": "动词 · 不定式",
+    "zh-Hant": "動詞 · 不定式",
+    "ro": "verb · infinitiv",
+    "ca": "verb · infinitiu"
+   },
    "en": "to fetch",
    "fr": "chercher",
    "es": "buscar",
@@ -2741,6 +4385,18 @@
    "ca": "buscar"
   },
   "citrouille": {
+   "lemma": "citrouille",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "nom · fem. sing."
+   },
    "en": "pumpkin",
    "fr": "citrouille",
    "es": "calabaza",
@@ -2752,6 +4408,18 @@
    "ca": "carbassa"
   },
   "apporte": {
+   "lemma": "apporter",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª pers. sing.",
+    "pt": "verbo · presente · 3.ª pess. sing.",
+    "it": "verbo · presente · 3ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a pers. sing."
+   },
    "en": "brings",
    "fr": "apporte",
    "es": "trae",
@@ -2763,6 +4431,18 @@
    "ca": "porta"
   },
   "grosse": {
+   "lemma": "gros",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · femm. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   },
    "en": "big",
    "fr": "grosse",
    "es": "grande",
@@ -2774,6 +4454,18 @@
    "ca": "gran"
   },
   "jardin": {
+   "lemma": "jardin",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masc. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "nom · masc. sing."
+   },
    "en": "garden",
    "fr": "jardin",
    "es": "jardín",
@@ -2785,6 +4477,18 @@
    "ca": "jardí"
   },
   "touche": {
+   "lemma": "toucher",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª pers. sing.",
+    "pt": "verbo · presente · 3.ª pess. sing.",
+    "it": "verbo · presente · 3ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a pers. sing."
+   },
    "en": "touches",
    "fr": "touche",
    "es": "toca",
@@ -2796,6 +4500,18 @@
    "ca": "toca"
   },
   "baguette": {
+   "lemma": "baguette",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "nom · fem. sing."
+   },
    "en": "wand",
    "fr": "baguette",
    "es": "varita",
@@ -2807,6 +4523,18 @@
    "ca": "varet"
   },
   "magique": {
+   "lemma": "magique",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · femm. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   },
    "en": "magic",
    "fr": "magique",
    "es": "mágica",
@@ -2818,6 +4546,18 @@
    "ca": "màgic"
   },
   "transforme": {
+   "lemma": "se transformer",
+   "grammar": {
+    "en": "verb · pronominal · present · 3rd sing.",
+    "fr": "verbe · pronominal · présent · 3e pers. sing.",
+    "es": "verbo · pronominal · presente · 3.ª pers. sing.",
+    "pt": "verbo · pronominal · presente · 3.ª pess. sing.",
+    "it": "verbo · pronominale · presente · 3ª pers. sing.",
+    "zh-Hans": "动词 · 代词式 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 代詞式 · 現在時 · 第三人稱單數",
+    "ro": "verb · pronominal · prezent · pers. a 3-a sing.",
+    "ca": "verb · pronominal · present · 3a pers. sing."
+   },
    "en": "transforms",
    "fr": "transforme",
    "es": "transforma",
@@ -2829,6 +4569,18 @@
    "ca": "transforma"
   },
   "en": {
+   "lemma": "en",
+   "grammar": {
+    "en": "preposition",
+    "fr": "préposition",
+    "es": "preposición",
+    "pt": "preposição",
+    "it": "preposizione",
+    "zh-Hans": "介词",
+    "zh-Hant": "介詞",
+    "ro": "prepoziție",
+    "ca": "preposició"
+   },
    "en": "into",
    "fr": "en",
    "es": "en",
@@ -2840,6 +4592,18 @@
    "ca": "en"
   },
   "carrosse": {
+   "lemma": "carrosse",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masc. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "nom · masc. sing."
+   },
    "en": "carriage",
    "fr": "carrosse",
    "es": "coche",
@@ -2851,6 +4615,18 @@
    "ca": "carrossa"
   },
   "doré": {
+   "lemma": "doré",
+   "grammar": {
+    "en": "adjective · masc. sing.",
+    "fr": "adjectif · masc. sing.",
+    "es": "adjetivo · masc. sing.",
+    "pt": "adjetivo · masc. sing.",
+    "it": "aggettivo · masc. sing.",
+    "zh-Hans": "形容词 · 阳性单数",
+    "zh-Hant": "形容詞 · 陽性單數",
+    "ro": "adjectiv · masc. sing.",
+    "ca": "adjectiu · masc. sing."
+   },
    "en": "golden",
    "fr": "doré",
    "es": "dorado",
@@ -2862,6 +4638,18 @@
    "ca": "daurat"
   },
   "trouve": {
+   "lemma": "trouver",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª pers. sing.",
+    "pt": "verbo · presente · 3.ª pess. sing.",
+    "it": "verbo · presente · 3ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a pers. sing."
+   },
    "en": "finds",
    "fr": "trouve",
    "es": "encuentra",
@@ -2873,6 +4661,18 @@
    "ca": "troba"
   },
   "six": {
+   "lemma": "six",
+   "grammar": {
+    "en": "numeral · cardinal",
+    "fr": "adjectif numéral · cardinal",
+    "es": "numeral · cardinal",
+    "pt": "numeral · cardinal",
+    "it": "numerale · cardinale",
+    "zh-Hans": "数词 · 基数",
+    "zh-Hant": "數詞 · 基數",
+    "ro": "numeral · cardinal",
+    "ca": "numeral · cardinal"
+   },
    "en": "six",
    "fr": "six",
    "es": "seis",
@@ -2884,6 +4684,18 @@
    "ca": "sis"
   },
   "souris": {
+   "lemma": "souris",
+   "grammar": {
+    "en": "noun · fem. pl.",
+    "fr": "nom · fém. pl.",
+    "es": "sustantivo · fem. pl.",
+    "pt": "substantivo · fem. pl.",
+    "it": "sostantivo · femm. pl.",
+    "zh-Hans": "名词 · 阴性复数",
+    "zh-Hant": "名詞 · 陰性複數",
+    "ro": "substantiv · fem. pl.",
+    "ca": "nom · fem. pl."
+   },
    "en": "mice",
    "fr": "souris",
    "es": "ratones",
@@ -2895,6 +4707,18 @@
    "ca": "ratolins"
   },
   "change": {
+   "lemma": "changer",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª pers. sing.",
+    "pt": "verbo · presente · 3.ª pess. sing.",
+    "it": "verbo · presente · 3ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a pers. sing."
+   },
    "en": "changes",
    "fr": "change",
    "es": "cambia",
@@ -2906,6 +4730,18 @@
    "ca": "canvia"
   },
   "chevaux": {
+   "lemma": "cheval",
+   "grammar": {
+    "en": "noun · masc. pl.",
+    "fr": "nom · masc. pl.",
+    "es": "sustantivo · masc. pl.",
+    "pt": "substantivo · masc. pl.",
+    "it": "sostantivo · masc. pl.",
+    "zh-Hans": "名词 · 阳性复数",
+    "zh-Hant": "名詞 · 陽性複數",
+    "ro": "substantiv · masc. pl.",
+    "ca": "nom · masc. pl."
+   },
    "en": "horses",
    "fr": "chevaux",
    "es": "caballos",
@@ -2917,6 +4753,18 @@
    "ca": "cavalls"
   },
   "blancs": {
+   "lemma": "blanc",
+   "grammar": {
+    "en": "adjective · masc. pl.",
+    "fr": "adjectif · masc. pl.",
+    "es": "adjetivo · masc. pl.",
+    "pt": "adjetivo · masc. pl.",
+    "it": "aggettivo · masc. pl.",
+    "zh-Hans": "形容词 · 阳性复数",
+    "zh-Hant": "形容詞 · 陽性複數",
+    "ro": "adjectiv · masc. pl.",
+    "ca": "adjectiu · masc. pl."
+   },
    "en": "white",
    "fr": "blancs",
    "es": "blancos",
@@ -2928,6 +4776,18 @@
    "ca": "blancs"
   },
   "robe": {
+   "lemma": "robe",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "nom · fem. sing."
+   },
    "en": "dress",
    "fr": "robe",
    "es": "vestido",
@@ -2939,6 +4799,18 @@
    "ca": "vestit"
   },
   "simple": {
+   "lemma": "simple",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · femm. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   },
    "en": "simple",
    "fr": "simple",
    "es": "sencillo",
@@ -2950,6 +4822,18 @@
    "ca": "senzill"
   },
   "devient": {
+   "lemma": "devenir",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª pers. sing.",
+    "pt": "verbo · presente · 3.ª pess. sing.",
+    "it": "verbo · presente · 3ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a pers. sing."
+   },
    "en": "becomes",
    "fr": "devient",
    "es": "se convierte",
@@ -2961,6 +4845,18 @@
    "ca": "esdevé"
   },
   "magnifique": {
+   "lemma": "magnifique",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · femm. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   },
    "en": "magnificent",
    "fr": "magnifique",
    "es": "magnífico",
@@ -2972,6 +4868,18 @@
    "ca": "magnífic"
   },
   "bleue": {
+   "lemma": "bleu",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · femm. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   },
    "en": "blue",
    "fr": "bleue",
    "es": "azul",
@@ -2983,6 +4891,18 @@
    "ca": "blava"
   },
   "petites": {
+   "lemma": "petit",
+   "grammar": {
+    "en": "adjective · fem. pl.",
+    "fr": "adjectif · fém. pl.",
+    "es": "adjetivo · fem. pl.",
+    "pt": "adjetivo · fem. pl.",
+    "it": "aggettivo · femm. pl.",
+    "zh-Hans": "形容词 · 阴性复数",
+    "zh-Hant": "形容詞 · 陰性複數",
+    "ro": "adjectiv · fem. pl.",
+    "ca": "adjectiu · fem. pl."
+   },
    "en": "small",
    "fr": "petites",
    "es": "pequeñas",
@@ -3002,7 +4922,19 @@
    "zh-Hans": "拖鞋",
    "zh-Hant": "拖鞋",
    "ro": "papuci",
-   "ca": "sabatilles"
+   "ca": "sabatilles",
+   "lemma": "pantoufle",
+   "grammar": {
+    "en": "noun · fem. pl.",
+    "fr": "nom · fém. plur.",
+    "es": "sustantivo · fem. plur.",
+    "pt": "substantivo · fem. plur.",
+    "it": "sostantivo · fem. plur.",
+    "zh-Hans": "名词 · 阴性复数",
+    "zh-Hant": "名詞 · 陰性複數",
+    "ro": "substantiv · fem. pl.",
+    "ca": "nom · fem. pl."
+   }
   },
   "verre": {
    "en": "glass",
@@ -3013,7 +4945,19 @@
    "zh-Hans": "玻璃",
    "zh-Hant": "玻璃",
    "ro": "sticlă",
-   "ca": "vidre"
+   "ca": "vidre",
+   "lemma": "verre",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masc. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "nom · masc. sing."
+   }
   },
   "peux": {
    "en": "can",
@@ -3024,7 +4968,19 @@
    "zh-Hans": "能",
    "zh-Hant": "可以",
    "ro": "poți",
-   "ca": "pots"
+   "ca": "pots",
+   "lemma": "pouvoir",
+   "grammar": {
+    "en": "verb · present · 2nd sing.",
+    "fr": "verbe · présent · 2e pers. sing.",
+    "es": "verbo · presente · 2.ª sing.",
+    "pt": "verbo · presente · 2.ª sing.",
+    "it": "verbo · presente · 2ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第二人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第二人稱單數",
+    "ro": "verb · prezent · pers. a 2-a sing.",
+    "ca": "verb · present · 2a sing."
+   }
   },
   "maintenant": {
    "en": "now",
@@ -3035,7 +4991,19 @@
    "zh-Hans": "现在",
    "zh-Hant": "現在",
    "ro": "acum",
-   "ca": "ara"
+   "ca": "ara",
+   "lemma": "maintenant",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "dois": {
    "en": "must",
@@ -3046,7 +5014,19 @@
    "zh-Hans": "必须",
    "zh-Hant": "必須",
    "ro": "trebuie",
-   "ca": "has de"
+   "ca": "has de",
+   "lemma": "devoir",
+   "grammar": {
+    "en": "verb · present · 2nd sing.",
+    "fr": "verbe · présent · 2e pers. sing.",
+    "es": "verbo · presente · 2.ª sing.",
+    "pt": "verbo · presente · 2.ª sing.",
+    "it": "verbo · presente · 2ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第二人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第二人稱單數",
+    "ro": "verb · prezent · pers. a 2-a sing.",
+    "ca": "verb · present · 2a sing."
+   }
   },
   "rentrer": {
    "en": "to return home",
@@ -3057,7 +5037,19 @@
    "zh-Hans": "回家",
    "zh-Hant": "回家",
    "ro": "întoarce",
-   "ca": "tornar"
+   "ca": "tornar",
+   "lemma": "rentrer",
+   "grammar": {
+    "en": "verb · infinitive",
+    "fr": "verbe · infinitif",
+    "es": "verbo · infinitivo",
+    "pt": "verbo · infinitivo",
+    "it": "verbo · infinito",
+    "zh-Hans": "动词 · 不定式",
+    "zh-Hant": "動詞 · 不定式",
+    "ro": "verb · infinitiv",
+    "ca": "verb · infinitiu"
+   }
   },
   "avant": {
    "en": "before",
@@ -3068,7 +5060,19 @@
    "zh-Hans": "在……之前",
    "zh-Hant": "在……之前",
    "ro": "înainte de",
-   "ca": "abans de"
+   "ca": "abans de",
+   "lemma": "avant",
+   "grammar": {
+    "en": "preposition",
+    "fr": "préposition",
+    "es": "preposición",
+    "pt": "preposição",
+    "it": "preposizione",
+    "zh-Hans": "介词",
+    "zh-Hant": "介詞",
+    "ro": "prepoziție",
+    "ca": "preposició"
+   }
   },
   "minuit": {
    "en": "midnight",
@@ -3079,7 +5083,19 @@
    "zh-Hans": "午夜",
    "zh-Hant": "午夜",
    "ro": "miezul nopții",
-   "ca": "mitjanit"
+   "ca": "mitjanit",
+   "lemma": "minuit",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masc. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "nom · masc. sing."
+   }
   },
   "ajoute-t-elle": {
    "en": "she adds",
@@ -3090,7 +5106,19 @@
    "zh-Hans": "她补充说",
    "zh-Hant": "她補充說",
    "ro": "adaugă ea",
-   "ca": "afegeix"
+   "ca": "afegeix",
+   "lemma": "ajouter",
+   "grammar": {
+    "en": "verb · present · 3rd sing. · inversion",
+    "fr": "verbe · présent · 3e pers. sing. · inversion",
+    "es": "verbo · presente · 3.ª sing. · inversión",
+    "pt": "verbo · presente · 3.ª sing. · inversão",
+    "it": "verbo · presente · 3ª sing. · inversione",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数 · 倒装",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數 · 倒裝",
+    "ro": "verb · prezent · pers. a 3-a sing. · inversiune",
+    "ca": "verb · present · 3a sing. · inversió"
+   }
   },
   "sérieusement": {
    "en": "seriously",
@@ -3101,7 +5129,19 @@
    "zh-Hans": "严肃地",
    "zh-Hant": "嚴肅地",
    "ro": "serios",
-   "ca": "seriosament"
+   "ca": "seriosament",
+   "lemma": "sérieusement",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "après": {
    "en": "after",
@@ -3112,7 +5152,19 @@
    "zh-Hans": "在……之后",
    "zh-Hant": "在……之後",
    "ro": "după",
-   "ca": "després de"
+   "ca": "després de",
+   "lemma": "après",
+   "grammar": {
+    "en": "preposition",
+    "fr": "préposition",
+    "es": "preposición",
+    "pt": "preposição",
+    "it": "preposizione",
+    "zh-Hans": "介词",
+    "zh-Hant": "介詞",
+    "ro": "prepoziție",
+    "ca": "preposició"
+   }
   },
   "magie": {
    "en": "magic",
@@ -3123,7 +5175,19 @@
    "zh-Hans": "魔法",
    "zh-Hant": "魔法",
    "ro": "magie",
-   "ca": "màgia"
+   "ca": "màgia",
+   "lemma": "magie",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · fem. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "nom · fem. sing."
+   }
   },
   "disparaît": {
    "en": "disappears",
@@ -3134,7 +5198,19 @@
    "zh-Hans": "消失",
    "zh-Hant": "消失",
    "ro": "dispare",
-   "ca": "desapareix"
+   "ca": "desapareix",
+   "lemma": "disparaître",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "complètement": {
    "en": "completely",
@@ -3145,7 +5221,19 @@
    "zh-Hans": "完全地",
    "zh-Hant": "完全地",
    "ro": "complet",
-   "ca": "completament"
+   "ca": "completament",
+   "lemma": "complètement",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "promet": {
    "en": "promises",
@@ -3156,7 +5244,19 @@
    "zh-Hans": "承诺",
    "zh-Hant": "承諾",
    "ro": "promite",
-   "ca": "promet"
+   "ca": "promet",
+   "lemma": "promettre",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "temps": {
    "en": "time",
@@ -3167,7 +5267,19 @@
    "zh-Hans": "时间",
    "zh-Hant": "時間",
    "ro": "timp",
-   "ca": "temps"
+   "ca": "temps",
+   "lemma": "temps",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masc. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "nom · masc. sing."
+   }
   },
   "part": {
    "en": "leaves",
@@ -3178,7 +5290,19 @@
    "zh-Hans": "离开",
    "zh-Hant": "離開",
    "ro": "pleacă",
-   "ca": "se'n va"
+   "ca": "se'n va",
+   "lemma": "partir",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "invités": {
    "en": "guests",
@@ -3189,7 +5313,19 @@
    "zh-Hans": "客人",
    "zh-Hant": "賓客",
    "ro": "invitați",
-   "ca": "convidats"
+   "ca": "convidats",
+   "lemma": "invité",
+   "grammar": {
+    "en": "noun · masc. pl.",
+    "fr": "nom · masc. plur.",
+    "es": "sustantivo · masc. plur.",
+    "pt": "substantivo · masc. plur.",
+    "it": "sostantivo · masc. plur.",
+    "zh-Hans": "名词 · 阳性复数",
+    "zh-Hant": "名詞 · 陽性複數",
+    "ro": "substantiv · masc. pl.",
+    "ca": "nom · masc. pl."
+   }
   },
   "des": {
    "en": "some",
@@ -3200,7 +5336,19 @@
    "zh-Hans": "一些",
    "zh-Hant": "一些",
    "ro": "niște",
-   "ca": "uns"
+   "ca": "uns",
+   "lemma": "des",
+   "grammar": {
+    "en": "article · indef. pl.",
+    "fr": "article · indéf. plur.",
+    "es": "artículo · indef. plur.",
+    "pt": "artigo · indef. plur.",
+    "it": "articolo · indet. plur.",
+    "zh-Hans": "冠词 · 不定复数",
+    "zh-Hant": "冠詞 · 不定複數",
+    "ro": "articol · nehot. pl.",
+    "ca": "article · indef. pl."
+   }
   },
   "magnifiques": {
    "en": "magnificent",
@@ -3211,7 +5359,19 @@
    "zh-Hans": "华丽的",
    "zh-Hant": "華麗的",
    "ro": "magnifice",
-   "ca": "magnífics"
+   "ca": "magnífics",
+   "lemma": "magnifique",
+   "grammar": {
+    "en": "adjective · pl.",
+    "fr": "adjectif · plur.",
+    "es": "adjetivo · plur.",
+    "pt": "adjetivo · plur.",
+    "it": "aggettivo · plur.",
+    "zh-Hans": "形容词 · 复数",
+    "zh-Hant": "形容詞 · 複數",
+    "ro": "adjectiv · pl.",
+    "ca": "adjectiu · pl."
+   }
   },
   "chers": {
    "en": "expensive",
@@ -3222,7 +5382,19 @@
    "zh-Hans": "昂贵的",
    "zh-Hant": "昂貴的",
    "ro": "scumpe",
-   "ca": "cars"
+   "ca": "cars",
+   "lemma": "cher",
+   "grammar": {
+    "en": "adjective · masc. pl.",
+    "fr": "adjectif · masc. plur.",
+    "es": "adjetivo · masc. plur.",
+    "pt": "adjetivo · masc. plur.",
+    "it": "aggettivo · masc. plur.",
+    "zh-Hans": "形容词 · 阳性复数",
+    "zh-Hant": "形容詞 · 陽性複數",
+    "ro": "adjectiv · masc. pl.",
+    "ca": "adjectiu · masc. pl."
+   }
   },
   "musique": {
    "en": "music",
@@ -3233,7 +5405,19 @@
    "zh-Hans": "音乐",
    "zh-Hant": "音樂",
    "ro": "muzică",
-   "ca": "música"
+   "ca": "música",
+   "lemma": "musique",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · fem. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "nom · fem. sing."
+   }
   },
   "joue": {
    "en": "plays",
@@ -3244,7 +5428,19 @@
    "zh-Hans": "演奏",
    "zh-Hant": "演奏",
    "ro": "cântă",
-   "ca": "sona"
+   "ca": "sona",
+   "lemma": "jouer",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "doucement": {
    "en": "softly",
@@ -3255,7 +5451,19 @@
    "zh-Hans": "轻柔地",
    "zh-Hant": "輕柔地",
    "ro": "încet",
-   "ca": "suaument"
+   "ca": "suaument",
+   "lemma": "doucement",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "pendant": {
    "en": "during",
@@ -3266,7 +5474,19 @@
    "zh-Hans": "在……期间",
    "zh-Hant": "在……期間",
    "ro": "în timpul",
-   "ca": "durant"
+   "ca": "durant",
+   "lemma": "pendant",
+   "grammar": {
+    "en": "preposition",
+    "fr": "préposition",
+    "es": "preposición",
+    "pt": "preposição",
+    "it": "preposizione",
+    "zh-Hans": "介词",
+    "zh-Hant": "介詞",
+    "ro": "prepoziție",
+    "ca": "preposició"
+   }
   },
   "soirée": {
    "en": "evening",
@@ -3277,7 +5497,19 @@
    "zh-Hans": "晚会",
    "zh-Hant": "晚會",
    "ro": "seară",
-   "ca": "vetllada"
+   "ca": "vetllada",
+   "lemma": "soirée",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · fem. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "nom · fem. sing."
+   }
   },
   "monde": {
    "en": "everyone",
@@ -3288,7 +5520,19 @@
    "zh-Hans": "人",
    "zh-Hant": "大家",
    "ro": "lume",
-   "ca": "món"
+   "ca": "món",
+   "lemma": "monde",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masc. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "nom · masc. sing."
+   }
   },
   "regarde": {
    "en": "looks at",
@@ -3299,7 +5543,19 @@
    "zh-Hans": "看着",
    "zh-Hant": "看著",
    "ro": "privește",
-   "ca": "mira"
+   "ca": "mira",
+   "lemma": "regarder",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "belle": {
    "en": "beautiful",
@@ -3310,7 +5566,19 @@
    "zh-Hans": "美丽的",
    "zh-Hant": "美麗的",
    "ro": "frumoasă",
-   "ca": "bonica"
+   "ca": "bonica",
+   "lemma": "belle",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · fem. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   }
   },
   "inconnue": {
    "en": "stranger",
@@ -3321,7 +5589,19 @@
    "zh-Hans": "陌生女子",
    "zh-Hant": "陌生女子",
    "ro": "necunoscută",
-   "ca": "desconeguda"
+   "ca": "desconeguda",
+   "lemma": "inconnue",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · fem. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "nom · fem. sing."
+   }
   },
   "danse": {
    "en": "dances",
@@ -3332,7 +5612,19 @@
    "zh-Hans": "跳舞",
    "zh-Hant": "跳舞",
    "ro": "dansează",
-   "ca": "balla"
+   "ca": "balla",
+   "lemma": "danser",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "seulement": {
    "en": "only",
@@ -3343,7 +5635,19 @@
    "zh-Hans": "只",
    "zh-Hant": "只",
    "ro": "numai",
-   "ca": "només"
+   "ca": "només",
+   "lemma": "seulement",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "personne": {
    "en": "no one",
@@ -3354,7 +5658,19 @@
    "zh-Hans": "没有人",
    "zh-Hant": "沒有人",
    "ro": "nimeni",
-   "ca": "ningú"
+   "ca": "ningú",
+   "lemma": "personne",
+   "grammar": {
+    "en": "pronoun · indefinite",
+    "fr": "pronom · indéfini",
+    "es": "pronombre · indefinido",
+    "pt": "pronome · indefinido",
+    "it": "pronome · indefinito",
+    "zh-Hans": "代词 · 不定",
+    "zh-Hant": "代詞 · 不定",
+    "ro": "pronume · nehotărât",
+    "ca": "pronom · indefinit"
+   }
   },
   "reconnaît": {
    "en": "recognizes",
@@ -3365,7 +5681,19 @@
    "zh-Hans": "认出",
    "zh-Hant": "認出",
    "ro": "recunoaște",
-   "ca": "reconeix"
+   "ca": "reconeix",
+   "lemma": "reconnaître",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "pauvre": {
    "en": "poor",
@@ -3376,7 +5704,19 @@
    "zh-Hans": "可怜的",
    "zh-Hant": "可憐的",
    "ro": "săracă",
-   "ca": "pobra"
+   "ca": "pobra",
+   "lemma": "pauvre",
+   "grammar": {
+    "en": "adjective · sing.",
+    "fr": "adjectif · sing.",
+    "es": "adjetivo · sing.",
+    "pt": "adjetivo · sing.",
+    "it": "aggettivo · sing.",
+    "zh-Hans": "形容词 · 单数",
+    "zh-Hant": "形容詞 · 單數",
+    "ro": "adjectiv · sing.",
+    "ca": "adjectiu · sing."
+   }
   },
   "reconnaissent": {
    "en": "recognize",
@@ -3387,7 +5727,19 @@
    "zh-Hans": "认出",
    "zh-Hant": "認出",
    "ro": "recunosc",
-   "ca": "reconeixen"
+   "ca": "reconeixen",
+   "lemma": "reconnaître",
+   "grammar": {
+    "en": "verb · present · 3rd pl.",
+    "fr": "verbe · présent · 3e pers. plur.",
+    "es": "verbo · presente · 3.ª plur.",
+    "pt": "verbo · presente · 3.ª plur.",
+    "it": "verbo · presente · 3ª plur.",
+    "zh-Hans": "动词 · 现在时 · 第三人称复数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱複數",
+    "ro": "verb · prezent · pers. a 3-a pl.",
+    "ca": "verb · present · 3a pl."
+   }
   },
   "non": {
    "en": "neither",
@@ -3398,7 +5750,19 @@
    "zh-Hans": "不",
    "zh-Hant": "不",
    "ro": "nu",
-   "ca": "no"
+   "ca": "no",
+   "lemma": "non",
+   "grammar": {
+    "en": "adverb · negation",
+    "fr": "adverbe · négation",
+    "es": "adverbio · negación",
+    "pt": "advérbio · negação",
+    "it": "avverbio · negazione",
+    "zh-Hans": "副词 · 否定",
+    "zh-Hant": "副詞 · 否定",
+    "ro": "adverb · negație",
+    "ca": "adverbi · negació"
+   }
   },
   "oublie": {
    "en": "forgets",
@@ -3409,7 +5773,19 @@
    "zh-Hans": "忘记",
    "zh-Hant": "忘記",
    "ro": "uită",
-   "ca": "oblida"
+   "ca": "oblida",
+   "lemma": "oublier",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "heure": {
    "en": "time",
@@ -3420,7 +5796,19 @@
    "zh-Hans": "时间",
    "zh-Hant": "時間",
    "ro": "oră",
-   "ca": "hora"
+   "ca": "hora",
+   "lemma": "heure",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · fem. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "nom · fem. sing."
+   }
   },
   "tant": {
    "en": "so",
@@ -3431,7 +5819,19 @@
    "zh-Hans": "如此",
    "zh-Hant": "如此",
    "ro": "atât de",
-   "ca": "tant"
+   "ca": "tant",
+   "lemma": "tant",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "horloge": {
    "en": "clock",
@@ -3442,7 +5842,19 @@
    "zh-Hans": "时钟",
    "zh-Hant": "時鐘",
    "ro": "ceas",
-   "ca": "rellotge"
+   "ca": "rellotge",
+   "lemma": "horloge",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "substantiu · fem. sing."
+   }
   },
   "sonne": {
    "en": "strikes",
@@ -3453,7 +5865,19 @@
    "zh-Hans": "敲响",
    "zh-Hant": "敲響",
    "ro": "sună",
-   "ca": "sona"
+   "ca": "sona",
+   "lemma": "sonner",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª pers. sing.",
+    "pt": "verbo · presente · 3.ª pes. sing.",
+    "it": "verbo · presente · 3ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a pers. sing."
+   }
   },
   "salon": {
    "en": "living room",
@@ -3464,7 +5888,19 @@
    "zh-Hans": "客厅",
    "zh-Hant": "客廳",
    "ro": "salon",
-   "ca": "saló"
+   "ca": "saló",
+   "lemma": "salon",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masch. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "substantiu · masc. sing."
+   }
   },
   "lève": {
    "en": "gets up",
@@ -3475,7 +5911,19 @@
    "zh-Hans": "起身",
    "zh-Hant": "起身",
    "ro": "ridică",
-   "ca": "aixeca"
+   "ca": "aixeca",
+   "lemma": "se lever",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª pers. sing.",
+    "pt": "verbo · presente · 3.ª pes. sing.",
+    "it": "verbo · presente · 3ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a pers. sing."
+   }
   },
   "vite": {
    "en": "quickly",
@@ -3486,7 +5934,19 @@
    "zh-Hans": "快",
    "zh-Hant": "快速地",
    "ro": "repede",
-   "ca": "ràpidament"
+   "ca": "ràpidament",
+   "lemma": "vite",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "court": {
    "en": "runs",
@@ -3497,7 +5957,19 @@
    "zh-Hans": "跑",
    "zh-Hant": "跑",
    "ro": "aleargă",
-   "ca": "corre"
+   "ca": "corre",
+   "lemma": "courir",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª pers. sing.",
+    "pt": "verbo · presente · 3.ª pes. sing.",
+    "it": "verbo · presente · 3ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a pers. sing."
+   }
   },
   "vers": {
    "en": "towards",
@@ -3508,7 +5980,19 @@
    "zh-Hans": "朝",
    "zh-Hant": "朝",
    "ro": "spre",
-   "ca": "cap a"
+   "ca": "cap a",
+   "lemma": "vers",
+   "grammar": {
+    "en": "preposition",
+    "fr": "préposition",
+    "es": "preposición",
+    "pt": "preposição",
+    "it": "preposizione",
+    "zh-Hans": "介词",
+    "zh-Hant": "介詞",
+    "ro": "prepoziție",
+    "ca": "preposició"
+   }
   },
   "hâte": {
    "en": "haste",
@@ -3519,7 +6003,19 @@
    "zh-Hans": "匆忙",
    "zh-Hant": "匆忙",
    "ro": "grabă",
-   "ca": "pressa"
+   "ca": "pressa",
+   "lemma": "hâte",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "substantiu · fem. sing."
+   }
   },
   "perd": {
    "en": "loses",
@@ -3530,7 +6026,19 @@
    "zh-Hans": "丢失",
    "zh-Hant": "遺失",
    "ro": "pierde",
-   "ca": "perd"
+   "ca": "perd",
+   "lemma": "perdre",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª pers. sing.",
+    "pt": "verbo · presente · 3.ª pes. sing.",
+    "it": "verbo · presente · 3ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a pers. sing."
+   }
   },
   "pantoufle": {
    "en": "slipper",
@@ -3541,7 +6049,19 @@
    "zh-Hans": "拖鞋",
    "zh-Hant": "拖鞋",
    "ro": "papuc",
-   "ca": "sabatilla"
+   "ca": "sabatilla",
+   "lemma": "pantoufle",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "substantiu · fem. sing."
+   }
   },
   "sur": {
    "en": "on",
@@ -3552,7 +6072,19 @@
    "zh-Hans": "在……上",
    "zh-Hant": "在...上",
    "ro": "pe",
-   "ca": "sobre"
+   "ca": "sobre",
+   "lemma": "sur",
+   "grammar": {
+    "en": "preposition",
+    "fr": "préposition",
+    "es": "preposición",
+    "pt": "preposição",
+    "it": "preposizione",
+    "zh-Hans": "介词",
+    "zh-Hant": "介詞",
+    "ro": "prepoziție",
+    "ca": "preposició"
+   }
   },
   "escalier": {
    "en": "stairs",
@@ -3563,7 +6095,19 @@
    "zh-Hans": "楼梯",
    "zh-Hant": "樓梯",
    "ro": "scară",
-   "ca": "escala"
+   "ca": "escala",
+   "lemma": "escalier",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masch. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "substantiu · masc. sing."
+   }
   },
   "ramasse": {
    "en": "picks up",
@@ -3574,7 +6118,19 @@
    "zh-Hans": "捡起",
    "zh-Hant": "撿起",
    "ro": "ridică",
-   "ca": "recull"
+   "ca": "recull",
+   "lemma": "ramasser",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª pers. sing.",
+    "pt": "verbo · presente · 3.ª pes. sing.",
+    "it": "verbo · presente · 3ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a pers. sing."
+   }
   },
   "petite": {
    "en": "small",
@@ -3585,7 +6141,19 @@
    "zh-Hans": "小的",
    "zh-Hant": "小的",
    "ro": "mică",
-   "ca": "petita"
+   "ca": "petita",
+   "lemma": "petit",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · femm. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   }
   },
   "peut": {
    "en": "can",
@@ -3596,7 +6164,19 @@
    "zh-Hans": "能",
    "zh-Hant": "能",
    "ro": "poate",
-   "ca": "pot"
+   "ca": "pot",
+   "lemma": "pouvoir",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª pers. sing.",
+    "pt": "verbo · presente · 3.ª pes. sing.",
+    "it": "verbo · presente · 3ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a pers. sing."
+   }
   },
   "rattraper": {
    "en": "catch",
@@ -3607,7 +6187,19 @@
    "zh-Hans": "追上",
    "zh-Hant": "追上",
    "ro": "ajunge din urmă",
-   "ca": "atrapar"
+   "ca": "atrapar",
+   "lemma": "rattraper",
+   "grammar": {
+    "en": "verb · infinitive",
+    "fr": "verbe · infinitif",
+    "es": "verbo · infinitivo",
+    "pt": "verbo · infinitivo",
+    "it": "verbo · infinito",
+    "zh-Hans": "动词 · 不定式",
+    "zh-Hant": "動詞 · 不定式",
+    "ro": "verb · infinitiv",
+    "ca": "verb · infinitiu"
+   }
   },
   "lendemain": {
    "en": "next day",
@@ -3618,7 +6210,19 @@
    "zh-Hans": "第二天",
    "zh-Hant": "第二天",
    "ro": "a doua zi",
-   "ca": "endemà"
+   "ca": "endemà",
+   "lemma": "lendemain",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masch. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "substantiu · masc. sing."
+   }
   },
   "cherche": {
    "en": "searches",
@@ -3629,7 +6233,19 @@
    "zh-Hans": "寻找",
    "zh-Hant": "尋找",
    "ro": "caută",
-   "ca": "busca"
+   "ca": "busca",
+   "lemma": "chercher",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª pers. sing.",
+    "pt": "verbo · presente · 3.ª pes. sing.",
+    "it": "verbo · presente · 3ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a pers. sing."
+   }
   },
   "partout": {
    "en": "everywhere",
@@ -3640,7 +6256,19 @@
    "zh-Hans": "到处",
    "zh-Hant": "到處",
    "ro": "pretutindeni",
-   "ca": "pertot arreu"
+   "ca": "pertot arreu",
+   "lemma": "partout",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "femme": {
    "en": "woman",
@@ -3651,7 +6279,19 @@
    "zh-Hans": "女人",
    "zh-Hant": "女人",
    "ro": "femeie",
-   "ca": "dona"
+   "ca": "dona",
+   "lemma": "femme",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "substantiu · fem. sing."
+   }
   },
   "mystérieuse": {
    "en": "mysterious",
@@ -3662,7 +6302,19 @@
    "zh-Hans": "神秘的",
    "zh-Hant": "神秘的",
    "ro": "misterioasă",
-   "ca": "misteriosa"
+   "ca": "misteriosa",
+   "lemma": "mystérieux",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · femm. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   }
   },
   "annonce": {
    "en": "announces",
@@ -3673,7 +6325,19 @@
    "zh-Hans": "宣布",
    "zh-Hant": "宣布",
    "ro": "anunță",
-   "ca": "anuncia"
+   "ca": "anuncia",
+   "lemma": "annoncer",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e pers. sing.",
+    "es": "verbo · presente · 3.ª pers. sing.",
+    "pt": "verbo · presente · 3.ª pes. sing.",
+    "it": "verbo · presente · 3ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a pers. sing."
+   }
   },
   "vais": {
    "en": "am going to",
@@ -3684,7 +6348,19 @@
    "zh-Hans": "将要",
    "zh-Hant": "將要",
    "ro": "voi",
-   "ca": "vaig"
+   "ca": "vaig",
+   "lemma": "aller",
+   "grammar": {
+    "en": "verb · present · 1st sing.",
+    "fr": "verbe · présent · 1re pers. sing.",
+    "es": "verbo · presente · 1.ª pers. sing.",
+    "pt": "verbo · presente · 1.ª pes. sing.",
+    "it": "verbo · presente · 1ª pers. sing.",
+    "zh-Hans": "动词 · 现在时 · 第一人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第一人稱單數",
+    "ro": "verb · prezent · pers. 1 sing.",
+    "ca": "verb · present · 1a pers. sing."
+   }
   },
   "épouser": {
    "en": "marry",
@@ -3695,7 +6371,19 @@
    "zh-Hans": "娶",
    "zh-Hant": "娶",
    "ro": "căsători",
-   "ca": "casar-me amb"
+   "ca": "casar-me amb",
+   "lemma": "épouser",
+   "grammar": {
+    "en": "verb · infinitive",
+    "fr": "verbe · infinitif",
+    "es": "verbo · infinitivo",
+    "pt": "verbo · infinitivo",
+    "it": "verbo · infinito",
+    "zh-Hans": "动词 · 不定式",
+    "zh-Hant": "動詞 · 不定式",
+    "ro": "verb · infinitiv",
+    "ca": "verb · infinitiu"
+   }
   },
   "qui": {
    "en": "who",
@@ -3706,7 +6394,19 @@
    "zh-Hans": "谁",
    "zh-Hant": "誰",
    "ro": "care",
-   "ca": "que"
+   "ca": "que",
+   "lemma": "qui",
+   "grammar": {
+    "en": "relative pronoun",
+    "fr": "pronom relatif",
+    "es": "pronombre relativo",
+    "pt": "pronome relativo",
+    "it": "pronome relativo",
+    "zh-Hans": "关系代词",
+    "zh-Hant": "關係代詞",
+    "ro": "pronume relativ",
+    "ca": "pronom relatiu"
+   }
   },
   "cette": {
    "en": "this",
@@ -3717,7 +6417,19 @@
    "zh-Hans": "这个",
    "zh-Hant": "這個",
    "ro": "această",
-   "ca": "aquesta"
+   "ca": "aquesta",
+   "lemma": "ce",
+   "grammar": {
+    "en": "demonstrative adjective · fem. sing.",
+    "fr": "adjectif démonstratif · fém. sing.",
+    "es": "adjetivo demostrativo · fem. sing.",
+    "pt": "adjetivo demonstrativo · fem. sing.",
+    "it": "aggettivo dimostrativo · femm. sing.",
+    "zh-Hans": "指示形容词 · 阴性单数",
+    "zh-Hant": "指示形容詞 · 陰性單數",
+    "ro": "adjectiv demonstrativ · fem. sing.",
+    "ca": "adjectiu demostratiu · fem. sing."
+   }
   },
   "serviteurs": {
    "en": "servants",
@@ -3728,7 +6440,19 @@
    "zh-Hans": "仆人",
    "zh-Hant": "僕人",
    "ro": "servitori",
-   "ca": "servents"
+   "ca": "servents",
+   "lemma": "serviteur",
+   "grammar": {
+    "en": "noun · masc. pl.",
+    "fr": "nom · masc. plur.",
+    "es": "sustantivo · masc. pl.",
+    "pt": "substantivo · masc. pl.",
+    "it": "sostantivo · masch. pl.",
+    "zh-Hans": "名词 · 阳性复数",
+    "zh-Hant": "名詞 · 陽性複數",
+    "ro": "substantiv · masc. pl.",
+    "ca": "substantiu · masc. pl."
+   }
   },
   "visitent": {
    "en": "visit",
@@ -3739,7 +6463,19 @@
    "zh-Hans": "访问",
    "zh-Hant": "拜訪",
    "ro": "vizitează",
-   "ca": "visiten"
+   "ca": "visiten",
+   "lemma": "visiter",
+   "grammar": {
+    "en": "verb · present · 3rd pl.",
+    "fr": "verbe · présent · 3e pers. plur.",
+    "es": "verbo · presente · 3.ª pers. pl.",
+    "pt": "verbo · presente · 3.ª pes. pl.",
+    "it": "verbo · presente · 3ª pers. pl.",
+    "zh-Hans": "动词 · 现在时 · 第三人称复数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱複數",
+    "ro": "verb · prezent · pers. a 3-a pl.",
+    "ca": "verb · present · 3a pers. pl."
+   }
   },
   "maisons": {
    "en": "houses",
@@ -3750,7 +6486,19 @@
    "zh-Hans": "房子",
    "zh-Hant": "房子",
    "ro": "case",
-   "ca": "cases"
+   "ca": "cases",
+   "lemma": "maison",
+   "grammar": {
+    "en": "noun · fem. pl.",
+    "fr": "nom · fém. plur.",
+    "es": "sustantivo · fem. pl.",
+    "pt": "substantivo · fem. pl.",
+    "it": "sostantivo · femm. pl.",
+    "zh-Hans": "名词 · 阴性复数",
+    "zh-Hant": "名詞 · 陰性複數",
+    "ro": "substantiv · fem. pl.",
+    "ca": "substantiu · fem. pl."
+   }
   },
   "enfin": {
    "en": "finally",
@@ -3761,7 +6509,19 @@
    "zh-Hans": "终于",
    "zh-Hant": "終於",
    "ro": "în sfârșit",
-   "ca": "finalment"
+   "ca": "finalment",
+   "lemma": "enfin",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "ils": {
    "en": "they",
@@ -3772,7 +6532,19 @@
    "zh-Hans": "他们",
    "zh-Hant": "他們",
    "ro": "ei",
-   "ca": "ells"
+   "ca": "ells",
+   "lemma": "il",
+   "grammar": {
+    "en": "personal pronoun · masc. pl.",
+    "fr": "pronom personnel · masc. plur.",
+    "es": "pronombre personal · masc. pl.",
+    "pt": "pronome pessoal · masc. pl.",
+    "it": "pronome personale · masch. pl.",
+    "zh-Hans": "人称代词 · 阳性复数",
+    "zh-Hant": "人稱代詞 · 陽性複數",
+    "ro": "pronume personal · masc. pl.",
+    "ca": "pronom personal · masc. pl."
+   }
   },
   "arrivent": {
    "en": "arrive",
@@ -3783,7 +6555,19 @@
    "zh-Hans": "到达",
    "zh-Hant": "到達",
    "ro": "ajung",
-   "ca": "arriben"
+   "ca": "arriben",
+   "lemma": "arriver",
+   "grammar": {
+    "en": "verb · present · 3rd pl.",
+    "fr": "verbe · présent · 3e pers. plur.",
+    "es": "verbo · presente · 3.ª pers. pl.",
+    "pt": "verbo · presente · 3.ª pes. pl.",
+    "it": "verbo · presente · 3ª pers. pl.",
+    "zh-Hans": "动词 · 现在时 · 第三人称复数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱複數",
+    "ro": "verb · prezent · pers. a 3-a pl.",
+    "ca": "verb · present · 3a pers. pl."
+   }
   },
   "chez": {
    "en": "at the home of",
@@ -3794,7 +6578,19 @@
    "zh-Hans": "在……家",
    "zh-Hant": "在...家",
    "ro": "la",
-   "ca": "a casa de"
+   "ca": "a casa de",
+   "lemma": "chez",
+   "grammar": {
+    "en": "preposition",
+    "fr": "préposition",
+    "es": "preposición",
+    "pt": "preposição",
+    "it": "preposizione",
+    "zh-Hans": "介词",
+    "zh-Hant": "介詞",
+    "ro": "prepoziție",
+    "ca": "preposició"
+   }
   },
   "essaient": {
    "en": "try",
@@ -3805,7 +6601,19 @@
    "zh-Hans": "试穿",
    "zh-Hant": "試穿",
    "ro": "încearcă",
-   "ca": "proven"
+   "ca": "proven",
+   "lemma": "essayer",
+   "grammar": {
+    "en": "verb · present · 3rd pl.",
+    "fr": "verbe · présent · 3e pers. plur.",
+    "es": "verbo · presente · 3.ª pers. pl.",
+    "pt": "verbo · presente · 3.ª pes. pl.",
+    "it": "verbo · presente · 3ª pers. pl.",
+    "zh-Hans": "动词 · 现在时 · 第三人称复数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱複數",
+    "ro": "verb · prezent · pers. a 3-a pl.",
+    "ca": "verb · present · 3a pers. pl."
+   }
   },
   "pieds": {
    "en": "feet",
@@ -3816,7 +6624,19 @@
    "zh-Hans": "脚",
    "zh-Hant": "腳",
    "ro": "picioare",
-   "ca": "peus"
+   "ca": "peus",
+   "lemma": "pied",
+   "grammar": {
+    "en": "noun · masc. pl.",
+    "fr": "nom · masc. plur.",
+    "es": "sustantivo · masc. pl.",
+    "pt": "substantivo · masc. pl.",
+    "it": "sostantivo · masch. pl.",
+    "zh-Hans": "名词 · 阳性复数",
+    "zh-Hant": "名詞 · 陽性複數",
+    "ro": "substantiv · masc. pl.",
+    "ca": "substantiu · masc. pl."
+   }
   },
   "trop": {
    "en": "too",
@@ -3827,7 +6647,19 @@
    "zh-Hans": "太",
    "zh-Hant": "太",
    "ro": "prea",
-   "ca": "massa"
+   "ca": "massa",
+   "lemma": "trop",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "grands": {
    "en": "big",
@@ -3838,7 +6670,19 @@
    "zh-Hans": "大的",
    "zh-Hant": "大的",
    "ro": "mari",
-   "ca": "grans"
+   "ca": "grans",
+   "lemma": "grand",
+   "grammar": {
+    "en": "adjective · masc. pl.",
+    "fr": "adjectif · masc. plur.",
+    "es": "adjetivo · masc. pl.",
+    "pt": "adjetivo · masc. pl.",
+    "it": "aggettivo · masch. pl.",
+    "zh-Hans": "形容词 · 阳性复数",
+    "zh-Hant": "形容詞 · 陽性複數",
+    "ro": "adjectiv · masc. pl.",
+    "ca": "adjectiu · masc. pl."
+   }
   },
   "laissez-moi": {
    "en": "let me",
@@ -3849,7 +6693,19 @@
    "zh-Hans": "让我",
    "zh-Hant": "讓我",
    "ro": "lăsați-mă",
-   "ca": "deixeu-me"
+   "ca": "deixeu-me",
+   "lemma": "laisser",
+   "grammar": {
+    "en": "verb · imperative · 2nd pl. + pronoun",
+    "fr": "verbe · impératif · 2e pers. plur. + pronom",
+    "es": "verbo · imperativo · 2.ª pers. pl. + pronombre",
+    "pt": "verbo · imperativo · 2.ª pes. pl. + pronome",
+    "it": "verbo · imperativo · 2ª pers. pl. + pronome",
+    "zh-Hans": "动词 · 命令式 · 第二人称复数 + 代词",
+    "zh-Hant": "動詞 · 命令式 · 第二人稱複數 + 代詞",
+    "ro": "verb · imperativ · pers. a 2-a pl. + pronume",
+    "ca": "verb · imperatiu · 2a pers. pl. + pronom"
+   }
   },
   "essayer": {
    "en": "try",
@@ -3860,7 +6716,19 @@
    "zh-Hans": "试",
    "zh-Hant": "試試",
    "ro": "încerca",
-   "ca": "provar"
+   "ca": "provar",
+   "lemma": "essayer",
+   "grammar": {
+    "en": "verb · infinitive",
+    "fr": "verbe · infinitif",
+    "es": "verbo · infinitivo",
+    "pt": "verbo · infinitivo",
+    "it": "verbo · infinito",
+    "zh-Hans": "动词 · 不定式",
+    "zh-Hant": "動詞 · 不定式",
+    "ro": "verb · infinitiv",
+    "ca": "verb · infinitiu"
+   }
   },
   "rient": {
    "en": "laugh",
@@ -3871,7 +6739,19 @@
    "zh-Hans": "笑",
    "zh-Hant": "笑",
    "ro": "râd",
-   "ca": "riuen"
+   "ca": "riuen",
+   "lemma": "rire",
+   "grammar": {
+    "en": "verb · present · 3rd pl.",
+    "fr": "verbe · présent · 3e pers. plur.",
+    "es": "verbo · presente · 3.ª pers. pl.",
+    "pt": "verbo · presente · 3.ª pes. pl.",
+    "it": "verbo · presente · 3ª pers. pl.",
+    "zh-Hans": "动词 · 现在时 · 第三人称复数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱複數",
+    "ro": "verb · prezent · pers. a 3-a pl.",
+    "ca": "verb · present · 3a pers. pl."
+   }
   },
   "serviteur": {
    "en": "servant",
@@ -3882,7 +6762,19 @@
    "zh-Hans": "仆人",
    "zh-Hant": "僕人",
    "ro": "servitor",
-   "ca": "servent"
+   "ca": "servent",
+   "lemma": "serviteur",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masc. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "nom · masc. sing."
+   }
   },
   "accepte": {
    "en": "accepts",
@@ -3893,7 +6785,19 @@
    "zh-Hans": "接受",
    "zh-Hant": "接受",
    "ro": "acceptă",
-   "ca": "accepta"
+   "ca": "accepta",
+   "lemma": "accepter",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "glisse": {
    "en": "slides",
@@ -3904,7 +6808,19 @@
    "zh-Hans": "滑",
    "zh-Hant": "滑入",
    "ro": "alunecă",
-   "ca": "llisca"
+   "ca": "llisca",
+   "lemma": "glisser",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "parfaitement": {
    "en": "perfectly",
@@ -3915,7 +6831,19 @@
    "zh-Hans": "完美地",
    "zh-Hant": "完美地",
    "ro": "perfect",
-   "ca": "perfectament"
+   "ca": "perfectament",
+   "lemma": "parfaitement",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "pied": {
    "en": "foot",
@@ -3926,7 +6854,19 @@
    "zh-Hans": "脚",
    "zh-Hant": "腳",
    "ro": "picior",
-   "ca": "peu"
+   "ca": "peu",
+   "lemma": "pied",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masc. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "nom · masc. sing."
+   }
   },
   "sort": {
    "en": "takes out",
@@ -3937,7 +6877,19 @@
    "zh-Hans": "拿出",
    "zh-Hant": "拿出",
    "ro": "scoate",
-   "ca": "treu"
+   "ca": "treu",
+   "lemma": "sortir",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "autre": {
    "en": "other",
@@ -3948,7 +6900,19 @@
    "zh-Hans": "另一只",
    "zh-Hant": "另一隻",
    "ro": "cealaltă",
-   "ca": "altre"
+   "ca": "altre",
+   "lemma": "autre",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · femm. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   }
   },
   "poche": {
    "en": "pocket",
@@ -3959,7 +6923,19 @@
    "zh-Hans": "口袋",
    "zh-Hant": "口袋",
    "ro": "buzunar",
-   "ca": "butxaca"
+   "ca": "butxaca",
+   "lemma": "poche",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "nom · fem. sing."
+   }
   },
   "immédiatement": {
    "en": "immediately",
@@ -3970,7 +6946,19 @@
    "zh-Hans": "立刻",
    "zh-Hant": "立刻",
    "ro": "imediat",
-   "ca": "immediatament"
+   "ca": "immediatament",
+   "lemma": "immédiatement",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "tombe": {
    "en": "falls",
@@ -3981,7 +6969,19 @@
    "zh-Hans": "陷入",
    "zh-Hant": "陷入",
    "ro": "cade",
-   "ca": "cau"
+   "ca": "cau",
+   "lemma": "tomber",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "amoureux": {
    "en": "in love",
@@ -3992,7 +6992,19 @@
    "zh-Hans": "爱恋的",
    "zh-Hant": "戀愛",
    "ro": "îndrăgostit",
-   "ca": "enamorat"
+   "ca": "enamorat",
+   "lemma": "amoureux",
+   "grammar": {
+    "en": "adjective · masc. sing.",
+    "fr": "adjectif · masc. sing.",
+    "es": "adjetivo · masc. sing.",
+    "pt": "adjetivo · masc. sing.",
+    "it": "aggettivo · masc. sing.",
+    "zh-Hans": "形容词 · 阳性单数",
+    "zh-Hant": "形容詞 · 陽性單數",
+    "ro": "adjectiv · masc. sing.",
+    "ca": "adjectiu · masc. sing."
+   }
   },
   "seconde": {
    "en": "second",
@@ -4003,7 +7015,19 @@
    "zh-Hans": "第二次",
    "zh-Hant": "第二次",
    "ro": "a doua",
-   "ca": "segona"
+   "ca": "segona",
+   "lemma": "seconde",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · femm. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   }
   },
   "fois": {
    "en": "time",
@@ -4014,7 +7038,19 @@
    "zh-Hans": "次",
    "zh-Hant": "次",
    "ro": "oară",
-   "ca": "vegada"
+   "ca": "vegada",
+   "lemma": "fois",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "nom · fem. sing."
+   }
   },
   "pardonne": {
    "en": "forgives",
@@ -4025,7 +7061,19 @@
    "zh-Hans": "原谅",
    "zh-Hant": "原諒",
    "ro": "iartă",
-   "ca": "perdona"
+   "ca": "perdona",
+   "lemma": "pardonner",
+   "grammar": {
+    "en": "verb · present · 3rd sing.",
+    "fr": "verbe · présent · 3e sing.",
+    "es": "verbo · presente · 3.ª sing.",
+    "pt": "verbo · presente · 3.ª sing.",
+    "it": "verbo · presente · 3ª sing.",
+    "zh-Hans": "动词 · 现在时 · 第三人称单数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱單數",
+    "ro": "verb · prezent · pers. a 3-a sing.",
+    "ca": "verb · present · 3a sing."
+   }
   },
   "marient": {
    "en": "marry",
@@ -4036,7 +7084,19 @@
    "zh-Hans": "结婚",
    "zh-Hant": "結婚",
    "ro": "se căsătoresc",
-   "ca": "es casen"
+   "ca": "es casen",
+   "lemma": "se marier",
+   "grammar": {
+    "en": "verb · pronominal · present · 3rd pl.",
+    "fr": "verbe · pronominal · présent · 3e pl.",
+    "es": "verbo · pronominal · presente · 3.ª pl.",
+    "pt": "verbo · pronominal · presente · 3.ª pl.",
+    "it": "verbo · pronominale · presente · 3ª pl.",
+    "zh-Hans": "动词 · 代词式 · 现在时 · 第三人称复数",
+    "zh-Hant": "動詞 · 代詞式 · 現在時 · 第三人稱複數",
+    "ro": "verb · pronominal · prezent · pers. a 3-a pl.",
+    "ca": "verb · pronominal · present · 3a pl."
+   }
   },
   "bientôt": {
    "en": "soon",
@@ -4047,7 +7107,19 @@
    "zh-Hans": "不久",
    "zh-Hant": "不久",
    "ro": "curând",
-   "ca": "aviat"
+   "ca": "aviat",
+   "lemma": "bientôt",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "château": {
    "en": "castle",
@@ -4058,7 +7130,19 @@
    "zh-Hans": "城堡",
    "zh-Hant": "城堡",
    "ro": "castel",
-   "ca": "castell"
+   "ca": "castell",
+   "lemma": "château",
+   "grammar": {
+    "en": "noun · masc. sing.",
+    "fr": "nom · masc. sing.",
+    "es": "sustantivo · masc. sing.",
+    "pt": "substantivo · masc. sing.",
+    "it": "sostantivo · masc. sing.",
+    "zh-Hans": "名词 · 阳性单数",
+    "zh-Hant": "名詞 · 陽性單數",
+    "ro": "substantiv · masc. sing.",
+    "ca": "nom · masc. sing."
+   }
   },
   "gens": {
    "en": "people",
@@ -4069,7 +7153,19 @@
    "zh-Hans": "人们",
    "zh-Hant": "人們",
    "ro": "oameni",
-   "ca": "gent"
+   "ca": "gent",
+   "lemma": "gens",
+   "grammar": {
+    "en": "noun · fem. pl.",
+    "fr": "nom · fém. pl.",
+    "es": "sustantivo · fem. pl.",
+    "pt": "substantivo · fem. pl.",
+    "it": "sostantivo · femm. pl.",
+    "zh-Hans": "名词 · 阴性复数",
+    "zh-Hant": "名詞 · 陰性複數",
+    "ro": "substantiv · fem. pl.",
+    "ca": "nom · fem. pl."
+   }
   },
   "parlent": {
    "en": "talk",
@@ -4080,7 +7176,19 @@
    "zh-Hans": "谈论",
    "zh-Hant": "談論",
    "ro": "vorbesc",
-   "ca": "parlen"
+   "ca": "parlen",
+   "lemma": "parler",
+   "grammar": {
+    "en": "verb · present · 3rd pl.",
+    "fr": "verbe · présent · 3e pl.",
+    "es": "verbo · presente · 3.ª pl.",
+    "pt": "verbo · presente · 3.ª pl.",
+    "it": "verbo · presente · 3ª pl.",
+    "zh-Hans": "动词 · 现在时 · 第三人称复数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱複數",
+    "ro": "verb · prezent · pers. a 3-a pl.",
+    "ca": "verb · present · 3a pl."
+   }
   },
   "histoire": {
    "en": "story",
@@ -4091,7 +7199,19 @@
    "zh-Hans": "故事",
    "zh-Hant": "故事",
    "ro": "poveste",
-   "ca": "història"
+   "ca": "història",
+   "lemma": "histoire",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "nom · fem. sing."
+   }
   },
   "extraordinaire": {
    "en": "extraordinary",
@@ -4102,7 +7222,19 @@
    "zh-Hans": "非凡的",
    "zh-Hant": "非凡的",
    "ro": "extraordinar",
-   "ca": "extraordinària"
+   "ca": "extraordinària",
+   "lemma": "extraordinaire",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · femm. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   }
   },
   "princesse": {
    "en": "princess",
@@ -4113,7 +7245,19 @@
    "zh-Hans": "公主",
    "zh-Hant": "公主",
    "ro": "prințesă",
-   "ca": "princesa"
+   "ca": "princesa",
+   "lemma": "princesse",
+   "grammar": {
+    "en": "noun · fem. sing.",
+    "fr": "nom · fém. sing.",
+    "es": "sustantivo · fem. sing.",
+    "pt": "substantivo · fem. sing.",
+    "it": "sostantivo · femm. sing.",
+    "zh-Hans": "名词 · 阴性单数",
+    "zh-Hant": "名詞 · 陰性單數",
+    "ro": "substantiv · fem. sing.",
+    "ca": "nom · fem. sing."
+   }
   },
   "aimée": {
    "en": "loved",
@@ -4124,7 +7268,19 @@
    "zh-Hans": "被爱戴的",
    "zh-Hant": "受愛戴的",
    "ro": "iubită",
-   "ca": "estimada"
+   "ca": "estimada",
+   "lemma": "aimé",
+   "grammar": {
+    "en": "adjective · fem. sing.",
+    "fr": "adjectif · fém. sing.",
+    "es": "adjetivo · fem. sing.",
+    "pt": "adjetivo · fem. sing.",
+    "it": "aggettivo · femm. sing.",
+    "zh-Hans": "形容词 · 阴性单数",
+    "zh-Hant": "形容詞 · 陰性單數",
+    "ro": "adjectiv · fem. sing.",
+    "ca": "adjectiu · fem. sing."
+   }
   },
   "par": {
    "en": "by",
@@ -4135,7 +7291,19 @@
    "zh-Hans": "被",
    "zh-Hant": "被",
    "ro": "de",
-   "ca": "per"
+   "ca": "per",
+   "lemma": "par",
+   "grammar": {
+    "en": "preposition",
+    "fr": "préposition",
+    "es": "preposición",
+    "pt": "preposição",
+    "it": "preposizione",
+    "zh-Hans": "介词",
+    "zh-Hant": "介詞",
+    "ro": "prepoziție",
+    "ca": "preposició"
+   }
   },
   "vivent": {
    "en": "live",
@@ -4146,7 +7314,19 @@
    "zh-Hans": "生活",
    "zh-Hant": "生活",
    "ro": "trăiesc",
-   "ca": "viuen"
+   "ca": "viuen",
+   "lemma": "vivre",
+   "grammar": {
+    "en": "verb · present · 3rd pl.",
+    "fr": "verbe · présent · 3e pl.",
+    "es": "verbo · presente · 3.ª pl.",
+    "pt": "verbo · presente · 3.ª pl.",
+    "it": "verbo · presente · 3ª pl.",
+    "zh-Hans": "动词 · 现在时 · 第三人称复数",
+    "zh-Hant": "動詞 · 現在時 · 第三人稱複數",
+    "ro": "verb · prezent · pers. a 3-a pl.",
+    "ca": "verb · present · 3a pl."
+   }
   },
   "heureux": {
    "en": "happy",
@@ -4157,7 +7337,19 @@
    "zh-Hans": "幸福的",
    "zh-Hant": "幸福的",
    "ro": "fericiți",
-   "ca": "feliços"
+   "ca": "feliços",
+   "lemma": "heureux",
+   "grammar": {
+    "en": "adjective · masc. pl.",
+    "fr": "adjectif · masc. pl.",
+    "es": "adjetivo · masc. pl.",
+    "pt": "adjetivo · masc. pl.",
+    "it": "aggettivo · masc. pl.",
+    "zh-Hans": "形容词 · 阳性复数",
+    "zh-Hant": "形容詞 · 陽性複數",
+    "ro": "adjectiv · masc. pl.",
+    "ca": "adjectiu · masc. pl."
+   }
   },
   "ensemble": {
    "en": "together",
@@ -4168,7 +7360,19 @@
    "zh-Hans": "一起",
    "zh-Hant": "一起",
    "ro": "împreună",
-   "ca": "junts"
+   "ca": "junts",
+   "lemma": "ensemble",
+   "grammar": {
+    "en": "adverb",
+    "fr": "adverbe",
+    "es": "adverbio",
+    "pt": "advérbio",
+    "it": "avverbio",
+    "zh-Hans": "副词",
+    "zh-Hant": "副詞",
+    "ro": "adverb",
+    "ca": "adverbi"
+   }
   },
   "nombreuses": {
    "en": "many",
@@ -4179,7 +7383,19 @@
    "zh-Hans": "许多",
    "zh-Hant": "許多的",
    "ro": "multe",
-   "ca": "nombrosos"
+   "ca": "nombrosos",
+   "lemma": "nombreux",
+   "grammar": {
+    "en": "adjective · fem. pl.",
+    "fr": "adjectif · fém. pl.",
+    "es": "adjetivo · fem. pl.",
+    "pt": "adjetivo · fem. pl.",
+    "it": "aggettivo · femm. pl.",
+    "zh-Hans": "形容词 · 阴性复数",
+    "zh-Hant": "形容詞 · 陰性複數",
+    "ro": "adjectiv · fem. pl.",
+    "ca": "adjectiu · fem. pl."
+   }
   },
   "années": {
    "en": "years",
@@ -4190,7 +7406,19 @@
    "zh-Hans": "年",
    "zh-Hant": "年",
    "ro": "ani",
-   "ca": "anys"
+   "ca": "anys",
+   "lemma": "année",
+   "grammar": {
+    "en": "noun · fem. pl.",
+    "fr": "nom · fém. pl.",
+    "es": "sustantivo · fem. pl.",
+    "pt": "substantivo · fem. pl.",
+    "it": "sostantivo · femm. pl.",
+    "zh-Hans": "名词 · 阴性复数",
+    "zh-Hant": "名詞 · 陰性複數",
+    "ro": "substantiv · fem. pl.",
+    "ca": "nom · fem. pl."
+   }
   }
  }
 }

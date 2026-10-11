@@ -178,6 +178,17 @@ export interface Token {
    */
   spaceBefore: boolean;
   glosses?: Record<string, string>;
+  /**
+   * Dictionary form in the content language (infinitive for verbs, masculine
+   * singular for adjectives, singular for nouns). Omitted when it equals the
+   * word as written. Filled at build time alongside glosses.
+   */
+  lemma?: string;
+  /**
+   * Short grammatical tag per explanation locale, e.g. en: "verb, passé
+   * composé, 3rd person singular". Filled at build time alongside glosses.
+   */
+  grammar?: Record<string, string>;
   pinyin?: string;
   startMs?: number;
   endMs?: number;

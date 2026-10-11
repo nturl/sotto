@@ -280,6 +280,15 @@ function wordListFor(words: GlossFillWord[]): string {
   return words.map((w) => `- "${w.word}" (in context: "${w.contextSentence}")`).join('\n');
 }
 
+const GRAMMAR_SHAPE_EXAMPLE = JSON.stringify({
+  mangé: {
+    lemma: 'manger',
+    grammar: Object.fromEntries(
+      GLOSS_LOCALES.map((l) => [l, l === 'en' ? 'verb · past participle' : '...']),
+    ),
+  },
+});
+
 /** The lemma/grammar instructions shared by the gloss and backfill prompts. */
 function grammarInstructions(contentLanguageName: string): string {
   const localeNames = GLOSS_LOCALES.map((locale) => `${LOCALE_NAMES[locale]} (${locale})`).join(
@@ -288,6 +297,7 @@ function grammarInstructions(contentLanguageName: string): string {
   return [
     `"lemma": the dictionary form in ${contentLanguageName} for the word as used in its sentence (infinitive for verbs, including reflexive verbs such as "se lever"; singular for nouns; masculine singular for adjectives; for Chinese, just the word itself).`,
     `"grammar": an object with keys ${GLOSS_LOCALES.join(', ')}, each a short grammatical tag for this occurrence written in that language (${localeNames}), at most 40 characters, parts separated by " · ". Examples in English: "verb · passé composé · 3rd sing.", "noun · fem. pl.", "article · fem. sing.", "preposition". Read the context sentence: the same spelling can be a different word (French "est" can be the verb être or the noun meaning east).`,
+    `"grammar" must always be an object with all ${GLOSS_LOCALES.length} locale keys, never a single string. Shape for one word: ${GRAMMAR_SHAPE_EXAMPLE}`,
   ].join(' ');
 }
 

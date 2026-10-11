@@ -59,6 +59,7 @@ import {
   sentenceHighlight,
   type PanelRowId,
 } from '../../src/ui/reader/readerPanel';
+import { spanBreakdown, wordForm } from '../../src/ui/reader/wordGrammar';
 import { DESKTOP_BREAKPOINT, Shell } from '../../src/ui/Shell';
 import { webCursor } from '../../src/ui/tokens';
 import {
@@ -687,11 +688,17 @@ export default function ReaderScreen() {
     : isSpanSelection
       ? spanGlossFallback
       : !!glossFallback;
-  // The mockup's `.ph` form line ("trouver · third person, present"). The
-  // Token model (packages/core/src/models.ts) carries neither `lemma` nor a
-  // part-of-speech field, so the only per-token form data that exists today
-  // is CJK pinyin — see planning/run8/D-report.md. No placeholder otherwise.
-  const formLine = !isSpanSelection && cjk ? selectedToken?.token.pinyin : undefined;
+  // The mockup's `.ph` form line ("from se lever · verb, passé composé").
+  // CJK pinyin leads when present; lemma and grammar come from the build
+  // pipeline and are absent on older books, so the line is then omitted.
+  const pinyin = !isSpanSelection && cjk ? selectedToken?.token.pinyin : undefined;
+  const form =
+    !isSpanSelection && selectedToken
+      ? wordForm(selectedToken.token, explanationLocale)
+      : undefined;
+  const formLine = pinyin || form ? 'form' : undefined;
+  const breakdown =
+    isSpanSelection && spanTokens ? spanBreakdown(spanTokens, explanationLocale) : [];
   const speakerStartMs = isSpanSelection ? spanFirst?.startMs : selectedToken?.token.startMs;
   const hasSpeaker = speakerStartMs !== undefined && !!audioUri;
   const selectedTokenIdList = selectedToken
@@ -809,7 +816,20 @@ export default function ReaderScreen() {
                   color="ink2"
                   style={styles.formLine}
                 >
-                  {formLine}
+                  {[
+                    pinyin,
+                    form?.lemma ? (
+                      <Text key="lemma" role="mono" size={12} color="ink2">
+                        {t('reader.lemmaFrom')}{' '}
+                        <Text role="mono" size={12} color="ink" style={styles.formLemma}>
+                          {form.lemma}
+                        </Text>
+                      </Text>
+                    ) : null,
+                    form?.grammar ?? null,
+                  ]
+                    .filter(Boolean)
+                    .flatMap((part, i) => (i === 0 ? [part] : [' · ', part]))}
                 </Text>
               ) : null}
             </View>
@@ -883,6 +903,28 @@ export default function ReaderScreen() {
             <Text role="ui" size={14} color="ink2" style={styles.sentenceDetail}>
               {sentenceTranslation}
             </Text>
+          ) : null}
+
+          {breakdown.length > 0 ? (
+            <View testID="reader-panel-breakdown" style={styles.panelSection}>
+              <Text role="mono" color="ink2" style={styles.panelEyebrow}>
+                {t('reader.wordByWord')}
+              </Text>
+              {breakdown.map((row) => (
+                <Text key={row.id} role="ui" size={14} color="ink2">
+                  <Text
+                    role="ui"
+                    size={14}
+                    // @ts-expect-error -- web-only prop; RN Web forwards it, native ignores unknown props.
+                    lang={locale}
+                  >
+                    {row.word}
+                  </Text>
+                  {row.lemma ? ` → ${row.lemma}` : ''}
+                  {row.grammar ? ` · ${row.grammar}` : ''}
+                </Text>
+              ))}
+            </View>
           ) : null}
 
           {shows('reader-panel-passage') && passageParts ? (
@@ -1453,6 +1495,9 @@ function createStyles(colors: ThemeColors) {
       // Mockup `.ph`: mono 12, tracking .04em (Text's mono role tracks at
       // .08em, so this narrows it back down for this one line).
       letterSpacing: 0.04 * 12,
+    },
+    formLemma: {
+      fontWeight: '600',
     },
     panelActions: {
       flexDirection: 'row',

@@ -32,8 +32,8 @@ export interface TutorModelSpec {
  * `standard`; `large` is offered only where `deviceSupportsLargeTier()`
  * (apps/client/src/voice/availability.ts) says the machine can hold it.
  *
- * standard  whisper-base + Qwen3.5 2B + Kokoro — the phone/8 GB-laptop tier.
- * large     whisper-small + Qwen3.5 4B + Kokoro — noticeably better at
+ * standard  whisper-base + Qwen3.5 2B + Paradee — the phone/8 GB-laptop tier.
+ * large     whisper-small + Qwen3.5 4B + Paradee — noticeably better at
  *           picking speech up, and at answering, on a capable computer.
  *
  * Both LLM ids are in @mlc-ai/web-llm 0.2.84's `prebuiltAppConfig`, their
@@ -94,7 +94,8 @@ export interface TutorModelSpec {
  * ever calls it for English books (see worker.ts's honest label above
  * `loadTts`): fr/es prompts still need the STT+LLM stages, and the panel
  * would otherwise have to explain a locale-conditional download list before
- * any book is chosen.
+ * any book is chosen. With Paradee that costs a French or Spanish learner
+ * 9 MB they never hear, against the 312 MB Kokoro cost them.
  */
 
 /** Which download size the learner picked. Missing preference = 'standard'. */
@@ -111,29 +112,38 @@ export interface TutorTierSpec {
 /**
  * Both tiers speak with the same voice; only STT and the LLM change.
  *
- * 312 MB, not the 90 MB this said through run 9 lane C: on WebGPU the
- * worker now loads Kokoro at **fp32**, because q8 on WebGPU emits noise
- * (`TTS_DTYPE` in worker.ts has the WER table). fp32 is
- * `onnx/model.onnx`, 310.4 MB, against `onnx/model_quantized.onnx`'s
- * 88.1 MB — plus the tokenizer/config and the one 0.5 MB voice file
- * kokoro-js fetches, the same rounding every other row here uses.
+ * Paradee, not Kokoro, since 2026-10-11. Paradee-8M
+ * (sahilmahendrakar/Paradee-8M-v1.0, Apache-2.0, arXiv 2610.06817) is
+ * Kokoro-82M distilled to 8M parameters for exactly one voice, `af_heart`,
+ * which is the only voice this tutor ever used. The trade, measured by the
+ * repo's own ear (`packages/voice/scripts/tts-roundtrip.mjs DTYPES=paradee`,
+ * numbers in planning/paradee/eval-wide.md):
  *
- * `sizeMb` has no device axis, and the panel shows this number BEFORE the
- * download, i.e. before the worker has probed for WebGPU — so there is no
- * honest way to show 90 to the machines that will only ever get the wasm
- * fallback. It shows the larger number to everyone. Over-stating a
- * download by 220 MB costs a wasm-only learner nothing but a pleasant
- * surprise; under-stating it by 220 MB is a number someone acted on with a
- * metered connection (run 9 lane R, P0-3). If a device-aware size is ever
- * wanted, the fix is a `sizeMb` per device on `TutorModelSpec` and a probe
- * in the panel, not a smaller constant here.
+ *   Kokoro fp32 on WebGPU  312 MB  needs WebGPU, shares the GPU with the LLM
+ *   Paradee int8 on wasm     9 MB  any CPU, one thread, leaves the GPU alone
+ *
+ * Kokoro was 312 MB because q8 on WebGPU emits noise, so the worker had to
+ * load fp32 (run 9 lane C's WER table, still in worker.ts's history). That
+ * whole problem is gone: Paradee only runs on wasm, where int8 is fine.
+ *
+ * The id is the HF repo (the download progress key, as for every row);
+ * `PARADEE_MODEL_URL` pins the exact file to a commit so a re-upload to
+ * `main` cannot change what a learner downloads under the same marker.
  */
-const KOKORO: TutorModelSpec = {
-  id: 'onnx-community/Kokoro-82M-v1.0-ONNX',
-  name: 'Kokoro 82M (text to speech)',
-  sizeMb: 312,
+const PARADEE: TutorModelSpec = {
+  id: 'sahilmahendrakar/Paradee-8M-v1.0',
+  name: 'Paradee 8M (text to speech)',
+  // paradee_int8.onnx is 9,037,971 bytes; kokoro-js's phonemizer is bundled
+  // into the worker, so nothing else is fetched for this stage.
+  sizeMb: 9,
   stage: 'tts',
 };
+
+export const PARADEE_MODEL_URL =
+  'https://huggingface.co/sahilmahendrakar/Paradee-8M-v1.0/resolve/c7f83f86c04e84d0ae94cbe1aad7618e0544f80a/onnx/paradee_int8.onnx';
+
+/** Where the worker keeps Paradee's weights (one Response, keyed by URL). */
+export const PARADEE_CACHE = 'sotto-paradee';
 
 /** fp32 encoder / q8 decoder, for both whisper sizes — see the note above. */
 const WHISPER_DTYPE = { encoder_model: 'fp32', decoder_model_merged: 'q8' };
@@ -157,7 +167,7 @@ export const TUTOR_TIERS: Record<TutorTier, TutorTierSpec> = {
       sizeMb: 1016,
       stage: 'llm',
     },
-    tts: KOKORO,
+    tts: PARADEE,
   },
   large: {
     tier: 'large',
@@ -177,7 +187,7 @@ export const TUTOR_TIERS: Record<TutorTier, TutorTierSpec> = {
       sizeMb: 2264,
       stage: 'llm',
     },
-    tts: KOKORO,
+    tts: PARADEE,
   },
 };
 
@@ -234,6 +244,7 @@ export const MARKER_CACHE = 'sotto-tutor-models';
 
 /** Library caches that "Remove models" deletes outright. */
 export const LIBRARY_CACHES = [
+  PARADEE_CACHE,
   'transformers-cache',
   'experimental_transformers-hash-cache',
   'kokoro-voices',
@@ -275,6 +286,17 @@ export async function markModelCached(modelId: string): Promise<void> {
   } catch {
     // A private window or a browser with site data blocked: the model still
     // works this session, it just won't be remembered. Not worth surfacing.
+  }
+}
+
+/** Forgets one model's marker (a model this build no longer uses). */
+export async function unmarkModelCached(modelId: string): Promise<void> {
+  try {
+    await cacheStorage()
+      ?.open(MARKER_CACHE)
+      .then((cache) => cache.delete(markerUrl(modelId)));
+  } catch {
+    // Same as markModelCached: nothing useful to surface.
   }
 }
 

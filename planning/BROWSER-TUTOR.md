@@ -88,7 +88,7 @@ of it is onnxruntime wasm.
 | onnxruntime wasm runtime (~77 MB, 8 files) | our own origin, `/tutor/ort/` | on first tutor use |
 | whisper weights (~95 MB) | Hugging Face hub | on explicit opt-in |
 | Qwen3 weights (~1.1 GB, slice 2) | MLC CDN | on explicit opt-in |
-| Kokoro weights (~90 MB, slice 3) | Hugging Face hub | on explicit opt-in |
+| Paradee weights (9 MB, slice 3; Kokoro's 312 MB until 2026-10-11) | Hugging Face hub | on explicit opt-in |
 
 Serving onnxruntime ourselves rather than from a CDN means the app reaches
 exactly one third-party host, only while a download the learner asked for is
@@ -127,10 +127,10 @@ provider and the worker payload all read.
 |---|---|---|---|---|
 | standard | STT | `onnx-community/whisper-base`, encoder fp32 + decoder_merged q8 | 134 MB | encoder dtype changed fp16→fp32 2026-09-05, see below |
 | standard | LLM | `Qwen3.5-2B-q4f16_1-MLC` | 1,016 MB | replaced Qwen3 1.7B 2026-09-06 (latency + listening) |
-| standard | TTS | Kokoro 82M ONNX | 90 MB | |
+| standard | TTS | Paradee 8M ONNX (int8, wasm) | 9 MB | was Kokoro 82M, 312 MB fp32 |
 | large | STT | `onnx-community/whisper-small`, encoder fp32 + decoder_merged q8 | 490 MB | same dtype rule, including the wasm decoder upgrade |
 | large | LLM | `Qwen3.5-4B-q4f16_1-MLC` | 2,264 MB | offered only where `deviceSupportsLargeTier()` passes |
-| large | TTS | Kokoro 82M ONNX | 90 MB | |
+| large | TTS | Paradee 8M ONNX (int8, wasm) | 9 MB | was Kokoro 82M, 312 MB fp32 |
 
 Totals: **1,240 MB** standard, **2,844 MB** large.
 

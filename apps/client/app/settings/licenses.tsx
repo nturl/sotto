@@ -161,6 +161,7 @@ export default function LicensesScreen() {
         <LicenseRow label={t('settings.licenses.codeLabel')} value="Apache-2.0" />
         <LicenseRow label={t('settings.licenses.textLabel')} value="CC BY-SA 4.0" />
         <LicenseRow label={t('settings.licenses.kokoroCredit')} value="Apache-2.0" />
+        <LicenseRow label={t('settings.licenses.paradeeCredit')} value="Apache-2.0" />
         <LicenseRow label={t('settings.licenses.sttCredit')} value="MIT" last />
       </Card>
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* global process, console, Buffer */
+/* global process, console, Buffer, fetch */
 /**
  * Lane C's objective ear (planning/run9/cards/C-tts-integrity.md, output 1).
  *
@@ -21,7 +21,9 @@
  * Usage:
  *   node packages/voice/scripts/tts-roundtrip.mjs
  *     OUT_DIR=~/Claude/sotto-run9/C   where the WAVs go (default: cwd/tts-out)
- *     DTYPES=q8,fp32                  which Kokoro dtypes to try
+ *     DTYPES=q8,fp32                  which Kokoro dtypes to try; `paradee`
+ *                                     runs the 9 MB Paradee voice the worker
+ *                                     ships (onnxruntime-web wasm, 1 thread)
  *     ONLY=husky                      run one sentence id only
  *     PREPARED=1                      pipe each sentence through
  *                                     `prepareForSpeech` first (the fix),
@@ -53,7 +55,7 @@ const PREPARED = process.env.PREPARED === '1';
  * carries the markdown a 2B model emits. `expect` is what a human would say
  * the audio should read as — it is what WER scores against, so the markdown
  * case is scored against its PROSE, not against its asterisks. */
-const SENTENCES = [
+const BUILTIN_SENTENCES = [
   {
     id: 'husky',
     text: 'The dog was a big native husky, the proper wolf-dog, gray-coated and without any visible or temperamental difference from its brother, the wild wolf.',
@@ -91,6 +93,11 @@ const SENTENCES = [
     expect: 'The temperature fell to 50 degrees and 90 percent of the men and dogs were exhausted.',
   },
 ];
+
+/** SENTENCES_FILE: path to a JSON array of {id,text,expect?} replacing the built-ins. */
+const SENTENCES = process.env.SENTENCES_FILE
+  ? JSON.parse(readFileSync(resolve(process.env.SENTENCES_FILE), 'utf8'))
+  : BUILTIN_SENTENCES;
 
 // ---- WER ----
 
@@ -219,6 +226,46 @@ async function scoreManifest() {
   }
 }
 
+// ---- Paradee ----
+
+/** The worker's Paradee path, in Node: kokoro-js phonemizes, paradee-text.ts
+ * converts to misaki and tokenizes, onnxruntime-web (wasm, one thread, the
+ * browser's runtime) runs the graph. Weights are fetched once from the same
+ * pinned URL the worker uses and kept in OUT_DIR. */
+async function loadParadee(KokoroTTS) {
+  const ort = await import('onnxruntime-web');
+  const { toMisaki, paradeeIds, PARADEE_SAMPLE_RATE } =
+    await import('../src/browser-cascade/paradee-text.ts');
+  const { PARADEE_MODEL_URL } = await import('../src/browser-cascade/models.ts');
+  const file = resolve(OUT_DIR, 'paradee_int8.onnx');
+  let bytes;
+  try {
+    bytes = readFileSync(file);
+  } catch {
+    const res = await fetch(PARADEE_MODEL_URL);
+    if (!res.ok) throw new Error(`paradee download ${res.status}`);
+    bytes = Buffer.from(await res.arrayBuffer());
+    writeFileSync(file, bytes);
+  }
+  ort.env.wasm.numThreads = 1;
+  const session = await ort.InferenceSession.create(new Uint8Array(bytes), {
+    executionProviders: ['wasm'],
+  });
+  const { RawAudio } = await import('@huggingface/transformers');
+  const tts = new KokoroTTS(null, (phonemes) => {
+    const ids = paradeeIds(toMisaki(phonemes));
+    return { input_ids: new ort.Tensor('int64', BigInt64Array.from(ids, BigInt), [1, ids.length]) };
+  });
+  tts.generate_from_ids = async (input_ids, { speed = 1 } = {}) => {
+    const { waveform } = await session.run({
+      input_ids,
+      speed: new ort.Tensor('float32', new Float32Array([speed]), [1]),
+    });
+    return new RawAudio(waveform.data, PARADEE_SAMPLE_RATE);
+  };
+  return tts;
+}
+
 // ---- main ----
 
 async function main() {
@@ -242,13 +289,18 @@ async function main() {
 
   const rows = [];
   for (const dtype of DTYPES) {
-    process.stderr.write(`loading kokoro dtype=${dtype} (cpu)…\n`);
+    process.stderr.write(
+      `loading ${dtype === 'paradee' ? 'paradee' : `kokoro dtype=${dtype}`} (cpu)…\n`,
+    );
     let tts;
     try {
-      tts = await KokoroTTS.from_pretrained('onnx-community/Kokoro-82M-v1.0-ONNX', {
-        dtype,
-        device: 'cpu',
-      });
+      tts =
+        dtype === 'paradee'
+          ? await loadParadee(KokoroTTS)
+          : await KokoroTTS.from_pretrained('onnx-community/Kokoro-82M-v1.0-ONNX', {
+              dtype,
+              device: 'cpu',
+            });
     } catch (err) {
       process.stderr.write(`  dtype=${dtype} unavailable: ${err?.message ?? err}\n`);
       for (const s of SENTENCES) rows.push({ id: s.id, dtype, wer: null, note: 'load failed' });
@@ -272,6 +324,9 @@ async function main() {
         off += c.length;
       }
       const ms = Date.now() - started;
+      process.stderr.write(
+        `  ${s.id}/${dtype}: ${ms} ms for ${(total / 24000).toFixed(1)} s of audio\n`,
+      );
       const name = `${s.id}.${dtype}${PREPARED ? '.prepared' : ''}.wav`;
       writeFileSync(resolve(OUT_DIR, name), wavFromFloat32(pcm, 24000));
       // `chunk_length_s` matters: the 60-word fixture runs past whisper's

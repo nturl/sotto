@@ -14,15 +14,17 @@
  * (llm-turn.ts) against a WebLLM Qwen3 engine — sentence-chunked captions,
  * `reading`/`pace` markers, and a full tool-call round trip relayed through
  * the main thread.
- * Slice 3: each sentence is also handed to Kokoro for speech. See the
+ * Slice 3: each sentence is also handed to Paradee (a distilled Kokoro) for speech. See the
  * honesty note above `speakSentence` for what that does and does not cover.
  */
 import {
   env,
   pipeline,
+  RawAudio,
   type AutomaticSpeechRecognitionPipeline,
   type ProgressInfo,
 } from '@huggingface/transformers';
+import * as ort from 'onnxruntime-web';
 import { CreateMLCEngine, type MLCEngine } from '@mlc-ai/web-llm';
 import { KokoroTTS } from 'kokoro-js';
 import { buildSystemInstruction, TOOL_DEFINITIONS, type TutorPassageContext } from '@sotto/core';
@@ -46,7 +48,11 @@ import {
   type LlmEngine,
   type ToolCallResult,
 } from './llm-turn.ts';
-import { TTS_MODEL } from './models.ts';
+import { PARADEE_CACHE, PARADEE_MODEL_URL, TTS_MODEL, unmarkModelCached } from './models.ts';
+
+/** The tutor's voice before Paradee; its cached files are deleted on upgrade. */
+const KOKORO_ID = 'onnx-community/Kokoro-82M-v1.0-ONNX';
+import { paradeeIds, PARADEE_SAMPLE_RATE, toMisaki } from './paradee-text.ts';
 import { parseJsonToolBlock, withJsonToolInstruction } from './tool-protocol.ts';
 import { prepareForSpeech } from './tts-text.ts';
 import { maxTokensForMode } from './reply-shape.ts';
@@ -65,6 +71,7 @@ import {
 // third-party host to reach, and only while downloading.
 env.allowLocalModels = false;
 if (env.backends.onnx.wasm) env.backends.onnx.wasm.wasmPaths = '/tutor/ort/';
+ort.env.wasm.wasmPaths = '/tutor/ort/';
 
 const ctx = self as unknown as {
   postMessage(msg: WorkerToMain, transfer?: Transferable[]): void;
@@ -448,88 +455,103 @@ async function loadLlm(llmId: string): Promise<void> {
 // errors. So: TTS here covers English books only. fr/es/other tutor turns
 // still get captions (and tool calls) with no audio; the panel and prompt
 // docs say so explicitly rather than silently going quiet.
+//
+// The voice is Paradee (models.ts has the why): kokoro-js still turns text
+// into eSpeak phonemes, paradee-text.ts respells them the way misaki does
+// and tokenizes, and a 9 MB onnxruntime-web session on wasm turns ids into
+// 24 kHz audio. `generate_from_ids` is the only kokoro-js method replaced,
+// so its text normalizer and sentence handling stay exactly as measured in
+// tts-text.ts.
 let kokoro: KokoroTTS | null = null;
 
-/**
- * Which weights to load per device. This used to be `q8` on BOTH, and q8 on
- * WebGPU emits noise — which is what Noel heard.
- *
- * Measured, run 9 lane C. Word error rate of Kokoro's output transcribed
- * back by Whisper base, against the sentence Kokoro was asked to say.
- * Reference sentence: "The dog was a big native husky, the proper wolf-dog,
- * gray-coated and without any visible or temperamental difference from its
- * brother, the wild wolf."
- *
- *   device  dtype  WER     what it sounds like
- *   webgpu  q8     4.346   "Shama, Ah, those yorks, yorks, yorks, yorks…"
- *   webgpu  fp32   0.000   the sentence
- *   cpu     q8     0.000   the sentence
- *   cpu     fp32   0.000   the sentence
- *   cpu     fp16   1.000   all-NaN waveform on this sentence — never use it
- *
- * (webgpu rows: the real bundled worker in headless Chromium with
- * --enable-unsafe-webgpu --use-angle=metal, via the `sample` message. cpu
- * rows: packages/voice/scripts/tts-roundtrip.mjs. Full tables, and the
- * before/after WAVs, in planning/run9/C-report.md.)
- *
- * kokoro-js's README said so too, in one line nobody had read: "If using
- * 'webgpu', we recommend using dtype='fp32'" (1.2.1, README.md line 29).
- *
- * `wasm` stays q8 deliberately: it is the fallback for machines with no
- * WebGPU at all, which are also the machines least able to afford a 330 MB
- * download instead of 90 MB — and q8 is clean on the CPU execution path.
- * Cold-load cost of the change, measured in the same run: 15.8 s for
- * webgpu/fp32 against 7.2 s for webgpu/q8.
- */
-const TTS_DTYPE: Record<'webgpu' | 'wasm', 'fp32' | 'q8'> = {
-  webgpu: 'fp32',
-  wasm: 'q8',
-};
+/** Paradee's weights, from our own cache when a previous load stored them,
+ * else from the pinned URL with download progress. Stored only after the
+ * whole file has arrived, so a dropped connection never caches a stub. */
+async function fetchParadee(): Promise<ArrayBuffer> {
+  const report = progressReporter(TTS_MODEL.id);
+  const cache = await caches.open(PARADEE_CACHE).catch(() => null);
+  const hit = await cache?.match(PARADEE_MODEL_URL);
+  if (hit) return hit.arrayBuffer();
 
-/**
- * Diagnostic override for the dtype matrix (run 9 lane C; the script is at
- * ~/Claude/sotto-run9/C/tts-browser-matrix.mjs, kept out of the repo because
- * the lane owns no file under apps/client/e2e). The worker is spawned by URL
- * from `provider.ts`/`sample.ts`, which this lane does not own, so the knob is a
- * worker-global rather than a new field on `WorkerInitPayload.debug`: the
- * matrix creates a tiny module-blob worker that sets
- * `self.__SOTTO_TTS_DTYPE__` and then dynamically imports the real bundle.
- * Never set by the app.
- */
-function debugTtsDtype(): 'fp32' | 'fp16' | 'q8' | 'q4' | 'q4f16' | null {
-  const v = (globalThis as { __SOTTO_TTS_DTYPE__?: unknown }).__SOTTO_TTS_DTYPE__;
-  return typeof v === 'string' && ['fp32', 'fp16', 'q8', 'q4', 'q4f16'].includes(v)
-    ? (v as 'fp32')
-    : null;
+  const res = await fetch(PARADEE_MODEL_URL);
+  if (!res.ok || !res.body) throw new Error(`paradee download failed: ${res.status}`);
+  const total = Number(res.headers.get('content-length')) || 0;
+  const reader = res.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let loaded = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+    loaded += value.byteLength;
+    report({ status: 'progress', file: PARADEE_MODEL_URL, loaded, total } as never);
+  }
+  const bytes = new Uint8Array(loaded);
+  let offset = 0;
+  for (const c of chunks) {
+    bytes.set(c, offset);
+    offset += c.byteLength;
+  }
+  await cache?.put(PARADEE_MODEL_URL, new Response(bytes)).catch(() => {});
+  report({ status: 'done' } as never);
+  return bytes.buffer;
+}
+
+/** Kokoro's weights (310 MB fp32 or 92 MB q8) from builds before Paradee.
+ * Nothing reads them any more; whisper shares `transformers-cache`, so only
+ * the Kokoro entries go, and only once Paradee has loaded. Awaited before
+ * `ready`: the download panel terminates the worker the moment it hears
+ * `ready`, which cut an unawaited cleanup off mid-way (seen in the
+ * upgrading-learner e2e, 2026-10-11). */
+async function dropKokoroWeights(): Promise<void> {
+  try {
+    await caches.delete('kokoro-voices');
+    await unmarkModelCached(KOKORO_ID);
+    for (const name of ['transformers-cache', 'experimental_transformers-hash-cache']) {
+      if (!(await caches.has(name))) continue;
+      const cache = await caches.open(name);
+      for (const req of await cache.keys()) {
+        if (req.url.includes(KOKORO_ID)) await cache.delete(req);
+      }
+    }
+  } catch {
+    // Best effort: a learner who keeps the old weights loses disk, not voice.
+  }
 }
 
 async function loadTts(): Promise<void> {
   if (kokoro) return;
   const started = Date.now();
-  const attempts: Array<'webgpu' | 'wasm'> =
-    typeof navigator !== 'undefined' && 'gpu' in navigator ? ['webgpu', 'wasm'] : ['wasm'];
-  const override = debugTtsDtype();
-  let lastError: unknown = null;
-  for (const device of attempts) {
-    const dtype = override ?? TTS_DTYPE[device];
-    try {
-      kokoro = await KokoroTTS.from_pretrained(TTS_MODEL.id, {
-        dtype,
-        device,
-        progress_callback: progressReporter(TTS_MODEL.id) as never,
-      });
-      post({
-        t: 'metric',
-        name: 'tts_load_ms',
-        ms: Date.now() - started,
-        detail: `${device}/${dtype}`,
-      });
-      return;
-    } catch (err) {
-      lastError = err;
-    }
-  }
-  throw lastError instanceof Error ? lastError : new Error('tts load failed');
+  const session = await ort.InferenceSession.create(new Uint8Array(await fetchParadee()), {
+    executionProviders: ['wasm'],
+  });
+  // onnxruntime-web rejects a second run on a session while one is in
+  // flight ("Session already started"), and a `sample` can arrive while a
+  // turn is speaking, so runs queue.
+  let queue: Promise<unknown> = Promise.resolve();
+  const tts = new KokoroTTS(
+    null as never,
+    ((phonemes: string) => {
+      const ids = paradeeIds(toMisaki(phonemes));
+      return {
+        input_ids: new ort.Tensor('int64', BigInt64Array.from(ids, BigInt), [1, ids.length]),
+      };
+    }) as never,
+  );
+  tts.generate_from_ids = (async (inputIds: ort.Tensor, opts: { speed?: number } = {}) => {
+    const run = queue.then(() =>
+      session.run({
+        input_ids: inputIds,
+        speed: new ort.Tensor('float32', new Float32Array([opts.speed ?? 1]), [1]),
+      }),
+    );
+    queue = run.catch(() => {});
+    const { waveform } = await run;
+    return new RawAudio(waveform!.data as Float32Array, PARADEE_SAMPLE_RATE);
+  }) as never;
+  kokoro = tts;
+  post({ t: 'metric', name: 'tts_load_ms', ms: Date.now() - started, detail: 'wasm/paradee-int8' });
+  await dropKokoroWeights();
 }
 
 function floatToPcm16(float32: Float32Array): Int16Array {

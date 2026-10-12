@@ -296,12 +296,13 @@ describe('BrowserCascadeProvider controls', () => {
 });
 
 describe('the sizes the panel shows before the learner consents', () => {
-  // Run 9 lane R, P0-3: the worker moved Kokoro to fp32 on WebGPU (which is
-  // the default path on any machine that has it) and this number stayed at
-  // the q8 file's 90 MB, so the panel and the Settings total both
-  // understated the download by ~220 MB. See the comment on KOKORO.
-  it('reports the fp32 Kokoro the WebGPU path actually downloads', () => {
-    expect(TTS_MODEL.sizeMb).toBeGreaterThanOrEqual(300);
+  // Run 9 lane R, P0-3 was this number understating a download by 220 MB.
+  // The voice is now Paradee: the worker fetches exactly one file,
+  // paradee_int8.onnx at 9,037,971 bytes (PARADEE_MODEL_URL), so the panel
+  // must say 9, not round down to nothing or keep Kokoro's 312.
+  it('reports the one Paradee file the worker downloads', () => {
+    expect(TTS_MODEL.id).toBe('sahilmahendrakar/Paradee-8M-v1.0');
+    expect(TTS_MODEL.sizeMb).toBe(Math.round(9_037_971 / 1e6));
   });
 
   it('the tier total is the sum of the three rows the panel lists', () => {

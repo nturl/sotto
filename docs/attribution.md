@@ -72,6 +72,11 @@ first draft, unreviewed)"`, `reviewStatus: "draft"` in `book.json`) of a
 Not content assets, but worth listing since their outputs ship in the repo:
 
 - **Kokoro-82M** (TTS) — Apache-2.0 model, generates the narration audio.
+- **Paradee-8M** (TTS, `sahilmahendrakar/Paradee-8M-v1.0`) — Apache-2.0,
+  Kokoro-82M's `af_heart` voice distilled to 8M parameters. The in-browser
+  tutor's voice for English books; downloaded on opt-in, nothing shipped.
+  Its eSpeak-to-misaki table is ported from the Paradee repo's
+  `web/misaki.js` into `packages/voice/src/browser-cascade/paradee-text.ts`.
 - **Whisper** (STT, via whisper.cpp or faster-whisper/speaches) — used only
   at build time (`pnpm content:narrate`'s word-alignment step) and at
   runtime for the live voice tutor; no Whisper output ships as a static
